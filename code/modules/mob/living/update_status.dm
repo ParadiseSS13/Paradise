@@ -1,5 +1,5 @@
 /mob/living/update_blind_effects()
-	if(!has_vision())
+	if(!has_vision(information_only=TRUE))
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 		throw_alert("blind", /obj/screen/alert/blind)
 		return 1
@@ -41,11 +41,13 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	return !(ear_deaf || (disabilities & DEAF))
+	. = !(disabilities & DEAF)
 
 // Whether the mob is able to see
-/mob/living/has_vision()
-	return !(eye_blind || (disabilities & BLIND) || stat)
+// `information_only` is for stuff that's purely informational - like understanding nonverbal languages, or blindness overlays
+// This flag exists because certain things like angel statues expect this to be false for dead people
+/mob/living/has_vision(information_only = FALSE)
+	return (information_only && stat == DEAD) || !(eye_blind || (disabilities & BLIND) || stat)
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
@@ -104,6 +106,22 @@
 /mob/living/proc/update_stamina()
 	return
 
+/mob/living/update_stat(reason = "None given")
+	if(status_flags & GODMODE)
+		return
+	if(stat != DEAD)
+		if(health <= config.health_threshold_dead)
+			death()
+			create_debug_log("died of damage, trigger reason: [reason]")
+		else if(paralysis || status_flags & FAKEDEATH)
+			if(stat == CONSCIOUS)
+				KnockOut()
+				create_debug_log("fell unconscious, trigger reason: [reason]")
+		else
+			if(stat == UNCONSCIOUS)
+				WakeUp()
+				create_debug_log("woke up, trigger reason: [reason]")
+
 /mob/living/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
@@ -119,13 +137,9 @@
 			SetEyeBlind(eye_blind)
 		if("eye_blurry")
 			SetEyeBlurry(eye_blurry)
-		if("ear_deaf")
-			SetEarDeaf(ear_deaf)
-		if("ear_damage")
-			SetEarDamage(ear_damage)
 		if("druggy")
 			SetDruggy(druggy)
 		if("maxHealth")
-			updatehealth()
+			updatehealth("var edit")
 		if("resize")
 			update_transform()

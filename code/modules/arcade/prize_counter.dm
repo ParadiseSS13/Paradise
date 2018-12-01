@@ -6,7 +6,7 @@
 	icon_state = "prize_counter-on"
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tickets = 0
 

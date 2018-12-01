@@ -177,7 +177,7 @@ var/global/datum/controller/occupations/job_master
 			break
 
 /datum/controller/occupations/proc/ResetOccupations()
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
 			player.mind.assigned_role = null
 			player.mind.special_role = null
@@ -291,7 +291,7 @@ var/global/datum/controller/occupations/job_master
 				A.spawn_positions = 3
 
 	//Get the players who are ready
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 			if(player.client.prefs.randomslot)
@@ -412,8 +412,45 @@ var/global/datum/controller/occupations/job_master
 
 	return 1
 
+/datum/controller/occupations/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+	if(!H)
+		return null
+	var/datum/job/job = GetJob(rank)
 
-/datum/controller/occupations/proc/EquipRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+	H.job = rank
+
+	var/alt_title = null
+
+	if(H.mind)
+		H.mind.assigned_role = rank
+		alt_title = H.mind.role_alt_title
+
+		CreateMoneyAccount(H, rank, job)
+
+	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
+	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+	if(job.is_service)
+		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+	if(job.is_supply)
+		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+	if(job.is_command)
+		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+	if(job.is_legal)
+		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+	if(job.is_engineering)
+		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+	if(job.is_medical)
+		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+	if(job.is_science)
+		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+	if(job.is_security)
+		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
+	if(job.req_admin_notify)
+		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
+	
+	return H
+/datum/controller/occupations/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
 	if(!H)
 		return null
 
@@ -424,7 +461,7 @@ var/global/datum/controller/occupations/job_master
 	if(!joined_late)
 		var/turf/T = null
 		var/obj/S = null
-		for(var/obj/effect/landmark/start/sloc in landmarks_list)
+		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
 			if(locate(/mob/living) in sloc.loc)
@@ -453,43 +490,14 @@ var/global/datum/controller/occupations/job_master
 		if(T)
 			H.loc = T
 			// Moving wheelchair if they have one
-			if(H.buckled && istype(H.buckled, /obj/structure/stool/bed/chair/wheelchair))
+			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
 				H.buckled.loc = H.loc
 				H.buckled.dir = H.dir
-
-	var/alt_title = null
-	if(H.mind)
-		H.mind.assigned_role = rank
-		alt_title = H.mind.role_alt_title
-
-		CreateMoneyAccount(H, rank, job)
 
 	if(job)
 		var/new_mob = job.equip(H)
 		if(ismob(new_mob))
 			H = new_mob
-
-	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
-	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
-	if(job.is_service)
-		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
-	if(job.is_supply)
-		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
-	if(job.is_command)
-		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
-	if(job.is_legal)
-		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
-	if(job.is_engineering)
-		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
-	if(job.is_medical)
-		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
-	if(job.is_science)
-		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
-	if(job.is_security)
-		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
-	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 	if(job && H)
 		job.after_spawn(H)
@@ -554,7 +562,7 @@ var/global/datum/controller/occupations/job_master
 		var/level5 = 0 //banned
 		var/level6 = 0 //account too young
 		var/level7 = 0 //has disability rendering them ineligible
-		for(var/mob/new_player/player in player_list)
+		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
 			if(jobban_isbanned(player, job.title))

@@ -141,7 +141,7 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -175,6 +175,8 @@
 		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
+	else
+		add_autopsy_data(null, brute + burn)
 
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
@@ -232,14 +234,14 @@
 					droplimb(0, DROPLIMB_SHARP)
 
 	if(owner_old)
-		owner_old.updatehealth()
+		owner_old.updatehealth("limb receive damage")
 	return update_icon()
 
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB
 
-/obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
+/obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
 		return
 
@@ -250,7 +252,8 @@
 		status &= ~ORGAN_BROKEN
 		perma_injury = 0
 
-	owner.updatehealth()
+	if(updating_health)
+		owner.updatehealth("limb heal damage")
 
 	return update_icon()
 
@@ -279,7 +282,7 @@ This function completely restores a damaged organ to perfect condition.
 		EO.rejuvenate()
 
 	if(owner)
-		owner.updatehealth()
+		owner.updatehealth("limb rejuvenate")
 	update_icon()
 	if(!owner)
 		processing_objects |= src
@@ -497,7 +500,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		dir = 2
 
 	if(victim)
-		victim.updatehealth()
+		victim.updatehealth("droplimb")
 		victim.UpdateDamageIcon()
 		victim.regenerate_icons()
 
@@ -607,6 +610,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
+		playsound(owner, "bonebreak", 150, 1)
 		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
 			owner.emote("scream")
 
@@ -708,6 +712,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			var/atom/movable/thing = O.remove(victim)
 			if(thing)
 				thing.forceMove(src)
+		victim.updatehealth("limb remove")
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/internal/organ in internal_organs)
@@ -726,12 +731,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
 		explosion(get_turf(owner),-1,-1,2,3)
-		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-		spark_system.set_up(5, 0, victim)
-		spark_system.attach(owner)
-		spark_system.start()
-		spawn(10)
-			qdel(spark_system)
+		do_sparks(5, 0, victim)
 		qdel(src)
 
 /obj/item/organ/external/proc/disfigure()

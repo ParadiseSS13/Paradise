@@ -16,7 +16,7 @@ datum/game_mode/nations
 		set_ai()
 		assign_leaders()
 //		remove_access()
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
 
@@ -34,10 +34,10 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/split_teams()
 
-	for(var/mob/living/carbon/human/H in player_list)
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.mind)
 			if(H.mind.assigned_role in engineering_positions)
-				H.mind.nation = all_nations["Atmosia"]
+				H.mind.nation = GLOB.all_nations["Atmosia"]
 				update_nations_icons_added(H,"hudatmosia")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -48,7 +48,7 @@ datum/game_mode/nations
 				continue
 
 			if(H.mind.assigned_role in medical_positions)
-				H.mind.nation = all_nations["Medistan"]
+				H.mind.nation = GLOB.all_nations["Medistan"]
 				update_nations_icons_added(H,"hudmedistan")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -59,7 +59,7 @@ datum/game_mode/nations
 				continue
 
 			if(H.mind.assigned_role in science_positions)
-				H.mind.nation = all_nations["Scientopia"]
+				H.mind.nation = GLOB.all_nations["Scientopia"]
 				update_nations_icons_added(H,"hudscientopia")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -70,7 +70,7 @@ datum/game_mode/nations
 				continue
 
 			if(H.mind.assigned_role in security_positions)
-				H.mind.nation = all_nations["Brigston"]
+				H.mind.nation = GLOB.all_nations["Brigston"]
 				update_nations_icons_added(H,"hudbrigston")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -81,7 +81,7 @@ datum/game_mode/nations
 				continue
 
 			if(H.mind.assigned_role in cargonians)
-				H.mind.nation = all_nations["Cargonia"]
+				H.mind.nation = GLOB.all_nations["Cargonia"]
 				update_nations_icons_added(H,"hudcargonia")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -92,7 +92,7 @@ datum/game_mode/nations
 				continue
 
 			if(H.mind.assigned_role in servicion)
-				H.mind.nation = all_nations["Servicion"]
+				H.mind.nation = GLOB.all_nations["Servicion"]
 				update_nations_icons_added(H,"hudservice")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -103,7 +103,7 @@ datum/game_mode/nations
 				continue
 
 			if(H.mind.assigned_role in (support_positions + command_positions))
-				H.mind.nation = all_nations["People's Republic of Commandzakstan"]
+				H.mind.nation = GLOB.all_nations["People's Republic of Commandzakstan"]
 				update_nations_icons_added(H,"hudcommand")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
@@ -123,7 +123,7 @@ datum/game_mode/nations
 
 
 /datum/game_mode/nations/proc/set_ai()
-	for(var/mob/living/silicon/ai/AI in mob_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.mob_list)
 		AI.set_zeroth_law("")
 		AI.clear_supplied_laws()
 		AI.clear_ion_laws()
@@ -141,14 +141,14 @@ datum/game_mode/nations
 			qdel(oldmmi)
 
 /datum/game_mode/nations/proc/remove_access()
-	for(var/obj/machinery/door/airlock/W in airlocks)
+	for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 		if(is_station_level(W.z))
 			W.req_access = list()
 
 
 /datum/game_mode/nations/proc/assign_leaders()
-	for(var/name in all_nations)
-		var/datum/nations/N = all_nations[name]
+	for(var/name in GLOB.all_nations)
+		var/datum/nations/N = GLOB.all_nations[name]
 		if(!N.current_name)
 			N.current_name = N.default_name
 		if(!N.current_leader && N.membership.len)
@@ -174,49 +174,49 @@ datum/game_mode/nations
 
 	if(H.mind)
 		if(H.mind.assigned_role in engineering_positions)
-			H.mind.nation = all_nations["Atmosia"]
+			H.mind.nation = GLOB.all_nations["Atmosia"]
 			mode.update_nations_icons_added(H,"atmosia")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in medical_positions)
-			H.mind.nation = all_nations["Medistan"]
+			H.mind.nation = GLOB.all_nations["Medistan"]
 			mode.update_nations_icons_added(H,"hudmedistan")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in science_positions)
-			H.mind.nation = all_nations["Scientopia"]
+			H.mind.nation = GLOB.all_nations["Scientopia"]
 			mode.update_nations_icons_added(H,"hudscientopia")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in security_positions)
-			H.mind.nation = all_nations["Brigston"]
+			H.mind.nation = GLOB.all_nations["Brigston"]
 			mode.update_nations_icons_added(H,"hudbrigston")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in mode.cargonians)
-			H.mind.nation = all_nations["Cargonia"]
+			H.mind.nation = GLOB.all_nations["Cargonia"]
 			mode.update_nations_icons_added(H,"hudcargonia")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in mode.servicion)
-			H.mind.nation = all_nations["Servicion"]
+			H.mind.nation = GLOB.all_nations["Servicion"]
 			mode.update_nations_icons_added(H,"hudservice")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in (support_positions + command_positions))
-			H.mind.nation = all_nations["People's Republic of Commandzakstan"]
+			H.mind.nation = GLOB.all_nations["People's Republic of Commandzakstan"]
 			mode.update_nations_icons_added(H,"hudcommand")
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")

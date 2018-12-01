@@ -11,7 +11,7 @@
 	var/autoclose = 0
 
 
-/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = admin_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(ui && autoclose)
 		ui.close()
@@ -50,7 +50,7 @@
 		cyborg_slots = text2num(href_list["set_cyb"])
 
 	if(href_list["dispatch_ert"])
-		ert_request_answered = 1
+		ert_request_answered = TRUE
 		var/slots_list = list()
 		if(commander_slots > 0)
 			slots_list += "commander: [commander_slots]"
@@ -66,7 +66,7 @@
 			slots_list += "paranormal: [paranormal_slots]"
 		if(cyborg_slots > 0)
 			slots_list += "cyborg: [cyborg_slots]"
-		var slot_text = list_implode(slots_list, ", ")
+		var/slot_text = jointext(slots_list, ", ")
 		notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
 		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
 		log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")

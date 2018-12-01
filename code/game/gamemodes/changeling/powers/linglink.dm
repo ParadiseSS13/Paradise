@@ -49,8 +49,8 @@
 			if(3)
 				to_chat(user, "<span class='notice'>You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!</span>")
 				to_chat(target, "<span class='userdanger'>A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!</span>")
-				for(var/mob/M in mob_list)
-					if(all_languages["Changeling"] in M.languages)
+				for(var/mob/M in GLOB.mob_list)
+					if(GLOB.all_languages["Changeling"] in M.languages)
 						to_chat(M, "<i><font color=#800080>We can sense a foreign presence in the hivemind...</font></i>")
 				target.mind.linglink = 1
 				target.add_language("Changeling")

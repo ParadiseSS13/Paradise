@@ -14,6 +14,7 @@
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/bcell = null
 	var/hitcost = 1000
+	var/throw_hit_chance = 35
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -28,6 +29,11 @@
 	QDEL_NULL(bcell)
 	return ..()
 
+/obj/item/melee/baton/throw_impact(atom/hit_atom)
+	..()
+	if(status && prob(throw_hit_chance))
+		baton_stun(hit_atom)
+
 /obj/item/melee/baton/loaded/New() //this one starts with a cell pre-installed.
 	..()
 	bcell = new(src)
@@ -35,6 +41,16 @@
 	return
 
 /obj/item/melee/baton/proc/deductcharge(var/chrgdeductamt)
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
+		if(R.cell && R.cell.charge < (hitcost+chrgdeductamt))
+			status = 0
+			update_icon()
+			playsound(loc, "sparks", 75, 1, -1)
+		if(R.cell.use(chrgdeductamt))
+			return 1
+		else
+			return 0
 	if(bcell)
 		if(bcell.charge < (hitcost+chrgdeductamt)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 			status = 0
@@ -55,6 +71,8 @@
 
 /obj/item/melee/baton/examine(mob/user)
 	..(user)
+	if(isrobot(loc))
+		to_chat(user, "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>")
 	if(bcell)
 		to_chat(user, "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>")
 	if(!bcell)
@@ -89,7 +107,17 @@
 	return
 
 /obj/item/melee/baton/attack_self(mob/user)
-	if(bcell && bcell.charge >= hitcost)
+
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
+		if(R && R.cell &&  R.cell.charge >= (hitcost))
+			status = !status
+			to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
+			playsound(loc, "sparks", 75, 1, -1)
+		else
+			status = 0
+			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge the [src]!</span>")
+	else if(bcell && bcell.charge >= hitcost)
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
 		playsound(loc, "sparks", 75, 1, -1)
@@ -133,34 +161,32 @@
 
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
+	if(!ismob(L)) //because this was being called on turfs for some reason
+		return
+
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return
-	user.lastattacked = L
-	L.lastattacker = user
 
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.apply_effect(STUTTER, stunforce)
 
-	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
-							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
+	if(user)
+		user.lastattacked = L
+		L.lastattacker = user
+		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
+								"<span class='userdanger'>[user] has stunned you with [src]!</span>")
+		add_attack_logs(user, L, "stunned")
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell)
-			R.cell.use(hitcost)
-	else
-		deductcharge(hitcost)
+	deductcharge(hitcost)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.forcesay(hit_appends)
-
-	add_attack_logs(user, L, "Stunned with [src]")
+		H.forcesay(GLOB.hit_appends)
 
 /obj/item/melee/baton/emp_act(severity)
 	if(bcell)
@@ -193,6 +219,7 @@
 	throwforce = 5
 	stunforce = 5
 	hitcost = 2000
+	throw_hit_chance = 10
 	slot_flags = SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler = null
 

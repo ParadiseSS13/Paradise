@@ -1,7 +1,7 @@
 #define CHARS_PER_LINE 5
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
-#define FONT_STYLE "Arial Black"
+#define FONT_STYLE "Small Fonts"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Brig Door control displays.
@@ -30,6 +30,7 @@
 	var/datum/data/record/prisoner
 	maptext_height = 26
 	maptext_width = 32
+	maptext_y = -1
 
 /obj/machinery/door_timer/proc/print_report()
 	var/logname = input(usr, "Name of the guilty?","[id] log name")
@@ -38,7 +39,7 @@
 	if(!logname || !logcharges)
 		return 0
 
-	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
+	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "[id] log - [logname] [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
@@ -52,7 +53,7 @@
 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
 
 		playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-		cell_logs += P
+		GLOB.cell_logs += P
 
 	var/datum/data/record/R = find_security_record("name", logname)
 	Radio.autosay("Detainee [logname] has been incarcerated for [seconds_to_time(timetoset / 10)] for the charges of, '[logcharges]'. \
@@ -85,11 +86,11 @@
 	pixel_y = ((dir & 3)? (dir ==1 ? 32 : -32) : (0))
 
 	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
+		for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 			if(M.id == id)
 				targets += M
 
-		for(var/obj/machinery/flasher/F in machines)
+		for(var/obj/machinery/flasher/F in GLOB.machines)
 			if(F.id == id)
 				targets += F
 
@@ -97,7 +98,7 @@
 			if(C.id == id)
 				targets += C
 
-		for(var/obj/machinery/treadmill_monitor/T in machines)
+		for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 			if(T.id == id)
 				targets += T
 
@@ -349,7 +350,7 @@
 	if(timing)
 		var/disp1 = id
 		var/timeleft = timeleft()
-		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]~[add_zero(num2text(timeleft % 60), 2)]"
+		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
 		if(length(disp2) > CHARS_PER_LINE)
 			disp2 = "Error"
 		update_display(disp1, disp2)
@@ -372,6 +373,8 @@
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display
 /obj/machinery/door_timer/proc/update_display(line1, line2)
+	line1 = uppertext(line1)
+	line2 = uppertext(line2)
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text

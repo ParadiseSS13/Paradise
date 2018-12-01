@@ -136,9 +136,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))
-		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
-		sparks.set_up(1, 1, src)
-		sparks.start()
+		do_sparks(1, 1, src)
 		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/energy/attack_hand(mob/user)

@@ -6,9 +6,10 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	circuit = /obj/item/circuitboard/pandemic
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	var/temp_html = ""
+	var/printing = null
 	var/wait = null
 	var/obj/item/reagent_containers/beaker = null
 
@@ -29,7 +30,6 @@
 				if(BL.data && BL.data["viruses"])
 					var/list/viruses = BL.data["viruses"]
 					return viruses[index]
-	return null
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
 	if(beaker && beaker.reagents)
@@ -39,13 +39,11 @@
 				if(BL.data && BL.data["resistances"])
 					var/list/resistances = BL.data["resistances"]
 					return resistances[index]
-	return null
 
 /obj/machinery/computer/pandemic/proc/GetVirusTypeByIndex(index)
 	var/datum/disease/D = GetVirusByIndex(index)
 	if(D)
 		return D.GetDiseaseID()
-	return null
 
 /obj/machinery/computer/pandemic/proc/replicator_cooldown(waittime)
 	wait = 1
@@ -159,9 +157,13 @@
 		if(archive_diseases[id])
 			var/datum/disease/advance/A = archive_diseases[id]
 			A.AssignName(new_name)
-			for(var/datum/disease/advance/AD in active_diseases)
+			for(var/datum/disease/advance/AD in GLOB.active_diseases)
 				AD.Refresh()
 		updateUsrDialog()
+	else if(href_list["print_form"])
+		var/datum/disease/D = GetVirusByIndex(text2num(href_list["print_form"]))
+		D = archive_diseases[D.GetDiseaseID()]//We know it's advanced no need to check
+		print_form(D, usr)
 
 
 	else
@@ -170,7 +172,47 @@
 		return
 
 	add_fingerprint(usr)
-	return
+
+//Prints a nice virus release form. Props to Urbanliner for the layout
+/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
+	D = archive_diseases[D.GetDiseaseID()]
+	if(!(printing) && D)
+		var/reason = input(user,"Enter a reason for the release", "Write", null) as message
+		reason += "<span class=\"paper_field\"></span>"
+		var/english_symptoms = list()
+		for(var/I in D.symptoms)
+			var/datum/symptom/S = I
+			english_symptoms += S.name
+		var/symtoms = english_list(english_symptoms)
+
+
+		var/signature
+		if(alert(user,"Would you like to add your signature?",,"Yes","No") == "Yes")
+			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Anonymous"]</i></font>"
+		else
+			signature = "<span class=\"paper_field\"></span>"
+
+		printing = 1
+		var/obj/item/paper/P = new /obj/item/paper(loc)
+		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+
+		P.info = "<U><font size=\"4\"><B><center> Releasing Virus </B></center></font></U>"
+		P.info += "<HR>"
+		P.info += "<U>Name of the Virus:</U> [D.name] <BR>"
+		P.info += "<U>Symptoms:</U> [symtoms]<BR>"
+		P.info += "<U>Spreads by:</U> [D.spread_text]<BR>"
+		P.info += "<U>Cured by:</U> [D.cure_text]<BR>"
+		P.info += "<BR>"
+		P.info += "<U>Reason for releasing:</U> [reason]"
+		P.info += "<HR>"
+		P.info += "The Virologist is responsible for any biohazards caused by the virus released.<BR>"
+		P.info += "<U>Virologist's sign:</U> [signature]<BR>"
+		P.info += "If approved, stamp below with the Chief Medical Officer's stamp, and/or the Captain's stamp if required:"
+		P.populatefields()
+		P.updateinfolinks()
+		P.name = "Releasing Virus - [D.name]"
+		printing = null
 
 /obj/machinery/computer/pandemic/attack_hand(mob/user)
 	if(..())
@@ -214,8 +256,11 @@
 
 								var/datum/disease/advance/A = D
 								D = archive_diseases[A.GetDiseaseID()]
-								if(D && D.name == "Unknown")
-									dat += "<b><a href='?src=[UID()];name_disease=[i]'>Name Disease</a></b><BR>"
+								if(D)
+									if(D.name == "Unknown")
+										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Name Disease</a></b><BR>"
+									else
+										dat += "<b><a href='?src=[UID()];print_form=[i]'>Print release form</a></b><BR>"
 
 							if(!D)
 								CRASH("We weren't able to get the advance disease from the archive.")
@@ -270,12 +315,15 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "pandemic")
-	return
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers) && (I.flags & OPENCONTAINER))
-		if(stat & (NOPOWER|BROKEN)) return
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
+	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
+		if(stat & (NOPOWER|BROKEN))
+			return
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
 			return

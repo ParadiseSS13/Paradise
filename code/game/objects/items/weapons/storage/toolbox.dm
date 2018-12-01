@@ -31,6 +31,10 @@
 		new /obj/item/flashlight/flare(src)
 	new /obj/item/radio(src)
 
+/obj/item/storage/toolbox/emergency/old
+	name = "rusty red toolbox"
+	icon_state = "toolbox_red_old"
+
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
@@ -48,6 +52,10 @@
 /obj/item/storage/toolbox/mechanical/greytide
 	flags = NODROP
 
+/obj/item/storage/toolbox/mechanical/old
+	name = "rusty blue toolbox"
+	icon_state = "toolbox_blue_old"
+
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
 	icon_state = "yellow"
@@ -60,12 +68,12 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
-	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
+	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
+	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src, 30, pickedcolor)
+		new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
@@ -108,7 +116,7 @@
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
+	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 

@@ -6,12 +6,12 @@
 		return 1
 	var/turf/T = get_turf(nano_host())
 	if(!T || !is_level_reachable(T.z))
-		to_chat(usr, "<span class='warning'>Unable to establish a connection<span>: You're too far away from the station!")
+		to_chat(usr, "<span class='warning'><b>Unable to establish a connection</b>: You're too far away from the station!</span>")
 		return 0
 	if(href_list["track"])
 		if(isAI(usr))
 			var/mob/living/silicon/ai/AI = usr
-			var/mob/living/carbon/human/H = locate(href_list["track"]) in mob_list
+			var/mob/living/carbon/human/H = locate(href_list["track"]) in GLOB.mob_list
 			if(hassensorlevel(H, SUIT_SENSOR_TRACKING))
 				AI.ai_actual_track(H)
 		return 1

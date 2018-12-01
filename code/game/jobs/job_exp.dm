@@ -37,6 +37,18 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_ABDUCTOR = 10,
 )
 
+// Client Verbs
+
+/client/verb/cmd_check_own_playtime()
+	set category = "Special Verbs"
+	set name = "Check my playtime"
+
+	if(!config.use_exp_tracking)
+		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
+		return
+
+	to_chat(src, "<span class='notice'>Your playtime is [get_exp_living()].</span>")
+
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
@@ -50,7 +62,7 @@ var/global/list/role_playtime_requirements = list(
 	var/pline
 	var/datum/job/theirjob
 	var/jtext
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		jtext = "No Job"
 		if(C.mob.mind && C.mob.mind.assigned_role)
 			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
@@ -212,7 +224,7 @@ var/global/list/role_playtime_requirements = list(
 	if(!establish_db_connection())
 		return -1
 	spawn(0)
-		for(var/client/L in clients)
+		for(var/client/L in GLOB.clients)
 			if(L.inactivity >= (10 MINUTES))
 				continue
 			spawn(0)

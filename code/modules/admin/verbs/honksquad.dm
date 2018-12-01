@@ -38,7 +38,7 @@ var/global/sent_honksquad = 0
 //Generates a list of HONKsquad from active ghosts. Then the user picks which characters to respawn as the commandos.
 	var/list/candidates = list()	//candidates for being a commando out of all the active ghosts in world.
 	var/list/commandos = list()			//actual commando ghosts as picked by the user.
-	for(var/mob/dead/observer/G	 in player_list)
+	for(var/mob/dead/observer/G	 in GLOB.player_list)
 		if(!G.client.holder && !G.client.is_afk())	//Whoever called/has the proc won't be added to the list.
 			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 				candidates += G.key
@@ -48,7 +48,7 @@ var/global/sent_honksquad = 0
 		commandos += candidate//Add their ghost to commandos.
 
 //Spawns HONKsquad and equips them.
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(honksquad_number<=0)	break
 		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
@@ -77,7 +77,7 @@ var/global/sent_honksquad = 0
 	var/mob/living/carbon/human/new_honksquad = new(spawn_location.loc)
 	var/honksquad_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/honksquad_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
-	var/honksquad_name = pick(clown_names)
+	var/honksquad_name = pick(GLOB.clown_names)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(honk_leader_selected)

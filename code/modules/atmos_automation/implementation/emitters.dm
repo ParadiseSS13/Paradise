@@ -31,7 +31,7 @@
 			return 1
 		if(href_list["set_subject"])
 			var/list/emitters=list()
-			for(var/obj/machinery/power/emitter/E in machines)
+			for(var/obj/machinery/power/emitter/E in GLOB.machines)
 				if(!isnull(E.id_tag) && E.frequency == parent.frequency)
 					emitters|=E.id_tag
 			if(emitters.len==0)

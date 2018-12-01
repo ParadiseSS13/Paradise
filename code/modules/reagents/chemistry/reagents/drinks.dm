@@ -9,9 +9,10 @@
 	taste_message = "oranges"
 
 /datum/reagent/consumable/drink/orangejuicde/on_mob_life(mob/living/M)
-	if(M.getOxyLoss() && prob(30))
-		M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(30))
+		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/tomatojuice
 	name = "Tomato Juice"
@@ -34,9 +35,10 @@
 	taste_message = "pineapples"
 
 /datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
-	if(M.getFireLoss() && prob(20))
-		M.adjustFireLoss(-1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/limejuice
 	name = "Lime Juice"
@@ -49,9 +51,10 @@
 	taste_message = "limes"
 
 /datum/reagent/consumable/drink/limejuice/on_mob_life(mob/living/M)
-	if(M.getToxLoss() && prob(20))
-		M.adjustToxLoss(-1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/carrotjuice
 	name = "Carrot juice"
@@ -63,16 +66,17 @@
 	drink_desc = "It is just like a carrot but without crunching."
 	taste_message = "carrots"
 
-/datum/reagent/consumable/drink/carrotjuicde/on_mob_life(mob/living/M)
-	M.AdjustEyeBlurry(-1)
-	M.AdjustEyeBlind(-1)
+/datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+	update_flags |= M.AdjustEyeBlind(-1, FALSE)
 	switch(current_cycle)
 		if(1 to 20)
 			//nothing
 		if(21 to INFINITY)
 			if(prob(current_cycle-10))
-				M.disabilities &= ~NEARSIGHTED
-	..()
+				update_flags |= M.CureNearsighted(FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/doctor_delight
 	name = "The Doctor's Delight"
@@ -86,9 +90,10 @@
 	taste_message = "healthy dietary choices"
 
 /datum/reagent/consumable/drink/doctors_delight/on_mob_life(mob/living/M)
-	if(M.getToxLoss() && prob(20))
-		M.adjustToxLoss(-1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/triple_citrus
 	name = "Triple Citrus"
@@ -126,8 +131,9 @@
 	taste_message = "rotten berries"
 
 /datum/reagent/consumable/drink/poisonberryjuice/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/applejuice
 	name = "Apple Juice"
@@ -171,10 +177,11 @@
 	taste_message = "bananas"
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
-		M.adjustBruteLoss(-1)
-		M.adjustFireLoss(-1)
-	..()
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/nothing
 	name = "Nothing"
@@ -186,10 +193,11 @@
 	taste_message = "nothing... how?"
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.job in list("Mime"))
-		M.adjustBruteLoss(-1)
-		M.adjustFireLoss(-1)
-	..()
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/potato_juice
 	name = "Potato Juice"
@@ -213,11 +221,12 @@
 	taste_message = "lactose goodness"
 
 /datum/reagent/consumable/drink/milk/on_mob_life(mob/living/M)
-	if(M.getBruteLoss() && prob(20))
-		M.adjustBruteLoss(-1)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	if(holder.has_reagent("capsaicin"))
 		holder.remove_reagent("capsaicin", 2)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/milk/soymilk
 	name = "Soy Milk"
@@ -275,17 +284,19 @@
 	taste_message = "coffee"
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
 	if(prob(50))
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
-	..()
+		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustStunned(-1, FALSE)
+		update_flags |= M.AdjustWeakened(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
 	if(volume > 45)
 		M.Jitter(5)
+	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee
 	name = "Iced Coffee"
@@ -312,10 +323,11 @@
 	taste_message = "vegan pretentiousness"
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
-	..()
-	M.SetSleeping(0)
-	if(M.getBruteLoss() && prob(20))
-		M.adjustBruteLoss(-1)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.SetSleeping(0, FALSE)
+	if(prob(20))
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/cafe_latte
 	name = "Cafe Latte"
@@ -329,10 +341,11 @@
 	drink_desc = "A nice, strong and refreshing beverage while you are reading."
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
-	..()
-	M.SetSleeping(0)
-	if(M.getBruteLoss() && prob(20))
-		M.adjustBruteLoss(-1)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.SetSleeping(0, FALSE)
+	if(prob(20))
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha
 	name = "Cafe Mocha"
@@ -359,9 +372,10 @@
 	taste_message = "eastern calm"
 
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
-	if(M.getToxLoss() && prob(20))
-		M.adjustToxLoss(-1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/tea/icetea
 	name = "Iced Tea"
@@ -386,10 +400,11 @@
 	taste_message = "honking clowns"
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
-		M.adjustBruteLoss(-1)
-		M.adjustFireLoss(-1)
-	..()
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/silencer
 	name = "Silencer"
@@ -402,10 +417,11 @@
 	taste_message = "a pencil eraser"
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.job in list("Mime"))
-		M.adjustBruteLoss(-1)
-		M.adjustFireLoss(-1)
-	..()
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/chocolatepudding
 	name = "Chocolate Pudding"

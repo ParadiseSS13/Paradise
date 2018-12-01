@@ -43,10 +43,6 @@
 			A trippy overlay appears.
 	*	Drunk						*
 			Essentially what your "BAC" is - the higher it is, the more alcohol you have in you
-	* EarDamage				*
-			Doesn't do much, but if it's 25+, you go deaf. Heals much slower than other statuses - 0.05 normally
-	*	EarDeaf					*
-			You cannot hear. Prevents EarDamage from healing naturally.
 	*	EyeBlind				*
 			You cannot see. Prevents EyeBlurry from healing naturally.
 	*	EyeBlurry				*
@@ -115,8 +111,6 @@
 	var/drowsyness = 0
 	var/druggy = 0
 	var/drunk = 0
-	var/ear_damage = 0
-	var/ear_deaf = 0
 	var/eye_blind = 0
 	var/eye_blurry = 0
 	var/hallucination = 0
@@ -216,75 +210,60 @@
 
 // DRUGGY
 
-/mob/living/Druggy(amount)
-	SetDruggy(max(druggy, amount))
+/mob/living/Druggy(amount, updating = TRUE)
+	return SetDruggy(max(druggy, amount), updating)
 
-/mob/living/SetDruggy(amount)
-	var/old_val = druggy
+/mob/living/SetDruggy(amount, updating = TRUE)
+	. = STATUS_UPDATE_DRUGGY
+	if((!!amount) == (!!druggy)) // We're not changing from + to 0 or vice versa
+		. = STATUS_UPDATE_NONE
+		updating = FALSE
 	druggy = max(amount, 0)
 	// We transitioned to/from 0, so update the druggy overlays
-	if((old_val == 0 || druggy == 0) && (old_val != druggy))
+	if(updating)
 		update_druggy_effects()
 
-/mob/living/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY)
+/mob/living/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
 	var/new_value = directional_bounded_sum(druggy, amount, bound_lower, bound_upper)
-	SetDruggy(new_value)
-
-// EAR_DAMAGE
-
-/mob/living/EarDamage(amount)
-	SetEarDamage(max(ear_damage, amount))
-
-/mob/living/SetEarDamage(amount)
-	ear_damage = max(amount, 0)
-
-/mob/living/AdjustEarDamage(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(ear_damage, amount, bound_lower, bound_upper)
-	SetEarDamage(new_value)
-
-// EAR_DEAF
-
-/mob/living/EarDeaf(amount)
-	SetEarDeaf(max(ear_deaf, amount))
-
-/mob/living/SetEarDeaf(amount)
-	ear_deaf = max(amount, 0)
-
-/mob/living/AdjustEarDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(ear_deaf, amount, bound_lower, bound_upper)
-	SetEarDeaf(new_value)
+	return SetDruggy(new_value, updating)
 
 // EYE_BLIND
 
-/mob/living/EyeBlind(amount)
-	SetEyeBlind(max(eye_blind, amount))
+/mob/living/EyeBlind(amount, updating = TRUE)
+	return SetEyeBlind(max(eye_blind, amount), updating)
 
-/mob/living/SetEyeBlind(amount)
-	var/old_val = eye_blind
+/mob/living/SetEyeBlind(amount, updating = TRUE)
+	. = STATUS_UPDATE_BLIND
+	if((!!amount) == (!!eye_blind)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
+		. = STATUS_UPDATE_NONE
 	eye_blind = max(amount, 0)
 	// We transitioned to/from 0, so update the eye blind overlays
-	if((old_val == 0 || eye_blind == 0) && (old_val != eye_blind))
+	if(updating)
 		update_blind_effects()
 
-/mob/living/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY)
+/mob/living/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
 	var/new_value = directional_bounded_sum(eye_blind, amount, bound_lower, bound_upper)
-	SetEyeBlind(new_value)
+	return SetEyeBlind(new_value, updating)
 
 // EYE_BLURRY
 
-/mob/living/EyeBlurry(amount)
-	SetEyeBlurry(max(eye_blurry, amount))
+/mob/living/EyeBlurry(amount, updating = TRUE)
+	return SetEyeBlurry(max(eye_blurry, amount), updating)
 
-/mob/living/SetEyeBlurry(amount)
-	var/old_val = eye_blurry
+/mob/living/SetEyeBlurry(amount, updating = TRUE)
+	. = STATUS_UPDATE_BLURRY
+	if((!!amount) == (!!eye_blurry)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
+		. = STATUS_UPDATE_NONE
 	eye_blurry = max(amount, 0)
 	// We transitioned to/from 0, so update the eye blur overlays
-	if((old_val == 0 || eye_blurry == 0) && (old_val != eye_blurry))
+	if(updating)
 		update_blurry_effects()
 
-/mob/living/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY)
+/mob/living/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
 	var/new_value = directional_bounded_sum(eye_blurry, amount, bound_lower, bound_upper)
-	SetEyeBlurry(new_value)
+	return SetEyeBlurry(new_value, updating)
 
 // HALLUCINATION
 
@@ -327,20 +306,22 @@
 // PARALYSE
 
 /mob/living/Paralyse(amount, updating = 1, force = 0)
-	SetParalysis(max(paralysis, amount), updating, force)
+	return SetParalysis(max(paralysis, amount), updating, force)
 
 /mob/living/SetParalysis(amount, updating = 1, force = 0)
+	. = STATUS_UPDATE_STAT
 	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
+		. = STATUS_UPDATE_NONE
 	if(status_flags & CANPARALYSE || force)
 		paralysis = max(amount, 0)
 		if(updating)
 			update_canmove()
-			update_stat()
+			update_stat("paralysis")
 
 /mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(paralysis, amount, bound_lower, bound_upper)
-	SetParalysis(new_value, updating, force)
+	return SetParalysis(new_value, updating, force)
 
 // SILENT
 
@@ -357,20 +338,22 @@
 // SLEEPING
 
 /mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
-	SetSleeping(max(sleeping, amount), updating, no_alert)
+	return SetSleeping(max(sleeping, amount), updating, no_alert)
 
 /mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+	. = STATUS_UPDATE_STAT
 	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
+		. = STATUS_UPDATE_NONE
 	sleeping = max(amount, 0)
 	if(updating)
 		update_sleeping_effects(no_alert)
-		update_stat()
+		update_stat("sleeping")
 		update_canmove()
 
 /mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
 	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	SetSleeping(new_value, updating, no_alert)
+	return SetSleeping(new_value, updating, no_alert)
 
 // SLOWED
 
@@ -411,19 +394,24 @@
 // STUN
 
 /mob/living/Stun(amount, updating = 1, force = 0)
-	SetStunned(max(stunned, amount), updating, force)
+	return SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
+	. = STATUS_UPDATE_CANMOVE
 	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
+		. = STATUS_UPDATE_NONE
+
 	if(status_flags & CANSTUN || force)
 		stunned = max(amount, 0)
 		if(updating)
 			update_canmove()
+	else
+		return STATUS_UPDATE_NONE
 
 /mob/living/AdjustStunned(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(stunned, amount, bound_lower, bound_upper)
-	SetStunned(new_value, updating, force)
+	return SetStunned(new_value, updating, force)
 
 // STUTTERING
 
@@ -443,19 +431,23 @@
 // WEAKEN
 
 /mob/living/Weaken(amount, updating = 1, force = 0)
-	SetWeakened(max(weakened, amount), updating, force)
+	return SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
+	. = STATUS_UPDATE_CANMOVE
 	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
+		. = STATUS_UPDATE_NONE
 	if(status_flags & CANWEAKEN || force)
 		weakened = max(amount, 0)
 		if(updating)
 			update_canmove()	//updates lying, canmove and icons
+	else
+		return STATUS_UPDATE_NONE
 
 /mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
-	SetWeakened(new_value, updating, force)
+	return SetWeakened(new_value, updating, force)
 
 //
 //		DISABILITIES
@@ -463,16 +455,19 @@
 
 // Blind
 
-/mob/living/proc/BecomeBlind()
+/mob/living/proc/BecomeBlind(updating = TRUE)
 	var/val_change = !(disabilities & BLIND)
+	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
 	disabilities |= BLIND
-	if(val_change)
+	if(val_change && updating)
 		update_blind_effects()
 
-/mob/living/proc/CureBlind()
+/mob/living/proc/CureBlind(updating = TRUE)
 	var/val_change = !!(disabilities & BLIND)
+	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
 	disabilities &= ~BLIND
-	if(val_change)
+	if(val_change && updating)
+		CureIfHasDisability(BLINDBLOCK)
 		update_blind_effects()
 
 // Coughing
@@ -482,6 +477,7 @@
 
 /mob/living/proc/CureCoughing()
 	disabilities &= ~COUGHING
+	CureIfHasDisability(COUGHBLOCK)
 
 // Deaf
 
@@ -490,6 +486,7 @@
 
 /mob/living/proc/CureDeaf()
 	disabilities &= ~DEAF
+	CureIfHasDisability(DEAFBLOCK)
 
 // Epilepsy
 
@@ -498,6 +495,7 @@
 
 /mob/living/proc/CureEpilepsy()
 	disabilities &= ~EPILEPSY
+	CureIfHasDisability(EPILEPSYBLOCK)
 
 // Mute
 
@@ -506,19 +504,23 @@
 
 /mob/living/proc/CureMute()
 	disabilities &= ~MUTE
+	CureIfHasDisability(MUTEBLOCK)
 
 // Nearsighted
 
-/mob/living/proc/BecomeNearsighted()
+/mob/living/proc/BecomeNearsighted(updating = TRUE)
 	var/val_change = !(disabilities & NEARSIGHTED)
+	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
 	disabilities |= NEARSIGHTED
-	if(val_change)
+	if(val_change && updating)
 		update_nearsighted_effects()
 
-/mob/living/proc/CureNearsighted()
+/mob/living/proc/CureNearsighted(updating = TRUE)
 	var/val_change = !!(disabilities & NEARSIGHTED)
+	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
 	disabilities &= ~NEARSIGHTED
-	if(val_change)
+	if(val_change && updating)
+		CureIfHasDisability(GLASSESBLOCK)
 		update_nearsighted_effects()
 
 // Nervous
@@ -528,6 +530,7 @@
 
 /mob/living/proc/CureNervous()
 	disabilities &= ~NERVOUS
+	CureIfHasDisability(NERVOUSBLOCK)
 
 // Tourettes
 
@@ -536,3 +539,10 @@
 
 /mob/living/proc/CureTourettes()
 	disabilities &= ~TOURETTES
+	CureIfHasDisability(TWITCHBLOCK)
+
+/mob/living/proc/CureIfHasDisability(block)
+	if(dna && dna.GetSEState(block))
+		dna.SetSEState(block, 0, 1) //Fix the gene
+		genemutcheck(src, block,null, MUTCHK_FORCED)
+		dna.UpdateSE()

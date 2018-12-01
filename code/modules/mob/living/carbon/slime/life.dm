@@ -131,7 +131,7 @@
 	else // a hot place
 		bodytemperature += adjust_body_temperature(bodytemperature, loc_temp, 1)
 
-	updatehealth()
+	updatehealth("handle environment")
 
 	return //TODO: DEFERRED
 
@@ -163,7 +163,7 @@
 	if(reagents.get_reagent_amount("epinephrine")>=5)
 		mutation_chance = max(mutation_chance - 5,0) //Prevents mutation chance going <0%
 		reagents.remove_reagent("epinephrine", 5)
-	updatehealth()
+	updatehealth("handle chemicals in body")
 
 	return //TODO: DEFERRED
 
@@ -195,7 +195,6 @@
 
 	if(src.stat == DEAD)
 		src.lying = 1
-		src.blinded = 1
 	else
 		if(src.paralysis || src.stunned || src.weakened || (status_flags && FAKEDEATH)) //Stunned etc.
 			if(src.stunned > 0)
@@ -207,7 +206,6 @@
 				src.stat = 0
 			if(src.paralysis > 0)
 				AdjustParalysis(-1)
-				src.blinded = 0
 				src.lying = 0
 				src.stat = 0
 
@@ -219,18 +217,8 @@
 
 	if(src.eye_blind)
 		src.SetEyeBlind(0)
-		src.blinded = 1
-
-	if(src.ear_deaf > 0) SetEarDeaf(0)
-	if(src.ear_damage < 25)
-		SetEarDamage(0)
 
 	src.density = !( src.lying )
-
-	if(src.disabilities & BLIND)
-		src.blinded = 1
-	if(src.disabilities & DEAF)
-		EarDeaf(1)
 
 	if(src.eye_blurry > 0)
 		SetEyeBlurry(0)

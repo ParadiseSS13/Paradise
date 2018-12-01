@@ -52,7 +52,7 @@
 			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
 
 /obj/item/mmi/robotic_brain/proc/request_player()
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(check_observer(O))
 			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 
@@ -204,7 +204,7 @@
 	brainmob.container = src
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
-	dead_mob_list -= brainmob
+	GLOB.dead_mob_list -= brainmob
 	..()
 
 /obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)

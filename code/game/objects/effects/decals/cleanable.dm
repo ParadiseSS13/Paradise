@@ -1,8 +1,8 @@
 /obj/effect/decal/cleanable
-	anchored = 1
+	anchored = TRUE
 	var/list/random_icon_states = list()
-	var/noscoop = 0   //if it has this, don't let it be scooped up
-	var/noclear = 0    //if it has this, don't delete it when its' scooped up
+	var/noscoop = FALSE   //if it has this, don't let it be scooped up
+	var/noclear = FALSE    //if it has this, don't delete it when its' scooped up
 
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
@@ -11,7 +11,15 @@
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	create_reagents(100)
+	if(smooth)
+		queue_smooth(src)
+		queue_smooth_neighbors(src)
 	..()
+
+/obj/effect/decal/cleanable/Destroy()
+	if(smooth)
+		queue_smooth_neighbors(src)
+	return ..()
 
 /obj/effect/decal/cleanable/attackby(obj/item/W as obj, mob/user as mob,)
 	if(istype(W, /obj/item/reagent_containers/glass) || istype(W, /obj/item/reagent_containers/food/drinks))
@@ -28,7 +36,8 @@
 				qdel(src)
 				return
 	if(is_hot(W)) //todo: make heating a reagent holder proc
-		if(istype(W, /obj/item/clothing/mask/cigarette)) return
+		if(istype(W, /obj/item/clothing/mask/cigarette))
+			return
 		else
 			src.reagents.chem_temp += 15
 			src.reagents.handle_reactions()

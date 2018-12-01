@@ -69,7 +69,7 @@
 		else
 			if(istype(I, /obj/item/reagent_containers))
 				var/obj/item/reagent_containers/RC = I
-				if(RC.flags & OPENCONTAINER)
+				if(RC.container_type & OPENCONTAINER)
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.[A.type] += A.volume
 			.[I.type] += 1
@@ -252,7 +252,7 @@
 	var/list/surroundings = get_surroundings(user)
 	var/list/can_craft = list()
 	var/list/cant_craft = list()
-	for(var/rec in crafting_recipes)
+	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
 		if(R.category != cur_category)
 			continue

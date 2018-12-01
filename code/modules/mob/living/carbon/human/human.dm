@@ -7,6 +7,7 @@
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
+	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	if(length(args) > 1)
 		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
 	. = ..()
@@ -57,9 +58,9 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
+	. = ..()
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
-	return ..()
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
@@ -270,8 +271,7 @@
 				else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				AdjustEarDamage(30)
-				AdjustEarDeaf(120)
+				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
 
@@ -295,12 +295,11 @@
 					else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				AdjustEarDamage(15)
-				AdjustEarDeaf(60)
+				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
-	take_overall_damage(b_loss,f_loss, used_weapon = "Explosive Blast")
+	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
 
@@ -712,7 +711,8 @@
 
 	if(href_list["criminal"])
 		if(hasHUD(usr,"security"))
-
+			if(usr.incapacitated())
+				return
 			var/found_record = 0
 			var/perpname = "wot"
 			if(wear_id)
@@ -737,31 +737,30 @@
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
-									var/their_name = R.fields["name"]
-									var/their_rank = R.fields["rank"]
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else
+									else 
+										var/rank
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-										if(isrobot(usr))
+											rank = U.get_assignment()
+										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-										if(isAI(usr))
-											var/mob/living/silicon/ai/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-
-										R.fields["criminal"] = setcriminal
-										log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [setcriminal], comment: [t1]")
-										spawn()
-											sec_hud_set_security_status()
+											rank = "[U.modtype] [U.braintype]"
+										else if(isAI(usr))
+											rank = "AI"
+										set_criminal_status(usr, R, setcriminal, t1, rank)
+								break // Git out of the securiy records loop!
+						if(found_record)
+							break // Git out of the general records
 
 			if(!found_record)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr,"security"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -792,6 +791,8 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -821,6 +822,8 @@
 
 	if(href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
@@ -850,6 +853,8 @@
 
 	if(href_list["medical"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/modified = 0
 
@@ -883,6 +888,8 @@
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -914,6 +921,8 @@
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -943,6 +952,8 @@
 
 	if(href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
@@ -1282,7 +1293,7 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1335,7 +1346,69 @@
 		if(I)
 			kept_items[I] = thing
 
-	dna.species.create_organs(src)
+	if(retain_damage)
+		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
+		var/bodypart_damages = list()
+		//Loop through all external organs and save the damage states for brute and burn
+		for(var/obj/item/organ/external/E in bodyparts)
+			if(E.brute_dam == 0 && E.burn_dam == 0 && E.internal_bleeding == FALSE) //If there's no damage we don't bother remembering it.
+				continue
+			var/brute = E.brute_dam
+			var/burn = E.burn_dam
+			var/IB = E.internal_bleeding
+			var/obj/item/organ/external/OE = new E.type()
+			var/stats = list(OE, brute, burn, IB)
+			bodypart_damages += list(stats)
+
+		//Now we do the same for internal organs via the same proceedure.
+		var/internal_damages = list()
+		for(var/obj/item/organ/internal/I in internal_organs)
+			if(I.damage == 0)
+				continue
+			var/obj/item/organ/internal/OI = new I.type()
+			var/damage = I.damage
+			var/broken = I.is_broken()
+			var/stats = list(OI, damage, broken)
+			internal_damages += list(stats)
+
+		//Create the new organs for the species change
+		dna.species.create_organs(src)
+
+		//Apply relevant damages and variables to the new organs.
+		for(var/B in bodyparts)
+			var/obj/item/organ/external/E = B
+			for(var/list/part in bodypart_damages)
+				var/obj/item/organ/external/OE = part[1]
+				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
+					var/brute = part[2]
+					var/burn = part[3]
+					var/IB = part[4]
+					//Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+					E.receive_damage(brute, burn, ignore_resists = TRUE)
+					E.internal_bleeding = IB
+					qdel(part)
+
+		for(var/O in internal_organs)
+			var/obj/item/organ/internal/I = O
+			for(var/list/part in internal_damages)
+				var/obj/item/organ/internal/OI = part[1]
+				var/organ_type
+
+				if(OI.parent_type == /obj/item/organ/internal) //Dealing with species organs
+					organ_type = OI.type
+				else
+					organ_type = OI.parent_type
+
+				if(istype(I, organ_type))
+					var/damage = part[2]
+					var/broken = part[3]
+					I.receive_damage(damage, 1)
+					if(broken && !(I.status & ORGAN_BROKEN))
+						I.status |= ORGAN_BROKEN
+					qdel(part)
+
+	else
+		dna.species.create_organs(src)
 
 	for(var/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
@@ -1405,7 +1478,7 @@
 
 	if(!dna.species)
 		return null
-	return dna.species.default_language ? all_languages[dna.species.default_language] : null
+	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -1473,10 +1546,11 @@
 
 /mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-
-	return image(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1) //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
+	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1)
+	MA.plane = LIGHTING_PLANE
+	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
 Eyes need to have significantly high darksight to shine unless the mob has the XRAY vision mutation. Eyes will not shine if they are covered in any way.*/
@@ -1608,7 +1682,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
 			var/suff = min(H.getOxyLoss(), 7)
 			H.adjustOxyLoss(-suff)
-			H.updatehealth()
+			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", \
 							  "<span class='notice'>You perform CPR on [H.name].</span>")
 

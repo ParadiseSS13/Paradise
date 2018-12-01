@@ -9,7 +9,7 @@
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	status_flags = CANSTUN|CANWEAKEN|CANPUSH
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -36,10 +36,10 @@
 	projectiletype = /obj/item/projectile/kinetic
 	projectilesound = 'sound/weapons/Gunshot4.ogg'
 	speak_emote = list("states")
-	wanted_objects = list(/obj/item/ore/diamond, /obj/item/ore/gold, /obj/item/ore/silver,
-						  /obj/item/ore/plasma,  /obj/item/ore/uranium,    /obj/item/ore/iron,
-						  /obj/item/ore/bananium, /obj/item/ore/tranquillite, /obj/item/ore/glass,
-						  /obj/item/ore/titanium)
+	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
+						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
+						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
+						  /obj/item/stack/ore/titanium)
 	healable = 0
 	var/mode = MINEDRONE_COLLECT
 	var/light_on = 0
@@ -73,17 +73,18 @@
 	check_friendly_fire = 0
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/weldingtool) && user.a_intent == INTENT_HELP)
 		var/obj/item/weldingtool/W = I
 		if(W.welding && !stat)
 			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
-			if(maxHealth == health)
-				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-			else
-				adjustBruteLoss(-10)
-				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
+			if(do_after_once(user, 15, target = src))
+				if(maxHealth == health)
+					to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
+				else
+					adjustBruteLoss(-20)
+					to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
@@ -92,12 +93,26 @@
 	..()
 
 /mob/living/simple_animal/hostile/mining_drone/death()
-	..()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	visible_message("<span class='danger'>[src] is destroyed!</span>")
-	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+	new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 	DropOre(0)
 	qdel(src)
-	return
+
+/mob/living/simple_animal/hostile/mining_drone/Shoot(atom/targeted_atom)
+	var/obj/item/projectile/kinetic/K = ..()
+	var/turf/proj_turf = get_turf(K)
+	if(!isturf(proj_turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure > 50)
+		K.name = "weakened [K.name]"
+		
+		K.damage *= K.pressure_decrease
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
@@ -133,20 +148,14 @@
 	to_chat(src, "<span class='info'>You are set to attack mode. You can now attack from range.</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
-	if(istype(target, /obj/item/ore) && mode ==  MINEDRONE_COLLECT)
+	if(istype(target, /obj/item/stack/ore) && mode ==  MINEDRONE_COLLECT)
 		CollectOre()
 		return
 	..()
 
 /mob/living/simple_animal/hostile/mining_drone/proc/CollectOre()
-	var/obj/item/ore/O
-	for(O in src.loc)
+	for(var/obj/item/stack/ore/O in range(1, src))
 		O.forceMove(src)
-	for(var/dir in alldirs)
-		var/turf/T = get_step(src,dir)
-		for(O in T)
-			O.forceMove(src)
-	return
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
 	if(!contents.len)
@@ -155,7 +164,7 @@
 		return
 	if(message)
 		to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
-	for(var/obj/item/ore/O in contents)
+	for(var/obj/item/stack/ore/O in contents)
 		contents -= O
 		O.forceMove(loc)
 	return
@@ -278,7 +287,9 @@
 	if(M.maxHealth != initial(M.maxHealth))
 		to_chat(user, "[M] already has a reinforced chassis!")
 		return
+	var/previous = M.maxHealth
 	M.maxHealth = 170
+	M.health += M.maxHealth - previous
 	to_chat(user, "You reinforce [M]'s chassis.")
 	qdel(src)
 

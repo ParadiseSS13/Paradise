@@ -91,7 +91,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/list/turf/synd_spawn = list()
 
-	for(var/obj/effect/landmark/A in landmarks_list)
+	for(var/obj/effect/landmark/A in GLOB.landmarks_list)
 		if(A.name == "Syndicate-Spawn")
 			synd_spawn += get_turf(A)
 			qdel(A)
@@ -146,6 +146,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.dna.species.create_organs(M)
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
 
@@ -167,10 +168,6 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
-	/*
-	spawn(1)
-		NukeNameAssign(nukelastname(synd_mind.current),syndicates) //allows time for the rest of the syndies to be chosen
-	*/
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
 	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
 	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
@@ -219,6 +216,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
+	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
@@ -295,11 +293,11 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/nuclear/declare_completion()
 	var/disk_rescued = 1
-	for(var/obj/item/disk/nuclear/D in poi_list)
+	for(var/obj/item/disk/nuclear/D in GLOB.poi_list)
 		if(!D.onCentcom())
 			disk_rescued = 0
 			break
-	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	var/crew_evacuated = (SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 	//var/operatives_are_dead = is_operatives_are_dead()
 
 
@@ -308,51 +306,50 @@ proc/issyndicate(mob/living/M as mob)
 	//derp //Used for tracking if the syndies actually haul the nuke to the station	//no
 	//herp //Used for tracking if the syndies got the shuttle off of the z-level	//NO, DON'T FUCKING NAME VARS LIKE THIS
 
-	if(!disk_rescued &&  station_was_nuked &&          !syndies_didnt_escape)
-		feedback_set_details("round_end_result","win - syndicate nuke")
+	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
+		feedback_set_details("round_end_result","nuclear win - syndicate nuke")
 		to_chat(world, "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
 
-	else if(!disk_rescued &&  station_was_nuked &&           syndies_didnt_escape)
-		feedback_set_details("round_end_result","halfwin - syndicate nuke - did not evacuate in time")
+	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
+		feedback_set_details("round_end_result","nuclear halfwin - syndicate nuke - did not evacuate in time")
 		to_chat(world, "<FONT size = 3><B>Total Annihilation</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
 
-	else if(!disk_rescued && !station_was_nuked &&  nuke_off_station && !syndies_didnt_escape)
-		feedback_set_details("round_end_result","halfwin - blew wrong station")
+	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
+		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station")
 		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
 
-	else if(!disk_rescued && !station_was_nuked &&  nuke_off_station &&  syndies_didnt_escape)
-		feedback_set_details("round_end_result","halfwin - blew wrong station - did not evacuate in time")
+	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
+		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station - did not evacuate in time")
 		to_chat(world, "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
 
-	else if( disk_rescued                                         && is_operatives_are_dead())
-		feedback_set_details("round_end_result","loss - evacuation - disk secured - syndi team dead")
+	else if(disk_rescued && is_operatives_are_dead())
+		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured - syndi team dead")
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>")
 
-	else if( disk_rescued                                        )
-		feedback_set_details("round_end_result","loss - evacuation - disk secured")
+	else if(disk_rescued)
+		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured")
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>")
 
-	else if(!disk_rescued                                         && is_operatives_are_dead())
-		feedback_set_details("round_end_result","loss - evacuation - disk not secured")
+	else if(!disk_rescued && is_operatives_are_dead())
+		feedback_set_details("round_end_result","nuclear loss - evacuation - disk not secured")
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
 
-	else if(!disk_rescued                                         &&  crew_evacuated)
-		feedback_set_details("round_end_result","halfwin - detonation averted")
+	else if(!disk_rescued && crew_evacuated)
+		feedback_set_details("round_end_result","nuclear halfwin - detonation averted")
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
 
-	else if(!disk_rescued                                         && !crew_evacuated)
-		feedback_set_details("round_end_result","halfwin - interrupted")
+	else if(!disk_rescued && !crew_evacuated)
+		feedback_set_details("round_end_result","nuclear halfwin - interrupted")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
-
 	..()
 	return
 
@@ -393,7 +390,7 @@ proc/issyndicate(mob/living/M as mob)
 	return 1
 
 /proc/nukelastname(var/mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
-	var/randomname = pick(last_names)
+	var/randomname = pick(GLOB.last_names)
 	var/newname = sanitize(copytext(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname),1,MAX_NAME_LEN))
 
 	if(!newname)
@@ -406,15 +403,6 @@ proc/issyndicate(mob/living/M as mob)
 
 	return newname
 
-/proc/NukeNameAssign(var/lastname,var/list/syndicates)
-	for(var/datum/mind/synd_mind in syndicates)
-		switch(synd_mind.current.gender)
-			if(MALE)
-				synd_mind.name = "[pick(first_names_male)] [pick(last_names)]"
-			if(FEMALE)
-				synd_mind.name = "[pick(first_names_female)] [pick(last_names)]"
-		synd_mind.current.real_name = synd_mind.name
-	return
 
 /datum/game_mode/nuclear/set_scoreboard_gvars()
 	var/foecount = 0

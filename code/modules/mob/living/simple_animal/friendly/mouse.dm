@@ -33,6 +33,10 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
+/mob/living/simple_animal/mouse/Initialize()
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg' = 1), 50)
+
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
 	if(prob(speak_chance))
@@ -81,46 +85,25 @@
 		get_scooped(M)
 	..()
 
-//make mice fit under tables etc? this was hacky, and not working
-/*
-/mob/living/simple_animal/mouse/Move(var/dir)
-
-	var/turf/target_turf = get_step(src,dir)
-	//CanReachThrough(src.loc, target_turf, src)
-	var/can_fit_under = 0
-	if(target_turf.ZCanPass(get_turf(src),1))
-		can_fit_under = 1
-
-	..(dir)
-	if(can_fit_under)
-		src.loc = target_turf
-	for(var/d in cardinal)
-		var/turf/O = get_step(T,d)
-		//Simple pass check.
-		if(O.ZCanPass(T, 1) && !(O in open) && !(O in closed) && O in possibles)
-			open += O
-			*/
-
-///mob/living/simple_animal/mouse/restrained() //Hotfix to stop mice from doing things with MouseDrop
-//	return 1
-
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
 	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
-	if( ishuman(AM) )
+	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
-	..()
 
 /*
  * Mouse types
@@ -186,9 +169,7 @@
 	if(istype(blobmind) && istype(C))
 		blobmind.special_role = SPECIAL_ROLE_BLOB
 		var/obj/structure/blob/core/core = new(T, 200, C, 3)
-		if(core.overmind && core.overmind.mind)
-			//core.overmind.mind.name = blob.name
-			core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+		core.lateblobtimer()
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.

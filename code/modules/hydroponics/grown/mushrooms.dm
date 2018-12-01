@@ -1,6 +1,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom
 	name = "mushroom"
 	bitesize_mod = 2
+	wine_power = 0.4
 
 
 // Reishi
@@ -81,9 +82,10 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/angel
 	seed = /obj/item/seeds/angel
 	name = "destroying angel"
-	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amatoxins."
+	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amanitin."
 	icon_state = "angel"
 	filling_color = "#C0C0C0"
+	wine_power = 0.6
 
 
 // Liberty Cap
@@ -109,6 +111,8 @@
 	desc = "<I>Psilocybe Semilanceata</I>: Liberate yourself!"
 	icon_state = "libertycap"
 	filling_color = "#DAA520"
+	wine_power = 0.8
+	wine_flavor = "freedom"
 
 
 // Plump Helmet
@@ -135,6 +139,7 @@
 	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
+	distill_reagent = "manlydorf"
 
 
 // Walking Mushroom
@@ -161,6 +166,7 @@
 	icon_state = "walkingmushroom"
 	filling_color = "#9370DB"
 	origin_tech = "biotech=4;programming=5"
+	can_distill = FALSE
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom/attack_self(mob/user)
 	if(istype(user.loc, /turf/space))
@@ -232,6 +238,7 @@
 	var/effect_path = /obj/structure/glowshroom
 	origin_tech = "biotech=4;plasmatech=6"
 	light_color = "#006622"
+	wine_power = 0.5
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(istype(user.loc, /turf/space))
@@ -280,6 +287,8 @@
 	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
+	wine_power = 0.6
+	wine_flavor = "warmth"
 
 // Fungus/Mold
 /obj/item/seeds/fungus
@@ -326,3 +335,5 @@
 	icon_state = "shadowshroom"
 	effect_path = /obj/structure/glowshroom/shadowshroom
 	origin_tech = "biotech=4;plasmatech=4;magnets=4"
+	wine_power = 0.6
+	wine_flavor = "strange coldness"

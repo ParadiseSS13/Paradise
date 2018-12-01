@@ -41,12 +41,13 @@
 
 
 /obj/item/assembly/voice/attack_self(mob/user)
-	if(!user || !secured)	return 0
+	if(!user || !secured)
+		return FALSE
 
 	listening = !listening
 	var/turf/T = get_turf(src)
 	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
-	return 1
+	return TRUE
 
 
 /obj/item/assembly/voice/toggle_secure()
@@ -70,7 +71,7 @@
 /obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, msg)
 	return
 
-/obj/item/assembly/voice/hear_message(mob/living/M as mob, msg)
+/obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)
 	pulse(0)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
 	T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")

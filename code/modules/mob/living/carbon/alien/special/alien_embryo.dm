@@ -91,7 +91,7 @@
 		owner.overlays += overlay
 
 		spawn(6)
-			var/mob/living/carbon/alien/larva/new_xeno = new(owner.loc)
+			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
 			if(ticker && ticker.mode)
 				ticker.mode.xenos += new_xeno.mind
@@ -112,7 +112,7 @@ Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
 /obj/item/organ/internal/body_egg/alien_embryo/AddInfectionImages()
-	for(var/mob/living/carbon/alien/alien in player_list)
+	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
 			alien.client.images += I
@@ -122,7 +122,7 @@ Proc: RemoveInfectionImage(C)
 Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
 /obj/item/organ/internal/body_egg/alien_embryo/RemoveInfectionImages()
-	for(var/mob/living/carbon/alien/alien in player_list)
+	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)
 				if(dd_hasprefix_case(I.icon_state, "infected") && I.loc == owner)

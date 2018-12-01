@@ -77,6 +77,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds,
 	/client/proc/cmd_admin_headset_message,
+	/client/proc/spawn_floor_cluwne,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -170,7 +171,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -213,7 +213,6 @@ var/list/admin_verbs_proccall = list(
 )
 var/list/admin_verbs_snpc = list(
 	/client/proc/resetSNPC,
-	/client/proc/toggleSNPC,
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
@@ -447,10 +446,10 @@ var/list/admin_verbs_ticket = list(
 
 /client/proc/findStealthKey(txt)
 	if(txt)
-		for(var/P in stealthminID)
-			if(stealthminID[P] == txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
 				return P
-	txt = stealthminID[ckey]
+	txt = GLOB.stealthminID[ckey]
 	return txt
 
 /client/proc/createStealthKey()
@@ -458,11 +457,11 @@ var/list/admin_verbs_ticket = list(
 	var/i = 0
 	while(i == 0)
 		i = 1
-		for(var/P in stealthminID)
-			if(num == stealthminID[P])
+		for(var/P in GLOB.stealthminID)
+			if(num == GLOB.stealthminID[P])
 				num++
 				i = 0
-	stealthminID["[ckey]"] = "@[num2text(num)]"
+	GLOB.stealthminID["[ckey]"] = "@[num2text(num)]"
 
 /client/proc/stealth()
 	set category = "Admin"
@@ -522,7 +521,7 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	var/datum/preferences/D
-	var/client/C = directory[warned_ckey]
+	var/client/C = GLOB.directory[warned_ckey]
 	if(C)	D = C.prefs
 	else	D = preferences_datums[warned_ckey]
 
@@ -594,7 +593,7 @@ var/list/admin_verbs_ticket = list(
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/give_spell(mob/T as mob in mob_list) // -- Urist
+/client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
@@ -619,7 +618,7 @@ var/list/admin_verbs_ticket = list(
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
 	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
-/client/proc/give_disease(mob/T in mob_list)
+/client/proc/give_disease(mob/T in GLOB.mob_list)
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
@@ -706,7 +705,7 @@ var/list/admin_verbs_ticket = list(
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	deadmin()
 	verbs += /client/proc/readmin
-	deadmins += ckey
+	GLOB.deadmins += ckey
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -722,7 +721,7 @@ var/list/admin_verbs_ticket = list(
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
 			var/list/splitline = splittext(line, " - ")
-			if(n_lower(splitline[1]) == ckey)
+			if(lowertext(splitline[1]) == ckey)
 				if(splitline.len >= 2)
 					rank = ckeyEx(splitline[2])
 				break
@@ -764,17 +763,17 @@ var/list/admin_verbs_ticket = list(
 					flags = text2num(flags)
 				D = new(admin_rank, flags, ckey)
 
-		var/client/C = directory[ckey]
+		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
-		deadmins -= ckey
+		GLOB.deadmins -= ckey
 		feedback_add_details("admin_verb","RAS")
 		return
 	else
 		to_chat(src, "You are already an admin.")
 		verbs -= /client/proc/readmin
-		deadmins -= ckey
+		GLOB.deadmins -= ckey
 		return
 
 /client/proc/toggle_log_hrefs()
@@ -808,7 +807,7 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in silicon_mob_list
+	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
 	var/datum/nano_module/law_manager/L = new(S)
@@ -816,7 +815,7 @@ var/list/admin_verbs_ticket = list(
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in mob_list)
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = "Admin"
@@ -842,7 +841,7 @@ var/list/admin_verbs_ticket = list(
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_self(mob/living/carbon/human/H in mob_list)
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = "Admin"
@@ -978,7 +977,7 @@ var/list/admin_verbs_ticket = list(
 	else
 		to_chat(usr, "You now won't get debug log messages")
 
-/client/proc/man_up(mob/T as mob in mob_list)
+/client/proc/man_up(mob/T as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
@@ -1004,7 +1003,7 @@ var/list/admin_verbs_ticket = list(
 	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
 	if(confirm == "Yes")
-		for(var/mob/T as mob in mob_list)
+		for(var/mob/T as mob in GLOB.mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
 			T << 'sound/voice/ManUp1.ogg'
 

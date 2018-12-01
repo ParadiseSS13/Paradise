@@ -11,8 +11,8 @@ var/list/chem_t2_reagents = list(
 
 var/list/chem_t3_reagents = list(
 	"ethanol", "chlorine", "potassium",
-	"aluminium", "radium", "fluorine",
-	"iron", "welding_fuel",	"silver",
+	"aluminum", "radium", "fluorine",
+	"iron", "fuel",	"silver",
 	"stable_plasma"
 )
 

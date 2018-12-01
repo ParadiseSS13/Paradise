@@ -7,6 +7,8 @@
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_NO_INTERACT)
+		return
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
@@ -14,7 +16,9 @@
 
 // No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
-	return SendSignal(COMSIG_PARENT_ATTACKBY, W, user, params)
+	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
+		return TRUE
+	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
 	return ..() || (can_be_hit && I.attack_obj(src, user))
@@ -26,6 +30,8 @@
 	return I.attack(src, user)
 
 /obj/item/proc/attack(mob/living/M, mob/living/user, def_zone)
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
 		return 0
 
@@ -72,6 +78,8 @@
 
 //the equivalent of the standard version of attack() but for object targets.
 /obj/item/proc/attack_obj(obj/O, mob/living/user)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+		return
 	if(flags & (NOBLUDGEON))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)

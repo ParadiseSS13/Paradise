@@ -35,7 +35,7 @@
 			return
 		if(H.mind)
 			span = H.mind.speech_span
-		if((COMIC in H.mutations) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
+		if((COMIC in H.mutations) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice) || istype(H.get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown))
 			span = "sans"
 	if(spamcheck)
 		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
@@ -47,6 +47,7 @@
 	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return
+	message = user.handle_speech_problems(message)[1]
 	message = capitalize(message)
 	if((loc == user && !user.incapacitated()))
 		if(emagged)
@@ -65,7 +66,7 @@
 			spamcheck = 0
 
 /obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
-	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
+	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	log_say(message, user)
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, "<span class='reallybig'>[message]</span>")

@@ -4,7 +4,7 @@
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = 300
@@ -69,6 +69,9 @@
 	SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
 	if(isrobot(user))
 		return
 

@@ -45,7 +45,7 @@ Difficulty: Medium
 	ranged = 1
 	pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
-	butcher_results = list(/obj/item/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = 0
 	var/swoop_cooldown = 0
 	medal_type = MEDAL_PREFIX
@@ -101,7 +101,7 @@ Difficulty: Medium
 	animate(src, pixel_z = 0, time = 12)
 
 /obj/effect/temp_visual/target
-	icon = 'icons/mob/actions.dmi'
+	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "sniper_zoom"
 	layer = MOB_LAYER - 0.1
 	luminosity = 2

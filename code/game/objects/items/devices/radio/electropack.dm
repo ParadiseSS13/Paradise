@@ -3,7 +3,7 @@
 	desc = "Dance my monkeys! DANCE!!!"
 	icon_state = "electropack0"
 	item_state = "electropack"
-	frequency = 1449
+	frequency = AIRLOCK_FREQ
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
@@ -87,9 +87,7 @@
 				if(M)
 					M.moved_recently = 0
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, M)
-		s.start()
+		do_sparks(3, 1, M)
 
 		M.Weaken(5)
 

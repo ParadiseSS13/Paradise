@@ -9,7 +9,7 @@
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
 		For best results, if this is set then sprite_sheets should be null and vice versa, but that is by no means necessary.
 		Ideally, sprite_sheets_refit should be used for "hard" clothing items that can't change shape very well to fit the wearer (e.g. helmets, hardsuits),
-		while sprite_sheets should be used for "flexible" clothing items thfat do not need to be refitted (e.g. vox wearing jumpsuits).
+		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. vox wearing jumpsuits).
 	*/
 	var/list/sprite_sheets_refit = null
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -171,11 +171,6 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
 BLIND     // can't see anything
 */
-/obj/item/clothing/glasses/New()
-	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/glasses.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 
 //Gloves
@@ -198,12 +193,6 @@ BLIND     // can't see anything
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
-
-/obj/item/clothing/gloves/New()
-	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/gloves.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
@@ -296,12 +285,6 @@ BLIND     // can't see anything
 	var/vision_flags = 0
 	var/can_toggle = null
 
-/obj/item/clothing/head/New()
-	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/hats.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
-
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
@@ -312,12 +295,6 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
-
-/obj/item/clothing/mask/New()
-	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/masks.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -405,27 +382,15 @@ BLIND     // can't see anything
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
 		)
 
-/obj/item/clothing/shoes/New()
-	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/shoes.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
-
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
-		if(!M.lit) // Match isn't lit, but isn't burnt.
-			M.lit = 1
-			M.icon_state = "match_lit"
-			processing_objects.Add(M)
-			M.update_icon()
+		if(M.matchignite()) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		else if(M.lit == 1) // Match is lit, not extinguished.
-			M.dropped()
+		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
-		else // Match has been previously lit and extinguished.
-			to_chat(user, "<span class='notice'>The [M] has already been extinguished.</span>")
+			M.dropped()
 		return
 
 	if(istype(I, /obj/item/wirecutters))
@@ -446,6 +411,7 @@ BLIND     // can't see anything
 		..()
 
 /obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
+	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)
 	if(shoe_sound)
 		var/turf/T = get_turf(H)
 
@@ -480,12 +446,6 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
-
-/obj/item/clothing/suit/New()
-	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/suits.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -607,12 +567,11 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	species_fit = list("Vox", "Drask", "Grey", "Murghal")
+	species_fit = list("Vox", "Drask", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi',
-		"Murghal" = 'icons/mob/species/murghal/uniform.dmi'
+		"Grey" = 'icons/mob/species/grey/uniform.dmi'
 		)
 	var/has_sensor = 1//For the crew computer 2 = unable to change mode
 	var/sensor_mode = 0
@@ -626,11 +585,9 @@ BLIND     // can't see anything
 	var/rolled_down = 0
 	var/basecolor
 
-/obj/item/clothing/under/New()
+/obj/item/clothing/under/rank/New()
+	sensor_mode = pick(0,1,2,3)
 	..()
-	icon = (hispania_icon ? 'icons/hispania/obj/clothing/uniforms.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
@@ -735,34 +692,47 @@ BLIND     // can't see anything
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
 
-/obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
-	if(!(A in accessories))
-		return
-
-	A.on_removed(user)
-	accessories -= A
-	usr.update_inv_w_uniform()
-
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-	if(!accessories.len) return
+	handle_accessories_removal()
+
+/obj/item/clothing/under/proc/handle_accessories_removal()
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
+	if(!Adjacent(usr))
+		return
+	if(!accessories.len)
+		return
 	var/obj/item/clothing/accessory/A
 	if(accessories.len > 1)
 		A = input("Select an accessory to remove from [src]") as null|anything in accessories
 	else
 		A = accessories[1]
-	src.remove_accessory(usr,A)
+	remove_accessory(usr,A)
 
-/obj/item/clothing/under/rank/New()
-	sensor_mode = pick(0,1,2,3)
-	..()
+/obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
+	if(!(A in accessories))
+		return
+	if(!isliving(user))
+		return
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	A.on_removed(user)
+	accessories -= A
+	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
+	usr.update_inv_w_uniform()
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
+
+/obj/item/clothing/under/AltClick()
+	handle_accessories_removal()

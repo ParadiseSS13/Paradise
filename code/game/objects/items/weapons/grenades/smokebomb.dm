@@ -8,31 +8,31 @@
 	slot_flags = SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
-	New()
-		..()
-		src.smoke = new /datum/effect_system/smoke_spread/bad
-		src.smoke.attach(src)
+/obj/item/grenade/smokebomb/New()
+	..()
+	src.smoke = new /datum/effect_system/smoke_spread/bad
+	src.smoke.attach(src)
 
-	Destroy()
-		QDEL_NULL(smoke)
-		return ..()
+/obj/item/grenade/smokebomb/Destroy()
+	QDEL_NULL(smoke)
+	return ..()
 
-	prime()
-		playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-		src.smoke.set_up(10, 0, usr.loc)
-		spawn(0)
-			src.smoke.start()
-			sleep(10)
-			src.smoke.start()
-			sleep(10)
-			src.smoke.start()
-			sleep(10)
-			src.smoke.start()
+/obj/item/grenade/smokebomb/prime()
+	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+	src.smoke.set_up(10, 0, usr.loc)
+	spawn(0)
+		src.smoke.start()
+		sleep(10)
+		src.smoke.start()
+		sleep(10)
+		src.smoke.start()
+		sleep(10)
+		src.smoke.start()
 
-		for(var/obj/structure/blob/B in view(8,src))
-			var/damage = round(30/(get_dist(B,src)+1))
-			B.health -= damage
-			B.update_icon()
-		sleep(80)
-		qdel(src)
-		return
+	for(var/obj/structure/blob/B in view(8,src))
+		var/damage = round(30/(get_dist(B,src)+1))
+		B.health -= damage
+		B.update_icon()
+	sleep(80)
+	qdel(src)
+	return

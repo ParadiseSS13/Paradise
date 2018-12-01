@@ -91,7 +91,7 @@
 
 /mob/living/simple_animal/bot/medbot/syndicate/New()
 	..()
-	Radio.syndie = 1
+	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
 	emagged = 2
@@ -442,7 +442,7 @@
 
 /mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view())
 	..()
-	if(!is_blind(src))
+	if(has_vision(information_only=TRUE))
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
@@ -543,7 +543,7 @@
 	return
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
-	var/datum/reagent/R  = chemical_reagents_list[reagent_id]
+	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 	if(!R.overdose_threshold)
 		return 0
 	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
@@ -595,9 +595,7 @@
 	if(emagged && prob(25))
 		playsound(loc, 'sound/voice/minsult.ogg', 50, 0)
 
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	..()
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)

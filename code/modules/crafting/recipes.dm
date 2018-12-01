@@ -339,6 +339,16 @@
 	time = 50
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/toxins_payload
+	name = "Toxins Payload Casing"
+	result = /obj/item/bombcore/toxins
+	reqs = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/assembly/signaler = 1,
+		/obj/item/stack/sheet/metal = 2
+	)
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/bonfire
 	name = "Bonfire"
 	time = 60
@@ -354,4 +364,28 @@
 		        /obj/item/stack/sheet/wood = 20,
 		        /obj/item/stack/cable_coil = 10)
 	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
+	category = CAT_MISC
+
+/datum/crafting_recipe/drill
+	name = "Thermal Drill"
+	result = /obj/item/thermal_drill
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 5,
+		        /obj/item/mecha_parts/mecha_equipment/drill = 1,
+		        /obj/item/stock_parts/cell = 1,
+		        /obj/item/stack/rods = 2,
+		        /obj/item/assembly/timer = 1)
+	tools = list(/obj/item/screwdriver, /obj/item/wrench)
+	category = CAT_MISC
+
+/datum/crafting_recipe/d_drill
+	name = "Diamond Tipped Thermal Drill"
+	result = /obj/item/thermal_drill/diamond_drill
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 5,
+		        /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
+		        /obj/item/stock_parts/cell = 1,
+		        /obj/item/stack/rods = 2,
+		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
+	tools = list(/obj/item/screwdriver, /obj/item/wrench)
 	category = CAT_MISC

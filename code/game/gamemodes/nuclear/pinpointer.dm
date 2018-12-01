@@ -21,10 +21,10 @@
 
 /obj/item/pinpointer/New()
 	..()
-	pinpointer_list += src
+	GLOB.pinpointer_list += src
 
 /obj/item/pinpointer/Destroy()
-	pinpointer_list -= src
+	GLOB.pinpointer_list -= src
 	active = 0
 	the_disk = null
 	return ..()
@@ -81,7 +81,7 @@
 	if(!shows_nuke_timer)
 		return
 
-	for(var/obj/machinery/nuclearbomb/bomb in machines)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 		if(bomb.timing)
 			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
 
@@ -174,7 +174,7 @@
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
 					if(!DNAstring)
 						return
-					for(var/mob/living/carbon/C in mob_list)
+					for(var/mob/living/carbon/C in GLOB.mob_list)
 						if(!C.dna)
 							continue
 						if(C.dna.unique_enzymes == DNAstring)
@@ -246,7 +246,7 @@
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
 		return
 	if(!home)
-		home = shuttle_master.getShuttle("syndicate")
+		home = SSshuttle.getShuttle("syndicate")
 		if(!home)
 			icon_state = icon_null
 			return
@@ -289,7 +289,7 @@
 	if(active)
 		nearest_op = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
-		for(var/mob/living/carbon/M in mob_list)
+		for(var/mob/living/carbon/M in GLOB.mob_list)
 			if(M.mind && (M.mind in ticker.mode.syndicates))
 				if(get_dist(M, get_turf(src)) < closest_distance) //Actually points toward the nearest op, instead of a random one like it used to
 					nearest_op = M
@@ -347,7 +347,7 @@
 	var/list/name_counts = list()
 	var/list/names = list()
 
-	for(var/mob/living/carbon/human/H in mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		if(!trackable(H))
 			continue
 
@@ -391,3 +391,12 @@
 
 /obj/item/pinpointer/crew/examine(mob/user)
 	..(user)
+
+/obj/item/pinpointer/crew/centcom
+	name = "centcom pinpointer"
+	desc = "A handheld tracking device that tracks crew based on remote centcom sensors."
+
+/obj/item/pinpointer/crew/centcom/trackable(mob/living/carbon/human/H)
+	var/turf/here = get_turf(src)
+	var/turf/there = get_turf(H)
+	return there && there.z == here.z

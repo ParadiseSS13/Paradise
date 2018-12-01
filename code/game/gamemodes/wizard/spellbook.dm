@@ -202,6 +202,14 @@
 	category = "Mobility"
 	cost = 1
 
+/datum/spellbook_entry/greaterknock
+	name = "Greater Knock"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
+	log_name = "GK"
+	category = "Mobility"
+	cost = 2
+	refundable = 0 //global effect on cast
+
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
@@ -415,7 +423,7 @@
 
 /datum/spellbook_entry/item/cursed_heart
 	name = "Cursed Heart"
-	desc = "A heart that has been revived by dark magicks, the user must concentrate to ensure the heart beats, but every beat heals them. It must beat every 6 seconds."
+	desc = "A heart that has been revived by dark magicks. The user must ensure the heart is manually beaten or their blood circulation will suffer, but every beat heals their injuries. It must beat every 6 seconds."
 	item_path = /obj/item/organ/internal/heart/cursed/wizard
 	log_name = "CH"
 	cost = 1
@@ -535,7 +543,10 @@
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
 
-		uses+=2
+		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
+			uses += 1
+		else
+			uses += 2
 		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
 			if(!isnull(BB.limit))
 				BB.limit++
@@ -768,7 +779,7 @@
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
 	..()
-	if(stored_swap in dead_mob_list)
+	if(stored_swap in GLOB.dead_mob_list)
 		stored_swap = null
 	if(!stored_swap)
 		stored_swap = user

@@ -199,6 +199,9 @@
 	/*if(istype(W,/obj/item/screwdriver))
 		panel = !panel
 		to_chat(user, "<span class='notice'>you [panel ? </span>"open" : "close"] the [src]'s maintenance panel")*/
+	if(default_unfasten_wrench(user, W))
+		power_change()
+		return
 	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
 		if( state in list(	1, 3, 6 ) )
 			if(!crayon)

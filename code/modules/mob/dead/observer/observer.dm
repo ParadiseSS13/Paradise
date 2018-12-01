@@ -12,7 +12,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	stat = DEAD
 	density = 0
 	canmove = 0
-	blinded = 0
+	alpha = 127
 	anchored = 1	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
@@ -31,7 +31,9 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	verbs += /mob/dead/observer/proc/dead_tele
+	verbs += list(
+		/mob/dead/observer/proc/dead_tele,
+		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
@@ -47,29 +49,19 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		if(ishuman(body))
-			var/mob/living/carbon/human/H = body
-			icon = H.stand_icon
-			overlays = H.overlays_standing
-		else
-			icon = body.icon
-			icon_state = body.icon_state
-			overlays = body.overlays
-
-		alpha = 127
-		gender = body.gender
+		var/mutable_appearance/MA = copy_appearance(body) 
 		if(body.mind && body.mind.name)
-			name = body.mind.name
+			MA.name = body.mind.name
+		else if(body.real_name)
+			MA.name = body.real_name
 		else
-			if(body.real_name)
-				name = body.real_name
+			if(gender == MALE)
+				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 			else
-				if(gender == MALE)
-					name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
-				else
-					name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+				MA.name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
+		appearance = MA
 
 	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
 	ghostimage.overlays = overlays
@@ -83,7 +75,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
-		name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 	real_name = name
 	..()
 
@@ -97,6 +89,36 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
+
+// This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
+// Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
+// You might recognize these things as "fucking ridiculous to put in an appearance"
+// You'd be right, but that's fucking BYOND for you.
+/mob/dead/observer/proc/copy_appearance(mutable_appearance/COPY)
+	var/mutable_appearance/MA = new(src)
+
+	MA.appearance_flags = COPY.appearance_flags
+	MA.blend_mode = COPY.blend_mode
+	MA.color = COPY.color
+	MA.dir = COPY.dir
+	MA.gender = COPY.gender
+	MA.icon = COPY.icon
+	MA.icon_state = COPY.icon_state
+	MA.layer = COPY.layer
+	MA.maptext = COPY.maptext
+	MA.maptext_width = COPY.maptext_width
+	MA.maptext_height = COPY.maptext_height
+	MA.maptext_x = COPY.maptext_x
+	MA.maptext_y = COPY.maptext_y
+	MA.mouse_opacity = COPY.mouse_opacity
+	MA.overlays = COPY.overlays
+	if(!isicon(MA.icon) && !LAZYLEN(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
+		MA.icon = initial(icon)
+		MA.icon_state = initial(icon_state)
+	MA.suffix = COPY.suffix
+	MA.underlays = COPY.underlays
+
+	. = MA
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
@@ -126,15 +148,15 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
 	if(key)
-		if(non_respawnable_keys[ckey])
+		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		respawnable_list -= src
+		GLOB.respawnable_list -= src
 		if(ghost.can_reenter_corpse)
-			respawnable_list += ghost
+			GLOB.respawnable_list += ghost
 		else
-			non_respawnable_keys[ckey] = 1
+			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
 		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
 			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
@@ -160,7 +182,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
-	else if(non_respawnable_keys[ckey])
+	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
 	if(!warningmsg)
@@ -171,7 +193,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		resting = 1
+		StartResting()
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	var/obj/structure/morgue/Morgue = locate() in M.loc
@@ -207,7 +229,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
 		S.Crossed(src)
 
-	var/area/A = get_area_master(src)
+	var/area/A = get_area(src)
 	if(A)
 		A.Entered(src)
 
@@ -224,7 +246,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(client.statpanel == "Status")
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [(src in respawnable_list) ? "Yes" : "No"]")
+		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -319,8 +341,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.","Are you sure you want to turn this feature on?","Yes","No")
 		if(response == "No") return
 		M.can_reenter_corpse = 0
-		if(M in respawnable_list)
-			respawnable_list -= M
+		if(M in GLOB.respawnable_list)
+			GLOB.respawnable_list -= M
 	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		M.has_enabled_antagHUD = 1
 
@@ -541,18 +563,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if((!target) || (!ghost)) return
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<a href='byond://?src=[ghost.UID()];follow=\ref[A]'>core</a>"
+		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>core</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=[ghost.UID()];follow=\ref[A.eyeobj]'>eye</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>eye</a>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
-		. = "<a href='byond://?src=[ghost.UID()];follow=\ref[target]'>follow</a>"
+		. = "<a href='byond://?src=[ghost.UID()];follow=[target.UID()]'>follow</a>"
 		if(O.mind && O.mind.current)
-			. += "|<a href='byond://?src=[ghost.UID()];follow=\ref[O.mind.current]'>body</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=[O.mind.current.UID()]'>body</a>"
 		return
 	else
-		return "<a href='byond://?src=[ghost.UID()];follow=\ref[target]'>follow</a>"
+		return "<a href='byond://?src=[ghost.UID()];follow=[target.UID()]'>follow</a>"
 
 //BEGIN TELEPORT HREF CODE
 /mob/dead/observer/Topic(href, href_list)
@@ -574,7 +596,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/mob/target = locate(href_list["jump"])
 		var/mob/A = usr;
 		to_chat(A, "Teleporting to [target]...")
-		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
+		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
 		if(target && target != usr)
 			spawn(0)
 				var/turf/pos = get_turf(A)
@@ -625,7 +647,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	updateghostimages()
 
 /proc/updateallghostimages()
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.updateghostimages()
 
 /mob/dead/observer/proc/updateghostimages()
@@ -679,3 +701,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+/mob/dead/observer/proc/open_spawners_menu()
+	set name = "Mob spawners menu"
+	set desc = "See all currently available ghost spawners"
+	set category = "Ghost"
+	
+	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
+	menu.ui_interact(src)

@@ -203,7 +203,7 @@
 						// Let's not drag this on, medbay has only so much antibiotics
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(var/used_weapon, var/damage)
+/obj/item/organ/proc/add_autopsy_data(var/used_weapon = "Unknown", var/damage)
 	var/datum/autopsy_data/W = autopsy_data[used_weapon]
 	if(!W)
 		W = new()

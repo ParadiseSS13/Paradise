@@ -217,7 +217,7 @@
 
 	var/chemicals[0]
 	for(var/re in injection_chems)
-		var/datum/reagent/temp = chemical_reagents_list[re]
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			var/reagent_amount = 0
 			var/pretty_amount
@@ -420,7 +420,7 @@
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(!(chemical in injection_chems))
-		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</notice>")
+		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
 		return
 
 	if(occupant)
@@ -519,8 +519,8 @@
 		return
 	return
 
-/obj/machinery/sleeper/allow_drop()
-	return 0
+/obj/machinery/sleeper/AllowDrop()
+	return FALSE
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"

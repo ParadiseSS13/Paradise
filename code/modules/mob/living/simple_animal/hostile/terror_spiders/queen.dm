@@ -81,7 +81,7 @@
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
-	if(!hasdied)
+	if(can_die() && !hasdied)
 		SetHiveCommand(0, 15) // Hive becomes very aggressive.
 		if(spider_uo71)
 			UnlockBlastDoors("UO71_Caves")
@@ -91,7 +91,7 @@
 				P.visible_message("<span class='danger'>\The [src] writhes in pain!</span>")
 				to_chat(P,"<span class='userdanger'>\The [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
 				P.degenerate = 1
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
 	..()
@@ -224,7 +224,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MassFlicker()
 	var/list/target_lights = list()
-	for(var/mob/living/carbon/human/H in player_list)
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.z != z)
 			continue
 		if(H.stat == DEAD)

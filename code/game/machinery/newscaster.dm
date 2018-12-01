@@ -241,8 +241,12 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			data["censored"] = viewing_channel.censored
 			var/list/messages = list()
 			data["messages"] = messages
+			var/message_number = 0
 			for(var/datum/feed_message/M in viewing_channel.messages)
-				messages[++messages.len] = list("title" = M.title, "body" = M.body, "img" = M.img ? icon2base64(M.img) : null, "message_type" = M.message_type, "author" = M.author, "view_count" = M.view_count)
+				if(M.img)
+					user << browse_rsc(M.img, "tmp_photo[message_number].png")
+				messages[++messages.len] = list("title" = M.title, "body" = M.body, "img" = M.img ? M.img : null, "message_type" = M.message_type, "author" = M.author, "view_count" = M.view_count, "message_number" = message_number)
+				message_number += 1
 		if(8, 9)
 			data["channel_name"] = viewing_channel.channel_name
 			data["ref"] = "\ref[viewing_channel]"
@@ -273,7 +277,9 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			data["author"] = news_network.wanted_issue.backup_author
 			data["criminal"] = news_network.wanted_issue.author
 			data["description"] = news_network.wanted_issue.body
-			data["photo"] = news_network.wanted_issue.img ? icon2base64(news_network.wanted_issue.img) : 0
+			if(news_network.wanted_issue.img)
+				user << browse_rsc(news_network.wanted_issue.img, "tmp_photow.png")
+			data["photo"] = news_network.wanted_issue.img ? news_network.wanted_issue.img : 0
 		if(12)
 			var/list/jobs = list()
 			data["jobs"] = jobs

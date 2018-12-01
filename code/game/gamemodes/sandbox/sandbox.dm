@@ -11,7 +11,7 @@
 	to_chat(world, "<B>Build your own station with the sandbox-panel command!</B>")
 
 /datum/game_mode/sandbox/pre_setup()
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		M.CanBuild()
 	return 1
 

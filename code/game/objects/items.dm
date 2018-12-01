@@ -239,7 +239,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
-				H.updatehealth()
 				return
 		else
 			extinguish()
@@ -318,6 +317,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 		return 1
@@ -332,6 +332,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -349,12 +350,17 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/on_found(mob/finder as mob)
 	return
 
+// called when the giver gives it to the receiver
+/obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	return
+
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
 // slot uses the slot_X defines found in setup.dm
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(var/mob/user, var/slot)
+	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
@@ -502,6 +508,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/throw_impact(atom/A)
 	if(A && !QDELETED(A))
+		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
 		var/itempush = 1
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = 0 // too light to push anything
@@ -552,6 +559,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return I == src
 
 /obj/item/Crossed(atom/movable/AM)
+	. = ..()
 	if(prob(trip_chance) && ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		on_trip(H)

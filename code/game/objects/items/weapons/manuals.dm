@@ -1636,7 +1636,7 @@
                     <li>The Chief Engineer is bound to the same rules regarding the axe as Atmospheric Technicians;</li>
                     <li>The Chief Engineer is permitted to carry a telescopic baton and a flash; </li>
                     <li>The Chief Engineer is responsible for maintaining the integrity of the Gravitational Singularity Engine and/or the Supermatter Engine and/or the Tesla Engine. Neglecting this duty is grounds for termination should the Engine malfunction;</li>
-                    <li>The Chief Engineer is responsible for maintaining the integrity of the Cyberiad's Atmospherics System. Failure to maintain this integrity is grounds for termination;</li>
+                    <li>The Chief Engineer is responsible for maintaining the integrity of the station's Atmospherics System. Failure to maintain this integrity is grounds for termination;</li>
                     <li>The Chief Engineer may declare an area "Condemned", if it is damaged to the point where repairs cannot reasonably be completed within an acceptable frame of time;</li>
                     <li>The Chief Engineer is permitted to grant Building Permits to crewmembers, but must keep the Station Blueprints in a safe location at all times.</li>
 				</ol>
@@ -1652,7 +1652,7 @@
                     <li>Engineers must constantly monitor the Supermatter Engine, if it is the chosen method of power generation, if it is currently active (ie, under Emitter Fire). This is not negotiable;</li>
                     <li>Engineers must respond promptly to breaches, regardless of size. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Engineers to report or an Atmospheric Technician has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else;</li>
                     <li>Engineers are permitted to hack doors to gain unauthorized access to locations if said locations happen to require urgent repairs;</li>
-                    <li>Engineers are to maintain the integrity of the Cyberiad's Power Network. In addition, hotwiring the Gravitational Singularity Engine, Supermatter Engine or Tesla Engine is strictly forbidden;</li>
+                    <li>Engineers are to maintain the integrity of the station's Power Network. In addition, hotwiring the Gravitational Singularity Engine, Supermatter Engine or Tesla Engine is strictly forbidden;</li>
                     <li>Engineers must ensure there is at least one (1) engineering hardsuit available on the station at all times, unless there is an emergency that requires the use of all suits.</li>
 				</ol>
                 <br><br>
@@ -2063,7 +2063,7 @@
 					<li>The Security Pod Pilot is not permitted to use the Laser Module during arrests, and must switch to the Disabler Module;</li>
 					<li>The Security Pod Pilot must carry around a spare set of tools and energy cell, for their own sake;</li>
 					<li>The Security Pod Pilot may immediately, and without warning, conduct arrests on individuals attempting to perform E.V.A actions near the AI Satellite. Exception is made if the AI Unit is malfunctioning;</li>
-					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the NSS Cyberiad, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
+					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the station, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
@@ -2506,11 +2506,11 @@
 					<li>The Captain is not permitted to perform regular Security Duty. However, they may still assist Security if they are understaffed, or if they see a crime being committed. However, the Captain is not permitted to take items from the Armory under normal circumstances, unless authorized by the Head of Security. In addition, the Captain may not requisition weaponry for themselves from Cargo and/or Science, unless there's an immediate threat to station and/or crew;</li>
 					<li>If a Department lacks a Head of Staff, the Captain should make reasonable efforts to appoint an Acting Head of Staff, if there are available personnel to fill the position;</li>
 					<li>The Captain is to ensure that Space Law is being correctly applied. This should be done in cooperation with the Head of Security;</li>
-					<li>The Captain is not to leave the NSS Cyberiad unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
+					<li>The Captain is not to leave the station unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
 					<li>The Captain must keep the Nuclear Authentication Disk on their person at all times or, failing that, in the possession of the Head of Security or Blueshield;</li>
 					<li>The Captain is to attempt to resolve every issue that arises in Command locally before contacting Central Command;</li>
 					<li>The Captain is not permitted to carry their Antique Laser Gun or Space Armor unless there's an immediate emergency that requires attending to;</li>
-					<li>The Captain, despite being in charge of the Cyberiad, is not independent from Nanotrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
+					<li>The Captain, despite being in charge of the station, is not independent from Nanotrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
 					<li>The Captain may only promote personnel to a Acting Head of Staff position if there is no assigned Head of Staff associated with the Department. Said Acting Head of Staff must be a member of the Department they are to lead. See below for more information on Chain of Command;</li>
                     <li>The Captain may not fire any Head of Staff without reasonable justification (ie, incompetency, criminal activity, or otherwise any action that endangers/compromises the station and/or crew). The Captain may not fire any Central Command VIPs (ie, Blueshield, Magistrate, Nanotrasen Representative) without permission from Central Command, unless they are blatantly acting against the well-being and safety of the crew and station.</li>
 				</ol><BR>

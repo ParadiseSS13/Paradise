@@ -115,8 +115,8 @@
 		if(!open)
 			return
 		var/obj/item/reagent_containers/RG = I
-		if(RG.is_open_container())
-			if(RG.reagents.total_volume >= RG.volume)
+		if(RG.is_refillable())
+			if(RG.reagents.holder_full())
 				to_chat(user, "<span class='warning'>[RG] is full.</span>")
 			else
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
@@ -243,7 +243,7 @@
 	icon_state = "shower"
 	density = 0
 	anchored = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	var/on = 0
 	var/obj/effect/mist/mymist = null
 	var/ismist = 0				//needs a var so we can make it linger~
@@ -278,7 +278,7 @@
 	icon_state = "mist"
 	layer = MOB_LAYER + 1
 	anchored = 1
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/machinery/shower/attack_hand(mob/M as mob)
 	on = !on
@@ -507,10 +507,8 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
+	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
 	attack_verb = list("quacked", "squeaked")
-	honk_sound = 'sound/items/squeaktoy.ogg' //credit to DANMITCH3LL of freesound for this
-
-
 
 /obj/structure/sink
 	name = "sink"
@@ -756,4 +754,3 @@
 		qdel(src)
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)
-

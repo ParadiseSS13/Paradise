@@ -60,20 +60,37 @@ def main():
 		
 		try:
 			with conn.cursor() as cursor:
-				sql = "ALTER TABLE `ss13_whitelist` DROP `id`"
+				sql = "ALTER TABLE `{}whitelist` DROP `id`".format(prefix)
 				cursor.execute(sql)
 			with conn.cursor() as cursor:
-				sql = "ALTER TABLE `ss13_whitelist` AUTO_INCREMENT = 1"
+				sql = "ALTER TABLE `{}whitelist` AUTO_INCREMENT = 1".format(prefix)
 				cursor.execute(sql)
 			with conn.cursor() as cursor:
-				sql = "ALTER TABLE `ss13_whitelist` ADD `id` int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST"
+				sql = "ALTER TABLE `{}whitelist` ADD `id` int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST".format(prefix)
 				cursor.execute(sql)
 			conn.commit()
 		finally:
 			menu()
 
-	def remove_whitelist(uid):
+	def remove_preferences(ckey):
 
+		try:
+			with conn.cursor() as cursor:
+				sql = "UPDATE {}characters SET job_support_high='0',job_support_med='0',job_support_low='0',job_medsci_high='0',job_medsci_med='0',job_medsci_low='0',job_engsec_high='0',job_engsec_med='0',job_engsec_low='0',job_karma_high='0',job_karma_med='0',job_karma_low='0' WHERE ckey='{}'".format(prefix, ckey)
+				cursor.execute(sql)
+			
+			conn.commit()
+		finally:
+			return
+
+	def remove_whitelist(uid):
+                
+		try:
+			with conn.cursor() as cursor:
+				sql = "SELECT `ckey` FROM `{}whitelist` WHERE id='%s'".format(prefix)
+				cursor.execute(sql, (uid))
+				for row in cursor.fetchone():
+					remove_preferences(row)
 		try:
 			with conn.cursor() as cursor:
 				sql = "DELETE FROM `{}whitelist` WHERE id='%s'".format(prefix)

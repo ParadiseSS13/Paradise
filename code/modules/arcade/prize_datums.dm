@@ -9,6 +9,9 @@ var/global/datum/prizes/global_prizes = new
 		prizes += new itempath()
 
 /datum/prizes/proc/PlaceOrder(var/obj/machinery/prize_counter/prize_counter, var/itemID)
+	if(!prize_counter.Adjacent(usr))
+		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
+		return
 	if(!prize_counter)
 		return 0
 	var/datum/prize_item/item = global_prizes.prizes[itemID]
@@ -76,7 +79,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/cards
 	name = "Deck of Cards"
 	desc = "Anyone fancy a game of 52-card Pickup?"
-	typepath = /obj/item/toy/cards/deck
+	typepath = /obj/item/deck/cards
 	cost = 25
 
 /datum/prize_item/crayons
@@ -306,5 +309,5 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
-	typepath = /obj/structure/stool/bed/chair/wheelchair/bike
+	typepath = /obj/structure/chair/wheelchair/bike
 	cost = 10000	//max stack + 1 tickets.

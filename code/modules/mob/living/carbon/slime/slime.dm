@@ -67,7 +67,7 @@
 	..()
 
 /mob/living/carbon/slime/Destroy()
-	for(var/obj/machinery/computer/camera_advanced/xenobio/X in machines)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)
 		if(src in X.stored_slimes)
 			X.stored_slimes -= src
 	return ..()
@@ -490,3 +490,6 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		return 1
 	to_chat(user, "This creature does not seem to have a mouth!")
 	return 0
+
+/mob/living/carbon/slime/can_hear()
+	. = TRUE //honestly fuck slimes and organ bullshit

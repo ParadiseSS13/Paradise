@@ -11,7 +11,7 @@
 		if(iscarbon(M))
 			if(!M.get_int_organ(/obj/item/organ/internal/body_egg))
 				new/obj/item/organ/internal/body_egg/spider_eggs(M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
-	..()
+	return ..()
 
 /datum/reagent/nanomachines
 	name = "Nanomachines"
@@ -23,7 +23,7 @@
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
 		M.ForceContractDisease(new /datum/disease/transformation/robot(0))
-	..()
+	return ..()
 
 
 /datum/reagent/xenomicrobes
@@ -36,7 +36,7 @@
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
 		M.ContractDisease(new /datum/disease/transformation/xeno(0))
-	..()
+	return ..()
 
 /datum/reagent/virush
 	name = "VirusH"
@@ -60,7 +60,7 @@
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
 		M.ForceContractDisease(new /datum/disease/tuberculosis(0))
-	..()
+	return ..()
 
 /datum/reagent/jagged_crystals
 	name = "Jagged Crystals"
@@ -72,7 +72,7 @@
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
 	M.ForceContractDisease(new /datum/disease/berserker(0))
-	..()
+	return ..()
 
 /datum/reagent/salmonella
 	name = "Salmonella"
@@ -84,7 +84,7 @@
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
 	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
-	..()
+	return ..()
 
 /datum/reagent/gibbis
 	name = "Gibbis"
@@ -97,7 +97,7 @@
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
 		M.ForceContractDisease(new /datum/disease/gbs/curable(0))
-	..()
+	return ..()
 
 /datum/reagent/prions
 	name = "Prions"
@@ -110,7 +110,7 @@
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/kuru(0))
-	..()
+	return ..()
 
 /datum/reagent/grave_dust
 	name = "Grave Dust"
@@ -123,7 +123,7 @@
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/vampire(0))
-	..()
+	return ..()
 
 /datum/reagent/heartworms
 	name = "Space heartworms"
@@ -141,7 +141,7 @@
 			if(ate_heart)
 				ate_heart.remove(H)
 				qdel(ate_heart)
-	..()
+	return ..()
 
 /datum/reagent/concentrated_initro
 	name = "Concentrated Initropidril"
@@ -157,7 +157,7 @@
 			var/mob/living/carbon/human/H = M
 			if(!H.undergoing_cardiac_arrest())
 				H.set_heartattack(TRUE) // rip in pepperoni
-	..()
+	return ..()
 
 //virus foods
 

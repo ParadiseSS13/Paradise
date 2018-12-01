@@ -183,7 +183,7 @@
 	anchored = 1
 	invisibility = 101
 	opacity = 0
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 
 /obj/effect/chronos_cam/relaymove(var/mob/user, direction)

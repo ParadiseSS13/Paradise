@@ -206,9 +206,7 @@
 					if(!(E.rcell && E.rcell.use(E.chargecost)))
 						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 						return
-					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
+					do_sparks(5, 1, src)
 					do_teleport(src, E.pad, 0)
 					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
 					return
@@ -233,9 +231,7 @@
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
 					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 					return
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
+				do_sparks(5, 1, src)
 				do_teleport(src, L)
 				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
 				return
@@ -424,3 +420,6 @@
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+
+/obj/structure/closet/AllowDrop()
+	return TRUE

@@ -144,12 +144,12 @@
 				if(3)
 					emote("drool")
 
-	if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
+	if(getBrainLoss() >= 100 && stat != DEAD) //you lapse into a coma and die without immediate aid; RIP. -Fox
 		Weaken(20)
 		AdjustLoseBreath(10)
 		AdjustSilence(2)
 
-	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
+	if(getBrainLoss() >= 120 && stat != DEAD) //they died from stupidity--literally. -Fox
 		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 		death()
 
@@ -248,7 +248,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= config.health_threshold_crit)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else
+		else if(!(NOCRITDAMAGE in dna.species.species_traits))
 			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
 		failed_last_breath = TRUE
@@ -339,16 +339,16 @@
 
 		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
 			throw_alert("temp", /obj/screen/alert/hot, 1)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
+			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
 		if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
 			throw_alert("temp", /obj/screen/alert/hot, 2)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
 		if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
 			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
 			else
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
@@ -360,13 +360,13 @@
 			var/mult = dna.species.coldmod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
 			if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
 				throw_alert("temp", /obj/screen/alert/cold, 2)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "Low Body Temperature")
 			if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
 				throw_alert("temp", /obj/screen/alert/cold, 3)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Low Body Temperature")
 			else
 				clear_alert("temp")
 	else
@@ -382,7 +382,7 @@
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
 		if(!(HEATRES in mutations))
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
+			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
 		else
 			clear_alert("pressure")
@@ -396,7 +396,7 @@
 		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
-			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
+			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
 
@@ -657,8 +657,6 @@
 
 	handle_trace_chems()
 
-	updatehealth()
-
 	return //TODO: DEFERRED
 
 /mob/living/carbon/human/handle_drunk()
@@ -711,14 +709,10 @@
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
 			if(alcohol_strength >= spark_start && prob(25))
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 			if(alcohol_strength >= collapse_start && prob(10))
 				emote("collapse")
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 			if(alcohol_strength >= braindamage_start && prob(10))
 				adjustBrainLoss(1)
 
@@ -744,13 +738,11 @@
 			heal_overall_damage(0.1, 0.1)
 
 		if(paralysis)
-			blinded = 1
 			stat = UNCONSCIOUS
 
 		else if(sleeping)
 			speech_problem_flag = 1
 
-			blinded = 1
 			stat = UNCONSCIOUS
 
 			if(mind)
@@ -761,7 +753,6 @@
 						adjustToxLoss(-1)
 
 		else if(status_flags & FAKEDEATH)
-			blinded = 1
 			stat = UNCONSCIOUS
 
 		//Vision //god knows why this is here
@@ -771,26 +762,21 @@
 
 		if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			SetEyeBlind(0)
-			blinded =    0
 			SetEyeBlurry(0)
 
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
 			EyeBlind(2)
-			blinded =    1
 			EyeBlurry(2)
 
 		else
 			//blindness
 			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
-				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
 				AdjustEyeBlind(-1)
-				blinded =    1
 
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				AdjustEyeBlurry(-3)
-				blinded =    1
 
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
@@ -799,20 +785,6 @@
 			if(eye_blurry)	           // Blurry eyes heal slowly
 				AdjustEyeBlurry(-1)
 
-
-		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			EarDeaf(1)
-
-		else if(ear_deaf)			//deafness, heals slowly over time
-			AdjustEarDeaf(-1)
-
-		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			AdjustEarDamage(-0.15)
-			EarDeaf(1)
-
-		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			AdjustEarDamage(-0.05)
 
 		if(flying)
 			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -826,7 +798,6 @@
 
 
 	else //dead
-		blinded = 1
 		SetSilence(0)
 
 
@@ -860,10 +831,12 @@
 			remoteview_target = null
 			reset_perspective(null)
 
-	dna.species.handle_vision(src)
-
 /mob/living/carbon/human/handle_hud_icons()
 	dna.species.handle_hud_icons(src)
+
+/mob/living/carbon/human/handle_hud_icons_health()
+	dna.species.handle_hud_icons_health(src)
+	handle_hud_icons_health_overlay()
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high

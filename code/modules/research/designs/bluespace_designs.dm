@@ -8,7 +8,7 @@
 	req_tech = list("bluespace" = 3, "materials" = 6, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_DIAMOND = 1500, MAT_PLASMA = 1500)
-	build_path = /obj/item/ore/bluespace_crystal/artificial
+	build_path = /obj/item/stack/ore/bluespace_crystal/artificial
 	category = list("Bluespace")
 
 /datum/design/bag_holding

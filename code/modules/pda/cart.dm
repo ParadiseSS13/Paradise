@@ -230,6 +230,7 @@
 		new/datum/data/pda/app/janitor,
 
 		new/datum/data/pda/app/supply,
+		new/datum/data/pda/app/mule_control,
 
 		new/datum/data/pda/app/status_display)
 

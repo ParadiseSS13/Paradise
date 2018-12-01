@@ -26,7 +26,7 @@
 
 /atom/movable/New()
 	. = ..()
-	areaMaster = get_area_master(src)
+	areaMaster = get_area(src)
 
 /atom/movable/attempt_init()
 	var/turf/T = get_turf(src)
@@ -126,10 +126,11 @@
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
 /atom/movable/Crossed(atom/movable/AM)
-	return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
 	if(A && yes)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
 		if(throwing)
 			throwing.hit_atom(A)
 			. = 1
@@ -213,6 +214,7 @@
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
 	set waitfor = 0
+	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
@@ -433,6 +435,6 @@
 		var/mob/M = src
 		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
-	
+
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return

@@ -80,3 +80,15 @@
 	list/current_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 	list/current_casters = list()
 	list/possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/bats
+	name = "Bat Form"
+	desc = "Take on the shape of a swarm of bats."
+	invocation = "none"
+	invocation_type = "none"
+	action_icon_state = "vampire_bats"
+
+	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/batswarm
+	list/current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	list/current_casters = list()
+	list/possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)

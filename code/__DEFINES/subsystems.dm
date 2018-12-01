@@ -14,7 +14,9 @@
 //prevents distinguishing identical timers with the wait variable
 #define TIMER_NO_HASH_WAIT  16
 
-#define TIMER_NO_INVOKE_WARNING 600 //number of byond ticks that are allowed to pass before the timer subsystem thinks it hung on something
+//Loops the timer repeatedly until qdeleted
+//In most cases you want a subsystem instead
+#define TIMER_LOOP			32
 
 #define TIMER_ID_NULL -1
 
@@ -68,9 +70,11 @@
 #define INIT_ORDER_OVERLAY -6
 #define INIT_ORDER_XKEYSCORE -10
 #define INIT_ORDER_STICKY_BAN -10
+#define INIT_ORDER_TICKETS -10
 #define INIT_ORDER_LIGHTING -20
 #define INIT_ORDER_SHUTTLE -21
 #define INIT_ORDER_NIGHTSHIFT -22
+#define INIT_ORDER_NANOMOB -23
 #define INIT_ORDER_SQUEAK -40
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -100
@@ -78,9 +82,11 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
+#define FIRE_PRIORITY_NANOMOB       10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_SERVER_MAINT	10
+#define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_WET_FLOORS	20
@@ -116,3 +122,22 @@
 #define RUNLEVEL_POSTGAME 8
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
+
+#define COMPILE_OVERLAYS(A)\
+	if (TRUE) {\
+		var/list/ad = A.add_overlays;\
+		var/list/rm = A.remove_overlays;\
+		var/list/po = A.priority_overlays;\
+		if(LAZYLEN(rm)){\
+			A.overlays -= rm;\
+			rm.Cut();\
+		}\
+		if(LAZYLEN(ad)){\
+			A.overlays |= ad;\
+			ad.Cut();\
+		}\
+		if(LAZYLEN(po)){\
+			A.overlays |= po;\
+		}\
+		A.flags_2 &= ~OVERLAY_QUEUED_2;\
+}

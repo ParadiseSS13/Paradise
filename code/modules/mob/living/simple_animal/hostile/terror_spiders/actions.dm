@@ -65,7 +65,7 @@
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Hive Sense"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "mindswap"
 
 /datum/action/innate/terrorspider/queen/queensense/Activate()

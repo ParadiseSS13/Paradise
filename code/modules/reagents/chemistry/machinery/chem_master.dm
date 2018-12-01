@@ -4,7 +4,7 @@
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
@@ -20,7 +20,7 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
-	overlays += "waitlight"
+	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
@@ -31,6 +31,12 @@
 			if(prob(50))
 				qdel(src)
 				return
+
+/obj/machinery/chem_master/update_icon()
+	overlays.Cut()
+	icon_state = "mixer[beaker ? "1" : "0"][powered() ? "" : "_nopower"]"
+	if(powered())
+		overlays += "waitlight"
 
 /obj/machinery/chem_master/blob_act()
 	if(prob(50))
@@ -44,6 +50,9 @@
 			stat |= NOPOWER
 
 /obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
+	if(default_unfasten_wrench(user, B))
+		power_change()
+		return
 
 	if(istype(B, /obj/item/reagent_containers/glass) || istype(B, /obj/item/reagent_containers/food/drinks/drinkingglass))
 
@@ -57,7 +66,7 @@
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		SSnanoui.update_uis(src)
-		icon_state = "mixer1"
+		update_icon()
 
 	else if(istype(B, /obj/item/storage/pill_bottle))
 
@@ -184,7 +193,7 @@
 				beaker.forceMove(get_turf(src))
 				beaker = null
 				reagents.clear_reagents()
-				icon_state = "mixer0"
+				update_icon()
 		else if(href_list["createpill"] || href_list["createpill_multiple"])
 			if(!condi)
 				var/count = 1
@@ -272,6 +281,7 @@
 				var/obj/item/reagent_containers/food/condiment/P = new/obj/item/reagent_containers/food/condiment(loc)
 				reagents.trans_to(P,50)
 		else if(href_list["change_pill"])
+			#define MAX_PILL_SPRITE 20
 			var/dat = "<table>"
 			var/j = 0
 			for(var/i = 1 to MAX_PILL_SPRITE)
@@ -371,7 +381,7 @@
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
 	var/all_safe = 1
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!safe_chem_list.Find(A.id))
+		if(!GLOB.safe_chem_list.Find(A.id))
 			all_safe = 0
 	return all_safe
 

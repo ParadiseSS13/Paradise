@@ -1,4 +1,8 @@
 /datum/configuration
+	// Hispania Configs
+	var/ryzorbot = "http://example.org"
+
+
 	var/server_name = null				// server name (for world name / status)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
@@ -22,6 +26,7 @@
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
+	var/pregame_timestart = 240			// Time it takes for the server to start the game
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
@@ -50,8 +55,6 @@
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
-	var/forbid_secborg = 0				// disallow secborg module to be chosen.
-	var/forbid_peaceborg = 0			// disallow peacekeeper module to be chosen.
 	var/hostedby = null
 	var/respawn = 0
 	var/guest_jobban = 1
@@ -84,10 +87,10 @@
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
-	// Hispania Configs
+	var/githuburl = "http://example.org"
+	var/donationsurl = "http://example.org"
+	var/repositoryurl = "http://example.org"
 	var/discordurl = "http://example.org"
-	var/ryzorbot = "http://example.org"
-
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -186,7 +189,7 @@
 	var/disable_lobby_music = 0 // Disables the lobby music
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
-	var/max_loadout_points = 10 // How many points can be spent on extra items in character setup
+	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
 
 	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
 
@@ -335,6 +338,9 @@
 				if("allow_admin_ooccolor")
 					config.allow_admin_ooccolor = 1
 
+				if("pregame_timestart")
+					config.pregame_timestart = text2num(value)
+
 				if("allow_vote_restart")
 					config.allow_vote_restart = 1
 
@@ -355,12 +361,6 @@
 
 				if("allow_ai")
 					config.allow_ai = 1
-
-				if("disable_secborg")
-					forbid_secborg = 1
-
-				if("disable_peaceborg")
-					forbid_peaceborg = 1
 
 //				if("authentication")
 //					config.enable_authentication = 1
@@ -395,11 +395,20 @@
 				if("rulesurl")
 					config.rulesurl = value
 
+				if("githuburl")
+					config.githuburl = value
+
 				if("discordurl")
 					config.discordurl = value
 
+				if("donationsurl")
+					config.donationsurl = value
+
 				if("ryzorbot")
 					config.ryzorbot = value
+
+				if("repositoryurl")
+					config.repositoryurl = value
 
 				if("guest_jobban")
 					config.guest_jobban = 1

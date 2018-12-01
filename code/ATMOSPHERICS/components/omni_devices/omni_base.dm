@@ -5,7 +5,7 @@
 	name = "omni device"
 	icon = 'icons/atmos/omni_devices.dmi'
 	icon_state = "base"
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	initialize_directions = 0
 
 	can_unwrench = 1

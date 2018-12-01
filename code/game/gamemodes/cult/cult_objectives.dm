@@ -21,7 +21,7 @@
 		if("convert")
 			explanation = "We must increase our influence before we can summon [ticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 		if("bloodspill")
-			spilltarget = 100 + rand(0,player_list.len * 3)
+			spilltarget = 100 + rand(0,GLOB.player_list.len * 3)
 			explanation = "We must prepare this place for [ticker.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 		if("sacrifice")
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
@@ -78,7 +78,7 @@
 			if("convert")
 				explanation = "We must increase our influence before we can summon [ticker.cultdat.entity_name]. Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 			if("bloodspill")
-				spilltarget = 100 + rand(0,player_list.len * 3)
+				spilltarget = 100 + rand(0,GLOB.player_list.len * 3)
 				explanation = "We must prepare this place for [ticker.cultdat.entity_title1]'s coming. Spread blood and gibs over [spilltarget] of the Station's floor tiles."
 			if("sacrifice")
 				explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
@@ -151,12 +151,12 @@
 
 /datum/game_mode/cult/proc/get_possible_sac_targets()
 	var/list/possible_sac_targets = list()
-	for(var/mob/living/carbon/human/player in player_list)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
 			possible_sac_targets += player.mind
 	if(!possible_sac_targets.len)
 	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
-		for(var/mob/living/carbon/human/player in player_list)
+		for(var/mob/living/carbon/human/player in GLOB.player_list)
 			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
 				continue
 			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
@@ -180,7 +180,7 @@
 	if(!mass_convert)
 		var/living_crew = 0
 		var/living_cultists = 0
-		for(var/mob/living/L in player_list)
+		for(var/mob/living/L in GLOB.player_list)
 			if(L.stat != DEAD)
 				if(L.mind in cult)
 					living_cultists++
@@ -214,7 +214,7 @@
 	var/list/possible_objectives = list()
 
 	var/living_crew = 0
-	for(var/mob/living/carbon/C in player_list)
+	for(var/mob/living/carbon/C in GLOB.player_list)
 		if(C.stat != DEAD)
 			if(!(C.mind in cult))
 				var/turf/T = get_turf(C)
@@ -238,7 +238,7 @@
 				bonus = 1
 
 		if("hijack")
-			for(var/mob/living/L in player_list)
+			for(var/mob/living/L in GLOB.player_list)
 				if(L.stat != DEAD && !(L.mind in cult))
 					var/area/A = get_area(L)
 					if(is_type_in_list(A.loc, centcom_areas))
@@ -247,7 +247,7 @@
 				bonus = 1
 
 		if("massacre")
-			for(var/mob/living/carbon/C in player_list)
+			for(var/mob/living/carbon/C in GLOB.player_list)
 				if(C.stat != DEAD && !(C.mind in cult))
 					var/turf/T = get_turf(C)
 					if(is_station_level(T.z))	//we're only interested in the remaining humans on the station

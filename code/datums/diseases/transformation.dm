@@ -46,8 +46,6 @@
 		if(jobban_isbanned(affected_mob, new_form))
 			affected_mob.death(1)
 			return
-		if(affected_mob.notransform)
-			return
 		affected_mob.notransform = 1
 		affected_mob.canmove = 0
 		affected_mob.icon = null
@@ -126,7 +124,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "An unknown virus that will turn one human into a zombie"
 	severity = BIOHAZARD
-	stage_prob = 2
+	stage_prob = 80
 	max_stages = 4
 	visibility_flags = 0
 	notransform = 1
@@ -144,12 +142,26 @@
 			if(prob(10))
 				if(!iszombie(affected_mob))
 					to_chat(affected_mob, "<span class='notice'>Your skin itches.</span>")
+			if(affected_mob.health <= -100)
+				if(!iszombie(affected_mob))
+					call(/mob/living/proc/rejuvenate)()
+					to_chat(affected_mob, "<span class='danger'><b>You are a zombie, a new biological weapon. Your brain is dead and You can only think about infecting and eating living people and can't remember anything. Silicon are not living people, but you must destroy them if they try to hurt you.</b></span>")
+					playsound(affected_mob, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
+					var/mob/living/carbon/human/human = affected_mob
+					human.set_species(/datum/species/zombie)
 		if(2)
 			if(prob(5))
 				if(!iszombie(affected_mob))
 					affected_mob.adjustToxLoss(5)
 					affected_mob.updatehealth()
 					to_chat(affected_mob, "<span class='notice'>Your organs hurts.</span>")
+			if(affected_mob.health <= -100)
+				if(!iszombie(affected_mob))
+					call(/mob/living/proc/rejuvenate)()
+					to_chat(affected_mob, "<span class='danger'><b>You are a zombie, a new biological weapon. Your brain is dead and You can only think about infecting and eating living people and can't remember anything. Silicon are not living people, but you must destroy them if they try to hurt you.</b></span>")
+					playsound(affected_mob, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
+					var/mob/living/carbon/human/human = affected_mob
+					human.set_species(/datum/species/zombie)
 		if(3)
 			if(prob(10))
 				if(!iszombie(affected_mob))
@@ -158,14 +170,7 @@
 					to_chat(affected_mob, "<span class='danger'>Your skin started to loose his colour.</span>")
 			if(affected_mob.health <= -100)
 				if(!iszombie(affected_mob))
-					affected_mob.getBruteLoss(0)
-					affected_mob.getFireLoss(0)
-					affected_mob.getOxyLoss(0)
-					affected_mob.getToxLoss(0)
-					affected_mob.getBrainLoss(0)
-					affected_mob.getCloneLoss(0)
-					affected_mob.getStaminaLoss(0)
-					affected_mob.updatehealth()
+					call(/mob/living/proc/rejuvenate)()
 					to_chat(affected_mob, "<span class='danger'><b>You are a zombie, a new biological weapon. Your brain is dead and You can only think about infecting and eating living people and can't remember anything. Silicon are not living people, but you must destroy them if they try to hurt you.</b></span>")
 					playsound(affected_mob, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
 					var/mob/living/carbon/human/human = affected_mob
@@ -179,14 +184,7 @@
 					to_chat(affected_mob, "<span class='danger'>You have a huge craving for meat.</span>")
 			if(affected_mob.health <= -100)
 				if(!iszombie(affected_mob))
-					affected_mob.getBruteLoss(0)
-					affected_mob.getFireLoss(0)
-					affected_mob.getOxyLoss(0)
-					affected_mob.getToxLoss(0)
-					affected_mob.getBrainLoss(0)
-					affected_mob.getCloneLoss(0)
-					affected_mob.getStaminaLoss(0)
-					affected_mob.updatehealth()
+					call(/mob/living/proc/rejuvenate)()
 					to_chat(affected_mob, "<span class='danger'><b>You are a zombie, a new biological weapon. Your brain is dead and You can only think about infecting and eating living people and can't remember anything. Silicon are not living people, but you must destroy them if they try to hurt you.</b></span>")
 					playsound(affected_mob, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
 					var/mob/living/carbon/human/human = affected_mob
