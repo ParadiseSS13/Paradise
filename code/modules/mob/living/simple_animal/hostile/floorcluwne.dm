@@ -79,7 +79,7 @@
 		var/area/tp = teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
 
-	if(!current_victim && !admincluwne)
+	if((!current_victim && !admincluwne) || QDELETED(current_victim))
 		Acquire_Victim()
 
 	if(stage && !manifested)
@@ -147,6 +147,8 @@
 	var/list/players_copy = GLOB.player_list.Copy()
 	while(players_copy.len)
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
+		if(!ishuman(H))
+			continue
 
 		if(specific)
 			H = specific
@@ -158,7 +160,7 @@
 				current_victim = H
 				return target = current_victim
 
-		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
+		if(H && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 			current_victim = H
 			interest = 0
 			return target = current_victim
@@ -195,6 +197,8 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/On_Stage()
 	var/mob/living/carbon/human/H = current_victim
+	if(!H)
+		Acquire_Victim()
 	switch(stage)
 
 		if(STAGE_HAUNT)
