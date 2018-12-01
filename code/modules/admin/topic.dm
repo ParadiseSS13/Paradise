@@ -1812,16 +1812,17 @@
 				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
 				if(isnull(petchoice))
 					return
-				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
-				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 200, min_hours = 10)
+				var/list/mob/dead/observer/candidates = pollCandidates("Play as the special event pet [H]?", poll_time = 200, min_hours = 10)
 				var/mob/dead/observer/theghost = null
 				if(candidates.len)
+					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 					theghost = pick(candidates)
 					P.key = theghost.key
 					P.master_commander = H
 					P.universal_speak = 1
 					P.universal_understand = 1
 					P.can_collar = 1
+					P.faction = list("neutral")
 					var/obj/item/clothing/accessory/petcollar/C = new /obj/item/clothing/accessory/petcollar(P)
 					P.collar = C
 					C.equipped(P)
@@ -1833,15 +1834,15 @@
 						D.assignment = "Pet"
 						C.access_id = D
 					spawn(30)
-						var/newname = sanitize(copytext(input(P, "You are [P], pet of [H]. Would you like to change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+						var/newname = sanitize(copytext(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
 								P.mind.name = newname
+					logmsg = "pet ([P])."
 				else
-					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play [P].</span>")
-					qdel(P)
-				logmsg = "pet ([P])."
+					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>")
+					logmsg = "pet (no volunteers)."
 			if("Human Protector")
 				usr.client.create_eventmob_for(H, 0)
 				logmsg = "syndie protector."
