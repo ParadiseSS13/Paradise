@@ -114,6 +114,8 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
 		update_icon()
+	else
+		return ..()
 
 /obj/item/clipboard/attack_self(mob/user)
 	showClipboard(user)

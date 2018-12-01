@@ -54,3 +54,4 @@
 		icon_state = "taperoll-4"
 	else
 		icon_state = "taperoll-4"
+	..()

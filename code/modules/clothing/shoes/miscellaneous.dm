@@ -79,7 +79,6 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
-	silence_steps = 1
 	shoe_sound = "clownstep"
 
 /obj/item/clothing/shoes/jackboots
@@ -93,7 +92,6 @@
 	put_on_delay = 50
 	burn_state = FIRE_PROOF
 	var/footstep = 1
-	silence_steps = 1
 	shoe_sound = "jackboot"
 
 /obj/item/clothing/shoes/jackboots/jacksandals
@@ -185,7 +183,7 @@
 	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
 		var/obj/item/stack/tape_roll/TR = I
 		if((!silence_steps || shoe_sound) && TR.use(4))
-			silence_steps = 1
+			silence_steps = TRUE
 			shoe_sound = null
 			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else

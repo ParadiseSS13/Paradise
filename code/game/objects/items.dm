@@ -311,6 +311,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
 	else if(istype(I, /obj/item/stack/tape_roll))
+		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
+			var/obj/item/storage/bag = src
+			if(bag.can_be_inserted(I))
+				return ..()
 		var/obj/item/stack/tape_roll/TR = I
 		var/list/clickparams = params2list(params)
 		var/x_offset = text2num(clickparams["icon-x"])
