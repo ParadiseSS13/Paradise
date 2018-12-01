@@ -72,6 +72,11 @@
 	fireball_type = /obj/item/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
 
+/obj/effect/proc_holder/spell/fireball/hellish/cast(list/targets, mob/living/user = usr)
+	msg_admin_attack("[key_name_admin(usr)] has fired a fireball.", ATKLOG_FEW)
+	.=..()
+
+
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt
 	name = "Infernal Jaunt"
 	desc = "Use hellfire to phase out of existence."
