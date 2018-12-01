@@ -13,11 +13,11 @@
 		var/turf/T = get_turf(usr)
 		var/list/potential_targets = list()
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M, /mob/living/carbon/human))
-				continue
-			if(M.mind.assigned_role == "Cluwne")
-				continue
 			var/mob/living/carbon/human/H = M
+			if(!istype(H))
+				continue
+			if(H.mind.assigned_role == "Cluwne")
+				continue
 			potential_targets += H
 		for(var/mob/M in potential_targets)
 		if(!potential_targets.len) //You're probably the only player on this damn station, spawn it yourself
