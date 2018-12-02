@@ -308,55 +308,55 @@ proc/issyndicate(mob/living/M as mob)
 
 	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
 		feedback_set_details("round_end_result","nuclear win - syndicate nuke")
-		save_round_stats("NUKEOPS-STATION-NUKED")
+		GLOB.gamemode_end_state = "NUKEOPS-STATION-NUKED"
 		to_chat(world, "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
 
 	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
 		feedback_set_details("round_end_result","nuclear halfwin - syndicate nuke - did not evacuate in time")
-		save_round_stats("NUKEOPS-STATION-NUKED-NUKIES-DEAD")
+		GLOB.gamemode_end_state = "NUKEOPS-STATION-NUKED-NUKIES-DEAD"
 		to_chat(world, "<FONT size = 3><B>Total Annihilation</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
 		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station")
-		save_round_stats("NUKEOPS-WRONG-STATION")
+		GLOB.gamemode_end_state = "NUKEOPS-WRONG-STATION"
 		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
 		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station - did not evacuate in time")
-		save_round_stats("NUKEOPS-WRONG-STATION-NUKIES-DIED")
+		GLOB.gamemode_end_state = "NUKEOPS-WRONG-STATION-NUKIES-DIED"
 		to_chat(world, "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
 
 	else if(disk_rescued && is_operatives_are_dead())
 		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured - syndi team dead")
-		save_round_stats("NUKEOPS-CREW-MAJOR-OPSDEAD")
+		GLOB.gamemode_end_state = "NUKEOPS-CREW-MAJOR-OPSDEAD"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>")
 
 	else if(disk_rescued)
 		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured")
-		save_round_stats("NUKEOPS-CREW-MAJOR")
+		GLOB.gamemode_end_state = "NUKEOPS-CREW-MAJOR"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>")
 
 	else if(!disk_rescued && is_operatives_are_dead())
 		feedback_set_details("round_end_result","nuclear loss - evacuation - disk not secured")
-		save_round_stats("NUKEOPS-CREW-MINOR-NODISK")
+		GLOB.gamemode_end_state = "NUKEOPS-CREW-MINOR-NODISK"
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
 
 	else if(!disk_rescued && crew_evacuated)
 		feedback_set_details("round_end_result","nuclear halfwin - detonation averted")
-		save_round_stats("NUKEOPS-NONUKE")
+		GLOB.gamemode_end_state = "NUKEOPS-NONUKE"
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !crew_evacuated)
 		feedback_set_details("round_end_result","nuclear halfwin - interrupted")
-		save_round_stats("NUKEOPS-FUCK")
+		GLOB.gamemode_end_state = "NUKEOPS-FUCK"
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
 	..()

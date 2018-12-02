@@ -275,12 +275,12 @@ var/global/list/all_cults = list()
 
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","cult win - cult win")
-		save_round_stats("CULT-CULT-WIN")
+		GLOB.gamemode_end_state = "CULT-CULT-WIN"
 		feedback_set("round_end_result",acolytes_survived)
 		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
 	else
 		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
-		save_round_stats("CULT-STAFF-WIN")
+		GLOB.gamemode_end_state = "CULT-STAFF-WIN"
 		feedback_set("round_end_result",acolytes_survived)
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 

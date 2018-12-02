@@ -254,6 +254,3 @@ datum/game_mode/nations
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.leave_hud(nations_mind)
 	set_nations_hud(nations_mind, null)
-
-/datum/game_mode/proc/auto_declare_completion_nations()
-	save_round_stats("NATIONS-PROPER")

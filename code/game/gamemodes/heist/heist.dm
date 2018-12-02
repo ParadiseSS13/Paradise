@@ -237,7 +237,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	to_chat(world, "<span class='warning'><FONT size = 3><B>[win_type] [win_group] victory!</B></FONT></span>")
 	to_chat(world, "[win_msg]")
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
-	save_round_stats("VOXRAIDERS-[win_type]-[win_group]")
+	GLOB.gamemode_end_state = "VOXRAIDERS-[win_type]-[win_group]"
 
 	var/count = 1
 	for(var/datum/objective/objective in raid_objectives)

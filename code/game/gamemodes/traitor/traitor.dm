@@ -234,7 +234,6 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
-	save_round_stats("TRAITOR-PROPER")
 	if(traitors.len)
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"
 		for(var/datum/mind/traitor in traitors)

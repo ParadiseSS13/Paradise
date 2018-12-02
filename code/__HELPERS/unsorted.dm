@@ -2045,17 +2045,15 @@ var/mob/dview/dview_mob = new
 	return
 
 // Procs for stat saving (required for statbus)
-/proc/save_round_stats(gamemode_result)
-	var/mode_result = gamemode_result
+/proc/save_round_stats()
+	var/mode_result = GLOB.gamemode_end_state
 	if(GLOB.station_nuked == 1 && ticker.mode.name != "nuclear")
-		gamemode_result = "STATION-NUKED"
+		mode_result = "STATION-NUKED"
 	var/start_datetime = GLOB.init_time
 	var/end_datetime = time_stamp()
-	var/ip = world.internet_address
-	var/port = world.port
 	var/mode = ticker.mode.name
 	var/station_name = station_name()
-	var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("round")] (start_datetime, end_datetime, server_ip, server_port, game_mode, game_mode_result, station_name) VALUES ('[start_datetime]','[end_datetime]','[ip]','[port]','[mode]','[mode_result]','[station_name]')")
+	var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("round")] (start_datetime, end_datetime, game_mode, game_mode_result, station_name) VALUES ('[start_datetime]','[end_datetime]','[mode]','[mode_result]','[station_name]')")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during stat saving. Error : \[[err]\]\n")

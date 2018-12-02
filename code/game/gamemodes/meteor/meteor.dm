@@ -56,7 +56,6 @@
 
 	feedback_set_details("round_end_result","meteor end - evacuation")
 	feedback_set("round_end_result", "Meteor survivors: [survivors]")
-	save_round_stats("METEOR-NORMAL")
 
 	..()
 	return 1

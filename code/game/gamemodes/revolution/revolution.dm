@@ -322,11 +322,11 @@
 /datum/game_mode/revolution/declare_completion()
 	if(finished == 1)
 		feedback_set_details("round_end_result","revolution win - heads killed")
-		save_round_stats("REV-COMMAND-DIED")
+		GLOB.gamemode_end_state = "REV-COMMAND-DIED"
 		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
 	else if(finished == 2)
 		feedback_set_details("round_end_result","revolution loss - rev heads killed")
-		save_round_stats("REV-REVS-DIED")
+		GLOB.gamemode_end_state = "REV-REVS-DIED"
 		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
 	return TRUE

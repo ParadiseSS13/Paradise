@@ -4,6 +4,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
 	SetupLogs()
+	SetRoundID()
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 
@@ -282,10 +283,10 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
-			save_round_stats("HARD-REBOOT")
+			GLOB.gamemode_end_state = "HARD-REBOOT"
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-			save_round_stats("HARD-REBOOT")
+			GLOB.gamemode_end_state = "HARD-REBOOT"
 		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
@@ -305,6 +306,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	save_round_stats()
 
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
@@ -443,6 +445,7 @@ var/failed_old_db_connections = 0
 		GLOB.round_id++
 		if(!GLOB.round_id)
 			GLOB.round_id = 1
+		world.log << GLOB.round_id
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"

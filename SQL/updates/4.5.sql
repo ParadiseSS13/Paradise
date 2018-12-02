@@ -8,8 +8,6 @@ CREATE TABLE `round` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `start_datetime` DATETIME NULL,
   `end_datetime` DATETIME NULL,
-  `server_ip` INT(15) UNSIGNED NOT NULL,
-  `server_port` SMALLINT(5) UNSIGNED NOT NULL,
   `game_mode` VARCHAR(32) NULL,
   `game_mode_result` VARCHAR(64) NULL,
   `station_name` VARCHAR(80) NULL,
