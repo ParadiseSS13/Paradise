@@ -176,6 +176,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	changeling_mob.make_changeling()
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
+	save_round_stats("CHANGELING-PROPER")
 	if(changelings.len)
 		var/text = "<FONT size = 3><B>The changelings were:</B></FONT>"
 		for(var/datum/mind/changeling in changelings)

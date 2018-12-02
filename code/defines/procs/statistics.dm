@@ -70,10 +70,11 @@
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord) VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[sqltime]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()], '[coord]')")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
+			message_admins("SQL ERROR during death reporting. Error : \[[err]\]\n")
 
 
 /proc/sql_report_cyborg_death(mob/living/silicon/robot/H)
@@ -105,10 +106,11 @@
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord) VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[sqltime]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()], '[coord]')")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
+			message_admins("SQL ERROR during death reporting. Error : \[[err]\]\n")
 
 /proc/statistic_cycle()
 	if(!config.sql_enabled)

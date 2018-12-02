@@ -79,3 +79,6 @@ GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the hos
 var/fileaccess_timer = 0
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
+GLOBAL_VAR(round_id) // For stat tracking
+GLOBAL_VAR_INIT(init_time, time_stamp()) // For stat tracking
+GLOBAL_VAR_INIT(station_nuked, 0) // For stat tracking

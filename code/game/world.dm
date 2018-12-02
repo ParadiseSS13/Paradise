@@ -18,7 +18,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	makeDatumRefLists()
 	callHook("startup")
-
 	src.update_status()
 
 	space_manager.initialize() //Before the MC starts up
@@ -71,7 +70,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/Topic(T, addr, master, key)
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
-	var/list/input = params2list(T)
+	var/list/input = params2list(T) 
 	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
 
 	if("ping" in input)
@@ -283,8 +282,10 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
+			save_round_stats("HARD-REBOOT")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
+			save_round_stats("HARD-REBOOT")
 		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
@@ -435,6 +436,13 @@ var/world_topic_spam_protect_time = world.timeofday
 #define FAILED_DB_CONNECTION_CUTOFF 5
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
+
+/world/proc/SetRoundID()
+	if(!dbcon.IsConnected())
+		GLOB.round_id = dbcon.NewQuery("SELECT id FROM [format_table_name("round")] ORDER BY id DESC LIMIT 1")
+		GLOB.round_id++
+		if(!GLOB.round_id)
+			GLOB.round_id = 1
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"

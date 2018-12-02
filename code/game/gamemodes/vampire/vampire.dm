@@ -73,6 +73,7 @@
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
+	save_round_stats("VAMPIRE-PROPER")
 	if(vampires.len)
 		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)

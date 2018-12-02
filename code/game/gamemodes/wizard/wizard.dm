@@ -200,6 +200,7 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
+	save_round_stats("WIZARD-PROPER")
 	if(wizards.len)
 		var/text = "<br><font size=3><b>the wizards/witches were:</b></font>"
 

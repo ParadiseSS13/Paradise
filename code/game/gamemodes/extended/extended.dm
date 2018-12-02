@@ -12,3 +12,6 @@
 
 /datum/game_mode/extended/post_setup()
 	..()
+
+/datum/game_mode/proc/auto_declare_completion_extended()
+	save_round_stats("EXTENDED-PROPER")
