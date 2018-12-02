@@ -70,6 +70,11 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	species_fit = list("Grey")
+	sprite_sheets = list(
+	"Grey" = 'icons/mob/species/grey/helmet.dmi'
+	)
+
 
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
