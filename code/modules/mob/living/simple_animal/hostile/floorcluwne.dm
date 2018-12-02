@@ -71,7 +71,7 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/Life(seconds, times_fired)
-	if(!ishuman(current_victim)) //Just in case a nonhuman is accidentally chosen. A human will then be chosen later on in Acquire_Victim()
+	if(current_victim && !ishuman(current_victim)) //Just in case a nonhuman is accidentally chosen. A human will then be chosen later on in Acquire_Victim()
 		current_victim = null
 
 	do_jitter_animation(1000)
