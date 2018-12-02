@@ -71,10 +71,13 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/Life(seconds, times_fired)
+	if(!ishuman(current_victim)) //Just in case a nonhuman is accidentally chosen. A human will then be chosen later on in Acquire_Victim()
+		current_victim = null
+
 	do_jitter_animation(1000)
 	pixel_y = 8
 
-	if(is_type_in_typecache(get_area(src.loc), invalid_area_typecache))
+	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
 		var/area = pick(teleportlocs)
 		var/area/tp = teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
@@ -153,7 +156,7 @@
 		if(specific)
 			H = specific
 			if((!H || H.stat == DEAD) && smiting)//safety check, target somehow DIED after we sent a smite
-				message_admins("Smiting Floor Cluwne was deleted due to a lack of valid target. Someone killed them first, or they ceased to exist.")
+				message_admins("Smiting floor cluwne was deleted due to a lack of valid target. Someone killed them first, or they ceased to exist.")
 				qdel(src)
 				return
 			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
@@ -165,8 +168,7 @@
 			interest = 0
 			return target = current_victim
 
-
-	message_admins("Floor Cluwne was deleted due to a lack of valid targets, if this was a manually targeted instance please re-evaluate your choice.")
+	message_admins("Floor cluwne was deleted due to a lack of valid targets[specific ? ", if you spawned this with a specific target please choose another person" : null].")
 	qdel(src)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
