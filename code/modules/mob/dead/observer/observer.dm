@@ -63,13 +63,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
 		appearance = MA
 
-	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
-	ghostimage.overlays = overlays
-	ghostimage.dir = dir
-	ghostimage.appearance_flags |= KEEP_TOGETHER
-	ghostimage.alpha = alpha
-	appearance_flags |= KEEP_TOGETHER
-	ghost_darkness_images |= ghostimage
+	updateownghostimage()
 	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
@@ -89,6 +83,15 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
+
+/mob/dead/observer/proc/updateownghostimage()
+	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
+	ghostimage.overlays = overlays
+	ghostimage.dir = dir
+	ghostimage.appearance_flags |= KEEP_TOGETHER
+	ghostimage.alpha = alpha
+	appearance_flags |= KEEP_TOGETHER
+	ghost_darkness_images |= ghostimage
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -120,17 +123,17 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 	. = MA
 
-/mob/dead/observer/proc/make_tourist()
+/mob/dead/observer/proc/make_tourist(client/C) //Set up a roundstart observer with the tourist garb.
+	if(!istype(C))
+		return
 	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
-	client.prefs.copy_to(mannequin)
+	C.prefs.copy_to(mannequin)
+	mannequin.equipOutfit(/datum/outfit/admin/tourist, visualsOnly = TRUE)
+	COMPILE_OVERLAYS(mannequin)
+	appearance = copy_appearance(mannequin)
+	updateownghostimage()
+	updateallghostimages()
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
-	var/mutable_appearance/MA = copy_appearance(mannequin) //Tourist Apperance
-	var/mutable_appearance/tourist_overlay = mutable_appearance('icons/mob/uniform.dmi', "tourist_s", BODY_LAYER)
-	var/mutable_appearance/shoe_overlay = mutable_appearance('icons/obj/clothing/shoes.dmi', "black", SHOES_LAYER)
-
-	MA.add_overlay(tourist_overlay)
-	MA.add_overlay(shoe_overlay)
-	appearance = MA
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1

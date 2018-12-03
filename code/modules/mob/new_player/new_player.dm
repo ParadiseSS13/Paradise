@@ -190,15 +190,13 @@
 			spawning = 1
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
-
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
 			observer.loc = O.loc
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
-			observer.icon = observer.make_tourist()
-			observer.alpha = 127
+			observer.make_tourist(client) //Generate observer icons with the tourist garb.
 
 			if(client.prefs.be_random_name)
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
