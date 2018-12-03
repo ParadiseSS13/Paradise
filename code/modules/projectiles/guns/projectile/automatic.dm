@@ -20,21 +20,6 @@
 		overlays += "[initial(icon_state)]burst"
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
-/obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	. = ..()
-	if(.)
-		return
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(!can_reload())
-				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
-				magazine.loc = get_turf(loc)
-				magazine.update_icon()
-				magazine = null		
-			reload(AM, user)			
-			return
-
 /obj/item/gun/projectile/automatic/ui_action_click()
 	burst_select()
 

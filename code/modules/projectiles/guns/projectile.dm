@@ -74,9 +74,15 @@
 				reload(AM, user)
 				to_chat(user, "<span class='notice'>You load a new magazine into \the [src].</span>")
 				return TRUE
-			else if(!can_reload() && !can_tactical)
+			else if(!can_tactical)
 				to_chat(user, "<span class='notice'>There's already a magazine in \the [src].</span>")
 				return TRUE
+			else
+				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				magazine.loc = get_turf(loc)
+				magazine.update_icon()
+				magazine = null		
+				reload(AM, user)
 		else
 			to_chat(user, "<span class='notice'>You can't put this type of ammo in \the [src].</span>")
 			return TRUE
