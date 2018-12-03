@@ -19,7 +19,6 @@
 			if(H.mind.assigned_role == "Cluwne")
 				continue
 			potential_targets += H
-		for(var/mob/M in potential_targets)
 		if(!potential_targets.len) //You're probably the only player on this damn station, spawn it yourself
 			to_chat(src, "<span class='notice'>No valid targets!</span>")
 			return
