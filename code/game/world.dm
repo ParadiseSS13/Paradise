@@ -4,7 +4,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
 	SetupLogs()
-	SetRoundID()
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 
@@ -19,6 +18,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	makeDatumRefLists()
 	callHook("startup")
+	SetRoundID()
 	src.update_status()
 
 	space_manager.initialize() //Before the MC starts up
@@ -440,12 +440,15 @@ var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
 /world/proc/SetRoundID()
-	if(!dbcon.IsConnected())
-		GLOB.round_id = dbcon.NewQuery("SELECT id FROM [format_table_name("round")] ORDER BY id DESC LIMIT 1")
-		GLOB.round_id++
-		if(!GLOB.round_id)
-			GLOB.round_id = 1
-		world.log << GLOB.round_id
+	if(dbcon.IsConnected())
+		var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("round")] ORDER BY id DESC LIMIT 1")
+		query.Execute()
+		while(query.NextRow())
+			var/pulled_round_id = query.item[1]
+			if(!pulled_round_id)
+				GLOB.round_id = 1
+			else
+				GLOB.round_id = text2num(pulled_round_id) + 1
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"

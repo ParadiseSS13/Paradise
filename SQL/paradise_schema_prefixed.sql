@@ -120,6 +120,7 @@ CREATE TABLE `SS13_death` (
   `laname` text NOT NULL COMMENT 'Last attacker name',
   `lakey` text NOT NULL COMMENT 'Last attacker key',
   `gender` text NOT NULL,
+  `species` text NOT NULL,
   `bruteloss` int(11) NOT NULL,
   `brainloss` int(11) NOT NULL,
   `fireloss` int(11) NOT NULL,

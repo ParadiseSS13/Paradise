@@ -1,7 +1,8 @@
 #Updating the SQL from version 4 to version 5. -AffectedArc07
 #Adding new column to deaths the roundID value.
-ALTER TABLE `player`
-	ADD `roundid` int(11) NOT NULL AFTER `id`;
+ALTER TABLE `death`
+	ADD `roundid` int(11) NOT NULL AFTER `id`,
+  ADD `species` text NOT NULL AFTER `gender`;
 
 #Create table to handle round tracking
 CREATE TABLE `round` (

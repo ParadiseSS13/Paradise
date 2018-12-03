@@ -1039,3 +1039,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	usr << browse(dat, "window=goals;size=400x400")
+
+/client/verb/roundid()
+	set name = "Round ID"
+	set category = "OOC"
+	to_chat(src, "<span class='info'>Current round ID is [GLOB.round_id].</span>")

@@ -58,6 +58,7 @@
 	var/sqlpod = sanitizeSQL(podname)
 	var/sqlspecial = sanitizeSQL(H.mind.special_role)
 	var/sqljob = sanitizeSQL(H.mind.assigned_role)
+	var/sqlspecies = sanitizeSQL(H.dna.species.name)
 	var/laname
 	var/lakey
 	if(H.lastattacker)
@@ -70,7 +71,7 @@
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, species, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', '[sqlspecies]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
@@ -94,6 +95,7 @@
 	var/sqlpod = sanitizeSQL(podname)
 	var/sqlspecial = sanitizeSQL(H.mind.special_role)
 	var/sqljob = sanitizeSQL(H.mind.assigned_role)
+	var/sqlspecies = sanitizeSQL("Cyborg")
 	var/laname
 	var/lakey
 	if(H.lastattacker)
@@ -106,7 +108,7 @@
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, species, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', '[sqlspecies]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
