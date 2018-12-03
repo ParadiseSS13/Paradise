@@ -71,7 +71,7 @@
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, species, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', '[sqlspecies]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, species, bruteloss, fireloss, brainloss, oxyloss, map) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', '[sqlspecies]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()], '[station_name()]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
@@ -108,7 +108,7 @@
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, species, bruteloss, fireloss, brainloss, oxyloss) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', '[sqlspecies]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("death")] (roundid, pod, coord, tod, job, special, name, byondkey, laname, lakey, gender, species, bruteloss, fireloss, brainloss, oxyloss, map) VALUES ([GLOB.round_id], '[sqlpod]', '[coord]', '[sqltime]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', '[H.gender]', '[sqlspecies]', [H.getBruteLoss()], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()], '[station_name()]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")

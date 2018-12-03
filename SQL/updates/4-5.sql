@@ -2,7 +2,8 @@
 #Adding new column to deaths the roundID value.
 ALTER TABLE `death`
 	ADD `roundid` int(11) NOT NULL AFTER `id`,
-  ADD `species` text NOT NULL AFTER `gender`;
+  ADD `species` text NOT NULL AFTER `gender`,
+  ADD `map` varchar(64) NOT NULL DEFAULT 'NSS Cyberiad' AFTER `oxyloss`;
 
 #Create table to handle round tracking
 CREATE TABLE `round` (

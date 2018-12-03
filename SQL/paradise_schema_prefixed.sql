@@ -125,6 +125,7 @@ CREATE TABLE `SS13_death` (
   `brainloss` int(11) NOT NULL,
   `fireloss` int(11) NOT NULL,
   `oxyloss` int(11) NOT NULL,
+  `map` varchar(64) NOT NULL DEFAULT 'NSS Cyberiad',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
