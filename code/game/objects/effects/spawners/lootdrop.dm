@@ -111,7 +111,7 @@
 				/obj/item/storage/box/cups = 10,
 				/obj/item/storage/box/donkpockets = 10,
 				/obj/item/storage/box/lights/mixed = 30,
-				/obj/item/storage/fancy/cigarettes/dromedaryco = 10,
+				/obj/item/storage/box/fancy/cigarettes/dromedaryco = 10,
 				/obj/item/storage/toolbox/mechanical = 10,
 				/obj/item/screwdriver = 30,
 				/obj/item/tank/emergency_oxygen = 20,
@@ -151,7 +151,7 @@
 				/obj/item/implanter/storage = 1,
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
-				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
+				/obj/item/storage/box/fancy/cigarettes/cigpack_syndicate = 2,
 				"" = 70
 				)
 

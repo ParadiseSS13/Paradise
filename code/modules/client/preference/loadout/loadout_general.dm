@@ -4,19 +4,19 @@
 
 /datum/gear/uplift
 	display_name = "a pack of Uplifts"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
+	path = /obj/item/storage/box/fancy/cigarettes/cigpack_uplift
 
 /datum/gear/robust
 	display_name = "a pack of Robusts"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_robust
+	path = /obj/item/storage/box/fancy/cigarettes/cigpack_robust
 
 /datum/gear/carp
 	display_name = "a pack of Carps"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_carp
+	path = /obj/item/storage/box/fancy/cigarettes/cigpack_carp
 
 /datum/gear/midori
 	display_name = "a pack of Midoris"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
+	path = /obj/item/storage/box/fancy/cigarettes/cigpack_midori
 
 /datum/gear/lighter
 	display_name = "a cheap lighter"

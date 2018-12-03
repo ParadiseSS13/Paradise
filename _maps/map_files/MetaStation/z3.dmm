@@ -73,7 +73,7 @@
 "ce" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plating/airless,/area/tcommsat/chamber)
 "cf" = (/obj/item/paper/crumpled,/turf/simulated/floor/plating/airless,/area/tcommsat/chamber)
 "cg" = (/obj/structure/chair{dir = 4},/turf/simulated/floor/plating/airless,/area/tcommsat/chamber)
-"ch" = (/obj/structure/table,/obj/item/storage/fancy/cigarettes,/turf/simulated/floor/plating/airless,/area/tcommsat/chamber)
+"ch" = (/obj/structure/table,/obj/item/storage/box/fancy/cigarettes,/turf/simulated/floor/plating/airless,/area/tcommsat/chamber)
 "ci" = (/obj/structure/chair{dir = 8},/turf/simulated/floor/plating/airless,/area/tcommsat/chamber)
 "cj" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating/airless{icon_state = "dark"},/area/tcommsat/chamber)
 "ck" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating/airless{icon_state = "dark"},/area/tcommsat/chamber)

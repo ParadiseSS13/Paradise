@@ -24,7 +24,7 @@
 				new /obj/item/suppressor(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
 				new /obj/item/encryptionkey/syndicate(src)
-				new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
+				new /obj/item/storage/box/fancy/cigarettes/cigpack_syndicate(src)
 				new /obj/item/implanter/krav_maga(src)
 				new /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail(src)
 				return

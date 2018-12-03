@@ -106,7 +106,7 @@
 	icon_state = "judge"
 	item_state = "judge"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/storage/fancy/cigarettes,/obj/item/stack/spacecash)
+	allowed = list(/obj/item/storage/box/fancy/cigarettes,/obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
 
 
@@ -157,7 +157,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/box/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
 /obj/item/clothing/suit/chickensuit
 	name = "chicken suit"
@@ -219,7 +219,7 @@
 	item_state = "holidaypriest"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/box/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
@@ -350,7 +350,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/box/fancy/cigarettes, /obj/item/lighter)
 	species_fit = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
 
@@ -444,7 +444,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/miner
 	name = "mining winter coat"
 	icon_state = "wintercoat_miner"
-	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/box/fancy/cigarettes, /obj/item/lighter)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	hoodtype = /obj/item/clothing/head/winterhood/miner
 
@@ -656,7 +656,7 @@
 	ignore_suitadjust = 1
 	actions_types = list()
 	adjust_flavour = null
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/box/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -746,7 +746,7 @@
 	icon_state = "bomber"
 	item_state = "bomber"
 	ignore_suitadjust = 0
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/box/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)

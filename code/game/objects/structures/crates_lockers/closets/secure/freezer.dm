@@ -70,7 +70,7 @@
 		new /obj/item/reagent_containers/food/condiment/milk(src)
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
 	for(var/i in 1 to 2)
-		new /obj/item/storage/fancy/egg_box(src)
+		new /obj/item/storage/box/fancy/egg_box(src)
 
 
 /obj/structure/closet/secure_closet/freezer/money

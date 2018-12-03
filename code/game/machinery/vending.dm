@@ -989,10 +989,10 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes = 5,/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
+	products = list(/obj/item/storage/box/fancy/cigarettes = 5,/obj/item/storage/box/fancy/cigarettes/cigpack_uplift = 3,/obj/item/storage/box/fancy/cigarettes/cigpack_robust = 2,/obj/item/storage/box/fancy/cigarettes/cigpack_carp = 3,/obj/item/storage/box/fancy/cigarettes/cigpack_midori = 1,/obj/item/storage/box/fancy/cigarettes/cigpack_random = 2, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/box/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes = 60,/obj/item/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/storage/box/fancy/cigarettes/cigpack_robustgold = 1)
+	prices = list(/obj/item/storage/box/fancy/cigarettes = 60,/obj/item/storage/box/fancy/cigarettes/cigpack_uplift = 60,/obj/item/storage/box/fancy/cigarettes/cigpack_robust = 60,/obj/item/storage/box/fancy/cigarettes/cigpack_carp = 60,/obj/item/storage/box/fancy/cigarettes/cigpack_midori = 60,/obj/item/storage/box/fancy/cigarettes/cigpack_random = 150, /obj/item/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/box/fancy/rollingpapers = 20)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free
@@ -1077,7 +1077,7 @@
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/box/fancy/donut_box = 2,/obj/item/hailer = 5)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
 /obj/machinery/vending/hydronutrients
@@ -1351,7 +1351,7 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
+	products = list(/obj/item/storage/box/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
 
 /obj/machinery/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
@@ -1411,7 +1411,7 @@
 	icon_state = "artvend"
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
 	/obj/item/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
-	/obj/item/storage/fancy/crayons = 4,/obj/item/hand_labeler = 4,/obj/item/paper = 10,
+	/obj/item/storage/box/fancy/crayons = 4,/obj/item/hand_labeler = 4,/obj/item/paper = 10,
 	/obj/item/c_tube = 10,/obj/item/pen = 5,/obj/item/pen/blue = 5,
 	/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)

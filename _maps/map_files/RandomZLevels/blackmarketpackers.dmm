@@ -448,7 +448,7 @@
 "iF" = (/obj/machinery/porta_turret{check_synth = 1; lethal = 1; name = "ship defense turret"},/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
 "iG" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/grille,/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
 "iH" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
-"iI" = (/obj/item/storage/box/matches,/obj/item/storage/fancy/cigarettes/dromedaryco,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"iI" = (/obj/item/storage/box/matches,/obj/item/storage/box/fancy/cigarettes/dromedaryco,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "iJ" = (/obj/item/poster/random_contraband,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "iK" = (/turf/simulated/floor/plating,/area/awaymission)
 "iL" = (/obj/structure/table,/obj/item/reagent_containers/food/drinks/cans/beer,/obj/item/grenade/chem_grenade/drugs,/turf/simulated/floor/plating,/area/awaymission)

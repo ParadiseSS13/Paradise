@@ -234,7 +234,7 @@
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id/centcom
 	r_pocket = /obj/item/lighter/zippo/nt_rep
-	l_pocket = /obj/item/storage/fancy/cigarettes/dromedaryco
+	l_pocket = /obj/item/storage/box/fancy/cigarettes/dromedaryco
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
@@ -657,7 +657,7 @@
 	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id/silver
 	r_pocket = /obj/item/lighter/zippo/blue
-	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
+	l_pocket = /obj/item/storage/box/fancy/cigarettes/cigpack_robustgold
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,

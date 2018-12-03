@@ -959,7 +959,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/reagent_containers/food/condiment/saltshaker,
 					/obj/item/reagent_containers/food/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
-					/obj/item/storage/fancy/egg_box,
+					/obj/item/storage/box/fancy/egg_box,
 					/obj/item/mixing_bowl,
 					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/food/condiment/enzyme,
@@ -1354,7 +1354,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/artscrafts
 	name = "Arts and Crafts Supplies Crate"
-	contains = list(/obj/item/storage/fancy/crayons,
+	contains = list(/obj/item/storage/box/fancy/crayons,
 	/obj/item/camera,
 	/obj/item/camera_film,
 	/obj/item/camera_film,
@@ -1562,8 +1562,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	num_contained = 5
 	contains = list(/obj/item/storage/pill_bottle/random_drug_bottle,
 					/obj/item/poster/random_contraband,
-					/obj/item/storage/fancy/cigarettes/dromedaryco,
-					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims)
+					/obj/item/storage/box/fancy/cigarettes/dromedaryco,
+					/obj/item/storage/box/fancy/cigarettes/cigpack_shadyjims)
 	name = "Contraband Crate"
 	cost = 30
 	containername = "crate"	//let's keep it subtle, eh?

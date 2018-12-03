@@ -40,12 +40,12 @@
 		return
 
 	// Close any open UI windows first
-	var/found = 0
+	var/found = FALSE
 	for(var/mob/M in range(1))
 		if(M.s_active == src)
 			close(M)
 		if(M == user)
-			found = 1
+			found = TRUE
 	if(!found)	// User is too far away
 		return
 

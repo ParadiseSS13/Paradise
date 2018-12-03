@@ -85,7 +85,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/crayons
 	name = "Box of Crayons"
 	desc = "A six-pack of crayons, just like back in kindergarten."
-	typepath = /obj/item/storage/fancy/crayons
+	typepath = /obj/item/storage/box/fancy/crayons
 	cost = 35
 
 /datum/prize_item/eight_ball

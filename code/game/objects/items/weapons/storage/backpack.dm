@@ -101,7 +101,7 @@
 	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
 	new /obj/item/stamp/clown(src)
 	new /obj/item/toy/crayon/rainbow(src)
-	new /obj/item/storage/fancy/crayons(src)
+	new /obj/item/storage/box/fancy/crayons(src)
 	new /obj/item/reagent_containers/spray/waterflower(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 	new /obj/item/instrument/bikehorn(src)

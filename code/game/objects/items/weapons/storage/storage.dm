@@ -319,8 +319,8 @@
 /obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location, burn = 0)
 	if(!istype(W)) return 0
 
-	if(istype(src, /obj/item/storage/fancy))
-		var/obj/item/storage/fancy/F = src
+	if(istype(src, /obj/item/storage/box/fancy))
+		var/obj/item/storage/box/fancy/F = src
 		F.update_icon(1)
 
 	for(var/mob/M in range(1, src.loc))

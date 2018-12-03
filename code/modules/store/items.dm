@@ -60,7 +60,7 @@
 /datum/storeitem/candle
 	name = "Candles"
 	desc = "A box of candles. Use them to fool others into thinking you're out for a romantic dinner...or something."
-	typepath = /obj/item/storage/fancy/candle_box/full
+	typepath = /obj/item/storage/box/fancy/candle_box/full
 	cost = 200
 
 /datum/storeitem/nanomob_booster
@@ -72,7 +72,7 @@
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
-	typepath = /obj/item/storage/fancy/crayons
+	typepath = /obj/item/storage/box/fancy/crayons
 	cost = 350
 
 /datum/storeitem/pipe

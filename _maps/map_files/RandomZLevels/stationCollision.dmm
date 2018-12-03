@@ -395,7 +395,7 @@
 "hE" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/turf/simulated/shuttle/plating,/area/awaymission/arrivalblock)
 "hF" = (/turf/simulated/floor/plasteel{icon_state = "red"; dir = 8},/area/awaymission/arrivalblock)
 "hG" = (/obj/structure/chair{dir = 4},/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
-"hH" = (/obj/structure/table,/obj/item/storage/fancy/donut_box,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
+"hH" = (/obj/structure/table,/obj/item/storage/box/fancy/donut_box,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "hI" = (/obj/structure/table,/obj/item/flash,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "hJ" = (/turf/simulated/floor/plasteel{icon_state = "red"; dir = 4},/area/awaymission/arrivalblock)
 "hK" = (/obj/structure/bed,/obj/item/bedsheet/blue,/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel,/area/awaymission/midblock)

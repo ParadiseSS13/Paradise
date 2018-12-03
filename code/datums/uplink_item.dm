@@ -1471,7 +1471,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	reference = "SYSM"
-	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
+	item = /obj/item/storage/box/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 
 /datum/uplink_item/badass/bundle
