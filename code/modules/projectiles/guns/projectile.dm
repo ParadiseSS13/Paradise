@@ -83,6 +83,7 @@
 				magazine.update_icon()
 				magazine = null		
 				reload(AM, user)
+				return TRUE
 		else
 			to_chat(user, "<span class='notice'>You can't put this type of ammo in \the [src].</span>")
 			return TRUE
