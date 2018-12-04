@@ -25,6 +25,7 @@
 	backpack_contents = list(
 		/obj/item/camera/spooky = 1
 	)
+	r_hand = /obj/item/nullrod
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -32,13 +33,16 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
+	if(H.mind)
+		H.mind.isholy = TRUE
 
 	spawn()
+
+		var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
 		H.equip_to_slot_or_del(B, slot_l_hand)
 
 		var/religion_name = "Christianity"
-		var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
+		var/new_religion = sanitize(copytext(input(H, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name),1,MAX_NAME_LEN))
 
 		if(!new_religion)
 			new_religion = religion_name
@@ -72,11 +76,13 @@
 		feedback_set_details("religion_name","[new_religion]")
 
 		var/deity_name = "Space Jesus"
-		var/new_deity = sanitize(copytext(input(H, "Would you like to change your deity? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
+		var/new_deity = sanitize(copytext(input(H, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
 
 		if((length(new_deity) == 0) || (new_deity == "Space Jesus") )
 			new_deity = deity_name
 		B.deity_name = new_deity
+
+		H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_bless(null))
 
 		var/accepted = 0
 		var/outoftime = 0
@@ -85,8 +91,9 @@
 		var/new_book_style = "Bible"
 
 		while(!accepted)
-			if(!B) break // prevents possible runtime errors
-			new_book_style = input(H,"Which bible style would you like?") in list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "Athiest", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
+			if(!B)
+				break // prevents possible runtime errors
+			new_book_style = input(H,"Which bible style would you like?") in list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
 			switch(new_book_style)
 				if("Koran")
 					B.icon_state = "koran"
@@ -107,13 +114,9 @@
 				if("Holy Light")
 					B.icon_state = "holylight"
 					B.item_state = "syringe_kit"
-				if("Athiest")
+				if("PlainRed")
 					B.icon_state = "athiest"
 					B.item_state = "syringe_kit"
-					for(var/area/chapel/main/A in world)
-						for(var/turf/T in A.contents)
-							if(T.icon_state == "carpetsymbol")
-								T.dir = 10
 				if("Tome")
 					B.icon_state = "tome"
 					B.item_state = "syringe_kit"
@@ -165,3 +168,5 @@
 			ticker.Bible_deity_name = B.deity_name
 		feedback_set_details("religion_deity","[new_deity]")
 		feedback_set_details("religion_book","[new_book_style]")
+
+

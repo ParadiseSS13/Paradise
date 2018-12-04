@@ -337,3 +337,7 @@
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
+
+//defined here, overridden for humans in human_defense. By default, living mobs don't get to block anything
+/mob/living/proc/check_block()
+	return FALSE

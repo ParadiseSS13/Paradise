@@ -25,3 +25,9 @@
 		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
+
+
+/mob/living/carbon/human/can_hear()
+	. = TRUE // Fallback if we don't have a species
+	if(dna.species)
+		. = dna.species.can_hear(src)

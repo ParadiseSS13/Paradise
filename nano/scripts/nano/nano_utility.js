@@ -85,10 +85,9 @@ if (typeof doT == 'undefined') {
     reportError('ERROR: Template engine failed to load!');
 }
 
-var reportError = function (str, silent) {
+var reportError = function (str) {
     window.location = "byond://?nano_err=" + encodeURIComponent(str);
-    if(!silent)
-        alert(str);
+    alert(str);
 }
 
 // All scripts are initialised here, this allows control of init order

@@ -142,6 +142,48 @@
 				desc = initial(desc)
 				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
 
+/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
+	name = "\improper finger gun"
+	desc = "Bang bang bang!"
+	icon_state = "fingergun"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
+	origin_tech = ""
+	flags = ABSTRACT | NODROP | DROPDEL
+	slot_flags = null
+	fire_sound = null
+	fire_sound_text = null
+	lefthand_file = null
+	righthand_file = null
+	clumsy_check = 0 //Stole your uplink! Honk!
+	needs_permit = 0 //go away beepsky
+
+/obj/item/gun/projectile/revolver/fingergun/fake
+	desc = "Pew pew pew!"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
+
+/obj/item/gun/projectile/revolver/fingergun/New()
+	..()
+	verbs -= /obj/item/gun/projectile/revolver/verb/spin
+
+/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
+	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
+	qdel(src)
+	return
+
+/obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
+	if(!user.mind.miming)
+		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first. Use your fingers if you wish to holster them.</span>")
+		return
+	..()
+
+/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
+	return
+
+/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
+	qdel(src)
+	return
+
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357

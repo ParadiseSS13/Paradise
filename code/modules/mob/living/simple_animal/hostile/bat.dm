@@ -72,5 +72,6 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 30
 	a_intent = INTENT_HARM
+	pass_flags = PASSTABLE
 	universal_speak = 1
 	universal_understand = 1

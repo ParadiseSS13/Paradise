@@ -30,9 +30,14 @@ var NanoWindow = function ()
         // Done with alignment
 
         // Size constraints
-        var width = document.body.offsetWidth;
-        var height = Math.max(document.body.scrollHeight, document.body.offsetHeight,
-            document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+        var height = $(window).height();
+        var width = $(window).width();
+        if($("body").height() >= ($(window).height() - 29)) { // Scrollbar!!!
+            width += 17 // 17 pixels is the width of a scrollbar
+        }
+        if($(document).width() > $(window).width()) { // Horizontal Scrollbar!!!
+            height += 17
+        }
         var newWidth = Math.max(minWidth, width);
         var newHeight = Math.max(minHeight, height);
         setSize(newWidth, newHeight);
@@ -43,7 +48,6 @@ var NanoWindow = function ()
         and we're hijacking this library to do so, even if fancy mode is turned off.
         To be fair, this doesn't stop the user from shrinking them past their intended limit when they're not in fancy mode, 
         but it's a nice safeguard against shoddily-coded UIs. */
-        setupScroll();
         obeyLimits();
 
         if(!NanoStateManager.getData().config.user.fancy) {
@@ -57,15 +61,6 @@ var NanoWindow = function ()
  
         attachButtons();
         attachDragAndResize();
-    };
-
-    var setupScroll = function() {
-        $("#cornerWrapper").focus();
-        $("#uiContent").on("click", function (event) {
-            event = event || window.event;
-            event.stopPropagation();
-            $("#cornerWrapper").focus();
-        })
     };
 
     var fancyChrome = function() {
@@ -166,9 +161,17 @@ var NanoWindow = function ()
         }
 
         if (resizing) {
-            var width = document.body.offsetWidth;
-            var height = Math.max(document.body.scrollHeight, document.body.offsetHeight,
-                document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+            var width = $(window).width();
+            var height = $(window).height();
+
+            if($("body").height() >= ($(window).height() - 29)) { // Vertical Scrollbar!!!
+                width += 17 // 17 pixels is the width of a scrollbar
+            }
+
+            if($(document).width() > $(window).width()) { // Horizontal Scrollbar!!!
+                height += 17
+            }
+
             var rx = Number($(this).attr("rx"));
             var ry = Number($(this).attr("ry"));
             
@@ -188,8 +191,7 @@ var NanoWindow = function ()
             }
             
             newW = Math.max(minWidth, newW);
-            newH = Math.max(minHeight, newH);
-            
+            newH = Math.max(minHeight, newH); 
             setPos(newX, newY);
             setSize(newW, newH);
         }

@@ -245,9 +245,9 @@
 	if(assembly)
 		assembly.on_found(finder)
 
-/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, msg)
+/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, list/message_pieces)
 	if(assembly)
-		assembly.hear_talk(M, msg)
+		assembly.hear_talk(M, message_pieces)
 
 /obj/item/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
 	if(assembly)

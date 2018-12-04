@@ -473,10 +473,10 @@
 			O.emp_act(severity)
 	..()
 
-/obj/item/storage/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()
 	for(var/obj/O in contents)
-		O.hear_talk(M, msg)
+		O.hear_talk(M, message_pieces)
 
 /obj/item/storage/hear_message(mob/living/M as mob, msg)
 	..()

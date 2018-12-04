@@ -167,6 +167,10 @@
     display: none;
 }
 
+i.fancy {
+    display: none;
+}
+
 .titlebutton() {
     color: #E9C183;
     // Since we're on some hilariously outdated libraries, the below is an issue
@@ -174,7 +178,7 @@
     // Using the !important directive is necessary to override the FA styles
     cursor: pointer !important; 
     z-index: 102; // This is for the corners - makes sure the buttons render on top
-    
+
     &:hover {
         color: lighten(#98b0c3, 10%);
     }
