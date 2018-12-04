@@ -21,7 +21,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/pick_manually = 0
 	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
 		pick_manually = 1
-	var/list/teamsizeoptions = list(2,3,4,5,6)
+	var/list/teamsizeoptions = list(1,2,3,4,5,6)
 	var/teamsize = input(src, "How many team members, including the team leader?") as null|anything in teamsizeoptions
 	if(!(teamsize in teamsizeoptions))
 		alert("Invalid team size specified. Aborting.")
@@ -103,6 +103,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		else
 			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
 		teamsize--
+		to_chat(new_syndicate_infiltrator, "<span class='danger'>Should you decide to use the teleporter, make sure its incoming portal is turned on, and its outgoing portal safe to move into! Use a cryptographic sequencer on a teleporter to connect back to base.</span>")
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")

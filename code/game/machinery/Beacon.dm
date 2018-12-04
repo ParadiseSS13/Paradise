@@ -12,6 +12,7 @@
 	var/area_bypass = FALSE
 	var/obj/item/radio/beacon/Beacon
 	var/enabled = TRUE
+	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
 
 /obj/machinery/bluespace_beacon/New()
 	..()
@@ -24,6 +25,7 @@
 	Beacon.loc = T
 	Beacon.syndicate = syndicate
 	Beacon.area_bypass = area_bypass
+	Beacon.cc_beacon = cc_beacon
 	hide(T.intact)
 
 /obj/machinery/bluespace_beacon/proc/destroy_beacon()
@@ -78,3 +80,10 @@
 	if(mycomputer)
 		mycomputer.mybeacon = null
 	return ..()
+
+/obj/machinery/bluespace_beacon/syndicate/infiltrator //beacon guaranteed offline at roundstart for infiltrator base
+	cc_beacon = TRUE
+
+/obj/machinery/bluespace_beacon/syndicate/infiltrator/New()
+	..()
+	enabled = FALSE
