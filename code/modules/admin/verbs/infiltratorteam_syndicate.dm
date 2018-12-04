@@ -21,7 +21,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/pick_manually = 0
 	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
 		pick_manually = 1
-	var/list/teamsizeoptions = list(1,2,3,4,5,6)
+	var/list/teamsizeoptions = list(2, 3, 4, 5, 6)
 	var/teamsize = input(src, "How many team members, including the team leader?") as null|anything in teamsizeoptions
 	if(!(teamsize in teamsizeoptions))
 		alert("Invalid team size specified. Aborting.")
