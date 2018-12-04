@@ -140,7 +140,6 @@
 		AC.SpinAnimation(10, 1)
 		chambered = null
 		to_chat(user, "<span class='notice'>You unload the round from \the [src]'s chamber.</span>")
-		playsound(get_turf(AC), "casingdrop", 50, 1)
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
 		to_chat(user, "<span class='notice'>There's no magazine in \the [src].</span>")
