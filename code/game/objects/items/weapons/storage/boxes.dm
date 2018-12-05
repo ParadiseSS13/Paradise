@@ -30,7 +30,6 @@
 
 /obj/item/storage/box/attack_self(mob/user)
 	..()
-
 	if(!foldable)
 		return
 	if(contents.len)
