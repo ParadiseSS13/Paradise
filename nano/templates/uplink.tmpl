@@ -12,7 +12,7 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 	</div>
 	<div class="itemContent">
 		{{:helper.link('Request Items', 'gear', {'menu' : 0}, null, 'fixedLeftWider')}}
-		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'gear', {'descriptions' : 1}, data.menu == 0 ? '' : 'disabled', 'fixedLeftWider')}}
+		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'gear', {'descriptions' : 1}, data.menu == 2 ? '' : 'disabled', 'fixedLeftWider')}}
 		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'fixedLeftWider')}}
 		{{:helper.link('Return', 'arrow-left', {'return' : 1}, null, 'fixedLeft')}}
 		{{:helper.link('Close', 'gear', {'lock' : "1"}, null, 'fixedLeft')}}
@@ -39,6 +39,10 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 			{{:helper.link ( value.Category, 'gear', {'menu' : 2, 'category' : value.Category}, null, null)}}
 		</div>
 	{{/for}}
+	<br>
+	<div class="item">
+		{{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, null)}}
+	</div>
 
 {{else data.menu == 2}}
     {{for data.nano_items}}
@@ -60,12 +64,8 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 		{{/if}}
     {{/for}}
 {{/if}}
-
-    <div class="item">
-        {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, null)}}
-    </div>
-
-		<div class="item">
+<br>
+	<div class="item">
         {{:helper.link('Refund item in active hand' , 'gear', {refund : 1}, null, null)}}
     </div>
 
