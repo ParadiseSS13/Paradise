@@ -206,7 +206,6 @@ var/list/holopads = list()
 				if(A)
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
-			callnames = sortNames(callnames)			//Sorts the now complete callable list for ease of use
 			dialling_input = TRUE
 			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
 			dialling_input = FALSE
