@@ -20,8 +20,9 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
-	spawn(0)
-	update_icon()
+	spawn(50)
+		update_icon() //wait 5 seconds then update the icon, to allow powered icon to appear if actually powered
+	
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
