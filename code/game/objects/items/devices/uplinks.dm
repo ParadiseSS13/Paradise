@@ -24,7 +24,7 @@ var/list/world_uplinks = list()
 
 	var/job = null
 	var/show_descriptions = 0
-	var/temp_category = "Ammunition"
+	var/temp_category
 
 /obj/item/uplink/nano_host()
 	return loc
