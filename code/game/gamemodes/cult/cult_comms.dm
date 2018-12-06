@@ -25,6 +25,7 @@
 		return
 	if(!check_can_speak(user)) //User can't be under a vow of silence or have the mute disability to commune.
 		to_chat(user, "You cannot speak!")
+		return
 	user.whisper("O bidai nabora se[pick("'","`")]sma!")
 	sleep(10)
 	if(!user)
