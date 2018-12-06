@@ -20,6 +20,8 @@
 /proc/cultist_commune(mob/living/user, message)
 	if(!message)
 		return
+	if(!user.mind.miming || !user.disabilities == MUTE) //User can't be under a vow of silence or have the mute disability to commune.
+		to_chat(user, "You cannot speak!")
 	user.whisper("O bidai nabora se[pick("'","`")]sma!")
 	sleep(10)
 	if(!user)
