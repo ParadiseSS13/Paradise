@@ -20,6 +20,7 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
+	sleep(0)
 	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
