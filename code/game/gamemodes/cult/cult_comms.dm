@@ -17,6 +17,9 @@
 	cultist_commune(usr, input)
 	return
 
+/datum/language/proc/check_can_speak(mob/living/speaker)
+	return TRUE
+
 /proc/cultist_commune(mob/living/user, message)
 	if(!message)
 		return
