@@ -31,6 +31,7 @@
 	var/detected_mech = FALSE
 	var/detected_pod = FALSE
 	var/detected_double_agent = FALSE
+	var/mine_trigger_count = 0
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
@@ -81,8 +82,8 @@
 	detected_mech = FALSE
 	detected_pod = FALSE
 	detected_double_agent = FALSE
+	mine_trigger_count = 0
 	updateicon()
-
 
 	alert_log += "Alert level reset."
 
@@ -118,6 +119,12 @@
 	something_looted = TRUE
 	if(on_peaceful)
 		increase_alert("Vandals!")
+
+/area/syndicate_depot/core/proc/mine_triggered(mob/living/M)
+	if(mine_trigger_count)
+		return TRUE
+	mine_trigger_count++
+	increase_alert("Intruder detected by sentry mine: [M]")
 
 /area/syndicate_depot/core/proc/saw_mech(obj/mecha/E)
 	if(detected_mech)

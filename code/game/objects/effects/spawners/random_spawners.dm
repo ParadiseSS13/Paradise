@@ -170,7 +170,7 @@
 /obj/effect/spawner/random_spawners/syndicate/trap/mine
 	name = "50pc trap landmine"
 	result = list(/datum/nothing = 1,
-		/obj/effect/mine/explosive = 1)
+		/obj/effect/mine/depot = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	name = "66pc trapped documents"
