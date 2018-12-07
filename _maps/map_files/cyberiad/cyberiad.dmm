@@ -1559,7 +1559,7 @@
 "aDY" = (/obj/item/stack/tile/plasteel,/turf/simulated/floor/plating,/area/maintenance/abandonedbar)
 "aDZ" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/maintenance/electrical)
 "aEa" = (/obj/structure/table/wood,/obj/item/trash/can,/turf/simulated/floor/wood{broken = 1; icon_state = "wood-broken"},/area/maintenance/abandonedbar)
-"aEb" = (/obj/machinery/computer/pod{id_tags = list("syndicate_elite"); name = "Hull Door Control"; req_access_txt = "150"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate_elite)
+"aEb" = (/obj/machinery/door_control{id = "syndicate_elite"; name = "Blast Doors"; pixel_x = 3; pixel_y = -28; range = 20; req_access_txt = "150"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate_elite)
 "aEc" = (/obj/machinery/vending/boozeomat,/turf/simulated/floor/plating,/area/maintenance/abandonedbar)
 "aEd" = (/obj/effect/spawner/window/reinforced,/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; initialize_directions = 10},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
 "aEe" = (/obj/machinery/computer/shuttle/sst,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate_elite)
