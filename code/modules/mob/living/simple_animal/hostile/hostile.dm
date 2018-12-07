@@ -41,6 +41,7 @@
 	/obj/structure/grille,
 	/obj/structure/girder,
 	/obj/structure/rack,
+	/obj/structure/computerframe,
 	/obj/structure/barricade) //turned into a typecache in New()
 	var/atom/targets_from = null //all range/attack/etc. calculations should be done from this atom, defaults to the mob itself, useful for Vehicles and such
 	var/list/emote_taunt = list()
