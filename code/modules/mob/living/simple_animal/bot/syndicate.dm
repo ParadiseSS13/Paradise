@@ -29,12 +29,13 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/New()
 	..()
-	if(access_card)
-		access_card.access = list(access_syndicate, access_syndicate_leader)
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)
 
+/mob/living/simple_animal/bot/ed209/syndicate/setup_access()
+	if(access_card)
+		access_card.access = list(access_syndicate, access_syndicate_leader)
 
 /mob/living/simple_animal/bot/ed209/syndicate/update_icon()
 	icon_state = initial(icon_state)
