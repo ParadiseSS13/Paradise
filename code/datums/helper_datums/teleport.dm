@@ -112,7 +112,7 @@
 	else
 		destturf = get_turf(destination)
 
-	if(!is_teleport_allowed(destturf.z))
+	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return 0
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
 
@@ -173,13 +173,14 @@
 
 /datum/teleport/instant/science/setPrecision(aprecision)
 	..()
-	if(istype(teleatom, /obj/item/storage/backpack/holding))
-		precision = rand(1,100)
+	if(!is_admin_level(destination.z))
+		if(istype(teleatom, /obj/item/storage/backpack/holding))
+			precision = rand(1, 100)
 
-	var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
-	if(bagholding.len)
-		precision = max(rand(1,100)*bagholding.len,100)
-		if(istype(teleatom, /mob/living))
-			var/mob/living/MM = teleatom
-			to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
+		if(bagholding.len)
+			precision = max(rand(1, 100)*bagholding.len, 100)
+			if(istype(teleatom, /mob/living))
+				var/mob/living/MM = teleatom
+				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 	return 1
