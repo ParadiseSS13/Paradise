@@ -311,6 +311,8 @@
 
 /area/syndicate_depot/core/proc/toggle_door_locks()
 	for(var/obj/machinery/door/airlock/A in src)
+		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
+			continue
 		A.emergency = !A.emergency
 		if(A.locked)
 			A.locked = !A.locked
@@ -351,6 +353,8 @@
 		if(!L.locked)
 			L.locked = !L.locked
 		L.update_icon()
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+		A.lock()
 
 /area/syndicate_depot/core/proc/shields_key_check()
 	if(!shield_list.len)
@@ -369,6 +373,8 @@
 		if(L.locked)
 			L.locked = !L.locked
 			L.update_icon()
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+		A.unlock()
 
 /area/syndicate_depot/core/proc/despawn_guards()
 	for(var/mob/thismob in list_getmobs(guard_list))
