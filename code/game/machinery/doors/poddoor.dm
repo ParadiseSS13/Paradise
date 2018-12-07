@@ -19,6 +19,14 @@
 	density = FALSE
 	opacity = 0
 
+/obj/machinery/door/poddoor/impassable
+	name = "reinforced blast door"
+	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than the usual."
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100)
+
+/obj/machinery/door/poddoor/reinforced/emag_act()
+	return
+
 /obj/machinery/door/poddoor/Bumped(atom/AM)
 	if(density)
 		return
