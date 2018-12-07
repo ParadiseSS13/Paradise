@@ -99,6 +99,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/New()
 	..()
 	name = "[name] [pick(GLOB.last_names)]"
+	// Do not attempt to move this code to Initialize() or LateInitialize(). Doing so with other objects has caused bugs in the past, because assigning "depotarea" may not work there.
 	depotarea = areaMaster
 	spawn_turf = get_turf(src)
 
