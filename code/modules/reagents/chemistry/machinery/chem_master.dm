@@ -38,7 +38,6 @@
 	if(powered())
 		overlays += "waitlight"
 
-
 /obj/machinery/chem_master/blob_act()
 	if(prob(50))
 		qdel(src)
