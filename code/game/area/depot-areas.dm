@@ -85,6 +85,11 @@
 	mine_trigger_count = 0
 	updateicon()
 
+	if(!istype(reactor))
+		for(var/obj/structure/fusionreactor/R in src)
+			reactor = R
+			R.has_overloaded = FALSE
+
 	alert_log += "Alert level reset."
 
 /area/syndicate_depot/core/proc/increase_alert(reason)
