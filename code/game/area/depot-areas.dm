@@ -90,6 +90,11 @@
 			reactor = R
 			R.has_overloaded = FALSE
 
+	for(var/obj/machinery/door/airlock/A in src)
+		if(A.density && A.locked)
+			spawn(0)
+				A.unlock()
+
 	alert_log += "Alert level reset."
 
 /area/syndicate_depot/core/proc/increase_alert(reason)
