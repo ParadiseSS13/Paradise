@@ -315,9 +315,8 @@
 		if(!M.ckey)
 			continue
 		var/turf/T = get_turf(M)
-		if(T.loc != src)
-			continue
-		receivers |= M
+		if(T && T.loc && T.loc == src)
+			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
 		R << sound('sound/misc/notice1.ogg')
