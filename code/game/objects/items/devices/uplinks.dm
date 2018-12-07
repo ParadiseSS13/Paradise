@@ -262,9 +262,6 @@ var/list/world_uplinks = list()
 			hidden_crystals = 0
 			ui.close()
 			return 1
-		if(href_list["return"])
-			nanoui_menu = round(nanoui_menu/10)
-			update_nano_data()
 		if(href_list["menu"])
 			nanoui_menu = text2num(href_list["menu"])
 			update_nano_data(href_list["id"])
