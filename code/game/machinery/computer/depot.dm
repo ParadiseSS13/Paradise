@@ -359,7 +359,6 @@
 	. = ..()
 	spawn(10)
 		findbeacon()
-		choosetarget()
 		update_portal()
 
 /obj/machinery/computer/syndicate_depot/teleporter/Destroy()
