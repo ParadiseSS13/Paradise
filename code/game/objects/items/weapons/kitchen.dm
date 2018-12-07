@@ -263,4 +263,4 @@
 	throw_speed = 3
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("rolled", "cracked", "battered", "thrashed",)
+	attack_verb = list("rolled", "cracked", "battered", "thrashed")
