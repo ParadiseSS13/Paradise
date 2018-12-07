@@ -160,7 +160,7 @@
 	P.fire()
 
 /mob/living/simple_animal/bot/ed209/syndicate/explode()
-	if (!QDELETED(src))
+	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		walk_to(src,0)
