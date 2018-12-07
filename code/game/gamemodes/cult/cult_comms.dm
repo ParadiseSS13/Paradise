@@ -22,14 +22,18 @@
 /proc/cultist_commune(mob/living/user, message)
 	if(!message)
 		return
-	if((user.disabilities & MUTE) || user.mind.miming) //User can't be under a vow of silence or have the mute disability to commune.
-		to_chat(user, "You cannot speak!")
-		return
-	user.whisper("O bidai nabora se[pick("'","`")]sma!")
+
+	if((user.disabilities & MUTE) || user.mind.miming) //Under vow of silence/mute?
+		user.visible_message("[user] appears to whisper to themselves.","You begin to whisper to yourself.") //Make them do *something* abnormal.
+	else
+		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
 	sleep(10)
+
 	if(!user)
 		return
-	user.whisper(message)
+
+	if(!((user.disabilities & MUTE) || user.mind.miming)) // If they aren't mute/miming, commence the whisperting
+		user.whisper(message)
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
 		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
