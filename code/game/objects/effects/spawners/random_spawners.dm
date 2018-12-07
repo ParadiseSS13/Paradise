@@ -159,6 +159,7 @@
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
 	name = "50pc trap pizza"
 	result = list(/obj/item/pizzabox/meat = 1,
+		/obj/item/pizzabox/hawaiian = 1,
 		/obj/item/pizza_bomb/autoarm = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
