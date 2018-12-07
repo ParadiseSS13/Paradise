@@ -82,7 +82,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
 		if(infiltrators.len)
 			var/mob/theguy = pick(infiltrators)
-			if(!spawn_sit_mgmt || theguy.key != key)
+			if(theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
