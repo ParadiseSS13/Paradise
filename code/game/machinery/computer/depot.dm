@@ -125,6 +125,7 @@
 
 /obj/machinery/computer/syndicate_depot/doors
 	name = "depot door control computer"
+	req_access = list()
 
 /obj/machinery/computer/syndicate_depot/doors/get_menu(mob/user)
 	return {"<B>Syndicate Depot Door Control Computer</B><HR>
