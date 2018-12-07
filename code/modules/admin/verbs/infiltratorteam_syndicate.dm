@@ -99,7 +99,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			new_syndicate_infiltrator.loc = warpto.loc
 			sit_spawns_leader -= warpto
 			team_leader = new_syndicate_infiltrator
-			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it. Only your ID opens the exit door.</span>")
+			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it.</span>")
 		else
 			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
 		teamsize--
