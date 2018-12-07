@@ -20,9 +20,7 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
-	spawn(50)
-		update_icon() //wait 5 seconds then update the icon, to allow powered icon to appear if actually powered
-	
+	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
@@ -40,6 +38,7 @@
 	if(powered())
 		overlays += "waitlight"
 
+
 /obj/machinery/chem_master/blob_act()
 	if(prob(50))
 		qdel(src)
@@ -50,6 +49,7 @@
 	else
 		spawn(rand(0, 15))
 			stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
 	if(default_unfasten_wrench(user, B))
