@@ -164,43 +164,85 @@
 				"" = 80,
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol_rare
-	name = "trader rare item spawner"
-	lootdoubles = 0
+/obj/effect/spawner/lootdrop/trade_sol/
+	name = "trader item spawner"
+	lootcount = 3
+	lootdoubles = 1
 	color = "#00FFFF"
 
+/obj/effect/spawner/lootdrop/trade_sol/civ
 	loot = list(
-				/obj/item/card/emag_broken = 2,
-				/obj/item/defibrillator/compact/loaded = 2,
-				/obj/item/gun/energy/laser/retro = 2,
-				/obj/item/rcd/combat = 1,
-				/obj/item/rcd = 2,
+				// Donksoft guns.
+				/obj/item/gun/projectile/automatic/c20r/toy = 50,
+				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
+				/obj/item/gun/projectile/automatic/toy/pistol = 100,
+				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
+				/obj/item/gun/projectile/shotgun/toy = 50,
+				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
+				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
+
+				// General utility gear
+				/obj/item/storage/belt/utility/full/multitool = 150,
+				/obj/item/implanter/death_alarm = 100,
+
+				// Stuff for miners, botanists, chefs, bartenders, chaplains, etc
+
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol_common
-	name = "trader common item spawner"
-	lootdoubles = 0
-	color = "#00FFFF"
 
+/obj/effect/spawner/lootdrop/trade_sol/sec
 	loot = list(
-				/obj/item/tank/anesthetic = 2,
-				/obj/item/weldingtool/hugetank = 2,
-				/obj/item/pickaxe/diamond = 1,
-				/obj/item/spacepod_equipment/weaponry/mining_laser = 1,
-				/obj/item/paicard = 2,
-				/obj/item/gun/projectile/automatic/pistol = 2,
-				/obj/item/megaphone = 2,
-				/obj/item/stock_parts/capacitor = 1,
-				/obj/item/stock_parts/cell/high = 1,
-				/obj/item/stock_parts/manipulator = 1,
-				/obj/item/stock_parts/matter_bin = 1,
-				/obj/item/stock_parts/micro_laser = 1,
-				/obj/item/stock_parts/scanning_module = 1,
-				/obj/item/stack/spacecash/c200 = 1,
-				/obj/item/airlock_electronics = 1,
-				/obj/item/gun/energy/kinetic_accelerator = 1,
-				/obj/item/pizzabox = 3,
+				// Guns
+				// Armor
 				)
+
+/obj/effect/spawner/lootdrop/trade_sol/sci
+	loot = list(
+				// Anomaly core
+				/obj/item/assembly/signaler/anomaly = 50,
+
+				// Strange object
+				/obj/item/relic = 150,
+
+				// R&D Notes
+				/obj/item/paper/terrorspiders9 = 150,
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/med
+	loot = list(
+				/obj/item/defibrillator/compact/loaded = 50,
+				/obj/item/reagent_containers/hypospray/safety/ert = 50,
+
+				)
+
+
+/obj/effect/spawner/lootdrop/trade_sol/eng
+	loot = list(
+				/obj/item/storage/belt/utility/chief/full = 25,
+				/obj/item/rcd/combat = 25,
+				/obj/item/rcd = 25
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/mech
+	lootcount = 1
+	loot = list(
+				/obj/mecha/working/ripley = 20,
+				/obj/mecha/working/ripley/firefighter = 20,
+				/obj/mecha/medical/odysseus = 20,
+				/obj/mecha/combat/durand = 20,
+				/obj/mecha/combat/gygax = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/pets
+	lootcount = 1
+	loot = list(
+				/obj/structure/closet/critter/corgi = 20,
+				/obj/structure/closet/critter/goat = 20,
+				/obj/structure/closet/critter/cat = 20,
+				/obj/structure/closet/critter/fox = 20,
+				/obj/structure/closet/critter/butterfly = 20
+				)
+
 
 /obj/effect/spawner/lootdrop/three_course_meal
 	name = "three course meal spawner"
