@@ -337,7 +337,7 @@
 "gy" = (/obj/effect/landmark{name = "Syndicate-Commando"; tag = "Commando"},/turf/unsimulated/floor{icon_state = "dark"},/area/syndicate_mothership/elite_squad)
 "gz" = (/obj/machinery/door/airlock/external{id_tag = "trade_sol_base"; name = "Docking Port"},/turf/unsimulated/floor/plating,/area/trader_station/sol)
 "gA" = (/obj/structure/window/reinforced{dir = 4},/obj/machinery/sleeper/upgraded,/turf/unsimulated/floor{icon_state = "grimy"},/area/ninja/outpost)
-"gB" = (/obj/docking_port/stationary{dir = 8; dwidth = 2; height = 11; id = "trade_sol_base"; name = "docking bay 2 at Jupiter Station"; width = 5},/turf/space,/area/space)
+"gB" = (/obj/docking_port/stationary{dir = 8; dwidth = 4; height = 11; id = "trade_sol_base"; name = "docking bay 2 at Jupiter Station"; width = 9},/turf/space,/area/space)
 "gC" = (/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/trader_station/sol)
 "gD" = (/turf/unsimulated/floor{dir = 8; icon_state = "brown"},/area/trader_station/sol)
 "gE" = (/obj/machinery/camera{pixel_x = 10; network = list("Thunderdome"); c_tag = "Thunderdome Arena"},/turf/simulated/floor/bluegrid,/area/tdome/arena_source)
