@@ -189,10 +189,56 @@
 
 				)
 
+/obj/effect/spawner/lootdrop/trade_sol/minerals
+	lootcount = 6
+	lootdoubles = 1
+	loot = list(
+				// Common stuff you get from mining which isn't already present on the station
+				/obj/item/stack/sheet/mineral/silver = 50,
+				/obj/item/stack/sheet/mineral/gold = 50,
+				/obj/item/stack/sheet/mineral/plasma = 50,
+				/obj/item/stack/sheet/mineral/uranium = 50,
+				/obj/item/stack/sheet/mineral/diamond = 50,
+				/obj/item/stack/sheet/mineral/titanium = 50,
+				/obj/item/stack/sheet/plasteel = 50,
+
+				// Hybrid stuff you could in theory get from mining
+				/obj/item/stack/sheet/plasmaglass = 50,
+				/obj/item/stack/sheet/plasmarglass = 50,
+				/obj/item/stack/sheet/titaniumglass = 50,
+
+				// Rare stuff you can't get from mining
+				/obj/item/stack/sheet/mineral/tranquillite = 50,
+				/obj/item/stack/sheet/mineral/bananium = 50,
+				/obj/item/stack/sheet/wood = 50,
+				/obj/item/stack/sheet/plastic = 50,
+				/obj/item/stack/sheet/mineral/sandstone = 50,
+
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/minerals/New()
+	if(loot && loot.len)
+		for(var/i = lootcount, i > 0, i--)
+			if(!loot.len)
+				break
+			var/lootspawn = pickweight(loot)
+			if(!lootdoubles)
+				loot.Remove(lootspawn)
+			if(lootspawn)
+				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
+				S.amount = 25
+	qdel(src)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
 	loot = list(
+				// Special melee weapons
+				/obj/item/kitchen/knife/combat = 50,
+				/obj/item/storage/belt/military/assault = 50,
+				/obj/item/clothing/mask/gas/sechailer/swat = 50,
+
 				// Guns
+				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
+
 				// Armor
 				)
 
@@ -206,12 +252,30 @@
 
 				// R&D Notes
 				/obj/item/paper/terrorspiders9 = 150,
+
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/med
 	loot = list(
-				/obj/item/defibrillator/compact/loaded = 50,
-				/obj/item/reagent_containers/hypospray/safety/ert = 50,
+				// General medical tools
+				///obj/item/defibrillator/compact/loaded = 50, // Theft objective.
+				/obj/item/reagent_containers/hypospray/safety/ert = 50, // Contains omnizine, like CMO hypospray, but does not count for theft objective
+
+				/obj/item/storage/pill_bottle/random_meds/labelled = 150, // random medical and other chems
+
+				// Genetic single-block injectors (power granters)
+				/obj/item/dnainjector/xraymut = 50, // xray
+				/obj/item/dnainjector/regenerate = 50, // regeneration
+				/obj/item/dnainjector/nobreath = 50,
+				/obj/item/dnainjector/remoteview = 50,
+				/obj/item/dnainjector/midgit = 50,
+				/obj/item/dnainjector/telemut = 50,
+
+				// Standard medicines
+				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+
+				// Virus cultures (basic heal,
 
 				)
 
@@ -230,7 +294,7 @@
 				/obj/mecha/working/ripley/firefighter = 20,
 				/obj/mecha/medical/odysseus = 20,
 				/obj/mecha/combat/durand = 20,
-				/obj/mecha/combat/gygax = 20
+				/obj/mecha/combat/gygax = 20,
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/pets
