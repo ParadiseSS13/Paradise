@@ -143,13 +143,11 @@
 		else
 			P.reagents.add_reagent(R, rand(2, 5)*10)
 		if(labelled)
-			P.name = "[R.name] Pill"
-			P.desc = "A pill containing [R.name]."
+			P.name = "[R] Pill"
+			P.desc = "A pill containing [R]."
 		else
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."
-	if(labelled)
-		name = "variety pillbottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 

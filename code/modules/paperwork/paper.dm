@@ -707,3 +707,15 @@
 			contact_poison = null
 			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
 	..()
+
+/obj/item/paper/researchnotes
+	name = "paper - 'Research Notes'"
+	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
+
+/obj/item/paper/researchnotes/New()
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/mytech = pick(possible_techs)
+	var/mylevel = rand(1, 9)
+	origin_tech = mytech + "=" + mylevel
+	name = "research notes - [mytech] [mylevel]"

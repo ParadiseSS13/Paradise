@@ -166,13 +166,13 @@
 
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
-	lootcount = 3
+	lootcount = 6
 	lootdoubles = 1
 	color = "#00FFFF"
 
 /obj/effect/spawner/lootdrop/trade_sol/civ
 	loot = list(
-				// Donksoft guns.
+				// Donksoft guns
 				/obj/item/gun/projectile/automatic/c20r/toy = 50,
 				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
 				/obj/item/gun/projectile/automatic/toy/pistol = 100,
@@ -183,14 +183,43 @@
 
 				// General utility gear
 				/obj/item/storage/belt/utility/full/multitool = 150,
-				/obj/item/implanter/death_alarm = 100,
+				/obj/item/clothing/gloves/color/yellow = 100,
+				/obj/item/clothing/glasses/welding = 50,
+				/obj/item/reagent_containers/spray/cleaner = 100,
+				/obj/item/clothing/shoes/magboots = 50,
+				)
 
-				// Stuff for miners, botanists, chefs, bartenders, chaplains, etc
+/obj/effect/spawner/lootdrop/trade_sol/serv
+	loot = list(
+				// Mining
+				/obj/item/mining_voucher = 100,
+				/obj/item/pickaxe/drill/jackhammer = 100,
+
+				// Bartender
+
+
+				// Chef
+
+
+				// Botanist
+
+
+				// Librarian
+
+
+				// Chaplain
+
+
+				// Clown
+				/obj/item/bikehorn/golden = 100,
+
+
+				// Mime
+
 
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
-	lootcount = 6
 	lootdoubles = 1
 	loot = list(
 				// Common stuff you get from mining which isn't already present on the station
@@ -231,27 +260,51 @@
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
 	loot = list(
-				// Special melee weapons
+				// Melee
 				/obj/item/kitchen/knife/combat = 50,
+
+				// Utility
 				/obj/item/storage/belt/military/assault = 50,
 				/obj/item/clothing/mask/gas/sechailer/swat = 50,
 
-				// Guns
+				// Ranged weapons
 				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
 
-				// Armor
+				// Armor: need ideas for armor
+
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/sci
 	loot = list(
-				// Anomaly core
-				/obj/item/assembly/signaler/anomaly = 50,
 
-				// Strange object
-				/obj/item/relic = 150,
+				// Robotics
+				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
+				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
+				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50, // mecha x-ray laser
+				/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy = 50, // mecha heavy missile
 
-				// R&D Notes
-				/obj/item/paper/terrorspiders9 = 150,
+				// Research / Experimentor
+				/obj/item/relic = 150, // strange object
+				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
+
+				// Genetics Research
+				/obj/item/dnainjector/xraymut = 50, // xray
+				/obj/item/dnainjector/regenerate = 50, // regeneration
+				/obj/item/dnainjector/nobreath = 50,
+				/obj/item/dnainjector/remoteview = 50,
+				/obj/item/dnainjector/midgit = 50,
+				/obj/item/dnainjector/telemut = 50,
+
+				// Xenobio
+				/obj/item/slime_extract/rainbow = 50,
+				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
+				/obj/item/slimepotion/transference = 50,
+				/obj/item/slimepotion/speed = 50,
+				/obj/item/slimepotion/fireproof = 50,
+
+				// Scichem
+				//xenomicrobes - xeno transformation
+
 
 				)
 
@@ -262,14 +315,6 @@
 				/obj/item/reagent_containers/hypospray/safety/ert = 50, // Contains omnizine, like CMO hypospray, but does not count for theft objective
 
 				/obj/item/storage/pill_bottle/random_meds/labelled = 150, // random medical and other chems
-
-				// Genetic single-block injectors (power granters)
-				/obj/item/dnainjector/xraymut = 50, // xray
-				/obj/item/dnainjector/regenerate = 50, // regeneration
-				/obj/item/dnainjector/nobreath = 50,
-				/obj/item/dnainjector/remoteview = 50,
-				/obj/item/dnainjector/midgit = 50,
-				/obj/item/dnainjector/telemut = 50,
 
 				// Standard medicines
 				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
@@ -292,9 +337,7 @@
 	loot = list(
 				/obj/mecha/working/ripley = 20,
 				/obj/mecha/working/ripley/firefighter = 20,
-				/obj/mecha/medical/odysseus = 20,
-				/obj/mecha/combat/durand = 20,
-				/obj/mecha/combat/gygax = 20,
+				/obj/mecha/medical/odysseus = 20
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/pets
