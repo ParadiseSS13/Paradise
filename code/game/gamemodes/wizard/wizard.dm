@@ -105,6 +105,7 @@
 
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")

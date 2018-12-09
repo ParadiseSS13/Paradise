@@ -215,6 +215,13 @@
 	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
+/obj/item/storage/box/syndie_kit/mimery
+	name = "advanced mimery kit"
+
+/obj/item/storage/box/syndie_kit/mimery/New()
+	..()
+	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
+	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
 /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	name = "Atmos Grenades"

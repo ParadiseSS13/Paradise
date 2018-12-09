@@ -1,27 +1,19 @@
-#cornerWrapper {
-    position: absolute;
-    top: 30px;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: 0 8px 0 8px;
-    clear: both;
-    overflow: auto;
-    border: 3px solid #363636;
-    background: data-uri('nanotrasen.svg') no-repeat fixed center/70% 70%,
-        linear-gradient(to bottom,
-        @background-start 0%,
-        @background-end 100%) no-repeat fixed center/100% 100% !important;
+.corner() {
+    position: fixed;
+    z-index: 101;
+    min-width: 30px;
+    min-height: 30px;
 }
 
-#uiContent {
-    padding: 15px;
-    overflow: hidden;
+#uiCornerTL {
+    .corner;
+    top: 0;
+    left: 0;
+    background: data-uri('tl.png') no-repeat;
 }
 
 /* Resizing (Stolen from Goon CC-BY-NC-SA) */
 @resize: 5px;
-
 .resizeArea {
     position: absolute;
     z-index: 99999;

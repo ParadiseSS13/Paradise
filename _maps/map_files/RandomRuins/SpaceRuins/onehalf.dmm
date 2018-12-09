@@ -140,7 +140,7 @@
 "cJ" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
 "cK" = (/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/obj/machinery/door/airlock/command/glass{name = "Bridge"},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
 "cL" = (/obj/item/crowbar,/obj/item/multitool,/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cM" = (/obj/structure/safe/floor,/obj/item/tank/oxygen/red,/obj/item/clothing/mask/gas/syndicate,/obj/item/clothing/suit/space/hardsuit/syndi,/obj/item/reagent_containers/food/drinks/bottle/rum,/obj/item/reagent_containers/food/drinks/bottle/rum,/obj/item/folder/syndicate/blue,/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
+"cM" = (/obj/structure/safe/floor,/obj/item/tank/oxygen/red,/obj/item/clothing/mask/gas/syndicate,/obj/item/clothing/suit/space/hardsuit/syndi,/obj/item/reagent_containers/food/drinks/bottle/rum,/obj/item/reagent_containers/food/drinks/bottle/rum,/obj/item/folder/syndicate/blue,/obj/item/clothing/head/helmet/space/hardsuit/syndi,/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
 "cN" = (/obj/structure/chair/comfy/black{tag = "icon-comfychair (EAST)"; icon_state = "comfychair"; dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
 "cO" = (/obj/structure/lattice,/obj/item/stack/cable_coil/cut{amount = 2; dir = 2; icon_state = "coil_red2"},/turf/space,/area/ruin/onehalf/hallway)
 "cQ" = (/obj/machinery/light{dir = 8},/obj/machinery/vending/sovietsoda,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
@@ -189,3 +189,4 @@ aaaaaaaaaaaaaaaaaadgawclbPczdjbTbTbTbTdkdldmdldnbTbTaiaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaacxdodpacacacacacdqacacacdqacacafaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

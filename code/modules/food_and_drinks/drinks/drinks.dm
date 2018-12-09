@@ -393,3 +393,6 @@
 	icon = 'icons/goonstation/objects/oil.dmi'
 	icon_state = "oilcan"
 	volume = 100
+
+/obj/item/reagent_containers/food/drinks/oilcan/full
+	list_reagents = list("oil" = 100)

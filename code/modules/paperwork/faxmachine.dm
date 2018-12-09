@@ -2,6 +2,7 @@ var/list/obj/machinery/photocopier/faxmachine/allfaxes = list()
 var/list/admin_departments = list("Central Command")
 var/list/hidden_admin_departments = list("Syndicate")
 var/list/alldepartments = list()
+var/global/list/fax_blacklist = list()
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
@@ -160,7 +161,9 @@ var/list/alldepartments = list()
 
 	if(href_list["auth"])
 		if(!is_authenticated && scan)
-			if(check_access(scan))
+			if(scan.registered_name in fax_blacklist)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			else if(check_access(scan))
 				authenticated = 1
 		else if(is_authenticated)
 			authenticated = 0
@@ -322,3 +325,9 @@ var/list/alldepartments = list()
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				C << 'sound/effects/adminhelp.ogg'
+
+/obj/machinery/photocopier/faxmachine/proc/become_mimic()
+	if(scan)
+		scan.forceMove(get_turf(src))
+	var/mob/living/simple_animal/hostile/mimic/copy/M = new(loc, src, null, 1) // it will delete src on creation and override any machine checks
+	M.name = "angry fax machine"

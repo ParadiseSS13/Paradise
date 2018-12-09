@@ -80,12 +80,6 @@
 			to_chat(usr, "You lack the ability to manipulate the lock.")
 
 
-/obj/item/clothing/mask/muzzle/gag
-	name = "gag"
-	desc = "Stick this in their mouth to stop the noise."
-	icon_state = "gag"
-	w_class = WEIGHT_CLASS_TINY
-
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "MHPMHHH!"
@@ -182,9 +176,9 @@
 		trigger.HasProximity(AM)
 
 
-/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, msg)
+/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, list/message_pieces)
 	if(trigger)
-		trigger.hear_talk(M, msg)
+		trigger.hear_talk(M, message_pieces)
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M as mob, msg)
 	if(trigger)

@@ -166,6 +166,32 @@
 	action_icon_state = "shield"
 	cast_sound = 'sound/magic/ForceWall.ogg'
 
+/obj/effect/proc_holder/spell/targeted/forcewall
+	name = "Greater Forcewall"
+	desc = "Create a magical barrier that only you can pass through."
+
+	school = "transmutation"
+	charge_max = 100
+	clothes_req = FALSE
+	invocation = "TARCOL MINTI ZHERI"
+	invocation_type = "shout"
+	sound = 'sound/magic/ForceWall.ogg'
+	action_icon_state = "shield"
+	range = -1
+	include_user = TRUE
+	cooldown_min = 50 //12 deciseconds reduction per rank
+	var/wall_type = /obj/effect/forcefield/wizard
+
+/obj/effect/proc_holder/spell/targeted/forcewall/cast(list/targets,mob/user = usr)
+	new wall_type(get_turf(user),user)
+	if(user.dir == SOUTH || user.dir == NORTH)
+		new wall_type(get_step(user, EAST),user)
+		new wall_type(get_step(user, WEST),user)
+	else
+		new wall_type(get_step(user, NORTH),user)
+		new wall_type(get_step(user, SOUTH),user)
+
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
