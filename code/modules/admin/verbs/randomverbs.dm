@@ -937,24 +937,19 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/reset_all_tcs()
 	set category = "Admin"
-	set name = "Reset Telecomms Scripts"
-	set desc = "Blanks all telecomms scripts from all telecomms servers"
+	set name = "Reset NTTC Configuration"
+	set desc = "Resets NTTC to the default configuration."
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")
+	var/confirm = alert(src, "You sure you want to reset NTTC?", "Confirm", "Yes", "No")
 	if(confirm != "Yes")
 		return
 
-	for(var/obj/machinery/telecomms/server/S in telecomms_list)
-		var/datum/TCS_Compiler/C = S.Compiler
-		S.rawcode = ""
-		C.Compile("")
-	for(var/obj/machinery/computer/telecomms/traffic/T in GLOB.machines)
-		T.storedcode = ""
-	log_admin("[key_name(usr)] blanked all telecomms scripts.")
-	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
+	GLOB.nttc_config.reset()
+	log_admin("[key_name(usr)] reset NTTC scripts.")
+	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/list_ssds()
@@ -984,15 +979,22 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
+		var/obj_count = 0
+		var/obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
-		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string]</TD>"
+			for(var/datum/objective/O in all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string][obj_string]</TD>"
 		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD>In Cryo</TD>"
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
 		else
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"

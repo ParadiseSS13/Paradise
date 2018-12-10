@@ -134,3 +134,15 @@
 		if(!stored_mmi.brainmob.dna)
 			stored_mmi.brainmob.dna = dna.Clone()
 	. = ..()
+
+/obj/item/organ/internal/ears/microphone
+	name = "microphone"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "taperecorder_idle"
+	status = ORGAN_ROBOT
+	dead_icon = "taperecorder_empty"
+
+/obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = FALSE)
+	if(!special)
+		to_chat(owner, "<span class='userdanger'>BZZZZZZZZZZZZZZT! Microphone error!</span>")
+	. = ..()

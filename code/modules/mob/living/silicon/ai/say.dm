@@ -3,7 +3,7 @@
  */
 
 
-/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
 	if(hard_to_hear)
 		return
 

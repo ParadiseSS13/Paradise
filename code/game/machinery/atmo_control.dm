@@ -9,7 +9,7 @@
 	var/bolts = 1
 
 	var/id_tag
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
 
@@ -57,14 +57,14 @@
 			output &= ~bitflag_value
 		else//can't not be off
 			output |= bitflag_value
-		return MT_UPDATE
+		return TRUE
 	if("toggle_bolts" in href_list)
 		bolts = !bolts
 		if(bolts)
 			visible_message("You hear a quite click as the [src] bolts to the floor", "You hear a quite click")
 		else
 			visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
-		return MT_UPDATE
+		return TRUE
 
 /obj/machinery/air_sensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	if(istype(W, /obj/item/multitool))
@@ -147,7 +147,7 @@
 
 	name = "Computer"
 
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	var/show_sensors=1
 	var/list/sensors = list()
 	Mtoollink = 1
@@ -301,19 +301,19 @@
 				sensor_list|=G.id_tag
 		if(!sensor_list.len)
 			to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
-			return MT_ERROR
+			return FALSE
 
 		// Have the user pick one of them and name its label
 		var/sensor = input(user, "Select a sensor:", "Sensor Data") as null|anything in sensor_list
 		if(!sensor)
-			return MT_ERROR
+			return FALSE
 		var/label = reject_bad_name( input(user, "Choose a sensor label:", "Sensor Label")  as text|null, allow_numbers=1)
 		if(!label)
-			return MT_ERROR
+			return FALSE
 
 		// Add the sensor's information to general_air_controler
 		sensors[sensor] = label
-		return MT_UPDATE
+		return TRUE
 
 	if("edit_sensor" in href_list)
 		var/list/sensor_list = list()
@@ -322,14 +322,14 @@
 				sensor_list|=G.id_tag
 		if(!sensor_list.len)
 			to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
-			return MT_ERROR
+			return FALSE
 		var/label = sensors[href_list["edit_sensor"]]
 		var/sensor = input(user, "Select a sensor:", "Sensor Data", href_list["edit_sensor"]) as null|anything in sensor_list
 		if(!sensor)
-			return MT_ERROR
+			return FALSE
 		sensors.Remove(href_list["edit_sensor"])
 		sensors[sensor] = label
-		return MT_UPDATE
+		return TRUE
 
 /obj/machinery/computer/general_air_control/unlinkFrom(mob/user, obj/O)
 	..()

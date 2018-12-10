@@ -51,7 +51,8 @@ Made by Xhuis
 	var/shadowling_ascended = 0 //If at least one shadowling has ascended
 	var/shadowling_dead = 0 //is shadowling kill
 	var/objective_explanation
-
+	var/warning_threshold
+	var/victory_warning_announced = FALSE
 
 /proc/is_thrall(var/mob/living/M)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadowling_thralls)
@@ -100,6 +101,8 @@ Made by Xhuis
 
 	var/thrall_scaling = round(num_players() / 3)
 	required_thralls = Clamp(thrall_scaling, 15, 25)
+
+	warning_threshold = round(0.66 * required_thralls)
 
 	..()
 	return 1
@@ -164,7 +167,9 @@ Made by Xhuis
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
-
+		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
+			victory_warning_announced = TRUE	//then let's give the station a warning
+			command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)

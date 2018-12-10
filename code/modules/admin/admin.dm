@@ -29,6 +29,20 @@ var/global/nologevent = 0
 				to_chat(C, msg)
 
 
+/proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
+	if(!M || !M.ckey)
+		if(ckey_to_find)
+			for(var/mob/O in GLOB.mob_list)
+				if(O.ckey && O.ckey == ckey_to_find)
+					if(admin_to_notify)
+						to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>")
+						return O
+			if(admin_to_notify)
+				to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>")
+		else if(admin_to_notify)
+			to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>")
+	return M
+
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
@@ -58,8 +72,9 @@ var/global/nologevent = 0
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
-	body += "<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a> - "
-	body += "[ADMIN_SM(M,"SM")] - "
+	if(M.client)
+		body += "<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a> - "
+		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
 		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
 	body += "[admin_jump_link(M)]\] </b><br>"
@@ -70,12 +85,13 @@ var/global/nologevent = 0
 		if(M.client.related_accounts_ip.len)
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
-	body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
-	body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
-	body += "<A href='?_src_=holder;newban=[M.UID()]'>Ban</A> | "
-	body += "<A href='?_src_=holder;jobban2=[M.UID()]'>Jobban</A> | "
-	body += "<A href='?_src_=holder;appearanceban=[M.UID()]'>Appearance Ban</A> | "
-	body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
+	if(M.ckey)
+		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
+		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
+		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
+		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
+		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
+		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 	if(M.client)
 		if(M.client.check_watchlist(M.client.ckey))
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
@@ -115,7 +131,9 @@ var/global/nologevent = 0
 		body += {" | <A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> | <A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>"}
 
 	if(isLivingSSD(M))
-		if(!istype(M.loc, /obj/machinery/cryopod))
+		if(istype(M.loc, /obj/machinery/cryopod))
+			body += {" | <A href='?_src_=holder;cryossd=[M.UID()]'>De-Spawn</A> "}
+		else
 			body += {" | <A href='?_src_=holder;cryossd=[M.UID()]'>Cryo</A> "}
 
 	if(M.client)

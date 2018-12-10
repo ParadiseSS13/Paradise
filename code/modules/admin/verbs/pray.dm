@@ -3,7 +3,8 @@
 	set name = "Pray"
 
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
-	if(!msg)	return
+	if(!msg)
+		return
 
 	if(usr.client)
 		if(usr.client.prefs.muted & MUTE_PRAY)
@@ -29,7 +30,7 @@
 		deity = ticker.cultdat.entity_name
 
 	log_say("(PRAYER) [msg]", usr)
-	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""]:</font>[key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
+	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))

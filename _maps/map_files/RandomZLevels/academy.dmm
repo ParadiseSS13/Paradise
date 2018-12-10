@@ -35,7 +35,7 @@
 "aI" = (/obj/structure/table/reinforced,/obj/item/laser_pointer/upgraded,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "aJ" = (/obj/structure/cult/tome,/obj/item/twohanded/staff,/obj/item/spellbook/oneuse/charge,/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
 "aK" = (/obj/structure/chair/wood/wings{dir = 8},/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
-"aL" = (/obj/item/clothing/suit/space/hardsuit/wizard,/obj/structure/table/wood,/obj/item/stack/sheet/mineral/silver{amount = 20},/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
+"aL" = (/obj/item/clothing/suit/space/hardsuit/wizard,/obj/structure/table/wood,/obj/item/stack/sheet/mineral/silver{amount = 20},/obj/item/clothing/head/helmet/space/hardsuit/wizard,/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
 "aM" = (/obj/structure/table/reinforced,/obj/item/storage/briefcase,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "aN" = (/obj/structure/table/reinforced,/obj/item/coin/plasma,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "aO" = (/obj/machinery/light/small{dir = 1},/obj/machinery/atmospherics/unary/vent_pump,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
@@ -420,17 +420,17 @@
 "id" = (/obj/item/stack/cable_coil/random,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "ie" = (/obj/structure/rack,/obj/item/stack/sheet/mineral/plasma{amount = 50},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "if" = (/turf/simulated/floor/grass,/area/awaymission/academy/academyaft)
-"ig" = (/obj/structure/rack,/obj/item/circuitboard/telecomms/broadcaster,/obj/item/circuitboard/telecomms/receiver,/obj/item/circuitboard/telecomms/relay,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
+"ig" = (/obj/structure/rack,/obj/item/circuitboard/telecomms/broadcaster,/obj/item/circuitboard/telecomms/receiver,/obj/item/circuitboard/telecomms/processor,/obj/item/circuitboard/telecomms/bus,/obj/item/circuitboard/telecomms/relay,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "ih" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/unary/vent_pump{dir = 4; layer = 2.4; on = 1},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "ii" = (/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
 "ij" = (/obj/structure/mirror{pixel_y = 28},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
 "ik" = (/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
-"il" = (/obj/structure/rack,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/crystal,/obj/item/stock_parts/subspace/filter,/obj/item/stock_parts/micro_laser/high,/obj/item/stock_parts/micro_laser/high,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
+"il" = (/obj/structure/rack,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/crystal,/obj/item/stock_parts/micro_laser/high,/obj/item/stock_parts/micro_laser/high,/obj/item/stock_parts/subspace/filter,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/analyzer,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "im" = (/obj/machinery/power/smes/magical,/obj/structure/cable,/turf/simulated/floor/plating,/area/awaymission/academy/academyaft)
 "in" = (/obj/structure/rack,/obj/item/clothing/glasses/welding,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "io" = (/obj/structure/mineral_door/iron,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
-"ip" = (/obj/structure/rack,/obj/item/stock_parts/scanning_module,/obj/item/stock_parts/micro_laser,/obj/item/stock_parts/subspace/filter,/obj/item/stock_parts/subspace/ansible,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
-"iq" = (/obj/item/stock_parts/manipulator,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
+"ip" = (/obj/structure/rack,/obj/item/stock_parts/subspace/ansible,/obj/item/stock_parts/micro_laser/high,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/filter,/obj/item/stock_parts/subspace/amplifier,/obj/item/stock_parts/subspace/filter,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
+"iq" = (/obj/structure/rack,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/filter,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/filter,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/filter,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "ir" = (/obj/structure/rack,/obj/item/storage/toolbox/mechanical,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "is" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
 "it" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
@@ -438,7 +438,7 @@
 "iv" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/wood,/area/awaymission/academy/academyaft)
 "iw" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
 "ix" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
-"iy" = (/obj/structure/rack,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/subspace/filter,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
+"iy" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/obj/structure/rack,/obj/item/stack/sheet/metal{amount = 50},/obj/item/stock_parts/subspace/treatment,/obj/item/stock_parts/subspace/treatment,/obj/item/stock_parts/manipulator,/obj/item/stock_parts/manipulator,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "iz" = (/obj/structure/toilet{dir = 8},/obj/machinery/light/small{dir = 1},/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
 "iA" = (/obj/structure/toilet{dir = 4},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/academy/academyaft)
 "iB" = (/mob/living/simple_animal/hostile/statue,/turf/simulated/floor/plasteel,/area/awaymission/academy/headmaster)
@@ -546,7 +546,6 @@
 "kz" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plasteel/airless{tag = "icon-whitered (EAST)"; icon_state = "whitered"; dir = 4},/area/awaymission/academy/academyaft)
 "kA" = (/obj/structure/bookcase,/obj/item/spellbook/oneuse/summonitem,/turf/simulated/floor/wood,/area/awaymission/academy/classrooms)
 "kB" = (/mob/living/simple_animal/hostile/carp/megacarp{name = "Elmo"},/turf/simulated/mineral/random/high_chance,/area/awaymission/academy)
-"kC" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/obj/structure/rack,/obj/item/stack/sheet/metal{amount = 50},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "kD" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/engine,/area/awaymission/academy/academyaft)
 "kE" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "kF" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/academy/classrooms)
@@ -678,13 +677,13 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsbBbBgIgVhqgXgYgXgYdmbEdcdcdcdcdcdcbEfLfDfHfLkUfDfDfLbEgggggLgLgLcAbsbsaPaaaaaaaaaaaaaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZgZgZgZgZgZgZgZgZgZgZfBfBfBfBfBfBfBfBfBhrfBkThbfBfBfBfBfBfBfBfBfBgZgZgZgZgZgZgZgZgZgZgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchdhehehfhshthigZhDgZhkhlhlhmhlhlhnfDfDfHfDkWfDfDfDhkhlhlhmhlhlhogZhDgZhphFhMhJichuhchcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchvhwheihkXiLixiQiPiQiRiSiSiSiSiSiTiZiZjbjajciZiZiZiRiSiSiSiSiSjdiQjgiQjkjhlplohchchKhcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchvhwheihkXiLixiQiPiQiRiSiSiSiSiSiTiZiZjbjajciZiZiZiRiSiSiSiSiSjdiQjgiQjkjhlplohKhchKhcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchLhchcjmhphphNgZhOgZhkhPhQhRhShTfBhUhUhUfHkWhUhUhUfBhVhWhXhYhZhngZhOgZiaibhplqhchchchcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchvhwhejpidhliegZgZgZfBfBfBfBfBfBfBhUifhUfHkWhUifhUfBfBfBfBfBfBfBgZgZgZighphplrlshchKhcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchLhchcjChphpiegZaagZiiiiiiijiiikfBhUifhUfHkWhUifhUfBiiiiijiiiiiigZaagZilhplulthchchchcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhcimhwhejFhphpingZaagZiiiiiiiiiiiiiohUifhUfHkWhUifhUioiiiiiiiiiiiigZaagZipiqlulvlshchKhcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchchchchphlhpirgZaagZisiiiiitfBfBfBiuifhUfHkWhUifivfBfBfBiwiiiijGgZaagZiyhpluluhchchchcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZhphlidhphphlhNgZaagZiiiiiiiiioizfBhUifhUfHkWhUifhUfBiAioiiiiiiiigZaagZkChlluluhphlhpgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhcimhwhejFhphpingZaagZiiiiiiiiiiiiiohUifhUfHkWhUifhUioiiiiiiiiiiiigZaagZiphplulvlshchKhcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZhchchchchphlhpirgZaagZisiiiiitfBfBfBiuifhUfHkWhUifivfBfBfBiwiiiijGgZaagZiqhpluluhchchchcgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZhphlidhphphlhNgZaagZiiiiiiiiioizfBhUifhUfHkWhUifhUfBiAioiiiiiiiigZaagZiyhlluluhphlhpgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZhphphlhlhpiCgZaagZisiiiiiifBfBfBhUifhUfHkWhUifhUfBfBfBiiiiiijGgZaagZhlhlhphphlhpgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZhphlhphphlgZaPgZiiiiiiiiioiDfBiEifhUfHkWhUifhUfBiAioiiiiiiiigZaPgZhlhphphpiFgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZgZgZiGgZgZaagZisiiiiitfBfBfBhUifhUfHkWhUifhUfBfBfBiwiiiijGgZaagZgZiGgZgZgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -733,3 +732,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

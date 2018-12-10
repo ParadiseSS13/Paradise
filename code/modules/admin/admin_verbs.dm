@@ -77,6 +77,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds,
 	/client/proc/cmd_admin_headset_message,
+	/client/proc/spawn_floor_cluwne,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -719,7 +720,7 @@ var/list/admin_verbs_ticket = list(
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
 			var/list/splitline = splittext(line, " - ")
-			if(n_lower(splitline[1]) == ckey)
+			if(lowertext(splitline[1]) == ckey)
 				if(splitline.len >= 2)
 					rank = ckeyEx(splitline[2])
 				break

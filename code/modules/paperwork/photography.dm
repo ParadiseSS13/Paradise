@@ -541,7 +541,8 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	if(..(user, 1))
 		to_chat(user, "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.")
 
-/obj/item/videocam/hear_talk(mob/M as mob, msg)
+/obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
+	var/msg = multilingual_to_message(message_pieces)
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)

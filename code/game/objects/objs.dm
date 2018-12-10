@@ -173,7 +173,7 @@
 	return
 
 
-/obj/proc/hear_talk(mob/M as mob, text)
+/obj/proc/hear_talk(mob/M, list/message_pieces)
 	return
 
 /obj/proc/hear_message(mob/M as mob, text)

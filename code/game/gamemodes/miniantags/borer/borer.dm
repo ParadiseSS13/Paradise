@@ -3,7 +3,6 @@
 	real_name = "host brain"
 
 /mob/living/captive_brain/say(message)
-
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
@@ -152,13 +151,13 @@
 		stat("Chemicals", chemicals)
 
 /mob/living/simple_animal/borer/say(var/message)
-	var/datum/language/dialect = parse_language(message)
-	if(!dialect)
-		dialect = get_default_language()
-	if(!istype(dialect, /datum/language/corticalborer) && loc == host && !talk_inside_host)
-		to_chat(src, "<span class='warning'>You've disabled audible speech while inside a host! Re-enable it under the borer tab, or stick to borer communications.</span>")
-		return
-	..()
+	var/list/message_pieces = parse_languages(message)
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		if(!istype(S.speaking, /datum/language/corticalborer) && loc == host && !talk_inside_host)
+			to_chat(src, "<span class='warning'>You've disabled audible speech while inside a host! Re-enable it under the borer tab, or stick to borer communications.</span>")
+			return
+	
+	. = ..()
 
 /mob/living/simple_animal/borer/verb/Communicate()
 	set category = "Borer"

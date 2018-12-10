@@ -103,11 +103,13 @@
 	..(M,connected,flags)
 	M.pass_flags |= PASSTABLE
 	M.resize = 0.8
+	M.update_transform()
 
 /datum/dna/gene/basic/midget/deactivate(var/mob/M, var/connected, var/flags)
 	..()
 	M.pass_flags &= ~PASSTABLE
 	M.resize = 1.25
+	M.update_transform()
 
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk

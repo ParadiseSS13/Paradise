@@ -10,6 +10,7 @@
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/syndie = FALSE
+	var/change_voice = FALSE
 	var/list/channels = list()
 
 
@@ -20,7 +21,7 @@
 	channels = list("Syndicate" = 1)
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
-	var/change_voice = TRUE
+	change_voice = TRUE
 	var/fake_name = "Agent ALERT_A_CODER"
 	var/static/list/fakename_list
 

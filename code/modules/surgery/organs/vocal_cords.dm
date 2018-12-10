@@ -136,8 +136,8 @@ var/static/regex/multispin_words = regex("like a record baby")
 	var/power_multiplier = base_multiplier
 
 	if(owner.mind)
-		//Chaplains are very good at speaking with the voice of god
-		if(owner.mind.assigned_role == "Chaplain")
+		//Holy characters are very good at speaking with the voice of god
+		if(owner.mind.isholy)
 			power_multiplier *= 2
 		//Command staff has authority
 		if(owner.mind.assigned_role in command_positions)
