@@ -361,14 +361,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		// --- Some more pre-message formatting ---
 		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
 
-
-		// --- Filter the message; place it in quotes apply a verb ---
-		var/quotedmsg = null
-		if(M)
-			quotedmsg = "[M.say_quote(multilingual_to_message(message_pieces))], \"[multilingual_to_message(message_pieces)]\""
-		else
-			quotedmsg = "says, \"[multilingual_to_message(message_pieces)]\""
-
 		// --- This following recording is intended for research and feedback in the use of department radio channels ---
 		SSblackbox.LogBroadcast(display_freq)
 		//End of research and feedback code.
