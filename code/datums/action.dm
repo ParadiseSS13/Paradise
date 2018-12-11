@@ -104,10 +104,14 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
-/datum/action/item_action/New(Target)
+/datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
 	I.actions += src
+	if(custom_icon && custom_icon_state)
+		use_itemicon = FALSE
+		icon_icon = custom_icon
+		button_icon_state = custom_icon_state
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
