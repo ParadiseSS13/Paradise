@@ -148,7 +148,7 @@
 			selection = available[selected]
 			updateUsrDialog()
 		if("horn")
-			deejay('sound/items/airhorn2.ogg')
+			deejay('sound/items/Airhorn2.ogg')
 		if("alert")
 			deejay('sound/misc/notice1.ogg')
 		if("siren")
