@@ -1,0 +1,4 @@
+author: "Shadow-Quill"
+delete-after: True
+changes: 
+  - bugfix: "Makes the chem-master update it's icon on power change, as well as showing the correct sprite after being loaded in."
