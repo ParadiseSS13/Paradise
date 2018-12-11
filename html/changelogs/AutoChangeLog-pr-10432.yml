@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Player-controlled giant spiders will no longer unintentionally poison anyone they nuzzle on help intent. They can still poison people they bite."
