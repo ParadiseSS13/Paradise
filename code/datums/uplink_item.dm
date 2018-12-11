@@ -163,6 +163,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
 	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear) // Stops the job specific category appearing for nukies
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
