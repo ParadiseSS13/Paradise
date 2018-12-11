@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Altered the warning you get when you try to put one bag of holding inside another, so it is absolutely clear what this does, and there is no chance someone can do so by accident."
