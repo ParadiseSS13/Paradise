@@ -368,7 +368,7 @@ var/global/list/lawlorify = list (
 		to_chat(owner.messageable_mob(), "<span class='userdanger'>Your hellish powers are too weak to resurrect yourself.</span>")
 
 /datum/devilinfo/proc/activateResurrection(mob/living/body)
-	if(!body ||  body.stat == DEAD)
+	if(QDELETED(body) ||  body.stat == DEAD)
 		if(SOULVALUE > 0)
 			if(check_banishment(body))
 				to_chat(owner.messageable_mob(), "<span class='userdanger'>Unfortunately, the mortals have finished a ritual that prevents your resurrection.</span>")
@@ -383,6 +383,8 @@ var/global/list/lawlorify = list (
 		to_chat(owner.current, "<span class='danger'>You seem to have resurrected without your hellish powers.</span>")
 
 /datum/devilinfo/proc/check_banishment(mob/living/body)
+	if(QDELETED(body))	//Allow ressurection if the body has been destroyed
+		return 0
 	switch(banish)
 		if(BANISH_WATER)
 			if(iscarbon(body))
@@ -431,7 +433,7 @@ var/global/list/lawlorify = list (
 	if(SOULVALUE <= ARCH_THRESHOLD && ascendable) // once ascended, arch devils do not go down in power by any means.
 		reviveNumber += LOSS_PER_DEATH
 		update_hud()
-	if(body)
+	if(!QDELETED(body))
 		body.revive()
 		if(istype(body.loc, /obj/effect/dummy/slaughter))
 			body.forceMove(get_turf(body))//Fixes dying while jaunted leaving you permajaunted.
@@ -456,7 +458,7 @@ var/global/list/lawlorify = list (
 	if(blobstart.len > 0)
 		var/turf/targetturf = get_turf(pick(blobstart))
 		var/mob/currentMob = owner.current
-		if(!currentMob)
+		if(QDELETED(currentMob))
 			currentMob = owner.get_ghost()
 			if(!currentMob)
 				message_admins("[owner.name]'s devil resurrection failed due to client logoff.  Aborting.")
