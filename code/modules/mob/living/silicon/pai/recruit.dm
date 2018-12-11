@@ -23,6 +23,16 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	var/askDelay = 10 * 60 * 1	// One minute [ms * sec * min]
 
 /datum/paiController/Topic(href, href_list[])
+
+	var/datum/paiCandidate/candidate = locate(href_list["candidate"])
+	if(candidate)
+		if(!istype(candidate))
+			return
+
+		if(candidate.key && usr.key && candidate.key != usr.key)
+			return
+
+
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
 		if(!O) return
@@ -34,7 +44,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		return
 
 	if(href_list["download"])
-		var/datum/paiCandidate/candidate = locate(href_list["candidate"])
 		var/obj/item/paicard/card = locate(href_list["device"])
 		if(card.pai)
 			return
@@ -59,7 +68,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			usr << browse(null, "window=findPai")
 
 	if(href_list["new"])
-		var/datum/paiCandidate/candidate = locate(href_list["candidate"])
 		var/option = href_list["option"]
 		var/t = ""
 
