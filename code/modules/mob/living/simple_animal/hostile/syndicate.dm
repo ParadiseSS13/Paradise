@@ -85,7 +85,7 @@
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/alert_on_death = FALSE
-	var/alert_on_timeout = FALSE
+	var/alert_on_timeout = TRUE
 	var/alert_on_spacing = TRUE
 	var/alert_on_shield_breach = FALSE
 	var/seen_enemy = FALSE
@@ -198,7 +198,6 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
 	name = "Syndicate Officer"
 	alert_on_death = TRUE
-	alert_on_timeout = TRUE
 	melee_block_chance = 60
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
@@ -210,7 +209,6 @@
 	maxHealth = 250
 	health = 250
 	melee_block_chance = 80
-	alert_on_timeout = TRUE
 	alert_on_shield_breach = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
