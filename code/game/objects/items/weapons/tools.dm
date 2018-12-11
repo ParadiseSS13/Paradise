@@ -368,6 +368,7 @@
 		else
 			icon_state = "[initial(icon_state)][ratio]"
 	update_torch()
+	..()
 
 /obj/item/weldingtool/process()
 	switch(welding)

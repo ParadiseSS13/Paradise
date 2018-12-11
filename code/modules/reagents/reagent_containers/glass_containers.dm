@@ -148,8 +148,8 @@
 			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
 			label_text = tmp_label
 			update_name_label()
-	if(istype(I,/obj/item/storage/bag))
-		..()
+	else
+		return ..()
 
 /obj/item/reagent_containers/glass/proc/update_name_label()
 	if(label_text == "")
@@ -201,6 +201,7 @@
 		overlays += lid
 	if(assembly)
 		overlays += "assembly"
+	..()
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Remove Assembly"

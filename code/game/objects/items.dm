@@ -206,6 +206,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		msg += "*--------*"
 		to_chat(user, msg)
 
+/obj/item/afterattack(atom/target, mob/user, proximity, params)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
+	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
@@ -252,6 +255,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			return 0
 
 	pickup(user)
+
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
 	return 1
@@ -306,6 +310,25 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
+	else if(istype(I, /obj/item/stack/tape_roll))
+		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
+			var/obj/item/storage/bag = src
+			if(bag.can_be_inserted(I))
+				return ..()
+		var/obj/item/stack/tape_roll/TR = I
+		var/list/clickparams = params2list(params)
+		var/x_offset = text2num(clickparams["icon-x"])
+		var/y_offset = text2num(clickparams["icon-y"])
+		if(GetComponent(/datum/component/ducttape))
+			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
+			return
+		if(TR.use(1))
+			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
+			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
+			anchored = TRUE
+			user.transfer_fingerprints_to(src)
+		else
+			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
 	else
 		return ..()
 
@@ -329,7 +352,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
-	return
+	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)

@@ -27,7 +27,7 @@
 	overlays.Cut()
 	if(contents.len)
 		overlays += "folder_paper"
-	return
+	..()
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
@@ -43,7 +43,8 @@
 
 		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
-	return
+	else
+		return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
 	var/dat = "<title>[name]</title>"
