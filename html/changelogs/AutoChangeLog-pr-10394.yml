@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Display case burglar alarm no longer triggered if there's no power to equipment"
