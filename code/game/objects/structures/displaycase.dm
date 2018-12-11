@@ -185,7 +185,7 @@ var/global/list/captain_display_cases = list()
 			playsound(get_turf(src), "shatter", 70, 1)
 			update_icon()
 			spawn(0)
-				if (!alarm_needs_power)
+				if(!alarm_needs_power)
 					burglar_alarm()
 				else
 					var/area/a = get_area(src)
