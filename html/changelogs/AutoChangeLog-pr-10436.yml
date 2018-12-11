@@ -1,0 +1,4 @@
+author: "Alonefromhell"
+delete-after: True
+changes: 
+  - rscadd: "Miniature energy gun now has an action icon for it's light toggle(like flashlight)."
