@@ -309,13 +309,11 @@
 	for(var/obj/machinery/computer/syndicate_depot/C in src)
 		C.security_lockout = FALSE
 
-/area/syndicate_depot/core/proc/toggle_door_locks()
+/area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
 	for(var/obj/machinery/door/airlock/A in src)
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue
-		A.emergency = !A.emergency
-		if(A.locked)
-			A.locked = !A.locked
+		A.emergency = !!openaccess
 		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
