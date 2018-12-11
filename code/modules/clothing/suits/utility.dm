@@ -77,7 +77,8 @@
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/suit/bomb_suit
@@ -130,7 +131,8 @@
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/suit/radiation

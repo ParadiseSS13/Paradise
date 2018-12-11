@@ -294,8 +294,10 @@
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""
-
-
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+	)
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
 	if(flags & NODROP)	//cursed masks only
