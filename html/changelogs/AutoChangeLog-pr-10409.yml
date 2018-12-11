@@ -1,0 +1,4 @@
+author: "Azule Utama"
+delete-after: True
+changes: 
+  - tweak: "Syndicate Uplink now uses expandable and collapsible categories. General layout of the uplink has also been changed to work alongside this."
