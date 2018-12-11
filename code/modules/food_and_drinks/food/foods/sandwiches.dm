@@ -161,6 +161,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
 
 /obj/item/reagent_containers/food/snacks/toastedsandwich
 	name = "Toasted Sandwich"
@@ -169,6 +170,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "carbon" = 2)
+	tastes = list("toast" = 1)
 
 /obj/item/reagent_containers/food/snacks/grilledcheese
 	name = "Grilled Cheese Sandwich"
@@ -177,6 +179,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
+	tastes = list("toast" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/jellysandwich
 	name = "Jelly Sandwich"
@@ -185,6 +188,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#9E3A78"
 	bitesize = 3
+	tastes = list("bread" = 1, "jelly" = 1)
 
 /obj/item/reagent_containers/food/snacks/jellysandwich/slime
 	list_reagents = list("nutriment" = 2, "slimejelly" = 5, "vitamin" = 2)
@@ -197,9 +201,11 @@
 	desc = "Something seems to be wrong with this, you can't quite figure what. Maybe it's his moustache."
 	icon_state = "notasandwich"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6)
+	tastes = list("nothing suspicious" = 1)
 
 /obj/item/reagent_containers/food/snacks/wrap
 	name = "egg wrap"
 	desc = "The precursor to Pigs in a Blanket."
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
+	tastes = list("egg" = 1)

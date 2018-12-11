@@ -9,6 +9,7 @@
 	icon_state = "taco"
 	bitesize = 3
 	list_reagents = list("nutriment" = 7, "vitamin" = 1)
+	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
 
 /obj/item/reagent_containers/food/snacks/burrito
 	name = "Burrito"
@@ -17,6 +18,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#A36A1F"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	tastes = list("torilla" = 2, "meat" = 3)
 
 /obj/item/reagent_containers/food/snacks/chimichanga
 	name = "Chimichanga"
@@ -34,6 +36,7 @@
 	filling_color = "#A36A1F"
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "capsaicin" = 6)
+	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
 
 /obj/item/reagent_containers/food/snacks/cornchips
 	name = "corn chips"
@@ -55,6 +58,7 @@
 	icon_state = "chinese1"
 	junkiness = 25
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
+	tastes = list("noodle" = 1, "vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball
 	name = "Sweet & Sour Chicken Balls"
@@ -96,6 +100,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#F0F2E4"
 	list_reagents = list("nutriment" = 5)
+	tastes = list("custard" = 1)
 
 /obj/item/reagent_containers/food/snacks/yakiimo
 	name = "yaki imo"
@@ -104,6 +109,7 @@
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 5, "vitamin" = 4)
 	filling_color = "#8B1105"
+	tastes = list("sweet potato" = 1)
 
 
 //////////////////////

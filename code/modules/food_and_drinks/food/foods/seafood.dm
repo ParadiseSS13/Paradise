@@ -7,6 +7,7 @@
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
+	tastes = list("fish" = 1)
 
 /obj/item/reagent_containers/food/snacks/salmonmeat
 	name = "raw salmon"
@@ -44,6 +45,7 @@
 	filling_color = "#FFDEFE"
 	bitesize = 1
 	list_reagents = list("nutriment" = 4)
+	tastes = list("fish" = 1, "breadcrumbs" = 1)
 
 /obj/item/reagent_containers/food/snacks/fishburger
 	name = "Fillet -o- Carp Sandwich"
@@ -64,6 +66,7 @@
 	filling_color = "#E9ADFF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 1)
+	tastes = list("fish" = 4, "batter" = 1, "hot peppers" = 1)
 
 /obj/item/reagent_containers/food/snacks/fishandchips
 	name = "Fish and Chips"
@@ -73,6 +76,7 @@
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6)
+	tastes = list("fish" = 1, "chips" = 1)
 
 /obj/item/reagent_containers/food/snacks/sashimi
 	name = "carp sashimi"
@@ -81,6 +85,7 @@
 	icon_state = "sashimi"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 5)
+	tastes = list("fish" = 1, "hot peppers" = 1)
 
 /obj/item/reagent_containers/food/snacks/fried_shrimp
 	name = "fried shrimp"

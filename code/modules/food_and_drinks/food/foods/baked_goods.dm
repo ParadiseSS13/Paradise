@@ -230,12 +230,14 @@
 	filling_color = "#E8E79E"
 	list_reagents = list("nutriment" = 3)
 	trash = /obj/item/paper/fortune
+	tastes = list("cookie" = 1)
 
 /obj/item/reagent_containers/food/snacks/sugarcookie
 	name = "sugar cookie"
 	desc = "Just like your little sister used to make."
 	icon_state = "sugarcookie"
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	tastes = list("sweetness" = 1)
 
 
 //////////////////////
@@ -250,6 +252,7 @@
 	filling_color = "#FBFFB8"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "banana" = 5, "vitamin" = 2)
+	tastes = list("pie" = 1)
 
 /obj/item/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom)
 	..()
@@ -265,6 +268,7 @@
 	filling_color = "#948051"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("pie" = 1, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/tofupie
 	name = "tofu-pie"
@@ -274,6 +278,7 @@
 	filling_color = "#FFFEE0"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("pie" = 1, "tofu" = 1)
 
 /obj/item/reagent_containers/food/snacks/amanita_pie
 	name = "amanita pie"
@@ -282,6 +287,7 @@
 	filling_color = "#FFCCCC"
 	bitesize = 4
 	list_reagents = list("nutriment" = 6, "amanitin" = 3, "psilocybin" = 1, "vitamin" = 4)
+	tastes = list("pie" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/plump_pie
 	name = "plump pie"
@@ -290,6 +296,7 @@
 	filling_color = "#B8279B"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("pie" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/plump_pie/New()
 	..()
@@ -305,6 +312,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("pie" = 1, "meat" = 1, "acid" = 1)
 
 /obj/item/reagent_containers/food/snacks/applepie
 	name = "apple pie"
@@ -313,6 +321,7 @@
 	filling_color = "#E0EDC5"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("pie" = 1, "apple" = 1)
 
 /obj/item/reagent_containers/food/snacks/cherrypie
 	name = "cherry pie"
@@ -321,6 +330,7 @@
 	filling_color = "#FF525A"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("pie" = 1, "cherries" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pumpkinpie
 	name = "pumpkin pie"
@@ -331,6 +341,7 @@
 	bitesize = 3
 	filling_color = "#F5B951"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("pie" = 1, "pumpkin" = 1)
 
 /obj/item/reagent_containers/food/snacks/pumpkinpieslice
 	name = "pumpkin pie slice"
@@ -338,6 +349,7 @@
 	icon_state = "pumpkinpieslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F5B951"
+	tastes = list("pie" = 1, "pumpkin" = 1)
 
 
 //////////////////////
@@ -353,6 +365,7 @@
 	var/extra_reagent = null
 	filling_color = "#D2691E"
 	var/randomized_sprinkles = 1
+	tastes = list("donut" = 1)
 
 /obj/item/reagent_containers/food/snacks/donut/New()
 	..()
@@ -373,6 +386,7 @@
 	name = "chaos donut"
 	desc = "Like life, it never quite tastes the same."
 	bitesize = 10
+	tastes = list("donut" = 3, "chaos" = 1)
 
 /obj/item/reagent_containers/food/snacks/donut/chaos/New()
 	..()
@@ -389,6 +403,7 @@
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
+	tastes = list("jelly" = 1, "donut" = 3)
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/New()
 	..()
@@ -423,6 +438,7 @@
 	icon_state = "muffin"
 	filling_color = "#E0CF9B"
 	list_reagents = list("nutriment" = 6)
+	tastes = list("muffin" = 1)
 
 /obj/item/reagent_containers/food/snacks/berryclafoutis
 	name = "berry clafoutis"
@@ -431,6 +447,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "berryjuice" = 5, "vitamin" = 2)
+	tastes = list("pie" = 1, "blackberries" = 1)
 
 /obj/item/reagent_containers/food/snacks/poppypretzel
 	name = "poppy pretzel"
@@ -438,6 +455,7 @@
 	icon_state = "poppypretzel"
 	filling_color = "#916E36"
 	list_reagents = list("nutriment" = 5)
+	tastes = list("pretzel" = 1)
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit
 	name = "plump helmet biscuit"
@@ -445,6 +463,7 @@
 	icon_state = "phelmbiscuit"
 	filling_color = "#CFB4C4"
 	list_reagents = list("nutriment" = 5)
+	tastes = list("mushroom" = 1, "biscuit" = 1)
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/New()
 	..()
@@ -461,6 +480,7 @@
 	filling_color = "#FFFF00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "gold" = 5, "vitamin" = 4)
+	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 
 /obj/item/reagent_containers/food/snacks/cracker
 	name = "cracker"
@@ -469,3 +489,4 @@
 	bitesize = 1
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
+	tastes = list("cracker" = 1)

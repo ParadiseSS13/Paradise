@@ -7,6 +7,7 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	slices_num = 6
 	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
 	name = "Margherita"
@@ -22,6 +23,7 @@
 	icon_state = "pizzamargheritaslice"
 	filling_color = "#BAA14C"
 	list_reagents = list("nutriment" = 5)
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
 	name = "Meatpizza"
@@ -29,6 +31,7 @@
 	icon_state = "meatpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	name = "Meatpizza slice"
@@ -36,6 +39,7 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza
 	name = "Mushroompizza"
@@ -43,6 +47,7 @@
 	icon_state = "mushroompizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	name = "Mushroompizza slice"
@@ -50,6 +55,7 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza
 	name = "Vegetable pizza"
@@ -57,6 +63,7 @@
 	icon_state = "vegetablepizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
+	tastes = list("crust" = 1, "tomato" = 2, "cheese" = 1, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	name = "Vegetable pizza slice"
@@ -64,6 +71,7 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "tomato" = 2, "cheese" = 1, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 	name = "Hawaiian Pizza"

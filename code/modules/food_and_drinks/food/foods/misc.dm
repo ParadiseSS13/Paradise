@@ -10,6 +10,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#4D2F5E"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("eggplant" = 3, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/soylentgreen
 	name = "Soylent Green"
@@ -18,6 +19,7 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#B8E6B5"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
+	tastes = list("waffles" = 7, "people" = 1)
 
 /obj/item/reagent_containers/food/snacks/soylentviridians
 	name = "Soylent Virdians"
@@ -26,6 +28,7 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6FA61"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
+	tastes = list("waffles" = 7, "the colour green" = 1)
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's Delight"
@@ -65,6 +68,7 @@
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
+	tastes = list("leaves" = 1)
 
 /obj/item/reagent_containers/food/snacks/herbsalad
 	name = "herb salad"
@@ -74,6 +78,7 @@
 	filling_color = "#76B87F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "vitamin" = 2)
+	tastes = list("leaves" = 1, "apple" = 1)
 
 /obj/item/reagent_containers/food/snacks/validsalad
 	name = "valid salad"
@@ -83,6 +88,7 @@
 	filling_color = "#76B87F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
+	tastes = list("leaves" = 1, "potato" = 1, "meat" = 1, "valids" = 1)
 
 
 //////////////////////
@@ -95,6 +101,7 @@
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
+	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket
 	name = "Warm Donk-pocket"
@@ -102,6 +109,7 @@
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
+	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Post_Consume(mob/living/M)
 	M.reagents.add_reagent("omnizine", 15)
@@ -150,6 +158,7 @@
 	filling_color = "#FFFAD4"
 	bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
 	list_reagents = list("nutriment" = 2)
+	tastes = list("popcorn" = 3, "butter" = 1)
 
 /obj/item/reagent_containers/food/snacks/popcorn/New()
 	..()

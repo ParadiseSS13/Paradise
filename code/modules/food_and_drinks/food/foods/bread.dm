@@ -160,6 +160,7 @@
 	filling_color = "#DBCC9A"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "vitamin" = 2)
+	tastes = list("bread" = 2)
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast
 	name = "Jellied Toast"
@@ -168,6 +169,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#B572AB"
 	bitesize = 3
+	tastes = list("toast" = 1, "jelly" = 1)
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast/cherry
 	list_reagents = list("nutriment" = 1, "cherryjelly" = 5, "vitamin" = 2)
@@ -183,6 +185,7 @@
 	filling_color = "#FF00F7"
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "psilocybin" = 2, "vitamin" = 2)
+	tastes = list("waffle" = 1, "mushrooms" = 1)
 
 /obj/item/reagent_containers/food/snacks/waffles
 	name = "waffles"

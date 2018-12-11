@@ -119,6 +119,7 @@
 	desc = "A still twitching leg of a giant spider... you don't really want to eat this, do you?"
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
+	tastes = list("cobwebs" = 1)
 
 /obj/item/reagent_containers/food/snacks/raw_bacon
 	name = "raw bacon"
@@ -132,6 +133,7 @@
 	desc = "A cluster of juicy spider eggs. A great side dish for when you care not for your health."
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
+	tastes = list("cobwebs" = 1)
 
 //////////////////////
 //	Cooked Meat		//
@@ -183,6 +185,7 @@
 	icon_state = "sausage"
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
@@ -199,6 +202,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
+	tastes = list("meat" = 1, "the colour green" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -207,6 +211,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
+	tastes = list("hot peppers" = 1, "cobwebs" = 1)
 
 /obj/item/reagent_containers/food/snacks/wingfangchu
 	name = "Wing Fang Chu"
@@ -215,6 +220,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
+	tastes = list("soy" = 1)
 
 
 //////////////////////
@@ -229,6 +235,7 @@
 	filling_color = "#ADAC7F"
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
+	tastes = list("the jungle" = 1, "bananas" = 1)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
 	if(volume >= 5)
@@ -279,6 +286,7 @@
 	icon_state = "egg"
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
+	tastes = list("egg" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
@@ -306,34 +314,42 @@
 /obj/item/reagent_containers/food/snacks/egg/blue
 	icon_state = "egg-blue"
 	item_color = "blue"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/green
 	icon_state = "egg-green"
 	item_color = "green"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/mime
 	icon_state = "egg-mime"
 	item_color = "mime"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/orange
 	icon_state = "egg-orange"
 	item_color = "orange"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/purple
 	icon_state = "egg-purple"
 	item_color = "purple"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/rainbow
 	icon_state = "egg-rainbow"
 	item_color = "rainbow"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/red
 	icon_state = "egg-red"
 	item_color = "red"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/yellow
 	icon_state = "egg-yellow"
 	item_color = "yellow"
+	tastes = list("egg" = 4, "the back of class" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
@@ -352,6 +368,7 @@
 	filling_color = "#FFDF78"
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
+	tastes = list("egg" = 4, "salt" = 1, "pepper" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "Boiled egg"
@@ -359,6 +376,7 @@
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
+	tastes = list("egg" = 1)
 
 /obj/item/reagent_containers/food/snacks/chocolateegg
 	name = "Chocolate Egg"
@@ -366,6 +384,7 @@
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
+	tastes = list("chocolate" = 4, "sweetness" = 1)
 
 /obj/item/reagent_containers/food/snacks/omelette
 	name = "Omelette Du Fromage"
@@ -375,6 +394,7 @@
 	filling_color = "#FFF9A8"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
+	tastes = list("egg" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"
@@ -382,6 +402,7 @@
 	icon_state = "benedict"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
+	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 
 
 //////////////////////
@@ -394,6 +415,7 @@
 	icon_state = "hotdog"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
+	tastes = list("bun" = 3, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatbun
 	name = "meat bun"
@@ -401,6 +423,7 @@
 	icon_state = "meatbun"
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("bun" = 3, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/turkey
 	name = "Turkey"

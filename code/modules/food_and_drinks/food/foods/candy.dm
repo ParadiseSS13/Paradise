@@ -23,6 +23,7 @@
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
+	tastes = list("chocolate" = 1)
 
 /obj/item/reagent_containers/food/snacks/candy/caramel
 	name = "Caramel"
@@ -107,6 +108,7 @@
 	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
 	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("candy corn" = 1)
 
 // ***********************************************************
 // Candy Products (plain / unflavored)
@@ -130,6 +132,7 @@
 	bitesize = 3
 	junkiness = 25
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
+	tastes = list("chocolate" = 1)
 
 
 /obj/item/reagent_containers/food/snacks/candy/candycane
@@ -185,6 +188,7 @@
 	filling_color = "#302000"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
+	tastes = list("chocolate" = 1)
 
 /obj/item/reagent_containers/food/snacks/candy/gum
 	name = "bubblegum"
