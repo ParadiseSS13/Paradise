@@ -61,6 +61,7 @@ var/global/list/fax_blacklist = list()
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
+		req_one_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
