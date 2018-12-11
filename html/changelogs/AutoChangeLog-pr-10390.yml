@@ -1,5 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - rscadd: "Arm implants use radial menues where suitable"
-  - tweak: "Item actions can have icons different from the icon of the item"
