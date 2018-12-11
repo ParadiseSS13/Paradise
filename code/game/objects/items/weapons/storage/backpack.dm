@@ -47,7 +47,7 @@
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
+		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "No", "Yes")
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
