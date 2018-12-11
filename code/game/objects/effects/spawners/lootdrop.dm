@@ -194,6 +194,7 @@
 				// Mining
 				/obj/item/mining_voucher = 100,
 				/obj/item/pickaxe/drill/jackhammer = 100,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 100,
 
 				// Bartender
 
@@ -262,6 +263,8 @@
 	loot = list(
 				// Melee
 				/obj/item/kitchen/knife/combat = 50,
+				/obj/item/fluff/desolate_baton_kit = 50, // permission granted by Desolate to use their fluff kit in this loot table
+
 
 				// Utility
 				/obj/item/storage/belt/military/assault = 50,
