@@ -1,6 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - tweak: "You can now tape much more than just paper!"
-  - rscadd: "You can now order a crate full of sticky tape"
-  - tweak: "Maximum amount in a tape roll is now 25 (up from 10)."

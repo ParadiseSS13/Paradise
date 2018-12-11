@@ -1,5 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Fixes some issues and runtimes in floorcluwne code."
-  - tweak: "Admins will now be informed of a new floorcluwne's chosen target if one is provided via the event."
