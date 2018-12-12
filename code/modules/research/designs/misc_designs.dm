@@ -80,7 +80,7 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	build_path = /obj/item/clothing/mask/muzzle/safety/shock
 	category = list("Miscellaneous")
-	
+
 /datum/design/data_disk
 	name = "Genetics Data Disk"
 	desc = "Disk that allows you to store genetic data."
@@ -89,4 +89,94 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=300, MAT_GLASS=100)
 	build_path = /obj/item/disk/data
+	category = list("Miscellaneous")
+
+/datum/design/emergency_oxygen
+	name = "Emergency Oxygen Tank"
+	desc = "Used for emergencies. Contains very little oxygen."
+	id = "emergencyoxygen"
+	req_tech = list("toxins" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=500, MAT_GLASS=100)
+	build_path = /obj/item/tank/emergency_oxygen
+	category = list("Miscellaneous")
+
+/datum/design/extended_oxygen
+	name = "Extended Emergency Oxygen Tank"
+	desc = "Used for emergencies. Contains a decent amount of oxygen."
+	id = "extendedoxygen"
+	req_tech = list("toxins" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=800, MAT_GLASS=100)
+	build_path = /obj/item/tank/emergency_oxygen/engi
+	category = list("Miscellaneous")
+
+/datum/design/double_oxygen
+	name = "Double Emergency Oxygen Tank"
+	desc = "Used for emergencies. Contains a good amount of oxygen."
+	id = "doubleoxygen"
+	req_tech = list("toxins" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=1500, MAT_GLASS=200)
+	build_path = /obj/item/tank/emergency_oxygen/double
+	category = list("Miscellaneous")
+
+/datum/design/oxygen_tank
+	name = "Oxygen Tank"
+	desc = "A large oxygen tank."
+	id = "oxygentank"
+	req_tech = list("toxins" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=3000, MAT_GLASS=500)
+	build_path = /obj/item/tank/oxygen
+	category = list("Miscellaneous")
+
+/datum/design/emergency_nitrogen
+	name = "Emergency Nitrogen Tank"
+	desc = "Used for vox-related emergencies. Contains very little nitrogen."
+	id = "emergencynitrogen"
+	req_tech = list("toxins" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=500, MAT_GLASS=100)
+	build_path = /obj/item/tank/emergency_oxygen/nitrogen
+	category = list("Miscellaneous")
+
+/datum/design/nitrogen_tank
+	name = "Nitrogen Tank"
+	desc = "A large nitrogen tank."
+	id = "nitrogentank"
+	req_tech = list("toxins" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=3000, MAT_GLASS=500)
+	build_path = /obj/item/tank/nitrogen
+	category = list("Miscellaneous")
+
+/datum/design/vox_tank
+	name = "Vox Specialized Nitrogen Tank"
+	desc = "A high-tech nitrogen tank designed specifically for Vox."
+	id = "voxtank"
+	req_tech = list("toxins" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=2500, MAT_GLASS=500)
+	build_path = /obj/item/tank/emergency_oxygen/vox
+	category = list("Miscellaneous")
+
+/datum/design/emergency_plasma
+	name = "Emergency Plasma Tank"
+	desc = "Used for plasmaman-related emergencies. Contains very little plasma."
+	id = "emergencyplasma"
+	req_tech = list("toxins" = 5, "plasmatech" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=500, MAT_GLASS=100, MAT_PLASMA = 50)
+	build_path = /obj/item/tank/emergency_oxygen/plasma
+	category = list("Miscellaneous")
+
+/datum/design/plasma_tank
+	name = "Plasma Tank"
+	desc = "A tank of plasma."
+	id = "plasmatank"
+	req_tech = list("toxins" = 5, "plasmatech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=3000, MAT_GLASS=200, MAT_PLASMA = 500)
+	build_path = /obj/item/tank/plasma
 	category = list("Miscellaneous")
