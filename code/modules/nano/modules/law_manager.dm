@@ -31,6 +31,10 @@
 	if(..())
 		return 1
 
+	if(!can_still_topic())
+		message_admins("Warning: [key_name(usr)] failed initial can_still_topic in nano_module/law_manager/Topic")
+		return 1
+
 	if(href_list["set_view"])
 		current_view = text2num(href_list["set_view"])
 		return 1
