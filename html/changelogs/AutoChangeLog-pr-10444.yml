@@ -1,0 +1,4 @@
+author: "name here"
+delete-after: True
+changes: 
+  - bugfix: "Fixed Bulldog and C20 having their ammo alarms only go off once per gun."
