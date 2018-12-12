@@ -84,7 +84,7 @@
 /datum/design/rpd
 	name = "Bluespace Rapid Pipe Dispenser (BRPD)"
 	desc = "Similar to the Rapid Pipe Dispenser, lets you rapidly dispense pipes. Now at long range!"
-	req_tech = list("bluespace" = 3, "toxins" = 6)
+	req_tech = list("bluespace" = 3)
 	id = "brpd"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
