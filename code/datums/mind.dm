@@ -1038,6 +1038,7 @@
 						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
 					else
 						ticker.mode.devils -= src
+						ticker.mode.update_devil_icons_removed(src)
 						special_role = null
 						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
@@ -1071,6 +1072,7 @@
 					return
 				ticker.mode.devils += src
 				special_role = "devil"
+				ticker.mode.update_devil_icons_added(src)
 				ticker.mode.finalize_devil(src, FALSE)
 				ticker.mode.forge_devil_objectives(src, 2)
 				ticker.mode.greet_devil(src)
@@ -1087,8 +1089,10 @@
 					return
 				ticker.mode.devils += src
 				special_role = "devil"
+				ticker.mode.update_devil_icons_added(src)
 				ticker.mode.finalize_devil(src, TRUE)
 				ticker.mode.forge_devil_objectives(src, 2)
+				ticker.mode.greet_devil(src)
 				message_admins("[key_name_admin(usr)] has devil'ed [current].  The devil has been marked as ascendable.")
 				log_admin("[key_name(usr)] has devil'ed [current]. The devil has been marked as ascendable.")
 			if("sintouched")
@@ -1645,8 +1649,10 @@
 
 // returns a mob to message to produce something visible for the target mind
 /datum/mind/proc/messageable_mob()
-	if(current && current.client)
+	if(!QDELETED(current) && current.client)
 		return current
+	else
+		return get_ghost(even_if_they_cant_reenter = TRUE)
 
 //Initialisation procs
 /mob/proc/mind_initialize()
