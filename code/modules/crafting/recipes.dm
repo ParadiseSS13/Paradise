@@ -251,8 +251,8 @@
 	name = "Sushi Mat"
 	result = /obj/item/kitchen/sushimat
 	time = 10
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/cable_coil = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/notreallysoap
