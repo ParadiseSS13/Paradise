@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed a few things that should not be possible with pAIs and AIs."
