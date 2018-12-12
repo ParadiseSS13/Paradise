@@ -218,7 +218,7 @@ var/list/pipemenu = list(
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
 			if(ranged)
-				user.Beam(target, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+				user.Beam(T, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 			return
 
 	// If we get this far, we have to check every object in the tile, to make sure that none of them block RPD usage on this tile.
