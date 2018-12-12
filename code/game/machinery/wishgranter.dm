@@ -65,7 +65,7 @@
 		else
 			wish = input("You want to become...","Wish") as null|anything in types
 
-		if(!wish)
+		if(!src || !wish || user.stat == DEAD || (get_dist(src, user) > 4)) //another check after the input to check if someone already used it, closed it, or if they're dead, or if they ran off
 			return
 
 		var/datum/superheroes/S = GLOB.all_superheroes[wish]
@@ -73,8 +73,6 @@
 			to_chat(user,"<span class='warning'>There can only be one! Pick something else!</span>")
 			return
 
-		if(!src || user.stat == DEAD || (get_dist(src, user) > 4)) //another check after the input to check if someone already used it, or if they're dead, or if they ran off
-			return
 		S.create(user)
 		S.activated = TRUE //sets this superhero as taken so we don't have duplicates
 		playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
