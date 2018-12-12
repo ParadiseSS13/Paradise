@@ -31,8 +31,9 @@
 	if(..())
 		return 1
 
-	if(!can_still_topic())
-		message_admins("Warning: [key_name(usr)] failed initial can_still_topic in nano_module/law_manager/Topic")
+	if(usr != owner && !check_rights(R_ADMIN))
+		message_admins("Warning: possible href exploit by [key_name(usr)] - failed permissions check in nano_module/law_manager/Topic")
+		log_debug("Warning: possible href exploit by [key_name(usr)] - failed permissions check in nano_module/law_manager/Topic")
 		return 1
 
 	if(href_list["set_view"])

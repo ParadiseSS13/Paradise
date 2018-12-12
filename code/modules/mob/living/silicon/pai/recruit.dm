@@ -25,15 +25,17 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 /datum/paiController/Topic(href, href_list[])
 
 	var/datum/paiCandidate/candidate = locate(href_list["candidate"])
+
 	if(candidate)
 		if(!istype(candidate))
 			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate is not a pAI)")
+			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate is not a pAI)")
 			return
 
 		if(candidate.key && usr.key && candidate.key != usr.key)
 			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
+			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
 			return
-
 
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
