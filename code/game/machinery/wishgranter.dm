@@ -41,13 +41,10 @@
 
 		to_chat(user, "You have a very bad feeling about this.")
 		
-		
-		
 /obj/machinery/wish_granter/super
 	name = "super wish granter"
 	var/list/types = list()
 	
-
 /obj/machinery/wish_granter/super/attack_hand(mob/living/carbon/user)
 	if(!ishuman(user))
 		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
@@ -85,8 +82,3 @@
 		add_attack_logs(null, user, "Became [GLOB.all_superheroes[wish]]")
 		notify_ghosts("[GLOB.all_superheroes[wish]] has appeared in [get_area(user)].", source = user)
 		qdel(src)
-	
-	
-	
-	
-	
