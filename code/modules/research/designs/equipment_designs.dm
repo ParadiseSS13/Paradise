@@ -115,7 +115,7 @@
 	name = "Welding Gas Mask"
 	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
 	id = "weldingmask"
-	req_tech = list("materials" = 2, "engineering" = 3)
+	req_tech = list("materials" = 2, "engineering" = 3, "toxins" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	build_path = /obj/item/clothing/mask/gas/welding

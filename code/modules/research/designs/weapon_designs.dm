@@ -6,7 +6,7 @@
 	name = "Advanced Energy Gun"
 	desc = "An energy gun with an experimental miniaturized reactor."
 	id = "nuclear_gun"
-	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
+	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "toxins" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 3000, MAT_TITANIUM = 1000)
 	build_path = /obj/item/gun/energy/gun/nuclear
