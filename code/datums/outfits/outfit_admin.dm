@@ -732,6 +732,27 @@
 	)
 	is_tsf_lieutenant = TRUE
 
+/datum/outfit/admin/sol_trader
+	name = "Sol Trader"
+
+	uniform = /obj/item/clothing/under/rank/cargotech
+	back = /obj/item/storage/backpack/industrial
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/radio/headset
+	id = /obj/item/card/id/supply
+	pda = /obj/item/pda
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1
+	)
+
+/datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(access_trade_sol, access_maint_tunnels, access_external_airlocks), name)
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

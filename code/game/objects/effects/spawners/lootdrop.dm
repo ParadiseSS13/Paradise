@@ -164,63 +164,33 @@
 				"" = 80,
 				)
 
+
+
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
 	lootcount = 6
 	lootdoubles = 1
 	color = "#00FFFF"
 
-/obj/effect/spawner/lootdrop/trade_sol/civ
-	loot = list(
-				// Donksoft guns
-				/obj/item/gun/projectile/automatic/c20r/toy = 50,
-				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
-				/obj/item/gun/projectile/automatic/toy/pistol = 100,
-				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
-				/obj/item/gun/projectile/shotgun/toy = 50,
-				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
-				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
 
+/obj/effect/spawner/lootdrop/trade_sol/civ
+	name = "1. civilian gear"
+	loot = list(
 				// General utility gear
 				/obj/item/storage/belt/utility/full/multitool = 150,
-				/obj/item/clothing/gloves/color/yellow = 100,
+				/obj/item/clothing/gloves/combat = 100,
 				/obj/item/clothing/glasses/welding = 50,
 				/obj/item/reagent_containers/spray/cleaner = 100,
 				/obj/item/clothing/shoes/magboots = 50,
+				/obj/item/soap = 50,
+				/obj/item/clothing/under/syndicate/combat = 50,
+				/obj/item/soap/syndie = 50,
+				/obj/item/lighter/zippo/gonzofist = 50
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/serv
-	loot = list(
-				// Mining
-				/obj/item/mining_voucher = 100,
-				/obj/item/pickaxe/drill/jackhammer = 100,
-				/obj/item/stack/sheet/animalhide/goliath_hide = 100,
-
-				// Bartender
-
-
-				// Chef
-
-
-				// Botanist
-
-
-				// Librarian
-
-
-				// Chaplain
-
-
-				// Clown
-				/obj/item/bikehorn/golden = 100,
-
-
-				// Mime
-
-
-				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
+	name = "2. minerals"
 	lootdoubles = 1
 	loot = list(
 				// Common stuff you get from mining which isn't already present on the station
@@ -259,7 +229,64 @@
 				S.amount = 25
 	qdel(src)
 
+
+/obj/effect/spawner/lootdrop/trade_sol/donksoft
+	name = "3. donksoft gear"
+	loot = list(
+				// Donksoft guns
+				/obj/item/gun/projectile/automatic/c20r/toy = 50,
+				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
+				/obj/item/gun/projectile/automatic/toy/pistol = 100,
+				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
+				/obj/item/gun/projectile/shotgun/toy = 50,
+				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
+				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
+				)
+
+
+
+/obj/effect/spawner/lootdrop/trade_sol/sci
+	name = "4. science gear"
+	loot = list(
+
+				// Robotics
+				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
+				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
+				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
+				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
+
+				// Research / Experimentor
+				/obj/item/relic = 150, // strange object
+				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
+
+				// Xenobio
+				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
+				/obj/item/slimepotion/transference = 50,
+				/obj/item/slimepotion/speed = 50,
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/med
+	name = "5. medical gear"
+	loot = list(
+				// Medchem
+				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
+				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+
+				// Genetics Research (should really be under science, but I was stuck for items to put in medical)
+				/obj/item/dnainjector/regenerate = 50, // regeneration
+				/obj/item/dnainjector/nobreath = 50,
+				/obj/item/dnainjector/midgit = 50,
+				/obj/item/dnainjector/telemut = 50,
+
+				// Virology
+				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
+				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50,
+
+				)
+
 /obj/effect/spawner/lootdrop/trade_sol/sec
+	name = "6. security gear"
 	loot = list(
 				// Melee
 				/obj/item/kitchen/knife/combat = 50,
@@ -273,85 +300,78 @@
 				// Ranged weapons
 				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
 
-				// Armor: need ideas for armor
-
 				)
-
-/obj/effect/spawner/lootdrop/trade_sol/sci
-	loot = list(
-
-				// Robotics
-				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
-				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50, // mecha x-ray laser
-				/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy = 50, // mecha heavy missile
-
-				// Research / Experimentor
-				/obj/item/relic = 150, // strange object
-				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
-
-				// Genetics Research
-				/obj/item/dnainjector/xraymut = 50, // xray
-				/obj/item/dnainjector/regenerate = 50, // regeneration
-				/obj/item/dnainjector/nobreath = 50,
-				/obj/item/dnainjector/remoteview = 50,
-				/obj/item/dnainjector/midgit = 50,
-				/obj/item/dnainjector/telemut = 50,
-
-				// Xenobio
-				/obj/item/slime_extract/rainbow = 50,
-				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/slimepotion/transference = 50,
-				/obj/item/slimepotion/speed = 50,
-				/obj/item/slimepotion/fireproof = 50,
-
-				// Scichem
-				//xenomicrobes - xeno transformation
-
-
-				)
-
-/obj/effect/spawner/lootdrop/trade_sol/med
-	loot = list(
-				// General medical tools
-				///obj/item/defibrillator/compact/loaded = 50, // Theft objective.
-				/obj/item/reagent_containers/hypospray/safety/ert = 50, // Contains omnizine, like CMO hypospray, but does not count for theft objective
-
-				/obj/item/storage/pill_bottle/random_meds/labelled = 150, // random medical and other chems
-
-				// Standard medicines
-				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
-				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
-
-				// Virus cultures (basic heal,
-
-				)
-
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
+	name = "7. eng gear"
+	lootcount = 3
 	loot = list(
 				/obj/item/storage/belt/utility/chief/full = 25,
 				/obj/item/rcd/combat = 25,
-				/obj/item/rcd = 25
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/mech
+/obj/effect/spawner/lootdrop/trade_sol/largeitem
+	name = "8. largeitem"
 	lootcount = 1
 	loot = list(
-				/obj/mecha/working/ripley = 20,
-				/obj/mecha/working/ripley/firefighter = 20,
-				/obj/mecha/medical/odysseus = 20
+				/obj/machinery/disco = 20,
+				/obj/mecha/combat/durand/old = 20,
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/pets
-	lootcount = 1
+/obj/effect/spawner/lootdrop/trade_sol/vehicle
+	name = "9. vehicle"
 	loot = list(
-				/obj/structure/closet/critter/corgi = 20,
-				/obj/structure/closet/critter/goat = 20,
-				/obj/structure/closet/critter/cat = 20,
-				/obj/structure/closet/critter/fox = 20,
-				/obj/structure/closet/critter/butterfly = 20
+				/obj/vehicle/motorcycle = 50,
+				/obj/vehicle/snowmobile = 50,
+				/obj/vehicle/snowmobile = 50,
+				/obj/vehicle/space/speedbike/red = 50,
+				/obj/vehicle/space/speedbike = 50
 				)
+
+/obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
+	if(!loot.len)
+		return
+	var/lootspawn = pickweight(loot)
+	var/obj/vehicle/V = new lootspawn(get_turf(src))
+	if(V.keytype)
+		new V.keytype(get_turf(src))
+	qdel(src)
+
+
+/obj/effect/spawner/lootdrop/trade_sol/serv
+	name = "10. service gear"
+	loot = list(
+				// Mining
+				/obj/item/mining_voucher = 100,
+				/obj/item/pickaxe/drill/jackhammer = 100,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 100,
+
+				// Bartender
+
+
+				// Chef
+
+
+				// Botanist
+
+
+				// Librarian
+
+
+				// Chaplain
+
+
+				// Clown
+				/obj/item/bikehorn/golden = 100,
+
+
+				// Mime
+
+
+				)
+
+
+
 
 
 /obj/effect/spawner/lootdrop/three_course_meal

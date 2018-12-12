@@ -716,6 +716,6 @@
 /obj/item/paper/researchnotes/New()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
-	var/mylevel = rand(1, 9)
-	origin_tech = mytech + "=" + mylevel
+	var/mylevel = rand(7, 9)
+	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"

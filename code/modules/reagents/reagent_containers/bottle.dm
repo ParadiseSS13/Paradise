@@ -337,14 +337,14 @@
 	spawned_disease = /datum/disease/tuberculosis
 
 /obj/item/reagent_containers/glass/bottle/regeneration
-	name = "AntiToxin culture bottle"
-	desc = "A small bottle. Contains a sample of a bacterium with liver-boosting properties."
+	name = "Regeneration culture bottle"
+	desc = "A small bottle. Contains a sample of a virus that heals toxin damage."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/heal
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration
-	name = "AntiToxin culture bottle"
-	desc = "A small bottle. Contains a sample of a bacterium with liver-boosting properties."
+	name = "Sensory Restorationculture bottle"
+	desc = "A small bottle. Contains a sample of a virus that heals sensory damage."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/sensory_restoration
 
