@@ -204,7 +204,7 @@
 	icon_state = "ak47"
 	item_state = "ak47"
 	weapon_weight = WEAPON_MEDIUM //two handed handling recommended, it's a rifle
-	origin_tech = "combat=5;materials=3;syndicate=5"
+	origin_tech = "combat=5;materials=3;syndicate=2"
 	mag_type = /obj/item/ammo_box/magazine/ak762
 	fire_sound = 'sound/weapons/Gunshot_ak47.ogg'
 	can_suppress = 0
