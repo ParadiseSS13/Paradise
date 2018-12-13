@@ -457,6 +457,9 @@
 		return 0
 	var/obj/effect/proc_holder/spell/spell = target
 
+	if(spell.special_availability_check)
+		return 1
+
 	if(owner)
 		return spell.can_cast(owner)
 	return 0
