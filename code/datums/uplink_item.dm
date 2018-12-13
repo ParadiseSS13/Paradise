@@ -442,7 +442,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/ak47 //RASH DISK
 	name = "AK-47 bundle"
 	reference = "AK"
-	desc = "Underground contacts in the USSP lets us get our hands on this tried and true assault rifle bundle. Cheap, but cost-effective."
+	desc = "Underground contacts in the USSP let us get our hands on this tried and true assault rifle bundle. Cheap, but cost-effective."
 	item = /obj/item/storage/backpack/duffel/syndie/ak47
 	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
