@@ -44,7 +44,7 @@
 		message = replacetext(message, "s", stutter("ss"))
 	return message
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly)
 	var/assigned_role = J ? J.title : (H.mind && H.mind.assigned_role ? H.mind.assigned_role : "Civilian")
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
@@ -146,9 +146,10 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
 
-	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
-		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
-		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard(H), slot_head)
+	if(H.mind)
+		if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
+			H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
+			H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard(H), slot_head)
 	else
 		H.equip_or_collect(new suit(H), slot_wear_suit)
 		H.equip_or_collect(new helm(H), slot_head)

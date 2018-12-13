@@ -24,10 +24,8 @@ GLOBAL_LIST_EMPTY(human_dummy_list)
 	if(!slotkey)
 		return new /mob/living/carbon/human/dummy
 	var/mob/living/carbon/human/dummy/D = GLOB.human_dummy_list[slotkey]
-	to_chat(world, "gowfhd - istype(D) ? [istype(D)]")
 	if(istype(D))
 		UNTIL(!D.in_use)
-	to_chat(world, "gowfhd - while loop exited")
 	if(QDELETED(D))
 		D = new
 		GLOB.human_dummy_list[slotkey] = D

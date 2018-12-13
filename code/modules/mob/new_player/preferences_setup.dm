@@ -231,7 +231,6 @@
 				return job
 
 /datum/preferences/proc/update_preview_icon()
-	to_chat(world, "update_preview_icon() - call")
 	// Silicons only need a very basic preview since there is no customization for them.
 	if(job_engsec_high)
 		switch(job_engsec_high)
@@ -243,27 +242,19 @@
 				preview_icon = icon('icons/mob/robots.dmi', "robot", SOUTH)
 				preview_icon.Scale(64, 64)
 				return
-	to_chat(world, "update_preview_icon() - after_job_engsec")
 
 	// Set up the dummy for its photoshoot
 	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
 	copy_to(mannequin)
-	to_chat(world, "update_preview_icon() - copy_to done")
 
 	var/datum/job/previewJob
 
-	to_chat(world, "update_preview_icon() - previewJob before")
 	previewJob = get_highest_job()
-	to_chat(world, "update_preview_icon() - previewJob after")
-	to_chat(world, "update_preview_icon() - previewJob is [previewJob]")
 
 	if(previewJob)
 		mannequin.job = previewJob.title
-		to_chat(world, "update_preview_icon() - inside previewJob")
 		previewJob.equip(mannequin, TRUE, FALSE, alt_title = GetPlayerAltTitle(previewJob))
-		to_chat(world, "update_preview_icon() - passed .equip")
 
-	to_chat(world, "update_preview_icon() - ct1")
 	COMPILE_OVERLAYS(mannequin)
 	CHECK_TICK
 	preview_icon = icon('icons/effects/effects.dmi', "nothing")
@@ -272,7 +263,6 @@
 	mannequin.setDir(NORTH)
 
 	var/icon/stamp = getFlatIcon(mannequin)
-	to_chat(world, "update_preview_icon() - after gfi")
 	CHECK_TICK
 	preview_icon.Blend(stamp, ICON_OVERLAY, 25, 17)
 	CHECK_TICK
@@ -289,4 +279,3 @@
 	preview_icon.Scale(preview_icon.Width() * 2, preview_icon.Height() * 2) // Scaling here to prevent blurring in the browser.
 	CHECK_TICK
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
-	to_chat(world, "update_preview_icon() - done")
