@@ -234,7 +234,8 @@
 			to_chat(user, "<span class='notice'>You prepare to fire in full auto. It will be difficult to aim.</span>")
 	if(user.drunk >= 30)
 		to_chat(user, "<span class='notice'>Although you're not shure you can aim so well anyways...</span>")
-		spread = 35 //yes this improves accuracy if fired full auto
+		if(spread != 0)
+			spread = 35 //yes this improves accuracy if fired full auto
 
 /obj/item/gun/projectile/automatic/ak47/update_icon()
 	if(magazine)
