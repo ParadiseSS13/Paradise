@@ -317,6 +317,16 @@ to destroy them and players will be able to make replacements.
 			name = "circuit board (Freezer)"
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 
+/obj/item/circuitboard/snow_machine
+	name = "circuit board (snow machine)"
+	build_path = /obj/machinery/snow_machine
+	board_type = "machine"
+	origin_tech = "programming=2;materials=2"
+	frame_desc = "Requires 1 Matter Bin and 1 Micro Laser."
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/micro_laser = 1)
+
 /obj/item/circuitboard/biogenerator
 	name = "circuit board (Biogenerator)"
 	build_path = /obj/machinery/biogenerator
