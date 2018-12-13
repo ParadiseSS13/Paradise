@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Tweaked the syndicate depot to fix various bugs and unintended design things, as well as make some changes to improve fun value."
