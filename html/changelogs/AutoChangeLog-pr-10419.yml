@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Computer and machine frames are no longer invincible, and can now be destroyed by hostile NPCs."
