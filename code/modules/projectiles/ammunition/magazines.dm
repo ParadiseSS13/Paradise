@@ -340,6 +340,21 @@
 	caliber = ".45"
 	max_ammo = 50
 
+/obj/item/ammo_box/magazine/ak762
+	name = "AK-47 magazine (7.62x39mm)"
+	icon_state = "ak762"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/ak762
+	caliber = "7.62x39mm"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/ak762/update_icon()
+	..()
+	if(!ammo_count())
+		icon_state = "ak47-0"
+	else
+		icon_state = "ak47-30"
+
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
 	icon_state = "50ae"

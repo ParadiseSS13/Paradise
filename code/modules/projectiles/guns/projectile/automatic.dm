@@ -198,6 +198,50 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
 
+/obj/item/gun/projectile/automatic/ak47
+	name = "\improper AK-47"
+	desc = "A relic from the USSP Cygni Rebellion era, its design remains unchanged hundreds of years later. Why would it need to be?"
+	icon_state = "ak47"
+	item_state = "ak47"
+	weapon_weight = WEAPON_MEDIUM //two handed handling recommended, it's a rifle
+	origin_tech = "combat=5;materials=3;syndicate=5"
+	mag_type = /obj/item/ammo_box/magazine/ak762
+	fire_sound = 'sound/weapons/Gunshot_ak47.ogg'
+	can_suppress = 0
+	burst_size = 1
+	fire_delay = 1
+
+/obj/item/gun/projectile/automatic/ak47/burst_select()
+	var/mob/living/carbon/human/user = usr
+	switch(select)
+		if(0)
+			select = 1
+			burst_size = 1
+			spread = 0
+			fire_delay = 1
+			to_chat(user, "<span class='notice'>You prepare to aim and fire precise, single shots.</span>")
+		if(1)
+			select = 2
+			burst_size = 3
+			spread = 20
+			fire_delay = 1.5
+			to_chat(user, "<span class='notice'>You prepare to fire in short, controlled bursts.</span>")
+		if(2)
+			select = 0
+			burst_size = 5
+			spread = 50
+			fire_delay = 1.5
+			to_chat(user, "<span class='notice'>You prepare to fire in full auto. It will be difficult to aim.</span>")
+	if(user.drunk >= 30)
+		to_chat(user, "<span class='notice'>Although you're not shure you can aim so well anyways...</span>")
+		spread = 35 //yes this improves accuracy if fired full auto
+
+/obj/item/gun/projectile/automatic/ak47/update_icon()
+	if(magazine)
+		icon_state = "ak47"
+	else
+		icon_state = "ak47-e"
+
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."

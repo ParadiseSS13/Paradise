@@ -15,6 +15,12 @@
 	caliber = "a762"
 	projectile_type = /obj/item/projectile/bullet
 
+/obj/item/ammo_casing/ak762
+	desc = "A 7.62x39mm bullet casing."
+	icon_state = "762-casing"
+	caliber = "7.62x39mm"
+	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
+
 /obj/item/ammo_casing/a762/enchanted
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 

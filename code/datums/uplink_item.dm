@@ -439,6 +439,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 13
 	surplus = 50
 
+/datum/uplink_item/dangerous/ak47 //RASH DISK
+	name = "AK-47 bundle"
+	reference = "AK"
+	desc = "Underground contacts in the USSP lets us get our hands on this tried and true assault rifle bundle. Cheap, but cost-effective."
+	item = /obj/item/storage/backpack/duffel/syndie/ak47
+	cost = 12
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 50
+
 /datum/uplink_item/dangerous/smg
 	name = "C-20r Submachine Gun"
 	reference = "SMG"
@@ -689,6 +698,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 3
+
+/datum/uplink_item/ammo/ak47
+	name = "Magazine - 7.62x39mm"
+	desc = "An additional 30-round 7.62x39mm magazine for use in the AK-47. These rounds have decent damage and armor penetration."
+	reference = "762"
+	item = /obj/item/ammo_box/magazine/ak762
+	cost = 1
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/smg
 	name = "Magazine - .45"
