@@ -1,21 +1,21 @@
 /obj/machinery/snow_machine
 	name = "snow machine"
-	desc = "Carol singers not included."
+	desc = "Just add water and you too can have your own winter wonderland! Carol singers not included."
 	icon_state = "snow_machine"
 	density = TRUE
 	anchored = TRUE
-	layer = LOW_OBJ_LAYER
+	layer = OBJ_LAYER
 	var/active = FALSE
 	var/power_used_this_cycle = 0
 	var/cooling_speed = 1
 	var/power_efficiency = 1
 	var/lower_temperature_limit = T0C - 10 //Set lower for a bigger freeze
-	var/list/allowed_reagents = list("water", "holywater", "unholywater") //So it will accept "all" waters
 
 /obj/machinery/snow_machine/New()
 	..()
 	create_reagents(300) //Makes 100 snow tiles!
-	reagents.add_reagent("water", 300)
+	reagents.add_reagent("water", 300) //But any reagent will do
+	reagents.flags |= REAGENT_NOREACT //Because a) this doesn't need to process and b) this way we can use any reagents without needing to worry about explosions and shit
 	container_type = REFILLABLE
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/snow_machine(null)
@@ -25,7 +25,7 @@
 
 /obj/machinery/snow_machine/examine(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>The water level indicator displays it is [round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>")
+	to_chat(user, "<span class='notice'>The internal reservoir indicates it is [round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>")
 
 /obj/machinery/snow_machine/RefreshParts()
 	power_efficiency = 0
@@ -36,6 +36,8 @@
 		power_efficiency += L.rating
 
 /obj/machinery/snow_machine/attack_hand(mob/user)
+	if(!powered() || !anchored)
+		return
 	if(turn_on_or_off(!active))
 		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
 	return ..()
@@ -43,22 +45,14 @@
 /obj/machinery/snow_machine/attackby(obj/item/I, mob/user)
 	if(isscrewdriver(I))
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
-		return
-	if(iscrowbar(I))
+	else if(iscrowbar(I))
 		default_deconstruction_crowbar(I)
-		return
-	if(iswrench(I))
+	else if(iswrench(I))
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
-		return
-	if(istype(I, /obj/item/reagent_containers/glass))
-		var/obj/item/reagent_containers/glass/beaker/G = I
-		for(var/datum/reagent/R in G.reagents)
-			if(R.id in allowed_reagents)
-				continue
-			to_chat(user, "<span class='notice'>[src] only accepts water!</span>")
-			return
-	return ..()
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench [src] into position" : "unwrench [src] from the floor"].</span>")
+		turn_on_or_off(FALSE)
+	else
+		return ..()
 
 /obj/machinery/snow_machine/process()
 	if(power_used_this_cycle)
@@ -67,10 +61,9 @@
 		power_used_this_cycle = 0
 	if(!active || !anchored)
 		return
-	if(stat & NOPOWER)
-		to_chat(world, "uh oh")
+	if(!powered())
 		return
-	if(!reagents.has_reagent("water", 3))
+	if(!reagents.has_reagent(reagents.get_master_reagent_id(), 3))
 		turn_on_or_off(FALSE, TRUE)
 		return
 	var/turf/T = get_turf(src)
@@ -85,9 +78,8 @@
 
 /obj/machinery/snow_machine/power_change()
 	..()
-	if(!stat & NOPOWER)
-		if(active)
-			turn_on_or_off(FALSE, TRUE)
+	if(!powered())
+		turn_on_or_off(FALSE, TRUE)
 
 /obj/machinery/snow_machine/proc/affect_turf_temperature(turf/T, modifier)
 	if(!issimulatedturf(T) || T.density)
@@ -113,7 +105,7 @@
 		return
 	if(locate(/obj/effect/snowcloud, S)) //Ice to see you
 		return
-	if(!reagents.remove_reagent("water", 3))
+	if(!reagents.remove_reagent(reagents.get_master_reagent_id(), 3))
 		new /obj/effect/snowcloud(S, src)
 		power_used_this_cycle += 1000
 		return TRUE
@@ -122,4 +114,5 @@
 	active = activate ? TRUE : FALSE
 	if(!active && give_message)
 		visible_message("<span class='warning'>[src] switches off!</span>")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	return TRUE

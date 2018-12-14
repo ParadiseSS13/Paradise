@@ -4,6 +4,7 @@
 	icon_state = "snowcloud"
 	layer = FLY_LAYER
 	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/snow_machine/parent_machine
 
 /obj/effect/snowcloud/New(turf, obj/machinery/snow_machine/SM)
@@ -29,7 +30,6 @@
 		qdel(src)
 		return
 	if(!parent_machine || !parent_machine.active || parent_machine.stat & NOPOWER) //All reasons a cloud could dissipate
-		to_chat(world, "cloud not powered")
 		if(prob(10))
 			qdel(src)
 		return
@@ -63,36 +63,19 @@
 
 /obj/effect/snow
 	desc = "Perfect for making snow angels, or throwing at other people!"
-	icon = 'icons/turf/snow.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "snow"
 	layer = ABOVE_ICYOVERLAY_LAYER
 	anchored = TRUE
 
 /obj/effect/snow/New()
 	processing_objects.Add(src)
-	var/image/north_border = new('icons/turf/snow.dmi', null, "snow_corner", layer, NORTH)
-	var/image/east_border = new('icons/turf/snow.dmi', null, "snow_corner", layer, EAST)
-	var/image/south_border = new('icons/turf/snow.dmi', null, "snow_corner", layer, SOUTH)
-	var/image/west_border = new('icons/turf/snow.dmi', null, "snow_corner", layer, WEST)
-	north_border.pixel_y -= 32
-	east_border.pixel_x -= 32
-	south_border.pixel_y += 32
-	west_border.pixel_x += 32
-	add_overlay(north_border)
-	add_overlay(east_border)
-	add_overlay(south_border)
-	add_overlay(west_border)
+	icon_state = "snow[rand(1,6)]"
 	..()
 
 /obj/effect/snow/Destroy()
 	processing_objects.Remove(src)
 	return ..()
-
-/obj/effect/snow/proc/melt()
-	var/turf/simulated/T = get_turf(src)
-	T.MakeSlippery() //Yes it'll runtime if it spawns on an unsimulated turf. But that shouldn't happen as the only way to spawn this is to have a snowcloud, and that can only spawn on simulated turfs
-	qdel(src)
-
 
 /obj/effect/snow/process()
 	var/turf/T = get_turf(src)
@@ -102,7 +85,7 @@
 	var/turf/simulated/S = T
 	if(S.air.temperature > T0C)
 		if(prob(10 + S.air.temperature - T0C))
-			melt()
+			qdel(src)
 
 /obj/effect/snow/attack_hand(mob/living/carbon/human/user)
 	if(!istype(user)) //Nonhumans don't have the balls to fight in the snow
@@ -113,19 +96,20 @@
 	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
 
 /obj/effect/snow/fire_act()
-	melt()
+	qdel(src)
 
 /obj/effect/snow/ex_act(severity)
 	if(severity == 3 && prob(50))
 		return
-	melt()
+	qdel(src)
 
 /obj/item/snowball
 	name = "snowball"
 	desc = "Get ready for a snowball fight!"
 	force = 0
-	throwforce = 2
+	throwforce = 10
 	icon_state = "snowball"
+	damtype = STAMINA
 
 /obj/item/snowball/throw_impact(atom/target)
 	..()
