@@ -200,7 +200,7 @@
 
 /obj/item/gun/projectile/automatic/ak47
 	name = "\improper AK-47"
-	desc = "A relic from the USSP Cygni Rebellion era, its design remains unchanged hundreds of years later. Why would it need to be?"
+	desc = "Despite its age, this relic assault rifle is still just as effective as it's always been, proof of the robustness of its design."
 	icon_state = "ak47"
 	item_state = "ak47"
 	weapon_weight = WEAPON_MEDIUM //two handed handling recommended, it's a rifle
@@ -210,6 +210,11 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 1
+
+/obj/item/gun/projectile/automatic/ak47/ak814 //modern design for lore and admin events
+	name = "\improper AK-814"
+	desc = "This russian assault rifle is usually seen in the hands of elite USSP soldiers."
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/projectile/automatic/ak47/burst_select()
 	var/mob/living/carbon/human/user = usr
