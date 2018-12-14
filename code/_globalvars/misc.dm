@@ -79,3 +79,8 @@ GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the hos
 var/fileaccess_timer = 0
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
+
+//printers shutdown if too much shit printed
+var/items_printed = 0
+var/max_items_printed = 300
+var/items_printed_logged = FALSE
