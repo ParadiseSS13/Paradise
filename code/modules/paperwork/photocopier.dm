@@ -62,14 +62,14 @@
 			if(toner <= 0)
 				break
 
-			if(items_printed >= max_items_printed)
+			if(copier_items_printed >= copier_max_items) //global vars defined in misc.dm
 				if(prob(10))
-					visible_message("<span class='warning'>The printer screen reads \"!Attención! La máquina se encontra parada! Retire pantalones de lo toner!\".</span>")
+					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
 				else
 					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-				if(!items_printed_logged)
-					log_admin("Photocopier cap of [max_items_printed] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
-					items_printed_logged = TRUE
+				if(!copier_items_printed_logged)
+					message_admins("Photocopier cap of [copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+					copier_items_printed_logged = TRUE
 				break
 
 			if(emag_cooldown > world.time)
@@ -96,7 +96,7 @@
 			else
 				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 				break
-			items_printed++
+			copier_items_printed++
 			use_power(active_power_usage)
 		updateUsrDialog()
 	else if(href_list["remove"])
