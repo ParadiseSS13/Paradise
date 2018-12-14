@@ -35,8 +35,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	var/list/actions = list() //list of /datum/action's that this item has.
 	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
-	var/list/action_icon = list() //list of icons-sheets for a given action to override the icon.
-	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
 
 	var/list/materials = list()
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
@@ -102,7 +100,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
+		new path(src)
 
 	if(!hitsound)
 		if(damtype == "fire")
