@@ -1,9 +1,9 @@
 /obj/machinery/snow_machine
 	name = "snow machine"
 	desc = "Just add water and you too can have your own winter wonderland! Carol singers not included."
-	icon_state = "snow_machine"
+	icon_state = "snow_machine_off"
 	density = TRUE
-	anchored = TRUE
+	anchored = FALSE
 	layer = OBJ_LAYER
 	var/active = FALSE
 	var/power_used_this_cycle = 0
@@ -48,8 +48,10 @@
 	else if(iscrowbar(I))
 		default_deconstruction_crowbar(I)
 	else if(iswrench(I))
+		var/obj/item/wrench/W = I
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench [src] into position" : "unwrench [src] from the floor"].</span>")
+		to_chat(user, "<span class='notice'>You [anchored ? "tighten [src]'s" : "loosen [src]'s"] wheels.</span>")
+		playsound(loc, W.usesound, 50, TRUE)
 		turn_on_or_off(FALSE)
 	else
 		return ..()
@@ -64,8 +66,7 @@
 	if(!powered())
 		return
 	if(!reagents.has_reagent(reagents.get_master_reagent_id(), 3))
-		turn_on_or_off(FALSE, TRUE)
-		return
+		return //This means you don't need to top it up constantly to keep the nice snowclouds going
 	var/turf/T = get_turf(src)
 	if(!issimulatedturf(T) || T.density) //If the snowmachine is on a dense tile or unsimulated turf, then it shouldn't be able to produce any snow and so will turn off
 		turn_on_or_off(FALSE, TRUE)
@@ -80,6 +81,7 @@
 	..()
 	if(!powered())
 		turn_on_or_off(FALSE, TRUE)
+	update_icon()
 
 /obj/machinery/snow_machine/proc/affect_turf_temperature(turf/T, modifier)
 	if(!issimulatedturf(T) || T.density)
@@ -94,6 +96,10 @@
 	air_update_turf()
 	var/new_thermal_energy = S.air.thermal_energy()
 	power_used_this_cycle += (old_thermal_energy - new_thermal_energy) / 100
+
+/obj/machinery/snow_machine/update_icon()
+	..()
+	icon_state = "snow_machine_[active ? "on" : "off"]"
 
 /obj/machinery/snow_machine/proc/make_snowcloud(turf/T)
 	if(!issimulatedturf(T))
@@ -115,4 +121,5 @@
 	if(!active && give_message)
 		visible_message("<span class='warning'>[src] switches off!</span>")
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+	update_icon()
 	return TRUE
