@@ -1,0 +1,4 @@
+author: "MarsM0nd"
+delete-after: True
+changes: 
+  - bugfix: "radial menu now works for normally implanted implants"
