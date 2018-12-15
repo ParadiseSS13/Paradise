@@ -76,7 +76,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/atom/movable/AM = anchor
 	if(!istype(AM))
 		return
-	if((AM in user.client.screen) || !AM.screen_loc)
+	var/mob/living/carbon/H
+	if(ishuman(user))
+		H = user
+	if((AM in user.client.screen) || !AM.screen_loc || (H && (AM in H.internal_organs)))
 		if(hudfix_method)
 			anchor = user
 		else
