@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/mob/living/carbon/H
 	if(ishuman(user))
 		H = user
-	if((AM in user.client.screen) || !AM.screen_loc || (H && (AM in H.internal_organs)))
+	if((AM in user.client.screen) || (H && (AM in H.internal_organs)))
 		if(hudfix_method)
 			anchor = user
 		else
