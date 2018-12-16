@@ -21,11 +21,13 @@
 	if(QDELETED(parent_machine))
 		parent_machine = null
 	var/turf/T = get_turf(src)
-	if(!issimulatedturf(T) || T.density)
+	if(isspaceturf(T))
 		qdel(src)
 		return
-	var/turf/simulated/S = T
-	var/turf_hotness = S.air.temperature
+	var/turf_hotness
+	if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		turf_hotness = S.air.temperature
 	if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 		qdel(src)
 		return
@@ -35,25 +37,27 @@
 		return
 	try_to_snow()
 	try_to_spread_cloud()
-	parent_machine.affect_turf_temperature(S, 0.25 * parent_machine.cooling_speed)
+	parent_machine.affect_turf_temperature(T, 0.25 * parent_machine.cooling_speed)
 
 /obj/effect/snowcloud/proc/try_to_snow()
 	var/turf/T = get_turf(src)
-	if(!issimulatedturf(T))
+	if(locate(/obj/effect/snow, T))
 		return
-	var/turf/simulated/S = T
-	if(locate(/obj/effect/snow, S))
-		return
-	if(prob(25 + T0C - S.air.temperature)) //Colder turf = more chance of snow
-		new /obj/effect/snow(T)
+	if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		if(prob(75 + S.air.temperature - T0C)) //Colder turf = more chance of snow
+			return
+	new /obj/effect/snow(T)
 
 /obj/effect/snowcloud/proc/try_to_spread_cloud()
-	if(prob(90))
+	if(prob(95 - parent_machine.cooling_speed * 5)) //10 / 15 / 20 / 25% chance to spawn a new cloud
 		return
 	var/list/random_dirs = shuffle(cardinal)
 	for(var/potential in random_dirs)
 		var/turf/T = get_turf(get_step(src, potential))
-		if(!issimulatedturf(T) || T.density)
+		if(isspaceturf(T) || T.density)
+			continue
+		if(!T.CanAtmosPass(T))
 			continue
 		if(parent_machine.make_snowcloud(T))
 			return
@@ -79,11 +83,13 @@
 
 /obj/effect/snow/process()
 	var/turf/T = get_turf(src)
-	if(!issimulatedturf(T) || T.density)
+	if(isspaceturf(T))
 		qdel(src)
 		return
-	var/turf/simulated/S = T
-	if(S.air.temperature > T0C)
+	else if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		if(S.air.temperature <= T0C)
+			return
 		if(prob(10 + S.air.temperature - T0C))
 			qdel(src)
 
@@ -94,6 +100,18 @@
 	var/obj/item/snowball/SB = new(get_turf(user))
 	user.put_in_hands(SB)
 	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
+
+/obj/effect/snow/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/shovel))
+		var/obj/item/shovel/S = I
+		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
+		playsound(loc, S.usesound, 50, TRUE)
+		if(!do_after(user, 50 * S.toolspeed, target = src))
+			return
+		user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
+		qdel(src)
+	else
+		return ..()
 
 /obj/effect/snow/fire_act()
 	qdel(src)

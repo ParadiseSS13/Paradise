@@ -10,6 +10,7 @@
 	var/cooling_speed = 1
 	var/power_efficiency = 1
 	var/lower_temperature_limit = T0C - 10 //Set lower for a bigger freeze
+	var/infinite_snow = FALSE //Set this to have it not use water
 
 /obj/machinery/snow_machine/New()
 	..()
@@ -25,7 +26,7 @@
 
 /obj/machinery/snow_machine/examine(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>The internal reservoir indicates it is [round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>")
+	to_chat(user, "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>")
 
 /obj/machinery/snow_machine/RefreshParts()
 	power_efficiency = 0
@@ -44,7 +45,8 @@
 
 /obj/machinery/snow_machine/attackby(obj/item/I, mob/user)
 	if(isscrewdriver(I))
-		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+		if(default_deconstruction_screwdriver(user, "snow_machine_openpanel", "snow_machine_off", I))
+			turn_on_or_off(FALSE)
 	else if(iscrowbar(I))
 		default_deconstruction_crowbar(I)
 	else if(iswrench(I))
@@ -68,20 +70,29 @@
 	if(!reagents.has_reagent(reagents.get_master_reagent_id(), 3))
 		return //This means you don't need to top it up constantly to keep the nice snowclouds going
 	var/turf/T = get_turf(src)
-	if(!issimulatedturf(T) || T.density) //If the snowmachine is on a dense tile or unsimulated turf, then it shouldn't be able to produce any snow and so will turn off
+	if(isspaceturf(T) || T.density) //If the snowmachine is on a dense tile or in space, then it shouldn't be able to produce any snow and so will turn off
 		turn_on_or_off(FALSE, TRUE)
 		return
-	for(var/turf/simulated/ST in range(1, src))
-		affect_turf_temperature(ST, cooling_speed)
+	for(var/turf/TF in range(1, src))
+		if(issimulatedturf(TF))
+			var/turf/simulated/S = TF
+			affect_turf_temperature(S, cooling_speed)
 		if(prob(50))
 			continue
-		make_snowcloud(ST)
+		make_snowcloud(TF)
 
 /obj/machinery/snow_machine/power_change()
 	..()
 	if(!powered())
 		turn_on_or_off(FALSE, TRUE)
 	update_icon()
+
+/obj/machinery/snow_machine/update_icon()
+	..()
+	if(panel_open)
+		icon_state = "snow_machine_openpanel"
+	else
+		icon_state = "snow_machine_[active ? "on" : "off"]"
 
 /obj/machinery/snow_machine/proc/affect_turf_temperature(turf/T, modifier)
 	if(!issimulatedturf(T) || T.density)
@@ -97,22 +108,19 @@
 	var/new_thermal_energy = S.air.thermal_energy()
 	power_used_this_cycle += (old_thermal_energy - new_thermal_energy) / 100
 
-/obj/machinery/snow_machine/update_icon()
-	..()
-	icon_state = "snow_machine_[active ? "on" : "off"]"
-
 /obj/machinery/snow_machine/proc/make_snowcloud(turf/T)
-	if(!issimulatedturf(T))
+	if(isspaceturf(T))
 		return
-	var/turf/simulated/S = T
-	if(S.density)
+	if(T.density)
 		return
-	if(S.air.temperature > T0C + 1)
+	if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		if(S.air.temperature > T0C + 1)
+			return
+	if(locate(/obj/effect/snowcloud, T)) //Ice to see you
 		return
-	if(locate(/obj/effect/snowcloud, S)) //Ice to see you
-		return
-	if(!reagents.remove_reagent(reagents.get_master_reagent_id(), 3))
-		new /obj/effect/snowcloud(S, src)
+	if(infinite_snow || !reagents.remove_reagent(reagents.get_master_reagent_id(), 3))
+		new /obj/effect/snowcloud(T, src)
 		power_used_this_cycle += 1000
 		return TRUE
 
