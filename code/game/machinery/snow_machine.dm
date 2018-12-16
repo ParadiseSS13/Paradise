@@ -52,7 +52,7 @@
 	else if(iswrench(I))
 		var/obj/item/wrench/W = I
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "tighten [src]'s" : "loosen [src]'s"] wheels.</span>")
+		to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")
 		playsound(loc, W.usesound, 50, TRUE)
 		turn_on_or_off(FALSE)
 	else
