@@ -117,7 +117,7 @@
 				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 			if("fire")
 				take_overall_damage(0, rand(M.force/2, M.force))
-				playsound(src, 'sound/items/Welder.ogg', 50, 1)
+				playsound(src, 'sound/items/welder.ogg', 50, 1)
 			if("tox")
 				M.mech_toxin_damage(src)
 			else

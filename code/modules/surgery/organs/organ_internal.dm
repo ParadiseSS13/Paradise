@@ -254,7 +254,7 @@
 		owner.Stuttering(20)
 		owner.MinimumDeafTicks(30)
 		owner.Weaken(3)
-		owner << 'sound/items/AirHorn.ogg'
+		owner << 'sound/items/airhorn.ogg'
 		if(prob(30))
 			owner.Stun(10)
 			owner.Paralyse(4)

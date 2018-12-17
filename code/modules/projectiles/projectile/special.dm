@@ -311,7 +311,7 @@
 /obj/item/projectile/ornament
 	name = "ornament"
 	icon_state = "ornament-1"
-	hitsound = 'sound/effects/Glasshit.ogg'
+	hitsound = 'sound/effects/glasshit.ogg'
 	damage = 7
 	damage_type = BRUTE
 

@@ -63,7 +63,7 @@
 			return
 	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
-	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
+	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
 	user.ex_act(2)
 	qdel(src)
 

@@ -79,7 +79,7 @@
 			species_hair = GLOB.hair_styles_public_list
 		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
-		playsound(loc, 'sound/goonstation/misc/Scissor.ogg', 100, 1)
+		playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
 		if(do_after(user, 50 * toolspeed, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
 			if(!(M in view(1))) //Adjacency test
 				user.visible_message("<span class='notice'>[user] stops cutting [M]'s hair.</span>", "<span class='notice'>You stop cutting [M]'s hair.</span>")
@@ -111,7 +111,7 @@
 		if(!is_cutting)
 			is_cutting = 1
 			user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>")
-			playsound(loc, 'sound/goonstation/misc/Scissor.ogg', 100, 1)
+			playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
 			if(do_after(user, 50 * toolspeed, target = H))
 				playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices [M.p_their()] throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice [M.p_their()] throat!</span>") //Just a little off the top.

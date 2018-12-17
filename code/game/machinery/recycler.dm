@@ -158,7 +158,7 @@ var/const/SAFETY_COOLDOWN = 100
 	L.loc = loc
 
 	if(issilicon(L))
-		playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+		playsound(loc, 'sound/items/welder.ogg', 50, 1)
 	else
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 

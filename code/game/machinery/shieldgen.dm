@@ -47,7 +47,7 @@
 		health -= aforce
 
 	//Play a fitting sound
-	playsound(loc, 'sound/effects/EMPulse.ogg', 75, 1)
+	playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
 
 	if(health <= 0)
 		visible_message("<span class='notice'>The [src] dissipates</span>")
@@ -109,7 +109,7 @@
 	health -= tforce
 
 	//This seemed to be the best sound for hitting a force field.
-	playsound(loc, 'sound/effects/EMPulse.ogg', 100, 1)
+	playsound(loc, 'sound/effects/empulse.ogg', 100, 1)
 
 	//Handle the destruction of the shield
 	if(health <= 0)

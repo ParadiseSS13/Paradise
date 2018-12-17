@@ -60,7 +60,7 @@
 	item_state = "honker"
 	max_charges = 4
 	recharge_rate = 8
-	fire_sound = 'sound/items/Airhorn.ogg'
+	fire_sound = 'sound/items/airhorn.ogg'
 
 /obj/item/gun/magic/staff/focus
 	name = "mental focus"

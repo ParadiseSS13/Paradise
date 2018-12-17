@@ -156,7 +156,7 @@
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
 	visible_message("<span class='danger'>[user] has attacked the [src.name] with \the [W]!</span>")
 	if(W.damtype == BURN)
-		playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
+		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 	take_damage(W.force, W.damtype)
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M as mob)

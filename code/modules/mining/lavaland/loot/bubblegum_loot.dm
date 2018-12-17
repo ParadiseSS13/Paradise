@@ -11,9 +11,9 @@
 			new /obj/item/blood_contract(src)
 		if(3)
 			new /obj/item/gun/magic/staff/spellblade(src)
-		
+
 // Mayhem
-		
+
 /obj/item/mayhem
 	name = "mayhem in a bottle"
 	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
@@ -26,9 +26,9 @@
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
 			B.mineEffect(H)
 	to_chat(user, "<span class='notice'>You shatter the bottle!</span>")
-	playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	qdel(src)
-	
+
 // Blood Contract
 
 /obj/item/blood_contract
@@ -42,7 +42,7 @@
 /obj/item/blood_contract/attack_self(mob/user)
 	if(used)
 		return
-		
+
 	used = TRUE
 	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in GLOB.player_list
 

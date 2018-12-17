@@ -148,7 +148,7 @@
 			selection = available[selected]
 			updateUsrDialog()
 		if("horn")
-			deejay('sound/items/Airhorn2.ogg')
+			deejay('sound/items/airhorn2.ogg')
 		if("alert")
 			deejay('sound/misc/notice1.ogg')
 		if("siren")
@@ -162,7 +162,7 @@
 		if("saber")
 			deejay('sound/weapons/saberon.ogg')
 		if("harm")
-			deejay('sound/ai/harmalarm.ogg')
+			deejay('sound/AI/harmalarm.ogg')
 
 /obj/machinery/disco/proc/deejay(S)
 	if(QDELETED(src) || !active || charge < 5)

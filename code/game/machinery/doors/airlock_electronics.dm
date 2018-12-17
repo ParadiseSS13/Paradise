@@ -7,7 +7,7 @@
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(access_engine)
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 	var/list/conf_access = null
 	var/one_access = 0 //if set to 1, door would receive req_one_access instead of req_access
 	var/const/max_brain_damage = 60 // Maximum brain damage a mob can have until it can't use the electronics

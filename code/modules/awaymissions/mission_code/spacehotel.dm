@@ -94,7 +94,7 @@
 	autoclose = 1
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
-	var/doorDeni = 'sound/machines/DeniedBeep.ogg'
+	var/doorDeni = 'sound/machines/deniedbeep.ogg'
 	var/id									// the room number, eg 101
 	var/obj/item/card/hotel_card/card// room's key card
 	var/mob/living/occupant = null			// the current room occupant

@@ -130,7 +130,7 @@
 	origin_tech = "engineering=2;programming=1"
 	item_state = "electronic"
 	flags = CONDUCT
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
 /obj/machinery/power/apc/connect_to_network()

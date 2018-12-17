@@ -103,7 +103,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	can_toggle = 1
 	toggle_cooldown = 20
-	active_sound = 'sound/items/WEEOO1.ogg'
+	active_sound = 'sound/items/weeoo1.ogg'
 
 /obj/item/clothing/head/helmet/justice/escape
 	name = "alarm helmet"
@@ -173,7 +173,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	can_toggle = 1
 	toggle_cooldown = 20
-	toggle_sound = 'sound/items/ZippoClose.ogg'
+	toggle_sound = 'sound/items/zippoclose.ogg'
 
 obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"

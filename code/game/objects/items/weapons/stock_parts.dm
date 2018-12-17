@@ -40,9 +40,9 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
 	works_from_distance = 1
-	primary_sound = 'sound/items/PSHOOM.ogg'
-	alt_sound = 'sound/items/PSHOOM_2.ogg'
-	usesound = 'sound/items/PSHOOM.ogg'
+	primary_sound = 'sound/items/pshoom.ogg'
+	alt_sound = 'sound/items/pshoom_2.ogg'
+	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.5
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
@@ -65,7 +65,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/rating = 1
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stock_parts/New()
 	src.pixel_x = rand(-5.0, 5)
