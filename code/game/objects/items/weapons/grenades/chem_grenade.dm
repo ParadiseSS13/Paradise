@@ -526,8 +526,8 @@
 	update_icon()
 
 /obj/item/grenade/chem_grenade/facid
-	name = "acid grenade"
-	desc = "Used for melting armoured opponents."
+	payload_name = "acid smoke"
+	desc = "Use to chew up opponents from the inside out."
 	stage = READY
 
 /obj/item/grenade/chem_grenade/facid/New()
