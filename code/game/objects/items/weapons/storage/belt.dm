@@ -322,27 +322,27 @@
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/grenade/smokebomb(src)
-	new	/obj/item/grenade/empgrenade(src) //2
-	new	/obj/item/grenade/empgrenade(src)
-	new	/obj/item/grenade/gluon(src) //4
-	new	/obj/item/grenade/gluon(src)
-	new	/obj/item/grenade/gluon(src)
-	new	/obj/item/grenade/gluon(src)
-	new	/obj/item/grenade/chem_grenade/facid(src) //1
-	new	/obj/item/grenade/gas/plasma(src) //2
-	new	/obj/item/grenade/gas/plasma(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src) //10
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new	/obj/item/grenade/syndieminibomb(src) //2
-	new	/obj/item/grenade/syndieminibomb(src)
+	new /obj/item/grenade/empgrenade(src) //2
+	new /obj/item/grenade/empgrenade(src)
+	new /obj/item/grenade/gluon(src) //4
+	new /obj/item/grenade/gluon(src)
+	new /obj/item/grenade/gluon(src)
+	new /obj/item/grenade/gluon(src)
+	new /obj/item/grenade/chem_grenade/facid(src) //1
+	new /obj/item/grenade/gas/plasma(src) //2
+	new /obj/item/grenade/gas/plasma(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src) //10
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/syndieminibomb(src) //2
+	new /obj/item/grenade/syndieminibomb(src)
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
