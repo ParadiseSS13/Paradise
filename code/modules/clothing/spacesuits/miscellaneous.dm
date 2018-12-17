@@ -99,8 +99,22 @@
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
+	species_fit = list("Grey, Drask")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/Grey/head.dmi',
+		"Drask" = 'icons/mob/species/Drask/helmet.dmi'
+		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
+/obj/item/clothing/head/helmet/space/santahat/attack_self(mob/user as mob)
+	if(src.icon_state == "santahat")
+		src.icon_state = "santahat_beard"
+		src.item_state = "santahat_beard"
+		to_chat(user, "Santa's beard expands out from the hat!")
+	else
+		src.icon_state = "santahat"
+		src.item_state = "santahat"
+		to_chat(user, "The beard slinks back into the hat...")
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
