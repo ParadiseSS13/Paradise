@@ -198,25 +198,20 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/ak47
-	name = "\improper AK-47"
-	desc = "Despite its age, this relic assault rifle is still just as effective as it's always been, proof of the robustness of its design."
-	icon_state = "ak47"
-	item_state = "ak47"
+/obj/item/gun/projectile/automatic/ak814
+	name = "\improper AK-814"
+	desc = "This russian assault rifle is usually seen in the hands of elite USSP soldiers."
+	icon_state = "ak814"
+	item_state = "ak814"
 	weapon_weight = WEAPON_MEDIUM //two handed handling recommended, it's a rifle
 	origin_tech = "combat=5;materials=3;syndicate=2"
-	mag_type = /obj/item/ammo_box/magazine/ak762
+	mag_type = /obj/item/ammo_box/magazine/ak814
 	fire_sound = 'sound/weapons/Gunshot_ak47.ogg'
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 1
 
-/obj/item/gun/projectile/automatic/ak47/ak814 //modern design for lore and admin events
-	name = "\improper AK-814"
-	desc = "This russian assault rifle is usually seen in the hands of elite USSP soldiers."
-	weapon_weight = WEAPON_LIGHT
-
-/obj/item/gun/projectile/automatic/ak47/burst_select()
+/obj/item/gun/projectile/automatic/ak814/burst_select()
 	var/mob/living/carbon/human/user = usr
 	switch(select)
 		if(0)
@@ -237,16 +232,15 @@
 			spread = 50
 			fire_delay = 1.5
 			to_chat(user, "<span class='notice'>You prepare to fire in full auto. It will be difficult to aim.</span>")
-	if(user.drunk >= 30)
+	if(user.drunk >= 30 && spread != 0)
 		to_chat(user, "<span class='notice'>Although you're not shure you can aim so well anyways...</span>")
-		if(spread != 0)
-			spread = 35 //yes this improves accuracy if fired full auto
+		spread = 35 //yes this improves accuracy if fired full auto
 
-/obj/item/gun/projectile/automatic/ak47/update_icon()
+/obj/item/gun/projectile/automatic/ak814/update_icon()
 	if(magazine)
-		icon_state = "ak47"
+		icon_state = "ak814"
 	else
-		icon_state = "ak47-e"
+		icon_state = "ak814-e"
 
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"

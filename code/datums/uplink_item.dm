@@ -439,11 +439,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 13
 	surplus = 50
 
-/datum/uplink_item/dangerous/ak47 //RASH DISK
-	name = "AK-47 bundle"
+/datum/uplink_item/dangerous/ak814 //RASH DISK
+	name = "AK-814 bundle"
 	reference = "AK"
 	desc = "Underground contacts in the USSP let us get our hands on this tried and true assault rifle bundle. Cheap, but cost-effective."
-	item = /obj/item/storage/backpack/duffel/syndie/ak47
+	item = /obj/item/storage/backpack/duffel/syndie/ak814
 	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 50
@@ -699,11 +699,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/a357
 	cost = 3
 
-/datum/uplink_item/ammo/ak47
+/datum/uplink_item/ammo/ak814
 	name = "Magazine - 7.62x39mm"
-	desc = "An additional 30-round 7.62x39mm magazine for use in the AK-47. These rounds have decent damage and armor penetration."
-	reference = "762"
-	item = /obj/item/ammo_box/magazine/ak762
+	desc = "An additional 30-round 7.62x39mm magazine for use in the AK-814. These rounds have decent damage and armor penetration."
+	reference = "814"
+	item = /obj/item/ammo_box/magazine/ak814
 	cost = 1
 	gamemodes = list(/datum/game_mode/nuclear)
 

@@ -354,14 +354,14 @@
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
 
-/obj/item/storage/backpack/duffel/syndie/ak47
+/obj/item/storage/backpack/duffel/syndie/ak814
 	icon_state = "duffel-syndiammo"
 	item_state = "duffel-syndiammo"
 
-/obj/item/storage/backpack/duffel/syndie/ak47/New()
+/obj/item/storage/backpack/duffel/syndie/ak814/New()
 	..()
-	new /obj/item/gun/projectile/automatic/ak47(src)
-	new /obj/item/ammo_box/magazine/ak762(src)
+	new /obj/item/gun/projectile/automatic/ak814(src)
+	new /obj/item/ammo_box/magazine/ak814(src)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/under/soviet(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
