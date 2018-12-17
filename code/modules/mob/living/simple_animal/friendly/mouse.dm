@@ -71,6 +71,7 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
+	playsound(src.loc, 'sound/effects/mousesqueek.ogg', 75, 1)
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
@@ -84,9 +85,19 @@
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
-	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
-	return
+/mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)
+	if(istype(AM,/obj/item))
+		var/obj/item/O = AM
+		if(O.w_class == WEIGHT_CLASS_SMALL)
+			..()
+			return
+	if(istype(AM,/mob/living))
+		var/mob/living/O = AM
+		if(O.mob_size == MOB_SIZE_TINY)
+			..()
+			return
+
+	to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if(ishuman(AM))
