@@ -56,7 +56,9 @@
 						// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
 						else if(M.can_hear() && !isspaceturf(M.loc))
 							M << global_boom
-
+		if(devastation_range > 0)
+			for(var/obj/mecha/E in epicenter.contents) //Mech user shouldn't survive an explosion on the same turf he's on, most likely from inside the mech itself
+				E.Destroy()
 		if(heavy_impact_range > 1)
 			if(smoke)
 				var/datum/effect_system/explosion/smoke/E = new/datum/effect_system/explosion/smoke()
