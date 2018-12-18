@@ -19,6 +19,15 @@
 	density = FALSE
 	opacity = 0
 
+/obj/machinery/door/poddoor/impassable
+	name = "reinforced blast door"
+	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/door/poddoor/impassable/emag_act(mob/user)
+	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	return
+
 /obj/machinery/door/poddoor/Bumped(atom/AM)
 	if(density)
 		return

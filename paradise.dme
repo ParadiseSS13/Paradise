@@ -562,6 +562,7 @@
 #include "code\game\jobs\job\supervisor.dm"
 #include "code\game\jobs\job\support.dm"
 #include "code\game\jobs\job\support_chaplain.dm"
+#include "code\game\jobs\job\syndicate.dm"
 #include "code\game\jobs\job_objectives\science.dm"
 #include "code\game\machinery\adv_med.dm"
 #include "code\game\machinery\ai_slipper.dm"
