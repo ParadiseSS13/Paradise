@@ -148,6 +148,9 @@
 		if("Mime")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
+		if("Syndicate Officer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/nuclear
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear
 
 	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
 		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
