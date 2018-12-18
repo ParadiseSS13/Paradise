@@ -71,7 +71,7 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
-	playsound(src.loc, 'sound/effects/mousesqueek.ogg', 75, 1)
+	playsound(src, 'sound/effects/mousesqueek.ogg', 75, 1)
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
@@ -88,15 +88,15 @@
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)
 	if(istype(AM,/obj/item))
 		var/obj/item/O = AM
-		if(O.w_class == WEIGHT_CLASS_SMALL)
+		if(O.w_class == WEIGHT_CLASS_SMALL)	//Pull if it's a small object.
 			..()
 			return
 	if(istype(AM,/mob/living))
 		var/mob/living/O = AM
-		if(O.mob_size == MOB_SIZE_TINY)
+		if(O.mob_size == MOB_SIZE_TINY)		//Pull if it's a tiny mob.
 			..()
 			return
-
+											//CAN'T PULL
 	to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
