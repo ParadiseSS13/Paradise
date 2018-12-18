@@ -157,7 +157,7 @@ var/list/doppler_arrays = list()
 		messages += "Explosion size matches target."
 	else
 		messages += "Target ([explosion_target]) missed by : [miss_by]."
-	if(tmp_tech > toxins_tech)
+	if(tmp_tech > toxins_tech.level)
 		toxins_tech.level = tmp_tech
 		messages += "Toxins technology level upgraded to [toxins_tech.level]. Swipe a technology disk to save data."
 	for(var/message in messages)
