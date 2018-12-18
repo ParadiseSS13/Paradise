@@ -170,7 +170,7 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Brand Intelligence",		/datum/event/brand_intelligence,		50, 	list(ASSIGNMENT_ENGINEER = 25),	1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Space Dust",				/datum/event/dust,						50,		list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Dimensional Tear",			/datum/event/tear,						0,		list(ASSIGNMENT_SECURITY = 35)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Honomoly",					/datum/event/tear/honk,						0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Honknomoly",					/datum/event/tear/honk,						0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vent Clog",				/datum/event/vent_clog,					250),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pyro Anomaly",				/datum/event/anomaly/anomaly_pyro,		75,	list(ASSIGNMENT_ENGINEER = 60)),
