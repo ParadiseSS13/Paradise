@@ -331,16 +331,16 @@
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/gas/plasma(src) //2
 	new /obj/item/grenade/gas/plasma(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src) //10
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
-	new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+	new /obj/item/grenade/frag(src) //10
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
 	new /obj/item/grenade/syndieminibomb(src) //2
 	new /obj/item/grenade/syndieminibomb(src)
 
