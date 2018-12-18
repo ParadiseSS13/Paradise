@@ -1,0 +1,4 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - tweak: "updated santa hat sprite, use hat to toggle beard"
