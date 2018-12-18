@@ -6,6 +6,8 @@
 				new /obj/item/a_gift(T)
 	for(var/mob/living/simple_animal/pet/corgi/Ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
+	var/datum/supply_packs/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"] //Snow!
+	xmas.special_enabled = TRUE
 
 /datum/holiday/xmas/handle_event()
 	spawnTree()

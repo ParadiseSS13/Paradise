@@ -39,6 +39,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes
 		)
 
+	speciesbox = /obj/item/storage/box/survival_plasmaman
+
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", stutter("ss"))

@@ -934,7 +934,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/science/oil
     name = "Oil Tank Crate"
-    contains = list(/obj/structure/reagent_dispensers/oil, 
+    contains = list(/obj/structure/reagent_dispensers/oil,
 					/obj/item/reagent_containers/food/drinks/oilcan)
     cost = 10
     containertype = /obj/structure/largecrate
@@ -1341,6 +1341,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containername = "bureaucracy crate"
 
+/datum/supply_packs/misc/tape
+	name = "Sticky Tape Crate"
+	contains = list(/obj/item/stack/tape_roll,
+	/obj/item/stack/tape_roll,
+	/obj/item/stack/tape_roll)
+	cost = 10
+	containername = "sticky tape crate"
+	containertype = /obj/structure/closet/crate/tape
+
 /datum/supply_packs/misc/toner
 	name = "Toner Cartridges Crate"
 	contains = list(/obj/item/toner,
@@ -1710,6 +1719,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/mounted/shower
 					)
 	containername = "hygiene station crate"
+
+/datum/supply_packs/misc/snow_machine
+	name = "Snow Machine Crate"
+	cost = 20
+	contains = list(
+					/obj/machinery/snow_machine
+					)
+	special = TRUE
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////

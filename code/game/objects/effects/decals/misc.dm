@@ -16,6 +16,7 @@
 	anchored = TRUE
 	layer = TURF_DECAL_LAYER
 	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow"
 
 /obj/effect/decal/snow/clean/edge
 	icon_state = "snow_corner"

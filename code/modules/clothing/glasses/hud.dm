@@ -83,6 +83,7 @@
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
+	var/read_only = FALSE
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -113,6 +114,9 @@
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
+
+/obj/item/clothing/glasses/hud/security/sunglasses/read_only
+	read_only = TRUE
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"

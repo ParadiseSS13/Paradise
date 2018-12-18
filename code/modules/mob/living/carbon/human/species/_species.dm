@@ -156,6 +156,9 @@
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
 
+	// Species specific boxes
+	var/speciesbox
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])

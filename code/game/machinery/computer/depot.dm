@@ -125,6 +125,8 @@
 
 /obj/machinery/computer/syndicate_depot/doors
 	name = "depot door control computer"
+	req_access = list()
+	var/pub_access = FALSE
 
 /obj/machinery/computer/syndicate_depot/doors/get_menu(mob/user)
 	return {"<B>Syndicate Depot Door Control Computer</B><HR>
@@ -136,8 +138,13 @@
 	if(..())
 		return
 	if(depotarea)
-		depotarea.toggle_door_locks(src)
-		to_chat(user, "<span class='notice'>Door locks toggled.</span>")
+		pub_access = !pub_access
+		if(pub_access)
+			depotarea.set_emergency_access(TRUE)
+			to_chat(user, "<span class='notice'>Emergency Access enabled.</span>")
+		else
+			depotarea.set_emergency_access(FALSE)
+			to_chat(user, "<span class='notice'>Emergency Access disabled.</span>")
 		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
