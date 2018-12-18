@@ -1,0 +1,4 @@
+author: "Tails2091"
+delete-after: True
+changes: 
+  - bugfix: "Fixes vent crawl vision sticking around for simple_animals."
