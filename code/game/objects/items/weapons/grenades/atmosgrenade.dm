@@ -39,7 +39,7 @@
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	for(var/turf/T in view(range,loc))
+	for(var/turf/T in view(range, loc))
 		if(isfloorturf(T))
 			var/turf/simulated/F = T
 			F.MakeSlippery(TURF_WET_PERMAFROST)
