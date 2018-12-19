@@ -1,4 +1,0 @@
-author: "uc_guy"
-delete-after: True
-changes: 
-  - bugfix: "Fixed anomalies being disabled by random radio traffic."
