@@ -127,8 +127,10 @@
 			message = "<B>\The [src]</B> squeaks!"
 			m_type = 2 //audible
 			playsound(src, squeak_sound, 40, 1)
+		if("help")
+			to_chat(src, "scream, squeak")
 
-	..(act, m_type, message)
+	..()
 
 /*
  * Mouse types
