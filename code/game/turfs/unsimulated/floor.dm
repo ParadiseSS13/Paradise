@@ -64,6 +64,16 @@
 	..()
 	icon_state = "alienpod[rand(1,9)]"
 
+/turf/unsimulated/floor/abductor/Entered(mob/living/M, atom/OL, ignoreRest = 0)
+	if(ishuman(M))
+		var/mob/living/carbon/human/A = M
+		if(isabductor(A))
+			if(A.nutrition <= NUTRITION_LEVEL_HUNGRY && !A.reagents.has_reagent("nutriment"))
+				A.reagents.add_reagent("nutriment", 10)
+			if(!A.reagents.has_reagent("mitocholide") && !A.reagents.has_reagent("omnizine"))
+				A.reagents.add_reagent("mitocholide", 4)
+				A.reagents.add_reagent("omnizine", 2)
+
 /turf/unsimulated/floor/vox
 	icon_state = "dark"
 	nitrogen = 100
