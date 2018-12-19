@@ -472,3 +472,9 @@
 	name = "magnificent crown"
 	desc = "A crown worn by only the highest emperors of the land."
 	icon_state = "fancycrown"
+
+/obj/item/clothing/head/diamond
+	name = "diamond chequered hat"
+	icon_state = "zepelli"
+	item_state = "zepelli"
+	desc = "Wearing this makes you feel like a real mozzarella cheeseball."
