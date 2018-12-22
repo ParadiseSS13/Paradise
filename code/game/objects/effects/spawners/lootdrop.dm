@@ -185,7 +185,9 @@
 				/obj/item/soap = 50,
 				/obj/item/clothing/under/syndicate/combat = 50,
 				/obj/item/soap/syndie = 50,
-				/obj/item/lighter/zippo/gonzofist = 50
+				/obj/item/lighter/zippo/gonzofist = 50,
+				/obj/item/stack/nanopaste = 50,
+				/obj/item/clothing/under/psyjump = 50
 				)
 
 
@@ -254,6 +256,7 @@
 				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
+				/obj/item/autoimplanter = 50,
 
 				// Research / Experimentor
 				/obj/item/relic = 150, // strange object
@@ -272,6 +275,10 @@
 				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
 				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
 				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+
+				// Surgery
+				/obj/item/scalpel/laser/manager = 100,
+				/obj/item/organ/internal/heart/gland/ventcrawling = 50,
 
 				// Genetics Research (should really be under science, but I was stuck for items to put in medical)
 				/obj/item/dnainjector/regenerate = 50, // regeneration
@@ -345,6 +352,7 @@
 				/obj/item/mining_voucher = 100,
 				/obj/item/pickaxe/drill/jackhammer = 100,
 				/obj/item/stack/sheet/animalhide/goliath_hide = 100,
+				/obj/item/gun/energy/kinetic_accelerator/experimental = 100,
 
 				// Bartender
 
@@ -353,7 +361,7 @@
 
 
 				// Botanist
-
+				/obj/item/seeds/random/labelled = 100,
 
 				// Librarian
 
@@ -362,6 +370,7 @@
 
 
 				// Clown
+				/obj/item/grenade/bananade = 100,
 				/obj/item/bikehorn/golden = 100,
 
 
