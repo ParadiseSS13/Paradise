@@ -247,6 +247,14 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
+/datum/crafting_recipe/sushimat
+	name = "Sushi Mat"
+	result = /obj/item/kitchen/sushimat
+	time = 10
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/cable_coil = 2)
+	category = CAT_MISC
+
 /datum/crafting_recipe/notreallysoap
 	name = "Homemade Soap"
 	result = /obj/item/soap/ducttape

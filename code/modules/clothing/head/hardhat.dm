@@ -11,12 +11,15 @@
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	burn_state = FIRE_PROOF
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/user)
 	on = !on
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
-
 	if(on)
 		set_light(brightness_on)
 	else

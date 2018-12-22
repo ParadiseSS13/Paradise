@@ -32,7 +32,7 @@
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
 	origin_tech = "materials=4;engineering=4"
-	honk_sounds = list('sound/items/airhorn2.ogg' = 1)
+	honk_sounds = list('sound/items/Airhorn2.ogg' = 1)
 
 /obj/item/bikehorn/golden
 	name = "golden bike horn"
