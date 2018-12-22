@@ -35,7 +35,7 @@
 	if(attack_cycles < attack_cycles_max)
 		// Most of the time, do a standard attack...
 		return ..()
-	// ... but on every attack_cycles_max attacks, do a powerful disemboweling kick attack instead
+	// ... but, every attack_cycles_max attacks, do a powerful disemboweling kick instead
 	attack_cycles = 0
 	attacktext = "VICIOUSLY KICKS"
 	melee_damage_lower = 60
