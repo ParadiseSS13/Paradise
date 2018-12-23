@@ -91,9 +91,6 @@
 			O.unwield(user)
 	return unwield(user)
 
-/obj/item/twohanded/update_icon()
-	return
-
 /obj/item/twohanded/attack_self(mob/user)
 	..()
 	if(wielded) //Trying to unwield it
@@ -182,6 +179,7 @@
 
 /obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
+	..()
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -232,6 +230,7 @@
 	else
 		icon_state = "dualsaber0"
 		set_light(0)
+	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HULK in user.mutations)
@@ -327,6 +326,7 @@
 		icon_state = "spearbomb[wielded]"
 	else
 		icon_state = "spearglass[wielded]"
+	..()
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -509,6 +509,7 @@
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
+	..()
 
 /obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
 	if(wielded)
@@ -565,6 +566,7 @@
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
+	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
@@ -640,6 +642,7 @@
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
+	..()
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -670,6 +673,7 @@
 
 /obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[wielded]"
+	..()
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -725,6 +729,7 @@
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
+	..()
 
 /obj/item/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)

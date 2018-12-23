@@ -148,8 +148,8 @@
 			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
 			label_text = tmp_label
 			update_name_label()
-	if(istype(I,/obj/item/storage/bag))
-		..()
+	else
+		return ..()
 
 /obj/item/reagent_containers/glass/proc/update_name_label()
 	if(label_text == "")
@@ -201,6 +201,7 @@
 		overlays += lid
 	if(assembly)
 		overlays += "assembly"
+	..()
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Remove Assembly"
@@ -245,9 +246,9 @@
 	if(assembly)
 		assembly.on_found(finder)
 
-/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, msg)
+/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, list/message_pieces)
 	if(assembly)
-		assembly.hear_talk(M, msg)
+		assembly.hear_talk(M, message_pieces)
 
 /obj/item/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
 	if(assembly)

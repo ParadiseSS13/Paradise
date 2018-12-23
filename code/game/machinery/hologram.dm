@@ -206,8 +206,9 @@ var/list/holopads = list()
 				if(A)
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
+			var/list/sorted_callnames = sortAtom(callnames)
 			dialling_input = TRUE
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
+			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sorted_callnames
 			dialling_input = FALSE
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
@@ -373,19 +374,19 @@ var/list/holopads = list()
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
-/obj/machinery/hologram/holopad/hear_talk(atom/movable/speaker, message, verb, datum/language/message_language)
+/obj/machinery/hologram/holopad/hear_talk(atom/movable/speaker, list/message_pieces, verb)
 	if(speaker && masters.len)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(masters[master] && speaker != master)
-				master.relay_speech(speaker, message, verb, message_language)
+				master.relay_speech(speaker, message_pieces, verb)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad == src && speaker != HC.hologram)
-			HC.user.hear_say(message, verb, message_language, speaker = speaker)
+			HC.user.hear_say(message_pieces, verb, speaker = speaker)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.atom_say(message)
+		outgoing_call.hologram.atom_say(multilingual_to_message(message_pieces))
 
 
 

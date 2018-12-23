@@ -247,9 +247,9 @@
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/grenade/chem_grenade/hear_talk(mob/living/M, msg)
+/obj/item/grenade/chem_grenade/hear_talk(mob/living/M, list/message_pieces)
 	if(nadeassembly)
-		nadeassembly.hear_talk(M, msg)
+		nadeassembly.hear_talk(M, message_pieces)
 
 /obj/item/grenade/chem_grenade/hear_message(mob/living/M, msg)
 	if(nadeassembly)

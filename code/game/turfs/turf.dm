@@ -136,6 +136,7 @@
 
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = 0)
+	..()
 	if(ismob(M))
 		var/mob/O = M
 		if(!O.lastarea)

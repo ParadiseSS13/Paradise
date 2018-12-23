@@ -82,9 +82,9 @@
 	req_one_access = list(access_atmospherics, access_engine_equip)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	var/alarm_id = null
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	//var/skipprocess = 0 //Experimenting
-	var/alarm_frequency = 1437
+	var/alarm_frequency = ATMOS_FIRE_FREQ
 	var/remote_control = 0
 	var/rcon_setting = 2
 	var/rcon_time = 0

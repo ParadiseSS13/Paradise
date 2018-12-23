@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/Destroy()
 	GLOB.safes -= src
-	drill.soundloop.stop()
+	drill?.soundloop?.stop()
 	return ..()
 
 /obj/structure/safe/process()

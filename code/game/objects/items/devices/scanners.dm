@@ -5,7 +5,6 @@ DETECTIVE SCANNER
 HEALTH ANALYZER
 GAS ANALYZER
 PLANT ANALYZER
-MASS SPECTROMETER
 REAGENT SCANNER
 */
 /obj/item/t_scanner
@@ -432,95 +431,9 @@ REAGENT SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
-/obj/item/mass_spectrometer
-	desc = "A hand-held mass spectrometer which identifies trace chemicals in a blood sample. Inject sample with syringe."
-	name = "mass-spectrometer"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "spectrometer"
-	item_state = "analyzer"
-	w_class = WEIGHT_CLASS_SMALL
-	flags = CONDUCT
-	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
-	throwforce = 5
-	throw_speed = 4
-	throw_range = 20
-	materials = list(MAT_METAL=150, MAT_GLASS=100)
-	origin_tech = "magnets=2;biotech=1;plasmatech=2"
-	var/details = 0
-	var/datatoprint = ""
-	var/scanning = TRUE
-	actions_types = list(/datum/action/item_action/print_report)
-
-/obj/item/mass_spectrometer/New()
-	..()
-	create_reagents(5)
-
-/obj/item/mass_spectrometer/on_reagent_change()
-	if(reagents.total_volume)
-		icon_state = initial(icon_state) + "_s"
-	else
-		icon_state = initial(icon_state)
-
-/obj/item/mass_spectrometer/attack_self(mob/user as mob)
-	if(user.stat)
-		return
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
-	if(reagents.total_volume)
-		var/list/blood_traces = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.id != "blood")
-				to_chat(user, "<span class='warning'>The sample was contaminated! Please insert another sample.</span>")
-				reagents.clear_reagents()
-				return
-			else
-				blood_traces = params2list(R.data["trace_chem"])
-				break
-		var/dat = ""
-		for(var/R in blood_traces)
-			if(details)
-				dat += "[R] ([blood_traces[R]] units) "
-			else
-				dat += "[R] "
-		to_chat(user, "Analysis completed. Chemicals found: [dat]")
-		scanning = FALSE
-		datatoprint = dat
-		reagents.clear_reagents()
-	return
-
-/obj/item/mass_spectrometer/adv
-	name = "advanced mass-spectrometer"
-	icon_state = "adv_spectrometer"
-	details = 1
-	origin_tech = "magnets=4;biotech=3;plasmatech=3"
-
-/obj/item/mass_spectrometer/proc/print_report()
-	if(!scanning)
-		scanning = TRUE
-		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-		sleep(50)
-
-		var/obj/item/paper/P = new(get_turf(src))
-		P.name = "Mass Spectrometer Scanner Report: [station_time_timestamp()]"
-		P.info = "<center><b>Mass Spectrometer</b></center><br><center>Data Analysis:</center><br><hr><br><b>Trace chemicals detected:</b><br>[datatoprint]<br><hr>"
-
-		if(ismob(loc))
-			var/mob/M = loc
-			M.put_in_hands(P)
-			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
-			datatoprint = ""
-	else
-		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
-
-/obj/item/mass_spectrometer/ui_action_click()
-	print_report()
-
 /obj/item/reagent_scanner
 	name = "reagent scanner"
-	desc = "A hand-held reagent scanner which identifies chemical agents."
+	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
 	item_state = "analyzer"
@@ -532,9 +445,9 @@ REAGENT SCANNER
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 	origin_tech = "magnets=2;biotech=1;plasmatech=2"
-	var/details = 0
+	var/details = FALSE
 	var/datatoprint = ""
-	var/scanning = 1
+	var/scanning = TRUE
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/reagent_scanner/afterattack(obj/O, mob/user as mob)
@@ -548,14 +461,19 @@ REAGENT SCANNER
 
 	if(!isnull(O.reagents))
 		var/dat = ""
+		var/blood_type = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
-				dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
+				if(R.id != "blood")
+					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
+				else
+					blood_type = R.data["blood_type"]
+					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat
-			scanning = 0
+			scanning = FALSE
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
 	else
@@ -565,7 +483,7 @@ REAGENT SCANNER
 /obj/item/reagent_scanner/adv
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
-	details = 1
+	details = TRUE
 	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/reagent_scanner/proc/print_report()
@@ -583,7 +501,7 @@ REAGENT SCANNER
 			M.put_in_hands(P)
 			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
-			scanning = 1
+			scanning = TRUE
 	else
 		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
 
@@ -673,7 +591,7 @@ REAGENT SCANNER
 		icon_state = "bodyanalyzer_1"
 	else
 		icon_state = "bodyanalyzer_2"
-	
+
 	var/overlayid = round(percent / 10)
 	overlayid = "bodyanalyzer_charge[overlayid]"
 	overlays += icon(icon, overlayid)
@@ -684,18 +602,18 @@ REAGENT SCANNER
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 	if(user.incapacitated() || !user.Adjacent(M))
 		return
-	
+
 	if(!ready)
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining.</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 		return
-	
+
 	if(power_supply.charge >= usecharge)
 		mobScan(M, user)
 	else
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-	
+
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
 	if(ishuman(M))
 		var/report = generate_printing_text(M, user)
@@ -721,12 +639,12 @@ REAGENT SCANNER
 		time_to_use = world.time + 600
 	else
 		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")
-		
+
 //Unashamedly ripped from adv_med.dm
 /obj/item/bodyanalyzer/proc/generate_printing_text(mob/living/M, mob/user)
 	var/dat = ""
 	var/mob/living/carbon/human/target = M
-	
+
 	dat = "<font color='blue'><b>Target Statistics:</b></font><br>"
 	var/t1
 	switch(target.stat) // obvious, see what their status is
@@ -881,5 +799,5 @@ REAGENT SCANNER
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 	if(target.disabilities & NEARSIGHTED)
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
-	
+
 	return dat

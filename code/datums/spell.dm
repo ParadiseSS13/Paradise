@@ -100,6 +100,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/action_icon = 'icons/mob/actions/actions.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
+	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
 
 	var/sound = null //The sound the spell makes when it is cast
 

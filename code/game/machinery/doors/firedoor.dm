@@ -80,7 +80,7 @@
 	else if(glass)
 		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
 							 "<span class='warning'>You bang on \the [src].</span>")
-		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)
+		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 10, 1)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)

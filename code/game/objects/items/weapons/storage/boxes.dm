@@ -74,6 +74,26 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		return
 
+/obj/item/storage/box/survival_vox
+	icon_state = "box_vox"
+
+/obj/item/storage/box/survival_vox/New()
+	..()
+	contents = list()
+	new /obj/item/clothing/mask/breath/vox(src)
+	new /obj/item/tank/emergency_oxygen/nitrogen(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
+/obj/item/storage/box/survival_plasmaman
+	icon_state = "box_plasma"
+
+/obj/item/storage/box/survival_plasmaman/New()
+	..()
+	contents = list()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/emergency_oxygen/plasma(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
 /obj/item/storage/box/engineer
 	icon_state = "box_eng"
 	New()
@@ -879,7 +899,9 @@
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
 	icon_state = "box_ert"
-	
+	storage_slots = 14
+	max_combined_w_class = 20
+
 /obj/item/storage/box/centcomofficer/New()
 	..()
 	contents = list()
@@ -893,7 +915,8 @@
 	new /obj/item/implanter/death_alarm(src)
 
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
-	new /obj/item/pinpointer/advpinpointer(src)
+	new /obj/item/pinpointer(src)
+	new /obj/item/pinpointer/crew/centcom(src)
 
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
