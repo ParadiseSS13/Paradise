@@ -101,11 +101,21 @@
 	build_path = /obj/item/bikehorn/airhorn
 	category = list("Equipment")
 
+/datum/design/breath_mask
+	name = "Breath mask"
+	desc = "A close-fitting mask that can be connected to an air supply."
+	id = "breathmask"
+	req_tech = list("toxins" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
+	build_path = /obj/item/clothing/mask/breath
+	category = list("Equipment")
+
 /datum/design/welding_mask
 	name = "Welding Gas Mask"
 	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
 	id = "weldingmask"
-	req_tech = list("materials" = 2, "engineering" = 3)
+	req_tech = list("materials" = 2, "engineering" = 3, "toxins" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	build_path = /obj/item/clothing/mask/gas/welding

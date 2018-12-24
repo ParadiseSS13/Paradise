@@ -6,7 +6,7 @@ If you did not make a map or sprite edit, you may leave this section blank. You 
 
 **Changelog:**
 *Remove this line, and appropriate fields from the changelog*
-:cl: name here
+:cl:
 add: Added new things
 del: Removed old things
 tweak: tweaked a few things

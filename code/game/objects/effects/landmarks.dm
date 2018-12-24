@@ -88,6 +88,10 @@
 			emergencyresponseteamspawn += loc
 			qdel(src)
 
+		if("Syndicate Officer")
+			syndicateofficer += loc
+			qdel(src)
+
 	GLOB.landmarks_list += src
 	return 1
 

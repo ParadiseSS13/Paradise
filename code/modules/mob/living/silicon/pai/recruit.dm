@@ -32,6 +32,32 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate is not a pAI)")
 			return
 
+	if(href_list["download"])
+		var/obj/item/paicard/card = locate(href_list["device"])
+		if(card.pai)
+			return
+		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
+			return
+		if(istype(card, /obj/item/paicard) && istype(candidate, /datum/paiCandidate))
+			var/mob/living/silicon/pai/pai = new(card)
+			if(!candidate.name)
+				pai.name = pick(GLOB.ninja_names)
+			else
+				pai.name = candidate.name
+			pai.real_name = pai.name
+			pai.key = candidate.key
+
+			card.setPersonality(pai)
+			card.looking_for_personality = 0
+
+			ticker.mode.update_cult_icons_removed(card.pai.mind)
+			ticker.mode.update_rev_icons_removed(card.pai.mind)
+
+			pai_candidates -= candidate
+			usr << browse(null, "window=findPai")
+
+
+	if(candidate)
 		if(candidate.key && usr.key && candidate.key != usr.key)
 			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
 			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
@@ -49,29 +75,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		recruitWindow(O)
 		return
 
-	if(href_list["download"])
-		var/obj/item/paicard/card = locate(href_list["device"])
-		if(card.pai)
-			return
-		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
-			return
-		if(istype(card,/obj/item/paicard) && istype(candidate,/datum/paiCandidate))
-			var/mob/living/silicon/pai/pai = new(card)
-			if(!candidate.name)
-				pai.name = pick(GLOB.ninja_names)
-			else
-				pai.name = candidate.name
-			pai.real_name = pai.name
-			pai.key = candidate.key
-
-			card.setPersonality(pai)
-			card.looking_for_personality = 0
-
-			ticker.mode.update_cult_icons_removed(card.pai.mind)
-			ticker.mode.update_rev_icons_removed(card.pai.mind)
-
-			pai_candidates -= candidate
-			usr << browse(null, "window=findPai")
 
 	if(href_list["new"])
 		var/option = href_list["option"]

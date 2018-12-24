@@ -8,6 +8,7 @@
  *		Butcher's cleaver
  *		Rolling Pins
  *		Candy Moulds
+ *		Sushi Mat
  */
 
 /obj/item/kitchen
@@ -249,3 +250,17 @@
 	name = "sucker mould"
 	desc = "It has the shape of a sucker imprinted into it."
 	icon_state = "mould_loli"
+
+/* 
+ * Sushi Mat
+ */
+/obj/item/kitchen/sushimat
+	name = "Sushi Mat"
+	desc = "A wooden mat used for efficient sushi crafting."
+	icon_state = "sushi_mat"
+	force = 5
+	throwforce = 5
+	throw_speed = 3
+	throw_range = 3
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("rolled", "cracked", "battered", "thrashed")

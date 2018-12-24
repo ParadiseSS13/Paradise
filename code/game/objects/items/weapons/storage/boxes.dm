@@ -75,7 +75,7 @@
 		return
 
 /obj/item/storage/box/survival_vox
-	icon_state = "box_civ"
+	icon_state = "box_vox"
 
 /obj/item/storage/box/survival_vox/New()
 	..()
@@ -85,7 +85,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/storage/box/survival_plasmaman
-	icon_state = "box_civ"
+	icon_state = "box_plasma"
 
 /obj/item/storage/box/survival_plasmaman/New()
 	..()
