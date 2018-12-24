@@ -20,4 +20,3 @@ data/
 *.db
 stddef.dm
 .atom-build.json
-config/example/admins.txt
