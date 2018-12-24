@@ -737,6 +737,10 @@
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
+		var/mut
+		for(mut in M.mutations) //can be used to do specific things at mutations. values in genetics.dm define
+			if(mut == 210) //210 is Dizzy
+				M.SetDizzy(0)
 		for(var/block=1;block<=DNA_SE_LENGTH;block++)
 			M.dna.SetSEState(block,0, 1)
 			genemutcheck(M,block,null,MUTCHK_FORCED)
