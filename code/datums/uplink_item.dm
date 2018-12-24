@@ -565,6 +565,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 11
 	surplus = 0
 
+/datum/uplink_item/dangerous/grenadier
+	name = "Grenadier's belt"
+	desc = "A belt containing 25 lethally dangerous and destructive grenades."
+	item = /obj/item/storage/belt/grenade/full
+	cost = 30
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
 	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \

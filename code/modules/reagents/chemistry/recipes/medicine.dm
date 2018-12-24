@@ -225,13 +225,6 @@
 	mix_message = "A minty and refreshing smell drifts from the effervescent mixture."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/simethicone
-	name = "simethicone"
-	id = "simethicone"
-	result = "simethicone"
-	required_reagents = list("hydrogen" = 1, "chlorine" = 1, "silicon" = 1, "oxygen" = 1)
-	result_amount = 4
-
 /datum/chemical_reaction/teporone
 	name = "Teporone"
 	id = "teporone"
