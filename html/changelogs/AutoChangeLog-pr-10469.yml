@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added the grenadier belt for nukies, ported from tg, containing a LOT of various grenades to throw at people."
-  - rscadd: "Added the gluon grenade (Freeze floors and irradiate) and the frag grenade."

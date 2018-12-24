@@ -1,6 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added Toxins tech to RND. Can only be improved by testing explosives in the toxins lab, and unlocks various atmospherics tanks and items in the protolathe."
-  - rscadd: "Added the Bluespace Rapid Pipe Dispenser, allowing you to place pipes at a distance. Built in the protolathe after improving Toxins and Bluespace tech. Sprite made by Ionward."
-  - tweak: "Welding Gas Mask now requires toxins tech."
