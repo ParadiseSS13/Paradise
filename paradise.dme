@@ -1409,6 +1409,7 @@
 #include "code\modules\events\spider_terror.dm"
 #include "code\modules\events\spontaneous_appendicitis.dm"
 #include "code\modules\events\tear.dm"
+#include "code\modules\events\tear_honk.dm"
 #include "code\modules\events\traders.dm"
 #include "code\modules\events\undead.dm"
 #include "code\modules\events\vent_clog.dm"

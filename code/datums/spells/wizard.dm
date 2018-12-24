@@ -32,6 +32,43 @@
 	amt_weakened = 3
 	sound = 'sound/magic/MM_Hit.ogg'
 
+
+/obj/effect/proc_holder/spell/targeted/projectile/honk_missile
+	name = "Honk Missile"
+	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
+
+	school = "evocation"
+	charge_max = 60
+	clothes_req = 0
+	invocation = "HONK GY AMA"
+	invocation_type = "shout"
+	range = 7
+	cooldown_min = 60 //35 deciseconds reduction per rank
+
+	max_targets = 0
+
+	proj_icon = 'icons/obj/items.dmi'
+	proj_icon_state = "bike_horn"
+	proj_name = "A bike horn"
+	proj_lingering = 1
+	proj_type = "/obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile"
+
+	proj_lifespan = 20
+	proj_step_delay = 5
+
+	proj_trail_icon = 'icons/obj/items.dmi'
+	proj_trail = 1
+	proj_trail_lifespan = 5
+	proj_trail_icon_state = "bike_horn"
+
+	action_icon_state = "magicm"
+
+	sound = 'sound/items/bikehorn.ogg'
+
+/obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile
+	amt_weakened = 3
+	sound = 'sound/items/bikehorn.ogg'
+
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
 	desc = "This always-on spell allows you to cast magic without your garments."
