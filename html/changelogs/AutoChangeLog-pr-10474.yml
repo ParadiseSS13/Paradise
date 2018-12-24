@@ -1,0 +1,11 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Syndicate Officer job now available for admins, along with a brand new office connecting to the SIT, SST, and nuke ops ready room."
+  - tweak: "Remapped SIT and SST starting areas to be next to nuke ops starting area. Added sleepers and a couple of other QOL stuff in their ready rooms"
+  - rscadd: "Added a holding cell to the SIT starting area"
+  - rscadd: "Added a teleporter available to SIT and SST if admin enables it, can go to and from the z2 area."
+  - rscadd: "Added an armory SST can get if admin enables it. 2 bulldogs, 2 SMG, 1 sniper, 1 medigun, 1 rocket launcher and assorted ammo."
+  - rscadd: "Added 3 dark gygaxes, tools, and welding fuel to the SST mechbay room (admin access required)"
+  - bugfix: "Added a new subtype of mech rechargers for CC zlevel that will always recharge an attached mech even without power/recharger monitor"
+  - bugfix: "Added SIT shuttle transit area"
