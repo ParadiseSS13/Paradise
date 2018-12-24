@@ -35,18 +35,22 @@
 
 
 /obj/structure/reflector/attackby(obj/item/W, mob/user, params)
-	if(iswrench)
+	if(iswrench(W))
 		if(anchored)
 			to_chat(user, "Unweld [src] first!")
+			return
+		playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
+		to_chat(user, "You begin to dismantle [src].")
 		if(do_after(user, 80, target = src))
-			playsound('sound/items/Ratchet.ogg', 50, 1)
+			playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "You dismantle [src].")
+			new /obj/item/stack/sheet/metal(src.loc, 5)
 			qdel(src)
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
-		if(anchored)
+		if(!anchored)
 			if (WT.remove_fuel(0,user))
-				playsound('sound/items/Welder2.ogg', 50, 1)
+				playsound(user, 'sound/items/Welder2.ogg', 50, 1)
 				user.visible_message("[user.name] starts to weld [src.name] to the floor.", \
 					"<span class='notice'>You start to weld [src] to the floor...</span>", \
 					"<span class='italics'>You hear welding.</span>")
@@ -57,7 +61,7 @@
 					to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
 		else
 			if (WT.remove_fuel(0,user))
-				playsound('sound/items/Welder2.ogg', 50, 1)
+				playsound(user, 'sound/items/Welder2.ogg', 50, 1)
 				user.visible_message("[user] starts to cut [src] free from the floor.", \
 					"<span class='notice'>You start to cut [src] free from the floor...</span>", \
 					"<span class='italics'>You hear welding.</span>")
@@ -102,9 +106,9 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(user.incapacitated())
+	if(usr.incapacitated())
 		return
-	if (anchored)
+	if(anchored)
 		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
 		return 0
 	dir = turn(dir, 270)
