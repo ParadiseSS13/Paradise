@@ -30,6 +30,9 @@
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
+	var/ranged = FALSE
+	var/primary_sound = 'sound/machines/click.ogg'
+	var/alt_sound = null
 
 /obj/item/rpd/New()
 	..()
@@ -41,11 +44,24 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
+/obj/item/rpd/bluespace
+	name = "bluespace rapid pipe dispenser"
+	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to, at any range."
+	icon_state = "brpd"
+	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
+	origin_tech = "engineering=4;materials=2;bluespace=3"
+	ranged = TRUE
+	primary_sound = 'sound/items/PSHOOM.ogg'
+	alt_sound = 'sound/items/PSHOOM_2.ogg'
+
 //Procs
 
 /obj/item/rpd/proc/activate_rpd(delay) //Maybe makes sparks and activates cooldown if there is a delay
-	playsound(loc, "sound/machines/click.ogg", 50, 1)
-	if(prob(15))
+	if(alt_sound && prob(3))
+		playsound(src, alt_sound, 50, 1)
+	else
+		playsound(src, primary_sound, 50, 1)
+	if(prob(15) && !ranged)
 		spark_system.start()
 	if(delay)
 		lastused = world.time
@@ -188,7 +204,7 @@ var/list/pipemenu = list(
 	..()
 	if(loc != user)
 		return
-	if(!proximity)
+	if(!proximity && !ranged)
 		return
 	if(world.time < lastused + spawndelay)
 		return
@@ -201,6 +217,8 @@ var/list/pipemenu = list(
 		if(target.rpd_act(user, src) == TRUE)
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
+			if(ranged)
+				user.Beam(T, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 			return
 
 	// If we get this far, we have to check every object in the tile, to make sure that none of them block RPD usage on this tile.
@@ -212,6 +230,8 @@ var/list/pipemenu = list(
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
+	if(ranged) //woosh beam if bluespaced at a distance
+		user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME
