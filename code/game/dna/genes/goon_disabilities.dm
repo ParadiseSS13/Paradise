@@ -182,18 +182,6 @@
 			rearranged += cword
 	return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
-// WAS: /datum/bioEffect/toxic_farts
-/datum/dna/gene/disability/toxic_farts
-	name = "Toxic Farts"
-	desc = "Causes the subject's digestion to create a significant amount of noxious gas."
-	activation_message = "Your stomach grumbles unpleasantly."
-	deactivation_message = "Your stomach stops acting up. Phew!"
-	mutation = TOXIC_FARTS
-
-/datum/dna/gene/disability/toxic_farts/New()
-	..()
-	block=TOXICFARTBLOCK
-
 //////////////////
 // USELESS SHIT //
 //////////////////

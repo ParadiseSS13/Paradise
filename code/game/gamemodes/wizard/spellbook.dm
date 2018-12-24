@@ -134,12 +134,6 @@
 	log_name = "RP"
 	category = "Defensive"
 
-/datum/spellbook_entry/rathens
-	name = "Rathen's Secret"
-	spell_type = /obj/effect/proc_holder/spell/targeted/rathens
-	log_name = "RS"
-	category = "Defensive"
-
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
