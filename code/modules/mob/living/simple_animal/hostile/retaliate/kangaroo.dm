@@ -10,8 +10,8 @@
 	turns_per_move = 8
 	response_help = "pets"
 	emote_hear = list("bark")
-	maxHealth = 200
-	health = 200
+	maxHealth = 150
+	health = 150
 	harm_intent_damage = 3
 	melee_damage_lower = 5 // avg damage 12.5 without kick, (12.5+12.5+60)/3=25 with kick
 	melee_damage_upper = 20
@@ -41,6 +41,17 @@
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 	. = ..()
+
+	var/mob/living/L = target
+	if(istype(L))
+		var/rookick_dir = get_dir(L, src)
+		var/turf/general_direction = get_edge_target_turf(L, rookick_dir)
+		L.visible_message("<span class='danger'>[L] is kicked hard!</span>", "<span class='userdanger'>The kangaroo kick sends you flying mate!</span>")
+		L.throw_at(general_direction, 10, 2)
+	else
+		log_debug("[src] error: non-living-type target")
+
 	attacktext = initial(attacktext)
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
+
