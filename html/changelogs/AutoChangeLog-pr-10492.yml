@@ -1,0 +1,4 @@
+author: "v0idp"
+delete-after: True
+changes: 
+  - bugfix: "Syndicate Officer won't show in nt recruitment anymore"
