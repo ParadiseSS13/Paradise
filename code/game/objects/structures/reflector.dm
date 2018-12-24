@@ -12,17 +12,17 @@
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	var/new_dir = get_reflection(src.dir,P.dir)
+	var/new_dir = get_reflection(src.dir, P.dir)
 	if(!istype(P, /obj/item/projectile/beam))
-		return..()
+		return ..()
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message("<span class='notice'>[src] is hit by the [P]!</span>")
+		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
-	visible_message("<span class='notice'>[P] bounces off of the [src]</span>")
+	visible_message("<span class='notice'>[P] bounces off of [src]</span>")
 	reflect_turf = get_step(loc,new_dir)
 
 	P.original = reflect_turf
@@ -31,42 +31,41 @@
 	P.yo = reflect_turf.y - reflector_turf.y
 	P.xo = reflect_turf.x - reflector_turf.x
 	new_dir = 0
-	return - 1
+	return -1
 
 
 /obj/structure/reflector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(iswrench)
 		if(anchored)
-			to_chat(usr, "Unweld the [src] first!")
+			to_chat(user, "Unweld [src] first!")
 		if(do_after(user, 80, target = src))
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			to_chat(usr, "You dismantle the [src].")
+			playsound('sound/items/Ratchet.ogg', 50, 1)
+			to_chat(user, "You dismantle [src].")
 			qdel(src)
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
-		switch(anchored)
-			if(0)
-				if (WT.remove_fuel(0,user))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
-					user.visible_message("[user.name] starts to weld the [src.name] to the floor.", \
-						"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
-						"<span class='italics'>You hear welding.</span>")
-					if (do_after(user,20, target = src))
-						if(!src || !WT.isOn())
-							return
-						anchored = 1
-						to_chat(usr, "<span class='notice'>You weld \the [src] to the floor.</span>")
-			if(1)
-				if (WT.remove_fuel(0,user))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
-					user.visible_message("[user.name] starts to cut the [src.name] free from the floor.", \
-						"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
-						"<span class='italics'>You hear welding.</span>")
-					if (do_after(user,20, target = src))
-						if(!src || !WT.isOn())
-							return
-						anchored  = 0
-						to_chat(usr, "<span class='notice'>You cut \the [src] free from the floor.</span>")
+		if(anchored)
+			if (WT.remove_fuel(0,user))
+				playsound('sound/items/Welder2.ogg', 50, 1)
+				user.visible_message("[user.name] starts to weld [src.name] to the floor.", \
+					"<span class='notice'>You start to weld [src] to the floor...</span>", \
+					"<span class='italics'>You hear welding.</span>")
+				if (do_after(user,20, target = src))
+					if(!src || !WT.isOn())
+						return
+					anchored = 1
+					to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
+		else
+			if (WT.remove_fuel(0,user))
+				playsound('sound/items/Welder2.ogg', 50, 1)
+				user.visible_message("[user] starts to cut [src] free from the floor.", \
+					"<span class='notice'>You start to cut [src] free from the floor...</span>", \
+					"<span class='italics'>You hear welding.</span>")
+				if (do_after(user,20, target = src))
+					if(!src || !WT.isOn())
+						return
+					anchored  = 0
+					to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -74,15 +73,15 @@
 		var/obj/item/stack/sheet/S = W
 		if(istype(W, /obj/item/stack/sheet/glass))
 			if(S.get_amount() < 5)
-				to_chat(usr, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
+				to_chat(user, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
 				return
 			else
 				S.use(5)
 				new /obj/structure/reflector/single (src.loc)
-				qdel (src)
+				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
-				to_chat(usr, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
+				to_chat(user, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
 				return
 			else
 				S.use(10)
@@ -103,19 +102,19 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(user.incapacitated())
 		return
-	if (src.anchored)
+	if (anchored)
 		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
 		return 0
-	src.dir = turn(src.dir, 270)
+	dir = turn(dir, 270)
 	return 1
 
 
 /obj/structure/reflector/AltClick(mob/user)
 	..()
-	if(usr.incapacitated())
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!in_range(src, user))
 		return
