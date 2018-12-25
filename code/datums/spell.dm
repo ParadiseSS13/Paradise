@@ -173,7 +173,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	switch(invocation_type)
 		if("shout")
 			if(!user.IsVocal())
-				user.emote("makes frantic gestures!")
+				user.custom_emote(1, "makes frantic gestures!")
 			else
 				if(prob(50))//Auto-mute? Fuck that noise
 					user.say(invocation)
