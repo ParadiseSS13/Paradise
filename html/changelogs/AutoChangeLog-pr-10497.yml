@@ -1,4 +1,0 @@
-author: "Ranged"
-delete-after: True
-changes: 
-  - bugfix: "Mutadone removes dizziness immediately instead of taking 5 minutes"
