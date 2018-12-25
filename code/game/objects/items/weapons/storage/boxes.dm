@@ -113,7 +113,6 @@
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
-		new /obj/item/flashlight/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_syndi
 	icon_state = "box_syndi"
