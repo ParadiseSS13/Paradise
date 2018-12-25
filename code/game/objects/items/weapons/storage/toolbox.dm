@@ -98,7 +98,7 @@
 	name = "suspicous looking toolbox"
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
-	desc = "Danger. Very Robust. The paint seems to be wet still."
+	desc = "Danger. Very Robust. The paint is still wet."
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
