@@ -30,26 +30,31 @@
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/AttackingTarget()
 	if(client && a_intent != INTENT_HARM)
-		return ..() // Do not allow player-controlled roos on non-attack intents to 'prime' their kick by nuzzling people
+		return ..() // Do not allow player-controlled roos on non-attack intents to 'prime' their kick by nuzzling people.
+
+	var/mob/living/L = target
+	if(!istype(L))
+		return ..() // Do not do further checks if we somehow end up attacking something not alive (like a window).
+
+	if(L.stat == DEAD)
+		return ..() // Do not allow player-controlled roos to prime their kick by attacking corpses.
+
 	attack_cycles++
 	if(attack_cycles < attack_cycles_max)
 		// Most of the time, do a standard attack...
 		return ..()
-	// ... but, every attack_cycles_max attacks, do a powerful disemboweling kick instead
+
+	// ... but, every attack_cycles_max attacks on a living mob, do a powerful disemboweling kick instead
 	attack_cycles = 0
 	attacktext = "VICIOUSLY KICKS"
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 	. = ..()
 
-	var/mob/living/L = target
-	if(istype(L))
-		var/rookick_dir = get_dir(src, L)
-		var/turf/general_direction = get_edge_target_turf(L, rookick_dir)
-		L.visible_message("<span class='danger'>[L] is kicked hard!</span>", "<span class='userdanger'>The kangaroo kick sends you flying mate!</span>")
-		L.throw_at(general_direction, 10, 2)
-	else
-		log_debug("[src] error: non-living-type target")
+	var/rookick_dir = get_dir(src, L)
+	var/turf/general_direction = get_edge_target_turf(L, rookick_dir)
+	L.visible_message("<span class='danger'>[L] is kicked hard!</span>", "<span class='userdanger'>The kangaroo kick sends you flying mate!</span>")
+	L.throw_at(general_direction, 10, 2)
 
 	attacktext = initial(attacktext)
 	melee_damage_lower = initial(melee_damage_lower)
