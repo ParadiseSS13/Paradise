@@ -11,6 +11,7 @@
 	slot_flags = SLOT_BELT
 	burn_state = FLAMMABLE
 	burntime = 5
+
 	var/active = 0
 	var/det_time = 50
 	var/display_timer = 1
@@ -71,10 +72,17 @@
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
 			spawn(det_time)
+				for((var/mob/M as mob) in get_turf(src))
+					if(M.r_hand == src)
+						primeinhand("right", M)
+					else if(M.l_hand == src)
+						primeinhand("left", M)
 				prime()
 
 
 /obj/item/grenade/proc/prime()
+
+/obj/item/grenade/proc/primeinhand(hnd, mob/M)
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))

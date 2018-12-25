@@ -26,13 +26,37 @@
 	spawn(light_time)
 		qdel(src)
 
+//It went off in someone's hand. Ouch.
+/obj/item/grenade/flashbang/primeinhand(hnd, mob/M)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.throw_mode_off() //It went off, nothing left to throw.
+	switch(hnd)
+		if("left")
+			var/mob/living/carbon/human/victim = M
+			var/obj/item/organ/external/affected = victim.get_organ("l_hand")
+			var/obj/item/organ/external/hurt = victim.get_organ("l_arm")
+			affected.droplimb()
+			hurt.receive_damage(25) //Enough to start bleeding, chance for internal bleeding
+		if("right")
+			var/mob/living/carbon/human/victim = M
+			var/obj/item/organ/external/affected = victim.get_organ("r_hand")
+			var/obj/item/organ/external/hurt = victim.get_organ("r_arm")
+			affected.droplimb()
+			hurt.receive_damage(25)
+
 /obj/item/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
 	M.show_message("<span class='warning'>BANG</span>", 2)
-	playsound(loc, 'sound/effects/bang.ogg', 25, 1)
+	playsound(loc, 'sound/effects/bang.ogg', 50, 1)
 
 //Checking for protections
 	var/ear_safety = M.check_ear_prot()
 	var/distance = max(1,get_dist(src,T))
+
+//Sparks for style and firehazard
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+	s.set_up(6, 4, src)
+	s.start()
 
 //Flash
 	if(M.weakeyes)
@@ -47,18 +71,25 @@
 			if(E)
 				E.receive_damage(8, 1)
 
+
 	if(M.flash_eyes(affect_silicon = 1))
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
 
 
-//Bang
+//Bang	
 	if(get_turf(M) == get_turf(src))//Holding on person or being exactly where lies is significantly more dangerous and voids protection
 		M.Stun(10)
 		M.Weaken(10)
+		M.Dizzy(160)
+		M.AdjustEarDamage(rand(0,5), 15) //Earmuffs won't save you at this range
+		M.flash_eyes(addect_silicon = 1) //Flashed but no eyedamage
+		M.adjustBruteLoss(11)
+		M.adjustFireLoss(11)
 	if(!ear_safety)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
+		M.Dizzy(max(160/distance, 80))
 		M.AdjustEarDamage(rand(0, 5), 15)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
