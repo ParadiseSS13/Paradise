@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - bugfix: "Fixes \"makes frantic gestures\" invalid emote with mute people using spells"
