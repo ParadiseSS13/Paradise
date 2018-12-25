@@ -211,6 +211,7 @@
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
+	modules += new /obj/item/lightreplacer(src)
 	emag = new /obj/item/borg/stun(src)
 
 	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
