@@ -49,23 +49,23 @@
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
 		if(!anchored)
-			if (WT.remove_fuel(0,user))
+			if(WT.remove_fuel(0,user))
 				playsound(user, 'sound/items/Welder2.ogg', 50, 1)
 				user.visible_message("[user.name] starts to weld [src.name] to the floor.", \
 					"<span class='notice'>You start to weld [src] to the floor...</span>", \
 					"<span class='italics'>You hear welding.</span>")
-				if (do_after(user,20, target = src))
+				if(do_after(user,20, target = src))
 					if(!src || !WT.isOn())
 						return
 					anchored = 1
 					to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
 		else
-			if (WT.remove_fuel(0,user))
+			if(WT.remove_fuel(0,user))
 				playsound(user, 'sound/items/Welder2.ogg', 50, 1)
 				user.visible_message("[user] starts to cut [src] free from the floor.", \
 					"<span class='notice'>You start to cut [src] free from the floor...</span>", \
 					"<span class='italics'>You hear welding.</span>")
-				if (do_after(user,20, target = src))
+				if(do_after(user,20, target = src))
 					if(!src || !WT.isOn())
 						return
 					anchored  = 0
