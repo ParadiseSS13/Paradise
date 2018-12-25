@@ -31,15 +31,15 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.throw_mode_off() //It went off, nothing left to throw.
+
+	var/mob/living/carbon/human/victim = M
 	switch(hnd)
 		if("left")
-			var/mob/living/carbon/human/victim = M
 			var/obj/item/organ/external/affected = victim.get_organ("l_hand")
 			var/obj/item/organ/external/hurt = victim.get_organ("l_arm")
 			affected.droplimb()
 			hurt.receive_damage(25) //Enough to start bleeding, chance for internal bleeding
 		if("right")
-			var/mob/living/carbon/human/victim = M
 			var/obj/item/organ/external/affected = victim.get_organ("r_hand")
 			var/obj/item/organ/external/hurt = victim.get_organ("r_arm")
 			affected.droplimb()
