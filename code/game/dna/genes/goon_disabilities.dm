@@ -143,7 +143,8 @@
 	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 	message = replacetextEx(message,"o",pick("ö","ø","o"))
 	if(prob(30))
-		message += " Bork[pick("",", bork",", bork, bork")]!"
+		if(!M.is_muzzled())
+			message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 
 // WAS: /datum/bioEffect/unintelligable
