@@ -25,6 +25,9 @@
 		return 0
 	bitesize = reagents.total_volume
 	if(M.eat(src, user))
+		if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
+			var/makes_me_think = pick(strings("redpill.json", "redpill_questions"))
+			to_chat(M, "<i>[makes_me_think]</i>")
 		spawn(0)
 			qdel(src)
 		return 1
