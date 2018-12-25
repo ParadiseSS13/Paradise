@@ -353,7 +353,7 @@
 
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armor Set"
-	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space."
+	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space. Comes bundled with Boots of Gripping."
 	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
 	log_name = "HS"
 	category = "Defensive"
@@ -361,7 +361,7 @@
 /datum/spellbook_entry/item/armor/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
 	. = ..()
 	if(.)
-		new /obj/item/clothing/shoes/sandal(get_turf(user)) //In case they've lost them.
+		new /obj/item/clothing/shoes/magboots/wizard(get_turf(user))
 		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
 		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
 
