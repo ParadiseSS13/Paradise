@@ -7,7 +7,8 @@
 	req_access = list(access_syndicate)
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
+	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
+	resistance_flags = INDESTRUCTIBLE
 	var/challenge = FALSE
 	var/moved = FALSE
 
@@ -39,5 +40,18 @@
 			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
 			return 0
 	..()
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
+	name = "syndicate shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the syndicate shuttle."
+	icon_screen = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	shuttleId = "syndicate"
+	shuttlePortId = "syndicate_custom"
+	jumpto_ports = list("syndicate_ne" = 1, "syndicate_nw" = 1, "syndicate_n" = 1, "syndicate_se" = 1, "syndicate_sw" = 1, "syndicate_s" = 1, "syndicate_z5" = 1, "syndicate_z3" = 1)
+	view_range = 13
+	x_offset = -7
+	y_offset = -1
+	see_hidden = TRUE
 
 #undef SYNDICATE_CHALLENGE_TIMER
