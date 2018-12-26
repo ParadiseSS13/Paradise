@@ -356,10 +356,8 @@
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
-		/obj/item/storage/belt/medical/surgery/loaded = 1,
 		/obj/item/roller = 1,
-		/obj/item/healthanalyzer = 1,
-		/obj/item/healthupgrade = 1
+		/obj/item/healthanalyzer/advanced = 1
 
 		)
 
