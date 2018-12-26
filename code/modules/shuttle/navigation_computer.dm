@@ -274,7 +274,7 @@
 	console.checkLandingSpot()
 
 /mob/camera/aiEye/remote/shuttle_docker/update_remote_sight(mob/living/user)
-	user.sight = BLIND|SEE_TURFS
+	user.sight = SEE_TURFS
 	//user.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	//user.sync_lighting_plane_alpha()
 	return TRUE
