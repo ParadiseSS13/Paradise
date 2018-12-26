@@ -55,4 +55,20 @@
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SST
+	desc = "Used to designate a precise transit location for the SST shuttle."
+	shuttleId = "sst"
+	shuttlePortId = "sst_custom"
+	jumpto_ports = list("sst_home")
+	x_offset = 0
+	y_offset = 0
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SIT
+	desc = "Used to designate a precise transit location for the SIT shuttle."
+	shuttleId = "sit"
+	shuttlePortId = "sit_custom"
+	jumpto_ports = list("sit_home")
+	x_offset = 0
+	y_offset = 0
+
 #undef SYNDICATE_CHALLENGE_TIMER

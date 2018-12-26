@@ -881,7 +881,7 @@
 	icon_screen = "syndishuttle"
 	req_access = list(access_syndicate)
 	shuttleId = "sst"
-	possible_destinations = "sst_home;sst_away"
+	possible_destinations = "sst_home;sst_away;sst_custom"
 
 /obj/machinery/computer/shuttle/sit
 	name = "Syndicate Infiltration Team Shuttle Console"
@@ -890,7 +890,7 @@
 	icon_screen = "syndishuttle"
 	req_access = list(access_syndicate)
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
 
 
 var/global/trade_dock_timelimit = 0
