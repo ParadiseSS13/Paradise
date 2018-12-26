@@ -1,0 +1,4 @@
+author: "v0idp"
+delete-after: True
+changes: 
+  - bugfix: "Syndicate officer will not show in card modification/identification consoles anymore"
