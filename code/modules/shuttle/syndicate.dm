@@ -53,5 +53,6 @@
 	x_offset = -7
 	y_offset = -1
 	see_hidden = TRUE
+	resistance_flags = INDESTRUCTIBLE
 
 #undef SYNDICATE_CHALLENGE_TIMER

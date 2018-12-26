@@ -207,6 +207,7 @@
 	icon_state = "pinonclose"
 
 	var/area/shuttle/areaInstance
+	var/list/shuttle_areas
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
@@ -240,6 +241,13 @@
 /obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
+	shuttle_areas = list()
+	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
+	for(var/i in 1 to all_turfs.len)
+		var/turf/curT = all_turfs[i]
+		var/area/cur_area = curT.loc
+		if(istype(cur_area, areaInstance))
+			shuttle_areas[cur_area] = TRUE
 	..()
 
 /obj/docking_port/mobile/register()
@@ -262,6 +270,7 @@
 		areaInstance = null
 		destination = null
 		previous = null
+		shuttle_areas = null
 	return ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact

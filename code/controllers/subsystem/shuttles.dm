@@ -262,6 +262,20 @@ SUBSYSTEM_DEF(shuttle)
 
 	return O
 
+/datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
+	. = list()
+	var/list/stationary_cache = stationary
+	for(var/i in 1 to stationary_cache.len)
+		var/obj/docking_port/port = stationary_cache[i]
+		if(!port || port.z != z)
+			continue
+		var/list/bounds = port.return_coords()
+		var/list/overlap = get_overlap(x0, y0, x1, y1, bounds[1], bounds[2], bounds[3], bounds[4])
+		var/list/xs = overlap[1]
+		var/list/ys = overlap[2]
+		if(xs.len && ys.len)
+			.[port] = overlap
+
 /datum/controller/subsystem/shuttle/proc/update_hidden_docking_ports(list/remove_turfs, list/add_turfs)
 	var/list/remove_images = list()
 	var/list/add_images = list()
