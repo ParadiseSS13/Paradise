@@ -158,14 +158,17 @@
 	// Threshold needed to have a chance of hurting internal bits
 #define LIMB_THRESH_INT_DMG 10
 	// Probability of taking internal damage from sufficient force, while otherwise healthy
+#define LIMB_THRESH_INT_DMG_BURN 10
+	// Probability of taking internal damage from sufficient burns
 #define LIMB_DMG_PROB 5
 	// High brute damage or sharp objects may damage internal organs
-	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+	if(internal_organs && (brute_dam + burn_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || (brute >= LIMB_THRESH_INT_DMG || burn >= LIMB_THRESH_INT_DMG_BURN)) && prob(LIMB_DMG_PROB))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.receive_damage(brute * 0.5)
+			I.receive_damage((brute + burn) * 0.5)
 			brute -= brute * 0.5
+			burn -= burn * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
