@@ -86,7 +86,7 @@
 	alcohol_perc = 0.5
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of gin"
-	drink_desc = "A crystal clear glass of Griffeater gin
+	drink_desc = "A crystal clear glass of Griffeater gin"
 	taste_message = "an alcoholic christmas tree"
 
 /datum/reagent/consumable/ethanol/absinthe
