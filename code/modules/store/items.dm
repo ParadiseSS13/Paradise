@@ -117,12 +117,6 @@
 	typepath = /obj/item/instrument/piano_synth
 	cost = 1000
 
-/datum/storeitem/baby
-	name = "Toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
-	typepath = /obj/item/toddler
-	cost = 1000
-
 /datum/storeitem/flag_slime
 	name = "Slime People Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Slime People."
