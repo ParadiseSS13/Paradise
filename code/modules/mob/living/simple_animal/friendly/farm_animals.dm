@@ -13,7 +13,7 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
-	response_help  = "pets the"
+	response_help  = "pets"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	faction = list("neutral")
@@ -101,9 +101,9 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	response_help  = "pets the"
+	response_help  = "pets"
 	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
@@ -169,9 +169,9 @@
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
+	response_help  = "pets"
 	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 3
 	maxHealth = 3
@@ -218,9 +218,9 @@ var/global/chicken_count = 0
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
@@ -309,9 +309,9 @@ var/global/chicken_count = 0
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
@@ -333,9 +333,9 @@ var/global/chicken_count = 0
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "pecks"
 	health = 50
 	maxHealth = 50
@@ -356,9 +356,9 @@ var/global/chicken_count = 0
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
@@ -379,9 +379,9 @@ var/global/chicken_count = 0
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
@@ -403,9 +403,9 @@ var/global/chicken_count = 0
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
