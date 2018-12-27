@@ -12,6 +12,7 @@
 	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 	var/area_bypass = FALSE
+	var/cc_beacon = FALSE
 
 /obj/machinery/computer/teleporter/New()
 	src.id = "[rand(1000, 9999)]"
@@ -182,7 +183,7 @@
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
-			if(!is_teleport_allowed(T.z))
+			if(!is_teleport_allowed(T.z) && !R.cc_beacon)
 				continue
 			if(R.syndicate == 1 && emagged == 0)
 				continue
@@ -217,6 +218,7 @@
 			var/obj/item/radio/beacon/B = target
 			if(B.area_bypass)
 				area_bypass = TRUE
+			cc_beacon = B.cc_beacon
 	else
 		var/list/L = list()
 		var/list/areaindex = list()
@@ -366,7 +368,9 @@
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
 	if(istype(M, /atom/movable))
-		if(!calibrated && prob(25 - ((accurate) * 10))) //oh dear a problem
+		if(!calibrated && com.cc_beacon)
+			visible_message("<span class='alert'>Cannot lock on target. Please calibrate the teleporter before attempting long range teleportation.</span>")
+		else if(!calibrated && prob(25 - ((accurate) * 10)) && !com.cc_beacon) //oh dear a problem
 			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)

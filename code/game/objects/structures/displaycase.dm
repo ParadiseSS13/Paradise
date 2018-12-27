@@ -123,6 +123,13 @@ var/global/list/captain_display_cases = list()
 	req_access = list(access_captain)
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 
+/obj/structure/displaycase/stechkin
+	name = "officer's display case"
+	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
+	locked = 1
+	req_access = list(access_syndicate_command)
+	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
+
 /obj/structure/displaycase/Destroy()
 	dump()
 	QDEL_NULL(circuit)

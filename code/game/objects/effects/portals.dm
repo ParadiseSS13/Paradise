@@ -66,4 +66,5 @@
 	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
 	failchance = 0
+	precision = 0
 	ignore_tele_proof_area_setting = TRUE
