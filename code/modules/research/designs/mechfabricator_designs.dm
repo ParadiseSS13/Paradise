@@ -1185,3 +1185,54 @@
 	construction_time = 100
 	build_path = /obj/item/flash/synthetic
 	category = list("Misc")
+
+/datum/design/voice_standard
+	name = "Voice Modkit : Standard"
+	desc = "A modification kit that updates a mech's onboard voice to Standard."
+	id = "voice_standard"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice
+	category = list("Misc")
+
+/datum/design/voice_nanotrasen
+	name = "Voice Modkit : Nanotrasen"
+	desc = "A modification kit that updates a mech's onboard voice to Nanotrasen."
+	id = "voice_nanotrasen"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/nanotrasen
+	category = list("Misc")
+
+/datum/design/voice_silent
+	name = "Voice Modkit : Silent"
+	desc = "A modification kit that silences a mech's onboard voice."
+	id = "voice_silent"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/silent
+	category = list("Misc")
+
+/datum/design/voice_honk
+	name = "Voice Modkit : Honk"
+	desc = "A modification kit that updates a mech's onboard voice to Honk. This is a terrible idea."
+	id = "voice_honk"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/syndicate
+	category = list("Misc")
+
+/datum/design/voice_syndicate
+	name = "Voice Modkit : Syndicate"
+	desc = "A modification kit that updates a mech's onboard voice to Syndicate."
+	id = "voice_syndicate"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	req_tech = list("syndicate" = 2)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/syndicate
+	category = list("Misc")

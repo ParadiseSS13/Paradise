@@ -885,14 +885,14 @@
 		qdel(P)
 
 	else if(istype(W, /obj/item/mecha_modkit))
-		if(add_req_access || maint_access)
-			var/obj/item/mecha_modkit/M = W
-			if(do_after_once(user, M.install_time, target = src))
-				M.install(src, user)
-			else
-				to_chat(user, "<span class='notice'>You stop installing [M].</span>")
-	else
-		return attacked_by(W, user)
+		if(occupant)
+			to_chat(user, "<span class='notice'>You can't access the mech's modification port while it is occupied.</span>")
+			return
+		var/obj/item/mecha_modkit/M = W
+		if(do_after_once(user, M.install_time, target = src))
+			M.install(src, user)
+		else
+			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
 /obj/mecha/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
