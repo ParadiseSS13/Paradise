@@ -6,7 +6,7 @@
 	drink_icon = "glass_orange"
 	drink_name = "Glass of Orange juice"
 	drink_desc = "Vitamins! Yay!"
-	taste_message = "orange juice"
+	taste_message = "oranges"
 
 /datum/reagent/consumable/drink/orangejuicde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -22,7 +22,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
-	taste_message = "tomato juice"
+	taste_message = "tomatoes"
 
 /datum/reagent/consumable/drink/pineapplejuice
 	name = "Pineapple Juice"
@@ -32,7 +32,7 @@
 	drink_icon = "glass_orange"
 	drink_name = "Glass of pineapple juice"
 	drink_desc = "A bright drink, sweet and sugary."
-	taste_message = "pineapple juice"
+	taste_message = "pineapples"
 
 /datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -48,7 +48,7 @@
 	drink_icon = "glass_green"
 	drink_name = "Glass of Lime juice"
 	drink_desc = "A glass of sweet-sour lime juice."
-	taste_message = "lime juice"
+	taste_message = "limes"
 
 /datum/reagent/consumable/drink/limejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -64,7 +64,7 @@
 	drink_icon = "carrotjuice"
 	drink_name = "Glass of  carrot juice"
 	drink_desc = "It is just like a carrot but without crunching."
-	taste_message = "carrot juice"
+	taste_message = "carrots"
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -104,7 +104,7 @@
 	drink_icon = "triplecitrus"
 	drink_name = "Glass of Triplecitrus Juice"
 	drink_desc = "As colorful and healthy as it is delicious."
-	taste_message = "citrus juice"
+	taste_message = "extreme bitterness"
 
 /datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -118,7 +118,7 @@
 	drink_icon = "berryjuice"
 	drink_name = "Glass of berry juice"
 	drink_desc = "Berry juice. Or maybe its jam. Who cares?"
-	taste_message = "berry juice"
+	taste_message = "berries"
 
 /datum/reagent/consumable/drink/poisonberryjuice
 	name = "Poison Berry Juice"
@@ -128,7 +128,7 @@
 	drink_icon = "poisonberryjuice"
 	drink_name = "Glass of poison berry juice"
 	drink_desc = "A glass of deadly juice."
-	taste_message = "berry juice"
+	taste_message = "rotten berries"
 
 /datum/reagent/consumable/drink/poisonberryjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -140,14 +140,14 @@
 	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#ECFF56" // rgb: 236, 255, 86
-	taste_message = "apple juice"
+	taste_message = "apples"
 
 /datum/reagent/consumable/drink/watermelonjuice
 	name = "Watermelon Juice"
 	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
 	color = "#863333" // rgb: 134, 51, 51
-	taste_message = "watermelon juice"
+	taste_message = "watermelon"
 
 /datum/reagent/consumable/drink/lemonjuice
 	name = "Lemon Juice"
@@ -157,14 +157,14 @@
 	drink_icon = "lemonglass"
 	drink_name = "Glass of lemonjuice"
 	drink_desc = "Sour..."
-	taste_message = "lemon juice"
+	taste_message = "lemons"
 
 /datum/reagent/consumable/drink/grapejuice
 	name = "Grape Juice"
 	id = "grapejuice"
 	description = "This juice is known to stain shirts."
 	color = "#993399" // rgb: 153, 51, 153
-	taste_message = "grape juice"
+	taste_message = "grapes"
 
 /datum/reagent/consumable/drink/banana
 	name = "Banana Juice"
@@ -174,7 +174,7 @@
 	drink_icon = "banana"
 	drink_name = "Glass of banana juice"
 	drink_desc = "The raw essence of a banana. HONK"
-	taste_message = "banana juice"
+	taste_message = "bananas"
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -218,7 +218,7 @@
 	drink_icon = "glass_white"
 	drink_name = "Glass of milk"
 	drink_desc = "White and nutritious goodness!"
-	taste_message = "milk"
+	taste_message = "lactose goodness"
 
 /datum/reagent/consumable/drink/milk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -235,7 +235,7 @@
 	color = "#DFDFC7" // rgb: 223, 223, 199
 	drink_name = "Glass of soy milk"
 	drink_desc = "White and nutritious soy goodness!"
-	taste_message = "fake milk"
+	taste_message = "feminism"
 
 /datum/reagent/consumable/drink/milk/cream
 	name = "Cream"
@@ -281,7 +281,7 @@
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
 	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
-	taste_message = "coffee"
+	taste_message = "pure caffeine"
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -308,7 +308,7 @@
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Coffee"
 	drink_desc = "A drink to perk you up and refresh you!"
-	taste_message = "coffee"
+	taste_message = "bland coffee"
 
 /datum/reagent/consumable/drink/coffee/soy_latte
 	name = "Soy Latte"
@@ -320,6 +320,7 @@
 	drink_icon = "soy_latte"
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
+	taste_message = "vegan pretentiousness"
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -338,6 +339,7 @@
 	drink_icon = "cafe_latte"
 	drink_name = "Cafe Latte"
 	drink_desc = "A nice, strong and refreshing beverage while you are reading."
+	taste_message = "warm lactose and caffeine"
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -353,6 +355,7 @@
 	color = "#673629"
 	drink_name = "Cafe Mocha"
 	drink_desc = "The perfect blend of coffe, milk, and chocolate."
+	taste_message = "sweet coffee"
 
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
@@ -367,7 +370,7 @@
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
-	taste_message = "tea"
+	taste_message = "eastern calm"
 
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -385,6 +388,7 @@
 	drink_icon = "icetea"
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
+	taste_message = "sweet cold tea"
 
 /datum/reagent/consumable/drink/bananahonk
 	name = "Banana Mama"
@@ -394,7 +398,7 @@
 	drink_icon = "bananahonkglass"
 	drink_name = "Banana Honk"
 	drink_desc = "A drink from Banana Heaven."
-	taste_message = "honks"
+	taste_message = "honking clowns"
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -429,7 +433,7 @@
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
 	drink_desc = "Tasty"
-	taste_message = "chocolate"
+	taste_message = "lovely chocolate"
 
 /datum/reagent/consumable/drink/vanillapudding
 	name = "Vanilla Pudding"
@@ -440,7 +444,7 @@
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
 	drink_desc = "Tasty."
-	taste_message = "vanilla"
+	taste_message = "lovely vanilla"
 
 /datum/reagent/consumable/drink/cherryshake
 	name = "Cherry Shake"
@@ -451,7 +455,7 @@
 	drink_icon = "cherryshake"
 	drink_name = "Cherry Shake"
 	drink_desc = "A cherry flavored milkshake."
-	taste_message = "cherry milkshake"
+	taste_message = "pasteurized cherries"
 
 /datum/reagent/consumable/drink/bluecherryshake
 	name = "Blue Cherry Shake"
@@ -462,7 +466,7 @@
 	drink_icon = "bluecherryshake"
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
-	taste_message = "cherry milkshake"
+	taste_message = "pasteurized cherries"
 
 /datum/reagent/consumable/drink/pumpkin_latte
 	name = "Pumpkin Latte"
@@ -484,7 +488,7 @@
 	drink_icon= "gibbfloats"
 	drink_name = "Gibbfloat"
 	drink_desc = "Dr. Gibb with ice cream on top."
-	taste_message = "taste revolution"
+	taste_message = "revolution"
 
 /datum/reagent/consumable/drink/pumpkinjuice
 	name = "Pumpkin Juice"
@@ -505,4 +509,15 @@
 	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
-	taste_message = "grape soda"
+	taste_message = "bubbly grapes"
+	
+/datum/reagent/consumable/drink/rainbowjuice
+ 	name = "Rainbow Juice"
+ 	id = "rainbowjuice"
+ 	description = "A colorful mixture of fruit juices."
+ 	color = "#FF8EC8"
+ 	nutriment_factor = 4 * REAGENTS_METABOLISM
+ 	drink_icon = "rainbowjuice"
+ 	drink_name = "Rainbow Juice"
+ 	drink_desc = "A colorful mixture of fruit juices."
+ 	taste_message = "gayness"
