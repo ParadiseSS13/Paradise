@@ -7,7 +7,7 @@
 	req_access = list(access_syndicate)
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
+	possible_destinations = "syndicate_away;syndicate_nw;syndicate_custom"
 	resistance_flags = INDESTRUCTIBLE
 	var/challenge = FALSE
 	var/moved = FALSE
@@ -41,6 +41,26 @@
 			return 0
 	..()
 
+/obj/machinery/computer/shuttle/sst
+	name = "Syndicate Strike Time Shuttle Console"
+	desc = "Used to call and send the SST shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
+	req_access = list(access_syndicate)
+	shuttleId = "sst"
+	possible_destinations = "sst_home;sst_away;sst_custom"
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/shuttle/sit
+	name = "Syndicate Infiltration Team Shuttle Console"
+	desc = "Used to call and send the SIT shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
+	req_access = list(access_syndicate)
+	shuttleId = "sit"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
+	resistance_flags = INDESTRUCTIBLE
+
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the syndicate shuttle."
@@ -48,26 +68,27 @@
 	icon_keyboard = "syndie_key"
 	shuttleId = "syndicate"
 	shuttlePortId = "syndicate_custom"
-	jumpto_ports = list("syndicate_ne" = 1, "syndicate_nw" = 1, "syndicate_n" = 1, "syndicate_se" = 1, "syndicate_sw" = 1, "syndicate_s" = 1, "syndicate_z5" = 1, "syndicate_z3" = 1)
 	view_range = 13
-	x_offset = -7
+	x_offset = -5
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SST
+	name = "SST shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the SST shuttle."
 	shuttleId = "sst"
 	shuttlePortId = "sst_custom"
-	jumpto_ports = list("sst_home")
+	view_range = 13
 	x_offset = 0
 	y_offset = 0
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SIT
+	name = "SIT shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the SIT shuttle."
 	shuttleId = "sit"
 	shuttlePortId = "sit_custom"
-	jumpto_ports = list("sit_home")
+	view_range = 13
 	x_offset = 0
 	y_offset = 0
 

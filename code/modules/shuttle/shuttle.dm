@@ -842,20 +842,6 @@
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
 
-
-/obj/machinery/computer/shuttle/white_ship
-	name = "White Ship Console"
-	desc = "Used to control the White Ship."
-	circuit = /obj/item/circuitboard/white_ship
-	shuttleId = "whiteship"
-	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
-
-/obj/machinery/computer/shuttle/vox
-	name = "skipjack control console"
-	req_access = list(access_vox)
-	shuttleId = "skipjack"
-	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5"
-
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
 	desc = "Used to call and send the engineering shuttle."
@@ -867,68 +853,6 @@
 	desc = "Used to call and send the science shuttle."
 	shuttleId = "science"
 	possible_destinations = "science_home;science_away"
-
-/obj/machinery/computer/shuttle/admin
-	name = "Administration Shuttle Console"
-	desc = "Used to call and send the administration shuttle."
-	shuttleId = "admin"
-	possible_destinations = "admin_home;admin_away"
-
-/obj/machinery/computer/shuttle/sst
-	name = "Syndicate Strike Time Shuttle Console"
-	desc = "Used to call and send the SST shuttle."
-	icon_keyboard = "syndie_key"
-	icon_screen = "syndishuttle"
-	req_access = list(access_syndicate)
-	shuttleId = "sst"
-	possible_destinations = "sst_home;sst_away;sst_custom"
-
-/obj/machinery/computer/shuttle/sit
-	name = "Syndicate Infiltration Team Shuttle Console"
-	desc = "Used to call and send the SIT shuttle."
-	icon_keyboard = "syndie_key"
-	icon_screen = "syndishuttle"
-	req_access = list(access_syndicate)
-	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
-
-
-var/global/trade_dock_timelimit = 0
-var/global/trade_dockrequest_timelimit = 0
-
-/obj/machinery/computer/shuttle/trade
-	name = "Freighter Console"
-	docking_request = 1
-	var/possible_destinations_dock
-	var/possible_destinations_nodock
-	var/docking_request_message = "A trading ship has submitted a request to dock for trading. This request can be accepted or denied using a communications console."
-
-/obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
-	if(world.time < trade_dock_timelimit)
-		possible_destinations = possible_destinations_dock
-	else
-		possible_destinations = possible_destinations_nodock
-
-	docking_request = (world.time > trade_dockrequest_timelimit && world.time > trade_dock_timelimit)
-	..(user)
-
-/obj/machinery/computer/shuttle/trade/Topic(href, href_list)
-	if(..())
-		return 1
-	if(href_list["request"])
-		if(world.time < trade_dockrequest_timelimit || world.time < trade_dock_timelimit)
-			return
-		to_chat(usr, "<span class='notice'>Request sent.</span>")
-		event_announcement.Announce(docking_request_message, "Docking Request")
-		trade_dockrequest_timelimit = world.time + 1200 // They have 2 minutes to approve the request.
-		return 1
-
-/obj/machinery/computer/shuttle/trade/sol
-	req_access = list(access_trade_sol)
-	possible_destinations_dock = "trade_sol_base;trade_sol_offstation;trade_dock"
-	possible_destinations_nodock = "trade_sol_base;trade_sol_offstation"
-	shuttleId = "trade_sol"
-	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

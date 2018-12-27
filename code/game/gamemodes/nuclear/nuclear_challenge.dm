@@ -5,6 +5,8 @@
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 18000 //30 minutes, so the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
 
+GLOBAL_LIST_EMPTY(jam_on_wardec) //jams all navigation consoles in the list on decl
+
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
@@ -54,6 +56,9 @@
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		S.challenge = TRUE
+
+	for(var/obj/machinery/computer/camera_advanced/shuttle_docker/D in GLOB.jam_on_wardec)
+		D.jammed = TRUE
 
 	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(get_turf(user))
 	U.hidden_uplink.uplink_owner= "[user.key]"

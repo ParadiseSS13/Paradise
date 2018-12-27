@@ -316,6 +316,9 @@
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship
+/obj/item/circuitboard/white_ship_nav
+	name = "circuit Board (White Ship Navigation)"
+	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/white_ship
 /obj/item/circuitboard/shuttle/syndicate
 	name = "circuit board (Syndicate Shuttle)"
 	build_path = /obj/machinery/computer/shuttle/syndicate

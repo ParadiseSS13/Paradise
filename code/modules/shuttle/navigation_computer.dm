@@ -7,7 +7,9 @@
 	var/shuttleId = ""
 	var/shuttlePortId = ""
 	var/shuttlePortName = "custom location"
-	var/list/jumpto_ports = list() //hashset of ports to jump to and ignore for collision purposes
+	var/list/jumpto_ports = list("nav_z1" = 1, "nav_z3" = 1, "nav_z4" = 1, "nav_z5" = 1) //hashset of ports to jump to and ignore for collision purposes
+	var/access_derelict = FALSE //can we explore the derelict zlevels?
+	var/access_deepspace = FALSE //can we explore random ruins zlevels? TODO : create the actual nav docks in random ruins zlevels and add to jump_ports
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 7
@@ -22,6 +24,8 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
 	. = ..()
 	GLOB.navigation_computers += src
+	if(access_derelict)
+		jumpto_ports.Add("nav_z6" = 1)
 //	for(var/V in SSshuttle.stationary)
 //		if(!V)
 //			continue
@@ -47,11 +51,11 @@
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
 
-	if(rotate_action)
+	/*if(rotate_action)
 		rotate_action.target = user
 		rotate_action.Grant(user)
 		actions += rotate_action
-
+	*/
 	if(place_action)
 		place_action.target = user
 		place_action.Grant(user)
@@ -231,10 +235,13 @@
 		if(!ispath(turf_type, /turf/space))
 			return SHUTTLE_DOCKER_BLOCKED
 
+	if(istype(T.loc.type, /area/syndicate_depot))
+		return SHUTTLE_DOCKER_BLOCKED
+
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
 		var/obj/docking_port/port = overlappers[i]
-		if(port == my_port)
+		if(port == my_port || locate(port) in jumpto_ports)
 			continue
 		var/port_hidden = !see_hidden && port.hidden
 		var/list/overlap = overlappers[port]
