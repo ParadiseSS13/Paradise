@@ -1650,3 +1650,18 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "conch"
 	use_action = "pulls the string"
 	possible_answers = list("Yes.", "No.", "Try asking again.", "Nothing.", "I don't think so.", "Neither.", "Maybe someday.")
+
+/*
+ *Fake cuffs (honk honk)
+ */
+
+/obj/item/restraints/handcuffs/toy
+	name = "handcuffs"
+	desc = "Toy handcuffs. Plastic and extremely cheaply made."
+	gender = PLURAL
+	icon = 'icons/obj/items.dmi'
+	icon_state = "handcuff"
+	slot_flags = SLOT_BELT
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+	breakouttime = 0 //Deciseconds = 60s = 1 minutes

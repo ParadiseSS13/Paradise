@@ -98,6 +98,7 @@
 				/obj/item/poster/random_contraband = 10,
 				/obj/item/crowbar = 10,
 				/obj/item/crowbar/red = 10,
+				/obj/item/restraints/handcuffs/toy = 5,
 				/obj/item/extinguisher = 90,
 				//obj/item/gun/projectile/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
 				/obj/item/hand_labeler = 10,
