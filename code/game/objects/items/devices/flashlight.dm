@@ -312,9 +312,11 @@ obj/item/flashlight/lamp/bananalamp
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	var/fuel = 0
+	var/fuel_lower = 1600
+	var/fuel_upp = 2000
 
 /obj/item/flashlight/glowstick/Initialize()
-	fuel = rand(1600, 2000)
+	fuel = rand(fuel_lower, fuel_upp)
 	light_color = color
 	. = ..()
 
@@ -388,6 +390,13 @@ obj/item/flashlight/lamp/bananalamp
 /obj/item/flashlight/glowstick/pink
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
+
+/obj/item/flashlight/glowstick/emergency
+	name = "emergency glowstick"
+	desc = "A cheap looking, mass produced glowstick. You can practically feel it was made on a tight budget."
+	color = LIGHT_COLOR_BLUE
+	fuel_lower = 30
+	fuel_upp = 90
 
 /obj/item/flashlight/glowstick/random
 	name = "random colored glowstick"
