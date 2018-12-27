@@ -1658,4 +1658,4 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/restraints/handcuffs/toy
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
-	breakouttime = 0 //Deciseconds = 60s = 1 minutes
+	breakouttime = 0 
