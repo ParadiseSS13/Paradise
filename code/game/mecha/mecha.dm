@@ -76,6 +76,14 @@
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
+	var/nominalsound = 'sound/mecha/nominal.ogg'
+	var/zoomsound = 'sound/mecha/imag_enh.ogg'
+	var/critdestrsound = 'sound/mecha/critdestr.ogg'
+	var/weapdestrsound = 'sound/mecha/weapdestr.ogg'
+	var/lowpowersound = 'sound/mecha/lowpower.ogg'
+	var/longactivationsound = 'sound/mecha/nominal.ogg'
+	var/starting_voice = /obj/item/mecha_modkit/voice
+	var/activated = FALSE
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -120,6 +128,10 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
+
+	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
+	V.install(src)
+	qdel(V)
 
 ////////////////////////
 ////// Helpers /////////
@@ -872,6 +884,13 @@
 		user.drop_item()
 		qdel(P)
 
+	else if(istype(W, /obj/item/mecha_modkit))
+		if(add_req_access || maint_access)
+			var/obj/item/mecha_modkit/M = W
+			if(do_after_once(user, M.install_time, target = src))
+				M.install(src, user)
+			else
+				to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 	else
 		return attacked_by(W, user)
 
@@ -993,7 +1012,7 @@
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
-		occupant << sound('sound/mecha/nominal.ogg',volume=50)
+		occupant << sound(nominalsound, volume=50)
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
@@ -1151,8 +1170,11 @@
 		icon_state = reset_icon()
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-		if(!hasInternalDamage())
-			occupant << sound('sound/mecha/nominal.ogg', volume = 50)
+		if(!activated)
+			occupant << sound(longactivationsound, volume = 50)
+			activated = TRUE
+		else if(!hasInternalDamage())
+			occupant << sound(nominalsound, volume = 50)
 		return 1
 	else
 		return 0
@@ -1208,7 +1230,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound('sound/mecha/nominal.ogg',volume=50))
+			to_chat(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
 		return 1
 	else
