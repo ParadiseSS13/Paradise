@@ -84,6 +84,7 @@
 	var/longactivationsound = 'sound/mecha/nominal.ogg'
 	var/starting_voice = /obj/item/mecha_modkit/voice
 	var/activated = FALSE
+	var/power_warned = FALSE
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -894,6 +895,9 @@
 		else
 			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
+	else
+		return attacked_by(W, user)
+
 /obj/mecha/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -1012,7 +1016,7 @@
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
-		occupant << sound(nominalsound, volume=50)
+		occupant << sound(nominalsound, volume = 50)
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
@@ -1371,14 +1375,38 @@
 /obj/mecha/proc/use_power(amount)
 	if(get_charge())
 		cell.use(amount)
+		update_cell()
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
+		update_cell()
 		return 1
 	return 0
+
+/obj/mecha/proc/update_cell()
+	if(cell)
+		var/cellcharge = cell.charge/cell.maxcharge
+		switch(cellcharge)
+			if(0.75 to INFINITY)
+				occupant.clear_alert("charge")
+			if(0.5 to 0.75)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+			if(0.25 to 0.5)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				if(power_warned)
+					power_warned = FALSE
+			if(0.01 to 0.25)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				if(!power_warned)
+					occupant << sound(lowpowersound, volume = 50)
+					power_warned = TRUE
+			else
+				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+	else
+		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
 
 /obj/mecha/proc/reset_icon()
 	if(initial_icon)

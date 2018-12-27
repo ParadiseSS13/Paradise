@@ -1223,7 +1223,7 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
 	construction_time = 50
-	build_path = /obj/item/mecha_modkit/voice/syndicate
+	build_path = /obj/item/mecha_modkit/voice/honk
 	category = list("Misc")
 
 /datum/design/voice_syndicate
@@ -1231,8 +1231,7 @@
 	desc = "A modification kit that updates a mech's onboard voice to Syndicate."
 	id = "voice_syndicate"
 	build_type = MECHFAB
-	materials = list(MAT_METAL = 500)
-	req_tech = list("syndicate" = 2)
+	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
 	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")
