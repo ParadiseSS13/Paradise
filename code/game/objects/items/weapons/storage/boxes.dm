@@ -114,6 +114,17 @@
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
+/obj/item/storage/box/survival_syndi
+	icon_state = "box_syndi"
+	New()
+		..()
+		contents = list()
+		new /obj/item/clothing/mask/gas/syndicate(src)
+		new /obj/item/tank/emergency_oxygen/syndi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/reagent_containers/food/pill/initropidril(src)
+		new /obj/item/flashlight/glowstick/red(src)
+
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
 	desc = "Contains white gloves."
