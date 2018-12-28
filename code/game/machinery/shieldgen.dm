@@ -154,6 +154,7 @@
 
 	active = 1
 	update_icon()
+	anchored = 1
 
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
@@ -166,6 +167,7 @@
 
 	active = 0
 	update_icon()
+	anchored = 0
 
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
