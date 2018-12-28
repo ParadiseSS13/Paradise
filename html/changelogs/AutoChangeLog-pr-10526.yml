@@ -1,4 +1,0 @@
-author: "v0idp"
-delete-after: True
-changes: 
-  - bugfix: "missiles shot from missile racks in mechs will no longer spin in air"
