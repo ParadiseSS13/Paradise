@@ -155,9 +155,6 @@
 	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
 		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
 		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard(H), slot_head)
-	else if(H.mind.special_role == SPECIAL_ROLE_NUKEOPS)
-		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/nuclear(H), slot_wear_suit)
-		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear(H), slot_head)
 	else
 		H.equip_or_collect(new suit(H), slot_wear_suit)
 		H.equip_or_collect(new helm(H), slot_head)
