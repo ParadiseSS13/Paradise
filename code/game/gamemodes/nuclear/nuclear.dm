@@ -117,9 +117,9 @@ proc/issyndicate(mob/living/M as mob)
 		if(!leader_selected)
 			prepare_syndicate_leader(synd_mind, nuke_code)
 			leader_selected = 1
-			choose_syndicate_specie(synd_mind, TRUE, agent_number)
+			choose_syndicate_species(synd_mind, TRUE, agent_number)
 		else
-			choose_syndicate_specie(synd_mind, FALSE, agent_number)
+			choose_syndicate_species(synd_mind, FALSE, agent_number)
 			agent_number++
 		spawnpos++
 		update_synd_icons_added(synd_mind)
@@ -255,9 +255,9 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.update_icons()
 	return 1
 
-/datum/game_mode/proc/choose_syndicate_specie(datum/mind/synd_mind, var/leader = FALSE, var/agent_number = 1)
+/datum/game_mode/proc/choose_syndicate_species(datum/mind/synd_mind, var/leader = FALSE, var/agent_number = 1)
 	spawn(0) //prevent roundstart delay
-	if(alert(synd_mind.current, "You are a Syndicate Nuclear Operative. Please choose your preferred specie.", "Specie choice", synd_mind.current.dna.species.name, "Randomised Human") == "Randomised Human")
+	if(alert(synd_mind.current, "You are a Syndicate Nuclear Operative. Please choose your preferred species.", "Species choice", synd_mind.current.dna.species.name, "Randomised Human") == "Randomised Human")
 		create_human_syndicate(synd_mind)
 	name_syndicate(synd_mind, leader, agent_number)
 
