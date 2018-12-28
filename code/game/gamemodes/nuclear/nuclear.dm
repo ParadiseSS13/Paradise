@@ -7,9 +7,9 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 5
-	recommended_enemies = 5
+	required_players = 1	// 30 players - 5 players to be the nuke ops = 25 players remaining
+	required_enemies = 1
+	recommended_enemies = 1
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
@@ -112,25 +112,17 @@ proc/issyndicate(mob/living/M as mob)
 
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
-		greet_syndicate(synd_mind)
+		greet_syndicate(synd_mind, TRUE, leader_selected)
 		equip_syndicate(synd_mind.current)
-
 		if(!leader_selected)
 			prepare_syndicate_leader(synd_mind, nuke_code)
 			leader_selected = 1
+			choose_syndicate_specie(synd_mind, TRUE, agent_number)
 		else
-			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
-
-			var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-			if(foundIDs.len)
-				for(var/obj/item/card/id/ID in foundIDs)
-					ID.name = "[syndicate_name()] Operative ID card"
-					ID.registered_name = synd_mind.current.real_name
-
+			choose_syndicate_specie(synd_mind, FALSE, agent_number)
 			agent_number++
 		spawnpos++
 		update_synd_icons_added(synd_mind)
-
 	//update_all_synd_icons()
 
 	if(uplinklocker)
@@ -141,34 +133,21 @@ proc/issyndicate(mob/living/M as mob)
 
 	return ..()
 
-/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
+/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind)
 	var/mob/living/carbon/human/M = synd_mind.current
 
-	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
-	M.dna.species.create_organs(M)
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
-
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
-	head_organ.facial_colour = hair_c
-	head_organ.sec_facial_colour = hair_c
-	head_organ.hair_colour = hair_c
-	head_organ.sec_hair_colour = hair_c
-	M.change_eye_color(eye_c)
-	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
-	M.body_accessory = null
+	if(synd_mind.current.dna.species.name == "Machine")
+		synd_mind.current.dna.species.brute_mod = 1.82 // 100% * 1.82 * 0.66 (robolimbs) ~= 120%
+		synd_mind.current.dna.species.burn_mod = 1.82  // IPC ops take less damage, they still go boom on death and get fucked by ion tho
+	if(synd_mind.current.dna.species.name == "Grey")
+		synd_mind.current.dna.SetSEState(REMOTETALKBLOCK, 1, 1)
 	M.regenerate_icons()
 	M.update_body()
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
-	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
-	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
 	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
 	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
@@ -177,11 +156,8 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
 	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-
 	if(foundIDs.len)
 		for(var/obj/item/card/id/ID in foundIDs)
-			ID.name = "[syndicate_name()] [leader_title] ID card"
-			ID.registered_name = synd_mind.current.real_name
 			ID.access += access_syndicate_leader
 	else
 		message_admins("Warning: Nuke Ops spawned without access to leave their spawn area!")
@@ -215,10 +191,20 @@ proc/issyndicate(mob/living/M as mob)
 	syndicate.objectives += syndobj
 
 
-/datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
+/datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are = 1, var/leader_selected = 1)
 	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
 	if(you_are)
-		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		if(syndicate.current.dna.species.name == "Machine")
+			to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] combat unit!</span>")
+			to_chat(syndicate.current, "<span class'notice'>Your chassis has been reinforced to be more combat effective. However, you have been configured with a syndicate lawset that you must follow. If you do not wish to have a lawset, please select to play as a human.</span>")
+			to_chat(syndicate.current, "<span class'danger'>Current Laws :</span>")
+			to_chat(syndicate.current, "1. Follow the orders of Syndicate Officers")
+			to_chat(syndicate.current, "2. Accomplish your mission objectives at all costs.")
+			to_chat(syndicate.current, "3. Do not let yourself be captured by enemy forces.")
+			if(leader_selected)
+				to_chat(syndicate.current, "4. Follow the orders of other Syndicate personnel, giving priority according to rank")
+		else
+			to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
@@ -242,32 +228,20 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/initropidril(synd_mob), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/engineer(synd_mob.back), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 
 	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
-	if(synd_mob.dna.species)
-
-		/*
-		Incase anyone ever gets the burning desire to have nukeops with randomized apperances. -- Dave
-		synd_mob.gender = pick(MALE, FEMALE) // Randomized appearances for the nukeops.
-		var/datum/preferences/pref = new()
-		A.randomize_appearance_for(synd_mob)
-		*/
-
-		var/race = synd_mob.dna.species.name
-
-		switch(race)
-			if("Vox" || "Vox Armalis")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/nitrogen(synd_mob), slot_l_hand)
-				synd_mob.internal = synd_mob.l_hand
-				synd_mob.update_action_buttons_icon()
+	/*
+	Incase anyone ever gets the burning desire to have nukeops with randomized apperances. -- Dave
+	synd_mob.gender = pick(MALE, FEMALE) // Randomized appearances for the nukeops.
+	var/datum/preferences/pref = new()
+	A.randomize_appearance_for(synd_mob)
+	*/
 
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
 	E.implant(synd_mob)
@@ -275,6 +249,74 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.update_icons()
 	return 1
 
+
+/datum/game_mode/proc/choose_syndicate_specie(datum/mind/synd_mind, var/leader = FALSE, var/agent_number = 1)
+	spawn(0) //prevent roundstart delay
+
+	var/response = alert(synd_mind.current, "You are a Syndicate Nuclear Operative. Which specie would you prefer to be?", "Specie choice", synd_mind.current.dna.species.name, "Randomised Human")
+	if(response == "Randomised Human")
+		create_human_syndicate(synd_mind)
+	if(synd_mind.current.dna.species.name == "Machine")
+		to_chat(synd_mind.current,"<span class='notice'>Syndicate lawset saved in notes.</span>")
+		synd_mind.store_memory("Current Laws :")
+		synd_mind.store_memory("1. Follow the orders of Syndicate Officers")
+		synd_mind.store_memory("2. Accomplish your mission objectives at all costs.")
+		synd_mind.store_memory("3. Do not let yourself be captured by enemy forces.")
+		if(!leader)
+			synd_mind.store_memory("4. Follow the orders of other Syndicate personnel, giving priority according to rank")
+	name_syndicate(synd_mind, leader, agent_number)
+
+
+/datum/game_mode/proc/create_human_syndicate(datum/mind/synd_mind) // If a player wishes not to play as their own specie - randomize a human
+	var/mob/living/carbon/human/M = synd_mind.current
+
+	M.set_species(/datum/species/human, TRUE)
+	M.dna.ready_dna(M)
+	M.dna.species.create_organs(M)
+
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
+	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
+	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
+	head_organ.facial_colour = hair_c
+	head_organ.sec_facial_colour = hair_c
+	head_organ.hair_colour = hair_c
+	head_organ.sec_hair_colour = hair_c
+	M.change_eye_color(eye_c)
+	M.s_tone = skin_tone
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+	M.body_accessory = null
+	M.regenerate_icons()
+	M.update_body()
+
+/datum/game_mode/proc/name_syndicate(datum/mind/synd_mind, var/leader = FALSE, var/agent_number = 1)
+	if(leader)
+		if(synd_mind.current.dna.species.name == "Machine")
+			var/leader_title = pick("Leader Unit", "Automated Overseer", "Automated Commander")
+			synd_mind.current.real_name = "[syndicate_name()] [leader_title]"
+		else
+			var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
+			synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
+
+		var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
+		if(foundIDs.len)
+			for(var/obj/item/card/id/ID in foundIDs)
+				ID.name = "[synd_mind.current.real_name] ID card"
+				ID.registered_name = synd_mind.current.real_name
+				ID.icon_state = "commander"
+	else
+		if(synd_mind.current.dna.species.name == "Machine")
+			synd_mind.current.real_name = "[syndicate_name()] Combat Unit #[agent_number]"
+		else
+			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
+
+		var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
+		if(foundIDs.len)
+			for(var/obj/item/card/id/ID in foundIDs)
+				ID.name = "[synd_mind.current.real_name] ID card"
+				ID.registered_name = synd_mind.current.real_name
+				ID.icon_state = "syndie"
 
 /datum/game_mode/nuclear/check_win()
 	if(nukes_left == 0)
