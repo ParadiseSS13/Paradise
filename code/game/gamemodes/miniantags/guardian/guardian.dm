@@ -161,8 +161,12 @@
 	buckled = null
 	cooldown = world.time + 30
 
-/mob/living/simple_animal/hostile/guardian/proc/Communicate()
-	var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+/mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
+	var/input
+	if(!message)
+		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+	else
+		input = message
 	if(!input) return
 
 	for(var/mob/M in GLOB.mob_list)
@@ -172,6 +176,13 @@
 		else if(M in GLOB.dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+
+//override set to true if message should be passed through instead of going to host communication
+/mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
+	if(adminseal || override)//if it's an admin-spawned guardian without a host it can still talk normally
+		return ..(message)
+	Communicate(message)
+	
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
