@@ -81,7 +81,7 @@
 	build_path = /obj/item/radio/beacon
 	category = list("Bluespace")
 
-/datum/design/rpd
+/datum/design/brpd
 	name = "Bluespace Rapid Pipe Dispenser (BRPD)"
 	desc = "Similar to the Rapid Pipe Dispenser, lets you rapidly dispense pipes. Now at long range!"
 	req_tech = list("bluespace" = 3, "toxins" = 6)
