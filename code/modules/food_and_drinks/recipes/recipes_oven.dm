@@ -355,6 +355,17 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/orangecake
 
+/datum/recipe/oven/bananacake
+	reagents = list("milk" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bananacake
+
 /datum/recipe/oven/limecake
 	reagents = list("milk" = 5)
 	items = list(
