@@ -1467,6 +1467,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/organ/internal/cyberimp/chest/reviver
 	cost = 8
 
+/datum/uplink_item/cyber_implants/emp_shield
+	name = "EMP Shield Implant"
+	desc = "This implant will protect you from the effects of 5 EMPs or Ion shots, recharging once per 30 seconds."
+	reference = "EMPS"
+	item = /obj/item/organ/internal/cyberimp/brain/emp_shield
+	cost = 6
+
 /datum/uplink_item/cyber_implants/bundle
 	name = "Cybernetic Implants Bundle"
 	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. \

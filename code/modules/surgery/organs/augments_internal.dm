@@ -142,6 +142,37 @@
 	spawn(90 / severity)
 		crit_fail = 0
 
+/obj/item/organ/internal/cyberimp/brain/emp_shield
+	name = "EMP shield"
+	desc = "This implant will protect you from the effects of 5 EMPs or Ion shots, recharging once per 30 seconds."
+	implant_color = "#ADD8E6"
+	slot = "brain_empshield"
+	var/current_charges = 5
+	var/max_charges = 5
+	var/recharge_delay = 300 //30 seconds
+	var/recharge_cooldown = 0
+	var/recharge_rate = 1
+
+/obj/item/organ/internal/cyberimp/brain/emp_shield/process()
+	if(world.time > recharge_cooldown && current_charges < max_charges)
+		current_charges = Clamp((current_charges + recharge_rate), 0, max_charges)
+		if(current_charges == max_charges)
+			processing_objects.Remove(src)
+
+/obj/item/organ/internal/cyberimp/brain/emp_shield/proc/shield_hit()
+	if(current_charges > 0)
+		current_charges--
+		recharge_cooldown = world.time + recharge_delay
+		processing_objects |= src
+		return TRUE
+	return FALSE
+
+/obj/item/organ/internal/cyberimp/brain/emp_shield/emp_act()
+	return
+
+/obj/item/organ/internal/cyberimp/brain/emp_shield/Destroy()
+	processing_objects.Remove(src)
+	return ..()
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
@@ -288,7 +319,7 @@
 
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"
-	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,
+	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray, /obj/item/organ/internal/cyberimp/eyes/thermals, /obj/item/organ/internal/cyberimp/brain/emp_shield,
 						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver)
 	var/amount = 5
 

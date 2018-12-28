@@ -161,6 +161,11 @@ emp_act
 		return TRUE
 
 /mob/living/carbon/human/emp_act(severity)
+	var/obj/item/organ/internal/cyberimp/brain/emp_shield/S = get_int_organ(/obj/item/organ/internal/cyberimp/brain/emp_shield)
+	if(S)
+		if(S.shield_hit())
+			visible_message("<span class='warning'>A faint glow appears around [src], protecting [src.p_them()] from the EMP's effects!</span>", "<span class='notice'Your EMP shield absorbs the effects of the EMP.</span>")
+			return
 	for(var/obj/O in src)
 		if(!O)	continue
 		O.emp_act(severity)
