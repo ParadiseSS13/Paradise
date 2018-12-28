@@ -427,6 +427,11 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Mech is running out of power."
 	icon_state = "lowcell"
 
+/obj/screen/alert/mech_maintenance
+	name = "Maintenance Protocols"
+	desc = "Maintenance protocols are currently in effect, most actions disabled."
+	icon_state = "locked"
+
 //GUARDIANS
 /obj/screen/alert/cancharge
 	name = "Charge Ready"

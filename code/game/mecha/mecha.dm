@@ -1179,6 +1179,8 @@
 			activated = TRUE
 		else if(!hasInternalDamage())
 			occupant << sound(nominalsound, volume = 50)
+		if(state)
+			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
 		return 1
 	else
 		return 0
@@ -1261,6 +1263,7 @@
 		return
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
+	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
