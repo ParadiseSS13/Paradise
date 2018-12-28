@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Added kangaroo, a new creature type that is initially passive, but can be dangerous if provoked."

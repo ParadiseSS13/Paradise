@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added the ability for command to set emergency access on all station airlocks with the keycard authentification device. (ID swiper)"

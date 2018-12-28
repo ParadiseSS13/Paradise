@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - tweak: "Holoparasites/Guardians using the say verb now use host communication"

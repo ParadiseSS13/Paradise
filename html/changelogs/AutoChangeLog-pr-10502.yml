@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added the Boots of Gripping to the wizard hardsuit, sprited by Ionward"
-  - bugfix: "Fixed a cast check missing plasmaman wiz suit, causing issues with spell icons for them"

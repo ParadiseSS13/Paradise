@@ -1,4 +1,0 @@
-author: "Ionward"
-delete-after: True
-changes: 
-  - bugfix: "missing drask crusader helm #10486"
