@@ -88,7 +88,7 @@
 	update_icon()
 
 /obj/item/storage/belt/utility/chief
-	name = "Chief Engineer's toolbelt"
+	name = "advanced toolbelt"
 	desc = "Holds tools, looks snazzy"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
@@ -139,7 +139,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 17
 	use_to_pickup = 1
-	name = "Surgical Belt"
+	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
 	use_item_overlays = 1

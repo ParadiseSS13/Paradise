@@ -1,0 +1,9 @@
+author: "Spartan"
+delete-after: True
+changes: 
+  - tweak: "ERT Medics now spawn with a medical analyser upgrade."
+  - tweak: "Amber ERT now spawn with a flashlight."
+  - tweak: "Red Engineer ERT now have an Elite ERT Hardsuit."
+  - tweak: "Paranormal ERT now spawn with a seclite."
+  - tweak: "CE toolbelt renamed.
+grammar: Surgery Belt > surgery belt"

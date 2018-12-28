@@ -1,0 +1,5 @@
+author: "improvedname"
+delete-after: True
+changes: 
+  - rscadd: "Syndi emergency box to nuclear opratives."
+  - tweak: "Moves the suicide pill to the emergency box"

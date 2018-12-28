@@ -1495,7 +1495,7 @@ var/mob/dview/dview_mob = new
 	invisibility = 101
 	density = 0
 
-	anchored = 1
+	move_resist = INFINITY
 	simulated = 0
 
 	see_in_dark = 1e6

@@ -42,7 +42,9 @@
 
 	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
-	anchored = 1
+	move_force = MOVE_FORCE_EXTREMELY_STRONG
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
+	pull_force = MOVE_FORCE_EXTREMELY_STRONG
 	status_flags = GODMODE // Cannot push also
 
 	var/cannot_be_seen = 1
