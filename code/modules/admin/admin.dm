@@ -716,18 +716,6 @@ var/global/nologevent = 0
 	world.update_status()
 	feedback_add_details("admin_verb","TAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/DiscordERT()
-	set category = "Event"
-	set desc="Call ERT Team from Discord"
-	set name="Discord ERT"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	if(config.ryzorbot)
-		world.Export("[config.ryzorbot]/ert/isadmin=true&reason=none&timestamp=none")
-	feedback_add_details("admin_verb","DERT")
-
 /datum/admins/proc/toggleaban()
 	set category = "Server"
 	set desc="Toggle the ability for players to respawn."

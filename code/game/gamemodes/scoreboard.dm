@@ -263,5 +263,4 @@
 		)
 
 	var/parselist = json_encode(scorelist)
-	if(config.ryzorbot)
-		world.Export("[config.ryzorbot]/end/[parselist]")
+	discordbot("[config.ryzorbot]", "end", "notify")
