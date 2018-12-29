@@ -435,6 +435,9 @@ var/global/list/lawlorify = list (
 		update_hud()
 	if(!QDELETED(body))
 		body.revive()
+		if(!body.client)
+			var/mob/dead/observer/O = owner.get_ghost()
+			O.reenter_corpse()
 		if(istype(body.loc, /obj/effect/dummy/slaughter))
 			body.forceMove(get_turf(body))//Fixes dying while jaunted leaving you permajaunted.
 		if(istype(body, /mob/living/carbon/true_devil))
