@@ -21,6 +21,10 @@
 	var/locked = FALSE
 	var/safeties = TRUE
 	var/broken = FALSE
+	var/secure = FALSE	//set to true to enable ID locking
+	var/shocked = FALSE
+	req_access = list(access_eva)	//the ID needed if ID lock is enabled
+	var/datum/wires/suitstorage/asd
 
 	var/uv = FALSE
 	var/uv_super = FALSE
@@ -108,7 +112,9 @@
 	mask_type    = /obj/item/clothing/mask/breath
 	storage_type = /obj/item/tank/emergency_oxygen/double
 
-
+/obj/machinery/suit_storage_unit/New()
+	..()
+	asd = new(src)
 
 /obj/machinery/suit_storage_unit/Initialize()
 	. = ..()
