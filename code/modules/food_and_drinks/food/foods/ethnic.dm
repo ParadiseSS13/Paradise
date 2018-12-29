@@ -135,13 +135,13 @@
 	list_reagents = list("nutriment" = 8)
 
 //////////////////////
-//		Itilian		//
+//     italian      //
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/lasagna
 	name = "Lasagna"
 	icon_state = "lasagna"
-	desc = "tajarans loves to eat this, for some reason."
+	desc = "Tajarans loves to eat this, for some reason."
 	filling_color = "#E18712"
-	list_reagents = list("nutriment" =10, "msg" =3, "vitamin" =4, "tomatojuice" =10)
+	list_reagents = list("nutriment" = 10, "msg" = 3, "vitamin" = 4, "tomatojuice" = 10)
 
