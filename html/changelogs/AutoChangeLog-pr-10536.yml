@@ -1,4 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "at the end of a radiation storm the maint access doesn't get revoked if it was set to emergency before hand."
