@@ -457,7 +457,7 @@ macro "AZERTYon"
 macro "borghotkeymode"
 	elem "BRGHK-TAB"
 		name = "TAB"
-		command = ".winset \"mainwindow.macro=borgmacro hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5\""
+		command = ".winset \"mainwindow.macro=borgmacro hotkey_toggle.is-checked=false input.focus=true input.background-color=#990000\""
 		is-disabled = false
 	elem "BRGHK-CENTER+REP"
 		name = "CENTER+REP"
@@ -1171,7 +1171,7 @@ macro "hotkeymode"
 macro "borgmacro"
 	elem "BRGMACRO-TAB"
 		name = "TAB"
-		command = ".winset \"mainwindow.macro=borghotkeymode hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#F0F0F0\""
+		command = ".winset \"mainwindow.macro=borghotkeymode hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#009900\""
 		is-disabled = false
 	elem "BRGMACRO-CENTER+REP"
 		name = "CENTER+REP"
@@ -1519,19 +1519,23 @@ menu "menu"
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
+		background-color = #272727
 		size = 640x440
 		is-default = true
 		is-maximized = true
 		title = "Paradise Station 13"
-		icon = 'icons\\ss13_64.png'
+		icon = 'icons\\paradise.png'
 		menu = "menu"
 		macro = "macro"
 		saved-params = "pos;size;is-minimized;is-maximized"
 	elem "asset_cache_browser"
 		type = BROWSER
+		background-color = #272727
 		is-visible = false
 	elem "hotkey_toggle"
 		type = BUTTON
+		background-color = #40628a
+		text-color = #FFFFFF
 		button-type = pushbox
 		pos = 560,420
 		size = 80x20
@@ -1544,6 +1548,7 @@ window "mainwindow"
 		saved-params = "is-checked"
 	elem "mainvsplit"
 		type = CHILD
+		background-color = #272727
 		pos = 3,0
 		size = 634x416
 		anchor1 = 0,0
@@ -1565,11 +1570,13 @@ window "mainwindow"
 		font-family = ""
 		font-size = 0
 		font-style = ""
-		text-color = #000000
-		background-color = #d3b5b5
+		text-color = #FFFFFF
+		background-color = #990000
 		saved-params = "command"
 	elem "saybutton"
 		type = BUTTON
+		background-color = #40628a
+		text-color = #FFFFFF
 		button-type = pushbox
 		pos = 520,420
 		size = 40x20
@@ -1582,6 +1589,8 @@ window "mainwindow"
 		saved-params = "is-checked"
 	elem "mebutton"
 		type = BUTTON
+		background-color = #40628a
+		text-color = #FFFFFF
 		pos = 480,420
 		size = 40x20
 		anchor1 = 100,100
@@ -1592,6 +1601,7 @@ window "mainwindow"
 		button-type = pushbox
 	elem "tooltip"
 		type = BROWSER
+		background-color = #272727
 		pos = 0,0
 		size = 999x999
 		is-visible = false
@@ -1599,11 +1609,13 @@ window "mainwindow"
 window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
+		background-color = #272727
 		is-pane = true
 		title = "Map window"
 		saved-params = "pos;size;is-minimized;is-maximized"
 	elem "map"
 		type = MAP
+		background-color = #272727
 		is-default = true
 		pos = 0,0
 		size = 640x480
@@ -1642,11 +1654,13 @@ window "outputwindow"
 window "rpane"
 	elem "rpane"
 		type = MAIN
+		background-color = #272727
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "rpanewindow"
 		type = CHILD
 		pos = -9,15
+		background-color = #272727
 		size = 636x449
 		anchor1 = 0,0
 		anchor2 = 100,100
@@ -1658,7 +1672,9 @@ window "rpane"
 		show-splitter = true
 	elem "textb"
 		type = BUTTON
-		pos = 0,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 0,7
 		size = 60x16
 		is-visible = false
 		saved-params = "is-checked"
@@ -1669,7 +1685,9 @@ window "rpane"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 64,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 64,7
 		size = 60x16
 		is-visible = false
 		saved-params = "is-checked"
@@ -1679,37 +1697,47 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 155,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 155,7
 		size = 60x16
 		text = "Wiki"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 220,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 220,7
 		size = 60x16
 		text = "Forum"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 285,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 285,7
 		size = 60x16
 		text = "Rules"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 350,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 350,7
 		size = 60x16
 		text = "GitHub"
 		command = "github"
 	elem "changelog"
 		type = BUTTON
-		pos = 415,0
+		background-color = #40628a
+		text-color = #FFFFFF
+		pos = 415,7
 		size = 67x16
 		text = "Changelog"
 		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 487,0
+		pos = 487,7
 		size = 60x16
 		background-color = #7289DA
 		text-color = #FFFFFF
@@ -1718,7 +1746,7 @@ window "rpane"
 		command = "discord"
 	elem "karma"
 		type = BUTTON
-		pos = 552,0
+		pos = 552,7
 		size = 60x16
 		background-color = #FF4500
 		text-color = #FFFFFF
@@ -1727,7 +1755,7 @@ window "rpane"
 		command = "karmashop"
 	elem "donate"
 		type = BUTTON
-		pos = 617,0
+		pos = 617,7
 		size = 60x16
 		background-color = #008000
 		text-color = #FFFFFF
@@ -1748,22 +1776,26 @@ window "rpane"
 window "browserwindow"
 	elem "browserwindow"
 		type = MAIN
+		background-color = #272727
 		is-pane = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Browser"
 	elem "browser"
 		type = BROWSER
+		background-color = #272727
 		pos = 0,0
 		size = 640x499
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
-		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,0;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
-		on-hide = ".winset\"rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=65,0 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0\""
+		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,7;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
+		on-hide = ".winset\"rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=65,7 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0\""
 
 window "infowindow"
 	elem "infowindow"
 		type = MAIN
+		background-color = #272727
+		text-color = #FFFFFF
 		is-pane = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Info"
@@ -1774,9 +1806,12 @@ window "infowindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
-		highlight-color = #00aa00
-		tab-text-color = #000000
+		highlight-color = #009900
+		tab-text-color = #FFFFFF
+		tab-background-color = #272727
+		text-color = #FFFFFF
+		background-color = #272727
 		allow-html = true
 		multi-line = true
-		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,0:rpane.infob.pos=65,0 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
+		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,7:rpane.infob.pos=65,7 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
 		on-hide = ".winset\"rpane.infob.is-visible=false;rpane.browseb.is-visible=true?rpane.browseb.is-checked=true rpane.rpanewindow.left=browserwindow:rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=\""

@@ -89,7 +89,7 @@
 		var/hotkeys = client.hotkeylist[client.hotkeytype]
 		hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]
 		client.hotkeyon = 1
-		winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#F0F0F0")
+		winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#009900")
 
 /mob/proc/update_normal_mode()
 	var/hotkeyname = "macro"
@@ -97,4 +97,4 @@
 		var/hotkeys = client.hotkeylist[client.hotkeytype]//get the list containing the hotkey names
 		hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
 		client.hotkeyon = 0
-		winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5")
+		winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=false input.focus=true input.background-color=#990000")
