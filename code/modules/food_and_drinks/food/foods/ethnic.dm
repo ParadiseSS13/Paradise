@@ -144,4 +144,3 @@
 	desc = "Tajarans loves to eat this, for some reason."
 	filling_color = "#E18712"
 	list_reagents = list("nutriment" = 10, "msg" = 3, "vitamin" = 4, "tomatojuice" = 10)
-
