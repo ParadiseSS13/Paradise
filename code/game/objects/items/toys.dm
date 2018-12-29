@@ -1659,4 +1659,4 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
 	breakouttime = 0 
-	ignoreclumsy == true
+	ignoresClumsy = TRUE
