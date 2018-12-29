@@ -1,5 +1,0 @@
-author: "Spartan"
-delete-after: True
-changes: 
-  - rscadd: "Adds emergency glowsticks to emergency box.
-sound: Glowsticks and flares now make more relevant usage sounds."
