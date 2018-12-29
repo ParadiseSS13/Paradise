@@ -1,6 +1,6 @@
 /datum/wires/suitstorage
 	holder_type = /obj/machinery/suit_storage_unit
-	wire_count = 6
+	wire_count = 8
 
 var/const/SSU_WIRE_ID = 1
 var/const/SSU_WIRE_SHOCK = 2
@@ -23,10 +23,10 @@ var/const/SSU_WIRE_UV = 8
 /datum/wires/suitstorage/get_status()
 	. = ..()
 	var/obj/machinery/suit_storage_unit/A = holder
-	. += "The blue light is [A.secure ? "off" : "on"]."
+	. += "The blue light is [A.secure ? "on" : "off"]."
 	. += "The red light is [A.safeties ? "off" : "blinking"]."
 	. += "The green light is [A.shocked ? "on" : "off"]."
-	. += "The UV display shows [A.uv_super ? "185 nm" : "15 nm"]."
+	. += "The UV display shows [A.uv_super ? "15 nm" : "185 nm"]."
 
 datum/wires/suitstorage/CanUse()
 	var/obj/machinery/suit_storage_unit/A = holder
@@ -43,7 +43,7 @@ datum/wires/suitstorage/CanUse()
 			A.safeties = mended
 		if(SSU_WIRE_SHOCK)
 			A.shocked = !mended
-			 A.shock(usr, 50)
+			A.shock(usr, 50)
 		if(SSU_WIRE_UV)
 			A.uv_super = !mended
 	..()
@@ -60,7 +60,10 @@ datum/wires/suitstorage/UpdatePulsed(index)
 		if(SSU_WIRE_SHOCK)
 			A.shocked = !A.shocked
 			if(A.shocked)
-				A.shock(usr, 50)
+				A.shock(usr, 100)
+				spawn(50)
+					if(A && !IsIndexCut(index))
+						A.shocked = FALSE
 		if(SSU_WIRE_UV)
 			A.uv_super = !A.uv_super
 	..()
