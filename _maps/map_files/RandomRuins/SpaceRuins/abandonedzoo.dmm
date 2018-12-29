@@ -43,7 +43,7 @@
 "aQ" = (/obj/structure/window/reinforced{dir = 8},/turf/space,/area/space)
 "aR" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "aS" = (/obj/machinery/power/apc/worn_out{dir = 8; pixel_x = -24; pixel_y = 0},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/structure/rack,/obj/item/melee/baton/cattleprod,/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"aT" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/rack,/obj/item/clothing/suit/space/hardsuit/medical,/obj/item/tank/emergency_oxygen/double,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"aT" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/rack,/obj/item/clothing/suit/space/hardsuit/medical,/obj/item/tank/emergency_oxygen/double,/obj/item/clothing/head/helmet/space/hardsuit/medical,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "aU" = (/obj/structure/rack,/obj/item/crowbar,/obj/item/shield/riot,/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "aV" = (/obj/machinery/smartfridge/chemistry,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "aW" = (/obj/structure/table/reinforced,/obj/item/gun/syringe,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)

@@ -69,6 +69,7 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
 	siemens_coefficient = 0
+	actions_types = list(/datum/action/item_action/toggle_helmet)
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	species_restricted = list("exclude","Diona","Wryn")
@@ -156,6 +157,10 @@
 				H.unEquip(boots)
 				boots.forceMove(src)
 
+/obj/item/clothing/suit/space/hardsuit/ui_action_click()
+	..()
+	toggle_helmet()
+
 /obj/item/clothing/suit/space/hardsuit/verb/toggle_helmet()
 	set name = "Toggle Helmet"
 	set category = "Object"
@@ -201,6 +206,9 @@
 		else
 			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
 			helmet.loc = get_turf(src)
+			if(istype(helmet,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = helmet
+				S.linkedsuit = null
 			src.helmet = null
 			return
 		if(!boots)
@@ -221,7 +229,12 @@
 			to_chat(user, "You attach \the [W] to \the [src]'s helmet mount.")
 			user.drop_item()
 			W.loc = src
-			src.helmet = W
+			helmet = W
+			if(istype(helmet,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
+				S.forceMove(src)
+				helmet = S
+				S.link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
@@ -312,6 +325,7 @@
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	on = 1
+	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
@@ -319,7 +333,17 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/link_suit()
+	. = ..()
+	if(istype(loc,/obj/item/clothing/suit/space/hardsuit/syndi))
+		linkedsuit = loc
+
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
+	
+	if(!linkedsuit)
+		to_chat(user, "<span class='notice'>You must attach the helmet to a syndicate hardsuit to toggle combat mode!</span>")
+		return
+
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
@@ -342,7 +366,33 @@
 
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	toggle_hardsuit_mode(user)
 	user.update_inv_head()
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
+	if(linkedsuit)
+		if(on)
+			linkedsuit.name = initial(linkedsuit.name)
+			linkedsuit.desc = initial(linkedsuit.desc)
+			linkedsuit.slowdown = 1
+			linkedsuit.flags |= STOPSPRESSUREDMAGE | THICKMATERIAL
+			linkedsuit.flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+		else
+			linkedsuit.name += " (combat)"
+			linkedsuit.desc = linkedsuit.alt_desc
+			linkedsuit.slowdown = 0
+			linkedsuit.flags = THICKMATERIAL
+			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS)
+			linkedsuit.flags_inv &= ~(HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL)
+
+		linkedsuit.update_icon()
+		user.update_inv_wear_suit()
+		user.update_inv_w_uniform()
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -360,6 +410,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+	alt_desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
@@ -371,34 +422,6 @@
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
-
-/obj/item/clothing/suit/space/hardsuit/syndi/attack_self(mob/user)
-	on = !on
-	if(on)
-		to_chat(user, "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
-		name = "blood-red hardsuit"
-		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-		slowdown = 1
-		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
-		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	else
-		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>")
-		name = "blood-red hardsuit (combat)"
-		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
-		slowdown = 0
-		flags = THICKMATERIAL
-		flags_inv = null
-		cold_protection = null
-
-	update_icon()
-	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
-	user.update_inv_wear_suit()
-	user.update_inv_w_uniform()
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite

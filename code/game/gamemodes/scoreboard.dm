@@ -238,7 +238,7 @@
 	src << browse(dat, "window=roundstats;size=500x600")
 
 	// Ryzor BOT
-	var/datum/station_state/end_state = new /datum/station_state()
+/*	var/datum/station_state/end_state = new /datum/station_state()
 	var/station_integrity = min(round( 100.0 *  start_state.score(end_state), 0.1), 100.0)
 	var/list/scorelist = list(
 		"Useful Items Shipped"		=	"[score_stuffshipped] ([score_stuffshipped * 5] Points)",
@@ -262,5 +262,5 @@
 		"Station Integrity"			=	"[station_integrity]"
 		)
 
-	var/parselist = json_encode(scorelist)
+	var/parselist = json_encode(scorelist)*/
 	discordbot("[config.ryzorbot]", "end", "notify")

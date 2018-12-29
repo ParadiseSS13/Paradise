@@ -1,10 +1,21 @@
+<div class='fancy resizeArea top'    rx='0'  ry='-1'></div>
+<div class='fancy resizeArea tr'     rx='1'  ry='-1'></div>
+<div class='fancy resizeArea right'  rx='1'  ry='0'></div>
+<div class='fancy resizeArea br'     rx='1'  ry='1'></div>
+<div class='fancy resizeArea bottom' rx='0'  ry='1'></div>
+<div class='fancy resizeArea bl'     rx='-1' ry='1'></div>
+<div class='fancy resizeArea left'   rx='-1' ry='0'></div>
+<div class='fancy resizeArea tl'     rx='-1' ry='-1'></div>
+
 <div id='uiTitleWrapper'>
+    <div id='uiCornerTL' class='fancy'>&nbsp;</div>
     <i class="statusicon fa fa-eye fa-2x" unselectable="on"></i>
     <div id='uiTitleText' unselectable="on">{{:config.title}}</div>
     <div id='uiTitleFluff' unselectable="on"></div>
     <i class='minimize fancy fa fa-minus fa-2x' unselectable='on'></i>
     &nbsp;&nbsp;<i class='close fancy fa fa-close fa-2x' unselectable='on'></i>
 </div>
+<div class="mainBG"></div>
 <div id='uiMapWrapper' class="hidden" unselectable="on">
     <div id='uiMapHeader' unselectable="on">
         {{:helper.link('Hide Map', 'close', {'showMap' : 0})}}
@@ -34,4 +45,3 @@
 <div id='uiContent' unselectable="on">
 	<div id='uiLoadingNotice'>Initiating...</div>
 </div>
-<div id='resize' class='resize fancy' unselectable='on'></div>

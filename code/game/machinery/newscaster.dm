@@ -114,7 +114,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		/datum/job/chaplain,
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
-		/datum/job/civilian)
+		/datum/job/civilian,
+		/datum/job/syndicateofficer)
 
 	var/static/REDACTED = "<b class='bad'>\[REDACTED\]</b>"
 	light_range = 0

@@ -44,12 +44,14 @@
 	M.update_action_buttons()
 
 /datum/action/proc/Remove(mob/M)
+	owner = null
+	if(!M)
+		return
 	if(M.client)
 		M.client.screen -= button
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	M.actions -= src
 	M.update_action_buttons()
-	owner = null
 
 /datum/action/proc/Trigger()
 	if(!IsAvailable())
@@ -102,20 +104,24 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
-/datum/action/item_action/New(Target)
+/datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
 	I.actions += src
+	if(custom_icon && custom_icon_state)
+		use_itemicon = FALSE
+		icon_icon = custom_icon
+		button_icon_state = custom_icon_state
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
 	I.actions -= src
 	return ..()
 
-/datum/action/item_action/Trigger()
+/datum/action/item_action/Trigger(attack_self = TRUE) //Maybe we don't want to click the thing itself
 	if(!..())
 		return 0
-	if(target)
+	if(target && attack_self)
 		var/obj/item/I = target
 		I.ui_action_click(owner, type)
 	return 1
@@ -313,6 +319,14 @@
 /datum/action/item_action/toggle_helmet
 	name = "Toggle Helmet"
 
+/datum/action/item_action/remove_tape
+	name = "Remove Duct Tape"
+
+/datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
+	if(..())
+		GET_COMPONENT_FROM(DT, /datum/component/ducttape, target)
+		DT.remove_tape(target, usr)
+
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"
 
@@ -442,6 +456,9 @@
 	if(!target)
 		return 0
 	var/obj/effect/proc_holder/spell/spell = target
+
+	if(spell.special_availability_check)
+		return 1
 
 	if(owner)
 		return spell.can_cast(owner)

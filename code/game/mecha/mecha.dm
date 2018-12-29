@@ -171,9 +171,9 @@
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			to_chat(user, "[bicon(ME)] [ME]")
 
-/obj/mecha/hear_talk(mob/M, text)
+/obj/mecha/hear_talk(mob/M, list/message_pieces)
 	if(M == occupant && radio.broadcasting)
-		radio.talk_into(M, text)
+		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user )

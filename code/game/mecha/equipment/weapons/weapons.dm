@@ -346,7 +346,7 @@
 	if(heavy_missile)
 		M.heavy_missile = 1
 	playsound(chassis, fire_sound, 50, 1)
-	M.throw_at(target, missile_range, missile_speed)
+	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
@@ -516,7 +516,7 @@
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/Laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M as obj)
 	if(istype(M, /obj/mecha/working))

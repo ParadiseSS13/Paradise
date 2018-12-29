@@ -79,7 +79,7 @@
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 	hitsound = 'sound/weapons/tap.ogg'
-	damage = 0
+	nodamage = 1
 	damage_type = STAMINA
 	flag = "laser"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)

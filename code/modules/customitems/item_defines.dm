@@ -514,8 +514,6 @@
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-#undef USED_MOD_HELM
-#undef USED_MOD_SUIT
 
 /obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
 	name = "SG Helmet modkit"
@@ -584,8 +582,6 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-#define USED_MOD_HELM 1
-#define USED_MOD_SUIT 2
 
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
@@ -638,6 +634,70 @@
 			H.update_inv_wear_suit()
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+
+/obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
+	name = "cerberus pattern conversion kit"
+	desc = "A securirty hardsuit conversion kit."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			return
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		used |= USED_MOD_HELM
+
+		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
+		P.name = "cerberus pattern security hardsuit helmet"
+		P.desc = "A special helmet that protects against hazardous, low pressure environments. Has an additional layer of armor and rigging for combat duty."
+		P.icon = 'icons/obj/custom_items.dmi'
+		P.icon_state = "hardsuit0-secc"
+		P.item_state = "hardsuit0-secc"
+		P.sprite_sheets = null
+		P.item_color = "secc"
+		user.update_icons()
+
+		if(P == H.head)
+			H.update_inv_head()
+		if(used & USED_MOD_HELM && used & USED_MOD_SUIT)
+			qdel(src)
+		return
+
+	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			return
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		used |= USED_MOD_SUIT
+
+		var/obj/item/clothing/suit/space/hardsuit/security/P = target
+		P.name = "cerberus pattern security hardsuit"
+		P.desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor and rigging for combat duty"
+		P.icon = 'icons/obj/custom_items.dmi'
+		P.icon_state = "hardsuit-secc"
+		P.item_state = "hardsuit-secc"
+		P.sprite_sheets = null
+		user.update_icons()
+
+		if(P == H.wear_suit)
+			H.update_inv_wear_suit()
+		if(used & USED_MOD_HELM && used & USED_MOD_SUIT)
+			qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+
+#undef USED_MOD_HELM
+#undef USED_MOD_SUIT
+
 
 //////////////////////////////////
 //////////// Clothing ////////////
@@ -1527,7 +1587,7 @@
 	item_state = "panzermedal"
 	item_color = "panzermedal"
 	slot_flags = SLOT_TIE
-
+/*
 //HISPANIA FLUFF ITEMS GO HERE//
 
 //BORIS SHOTGUN GOES STARTS HERE//
@@ -1808,7 +1868,7 @@
 	//                    ---
 
 	return
-  
+  */
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
 	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."

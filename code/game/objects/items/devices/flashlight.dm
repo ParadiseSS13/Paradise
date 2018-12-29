@@ -11,6 +11,7 @@
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
+	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/Initialize()
 	. = ..()
@@ -35,7 +36,7 @@
 
 		return 0
 	on = !on
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	playsound(user, togglesound, 100, 1)
 	update_brightness(user)
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -158,6 +159,7 @@ obj/item/flashlight/lamp/bananalamp
 	light_color = "#ff0000" // changed colour to a more brighter red.
 	icon_state = "flare"
 	item_state = "flare"
+	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
@@ -311,10 +313,13 @@ obj/item/flashlight/lamp/bananalamp
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	item_state = "glowstick"
+	togglesound = 'sound/effects/bone_break_1.ogg'
 	var/fuel = 0
+	var/fuel_lower = 1600
+	var/fuel_upp = 2000
 
 /obj/item/flashlight/glowstick/Initialize()
-	fuel = rand(1600, 2000)
+	fuel = rand(fuel_lower, fuel_upp)
 	light_color = color
 	. = ..()
 
@@ -388,6 +393,13 @@ obj/item/flashlight/lamp/bananalamp
 /obj/item/flashlight/glowstick/pink
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
+
+/obj/item/flashlight/glowstick/emergency
+	name = "emergency glowstick"
+	desc = "A cheap looking, mass produced glowstick. You can practically feel it was made on a tight budget."
+	color = LIGHT_COLOR_BLUE
+	fuel_lower = 30
+	fuel_upp = 90
 
 /obj/item/flashlight/glowstick/random
 	name = "random colored glowstick"

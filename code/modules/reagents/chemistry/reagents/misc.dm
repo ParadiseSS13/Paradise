@@ -366,31 +366,6 @@
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
 
-/datum/reagent/fartonium
-	name = "Fartonium"
-	id = "fartonium"
-	description = "Oh god it never ends, IT NEVER STOPS!"
-	reagent_state = GAS
-	color = "#D06E27"
-	taste_message = "mexican cuisine"
-
-/datum/reagent/fartonium/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(66))
-		M.emote("fart")
-
-	if(holder.has_reagent("simethicone"))
-		if(prob(25))
-			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
-			update_flags |= M.adjustBruteLoss(1, FALSE)
-		if(prob(10))
-			M.custom_emote(1,"strains, but nothing happens.")
-			update_flags |= M.adjustBruteLoss(2, FALSE)
-		if(prob(5))
-			M.emote("scream")
-			update_flags |= M.adjustBruteLoss(4, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/hugs
 	name = "Pure hugs"
 	id = "hugs"

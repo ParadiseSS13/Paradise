@@ -637,3 +637,8 @@
 	icon_state = "electricalcrate"
 	icon_opened = "electricalcrateopen"
 	icon_closed = "electricalcrate"
+
+/obj/structure/closet/crate/tape/New()
+	if(prob(10))
+		new /obj/item/bikehorn/rubberducky(src)
+	..()

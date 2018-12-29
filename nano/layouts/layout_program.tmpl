@@ -1,12 +1,23 @@
+<div class='fancy resizeArea top'    rx='0'  ry='-1'></div>
+<div class='fancy resizeArea tr'     rx='1'  ry='-1'></div>
+<div class='fancy resizeArea right'  rx='1'  ry='0'></div>
+<div class='fancy resizeArea br'     rx='1'  ry='1'></div>
+<div class='fancy resizeArea bottom' rx='0'  ry='1'></div>
+<div class='fancy resizeArea bl'     rx='-1' ry='1'></div>
+<div class='fancy resizeArea left'   rx='-1' ry='0'></div>
+<div class='fancy resizeArea tl'     rx='-1' ry='-1'></div>
+
 <div id='uiTitleWrapper'>
+    <div id='uiCornerTL' class='fancy'>&nbsp;</div>
     <i class="statusicon fa fa-eye fa-2x" unselectable="on"></i>
     <div id='uiTitleText' unselectable="on">{{:config.title}}</div>
     <div id='uiTitleFluff' unselectable="on"></div>
     <i class='minimize fancy fa fa-minus fa-2x' unselectable='on'></i>
     &nbsp;&nbsp;<i class='close fancy fa fa-close fa-2x' unselectable='on'></i>
 </div>
+<div class="mainBG"></div>
 
-<div class="floatLeft">
+<div class="floatLeft underTitle">
 	<div class='item'>
 		<table><tr>
 		{{if data.PC_batteryicon && data.PC_showbatteryicon}}
@@ -30,7 +41,7 @@
 		</table>
 	</div>
 </div>
-<div class="floatRight">
+<div class="floatRight underTitle">
 	<div class='item'>
 		<table><tr>
 			<td>{{:helper.link('Shutdown', 'power-off', {'action' : 'PC_shutdown'})}}
@@ -72,4 +83,3 @@
 <div class="clearBoth" id='uiContent' unselectable="on">
 	<div id='uiLoadingNotice'>Initiating...</div>
 </div>
-<div id='resize' class='resize fancy' unselectable='on'></div>

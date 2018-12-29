@@ -58,6 +58,10 @@
 
 	var/rev_cooldown = 0
 
+	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
+	var/isblessed = FALSE // is this person blessed by a chaplain?
+	var/num_blessed = 0 // for prayers
+
 	// the world.time since the mob has been brigged, or -1 if not at all
 	var/brigged_since = -1
 	var/suicided = FALSE
@@ -375,9 +379,9 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
-	/* 
-		This prioritizes antags relevant to the current round to make them appear at the top of the panel. 
-		Traitorchan and traitorvamp are snowflaked in because they have multiple sections. 
+	/*
+		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
+		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
 	if(ticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])

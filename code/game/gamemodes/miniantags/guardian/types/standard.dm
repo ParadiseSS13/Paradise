@@ -24,7 +24,7 @@
 		if(length(battlecry) > 11)//no more then 11 letters in a battle cry.
 			visible_message("<span class='danger'>[src] punches [target]!</span>")
 		else
-			say("[battlecry][battlecry][battlecry][battlecry][battlecry]")
+			say("[battlecry][battlecry][battlecry][battlecry][battlecry]", TRUE)
 		playsound(loc, attack_sound, 50, 1, 1)
 		playsound(loc, attack_sound, 50, 1, 1)
 		playsound(loc, attack_sound, 50, 1, 1)

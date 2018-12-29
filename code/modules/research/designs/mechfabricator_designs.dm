@@ -657,6 +657,7 @@
 	name = "Exosuit Medical Equipment (Rescue Jaw)"
 	id = "mech_medical_jaw"
 	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6)	//now same as jaws of life
 	materials = list(MAT_METAL=5000,MAT_SILVER=2000,MAT_TITANIUM=1500)
 	construction_time = 200
@@ -1162,6 +1163,15 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/eyes/optical_sensor
 	materials = list(MAT_METAL=1000, MAT_GLASS=2500)
+	construction_time = 200
+	category = list("Misc")
+
+/datum/design/ipc_microphone
+	name = "IPC Microphone"
+	id = "ipc_microphone"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/ears/microphone
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 2500)
 	construction_time = 200
 	category = list("Misc")
 

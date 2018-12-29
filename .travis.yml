@@ -63,11 +63,10 @@ jobs:
       env:
       addons:
       before_install:
-        - npm install -g bower gulp
+        - npm install -g gulp-cli
         - cd ./nano/
       install:
         - npm install --loglevel=error
-        - bower install --silent
       before_script:
       script:
-        - gulp --min
+        - gulp

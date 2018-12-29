@@ -23,7 +23,7 @@
 	if(!istype(C))
 		return
 
-	if(CLUMSY in user.mutations && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
 
