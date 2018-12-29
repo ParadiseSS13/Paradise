@@ -288,7 +288,7 @@ obj/item/flashlight/lamp/bananalamp
 
 /obj/item/flashlight/flare/glowstick/random/Initialize()
 	..()
-	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random)
+	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
 	return INITIALIZE_HINT_QDEL
 
