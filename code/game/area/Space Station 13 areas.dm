@@ -530,7 +530,7 @@ var/list/ghostteleportlocs = list()
 //SYNDICATES
 
 /area/syndicate_mothership
-	name = "\improper Syndicate Mothership"
+	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
 	requires_power = 0
 
@@ -1517,7 +1517,7 @@ var/list/ghostteleportlocs = list()
 
 
 /area/medical/biostorage
-	name = "\improper Secondary Storage"
+	name = "\improper Medical Storage"
 	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
@@ -1565,8 +1565,8 @@ var/list/ghostteleportlocs = list()
 	icon_state = "CMO"
 
 /area/medical/cmostore
-	name = "\improper Secure Storage"
-	icon_state = "CMO"
+	name = "\improper Medical Secondary Storage"
+	icon_state = "medbaysecstorage"
 
 /area/medical/robotics
 	name = "\improper Robotics"

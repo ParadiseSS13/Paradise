@@ -2,6 +2,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /proc/get_uplink_items(var/job = null)
 	var/list/uplink_items = list()
+	var/list/sales_items = list()
+	var/newreference = 1
 	if(!uplink_items.len)
 
 		var/list/last = list()
@@ -22,12 +24,38 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
+			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
+
+	for(var/i in 1 to 3)
+		var/datum/uplink_item/I = pick_n_take(sales_items)
+		var/datum/uplink_item/A = new I.type
+		var/discount = 0.5
+		A.limited_stock = 1
+		I.refundable = FALSE
+		A.refundable = FALSE
+		if(A.cost >= 20)
+			discount *= 0.5 // If the item costs 20TC or more, it's only 25% off.
+		A.cost = max(round(A.cost * (1-discount)),1)
+		A.category = "Discounted Gear"
+		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
+		A.reference = "DIS[newreference]"
+		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
+		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
+		A.item = I.item
+		newreference++
+
+		if(!uplink_items[A.category])
+			uplink_items[A.category] = list()
+
+		uplink_items[A.category] += A
 
 	return uplink_items
 
@@ -51,21 +79,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	var/cant_discount = FALSE
+	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
+
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
 			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
 			return
+
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
 		feedback_add_details("traitor_uplink_items_bought", name)
 		return new item(loc)
+
 
 /datum/uplink_item/proc/description()
 	if(!desc)
@@ -97,7 +130,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [name]")
+				if(limited_stock > 0)
+					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+				else
+					log_game("[key_name(user)] purchased [name].")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -117,8 +153,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 */
 //Work in Progress, job specific antag tools
 
+//Discounts (dynamically filled above)
+
+/datum/uplink_item/discounts
+	category = "Discounted Gear"
+
+//Job specific gear
+
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
+	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear) // Stops the job specific category appearing for nukies
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -143,6 +188,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
+	cost = 10
+	job = list("Mime")
+
+/datum/uplink_item/jobspecific/mimery
+	name = "Guide to Advanced Mimery Series"
+	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
+	reference = "AM"
+	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 10
 	job = list("Mime")
 
@@ -478,15 +531,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/batterer
 	cost = 5
 
-/datum/uplink_item/dangerous/manhacks
-	name = "Viscerator Delivery Grenade"
-	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
-	reference = "VDG"
-	item = /obj/item/grenade/spawnergrenade/manhacks
-	cost = 6
-	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 35
-
 /datum/uplink_item/ammo/bioterror
 	name = "Box of Bioterror Syringes"
 	desc = "A box full of preloaded syringes, containing various chemicals that seize up the victim's motor and broca system , making it impossible for them to move or speak while in their system."
@@ -494,38 +538,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bioterror
 	cost = 5
 	gamemodes = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/dangerous/saringrenades
-	name = "Sarin Gas Grenades"
-	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
-	reference = "TGG"
-	item = /obj/item/storage/box/syndie_kit/sarin
-	cost = 12
-	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 0
-
-/datum/uplink_item/dangerous/atmosgrenades
-	name = "Atmos Grenades"
-	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
-	reference = "AGG"
-	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
-	cost = 11
-	surplus = 0
-
-/datum/uplink_item/dangerous/emp
-	name = "EMP Grenades and Implanter Kit"
-	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \
-			security's energy weapons, and silicon lifeforms when you're in a tight spot."
-	reference = "EMPK"
-	item = /obj/item/storage/box/syndie_kit/emp
-	cost = 2
-
-/datum/uplink_item/dangerous/syndicate_minibomb
-	name = "Syndicate Minibomb"
-	desc = "The minibomb is a grenade with a five-second fuse."
-	reference = "SMB"
-	item = /obj/item/grenade/syndieminibomb
-	cost = 6
 
 /datum/uplink_item/dangerous/gygax
 	name = "Gygax Exosuit"
@@ -556,6 +568,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -593,6 +606,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
+	cant_discount = TRUE
 
 // Ammunition
 
@@ -763,6 +777,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
+	cant_discount = TRUE
+
+/datum/uplink_item/stealthy_weapons/cqc
+	name = "CQC Manual"
+	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+	reference = "CQC"
+	item = /obj/item/CQC_manual
+	cost = 9
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
@@ -820,13 +842,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/stealthy_weapons/detomatix
-	name = "Detomatix PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA."
-	reference = "DEPC"
-	item = /obj/item/cartridge/syndicate
-	cost = 6
-
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
 	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
@@ -834,14 +849,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/suppressor
 	cost = 1
 	surplus = 10
-
-/datum/uplink_item/stealthy_weapons/pizza_bomb
-	name = "Pizza Bomb"
-	desc = "A pizza box with a bomb taped inside of it. The timer needs to be set by opening the box; afterwards, opening the box again will trigger the detonation."
-	reference = "PB"
-	item = /obj/item/pizza_bomb
-	cost = 5
-	surplus = 8
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
@@ -857,12 +864,104 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
 
-/datum/uplink_item/stealthy_weapons/chameleonflag
+// GRENADES AND EXPLOSIVES
+
+/datum/uplink_item/explosives
+	category = "Grenades and Explosives"
+
+/datum/uplink_item/explosives/plastic_explosives
+	name = "Composition C-4"
+	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
+	reference = "C4"
+	item = /obj/item/grenade/plastic/c4
+	cost = 1
+
+/datum/uplink_item/explosives/breaching_charge
+	name = "Composition X-4"
+	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
+	reference = "X4"
+	item = /obj/item/grenade/plastic/x4
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/explosives/syndicate_bomb
+	name = "Syndicate Bomb"
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	reference = "SB"
+	item = /obj/item/radio/beacon/syndicate/bomb
+	cost = 11
+
+/datum/uplink_item/explosives/syndicate_minibomb
+	name = "Syndicate Minibomb"
+	desc = "The minibomb is a grenade with a five-second fuse."
+	reference = "SMB"
+	item = /obj/item/grenade/syndieminibomb
+	cost = 6
+
+/datum/uplink_item/explosives/detomatix
+	name = "Detomatix PDA Cartridge"
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA."
+	reference = "DEPC"
+	item = /obj/item/cartridge/syndicate
+	cost = 6
+
+/datum/uplink_item/explosives/pizza_bomb
+	name = "Pizza Bomb"
+	desc = "A pizza box with a bomb taped inside of it. The timer needs to be set by opening the box; afterwards, opening the box again will trigger the detonation."
+	reference = "PB"
+	item = /obj/item/pizza_bomb
+	cost = 5
+	surplus = 8
+
+/datum/uplink_item/explosives/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
 	reference = "CHFLAG"
 	item = /obj/item/flag/chameleon
 	cost = 7
+
+/datum/uplink_item/explosives/grenadier
+	name = "Grenadier's belt"
+	desc = "A belt containing 25 lethally dangerous and destructive grenades."
+	item = /obj/item/storage/belt/grenade/full
+	cost = 30
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/explosives/manhacks
+	name = "Viscerator Delivery Grenade"
+	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
+	reference = "VDG"
+	item = /obj/item/grenade/spawnergrenade/manhacks
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 35
+
+/datum/uplink_item/explosives/saringrenades
+	name = "Sarin Gas Grenades"
+	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
+	reference = "TGG"
+	item = /obj/item/storage/box/syndie_kit/sarin
+	cost = 12
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
+/datum/uplink_item/explosives/atmosgrenades
+	name = "Atmos Grenades"
+	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
+	reference = "AGG"
+	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
+	cost = 11
+	surplus = 0
+
+/datum/uplink_item/explosives/emp
+	name = "EMP Grenades and Implanter Kit"
+	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \
+			security's energy weapons, and silicon lifeforms when you're in a tight spot."
+	reference = "EMPK"
+	item = /obj/item/storage/box/syndie_kit/emp
+	cost = 2
 
 // STEALTHY TOOLS
 
@@ -1156,21 +1255,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/device_tools/plastic_explosives
-	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
-	reference = "C4"
-	item = /obj/item/grenade/plastic/c4
-	cost = 1
-
-/datum/uplink_item/device_tools/breaching_charge
-	name = "Composition X-4"
-	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
-	reference = "X4"
-	item = /obj/item/grenade/plastic/x4
-	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
@@ -1186,16 +1270,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 12
+	cost = 10
 	surplus = 0
+	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
+	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/device_tools/syndicate_bomb
-	name = "Syndicate Bomb"
-	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
-	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
-	reference = "SB"
-	item = /obj/item/radio/beacon/syndicate/bomb
-	cost = 11
+/datum/uplink_item/device_tools/singularity_beacon/nuke
+	reference = "SNGBN"
+	hijack_only = FALSE // This inherited version exists so nukies can use it while keeping the original hijack only
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
@@ -1227,6 +1312,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/stack/telecrystal
 	cost = 1
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/telecrystal/five
 	name = "5 Raw Telecrystals"
@@ -1304,6 +1390,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/uplink
 	cost = 14
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
@@ -1408,6 +1495,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	cost = 20
 	excludefrom = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -1441,6 +1529,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
+	cant_discount = TRUE
 
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
@@ -1483,6 +1572,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE // You fucking wish
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)

@@ -279,6 +279,7 @@ var/ert_request_answered = FALSE
 			paranormal_slots -= 1
 			M.equipOutfit(paranormal_outfit)
 			M.job = "ERT Paranormal"
+			M.mind.isholy = TRUE
 
 		if("Commander")
 			command_slots = 0

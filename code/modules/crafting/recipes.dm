@@ -247,6 +247,14 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
+/datum/crafting_recipe/sushimat
+	name = "Sushi Mat"
+	result = /obj/item/kitchen/sushimat
+	time = 10
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/cable_coil = 2)
+	category = CAT_MISC
+
 /datum/crafting_recipe/notreallysoap
 	name = "Homemade Soap"
 	result = /obj/item/soap/ducttape
@@ -388,4 +396,14 @@
 		        /obj/item/stack/rods = 2,
 		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	tools = list(/obj/item/screwdriver, /obj/item/wrench)
+	category = CAT_MISC
+
+/datum/crafting_recipe/faketoolbox
+	name = "Black and Red toolbox"
+	result = /obj/item/storage/toolbox/fakesyndi
+	time = 40
+	reqs = list(/datum/reagent/paint/red = 10,
+				/datum/reagent/paint/black = 30,
+				/obj/item/storage/toolbox = 1) //Paint in reagents so it doesnt take the container up, yet still take it from the beaker
+	tools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
 	category = CAT_MISC

@@ -9,10 +9,11 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Grey")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
-		)
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
 
 /obj/item/clothing/suit/bio_suit
 	name = "bio suit"

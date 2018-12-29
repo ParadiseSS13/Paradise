@@ -65,6 +65,9 @@
 			overlays += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
+	if(usr.incapacitated())
+		return
+
 	if(!ishuman(usr) || !iscarbon(target))
 		return
 

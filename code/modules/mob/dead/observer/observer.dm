@@ -13,7 +13,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	density = 0
 	canmove = 0
 	alpha = 127
-	anchored = 1	//  don't get pushed around
+	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
 	var/bootime = 0
@@ -706,6 +706,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"
 	set category = "Ghost"
-	
+
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)

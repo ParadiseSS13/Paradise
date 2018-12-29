@@ -196,7 +196,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			for (var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_to(C, REAGENTS_METABOLISM)
+				reagents.trans_id_to(C, R.id, max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
 		else // else just remove some of the reagents
@@ -232,7 +232,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
-	smoketime = 180
+	smoketime = 250
 	chem_volume = 100
 
 /obj/item/clothing/mask/cigarette/rollie/New()

@@ -29,6 +29,12 @@
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet2
 
+/obj/item/ammo_casing/c38/invisible
+	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
+
+/obj/item/ammo_casing/c38/invisible/fake
+	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible/fake
+
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	caliber = "10mm"

@@ -22,6 +22,8 @@
 /obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	. = ..()
 	if(.)
+		if(alarmed) // Did the empty clip alarm go off already?
+			alarmed = 0 // Reset the alarm once a magazine is loaded
 		return
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
@@ -33,6 +35,8 @@
 				magazine = null
 			else
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
+			if(alarmed)
+				alarmed = 0
 			user.remove_from_mob(AM)
 			magazine = AM
 			magazine.loc = src

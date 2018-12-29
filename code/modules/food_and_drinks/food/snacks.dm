@@ -79,7 +79,7 @@
 	if(istype(W,/obj/item/storage))
 		..() // -> item/attackby(, params)
 
-	if(istype(W,/obj/item/kitchen/utensil))
+	else if(istype(W,/obj/item/kitchen/utensil))
 
 		var/obj/item/kitchen/utensil/U = W
 
@@ -116,6 +116,8 @@
 				TrashItem.forceMove(loc)
 			qdel(src)
 		return TRUE
+	else
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
