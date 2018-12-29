@@ -1232,6 +1232,7 @@
 	id = "voice_syndicate"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
+	req_tech = list("syndicate" = 2)
 	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")

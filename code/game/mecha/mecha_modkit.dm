@@ -49,6 +49,7 @@
 /obj/item/mecha_modkit/voice/syndicate
 	name = "mecha voice modification kit : Syndicate"
 	desc = "This suspicious modification kit updates a mech's onboard voice to Syndicate."
+	origin_tech = "syndicate=1"
 	nominalsound = 'sound/mecha/nominalsyndi.ogg'
 	zoomsound = 'sound/mecha/imag_enhsyndi.ogg'
 	critdestrsound = 'sound/mecha/critdestrsyndi.ogg'
