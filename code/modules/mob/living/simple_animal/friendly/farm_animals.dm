@@ -14,8 +14,8 @@
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	faction = list("neutral")
 	attack_same = 1
 	attacktext = "kicks"
@@ -102,7 +102,7 @@
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
 	response_help  = "pets"
-	response_disarm = "gently pushes aside the"
+	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -170,7 +170,7 @@
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets"
-	response_disarm = "gently pushes aside the"
+	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 3
