@@ -154,7 +154,6 @@
 				backpack_contents = list(
 								/obj/item/clothing/head/surgery/black = 1,
 								/obj/item/autopsy_scanner = 1,
-								/obj/item/mass_spectrometer = 1,
 								/obj/item/storage/box/bodybags = 1)
 
 			if("Geneticist")

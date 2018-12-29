@@ -1587,7 +1587,7 @@
 	item_state = "panzermedal"
 	item_color = "panzermedal"
 	slot_flags = SLOT_TIE
-
+/*
 //HISPANIA FLUFF ITEMS GO HERE//
 
 //BORIS SHOTGUN GOES STARTS HERE//
@@ -1868,7 +1868,7 @@
 	//                    ---
 
 	return
-  
+  */
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
 	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
