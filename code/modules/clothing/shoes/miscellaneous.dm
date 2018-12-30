@@ -82,6 +82,11 @@
 	var/footstep = 1	//used for squeeks whilst walking
 	shoe_sound = "clownstep"
 
+/obj/item/clothing/shoes/clown_shoes/magical
+	name = "magical clown shoes"
+	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
+	magical = TRUE
+
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
