@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Glowsticks now process fuel properly"
