@@ -338,18 +338,18 @@
 	desc = "Seems someone made a snowman here."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "snowman"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
 /obj/structure/snowman/built
-	name = "snowman"
-	desc = "Do you wanna build a snowman?"
-	density = TRUE
-	anchored = TRUE
-	climbable = FALSE
+	desc = "Just like the ones you remember from childhood!"
 	max_integrity = 50
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "snowman"
+
+/obj/structure/snowman/built/Destroy()
+	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())
+	new /obj/item/grown/log(drop_location())
+	new /obj/item/grown/log(drop_location())
+	return ..()
 
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
