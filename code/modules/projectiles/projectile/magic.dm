@@ -308,6 +308,7 @@
 	icon_state = "banana"
 	var/slip_stun = 5
 	var/slip_weaken = 5
+	hitsound = null
 
 /obj/item/projectile/magic/slipping/New()
 	..()
