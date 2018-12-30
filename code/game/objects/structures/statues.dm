@@ -313,17 +313,6 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
 
-/*
-/obj/structure/statue/snow
-	hardness = 0.5
-	material_drop_type = /obj/item/stack/sheet/mineral/snow
-
-/obj/structure/statue/snow/snowman
-	name = "snowman"
-	desc = "Several lumps of snow put together to form a snowman."
-	icon_state = "snowman"
-*/
-
 /obj/structure/statue/tranquillite
 	hardness = 0.5
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite

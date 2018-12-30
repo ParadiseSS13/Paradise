@@ -138,3 +138,24 @@
 
 /obj/item/snowball/ex_act(severity)
 	qdel(src)
+
+/obj/structure/snowman
+	name = "snowman"
+	desc = "Do you wanna build a snowman?"
+	density = TRUE
+	anchored = TRUE
+	climbable = FALSE
+	max_integrity = 50
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "snowman"
+
+/obj/structure/snowman/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
+		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		obj_integrity = max_integrity
+		qdel(I)
+	else
+		return ..()
+
+/obj/structure/snowman/fire_act()
+	qdel(src)
