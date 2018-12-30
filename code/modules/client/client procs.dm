@@ -366,9 +366,16 @@
 
 	send_resources()
 
+	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
+		if(establish_db_connection())
+			activate_darkmode()
+
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
-			winset(src, "rpane.changelog", "background-color=#f4aa94;font-style=bold")
+			if(prefs.toggles & UI_DARKMODE)
+				winset(src, "rpane.changelog", "background-color=#bb7700;font-style=bold")
+			else
+				winset(src, "rpane.changelog", "background-color=#f4aa94;text-color=#FFFFFF;font-style=bold")
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 
 	if(!void)
@@ -660,3 +667,50 @@
 
 /client/proc/on_varedit()
 	var_edited = TRUE
+
+/////////////////
+// DARKMODE UI //
+/////////////////
+// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
+/client/proc/activate_darkmode()
+	///// BUTTONS /////
+	/* Rpane */
+	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.wikib", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+	/* Mainwindow */
+	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "mainwindow.hotkey_toggle", "background-color=#40628a;text-color=#FFFFFF")
+	///// UI ELEMENTS /////
+	/* Mainwindow */
+	winset(src, "mainwindow.mainwindow", "background-color=#272727")
+	winset(src, "mainwindow.asset_cache_browser", "background-color=#272727")
+	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
+	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	/* Mapwindow */
+	winset(src, "mapwindow.mapwindow", "background-color=#272727")
+	winset(src, "mapwindow.map", "background-color=#272727")
+	/* Outputwindow */
+	winset(src, "outputwindow.outputwindow", "background-color=#272727")
+	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	/* Rpane */
+	winset(src, "rpane.rpane", "background-color=#272727")
+	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	/* Browserwindow */
+	winset(src, "browserwindow.browserwindow", "background-color=#272727")
+	winset(src, "browserwindow.browser", "background-color=#272727")
+	/* Infowindow */
+	winset(src, "infowindow.infowindow", "background-color=#272727;text-color=#FFFFFF")
+	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	// NOTIFY USER 
+	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+
+/client/proc/deactivate_darkmode()
+	///// BUTTONS /////
+	///// NOTIFY USER /////
+	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
