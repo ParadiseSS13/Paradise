@@ -145,10 +145,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		var/obj/item/clothing/hat = H.head
 		var/obj/item/clothing/shoes = H.shoes
 		if(!robe || !hat || !shoes)
-			to_chat(user, "<span class='notice'>Your outfit isn't complete, You should put on your robe and wizard hat, as well as sandals.</span>")
+			to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
 			return 0
 		if(!robe.magical || !hat.magical || !shoes.magical)
-			to_chat(user, "<span class='notice'>Your outfit isn't magical enough, You should put on your robe and wizard hat, as well as your sandals.</span>")
+			to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
 			return 0
 	else if(!ishuman(user))
 		if(clothes_req || human_req)
