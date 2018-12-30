@@ -415,6 +415,6 @@
 	reqs = list(/obj/item/snowball = 10,
 				/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
 				/obj/item/grown/log = 2)
-	time = 10
+	time = 50
 	category = CAT_MISC
 	roundstart_enabled = FALSE
