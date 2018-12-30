@@ -411,7 +411,7 @@
 
 /datum/crafting_recipe/snowman
 	name = "Snowman"
-	result = /obj/structure/snowman
+	result = /obj/structure/snowman/built
 	reqs = list(/obj/item/snowball = 10,
 				/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
 				/obj/item/grown/log = 2)

@@ -341,6 +341,28 @@
 	anchored = 1
 	density = 1
 
+/obj/structure/snowman/built
+	name = "snowman"
+	desc = "Do you wanna build a snowman?"
+	density = TRUE
+	anchored = TRUE
+	climbable = FALSE
+	max_integrity = 50
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "snowman"
+
+/obj/structure/snowman/built/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
+		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		obj_integrity = max_integrity
+		qdel(I)
+	else
+		return ..()
+
+/obj/structure/snowman/built/fire_act()
+	qdel(src)
+
+
 /obj/structure/kidanstatue
 	name = "Obsidian Kidan warrior statue"
 	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
