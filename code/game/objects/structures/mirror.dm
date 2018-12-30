@@ -122,27 +122,14 @@
 
 /obj/structure/mirror/magic
 	name = "magic mirror"
-	desc = "Turn and face the strange... face."
 	icon_state = "magic_mirror"
-	var/list/choosable_races = list()
-	var/vox_picked = FALSE
-	var/plasmaman_picked = FALSE
-
-/obj/structure/mirror/magic/New()
-	..()
-
-/obj/structure/mirror/magic/badmin/New()
-	for(var/speciestype in subtypesof(/datum/species))
-		var/datum/species/S = new speciestype()
-		choosable_races += S.name
-	..()
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user))
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Race", "Gender", "Hair", "Eyes")
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body")
 
 	switch(choice)
 		if("Name")
@@ -157,71 +144,23 @@
 			if(H.mind)
 				H.mind.name = newname
 
-		if("Race")
-			var/list/race_list
-			if(!choosable_races.len) //default races available handled here because each user has a different list of karma unlocked races
-				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
-				if(config.usealienwhitelist)
-					for(var/Spec in GLOB.whitelisted_species)
-						if(is_alien_whitelisted(user, Spec))
-							race_list += Spec
-				else
-					race_list += GLOB.whitelisted_species
+		if("Body")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+			if(config.usealienwhitelist)
+				for(var/Spec in GLOB.whitelisted_species)
+					if(is_alien_whitelisted(H, Spec))
+						race_list += Spec
 			else
-				race_list = choosable_races
+				race_list += GLOB.whitelisted_species
 
-			var/datum/species/newrace
-			var/oldrace = H.dna.species.name
-			var/racechoice = input(H, "What are we again?", "Race change") as null|anything in race_list
-			newrace = GLOB.all_species[racechoice]
-			if(!newrace || (newrace.name == oldrace))
-				return
-
-			if(oldrace == "Plasmaman")
-				H.unEquip(H.get_item_by_slot(slot_wear_suit))
-				H.unEquip(H.get_item_by_slot(slot_head))
-
-			H.set_species(newrace.type)
-
-			if((newrace.name == "Vox" || newrace.name == "Vox Armalis")  && !vox_picked)
-				vox_picked = TRUE
-				newrace.after_equip_job(null, H)
-			if(newrace.name == "Plasmaman" && !plasmaman_picked)
-				plasmaman_picked = TRUE
-				newrace.after_equip_job(null, H)
-
-			if(newrace.bodyflags & HAS_SKIN_TONE)
-				H.s_tone = rand(-120, 20)
-			H.update_body()
-			H.update_hair()
-
-		if("Gender")
-			if(!(H.gender in list("male", "female"))) //blame the patriarchy
-				return
-			if(H.gender == "male")
-				if(alert(H, "Become a Witch?", "Confirmation", "Yes", "No") == "Yes")
-					H.gender = "female"
-					to_chat(H, "<span class='notice'>Man, you feel like a woman!</span>")
-				else
-					return
-
-			else
-				if(alert(H, "Become a Warlock?", "Confirmation", "Yes", "No") == "Yes")
-					H.gender = "male"
-					to_chat(H, "<span class='notice'>Whoa man, you feel like a man!</span>")
-				else
-					return
-			H.update_body()
-
-		if("Hair")
-			..() //So you just want to use a mirror then?
-
-		if("Eyes")
-			var/new_eye_color = input(H, "Choose your eye colour", "Eye Colour") as color|null
-			if(new_eye_color)
-				var/eye_color = sanitize_hexcolor(new_eye_color)
-				H.change_eye_color(eye_color)
-				H.update_body()
+			var/datum/nano_module/appearance_changer/AC = ui_users[user]
+			if(!AC)
+				AC = new(src, user)
+				AC.name = "Magic Mirror"
+				AC.flags = APPEARANCE_ALL
+				AC.whitelist = race_list
+				ui_users[user] = AC
+			AC.ui_interact(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
 	return
