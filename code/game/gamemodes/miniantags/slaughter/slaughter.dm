@@ -98,7 +98,6 @@
 /mob/living/simple_animal/slaughter/Destroy()
 	// Only execute the below if we successfully died
 	for(var/mob/living/M in consumed_mobs)
-		to_chat(world, "[M]")
 		release_consumed(M)
 	. = ..()
 
