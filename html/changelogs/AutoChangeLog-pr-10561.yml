@@ -1,4 +1,0 @@
-author: "Shadow-Quill"
-delete-after: True
-changes: 
-  - bugfix: "No longer get debug messages from Slaughter Demons dropping mobs on death"

@@ -1,5 +1,0 @@
-author: "Aurorablade"
-delete-after: True
-changes: 
-  - bugfix: "Fixes Slaughter demons not releaseing corpses on death."
-  - bugfix: "Fixes tears in spacetime just kinda sitting there."
