@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Fixed nuclear operatives burning/choking on spawn if your set character is a plasmaman/vox. (they get healed once the round is done setting up)"
