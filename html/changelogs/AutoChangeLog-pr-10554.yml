@@ -1,5 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - tweak: "Changed the laser tag gun pathing in the code."
-  - tweak: "Removed the / from the encryptionkey object in code."
