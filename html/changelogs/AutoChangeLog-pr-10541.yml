@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Mech flashbang, banana, and mousetrap launchers now properly throw the item at your target instead of dropping it at the mech's feet."
