@@ -247,7 +247,7 @@
 				return
 		if(istype(target, /obj/mecha/working/ripley))
 			var/obj/mecha/D = target
-			if(D.icon_state != "ripley-open")
+			if(D.icon_state != "ripley-open" && D.icon_state != "firefighter-open")
 				to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
 				return
 			var/list/damage_absorption = D.damage_absorption
