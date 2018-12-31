@@ -387,11 +387,11 @@
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/bluetag/G = new /obj/item/gun/energy/laser/bluetag(Tsec)
+		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/redtag/G = new /obj/item/gun/energy/laser/redtag(Tsec)
+		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 

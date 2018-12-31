@@ -1290,12 +1290,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"
-	contains = list(/obj/item/gun/energy/laser/redtag,
-					/obj/item/gun/energy/laser/redtag,
-					/obj/item/gun/energy/laser/redtag,
-					/obj/item/gun/energy/laser/bluetag,
-					/obj/item/gun/energy/laser/bluetag,
-					/obj/item/gun/energy/laser/bluetag,
+	contains = list(/obj/item/gun/energy/laser/tag/red,
+					/obj/item/gun/energy/laser/tag/red,
+					/obj/item/gun/energy/laser/tag/red,
+					/obj/item/gun/energy/laser/tag/blue,
+					/obj/item/gun/energy/laser/tag/blue,
+					/obj/item/gun/energy/laser/tag/blue,
 					/obj/item/clothing/suit/redtag,
 					/obj/item/clothing/suit/redtag,
 					/obj/item/clothing/suit/redtag,
