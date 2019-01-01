@@ -845,15 +845,14 @@
 			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
 			return
 
-/obj/item/lazarus_injector/emag_act(mob/user)
+/obj/item/lazarus_injector/emag_act()
 	if(!malfunctioning)
 		malfunctioning = 1
 		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 
-/obj/item/lazarus_injector/emp_act(mob/user)
+/obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)
 		malfunctioning = 1
-		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 
 /obj/item/lazarus_injector/examine(mob/user)
 	..(user)
