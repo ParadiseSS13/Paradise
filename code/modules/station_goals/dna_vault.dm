@@ -302,3 +302,4 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	H.dna.SetSEState(block, 1, 1)
 	H.mutations |= power
 	genemutcheck(H, block, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(block) //prevent removal by mutadone
