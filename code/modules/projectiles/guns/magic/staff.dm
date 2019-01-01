@@ -56,8 +56,8 @@
 	name = "staff of slipping"
 	desc = "An artefact that spits... bananas?"
 	ammo_type = /obj/item/ammo_casing/magic/slipping
-	icon_state = "staffofslipping" //todo : maybe better sprite
-	item_state = "staffofdoor" //todo : staff of slipping in hand/back sprite
+	icon_state = "staffofslipping"
+	item_state = "staffofslipping"
 	max_charges = 10
 	recharge_rate = 2
 	fire_sound = 'sound/items/bikehorn.ogg'
