@@ -42,6 +42,8 @@
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
 	if(translator_pref || ((ismindshielded(H) || J.is_command) && (WINGDINGS in H.mutations)))
+		if(J.title == "Mime")
+			return
 		if(J.title == "Clown")
 			var/obj/item/organ/internal/cyberimp/brain/speech_translator/clown/implant = new
 			implant.insert(H)
