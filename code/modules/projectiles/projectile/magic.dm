@@ -308,7 +308,7 @@
 	icon_state = "banana"
 	var/slip_stun = 5
 	var/slip_weaken = 5
-	hitsound = null
+	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()
 	..()
@@ -322,13 +322,11 @@
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
 			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
-			playsound(target.loc, 'sound/items/bikehorn.ogg', 50, 1, -3)
 			R.Stun(slip_stun)
 	else if(ismob(target))
 		var/mob/M = target
 		if(!M.stunned)
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			playsound(target.loc, 'sound/items/bikehorn.ogg', 50, 1, -3)
 			M.Weaken(slip_weaken)
 			M.Stun(slip_stun)
 	. = ..()
