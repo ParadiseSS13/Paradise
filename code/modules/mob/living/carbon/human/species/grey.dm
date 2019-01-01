@@ -21,8 +21,7 @@
 
 	default_genes = list(REMOTE_TALK)
 
-
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT)
+	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -33,6 +32,7 @@
 	..()
 	H.dna.SetSEState(REMOTETALKBLOCK, !remove, 1)
 	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(REMOTETALKBLOCK)
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source)
 	..()
@@ -40,9 +40,16 @@
 	H.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	var/speech_pref = H.client.prefs.speciesprefs
-	if(speech_pref)
-		H.mind.speech_span = "wingdings"
+	var/translator_pref = H.client.prefs.speciesprefs
+	if(translator_pref || ((ismindshielded(H) || J.is_command) && (WINGDINGS in H.mutations)))
+		if(J.title == "Clown")
+			var/obj/item/organ/internal/cyberimp/brain/speech_translator/clown/implant = new
+			implant.insert(H)
+		else
+			var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
+			implant.insert(H)
+			if(!translator_pref)
+				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")
