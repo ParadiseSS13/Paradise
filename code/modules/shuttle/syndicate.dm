@@ -7,7 +7,7 @@
 	req_access = list(access_syndicate)
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_nw;syndicate_custom"
+	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
 	resistance_flags = INDESTRUCTIBLE
 	var/challenge = FALSE
 	var/moved = FALSE
