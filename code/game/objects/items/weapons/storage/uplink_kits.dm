@@ -284,3 +284,9 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/accessory/stethoscope(src)
 	new /obj/item/book/manual/engineering_hacking(src)
+
+/obj/item/storage/pill_bottle/fakedeath/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)

@@ -1079,6 +1079,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/safecracking
 	cost = 1
 
+/datum/uplink_item/stealthy_tools/fakedeathpills
+	name = "Fake Death Pill Bottle"
+	desc = "A regular pill bottle containing three fake death pills. Swallow, then rest on the floor to appear dead to people, medical huds, and health analysers. \
+		Stand up to wake up. Each pill lets you lay dead for four to five minutes, can be cumulated. Side effects include : Silencing, loss of limbs and/or head once security declares you a changeling."
+	reference = "FDP"
+	item = /obj/item/storage/pill_bottle/fakedeath
+	cost = 1
+
 /datum/uplink_item/stealthy_tools/clownkit
 	name = "Honk Brand Infiltration Kit"
 	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
