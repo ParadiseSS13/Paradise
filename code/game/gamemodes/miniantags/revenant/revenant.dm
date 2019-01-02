@@ -32,7 +32,7 @@
 	wander = 0
 	density = 0
 	flying = 1
-	anchored = 1
+	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	speed = 1
@@ -130,7 +130,7 @@
 	else
 		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
 		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
-	
+
 /mob/living/simple_animal/revenant/proc/setupOrDelete()
 	if(mind)
 		giveObjectivesandGoals()

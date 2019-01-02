@@ -72,6 +72,7 @@
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/tank/emergency_oxygen( src )
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
+		new /obj/item/flashlight/flare/glowstick/emergency( src )
 		return
 
 /obj/item/storage/box/survival_vox
@@ -83,6 +84,7 @@
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
@@ -93,6 +95,7 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer
 	icon_state = "box_eng"
@@ -102,6 +105,7 @@
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/tank/emergency_oxygen/engi( src )
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
+		new /obj/item/flashlight/flare/glowstick/emergency( src )
 		return
 
 /obj/item/storage/box/survival_mining
@@ -113,6 +117,18 @@
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
+/obj/item/storage/box/survival_syndi
+	icon_state = "box_syndi"
+	New()
+		..()
+		contents = list()
+		new /obj/item/clothing/mask/gas/syndicate(src)
+		new /obj/item/tank/emergency_oxygen/syndi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/reagent_containers/food/pill/initropidril(src)
+		new /obj/item/flashlight/flare/glowstick/red(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
