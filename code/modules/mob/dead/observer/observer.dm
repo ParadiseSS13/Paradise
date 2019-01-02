@@ -15,6 +15,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
+	anchored = 1 //DO. NOT. MOVE.
 	var/can_reenter_corpse
 	var/bootime = 0
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
