@@ -63,7 +63,7 @@
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
-
+	H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
@@ -118,41 +118,6 @@
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_syndicate_commando()
-
-
-/datum/outfit/admin/syndicate/officer
-	name = "Syndicate Officer"
-
-	head = /obj/item/clothing/head/beret
-	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
-	l_ear = /obj/item/radio/headset/syndicate/alt
-	l_pocket = /obj/item/pinpointer/advpinpointer
-	r_pocket = null // stop them getting a radio uplink, they get an implant instead
-
-	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/flashlight = 1,
-		/obj/item/reagent_containers/food/pill/initropidril = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
-		/obj/item/ammo_box/magazine/m50 = 2,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
-		/obj/item/lighter/zippo/gonzofist = 1
-	)
-	implants = list(
-		/obj/item/implant/dust
-	)
-	id_icon = "commander"
-	id_access = "Syndicate Operative Leader"
-
-/datum/outfit/admin/syndicate/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/implant/uplink/U = new /obj/item/implant/uplink(H)
-	U.implant(H)
-	U.hidden_uplink.uses = 500
 
 
 /datum/outfit/admin/syndicate/spy

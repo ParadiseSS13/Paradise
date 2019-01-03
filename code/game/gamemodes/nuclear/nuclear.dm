@@ -242,9 +242,8 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/initropidril(synd_mob), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/engineer(synd_mob.back), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 
 	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
@@ -265,10 +264,21 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/nitrogen(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
+			if("Plasmaman")
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
+				synd_mob.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/nuclear(synd_mob), slot_wear_suit)
+				synd_mob.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear(synd_mob), slot_head)
+				synd_mob.equip_or_collect(new /obj/item/tank/plasma/plasmaman(synd_mob), slot_s_store)
+				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
+				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
+				synd_mob.update_action_buttons_icon()
+
+	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"

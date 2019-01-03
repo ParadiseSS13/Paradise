@@ -114,6 +114,8 @@
 			reagents.chem_temp += 15
 			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
 			reagents.handle_reactions()
+	else
+		return ..()
 
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
 	if(!..(user, 1))

@@ -24,6 +24,7 @@ var/list/world_uplinks = list()
 
 	var/job = null
 	var/show_descriptions = 0
+	var/temp_category
 
 /obj/item/uplink/nano_host()
 	return loc
@@ -233,6 +234,7 @@ var/list/world_uplinks = list()
 	if(!nanoui_items)
 		generate_items(user)
 	data["nano_items"] = nanoui_items
+	data["category_choice"] = temp_category
 	data += nanoui_data
 
 	return data
@@ -260,9 +262,6 @@ var/list/world_uplinks = list()
 			hidden_crystals = 0
 			ui.close()
 			return 1
-		if(href_list["return"])
-			nanoui_menu = round(nanoui_menu/10)
-			update_nano_data()
 		if(href_list["menu"])
 			nanoui_menu = text2num(href_list["menu"])
 			update_nano_data(href_list["id"])
@@ -271,6 +270,9 @@ var/list/world_uplinks = list()
 			update_nano_data(href_list["id"])
 		if(href_list["descriptions"])
 			show_descriptions = !show_descriptions
+			update_nano_data()
+		if(href_list["category"])
+			temp_category = href_list["category"]
 			update_nano_data()
 
 	SSnanoui.update_uis(src)

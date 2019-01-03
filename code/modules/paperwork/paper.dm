@@ -53,6 +53,7 @@
 		updateinfolinks()
 
 /obj/item/paper/update_icon()
+	..()
 	if(icon_state == "paper_talisman")
 		return
 	if(info)
@@ -302,12 +303,6 @@
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
-
-	if(istype(P, /obj/item/stack/tape_roll))
-		var/obj/item/stack/tape_roll/tape = P
-		tape.stick(src, user)
-		tape.use(1)
-		return
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))

@@ -861,6 +861,8 @@
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Time Shuttle Console"
 	desc = "Used to call and send the SST shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
 	req_access = list(access_syndicate)
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
@@ -868,6 +870,8 @@
 /obj/machinery/computer/shuttle/sit
 	name = "Syndicate Infiltration Team Shuttle Console"
 	desc = "Used to call and send the SIT shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
 	req_access = list(access_syndicate)
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"

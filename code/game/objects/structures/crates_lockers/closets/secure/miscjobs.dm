@@ -46,3 +46,17 @@
 	new /obj/item/toy/crayon/mime(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)
+
+/obj/structure/closet/secure_closet/syndicate_officer
+	name = "officer's locker"
+	req_access = list(access_syndicate_command)
+
+/obj/structure/closet/secure_closet/syndicate_officer/New()
+	..()
+	new /obj/item/storage/box/syndie_kit/elite_hardsuit(src)
+	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	new /obj/item/clothing/glasses/thermal(src)
+	new /obj/item/megaphone(src)

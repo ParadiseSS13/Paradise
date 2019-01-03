@@ -78,6 +78,8 @@
 		"is holding their breath!",
 		"is deeply inhaling oxygen!")
 
+	speciesbox = /obj/item/storage/box/survival_vox
+
 /datum/species/vox/handle_death(mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
