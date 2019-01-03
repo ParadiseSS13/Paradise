@@ -142,6 +142,19 @@
 	locked = 1
 	category = list("Weapons")
 
+//Laser carbine mag
+
+/datum/design/lasercarbine_mag
+	name = "Laser Carbine Magazine"
+	desc = "Ammo for specialized NT laser weaponry that relies on magazines instead of power cells."
+	id = "laser_carbine_mag"
+	req_tech = list("combat" = 5, "magnets" = 3, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_SILVER = 1000)
+	build_path = /obj/item/ammo_box/magazine/laser
+	category = list("Weapons")
+
+
 //WT550 Mags
 
 /datum/design/mag_oldsmg
