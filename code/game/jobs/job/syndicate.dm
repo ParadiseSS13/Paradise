@@ -29,10 +29,9 @@
 	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival_syndi
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
-		/obj/item/reagent_containers/food/pill/initropidril = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/ammo_box/magazine/m50 = 2,
 		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
@@ -48,7 +47,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/implant/uplink/U = new /obj/item/implant/uplink(H)
+	var/obj/item/implant/uplink/admin/U = new /obj/item/implant/uplink/admin(H)
 	U.implant(H)
 	U.hidden_uplink.uses = 500
 	H.faction += "syndicate"

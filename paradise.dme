@@ -671,7 +671,6 @@
 #include "code\game\machinery\computer\station_alert.dm"
 #include "code\game\machinery\computer\store.dm"
 #include "code\game\machinery\computer\syndicate_specops_shuttle.dm"
-#include "code\game\machinery\computer\telecrystalconsoles.dm"
 #include "code\game\machinery\computer\vr_control.dm"
 #include "code\game\machinery\doors\airlock.dm"
 #include "code\game\machinery\doors\airlock_control.dm"

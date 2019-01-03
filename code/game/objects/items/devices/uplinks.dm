@@ -25,6 +25,7 @@ var/list/world_uplinks = list()
 	var/job = null
 	var/show_descriptions = 0
 	var/temp_category
+	var/uplink_type = "traitor"
 
 /obj/item/uplink/nano_host()
 	return loc
@@ -326,6 +327,21 @@ var/list/world_uplinks = list()
 /obj/item/radio/uplink/attack_self(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
+
+/obj/item/radio/uplink/nuclear/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = "nuclear"
+	GLOB.nuclear_uplink_list += src
+
+/obj/item/radio/uplink/nuclear/Destroy()
+	GLOB.nuclear_uplink_list -= src
+	return ..()
+
+/obj/item/radio/uplink/sst/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = "sst"
 
 /obj/item/multitool/uplink/New()
 	hidden_uplink = new(src)
