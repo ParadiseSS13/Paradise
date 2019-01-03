@@ -38,9 +38,9 @@ var/global/list/unused_trade_stations = list("sol")
 			if(C)
 				GLOB.respawnable_list -= C.client
 				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
+				M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
 				M.equipOutfit(/datum/outfit/admin/sol_trader)
 				M.dna.species.after_equip_job(null, M)
-				M.ckey = C.ckey
 				M.mind.objectives += trader_objectives
 				greet_trader(M)
 				success_spawn = 1
