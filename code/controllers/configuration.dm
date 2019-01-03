@@ -146,6 +146,10 @@
 	var/admin_notify_irc = ""
 	var/cidrandomizer_irc = ""
 
+	var/use_discord_bot = 0
+	var/discord_host = ""
+	var/discord_port = ""
+
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
 	var/list/station_levels = list(1)				// Defines which Z-levels the station exists on.
@@ -460,6 +464,9 @@
 				if("use_irc_bot")
 					use_irc_bot = 1
 
+				if("use_discord_bot")
+					use_discord_bot = 1
+
 				if("ticklag")
 					Ticklag = text2num(value)
 
@@ -517,6 +524,12 @@
 
 				if("cidrandomizer_irc")
 					config.cidrandomizer_irc = value
+
+				if("discord_host")
+					config.discord_host = value
+
+				if("discord_port")
+					config.discord_port = value
 
 				if("python_path")
 					if(value)

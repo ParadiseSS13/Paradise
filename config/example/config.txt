@@ -273,6 +273,15 @@ GHOST_INTERACTION
 ## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
 #CIDRANDOMIZER_IRC #cidrandomizer
 
+## Uncomment to enable sending data to the Discord bot.
+#USE_DISCORD_BOT
+
+## Host where the Discord bot is hosted.
+#DISCORD_HOST 127.0.0.1
+
+## Port where the Discord bot is listening.
+#DISCORD_PORT 5001
+
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
