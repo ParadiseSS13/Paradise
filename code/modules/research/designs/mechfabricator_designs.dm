@@ -1135,7 +1135,7 @@
 	id = "integrated_robotic_chassis"
 	build_type = MECHFAB
 	build_path = /mob/living/carbon/human/machine/created
-	materials = list(MAT_METAL = 40000)
+	materials = list(MAT_METAL = 40000, MAT_TITANIUM = 7000) //for something made from lego, they sure need a lot of metal
 	construction_time = 400
 	category = list("Misc")
 
