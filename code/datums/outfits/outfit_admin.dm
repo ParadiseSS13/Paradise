@@ -704,6 +704,7 @@
 	back = /obj/item/storage/backpack/industrial
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
+	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda
 	backpack_contents = list(

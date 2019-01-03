@@ -343,7 +343,7 @@
 	spawned_disease = /datum/disease/advance/heal
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration
-	name = "Sensory Restorationculture bottle"
+	name = "Sensory Restoration culture bottle"
 	desc = "A small bottle. Contains a sample of a virus that heals sensory damage."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/sensory_restoration
