@@ -1,0 +1,7 @@
+author: "improvedname"
+delete-after: True
+changes: 
+  - tweak: "Mindshield implant, is now shown by a green flashing outline of your job hud"
+  - tweak: "Moves some huds around to make them not overlap"
+  - tweak: "changes some icons"
+  - bugfix: "fixes two missing pixels on execute status"
