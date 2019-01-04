@@ -324,6 +324,17 @@
 /obj/item/stock_parts/cell/infinite/abductor/update_icon()
 	return
 
+/obj/item/stock_parts/cell/infinite/wizard
+	name = "magical power source"
+	desc = "A seemingly infinite source of power."
+	icon_state = "bscell"
+	ratingdesc = FALSE
+
+/obj/item/stock_parts/cell/infinite/wizard/emp_act(severity)
+	return
+
+/obj/item/stock_parts/cell/infinite/wizard/corrupt()
+	return
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"

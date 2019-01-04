@@ -372,6 +372,19 @@
 		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
 		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
 
+/datum/spellbook_entry/item/leviathan
+	name = "Leviathan Construct"
+	desc = "A giant construct for a wizard to pilot, similar yet obviously superior to the mechs found on Nanotrasen stations. \
+		As a magical construct, it is immune to EMP and ion weaponry. \
+		Comes equipped with magical thrusters for space navigation and its own teleport scroll. \
+		While it starts unarmed, it can be equipped with any magical staff to use as a weapon. \
+		You can also cast any of your spells from it, and/or just punch people to death. \
+		Cannot be repaired by any means available to you, so make sure to avoid damage!"
+	item_path = /obj/mecha/wizard/leviathan
+	log_name = "LV"
+	cost = 4
+	category = "Defensive"
+
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."

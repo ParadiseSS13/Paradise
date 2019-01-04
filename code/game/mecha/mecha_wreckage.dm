@@ -118,6 +118,10 @@
 	name = "Seraph wreckage"
 	icon_state = "seraph-broken"
 
+/obj/effect/decal/mecha_wreckage/leviathan
+	name = "Leviathan wreckage"
+	icon_state = "wizard-broken"
+
 /obj/effect/decal/mecha_wreckage/reticence
 	name = "\improper Reticence wreckage"
 	icon_state = "mime-broken"
