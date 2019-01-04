@@ -330,7 +330,7 @@
 	loot = list(
 				/obj/vehicle/motorcycle = 50,
 				/obj/vehicle/snowmobile = 50,
-				/obj/vehicle/snowmobile = 50,
+				/obj/vehicle/snowmobile/blue = 50,
 				/obj/vehicle/space/speedbike/red = 50,
 				/obj/vehicle/space/speedbike = 50
 				)
@@ -354,28 +354,15 @@
 				/obj/item/stack/sheet/animalhide/goliath_hide = 100,
 				/obj/item/gun/energy/kinetic_accelerator/experimental = 100,
 
-				// Bartender
-
-
-				// Chef
-
-
 				// Botanist
 				/obj/item/seeds/random/labelled = 100,
-
-				// Librarian
-
-
-				// Chaplain
-
 
 				// Clown
 				/obj/item/grenade/bananade = 100,
 				/obj/item/bikehorn/golden = 100,
 
 
-				// Mime
-
+				// Nice to have items for: Bartender, Mime, Chef, Librarian, Chaplain
 
 				)
 
