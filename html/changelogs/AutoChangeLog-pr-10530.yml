@@ -1,0 +1,7 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added new, different voice sets to Syndicate, Clown, Mime, and ERT/Dsquad mechs"
+  - rscadd: "Added voice modification kits to the exosuit fabricator, letting you swap a mech's onboard voice to another."
+  - rscadd: "Added visual and audio warnings when your mech is running low on power"
+  - rscadd: "Added visual warning when your mech is locked by maintenance protocols"
