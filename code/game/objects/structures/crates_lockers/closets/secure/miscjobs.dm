@@ -20,6 +20,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/seeds/banana(src)
+	new /obj/item/restraints/handcuffs/toy(src)
 
 
 
