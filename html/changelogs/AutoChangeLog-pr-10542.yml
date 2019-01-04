@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Replaces one of the two crew monitor consoles in medical front desk by a medical record console."
