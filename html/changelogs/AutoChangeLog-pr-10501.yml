@@ -1,0 +1,5 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Wizard forcewalls can now be walked through by the wizard summoning them."
+  - rscadd: "Added a new spell to the wizard spellbook, \"Greater Force Wall\". Summons a larger wall than the regular one, but requires wizard robes."
