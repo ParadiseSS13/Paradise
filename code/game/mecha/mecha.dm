@@ -1378,14 +1378,16 @@
 /obj/mecha/proc/use_power(amount)
 	if(get_charge())
 		cell.use(amount)
-		update_cell()
+		if(occupant)
+			update_cell()
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
-		update_cell()
+		if(occupant)
+			update_cell()
 		return 1
 	return 0
 
