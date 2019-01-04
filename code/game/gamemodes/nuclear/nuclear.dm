@@ -143,7 +143,8 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/proc/scale_telecrystals()
 	var/danger
 	danger = GLOB.player_list.len
-	while(!IsMultiple(++danger,10))//Round up to the nearest multiple of ten
+	while(!IsMultiple(++danger, 10)) //Increments danger up to the nearest multiple of ten
+
 	total_tc += danger * NUKESCALINGMODIFIER
 
 /datum/game_mode/nuclear/proc/share_telecrystals()
