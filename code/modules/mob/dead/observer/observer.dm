@@ -297,30 +297,43 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]
 	H.add_hud_to(src)
-	data_hud_seen = hud_index
+
+/mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
+	var/datum/atom_hud/H = huds[hud_index]
+	H.remove_hud_from(src)
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle Medic/Sec/DiagHUD"
-	set desc = "Toggles the medical HUD."
+	set name = "Toggle Medic/Sec/Diag/All HUDs"
+	set desc = "Toggles the HUDs."
 	if(!client)
 		return
-	if(data_hud_seen) //remove old huds
-		var/datum/atom_hud/H = huds[data_hud_seen]
-		H.remove_hud_from(src)
 
 	switch(data_hud_seen) //give new huds
 		if(0)
+			data_hud_seen = 1
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
-		if(DATA_HUD_SECURITY_ADVANCED)
+		if(1)
+			data_hud_seen = 2
+			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Medical HUD set.</span>")
-		if(DATA_HUD_MEDICAL_ADVANCED)
+		if(2)
+			data_hud_seen = 3
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
-		if(DATA_HUD_DIAGNOSTIC)
+		if(3)
+			data_hud_seen = 4
+			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
+		if(4)
 			data_hud_seen = 0
+			remove_the_hud(DATA_HUD_DIAGNOSTIC)
+			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>HUDs disabled.</span>")
 
 
