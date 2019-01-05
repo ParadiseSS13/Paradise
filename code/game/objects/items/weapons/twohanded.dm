@@ -206,6 +206,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	var/w_class_on = WEIGHT_CLASS_BULKY
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
@@ -277,6 +278,7 @@
 /obj/item/twohanded/dualsaber/unwield()
 	..()
 	hitsound = "swing_hit"
+	w_class = initial(w_class)
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(wielded)
@@ -288,6 +290,7 @@
 		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
+	w_class = w_class_on
 
 /obj/item/twohanded/dualsaber/attackby(obj/item/W, mob/user, params)
 	if(ismultitool(W))
