@@ -109,6 +109,15 @@
 	range = rand(1, 10)
 	..()
 
+/obj/item/projectile/bullet/pellet/assassination
+	damage = 12
+	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
+
+/obj/item/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.AdjustSilence(2)	// HELP MIME KILLING ME IN MAINT
+
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
  	explosion(target, 0, 0, 2)
