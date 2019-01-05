@@ -49,6 +49,21 @@
 	else
 		..()
 
+/mob/living/silicon/robot/drone/verb/self_repair()
+	set name = "Self Repair"
+	set category = "Drone"
+	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
+	if(!isturf(loc))
+		return
+	if(cell.charge < 2500)
+		to_chat(src, "You do not have enough power in your internal battery to run your repair module!")
+		return
+	to_chat(src, "<span class='info'>Attempting to run repair module. Please stand by.</span>")
+	if(do_mob(src, src, 200)) // Takes longer than the swarmer's self repair
+		cell.charge -= 2500 // Drones don't have resources, so use their internal battery to give repairing a cost
+		heal_overall_damage(15, 15) // Small heal rather than outright fully repairing them
+		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
+
 /mob/living/silicon/robot/drone/verb/customize()
 	set name = "Customize Chassis"
 	set desc = "Reconfigure your chassis into a customized version."
