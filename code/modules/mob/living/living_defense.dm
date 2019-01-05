@@ -333,7 +333,6 @@
 			return FALSE
 		if(INTENT_HARM)
 			M.do_attack_animation(src)
-			SendSignal(COMSIG_ATOM_ATTACK_ALIEN, src)
 			return TRUE
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)

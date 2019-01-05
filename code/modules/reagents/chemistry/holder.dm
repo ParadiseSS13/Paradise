@@ -577,9 +577,9 @@ var/const/INGEST = 2
 		reagent_list += R
 		R.holder = src
 		R.volume = amount
+		R.on_new(data)
 		if(data)
 			R.data = data
-			R.on_new(data)
 
 		update_total()
 		if(my_atom)

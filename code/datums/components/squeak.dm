@@ -14,7 +14,7 @@
 	var/last_use = 0
 	var/use_delay = 20
 
-/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override)
+/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, squeak_on_move)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), .proc/play_squeak)
@@ -22,6 +22,8 @@
 		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), .proc/play_squeak)
 		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/play_squeak_crossed)
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react)
+		if(squeak_on_move)
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_squeak)
 		if(isitem(parent))
 			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), .proc/play_squeak)
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/use_squeak)
@@ -47,12 +49,15 @@
 		else
 			playsound(parent, pickweight(override_squeak_sounds), volume, 1, -1)
 
-/datum/component/squeak/proc/step_squeak()
-	if(steps > step_delay)
-		play_squeak()
-		steps = 0
+/datum/component/squeak/proc/step_squeak(datum/source, mob/living/carbon/human/H)
+	if(H.m_intent == MOVE_INTENT_RUN)
+		if(steps > step_delay)
+			play_squeak()
+			steps = 0
+		else
+			steps++
 	else
-		steps++
+		play_squeak()
 
 /datum/component/squeak/proc/on_equip(datum/source, mob/equipper, slot)
 	RegisterSignal(equipper, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react, TRUE)
