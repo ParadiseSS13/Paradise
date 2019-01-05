@@ -426,25 +426,63 @@
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
 	taste_message = "a funny flavour"
 
-/datum/reagent/jestosterone/reaction_mob(mob/living/M, method, volume)
+/datum/reagent/jestosterone/on_new()
 	..()
-	if(istype(M, /mob/living/carbon))
+	var/mob/living/carbon/C = holder.my_atom
+	if(!istype(C))
 		return
-	var/is_a_clown = FALSE
-	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
-		is_a_clown = TRUE
-	if(!is_a_clown)
-		M.AdjustDizzy(volume)
-	M.AddComponent(/datum/component/jestosterone, M, is_a_clown)
+	var/mind_type = FALSE
+	if(C.mind)
+		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+			mind_type = "Clown"
+			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+		else if(C.mind.assigned_role == "Mime")
+			mind_type = "Mime"
+			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			C.AdjustDizzy(volume)
+		else
+			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			C.AdjustDizzy(volume)
+	C.AddComponent(/datum/component/jestosterone, mind_type)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
 
-/datum/reagent/jestosterone/on_mob_life(mob/living/M)
-	M.SendSignal(COMSIG_ON_MOB_LIFE, M)
-	..()
+/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
+	if(!istype(M))
+		return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.emote("giggle")
+	GET_COMPONENT_FROM(jestosterone_component, /datum/component/jestosterone, M)
+	if(jestosterone_component.mind_type == "Clown")
+		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+	else
+		M.AdjustDizzy(10, 0, 500)
+		M.Druggy(15)
+		if(prob(10))
+			M.EyeBlurry(5)
+		if(prob(6))
+			var/list/clown_message = list("You feel light-headed.",
+			"You can't see straight.",
+			"You feel about as funny as the station clown.",
+			"Bright colours and rainbows cloud your vision.",
+			"Your funny bone aches.",
+			"What was that?!",
+			"You can hear bike horns in the distance.",
+			"You feel like <em>SHOUTING</em>!",
+			"Sinister laughter echoes in your ears.",
+			"Your legs feel like jelly.",
+			"You feel like telling a pun.")
+			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+		if(jestosterone_component.mind_type == "Mime")
+			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
 	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
+	GET_COMPONENT_FROM(squeaking, /datum/component/squeak, M)
 	remove_fun.Destroy()
+	squeaking.Destroy()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
