@@ -432,6 +432,47 @@
 
 	fix_modules()
 
+/obj/item/robot_module/syndicate_saboteur
+	name = "syndicate saboteur module"
+	module_type = "Malf"
+	module_actions = list(
+		/datum/action/innate/robot_sight/meson,
+		/datum/action/innate/robot_sight/thermal,
+	)
+	stacktypes = list(
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/sheet/glass/cyborg = 50,
+		/obj/item/stack/sheet/rglass/cyborg = 50,
+		/obj/item/stack/cable_coil/cyborg = 50,
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20
+		)
+
+/obj/item/robot_module/syndicate_saboteur/New()
+	..()
+	modules += new /obj/item/assembly/flash/cyborg(src)
+	modules += new /obj/item/construction/rcd/borg/syndicate(src)
+	modules += new /obj/item/pipe_dispenser(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/screwdriver/nuke(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/destTagger/borg(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
+	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/borg_chameleon(src)
+	emag = null
+
+	for(var/T in stacktypes)
+		var/obj/item/stack/sheet/W = new T(src)
+		W.amount = stacktypes[T]
+		modules += W
+
+	fix_modules()
+
 /obj/item/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
