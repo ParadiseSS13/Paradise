@@ -1,7 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - tweak: "Grey wingdings is now a disability, add it to your saved characters if you want to have them on."
-  - rscadd: "Grey translator implant preference added. Translates speech to be comprehensible, the implant can be turned off and on at will."
-  - tweak: "Mutadone no longer removes genes that you have at round start, from your job, species, or disability you've picked in character creation."
-  - tweak: "Mutadone no longer removes powers gained from a completed DNA vault."

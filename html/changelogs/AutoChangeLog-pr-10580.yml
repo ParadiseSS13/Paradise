@@ -1,6 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Capulettium fake death will now actually be convincing, fooling examine, medhud, and health analysers, but not body scanners."
-  - rscadd: "Capulettium plus can now be used to manually fake your own death when you wish by resting, and wake up when you wish by toggling rest again."
-  - rscadd: "Added fake death pill bottle to maintenance loot, contains 3 pills of capulettium plus."

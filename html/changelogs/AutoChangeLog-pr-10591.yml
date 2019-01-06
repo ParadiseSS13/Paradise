@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Fixed a mech runtime when an empty mech used power."

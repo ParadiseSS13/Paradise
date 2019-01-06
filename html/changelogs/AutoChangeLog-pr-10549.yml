@@ -1,5 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - rscadd: "Variants of Suit Storage Units that are ID locked"
-  - tweak: "SSUs can now be hacked. Old SSU maint panel menu removed."

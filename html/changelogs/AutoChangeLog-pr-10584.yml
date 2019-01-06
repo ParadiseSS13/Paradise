@@ -1,9 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscdel: "Removed syndicate uplink management consoles."
-  - rscadd: "Nuclear ops now automatically get bonus TC from round start and war declaration split between their uplinks."
-  - rscadd: "Nuke ops can now buy stacks of 50 TCs."
-  - rscadd: "Added a regular internals box to the Honk Brand Infiltration Kit."
-  - rscadd: "CC officers plasmamen now get an appropriate suit."
-  - tweak: "Updated admin-outfitted syndicates"
