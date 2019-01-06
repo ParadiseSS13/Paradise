@@ -315,7 +315,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
