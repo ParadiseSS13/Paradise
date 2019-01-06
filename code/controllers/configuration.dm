@@ -210,6 +210,9 @@
 	// Developer
 	var/developer_express_start = 0
 
+	//Player Collaborators
+	var/allow_collabs = 0 //Default to off
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -393,10 +396,10 @@
 
 				if("githuburl")
 					config.githuburl = value
-				
+
 				if("discordurl")
 					config.discordurl = value
-				
+
 				if("donationsurl")
 					config.donationsurl = value
 
