@@ -1191,7 +1191,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
 	reference = "BITK"
 	item = /obj/item/encryptionkey/binary
-	cost = 5
+	cost = 2
 	surplus = 75
 
 /datum/uplink_item/device_tools/cipherkey
@@ -1199,7 +1199,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
 	reference = "SEK"
 	item = /obj/item/encryptionkey/syndicate
-	cost = 2 //Nowhere near as useful as the Binary Key!
+	cost = 4
 	surplus = 75
 
 /datum/uplink_item/device_tools/hacked_module
