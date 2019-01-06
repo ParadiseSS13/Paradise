@@ -52,7 +52,7 @@
 /mob/living/silicon/robot/drone/verb/self_repair()
 	set name = "Self Repair"
 	set category = "Drone"
-	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
+	set desc = "Activates a high powered built-in repair module to fix you. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return
 	if(cell.charge < 2500)
@@ -60,6 +60,8 @@
 		return
 	to_chat(src, "<span class='info'>Attempting to run repair module. Please stand by.</span>")
 	if(do_mob(src, src, 200)) // Takes longer than the swarmer's self repair
+		if(cell.charge < 2500)
+			return
 		cell.charge -= 2500 // Drones don't have resources, so use their internal battery to give repairing a cost
 		heal_overall_damage(15, 15) // Small heal rather than outright fully repairing them
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
