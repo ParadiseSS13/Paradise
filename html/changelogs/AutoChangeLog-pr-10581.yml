@@ -1,0 +1,4 @@
+author: "Alonefromhell"
+delete-after: True
+changes: 
+  - bugfix: "Dark matter and Sorium blob attacks should no longer affect ghosts and cameras."
