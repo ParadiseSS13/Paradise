@@ -25,7 +25,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
-	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
+	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -310,7 +310,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	switch(data_hud_seen) //give new huds
-		if(0)
+		if(FALSE)
 			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
@@ -325,11 +325,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
 		if(DATA_HUD_DIAGNOSTIC)
+			data_hud_seen = data_hud_seen + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
 		else
-			data_hud_seen = 0
+			data_hud_seen = FALSE
 			remove_the_hud(DATA_HUD_DIAGNOSTIC)
 			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
