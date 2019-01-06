@@ -72,3 +72,6 @@ RANDOMIZE_SHIFT_TIME
 
 ## Enable Nightshift - Causes the station to go into "night mode" from 19:30 to 07:30. Best used with RANDOMIZED_SHIFT_TIME.
 ENABLE_NIGHT_SHIFTS
+
+## Allow Collabs - Allow players to be collabs of antags and be given codewords to aid a syndie collab within bounds. Also will fire on non traitor rounds as a red herring.
+ALLOW_COLLABS 0
