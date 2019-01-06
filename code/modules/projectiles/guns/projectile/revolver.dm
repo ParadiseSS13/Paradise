@@ -417,7 +417,7 @@
 	can_unsuppress = 0
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
