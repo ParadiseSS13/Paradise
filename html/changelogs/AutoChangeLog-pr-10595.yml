@@ -1,0 +1,6 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - rscadd: "New cane shotgun assassination shells. These buckshot shells are coated with a mute toxin which will prevent anyone hit either calling for help or screaming in pain."
+  - rscdel: "Old cane shotgun assassination darts."
+  - tweak: "Cane shotgun now uses its own internal magazine rather than copying the code for the improvised one. It also now starts with an assassination shell preloaded."
