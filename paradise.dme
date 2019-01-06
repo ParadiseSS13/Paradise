@@ -1797,6 +1797,7 @@
 #include "code\modules\mob\living\silicon\robot\robot_module_actions.dm"
 #include "code\modules\mob\living\silicon\robot\robot_modules.dm"
 #include "code\modules\mob\living\silicon\robot\robot_movement.dm"
+#include "code\modules\mob\living\silicon\robot\syndicate.dm"
 #include "code\modules\mob\living\silicon\robot\update_status.dm"
 #include "code\modules\mob\living\silicon\robot\drone\drone.dm"
 #include "code\modules\mob\living\silicon\robot\drone\drone_abilities.dm"

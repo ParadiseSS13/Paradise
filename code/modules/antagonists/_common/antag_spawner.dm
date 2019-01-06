@@ -19,7 +19,7 @@
 	var/checking = FALSE
 	var/TC_cost = 0
 	var/borg_to_spawn
-	var/list/possible_types = list("Assault", "Medical")
+	var/list/possible_types = list("Assault", "Medical", "Saboteur")
 
 /obj/item/antag_spawner/borg_tele/attack_self(mob/user)
 	if(used)
@@ -57,6 +57,8 @@
 	switch(borg_to_spawn)
 		if("Medical")
 			R = new /mob/living/silicon/robot/syndicate/medical(T)
+		else if("Saboteur")
+			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
 		else
 			R = new /mob/living/silicon/robot/syndicate(T) //Assault borg by default
 	R.key = C.key

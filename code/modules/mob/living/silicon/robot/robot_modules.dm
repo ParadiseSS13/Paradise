@@ -433,12 +433,9 @@
 	fix_modules()
 
 /obj/item/robot_module/syndicate_saboteur
-	name = "syndicate saboteur module"
+	name = "engineering robot module" //to disguise in examine
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-		/datum/action/innate/robot_sight/thermal,
-	)
+
 	stacktypes = list(
 		/obj/item/stack/sheet/metal/cyborg = 50,
 		/obj/item/stack/sheet/glass/cyborg = 50,
@@ -450,20 +447,22 @@
 
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
-	modules += new /obj/item/assembly/flash/cyborg(src)
-	modules += new /obj/item/construction/rcd/borg/syndicate(src)
-	modules += new /obj/item/pipe_dispenser(src)
+	modules += new /obj/item/rcd/borg/syndicate(src)
+	modules += new /obj/item/rpd(src)
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/screwdriver/nuke(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
 	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/wirecutters/cyborg(src)
 	modules += new /obj/item/multitool/cyborg(src)
-	modules += new /obj/item/destTagger/borg(src)
-	modules += new /obj/item/stack/cable_coil/cyborg(src)
-	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/melee/energy/sword/cyborg(src)
+	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/borg_chameleon(src)
+	modules += new /obj/item/pinpointer/operative(src)
 	emag = null
 
 	for(var/T in stacktypes)

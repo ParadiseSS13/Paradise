@@ -148,3 +148,100 @@
 /obj/effect/dummy/chameleon/Destroy()
 	master.disrupt(0)
 	return ..()
+
+/obj/item/borg_chameleon
+	name = "cyborg chameleon projector"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "shield0"
+	item_state = "electronic"
+	w_class = WEIGHT_CLASS_SMALL
+	var/active = FALSE
+	var/activationCost = 300
+	var/activationUpkeep = 50
+	var/disguise = "landmate"
+	var/datum/component/mobhook // need this to deal with unregistration properly
+	var/mob/living/silicon/robot/syndicate/saboteur/user // needed for process()
+
+/obj/item/borg_chameleon/Destroy()
+	QDEL_NULL(mobhook)
+	return ..()
+
+/obj/item/borg_chameleon/dropped(mob/user)
+	. = ..()
+	disrupt(user)
+
+/obj/item/borg_chameleon/equipped(mob/user)
+	. = ..()
+	disrupt(user)
+
+/obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
+	if (user && user.cell && user.cell.charge >  activationCost)
+		if (isturf(user.loc))
+			toggle(user)
+		else
+			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
+	else
+		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
+
+/obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
+	if(active)
+		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
+		to_chat(user, "<span class='notice'>You deactivate \the [src].</span>")
+		deactivate(user)
+	else
+		to_chat(user, "<span class='notice'>You activate \the [src].</span>")
+		var/start = user.filters.len
+		var/X,Y,rsq,i,f
+		for(i=1, i<=7, ++i)
+			do
+				X = 60*rand() - 30
+				Y = 60*rand() - 30
+				rsq = X*X + Y*Y
+			while(rsq<100 || rsq>900)
+			user.filters += filter(type="wave", x=X, y=Y, size=rand()*2.5+0.5, offset=rand())
+		for(i=1, i<=7, ++i)
+			f = user.filters[start+i]
+			animate(f, offset=f:offset, time=0, loop=3, flags=ANIMATION_PARALLEL)
+			animate(offset=f:offset-1, time=rand()*20+10)
+		if (do_after(user, 50, target=user) && user.cell.use(activationCost))
+			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
+			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen engineering cyborg.</span>")
+			activate(user)
+		else
+			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+			do_sparks(3, FALSE, user)
+			for(i=1, i<=min(7, user.filters.len), ++i) // removing filters that are animating does nothing, we gotta stop the animations first
+				f = user.filters[start+i]
+				animate(f)
+		user.filters = null
+
+/obj/item/borg_chameleon/process()
+	if (user)
+		if (!user.cell || !user.cell.use(activationUpkeep))
+			disrupt(user)
+	else
+		return PROCESS_KILL
+
+/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user)
+	processing_objects.Add(src)
+	src.user = user
+	user.base_icon = disguise
+	user.icon_state = disguise
+	active = TRUE
+	user.active_proj = src
+	user.update_icons()
+
+/obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
+	processing_objects.Remove(src)
+	QDEL_NULL(mobhook)
+	user.base_icon = initial(user.base_icon)
+	user.icon_state = initial(user.icon_state)
+	active = FALSE
+	user.active_proj = null
+	user.update_icons()
+	src.user = user
+
+/obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/syndicate/saboteur/user)
+	if(active)
+		to_chat(user, "<span class='danger'>Your chameleon field deactivates.</span>")
+		deactivate(user)
