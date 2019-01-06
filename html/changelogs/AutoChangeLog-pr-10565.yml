@@ -1,0 +1,4 @@
+author: "Dovydas12345"
+delete-after: True
+changes: 
+  - rscadd: "Added office door buttons, which open the office doors, to CE, HoP, CMO, HoS, RD, BS, NT Rep  offices."
