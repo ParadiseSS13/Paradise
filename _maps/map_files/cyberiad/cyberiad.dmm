@@ -159,7 +159,7 @@
 "adc" = (/obj/machinery/computer/arcade,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/security/permabrig)
 "add" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel,/area/security/permabrig)
 "ade" = (/obj/structure/closet/syndicate/suits,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
-"adf" = (/obj/effect/landmark{name = "Syndicate-Uplink"; tag = ""},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
+"adf" = (/obj/structure/closet/syndicate/nuclear,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
 "adg" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/security/permabrig)
 "adh" = (/obj/machinery/alarm{pixel_y = 23},/obj/structure/table,/obj/machinery/kitchen_machine/microwave{pixel_x = -3; pixel_y = 6},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/security/permabrig)
 "adi" = (/obj/machinery/newscaster{pixel_y = 32},/obj/structure/table,/obj/item/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/security/permabrig)

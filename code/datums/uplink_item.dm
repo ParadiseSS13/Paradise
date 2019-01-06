@@ -1328,6 +1328,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/stack/telecrystal/twenty
 	cost = 20
 
+/datum/uplink_item/device_tools/telecrystal/fifty
+	name = "50 Raw Telecrystals"
+	desc = "Fifty telecrystals in their rawest and purest form. You know you want that Mauler."
+	reference = "RTCB"
+	item = /obj/item/stack/telecrystal/fifty
+	cost = 50
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
 	desc = "This device will disrupt any nearby outgoing radio communication when activated."

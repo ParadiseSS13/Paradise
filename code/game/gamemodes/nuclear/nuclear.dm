@@ -1,3 +1,5 @@
+#define NUKESCALINGMODIFIER 1
+
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
 
@@ -16,7 +18,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
 	var/syndies_didnt_escape = 0 //Used for tracking if the syndies got the shuttle off of the z-level
-
+	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
 /datum/game_mode/nuclear/announce()
 	to_chat(world, "<B>The current game mode is - Nuclear Emergency!</B>")
@@ -97,7 +99,6 @@ proc/issyndicate(mob/living/M as mob)
 			qdel(A)
 			continue
 
-	var/obj/effect/landmark/uplinklocker = locate("landmark*Syndicate-Uplink")	//i will be rewriting this shortly
 	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 
 	var/nuke_code = "[rand(10000, 99999)]"
@@ -131,15 +132,36 @@ proc/issyndicate(mob/living/M as mob)
 		spawnpos++
 		update_synd_icons_added(synd_mind)
 
-	//update_all_synd_icons()
-
-	if(uplinklocker)
-		new /obj/structure/closet/syndicate/nuclear(uplinklocker.loc)
+	scale_telecrystals()
+	share_telecrystals()
 	if(nuke_spawn && synd_spawn.len > 0)
 		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
 	return ..()
+
+/datum/game_mode/nuclear/proc/scale_telecrystals()
+	var/danger
+	danger = GLOB.player_list.len
+	while(!IsMultiple(++danger, 10)) //Increments danger up to the nearest multiple of ten
+
+	total_tc += danger * NUKESCALINGMODIFIER
+
+/datum/game_mode/nuclear/proc/share_telecrystals()
+	var/player_tc
+	var/remainder
+
+	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
+	remainder = total_tc % GLOB.nuclear_uplink_list.len
+
+	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+		U.hidden_uplink.uses += player_tc
+	while(remainder > 0)
+		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+			if(remainder <= 0)
+				break
+			U.hidden_uplink.uses++
+			remainder--
 
 /datum/game_mode/proc/create_syndicate(datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
@@ -245,7 +267,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 
-	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(synd_mob)
+	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
@@ -514,3 +536,5 @@ proc/issyndicate(mob/living/M as mob)
 	dat += "<hr>"
 
 	return dat
+
+#undef NUKESCALINGMODIFIER
