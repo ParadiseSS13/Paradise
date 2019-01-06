@@ -650,3 +650,4 @@
 /datum/sprite_accessory/socks/vox/vox_fishnet
 	name = "Vox Fishnets"
 	icon_state = "vox_fishnet"
+

@@ -1923,6 +1923,7 @@
 #include "code\modules\mob\new_player\sprite_accessories\diona\diona_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\drask\drask_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\grey\grey_body_markings.dm"
+#include "code\modules\mob\new_player\sprite_accessories\human\hispania.dm"
 #include "code\modules\mob\new_player\sprite_accessories\human\human_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\human\human_facial_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\human\human_hair.dm"
