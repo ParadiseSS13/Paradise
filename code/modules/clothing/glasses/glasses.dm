@@ -35,9 +35,8 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	item_state = "glasses"
+	actions_types = list(/datum/action/item_action/toggle)
 	origin_tech = "magnets=1;engineering=2"
-	vision_flags = SEE_TURFS
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -45,6 +44,15 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
+/obj/item/clothing/glasses/meson/attack_self()
+	up = !up
+	if (up)
+		invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+		vision_flags = SEE_TURFS
+	else
+		vision_flags = 0 //default
+		invis_view = 0 //default
+
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
