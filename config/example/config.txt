@@ -277,10 +277,16 @@ GHOST_INTERACTION
 #USE_DISCORD_BOT
 
 ## Host where the Discord bot is hosted.
-#DISCORD_HOST 127.0.0.1
+#DISCORD_HOST 127.0.0.1:5001
 
-## Port where the Discord bot is listening.
-#DISCORD_PORT 5001
+## Channel ID where the Bot should post its main notifications
+#DISCORD_CHANNEL_MAIN 0123456789
+
+## Channel ID where the Bot should post its admin notifications
+#DISCORD_CHANNEL_ADMIN 0123456789
+
+## Channel ID where the bot should post its cidrandomizer notifications
+#DISCORD_CHANNEL_CIDRANDOMIZER 0123456789
 
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.

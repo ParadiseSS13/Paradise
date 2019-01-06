@@ -136,15 +136,15 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
-			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
+			send2admindiscord("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
 		else
-			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
+			send2admindiscord("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
-		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
+		send2admindiscord("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/proc/send2irc_adminless_only(source, msg, requiredflags = R_BAN)
+/proc/send2discord_adminless_only(source, msg, requiredflags = R_BAN)
 	var/admin_number_total = 0		//Total number of admins
 	var/admin_number_afk = 0		//Holds the number of admins who are afk
 	var/admin_number_ignored = 0	//Holds the number of admins without +BAN (so admins who are not really admins)
@@ -166,7 +166,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/admin_number_present = admin_number_total - admin_number_decrease	//Number of admins who are neither afk nor invalid
 	if(admin_number_present <= 0)
 		if(!admin_number_afk && !admin_number_ignored)
-			send2irc(source, "[msg] - No admins online")
+			send2discord("message", source, "[msg] - No admins online")
 		else
-			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
+			send2discord("message", source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present

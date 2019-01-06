@@ -148,7 +148,9 @@
 
 	var/use_discord_bot = 0
 	var/discord_host = ""
-	var/discord_port = ""
+	var/discord_channel_main = ""
+	var/discord_channel_admin = ""
+	var/discord_channel_cidrandomizer = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -464,9 +466,6 @@
 				if("use_irc_bot")
 					use_irc_bot = 1
 
-				if("use_discord_bot")
-					use_discord_bot = 1
-
 				if("ticklag")
 					Ticklag = text2num(value)
 
@@ -525,11 +524,20 @@
 				if("cidrandomizer_irc")
 					config.cidrandomizer_irc = value
 
+				if("use_discord_bot")
+					use_discord_bot = 1
+
 				if("discord_host")
 					config.discord_host = value
 
-				if("discord_port")
-					config.discord_port = value
+				if("discord_channel_main")
+					config.discord_channel_main = value
+
+				if("discord_channel_admin")
+					config.discord_channel_admin = value
+
+				if("discord_channel_cidrandomizer")
+					config.discord_channel_cidrandomizer = value
 
 				if("python_path")
 					if(value)

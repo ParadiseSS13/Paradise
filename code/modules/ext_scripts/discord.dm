@@ -1,9 +1,18 @@
-/hook/startup/proc/discordNotify()
-    if (config.use_discord_bot && config.discord_host && config.discord_port)
-        world.Export("http://[config.discord_host]:[config.discord_port]/?command=startup&name=[station_name()]&connect=[config.server?"[config.server]":"[world.address]:[world.port]"]")
-    return 1
+/proc/send2discord(var/command, var/channel, var/message)
+    if (config.use_discord_bot && config.discord_host)
+        world.Export("http://[config.discord_host]/?command=[command]&channel=[channel]&message=[paranoid_sanitize(message)]")
 
-/hook/roundend/proc/discordNotify()
-    if (config.use_discord_bot && config.discord_host && config.discord_port)
-        world.Export("http://[config.discord_host]:[config.discord_port]/?command=roundend")
+/proc/send2maindiscord(var/message)
+	if(config.discord_channel_main)
+		send2discord("message", config.discord_channel_main, message)
+	return
+
+/proc/send2admindiscord(var/message)
+	if(config.discord_channel_admin)
+		send2discord("message", config.discord_channel_admin, message)
+	return
+
+/hook/startup/proc/discordNotify()
+    if(config.discord_channel_main)
+        send2discord("startup", config.discord_channel_main, "Server starting up on [station_name()]. Connect to: [config.server? "[config.server]" : "[world.address]:[world.port]"]")
     return 1
