@@ -826,6 +826,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 9
 
+/datum/uplink_item/stealthy_weapons/cameraflash
+	name = "High Powered Camera"
+	desc = "A flash disguised as a camera. This flash has charges but it won't burn out like a regular flash."
+	reference = "HPC"
+	item = /obj/item/flash/cameraflash //this part has you buy a regular flash for now
+	cost = 2
+
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
