@@ -703,6 +703,8 @@
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
+				if("allow_collabs")
+					config.allow_collabs = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

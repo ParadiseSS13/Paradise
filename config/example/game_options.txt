@@ -74,4 +74,4 @@ RANDOMIZE_SHIFT_TIME
 ENABLE_NIGHT_SHIFTS
 
 ## Allow Collabs - Allow players to be collabs of antags and be given codewords to aid a syndie collab within bounds. Also will fire on non traitor rounds as a red herring.
-ALLOW_COLLABS 0
+##ALLOW_COLLABS
