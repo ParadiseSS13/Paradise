@@ -48,6 +48,7 @@
 	wreckage = /obj/effect/decal/mecha_wreckage/gygax/dark
 	max_equip = 4
 	maxsize = 2
+	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 
 /obj/mecha/combat/gygax/dark/loaded/New()
 	..()

@@ -13,6 +13,7 @@ var/GLASSESBLOCK = 0
 var/EPILEPSYBLOCK = 0
 var/TWITCHBLOCK = 0
 var/NERVOUSBLOCK = 0
+var/WINGDINGSBLOCK = 0
 var/MONKEYBLOCK = 50 // Monkey block will always be the DNA_SE_LENGTH
 
 var/BLOCKADD = 0

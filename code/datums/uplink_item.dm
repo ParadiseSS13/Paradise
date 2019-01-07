@@ -184,8 +184,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
-	name = "Cane Shotgun + Assassination Darts"
-	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
+	name = "Cane Shotgun and Assassination Shells"
+	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 10
@@ -1327,6 +1327,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RTCT"
 	item = /obj/item/stack/telecrystal/twenty
 	cost = 20
+
+/datum/uplink_item/device_tools/telecrystal/fifty
+	name = "50 Raw Telecrystals"
+	desc = "Fifty telecrystals in their rawest and purest form. You know you want that Mauler."
+	reference = "RTCB"
+	item = /obj/item/stack/telecrystal/fifty
+	cost = 50
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"

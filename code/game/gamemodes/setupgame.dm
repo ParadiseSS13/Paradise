@@ -48,6 +48,7 @@
 	EPILEPSYBLOCK      = getAssignedBlock("EPILEPSY",      numsToAssign)
 	TWITCHBLOCK        = getAssignedBlock("TWITCH",        numsToAssign)
 	NERVOUSBLOCK       = getAssignedBlock("NERVOUS",       numsToAssign)
+	WINGDINGSBLOCK     = getAssignedBlock("WINGDINGS",     numsToAssign)
 
 	// Bay muts
 	BREATHLESSBLOCK    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)

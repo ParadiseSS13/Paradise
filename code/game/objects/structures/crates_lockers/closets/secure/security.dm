@@ -123,6 +123,7 @@
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 
 
 /obj/structure/closet/secure_closet/warden
