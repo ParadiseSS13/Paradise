@@ -383,29 +383,27 @@ var/global/list/lawlorify = list (
 		to_chat(owner.current, "<span class='danger'>You seem to have resurrected without your hellish powers.</span>")
 
 /datum/devilinfo/proc/check_banishment(mob/living/body)
-	if(QDELETED(body))	//Allow ressurection if the body has been destroyed
-		return 0
 	switch(banish)
 		if(BANISH_WATER)
-			if(iscarbon(body))
+			if(!QDELETED(body) && iscarbon(body))
 				var/mob/living/carbon/H = body
 				return H.reagents.has_reagent("holy water")
 			return 0
 		if(BANISH_COFFIN)
-			return (body && istype(body.loc, /obj/structure/closet/coffin))
+			return (!QDELETED(body) && istype(body.loc, /obj/structure/closet/coffin))
 		if(BANISH_FORMALDYHIDE)
-			if(iscarbon(body))
+			if(!QDELETED(body) && iscarbon(body))
 				var/mob/living/carbon/H = body
 				return H.reagents.has_reagent("formaldehyde")
 			return 0
 		if(BANISH_RUNES)
-			if(body)
+			if(!QDELETED(body))
 				for(var/obj/effect/decal/cleanable/crayon/R in range(0,body))
 					if (R.name == "rune")
 						return 1
 			return 0
 		if(BANISH_CANDLES)
-			if(body)
+			if(!QDELETED(body))
 				var/count = 0
 				for(var/obj/item/candle/C in range(1,body))
 					count += C.lit
@@ -413,11 +411,11 @@ var/global/list/lawlorify = list (
 					return 1
 			return 0
 		if(BANISH_DESTRUCTION)
-			if(body)
+			if(!QDELETED(body))
 				return 0
 			return 1
 		if(BANISH_FUNERAL_GARB)
-			if(iscarbon(body))
+			if(!QDELETED(body) && iscarbon(body))
 				var/mob/living/carbon/human/H = body
 				if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/burial))
 					return 1
