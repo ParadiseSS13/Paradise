@@ -46,8 +46,8 @@
 		)
 
 /obj/item/clothing/glasses/meson/attack_self()
-	up = !up
-	if (up)
+	visor_flags = !visor_flags
+	if (visor_flags)
 		invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 		vision_flags = SEE_TURFS
 	else
