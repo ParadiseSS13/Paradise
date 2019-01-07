@@ -43,7 +43,7 @@
 		var/mob/M = pick(borg_candidates)
 		var/client/C = M.client
 		spawn_antag(C, get_turf(src.loc), "syndieborg")
-        qdel(src)
+		qdel(src)
 	else
 		checking = FALSE
 		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
