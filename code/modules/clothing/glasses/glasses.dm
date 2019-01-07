@@ -44,14 +44,15 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
+
 /obj/item/clothing/glasses/meson/attack_self()
 	up = !up
 	if (up)
 		invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 		vision_flags = SEE_TURFS
 	else
-		vision_flags = 0 //default
-		invis_view = 0 //default
+		vision_flags = initial(vision_flags) //default view
+		invis_view = initial(invis_view) //default view
 
 
 /obj/item/clothing/glasses/meson/night
