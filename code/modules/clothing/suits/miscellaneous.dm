@@ -16,7 +16,7 @@
 	item_state = "bluetag"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/gun/energy/laser/bluetag)
+	allowed = list (/obj/item/gun/energy/laser/tag/blue)
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -30,7 +30,7 @@
 	item_state = "redtag"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/gun/energy/laser/redtag)
+	allowed = list (/obj/item/gun/energy/laser/tag/red)
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(

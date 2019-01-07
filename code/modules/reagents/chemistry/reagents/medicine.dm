@@ -737,9 +737,10 @@
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
-		for(var/block=1;block<=DNA_SE_LENGTH;block++)
-			M.dna.SetSEState(block,0, 1)
-			genemutcheck(M,block,null,MUTCHK_FORCED)
+		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
+			if(!(block in M.dna.default_blocks))
+				M.dna.SetSEState(block, FALSE, TRUE)
+				genemutcheck(M, block, null, MUTCHK_FORCED)
 		M.dna.UpdateSE()
 
 		M.dna.struc_enzymes = M.dna.struc_enzymes_original
@@ -844,13 +845,6 @@
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
-	..()
-
-/datum/reagent/medicine/simethicone
-	name = "Simethicone"
-	id = "simethicone"
-	description = "This strange liquid seems to have no bubbles on the surface."
-	color = "#14AA46"
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"

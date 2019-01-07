@@ -207,12 +207,12 @@
 
 /obj/item/storage/box/syndie_kit/caneshotgun/New()
 	..()
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
 /obj/item/storage/box/syndie_kit/mimery

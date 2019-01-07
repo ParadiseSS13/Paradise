@@ -83,7 +83,7 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(containedpen)
 		overlays += "clipboard_pen"
 	overlays += "clipboard_over"
-	return
+	..()
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
@@ -114,6 +114,8 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
 		update_icon()
+	else
+		return ..()
 
 /obj/item/clipboard/attack_self(mob/user)
 	showClipboard(user)

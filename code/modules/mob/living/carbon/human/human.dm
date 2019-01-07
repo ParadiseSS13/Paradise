@@ -1567,17 +1567,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
 			if(istype(wear_suit, /obj/item/clothing/suit/redtag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/gun/energy/laser/redtag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/tag/red)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/red)))
 				threatcount += 4
-			if(istype(belt, /obj/item/gun/energy/laser/redtag))
+			if(istype(belt, /obj/item/gun/energy/laser/tag/red))
 				threatcount += 2
 
 		if(lasercolor == "r")
 			if(istype(wear_suit, /obj/item/clothing/suit/bluetag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/gun/energy/laser/bluetag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/tag/blue)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/blue)))
 				threatcount += 4
-			if(istype(belt, /obj/item/gun/energy/laser/bluetag))
+			if(istype(belt, /obj/item/gun/energy/laser/tag/blue))
 				threatcount += 2
 
 		return threatcount

@@ -140,7 +140,7 @@
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/Laser.ogg'
 	usesound = 'sound/items/Welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER

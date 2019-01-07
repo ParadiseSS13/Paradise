@@ -53,7 +53,7 @@
 
 
 //Bang
-	if((loc == M) || loc == M.loc)//Holding on person or being exactly where lies is significantly more dangerous and voids protection
+	if(get_turf(M) == get_turf(src))//Holding on person or being exactly where lies is significantly more dangerous and voids protection
 		M.Stun(10)
 		M.Weaken(10)
 	if(!ear_safety)

@@ -24,7 +24,8 @@ var/time_last_changed_position = 0
 	var/list/blacklisted_full = list(
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
-		/datum/job/civilian
+		/datum/job/civilian,
+		/datum/job/syndicateofficer
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
 	var/list/blacklisted_partial = list(

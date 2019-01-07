@@ -1037,7 +1037,7 @@
 /datum/reagent/capulettium
 	name = "Capulettium"
 	id = "capulettium"
-	description = "A rare drug that causes the user to appear dead for some time."
+	description = "A rare drug that causes the user to fall unconscious and appear dead as long as it's in the body."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
@@ -1046,23 +1046,21 @@
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
-		if(1 to 5)
+		if(1 to 10)
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
-		if(6 to 10)
-			M.Drowsy(10)
 		if(11)
-			update_flags |= M.Paralyse(10, FALSE)
-			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
-		if(12 to 60)
-			update_flags |= M.Paralyse(10, FALSE)
-		if(61 to INFINITY)
-			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+			fakedeath(M)
 	return ..() | update_flags
+
+/datum/reagent/capulettium/on_mob_delete(mob/living/M)
+	if(M.status_flags & FAKEDEATH)
+		fakerevive(M)
+	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
 	id = "capulettium_plus"
-	description = "A rare and expensive drug that causes the user to appear dead for some time while they retain consciousness and vision."
+	description = "A rare and expensive drug that will silence the user and let him appear dead as long as it's in the body. Rest to play dead, stand up to wake up."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
@@ -1070,7 +1068,16 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
+	if((M.status_flags & FAKEDEATH) && !M.resting)
+		fakerevive(M)
+	else if(!(M.status_flags & FAKEDEATH) && M.resting)
+		fakedeath(M)
 	return ..()
+
+/datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
+	if(M.status_flags & FAKEDEATH)
+		fakerevive(M)
+	..()
 
 /datum/reagent/toxic_slurry
 	name = "Toxic Slurry"

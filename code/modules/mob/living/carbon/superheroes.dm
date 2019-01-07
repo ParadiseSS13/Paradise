@@ -9,13 +9,15 @@
 	var/class
 	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
-
+	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
+	
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
 	assign_genes(H)
 	assign_spells(H)
 	equip(H)
 	fixflags(H)
 	assign_id(H)
+	H.mind.special_role = SPECIAL_ROLE_SUPER
 
 /datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)

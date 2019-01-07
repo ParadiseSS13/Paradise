@@ -333,6 +333,17 @@
 	name = "syndicate hatch"
 	req_access_txt = "150"
 
+/obj/machinery/door/airlock/hatch/syndicate/command
+	name = "Command Center"
+	req_access_txt = "153"
+	explosion_block = 2
+	normal_integrity = 1000
+	security_level = 6
+
+/obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
+	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	return
+
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
 	req_access_txt = "151"

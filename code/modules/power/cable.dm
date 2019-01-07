@@ -589,6 +589,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	else
 		icon_state = "coil"
 		name = "cable coil"
+	..()
 
 /obj/item/stack/cable_coil/proc/update_wclass()
 	if(amount == 1)

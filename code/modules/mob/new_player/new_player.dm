@@ -12,8 +12,6 @@
 	stat = 2
 	canmove = 0
 
-	anchored = 1	//  don't get pushed around
-
 /mob/new_player/New()
 	GLOB.mob_list += src
 
@@ -295,6 +293,13 @@
 	else
 		return 0
 
+/mob/new_player/proc/IsSyndicateCommand(rank)
+	var/datum/job/job = job_master.GetJob(rank)
+	if(job.syndicate_command)
+		return 1
+	else
+		return 0
+
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return 0
@@ -336,6 +341,8 @@
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
 			character.loc = pick(ertdirector)
+		else if(IsSyndicateCommand(rank))
+			character.loc = pick(syndicateofficer)
 		else
 			character.loc = pick(aroomwarp)
 		join_message = "has arrived"
