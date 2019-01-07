@@ -139,17 +139,11 @@
 
 	var/comms_password = ""
 
-	var/use_irc_bot = 0
-	var/list/irc_bot_host = list()
-	var/main_irc = ""
-	var/admin_irc = ""
-	var/admin_notify_irc = ""
-	var/cidrandomizer_irc = ""
-
-	var/use_discord_bot = 0
+	var/use_discord_bot = FALSE
 	var/discord_host = ""
 	var/discord_channel_main = ""
 	var/discord_channel_admin = ""
+	var/discord_channel_admin_notify = ""
 	var/discord_channel_cidrandomizer = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
@@ -463,9 +457,6 @@
 				if("allow_holidays")
 					config.allow_holidays = 1
 
-				if("use_irc_bot")
-					use_irc_bot = 1
-
 				if("ticklag")
 					Ticklag = text2num(value)
 
@@ -509,23 +500,8 @@
 				if("comms_password")
 					config.comms_password = value
 
-				if("irc_bot_host")
-					config.irc_bot_host = splittext(value, ";")
-
-				if("main_irc")
-					config.main_irc = value
-
-				if("admin_irc")
-					config.admin_irc = value
-
-				if("admin_notify_irc")
-					config.admin_notify_irc = value
-
-				if("cidrandomizer_irc")
-					config.cidrandomizer_irc = value
-
 				if("use_discord_bot")
-					use_discord_bot = 1
+					use_discord_bot = TRUE
 
 				if("discord_host")
 					config.discord_host = value
@@ -535,6 +511,9 @@
 
 				if("discord_channel_admin")
 					config.discord_channel_admin = value
+
+				if("discord_channel_admin_notify")
+					config.discord_channel_admin_notify = value
 
 				if("discord_channel_cidrandomizer")
 					config.discord_channel_cidrandomizer = value

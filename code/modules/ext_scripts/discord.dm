@@ -1,13 +1,13 @@
-/proc/send2discord(var/command, var/channel, var/message)
+/proc/send2discord(command, channel, message)
     if (config.use_discord_bot && config.discord_host)
         world.Export("http://[config.discord_host]/?command=[command]&channel=[channel]&message=[paranoid_sanitize(message)]")
 
-/proc/send2maindiscord(var/message)
+/proc/send2maindiscord(message)
 	if(config.discord_channel_main)
 		send2discord("message", config.discord_channel_main, message)
 	return
 
-/proc/send2admindiscord(var/message)
+/proc/send2admindiscord(message)
 	if(config.discord_channel_admin)
 		send2discord("message", config.discord_channel_admin, message)
 	return
