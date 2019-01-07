@@ -57,27 +57,37 @@
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
 	var/mail_destination = 0
-	var/obj/item/borg_chameleon/active_proj = null
+	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\
 						<b>You are equipped with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your destination tagger will allow you to stealthily traverse the disposal network across the station \
+						Your built-in mail tagger will allow you to stealthily traverse the disposal network across the station. \
 						Your cyborg chameleon projector allows you to assume the appearance of a Nanotrasen engineering cyborg, and undertake covert actions on the station. \
 						You are able to hijack Nanotrasen cyborgs by emagging their internal components, make sure to flash them first. \
 						You are armed with a standard energy sword, use it to ambush key targets if needed.\
-						Be aware that taking damage or being touched will break your disguise. \
+						Be aware that taking damage will break your disguise. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
 /mob/living/silicon/robot/syndicate/saboteur/init()
 	..()
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
-/mob/living/silicon/robot/verb/modify_name()
-	set name = "Modify name"
+/mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
+	set name = "Modify Name"
+	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
 	set category = "Saboteur"
-	rename_self(braintype, 1)
+	rename_self(braintype, TRUE, TRUE)
+
+/mob/living/silicon/robot/syndicate/saboteur/verb/toggle_chameleon()
+	set name = "Toggle Chameleon Projector"
+	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
+	set category = "Saboteur"
+	if(cham_proj)
+		cham_proj.attack_self(src)
+	else
+		to_chat("<span class='warning'>Error : No chameleon projector system found.</span>")
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
-	set name = "Set mail tag"
+	set name = "Set Mail Tag"
 	set desc = "Tag yourself for delivery through the disposals system."
 	set category = "Saboteur"
 
@@ -99,31 +109,31 @@
 	return
 
 /mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(active_proj)
-		active_proj.disrupt(src)
+	if(cham_proj)
+		cham_proj.disrupt(src)
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
-	if(active_proj)
-		active_proj.disrupt(src)
+	if(cham_proj)
+		cham_proj.disrupt(src)
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()
-	if(active_proj)
-		active_proj.disrupt(src)
+	if(cham_proj)
+		cham_proj.disrupt(src)
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()
-	if(active_proj)
-		active_proj.disrupt(src)
+	if(cham_proj)
+		cham_proj.disrupt(src)
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/bullet_act()
-	if(active_proj)
-		active_proj.disrupt(src)
+	if(cham_proj)
+		cham_proj.disrupt(src)
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(active_proj)
-		active_proj.disrupt(src)
+	if(cham_proj)
+		cham_proj.disrupt(src)
 	..()

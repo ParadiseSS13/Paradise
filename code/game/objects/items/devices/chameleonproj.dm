@@ -159,11 +159,14 @@
 	var/activationCost = 300
 	var/activationUpkeep = 50
 	var/disguise = "landmate"
-	var/datum/component/mobhook // need this to deal with unregistration properly
-	var/mob/living/silicon/robot/syndicate/saboteur/user // needed for process()
+	var/mob/living/silicon/robot/syndicate/saboteur/user
+
+/obj/item/borg_chameleon/New()
+	..()
+	user.cham_proj = src
 
 /obj/item/borg_chameleon/Destroy()
-	QDEL_NULL(mobhook)
+	user.cham_proj = null
 	return ..()
 
 /obj/item/borg_chameleon/dropped(mob/user)
@@ -228,16 +231,13 @@
 	user.base_icon = disguise
 	user.icon_state = disguise
 	active = TRUE
-	user.active_proj = src
 	user.update_icons()
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
 	processing_objects.Remove(src)
-	QDEL_NULL(mobhook)
 	user.base_icon = initial(user.base_icon)
 	user.icon_state = initial(user.icon_state)
 	active = FALSE
-	user.active_proj = null
 	user.update_icons()
 	src.user = user
 
