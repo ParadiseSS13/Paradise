@@ -63,13 +63,18 @@
 						Your built-in mail tagger will allow you to stealthily traverse the disposal network across the station. \
 						Your cyborg chameleon projector allows you to assume the appearance of a Nanotrasen engineering cyborg, and undertake covert actions on the station. \
 						You are able to hijack Nanotrasen cyborgs by emagging their internal components, make sure to flash them first. \
-						You are armed with a standard energy sword, use it to ambush key targets if needed.\
-						Be aware that taking damage will break your disguise. \
+						You are armed with a standard energy sword, use it to ambush key targets if needed. Your pinpointer will let you locate fellow nuclear operatives to regroup.\
+						Be aware that physical contact or taking damage will break your disguise. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
 /mob/living/silicon/robot/syndicate/saboteur/init()
 	..()
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
+	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
+	SR.cyborg = src
+	SR.icon_state = "selfrepair_off"
+	var/datum/action/A = new /datum/action/item_action/toggle(SR)
+	A.Grant(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
@@ -81,10 +86,15 @@
 	set name = "Toggle Chameleon Projector"
 	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
 	set category = "Saboteur"
-	if(cham_proj)
-		cham_proj.attack_self(src)
-	else
-		to_chat("<span class='warning'>Error : No chameleon projector system found.</span>")
+	if(!cham_proj)
+		for(var/obj/item/borg_chameleon/C in contents)
+			cham_proj = C
+		for(var/obj/item/borg_chameleon/C in module.contents)
+			cham_proj = C
+		if(!cham_proj)
+			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
+			return
+	cham_proj.attack_self(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
 	set name = "Set Mail Tag"

@@ -161,12 +161,9 @@
 	var/disguise = "landmate"
 	var/mob/living/silicon/robot/syndicate/saboteur/user
 
-/obj/item/borg_chameleon/New()
-	..()
-	user.cham_proj = src
-
 /obj/item/borg_chameleon/Destroy()
-	user.cham_proj = null
+	if(user)
+		user.cham_proj = null
 	return ..()
 
 /obj/item/borg_chameleon/dropped(mob/user)
@@ -178,8 +175,8 @@
 	disrupt(user)
 
 /obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
-	if (user && user.cell && user.cell.charge >  activationCost)
-		if (isturf(user.loc))
+	if(user && user.cell && user.cell.charge >  activationCost)
+		if(isturf(user.loc))
 			toggle(user)
 		else
 			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
@@ -219,8 +216,8 @@
 		user.filters = null
 
 /obj/item/borg_chameleon/process()
-	if (user)
-		if (!user.cell || !user.cell.use(activationUpkeep))
+	if(user)
+		if(!user.cell || !user.cell.use(activationUpkeep))
 			disrupt(user)
 	else
 		return PROCESS_KILL
@@ -230,6 +227,7 @@
 	src.user = user
 	user.base_icon = disguise
 	user.icon_state = disguise
+	user.cham_proj = src
 	active = TRUE
 	user.update_icons()
 
