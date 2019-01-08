@@ -109,7 +109,7 @@
 
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, var/verb)
 	var/span = ""
-	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator)
+	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
 	if(translator)
 		if(translator.active)
 			span = translator.speech_span
