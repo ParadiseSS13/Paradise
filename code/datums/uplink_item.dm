@@ -1127,7 +1127,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 6
+	cost = 4
 
 /datum/uplink_item/device_tools/traitor_belt
 	name = "Traitor's Toolbelt"
