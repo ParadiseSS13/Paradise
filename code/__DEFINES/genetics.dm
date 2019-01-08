@@ -13,12 +13,14 @@
 #define DISABILITY_FLAG_BLIND       16
 #define DISABILITY_FLAG_MUTE        32
 #define DISABILITY_FLAG_COLOURBLIND 64
+#define DISABILITY_FLAG_WINGDINGS   128
 #define DISABILITY_FLAG_TOURETTES   512
 #define DISABILITY_FLAG_NERVOUS     1024
 #define DISABILITY_FLAG_SWEDISH     2048
 #define DISABILITY_FLAG_SCRAMBLED   4096 // incoherent speech
 #define DISABILITY_FLAG_LISP        8192
 #define DISABILITY_FLAG_DIZZY       16384
+
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
@@ -33,9 +35,11 @@
 #define HUSK			7
 #define NOCLONE			8
 
-
 // Extra powers:
 #define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+
+//species mutation
+#define WINGDINGS		10	// Ayy lmao
 
 //2spooky
 #define SKELETON 29
@@ -144,3 +148,4 @@
 #define RESISTHOT		16
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
+#define CAN_WINGDINGS	19

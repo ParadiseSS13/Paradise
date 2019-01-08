@@ -91,7 +91,7 @@
 		if("Magistrate")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/magistrate
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate
-		if("Head of Security")
+		if("Head of Security", "Special Operations Officer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
 		if("Captain", "Blueshield")
@@ -100,7 +100,7 @@
 		if("Head of Personnel")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
-		if("Nanotrasen Representative")
+		if("Nanotrasen Representative", "Nanotrasen Navy Officer")
 			suit = /obj/item/clothing/suit/space/eva/plasmaman/nt_rep
 			helm = /obj/item/clothing/head/helmet/space/eva/plasmaman/nt_rep
 		if("Medical Doctor","Brig Physician","Virologist")

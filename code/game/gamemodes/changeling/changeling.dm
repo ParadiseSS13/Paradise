@@ -243,6 +243,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/changeling_speak = 0
 	var/datum/dna/chosen_dna
 	var/obj/effect/proc_holder/changeling/sting/chosen_sting
+	var/regenerating = FALSE
 
 /datum/changeling/New(gender=FEMALE)
 	..()

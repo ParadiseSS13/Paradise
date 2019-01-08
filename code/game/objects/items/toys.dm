@@ -1650,3 +1650,13 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "conch"
 	use_action = "pulls the string"
 	possible_answers = list("Yes.", "No.", "Try asking again.", "Nothing.", "I don't think so.", "Neither.", "Maybe someday.")
+
+/*
+ *Fake cuffs (honk honk)
+ */
+
+/obj/item/restraints/handcuffs/toy
+	desc = "Toy handcuffs. Plastic and extremely cheaply made."
+	throwforce = 0
+	breakouttime = 0 
+	ignoresClumsy = TRUE

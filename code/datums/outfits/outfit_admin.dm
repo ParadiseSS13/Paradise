@@ -83,12 +83,12 @@
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
 	shoes = /obj/item/clothing/shoes/magboots/syndie
+	r_pocket = /obj/item/radio/uplink/nuclear
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_hand = /obj/item/tank/jetpack/oxygen/harness
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/reagent_containers/food/pill/initropidril = 1,
+		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
