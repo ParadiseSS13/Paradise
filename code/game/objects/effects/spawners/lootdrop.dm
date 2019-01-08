@@ -248,11 +248,9 @@
 				)
 
 
-
 /obj/effect/spawner/lootdrop/trade_sol/sci
 	name = "4. science gear"
 	loot = list(
-
 				// Robotics
 				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
 				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
@@ -291,7 +289,6 @@
 				// Virology
 				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
 				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50,
-
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
@@ -301,14 +298,12 @@
 				/obj/item/kitchen/knife/combat = 50,
 				/obj/item/fluff/desolate_baton_kit = 50, // permission granted by Desolate to use their fluff kit in this loot table
 
-
 				// Utility
 				/obj/item/storage/belt/military/assault = 50,
 				/obj/item/clothing/mask/gas/sechailer/swat = 50,
 
 				// Ranged weapons
 				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
-
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
@@ -365,10 +360,7 @@
 
 
 				// Nice to have items for: Bartender, Mime, Chef, Librarian, Chaplain
-
 				)
-
-
 
 
 
