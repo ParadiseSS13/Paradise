@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Fixed grey translator translating the entire server."
