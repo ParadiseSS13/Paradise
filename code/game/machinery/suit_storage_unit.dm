@@ -47,6 +47,8 @@
 	secure = TRUE	//start with ID lock enabled
 
 /obj/machinery/suit_storage_unit/captain
+	name = "captain's suit storage unit"
+	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
 	suit_type    = /obj/item/clothing/suit/space/captain
 	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
@@ -57,6 +59,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/engine
+	name = "engineering suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engineering
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/engineering
 	mask_type    = /obj/item/clothing/mask/breath
@@ -67,6 +70,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/ce
+	name = "chief engineer's suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/elite
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/elite
 	mask_type    = /obj/item/clothing/mask/gas
@@ -77,6 +81,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/security
+	name = "security suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
@@ -90,6 +95,7 @@
 	req_access = list(access_pilot)
 
 /obj/machinery/suit_storage_unit/atmos
+	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/atmos
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/atmos
 	mask_type    = /obj/item/clothing/mask/gas
@@ -100,6 +106,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/mining
+	name = "mining suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/mining
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	mask_type    = /obj/item/clothing/mask/breath
@@ -119,10 +126,12 @@
 
 //version of the SSU for medbay secondary storage. Includes magboots.
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage
+	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/clothing/shoes/magboots
 
 /obj/machinery/suit_storage_unit/clown
+	name = "clown suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/clown
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/clown
 	req_access = list(access_clown)
@@ -131,6 +140,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/mime
+	name = "mime suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/mime
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/mime
 	req_access = list(access_mime)
@@ -139,6 +149,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/syndicate
+	name = "syndicate suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/syndi
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	mask_type    = /obj/item/clothing/mask/gas/syndicate
