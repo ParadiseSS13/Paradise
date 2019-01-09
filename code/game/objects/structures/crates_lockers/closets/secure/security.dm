@@ -32,6 +32,7 @@
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
+	new /obj/item/tank/emergency_oxygen/double(src)
 
 
 /obj/structure/closet/secure_closet/hop

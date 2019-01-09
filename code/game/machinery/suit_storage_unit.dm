@@ -80,10 +80,14 @@
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/clothing/shoes/magboots
 	req_access = list(access_security)
 
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
+
+/obj/machinery/suit_storage_unit/security/secure/pod_pilot
+	req_access = list(access_pilot)
 
 /obj/machinery/suit_storage_unit/atmos
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/atmos
@@ -111,6 +115,27 @@
 	req_access = list(access_cmo)
 
 /obj/machinery/suit_storage_unit/cmo/secure
+	secure = TRUE
+
+//version of the SSU for medbay secondary storage. Includes magboots.
+/obj/machinery/suit_storage_unit/cmo/secure/sec_storage
+	mask_type = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/clothing/shoes/magboots
+
+/obj/machinery/suit_storage_unit/clown
+	suit_type = /obj/item/clothing/suit/space/eva/clown
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/clown
+	req_access = list(access_clown)
+
+/obj/machinery/suit_storage_unit/clown/secure
+	secure = TRUE
+
+/obj/machinery/suit_storage_unit/mime
+	suit_type = /obj/item/clothing/suit/space/eva/mime
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/mime
+	req_access = list(access_mime)
+
+/obj/machinery/suit_storage_unit/mime/secure
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/syndicate
