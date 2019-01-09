@@ -1,0 +1,4 @@
+author: "Dovydas12345"
+delete-after: True
+changes: 
+  - bugfix: "Fixed NT Rep and Blueshield  office door buttons not having correct required access"
