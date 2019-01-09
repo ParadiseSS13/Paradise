@@ -115,7 +115,7 @@
 		playsound(loc, sound, 15, 1, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-	density = 1
+	density = !istype(src, /obj/structure/closet/bluespace)
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -423,3 +423,43 @@
 
 /obj/structure/closet/AllowDrop()
 	return TRUE
+
+/obj/structure/closet/bluespace
+	name = "bluespace closet"
+	desc = "A storage unit that moves and stores through the fourth dimension."
+	density = 0
+	icon_state = "bluespace"
+	icon_closed = "bluespace"
+	icon_opened = "bluespaceopen"
+	storage_capacity = 60
+	var/list/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+
+/obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
+	IsAlone(AM, loc)
+	return TRUE
+
+/obj/structure/closet/bluespace/proc/IsAlone(atom/movable/AM, atom/location)
+	var/trans = FALSE
+	for(var/atom/A in location)
+		if(A.density && A != src && A != AM)
+			trans = TRUE
+	icon_opened = trans ? "bluespaceopentrans" : "bluespaceopen"
+	icon_closed = trans ? "bluespacetrans" : "bluespace"
+	icon_state = opened ? icon_opened : icon_closed
+	return TRUE
+
+/obj/structure/closet/bluespace/Crossed(atom/movable/AM)
+	if(AM.density)
+		icon_state = opened ? "bluespaceopentrans" : "bluespacetrans"
+	return
+
+/obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
+	var/turf/T = get_turf(NewLoc)
+	if(istype(T, /turf/simulated/wall) && T.density)
+		return
+	for(var/atom/A in T.contents)
+		if(A.density && istype(A, /obj/machinery/door))
+			return
+	IsAlone(src, NewLoc)
+	forceMove(NewLoc)
+	return
