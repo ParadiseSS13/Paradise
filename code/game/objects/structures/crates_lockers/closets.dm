@@ -432,34 +432,32 @@
 	icon_closed = "bluespace"
 	icon_opened = "bluespaceopen"
 	storage_capacity = 60
-	var/list/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
-	IsAlone(AM, loc)
+	UpdateTransparency(AM, loc)
 	return TRUE
 
-/obj/structure/closet/bluespace/proc/IsAlone(atom/movable/AM, atom/location)
-	var/trans = FALSE
+/obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
+	var/transparent = FALSE
 	for(var/atom/A in location)
 		if(A.density && A != src && A != AM)
-			trans = TRUE
-	icon_opened = trans ? "bluespaceopentrans" : "bluespaceopen"
-	icon_closed = trans ? "bluespacetrans" : "bluespace"
+			transparent = TRUE
+			break
+	icon_opened = transparent ? "bluespaceopentrans" : "bluespaceopen"
+	icon_closed = transparent ? "bluespacetrans" : "bluespace"
 	icon_state = opened ? icon_opened : icon_closed
-	return TRUE
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM)
 	if(AM.density)
 		icon_state = opened ? "bluespaceopentrans" : "bluespacetrans"
-	return
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
-	if(istype(T, /turf/simulated/wall) && T.density)
+	if(T.density)
 		return
 	for(var/atom/A in T.contents)
 		if(A.density && istype(A, /obj/machinery/door))
 			return
-	IsAlone(src, NewLoc)
+	UpdateTransparency(src, NewLoc)
 	forceMove(NewLoc)
-	return
