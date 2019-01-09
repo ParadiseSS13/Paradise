@@ -359,7 +359,7 @@
 				/obj/item/bikehorn/golden = 100,
 
 
-				// Nice to have items for: Bartender, Mime, Chef, Librarian, Chaplain
+				// It would be nice to also have items for other service jobs: Bartender, Mime, Chef, Librarian, Chaplain, etc
 				)
 
 
