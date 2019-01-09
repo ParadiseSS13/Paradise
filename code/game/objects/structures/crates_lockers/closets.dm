@@ -115,7 +115,7 @@
 		playsound(loc, sound, 15, 1, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-	density = !istype(src, /obj/structure/closet/bluespace)
+	density = 1
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -461,3 +461,7 @@
 			return
 	UpdateTransparency(src, NewLoc)
 	forceMove(NewLoc)
+
+/obj/structure/closet/bluespace/close()
+	. = ..()
+	density = 0
