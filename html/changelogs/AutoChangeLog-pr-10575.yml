@@ -1,0 +1,4 @@
+author: "DrunkDwarf"
+delete-after: True
+changes: 
+  - tweak: "Analyzers now show the amount of moles within pipes and tanks"
