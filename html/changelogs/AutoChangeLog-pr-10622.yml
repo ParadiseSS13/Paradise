@@ -1,0 +1,6 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added the magic mirror to the wizard den, letting wizards swap to other species and change their appearance."
+  - rscadd: "Added spare plasmaman suit, plasma tank, and vox internals to wizard robes racks for any wizard that wishes to change to these species."
+  - bugfix: "Made the snack machine in wizard den free to use. (wizards don't take silly credits as currency)"
