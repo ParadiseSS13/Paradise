@@ -140,6 +140,15 @@
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 
+/obj/item/gun/energy/kinetic_accelerator/experimental
+	name = "experimental kinetic accelerator"
+	desc = "A modified, far more dangerous version of the proto-kinetic accelerator, with half the cooldown and twice the modkit space of the standard version."
+	icon_state = "kineticgun_h"
+	item_state = "kineticgun_h"
+	origin_tech = "combat=5;powerstorage=3;engineering=5"
+	overheat_time = 8
+	max_mod_capacity = 200
+
 //Casing
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic

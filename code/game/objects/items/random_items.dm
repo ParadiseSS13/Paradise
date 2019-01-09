@@ -123,6 +123,7 @@
 /obj/item/storage/pill_bottle/random_meds
 	name = "unlabelled pillbottle"
 	desc = "The sheer recklessness of this bottle's existence astounds you."
+	var/labelled = FALSE
 
 /obj/item/storage/pill_bottle/random_meds/New()
 	..()
@@ -137,10 +138,18 @@
 			P.reagents.add_reagent(R, 10)
 		else
 			P.reagents.add_reagent(R, rand(2, 5)*10)
-		P.name = "Unlabelled Pill"
-		P.desc = "Something about this pill entices you to try it, against your better judgement."
+		if(labelled)
+			P.name = "[R] Pill"
+			P.desc = "A pill containing [R]."
+		else
+			P.name = "Unlabelled Pill"
+			P.desc = "Something about this pill entices you to try it, against your better judgement."
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+
+/obj/item/storage/pill_bottle/random_meds/labelled
+	name = "variety pillbottle"
+	labelled = TRUE
 
 
 // -------------------------------------
