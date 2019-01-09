@@ -44,6 +44,7 @@
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
+	magical = TRUE
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
@@ -80,6 +81,11 @@
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
 	shoe_sound = "clownstep"
+
+/obj/item/clothing/shoes/clown_shoes/magical
+	name = "magical clown shoes"
+	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
+	magical = TRUE
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"

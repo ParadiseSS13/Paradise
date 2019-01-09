@@ -79,6 +79,7 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	magboot_state = "wizmag"
 	slowdown_active = SHOES_SLOWDOWN //wiz hardsuit already slows you down, no need to double it
 	magpulse_name = "gripping ability"
+	magical = TRUE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
 	if(user)
