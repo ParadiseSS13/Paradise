@@ -161,8 +161,15 @@
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
+	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall
 	log_name = "FW"
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/greaterforcewall
+	name = "Greater Force Wall"
+	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall/greater
+	log_name = "GFW"
 	category = "Defensive"
 	cost = 1
 
@@ -289,6 +296,13 @@
 	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
 	item_path = /obj/item/gun/magic/staff/chaos
 	log_name = "SC"
+
+/datum/spellbook_entry/item/staffslipping
+	name = "Staff of Slipping"
+	desc = "A staff that shoots magical bananas. These bananas will either slip or stun the target when hit. Surprisingly reliable!"
+	item_path = /obj/item/gun/magic/staff/slipping
+	log_name = "SL"
+	cost = 1
 
 /datum/spellbook_entry/item/staffdoor
 	name = "Staff of Door Creation"
@@ -791,7 +805,7 @@
 	stored_swap = null
 
 /obj/item/spellbook/oneuse/forcewall
-	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
+	spell = /obj/effect/proc_holder/spell/targeted/forcewall
 	spellname = "forcewall"
 	icon_state ="bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."

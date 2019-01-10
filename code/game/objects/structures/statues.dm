@@ -313,17 +313,6 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
 
-/*
-/obj/structure/statue/snow
-	hardness = 0.5
-	material_drop_type = /obj/item/stack/sheet/mineral/snow
-
-/obj/structure/statue/snow/snowman
-	name = "snowman"
-	desc = "Several lumps of snow put together to form a snowman."
-	icon_state = "snowman"
-*/
-
 /obj/structure/statue/tranquillite
 	hardness = 0.5
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
@@ -349,8 +338,30 @@
 	desc = "Seems someone made a snowman here."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "snowman"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/snowman/built
+	desc = "Just like the ones you remember from childhood!"
+	max_integrity = 50
+
+/obj/structure/snowman/built/Destroy()
+	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())
+	new /obj/item/grown/log(drop_location())
+	new /obj/item/grown/log(drop_location())
+	return ..()
+
+/obj/structure/snowman/built/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
+		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		obj_integrity = max_integrity
+		qdel(I)
+	else
+		return ..()
+
+/obj/structure/snowman/built/fire_act()
+	qdel(src)
+
 
 /obj/structure/kidanstatue
 	name = "Obsidian Kidan warrior statue"

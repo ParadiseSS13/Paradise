@@ -14,6 +14,7 @@
 	Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals.  \
 	Must be used within five minutes, or your benefactors will lose interest."
 	var/declaring_war = FALSE
+	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
 /obj/item/nuclear_challenge/attack_self(mob/living/user)
 	if(!check_allowed(user))
@@ -50,16 +51,32 @@
 	event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
-	to_chat(user, "<b>Look below you on the floor for the extra uplink</b>")
+	to_chat(user, "<b>Your bonus telecrystals have been split between your team's uplinks.</b>")
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		S.challenge = TRUE
 
-	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(get_turf(user))
-	U.hidden_uplink.uplink_owner= "[user.key]"
-	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)) // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
+	 // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
+	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
+	share_telecrystals()
 	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
+
+/obj/item/nuclear_challenge/proc/share_telecrystals()
+	var/player_tc
+	var/remainder
+
+	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
+	remainder = total_tc % GLOB.nuclear_uplink_list.len
+
+	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+		U.hidden_uplink.uses += player_tc
+	while(remainder > 0)
+		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+			if(remainder <= 0)
+				break
+			U.hidden_uplink.uses++
+			remainder--
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)

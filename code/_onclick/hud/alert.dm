@@ -322,7 +322,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /obj/screen/alert/nymph/Click()
 	if(!usr || !usr.client)
-		return		
+		return
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/D = usr
 		return D.resist()
@@ -411,6 +411,26 @@ so as to remain in compliance with the most up-to-date laws."
 		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
 	else
 		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
+
+/obj/screen/alert/mech_nocell
+	name = "Missing Power Cell"
+	desc = "Mech has no power cell."
+	icon_state = "nocell"
+
+/obj/screen/alert/mech_emptycell
+	name = "Out of Power"
+	desc = "Mech is out of power."
+	icon_state = "emptycell"
+
+/obj/screen/alert/mech_lowcell
+	name = "Low Charge"
+	desc = "Mech is running out of power."
+	icon_state = "lowcell"
+
+/obj/screen/alert/mech_maintenance
+	name = "Maintenance Protocols"
+	desc = "Maintenance protocols are currently in effect, most actions disabled."
+	icon_state = "locked"
 
 //GUARDIANS
 /obj/screen/alert/cancharge
