@@ -1,0 +1,4 @@
+author: "Aurorablade"
+delete-after: True
+changes: 
+  - bugfix: "Cap guns was checking for claiber type 'cap' when the ammo was set to caliber typer 'caps'. Fixed."
