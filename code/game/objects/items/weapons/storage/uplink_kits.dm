@@ -14,7 +14,7 @@
 				new /obj/item/camera_bug(src)
 				return
 
-			if("thief")			// 30TC
+			if("thief")	// 30TC
 				new /obj/item/gun/energy/kinetic_accelerator/crossbow(src)
 				new /obj/item/chameleon(src)
 				new /obj/item/clothing/gloves/color/black/thief(src)
@@ -22,7 +22,7 @@
 				new /obj/item/storage/box/syndie_kit/safecracking(src)
 				return
 
-			if("bond")			// 16TC + Healing Cocktail + Krav Maga
+			if("bond")	// 16TC + Healing Cocktail + Krav Maga
 				new /obj/item/gun/projectile/automatic/pistol(src)
 				new /obj/item/suppressor(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
@@ -34,7 +34,7 @@
 				new /obj/item/implanter/krav_maga(src)
 				return
 
-			if("sabotage")		// 31TC + RPD + Insuls
+			if("sabotage")	// 31TC + RPD + Insuls
 				new /obj/item/powersink(src)
 				new /obj/item/grenade/syndieminibomb(src)
 				new /obj/item/card/emag(src)
@@ -44,7 +44,7 @@
 				new /obj/item/storage/box/syndie_kit/space(src)
 				return
 
-			if("payday")		// 29TC
+			if("payday")	// 29TC
 				new /obj/item/gun/projectile/revolver(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/card/emag(src)
@@ -55,14 +55,14 @@
 				new /obj/item/clothing/mask/gas/clown_hat(src)
 				return
 
-			if("implant")		// 35TC
+			if("implant")	// 35TC
 				new /obj/item/implanter/uplink(src)
 				new /obj/item/implanter/adrenalin(src)
 				new /obj/item/implanter/storage(src)
 				new /obj/item/implanter/freedom(src)
 				return
 
-			if("hacker")		// 22TC + Ion law uploader
+			if("hacker")	// 22TC + Ion law uploader
 				new /obj/item/aiModule/syndicate(src)
 				new /obj/item/encryptionkey/binary(src)
 				new /obj/item/encryptionkey/syndicate(src)
@@ -70,7 +70,7 @@
 				new /obj/item/card/emag(src)
 				return
 
-			if("darklord")		// 23TC + TK implant
+			if("darklord")	// 23TC + TK implant
 				new /obj/item/melee/energy/sword/saber/red(src)
 				new /obj/item/melee/energy/sword/saber/red(src)
 				new /obj/item/dnainjector/telemut/darkbundle(src)
@@ -80,7 +80,7 @@
 				new /obj/item/clothing/mask/gas/voice(src)
 				return
 
-			if("gadgets")		// 30TC
+			if("gadgets")	// 30TC
 				new /obj/item/clothing/gloves/color/yellow/power(src)
 				new /obj/item/pen/sleepy(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
@@ -90,7 +90,7 @@
 				new /obj/item/multitool/ai_detect(src)
 				return
 
-			if("maddoctor")		// 31TC
+			if("maddoctor")	// 31TC
 				new /obj/item/storage/backpack/duffel/syndie/surgery(src)
 				new /obj/item/pen/sleepy(src)
 				new /obj/item/implanter/traitor(src)	// Mindslave Implant
@@ -109,7 +109,7 @@
 				new /obj/item/clothing/under/suit_jacket(src)
 				return
 
-			if("clownop")		// 34TC
+			if("clownop")	// 34TC
 				new /obj/item/storage/backpack/clown/syndie(src)	// Honk Infiltration Kit
 				new /obj/item/card/id/syndicate(src)
 				new /obj/item/gun/projectile/automatic/c20r/toy(src)
