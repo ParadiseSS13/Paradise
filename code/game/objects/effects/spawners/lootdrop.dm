@@ -256,7 +256,6 @@
 				/obj/item/autoimplanter = 50,
 
 				// Research / Experimentor
-				/obj/item/relic = 150, // strange object
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
 
 				// Xenobio
@@ -312,8 +311,8 @@
 	loot = list(
 				/obj/item/storage/belt/utility/chief/full = 25,
 				/obj/item/rcd/combat = 25,
+				/obj/item/rpd/bluespace = 25,
 				/obj/item/tank/emergency_oxygen/double/full = 25,
-
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
