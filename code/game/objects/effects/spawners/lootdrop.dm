@@ -276,6 +276,7 @@
 				// Surgery
 				/obj/item/scalpel/laser/manager = 100,
 				/obj/item/organ/internal/heart/gland/ventcrawling = 50,
+				/obj/item/organ/internal/heart/gland/heals = 50,
 
 				// Genetics Research (should really be under science, but I was stuck for items to put in medical)
 				/obj/item/dnainjector/regenerate = 50, // regeneration
@@ -300,15 +301,19 @@
 				/obj/item/clothing/mask/gas/sechailer/swat = 50,
 
 				// Ranged weapons
+				/obj/item/storage/box/enforcer_rubber = 50,
+				/obj/item/storage/box/enforcer_lethal = 50,
 				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
+				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 50, // cycler shotgun, not normally available to crew
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
 	name = "7. eng gear"
-	lootcount = 3
 	loot = list(
 				/obj/item/storage/belt/utility/chief/full = 25,
 				/obj/item/rcd/combat = 25,
+				/obj/item/tank/emergency_oxygen/double/full = 25,
+
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
