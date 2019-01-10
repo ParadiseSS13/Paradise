@@ -208,7 +208,7 @@ var/global/list/lawlorify = list (
 			H.dna = humanform.Clone()
 			H.sync_organ_dna(assimilate = 0)
 		else
-			H.set_species("Human")
+			H.set_species(/datum/species/human)
 			// TODO: Add some appearance randomization here or something
 			humanform = H.dna.Clone()
 		H.regenerate_icons()
@@ -235,7 +235,7 @@ var/global/list/lawlorify = list (
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		var/list/language_temp = H.languages.Copy()
-		H.set_species("Unathi")
+		H.set_species(/datum/species/unathi)
 		H.languages = language_temp
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
