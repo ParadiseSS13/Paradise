@@ -192,23 +192,20 @@
 				/obj/item/clothing/under/psyjump = 50
 				)
 
-
 /obj/effect/spawner/lootdrop/trade_sol/minerals
 	name = "2. minerals"
 	lootdoubles = 1
 	loot = list(
 				// Common stuff you get from mining which isn't already present on the station
+				// Note that plasma and derived hybrid materials are NOT included in this list because plasma is the trader's objective!
 				/obj/item/stack/sheet/mineral/silver = 50,
 				/obj/item/stack/sheet/mineral/gold = 50,
-				/obj/item/stack/sheet/mineral/plasma = 50,
 				/obj/item/stack/sheet/mineral/uranium = 50,
 				/obj/item/stack/sheet/mineral/diamond = 50,
 				/obj/item/stack/sheet/mineral/titanium = 50,
 				/obj/item/stack/sheet/plasteel = 50,
 
 				// Hybrid stuff you could in theory get from mining
-				/obj/item/stack/sheet/plasmaglass = 50,
-				/obj/item/stack/sheet/plasmarglass = 50,
 				/obj/item/stack/sheet/titaniumglass = 50,
 
 				// Rare stuff you can't get from mining

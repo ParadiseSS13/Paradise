@@ -724,51 +724,18 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(vox_total_kills > vox_allowed_kills) return 0
 	return 1
 
-// Traders
 
-/datum/objective/trade // Yes, I know there's no check_completion. The objectives exist only to tell the traders what to get.
-/datum/objective/trade/proc/choose_target(var/station)
+// Traders
+// These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
+
+/datum/objective/trade/proc/choose_target()
 	return
 
-/datum/objective/trade/stock // Stock or spare parts.
-	var/target_rating = 1
-/datum/objective/trade/stock/choose_target(var/station)
-	var/itemname
-	switch(rand(1,8))
-		if(1)
-			target = /obj/item/stock_parts/cell
-			target_amount = 10
-			target_rating = 3
-			itemname = "ten high-capacity power cells"
-		if(2)
-			target = /obj/item/stock_parts/manipulator
-			target_amount = 20
-			itemname = "twenty micro manipulators"
-		if(3)
-			target = /obj/item/stock_parts/matter_bin
-			target_amount = 20
-			itemname = "twenty matter bins"
-		if(4)
-			target = /obj/item/stock_parts/micro_laser
-			target_amount = 15
-			itemname = "fifteen micro-lasers"
-		if(5)
-			target = /obj/item/stock_parts/capacitor
-			target_amount = 15
-			itemname = "fifteen capacitors"
-		if(6)
-			target = /obj/item/stock_parts/subspace/filter
-			target_amount = 4
-			itemname = "four hyperwave filters"
-		if(7)
-			target = /obj/item/solar_assembly
-			target_amount = 10
-			itemname = "ten solar panel assemblies"
-		if(8)
-			target = /obj/item/flash
-			target_amount = 6
-			itemname = "six flashes"
-	explanation_text = "We are running low on spare parts. Trade for [itemname]."
+/datum/objective/trade/plasma/choose_target()
+	explanation_text = "Acquire at least 15 sheets of plasma through trade."
+
+/datum/objective/trade/credits/choose_target()
+	explanation_text = "Acquire at least 10,000 credits through trade."
 
 //wizard
 

@@ -55,17 +55,14 @@ var/global/list/unused_trade_stations = list("sol")
 		show_objectives(M.mind)
 
 /datum/event/traders/proc/forge_trader_objectives()
-	var/i = 1
-	var/max_objectives = pick(2, 2, 2, 2, 3, 3, 3, 4)
 	var/list/objs = list()
-	var/list/goals = list("stockparts")
-	while(i<= max_objectives)
-		var/goal = pick(goals)
-		var/datum/objective/trade/O
-		if(goal == "stockparts")
-			O = new /datum/objective/trade/stock(station)
-		O.choose_target()
-		objs += O
 
-		i++
+	var/datum/objective/trade/plasma/P = new /datum/objective/trade/plasma
+	P.choose_target()
+	objs += P
+
+	var/datum/objective/trade/credits/C = new /datum/objective/trade/credits
+	C.choose_target()
+	objs += C
+
 	return objs
