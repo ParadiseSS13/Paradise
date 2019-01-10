@@ -78,11 +78,11 @@
 
 	timeofdeath = world.time
 
-	living_mob_list -= src
-	dead_mob_list += src
+	GLOB.living_mob_list -= src
+	GLOB.dead_mob_list += src
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
-		respawnable_list += src
+		GLOB.respawnable_list += src
 
 	if(ticker && ticker.mode)
 		ticker.mode.check_win()

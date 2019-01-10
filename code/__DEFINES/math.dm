@@ -12,6 +12,10 @@
 
 #define Clamp(x, y, z)			 	((x) <= (y) ? (y) : ((x) >= (z) ? (z) : (x)))
 #define CLAMP01(x) 					(Clamp((x), 0, 1))
+
+// Similar to clamp but the bottom rolls around to the top and vice versa. min is inclusive, max is exclusive
+#define WRAP(val, min, max) ( min == max ? min : (val) - (round(((val) - (min))/((max) - (min))) * ((max) - (min))) )
+
 #define SIMPLE_SIGN(X)				((X) < 0 ? -1 : 1)
 #define SIGN(X)						((X) ? SIMPLE_SIGN(X) : 0)
 #define hypotenuse(Ax, Ay, Bx, By)	(sqrt(((Ax) - (Bx))**2 + ((Ay) - (By))**2))
@@ -34,6 +38,10 @@
 
 #define SHORT_REAL_LIMIT 16777216
 
+// Real modulus that handles decimals
+#define MODULUS(x, y) ( (x) - (y) * round((x) / (y)) )
+
+
 //"fancy" math for calculating time in ms from tick_usage percentage and the length of ticks
 //percent_of_tick_used * (ticklag * 100(to convert to ms)) / 100(percent ratio)
 //collapsed to percent_of_tick_used * tick_lag
@@ -49,3 +57,10 @@
 
 // round() acts like floor(x, 1) by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )
+
+
+// Will filter out extra rotations and negative rotations
+// E.g: 540 becomes 180. -180 becomes 180.
+#define SIMPLIFY_DEGREES(degrees) (MODULUS((degrees), 360))
+
+#define GET_ANGLE_OF_INCIDENCE(face, input) (MODULUS((face) - (input), 360))

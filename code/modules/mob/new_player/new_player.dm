@@ -1,6 +1,5 @@
 /mob/new_player
 	var/ready = 0
-	var/skip_antag = 0	//For declining an antag roll this round.
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
@@ -13,10 +12,8 @@
 	stat = 2
 	canmove = 0
 
-	anchored = 1	//  don't get pushed around
-
 /mob/new_player/New()
-	mob_list += src
+	GLOB.mob_list += src
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
@@ -65,15 +62,15 @@
 	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
-
-		var/list/antags = client.prefs.be_special
-		if(antags && antags.len)
-			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-			output += "<br /><small>You are <b>[skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
+
+	var/list/antags = client.prefs.be_special
+	if(antags && antags.len)
+		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
+		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
@@ -129,7 +126,7 @@
 				stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
-			for(var/mob/new_player/player in player_list)
+			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
 					stat("[player.key]", (player.ready)?("(Playing)"):(null))
 				totalPlayers++
@@ -172,7 +169,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		skip_antag = !skip_antag
+		client.skip_antag = !client.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -209,7 +206,7 @@
 			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
 				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
-			respawnable_list += observer
+			GLOB.respawnable_list += observer
 			qdel(src)
 			return 1
 	if(href_list["tos"])
@@ -224,7 +221,7 @@
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
 
-		if(client.prefs.species in whitelisted_species)
+		if(client.prefs.species in GLOB.whitelisted_species)
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
@@ -244,7 +241,7 @@
 		if(client.prefs.randomslot)
 			client.prefs.load_random_character_slot(client)
 
-		if(client.prefs.species in whitelisted_species)
+		if(client.prefs.species in GLOB.whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return 0
@@ -296,6 +293,13 @@
 	else
 		return 0
 
+/mob/new_player/proc/IsSyndicateCommand(rank)
+	var/datum/job/job = job_master.GetJob(rank)
+	if(job.syndicate_command)
+		return 1
+	else
+		return 0
+
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return 0
@@ -337,6 +341,8 @@
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
 			character.loc = pick(ertdirector)
+		else if(IsSyndicateCommand(rank))
+			character.loc = pick(syndicateofficer)
 		else
 			character.loc = pick(aroomwarp)
 		join_message = "has arrived"
@@ -385,7 +391,7 @@
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
 	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -410,7 +416,7 @@
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
 	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -469,7 +475,7 @@
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
-			for(var/mob/M in player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 MINUTES)
+			for(var/mob/M in GLOB.player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 MINUTES)
 				activePlayers[job]++
 			for(var/jobcat in categorizedJobs)
 				var/list/jobs = categorizedJobs[jobcat]["jobs"]
@@ -533,10 +539,10 @@
 	if(mind)
 		mind.active = 0					//we wish to transfer the key manually
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
-			new_character.real_name = pick(clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
 		else if(mind.assigned_role == "Mime")
-			new_character.real_name = pick(mime_names)
+			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self("mime")
 		mind.original = new_character
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
@@ -558,7 +564,7 @@
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
-		chosen_language = all_languages[client.prefs.language]
+		chosen_language = GLOB.all_languages[client.prefs.language]
 	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
 		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
 		client.prefs.language = "None"

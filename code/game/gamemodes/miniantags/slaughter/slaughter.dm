@@ -95,13 +95,11 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 
-/mob/living/simple_animal/slaughter/death(gibbed)
+/mob/living/simple_animal/slaughter/Destroy()
 	// Only execute the below if we successfully died
-	. = ..()
-	if(!.)
-		return FALSE
 	for(var/mob/living/M in consumed_mobs)
 		release_consumed(M)
+	. = ..()
 
 /mob/living/simple_animal/slaughter/proc/release_consumed(mob/living/M)
 	M.forceMove(get_turf(src))
@@ -141,7 +139,7 @@
 
 /obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets)
 	var/list/victims = targets
-	for(var/mob/living/L in living_mob_list)
+	for(var/mob/living/L in GLOB.living_mob_list)
 		if(!L.stat && !iscultist(L) && L.key && L != usr)
 			victims.Add(L)
 	if(!targets.len)
@@ -225,7 +223,7 @@
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
 	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
-	for(var/mob/dead/observer/G in player_list)
+	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
 

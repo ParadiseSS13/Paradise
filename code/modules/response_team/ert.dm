@@ -77,10 +77,10 @@ var/ert_request_answered = FALSE
 	for(var/mob/dead/observer/M in ert_candidates)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
 			continue
-		if((M in respawnable_list) && M.JoinResponseTeam())
+		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			response_team_members |= M
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/dead/observer/M in (ert_candidates - respawnable_list))
+	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
 		if(M.JoinResponseTeam())
 			response_team_members |= M
 
@@ -161,7 +161,7 @@ var/ert_request_answered = FALSE
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
-	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]")
+	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
 	M.age = rand(23,35)
 	M.regenerate_icons()
 	M.update_body()
@@ -279,12 +279,13 @@ var/ert_request_answered = FALSE
 			paranormal_slots -= 1
 			M.equipOutfit(paranormal_outfit)
 			M.job = "ERT Paranormal"
+			M.mind.isholy = TRUE
 
 		if("Commander")
 			command_slots = 0
 
 			// Override name and age for the commander
-			M.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]")
+			M.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
 			M.age = rand(35,45)
 
 			M.equipOutfit(command_outfit)
@@ -353,16 +354,3 @@ var/ert_request_answered = FALSE
 	name = "centcomm bounced radio"
 	frequency = ERT_FREQ
 	icon_state = "radio"
-
-/obj/item/storage/box/responseteam/
-	name = "boxed survival kit"
-
-/obj/item/storage/box/responseteam/New()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)

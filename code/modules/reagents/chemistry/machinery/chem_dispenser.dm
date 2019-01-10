@@ -64,7 +64,7 @@
 		options[/obj/item/stock_parts/manipulator/pico] = "Upgrade to a pico manipulator to fix it."
 		options[/obj/item/stock_parts/matter_bin/super] = "Give it a super matter bin to fix it."
 		options[/obj/item/stock_parts/cell/super] = "Replace the reagent synthesizer with a super capacity cell to fix it."
-		options[/obj/item/mass_spectrometer/adv] = "Replace the reagent scanner with an advanced mass spectrometer to fix it"
+		options[/obj/item/reagent_scanner/adv] = "Replace the reagent scanner with an advanced reagent scanner to fix it"
 		options[/obj/item/stock_parts/micro_laser/high] = "Repair the reagent synthesizer with an high-power micro-laser to fix it"
 		options[/obj/item/reagent_scanner/adv] = "Replace the reagent scanner with an advanced reagent scanner to fix it"
 		options[/obj/item/stack/nanopaste] = "Apply some nanopaste to the broken nozzles to fix it."
@@ -142,7 +142,7 @@
 
 	var/chemicals[0]
 	for(var/re in dispensable_reagents)
-		var/datum/reagent/temp = chemical_reagents_list[re]
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals

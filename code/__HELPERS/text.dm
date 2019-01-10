@@ -136,14 +136,14 @@
 				number_of_alphanumeric++
 				last_char_group = 3
 
-			// '  -  .
-			if(39,45,46)			//Common name punctuation
+			// '  -  . ,
+			if(39, 45, 46, 44)			//Common name punctuation
 				if(!last_char_group) continue
 				t_out += ascii2text(ascii_char)
 				last_char_group = 2
 
-			// ~   |   @  :  #  $  %  &  *  +
-			if(126,124,64,58,35,36,37,38,42,43)			//Other symbols that we'll allow (mainly for AI)
+			// ~   |   @  :  #  $  %  &  *  +  !
+			if(126, 124, 64, 58, 35, 36, 37, 38, 42, 43, 33)			//Other symbols that we'll allow (mainly for AI)
 				if(!last_char_group)		continue	//suppress at start of string
 				if(!allow_numbers)			continue
 				t_out += ascii2text(ascii_char)
@@ -455,7 +455,7 @@ proc/checkhtml(var/t)
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
+/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)
 	text = replacetext(text, "\[b\]",		"<B>")
 	text = replacetext(text, "\[/b\]",		"</B>")
 	text = replacetext(text, "\[i\]",		"<I>")
@@ -509,10 +509,12 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
-	if(P)
-		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
-	else
-		text = "<font face=\"[deffont]\">[text]</font>"
+		if(!no_font)
+			if(P)
+				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+			else
+				text = "<font face=\"[deffont]\">[text]</font>"
+    
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 

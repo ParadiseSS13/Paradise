@@ -55,6 +55,7 @@ var/list/holopads = list()
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
+	var/dialling_input = FALSE //The user is currently selecting where to send their call
 
 /obj/machinery/hologram/holopad/New()
 	..()
@@ -133,6 +134,8 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/interact(mob/living/carbon/human/user) //Carn: hologram requests.
 	if(!istype(user))
 		return
+	if(!anchored)
+		return
 
 	var/dat
 	if(temp)
@@ -191,7 +194,9 @@ var/list/holopads = list()
 	else if(href_list["Holocall"])
 		if(outgoing_call)
 			return
-
+		if(dialling_input)
+			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 		if(usr.loc == loc)
@@ -201,9 +206,10 @@ var/list/holopads = list()
 				if(A)
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
-
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
-
+			var/list/sorted_callnames = sortAtom(callnames)
+			dialling_input = TRUE
+			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sorted_callnames
+			dialling_input = FALSE
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
 
@@ -250,7 +256,7 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
 		var/mob/living/master = I
-		if((stat & NOPOWER) || !validate_user(master))
+		if((stat & NOPOWER) || !validate_user(master) || !anchored)
 			clear_holo(master)
 
 	if(outgoing_call)
@@ -368,19 +374,19 @@ var/list/holopads = list()
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
-/obj/machinery/hologram/holopad/hear_talk(atom/movable/speaker, message, verb, datum/language/message_language)
+/obj/machinery/hologram/holopad/hear_talk(atom/movable/speaker, list/message_pieces, verb)
 	if(speaker && masters.len)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(masters[master] && speaker != master)
-				master.relay_speech(speaker, message, verb, message_language)
+				master.relay_speech(speaker, message_pieces, verb)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad == src && speaker != HC.hologram)
-			HC.user.hear_say(message, verb, message_language, speaker = speaker)
+			HC.user.hear_say(message_pieces, verb, speaker = speaker)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.atom_say(message)
+		outgoing_call.hologram.atom_say(multilingual_to_message(message_pieces))
 
 
 
@@ -398,7 +404,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/update_icon()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	if(ringing)
+	if(icon_state == "holopad_open")
+		return
+	else if(ringing)
 		icon_state = "holopad_ringing"
 	else if(total_users)
 		icon_state = "holopad1"

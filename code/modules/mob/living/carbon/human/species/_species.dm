@@ -153,6 +153,12 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
 
+	// Mutant pieces
+	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
+
+	// Species specific boxes
+	var/speciesbox
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -161,11 +167,10 @@
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
-	var/datum/language/species_language = all_languages[language]
+	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
-
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -184,11 +189,21 @@
 		// organ new code calls `insert` on its own
 		new organ(H)
 
+	create_mutant_organs(H)
+
 	for(var/name in H.bodyparts_by_name)
 		H.bodyparts |= H.bodyparts_by_name[name]
 
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
+
+/datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
+	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
+	if(ears)
+		qdel(ears)
+
+	if(mutantears)
+		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
@@ -286,6 +301,11 @@
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
+		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
+		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+			H.adjustBruteLoss(1)
+	return
+
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
@@ -295,13 +315,16 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
 		return TRUE
 	else
@@ -328,6 +351,9 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
@@ -361,11 +387,14 @@
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(4, WEAKEN, armor_block)
-			target.forcesay(hit_appends)
+			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
-			target.forcesay(hit_appends)
+			target.forcesay(GLOB.hit_appends)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
 		return TRUE
 	else
@@ -522,7 +551,7 @@
 
 /datum/species/proc/handle_hud_icons_health_side(mob/living/carbon/human/H)
 	if(H.healths)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
@@ -541,7 +570,7 @@
 
 /datum/species/proc/handle_hud_icons_health_doll(mob/living/carbon/human/H)
 	if(H.healthdoll)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healthdoll.icon_state = "healthdoll_DEAD"
 			if(H.healthdoll.overlays.len)
 				H.healthdoll.overlays.Cut()
@@ -612,7 +641,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
-	if(H.client.eye != H)
+	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
 		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return
@@ -700,3 +729,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/picked_species = pick(random_species)
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
+
+/datum/species/proc/can_hear(mob/living/carbon/human/H)
+	. = FALSE
+	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
+	if(istype(ears) && !ears.deaf)
+		. = TRUE

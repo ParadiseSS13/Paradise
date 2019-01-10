@@ -65,6 +65,9 @@
 /mob/living/simple_animal/bot/medbot/fish
 	skin = "fish"
 
+/mob/living/simple_animal/bot/medbot/machine
+	skin = "machine"
+
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
@@ -91,7 +94,7 @@
 
 /mob/living/simple_animal/bot/medbot/syndicate/New()
 	..()
-	Radio.syndie = 1
+	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
 	emagged = 2
@@ -543,7 +546,7 @@
 	return
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
-	var/datum/reagent/R  = chemical_reagents_list[reagent_id]
+	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 	if(!R.overdose_threshold)
 		return 0
 	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
@@ -578,6 +581,8 @@
 				T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
 			if("fish")
 				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
+			if("machine")
+				new /obj/item/storage/firstaid/machine/empty(Tsec)
 			else
 				new /obj/item/storage/firstaid(Tsec)
 
@@ -595,9 +600,7 @@
 	if(emagged && prob(25))
 		playsound(loc, 'sound/voice/minsult.ogg', 50, 0)
 
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	..()
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)

@@ -25,9 +25,7 @@
 	if(triggered)
 		return
 	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	mineEffect(victim)
 	triggered = 1
 	qdel(src)
@@ -54,6 +52,15 @@
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.Weaken(stun_time)
+
+/obj/effect/mine/depot
+	name = "sentry mine"
+
+/obj/effect/mine/depot/mineEffect(mob/living/victim)
+	var/area/syndicate_depot/core/depotarea = areaMaster
+	if(istype(depotarea))
+		if(depotarea.mine_triggered(victim))
+			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
 
 /obj/effect/mine/dnascramble
 	name = "Radiation Mine"

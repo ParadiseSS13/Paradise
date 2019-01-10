@@ -119,7 +119,7 @@
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
-	spacepods_list += src
+	GLOB.spacepods_list += src
 	cargo_hold = new/obj/item/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
@@ -145,7 +145,7 @@
 		for(var/mob/M in passengers)
 			M.forceMove(get_turf(src))
 			passengers -= M
-	spacepods_list -= src
+	GLOB.spacepods_list -= src
 	return ..()
 
 /obj/spacepod/process()
@@ -199,13 +199,16 @@
 		deal_damage(P.damage)
 	P.on_hit(src)
 
+/obj/spacepod/AllowDrop()
+	return TRUE
+
 /obj/spacepod/blob_act()
 	deal_damage(30)
 	return
 
-/obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
-	if(user.melee_damage_upper == 0)
-		user.custom_emote(1, "[user.friendly] [src]")
+/obj/spacepod/attack_animal(mob/living/simple_animal/user)
+	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
+		user.custom_emote(1, "[user.friendly] [src].")
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
@@ -233,12 +236,19 @@
 	if(!health)
 		spawn(0)
 			message_to_riders("<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
-			for(var/i = 10, i >= 0; --i)
-				message_to_riders("<span class='warning'>[i]</span>")
-				if(i == 0)
-					explosion(loc, 2, 4, 8)
-					qdel(src)
+			for(var/i in 1 to 3)
+				var/count = 3
+				message_to_riders("<span class='warning'>[count]</span>")
+				count--
 				sleep(10)
+			if(LAZYLEN(pilot) || LAZYLEN(passengers))
+				for(var/M in passengers + pilot)
+					var/mob/living/L = M
+					L.adjustBruteLoss(300)
+			explosion(loc, 0, 0, 2)
+			robogibs(loc)
+			robogibs(loc)
+			qdel(src)
 
 	update_icons()
 
@@ -512,8 +522,8 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 
 
-/obj/spacepod/hear_talk/hear_talk(mob/M, var/msg)
-	cargo_hold.hear_talk(M, msg)
+/obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
+	cargo_hold.hear_talk(M, message_pieces)
 	..()
 
 /obj/spacepod/hear_message(mob/M, var/msg)

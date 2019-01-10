@@ -6,10 +6,10 @@
 
 /datum/controller/process/fast_process/statProcess()
 	..()
-	stat(null, "[fast_processing.len] fast processes")
+	stat(null, "[GLOB.fast_processing.len] fast processes")
 
 /datum/controller/process/fast_process/doWork()
-	for(last_object in fast_processing)
+	for(last_object in GLOB.fast_processing)
 		var/obj/O = last_object
 		try
 			O.process()

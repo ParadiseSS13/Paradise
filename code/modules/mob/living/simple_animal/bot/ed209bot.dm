@@ -23,11 +23,12 @@
 	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
+	allow_pai = 0
+
 	var/lastfired = 0
 	var/shot_delay = 3 //.3 seconds between shots
 	var/lasercolor = ""
 	var/disabled = 0//A holder for if it needs to be disabled, if true it will not seach for targets, shoot at targets, or move, currently only used for lasertag
-
 
 	var/mob/living/carbon/target
 	var/oldtarget_name
@@ -41,10 +42,9 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
-	allow_pai = 0
 
 
-/mob/living/simple_animal/bot/ed209/New(loc,created_name,created_lasercolor)
+/mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
 	..()
 	if(created_name)
 		name = created_name
@@ -52,28 +52,32 @@
 		lasercolor = created_lasercolor
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
+	setup_access()
 
-		if(lasercolor)
-			shot_delay = 6//Longer shot delay because JESUS CHRIST
-			check_records = 0//Don't actively target people set to arrest
-			arrest_type = 1//Don't even try to cuff
-			declare_arrests = 0 // Don't spam sec
-			bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
+	if(lasercolor)
+		shot_delay = 6//Longer shot delay because JESUS CHRIST
+		check_records = 0//Don't actively target people set to arrest
+		arrest_type = 1//Don't even try to cuff
+		declare_arrests = 0 // Don't spam sec
+		bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
 
-			if(created_name == initial(name) || !created_name)
-				if(lasercolor == "b")
-					name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-				else if (lasercolor == "r")
-					name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
+		if(created_name == initial(name) || !created_name)
+			if(lasercolor == "b")
+				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
+			else if (lasercolor == "r")
+				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.add_hud_to(src)
 	permanent_huds |= secsensor
+
+
+/mob/living/simple_animal/bot/ed209/proc/setup_access()
+	if(access_card)
+		var/datum/job/detective/J = new/datum/job/detective
+		access_card.access += J.get_access()
+		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/ed209/turn_on()
 	. = ..()
@@ -383,11 +387,11 @@
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/bluetag/G = new /obj/item/gun/energy/laser/bluetag(Tsec)
+		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/redtag/G = new /obj/item/gun/energy/laser/redtag(Tsec)
+		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 
@@ -406,15 +410,13 @@
 			if(lasercolor == "r")
 				new /obj/item/clothing/suit/redtag(Tsec)
 
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
-	shoot_sound = 'sound/weapons/laser.ogg'
+	shoot_sound = 'sound/weapons/Laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler

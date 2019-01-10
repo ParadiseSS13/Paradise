@@ -16,8 +16,10 @@
 	internal_damage_threshold = 60
 	max_equip = 3
 	step_energy_drain = 3
+	normal_step_energy_drain = 3
 	stepsound = null
 	turnsound = null
+	starting_voice = /obj/item/mecha_modkit/voice/silent
 
 /obj/mecha/combat/reticence/loaded/New()
 	..()

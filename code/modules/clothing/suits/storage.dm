@@ -28,8 +28,8 @@
 	pockets.emp_act(severity)
 	..()
 
-/obj/item/clothing/suit/storage/hear_talk(mob/M, var/msg)
-	pockets.hear_talk(M, msg)
+/obj/item/clothing/suit/storage/hear_talk(mob/M, list/message_pieces)
+	pockets.hear_talk(M, message_pieces)
 	..()
 
 /obj/item/clothing/suit/storage/hear_message(mob/M, var/msg)

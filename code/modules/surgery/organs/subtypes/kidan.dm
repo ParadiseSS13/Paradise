@@ -3,7 +3,7 @@
 
 #define KIDAN_LANTERN_HUNGERCOST 0.5
 #define KIDAN_LANTERN_MINHUNGER 150
-#define KIDAN_LANTERN_LIGHT 4
+#define KIDAN_LANTERN_LIGHT 5
 
 /obj/item/organ/internal/lantern
 	name = "Bioluminescent Lantern"

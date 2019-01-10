@@ -1,3 +1,5 @@
+#define STANDARD_STACK_AMOUNT 5
+
 ////////////////////////////////
 ///// Construction datums //////
 ////////////////////////////////
@@ -30,11 +32,11 @@
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
-		if(S.amount < 5)
+		if(S.amount < STANDARD_STACK_AMOUNT)
 			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
-			S.use(5)
+			S.use(STANDARD_STACK_AMOUNT)
 	return 1
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
@@ -65,11 +67,11 @@
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
-		if(S.amount < 5)
+		if(S.amount < STANDARD_STACK_AMOUNT)
 			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
-			S.use(5)
+			S.use(STANDARD_STACK_AMOUNT)
 	return 1
 
 
@@ -1289,7 +1291,7 @@
 					 		"backkey"=/obj/item/crowbar,
 					 		"desc"="The bluespace crystal is installed."),
 					 //10
-					 list("key"=/obj/item/ore/bluespace_crystal,
+					 list("key"=/obj/item/stack/ore/bluespace_crystal,
 					 		"backkey"=/obj/item/screwdriver,
 					 		"desc"="Super capacitor is secured."),
 					 //11
@@ -1467,23 +1469,22 @@
 				holder.icon_state = "phazon12"
 		if(10)
 			if(diff==FORWARD)
-				user.visible_message("[user] installs the bluespace crystal.", "You install the bluespace crystal.")
-				qdel(used_atom)
+				user.visible_message("[user] installs the bluespace crystal.", "You install the bluespace crystals.")
 				holder.icon_state = "phazon15"
 			else
 				user.visible_message("[user] unsecures the super capacitor from the [holder].", "You unsecure the super capacitor from the [holder].")
 				holder.icon_state = "phazon13"
 		if(9)
 			if(diff==FORWARD)
-				user.visible_message("[user] connects the bluespace crystal.", "You connect the bluespace crystal.")
+				user.visible_message("[user] connects the bluespace crystal.", "You connect the bluespace crystals.")
 				holder.icon_state = "phazon16"
 			else
 				user.visible_message("[user] removes the bluespace crystal from the [holder].", "You remove the bluespace crystal from the [holder].")
-				new /obj/item/ore/bluespace_crystal(get_turf(holder))
+				new /obj/item/stack/ore/bluespace_crystal(get_turf(holder), new_amount = 5)
 				holder.icon_state = "phazon14"
 		if(8)
 			if(diff==FORWARD)
-				user.visible_message("[user] engages the bluespace crystal.", "You engage the bluespace crystal.")
+				user.visible_message("[user] engages the bluespace crystal.", "You engage the bluespace crystals.")
 				holder.icon_state = "phazon17"
 			else
 				user.visible_message("[user] disconnects the bluespace crystal from the [holder].", "You disconnect the bluespace crystal from the [holder].")
@@ -1493,7 +1494,7 @@
 				user.visible_message("[user] installs the phase armor layer to the [holder].", "You install the phase armor layer to the [holder].")
 				holder.icon_state = "phazon18"
 			else
-				user.visible_message("[user] disengages the bluespace crystal.", "You disengage the bluespace crystal.")
+				user.visible_message("[user] disengages the bluespace crystal.", "You disengage the bluespace crystals.")
 				holder.icon_state = "phazon16"
 		if(6)
 			if(diff==FORWARD)

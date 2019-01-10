@@ -44,6 +44,7 @@ var/list/avatarspawn = list()
 var/list/resetpoint = list()
 var/list/vr_loot_common = list()
 var/list/vr_loot_rare = list()
+var/list/syndicateofficer = list()
 
 //away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to

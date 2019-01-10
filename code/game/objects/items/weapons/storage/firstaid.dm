@@ -158,6 +158,28 @@
 /obj/item/storage/firstaid/adv/empty
 	empty = 1
 
+/obj/item/storage/firstaid/machine
+	name = "machine repair kit"
+	desc = "A kit that contains supplies to repair IPCs on the go."
+	icon_state = "machinefirstaid"
+	item_state = "firstaid-machine"
+	med_bot_skin = "machine"
+
+/obj/item/storage/firstaid/machine/New()
+	..()
+	if(empty)
+		return
+	new /obj/item/weldingtool(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/reagent_containers/food/drinks/oilcan/full(src)
+	new /obj/item/robotanalyzer(src)
+
+/obj/item/storage/firstaid/machine/empty
+	empty = 1
+
+
 /obj/item/storage/firstaid/tactical
 	name = "first-aid kit"
 	icon_state = "bezerk"
@@ -308,3 +330,9 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/fakedeath/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)

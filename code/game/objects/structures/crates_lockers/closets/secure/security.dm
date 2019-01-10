@@ -123,6 +123,7 @@
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 
 
 /obj/structure/closet/secure_closet/warden
@@ -191,6 +192,7 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/clothing/suit/armor/secjacket(src)
 
 
 /obj/structure/closet/secure_closet/brigdoc
@@ -244,6 +246,7 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/health_advanced
 	new /obj/item/clothing/head/beret/centcom/officer(src)
 	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
@@ -253,6 +256,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield(src)
 
 
 /obj/structure/closet/secure_closet/ntrep

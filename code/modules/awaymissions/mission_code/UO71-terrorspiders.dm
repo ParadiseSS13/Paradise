@@ -179,11 +179,6 @@
 	(the writing trails off, as if the writer was interrupted)<br>
 	"}
 
-/obj/item/paper/terrorspiders9
-	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
-	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
-
 /obj/item/gun/energy/laser/awaymission_aeg
 	name = "Wireless Energy Gun"
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
@@ -248,7 +243,7 @@
 			spawn(1)
 				beenused = 1
 				var/unlocked_something = 0
-				for(var/obj/machinery/door/poddoor/P in airlocks)
+				for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 					if(P.density && P.id_tag == door_to_open && P.z == z)
 						P.open()
 						unlocked_something = 1

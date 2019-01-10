@@ -11,7 +11,6 @@
 	var/ask_verb = "asks"            // Used when sentence ends in a ?
 	var/exclaim_verb = "exclaims"    // Used when sentence ends in a !
 	var/whisper_verb                 // Optional. When not specified speech_verb + quietly/softly is used instead.
-	var/signlang_verb = list()       // list of emotes that might be displayed if this language has NONVERBAL or SIGNLANG flags
 	var/colour = "body"              // CSS style to use for strings in this language.
 	var/key = "x"                    // Character used to speak in language eg. :o for Unathi.
 	var/flags = 0                    // Various language flags.
@@ -25,9 +24,9 @@
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
 		if(gender==FEMALE)
-			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else
-			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 
 	var/full_name = ""
 	var/new_name = ""
@@ -85,11 +84,11 @@
 
 	return scrambled_text
 
-/datum/language/proc/format_message(message, verb)
-	return "[verb], <span class='message'><span class='[colour]'>\"[capitalize(message)]\"</span></span>"
+/datum/language/proc/format_message(message)
+	return "<span class='message'><span class='[colour]'>[message]</span></span>"
 
-/datum/language/proc/format_message_radio(message, verb)
-	return "[verb], <span class='[colour]'>\"[capitalize(message)]\"</span>"
+/datum/language/proc/format_message_radio(message)
+	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -103,11 +102,11 @@
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
-	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
+	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [get_spoken_verb(message)], [format_message(message)]</span></i>"
 
-	for(var/mob/player in player_list)
+	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
 			to_chat(player, msg_dead)
 			continue
 
@@ -135,10 +134,10 @@
 	key = ""
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER
 
-/datum/language/noise/format_message(message, verb)
+/datum/language/noise/format_message(message)
 	return "<span class='message'><span class='[colour]'>[message]</span></span>"
 
-/datum/language/noise/format_message_radio(message, verb)
+/datum/language/noise/format_message_radio(message)
 	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/noise/get_talkinto_msg_range(message)
@@ -232,7 +231,7 @@
 
 	while(i <= sounds)
 		i++
-		newname += pick(vox_name_syllables)
+		newname += pick(GLOB.vox_name_syllables)
 	return capitalize(newname)
 
 /datum/language/diona
@@ -267,7 +266,7 @@
 	if(prob(70))
 		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	else
-		new_name = pick(ai_names)
+		new_name = pick(GLOB.ai_names)
 	return new_name
 
 /datum/language/kidan
@@ -280,6 +279,15 @@
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
+
+/datum/language/kidan/get_random_name()
+	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
+	new_name += ", "
+	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector"))]"
+	new_name += " of Clan "
+	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	return new_name
+
 
 /datum/language/slime
 	name = "Bubblish"
@@ -567,12 +575,12 @@
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
 
-	for(var/mob/M in dead_mob_list)
+	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
-	for(var/mob/living/S in living_mob_list)
+	for(var/mob/living/S in GLOB.living_mob_list)
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(isAI(S))
@@ -626,30 +634,28 @@
 
 // Language handling.
 /mob/proc/add_language(language)
+	var/datum/language/new_language = GLOB.all_languages[language]
 
-	var/datum/language/new_language = all_languages[language]
-
-	if(!istype(new_language) || new_language in languages)
+	if(!istype(new_language) || (new_language in languages))
 		return FALSE
 
 	languages |= new_language
 	return TRUE
 
 /mob/proc/remove_language(rem_language)
-	var/datum/language/L = all_languages[rem_language]
+	var/datum/language/L = GLOB.all_languages[rem_language]
 	. = (L in languages)
 	languages.Remove(L)
 
 /mob/living/remove_language(rem_language)
-	var/datum/language/L = all_languages[rem_language]
+	var/datum/language/L = GLOB.all_languages[rem_language]
 	if(default_language == L)
 		default_language = null
 	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
-
-	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in languages)
+	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
 
 //TBD
 /mob/proc/check_lang_data()
@@ -686,7 +692,7 @@
 		if(href_list["default_lang"] == "reset")
 			set_default_language(null)
 		else
-			var/datum/language/L = all_languages[href_list["default_lang"]]
+			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
 			if(L)
 				set_default_language(L)
 		check_languages()

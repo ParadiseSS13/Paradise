@@ -42,8 +42,6 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
 
-	var/speech_problem_flag = 0
-
 	var/datum/personal_crafting/handcrafting
 
 	var/datum/martial_art/martial_art = null

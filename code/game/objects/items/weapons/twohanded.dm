@@ -91,9 +91,6 @@
 			O.unwield(user)
 	return unwield(user)
 
-/obj/item/twohanded/update_icon()
-	return
-
 /obj/item/twohanded/attack_self(mob/user)
 	..()
 	if(wielded) //Trying to unwield it
@@ -147,6 +144,14 @@
 		wield(user)
 	..()
 
+/obj/item/twohanded/required/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	var/obj/item/twohanded/required/H = receiver.get_inactive_hand()
+	if(H != null) //Check if he can wield it
+		receiver.drop_item() //Can't wear it so drop it
+		to_chat(receiver, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
+		return
+	equipped(receiver,receiver.hand ? slot_l_hand : slot_r_hand)
+
 /obj/item/twohanded/required/equipped(mob/user, slot)
 	..()
 	if(slot == slot_l_hand || slot == slot_r_hand)
@@ -174,6 +179,7 @@
 
 /obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
+	..()
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -200,6 +206,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	var/w_class_on = WEIGHT_CLASS_BULKY
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
@@ -224,6 +231,7 @@
 	else
 		icon_state = "dualsaber0"
 		set_light(0)
+	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HULK in user.mutations)
@@ -270,6 +278,7 @@
 /obj/item/twohanded/dualsaber/unwield()
 	..()
 	hitsound = "swing_hit"
+	w_class = initial(w_class)
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(wielded)
@@ -281,6 +290,7 @@
 		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
+	w_class = w_class_on
 
 /obj/item/twohanded/dualsaber/attackby(obj/item/W, mob/user, params)
 	if(ismultitool(W))
@@ -319,6 +329,7 @@
 		icon_state = "spearbomb[wielded]"
 	else
 		icon_state = "spearglass[wielded]"
+	..()
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -438,7 +449,7 @@
 	if(on)
 		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
 	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(throwforce)
 	icon_state = "gchainsaw_[on ? "on" : "off"]"
 
 	if(hitsound == "swing_hit")
@@ -452,6 +463,16 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+/obj/item/twohanded/required/chainsaw/attack_hand(mob/user)
+	. = ..()
+	force = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(throwforce)
+
+/obj/item/twohanded/required/chainsaw/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	. = ..()
+	force = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(throwforce)
 
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "OOOH BABY"
@@ -491,6 +512,7 @@
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
+	..()
 
 /obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
 	if(wielded)
@@ -547,6 +569,7 @@
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
+	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
@@ -596,9 +619,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread()
-	s.set_up(5, 1, target.loc)
-	s.start()
+	do_sparks(5, 1, target.loc)
 	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack!</span>")
@@ -624,6 +645,7 @@
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
+	..()
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -654,6 +676,7 @@
 
 /obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[wielded]"
+	..()
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -709,6 +732,7 @@
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
+	..()
 
 /obj/item/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -721,9 +745,7 @@
 				Z.take_organ_damage(0, 30)
 				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all [user.p_their()] might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
-				sparks.set_up(1, 1, src)
-				sparks.start()
+				do_sparks(1, 1, src)
 
 		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
 			if(istype(A, /obj/structure/window))

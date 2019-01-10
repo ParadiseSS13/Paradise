@@ -112,12 +112,12 @@
 	backpack_contents = list(
 					/obj/item/clothing/head/surgery/black = 1,
 					/obj/item/autopsy_scanner = 1,
-					/obj/item/mass_spectrometer = 1,
+					/obj/item/reagent_scanner = 1,
 					/obj/item/storage/box/bodybags = 1)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind.role_alt_title)
+	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Surgeon")
 				uniform = /obj/item/clothing/under/rank/medical/blue
@@ -269,7 +269,7 @@
 
 /datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind.role_alt_title)
+	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Psychiatrist")
 				uniform = /obj/item/clothing/under/rank/psych

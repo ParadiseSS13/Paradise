@@ -191,7 +191,7 @@
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
 	if(shouldDoppel == "Yes")
 		var/list/validchoices = list()
-		for(var/mob/living/carbon/human/M in mob_list)
+		for(var/mob/living/carbon/human/M in GLOB.mob_list)
 			validchoices += M
 
 		var/mob/living/carbon/human/chosen = input("Which crewmember?") as null|anything in validchoices
@@ -410,7 +410,7 @@
 
 /mob/living/carbon/human/interactive/LateInitialize()
 	. = ..()
-	snpc_list += src
+	GLOB.snpc_list += src
 
 	create_mob_hud()
 
@@ -419,7 +419,7 @@
 	doSetup()
 	START_PROCESSING(SSnpcpool, src)
 	loadVoice()
-	hear_radio_list += src
+	GLOB.hear_radio_list += src
 
 	// a little bit of variation to make individuals more unique
 	robustness += rand(-10, 10)
@@ -580,14 +580,14 @@
 		return FALSE
 	saveVoice()
 
-/mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
+/mob/living/carbon/human/interactive/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))
-		knownStrings |= html_decode(message)
+		knownStrings |= html_decode(multilingual_to_message(message_pieces))
 	..()
 
-/mob/living/carbon/human/interactive/hear_radio(message, verb = "says", datum/language/language=null, part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
+/mob/living/carbon/human/interactive/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))
-		knownStrings |= html_decode(message)
+		knownStrings |= html_decode(multilingual_to_message(message_pieces))
 	..()
 
 /mob/living/carbon/human/interactive/proc/doProcess()

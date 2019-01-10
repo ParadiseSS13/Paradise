@@ -115,8 +115,8 @@
 		if(!open)
 			return
 		var/obj/item/reagent_containers/RG = I
-		if(RG.is_open_container())
-			if(RG.reagents.total_volume >= RG.volume)
+		if(RG.is_refillable())
+			if(RG.reagents.holder_full())
 				to_chat(user, "<span class='warning'>[RG] is full.</span>")
 			else
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
@@ -507,10 +507,8 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
+	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
 	attack_verb = list("quacked", "squeaked")
-	honk_sound = 'sound/items/squeaktoy.ogg' //credit to DANMITCH3LL of freesound for this
-
-
 
 /obj/structure/sink
 	name = "sink"

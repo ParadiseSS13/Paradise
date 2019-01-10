@@ -156,6 +156,10 @@ emp_act
 			return 1
 	return 0
 
+/mob/living/carbon/human/check_block()
+	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
+		return TRUE
+
 /mob/living/carbon/human/emp_act(severity)
 	for(var/obj/O in src)
 		if(!O)	continue
@@ -288,7 +292,7 @@ emp_act
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
-		forcesay(hit_appends)	//forcesay checks stat already
+		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)

@@ -194,6 +194,11 @@
 	reagent_state = LIQUID
 	color = "#3C3C3C"
 	taste_message = "motor oil"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/oil/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+		new /obj/effect/decal/cleanable/blood/oil(T)
 
 /datum/reagent/iodine
 	name = "Iodine"
@@ -270,6 +275,13 @@
 	color = "#FFFFFF"
 	taste_message = "the rainbow"
 
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+	return ..()
+
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))
         M.color = pick(random_color_list)
@@ -333,8 +345,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		var/datum/sprite_accessory/tmp_hair_style = hair_styles_full_list["Very Long Hair"]
-		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
+		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
 		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
@@ -353,31 +365,6 @@
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
-
-/datum/reagent/fartonium
-	name = "Fartonium"
-	id = "fartonium"
-	description = "Oh god it never ends, IT NEVER STOPS!"
-	reagent_state = GAS
-	color = "#D06E27"
-	taste_message = "mexican cuisine"
-
-/datum/reagent/fartonium/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(66))
-		M.emote("fart")
-
-	if(holder.has_reagent("simethicone"))
-		if(prob(25))
-			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
-			update_flags |= M.adjustBruteLoss(1, FALSE)
-		if(prob(10))
-			M.custom_emote(1,"strains, but nothing happens.")
-			update_flags |= M.adjustBruteLoss(2, FALSE)
-		if(prob(5))
-			M.emote("scream")
-			update_flags |= M.adjustBruteLoss(4, FALSE)
-	return ..() | update_flags
 
 /datum/reagent/hugs
 	name = "Pure hugs"

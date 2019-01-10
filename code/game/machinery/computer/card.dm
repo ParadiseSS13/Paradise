@@ -24,7 +24,8 @@ var/time_last_changed_position = 0
 	var/list/blacklisted_full = list(
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
-		/datum/job/civilian
+		/datum/job/civilian,
+		/datum/job/syndicateofficer
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
 	var/list/blacklisted_partial = list(
@@ -153,7 +154,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
-			if((job.total_positions <= player_list.len * (max_relative_positions / 100)))
+			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
 					return 1

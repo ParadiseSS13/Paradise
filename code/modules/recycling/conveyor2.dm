@@ -1,6 +1,7 @@
 #define DIRECTION_FORWARDS	1
 #define DIRECTION_OFF		0
 #define DIRECTION_REVERSED	-1
+#define IS_OPERATING		(operating && can_conveyor_run())
 
 GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
 GLOBAL_LIST_INIT(conveyor_switches, list())
@@ -15,6 +16,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
+	move_force = MOVE_FORCE_DEFAULT
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
@@ -22,7 +24,6 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/operable = TRUE		// Can this belt actually go?
 	var/list/affecting		// the list of all items that will be moved this ptick
 	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
-	speed_process = TRUE	//gotta go fast
 	var/id					//ID of the connected lever
 
 	// create a conveyor
@@ -84,7 +85,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor/update_icon()
 	..()
-	if(operating && can_conveyor_run())
+	if(IS_OPERATING)
 		icon_state = "conveyor_started_[clockwise ? "cw" : "ccw"]"
 		if(reversed)
 			icon_state += "_r"
@@ -161,20 +162,33 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	update_icon()
 
 /obj/machinery/conveyor/process()
-	if(!operating)
-		return
-	if(!can_conveyor_run())
+	if(!IS_OPERATING)
 		return
 	use_power(100)
 	affecting = loc.contents - src // moved items will be all in loc
-	if(!affecting)
-		return
-	sleep(1)
-	for(var/atom/movable/A in affecting)
-		if(!A.anchored)
-			if(A.loc == loc) // prevents the object from being affected if it's not currently here.
-				step(A,forwards)
+	var/still_stuff_to_move = FALSE
+	for(var/atom/movable/AM in affecting)
+		if(AM.anchored)
+			continue
+		still_stuff_to_move = TRUE
+		addtimer(CALLBACK(src, .proc/move_thing, AM), 1)
 		CHECK_TICK
+	if(!still_stuff_to_move && speed_process)
+		makeNormalProcess()
+	else if(still_stuff_to_move && !speed_process)
+		makeSpeedProcess()
+
+/obj/machinery/conveyor/Crossed(atom/movable/AM)
+	if(!speed_process && !AM.anchored)
+		makeSpeedProcess()
+	..()
+
+/obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
+	if(move_force < (AM.move_resist))
+		return FALSE
+	if(!AM.anchored && AM.loc == loc)
+		step(AM, forwards)
+
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
 	if(stat & BROKEN)
@@ -475,3 +489,4 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 #undef DIRECTION_FORWARDS
 #undef DIRECTION_OFF
 #undef DIRECTION_REVERSED
+#undef IS_OPERATING

@@ -8,12 +8,13 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/plantname = ""
-	var/bitesize_mod = 0
+	var/bitesize_mod = 0 	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 	var/splat_type = /obj/effect/decal/cleanable/plant_smudge
-	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
-	dried_type = -1
-	// Saves us from having to define each stupid grown's dried_type as itself.
-	// If you don't want a plant to be driable (watermelons) set this to null in the time definition.
+	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
+	var/distill_reagent //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
+	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
+	var/wine_power = 0.1 //Determines the boozepwr of the wine if distill_reagent is NULL. Uses 0.1 - 1.2 not tg's boozepower (divide by 100) else you'll end up with 1000% proof alcohol!
+	dried_type = -1 // Saves us from having to define each stupid grown's dried_type as itself. If you don't want a plant to be driable (watermelons) set this to null in the time definition.
 	burn_state = FLAMMABLE
 	origin_tech = "biotech=1"
 
@@ -59,6 +60,30 @@
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
+	if(slices_num && slice_path)
+		var/inaccurate = TRUE
+		if(O.sharp)
+			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/scalpel))
+				inaccurate = FALSE
+
+			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
+				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
+				return TRUE	
+
+			var/slices_lost = 0
+			if(!inaccurate)
+				user.visible_message("<span class='notice'>[user] slices [src] with [O]!</span>", "<span class='notice'>You slice [src]!</span>")
+			else
+				user.visible_message("<span class='notice'>[user] crudely slices [src] with [O]!</span>", "<span class='notice'>You crudely slice [src] with your [O]!</span>")
+				slices_lost = rand(1, min(1, round(slices_num / 2)))
+
+			var/reagents_per_slice = reagents.total_volume/slices_num
+			for(var/i = 1 to (slices_num - slices_lost))
+				var/obj/slice = new slice_path (loc)
+				reagents.trans_to(slice, reagents_per_slice)
+			qdel(src)
+			return ..()
+
 	if (istype(O, /obj/item/plant_analyzer))
 		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.\n"
 		if(seed)
@@ -66,7 +91,7 @@
 		var/reag_txt = ""
 		if(seed)
 			for(var/reagent_id in seed.reagents_add)
-				var/datum/reagent/R  = chemical_reagents_list[reagent_id]
+				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 				var/amt = reagents.get_reagent_amount(reagent_id)
 				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
 

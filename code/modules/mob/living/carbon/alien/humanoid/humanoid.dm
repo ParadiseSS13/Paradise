@@ -27,11 +27,6 @@
 	add_language("Hivemind")
 	..()
 
-
-/mob/living/carbon/alien/humanoid/movement_delay()
-	. = ..()
-	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
-
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())
 		return 1
@@ -63,15 +58,12 @@
 
 			f_loss += 60
 
-			AdjustEarDamage(30)
-			AdjustEarDeaf(120)
-
+			AdjustEarDamage(30, 120)
 		if(3.0)
 			b_loss += 30
 			if(prob(50) && !shielded)
 				Paralyse(1)
-			AdjustEarDamage(15)
-			AdjustEarDeaf(60)
+			AdjustEarDamage(15, 60)
 
 	take_overall_damage(b_loss, f_loss)
 

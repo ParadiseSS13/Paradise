@@ -74,9 +74,7 @@
 		overlays += image('icons/obj/storage.dmi', icon_locking)
 		locked = 0
 		if(istype(weapon, /obj/item/melee/energy/blade))
-			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-			spark_system.set_up(5, 0, src.loc)
-			spark_system.start()
+			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
 			playsound(loc, "sparks", 50, 1)
 			to_chat(user, "You slice through the lock on [src].")
@@ -160,7 +158,7 @@
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
 	return 0
 
-/obj/item/storage/secure/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/secure/hear_talk(mob/living/M as mob, list/message_pieces)
 	return
 
 /obj/item/storage/secure/hear_message(mob/living/M as mob, msg)
@@ -215,14 +213,6 @@
 	..()
 	for(var/i = 0, i < storage_slots - 2, i++)
 		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
-
-/obj/item/storage/secure/briefcase/reaper/New()
-	..()
-	handle_item_insertion(new /obj/item/gun/energy/kinetic_accelerator/crossbow, 1)
-	handle_item_insertion(new /obj/item/gun/projectile/revolver/mateba, 1)
-	handle_item_insertion(new /obj/item/ammo_box/a357, 1)
-	handle_item_insertion(new /obj/item/grenade/plastic/c4, 1)
-
 
 // -----------------------------
 //        Secure Safe

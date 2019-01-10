@@ -8,7 +8,7 @@
 	req_tech = list("bluespace" = 3, "materials" = 6, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_DIAMOND = 1500, MAT_PLASMA = 1500)
-	build_path = /obj/item/ore/bluespace_crystal/artificial
+	build_path = /obj/item/stack/ore/bluespace_crystal/artificial
 	category = list("Bluespace")
 
 /datum/design/bag_holding
@@ -79,4 +79,14 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 	build_path = /obj/item/radio/beacon
+	category = list("Bluespace")
+
+/datum/design/brpd
+	name = "Bluespace Rapid Pipe Dispenser (BRPD)"
+	desc = "Similar to the Rapid Pipe Dispenser, lets you rapidly dispense pipes. Now at long range!"
+	req_tech = list("bluespace" = 3, "toxins" = 6)
+	id = "brpd"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
+	build_path = /obj/item/rpd/bluespace
 	category = list("Bluespace")

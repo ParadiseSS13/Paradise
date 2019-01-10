@@ -3,7 +3,7 @@
  */
 
 
-/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
 	if(hard_to_hear)
 		return
 
@@ -148,7 +148,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
-			for(var/mob/M in player_list)
+			for(var/mob/M in GLOB.player_list)
 				if(M.client)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())

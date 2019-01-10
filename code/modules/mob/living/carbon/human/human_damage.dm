@@ -29,7 +29,7 @@
 	if(dna.species && dna.species.has_organ["brain"])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
-			if(dna.species)
+			if(dna.species && amount > 0)
 				amount = amount * dna.species.brain_mod
 			sponge.receive_damage(amount, 1)
 	if(updating)
@@ -43,7 +43,7 @@
 	if(dna.species && dna.species.has_organ["brain"])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
-			if(dna.species)
+			if(dna.species && amount > 0)
 				amount = amount * dna.species.brain_mod
 			sponge.damage = min(max(amount, 0), (maxHealth*2))
 	if(updating)
@@ -76,11 +76,10 @@
 		amount += O.burn_dam
 	return amount
 
-
 /mob/living/carbon/human/adjustBruteLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
-	if(dna.species)
-		amount = amount * dna.species.brute_mod
 	if(amount > 0)
+		if(dna.species)
+			amount = amount * dna.species.brute_mod
 		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
@@ -88,9 +87,9 @@
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/carbon/human/adjustFireLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
-	if(dna.species)
-		amount = amount * dna.species.burn_mod
 	if(amount > 0)
+		if(dna.species)
+			amount = amount * dna.species.burn_mod
 		take_overall_damage(0, amount, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
@@ -98,9 +97,8 @@
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.brute_mod
-
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
@@ -111,9 +109,8 @@
 			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
-
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.burn_mod
 
 	if(organ_name in bodyparts_by_name)
@@ -134,7 +131,7 @@
 	return ..()
 
 /mob/living/carbon/human/adjustCloneLoss(amount)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.clone_mod
 	. = ..()
 
@@ -174,22 +171,22 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/adjustToxLoss(amount)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.tox_mod
 	. = ..()
 
 /mob/living/carbon/human/setToxLoss(amount)
-	if(dna.species)
+	if(dna.species && amount > 0)
 		amount = amount * dna.species.tox_mod
 	. = ..()
 
@@ -236,7 +233,6 @@
 	var/obj/item/organ/external/picked = pick(parts)
 	if(picked.receive_damage(brute, burn, sharp, updating_health))
 		UpdateDamageIcon()
-	speech_problem_flag = 1
 
 
 //Heal MANY external organs, in random order
@@ -259,7 +255,6 @@
 
 	if(updating_health)
 		updatehealth("heal overall damage")
-	speech_problem_flag = 1
 	if(update)
 		UpdateDamageIcon()
 

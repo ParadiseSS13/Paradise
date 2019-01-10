@@ -9,7 +9,7 @@
 	item_state = "atoxinbottle"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
@@ -206,6 +206,16 @@
 	desc = "A bottle of the ever-changing quantum hair dye."
 	list_reagents = list("hair_dye" = 50)
 
+/obj/item/reagent_containers/glass/bottle/reagent/omnizine
+	name = "Omnizine Bottle"
+	desc = "A reagent bottle. Contains Omnizine."
+	list_reagents = list("omnizine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
+	name = "Strange Reagent Bottle"
+	desc = "A bottle of glowing fluid."
+	list_reagents = list("strange_reagent" = 30)
+
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
 /obj/item/reagent_containers/glass/bottle/traitor
@@ -325,6 +335,18 @@
 	desc = "A small bottle. Contains a sample of Fungal Tubercle bacillus."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/tuberculosis
+
+/obj/item/reagent_containers/glass/bottle/regeneration
+	name = "Regeneration culture bottle"
+	desc = "A small bottle. Contains a sample of a virus that heals toxin damage."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/heal
+
+/obj/item/reagent_containers/glass/bottle/sensory_restoration
+	name = "Sensory Restoration culture bottle"
+	desc = "A small bottle. Contains a sample of a virus that heals sensory damage."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/sensory_restoration
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure
 	name = "BVAK bottle"

@@ -79,7 +79,7 @@
 		target.suiciding = 0
 		target.revive()
 		if(!target.ckey)
-			for(var/mob/dead/observer/ghost in player_list)
+			for(var/mob/dead/observer/ghost in GLOB.player_list)
 				if(target.real_name == ghost.real_name)
 					ghost.reenter_corpse()
 					break
@@ -301,3 +301,32 @@
 	flag = "magic"
 	dismemberment = 50
 	nodamage = 0
+
+/obj/item/projectile/magic/slipping
+	name = "magical banana"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "banana"
+	var/slip_stun = 5
+	var/slip_weaken = 5
+	hitsound = 'sound/items/bikehorn.ogg'
+
+/obj/item/projectile/magic/slipping/New()
+	..()
+	SpinAnimation()
+
+/obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
+		var/mob/living/silicon/robot/R = target
+		if(!R.incapacitated())
+			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
+			R.Stun(slip_stun)
+	else if(ismob(target))
+		var/mob/M = target
+		if(!M.stunned)
+			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
+			M.Weaken(slip_weaken)
+			M.Stun(slip_stun)
+	. = ..()

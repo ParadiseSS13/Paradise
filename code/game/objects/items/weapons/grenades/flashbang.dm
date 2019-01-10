@@ -53,19 +53,22 @@
 
 
 //Bang
-	if((loc == M) || loc == M.loc)//Holding on person or being exactly where lies is significantly more dangerous and voids protection
+	if(get_turf(M) == get_turf(src))//Holding on person or being exactly where lies is significantly more dangerous and voids protection
 		M.Stun(10)
 		M.Weaken(10)
 	if(!ear_safety)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
-		M.EarDeaf(15)
-		M.AdjustEarDamage(rand(0, 5))
-		if(M.ear_damage >= 15)
-			to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-			if(prob(M.ear_damage - 5))
-				to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-				M.BecomeDeaf()
-		else
-			if(M.ear_damage >= 5)
-				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+		M.AdjustEarDamage(rand(0, 5), 15)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+			if(istype(ears))
+				if(ears.ear_damage >= 15)
+					to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+					if(prob(ears.ear_damage - 5))
+						to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+						M.BecomeDeaf()
+				else
+					if(ears.ear_damage >= 5)
+						to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

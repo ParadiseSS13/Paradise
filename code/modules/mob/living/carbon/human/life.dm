@@ -71,7 +71,6 @@
 			drop_item()
 			emote("cough")
 	if(disabilities & TOURETTES)
-		speech_problem_flag = 1
 		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			switch(rand(1, 3))
@@ -86,12 +85,10 @@
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
 	if(disabilities & NERVOUS)
-		speech_problem_flag = 1
 		if(prob(10))
 			Stuttering(10)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
-		speech_problem_flag = 1
 		if(prob(3))
 			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							   "without oxigen blob don't evoluate?",
@@ -158,7 +155,6 @@
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			speech_problem_flag = 1
 			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
@@ -248,7 +244,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= config.health_threshold_crit)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else
+		else if(!(NOCRITDAMAGE in dna.species.species_traits))
 			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
 		failed_last_breath = TRUE
@@ -709,14 +705,10 @@
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
 			if(alcohol_strength >= spark_start && prob(25))
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 			if(alcohol_strength >= collapse_start && prob(10))
 				emote("collapse")
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 			if(alcohol_strength >= braindamage_start && prob(10))
 				adjustBrainLoss(1)
 
@@ -745,7 +737,6 @@
 			stat = UNCONSCIOUS
 
 		else if(sleeping)
-			speech_problem_flag = 1
 
 			stat = UNCONSCIOUS
 
@@ -789,20 +780,6 @@
 			if(eye_blurry)	           // Blurry eyes heal slowly
 				AdjustEyeBlurry(-1)
 
-
-		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			EarDeaf(1)
-
-		else if(ear_deaf)			//deafness, heals slowly over time
-			AdjustEarDeaf(-1)
-
-		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			AdjustEarDamage(-0.15)
-			EarDeaf(1)
-
-		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			AdjustEarDamage(-0.05)
 
 		if(flying)
 			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -1020,29 +997,6 @@
 	we only set those statuses and icons upon changes.  Then those HUD items will simply add those pre-made images.
 	This proc below is only called when those HUD elements need to change as determined by the mobs hud_updateflag.
 */
-
-
-/mob/living/carbon/human/handle_silent()
-	if(..())
-		speech_problem_flag = 1
-	return silent
-
-/mob/living/carbon/human/handle_slurring()
-	if(..())
-		speech_problem_flag = 1
-	return slurring
-
-/mob/living/carbon/human/handle_stunned()
-	if(..())
-		speech_problem_flag = 1
-	return stunned
-
-/mob/living/carbon/human/handle_stuttering()
-	if(..())
-		speech_problem_flag = 1
-	return stuttering
-
-
 
 /mob/living/carbon/human/proc/can_heartattack()
 	if(NO_BLOOD in dna.species.species_traits)

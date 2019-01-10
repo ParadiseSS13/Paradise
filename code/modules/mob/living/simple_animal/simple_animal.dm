@@ -82,7 +82,7 @@
 
 /mob/living/simple_animal/Initialize()
 	..()
-	simple_animal_list += src
+	GLOB.simple_animal_list += src
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
@@ -96,7 +96,7 @@
 		collar.forceMove(loc)
 		collar = null
 	master_commander = null
-	simple_animal_list -= src
+	GLOB.simple_animal_list -= src
 	return ..()
 
 /mob/living/simple_animal/Login()
@@ -561,26 +561,21 @@
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	return
 
-/mob/living/simple_animal/update_sight(reset_sight = FALSE)
+/mob/living/simple_animal/update_sight()
 	if(!client)
 		return
 	if(stat == DEAD)
 		grant_death_vision()
 		return
 
-	if(reset_sight)
-		see_invisible = initial(see_invisible)
-		see_in_dark = initial(see_in_dark)
-		sight = initial(sight)
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
 
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-/mob/living/simple_animal/SetEarDamage()
-	return
-
-/mob/living/simple_animal/SetEarDeaf()
-	return
-
+/mob/living/simple_animal/can_hear()
+	. = TRUE

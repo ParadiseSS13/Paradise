@@ -30,7 +30,6 @@
 				if(BL.data && BL.data["viruses"])
 					var/list/viruses = BL.data["viruses"]
 					return viruses[index]
-	return null
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
 	if(beaker && beaker.reagents)
@@ -40,13 +39,11 @@
 				if(BL.data && BL.data["resistances"])
 					var/list/resistances = BL.data["resistances"]
 					return resistances[index]
-	return null
 
 /obj/machinery/computer/pandemic/proc/GetVirusTypeByIndex(index)
 	var/datum/disease/D = GetVirusByIndex(index)
 	if(D)
 		return D.GetDiseaseID()
-	return null
 
 /obj/machinery/computer/pandemic/proc/replicator_cooldown(waittime)
 	wait = 1
@@ -160,7 +157,7 @@
 		if(archive_diseases[id])
 			var/datum/disease/advance/A = archive_diseases[id]
 			A.AssignName(new_name)
-			for(var/datum/disease/advance/AD in active_diseases)
+			for(var/datum/disease/advance/AD in GLOB.active_diseases)
 				AD.Refresh()
 		updateUsrDialog()
 	else if(href_list["print_form"])
@@ -175,7 +172,6 @@
 		return
 
 	add_fingerprint(usr)
-	return
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
 /obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
@@ -189,18 +185,18 @@
 			english_symptoms += S.name
 		var/symtoms = english_list(english_symptoms)
 
-		
+
 		var/signature
 		if(alert(user,"Would you like to add your signature?",,"Yes","No") == "Yes")
 			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Anonymous"]</i></font>"
-		else 
+		else
 			signature = "<span class=\"paper_field\"></span>"
-		
+
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
 		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		
+
 		P.info = "<U><font size=\"4\"><B><center> Releasing Virus </B></center></font></U>"
 		P.info += "<HR>"
 		P.info += "<U>Name of the Virus:</U> [D.name] <BR>"
@@ -319,12 +315,15 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "pandemic")
-	return
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers) && (I.flags & OPENCONTAINER))
-		if(stat & (NOPOWER|BROKEN)) return
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
+	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
+		if(stat & (NOPOWER|BROKEN))
+			return
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
 			return

@@ -62,6 +62,16 @@
 			if(toner <= 0)
 				break
 
+			if(copier_items_printed >= copier_max_items) //global vars defined in misc.dm
+				if(prob(10))
+					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
+				else
+					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+				if(!copier_items_printed_logged)
+					message_admins("Photocopier cap of [copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+					copier_items_printed_logged = TRUE
+				break
+
 			if(emag_cooldown > world.time)
 				return
 
@@ -72,15 +82,21 @@
 				photocopy(copyitem)
 				sleep(15)
 			else if(istype(copyitem, /obj/item/paper_bundle))
+				var/obj/item/paper_bundle/C = copyitem
+				if(toner < (C.amount + 1))
+					visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
+					return
 				var/obj/item/paper_bundle/B = bundlecopy(copyitem)
+				if(!B)
+					return
 				sleep(15*B.amount)
-			else if(ass && ass.loc == src.loc)
+			else if(ass && ass.loc == loc)
 				copyass()
 				sleep(15)
 			else
 				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 				break
-
+			copier_items_printed++
 			use_power(active_power_usage)
 		updateUsrDialog()
 	else if(href_list["remove"])
@@ -287,7 +303,7 @@
 
 //If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
 /obj/machinery/photocopier/proc/bundlecopy(var/obj/item/paper_bundle/bundle, var/need_toner=1)
-	var/obj/item/paper_bundle/p = new /obj/item/paper_bundle (src)
+	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
 	for(var/obj/item/W in bundle)
 		if(toner <= 0 && need_toner)
 			toner = 0
@@ -298,16 +314,19 @@
 			W = copy(W)
 		else if(istype(W, /obj/item/photo))
 			W = photocopy(W)
-		W.forceMove(p)
-		p.amount++
-	p.amount--
-	p.forceMove(get_turf(src))
-	p.update_icon()
-	p.icon_state = "paper_words"
-	p.name = bundle.name
-	p.pixel_y = rand(-8, 8)
-	p.pixel_x = rand(-9, 9)
-	return p
+		W.forceMove(P)
+		P.amount++
+	if(!P.amount)
+		qdel(P)
+		return null
+	P.amount--
+	P.forceMove(get_turf(src))
+	P.update_icon()
+	P.icon_state = "paper_words"
+	P.name = bundle.name
+	P.pixel_y = rand(-8, 8)
+	P.pixel_x = rand(-9, 9)
+	return P
 
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)

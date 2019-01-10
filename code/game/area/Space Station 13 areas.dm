@@ -530,7 +530,7 @@ var/list/ghostteleportlocs = list()
 //SYNDICATES
 
 /area/syndicate_mothership
-	name = "\improper Syndicate Mothership"
+	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
 	requires_power = 0
 
@@ -1505,7 +1505,7 @@ var/list/ghostteleportlocs = list()
 
 
 /area/medical/biostorage
-	name = "\improper Secondary Storage"
+	name = "\improper Medical Storage"
 	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
@@ -1553,8 +1553,8 @@ var/list/ghostteleportlocs = list()
 	icon_state = "CMO"
 
 /area/medical/cmostore
-	name = "\improper Secure Storage"
-	icon_state = "CMO"
+	name = "\improper Medical Secondary Storage"
+	icon_state = "medbaysecstorage"
 
 /area/medical/robotics
 	name = "\improper Robotics"
@@ -1763,23 +1763,6 @@ area/security/podbay
 /area/security/range
 	name = "\improper Firing Range"
 	icon_state = "firingrange"
-
-/*
-	New()
-		..()
-
-		spawn(10) //let objects set up first
-			for(var/turf/turfToGrayscale in src)
-				if(turfToGrayscale.icon)
-					var/icon/newIcon = icon(turfToGrayscale.icon)
-					newIcon.GrayScale()
-					turfToGrayscale.icon = newIcon
-				for(var/obj/objectToGrayscale in turfToGrayscale) //1 level deep, means tables, apcs, locker, etc, but not locker contents
-					if(objectToGrayscale.icon)
-						var/icon/newIcon = icon(objectToGrayscale.icon)
-						newIcon.GrayScale()
-						objectToGrayscale.icon = newIcon
-*/
 
 /area/security/nuke_storage
 	name = "\improper Vault"

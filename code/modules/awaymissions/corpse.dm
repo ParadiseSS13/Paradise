@@ -6,10 +6,12 @@
 
 /obj/effect/mob_spawn
 	name = "Unknown"
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type = null
-	var/mob_name = ""
+	var/mob_name = "unidentified entity"
 	var/mob_gender = null
 	var/death = TRUE //Kill the mob
 	var/roundstart = TRUE //fires on initialize
@@ -26,19 +28,20 @@
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
 	var/assignedrole
-	density = TRUE
-	anchored = TRUE
 	var/banType = "lavaland"
+	var/ghost_usable = TRUE
 
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	if(ticker.current_state != GAME_STATE_PLAYING || !loc)
+	if(ticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
 	if(jobban_isbanned(user, banType))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return
+	if(QDELETED(src) || QDELETED(user))
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No" || !loc)
@@ -48,14 +51,14 @@
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
-	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
+	if(instant || roundstart)	//at some point we should probably re-introduce the (ticker && ticker.current_state > GAME_STATE_SETTING_UP) portion of this check, but for now it was preventing the corpses from spawning at roundstart and resulting in ghost role spawners that made dead bodies.
 		create()
-	else
-		poi_list |= src
+	else if(ghost_usable)
+		GLOB.poi_list |= src
 		LAZYADD(GLOB.mob_spawners[name], src)
 
 /obj/effect/mob_spawn/Destroy()
-	poi_list -= src
+	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -70,6 +73,9 @@
 
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
+	var/mob/living/carbon/human/H = M
+	if(H && !H.dna)
+		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
 		if(!mob_gender)
@@ -80,7 +86,7 @@
 	if(disease)
 		M.ForceContractDisease(new disease)
 	if(death)
-		M.death(1) //Kills the new mob
+		M.death() //Kills the new mob
 
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
@@ -152,6 +158,8 @@
 		outfit = new outfit()
 	if(!outfit)
 		outfit = new /datum/outfit
+	if(!mob_name)
+		mob_name = id_job
 	return ..()
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
@@ -268,6 +276,7 @@
 
 /obj/effect/mob_spawn/human/corpse/assistant
 	name = "Assistant"
+	mob_name = "Assistant"
 	id_job = "Assistant"
 	outfit = /datum/outfit/job/assistant
 
@@ -282,11 +291,13 @@
 
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"
+	mob_name = "Chef"
 	id_job = "Chef"
 	outfit = /datum/outfit/job/chef
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
+	mob_name = "Medical Doctor"
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
@@ -297,7 +308,7 @@
 	name = "sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a space doctor!"
+	flavour_text = "<span class='big bold'>You are a space doctor!</span>"
 	assignedrole = "Space Doctor"
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
@@ -310,6 +321,7 @@
 
 /obj/effect/mob_spawn/human/engineer
 	name = "Engineer"
+	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
 
@@ -338,7 +350,7 @@
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/clown/Initialize()
-	mob_name = pick(clown_names)
+	mob_name = pick(GLOB.clown_names)
 	..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
@@ -346,7 +358,7 @@
 	outfit = /datum/outfit/clownsoldier
 
 /obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
-	mob_name = "Officer [pick(clown_names)]"
+	mob_name = "Officer [pick(GLOB.clown_names)]"
 	..()
 
 /obj/effect/mob_spawn/human/corpse/clownoff
@@ -354,7 +366,7 @@
 	outfit = /datum/outfit/clownofficer
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
-	mob_name = "Honk Specialist [pick(clown_names)]"
+	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	..()
 
 
@@ -385,21 +397,23 @@
 	outfit = /datum/outfit/job/mime
 
 /obj/effect/mob_spawn/human/mime/Initialize()
-	mob_name = pick(mime_names)
+	mob_name = pick(GLOB.mime_names)
 	..()
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
+	mob_name = "Scientist"
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
+	mob_name = "Shaft Miner"
 	id_job = "Shaft Miner"
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Station Engineer"
+	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
@@ -413,6 +427,7 @@
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
+	mob_name = "Bartender"
 	id_job = "Bartender"
 	id_access_list = list(access_bar)
 	outfit = /datum/outfit/spacebartender
@@ -424,7 +439,7 @@
 	name = "bartender sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a space bartender!"
+	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
 	assignedrole = "Space Bartender"
 
 /datum/outfit/spacebartender
@@ -476,6 +491,7 @@
 
 /obj/effect/mob_spawn/human/bridgeofficer
 	name = "Bridge Officer"
+	mob_name = "Bridge Officer"
 	id_job = "Bridge Officer"
 	id_access = "Captain"
 	outfit = /datum/outfit/nanotrasenbridgeofficercorpse
@@ -492,6 +508,7 @@
 
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
+	mob_name = "Commander"
 	id_job = "Commander"
 	id_access = "Captain"
 	outfit = /datum/outfit/nanotrasencommandercorpse

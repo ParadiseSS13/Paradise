@@ -17,7 +17,7 @@
 	teleport(M)
 
 /obj/effect/portal/New(loc, turf/target, creator=null, lifespan=300)
-	portals += src
+	GLOB.portals += src
 	src.loc = loc
 	src.target = target
 	src.creator = creator
@@ -26,7 +26,7 @@
 			qdel(src)
 
 /obj/effect/portal/Destroy()
-	portals -= src
+	GLOB.portals -= src
 	if(istype(creator, /obj))
 		var/obj/O = creator
 		O.portal_destroyed(src)
@@ -57,9 +57,7 @@
 
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
-	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-	spark_system.set_up(5, 0, loc)
-	spark_system.start()
+	do_sparks(5, 0, loc)
 	qdel(src)
 
 
@@ -68,4 +66,5 @@
 	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
 	failchance = 0
+	precision = 0
 	ignore_tele_proof_area_setting = TRUE

@@ -6,6 +6,7 @@
 @import "_config";
 @import "_display";
 @import "_formatting";
+@import "_fancy";
 @import "_icon";
 @import "_lists";
 @import "_misc";
@@ -13,11 +14,25 @@
 @import "_tooltip";
 
 
-body {
+.mainBG {
+    position: fixed;
+    z-index: -1;
+    top: 30px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     background: data-uri('nanotrasen.svg') no-repeat fixed center/70% 70%,
         linear-gradient(to bottom,
         @background-start 0%,
         @background-end 100%) no-repeat fixed center/100% 100%;
+}
+
+//nano scrollbar styling
+html,body {
+    scrollbar-face-color:#666666;
+    scrollbar-arrow-color:#E9C183;
+    scrollbar-track-color:#363636;
+    scrollbar-shadow-color:#555555;    
 }
 
 #uiWrapper {
@@ -28,8 +43,21 @@ body {
 }
 
 #uiTitleWrapper {
-    position: relative;
-    height: 30px;
+    position: fixed;
+    min-height: 30px;
+    min-width: 100%; 
+    background-color: #363636;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+    z-index: 100;
+    & > div {
+        cursor: default;
+    }
+    & > i {
+        cursor: default;
+    }
 }
 
 #uiTitleText {
@@ -66,6 +94,7 @@ body {
 #uiMapWrapper {
     clear: both;
     padding: 8px;
+    margin-top: 30px;
 }
 
 #uiMapHeader {
@@ -117,6 +146,7 @@ body {
 #uiContent {
     clear: both;
     padding: 8px;
+    margin-top: 30px;
 }
 
 #uiMapTooltip {
@@ -139,4 +169,8 @@ body {
     font-weight: bold;
     padding: 3px 4px 3px 4px;
     margin: 4px 0 4px 0;
+}
+
+.underTitle {
+    margin-top: 30px;
 }

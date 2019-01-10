@@ -117,6 +117,9 @@
 
 		parts -= picked
 
+	if(updating_health)
+		updatehealth("heal overall damage")
+
 /mob/living/silicon/robot/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, used_weapon = null, sharp = 0)
 	if(status_flags & GODMODE)	return	//godmode
 	var/list/datum/robot_component/parts = get_damageable_components()

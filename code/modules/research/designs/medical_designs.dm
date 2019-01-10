@@ -1,15 +1,6 @@
 /////////////////////////////////////////
 ////////////Medical Tools////////////////
 /////////////////////////////////////////
-/datum/design/adv_mass_spectrometer
-	name = "Advanced Mass-Spectrometer"
-	desc = "A device for analyzing chemicals in the blood and their quantities."
-	id = "adv_mass_spectrometer"
-	req_tech = list("biotech" = 3, "magnets" = 4, "plasmatech" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
-	build_path = "/obj/item/mass_spectrometer/adv"
-	category = list("Medical")
 
 /datum/design/adv_reagent_scanner
 	name = "Advanced Reagent Scanner"
@@ -92,16 +83,6 @@
 	construction_time = 75
 	build_path = /obj/item/mmi
 	category = list("Misc","Medical")
-
-/datum/design/mass_spectrometer
-	name = "Mass-Spectrometer"
-	desc = "A device for analyzing chemicals in the blood."
-	id = "mass_spectrometer"
-	req_tech = list("magnets" = 2, "plasmatech" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
-	build_path = /obj/item/mass_spectrometer
-	category = list("Medical")
 
 /datum/design/robotic_brain
 	name = "Robotic Brain"

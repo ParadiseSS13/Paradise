@@ -9,11 +9,12 @@
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	var/on = 0
+	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
+	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/Initialize()
-	..()
+	. = ..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 		set_light(brightness_on)
@@ -35,7 +36,7 @@
 
 		return 0
 	on = !on
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	playsound(user, togglesound, 100, 1)
 	update_brightness(user)
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -153,22 +154,24 @@ obj/item/flashlight/lamp/bananalamp
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	w_class = WEIGHT_CLASS_SMALL
-	brightness_on = 8 // Made it brighter (from 7 to 8).
-	light_color = "#ff0000" // changed colour to a more brighter red.
+	brightness_on = 8
+	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
+	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
+	var/fuel_lower = 800
+	var/fuel_upp = 1000
 
 /obj/item/flashlight/flare/New()
-	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
+	fuel = rand(fuel_lower, fuel_upp)
 	..()
 
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
-	if(pos)
+	if(pos && produce_heat)
 		pos.hotspot_expose(produce_heat, 5)
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
@@ -176,6 +179,10 @@ obj/item/flashlight/lamp/bananalamp
 		if(!fuel)
 			src.icon_state = "[initial(icon_state)]-empty"
 		processing_objects -= src
+
+/obj/item/flashlight/flare/Destroy()
+	processing_objects.Remove(src)
+	..()
 
 /obj/item/flashlight/flare/proc/turn_off()
 	on = 0
@@ -198,18 +205,92 @@ obj/item/flashlight/lamp/bananalamp
 
 	// Usual checks
 	if(!fuel)
-		to_chat(user, "<span class='notice'>It's out of fuel.</span>")
+		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
 		return
 	if(on)
+		to_chat(user, "<span class='notice'>[src] is already on.</span>")
 		return
 
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message("<span class='notice'>[user] activates the flare.</span>", "<span class='notice'>You pull the cord on the flare, activating it!</span>")
+		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
+
+// GLOWSTICKS
+
+/obj/item/flashlight/flare/glowstick
+	name = "green glowstick"
+	desc = "A military-grade glowstick."
+	brightness_on = 4
+	color = LIGHT_COLOR_GREEN
+	icon_state = "glowstick"
+	item_state = "glowstick"
+	togglesound = 'sound/effects/bone_break_1.ogg'
+	produce_heat = 0
+	fuel_lower = 1600
+	fuel_upp = 2000
+
+/obj/item/flashlight/flare/glowstick/Initialize()
+	light_color = color
+	..()
+
+/obj/item/flashlight/flare/glowstick/update_icon()
+	item_state = "glowstick"
+	cut_overlays()
+	if(!fuel)
+		icon_state = "glowstick-empty"
+		cut_overlays()
+		update_brightness(0)
+	else if(on)
+		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+		glowstick_overlay.color = color
+		add_overlay(glowstick_overlay)
+		item_state = "glowstick-on"
+		update_brightness(brightness_on)
+	else
+		icon_state = "glowstick"
+		cut_overlays()
+
+/obj/item/flashlight/flare/glowstick/red
+	name = "red glowstick"
+	color = LIGHT_COLOR_RED
+
+/obj/item/flashlight/flare/glowstick/blue
+	name = "blue glowstick"
+	color = LIGHT_COLOR_BLUE
+
+/obj/item/flashlight/flare/glowstick/orange
+	name = "orange glowstick"
+	color = LIGHT_COLOR_ORANGE
+
+/obj/item/flashlight/flare/glowstick/yellow
+	name = "yellow glowstick"
+	color = LIGHT_COLOR_YELLOW
+
+/obj/item/flashlight/flare/glowstick/pink
+	name = "pink glowstick"
+	color = LIGHT_COLOR_PINK
+
+/obj/item/flashlight/flare/glowstick/emergency
+	name = "emergency glowstick"
+	desc = "A cheap looking, mass produced glowstick. You can practically feel it was made on a tight budget."
+	color = LIGHT_COLOR_BLUE
+	fuel_lower = 30
+	fuel_upp = 90
+
+/obj/item/flashlight/flare/glowstick/random
+	name = "random colored glowstick"
+	icon_state = "random_glowstick"
+	color = null
+
+/obj/item/flashlight/flare/glowstick/random/Initialize()
+	..()
+	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
+	new T(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -260,10 +341,11 @@ obj/item/flashlight/lamp/bananalamp
 
 /obj/item/flashlight/emp/process()
 	charge_tick++
-	if(charge_tick < 10) return 0
+	if(charge_tick < 10)
+		return FALSE
 	charge_tick = 0
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
-	return 1
+	return TRUE
 
 /obj/item/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
 	if(on && user.zone_sel.selecting == "eyes") // call original attack proc only if aiming at the eyes

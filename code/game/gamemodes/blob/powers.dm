@@ -33,33 +33,50 @@
 
 /mob/camera/blob/verb/create_shield_power()
 	set category = "Blob"
-	set name = "Create Shield Blob (10)"
-	set desc = "Create a shield blob."
+	set name = "Create/Upgrade Shield Blob (15)"
+	set desc = "Create/Upgrade a shield blob. Using this on an existing shield blob turns it into a reflective blob, capable of reflecting most energy projectiles but making it much weaker than usual to brute attacks."
 
 	var/turf/T = get_turf(src)
 	create_shield(T)
 
 /mob/camera/blob/proc/create_shield(var/turf/T)
 
-	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
+	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
+	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
+	
+	if(!S)
+		if(!B)//We are on a blob
+			to_chat(src, "There is no blob here!")
+			return
 
-	if(!B)//We are on a blob
-		to_chat(src, "There is no blob here!")
-		return
+		else if(!istype(B, /obj/structure/blob/normal))
+			to_chat(src, "Unable to use this blob, find a normal one.")
+			return
 
-	if(!istype(B, /obj/structure/blob/normal))
-		to_chat(src, "Unable to use this blob, find a normal one.")
-		return
+		else if(!can_buy(15))
+			return
 
-	if(!can_buy(10))
-		return
+		B.color = blob_reagent_datum.color
+		B.change_to(/obj/structure/blob/shield)
+	else
+	
+		if(istype(S, /obj/structure/blob/shield/reflective))
+			to_chat(src, "<span class='warning'>There's already a reflector blob here!</span>")
+			return
 
-	B.color = blob_reagent_datum.color
-	B.change_to(/obj/structure/blob/shield)
 
+		else if(S.health < S.maxHealth * 0.5)
+			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
+			return
+	
+		else if (!can_buy(15))
+			return
+		
+		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")
+		
+		S.change_to(/obj/structure/blob/shield/reflective)
+		S.color = blob_reagent_datum.color
 	return
-
-
 
 /mob/camera/blob/verb/create_resource()
 	set category = "Blob"
@@ -304,7 +321,7 @@
 	if(!surrounding_turfs.len)
 		return
 
-	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.living_mob_list)
 		if(isturf(BS.loc) && get_dist(BS, T) <= 35)
 			BS.LoseTarget()
 			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)

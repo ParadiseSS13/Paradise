@@ -23,7 +23,7 @@
 	var/input_pressure_min = 0
 	var/output_pressure_max = 0
 
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
 	var/advcontrol = 0//does this device listen to the AAC
@@ -249,7 +249,7 @@
 /obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
 		<li><b>ID Tag:</b> <a href="?src=[UID()];set_id=1">[id_tag]</a></li>
 		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a></li>
 	</ul>
@@ -261,4 +261,4 @@
 		return .
 	if("toggleadvcontrol" in href_list)
 		advcontrol = !advcontrol
-		return MT_UPDATE
+		return TRUE

@@ -222,7 +222,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/simple/clown/New(loc, mob/living/carbon/T, duration)
 	..(loc, T)
-	name = pick(clown_names)
+	name = pick(GLOB.clown_names)
 	sleep(duration)
 	qdel(src)
 
@@ -444,7 +444,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	target = T
 	var/image/A = null
 	var/kind = force_kind ? force_kind : pick("clown", "corgi", "carp", "skeleton", "demon","zombie")
-	for(var/mob/living/carbon/human/H in living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(H == target)
 			continue
 		if(skip_nearby && (H in view(target)))
@@ -523,7 +523,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/mob/living/carbon/human/clone = null
 	var/clone_weapon = null
 
-	for(var/mob/living/carbon/human/H in living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(H.stat || H.lying)
 			continue
 		clone = H
@@ -728,17 +728,17 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 		people += H
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
-		target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person)
+		target.hear_say(message_to_multilingual(pick(speak_messages), pick(person.languages)), speaker = person)
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(30)
 			target.client.images.Remove(speech_overlay)
 	else // Radio talk
 		var/list/humans = list()
-		for(var/mob/living/carbon/human/H in living_mob_list)
+		for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 			humans += H
 		person = pick(humans)
-		target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+		target.hear_radio(message_to_multilingual(pick(radio_messages), pick(person.languages)), speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message
@@ -754,7 +754,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 		"<span class='warning'>You feel a tiny prick!</span>",
 		"<B>[target]</B> sneezes.",
 		"<span class='warning'>You feel faint.</span>",
-		"<span class='noticealien'>You hear a strange, alien voice in your head...</span>[pick("Hiss","Ssss")]",
+		"<span class='noticealien'>You hear a strange, alien voice in your head...</span> [pick("Hiss","Ssss")]",
 		"<span class='notice'>You can see...everything!</span>")
 	to_chat(target, chosen)
 	qdel(src)
@@ -1005,7 +1005,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 			SetSleeping(20, no_alert = TRUE)
 			if(prob(50))
 				var/list/dead_people = list()
-				for(var/mob/dead/observer/G in player_list)
+				for(var/mob/dead/observer/G in GLOB.player_list)
 					dead_people += G
 				var/mob/dead/observer/fakemob = pick(dead_people)
 				if(fakemob)

@@ -73,7 +73,7 @@
 		return 0
 
 //this proc handles being hit by a thrown atom
-/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)//Standardization and logging -Sieve
+/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0, datum/thrownthing/throwingdatum)//Standardization and logging -Sieve
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
@@ -229,7 +229,7 @@
 
 // End BS12 momentum-transfer code.
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = 0)
+/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src || anchored)
 		return 0
 	if(!(status_flags & CANPUSH))
@@ -286,16 +286,14 @@
 				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
 				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
 
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
+				do_sparks(5, 1, src)
 				return 1
 	add_attack_logs(src, M, "Slime'd")
 	return
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
+	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
+		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else
 		if(M.attack_sound)
@@ -339,3 +337,7 @@
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
+
+//defined here, overridden for humans in human_defense. By default, living mobs don't get to block anything
+/mob/living/proc/check_block()
+	return FALSE

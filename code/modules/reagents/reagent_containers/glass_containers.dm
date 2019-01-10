@@ -11,7 +11,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 	var/label_text = ""
 	// the fucking asshole who designed this can go die in a fire - Iamgoofball
@@ -59,10 +59,10 @@
 	..()
 	if(is_open_container())
 		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-		flags ^= OPENCONTAINER
+		container_type ^= REFILLABLE | DRAINABLE
 	else
 		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-		flags |= OPENCONTAINER
+		container_type |= REFILLABLE | DRAINABLE
 	update_icon()
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
@@ -95,7 +95,6 @@
 		spawn(5) reagents.clear_reagents()
 		return
 	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-
 		if(target.reagents && !target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
 			return
@@ -107,7 +106,7 @@
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
 
-	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
+	else if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
 			return
@@ -149,8 +148,8 @@
 			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
 			label_text = tmp_label
 			update_name_label()
-	if(istype(I,/obj/item/storage/bag))
-		..()
+	else
+		return ..()
 
 /obj/item/reagent_containers/glass/proc/update_name_label()
 	if(label_text == "")
@@ -202,6 +201,7 @@
 		overlays += lid
 	if(assembly)
 		overlays += "assembly"
+	..()
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Remove Assembly"
@@ -246,9 +246,9 @@
 	if(assembly)
 		assembly.on_found(finder)
 
-/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, msg)
+/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, list/message_pieces)
 	if(assembly)
-		assembly.hear_talk(M, msg)
+		assembly.hear_talk(M, message_pieces)
 
 /obj/item/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
 	if(assembly)
@@ -262,7 +262,7 @@
 	volume = 100
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
@@ -272,7 +272,7 @@
 	volume = 25
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs
@@ -282,7 +282,7 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = 2
 	volume = 10
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/noreact
@@ -293,7 +293,7 @@
 	volume = 50
 	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/noreact/New()
 	..()
@@ -307,7 +307,7 @@
 	volume = 300
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
@@ -337,7 +337,7 @@
 	volume = 120
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_HEAD
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()

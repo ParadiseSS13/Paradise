@@ -27,7 +27,6 @@
 	var/centcomm_message_cooldown = 0
 	var/tmp_alertlevel = 0
 
-	var/status_display_freq = "1435"
 	var/stat_msg1
 	var/stat_msg2
 	var/display_type="blank"
@@ -37,7 +36,7 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 0
 
@@ -299,16 +298,6 @@
 			else
 				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
-		if("AcceptDocking")
-			to_chat(usr, "Docking request accepted!")
-			trade_dock_timelimit = world.time + 1200
-			trade_dockrequest_timelimit = 0
-			event_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
-		if("DenyDocking")
-			to_chat(usr, "Docking requeset denied!")
-			trade_dock_timelimit = 0
-			trade_dockrequest_timelimit = 0
-			event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 		if("ToggleATC")
 			atc.squelched = !atc.squelched
 			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"].</span>")
@@ -406,11 +395,6 @@
 
 	data["shuttle"] = shuttle
 
-	if(trade_dockrequest_timelimit > world.time)
-		data["dock_request"] = 1
-	else
-		data["dock_request"] = 0
-
 	data["atcSquelched"] = atc.squelched
 
 	return data
@@ -502,15 +486,15 @@
 
 	if(SSshuttle.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
-		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
+		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 	else
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
-		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [ADMIN_FLW(user)].", 1)
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
+	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 
@@ -533,21 +517,21 @@
 
 
 /obj/machinery/computer/communications/Destroy()
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 	return ..()
 
 /obj/item/circuitboard/communications/New()
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 
 /obj/item/circuitboard/communications/Destroy()
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 	return ..()
 
 /proc/print_command_report(text = "", title = "Central Command Update")
-	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
@@ -555,7 +539,7 @@
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+	for(var/datum/computer_file/program/comm/P in GLOB.shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
 			if(P.computer)
@@ -566,7 +550,7 @@
 			P.messagetext.Add(text)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
-	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
@@ -574,7 +558,7 @@
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+	for(var/datum/computer_file/program/comm/P in GLOB.shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_admin_level(T.z))
 			if(P.computer)

@@ -53,6 +53,7 @@
 		updateinfolinks()
 
 /obj/item/paper/update_icon()
+	..()
 	if(icon_state == "paper_talisman")
 		return
 	if(info)
@@ -71,7 +72,7 @@
 	assets.send(user)
 
 	var/data
-	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
+	if((!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
 		if(view)
 			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
@@ -303,12 +304,6 @@
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
 
-	if(istype(P, /obj/item/stack/tape_roll))
-		var/obj/item/stack/tape_roll/tape = P
-		tape.stick(src, user)
-		tape.use(1)
-		return
-
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
@@ -316,7 +311,7 @@
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
-		var/obj/item/paper_bundle/B = new(src.loc)
+		var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
 		if(name != "paper")
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
@@ -596,6 +591,7 @@
 	var/used = 0
 	var/countdown = 60
 	var/activate_on_timeout = 0
+	var/faxmachineid = null
 
 /obj/item/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	if(user == mytarget)
@@ -642,7 +638,8 @@
 
 /obj/item/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
 	spawn(30)
-		if(istype(target,/mob/living/carbon))
+		if(istype(target, /mob/living/carbon))
+			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
 				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
@@ -668,8 +665,25 @@
 					var/mob/living/carbon/human/H = target
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
-			else if(myeffect == "Demotion Notice")
-				event_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+			else if(myeffect == "Demote")
+				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+			else if(myeffect == "Demote with Bot")
+				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(data_core.security))
+					if(R.fields["name"] == target.real_name)
+						R.fields["criminal"] = "*Arrest*"
+				update_all_mob_security_hud()
+				if(fax)
+					var/turf/T = get_turf(fax)
+					new /obj/effect/portal(T)
+					new /mob/living/simple_animal/bot/secbot(T)
+			else if(myeffect == "Revoke Fax Access")
+				fax_blacklist += target.real_name
+				if(fax)
+					fax.authenticated = 0
+			else if(myeffect == "Angry Fax Machine")
+				if(fax)
+					fax.become_mimic()
 			else
 				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
 		used = 1
@@ -688,3 +702,15 @@
 			contact_poison = null
 			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
 	..()
+
+/obj/item/paper/researchnotes
+	name = "paper - 'Research Notes'"
+	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
+
+/obj/item/paper/researchnotes/New()
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/mytech = pick(possible_techs)
+	var/mylevel = rand(7, 9)
+	origin_tech = "[mytech]=[mylevel]"
+	name = "research notes - [mytech] [mylevel]"

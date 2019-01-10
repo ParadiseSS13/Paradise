@@ -50,7 +50,7 @@
 		if(ObjBump(A))
 			return
 	if(istype(A, /atom/movable))
-		if(PushAM(A))
+		if(PushAM(A, move_force))
 			return
 
 //Called when we bump into a mob
@@ -127,32 +127,41 @@
 	return
 
 //Called when we want to push an atom/movable
-/mob/living/proc/PushAM(atom/movable/AM)
+/mob/living/proc/PushAM(atom/movable/AM, force = move_force)
 	if(now_pushing)
-		return 1
+		return TRUE
 	if(moving_diagonally) // no pushing during diagonal moves
-		return 1
+		return TRUE
 	if(!client && (mob_size < MOB_SIZE_SMALL))
 		return
-	if(!AM.anchored)
-		now_pushing = 1
-		var/t = get_dir(src, AM)
-		if(istype(AM, /obj/structure/window))
-			var/obj/structure/window/W = AM
-			if(W.fulltile)
-				for(var/obj/structure/window/win in get_step(W, t))
-					now_pushing = 0
-					return
-		if(pulling == AM)
-			stop_pulling()
-		var/current_dir
-		if(isliving(AM))
-			current_dir = AM.dir
-		step(AM, t)
-		if(current_dir)
-			AM.setDir(current_dir)
-		now_pushing = 0
-
+	now_pushing = TRUE
+	var/t = get_dir(src, AM)
+	var/push_anchored = FALSE
+	if((AM.move_resist * MOVE_FORCE_CRUSH_RATIO) <= force)
+		if(move_crush(AM, move_force, t))
+			push_anchored = TRUE
+	if((AM.move_resist * MOVE_FORCE_FORCEPUSH_RATIO) <= force)			//trigger move_crush and/or force_push regardless of if we can push it normally
+		if(force_push(AM, move_force, t, push_anchored))
+			push_anchored = TRUE
+	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
+		now_pushing = FALSE
+		return
+	if(istype(AM, /obj/structure/window))
+		var/obj/structure/window/W = AM
+		if(W.fulltile)
+			for(var/obj/structure/window/win in get_step(W,t))
+				now_pushing = FALSE
+				return
+	if(pulling == AM)
+		stop_pulling()
+	var/current_dir
+	if(isliving(AM))
+		current_dir = AM.dir
+	if(step(AM, t))
+		step(src, t)
+	if(current_dir)
+		AM.setDir(current_dir)
+	now_pushing = FALSE
 
 /mob/living/Stat()
 	. = ..()
@@ -187,9 +196,20 @@
 	set name = "Pull"
 	set category = "Object"
 
-	if(AM.Adjacent(src))
+	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
-	return
+	else
+		stop_pulling()
+
+/mob/living/stop_pulling()
+	..()
+	if(pullin)
+		pullin.update_icon(src)
+
+/mob/living/verb/stop_pulling1()
+	set name = "Stop Pulling"
+	set category = "IC"
+	stop_pulling()
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
@@ -329,7 +349,13 @@
 
 
 /mob/living/proc/can_inject()
-	return 1
+	return TRUE
+
+/mob/living/is_injectable(allowmobs = TRUE)
+	return (allowmobs && reagents && can_inject())
+
+/mob/living/is_drawable(allowmobs = TRUE)
+	return (allowmobs && reagents && can_inject())
 
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
@@ -359,9 +385,8 @@
 		C.update_inv_legcuffed()
 
 		if(C.reagents)
-			for(var/datum/reagent/R in C.reagents.reagent_list)
-				C.reagents.clear_reagents()
-			C.reagents.addiction_list.Cut()
+			C.reagents.clear_reagents()
+			QDEL_LIST(C.reagents.addiction_list)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -399,8 +424,7 @@
 	CureNervous()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
-	SetEarDamage(0)
-	SetEarDeaf(0)
+	RestoreEars()
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -847,6 +871,37 @@
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1
+
+/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
+	if(!AM || !src)
+		return FALSE
+	if(!(AM.can_be_pulled(src, state, force)))
+		return FALSE
+	if(incapacitated())
+		return
+	// If we're pulling something then drop what we're currently pulling and pull this instead.
+	AM.add_fingerprint(src)
+	if(pulling)
+		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.	
+			return
+		stop_pulling()
+		if(AM.pulledby)
+			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
+			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+	pulling = AM
+	AM.pulledby = src
+	if(pullin)
+		pullin.update_icon(src)
+	if(ismob(AM))
+		var/mob/M = AM
+		if(!iscarbon(src))
+			M.LAssailant = null
+		else
+			M.LAssailant = usr
+
+/mob/living/proc/check_pull()
+	if(pulling && !(pulling in orange(1)))
+		stop_pulling()
 
 /mob/living/proc/get_taste_sensitivity()
 	return 1

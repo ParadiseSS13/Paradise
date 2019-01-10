@@ -737,6 +737,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "advanced first aid kits crate"
 
+/datum/supply_packs/medical/firstaidmachine
+	name = "Machine First Aid Kits Crate"
+	contains = list(/obj/item/storage/firstaid/machine,
+					/obj/item/storage/firstaid/machine,
+					/obj/item/storage/firstaid/machine,
+					/obj/item/storage/firstaid/machine)
+	cost = 10
+	containername = "machine first aid kits crate"
+
 /datum/supply_packs/medical/firstaibrute
 	name = "Brute Treatment Kits Crate"
 	contains = list(/obj/item/storage/firstaid/brute,
@@ -922,6 +931,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "machine prototype crate"
 	access = access_research
+
+/datum/supply_packs/science/oil
+    name = "Oil Tank Crate"
+    contains = list(/obj/structure/reagent_dispensers/oil,
+					/obj/item/reagent_containers/food/drinks/oilcan)
+    cost = 10
+    containertype = /obj/structure/largecrate
+    containername = "oil tank crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -1273,12 +1290,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"
-	contains = list(/obj/item/gun/energy/laser/redtag,
-					/obj/item/gun/energy/laser/redtag,
-					/obj/item/gun/energy/laser/redtag,
-					/obj/item/gun/energy/laser/bluetag,
-					/obj/item/gun/energy/laser/bluetag,
-					/obj/item/gun/energy/laser/bluetag,
+	contains = list(/obj/item/gun/energy/laser/tag/red,
+					/obj/item/gun/energy/laser/tag/red,
+					/obj/item/gun/energy/laser/tag/red,
+					/obj/item/gun/energy/laser/tag/blue,
+					/obj/item/gun/energy/laser/tag/blue,
+					/obj/item/gun/energy/laser/tag/blue,
 					/obj/item/clothing/suit/redtag,
 					/obj/item/clothing/suit/redtag,
 					/obj/item/clothing/suit/redtag,
@@ -1323,6 +1340,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clipboard)
 	cost = 15
 	containername = "bureaucracy crate"
+
+/datum/supply_packs/misc/tape
+	name = "Sticky Tape Crate"
+	contains = list(/obj/item/stack/tape_roll,
+	/obj/item/stack/tape_roll,
+	/obj/item/stack/tape_roll)
+	cost = 10
+	containername = "sticky tape crate"
+	containertype = /obj/structure/closet/crate/tape
 
 /datum/supply_packs/misc/toner
 	name = "Toner Cartridges Crate"
@@ -1693,6 +1719,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/mounted/shower
 					)
 	containername = "hygiene station crate"
+
+/datum/supply_packs/misc/snow_machine
+	name = "Snow Machine Crate"
+	cost = 20
+	contains = list(
+					/obj/machinery/snow_machine
+					)
+	special = TRUE
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////

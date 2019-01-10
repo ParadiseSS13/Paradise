@@ -16,6 +16,7 @@
 	volume = 15
 	w_class = WEIGHT_CLASS_TINY
 	sharp = 1
+	container_type = TRANSPARENT
 	var/busy = 0
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
@@ -78,7 +79,7 @@
 	switch(mode)
 		if(SYRINGE_DRAW)
 
-			if(reagents.total_volume >= reagents.maximum_volume)
+			if(reagents.holder_full())
 				to_chat(user, "<span class='notice'>The syringe is full.</span>")
 				return
 
@@ -91,7 +92,7 @@
 					if(!do_mob(user, target))
 						busy = 0
 						return
-					if(reagents.total_volume >= reagents.maximum_volume)
+					if(reagents.holder_full())
 						return
 				busy = 0
 				if(L.transfer_blood_to(src, drawn_amount))
@@ -104,14 +105,14 @@
 					to_chat(user, "<span class='warning'>[target] is empty!</span>")
 					return
 
-				if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers) && !istype(target,/obj/item/slime_extract))
+				if(!target.is_drawable())
 					to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
 					return
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
 				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution.</span>")
-			if(reagents.total_volume >= reagents.maximum_volume)
+			if(reagents.holder_full())
 				mode=!mode
 				update_icon()
 
@@ -120,7 +121,7 @@
 				to_chat(user, "<span class='notice'>[src] is empty.</span>")
 				return
 
-			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/cigarette) && !istype(target, /obj/item/storage/fancy/cigarettes))
+			if(!L && !target.is_injectable())
 				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
 				return
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)

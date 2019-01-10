@@ -248,7 +248,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	to_chat(user, "<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>")
+	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -257,16 +257,17 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
-		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
-		to_chat(user, "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>")
+		user.show_message("<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
+		user.show_message("<span class='notice'>Nitrogen: [round(n2_concentration*100)] % ([round(air_contents.nitrogen,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>Oxygen: [round(o2_concentration*100)] % ([round(air_contents.oxygen,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)</span>", 1)
 		if(unknown_concentration>0.01)
-			to_chat(user, "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>")
+			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
+		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
 	else
-		to_chat(user, "<span class='notice'>[target] is empty!</span>")
+		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -277,7 +278,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/freeborg()
 	var/select = null
 	var/list/borgs = list()
-	for(var/mob/living/silicon/robot/A in player_list)
+	for(var/mob/living/silicon/robot/A in GLOB.player_list)
 		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
@@ -290,7 +291,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //When a borg is activated, it can choose which AI it wants to be slaved to
 /proc/active_ais()
 	. = list()
-	for(var/mob/living/silicon/ai/A in living_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled == 1)
@@ -372,7 +373,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //Orders mobs by type then by name
 /proc/sortmobs()
 	var/list/moblist = list()
-	var/list/sortmob = sortAtom(mob_list)
+	var/list/sortmob = sortAtom(GLOB.mob_list)
 	for(var/mob/living/silicon/ai/M in sortmob)
 		moblist.Add(M)
 		if(M.eyeobj)
@@ -427,7 +428,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/get_mob_by_ckey(key)
 	if(!key)
 		return
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == key)
 			return M
 
@@ -996,7 +997,7 @@ proc/oview_or_orange(distance = world.view , center = usr , type)
 
 proc/get_mob_with_client_list()
 	var/list/mobs = list()
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.client)
 			mobs += M
 	return mobs
@@ -1149,6 +1150,11 @@ var/global/list/common_tools = list(
 	if(istype(O, /obj/item/crowbar))
 		return 1
 	return 0
+
+/proc/ispowertool(O)//used to check if a tool can force powered doors
+	if(istype(O, /obj/item/crowbar/power) || istype(O, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+		return TRUE
+	return FALSE
 
 /proc/iswire(O)
 	if(istype(O, /obj/item/stack/cable_coil))
@@ -1490,7 +1496,7 @@ var/mob/dview/dview_mob = new
 	invisibility = 101
 	density = 0
 
-	anchored = 1
+	move_resist = INFINITY
 	simulated = 0
 
 	see_in_dark = 1e6
@@ -1859,8 +1865,8 @@ var/mob/dview/dview_mob = new
 			/obj/structure/closet = "CLOSET",
 			/obj/structure/statue = "STATUE",
 			/obj/structure/chair = "CHAIR", // oh no
-			/obj/structure/stool/bed = "BED",
-			/obj/structure/stool = "STOOL",
+			/obj/structure/bed = "BED",
+			/obj/structure/chair/stool = "STOOL",
 			/obj/structure/table = "TABLE",
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
@@ -1954,7 +1960,7 @@ var/mob/dview/dview_mob = new
 		pois[name] = M
 
 	if(!mobs_only)
-		for(var/atom/A in poi_list)
+		for(var/atom/A in GLOB.poi_list)
 			if(!A || !A.loc)
 				continue
 			var/name = A.name

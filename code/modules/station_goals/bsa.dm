@@ -2,6 +2,7 @@
 // Cargo orders part for high price
 // Requires high amount of power
 // Requires high level stock parts
+
 /datum/station_goal/bluespace_cannon
 	name = "Bluespace Artillery"
 
@@ -104,11 +105,11 @@
 	var/x_max
 	switch(cannon_dir)
 		if(EAST)
-			x_min = x - 4 //replace with defines later
-			x_max = x + 6
+			x_min = x - BSA_SIZE_BACK
+			x_max = x + BSA_SIZE_FRONT
 		if(WEST)
-			x_min = x + 4
-			x_max = x - 6
+			x_min = x + BSA_SIZE_BACK
+			x_max = x - BSA_SIZE_FRONT
 
 	for(var/turf/T in block(locate(x_min,y-1,z),locate(x_max,y+1,z)))
 		if(T.density || isspaceturf(T))
@@ -235,7 +236,7 @@
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
-							/obj/item/ore/bluespace_crystal = 20,
+							/obj/item/stack/ore/bluespace_crystal = 20,
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/front

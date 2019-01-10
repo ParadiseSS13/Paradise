@@ -17,6 +17,10 @@
 	user.status_flags |= FAKEDEATH		//play dead
 	user.update_stat("fakedeath sting")
 	user.update_canmove()
+	user.med_hud_set_health()
+	user.handle_hud_icons_health()
+	user.med_hud_set_status()
+	user.mind.changeling.regenerating = TRUE
 
 	addtimer(CALLBACK(src, .proc/ready_to_regenerate, user), LING_FAKEDEATH_TIME)
 	feedback_add_details("changeling_powers","FD")

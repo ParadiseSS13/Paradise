@@ -32,7 +32,7 @@
 	wander = 0
 	density = 0
 	flying = 1
-	anchored = 1
+	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	speed = 1
@@ -98,11 +98,11 @@
 		return
 	log_say(message, src)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))
 			to_chat(M, rendered)
 		if(isobserver(M))
-			to_chat(M, "<a href='?src=[M.UID()];follow=\ref[src]'>(F)</a> [rendered]")
+			to_chat(M, "<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> [rendered]")
 	return
 
 /mob/living/simple_animal/revenant/Stat()
@@ -120,10 +120,37 @@
 	updateallghostimages()
 	remove_from_all_data_huds()
 
-	spawn(5)
-		if(src.mind)
-			src.mind.wipe_memory()
-			src << 'sound/effects/ghost.ogg'
+	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
+
+
+/mob/living/simple_animal/revenant/proc/firstSetupAttempt()
+	if(mind)
+		giveObjectivesandGoals()
+		giveSpells()
+	else
+		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
+		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
+
+/mob/living/simple_animal/revenant/proc/setupOrDelete()
+	if(mind)
+		giveObjectivesandGoals()
+		giveSpells()
+	else
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a revenant?", poll_time = 15 SECONDS)
+		var/mob/dead/observer/theghost = null
+		if(candidates.len)
+			theghost = pick(candidates)
+			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
+			key = theghost.key
+			giveObjectivesandGoals()
+			giveSpells()
+		else
+			message_admins("No ghost was willing to take control of a mindless revenant. Deleting...")
+			qdel(src)
+
+/mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
+			mind.wipe_memory()
+			SEND_SOUND(src, 'sound/effects/ghost.ogg')
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
@@ -132,32 +159,23 @@
 			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
 			to_chat(src, "<b>Be sure to read the wiki page at http://nanotrasen.se/wiki/index.php/Revenant to learn more.</b>")
-
 			var/datum/objective/revenant/objective = new
-			objective.owner = src.mind
-			src.mind.objectives += objective
+			objective.owner = mind
+			mind.objectives += objective
 			to_chat(src, "<b>Objective #1</b>: [objective.explanation_text]")
 			var/datum/objective/revenantFluff/objective2 = new
-			objective2.owner = src.mind
-			src.mind.objectives += objective2
+			objective2.owner = mind
+			mind.objectives += objective2
 			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
-			ticker.mode.traitors |= src.mind //Necessary for announcing
-		if(!src.giveSpells())
-			message_admins("Revenant was created but has no mind. Trying again in five seconds.")
-			spawn(50)
-				if(!src.giveSpells())
-					message_admins("Revenant still has no mind. Deleting...")
-					qdel(src)
+			ticker.mode.traitors |= mind //Necessary for announcing
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	if(src.mind)
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/revenant_transmit(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
-		return 1
-	return 0
+	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/revenant_transmit(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	return TRUE
 
 
 /mob/living/simple_animal/revenant/dust()
@@ -368,7 +386,7 @@
 	loc = get_turf(src) //In case it's in a backpack or someone's hand
 	var/mob/living/simple_animal/revenant/R = new(get_turf(src))
 	if(client_to_revive)
-		for(var/mob/M in dead_mob_list)
+		for(var/mob/M in GLOB.dead_mob_list)
 			if(M.client == client_to_revive) //Only recreates the mob if the mob the client is in is dead
 				R.client = client_to_revive
 				key_of_revenant = client_to_revive.key

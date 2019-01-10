@@ -371,7 +371,7 @@
 /obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
-	for(var/mob/dead/observer/ghost in player_list) //We put them back in their body
+	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
 		if(ghost.mind && ghost.mind.current == T && ghost.client)
 			chosen_ghost = ghost
 			break

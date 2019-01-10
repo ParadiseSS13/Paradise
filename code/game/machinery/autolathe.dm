@@ -38,7 +38,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, FALSE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
@@ -216,15 +216,12 @@
 	return ..()
 
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
-	if(ispath(type_inserted, /obj/item/ore/bluespace_crystal))
-		use_power(MINERAL_MATERIAL_AMOUNT / 10)
-	else
-		switch(id_inserted)
-			if(MAT_METAL)
-				flick("autolathe_o",src)//plays metal insertion animation
-			if(MAT_GLASS)
-				flick("autolathe_r",src)//plays glass insertion animation
-		use_power(min(1000, amount_inserted / 100))
+	switch(id_inserted)
+		if(MAT_METAL)
+			flick("autolathe_o", src)//plays metal insertion animation
+		if(MAT_GLASS)
+			flick("autolathe_r", src)//plays glass insertion animation
+	use_power(min(1000, amount_inserted / 100))
 	SSnanoui.update_uis(src)
 
 /obj/machinery/autolathe/attack_ghost(mob/user)

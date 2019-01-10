@@ -1,32 +1,22 @@
 /*	Note from Carnie:
 		The way datum/mind stuff works has been changed a lot.
 		Minds now represent IC characters rather than following a client around constantly.
-
 	Guidelines for using minds properly:
-
 	-	Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
 		ghost.mind is however used as a reference to the ghost's corpse
-
 	-	When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
 		the existing mind of the old mob should be transfered to the new mob like so:
-
 			mind.transfer_to(new_mob)
-
 	-	You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
 		By setting key or ckey explicitly after transfering the mind with transfer_to you will cause bugs like DCing
 		the player.
-
 	-	IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
-
 	-	When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
 		a ghost to become a xeno during an event). Simply assign the key or ckey like you've always done.
-
 			new_mob.key = key
-
 		The Login proc will handle making a new mob for that mobtype (including setting up stuff like mind.name). Simple!
 		However if you want that mind to have any special properties like being a traitor etc you will have to do that
 		yourself.
-
 */
 
 /datum/mind
@@ -67,6 +57,10 @@
 	var/datum/mindslaves/som //stands for slave or master...hush..
 
 	var/rev_cooldown = 0
+
+	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
+	var/isblessed = FALSE // is this person blessed by a chaplain?
+	var/num_blessed = 0 // for prayers
 
 	// the world.time since the mob has been brigged, or -1 if not at all
 	var/brigged_since = -1
@@ -265,7 +259,7 @@
 		. += "<b><font color='red'>OPERATIVE</b></font>|<a href='?src=[UID()];nuclear=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];nuclear=dressup'>dress up</a>."
 		var/code
-		for(var/obj/machinery/nuclearbomb/bombue in machines)
+		for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
 			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 				code = bombue.r_code
 				break
@@ -385,9 +379,9 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
-	/* 
-		This prioritizes antags relevant to the current round to make them appear at the top of the panel. 
-		Traitorchan and traitorvamp are snowflaked in because they have multiple sections. 
+	/*
+		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
+		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
 	if(ticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
@@ -433,7 +427,7 @@
 		return
 
 	if(href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in joblist
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in GLOB.joblist
 		if(!new_role)
 			return
 		assigned_role = new_role
@@ -481,7 +475,7 @@
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
 				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
 
-				var/list/possible_targets = list("Free objective")
+				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
 						possible_targets += possible_target.current
@@ -490,6 +484,8 @@
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective:target.current
+				possible_targets = sortAtom(possible_targets)
+				possible_targets += "Free objective"
 
 				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 				if(!new_target)
@@ -579,11 +575,12 @@
 				new_objective.target_amount = target_number
 
 			if("identity theft")
-				var/list/possible_targets = list("Free objective")
+				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
-
+				possible_targets = sortAtom(possible_targets)
+				possible_targets += "Free objective"
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return
@@ -608,6 +605,7 @@
 
 		if(objective)
 			objectives -= objective
+			qdel(objective)
 			objectives.Insert(objective_pos, new_objective)
 		else
 			objectives += new_objective
@@ -623,6 +621,7 @@
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
+		qdel(objective)
 
 	else if(href_list["obj_completed"])
 		var/datum/objective/objective = locate(href_list["obj_completed"])
@@ -949,6 +948,7 @@
 					special_role = null
 					for(var/datum/objective/nuclear/O in objectives)
 						objectives-=O
+						qdel(O)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
@@ -991,7 +991,7 @@
 
 			if("tellcode")
 				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in machines)
+				for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
 					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 						code = bombue.r_code
 						break
@@ -1398,7 +1398,7 @@
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
-	for(var/obj/effect/landmark/abductor/A in landmarks_list)
+	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
 		if(istype(A, /obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
 		else if(istype(A, /obj/effect/landmark/abductor/scientist))
@@ -1456,7 +1456,7 @@
 		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
-	for(var/mob/dead/observer/G in dead_mob_list)
+	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
 		if(G.mind == src)
 			if(G.can_reenter_corpse || even_if_they_cant_reenter)
 				return G

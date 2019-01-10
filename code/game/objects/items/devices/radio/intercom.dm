@@ -18,7 +18,7 @@
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
-	frequency  = 1449
+	frequency  = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
@@ -57,7 +57,7 @@
 			dir=ndir
 		b_stat=1
 		on = 0
-	global_intercoms.Add(src)
+	GLOB.global_intercoms.Add(src)
 	update_icon()
 
 /obj/item/radio/intercom/department/medbay/New()
@@ -75,8 +75,8 @@
 	name = "illicit intercom"
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
-	subspace_transmission = 1
-	syndie = 1
+	subspace_transmission = TRUE
+	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()
 	..()
@@ -106,7 +106,7 @@
 
 /obj/item/radio/intercom/Destroy()
 	processing_objects.Remove(src)
-	global_intercoms.Remove(src)
+	GLOB.global_intercoms.Remove(src)
 	return ..()
 
 /obj/item/radio/intercom/attack_ai(mob/user as mob)
@@ -129,7 +129,7 @@
 		if(isnull(position) || !(get_radio_id(position.z) in level))
 			return -1
 	if(freq in ANTAG_FREQS)
-		if(!(src.syndie))
+		if(!(syndiekey))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 
 	return canhear_range

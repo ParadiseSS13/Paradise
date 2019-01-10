@@ -31,6 +31,7 @@
 	var/detected_mech = FALSE
 	var/detected_pod = FALSE
 	var/detected_double_agent = FALSE
+	var/mine_trigger_count = 0
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
@@ -81,8 +82,18 @@
 	detected_mech = FALSE
 	detected_pod = FALSE
 	detected_double_agent = FALSE
+	mine_trigger_count = 0
 	updateicon()
 
+	if(!istype(reactor))
+		for(var/obj/structure/fusionreactor/R in src)
+			reactor = R
+			R.has_overloaded = FALSE
+
+	for(var/obj/machinery/door/airlock/A in src)
+		if(A.density && A.locked)
+			spawn(0)
+				A.unlock()
 
 	alert_log += "Alert level reset."
 
@@ -118,6 +129,12 @@
 	something_looted = TRUE
 	if(on_peaceful)
 		increase_alert("Vandals!")
+
+/area/syndicate_depot/core/proc/mine_triggered(mob/living/M)
+	if(mine_trigger_count)
+		return TRUE
+	mine_trigger_count++
+	increase_alert("Intruder detected by sentry mine: [M]")
 
 /area/syndicate_depot/core/proc/saw_mech(obj/mecha/E)
 	if(detected_mech)
@@ -196,7 +213,7 @@
 	if(!silent)
 		announce_here("Depot Code BLUE", reason)
 		var/list/possible_bot_spawns = list()
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
 		if(possible_bot_spawns.len)
@@ -215,7 +232,7 @@
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
 	lockout_computers()
-	for(var/obj/machinery/door/poddoor/P in airlocks)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
 			spawn(0)
 				P.open()
@@ -228,7 +245,7 @@
 			comms_online = TRUE
 	if(comms_online)
 		spawn(0)
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(prob(50))
 					if(L.name == "syndi_depot_backup")
 						var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
@@ -292,11 +309,11 @@
 	for(var/obj/machinery/computer/syndicate_depot/C in src)
 		C.security_lockout = FALSE
 
-/area/syndicate_depot/core/proc/toggle_door_locks()
+/area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
 	for(var/obj/machinery/door/airlock/A in src)
-		A.emergency = !A.emergency
-		if(A.locked)
-			A.locked = !A.locked
+		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
+			continue
+		A.emergency = !!openaccess
 		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
@@ -311,13 +328,12 @@
 /area/syndicate_depot/core/proc/announce_here(a_header = "Depot Defense Alert", a_text = "")
 	var/msg_text = "<font size=4 color='red'>[a_header]</font><br><font color='red'>[a_text]</font>"
 	var/list/receivers = list()
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(!M.ckey)
 			continue
 		var/turf/T = get_turf(M)
-		if(T.loc != src)
-			continue
-		receivers |= M
+		if(T && T.loc && T.loc == src)
+			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
 		R << sound('sound/misc/notice1.ogg')
@@ -325,7 +341,7 @@
 /area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)
 		return
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()
@@ -335,6 +351,8 @@
 		if(!L.locked)
 			L.locked = !L.locked
 		L.update_icon()
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+		A.lock()
 
 /area/syndicate_depot/core/proc/shields_key_check()
 	if(!shield_list.len)
@@ -353,6 +371,8 @@
 		if(L.locked)
 			L.locked = !L.locked
 			L.update_icon()
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+		A.unlock()
 
 /area/syndicate_depot/core/proc/despawn_guards()
 	for(var/mob/thismob in list_getmobs(guard_list))
@@ -363,7 +383,7 @@
 /area/syndicate_depot/core/proc/ghostlog(gmsg)
 	if(istype(reactor))
 		var/image/alert_overlay = image('icons/obj/flag.dmi', "syndiflag")
-		notify_ghosts(gmsg, title = "Depot News", source = reactor, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
+		notify_ghosts(gmsg, title = "Depot News", source = reactor.loc, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
 
 /area/syndicate_depot/core/proc/declare_started()
 	if(!run_started)

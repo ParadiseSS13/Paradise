@@ -27,6 +27,7 @@
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
 	alien_organs += new /obj/item/organ/internal/xenos/hivenode
+	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
 	..()
@@ -34,7 +35,7 @@
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
 		return default_language
-	return all_languages["Xenomorph"]
+	return GLOB.all_languages["Xenomorph"]
 
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/verb = "hisses"
@@ -132,6 +133,10 @@
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10
 
+/mob/living/carbon/alien/movement_delay()
+	. = ..()
+	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
+
 /mob/living/carbon/alien/getDNA()
 	return null
 
@@ -166,11 +171,11 @@
 	//Lasertag bullshit
 	if(lasercolor)
 		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
-			if((istype(r_hand,/obj/item/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/gun/energy/laser/redtag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/tag/red)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/red)))
 				threatcount += 4
 
 		if(lasercolor == "r")
-			if((istype(r_hand,/obj/item/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/gun/energy/laser/bluetag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/tag/blue)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/blue)))
 				threatcount += 4
 
 		return threatcount
@@ -194,7 +199,7 @@ Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
-		for(var/mob/living/C in mob_list)
+		for(var/mob/living/C in GLOB.mob_list)
 			if(C.status_flags & XENO_HOST)
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)

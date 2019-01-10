@@ -132,17 +132,77 @@
 
 	return null
 
-//parses the language code (e.g. :j) from text, such as that supplied to say.
-//returns the language object only if the code corresponds to a language that src can speak, otherwise null.
-/mob/proc/parse_language(var/message)
-	var/prefix = copytext(message, 1, 2)
-	if(length(message) >= 1 && prefix == "!")
-		return all_languages["Noise"]
+/datum/multilingual_say_piece
+	var/datum/language/speaking = null
+	var/message = ""
 
-	if(length(message) >= 2)
-		var/language_prefix = trim_right(lowertext(copytext(message, 1 ,4)))
-		var/datum/language/L = language_keys[language_prefix]
-		if(can_speak_language(L))
-			return L
+/datum/multilingual_say_piece/New(datum/language/new_speaking, new_message)
+	. = ..()
+	speaking = new_speaking
+	if(new_message)
+		message = new_message
 
-	return null
+/mob/proc/find_valid_prefixes(message)
+	var/list/prefixes = list() // [["Common", start, end], ["Gutter", start, end]]
+	for(var/i in 1 to length(message))
+		var/selection = trim_right(lowertext(copytext(message, i, i + 3)))
+		var/datum/language/L = GLOB.language_keys[selection]
+		if(L != null && can_speak_language(L)) // What the fuck... remove the L != null check if you ever find out what the fuck is adding `null` to the languages list on absolutely random mobs... seriously what the hell...
+			prefixes[++prefixes.len] = list(L, i, i + length(selection))
+		else if(!L && i == 1)
+			prefixes[++prefixes.len] = list(get_default_language(), i, i)
+		else
+	return prefixes
+
+/proc/strip_prefixes(message)
+	. = ""
+	var/last_index = 1
+	for(var/i in 1 to length(message))
+		var/selection = trim_right(lowertext(copytext(message, i, i + 3)))
+		var/datum/language/L = GLOB.language_keys[selection]
+		if(L)
+			. += copytext(message, last_index, i)
+			last_index = i + 3
+		if(i + 1 > length(message))
+			. += copytext(message, last_index)
+
+// this returns a structured message with language sections
+// list(/datum/multilingual_say_piece(common, "hi"), /datum/multilingual_say_piece(farwa, "squik"), /datum/multilingual_say_piece(common, "meow!"))
+/mob/proc/parse_languages(message)
+	. = list()
+
+	// Noise language is a snowflake
+	if(copytext(message, 1, 2) == "!" && length(message) > 1)
+		return list(new /datum/multilingual_say_piece(GLOB.all_languages["Noise"], trim(strip_prefixes(copytext(message, 2)))))
+
+	// Scan the message for prefixes
+	var/list/prefix_locations = find_valid_prefixes(message)
+	if(!LAZYLEN(prefix_locations)) // There are no prefixes... or at least, no _valid_ prefixes.
+		. += new /datum/multilingual_say_piece(get_default_language(), trim(strip_prefixes(message))) // So we'll just strip those pesky things and still make the message.
+
+	for(var/i in 1 to length(prefix_locations))
+		var/current = prefix_locations[i] // ["Common", keypos]
+
+		// There are a few things that will make us want to ignore all other languages in - namely, HIVEMIND languages.
+		var/datum/language/L = current[1] 
+		if(L && L.flags & HIVEMIND)
+			. = new /datum/multilingual_say_piece(L, trim(strip_prefixes(message)))
+			break
+
+		if(i + 1 > length(prefix_locations)) // We are out of lookaheads, that means the rest of the message is in cur lang
+			var/spoke_message = handle_autohiss(trim(copytext(message, current[3])), L)
+			. += new /datum/multilingual_say_piece(current[1], spoke_message)
+		else
+			var/next = prefix_locations[i + 1] // We look ahead at the next message to see where we need to stop.
+			var/spoke_message = handle_autohiss(trim(copytext(message, current[3], next[2])), L)
+			. += new /datum/multilingual_say_piece(current[1], spoke_message)
+
+/* These are here purely because it would be hell to try to convert everything over to using the multi-lingual system at once */
+/proc/message_to_multilingual(message, datum/language/speaking = null)
+	. = list(new /datum/multilingual_say_piece(speaking, message))
+
+/proc/multilingual_to_message(list/message_pieces)
+	. = ""
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		. += S.message + " "
+	. = trim_right(.)

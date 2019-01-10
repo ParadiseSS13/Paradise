@@ -58,7 +58,7 @@ var/global/admin_ooc_colour = "#b82e00"
 			if((prefs.toggles & MEMBER_PUBLIC))
 				display_colour = member_ooc_colour
 
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & CHAT_OOC)
 			var/display_name = key
 
@@ -198,13 +198,13 @@ var/global/admin_ooc_colour = "#b82e00"
 	if(mob.stat != DEAD)
 		display_name = mob.name
 
-	for(var/client/target in clients)
+	for(var/client/target in GLOB.clients)
 		if(target.prefs.toggles & CHAT_LOOC)
 			var/prefix = ""
 			var/admin_stuff = ""
 			var/send = 0
 
-			if(target in admins)
+			if(target in GLOB.admins)
 				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
 					admin_stuff += "/([key])"
 					if(target != src)
@@ -221,7 +221,7 @@ var/global/admin_ooc_colour = "#b82e00"
 					send = 1
 					prefix = " (Eye)"
 
-			if(!send && (target in admins))
+			if(!send && (target in GLOB.admins))
 				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
 					send = 1
 					prefix = "(R)"

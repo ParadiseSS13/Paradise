@@ -15,6 +15,7 @@
 	breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
+	var/ignoresClumsy = FALSE
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
@@ -23,7 +24,7 @@
 	if(!istype(C))
 		return
 
-	if(CLUMSY in user.mutations && prob(50))
+	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
 

@@ -153,11 +153,11 @@
 			var/newname = ""
 			switch(lasercolor)
 				if("b")
-					if(!istype(W, /obj/item/gun/energy/laser/bluetag))
+					if(!istype(W, /obj/item/gun/energy/laser/tag/blue))
 						return
 					newname = "bluetag ED-209 assembly"
 				if("r")
-					if(!istype(W, /obj/item/gun/energy/laser/redtag))
+					if(!istype(W, /obj/item/gun/energy/laser/tag/red))
 						return
 					newname = "redtag ED-209 assembly"
 				if("")

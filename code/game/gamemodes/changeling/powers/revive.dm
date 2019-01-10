@@ -16,8 +16,7 @@
 	user.radiation = 0
 	user.SetEyeBlind(0, FALSE)
 	user.SetEyeBlurry(0, FALSE)
-	user.SetEarDamage(0)
-	user.SetEarDeaf(0)
+	user.RestoreEars()
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss(), updating_health = FALSE)
 	user.CureBlind(FALSE)
 	user.CureDeaf()
@@ -52,15 +51,16 @@
 			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
-	user.updatehealth()
+	user.status_flags &= ~(FAKEDEATH)
+	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()
+	user.mind.changeling.regenerating = FALSE
 
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")
 
 	user.regenerate_icons()
 
-	user.status_flags &= ~(FAKEDEATH)
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()

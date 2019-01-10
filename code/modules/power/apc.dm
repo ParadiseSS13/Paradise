@@ -145,8 +145,8 @@
 	if(!armor)
 		armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100)
 	..()
-	apcs += src
-	apcs = sortAtom(apcs)
+	GLOB.apcs += src
+	GLOB.apcs = sortAtom(GLOB.apcs)
 	wires = new(src)
 
 	// offset 24 pixels in direction of dir
@@ -172,7 +172,7 @@
 			src.update()
 
 /obj/machinery/power/apc/Destroy()
-	apcs -= src
+	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = Clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = 0
@@ -536,9 +536,7 @@
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
 				if(prob(50) && electrocute_mob(usr, N, N))
-					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
+					do_sparks(5, 1, src)
 					return
 				C.use(10)
 				user.visible_message(\
@@ -555,9 +553,7 @@
 		if(do_after(user, 50 * W.toolspeed, target = src))
 			if(terminal && opened && has_electronics!=2)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
-					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
+					do_sparks(5, 1, src)
 					return
 				new /obj/item/stack/cable_coil(loc,10)
 				to_chat(user, "<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
@@ -1036,7 +1032,7 @@
 	occupier.verbs += /mob/living/silicon/ai/proc/corereturn
 	occupier.cancel_camera()
 	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
-		for(var/obj/item/pinpointer/point in pinpointer_list)
+		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = src //the pinpointer will detect the shunted AI
 
 /obj/machinery/power/apc/proc/malfvacate(forced)
@@ -1049,7 +1045,7 @@
 		occupier.parent.cancel_camera()
 		qdel(occupier)
 		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
-			for(var/obj/item/pinpointer/point in pinpointer_list)
+			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				for(var/mob/living/silicon/ai/A in ai_list)
 					if((A.stat != DEAD) && A.nuking)
 						point.the_disk = A //The pinpointer tracks the AI back into its core.
@@ -1059,7 +1055,7 @@
 			occupier.loc = loc
 			occupier.death()
 			occupier.gib()
-			for(var/obj/item/pinpointer/point in pinpointer_list)
+			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				point.the_disk = null //Pinpointers go back to tracking the nuke disk
 
 /obj/machinery/power/apc/proc/ion_act()
@@ -1076,9 +1072,7 @@
 				smoke.set_up(3, 0, src.loc)
 				smoke.attach(src)
 				smoke.start()
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 				for(var/mob/M in viewers(src))
 					M.show_message("<span class='danger'>The [src.name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 

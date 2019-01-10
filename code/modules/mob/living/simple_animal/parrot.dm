@@ -91,7 +91,7 @@
 
 /mob/living/simple_animal/parrot/New()
 	..()
-	hear_radio_list += src
+	GLOB.hear_radio_list += src
 	if(!ears)
 		var/headset = pick(/obj/item/radio/headset/headset_sec, \
 						/obj/item/radio/headset/headset_eng, \
@@ -109,7 +109,7 @@
 			  /mob/living/simple_animal/parrot/proc/perch_player)
 
 /mob/living/simple_animal/parrot/Destroy()
-	hear_radio_list -= src
+	GLOB.hear_radio_list -= src
 	return ..()
 
 /mob/living/simple_animal/parrot/death(gibbed)
@@ -704,21 +704,21 @@
 	available_channels = list(":e")
 	..()
 
-/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
+/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
 	if(message_mode && istype(ears))
-		ears.talk_into(src, message, message_mode, verb, speaking)
+		ears.talk_into(src, message_pieces, message_mode, verb)
 		used_radios += ears
 
-/mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/italics = 0, var/mob/speaker = null)
+/mob/living/simple_animal/parrot/hear_say(list/message_pieces, var/verb = "says", var/italics = 0, var/mob/speaker = null)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(message))
+		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
 
 
-/mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
+/mob/living/simple_animal/parrot/hear_radio(list/message_pieces, var/verb="says", var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(message))
+		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
 

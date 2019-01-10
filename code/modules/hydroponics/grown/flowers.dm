@@ -25,6 +25,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#FF6347"
 	bitesize_mod = 3
+	distill_reagent = "vermouth"
 
 // Lily
 /obj/item/seeds/poppy/lily
@@ -88,6 +89,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 3
+	distill_reagent = "vermouth"
 
 
 // Sunflower
@@ -145,6 +147,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
+	distill_reagent = "absinthe" 
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower

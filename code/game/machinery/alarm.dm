@@ -82,9 +82,9 @@
 	req_one_access = list(access_atmospherics, access_engine_equip)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	var/alarm_id = null
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	//var/skipprocess = 0 //Experimenting
-	var/alarm_frequency = 1437
+	var/alarm_frequency = ATMOS_FIRE_FREQ
 	var/remote_control = 0
 	var/rcon_setting = 2
 	var/rcon_time = 0
@@ -189,8 +189,8 @@
 
 /obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
 	..()
-	air_alarms += src
-	air_alarms = sortAtom(air_alarms)
+	GLOB.air_alarms += src
+	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
 	wires = new(src)
 
@@ -211,7 +211,7 @@
 	first_run()
 
 /obj/machinery/alarm/Destroy()
-	air_alarms -= src
+	GLOB.air_alarms -= src
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	radio_connection = null
@@ -1071,6 +1071,13 @@
 		to_chat(user, "It is not wired.")
 	if(buildstage < 1)
 		to_chat(user, "The circuit is missing.")
+
+/obj/machinery/alarm/all_access
+	name = "all-access air alarm"
+	desc = "This particular atmos control unit appears to have no access restrictions."
+	locked = FALSE
+	req_access = null
+	req_one_access = null
 
 /*
 AIR ALARM CIRCUIT

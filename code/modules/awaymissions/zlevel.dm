@@ -17,11 +17,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
-			smooth_icon(T)
+			queue_smooth(T)
 		for(var/R in T)
 			var/atom/A = R
 			if(A.smooth)
-				smooth_icon(A)
+				queue_smooth(A)
 		if(istype(T, /turf/simulated/mineral)) // For the listening post, among other maps
 			var/turf/simulated/mineral/MT = T
 			MT.add_edges()
@@ -59,7 +59,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			space_manager.remove_dirt(zlev)
 			log_world("  Away mission loaded: [map]")
 
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
@@ -92,7 +92,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
 
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name != "awaystart")
 					continue
 				awaydestinations.Add(L)

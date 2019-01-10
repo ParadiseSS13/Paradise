@@ -16,7 +16,7 @@
 	item_state = "bluetag"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/gun/energy/laser/bluetag)
+	allowed = list (/obj/item/gun/energy/laser/tag/blue)
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -30,7 +30,7 @@
 	item_state = "redtag"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/gun/energy/laser/redtag)
+	allowed = list (/obj/item/gun/energy/laser/tag/red)
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -247,7 +247,7 @@
 			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
 			I.override = 1
 			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
-			H.add_alt_appearance("standard_borg_disguise", I, silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
+			H.add_alt_appearance("standard_borg_disguise", I, GLOB.silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
 
 /obj/item/clothing/suit/snowman
 	name = "snowman outfit"

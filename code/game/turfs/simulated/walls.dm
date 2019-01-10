@@ -72,7 +72,7 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
-	smooth_icon(src)
+	queue_smooth(src)
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
@@ -170,12 +170,13 @@
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
-		playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-		user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
-		if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
-			return
+		if(!our_rpd.ranged)
+			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
+			user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
+			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
+				return
 		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
 		return
 	else
 		..()

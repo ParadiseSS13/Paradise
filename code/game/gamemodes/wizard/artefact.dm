@@ -68,7 +68,7 @@
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
 					if("healing")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
 						M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), slot_r_hand)
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
 					if("robeless")
@@ -84,8 +84,8 @@
 				M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), slot_back)
 				M.equip_to_slot_or_del(new /obj/item/storage/box(M), slot_in_backpack)
 				M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), slot_r_store)
-				var/wizard_name_first = pick(wizard_first)
-				var/wizard_name_second = pick(wizard_second)
+				var/wizard_name_first = pick(GLOB.wizard_first)
+				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
 				var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
@@ -785,7 +785,7 @@ var/global/list/multiverse = list()
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			target << 'sound/items/AirHorn.ogg'
-			target.AdjustEarDeaf(3)
+			target.MinimumDeafTicks(3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
@@ -856,7 +856,7 @@ var/global/list/multiverse = list()
 	possible = list()
 	if(!link)
 		return
-	for(var/mob/living/carbon/human/H in living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(md5(H.dna.uni_identity) in link.fingerprints)
 			possible |= H
 

@@ -890,3 +890,10 @@
 	build_path = /obj/item/clothing/ears/vr_headset
 	category = list("initial","Miscellaneous")
 
+/datum/design/safe_internals
+	name = "Safe Internals"
+	id = "safe"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000)
+	build_path = /obj/item/safe_internals
+	category = list("initial", "Construction")

@@ -28,7 +28,7 @@
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
 		var/mob/M = usr
 
-		if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		if(istype(M.loc,/obj/mecha) || M.incapacitated(FALSE, TRUE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
@@ -100,6 +100,8 @@
 	return L
 
 /obj/item/storage/proc/show_to(mob/user as mob)
+	if(!user.client)
+		return
 	if(user.s_active != src)
 		for(var/obj/item/I in src)
 			if(I.on_found(user))
@@ -471,10 +473,10 @@
 			O.emp_act(severity)
 	..()
 
-/obj/item/storage/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()
 	for(var/obj/O in contents)
-		O.hear_talk(M, msg)
+		O.hear_talk(M, message_pieces)
 
 /obj/item/storage/hear_message(mob/living/M as mob, msg)
 	..()

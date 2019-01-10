@@ -44,6 +44,8 @@
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)
+	new /obj/item/reagent_containers/food/drinks/oilcan(src)
+	new /obj/item/reagent_containers/food/drinks/oilcan(src)
 
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
@@ -72,6 +74,7 @@
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 
 
 /obj/structure/closet/secure_closet/research_reagents

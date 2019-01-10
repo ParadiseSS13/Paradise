@@ -10,6 +10,12 @@
 	var/list/clothing_choices = list()
 	silence_steps = 1
 
+/obj/item/clothing/shoes/syndigaloshes/black
+	name = "black shoes"
+	icon_state = "black"
+	item_color = "black"
+	desc = "A pair of black shoes. They seem to have extra grip."
+
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
 	icon_state = "mime"
@@ -38,6 +44,7 @@
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
+	magical = TRUE
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
@@ -73,8 +80,12 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
-	silence_steps = 1
 	shoe_sound = "clownstep"
+
+/obj/item/clothing/shoes/clown_shoes/magical
+	name = "magical clown shoes"
+	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
+	magical = TRUE
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
@@ -87,7 +98,6 @@
 	put_on_delay = 50
 	burn_state = FIRE_PROOF
 	var/footstep = 1
-	silence_steps = 1
 	shoe_sound = "jackboot"
 
 /obj/item/clothing/shoes/jackboots/jacksandals
@@ -176,10 +186,10 @@
 	item_state = "noble_boot"
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll))
+	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
 		var/obj/item/stack/tape_roll/TR = I
 		if((!silence_steps || shoe_sound) && TR.use(4))
-			silence_steps = 1
+			silence_steps = TRUE
 			shoe_sound = null
 			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else

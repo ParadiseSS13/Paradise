@@ -87,24 +87,28 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red)
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/New()
 	..()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/emergency_oxygen/syndi(src)
 	return
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi)
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/hardsuit/New()
 	..()
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/emergency_oxygen/syndi(src)
 	return
 
 /obj/item/storage/box/syndie_kit/elite_hardsuit
@@ -203,14 +207,21 @@
 
 /obj/item/storage/box/syndie_kit/caneshotgun/New()
 	..()
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
-	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
+	new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
+/obj/item/storage/box/syndie_kit/mimery
+	name = "advanced mimery kit"
+
+/obj/item/storage/box/syndie_kit/mimery/New()
+	..()
+	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
+	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
 /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	name = "Atmos Grenades"
@@ -262,3 +273,14 @@
 
 To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. Bones should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype.</font><BR><HR></font>
 	"}
+
+/obj/item/storage/box/syndie_kit/safecracking
+	name = "Safe-cracking Kit"
+	desc = "Everything you need to quietly open a mechanical combination safe."
+
+/obj/item/storage/box/syndie_kit/safecracking/New()
+	..()
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/clothing/accessory/stethoscope(src)
+	new /obj/item/book/manual/engineering_hacking(src)

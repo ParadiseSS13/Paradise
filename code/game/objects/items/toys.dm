@@ -250,9 +250,7 @@
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
 	..()
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
 	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a bang!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
@@ -270,9 +268,7 @@
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
 /obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
-	var/datum/effect_system/spark_spread/s = new()
-	s.set_up(n, c, src)
-	s.start()
+	do_sparks(n, c, src)
 	new ash_type(loc)
 	visible_message("<span class='warning'>[src] explodes!</span>",
 		"<span class='italics'>You hear a snap!</span>")
@@ -1654,3 +1650,13 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "conch"
 	use_action = "pulls the string"
 	possible_answers = list("Yes.", "No.", "Try asking again.", "Nothing.", "I don't think so.", "Neither.", "Maybe someday.")
+
+/*
+ *Fake cuffs (honk honk)
+ */
+
+/obj/item/restraints/handcuffs/toy
+	desc = "Toy handcuffs. Plastic and extremely cheaply made."
+	throwforce = 0
+	breakouttime = 0 
+	ignoresClumsy = TRUE

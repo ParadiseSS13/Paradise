@@ -87,6 +87,17 @@
 		return TRUE
 	return FALSE
 
+/obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	return TRUE
+
+/obj/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	collision_damage(pusher, force, direction)
+	return TRUE
+	
+/obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
+	take_damage(amt, BRUTE)
+
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
@@ -104,8 +115,8 @@
 		playsound(loc, 'sound/weapons/slash.ogg', 100, 1)
 
 /obj/attack_animal(mob/living/simple_animal/M)
-	if(!M.melee_damage_upper && !M.obj_damage)
-		M.custom_emote(1, "[M.friendly] [src]")
+	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))
+		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1

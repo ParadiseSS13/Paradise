@@ -10,6 +10,7 @@
 	internal_damage_threshold = 35
 	deflect_chance = 15
 	step_energy_drain = 6
+	normal_step_energy_drain = 6
 	var/builtin_hud_user = 0
 
 /obj/mecha/medical/odysseus/moved_inside(var/mob/living/carbon/human/H)
@@ -43,4 +44,3 @@
 		builtin_hud_user = 0
 
 	. = ..()
-

@@ -28,7 +28,7 @@
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE),INFINITY)
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack)
 	files = new /datum/research/smelter(src)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
@@ -70,12 +70,12 @@
 	point_upgrade = point_upgrade_temp
 	sheet_per_ore = sheet_per_ore_temp
 
-/obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/ore/O)
+/obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 
 	ore_buffer -= O
 
 	if(O && O.refined_type)
-		points += O.points * point_upgrade
+		points += O.points * point_upgrade * O.amount
 
 	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
@@ -83,7 +83,7 @@
 	if(!material_amount)
 		qdel(O) //no materials, incinerate it
 
-	else if(!materials.has_space(material_amount * sheet_per_ore)) //if there is no space, eject it
+	else if(!materials.has_space(material_amount * sheet_per_ore * O.amount)) //if there is no space, eject it
 		unload_mineral(O)
 
 	else
@@ -157,7 +157,7 @@
 	if(OB)
 		input = OB
 
-	for(var/obj/item/ore/O in input)
+	for(var/obj/item/stack/ore/O in input)
 		if(QDELETED(O))
 			continue
 		ore_buffer |= O
@@ -335,6 +335,8 @@
 		var/datum/design/alloy = files.FindDesignByID(alloy_id)
 		if((check_access(inserted_id) || allowed(usr)) && alloy)
 			var/desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
+			if(desired < 1) // Stops an exploit that lets you build negative alloys and get free materials
+				return
 			var/smelt_amount = can_smelt_alloy(alloy)
 			var/amount = round(min(desired,50,smelt_amount))
 			materials.use_amount(alloy.materials, amount)
@@ -352,9 +354,7 @@
 	updateUsrDialog()
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(severity == 1)
 		if(prob(50))
 			qdel(src)
@@ -564,9 +564,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
@@ -847,9 +845,10 @@
 			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
 			return
 
-/obj/item/lazarus_injector/emag_act()
+/obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
 		malfunctioning = 1
+		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)

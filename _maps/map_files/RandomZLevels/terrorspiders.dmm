@@ -1324,7 +1324,7 @@
 "zz" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/wall,/area/awaymission/UO71/queen)
 "zH" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 8; initialize_directions = 7; tag = "icon-manifold-r-f (WEST)"},/turf/simulated/wall,/area/awaymission/UO71/science)
 "zM" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/mineral/random/labormineral,/area/awaymission/UO71/queen)
-"zO" = (/obj/effect/decal/cleanable/dirt,/obj/structure/table,/obj/machinery/light/small{dir = 4},/obj/item/borg/upgrade/vtec,/obj/item/stock_parts/cell/bluespace,/obj/item/paper/terrorspiders9,/turf/simulated/floor/plasteel{dir = 5; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/awaymission/UO71/loot)
+"zO" = (/obj/effect/decal/cleanable/dirt,/obj/structure/table,/obj/machinery/light/small{dir = 4},/obj/item/borg/upgrade/vtec,/obj/item/stock_parts/cell/bluespace,/obj/item/paper/researchnotes,/turf/simulated/floor/plasteel{dir = 5; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/awaymission/UO71/loot)
 "zP" = (/turf/simulated/wall,/area/awaymission/UO71/bridge)
 "zQ" = (/obj/machinery/door/poddoor{id_tag = "UO71_Bridge"; name = "Bridge Lockdown Door"},/turf/simulated/floor/plasteel,/area/awaymission/UO71/bridge)
 "zR" = (/obj/machinery/door/poddoor{id_tag = "UO71_Queen"; name = "Caves Lockdown Door"},/turf/simulated/floor/wood,/area/awaymission/UO71/queen)

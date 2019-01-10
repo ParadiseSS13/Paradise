@@ -1,0 +1,65 @@
+<head>
+	<style type="text/css">
+		.mainBG {
+			background: #3E4E69;
+		}
+		#uiTitleFluff {
+			display: none;
+		}
+	</style>
+</head>
+{{if data.open}}
+	<div>
+		<div style='text-align: center;'>
+			<div style='display: inline-block;'>{{:helper.link('Close', 'caret-square-o-up', {'open': 1})}} </div>
+		</div>
+	</div>
+	<div class='statusDisplay'>	
+		{{for data.contents}}
+			<div class='line'>
+				{{:helper.link(value.name, 'arrow-left', {'retrieve': value.index})}} <img src='{{:value.sprite}}.png' style='position: relative; top: -6px'>
+			</div>
+		{{/for}}
+	</div>
+{{else}}
+	<div>
+		<div style='text-align: center;'>
+			<div style='display: inline-block;'>{{:helper.link('Open', 'caret-square-o-down', {'open': 1})}} </div>
+		</div>
+	</div>
+	<div>
+		<div style='text-align: center; margin: 0px 0px 0px 28px'>
+			<div style='display: inline-block;'>{{:helper.link('Left 50', 'arrow-left', {'increment': 50})}} </div>
+			<div style='display: inline-block;'>{{:helper.link('Left 10', 'arrow-left', {'increment': 10})}} </div>
+			<div style='display: inline-block;'>{{:helper.link('Left 1', 'arrow-left', {'increment': 1})}} </div>
+			<div style='display: inline-block;'><div class="link yellowButton"> {{:data.dial}} </div></div>
+			{{if data.locked}}
+				<div style='display: inline-block;'>{{:helper.link('Right 1', 'arrow-right', {'decrement': 1})}} </div>
+				<div style='display: inline-block;'>{{:helper.link('Right 10', 'arrow-right', {'decrement': 10})}} </div>
+				<div style='display: inline-block;'>{{:helper.link('Right 50', 'arrow-right', {'decrement': 50})}} </div>
+			{{else}}
+				<div style='display: inline-block;'>{{:helper.link('Right 1', 'arrow-right', null, 'disabled')}} </div>
+				<div style='display: inline-block;'>{{:helper.link('Right 10', 'arrow-right', null, 'disabled')}} </div>
+				<div style='display: inline-block;'>{{:helper.link('Right 100', 'arrow-right', null, 'disabled')}} </div>
+			{{/if}}
+		</div>
+	</div>
+	<div style='text-align: center;'>
+		<span class="fa fa-long-arrow-down fa-2x"></span>
+	</div>
+	<div style='text-align: center; height: 425px;'>
+		<div style='display: inline-block;'> <img src="safe_dial.png" style='transform: rotate({{:data.rotation}}); z-index: -1;'></div>
+	</div>
+	<div style='text-align: center;'>
+		<div style='font-weight: bold;'>How to open your Scarborough Arms - 2 tumbler safe.</div> 
+		<div style='display: inline-block; text-align: left;'>
+			<div>1. Turn the dial right two full turns.</div>
+			<div>2. Keep turning right and stop on first number.</div>
+			<div>3. Turn the dial left one full turn.</div>
+			<div>4. Turn left to second number. Do not go past it.</div>
+			<div>5. Turn the dial right until it stops.</div>
+			<div style='height: 32px;'>6. Open the safe.</div>
+		</div>	
+		<div style='font-weight: bold;'>To lock fully, turn the dial to the left for three rotations.</div>
+	</div>
+{{/if}}

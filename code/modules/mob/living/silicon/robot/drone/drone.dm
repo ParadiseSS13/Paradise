@@ -17,7 +17,6 @@
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
-	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -38,7 +37,6 @@
 
 
 /mob/living/silicon/robot/drone/New()
-
 	..()
 
 	remove_language("Robot Talk")
@@ -132,7 +130,7 @@
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
-			if(!allowed(usr))
+			if(!allowed(W))
 				to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
 
@@ -158,7 +156,7 @@
 			if(emagged)
 				return
 
-			if(allowed(usr))
+			if(allowed(W))
 				shut_down()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -223,6 +221,10 @@
 	health = 35 - (getBruteLoss() + getFireLoss())
 	update_stat("updatehealth([reason])")
 
+/mob/living/silicon/robot/drone/death(gibbed)
+	. = ..(gibbed)
+	ghostize(can_reenter_corpse = 0)
+
 
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()
@@ -254,7 +256,7 @@
 //Reboot procs.
 
 /mob/living/silicon/robot/drone/proc/request_player()
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(cannotPossess(O))
 			continue
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))

@@ -247,9 +247,9 @@
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/grenade/chem_grenade/hear_talk(mob/living/M, msg)
+/obj/item/grenade/chem_grenade/hear_talk(mob/living/M, list/message_pieces)
 	if(nadeassembly)
-		nadeassembly.hear_talk(M, msg)
+		nadeassembly.hear_talk(M, message_pieces)
 
 /obj/item/grenade/chem_grenade/hear_message(mob/living/M, msg)
 	if(nadeassembly)
@@ -289,7 +289,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> ([admin_jump_link(M)]) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([admin_jump_link(M)]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
 
 	update_mob()
@@ -419,7 +419,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[last]'>FLW</A>) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([ADMIN_FLW(M,"FLW")]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([ADMIN_FLW(last,"FLW")]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
 	else
 		addtimer(CALLBACK(src, .proc/prime), det_time)
@@ -432,18 +432,18 @@
 	desc = "Used for emergency sealing of air breaches."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/metalfoam/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("aluminum", 30)
-		B2.reagents.add_reagent("fluorosurfactant", 10)
-		B2.reagents.add_reagent("sacid", 10)
+	B1.reagents.add_reagent("aluminum", 30)
+	B2.reagents.add_reagent("fluorosurfactant", 10)
+	B2.reagents.add_reagent("sacid", 10)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/incendiary
@@ -451,19 +451,19 @@
 	desc = "Used for clearing rooms of living things."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+/obj/item/grenade/chem_grenade/incendiary/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-		B1.reagents.add_reagent("phosphorus", 25)
-		B2.reagents.add_reagent("plasma", 25)
-		B2.reagents.add_reagent("sacid", 25)
+	B1.reagents.add_reagent("phosphorus", 25)
+	B2.reagents.add_reagent("plasma", 25)
+	B2.reagents.add_reagent("sacid", 25)
 
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/antiweed
@@ -471,20 +471,20 @@
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/antiweed/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("atrazine", 30)
-		B1.reagents.add_reagent("potassium", 20)
-		B2.reagents.add_reagent("phosphorus", 20)
-		B2.reagents.add_reagent("sugar", 20)
-		B2.reagents.add_reagent("atrazine", 10)
+	B1.reagents.add_reagent("atrazine", 30)
+	B1.reagents.add_reagent("potassium", 20)
+	B2.reagents.add_reagent("phosphorus", 20)
+	B2.reagents.add_reagent("sugar", 20)
+	B2.reagents.add_reagent("atrazine", 10)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/cleaner
@@ -492,18 +492,18 @@
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/cleaner/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("fluorosurfactant", 40)
-		B2.reagents.add_reagent("cleaner", 10)
-		B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
+	B1.reagents.add_reagent("fluorosurfactant", 40)
+	B2.reagents.add_reagent("cleaner", 10)
+	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/teargas
@@ -511,35 +511,35 @@
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/teargas/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("condensedcapsaicin", 25)
-		B1.reagents.add_reagent("potassium", 25)
-		B2.reagents.add_reagent("phosphorus", 25)
-		B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent("condensedcapsaicin", 25)
+	B1.reagents.add_reagent("potassium", 25)
+	B2.reagents.add_reagent("phosphorus", 25)
+	B2.reagents.add_reagent("sugar", 25)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 /obj/item/grenade/chem_grenade/facid
-	name = "acid grenade"
-	desc = "Used for melting armoured opponents."
+	payload_name = "acid smoke"
+	desc = "Use to chew up opponents from the inside out."
 	stage = READY
 
 /obj/item/grenade/chem_grenade/facid/New()
 	..()
-	var/obj/item/reagent_containers/glass/beaker/bluespace/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/bluespace/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("facid", 280)
+	B1.reagents.add_reagent("facid", 80)
 	B1.reagents.add_reagent("potassium", 20)
 	B2.reagents.add_reagent("phosphorus", 20)
 	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("facid", 260)
+	B2.reagents.add_reagent("facid", 60)
 
 	beakers += B1
 	beakers += B2
@@ -550,19 +550,19 @@
 	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/saringas/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("sarin", 25)
-		B1.reagents.add_reagent("potassium", 25)
-		B2.reagents.add_reagent("phosphorus", 25)
-		B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent("sarin", 25)
+	B1.reagents.add_reagent("potassium", 25)
+	B2.reagents.add_reagent("phosphorus", 25)
+	B2.reagents.add_reagent("sugar", 25)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 #undef EMPTY
 #undef WIRED

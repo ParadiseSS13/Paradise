@@ -177,7 +177,7 @@
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
 						SSshuttle.points += cost
-						for(var/mob/M in player_list)
+						for(var/mob/M in GLOB.player_list)
 							if(M.mind)
 								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
 									objective.unit_completed(cost)
@@ -739,7 +739,7 @@
 	return 1
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
+	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 

@@ -16,11 +16,11 @@
 	else
 		return "[src] is deactivated."
 
-/obj/item/assembly/voice/hear_talk(mob/living/M as mob, msg)
-	hear_input(M, msg, 0)
+/obj/item/assembly/voice/hear_talk(mob/living/M as mob, list/message_pieces)
+	hear_input(M, multilingual_to_message(message_pieces), 0)
 
 /obj/item/assembly/voice/hear_message(mob/living/M as mob, msg)
-		hear_input(M, msg, 1)
+	hear_input(M, msg, 1)
 
 /obj/item/assembly/voice/proc/hear_input(mob/living/M as mob, msg, type)
 	if(!istype(M,/mob/living))
@@ -41,12 +41,13 @@
 
 
 /obj/item/assembly/voice/attack_self(mob/user)
-	if(!user || !secured)	return 0
+	if(!user || !secured)
+		return FALSE
 
 	listening = !listening
 	var/turf/T = get_turf(src)
 	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
-	return 1
+	return TRUE
 
 
 /obj/item/assembly/voice/toggle_secure()
@@ -67,10 +68,10 @@
 /obj/item/assembly/voice/noise/describe()
 	return "[src] does not appear to have any controls."
 
-/obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, msg)
+/obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, list/message_pieces)
 	return
 
-/obj/item/assembly/voice/hear_message(mob/living/M as mob, msg)
+/obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)
 	pulse(0)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
 	T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
