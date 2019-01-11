@@ -151,6 +151,15 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	var/obj/item/radio/headset/R = new /obj/item/radio/headset/vr(vr_avatar)
 	vr_avatar.equip_to_slot_or_del(R, slot_l_ear)
 
+	for(var/obj/item/radio/headset/S in H.contents)
+		if(H.l_ear == S || H.r_ear == S)
+			if(S.keyslot2 != null)
+				R.keyslot1 = S.keyslot2
+			else if(S.keyslot1 != null)
+				R.keyslot1 = S.keyslot1
+			R.recalculateChannels()
+			R.setupRadioDescription()
+
 	vr_avatar.dna.species.after_equip_job(null, vr_avatar)
 
 	if(vr_avatar.dna.species.name == "Plasmaman")
