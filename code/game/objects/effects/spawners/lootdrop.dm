@@ -189,7 +189,9 @@
 				/obj/item/soap/syndie = 50,
 				/obj/item/lighter/zippo/gonzofist = 50,
 				/obj/item/stack/nanopaste = 50,
-				/obj/item/clothing/under/psyjump = 50
+				/obj/item/clothing/under/psyjump = 50,
+				/obj/item/immortality_talisman = 50,
+				/obj/item/grenade/clusterbuster/smoke = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
@@ -213,8 +215,7 @@
 				/obj/item/stack/sheet/mineral/bananium = 50,
 				/obj/item/stack/sheet/wood = 50,
 				/obj/item/stack/sheet/plastic = 50,
-				/obj/item/stack/sheet/mineral/sandstone = 50,
-
+				/obj/item/stack/sheet/mineral/sandstone = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals/New()
@@ -241,7 +242,7 @@
 				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
 				/obj/item/gun/projectile/shotgun/toy = 50,
 				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
-				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
+				/obj/item/gun/projectile/shotgun/toy/tommygun = 50
 				)
 
 
@@ -260,7 +261,7 @@
 
 				// Xenobio
 				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/slimepotion/transference = 50,
+				/obj/item/slimepotion/transference = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/med
@@ -279,12 +280,11 @@
 				// Genetics Research (should really be under science, but I was stuck for items to put in medical)
 				/obj/item/dnainjector/regenerate = 50, // regeneration
 				/obj/item/dnainjector/nobreath = 50,
-				/obj/item/dnainjector/midgit = 50,
 				/obj/item/dnainjector/telemut = 50,
 
 				// Virology
 				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
-				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50,
+				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
@@ -304,6 +304,10 @@
 				/obj/item/storage/box/enforcer_lethal = 50,
 				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
 				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 50, // cycler shotgun, not normally available to crew
+
+				// Cluster grenades
+				/obj/item/grenade/clusterbuster = 50, // cluster flashbang
+				/obj/item/grenade/clusterbuster/teargas = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
@@ -317,6 +321,7 @@
 				/obj/item/storage/backpack/holding = 25,
 				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
 				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
+				/obj/item/grenade/clusterbuster/metalfoam = 25 // cluster metal foam grenade
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
@@ -324,7 +329,7 @@
 	lootcount = 1
 	loot = list(
 				/obj/machinery/disco = 20,
-				/obj/mecha/combat/durand/old = 20,
+				/obj/mecha/combat/durand/old = 20
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle
@@ -353,18 +358,22 @@
 				// Mining
 				/obj/item/mining_voucher = 100,
 				/obj/item/pickaxe/drill/jackhammer = 100,
-				/obj/item/stack/sheet/animalhide/goliath_hide = 100,
 				/obj/item/gun/energy/kinetic_accelerator/experimental = 100,
+				/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 100,
 
 				// Botanist
 				/obj/item/seeds/random/labelled = 100,
 
 				// Clown
-				/obj/item/grenade/bananade = 100,
+				/obj/item/grenade/clusterbuster/honk = 100,
 				/obj/item/bikehorn/golden = 100,
 
+				// Bartender
+				/obj/item/storage/box/bartender_rare_ingredients_kit = 100,
 
-				// It would be nice to also have items for other service jobs: Bartender, Mime, Chef, Librarian, Chaplain, etc
+				// Chef
+				/obj/item/storage/box/chef_rare_ingredients_kit = 100
+				// It would be nice to also have items for other service jobs: Mime, Librarian, Chaplain, etc
 				)
 
 
