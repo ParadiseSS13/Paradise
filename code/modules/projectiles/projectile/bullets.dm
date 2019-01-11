@@ -209,23 +209,6 @@
 	weaken = 4
 	stun = 4
 
-/obj/item/projectile/bullet/honker
-	name = "banana"
-	damage = 0
-	weaken = 5
-	stun = 5
-	forcedodge = 1
-	nodamage = 1
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	hitsound = 'sound/items/bikehorn.ogg'
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "banana"
-	range = 200
-
-/obj/item/projectile/bullet/honker/New()
-	..()
-	SpinAnimation()
-
 /obj/item/projectile/bullet/mime
 	damage = 0
 	stun = 5

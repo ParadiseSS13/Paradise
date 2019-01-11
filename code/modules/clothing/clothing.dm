@@ -28,6 +28,7 @@
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/species_disguise = null
+	var/magical = FALSE
 
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)

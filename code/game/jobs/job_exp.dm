@@ -7,7 +7,7 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 10, // High, because they're team-based, and we want ERT to be robust
 	ROLE_DEATHSQUAD = 10,
-	ROLE_TRADER = 5,
+	ROLE_TRADER = 20, // Very high, because they're an admin-spawned event with powerful items
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
 	// SOLO ANTAGS
