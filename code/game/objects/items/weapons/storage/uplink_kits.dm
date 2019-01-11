@@ -20,9 +20,10 @@
 				new /obj/item/clothing/gloves/color/black/thief(src)
 				new /obj/item/card/id/syndicate(src)
 				new /obj/item/storage/box/syndie_kit/safecracking(src)
+				new /obj/item/clothing/shoes/syndigaloshes(src)
 				return
 
-			if("bond")	// 16TC + Healing Cocktail + Krav Maga
+			if("bond")	// 20TC + Healing Cocktail + Krav Maga
 				new /obj/item/gun/projectile/automatic/pistol(src)
 				new /obj/item/suppressor(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
@@ -30,6 +31,7 @@
 				new /obj/item/encryptionkey/syndicate(src)
 				new /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail(src)	// This drink heals now
 				new /obj/item/card/id/syndicate(src)
+				new /obj/item/dnascrambler(src)
 				new /obj/item/storage/box/syndie_kit/emp(src)
 				new /obj/item/implanter/krav_maga(src)
 				return
@@ -90,13 +92,15 @@
 				new /obj/item/multitool/ai_detect(src)
 				return
 
-			if("maddoctor")	// 31TC
+			if("maddoctor")	// 29TC + Night-Vision HUD
 				new /obj/item/storage/backpack/duffel/syndie/surgery(src)
 				new /obj/item/pen/sleepy(src)
 				new /obj/item/implanter/traitor(src)	// Mindslave Implant
 				new /obj/item/rad_laser(src)
-				new /obj/item/dnascrambler(src)
+				new /obj/item/card/id/syndicate(src)
+				new /obj/item/clothing/glasses/hud/health/night(src)	// Unique, both for looking the part and seeing things in your maintenance surgery room
 				new /obj/item/clothing/gloves/color/latex/nitrile(src)
+				new /obj/item/clothing/suit/storage/labcoat/mad(src)
 				return
 
 			if("professional")	// 30TC
