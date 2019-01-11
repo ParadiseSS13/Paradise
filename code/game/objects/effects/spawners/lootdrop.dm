@@ -261,7 +261,6 @@
 				// Xenobio
 				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
 				/obj/item/slimepotion/transference = 50,
-				/obj/item/slimepotion/speed = 50,
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/med
@@ -298,6 +297,7 @@
 				// Utility
 				/obj/item/storage/belt/military/assault = 50,
 				/obj/item/clothing/mask/gas/sechailer/swat = 50,
+				/obj/item/clothing/glasses/thermal = 50, // see heat-source mobs through walls. Less powerful than already-available xray.
 
 				// Ranged weapons
 				/obj/item/storage/box/enforcer_rubber = 50,
@@ -313,6 +313,10 @@
 				/obj/item/rcd/combat = 25,
 				/obj/item/rpd/bluespace = 25,
 				/obj/item/tank/emergency_oxygen/double/full = 25,
+				/obj/item/slimepotion/speed = 25,
+				/obj/item/storage/backpack/holding = 25,
+				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
+				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
