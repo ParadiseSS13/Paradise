@@ -8,6 +8,12 @@
 	var/datum/action/detach_from_avatar/detach_from_avatar
 
 /mob/living/carbon/human/virtual_reality/New()
+	quit_action = new()
+	quit_action.Grant(src)
+	back_to_lobby = new()
+	back_to_lobby.Grant(src)
+	detach_from_avatar = new()
+	detach_from_avatar.Grant(src)
 	..()
 
 /mob/living/carbon/human/virtual_reality/death()
@@ -63,8 +69,6 @@
 		real_me.Confused(2)
 		var/mob/living/carbon/human/virtual_reality/vr = src
 		var/obj/item/clothing/ears/vr_headset/goggles
-		for(var/obj/effect/proc_holder/spell/S in src.mind.spell_list)
-			src.mind.RemoveSpell(S)
 		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
 			goggles = g
 		if(goggles.contained() && vr_server_status == VR_SERVER_EMAG)
@@ -87,71 +91,50 @@
 		for(var/obj/item/clothing/ears/vr_headset/g in new_vr.real_me.contents)
 			g.vr_human = new_vr
 
-/obj/effect/proc_holder/spell/vr
-	var/mob/living/carbon/human/virtual_reality/avatar // for brain removal
-
-/obj/effect/proc_holder/spell/vr/Click()
-	cast(user = usr) // All the spell logic is wasted on this use of the spell system, so it is bypassed
-	start_recharge()
-
-/obj/effect/proc_holder/spell/vr/quit_vr
+/datum/action/quit_vr
 	name = "Quit Virtual Reality"
-	panel = "VR"
-	charge_max = 10
-	action_icon_state = "shutdown"
+	button_icon_state = "shutdown"
 
-/obj/effect/proc_holder/spell/vr/quit_vr/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/H = avatar
-	if(istype(H, /mob/living/carbon/human/virtual_reality))
-		var/mob/living/carbon/human/virtual_reality/vr = H
-		var/obj/item/clothing/ears/vr_headset/goggles
-		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-			goggles = g
-		if(!goggles.contained())
-			vr.revert_to_reality(1)
+/datum/action/quit_vr/Trigger()
+	if(..())
+		if(istype(owner, /mob/living/carbon/human/virtual_reality))
+			var/mob/living/carbon/human/virtual_reality/vr = owner
+			var/obj/item/clothing/ears/vr_headset/goggles
+			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
+				goggles = g
+			if(!goggles.contained())
+				vr.revert_to_reality(1)
+			else
+				to_chat(owner, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
 		else
-			to_chat(vr, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
+			Remove(owner)
 
-/obj/effect/proc_holder/spell/vr/back_to_lobby
+/datum/action/back_to_lobby
 	name = "Return To Lobby"
-	panel = "VR"
-	charge_max = 10
-	action_icon_state = "lobby"
+	button_icon_state = "lobby"
 
-/obj/effect/proc_holder/spell/vr/back_to_lobby/cast(list/targets, mob/user = usr)
-	to_chat(world, "haaaalp")
-	var/mob/living/carbon/human/H = avatar
-	to_chat(world, H.name)
-	if(istype(H, /mob/living/carbon/human/virtual_reality))
-		var/mob/living/carbon/human/virtual_reality/vr = H
-		to_chat(world, vr.name)
-		if(!vr.ckey)
-			vr.ckey = user.ckey
-		vr.handle_despawn()
-
-/obj/effect/proc_holder/spell/vr/detach_from_avatar
-	name = "Detach From Avatar"
-	panel = "VR"
-	charge_max = 10
-	action_icon_state = "logout"
-
-/obj/effect/proc_holder/spell/vr/detach_from_avatar/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/H = avatar
-	if(istype(H, /mob/living/carbon/human/virtual_reality))
-		var/mob/living/carbon/human/virtual_reality/vr = H
-		var/obj/item/clothing/ears/vr_headset/goggles
-		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-			goggles = g
-		if(!goggles.contained())
-			vr.revert_to_reality(0)
+/datum/action/back_to_lobby/Trigger()
+	if(..())
+		if(istype(owner, /mob/living/carbon/human/virtual_reality))
+			var/mob/living/carbon/human/virtual_reality/vr = owner
+			vr.death()
 		else
-			to_chat(vr, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
+			Remove(owner)
 
-/mob/living/carbon/human/virtual_reality/proc/add_mind_powers()
-	src.mind.AddSpell(new /obj/effect/proc_holder/spell/vr/quit_vr(null))
-	src.mind.AddSpell(new /obj/effect/proc_holder/spell/vr/back_to_lobby(null))
-	src.mind.AddSpell(new /obj/effect/proc_holder/spell/vr/detach_from_avatar(null))
-	for(var/obj/effect/proc_holder/spell/S in src.mind.spell_list)
-		if(istype(S, /obj/effect/proc_holder/spell/vr))
-			var/obj/effect/proc_holder/spell/vr/vr_spell = S
-			vr_spell.avatar = src
+/datum/action/detach_from_avatar
+	name = "Detach From Avatar"
+	button_icon_state = "logout"
+
+/datum/action/detach_from_avatar/Trigger()
+	if(..())
+		if(istype(owner, /mob/living/carbon/human/virtual_reality))
+			var/mob/living/carbon/human/virtual_reality/vr = owner
+			var/obj/item/clothing/ears/vr_headset/goggles
+			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
+				goggles = g
+			if(!goggles.contained())
+				vr.revert_to_reality(0)
+			else
+				to_chat(owner, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
+		else
+			Remove(owner)

@@ -28,7 +28,7 @@ var/list/vr_all_players = list()
 	qdel(src)
 
 /datum/vr_room/proc/sort_landmarks()
-	for(var/atom/landmark in chunk.search_chunk(landmarks_list))
+	for(var/atom/landmark in chunk.search_chunk(GLOB.landmarks_list))
 		if(landmark.name == "avatarspawn")
 			spawn_points.Add(landmark)
 		if(landmark.name == "resetpoint")
@@ -179,7 +179,6 @@ proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_r
 			vr_avatar.real_me = V.real_me
 		else
 			vr_avatar.real_me = H
-		vr_avatar.add_mind_powers()
 
 proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 

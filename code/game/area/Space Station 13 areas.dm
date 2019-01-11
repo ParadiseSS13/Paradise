@@ -38,6 +38,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/debug = 0
 	var/requires_power = 1
 	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
+	var/attack_logging = TRUE
 
 	var/power_equip = 1
 	var/power_light = 1
@@ -109,13 +110,14 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = 0
 	dynamic_lighting = 0
-
+	attack_logging = FALSE
 
 /area/adminconstruction
 	name = "\improper Admin Testing Area"
 	icon_state = "start"
 	requires_power = 0
 	dynamic_lighting = 0
+	attack_logging = FALSE
 
 /area/space
 	icon_state = "space"
@@ -569,6 +571,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "thunder"
 	requires_power = 0
 	dynamic_lighting = 0
+	attack_logging = FALSE
 
 
 /area/tdome/arena_source
@@ -2627,6 +2630,7 @@ area/security/podbay
 	no_teleportlocs = 1
 	tele_proof = 1
 	there_can_be_many = 1
+	attack_logging = FALSE
 
 /area/vr/lobby
 	name = "\improper VR Lobby"

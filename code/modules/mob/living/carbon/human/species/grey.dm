@@ -40,6 +40,8 @@
 	H.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	if(!H.client)
+		return
 	var/translator_pref = H.client.prefs.speciesprefs
 	if(translator_pref || ((ismindshielded(H) || J.is_command) && (WINGDINGS in H.mutations)))
 		if(J.title == "Mime")

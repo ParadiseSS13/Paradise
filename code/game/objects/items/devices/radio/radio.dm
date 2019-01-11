@@ -396,7 +396,7 @@ var/global/list/default_medbay_channels = list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		displayname = H.voice
-		if(H.voice != real_name)	
+		if(H.voice != real_name)
 			jobname = "Unknown"
 			voicemask = TRUE
 
@@ -442,7 +442,6 @@ var/global/list/default_medbay_channels = list(
 			"server" = null, // the last server to log this signal
 			"reject" = 0,	// if nonzero, the signal will not be accepted by any broadcasting machinery
 			"level" = get_radio_id(position.z), // The source's z level or heap radio id
-			"language" = speaking,
 
 			"verb" = verb
 		)
@@ -500,12 +499,7 @@ var/global/list/default_medbay_channels = list(
 		"type" = 0,
 		"server" = null,
 		"reject" = 0,
-<<<<<<< HEAD
 		"level" = get_radio_id(position.z),
-		"language" = speaking,
-=======
-		"level" = position.z,
->>>>>>> master
 		"verb" = verb
 	)
 	signal.frequency = connection.frequency // Quick frequency set
@@ -528,15 +522,8 @@ var/global/list/default_medbay_channels = list(
 	if(!connection)	return 0	//~Carn
 
 	return Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
-<<<<<<< HEAD
-					  src, message, displayname, jobname, real_name, M.voice_name,
-					  filter_type, signal.data["compression"], list(get_radio_id(position.z)), connection.frequency,verb,speaking)
-
-=======
 					  src, message_pieces, displayname, jobname, real_name, M.voice_name,
-					  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb)
->>>>>>> master
-
+					  filter_type, signal.data["compression"], list(get_radio_id(position.z)), connection.frequency,verb)
 
 /obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "says")
 	if(broadcasting)

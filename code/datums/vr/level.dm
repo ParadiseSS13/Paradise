@@ -25,10 +25,10 @@
 	death_type = VR_DROP_BLACKLIST
 	drop_blacklist = list(/obj/item/clothing/under/roman, /obj/item/clothing/shoes/roman, /obj/item/shield/riot/roman, /obj/item/clothing/head/helmet/roman)
 	loot_common = list(/obj/item/twohanded/spear, /obj/item/kitchen/knife/ritual, /obj/item/restraints/legcuffs/bola, /obj/item/twohanded/bostaff,
-						/obj/item/storage/backpack/quiver/full, /obj/item/gun/projectile/bow, /obj/item/grenade/plastic/c4)
-	loot_rare = list(/obj/item/claymore, /obj/item/gun/energy/taser, /obj/item/twohanded/energizedfireaxe, /obj/item/grenade/syndieminibomb,
+						/obj/item/storage/backpack/quiver/full, /obj/item/gun/projectile/bow)
+	loot_rare = list(/obj/item/claymore, /obj/item/twohanded/energizedfireaxe, /obj/item/grenade/syndieminibomb,
 						/obj/item/gun/projectile/revolver/doublebarrel/improvised, /obj/item/twohanded/mjollnir, /obj/item/twohanded/singularityhammer,
-						/obj/item/twohanded/knighthammer)
+						/obj/item/twohanded/knighthammer, /obj/item/gun/energy/e_gun/old, /obj/item/gun/projectile/automatic/pistol/m1911)
 	outfit = /datum/outfit/vr/roman
 
 /datum/map_template/vr/level/roman2
@@ -39,10 +39,10 @@
 	death_type = VR_DROP_BLACKLIST
 	drop_blacklist = list(/obj/item/clothing/under/roman, /obj/item/clothing/shoes/roman, /obj/item/shield/riot/roman, /obj/item/clothing/head/helmet/roman)
 	loot_common = list(/obj/item/twohanded/spear, /obj/item/kitchen/knife/ritual, /obj/item/restraints/legcuffs/bola, /obj/item/twohanded/bostaff,
-						/obj/item/storage/backpack/quiver/full, /obj/item/gun/projectile/bow, /obj/item/grenade/plastic/c4)
-	loot_rare = list(/obj/item/claymore, /obj/item/gun/energy/taser, /obj/item/twohanded/energizedfireaxe, /obj/item/grenade/syndieminibomb,
+						/obj/item/storage/backpack/quiver/full, /obj/item/gun/projectile/bow)
+	loot_rare = list(/obj/item/claymore, /obj/item/twohanded/energizedfireaxe, /obj/item/grenade/syndieminibomb,
 						/obj/item/gun/projectile/revolver/doublebarrel/improvised, /obj/item/twohanded/mjollnir, /obj/item/twohanded/singularityhammer,
-						/obj/item/twohanded/knighthammer)
+						/obj/item/twohanded/knighthammer, /obj/item/gun/energy/e_gun/old, /obj/item/gun/projectile/automatic/pistol/m1911)
 	outfit = /datum/outfit/vr/roman
 
 /datum/map_template/vr/level/roman3
@@ -53,10 +53,10 @@
 	death_type = VR_DROP_BLACKLIST
 	drop_blacklist = list(/obj/item/clothing/under/roman, /obj/item/clothing/shoes/roman, /obj/item/shield/riot/roman, /obj/item/clothing/head/helmet/roman)
 	loot_common = list(/obj/item/twohanded/spear, /obj/item/kitchen/knife/ritual, /obj/item/restraints/legcuffs/bola, /obj/item/twohanded/bostaff,
-						/obj/item/storage/backpack/quiver/full, /obj/item/gun/projectile/bow, /obj/item/grenade/plastic/c4)
-	loot_rare = list(/obj/item/claymore, /obj/item/gun/energy/taser, /obj/item/twohanded/energizedfireaxe, /obj/item/grenade/syndieminibomb,
+						/obj/item/storage/backpack/quiver/full, /obj/item/gun/projectile/bow)
+	loot_rare = list(/obj/item/claymore, /obj/item/twohanded/energizedfireaxe, /obj/item/grenade/syndieminibomb,
 						/obj/item/gun/projectile/revolver/doublebarrel/improvised, /obj/item/twohanded/mjollnir, /obj/item/twohanded/singularityhammer,
-						/obj/item/twohanded/knighthammer)
+						/obj/item/twohanded/knighthammer, /obj/item/gun/energy/e_gun/old, /obj/item/gun/projectile/automatic/pistol/m1911)
 	outfit = /datum/outfit/vr/roman
 
 /datum/map_template/vr/level/ship1
@@ -87,7 +87,7 @@
 	description = "This is such a waste of CPU cycles to render."
 	death_type = VR_DROP_BLACKLIST
 	drop_blacklist = list(/obj/item/clothing/under/rank/medical, /obj/item/clothing/suit/storage/labcoat, /obj/item/clothing/shoes/white, /obj/item/card/id/research,
-							/obj/item/clothing/glasses/science, /obj/item/clothing/gloves/color/latex)
+							/obj/item/clothing/glasses/science, /obj/item/clothing/gloves/color/latex, /obj/item/storage/belt/utility/chief/full)
 	outfit = /datum/outfit/vr/research
 
 /datum/map_template/vr/level/bomb_range

@@ -72,7 +72,7 @@
 /obj/item/clothing/ears/vr_headset/process()
 	var/mob/living/carbon/human/H = loc
 	var/area/A = get_area(src)
-	H.Weaken(2)
+	H.Weaken(3)
 	if((user_health - H.health > 50 && !contained()) || (exile && !(istype(A, /area/security/vr))))
 		vr_human.revert_to_reality(0)
 	if(room != A)
