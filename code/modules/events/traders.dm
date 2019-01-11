@@ -16,6 +16,10 @@ var/global/list/unused_trade_stations = list("sol")
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+		event_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
+		return
+
 	var/list/spawnlocs = list()
 	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(landmark.name == "traderstart_[station]")
@@ -44,7 +48,9 @@ var/global/list/unused_trade_stations = list("sol")
 				M.mind.objectives += trader_objectives
 				greet_trader(M)
 				success_spawn = 1
-		if(!success_spawn)
+		if(success_spawn)
+			event_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
+		else
 			unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
