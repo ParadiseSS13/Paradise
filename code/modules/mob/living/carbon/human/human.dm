@@ -733,7 +733,7 @@
 									found_record = 1
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else 
+									else
 										var/rank
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
@@ -1942,3 +1942,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
+
+/mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
+	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
+		src.dna.SetSEState(block, FALSE, TRUE)
+		genemutcheck(src, block, null, MUTCHK_FORCED)
+	src.dna.UpdateSE()
