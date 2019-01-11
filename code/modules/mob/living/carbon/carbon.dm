@@ -1065,7 +1065,7 @@ so that different stomachs can handle things in different ways VB*/
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
-	if(!tinted_weldhelh)
+	if(!tinted_weldhelh || see_invisible == SEE_INVISIBLE_MINIMUM)
 		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
