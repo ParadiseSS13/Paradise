@@ -52,14 +52,19 @@
 	no_den_usage = 1
 	fire_sound = 'sound/magic/Staff_Door.ogg'
 
-/obj/item/gun/magic/staff/honk
+/obj/item/gun/magic/staff/slipping
+	name = "staff of slipping"
+	desc = "An artefact that spits... bananas?"
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "staffofslipping"
+	item_state = "staffofslipping"
+	max_charges = 10
+	recharge_rate = 2
+	fire_sound = 'sound/items/bikehorn.ogg'
+
+/obj/item/gun/magic/staff/slipping/honkmother
 	name = "staff of the honkmother"
-	desc = "Honk"
-	ammo_type = /obj/item/ammo_casing/magic/honk
-	icon_state = "honker"
-	item_state = "honker"
-	max_charges = 4
-	recharge_rate = 8
+	desc = "An ancient artefact, sought after by clowns everywhere."
 	fire_sound = 'sound/items/Airhorn.ogg'
 
 /obj/item/gun/magic/staff/focus

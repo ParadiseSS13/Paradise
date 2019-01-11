@@ -37,36 +37,20 @@ var/global/list/unused_trade_stations = list("sol")
 			var/mob/C = pick_n_take(candidates)
 			if(C)
 				GLOB.respawnable_list -= C.client
-				var/mob/living/carbon/human/M = create_trader(picked_loc)
-				M.ckey = C.ckey
+				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
+				M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
+				M.equipOutfit(/datum/outfit/admin/sol_trader)
+				M.dna.species.after_equip_job(null, M)
 				M.mind.objectives += trader_objectives
 				greet_trader(M)
 				success_spawn = 1
 		if(!success_spawn)
 			unused_trade_stations += station // Return the station to the list of usable stations.
 
-/datum/event/traders/proc/create_trader(var/turf/picked_loc)
-	var/mob/living/carbon/human/M
-	switch(station)
-		if("sol")
-			M = new /mob/living/carbon/human(picked_loc)
-			M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/cargotech(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/storage/backpack/industrial(M), slot_back)
-			var/obj/item/card/id/supply/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Sol Trader)"
-			W.assignment = "Sol Trader"
-			W.registered_name = M.real_name
-			W.access = list(access_trade_sol, access_maint_tunnels, access_external_airlocks)
-			M.equip_to_slot_or_del(W, slot_wear_id)
-	return M
-
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	to_chat(M, "<span class='notice'>Negotiate an agreement, and request docking.</span>")
 	spawn(25)
 		show_objectives(M.mind)
 
