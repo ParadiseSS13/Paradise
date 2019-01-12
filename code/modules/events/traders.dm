@@ -6,7 +6,7 @@ var/global/list/unused_trade_stations = list("sol")
 /datum/event/traders
 	var/success_spawn = 0
 	var/station = null
-	var/spawn_count = 3
+	var/spawn_count = 2
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
@@ -39,6 +39,7 @@ var/global/list/unused_trade_stations = list("sol")
 			var/turf/picked_loc = spawnlocs[index]
 			index++
 			var/mob/C = pick_n_take(candidates)
+			spawn_count--
 			if(C)
 				GLOB.respawnable_list -= C.client
 				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
