@@ -145,7 +145,7 @@ var/ert_request_answered = FALSE
 
 	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M)
-	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ERT.
+	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde

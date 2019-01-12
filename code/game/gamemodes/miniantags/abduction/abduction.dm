@@ -123,7 +123,7 @@
 	S = H.dna.species
 	S.team = team_number
 	H.real_name = team_name + " Agent"
-	H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
 	H.equipOutfit(/datum/outfit/abductor/agent)
 	greet_agent(agent,team_number)
