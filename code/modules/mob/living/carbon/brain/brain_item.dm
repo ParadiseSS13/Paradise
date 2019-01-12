@@ -69,7 +69,7 @@
 		if(borer)
 			borer.leave_host() //Should remove borer if the brain is removed - RR
 
-		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary && !istype(owner, /mob/living/carbon/human/virtual_reality)) //don't transfer if the owner does not have a mind. VR breaks on brain removal, this is a bandaid
 			B.transfer_identity(user)
 
 	if(istype(owner,/mob/living/carbon/human))
