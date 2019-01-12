@@ -1945,6 +1945,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
-		src.dna.SetSEState(block, FALSE, TRUE)
+		dna.SetSEState(block, FALSE, TRUE)
 		genemutcheck(src, block, null, MUTCHK_FORCED)
-	src.dna.UpdateSE()
+	dna.UpdateSE()
