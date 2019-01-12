@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Nuke ops, ERT, and ayyybductors will now properly lose disabilities on spawn."
