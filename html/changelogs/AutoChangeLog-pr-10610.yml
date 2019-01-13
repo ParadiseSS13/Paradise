@@ -1,0 +1,5 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Nuclear operatives can now select the Saboteur module when picking a cyborg, a modified engineering module designed around stealth and sabotage."
+  - bugfix: "Fixed an exploit allowing you to get free syndicate cyborgs."
