@@ -167,7 +167,6 @@
 
 	active = 0
 	update_icon()
-	anchored = 0
 
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
