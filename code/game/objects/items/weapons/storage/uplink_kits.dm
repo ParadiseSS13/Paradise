@@ -1,7 +1,7 @@
 /obj/item/storage/box/syndicate/
 	New()
 		..()
-		switch(pickweight(list("bloodyspai" = 1, "thief" = 1, "bond" = 1, "sabotage" = 1, "payday" = 1, "implant" = 1, "hacker" = 1, "darklord" = 1, "gadgets" = 1, "maddoctor" = 1, "professional" = 1, "clownop" = 1)))
+		switch(pickweight(list("bloodyspai" = 1, "thief" = 1, "bond" = 1, "sabotage" = 1, "payday" = 1, "implant" = 1, "hacker" = 1, "darklord" = 1, "gadgets" = 1, "professional" = 1)))
 			if("bloodyspai")	// 28TC
 				new /obj/item/twohanded/garrote(src)
 				new /obj/item/pinpointer/advpinpointer(src)
@@ -19,11 +19,11 @@
 				new /obj/item/chameleon(src)
 				new /obj/item/clothing/gloves/color/black/thief(src)
 				new /obj/item/card/id/syndicate(src)
-				new /obj/item/storage/box/syndie_kit/safecracking(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/storage/box/syndie_kit/safecracking(src)
 				return
 
-			if("bond")	// 20TC + Healing Cocktail + Krav Maga
+			if("bond")	// 29TC + Healing Cocktail
 				new /obj/item/gun/projectile/automatic/pistol(src)
 				new /obj/item/suppressor(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
@@ -33,10 +33,10 @@
 				new /obj/item/card/id/syndicate(src)
 				new /obj/item/dnascrambler(src)
 				new /obj/item/storage/box/syndie_kit/emp(src)
-				new /obj/item/implanter/krav_maga(src)
+				new /obj/item/CQC_manual(src)
 				return
 
-			if("sabotage")	// 31TC + RPD + Insuls
+			if("sabotage")	// 31TC + RCD + Insuls
 				new /obj/item/powersink(src)
 				new /obj/item/grenade/syndieminibomb(src)
 				new /obj/item/card/emag(src)
@@ -46,15 +46,16 @@
 				new /obj/item/storage/box/syndie_kit/space(src)
 				return
 
-			if("payday")	// 29TC
+			if("payday")	// 32TC
 				new /obj/item/gun/projectile/revolver(src)
+				new /obj/item/ammo_box/a357(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/card/emag(src)
 				new /obj/item/grenade/plastic/x4(src)
 				new /obj/item/card/id/syndicate(src)
-				new /obj/item/thermal_drill(src)
 				new /obj/item/clothing/gloves/color/latex/nitrile(src)
 				new /obj/item/clothing/mask/gas/clown_hat(src)
+				new /obj/item/thermal_drill(src)
 				return
 
 			if("implant")	// 35TC
@@ -92,17 +93,6 @@
 				new /obj/item/multitool/ai_detect(src)
 				return
 
-			if("maddoctor")	// 29TC + Night-Vision HUD
-				new /obj/item/storage/backpack/duffel/syndie/surgery(src)
-				new /obj/item/pen/sleepy(src)
-				new /obj/item/implanter/traitor(src)	// Mindslave Implant
-				new /obj/item/rad_laser(src)
-				new /obj/item/card/id/syndicate(src)
-				new /obj/item/clothing/glasses/hud/health/night(src)	// Unique, both for looking the part and seeing things in your maintenance surgery room
-				new /obj/item/clothing/gloves/color/latex/nitrile(src)
-				new /obj/item/clothing/suit/storage/labcoat/mad(src)
-				return
-
 			if("professional")	// 30TC
 				new /obj/item/gun/projectile/automatic/sniper_rifle/soporific(src)	// Unique version that starts with soporific rounds loaded and cannot be suppressed
 				new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
@@ -111,16 +101,6 @@
 				new /obj/item/clothing/glasses/thermal/syndi(src)
 				new /obj/item/storage/toolbox/syndicate(src)
 				new /obj/item/clothing/under/suit_jacket(src)
-				return
-
-			if("clownop")	// 34TC
-				new /obj/item/storage/backpack/clown/syndie(src)	// Honk Infiltration Kit
-				new /obj/item/card/id/syndicate(src)
-				new /obj/item/gun/projectile/automatic/c20r/toy(src)
-				new /obj/item/grenade/clown_grenade(src)
-				new /obj/item/pizza_bomb(src)
-				new /obj/item/cartridge/syndicate(src)
-				new /obj/item/implanter/freedom(src)	// GET THAT FUKKEN CLOWN
 				return
 
 /obj/item/storage/box/syndie_kit
