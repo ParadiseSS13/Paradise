@@ -36,6 +36,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+	equip_speed = EQUIP_SPEED_INSTANT
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -61,6 +62,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
+	equip_speed = EQUIP_SPEED_INSTANT
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -76,7 +78,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
+	
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers."
@@ -125,6 +127,7 @@
 	flags = STOPSPRESSUREDMAGE
 	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item) //for stuffing extra special presents
+	equip_speed = EQUIP_SPEED_INSTANT
 
 //Space pirate outfit
 /obj/item/clothing/head/helmet/space/pirate
@@ -149,7 +152,7 @@
 	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	strip_delay = 40
 	put_on_delay = 20
-
+	
 //Paramedic EVA suit
 /obj/item/clothing/head/helmet/space/eva/paramedic
 	name = "Paramedic EVA helmet"
@@ -171,7 +174,7 @@
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
 		)
-
+	
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
 	icon_state = "paramedic-eva"
@@ -191,6 +194,7 @@
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
 		)
+	equip_speed = EQUIP_SPEED_MEDIUM
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
@@ -212,6 +216,7 @@
 		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
+	equip_speed = EQUIP_SPEED_SLOW
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"

@@ -47,7 +47,7 @@
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
+	equip_speed = EQUIP_SPEED_FAST
 //Commander
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
 	name = "emergency response team commander helmet"

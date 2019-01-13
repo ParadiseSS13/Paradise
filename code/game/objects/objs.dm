@@ -30,6 +30,8 @@
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 
+	var/equip_speed = EQUIP_SPEED_INSTANT //pre made times in __DEFINES/inventory.dm for EQUIP_SPEED_SLOW, EQUIP_SPEED_MEDIUM, EQUIP_SPEED_FAST, EQUP_SPEED_INSTANT
+
 /obj/New()
 	..()
 	if(!armor)

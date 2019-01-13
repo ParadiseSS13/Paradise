@@ -105,6 +105,9 @@
 	var/list/can_mount = null                         // Types of device that can be hardpoint mounted.
 	var/list/mounted_devices = null                   // Holder for the above device.
 	var/obj/item/active_device = null                 // Currently deployed device, if any.
+	
+	//Equip speed
+	equip_speed = EQUIP_SPEED_SLOW
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/M)
 	..()
@@ -296,7 +299,8 @@
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
-
+	equip_speed = EQUIP_SPEED_INSTANT
+	
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
 	name = "mining hardsuit helmet"
@@ -329,7 +333,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
-
+	
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
 
@@ -419,6 +423,7 @@
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
+	equip_speed = EQUIP_SPEED_FAST
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
@@ -452,6 +457,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	sprite_sheets = null
+	equip_speed = EQUIP_SPEED_INSTANT
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/attack_self(mob/user)
 	..()
@@ -502,6 +508,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	sprite_sheets = null
 	magical = TRUE
+	equip_speed = EQUIP_SPEED_INSTANT
 
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
@@ -539,7 +546,7 @@
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
-
+	equip_speed = EQUIP_SPEED_FAST
 
 //Atmospherics hardsuit (BS12)
 /obj/item/clothing/head/helmet/space/hardsuit/atmos
@@ -577,7 +584,7 @@
 	item_state = "singuloth_hardsuit"
 	flags = STOPSPRESSUREDMAGE
 	armor = list(melee = 40, bullet = 5, laser = 20, energy = 5, bomb = 25, bio = 100, rad = 100)
-
+	
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	name = "head of security's hardsuit helmet"
@@ -611,7 +618,8 @@
 	var/shield_state = "shield-old"
 	var/shield_on = "shield-old"
 	sprite_sheets = null
-
+	equip_speed = EQUIP_SPEED_INSTANT
+	
 /obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, attack_text)
 	if(current_charges > 0)
 		do_sparks(2, 1, src)
@@ -662,6 +670,7 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi'
 		)
+	equip_speed = EQUIP_SPEED_INSTANT
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	name = "blood-red hardsuit helmet"

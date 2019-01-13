@@ -187,10 +187,17 @@
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 //set redraw_mob to 0 if you don't wish the hud to be updated - if you're doing it manually in your own proc.
-/mob/living/carbon/human/equip_to_slot(obj/item/W as obj, slot, redraw_mob = 1)
+/mob/living/carbon/human/equip_to_slot(obj/item/W as obj, slot, redraw_mob = 1, equip_speed_override = FALSE)
 	if(!slot) return
 	if(!istype(W)) return
 	if(!has_organ_for_slot(slot)) return
+
+	if(W.equip_speed && !equip_speed_override) //check to see if we want a delay and check to see we don't want an override for uses such as admin equipping (cmd_admin_dress). 
+		if(do_mob(src, src, W.equip_speed))
+			to_chat(src, "<span class='notice'>You put on the [W].</span>")
+		else
+			to_chat(src, "<span class='alert'> You must remain still to equip the [W]!</span>")
+			return FALSE
 
 	if(W == src.l_hand)
 		src.l_hand = null
@@ -424,7 +431,6 @@
 
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
-			//testing("[M] TOO FAT TO WEAR [src]!")
 			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")

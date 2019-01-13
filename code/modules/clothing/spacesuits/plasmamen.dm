@@ -23,6 +23,7 @@
 	var/extinguish_cooldown = 10 SECONDS
 	var/max_extinguishes = 5
 	var/extinguishes_left = 5 // Yeah yeah, reagents, blah blah blah.  This should be simple.
+	equip_speed = EQUIP_SPEED_INSTANT
 
 /obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
 	var/mob/living/carbon/human/H=user

@@ -8,3 +8,10 @@
 
 #define TV_TRIP "trip"
 #define TV_SLIP "slip"
+
+//EQUIP SPEED FOR obj.equip_speed
+#define EQUIP_SPEED_SLOW 60  //60 == 6 seconds
+#define EQUIP_SPEED_MEDIUM 40 
+#define EQUIP_SPEED_FAST 20 
+#define EQUIP_SPEED_INSTANT 0 
+
