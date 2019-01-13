@@ -36,6 +36,35 @@
 	var/mob/living/carbon/U = usr
 	U.unset_sting()
 
+/obj/screen/devil
+	invisibility = INVISIBILITY_ABSTRACT
+
+/obj/screen/devil/soul_counter
+	icon = 'icons/mob/screen_gen.dmi'
+	name = "souls owned"
+	icon_state = "Devil-6"
+	screen_loc = ui_devilsouldisplay
+
+/obj/screen/devil/soul_counter/proc/update_counter(souls = 0)
+	invisibility = 0
+	maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#FF0000'>[souls]</font></div>"
+	switch(souls)
+		if(0,null)
+			icon_state = "Devil-1"
+		if(1,2)
+			icon_state = "Devil-2"
+		if(3 to 5)
+			icon_state = "Devil-3"
+		if(6 to 8)
+			icon_state = "Devil-4"
+		if(9 to INFINITY)
+			icon_state = "Devil-5"
+		else
+			icon_state = "Devil-6"
+
+/obj/screen/devil/soul_counter/proc/clear()
+	invisibility = INVISIBILITY_ABSTRACT
+
 /obj/screen/ling/chems
 	name = "chemical storage"
 	icon_state = "power_display"
@@ -337,6 +366,9 @@
 	lingstingdisplay = new /obj/screen/ling/sting()
 	infodisplay += lingstingdisplay
 
+	devilsouldisplay = new /obj/screen/devil/soul_counter
+	infodisplay += devilsouldisplay
+
 	mymob.zone_sel = new /obj/screen/zone_sel()
 	mymob.zone_sel.icon = ui_style
 	mymob.zone_sel.update_icon(mymob)
@@ -393,7 +425,7 @@
 		if(H.wear_mask)	H.wear_mask.screen_loc = null
 		if(H.head)		H.head.screen_loc = null
 
-/datum/hud/human/persistant_inventory_update()
+/datum/hud/human/persistent_inventory_update()
 	if(!mymob)
 		return
 	var/mob/living/carbon/human/H = mymob
