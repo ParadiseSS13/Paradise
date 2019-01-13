@@ -78,6 +78,8 @@
 	if(room != A)
 		to_chat(vr_human, "You see your vision flicker as your headset changes from one network to another.")
 		room = A
+	if(H.ckey)
+		processing_objects.Remove(src)
 
 /obj/item/clothing/ears/vr_headset/exile
 	desc = "The mind is just another prison with the right bars."

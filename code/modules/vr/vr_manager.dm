@@ -153,7 +153,7 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 
 	for(var/obj/item/radio/headset/S in H.contents)
 		if(H.l_ear == S || H.r_ear == S)
-			if(S.keyslot2 != null)
+			if(S.keyslot2 != null && !istype(S.keyslot2, /obj/item/encryptionkey/headset_vr))
 				R.keyslot1 = S.keyslot2
 			else if(S.keyslot1 != null)
 				R.keyslot1 = S.keyslot1

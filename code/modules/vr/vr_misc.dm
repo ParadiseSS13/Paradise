@@ -14,11 +14,12 @@ var/list/vr_reset_buttons = list()
 		to_chat(user, "Querying medical database for the next [round((cooldown-world.time)/10)] seconds. Please wait.")
 	else
 		var/mob/living/carbon/human/medical_dummy
-		var/S = input(user, "Choose a Species for your medical dummy.","Select Species") as null|anything in GLOB.all_species
-		if(!S)
+		var/new_species = input(user, "Choose a Species for your medical dummy.","Select Species", null) as null|anything in GLOB.all_species
+		if(!new_species)
 			return 0
+		var/datum/species/S = GLOB.all_species[new_species]
 		medical_dummy = new(loc)
-		medical_dummy.set_species(S)
+		medical_dummy.set_species(S.type)
 		medical_dummy.dna.species.after_equip_job(null, medical_dummy)
 		if(medical_dummy.dna.species.type == "Plasmaman") // This is a hack around how the after_equip_job proc works.
 			for(var/obj/item/plasmensuit_cartridge/C in medical_dummy.loc)

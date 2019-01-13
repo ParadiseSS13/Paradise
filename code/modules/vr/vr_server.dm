@@ -52,6 +52,7 @@ var/vr_server_status = VR_SERVER_OFF
 	if(istype(I, /obj/item/circuitboard/vr_server) && emagged)
 		set_state(VR_SERVER_ON)
 		emagged = FALSE
+		internal_relay.toggled = 1
 		desc = null
 		qdel(I)
 
@@ -89,6 +90,7 @@ var/vr_server_status = VR_SERVER_OFF
 
 /obj/machinery/vr_server/emag_act(user as mob)
 	set_state(VR_SERVER_EMAG)
+	internal_relay.toggled = 0
 	to_chat(user, "You fry the containment circuits trapping all the players and releasing all the prisoners.")
 	desc = "Its main circuit board appears to be fried."
 	for(var/mob/living/carbon/human/virtual_reality/player in vr_all_players)
