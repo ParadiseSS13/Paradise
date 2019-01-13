@@ -552,7 +552,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/syndieborg
 	name = "Syndicate Cyborg"
-	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
+	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel. Comes in Assault, Medical, or Saboteur variants."
 	reference = "SC"
 	item = /obj/item/antag_spawner/borg_tele
 	refund_path = /obj/item/antag_spawner/borg_tele
