@@ -1,4 +1,0 @@
-author: "Shadow-Quill"
-delete-after: True
-changes: 
-  - bugfix: "Stopped emergency shield generators from magically unbolting themselves when they get turned off."
