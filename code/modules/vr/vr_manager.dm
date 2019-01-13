@@ -24,6 +24,10 @@ var/list/vr_all_players = list()
 		player.death()
 	vr_rooms.Remove(src.name)
 	spawn_points = list()
+	if(round_timer)
+		deltimer(round_timer)
+	if(delete_timer)
+		deltimer(delete_timer)
 	space_manager.free_space(src.chunk)
 	qdel(src)
 
@@ -81,10 +85,14 @@ var/list/vr_all_players = list()
 				avatar.equip_to_slot_if_possible(new /obj/item/device/observer, slot_r_ear, 1, 1, 1)
 				player.death()
 
+		if(round_timer)
+			deltimer(round_timer)
 		round_timer = addtimer(CALLBACK(src, .proc/vr_round), 10 MINUTES, TIMER_STOPPABLE)
 		round_end = world.time + 10 MINUTES
 	else
 		to_chat(waitlist, "There are not enough players to start the round, checking again in one minute.")
+		if(round_timer)
+			deltimer(round_timer)
 		round_timer = addtimer(CALLBACK(src, .proc/vr_round), 1 MINUTES, TIMER_STOPPABLE)
 		round_end = world.time + 1 MINUTES
 
@@ -100,11 +108,15 @@ proc/make_vr_room(name, template, expires, creator)
 
 	if(expires == 1)
 		vr_rooms[R.name] = R
+		if(R.delete_timer)
+			deltimer(R.delete_timer)
 		R.delete_timer = addtimer(CALLBACK(R, /datum/vr_room/proc/cleanup), 3 MINUTES, TIMER_STOPPABLE)
 	else if(expires == 0)
 		vr_rooms_official[R.name] = R
 	else if (expires == 2)
 		vr_rooms_official[R.name] = R
+		if(R.round_timer)
+			deltimer(R.round_timer)
 		R.round_timer = addtimer(CALLBACK(R, /datum/vr_room/proc/vr_round), 3 MINUTES, TIMER_STOPPABLE)
 		R.round_end = world.time + 3 MINUTES
 
@@ -133,6 +145,7 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	vr_avatar.set_species(H.dna.species.type)
 	vr_avatar.dna = H.dna.Clone()
 	vr_avatar.sync_organ_dna(assimilate=1)
+	vr_avatar.cleanSE()
 	vr_avatar.update_mutantrace(1)
 	vr_avatar.UpdateAppearance()
 	domutcheck(vr_avatar, null, MUTCHK_FORCED)

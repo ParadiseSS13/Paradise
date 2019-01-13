@@ -26,8 +26,12 @@
 	myroom.players.Remove(src)
 	vr_all_players.Remove(src)
 	if((myroom.players.len == 0) && (myroom.expires == 1))
+		if(myroom.delete_timer)
+			deltimer(myroom.delete_timer)
 		myroom.delete_timer = addtimer(CALLBACK(myroom, /datum/vr_room/proc/cleanup), 3 MINUTES, TIMER_STOPPABLE)
 	else if((myroom.players.len == 1) && (myroom.expires == 2))
+		if(myroom.round_timer)
+			deltimer(myroom.round_timer)
 		myroom.round_timer = addtimer(CALLBACK(myroom, /datum/vr_room/proc/vr_round), 10 SECONDS, TIMER_STOPPABLE)
 		var/mob/living/carbon/human/virtual_reality/winner = myroom.players[1]
 		myroom.round_end = world.time + 1 MINUTES

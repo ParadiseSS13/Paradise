@@ -56,7 +56,7 @@
 		spawn(0)
 			RefreshInfectionImage()
 
-	if(stage == 5 && prob(50))
+	if(stage == 5 && prob(50) && !istype(owner, /mob/living/carbon/human/virtual_reality)) //VR breaks with a face hugger, will fix later
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
 				AttemptGrow(0)

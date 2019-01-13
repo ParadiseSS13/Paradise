@@ -16,7 +16,6 @@
 "ap" = (/obj/structure/chair/sofa/right,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aq" = (/obj/structure/chair/sofa/left,/obj/machinery/computer/security/telescreen/entertainment{pixel_y = 30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "ar" = (/obj/structure/table/reinforced,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
-"as" = (/obj/structure/closet/crate/can,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "at" = (/mob/living/simple_animal/bot/cleanbot,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "au" = (/obj/structure/chair/sofa/right,/obj/machinery/computer/security/telescreen/entertainment{pixel_y = 30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "av" = (/obj/structure/chair/sofa/left,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
@@ -103,7 +102,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacadaeabaaaaaaaaaaaaaaaaabafagahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaiajakababababababababababalamanabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaoababapaqarasatarauavababaoabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaoababapaqaratatarauavababaoabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacawabaxayayazayayayayayayayayazayayaxabaAahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaBaCaoayayayayayaDaDaEaEaDaDayayayayayaoaFaGabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaHakabaIayayaJaKararaLaMararaNaOayayaPabalaQabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
