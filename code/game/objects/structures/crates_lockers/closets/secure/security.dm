@@ -460,3 +460,4 @@
 	new /obj/item/clothing/head/powdered_wig(src)
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
+	new /obj/item/clothing/head/justice_wig(src)
