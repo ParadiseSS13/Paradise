@@ -2,20 +2,26 @@ var/global/BSACooldown = 0
 var/global/nologevent = 0
 
 ////////////////////////////////
-/proc/message_admins(var/msg)
+/proc/message_admins(var/msg, var/area/location)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
+			if(location)
+				if(location.attack_logging == FALSE && C.prefs.atklog > ATKLOG_ALMOSTALL)
+					continue
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
 
-/proc/msg_admin_attack(var/text, var/loglevel)
+/proc/msg_admin_attack(var/text, var/loglevel, var/area/location)
 	if(!nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
 				if(C.prefs.atklog == ATKLOG_NONE)
 					continue
+				if(location)
+					if(location.attack_logging == FALSE && C.prefs.atklog > ATKLOG_ALMOSTALL)
+						continue
 				var/msg = rendered
 				if(C.prefs.atklog <= loglevel)
 					to_chat(C, msg)

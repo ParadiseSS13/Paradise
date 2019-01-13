@@ -48,7 +48,7 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 
-			message_admins("[ADMIN_LOOKUPFLW(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
+			message_admins("[ADMIN_LOOKUPFLW(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].", user.areaMaster)
 			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
 			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
 			if(iscarbon(user))

@@ -230,7 +230,7 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
-				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.", ATKLOG_FEW)
+				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.", ATKLOG_FEW, areaMaster)
 				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]")
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
@@ -303,7 +303,7 @@
 
 /obj/item/bombcore/proc/detonate()
 	if(adminlog)
-		message_admins(adminlog)
+		message_admins(adminlog, areaMaster)
 		log_game(adminlog)
 	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
@@ -461,7 +461,7 @@
 		return // The Explosion didn't do anything. No need to log, or disappear.
 
 	if(adminlog)
-		message_admins(adminlog)
+		message_admins(adminlog, areaMaster)
 		log_game(adminlog)
 
 	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)

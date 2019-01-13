@@ -50,13 +50,13 @@
 	user.newtonian_move(get_dir(A, user))
 
 	if(reagents.has_reagent("sacid"))
-		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
+		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW, areaMaster)
 		log_game("[key_name(user)] fired sulphuric acid from \a [src] at [COORD(user)].")
 	if(reagents.has_reagent("facid"))
-		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
+		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW, areaMaster)
 		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src] at [COORD(user)].")
 	if(reagents.has_reagent("lube"))
-		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src] at [COORD(user)].")
+		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src] at [COORD(user)].", ATKLOG_ALMOSTALL, areaMaster)
 		log_game("[key_name(user)] fired space lube from \a [src] at [COORD(user)].")
 	return
 

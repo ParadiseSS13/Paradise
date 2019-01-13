@@ -907,7 +907,7 @@ var/list/admin_verbs_ticket = list(
 		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
 	else if(prefs.atklog == ATKLOG_ALMOSTALL)
 		prefs.atklog = ATKLOG_MOST
-		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides attacks by players on NPCs and PVP in admin/VR areas)")
+		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides attacks by players on NPCs and logs in admin/VR areas)")
 	else if(prefs.atklog == ATKLOG_MOST)
 		prefs.atklog = ATKLOG_FEW
 		to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
