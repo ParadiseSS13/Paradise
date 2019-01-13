@@ -5,6 +5,7 @@
 #define CONTRACT_REVIVE "Revive"
 #define CONTRACT_KNOWLEDGE "Knowledge"
 #define CONTRACT_UNWILLING "Unwilling"
+#define CONTRACT_FRIENDSHIP "Friendship"
 // FIXME: Implement these
 #define CONTRACT_ETALENT "Engineering Talent"
 #define CONTRACT_CTALENT "Chemistry Talent"

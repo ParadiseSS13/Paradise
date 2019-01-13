@@ -44,7 +44,7 @@
 					user.put_in_hands(contract)
 			else
 				var/obj/item/paper/contract/infernal/contract
-				var/contractTypeName = input(user, "What type of contract?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE)
+				var/contractTypeName = input(user, "What type of contract?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP)  //TODO: Refactor this to be less boilerplate-y
 				switch(contractTypeName)
 					if(CONTRACT_POWER)
 						contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
@@ -56,6 +56,8 @@
 						contract = new /obj/item/paper/contract/infernal/magic(C.loc, C.mind, user.mind)
 					if(CONTRACT_KNOWLEDGE)
 						contract = new /obj/item/paper/contract/infernal/knowledge(C.loc, C.mind, user.mind)
+					if(CONTRACT_FRIENDSHIP)
+						contract = new /obj/item/paper/contract/infernal/friendship(C.loc, C.mind, user.mind)
 				C.put_in_hands(contract)
 		else
 			to_chat(user,"<span class='notice'>[C] seems to not be sentient. You are unable to summon a contract for them.</span>")

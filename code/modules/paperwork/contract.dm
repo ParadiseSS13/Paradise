@@ -82,6 +82,10 @@
 	name = "paper- infernal contract"
 	contractType = CONTRACT_UNWILLING
 
+/obj/item/paper/contract/infernal/friendship
+	name = "paper- contract for friendship"
+	contractType = CONTRACT_FRIENDSHIP
+
 /obj/item/paper/contract/infernal/New(atom/loc, mob/living/nTarget, datum/mind/nOwner)
 	..()
 	owner = nOwner
@@ -139,6 +143,13 @@
 
 /obj/item/paper/contract/infernal/knowledge/update_text(var/signature = "____________", blood = 0)
 	info = "<center><B>Contract for knowledge</B></center><BR><BR><BR>I, [target] of sound mind, do hereby willingly offer my soul to the infernal hells by way of the infernal agent [owner.devilinfo.truename], in exchange for boundless knowledge.  I understand that upon my demise, my soul shall fall into the infernal hells, and my body may not be resurrected, cloned, or otherwise brought back to life.  I also understand that this will prevent my brain from being used in an MMI.<BR><BR><BR>Signed, "
+	if(blood)
+		info += "<font face=\"REBUFFED\" color=#600A0A size=6><i>[signature]</i></font>"
+	else
+		info += "<i>[signature]</i>"
+
+/obj/item/paper/contract/infernal/friendship/update_text(var/signature = "____________", blood = 0)
+	info = "<center><B>Contract for friendship</B></center><BR><BR><BR>I, [target] of sound mind, do hereby willingly offer my soul to the infernal hells by way of the infernal agent [owner.devilinfo.truename], in exchange for true unconditional friendship.  I understand that upon my demise, my soul shall fall into the infernal hells, and my body may not be resurrected, cloned, or otherwise brought back to life.  I also understand that this will prevent my brain from being used in an MMI.<BR><BR><BR>Signed, "
 	if(blood)
 		info += "<font face=\"REBUFFED\" color=#600A0A size=6><i>[signature]</i></font>"
 	else
@@ -307,4 +318,10 @@
 		return -1
 	user.mutations.Add(XRAY)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
+	return ..()
+
+/obj/item/paper/contract/infernal/friendship/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
+	if(!istype(user) || !user.mind) 
+		return -1
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_friend(null))
 	return ..()
