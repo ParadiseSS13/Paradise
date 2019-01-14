@@ -200,6 +200,38 @@
 /obj/machinery/suit_storage_unit/ert/medical/secure
 	secure = TRUE
 
+//telecoms NASA SSU. Suits themselves are assigned in Initialize
+/obj/machinery/suit_storage_unit/telecoms
+	mask_type    = /obj/item/clothing/mask/breath
+	storage_type = /obj/item/tank/jetpack/void
+
+/obj/machinery/suit_storage_unit/telecoms/secure
+	secure = TRUE
+
+//copied from /obj/effect/nasavoidsuitspawner
+/obj/machinery/suit_storage_unit/telecoms/Initialize()
+	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
+		if("red")
+			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
+			suit_type = /obj/item/clothing/suit/space/nasavoid
+		if("green")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/green
+			suit_type = /obj/item/clothing/suit/space/nasavoid/green
+		if("ntblue")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/ntblue
+			suit_type = /obj/item/clothing/suit/space/nasavoid/ntblue
+		if("purple")
+			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid/purple
+			suit_type = /obj/item/clothing/suit/space/nasavoid/purple
+		if("yellow")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/yellow
+			suit_type = /obj/item/clothing/suit/space/nasavoid/yellow
+		if("ltblue")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/ltblue
+			suit_type = /obj/item/clothing/suit/space/nasavoid/ltblue
+	..()
+
+
 /obj/machinery/suit_storage_unit/New()
 	..()
 	wires = new(src)
