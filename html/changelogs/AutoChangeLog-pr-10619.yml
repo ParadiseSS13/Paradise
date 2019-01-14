@@ -1,0 +1,5 @@
+author: "Jazz23"
+delete-after: True
+changes: 
+  - rscadd: "Bluespace Closet"
+  - imageadd: "Bluespace closet animations/sprites"
