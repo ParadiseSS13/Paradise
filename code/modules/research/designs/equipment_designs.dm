@@ -269,3 +269,13 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
+
+/datum/design/bluespace_closet
+	name = "Bluespace Closet"
+	desc = "A storage unit that moves and stores through the fourth dimension."
+	id = "bluespace_closet"
+	req_tech = list("engineering" = 4, "programming" = 5, "bluespace" = 5, "magnets" = 4, "plasmatech" = 3)
+	build_path = /obj/structure/closet/bluespace
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	category = list("Equipment")
