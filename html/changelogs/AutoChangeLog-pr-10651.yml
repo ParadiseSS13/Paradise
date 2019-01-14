@@ -1,0 +1,5 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - rscadd: "Actually activates devil friends contract."
+  - rscadd: "Adds employment cabinet and codex gigas."
