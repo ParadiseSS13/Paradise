@@ -357,7 +357,7 @@
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
-			var/tlimit = 3000 //past this much time the patient is unrecoverable (in deciseconds)
+			var/tlimit = istype(defib, /obj/item/defibrillator/bluespace) ? 5000 : 3000 //past this much time the patient is unrecoverable (in deciseconds)
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
@@ -407,7 +407,7 @@
 						total_burn	+= O.burn_dam
 					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
-						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
+						tobehealed -= istype(defib, /obj/item/defibrillator/bluespace) ? 10 : 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
 						H.adjustToxLoss(tobehealed)
 						H.adjustFireLoss(tobehealed)
@@ -565,3 +565,13 @@
 					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = 0
 		update_icon()
+
+/obj/item/defibrillator/bluespace
+	name = "bluespace defibrillator"
+	desc = "An upgraded defibrillator that rearranges the quantum state of the heart."
+	origin_tech = "biotech=5;bluespace=3"
+	combat = 1
+
+/obj/item/defibrillator/bluespace/update_overlays()
+	. = ..()
+	overlays += "defibbluespace"

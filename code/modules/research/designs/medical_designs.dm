@@ -541,3 +541,13 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	build_path = /obj/item/organ/internal/lungs/cybernetic/upgraded
 	category = list("Medical")
+
+/datum/design/bluespace_safety_hypo
+	name = "Bluespace Medical Hypospray"
+	desc = "An advanced medical hypospray capable of injecting through metal."
+	id = "bluespace_safety_hypo"
+	req_tech = list("biotech" = 6, "bluespace" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
+	build_path = /obj/item/reagent_containers/hypospray/safety/bluespace
+	category = list("Medical")

@@ -24,7 +24,7 @@
 	if(!iscarbon(M))
 		return
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1, istype(src, /obj/item/reagent_containers/hypospray/safety/bluespace)))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -72,6 +72,14 @@
 	desc = "A general use medical hypospray for quick injection of chemicals. There is a safety button by the trigger."
 	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
+
+/obj/item/reagent_containers/hypospray/safety/bluespace
+	name = "bluespace medical hypospray"
+	desc = "An advanced medical hypospray capable of injecting through metal."
+	icon_state = "medivend_hypo_bluespace"
+	volume = 100
+	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,50,100)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	list_reagents = list("omnizine" = 30)
