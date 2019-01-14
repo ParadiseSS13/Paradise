@@ -1,0 +1,8 @@
+author: "Quantum-M"
+delete-after: True
+changes: 
+  - rscadd: "Magistrate Locker to the code."
+  - rscadd: "Magistrate version of the Nanotrasen Navy Suit."
+  - rscadd: "Gives the Magistrate a new wig, called Justice wig."
+  - rscadd: "Magistrate specific stamp."
+  - tweak: "Adds the NT Rep version of the Nanotrasen Navy Suit (which already existed) to the NT Rep locker."
