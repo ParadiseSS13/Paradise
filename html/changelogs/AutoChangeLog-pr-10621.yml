@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Nuke ops now spawn with their pinpointer."
