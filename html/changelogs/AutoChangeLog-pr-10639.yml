@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Doubled playtime requirements for command/sec jobs."
+  - tweak: "Starts tracking playtime on a per-department basis as well. E.g: \"X hours in the Sec department\"."
