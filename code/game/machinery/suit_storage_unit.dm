@@ -204,6 +204,7 @@
 /obj/machinery/suit_storage_unit/telecoms
 	mask_type    = /obj/item/clothing/mask/breath
 	storage_type = /obj/item/tank/jetpack/void
+	req_access = list(access_tcomsat)
 
 /obj/machinery/suit_storage_unit/telecoms/secure
 	secure = TRUE
