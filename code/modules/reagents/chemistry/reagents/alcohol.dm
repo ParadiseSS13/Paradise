@@ -17,9 +17,12 @@
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
-		var/obj/item/paper/paperaffected = O
-		paperaffected.clearpaper()
-		to_chat(usr, "The solution melts away the ink on the paper.")
+		if(istype(O,/obj/item/paper/contract/infernal))
+			to_chat(usr, "The solution ignites on contact with the [O].")
+		else
+			var/obj/item/paper/paperaffected = O
+			paperaffected.clearpaper()
+			to_chat(usr, "The solution melts away the ink on the paper.")
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O

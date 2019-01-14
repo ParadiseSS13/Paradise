@@ -20,6 +20,12 @@
 	icon_state = "pwig"
 	item_state = "pwig"
 
+/obj/item/clothing/head/justice_wig
+	name = "Justice wig"
+	desc = "A fancy powdered wig given to arbitrators of the law. It looks itchy."
+	icon_state = "jwig"
+	item_state = "jwig"
+
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
 

@@ -351,7 +351,7 @@
 
 /obj/effect/mob_spawn/human/clown/Initialize()
 	mob_name = pick(GLOB.clown_names)
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
 	name = "Clown Soldier"
@@ -359,7 +359,7 @@
 
 /obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
 	mob_name = "Officer [pick(GLOB.clown_names)]"
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownoff
 	name = "Clown Officer"
@@ -367,7 +367,7 @@
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
-	..()
+	return ..()
 
 
 /datum/outfit/clownsoldier
@@ -398,7 +398,7 @@
 
 /obj/effect/mob_spawn/human/mime/Initialize()
 	mob_name = pick(GLOB.mime_names)
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
