@@ -270,7 +270,7 @@
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
-/datum/design/bluespacecloset
+/datum/design/bluespace_closet
 	name = "Bluespace Closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
 	id = "bluespace_closet"
