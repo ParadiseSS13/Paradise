@@ -1,0 +1,6 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixes bug which can cause more than 2 traders to spawn during the Sol Trader event."
+  - tweak: "Further improved sol trader event in general."
+  - rscadd: "Enabled sol trader event to happen late-round as a randomly chosen event. Can only happen if the alert level is below red."
