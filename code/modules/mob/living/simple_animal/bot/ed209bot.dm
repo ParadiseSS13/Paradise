@@ -36,7 +36,7 @@
 	var/target_lastloc //Loc of target when arrested.
 	var/last_found //There's a delay
 	var/declare_arrests = 1 //When making an arrest, should it notify everyone wearing sechuds?
-	var/idcheck = 1 //If true, arrest people with no IDs
+	var/idcheck = 0 //If true, arrest people with no IDs
 	var/weaponscheck = 1 //If true, arrest people for weapons if they don't have access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
