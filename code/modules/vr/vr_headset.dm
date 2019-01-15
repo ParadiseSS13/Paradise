@@ -73,10 +73,10 @@
 	var/mob/living/carbon/human/H = loc
 	var/area/A = get_area(src)
 	H.Weaken(3)
-	if((user_health - H.health > 50 && !contained()) || (exile && !(istype(A, /area/security/vr))))
+	if((user_health - H.health > 25 && !contained()) || (exile && !(istype(A, /area/security/vr))))
 		vr_human.revert_to_reality(0)
 	if(room != A)
-		to_chat(vr_human, "You see your vision flicker as your headset changes from one network to another.")
+		to_chat(vr_human, "<span class='danger'>You see your vision flicker as your headset changes from one network to another.</span>")
 		room = A
 	if(H.ckey)
 		processing_objects.Remove(src)

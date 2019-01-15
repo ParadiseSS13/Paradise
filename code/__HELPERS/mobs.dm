@@ -301,7 +301,7 @@ This is always put in the attack log.
 		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL. Also attack logs in logging off areas
 			loglevel = ATKLOG_ALMOSTALL
 
-	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel, user.areaMaster)
+	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel, user.loc.loc)
 
 /proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
 	if(!user || !target)

@@ -120,6 +120,10 @@ obj/machinery/vr_reset_button/engineering
 	item_color = "psysuit"
 	flags = NODROP
 
+/obj/item/clothing/under/virtual_reality/immune
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100)
+
 /obj/structure/closet/blast_shelter
 	name = "blast shelter"
 	desc = "This will protect you from all explosions. We recomend thinking happy thoughts as a failsafe."

@@ -2,7 +2,7 @@
 
 /datum/outfit/vr/vr_basic
 	name = "basic vr"
-	uniform = /obj/item/clothing/under/virtual_reality
+	uniform = /obj/item/clothing/under/virtual_reality/immune
 
 /datum/outfit/vr/roman
 	name = "roman"
