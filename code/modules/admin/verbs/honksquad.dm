@@ -69,7 +69,7 @@ var/global/sent_honksquad = 0
 			honksquad_number--
 
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a HONKsquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a HONKsquad.</span>")
 	log_admin("[key_name(usr)] used Spawn HONKsquad.")
 	return 1
 

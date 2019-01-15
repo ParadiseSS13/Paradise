@@ -111,7 +111,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		num_spawned++
 		if(!teamsize)
 			break
-	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
+	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.")
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
 	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

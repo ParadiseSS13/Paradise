@@ -68,7 +68,7 @@
 			slots_list += "cyborg: [cyborg_slots]"
 		var/slot_text = jointext(slots_list, ", ")
 		notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
-		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
+		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 		log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 		autoclose = 1
 		ui_interact(usr)

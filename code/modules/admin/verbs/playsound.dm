@@ -9,7 +9,7 @@ var/list/sounds_cache = list()
 	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
 
 	log_admin("[key_name(src)] stopped admin sounds.")
-	message_admins("[key_name_admin(src)] stopped admin sounds.", 1)
+	message_admins("[key_name_admin(src)] stopped admin sounds.")
 	for(var/mob/M in GLOB.player_list)
 		M << awful_sound
 
@@ -27,7 +27,7 @@ var/list/sounds_cache = list()
 		return
 
 	log_admin("[key_name(src)] played sound [S]")
-	message_admins("[key_name_admin(src)] played sound [S]", 1)
+	message_admins("[key_name_admin(src)] played sound [S]")
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
 			M << uploaded_sound
@@ -41,7 +41,7 @@ var/list/sounds_cache = list()
 	if(!check_rights(R_SOUNDS))	return
 
 	log_admin("[key_name(src)] played a local sound [S]")
-	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
+	message_admins("[key_name_admin(src)] played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 	feedback_add_details("admin_verb","PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -105,7 +105,7 @@ var/list/sounds_cache = list()
 	set category = "Event"
 	set name = "Cuban Pete Time"
 
-	message_admins("[key_name_admin(usr)] has declared Cuban Pete Time!", 1)
+	message_admins("[key_name_admin(usr)] has declared Cuban Pete Time!")
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
@@ -121,7 +121,7 @@ var/list/sounds_cache = list()
 	set category = "Event"
 	set name = "Banana Phone"
 
-	message_admins("[key_name_admin(usr)] has activated Banana Phone!", 1)
+	message_admins("[key_name_admin(usr)] has activated Banana Phone!")
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
@@ -132,7 +132,7 @@ client/proc/space_asshole()
 	set category = "Event"
 	set name = "Space Asshole"
 
-	message_admins("[key_name_admin(usr)] has played the Space Asshole Hymn.", 1)
+	message_admins("[key_name_admin(usr)] has played the Space Asshole Hymn.")
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
@@ -143,7 +143,7 @@ client/proc/honk_theme()
 	set category = "Event"
 	set name = "Honk"
 
-	message_admins("[key_name_admin(usr)] has creeped everyone out with Blackest Honks.", 1)
+	message_admins("[key_name_admin(usr)] has creeped everyone out with Blackest Honks.")
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)

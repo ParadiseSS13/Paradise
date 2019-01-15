@@ -482,7 +482,7 @@ var/list/admin_verbs_ticket = list(
 			holder.fakekey = new_key
 			createStealthKey()
 		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
+		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
 	feedback_add_details("admin_verb","SM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/big_brother()
@@ -616,7 +616,7 @@ var/list/admin_verbs_ticket = list(
 
 	feedback_add_details("admin_verb","GS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
-	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
+	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].")
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
 	set category = "Event"
@@ -692,7 +692,7 @@ var/list/admin_verbs_ticket = list(
 		to_chat(usr, "<b>Disabled air processing.</b>")
 	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] used 'kill air'.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] used 'kill air'.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] used 'kill air'.</span>")
 
 /client/proc/deadmin_self()
 	set name = "De-admin self"
