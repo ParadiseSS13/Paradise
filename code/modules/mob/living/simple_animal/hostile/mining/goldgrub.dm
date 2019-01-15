@@ -42,7 +42,7 @@
 	if(target != null)
 		if(istype(target, /obj/item/stack/ore) && loot.len < 10)
 			visible_message("<span class='notice'>The [name] looks at [target.name] with hungry eyes.</span>")
-		else if(isliving(target) || ismecha(target))
+		else if(isliving(target)
 			Aggro()
 			visible_message("<span class='danger'>The [name] tries to flee from [target.name]!</span>")
 			retreat_distance = 10
