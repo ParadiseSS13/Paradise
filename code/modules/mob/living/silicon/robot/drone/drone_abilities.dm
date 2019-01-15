@@ -72,6 +72,8 @@
 
 	if(!custom_sprite)
 		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
+	else if(emag)
+		to_chat(src, "<span class='warning'>Error 404: Custom chassis server not found. Revoking customization option.</span>")
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"

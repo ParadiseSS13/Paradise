@@ -195,7 +195,7 @@
 	emagged = 1
 	density = 1
 	pass_flags = 0
-	icon_state = "repairbot-emagged"
+	icon_state = "[icon_state]-emagged"
 	holder_type = /obj/item/holder/drone/emagged
 	update_icons()
 	lawupdate = 0
