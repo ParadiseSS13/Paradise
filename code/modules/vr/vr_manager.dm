@@ -18,6 +18,7 @@ var/list/vr_all_players = list()
 	var/obj/effect/landmark/reset_point = null
 	var/list/waitlist = list()
 	var/list/templatelist = list()
+	var/password = null
 
 /datum/vr_room/proc/cleanup()
 	for(var/mob/living/carbon/human/virtual_reality/player in players)
@@ -96,9 +97,10 @@ var/list/vr_all_players = list()
 		round_timer = addtimer(CALLBACK(src, .proc/vr_round), 1 MINUTES, TIMER_STOPPABLE)
 		round_end = world.time + 1 MINUTES
 
-proc/make_vr_room(name, template, expires, creator)
+proc/make_vr_room(name, template, expires, creator, password)
 	var/datum/vr_room/R = new
 	R.name = name
+	R.password = password
 	R.template = template
 	R.template = vr_templates[R.template]
 	R.chunk = space_manager.allocate_space(R.template.width, R.template.height, "vr")

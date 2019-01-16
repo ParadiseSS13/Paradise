@@ -31,7 +31,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/white
 	id = /obj/item/card/id/medical
-	glasses = /obj/item/clothing/glasses/science
+	glasses = /obj/item/clothing/glasses/hud/health
 	gloves = /obj/item/clothing/gloves/color/latex
 
 /datum/outfit/vr/research

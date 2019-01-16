@@ -33,19 +33,25 @@
 	if(href_list["join_room"])
 		var/datum/vr_room/room = vr_rooms[href_list["join_room"]]
 		if(room)
-			spawn_vr_avatar(usr, room)
-			if(!(usr.ckey))
-				usr.death()
+			if(room.password)
+				var/password = input(usr, "Enter Password","") as null|text
+				if(password == room.password || check_rights(R_ADMIN))
+					spawn_vr_avatar(usr, room)
+					if(!(usr.ckey))
+						usr.death()
+				else
+					to_chat(usr, "<span class='danger'>Incorrect Password!</span>")
 		.=1
 	if(href_list["make_room"])
-		var/name = input(usr, "Name your new Room","Name here.") as null|text
+		var/name = input(usr, "","Name your new Room.") as null|text
+		var/password = input(usr, "(Leave Blank for unlocked)","Password protect your new Room?") as null|text
 		if(!name)
 			return 0
 		for(var/datum/vr_room/R in vr_rooms)
 			if(R.creator == usr.ckey)
 				to_chat(usr, "The system only supports one room per client. Please try again once your current room has expired or after deleting it.")
 				return 0
-		make_vr_room(name, href_list["make_room"], 1, usr.ckey)
+		make_vr_room(name, href_list["make_room"], 1, usr.ckey, password)
 		.=1
 	if(href_list["delete"])
 		var/datum/vr_room/room = vr_rooms[href_list["delete"]]
@@ -69,6 +75,11 @@
 	var/rooms[0]
 	for(var/R in vr_rooms)
 		var/datum/vr_room/temp = vr_rooms[R]
-		rooms.Add(list(list("name" = temp.name, "template" = temp.template.name, "creator" = temp.creator, "players" = temp.players.len))) // list in a list because Byond merges the first list..
+		var/locked = FALSE
+		to_chat(world, "Password = [temp.password]")
+		if(length(temp.password) > 0)
+			locked = TRUE
+			to_chat(world, "Locked = [locked]")
+		rooms.Add(list(list("name" = temp.name, "template" = temp.template.name, "creator" = temp.creator, "players" = temp.players.len, "password" = locked))) // list in a list because Byond merges the first list..
 	data["rooms"] = rooms
 	return data

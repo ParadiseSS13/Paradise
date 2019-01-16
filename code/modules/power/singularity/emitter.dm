@@ -147,7 +147,7 @@
 			if(src.active==1)
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
-				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", loc.loc)
 				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
@@ -155,7 +155,7 @@
 				to_chat(user, "You turn on the [src].")
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
-				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", loc.loc)
 				log_game("Emitter turned on by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()

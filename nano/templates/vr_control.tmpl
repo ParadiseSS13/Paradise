@@ -41,7 +41,11 @@ Used In File(s): \code\modules\vr\vr_control.dm
 					</tr>
 					{{for data.rooms}}
 						<tr>
-							<td style="width: 100px;">{{:value.name}}</td><td style="width: 100px;>{{:value.players}}</td><td style="width: 60px;">{{:value.template}}</td><td>{{:helper.link("Join", null, {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
+							{{if value.password}}	
+								<td style="width: 100px;">{{:value.name}}</td><td style="width: 100px;>{{:value.players}}</td><td style="width: 60px;">{{:value.template}}</td><td>{{:helper.link("Join", 'lock', {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
+							{{else}}
+								<td style="width: 100px;">{{:value.name}}</td><td style="width: 100px;>{{:value.players}}</td><td style="width: 60px;">{{:value.template}}</td><td>{{:helper.link("Join", 'arrow-right', {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
+							{{/if}}
 						</tr>
 					{{/for}}
 				</tbody></table>

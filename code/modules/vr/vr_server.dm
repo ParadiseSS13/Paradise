@@ -25,7 +25,8 @@ var/vr_server_status = VR_SERVER_OFF
 		icon_state = "server-off"
 	else
 		icon_state = "server-on"
-
+	if(panel_open)
+		icon_state = "[icon_state]_o"
 	return
 
 /obj/machinery/vr_server/attack_hand(user as mob)
@@ -50,20 +51,41 @@ var/vr_server_status = VR_SERVER_OFF
 
 /obj/machinery/vr_server/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circuitboard/vr_server) && emagged)
-		set_state(VR_SERVER_ON)
 		emagged = FALSE
-		internal_relay.toggled = 1
 		desc = null
 		qdel(I)
+		to_chat(user, "You replace the burnt out circuit board with a fresh one, discarding the destroyed board.")
+		if(active)
+			set_state(VR_SERVER_ON)
+	if(istype(I, /obj/item/screwdriver))
+		playsound(loc, I.usesound, 50, 1)
+		panel_open = !panel_open
+		update_icon()
+		to_chat(user, "<span class='notice'>You [panel_open ? "close" : "open"] the maintenance hatch of [src].</span>")
+		return 1
+	if(panel_open)
+		if(istype(I, /obj/item/crowbar))
+			default_deconstruction_crowbar(I)
+			return 1
 
 /obj/machinery/vr_server/Destroy()
-	set_state(VR_SERVER_OFF)
+	if(active)
+		set_state(VR_SERVER_OFF)
 	return ..()
 
 /obj/machinery/vr_server/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/vr_server(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/cell(null)
+	component_parts += new /obj/item/stack/cable_coil(null,1)
+	component_parts += new /obj/item/stack/cable_coil(null,1)
+	RefreshParts()
+	internal_relay = new /obj/machinery/telecomms/relay/preset/vr(src)
+	internal_relay.toggled = 0
 	if(vr_server_status == VR_SERVER_OFF)
 		set_state(VR_SERVER_ON)
-	internal_relay = new /obj/machinery/telecomms/relay/preset/vr(src)
 	update_icon()
 
 /obj/machinery/vr_server/power_change()
@@ -81,16 +103,17 @@ var/vr_server_status = VR_SERVER_OFF
 /obj/machinery/vr_server/proc/set_state(var/state)
 	active = state
 	vr_server_status = state
+	internal_relay.toggled = 0
 	if(vr_server_status == VR_SERVER_OFF)
 		vr_kick_all_players()
-	if(vr_server_status == VR_SERVER_EMAG)
-		if(!emagged)
-			emagged = TRUE
-			playsound(src.loc, "sparks", 100, 1)
+	else if(vr_server_status == VR_SERVER_ON)
+		internal_relay.toggled = 1
 
 /obj/machinery/vr_server/emag_act(user as mob)
-	set_state(VR_SERVER_EMAG)
-	internal_relay.toggled = 0
+	if(active)
+		set_state(VR_SERVER_EMAG)
+	playsound(src.loc, "sparks", 100, 1)
+	emagged = TRUE
 	to_chat(user, "You fry the containment circuits trapping all the players and releasing all the prisoners.")
 	desc = "Its main circuit board appears to be fried."
 	for(var/mob/living/carbon/human/virtual_reality/player in vr_all_players)
