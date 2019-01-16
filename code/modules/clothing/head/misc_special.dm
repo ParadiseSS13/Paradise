@@ -246,3 +246,22 @@
 /obj/item/clothing/head/cardborg/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
+
+/*
+ * Head Mirror
+ */
+/obj/item/clothing/head/headmirror
+	name = "head mirror"
+	desc = "A band of rubber with a very reflective looking mirror attached to the front of it. One of the early signs of medical budget cuts."
+	icon_state = "head_mirror"
+	item_state = "head_mirror"
+	species_fit = list("Vox, Drask")
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi',
+	"Drask" = 'icons/mob/species/drask/head.dmi',
+	"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
+
+/obj/item/clothing/head/headmirror/IsReflect()
+	if(prob(15)) //Small chance to reflect energy projectiles if held on hands.
+		return TRUE
