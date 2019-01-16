@@ -3,8 +3,8 @@
 	desc = "A little robot. It looks happy with its bike horn."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -70,7 +70,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src,0)
+	walk_to(src, 0)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -90,7 +90,7 @@
 	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
+	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
@@ -110,7 +110,7 @@
 		addtimer(CALLBACK(src, .proc/react_buzz), 5)
 	return ..()
 
-// Removed prank when trying to repair it with a welding tool. This was removed from TG in a recent Pullrequest too 1/2019
+// prank when trying to repair it
 /*mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		return
@@ -123,7 +123,7 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			user << "<span class='danger'>You short out [src]'s sound control system. It gives out an evil laugh!!</span>"
+			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
@@ -139,34 +139,33 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if (emagged <= 1)
+		if(emagged <= 1)
 			honk_attack(A)
 		else
 			if(!C.stunned || arrest_type) //originaly was paralisysed in tg ported as stun
 				stun_attack(A)
 		..()
-	else if (!spam_flag) //honking at the ground
+	else if(!spam_flag) //honking at the ground
 		bike_horn(A)
-
 
 /mob/living/simple_animal/bot/honkbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		playsound(src, honksound, 50, TRUE, -1)
 		var/obj/item/I = AM
-		if(I.throwforce < health && I.thrownby && (istype(I.thrownby, /mob/living/carbon/human)))
+		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
 			var/mob/living/carbon/human/H = I.thrownby
 			retaliate(H)
 	..()
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn
-	if (emagged <= 1)
-		if (!spam_flag)
+	if(emagged <= 1)
+		if(!spam_flag)
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
-	else if (emagged == 2) //emagged honkbots will spam short and memorable sounds.
-		if (!spam_flag)
+	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
+		if(!spam_flag)
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
@@ -184,7 +183,7 @@
 	if(!spam_flag)
 		playsound(src, 'sound/items/AirHorn.ogg', 100, TRUE, -1) //HEEEEEEEEEEEENK!!
 		sensor_blink()
-	if(spam_flag == 0)
+	if(!spam_flag)
 		if(ishuman(C))
 			C.stuttering = 20 //stammer
 			C.MinimumDeafTicks(0, 5) //far less damage than the H.O.N.K.
@@ -193,14 +192,13 @@
 			C.Stun(5)      // Paralysis from tg ported as stun
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
-			if (emagged <= 1) //HONK once, then leave
+			if(emagged <= 1) //HONK once, then leave
 				threatlevel -= 6
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
 				threatlevel = 6 // will never let you go
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
 			add_attack_logs(src, C, "honked by [src]")
-			//log_combat(src,C,"honked")
 			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
@@ -217,7 +215,7 @@
 
 		if(BOT_IDLE)		// idle
 
-			walk_to(src,0)
+			walk_to(src, 0)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
@@ -226,7 +224,7 @@
 
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src,0)
+				walk_to(src, 0)
 				back_to_idle()
 				return
 
@@ -280,7 +278,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
 	anchored = FALSE
-	for (var/mob/living/carbon/C in view(7,src))
+	for(var/mob/living/carbon/C in view(7, src))
 		if((C.stat) || (C.handcuffed))
 			continue
 
@@ -288,7 +286,7 @@
 			continue
 
 		if(threatlevel <= 3)
-			if(C in view(4,src)) //keep the range short for patrolling
+			if(C in view(4, src)) //keep the range short for patrolling
 				if(!spam_flag)
 					bike_horn()
 
@@ -309,7 +307,7 @@
 				continue
 
 /mob/living/simple_animal/bot/honkbot/explode()
-	walk_to(src,0)
+	walk_to(src, 0)
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	//doesn't drop cardboard nor its assembly, since its a very frail material.
