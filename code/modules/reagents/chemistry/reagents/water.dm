@@ -26,8 +26,10 @@
 		M.adjust_fire_stacks(-(volume / 10))
 		M.ExtinguishMob()
 		if(ishuman(M))
-
 			var/mob/living/carbon/human/H = M
+
+			if(H.is_waterproof())
+				return
 
 			if(!isgrey(H)) //God this is so gross I hate it.
 				return

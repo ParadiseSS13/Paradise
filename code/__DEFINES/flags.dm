@@ -11,6 +11,8 @@
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
 
+#define WATERPROOF				256		//make you immune to water touch reactions and water_act if you're wearing a waterproof suit and head item
+
 #define EARBANGPROTECT			1024
 
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
