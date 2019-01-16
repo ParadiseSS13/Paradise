@@ -110,15 +110,6 @@
 		addtimer(CALLBACK(src, .proc/react_buzz), 5)
 	return ..()
 
-// prank when trying to repair it
-/*mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		return
-	if(!W.tool_behaviour == TOOL_SCREWDRIVER && (W.force) && (!target) && (W.damtype != STAMINA) ) // Check for welding tool to fix #2432.
-		retaliate(user)
-		addtimer(CALLBACK(src, .proc/react_buzz), 5)
-	..()*/                          
-
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
 	if(emagged == 2)
