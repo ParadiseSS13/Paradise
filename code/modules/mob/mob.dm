@@ -243,7 +243,7 @@
 
 //This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
 /mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot, equip_speed_override = FALSE)
-	return equip_to_slot_if_possible(W, slot, 1, 1, 0, TRUE)
+	return equip_to_slot_if_possible(W, slot, 1, 1, 0, equip_speed_override)
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.

@@ -42,7 +42,7 @@
 	//to be overriden for toggling internals, id binding, access etc
 	return
 
-/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, equip_speed_override = 1)
+/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, equip_speed_override = TRUE)
 	pre_equip(H, visualsOnly)
 
 	//Start with uniform,suit,backpack for additional slots

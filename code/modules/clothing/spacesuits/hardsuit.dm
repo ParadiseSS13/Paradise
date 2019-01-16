@@ -299,7 +299,7 @@
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
-	equip_speed = EQUIP_SPEED_INSTANT
+	equip_speed = EQUIP_SPEED_FAST
 	
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -529,6 +529,7 @@
 	item_state = "medical_hardsuit"
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
+	equip_speed = EQUIP_SPEED_MEDIUM
 
 	//Security
 /obj/item/clothing/head/helmet/space/hardsuit/security

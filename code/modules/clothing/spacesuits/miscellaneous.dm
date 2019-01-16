@@ -36,7 +36,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-	equip_speed = EQUIP_SPEED_INSTANT
+	equip_speed = EQUIP_SPEED_FAST
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad

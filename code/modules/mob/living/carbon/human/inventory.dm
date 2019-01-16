@@ -82,10 +82,18 @@
 	if(istype(O) && O.owner == src)
 		. = 0 // keep a good grip on your heart
 
-/mob/living/carbon/human/unEquip(obj/item/I)
+/mob/living/carbon/human/unEquip(obj/item/I, check_speed)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
+	
+	if(I.equip_speed && check_speed) //unequip_override = we want to check to make sure it is not being unequiped by someone in the strip panel
+		to_chat(src, "<span class='notice'>You begin to take off the [I]...</span>")
+		if(do_mob(src, src, 20)) //2 seconds across the board. Other idea was to just do (equip_speed / 2). This prevents
+			to_chat(src, "<span class='notice'>You take off the [I].</span>")
+		else
+			to_chat(src, "<span class='alert'> You must remain still to unequip the [I]!</span>")
+			return FALSE
 
 	if(I == wear_suit)
 		if(s_store)
