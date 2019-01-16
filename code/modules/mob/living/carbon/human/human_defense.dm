@@ -497,11 +497,6 @@ emp_act
 			return 0
 	..()
 
-/mob/living/carbon/human/fire_act()
-	if(get_thermal_protection() >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-		return
-	..()
-
 /mob/living/carbon/human/water_act(volume, temperature, source)
 	if(is_waterproof())
 		return

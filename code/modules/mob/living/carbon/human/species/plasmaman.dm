@@ -167,13 +167,12 @@
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		if(H.get_thermal_protection() < FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-			var/datum/gas_mixture/environment = H.loc.return_air()
-			if(environment && environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Plasmamen so long as there's enough oxygen (0.5 moles, same as it takes to burn gaseous plasma).
-				H.adjust_fire_stacks(0.5)
-				if(!H.on_fire && H.fire_stacks > 0)
-					H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
-				H.IgniteMob()
+		var/datum/gas_mixture/environment = H.loc.return_air()
+		if(environment && environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Plasmamen so long as there's enough oxygen (0.5 moles, same as it takes to burn gaseous plasma).
+			H.adjust_fire_stacks(0.5)
+			if(!H.on_fire && H.fire_stacks > 0)
+				H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+			H.IgniteMob()
 	else
 		if(H.on_fire && H.fire_stacks > 0)
 			var/obj/item/clothing/suit/space/eva/plasmaman/P = H.wear_suit

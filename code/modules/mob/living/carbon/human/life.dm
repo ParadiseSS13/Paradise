@@ -406,9 +406,6 @@
 		var/thermal_protection = get_thermal_protection()
 
 		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-			if(fire_stacks > 0)
-				fire_stacks = 0
-				to_chat(src, "<span class='notice'>Your protective suit smothers the fire.</span>")
 			return
 		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
 			bodytemperature += 11

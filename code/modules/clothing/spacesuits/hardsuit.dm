@@ -287,7 +287,6 @@
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL | WATERPROOF
 
 /obj/item/clothing/suit/space/hardsuit/elite
 	icon_state = "hardsuit-white"
@@ -297,7 +296,6 @@
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | WATERPROOF
 
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -553,7 +551,6 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL | WATERPROOF
 
 /obj/item/clothing/suit/space/hardsuit/atmos
 	desc = "A special suit that protects against hazardous, low pressure environments. Has improved thermal protection and minor radiation shielding."
@@ -563,7 +560,6 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | WATERPROOF
 
 //Singuloth armor
 /obj/item/clothing/head/helmet/space/hardsuit/singuloth
