@@ -91,7 +91,7 @@
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
-mob/living/simple_animal/revenant/update_sight()
+/mob/living/simple_animal/revenant/update_sight()
 	if(!client)
 		return
 	if(stat == DEAD)

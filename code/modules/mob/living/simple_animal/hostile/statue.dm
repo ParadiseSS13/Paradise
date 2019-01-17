@@ -189,7 +189,7 @@
 			L.EyeBlind(4)
 	return
 
-mob/living/simple_animal/hostile/statue/update_sight()
+/mob/living/simple_animal/hostile/statue/update_sight()
 	if(!client)
 		return
 	if(stat == DEAD)
