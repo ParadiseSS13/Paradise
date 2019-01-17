@@ -34,7 +34,6 @@
 	var/check_records = TRUE
 	var/arrest_type = FALSE
 	var/weaponscheck = TRUE
-	var/bikehorn = /obj/item/bikehorn
 	
 /obj/machinery/bot_core/honkbot
 	req_one_access = list(access_clown, access_robotics, access_mime)
@@ -302,7 +301,7 @@
 	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	if(prob(50))
 		new /obj/item/robot_parts/r_arm(Tsec)
-		new bikehorn(Tsec)
+		new /obj/item/bikehorn(Tsec)
 		new /obj/item/assembly/prox_sensor(Tsec)
 
 	var/datum/effect_system/spark_spread/s = new
