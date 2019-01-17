@@ -414,6 +414,7 @@
 	new /obj/item/clothing/under/medigown(src)
 	new /obj/item/clothing/under/medigown(src)
 	new /obj/item/clothing/head/headmirror(src)
+	new /obj/item/clothing/head/headmirror(src)
 
 
 /obj/structure/closet/wardrobe/grey

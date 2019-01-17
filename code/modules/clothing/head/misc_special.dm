@@ -6,6 +6,7 @@
  *		Pumpkin head
  *		Kitty ears
  *		Cardborg Disguise
+ *		Head Mirror
  */
 
 /*
@@ -262,6 +263,3 @@
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/headmirror/IsReflect()
-	if(prob(15)) //Small chance to reflect energy projectiles if held on hands.
-		return TRUE

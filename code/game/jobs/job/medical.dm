@@ -121,10 +121,7 @@
 		switch(H.mind.role_alt_title)
 			if("Surgeon")
 				uniform = /obj/item/clothing/under/rank/medical/blue
-				if(prob(50))
-					head = /obj/item/clothing/head/headmirror
-				else
-					head = /obj/item/clothing/head/surgery/blue
+				head = /obj/item/clothing/head/surgery/blue
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical
 			if("Nurse")
