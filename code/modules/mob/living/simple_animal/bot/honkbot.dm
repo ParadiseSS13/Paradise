@@ -234,7 +234,7 @@
 
 				else	// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target,1,4)
+					walk_to(src, target, 1, 4)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -280,10 +280,8 @@
 			if(C in view(4, src)) //keep the range short for patrolling
 				if(!spam_flag)
 					bike_horn()
-
 		else if(threatlevel >= 10)
 			bike_horn() //just spam the shit outta this
-
 		else if(threatlevel >= 4)
 			if(!spam_flag)
 				target = C
@@ -319,7 +317,7 @@
 		mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM)
-	if(ismob(AM) && (on)) //only if its online
+	if(ismob(AM) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM
 			if(!istype(C) || !C || in_range(src, target))

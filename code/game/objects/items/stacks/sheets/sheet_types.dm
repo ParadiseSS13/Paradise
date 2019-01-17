@@ -254,7 +254,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
 		var/atom/droploc = drop_location()
-		if(use(1))
+		if(use(TRUE))
 			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
 			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
 			if(amount >= 0)
