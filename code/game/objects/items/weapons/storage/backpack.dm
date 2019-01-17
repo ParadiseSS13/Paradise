@@ -28,10 +28,10 @@
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
-	for(var/obj/item/I in contents)
-		space_used += I.w_class
 	if(!..(user, 1))
 		return
+	for(var/obj/item/I in contents)
+		space_used += I.w_class
 	if(!space_used)
 		to_chat(user, "<span class='notice'> [src] is empty.</span>")
 	else if(space_used <= max_combined_w_class*0.6)
