@@ -269,3 +269,13 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
+
+/datum/design/bluespace_emergency_oxygen
+	name = "bluespace emergency oxygen tank"
+	desc = "An emergency oxygen tank that's bigger on the inside."
+	id = "bluespace_emergency_oxygen"
+	req_tech = list("engineering" = 5, "bluespace" = 4)
+	build_path = /obj/item/tank/emergency_oxygen/bluespace
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
+	category = list("Equipment")
