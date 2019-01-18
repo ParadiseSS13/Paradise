@@ -1,0 +1,4 @@
+author: "Nicaragua1"
+delete-after: True
+changes: 
+  - bugfix: "clown and mime locker now have correct acces"
