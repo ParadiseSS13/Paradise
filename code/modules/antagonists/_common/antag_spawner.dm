@@ -58,7 +58,7 @@
 	switch(borg_to_spawn)
 		if("Medical")
 			R = new /mob/living/silicon/robot/syndicate/medical(T)
-		else if("Saboteur")
+		if("Saboteur")
 			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
 		else
 			R = new /mob/living/silicon/robot/syndicate(T) //Assault borg by default
