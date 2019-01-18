@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/clown
 	name = "clown's locker"
-	req_access = list()
+	req_access = list(access_clown)
 	icon_state = "clownsecure1"
 	icon_closed = "clownsecure"
 	icon_locked = "clownsecure1"
@@ -26,7 +26,7 @@
 
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
-	req_access = list()
+	req_access = list(access_mime)
 	icon_state = "mimesecure1"
 	icon_closed = "mimesecure"
 	icon_locked = "mimesecure1"
