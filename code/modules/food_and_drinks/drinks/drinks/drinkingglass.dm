@@ -63,6 +63,6 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss
 	list_reagents = list("devilskiss" = 50)
-	
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
-	list_reagents = list("alliescocktail" = 50)
+	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
