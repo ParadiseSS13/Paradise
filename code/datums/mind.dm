@@ -51,10 +51,16 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
+	var/datum/abductor/abductor			//abductor holder
+	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/devilinfo/devilinfo //Information about the devil, if any.
+ 	var/damnation_type = 0
+ 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/hasSoul = TRUE
 
 	var/rev_cooldown = 0
 
@@ -74,6 +80,7 @@
 
 /datum/mind/New(new_key)
 	key = new_key
+	soulOwner = src
 
 /datum/mind/Destroy()
 	ticker.minds -= src
@@ -291,6 +298,22 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
+/datum/mind/proc/memory_edit_devil(mob/living/H)
+	. = _memory_edit_header("devil", list("devilagents"))
+	if(src in ticker.mode.devils)
+		if(!devilinfo)
+			. += "<b>No devilinfo found! Yell at a coder!</b>"
+		else if(!devilinfo.ascendable)
+			. += "<b>DEVIL</b>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|sintouched|<a href='?src=[UID()];devil=clear'>no</a>"
+		else
+			. += "<a href='?src=[UID()];devil=devil'>DEVIL</a>|<b>ASCENDABLE DEVIL</b>|sintouched|<a href='?src=[UID()];devil=clear'>no</a>"
+	else if(src in ticker.mode.sintouched)
+		. += "devil|Ascendable Devil|<b>SINTOUCHED</b>|<a href='?src=[UID()];devil=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];devil=devil'>devil</a>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_DEVIL)
+
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
 	if(src in ticker.mode.traitors)
@@ -374,6 +397,10 @@
 		sections["shadowling"] = memory_edit_shadowling(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+	/** DEVIL ***/
+	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
+	if(is_type_in_typecache(current, devils_typecache))
+		sections["devil"] = memory_edit_devil(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
 	/** SILICON ***/
@@ -1003,6 +1030,77 @@
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
 
+	else if(href_list["devil"])
+		switch(href_list["devil"])
+			if("clear")
+				if(src in ticker.mode.devils)
+					if(istype(current,/mob/living/carbon/true_devil/))
+						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
+					else
+						ticker.mode.devils -= src
+						ticker.mode.update_devil_icons_removed(src)
+						special_role = null
+						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
+						RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
+						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
+						if(issilicon(current))
+							var/mob/living/silicon/S = current
+							S.laws.clear_sixsixsix_laws()
+						devilinfo = null
+						log_admin("[key_name(usr)] has de-devil'ed [current].")
+				else if(src in ticker.mode.sintouched)
+					ticker.mode.sintouched -= src
+					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
+					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+			if("devil")
+				if(devilinfo)
+					devilinfo.ascendable = FALSE
+					message_admins("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
+					log_admin("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
+					return
+				if(!ishuman(current) && !isrobot(current))
+					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
+					return
+				ticker.mode.devils += src
+				special_role = "devil"
+				ticker.mode.update_devil_icons_added(src)
+				ticker.mode.finalize_devil(src, FALSE)
+				ticker.mode.forge_devil_objectives(src, 2)
+				ticker.mode.greet_devil(src)
+				message_admins("[key_name_admin(usr)] has devil'ed [current].")
+				log_admin("[key_name(usr)] has devil'ed [current].")
+			if("ascendable_devil")
+				if(devilinfo)
+					devilinfo.ascendable = TRUE
+					message_admins("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
+					log_admin("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
+					return
+				if(!ishuman(current) && !isrobot(current))
+					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
+					return
+				ticker.mode.devils += src
+				special_role = "devil"
+				ticker.mode.update_devil_icons_added(src)
+				ticker.mode.finalize_devil(src, TRUE)
+				ticker.mode.forge_devil_objectives(src, 2)
+				ticker.mode.greet_devil(src)
+				message_admins("[key_name_admin(usr)] has devil'ed [current].  The devil has been marked as ascendable.")
+				log_admin("[key_name(usr)] has devil'ed [current]. The devil has been marked as ascendable.")
+			if("sintouched")
+				var/mob/living/carbon/human/H = current
+				H.influenceSin()
+				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
+				log_admin("[key_name(usr)] has sintouch'ed [current].")
+
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
@@ -1455,6 +1553,17 @@
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
 
+/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
+	for(var/X in spell_list)
+		var/obj/effect/proc_holder/spell/S = X
+		for(var/type in exceptions)
+			if(istype(S, type))
+				continue
+		S.charge_counter = delay
+		spawn(0)
+			S.start_recharge()
+		S.updateButtonIcon()
+
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
 		if(G.mind == src)
@@ -1532,6 +1641,18 @@
 
 	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
 	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
+
+/datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
+	if(damnation_type)
+		return FALSE
+	return TRUE
+
+// returns a mob to message to produce something visible for the target mind
+/datum/mind/proc/messageable_mob()
+	if(!QDELETED(current) && current.client)
+		return current
+	else
+		return get_ghost(even_if_they_cant_reenter = TRUE)
 
 //Initialisation procs
 /mob/proc/mind_initialize()

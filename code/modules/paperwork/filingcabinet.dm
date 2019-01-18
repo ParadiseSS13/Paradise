@@ -170,3 +170,57 @@
 /obj/structure/filingcabinet/medical/attack_tk()
 	populate()
 	..()
+
+/*
+ * Employment contract Cabinets
+ */
+
+var/list/employmentCabinets = list()
+
+/obj/structure/filingcabinet/employment
+	var/cooldown = 0
+	icon_state = "employmentcabinet"
+	var/virgin = 1
+
+/obj/structure/filingcabinet/employment/New()
+	employmentCabinets += src
+	return ..()
+
+/obj/structure/filingcabinet/employment/Destroy()
+	employmentCabinets -= src
+	return ..()
+
+/obj/structure/filingcabinet/employment/proc/fillCurrent()
+	//This proc fills the cabinet with the current crew.
+	for(var/record in data_core.locked)
+		var/datum/data/record/G = record
+		if(!G)
+			continue
+		if(G.fields["reference"])
+			addFile(G.fields["reference"])
+
+
+/obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
+	new /obj/item/paper/contract/employment(src, employee)
+
+/obj/structure/filingcabinet/employment/attack_hand(mob/user)
+	if(!cooldown)
+		if(virgin)
+			fillCurrent()
+			virgin = 0
+		cooldown = 1
+		..()
+		sleep(100) // prevents the devil from just instantly emptying the cabinet, ensuring an easy win.
+		cooldown = 0
+	else
+		to_chat(user, "<span class='warning'>The [src] is jammed, give it a few seconds.</span>")
+
+/obj/structure/filingcabinet/employment/attackby(obj/item/P, mob/user, params)
+	if(istype(P, /obj/item/wrench))
+		to_chat(user, "<span class='notice'>You begin to [anchored ? "wrench" : "unwrench"] [src].</span>")
+		if (do_after(user,300,user))
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			anchored = !anchored
+			to_chat(user, "<span class='notice'>You successfully [anchored ? "wrench" : "unwrench"] [src].</span>")
+	else
+		return ..()

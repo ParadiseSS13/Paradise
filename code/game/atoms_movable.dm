@@ -33,14 +33,12 @@
 	. = ..()
 	areaMaster = get_area(src)
 
-/atom/movable/attempt_init()
+/atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
 		space_manager.postpone_init(T.z, src)
 		return
 	. = ..()
-
-
 
 /atom/movable/Destroy()
 	if(loc)

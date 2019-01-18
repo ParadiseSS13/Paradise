@@ -715,6 +715,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		new_char.key = key
 
+/mob/dead/observer/is_literate()
+	return TRUE
 /mob/dead/observer/proc/open_spawners_menu()
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"
