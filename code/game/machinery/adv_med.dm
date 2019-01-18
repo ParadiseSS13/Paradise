@@ -307,6 +307,7 @@
 		else
 			setDir(EAST)
 		playsound(loc, I.usesound, 50, 1)
+		return
 
 	if(exchange_parts(user, I))
 		return
