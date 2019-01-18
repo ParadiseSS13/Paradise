@@ -194,3 +194,36 @@
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
+
+/obj/item/restraints/handcuffs/bluespace
+	name = "bluespace handcuffs"
+	desc = "A deviece that dispenses one-time energy cuffs to the victim."
+	icon_state = "handcuff"
+	var/can_charge = 1
+	var/charge_sections = 3
+	var/charge_delay = 4
+	var/charge_tick = 0
+
+/obj/item/restraints/handcuffs/bluespace/apply_cuffs(mob/living/carbon/target, mob/user)
+	if(!target.handcuffed && charge_sections)
+		charge_sections --
+		target.handcuffed = new /obj/item/restraints/handcuffs/bluespace/used(target)
+		target.update_handcuffed()
+
+/obj/item/restraints/handcuffs/bluespace/used
+	desc = "A pair of energy handcuffs."
+	icon_state = "cuff_white_used"
+
+/obj/item/restraints/handcuffs/bluespace/used/dropped()
+	//new /obj/effect/energy_cuffs()
+	qdel(src)
+
+/obj/item/restraints/handcuffs/bluespace/attack(mob/living/carbon/C, mob/user)
+	if(!istype(C) || !user.IsAdvancedToolUser())
+		return
+
+	if(!C.handcuffed)
+		if(!charge_sections)
+			to_chat(user, "The [name] is out of charges!")
+			return
+	. = ..()

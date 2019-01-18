@@ -149,13 +149,6 @@ obj/item/tank/emergency_oxygen/empty/New()
 	..()
 	air_contents.oxygen = null
 
-obj/item/tank/emergency_oxygen/bluespace
-	name = "bluespace emergency oxygen tank"
-	desc = "An emergency oxygen tank that's bigger on the inside."
-	icon_state = "emergency"
-	volume = 10
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
-
 /obj/item/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
@@ -187,6 +180,13 @@ obj/item/tank/emergency_oxygen/double/empty/New()
 /obj/item/tank/emergency_oxygen/double/full/New()
 	..()
 	air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
+obj/item/tank/emergency_oxygen/bluespace
+	name = "bluespace emergency oxygen tank"
+	desc = "An emergency oxygen tank that's bigger on the inside."
+	icon_state = "emergency"
+	volume = 10
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
 
 /*
  * Nitrogen
