@@ -32,18 +32,29 @@
 		.=1
 	if(href_list["join_room"])
 		var/datum/vr_room/room = vr_rooms[href_list["join_room"]]
+		var/mob/living/carbon/human/virtual_reality/new_vr
 		if(room)
 			if(room.password)
 				var/password = input(usr, "Enter Password","") as null|text
 				if(password == room.password || check_rights(R_ADMIN))
-					spawn_vr_avatar(usr, room)
+					new_vr = spawn_vr_avatar(usr, room)
 					if(!(usr.ckey))
 						usr.death()
 				else
 					to_chat(usr, "<span class='danger'>Incorrect Password!</span>")
+			else
+				new_vr = spawn_vr_avatar(usr, room)
+				if(!(usr.ckey))
+					usr.death()
+			if(new_vr)
+				for(var/obj/item/clothing/ears/vr_headset/g in new_vr.real_me.contents)
+					g.vr_human = new_vr
 		.=1
 	if(href_list["make_room"])
 		var/name = input(usr, "","Name your new Room.") as null|text
+		if(length(name) > 15)
+			to_chat(usr, "That name is too long, please try again!")
+			return 0
 		var/password = input(usr, "(Leave Blank for unlocked)","Password protect your new Room?") as null|text
 		if(!name)
 			return 0
@@ -76,10 +87,8 @@
 	for(var/R in vr_rooms)
 		var/datum/vr_room/temp = vr_rooms[R]
 		var/locked = FALSE
-		to_chat(world, "Password = [temp.password]")
 		if(length(temp.password) > 0)
 			locked = TRUE
-			to_chat(world, "Locked = [locked]")
 		rooms.Add(list(list("name" = temp.name, "template" = temp.template.name, "creator" = temp.creator, "players" = temp.players.len, "password" = locked))) // list in a list because Byond merges the first list..
 	data["rooms"] = rooms
 	return data

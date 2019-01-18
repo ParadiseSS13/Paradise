@@ -1,58 +1,58 @@
 "aa" = (/turf/space,/area/space)
-"ab" = (/turf/unsimulated/wall/other,/area/space)
+"ab" = (/turf/unsimulated/wall,/area/space)
 "ac" = (/turf/space,/area/vr/engineering)
 "ad" = (/turf/simulated/wall/r_wall,/area/vr/engineering)
 "ae" = (/turf/simulated/wall,/area/vr/engineering)
 "af" = (/obj/machinery/light/small{dir = 8},/obj/machinery/floodlight,/turf/simulated/floor/plating,/area/vr/engineering)
 "ag" = (/obj/machinery/floodlight,/turf/simulated/floor/plating,/area/vr/engineering)
-"ah" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots,/obj/item/clothing/suit/space/hardsuit/engineering,/obj/item/clothing/mask/breath,/obj/item/clothing/head/helmet/space/hardsuit/engineering,/obj/machinery/power/apc{dir = 1; name = "north bump Engineering"; pixel_x = 0; pixel_y = 24; shock_proof = 1},/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"; tag = "icon-warnplate (NORTH)"},/area/vr/engineering)
-"ai" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots,/obj/item/clothing/suit/space/hardsuit/engineering,/obj/item/clothing/mask/breath,/obj/item/clothing/head/helmet/space/hardsuit/engineering,/obj/machinery/alarm{pixel_x = 0; pixel_y = 24},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"; tag = "icon-warnplate (NORTH)"},/area/vr/engineering)
-"aj" = (/obj/machinery/portable_atmospherics/canister/toxins,/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"; tag = "icon-warnplate (NORTH)"},/area/vr/engineering)
+"ah" = (/obj/machinery/floodlight,/obj/effect/decal/warning_stripes/southeastcorner,/turf/simulated/floor/plating,/area/vr/engineering)
+"ai" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots,/obj/item/clothing/suit/space/hardsuit/engineering,/obj/item/clothing/mask/breath,/obj/item/clothing/head/helmet/space/hardsuit/engineering,/obj/machinery/power/apc{dir = 1; name = "north bump Engineering"; pixel_x = 0; pixel_y = 24; shock_proof = 1},/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating,/area/vr/engineering)
+"aj" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots,/obj/item/clothing/suit/space/hardsuit/engineering,/obj/item/clothing/mask/breath,/obj/item/clothing/head/helmet/space/hardsuit/engineering,/obj/machinery/alarm{pixel_x = 0; pixel_y = 24},/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating,/area/vr/engineering)
 "ak" = (/turf/simulated/floor/plating,/area/vr/engineering)
 "al" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/plating,/area/vr/engineering)
-"am" = (/obj/machinery/floodlight,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
+"am" = (/obj/machinery/portable_atmospherics/canister/toxins,/obj/machinery/light/small{dir = 4},/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating,/area/vr/engineering)
 "an" = (/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
 "ao" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
 "ap" = (/obj/machinery/power/supermatter_shard,/turf/simulated/floor/plating,/area/vr/engineering)
-"aq" = (/obj/machinery/power/supermatter_shard,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
+"aq" = (/obj/machinery/floodlight,/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating,/area/vr/engineering)
 "ar" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
 "as" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 4; on = 1},/turf/simulated/floor/plating,/area/vr/engineering)
 "at" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6; level = 1},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/turf/simulated/floor/plating,/area/vr/engineering)
 "au" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; on = 1; scrub_Toxins = 1},/turf/simulated/floor/plating,/area/vr/engineering)
 "av" = (/obj/machinery/field/generator,/turf/simulated/floor/plating,/area/vr/engineering)
-"aw" = (/obj/machinery/field/generator,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
-"ax" = (/obj/machinery/light_switch{pixel_x = 27},/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plating{tag = "icon-warnplate (NORTHWEST)"; icon_state = "warnplate"; dir = 9},/area/vr/engineering)
+"aw" = (/obj/machinery/power/supermatter_shard,/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating,/area/vr/engineering)
+"ax" = (/obj/machinery/field/generator,/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating,/area/vr/engineering)
 "ay" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plating,/area/vr/engineering)
 "az" = (/obj/machinery/light/small{dir = 8},/obj/machinery/field/generator,/turf/simulated/floor/plating,/area/vr/engineering)
-"aA" = (/obj/machinery/light/small{dir = 4},/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aA" = (/obj/machinery/light_switch{pixel_x = 27},/obj/structure/reagent_dispensers/watertank,/obj/effect/decal/warning_stripes/northwest,/turf/simulated/floor/plating,/area/vr/engineering)
 "aB" = (/obj/machinery/light,/turf/simulated/floor/plating,/area/vr/engineering)
 "aC" = (/obj/machinery/pipedispenser/disposal,/turf/simulated/floor/plating,/area/vr/engineering)
-"aD" = (/obj/machinery/pipedispenser,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
-"aE" = (/obj/structure/closet/crate/internals,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aD" = (/obj/machinery/light/small{dir = 4},/obj/structure/reagent_dispensers/fueltank,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
+"aE" = (/obj/machinery/pipedispenser/disposal,/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating,/area/vr/engineering)
 "aF" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plating,/area/vr/engineering)
 "aG" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plating,/area/vr/engineering)
 "aH" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/engineering/glass{name = "Engineering"; req_access_txt = "0"; req_one_access_txt = null},/turf/simulated/floor/plating,/area/vr/engineering)
-"aI" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
-"aJ" = (/obj/structure/closet/crate,/obj/item/stack/sheet/metal{amount = 50},/obj/item/stack/rods{amount = 50},/obj/item/stack/sheet/glass{amount = 50},/obj/item/airlock_electronics,/obj/item/airlock_electronics,/obj/item/stock_parts/cell/high{charge = 100; maxcharge = 15000},/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aI" = (/obj/machinery/pipedispenser,/obj/effect/decal/warning_stripes/east,/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating,/area/vr/engineering)
+"aJ" = (/obj/structure/closet/crate/internals,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
 "aK" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plating,/area/vr/engineering)
 "aL" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 8; initialize_directions = 11; level = 1},/turf/simulated/floor/plating,/area/vr/engineering)
-"aM" = (/obj/machinery/light/small{dir = 8},/obj/machinery/shieldgen,/turf/simulated/floor/plating,/area/vr/engineering)
-"aN" = (/obj/machinery/shieldgen,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
-"aO" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
-"aP" = (/obj/structure/closet/crate{name = "solar pack crate"},/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/circuitboard/solar_control,/obj/item/tracker_electronics,/obj/item/paper/solar,/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aM" = (/obj/structure/closet/crate,/obj/item/stack/sheet/metal{amount = 50},/obj/item/stack/rods{amount = 50},/obj/item/stack/sheet/glass{amount = 50},/obj/item/airlock_electronics,/obj/item/airlock_electronics,/obj/item/stock_parts/cell/high{charge = 100; maxcharge = 15000},/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
+"aN" = (/obj/machinery/light/small{dir = 8},/obj/machinery/shieldgen,/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating,/area/vr/engineering)
+"aO" = (/obj/machinery/power/smes/engineering{capacity = 1e+009; charge = 1e+009; desc = "Turn this on to achieve VIRTUAL power levels. For the lazy folk."; name = "Virtual Reality Super-charged SMES"; output_level = 0},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plasteel,/area/vr/engineering)
+"aP" = (/obj/machinery/shieldgen,/obj/effect/decal/warning_stripes/northeast,/turf/simulated/floor/plating,/area/vr/engineering)
 "aQ" = (/obj/structure/closet/radiation,/turf/simulated/floor/plating,/area/vr/engineering)
-"aR" = (/obj/machinery/the_singularitygen/tesla/vr,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
-"aS" = (/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aR" = (/obj/structure/closet/crate{name = "solar pack crate"},/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/circuitboard/solar_control,/obj/item/tracker_electronics,/obj/item/paper/solar,/obj/machinery/light/small{dir = 4},/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
+"aS" = (/obj/machinery/the_singularitygen/tesla/vr,/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating,/area/vr/engineering)
 "aT" = (/obj/machinery/the_singularitygen/vr,/turf/simulated/floor/plating,/area/vr/engineering)
-"aU" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aU" = (/obj/machinery/power/port_gen/pacman,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
 "aV" = (/obj/machinery/light/small{dir = 8},/obj/machinery/power/emitter,/turf/simulated/floor/plating,/area/vr/engineering)
-"aW" = (/obj/machinery/power/emitter,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/vr/engineering)
+"aW" = (/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating,/area/vr/engineering)
 "aX" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
-"aY" = (/obj/machinery/light/small{dir = 4},/obj/structure/closet/firecloset,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"aY" = (/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
 "aZ" = (/obj/structure/lattice,/turf/space,/area/vr/engineering)
 "ba" = (/obj/machinery/power/emitter,/turf/simulated/floor/plating,/area/vr/engineering)
 "bb" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/unary/vent_pump/on,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
-"bc" = (/obj/structure/closet/firecloset,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/vr/engineering)
+"bc" = (/obj/machinery/power/emitter,/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating,/area/vr/engineering)
 "bd" = (/turf/simulated/floor/plating/airless,/area/vr/engineering)
 "be" = (/obj/machinery/power/emitter,/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
 "bf" = (/obj/item/pipe/circulator,/obj/item/pipe/circulator,/obj/machinery/power/generator,/obj/structure/closet/crate{name = "Thermoelectric Generator"},/turf/simulated/floor/plating,/area/vr/engineering)
@@ -271,7 +271,7 @@
 "fk" = (/obj/machinery/atmospherics/pipe/manifold/visible{dir = 8},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "fl" = (/obj/machinery/atmospherics/binary/pump{dir = 8; on = 1},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "fm" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 8},/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/plasteel,/area/vr/engineering)
-"fn" = (/obj/machinery/vending/assist,/turf/simulated/floor/plasteel,/area/vr/engineering)
+"fn" = (/obj/machinery/light/small{dir = 4},/obj/structure/closet/firecloset,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
 "fo" = (/obj/structure/table,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "fp" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots/advance,/obj/item/clothing/suit/space/hardsuit/elite,/obj/item/clothing/mask/breath,/obj/item/clothing/head/helmet/space/hardsuit/elite,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "fq" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/vr/engineering)
@@ -317,7 +317,7 @@
 "ge" = (/obj/machinery/pipedispenser,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "gf" = (/obj/machinery/pipedispenser/disposal,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "gg" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/door/firedoor,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
-"gh" = (/obj/machinery/power/smes/engineering{capacity = 1e+009; charge = 1e+009; desc = "Hook this up to achieve VIRTUAL power levels. For the lazy folk."; name = "Virtual Reality Super-charged SMES"},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plasteel,/area/vr/engineering)
+"gh" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4; level = 1},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "gi" = (/obj/machinery/vending/engivend{req_access_txt = "0"},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "gj" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/light,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "gk" = (/obj/machinery/light{dir = 8},/obj/machinery/portable_atmospherics/canister/oxygen,/obj/effect/decal/warning_stripes/blue/hollow,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/vr/engineering)
@@ -383,7 +383,7 @@
 "hs" = (/obj/machinery/power/terminal,/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating,/area/vr/engineering)
 "ht" = (/obj/effect/landmark{name = "resetpoint"},/turf/simulated/floor/plating,/area/vr/engineering)
 "hu" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0},/turf/simulated/wall/r_wall,/area/vr/engineering)
-"hv" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk2"; icon_state = "catwalk2"},/area/vr/engineering)
+"hv" = (/obj/structure/closet/firecloset,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating,/area/vr/engineering)
 "hw" = (/obj/machinery/atmospherics/binary/volume_pump/on{name = "Space Loop In"},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "hx" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "hy" = (/obj/machinery/atmospherics/pipe/simple/visible/yellow{dir = 4; level = 2},/obj/machinery/atmospherics/binary/volume_pump/on{name = "Waste In"},/turf/simulated/floor/plasteel,/area/vr/engineering)
@@ -402,7 +402,7 @@
 "hL" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/wall/r_wall,/area/vr/engineering)
 "hM" = (/obj/machinery/power/smes/engineering,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/vr/engineering)
 "hN" = (/obj/machinery/power/solar_control,/turf/simulated/floor/plating,/area/vr/engineering)
-"hO" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/vr/engineering)
+"hO" = (/obj/structure/table,/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = 29; tank_volume = 500000},/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/turf/simulated/floor/plasteel,/area/vr/engineering)
 "hP" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/vr/engineering)
 "hQ" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/vr/engineering)
 "hR" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/vr/engineering)
@@ -416,7 +416,7 @@
 "hZ" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "ia" = (/obj/machinery/power/smes/engineering,/obj/structure/cable{d2 = 2; icon_state = "0-2"; pixel_y = 0},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "ib" = (/obj/machinery/power/terminal{dir = 8},/obj/structure/cable/yellow,/turf/simulated/floor/plasteel,/area/vr/engineering)
-"ic" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/vr/engineering)
+"ic" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk2"; icon_state = "catwalk2"},/area/vr/engineering)
 "id" = (/obj/structure/lattice,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{tag = "icon-intact (SOUTHEAST)"; icon_state = "intact"; dir = 6},/turf/space,/area/vr/engineering)
 "ie" = (/obj/structure/lattice,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 4},/turf/space,/area/vr/engineering)
 "if" = (/obj/structure/lattice,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 9},/turf/space,/area/vr/engineering)
@@ -453,7 +453,7 @@
 "iK" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/obj/structure/grille,/obj/machinery/meter,/turf/simulated/wall/r_wall,/area/vr/engineering)
 "iL" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; external_pressure_bound = 0; frequency = 1441; icon_state = "in"; id_tag = "tox_out"; initialize_directions = 1; internal_pressure_bound = 4000; on = 1; pressure_checks = 2; pump_direction = 0},/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/engineering)
 "iM" = (/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/engineering)
-"iN" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk7"; icon_state = "catwalk7"},/area/vr/engineering)
+"iN" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/vr/engineering)
 "iO" = (/turf/simulated/floor/plating/airless,/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk12"; icon_state = "catwalk12"},/area/vr/engineering)
 "iP" = (/turf/simulated/floor/plating/airless,/turf/simulated/floor/plating/airless/catwalk,/area/vr/engineering)
 "iQ" = (/turf/simulated/floor/plating/airless,/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk8"; icon_state = "catwalk8"},/area/vr/engineering)
@@ -471,7 +471,7 @@
 "jc" = (/obj/machinery/air_sensor{frequency = 1441; id_tag = "tox_sensor"},/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/engineering)
 "jd" = (/obj/machinery/portable_atmospherics/canister/toxins,/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/engineering)
 "je" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/engineering)
-"jf" = (/turf/simulated/floor/plating/airless,/obj/structure/cable,/obj/machinery/power/tracker,/obj/structure/cable,/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk1"; icon_state = "catwalk1"},/area/vr/engineering)
+"jf" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/vr/engineering)
 "jg" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "jh" = (/obj/machinery/atmospherics/pipe/simple/visible/yellow{dir = 9; tag = "icon-intact-y (NORTHWEST)"},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "ji" = (/obj/machinery/atmospherics/binary/valve,/turf/simulated/floor/plasteel,/area/vr/engineering)
@@ -481,7 +481,7 @@
 "jm" = (/obj/structure/lattice,/obj/machinery/atmospherics/pipe/simple/visible/green{dir = 4; level = 2},/obj/machinery/atmospherics/pipe/simple/heat_exchanging,/turf/space,/area/vr/engineering)
 "jn" = (/obj/structure/grille,/obj/machinery/meter,/obj/machinery/atmospherics/pipe/simple/visible/green{dir = 4; level = 2},/turf/simulated/wall/r_wall,/area/vr/engineering)
 "jo" = (/obj/machinery/atmospherics/unary/outlet_injector{dir = 8; frequency = 1441; icon_state = "on"; id = "tox_in"; on = 1; pixel_y = 1},/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/engineering)
-"jp" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/vr/engineering)
+"jp" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk7"; icon_state = "catwalk7"},/area/vr/engineering)
 "jq" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 5},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "jr" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/obj/machinery/atmospherics/binary/volume_pump/on{dir = 8; name = "Port to Filter"},/turf/simulated/floor/plasteel,/area/vr/engineering)
 "js" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 9},/turf/simulated/floor/plasteel,/area/vr/engineering)
@@ -504,7 +504,7 @@
 "jJ" = (/obj/structure/lattice,/obj/machinery/atmospherics/pipe/simple/visible/yellow{dir = 4; level = 2},/obj/machinery/atmospherics/pipe/simple/heat_exchanging,/turf/space,/area/vr/engineering)
 "jK" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; external_pressure_bound = 0; frequency = 1441; icon_state = "in"; id_tag = "co2_out"; initialize_directions = 1; internal_pressure_bound = 4000; on = 1; pressure_checks = 2; pump_direction = 0},/turf/simulated/floor/engine{carbon_dioxide = 50000; name = "co2 floor"; nitrogen = 0; oxygen = 0},/area/vr/engineering)
 "jL" = (/turf/simulated/floor/engine{carbon_dioxide = 50000; name = "co2 floor"; nitrogen = 0; oxygen = 0},/area/vr/engineering)
-"jM" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/engine{carbon_dioxide = 50000; name = "co2 floor"; nitrogen = 0; oxygen = 0},/area/vr/engineering)
+"jM" = (/turf/simulated/floor/plating/airless,/obj/structure/cable,/obj/machinery/power/tracker,/obj/structure/cable,/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk1"; icon_state = "catwalk1"},/area/vr/engineering)
 "jN" = (/obj/structure/cable,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/vr/engineering)
 "jO" = (/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller{valve_open = 0; volume = 1e+006},/turf/simulated/floor/engine/n20,/area/vr/engineering)
 "jP" = (/obj/machinery/air_sensor{frequency = 1441; id_tag = "n2o_sensor"},/turf/simulated/floor/engine/n20,/area/vr/engineering)
@@ -577,6 +577,7 @@
 "le" = (/obj/machinery/light/small,/turf/simulated/floor/engine{name = "n2 floor"; nitrogen = 100000; oxygen = 0},/area/vr/engineering)
 "lf" = (/obj/machinery/light/small,/turf/simulated/floor/engine{name = "o2 floor"; nitrogen = 0; oxygen = 100000},/area/vr/engineering)
 "lg" = (/obj/machinery/light/small,/turf/simulated/floor/engine{name = "air floor"; nitrogen = 10580; oxygen = 2644},/area/vr/engineering)
+"lh" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/vr/engineering)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -604,19 +605,19 @@ aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacacacacacacacac
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacadadadadadadadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeadafagahaiajadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakalakakakakakakakalakakakadagamanaoaoadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakakakakakakakakakadapaqarararadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakasatauakakakakakakadavawararaxadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadazawararaAadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakaBakakakayakakakaBakakakadaCaDararaEadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeaFakaGaeaFakakayakakaGaeaFakakaHakaIararaJadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakaKakakasaLauakakaKakakakadaMaNaOaraPadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadaQaRararaSadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadaTaIararaUadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadaVaWaXaraYadacacacaZaZaZaZaZaZaZaZaZaZaZaZaZaZaZacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacaZaeakakakakakakasaLauakakakakakakadbaaWbbarbcadacacacaZbdbebdaZaZaZaZaZbdbebdaZaZaZaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacaZaeakbfakaBbgakakbhbibjaCaBakakakadbaaIbkaraUadacacacbdblbmbnbnbnbnbnbnbnbmbnbnbnboaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeadafahaiajamadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakalakakakakakakakalakakakadagaqanaoaoadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakakakakakakakakakadapawarararadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakasatauakakakakakakadavaxararaAadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadazaxararaDadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakaBakakakayakakakaBakakakadaEaIararaJadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeaFakaGaeaFakakayakakaGaeaFakakaHararararaMadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakaKakakasaLauakakaKakakakadaNaPararaRadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadaQaSararaUadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadaTaWararaYadacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacaeakakakakakakakayakakakakakakakadaVbcaXarfnadacacacaZaZaZaZaZaZaZaZaZaZaZaZaZaZaZacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacaZaeakakakakakakasaLauakakakakakakadbabcbbarhvadacacacaZbdbebdaZaZaZaZaZbdbebdaZaZaZaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacaZaeakbfakaBbgakakbhbibjaCaBakakakadbaaWbkaraYadacacacbdblbmbnbnbnbnbnbnbnbmbnbnbnboaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacaZaeakaeaeaeaeaebpbqbraeaeaeaeaeakadadadbsbtadadadadadbdbuaZaZaZaZaZaZaZaZaZaZaZaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacadadbvbvbvadadadaebwbxbyaebzbAbBaebCbDbEaeadadbFbGbHbIbJbKbLbMbvblbNbnbObnbnbObnbnbObnbnboaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacaZaZadbPbQbRbSbTbUadbVbKbWbKbXbYbAbZcabKbWbKcbadcccdcecfbKbKbKcgbMbvbuchbdcibdbdcibdbdcibdbdbuaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
@@ -627,23 +628,23 @@ aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacddacdedededvdwdxdydxdzdAdBdCdDdEdFdEdG
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacddacdSdTdUdVdWdXdYdXdZeaebecededeeefegdHehdHareiejekekelemeneoepeqereseteuevewexcLacaZeyezeAaZaccLdbdcaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacddacdedededveBdxeCdeeDeEeFeGeHeIeJeIeKdHdHdHeLeIeJeIeHeMcaeNeObvePbKeQbKeRdNbvbuaceSaZeTeUeVaZaZacbdbuaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacdddddddddedeeWdededeeXeYeZadadfafbbvfcfdfeeLffbvfbfaadadcacWcdadadbKcgfgfhfibvbuacacaZaZaZaZaZacacbdbuaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacdefjbKfkflfmadfnbKcTaebvbYcUbZbvaecTbKfoadfpcWcdcXadcYcZadbvbvbvbuacacacaZacacacacacdbdcaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacdefjbKfkflfmadhObKcTaebvbYcUbZbvaecTbKfoadfpcWcdcXadcYcZadbvbvbvbuacacacaZacacacacacdbdcaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacdefqfrfsflftadfucsfvcucvcwfwcyczcufxcBfyadfpcWfzfAfBbIfCfDbMbvblfEcLacacaccLacacaccLbdbuaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacdefFfGfHbKbUadfIbKfJbKbXbYbAbZcabKfJbKfKadfpfLcBbKfMbKfNfObMbvbuchbdfPbdbdfPbdbdfPbdbdbuaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacadadadadadfQfRadadadadfSfTfUadbzbAbBadfVfWfXadadadfYbKbKfHbLfZdrbMbvbubdblbNbnbnbNbnbnbNbnbnfEaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvgagabKgbgcgdbJgegfadadadadadbpggbradadadadadghadgibKbKgjfNbKbKaeadbuaZbuaZaZaZaZaZaZaZaZaZaZaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvgagabKgbgcgdbJgegfadadadadadbpggbradadadadadaOadgibKbKgjfNbKbKaeadbuaZbuaZaZaZaZaZaZaZaZaZaZaZbuaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvgkglbKbKgmgngobKbKgpgqgrgsfafagtfagugvgwgxgygzadadadgAgBgCadadadadgDaZgEbnbnbnbnbnbnbngFbnbnbnfEaZaZacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvgGgGbKbKgHgIgJgKgKgLgMgNgOgPgOgQgOgRgPgOgSgTcugTgUgVgWgXgYgZhahbhchdbnhebdaZaZaZaZaZbdhfbdaZaZaZaZacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvhghghhhihjhkhjhjhjhlgohmbKhnbKhobKbKcdbKfHcWfHePcdfHhphqhphradhshthuhvacaZaZaZaZaZaZaZaZaZaZaZaZaZacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacadadadhwhmhxgmhjhjhjgohmgHhjhyhjhzhAhBcAcBhChDhEhFhGhHbKhIhJhKhLhMhNadhOachPhQhRachPhQhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacaZadhShTbvhTbvbvadhmgHhjgogmhUcOhVbKhWhXhYhZbKhhbKfHiaibiaibgBadadadhOachPichRachPichRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacidieifigaZigaZihbvhmbKbKhmiibKijikilcTePbKhnbKimadhCinhFioipiqacacachOachPichRachPichRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacaciraeisitiuitisaZbvhmbKbKhmiibKijikilcTbKbKivaeiwisisiuisisadadacacachOacacixacacacixacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacaciyizisiAiBiCisaZbviDhiiEiFiibKijikilcThiiGiHiIiJiKiLiMiMisacacacacaciNiOiOiPiOiOiOiPiQacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacaciRisiSiSiSiuaZbvgHiTiUiViWbKijikilcTiXiYiZjajbiujcjdjeisacacacacacjfacacixacacacixacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisiSiSiSisaZbvjgiihijhjibKijikilcThmjjjkjljmjnjoiMiMisacacacacacacachPjphRachPjphRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisisisisisaZbvbKiihmbKjqjrcOjscejtjujvjwjlirisisisisisacacacacacacachPjphRachPjphRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisjxjxjyiKjziIjAjBiFbKbKcshYjCjDjEjFjGjHjIjJiKjKjLjMisacacacacacacachPjNhRachPjNhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvgGgGbKbKgHgIgJgKgKgLgMgNgOgPgOgQgOgRgPgOgSgTghgTgUgVgWgXgYgZhahbhchdbnhebdaZaZaZaZaZbdhfbdaZaZaZaZacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacbvhghghhhihjhkhjhjhjhlgohmbKhnbKhobKbKcdbKfHcWfHePcdfHhphqhphradhshthuicacaZaZaZaZaZaZaZaZaZaZaZaZaZacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacadadadhwhmhxgmhjhjhjgohmgHhjhyhjhzhAhBcAcBhChDhEhFhGhHbKhIhJhKhLhMhNadiNachPhQhRachPhQhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacaZadhShTbvhTbvbvadhmgHhjgogmhUcOhVbKhWhXhYhZbKhhbKfHiaibiaibgBadadadiNachPjfhRachPjfhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacidieifigaZigaZihbvhmbKbKhmiibKijikilcTePbKhnbKimadhCinhFioipiqacacaciNachPjfhRachPjfhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacaciraeisitiuitisaZbvhmbKbKhmiibKijikilcTbKbKivaeiwisisiuisisadadacacaciNacacixacacacixacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacaciyizisiAiBiCisaZbviDhiiEiFiibKijikilcThiiGiHiIiJiKiLiMiMisacacacacacjpiOiOiPiOiOiOiPiQacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacaciRisiSiSiSiuaZbvgHiTiUiViWbKijikilcTiXiYiZjajbiujcjdjeisacacacacacjMacacixacacacixacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisiSiSiSisaZbvjgiihijhjibKijikilcThmjjjkjljmjnjoiMiMisacacacacacacachPlhhRachPlhhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisisisisisaZbvbKiihmbKjqjrcOjscejtjujvjwjlirisisisisisacacacacacacachPlhhRachPlhhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisjxjxjyiKjziIjAjBiFbKbKcshYjCjDjEjFjGjHjIjJiKjKjLjLisacacacacacacachPjNhRachPjNhRacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisjxjOjPiuaZbvjQjRgHhjhjjShjjFgojTcBjUjVjliriujWjXjYisacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisjxjxjZiKkakbkciibKbKbKkdkeiUiVkfiUkgkhkijmjnkjjLjLisacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacirisisisisisaZbvbKiibKkkklkmknkokpkqkrkkklksirisisisisisacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaa

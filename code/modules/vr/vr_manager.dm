@@ -67,7 +67,7 @@ var/list/vr_all_players = list()
 		return
 
 	if(waitlist.len > 1)
-		to_chat(waitlist, "Previous round in cleanup mode, the next round will start in aproximatly 30 seconds. Please be in the lobby and on the list.")
+		to_chat(waitlist, "Previous round in cleanup mode, the next round will start in approximately 30 seconds. Please be in the lobby and on the list.")
 		spawn_points = list()
 		spawn(0)
 			space_manager.free_space(src.chunk)

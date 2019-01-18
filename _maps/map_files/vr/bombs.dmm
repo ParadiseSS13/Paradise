@@ -101,9 +101,9 @@
 "bW" = (/obj/machinery/atmospherics/pipe/simple/insulated{dir = 5},/turf/simulated/floor/plasteel,/area/vr/bombs)
 "bX" = (/obj/machinery/meter,/obj/machinery/atmospherics/pipe/manifold/visible{dir = 4; initialize_directions = 11; level = 2},/turf/simulated/floor/plasteel,/area/vr/bombs)
 "bY" = (/turf/unsimulated/wall{tag = "icon-iron5"; icon_state = "iron5"},/area/vr/bombs)
-"bZ" = (/turf/simulated/floor/plating,/obj/machinery/atmospherics/pipe/simple/insulated,/obj/machinery/meter,/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end"},/area/vr/bombs)
+"bZ" = (/obj/structure/table,/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = 29; tank_volume = 500000},/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/turf/simulated/floor/plasteel,/area/vr/bombs)
 "ca" = (/turf/simulated/floor/plating,/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_mid"; name = "window"; opacity = 0; tag = "icon-window5_mid"},/area/vr/bombs)
-"cb" = (/turf/simulated/floor/plating,/obj/machinery/atmospherics/pipe/simple/insulated,/obj/machinery/meter,/turf/unsimulated/wall{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end (NORTH)"},/area/vr/bombs)
+"cb" = (/turf/simulated/floor/plating,/obj/machinery/atmospherics/pipe/simple/insulated,/obj/machinery/meter,/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end"},/area/vr/bombs)
 "cc" = (/turf/unsimulated/wall{tag = "icon-iron9"; icon_state = "iron9"},/area/vr/bombs)
 "cd" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/turf/simulated/floor/plasteel,/area/vr/bombs)
 "ce" = (/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plasteel,/area/vr/bombs)
@@ -123,7 +123,7 @@
 "cs" = (/obj/effect/decal/warning_stripes/northwestcorner,/turf/simulated/floor/plasteel,/area/vr/bombs)
 "ct" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 4},/turf/simulated/floor/plasteel,/area/vr/bombs)
 "cu" = (/obj/machinery/atmospherics/binary/volume_pump/on{dir = 8; name = "Plasma"},/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plasteel,/area/vr/bombs)
-"cv" = (/turf/unsimulated/floor,/obj/machinery/atmospherics/pipe/simple/visible/purple{dir = 4},/turf/unsimulated/wall{desc = "This window appears to be reinforced, it looks nearly impossible to break."; dir = 4; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5 (EAST)"},/area/vr/bombs)
+"cv" = (/turf/simulated/floor/plating,/obj/machinery/atmospherics/pipe/simple/insulated,/obj/machinery/meter,/turf/unsimulated/wall{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end (NORTH)"},/area/vr/bombs)
 "cw" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; external_pressure_bound = 0; frequency = 0; icon_state = "in"; id_tag = "o2_out"; initialize_directions = 1; internal_pressure_bound = 4000; on = 1; pressure_checks = 2; pump_direction = 0},/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/bombs)
 "cx" = (/obj/machinery/portable_atmospherics/canister/toxins,/turf/simulated/floor/engine{carbon_dioxide = 0; name = "plasma floor"; nitrogen = 0; oxygen = 0; toxins = 70000},/area/vr/bombs)
 "cy" = (/obj/structure/table/wood,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
@@ -206,6 +206,7 @@
 "dX" = (/obj/structure/table/reinforced,/obj/item/screwdriver,/obj/item/screwdriver,/turf/unsimulated/floor/vox,/area/vr/bombs)
 "dY" = (/obj/effect/landmark{name = "resetpoint"},/turf/unsimulated/wall/fakeglass{dir = 10; icon_state = "fakewindows"; tag = "icon-fakewindows (SOUTHEAST)"},/area/vr/bombs)
 "dZ" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (SOUTHEAST)"; icon_state = "fakewindows"; dir = 6},/area/vr/bombs)
+"ea" = (/turf/unsimulated/floor,/obj/machinery/atmospherics/pipe/simple/visible/purple{dir = 4},/turf/unsimulated/wall{desc = "This window appears to be reinforced, it looks nearly impossible to break."; dir = 4; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5 (EAST)"},/area/vr/bombs)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -226,8 +227,8 @@ aaaaaaaaaaaaaaaaaaaaabacamanananananananananaoazaAaBaBaCaDaEaoaFaGaHamacabaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacamananananananaTanananaUaUaUaUaUaUaUaUaUaVaUamacabaaaaaaaaaaaaaaaaaaaaabaWananaXabaYaZbabbbbbcbdabaPbeabaRbfabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacamanbgapapapapbgbhanaoaAaAaUaUaUaUaUaobiaUbjamacabaaaaaaaaaaaaaaaaaaaaabbkblanbmabbnbobabbbpbqbdabbrbsabbtbuabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacambgbgbvbwbxbybgapapaobzaUaUaUaBbAbAaoaobBaoamacabaaaaaaaaaaaaaaaaaaaaabababanababbCbDbdbEbFbGbdbHbIbJbKbLbMabababababaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacamapbNbybybybybybObPaoaAaAaUaUbQbRbRaobSbBbTambUabaaaaaaaaaaaaaaaaaaaaaaabbVanbVabbWbXbYbZcacbcccdcdcdancdcdcecfcgcgabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabacambgchbycicibybybybyapaUaUaUaUbQbRcjaockbBclamacabaaaaaaaaaaaaaaaaaaaaaaabcmanbVabcncdcocpcqcrcsanananananctcucvcwcxabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacamapbNbybybybybybObPaoaAaAaUaUbQbRbRaobSbBbTambUabaaaaaaaaaaaaaaaaaaaaaaabbVanbZabbWbXbYcbcacvcccdcdcdancdcdcecfcgcgabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabacambgchbycicibybybybyapaUaUaUaUbQbRcjaockbBclamacabaaaaaaaaaaaaaaaaaaaaaaabcmanbVabcncdcocpcqcrcsanananananctcueacwcxabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacamapbycicyczcibycAcBapaAaAaUaUaBaAaoaoaoaoaoamacabcCaiaiaiaiaiaiaiaiaicDabcEanancFanananbCcGbCananananananctcHababababaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacamapbycicycIcibycAcBapaUaUaUaUcJaAapcKcLcMcNcOacacacacacacacacacacacacaccPcQanananananancdbCcdanancRcScSababababaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabacamapbybybybybybycAcBaocTaAaUaUaUaUaUcUcVcWcVabacabcXaiaiaiaiaiaiaiaiaicDabcYcZdadbdcdddedfdgdhdiandjdkdkabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

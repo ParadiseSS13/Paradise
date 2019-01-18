@@ -1,5 +1,5 @@
 //place all the outfits for your levels in here.
-
+//do not give ID's with real access on maps with station bounced radios, they can get onto real freqs that way.
 /datum/outfit/vr/vr_basic
 	name = "basic vr"
 	uniform = /obj/item/clothing/under/virtual_reality/immune
@@ -30,7 +30,6 @@
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/white
-	id = /obj/item/card/id/medical
 	glasses = /obj/item/clothing/glasses/hud/health
 	gloves = /obj/item/clothing/gloves/color/latex
 
@@ -39,7 +38,6 @@
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/white
-	id = /obj/item/card/id/research
 	glasses = /obj/item/clothing/glasses/science
 	gloves = /obj/item/clothing/gloves/color/latex
 
@@ -48,9 +46,9 @@
 	uniform = /obj/item/clothing/under/rank/engineer
 	suit = /obj/item/clothing/suit/storage/hazardvest
 	shoes = /obj/item/clothing/shoes/workboots
-	id = /obj/item/card/id/engineering
 	gloves = /obj/item/clothing/gloves/color/yellow
 	belt = /obj/item/storage/belt/utility/chief/full
 	back = /obj/item/storage/backpack/industrial
+	head = /obj/item/clothing/head/hardhat
 
 

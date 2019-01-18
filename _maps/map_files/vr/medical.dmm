@@ -8,7 +8,7 @@
 "ah" = (/turf/simulated/shuttle/plating,/area/vr/medical)
 "ai" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 8},/area/vr/medical)
 "aj" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/vr/medical)
-"ak" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Atmospheric Simulation"; req_access_txt = "33"},/obj/machinery/atmospherics/pipe/simple/hidden,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
+"ak" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Atmospheric Simulation"; req_access_txt = "0"},/obj/machinery/atmospherics/pipe/simple/hidden,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "al" = (/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "am" = (/obj/machinery/portable_atmospherics/canister/carbon_dioxide,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "an" = (/obj/machinery/door_control{id = "VRMedSpace"; name = "Simulation Vent Control"; normaldoorcontrol = 1; pixel_x = -26; pixel_y = 5; req_access_txt = null},/obj/machinery/atmospherics/binary/valve,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
@@ -16,7 +16,7 @@
 "ap" = (/obj/machinery/portable_atmospherics/canister/nitrogen,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aq" = (/turf/simulated/floor/mineral/uranium,/area/vr/medical)
 "ar" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
-"as" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Atmospheric Simulation"; req_access_txt = "33"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
+"as" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Atmospheric Simulation"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "at" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "au" = (/obj/machinery/portable_atmospherics/canister/air,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "av" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
@@ -26,12 +26,12 @@
 "az" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 5; icon_state = "intact"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aA" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 8},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aB" = (/obj/machinery/portable_atmospherics/canister/toxins,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
-"aC" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Test Range"; req_access_txt = "33"},/turf/unsimulated/floor{dir = 2; icon_state = "stage_stairs"},/area/vr/medical)
+"aC" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Test Range"; req_access_txt = "0"},/turf/unsimulated/floor{dir = 2; icon_state = "stage_stairs"},/area/vr/medical)
 "aD" = (/obj/structure/sign/poster/official/spiders,/turf/unsimulated/wall/metal,/area/vr/medical)
-"aE" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Arthropod Infection"; req_access_txt = "33"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
+"aE" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Atmospheric Simulation"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aF" = (/obj/structure/sign/xeno_warning_mining,/turf/unsimulated/wall/metal,/area/vr/medical)
-"aG" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Xeno Infection"; req_access_txt = "33"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
-"aH" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Radiation Simulation"; req_access_txt = "33"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
+"aG" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Arthropod Infection"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
+"aH" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Xeno Infection"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aI" = (/obj/machinery/dna_scannernew,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "aJ" = (/obj/machinery/computer/scan_consolenew,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "aK" = (/obj/structure/table,/obj/item/storage/box/disks,/obj/item/storage/box/injectors,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
@@ -79,7 +79,7 @@
 "bA" = (/obj/structure/table,/obj/item/reagent_containers/food/pill/patch/synthflesh,/obj/item/reagent_containers/food/pill/patch/synthflesh,/obj/item/reagent_containers/food/pill/patch/synthflesh,/obj/item/reagent_containers/food/pill/patch/synthflesh,/obj/item/reagent_containers/food/pill/patch/synthflesh,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bB" = (/obj/structure/table,/obj/item/reagent_containers/glass/bottle/mutagen,/obj/item/reagent_containers/glass/bottle/mutagen,/obj/item/reagent_containers/glass/bottle/mutagen,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bC" = (/turf/unsimulated/wall/fakeglass{dir = 8; icon_state = "fakewindows3"; tag = "icon-fakewindows (WEST)"},/area/vr/medical)
-"bD" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Injury Simulation Area"; req_access_txt = "33"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"bD" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Radiation Simulation"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "bE" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (WEST)"; icon_state = "fakewindows"; dir = 8},/area/vr/medical)
 "bF" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/vr/medical)
 "bG" = (/obj/structure/table,/obj/item/storage/firstaid/adv,/obj/item/storage/firstaid/adv,/obj/item/storage/firstaid/adv,/obj/item/storage/firstaid/adv,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
@@ -92,13 +92,12 @@
 "bN" = (/obj/structure/table,/obj/item/reagent_containers/hypospray/CMO,/obj/item/reagent_containers/hypospray/CMO,/obj/item/reagent_containers/hypospray/CMO,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bO" = (/obj/structure/table,/obj/item/defibrillator/compact/loaded,/obj/item/defibrillator/compact/loaded,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bP" = (/obj/structure/table,/obj/item/gun/medbeam,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
-"bQ" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Genetics Lab"; req_access_txt = "33"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"bQ" = (/obj/structure/table,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = 29; tank_volume = 500000},/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bR" = (/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bS" = (/obj/effect/landmark{name = "avatarspawn"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bT" = (/obj/machinery/vr_medical_dummy{pixel_y = -26},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
-"bU" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Chemistry Lab"; req_access_txt = "33"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bV" = (/turf/unsimulated/wall/fakeglass{dir = 1; icon_state = "fakewindows"; tag = "icon-fakewindows (WEST)"},/area/vr/medical)
-"bW" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Virus Lab"; req_access_txt = "33"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"bW" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Injury Simulation Area"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bX" = (/obj/machinery/chem_master,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "bY" = (/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "bZ" = (/obj/machinery/bodyscanner,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -125,8 +124,7 @@
 "cu" = (/obj/machinery/chem_heater,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cv" = (/obj/structure/table,/obj/item/reagent_containers/glass/bottle/adminordrazine,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cw" = (/obj/structure/table,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
-"cx" = (/obj/machinery/door/airlock/medical/glass{id_tag = "MedbayFoyerStar"; name = "Basic Treatment Room"; req_access_txt = "5"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
-"cy" = (/obj/machinery/door/airlock/medical/glass{id_tag = "MedbayFoyerStar"; name = "Upgraded Treatment Room"; req_access_txt = "5"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"cy" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Genetics Lab"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "cz" = (/obj/machinery/computer/pandemic,/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/vr/medical)
 "cA" = (/obj/structure/table/glass,/obj/item/hand_labeler{pixel_x = -3; pixel_y = -3},/obj/item/storage/box/beakers{pixel_x = 2; pixel_y = 2},/obj/item/storage/box/syringes,/turf/unsimulated/floor{icon_state = "greencorner"},/area/vr/medical)
 "cB" = (/obj/structure/table/glass,/obj/item/hand_labeler{pixel_x = -3; pixel_y = -3},/obj/item/storage/box/beakers{pixel_x = 2; pixel_y = 2},/obj/item/storage/box/syringes,/turf/unsimulated/floor{icon_state = "greencorner"; dir = 8},/area/vr/medical)
@@ -180,6 +178,10 @@
 "dx" = (/obj/structure/table/glass,/obj/item/reagent_containers/glass/bottle/tuberculosis,/obj/item/reagent_containers/glass/bottle/tuberculosis,/obj/item/reagent_containers/glass/bottle/tuberculosis,/obj/item/reagent_containers/glass/bottle/tuberculosiscure,/obj/item/reagent_containers/glass/bottle/tuberculosiscure,/obj/item/reagent_containers/glass/bottle/tuberculosiscure,/obj/item/reagent_containers/glass/bottle/wizarditis,/obj/item/reagent_containers/glass/bottle/wizarditis,/obj/item/reagent_containers/glass/bottle/wizarditis,/turf/unsimulated/floor{icon_state = "green"},/area/vr/medical)
 "dy" = (/obj/structure/table/glass,/obj/item/reagent_containers/glass/bottle/diphenhydramine,/obj/item/reagent_containers/glass/bottle/diphenhydramine,/obj/item/reagent_containers/glass/bottle/diphenhydramine,/obj/item/reagent_containers/glass/bottle/diethylamine,/obj/item/reagent_containers/glass/bottle/diethylamine,/obj/item/reagent_containers/glass/bottle/diethylamine,/turf/unsimulated/floor{icon_state = "green"; dir = 6},/area/vr/medical)
 "dz" = (/obj/structure/table,/obj/item/stack/cable_coil/random,/obj/item/stack/cable_coil/random,/obj/item/screwdriver,/obj/item/screwdriver,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
+"dB" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Chemistry Lab"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"dD" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Virus Lab"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"dE" = (/obj/machinery/door/airlock/medical/glass{id_tag = "MedbayFoyerStar"; name = "Basic Treatment Room"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"dF" = (/obj/machinery/door/airlock/medical/glass{id_tag = "MedbayFoyerStar"; name = "Upgraded Treatment Room"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -197,23 +199,23 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaacadaeadacaaaaaaabaaabababababaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaababaaabafafafabababababaaabagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaabahabaaabaiajakabalamamabaaabagagagabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaabahahahababanaoaoabalapapabaaabagagagabaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaabahahahahahabarararasalatatababababalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaabahahahahahabarararaEalatatababababalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaababahahahababauaravabalawawabaxaxabalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaabababahabababayazaAabalaBaBabalaxabalabababalababababababababaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaababababaCababababasabababababaDaEaDaFaGaFababaHabaIaJaKaLaJaIabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaababababaCababababasabababababaDaGaDaFaHaFababbDabaIaJaKaLaJaIabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaMaNaOalalaPalalalalalalalalalalalalalalalalalabaQaRaQaQaRaQabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaSalalalalaPalalalalalalalalalalalalalalalalalabaTaQaUaUaQaTabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaValalalalalababababababababababababababababababaWaQaXaXaQaWabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabaYalaZbaalbbabbcbdbebebebebfbgbgbfbebebebebdbcabbhaQbibiaQbhabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabaYalaZbaalbbabbcbdbQbebebebfbgbgbfbebebebQbdbcabbhaQbibiaQbhabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbjalbkblalbmabaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQabaQaQaQaQaQaQabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbnalbobpalbqabaQbrbsbtbubvbwaQaQbxbybzbAbebeaQabaQaQbBbBaQaQabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabbCbDbEbFbDbCabaQbGbHbIbJbKbLaQaQbMbNbObPbebeaQabbCbQbEbFbQbCabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbCbWbEbFbWbCabaQbGbHbIbJbKbLaQaQbMbNbObPbebeaQabbCcybEbFcybCabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbRbRbRbRbRbRbRbRbRbRbRbRbRbRbSbSbRbRbRbRbRbRbRbRbRbRbRbRbRbRabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbRbRbRbRbRbRbRbRbRbRbRbTbTbRbSbSbRbTbTbRbRbRbRbRbRbRbRbRbRbRabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabbCbUbEbFbUbCabababababababbVbRbRbVabababababababbCbWbEbFbWbCabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbCdBbEbFdBbCabababababababbVbRbRbVabababababababbCdDbEbFdDbCabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbXbYbYbYbYbXabbZcacbcccdcecfbRbRcfcgcacbccchceabcicjckckcjclabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcmcncodzcncmabcpbYbYbYbYbYcqbRbRcqbYbYbYbYbYcrabcscjcjcjcjctabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabcubYcvcwbYcuabbYbYbYbYbYbYcxbRbRcybYbYbYbYbYbYabczcjcAcBcjcCabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcubYcvcwbYcuabbYbYbYbYbYbYdEbRbRdFbYbYbYbYbYbYabczcjcAcBcjcCabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcDbYbYbYbYcDabcEbYcFcGbYbYababababbYbYcGcFbYcHabcIcJcKcLcMcNabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcObYcPcQbYcOabcRbYbYbYbYbYcSababcTbYbYbYbYbYcUabcVcjcWcXcjcYabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcZbYdadbbYcZabdcdddedfbYdgdhababdidjbYdkdldddmabdncjcjcjcjdoabaaaaaaaaaaaaaaaaaaaa
