@@ -5,6 +5,7 @@
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"
+	icon_resting = "mouse_gray_sleep"
 	speak = list("Squeek!","SQUEEK!","Squeek?")
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
@@ -69,6 +70,7 @@
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
+	icon_resting = "mouse_[mouse_color]_sleep"
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
@@ -121,7 +123,7 @@
 
 	if(on_CD == 1)
 		return
-	
+
 	switch(act)
 		if("squeak")
 			message = "<B>\The [src]</B> squeaks!"
@@ -208,3 +210,15 @@
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+
+/mob/living/simple_animal/mouse/fluff/clockwork
+	name = "Chip"
+	real_name = "Chip"
+	mouse_color = "clockwork"
+	icon_state = "mouse_clockwork"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stamps on"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	can_collar = 0
+	butcher_results = list(/obj/item/stack/sheet/metal = 1)
