@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Syndicate will no longer force you to play with the shiny new saboteur borg and instead send you the assault borg you actually ordered"
