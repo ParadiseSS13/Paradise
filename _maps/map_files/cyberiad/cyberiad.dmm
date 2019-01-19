@@ -8539,7 +8539,7 @@
 "dik" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/poddoor{density = 0; icon_state = "open"; id_tag = "atmos"; name = "Atmos Blast Door"; opacity = 0},/obj/machinery/atmospherics/pipe/simple/visible/green{dir = 6},/turf/simulated/floor/plating,/area/atmos)
 "dil" = (/obj/machinery/flasher/portable,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plasteel{icon_state = "red"; dir = 9},/area/security/armoury)
 "dim" = (/obj/structure/window/reinforced{dir = 4},/obj/machinery/flasher/portable,/obj/structure/window/reinforced,/turf/simulated/floor/plasteel{dir = 6; icon_state = "red"},/area/security/armoury)
-"din" = (/obj/structure/window/reinforced,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 10},/area/security/armoury)
+"din" = (/obj/structure/window/reinforced,/obj/machinery/flasher/portable,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 10},/area/security/armoury)
 "dio" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/poddoor{density = 0; icon_state = "open"; id_tag = "atmos"; name = "Atmos Blast Door"; opacity = 0},/obj/machinery/atmospherics/pipe/simple/visible,/turf/simulated/floor/plating,/area/atmos)
 "dip" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/poddoor{density = 0; icon_state = "open"; id_tag = "atmos"; name = "Atmos Blast Door"; opacity = 0},/obj/machinery/atmospherics/pipe/simple/visible/yellow{level = 2},/turf/simulated/floor/plating,/area/atmos)
 "diq" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/wall,/area/maintenance/asmaint)
