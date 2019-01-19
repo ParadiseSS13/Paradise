@@ -189,6 +189,7 @@
 	maxHealth = 50
 	harm_intent_damage = 10
 	butcher_results = list(
+		/obj/item/organ/internal/brain = 1, 
 		/obj/item/organ/internal/heart = 1, 
 		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,  
 		/obj/item/reagent_containers/food/snacks/meat/slab = 2
