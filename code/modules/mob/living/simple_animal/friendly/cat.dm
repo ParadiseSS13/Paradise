@@ -180,7 +180,7 @@
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"
-	desc = "It's a cat made out of cake. It looks like a brain would fit into it's head."
+	desc = "It's a cat made out of cake."
 	icon_state = "cak"
 	icon_living = "cak"
 	icon_resting = "cak_rest"
@@ -191,13 +191,12 @@
 	butcher_results = list(
 		/obj/item/organ/internal/heart = 1, 
 		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,  
-		/obj/item/reagent_containers/food/snacks/meat = 2
+		/obj/item/reagent_containers/food/snacks/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"
 	attacked_sound = "sound/items/eatfood.ogg"
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
-	var/obj/item/organ/internal/brain/brain = null
 
 /mob/living/simple_animal/pet/cat/cak/Life()
 	..()
@@ -212,57 +211,22 @@
 			D.reagents.add_reagent("sprinkles", 2)
 			D.filling_color = "#FF69B4"
 
-/mob/living/simple_animal/pet/cat/cak/attackby(obj/item/O, mob/living/user, params)
-	if(istype(O, /obj/item/organ/internal/brain))
-		var/obj/item/organ/internal/brain/B = O
-		if(brain) //There's already a brain in it.
-			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
-			return
-		if(!B.brainmob.key)
-			var/ghost_can_reenter = 0
-			if(B.brainmob.mind)
-				for(var/mob/dead/observer/G in GLOB.player_list)
-					if(G.can_reenter_corpse && G.mind == B.brainmob.mind)
-						ghost_can_reenter = 1
-						break
-				for(var/mob/living/simple_animal/S in GLOB.player_list)
-					if(S in GLOB.respawnable_list)
-						ghost_can_reenter = 1
-						break
-			if(!ghost_can_reenter)
-				to_chat(user, "<span class='notice'>[B] is completely unresponsive; there's no point.</span>")
-				return
+/mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
+	..()
+	if(L.a_intent == "harm" && L.reagents && !stat)
+		L.reagents.add_reagent("nutriment", 0.4)
+		L.reagents.add_reagent("vitamin", 0.4)
 
-		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
-
-		user.drop_item()
-		B.forceMove(src)
-		brain = B
-		transfer_personality(B)
-
-		return 1
-
-
-	if(istype(O, /obj/item/kitchen/knife))
-		to_chat(user, "<span class='warning'>You cut out the brain from [src].</span>")
-		eject_brain()
-		return 1
-
-	else if(user.a_intent == INTENT_HARM && user.reagents)
-		user.reagents.add_reagent("nutriment", 0.4)
-		user.reagents.add_reagent("vitamin", 0.4)
-
-/mob/living/simple_animal/pet/cat/cak/proc/transfer_personality(obj/item/organ/internal/brain/B)
-	mind = B.brainmob.mind
-	mind.key = B.brainmob.key
-	ckey = B.brainmob.ckey
-	desc = "It's a cat made out of cake. It looks like a real brain is in it's head."
-	rename_self("cake cat")
-
-/mob/living/simple_animal/pet/cat/cak/proc/eject_brain()
-	var/turf/T = get_turf(src)
-	brain.forceMove(T)
-	desc = "It's a cat made out of cake. It looks like a brain would fit into it's head."
-	if(mind)
-		mind.transfer_to(brain.brainmob)
-	brain = null
+/mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
+	..()
+	var/obj/item/organ/internal/brain/B = locate(/obj/item/organ/internal/brain) in contents
+	if(!B || !B.brainmob || !B.brainmob.mind)
+		return
+	B.brainmob.mind.transfer_to(src)
+	to_chat(src, "<span class='big bold'>You are a cak!</span><b> You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
+	so quickly that it generally doesn't matter. You're remarkably resilient to any damage besides this and it's hard for you to really die at all. You should go around and bring happiness and \
+	free cake to the station!</b>")
+	var/new_name = stripped_input(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change")
+	if(new_name)
+		to_chat(src, "<span class='notice'>Your name is now <b>\"new_name\"</b>!</span>")
+		name = new_name
