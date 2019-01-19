@@ -28,12 +28,7 @@
 	var/target_lastloc = FALSE	//Loc of target when arrested.
 	var/last_found = FALSE	//There's a delay
 	var/threatlevel = FALSE
-	var/declare_arrests = FALSE // speak, you shall not, unless to Honk
-	var/idcheck = TRUE
-	var/fcheck = TRUE
-	var/check_records = TRUE
 	var/arrest_type = FALSE
-	var/weaponscheck = TRUE
 	
 /obj/machinery/bot_core/honkbot
 	req_one_access = list(access_clown, access_robotics, access_mime)
@@ -74,7 +69,6 @@
 	spam_flag = FALSE
 
 /mob/living/simple_animal/bot/honkbot/set_custom_texts()
-
 	text_hack = "You overload [name]'s sound control system"
 	text_dehack = "You reboot [name] and restore the sound control system."
 	text_dehack_fail = "[name] refuses to accept your authority!"
@@ -200,27 +194,20 @@
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
 	if(!..())
 		return
-
 	switch(mode)
-
 		if(BOT_IDLE)		// idle
-
 			walk_to(src, 0)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
-
 		if(BOT_HUNT)
-
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
 				walk_to(src, 0)
 				back_to_idle()
 				return
-
 			if(target)		// make sure target exists
 				if(Adjacent(target) && isturf(target.loc))
-
 					if(threatlevel <= 4)
 						honk_attack(target)
 					else
@@ -230,7 +217,6 @@
 							anchored = FALSE
 							target_lastloc = target.loc
 					return
-
 				else	// not next to perp
 					var/turf/olddist = get_dist(src, target)
 					walk_to(src, target, 1, 4)
@@ -241,7 +227,6 @@
 			else
 				back_to_idle()
 
-
 		if(BOT_START_PATROL)
 			look_for_perp()
 			start_patrol()
@@ -249,7 +234,6 @@
 		if(BOT_PATROL)
 			look_for_perp()
 			bot_patrol()
-
 	return
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
@@ -328,7 +312,6 @@
 						  	"[C] trips over [src] and falls!", \
 						  	"[C] topples over [src]!", \
 						  	"[C] leaps out of [src]'s way!")]</span>")
-			C.Stun(5)
 			C.Weaken(5)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)
