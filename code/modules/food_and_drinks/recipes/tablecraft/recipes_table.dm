@@ -255,7 +255,7 @@
 	category = CAT_FOOD
 
 /datum/crafting_recipe/food/cak
-	name = "Living cat/cake hybrid"
+	name = "Cake Cat"
 	reqs = list(
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/reagent_containers/food/snacks/sliceable/birthdaycake  = 1,
