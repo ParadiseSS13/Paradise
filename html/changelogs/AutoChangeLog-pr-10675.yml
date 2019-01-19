@@ -1,4 +1,0 @@
-author: "Shadow-Quill"
-delete-after: True
-changes: 
-  - rscdel: "Removed a description that gets overwritten, moved the current one to it's old location."
