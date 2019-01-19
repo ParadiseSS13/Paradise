@@ -180,7 +180,7 @@
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"
-	desc = "It's a cat made out of cake. It looks like a brain would fit into its head."
+	desc = "It's a cat made out of cake. It looks like a brain would fit into it's head."
 	icon_state = "cak"
 	icon_living = "cak"
 	icon_resting = "cak_rest"
@@ -256,15 +256,13 @@
 	mind = B.brainmob.mind
 	mind.key = B.brainmob.key
 	ckey = B.brainmob.ckey
-	name = "Keeki"
 	desc = "It's a cat made out of cake. It looks like a real brain is in it's head."
 	rename_self("cake cat")
 
 /mob/living/simple_animal/pet/cat/cak/proc/eject_brain()
 	var/turf/T = get_turf(src)
 	brain.forceMove(T)
-	desc = "It's a cat made out of cake. It looks like a brain would fit into its head."
+	desc = "It's a cat made out of cake. It looks like a brain would fit into it's head."
 	if(mind)
 		mind.transfer_to(brain.brainmob)
 	brain = null
-	name = "Keeki"
