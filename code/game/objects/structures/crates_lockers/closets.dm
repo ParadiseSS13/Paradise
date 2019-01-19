@@ -101,7 +101,9 @@
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
 			break
-		if(istype (M, /mob/dead/observer))
+		if(istype(M, /mob/dead/observer))
+			continue
+		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
 		if(M.buckled)
 			continue
