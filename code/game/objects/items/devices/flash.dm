@@ -194,7 +194,7 @@
 
 /obj/item/flash/armimplant
 	name = "photon projector"
-	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocals fix the flashbulb if it ever burns out."
+	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
 	var/flashcd = 20
 	var/overheat = 0
 	var/obj/item/organ/internal/cyberimp/arm/flash/I = null

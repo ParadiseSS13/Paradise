@@ -9,8 +9,7 @@
 	var/list/types = list(/obj/item/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
 	var/T = pick(types)
 	new T(loc)
-	spawn(1)
-		qdel(src)
+	qdel(src)
 
 // -------------------------------------
 //	Random cleanables, clearly this makes sense
@@ -24,8 +23,7 @@
 	var/list/list = subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
 	var/T = pick(list)
 	new T(loc)
-	spawn(0)
-		qdel(src)
+	qdel(src)
 
 
 /obj/item/stack/sheet/animalhide/random
@@ -33,11 +31,10 @@
 
 /obj/item/stack/sheet/animalhide/random/New()
 	..()
-	spawn(1)
-		var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
-		var/obj/item/stack/S = new htype(loc)
-		S.amount = amount
-		qdel(src)
+	var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
+	var/obj/item/stack/S = new htype(loc)
+	S.amount = amount
+	qdel(src)
 
 // -------------------------------------
 //    Not yet identified chemical.
@@ -121,12 +118,12 @@
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
-	spawn(0)
-		qdel(src)
+	qdel(src)
 
 /obj/item/storage/pill_bottle/random_meds
 	name = "unlabelled pillbottle"
 	desc = "The sheer recklessness of this bottle's existence astounds you."
+	var/labelled = FALSE
 
 /obj/item/storage/pill_bottle/random_meds/New()
 	..()
@@ -141,10 +138,18 @@
 			P.reagents.add_reagent(R, 10)
 		else
 			P.reagents.add_reagent(R, rand(2, 5)*10)
-		P.name = "Unlabelled Pill"
-		P.desc = "Something about this pill entices you to try it, against your better judgement."
+		if(labelled)
+			P.name = "[R] Pill"
+			P.desc = "A pill containing [R]."
+		else
+			P.name = "Unlabelled Pill"
+			P.desc = "Something about this pill entices you to try it, against your better judgement."
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+
+/obj/item/storage/pill_bottle/random_meds/labelled
+	name = "variety pillbottle"
+	labelled = TRUE
 
 
 // -------------------------------------
@@ -158,16 +163,10 @@
 
 /obj/structure/closet/crate/secure/unknownchemicals/New()
 	..()
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_chem(src)
-	new/obj/item/reagent_containers/glass/bottle/random_chem(src)
+	for(var/i in 1 to 7)
+		new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
+	for(var/i in 1 to 3)
+		new/obj/item/reagent_containers/glass/bottle/random_chem(src)
 	while(prob(50))
 		new/obj/item/reagent_containers/glass/bottle/random_reagent(src)
 
@@ -193,7 +192,7 @@
 			B.name	= "unlabelled bottle"
 			B.desc	= "Looks like the label fell off."
 //			B.identify_probability = 0
-
+//
 /*
 /obj/structure/closet/crate/bin/flowers
 	name = "flower barrel"
@@ -243,11 +242,8 @@
 
 /obj/structure/closet/secure_closet/random_drinks/New()
 	..()
-	new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
-	new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
-	new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
-	new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
-	new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
+	for(var/i in 1 to 5)
+		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
 	while(prob(25))
 		new/obj/item/reagent_containers/food/drinks/bottle/random_reagent(src)
 
@@ -272,12 +268,12 @@
 		visible_message("<span class='warning'>Something falls out of the [src]!</span>")
 		var/obj/item/grenade/clusterbuster/C = new(src.loc)
 		C.prime()
-		spawn(10)
-			new menace(src.loc)
-			while(prob(15))
-				new menace(get_step_rand(src.loc))
-			..()
-		return 1
+		sleep(10)
+		new menace(src.loc)
+		while(prob(15))
+			new menace(get_step_rand(src.loc))
+		..()
+		return TRUE
 	else
 		return ..()
 
@@ -296,19 +292,15 @@
 
 /obj/structure/largecrate/schrodinger/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/crowbar))
-		var/mob/living/simple_animal/pet/cat/Cat1 = new(loc)
-		Cat1.apply_damage(250)//,TOX)
-		Cat1.name = "Schrodinger's Cat"
-		Cat1.desc = "It seems it's been dead for a while."
-
-		var/mob/living/simple_animal/pet/cat/Cat2 = new(loc)
-		Cat2.name = "Schrodinger's Cat"
-		Cat2.desc = "It's was alive the whole time!"
 		sleep(2)
+		var/mob/living/simple_animal/pet/cat/Cat = new(loc)
+		Cat.name = "Schrodinger's Cat"
+
 		if(prob(50))
-			qdel(Cat1)
+			Cat.apply_damage(250,TOX)
+			Cat.desc = "It seems it's been dead for a while."
 		else
-			qdel(Cat2)
+			Cat.desc = "It was alive the whole time!"
 	return ..()
 
 // --------------------------------------
@@ -326,16 +318,6 @@
 
 /obj/item/storage/box/grenades/New()
 	..()
-	var/nade1 = pick(grenadelist)
-	var/nade2 = pick(grenadelist)
-	var/nade3 = pick(grenadelist)
-	var/nade4 = pick(grenadelist)
-	var/nade5 = pick(grenadelist)
-	var/nade6 = pick(grenadelist)
-
-	new nade1(src)
-	new nade2(src)
-	new nade3(src)
-	new nade4(src)
-	new nade5(src)
-	new nade6(src)
+	for(var/i in 1 to 6)
+		var/nade = pick(grenadelist)
+		new nade(src)

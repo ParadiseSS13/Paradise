@@ -161,8 +161,12 @@
 	buckled = null
 	cooldown = world.time + 30
 
-/mob/living/simple_animal/hostile/guardian/proc/Communicate()
-	var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+/mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
+	var/input
+	if(!message)
+		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+	else
+		input = message
 	if(!input) return
 
 	for(var/mob/M in GLOB.mob_list)
@@ -172,6 +176,13 @@
 		else if(M in GLOB.dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+
+//override set to true if message should be passed through instead of going to host communication
+/mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
+	if(adminseal || override)//if it's an admin-spawned guardian without a host it can still talk normally
+		return ..(message)
+	Communicate(message)
+	
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
@@ -439,7 +450,7 @@
  <br>
  <b>Ranged</b>: Has two modes. Ranged: Extremely weak, highly spammable projectile attack. Scout: Can not attack, but can move through walls. Can lay surveillance snares in either mode.<br>
  <br>
- <b>Support</b>: Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movemen. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
+ <b>Support</b>: Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movement. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
  <br>
  <b>Explosive</b>: High damage resist and medium power attack. Can turn any object into a bomb, dealing explosive damage to the next person to touch it. The object will return to normal after the trap is triggered.<br>
  <br>

@@ -1,5 +1,5 @@
 "aa" = (/turf/template_noop,/area/template_noop)
-"ab" = (/turf/simulated/mineral,/area/ruin/unpowered)
+"ab" = (/turf/simulated/mineral/random,/area/ruin/unpowered)
 "ac" = (/turf/simulated/wall/r_wall,/area/ruin/space/ancientstation/hivebot)
 "ad" = (/obj/structure/closet/crate,/obj/item/stack/sheet/glass/fifty,/obj/item/stack/sheet/plasteel{amount = 30},/obj/item/stack/sheet/mineral/titanium{amount = 30},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/ancientstation/hivebot)
 "ae" = (/turf/simulated/floor/plating/airless,/area/template_noop)
@@ -28,7 +28,7 @@
 "aB" = (/obj/effect/decal/cleanable/dirt,/obj/structure/chair{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aC" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/toy/cards/deck,/obj/item/folder/blue,/obj/item/pen,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aD" = (/obj/machinery/door/airlock/highsecurity,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/hivebot)
-"aE" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/effect/decal/cleanable/dirt,/obj/machinery/power/apc{dir = 4; name = "Charlie Command APC"; pixel_x = 24; start_charge = 0},/turf/simulated/floor/plating,/area/ruin/space/ancientstation/comm)
+"aE" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Beta Engineering APC"; pixel_x = 24; report_power_alarm = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/atmo)
 "aF" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aG" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aH" = (/obj/item/solar_assembly,/turf/template_noop,/area/template_noop)
@@ -149,15 +149,15 @@
 "cS" = (/obj/structure/sign/poster/official/nanomichi_ad,/turf/simulated/wall/rust,/area/ruin/space/ancientstation/betanorth)
 "cT" = (/obj/machinery/light/small{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/betanorth)
 "cU" = (/turf/simulated/wall/rust,/area/ruin/space/ancientstation/engi)
-"cV" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/light/small{dir = 8},/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
-"cW" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/effect/decal/cleanable/dirt,/obj/structure/chair{dir = 1},/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 4},/area/ruin/space/ancientstation/comm)
+"cV" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/effect/decal/cleanable/dirt,/obj/machinery/power/apc{dir = 1; name = "Delta Prototype Lab APC"; pixel_y = 24; report_power_alarm = 0; start_charge = 0},/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
+"cW" = (/obj/machinery/alarm/all_access{pixel_y = 24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "cX" = (/obj/structure/transit_tube,/turf/template_noop,/area/template_noop)
 "cY" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/hydroponics)
 "cZ" = (/obj/machinery/hydroponics/soil,/turf/simulated/floor/grass,/area/ruin/space/ancientstation/hydroponics)
 "da" = (/obj/structure/reagent_dispensers/watertank/high,/obj/item/reagent_containers/glass/bucket,/obj/item/reagent_containers/glass/bucket,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/hydroponics)
 "db" = (/obj/item/solar_assembly,/obj/structure/lattice,/turf/template_noop,/area/template_noop)
 "dc" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/firealarm{dir = 8; pixel_x = -24},/obj/structure/chair{dir = 1},/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 10},/area/ruin/space/ancientstation/comm)
-"dd" = (/obj/machinery/light/small{dir = 4},/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
+"dd" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Charlie Main Corridor APC"; pixel_x = 24; report_power_alarm = 0; start_charge = 0},/obj/structure/closet/crate,/obj/item/storage/backpack/old,/obj/item/storage/backpack/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
 "de" = (/obj/structure/transit_tube{icon_state = "E-W-Pass"},/turf/template_noop,/area/template_noop)
 "df" = (/obj/structure/cable/yellow,/turf/simulated/floor/plating/airless,/area/template_noop)
 "dg" = (/turf/simulated/wall/rust,/area/ruin/space/ancientstation/sec)
@@ -181,7 +181,7 @@
 "dy" = (/obj/machinery/computer{desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."; name = "Broken Computer"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/sec)
 "dz" = (/obj/structure/transit_tube/station/reverse,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/warning_stripes/arrow,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "dA" = (/obj/structure/sign/poster/contraband/donut_corp,/turf/simulated/wall/rust,/area/ruin/space/ancientstation/sec)
-"dB" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
+"dB" = (/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/atmo)
 "dC" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "dD" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 9; icon_state = "whitepurple"},/area/ruin/space/ancientstation/rnd)
 "dE" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/rnd)
@@ -203,7 +203,7 @@
 "dU" = (/obj/structure/table,/obj/item/seeds/harebell,/obj/item/seeds/carrot,/obj/item/seeds/potato,/obj/item/seeds/ambrosia,/obj/item/seeds/poppy,/obj/item/seeds/grape,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/hydroponics)
 "dV" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "dW" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/firealarm{dir = 4; pixel_x = 24},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
-"dX" = (/obj/structure/table,/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/power/apc{dir = 8; name = "Charlie Security APC"; pixel_x = -24; shock_proof = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 9},/area/ruin/space/ancientstation/sec)
+"dX" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/effect/decal/cleanable/dirt,/obj/machinery/power/apc{dir = 4; name = "Charlie Command APC"; pixel_x = 24; report_power_alarm = 0; start_charge = 0},/turf/simulated/floor/plating,/area/ruin/space/ancientstation/comm)
 "dY" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/sec)
 "dZ" = (/obj/machinery/computer{desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."; name = "Broken Computer"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 1},/area/ruin/space/ancientstation/sec)
 "ea" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/firealarm{dir = 4; pixel_x = -28},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
@@ -243,7 +243,7 @@
 "eI" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "redcorner"; dir = 4},/area/ruin/space/ancientstation/sec)
 "eJ" = (/obj/structure/table,/obj/machinery/atmospherics/unary/vent_pump/on,/obj/item/tank/oxygen,/obj/item/clothing/mask/breath,/turf/simulated/floor/plasteel{dir = 9; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
 "eK" = (/turf/simulated/floor/plating/airless,/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
-"eL" = (/obj/structure/rack,/obj/item/clothing/suit/space/nasavoid/old,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "yellow"; dir = 5},/area/ruin/space/ancientstation/engi)
+"eL" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/effect/decal/cleanable/dirt,/obj/structure/chair{dir = 1},/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 4},/area/ruin/space/ancientstation/comm)
 "eM" = (/obj/machinery/door/firedoor,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "eN" = (/obj/structure/sign/poster/official/here_for_your_safety,/turf/simulated/wall/rust,/area/ruin/space/ancientstation/sec)
 "eO" = (/obj/structure/table,/obj/item/paper,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/sec)
@@ -267,7 +267,7 @@
 "fg" = (/obj/structure/table,/obj/item/book/manual/security_space_law,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 5},/area/ruin/space/ancientstation/sec)
 "fh" = (/obj/structure/table,/obj/item/pen,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/sec)
 "fi" = (/obj/item/apc_electronics,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/deltacorridor)
-"fj" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/effect/decal/cleanable/dirt,/obj/machinery/power/apc{dir = 1; name = "Delta Main Corridor APC"; pixel_y = 24; start_charge = 0},/turf/simulated/floor/plating,/area/ruin/space/ancientstation/deltacorridor)
+"fj" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/light/small{dir = 8},/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "fk" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "fl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "fm" = (/obj/machinery/light{dir = 8},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 10; icon_state = "whitepurple"},/area/ruin/space/ancientstation/rnd)
@@ -296,10 +296,10 @@
 "fJ" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "fK" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/door/airlock/maintenance_hatch,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
 "fL" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
-"fM" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/power/apc{dir = 1; name = "Charlie Hydroponics APC"; pixel_y = 24; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/hydroponics)
+"fM" = (/obj/machinery/light/small{dir = 4},/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "fN" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
 "fO" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
-"fP" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 2; name = "Charlie Kitchen APC"; pixel_y = -24; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/kitchen)
+"fP" = (/obj/structure/rack,/obj/item/clothing/suit/space/nasavoid/old,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "yellow"; dir = 5},/area/ruin/space/ancientstation/engi)
 "fQ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/door/airlock/maintenance_hatch,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
 "fR" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "fS" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
@@ -314,7 +314,7 @@
 "gb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/deltacorridor)
 "gc" = (/mob/living/simple_animal/hostile/carp,/turf/template_noop,/area/template_noop)
 "gd" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
-"ge" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "Delta RnD APC"; pixel_x = 24; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
+"ge" = (/obj/structure/table,/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/power/apc{dir = 8; name = "Charlie Security APC"; pixel_x = -24; report_power_alarm = 0; shock_proof = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 9},/area/ruin/space/ancientstation/sec)
 "gf" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
 "gg" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/glass/fifty{pixel_x = 2; pixel_y = -2},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
 "gh" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/storage/toolbox/mechanical/old,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
@@ -345,7 +345,7 @@
 "gG" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "gH" = (/obj/machinery/light/small{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "gI" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
-"gJ" = (/obj/effect/decal/cleanable/egg_smudge,/obj/machinery/alarm/all_access{pixel_y = 24},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
+"gJ" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "gK" = (/obj/machinery/processor,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "gL" = (/obj/structure/table,/obj/machinery/kitchen_machine/microwave,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "gM" = (/obj/structure/table,/obj/item/folder/red,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/sec)
@@ -371,7 +371,7 @@
 "hg" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/structure/chair,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
 "hh" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 2; icon_state = "whitecorner"},/area/ruin/space/ancientstation/rnd)
 "hi" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 8; icon_state = "whitecorner"},/area/ruin/space/ancientstation/rnd)
-"hj" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
+"hj" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "hk" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/reagent_containers/glass/bottle/water{pixel_y = 6},/obj/item/reagent_containers/glass/bottle/hydrogen{pixel_x = 5},/obj/item/reagent_containers/glass/bottle/fluorine{pixel_x = -3},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
 "hl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/item/stack/cable_coil{amount = 2},/turf/simulated/floor/plating/airless,/area/template_noop)
 "hm" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 4; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
@@ -417,7 +417,7 @@
 "ia" = (/obj/structure/table,/obj/item/reagent_containers/food/condiment/saltshaker{pixel_x = -2; pixel_y = 2},/obj/item/reagent_containers/food/condiment/peppermill{pixel_x = 5; pixel_y = -2},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "ib" = (/obj/structure/table,/obj/item/trash/plate,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "ic" = (/obj/machinery/light/small{dir = 4},/obj/structure/chair{dir = 8},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
-"id" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
+"id" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/effect/decal/cleanable/dirt,/obj/machinery/power/apc{dir = 1; name = "Delta Main Corridor APC"; pixel_y = 24; report_power_alarm = 0; start_charge = 0},/turf/simulated/floor/plating,/area/ruin/space/ancientstation/deltacorridor)
 "ie" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/light{dir = 8},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "if" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "ig" = (/obj/effect/decal/cleanable/dirt,/obj/structure/chair{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
@@ -462,7 +462,7 @@
 "iT" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "iU" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/effect/decal/cleanable/dirt,/obj/machinery/door/firedoor,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "iV" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light{dir = 1; in_use = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
-"iW" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
+"iW" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/power/apc{dir = 1; name = "Charlie Hydroponics APC"; pixel_y = 24; report_power_alarm = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/hydroponics)
 "iX" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "iY" = (/obj/machinery/light/small{dir = 4},/obj/effect/decal/cleanable/dirt,/obj/structure/closet/crate/secure/weapon,/obj/item/flash,/obj/item/flash,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/deltacorridor)
 "iZ" = (/obj/structure/closet/crate/radiation,/obj/item/stack/sheet/mineral/uranium{amount = 10},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/engi)
@@ -496,10 +496,10 @@
 "jB" = (/obj/structure/table/reinforced,/obj/item/clothing/suit/space/hardsuit/ancient,/obj/item/clothing/head/helmet/space/hardsuit/ancient,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "jC" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/door/poddoor{id_tag = "proto"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "jD" = (/obj/machinery/light{dir = 1; in_use = 1},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
-"jE" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/effect/decal/cleanable/dirt,/obj/machinery/power/apc{dir = 1; name = "Delta Prototype Lab APC"; pixel_y = 24; start_charge = 0},/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
+"jE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 2; name = "Charlie Kitchen APC"; pixel_y = -24; report_power_alarm = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/kitchen)
 "jF" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "jG" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
-"jH" = (/obj/machinery/alarm/all_access{pixel_y = 24},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
+"jH" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "Delta RnD APC"; pixel_x = 24; report_power_alarm = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
 "jI" = (/obj/machinery/light{dir = 1; in_use = 1},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "jJ" = (/obj/structure/table/reinforced,/obj/machinery/the_singularitygen,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "jK" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/engine/vacuum,/area/ruin/space/ancientstation/atmo)
@@ -521,7 +521,7 @@
 "ka" = (/obj/structure/window/reinforced,/turf/simulated/floor/engine/vacuum,/area/ruin/space/ancientstation/atmo)
 "kb" = (/obj/machinery/atmospherics/unary/tank/air{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
 "kc" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
-"kd" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/crowbar,/obj/item/flashlight/glowstick/random,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
+"kd" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/crowbar,/obj/item/flashlight/flare/glowstick/random,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "ke" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/deadcockroach,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "kf" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/computer{desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."; name = "Broken Computer"},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/powered)
 "kg" = (/obj/structure/closet/crate,/obj/effect/decal/cleanable/dirt,/obj/item/reagent_containers/spray/weedspray,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/spray/cleaner,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
@@ -531,7 +531,7 @@
 "kk" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor/plating/airless,/area/ruin/space/ancientstation/atmo)
 "kl" = (/turf/simulated/floor/plating/airless,/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
 "km" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/item/solar_assembly,/obj/item/stack/sheet/glass{amount = 30},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
-"kn" = (/obj/structure/table,/obj/machinery/light/small{dir = 8},/obj/effect/decal/cleanable/dirt,/obj/item/crowbar,/obj/item/flashlight/glowstick/random,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
+"kn" = (/obj/structure/table,/obj/machinery/light/small{dir = 8},/obj/effect/decal/cleanable/dirt,/obj/item/crowbar,/obj/item/flashlight/flare/glowstick/random,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "ko" = (/obj/structure/table,/obj/machinery/light/small{dir = 4},/obj/effect/decal/cleanable/dirt,/obj/item/paper/fluff/ruins/oldstation,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "kp" = (/obj/structure/closet/crate/engineering/electrical,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
 "kq" = (/obj/structure/table/reinforced,/obj/machinery/light{dir = 8},/obj/item/paper/fluff/ruins/oldstation/protohealth,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
@@ -541,7 +541,7 @@
 "ku" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 8},/turf/simulated/floor/plating/airless,/area/ruin/space/ancientstation/atmo)
 "kv" = (/turf/simulated/floor/plating,/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
 "kw" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/engine,/area/ruin/space/ancientstation/atmo)
-"kx" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Charlie Main Corridor APC"; pixel_x = 24; start_charge = 0},/obj/structure/closet/crate,/obj/item/storage/backpack/old,/obj/item/storage/backpack/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/space/ancientstation)
+"kx" = (/obj/effect/decal/cleanable/egg_smudge,/obj/machinery/alarm/all_access{pixel_y = 24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/ruin/space/ancientstation/kitchen)
 "ky" = (/obj/structure/table/reinforced,/obj/item/healthanalyzer/advanced{desc = "A prototype hand-held body scanner able to distinguish vital signs of the subject."; name = "prototype health analyzer"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "kz" = (/obj/machinery/light,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
 "kA" = (/obj/machinery/computer{desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."; name = "Broken Computer"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "white"},/area/ruin/space/ancientstation/proto)
@@ -551,7 +551,7 @@
 "kE" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/proto)
 "kF" = (/obj/structure/transit_tube_pod{dir = 4},/obj/structure/transit_tube/station/reverse{dir = 1},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/warning_stripes/arrow{icon_state = "4"; dir = 1},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "kG" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
-"kH" = (/turf/simulated/mineral/uranium,/area/ruin/unpowered)
+"kH" = (/turf/simulated/mineral/random/high_chance,/area/ruin/unpowered)
 "kI" = (/obj/effect/decal/warning_stripes/southeast,/obj/effect/decal/warning_stripes/northwest,/obj/effect/decal/cleanable/dirt,/obj/effect/mob_spawn/human/oldsec,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "kJ" = (/obj/effect/decal/warning_stripes/southeast,/obj/effect/decal/warning_stripes/northwest,/obj/effect/decal/cleanable/dirt,/obj/effect/mob_spawn/human/oldsci,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "kK" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/warning_stripes/southeast,/obj/effect/decal/warning_stripes/northwest,/obj/effect/decal/cleanable/dirt,/obj/effect/mob_spawn/human/oldeng,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
@@ -571,8 +571,8 @@
 "kY" = (/obj/effect/decal/cleanable/dirt,/obj/structure/particle_accelerator/power_box{icon = 'icons/obj/machines/particle_accelerator3.dmi'},/turf/simulated/floor/plating,/area/ruin/space/ancientstation/deltacorridor)
 "kZ" = (/turf/simulated/floor/plating,/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
 "la" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
-"lb" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24},/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
-"lc" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
+"lb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/rnd)
+"lc" = (/obj/structure/rack,/obj/item/stack/cable_coil,/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Charlie Engineering APC"; pixel_x = 24; report_power_alarm = 0; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 6; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
 "ld" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "le" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "lf" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light{dir = 1; in_use = 1},/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
@@ -596,20 +596,20 @@
 "lx" = (/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/solar_assembly,/obj/item/stack/sheet/glass{amount = 30},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 0; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
 "ly" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 8; icon_state = "cautioncorner"},/area/ruin/space/ancientstation/engi)
 "lz" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 4; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
-"lA" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Beta Engineering APC"; pixel_x = 24; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/atmo)
+"lA" = (/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24; report_danger_level = 0},/obj/structure/rack,/obj/item/gun/energy/laser/retro/old{pixel_x = -3; pixel_y = -3},/obj/item/gun/energy/laser/retro/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 10; icon_state = "red"},/area/ruin/space/ancientstation/sec)
 "lB" = (/obj/structure/table,/obj/item/clothing/gloves/color/fyellow/old,/obj/item/clothing/gloves/color/fyellow/old,/obj/item/multitool,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 10; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
 "lC" = (/obj/structure/rack,/obj/item/storage/toolbox/mechanical/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 0; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
-"lD" = (/obj/structure/rack,/obj/item/stack/cable_coil,/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Charlie Engineering APC"; pixel_x = 24; start_charge = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 6; icon_state = "yellow"},/area/ruin/space/ancientstation/engi)
+"lD" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24; report_danger_level = 0},/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "lE" = (/obj/machinery/light/small{dir = 4},/obj/machinery/pipedispenser,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/atmo)
 "lF" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 8; icon_state = "red"},/area/ruin/space/ancientstation/sec)
 "lG" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 2; icon_state = "redcorner"},/area/ruin/space/ancientstation/sec)
 "lH" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 0; icon_state = "red"},/area/ruin/space/ancientstation/sec)
 "lI" = (/obj/structure/table,/obj/item/restraints/handcuffs,/obj/item/clothing/mask/gas,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 6},/area/ruin/space/ancientstation/sec)
 "lJ" = (/obj/machinery/atmospherics/binary/pump{dir = 8},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/atmo)
-"lK" = (/obj/machinery/alarm/all_access{dir = 4; pixel_x = -24},/obj/structure/rack,/obj/item/gun/energy/laser/retro/old{pixel_x = -3; pixel_y = -3},/obj/item/gun/energy/laser/retro/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 10; icon_state = "red"},/area/ruin/space/ancientstation/sec)
+"lK" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/mob/living/simple_animal/hostile/hivebot,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 "lL" = (/obj/structure/rack,/obj/item/clothing/suit/armor/vest/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 0; icon_state = "red"},/area/ruin/space/ancientstation/sec)
 "lM" = (/obj/structure/rack,/obj/item/clothing/head/helmet/old,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 6},/area/ruin/space/ancientstation/sec)
-"lN" = (/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/airless,/area/ruin/space/ancientstation/atmo)
+"lN" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/alarm/all_access{dir = 8; pixel_x = 24; report_danger_level = 0},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation)
 "lO" = (/obj/structure/transit_tube/station/reverse,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/warning_stripes/arrow,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/deltacorridor)
 
 (1,1,1) = {"
@@ -619,43 +619,43 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacadapacapapacaiahajahahaiacakacababaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalamanananananamalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacapcoaccvapacapapapaiaqaoacaraiaiasaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalalaMaOauavawaYbhalalaaaaaaaaaaaaaaaaabababaaaaaaaaaaagababacapapacapcKacapapahapahcLaccPcLayasaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazazalaMaOataAaBaCataYbhalazazazaaaaagaaababababaaagaaaaaaagababacaiahaDaoahaDapdsaiapcLahaDcLcLaiasaa
-aaaaaaaaaaaaaaaaaaagaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazaEalbiaFaGaGaGatataFbjalaIaJazagagaaaaababababaaaaaaaaagaaababacaxahaDahajaDapapapapcLahaDcLcLayasaa
-aaaaaaaaaaaaabaaaaaaaaagagagagagagagagagagagagagagagagagazaKaLalbkatataGaNaGatatcWalaPaQazaaaaaaagaaababaaaaaaagaaaaaaababaccoapacaiahacapaiahapahcLaccLcLaiasaa
-aaaaaaagaaabababagaaagaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaazaRaLalbiaSataGaTaGataFbjalaUazazaaaaaaaaaaaacXaaaaaaaaaaaaaaababacapapaccoapacapapapaiajaoacahaoayasaa
-aaaVaWaVagababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazaXaLaldcdtataGaZaGatdudvalbabbazaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacbcapacdsapacahahaoahahahacbdacababaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazazalaMaOataAaBaCataYbhalazazazaaaaagaaabkHkHabaaagaaaaaaagababacaiahaDaoahaDapdsaiapcLahaDcLcLaiasaa
+aaaaaaaaaaaaaaaaaaagaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazdXalbiaFaGaGaGatataFbjalaIaJazagagaaaaabkHkHabaaaaaaaaagaaababacaxahaDahajaDapapapapcLahaDcLcLayasaa
+aaaaaaaaaaaaabaaaaaaaaagagagagagagagagagagagagagagagagagazaKaLalbkatataGaNaGatateLalaPaQazaaaaaaagaaababaaaaaaagaaaaaaababaccoapacaiahacapaiahapahcLaccLcLaiasaa
+aaaaaaagaaabkHabagaaagaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaazaRaLalbiaSataGaTaGataFbjalaUazazaaaaaaaaaaaacXaaaaaaaaaaaaaaababacapapaccoapacapapapaiajaoacahaoayasaa
+aaaVaWaVagabkHababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazaXaLaldcdtataGaZaGatdudvalbabbazaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacbcapacdsapacahahaoahahahacbdacababaa
 aVbebfaVaVabababaaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazbgaLalaldLdMdtaZdudPdxalalblbmazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacbnbnacacacacacacacacacababaaaa
 aVbfbfbfbobfbfbfbfbfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazazazazazbpazalambqbqbrbqbqamalazaUbsazazazazaaaaaaaaaaaaaabubububuaaaaababbvbwbxbxbwbvababababababbubububuaa
 agbybebebebebfbebebzaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabAbBbCbDbEbFbGbHbIbGbGbJbGbGbIbHbGbGbKbLbCbCbAaacXaaaaaaaaaabMbNbObPbubububububQbRbRbQbubububububububudHbTbuaa
 aVbybebebebebUbebYbWcXcXdecXcXcXcXcXcXcXcXcXdecXcXbXdzbCbZcacbcdcecdcdcdcfbGbGcgbHbGbGbCchbCcibXcXaadkaaaadncXcjclcmcndKcpcqevcpevcrewbOewbObOewcsbOctcudHeybuaa
 aVbzbfbfbebebfcwbebzaHaaaaaaaaaaaaaaaaaaaaaaaaaaaabAbCcxbDcyczcAcAcBcBcBcBcBcBcBcAcAcEcFbLcGbCbAaaaacXaaaaaaaabMcIcJbPfwfxcMfycNfzcNfycNfycOcNfycMgWhnbubScQbuaa
-aaaVcRcSbecTbfbfbfbfbfaaaaaaagaaagaaagaaaaaaaaaacUcUcUcUcUcVbJcAemepcZcZdacZcZeFeHcAbJdddgdgdgdgdgaaaaaaaaaaaabubububudhdidjdjdjdjdjdmdmdjdjdjdjdjdodqbubububuaa
-agbedrbzbebebfaVaVagaWagagaeckaeckaeeKdpagagcUcUcUeJeteLcUcabJcBdwdwdwdwdwdwdwdwcYcBbJbCdgdXdZeldAdgdgaaaaababaaaaaabudBdCdjdDdEdEdFdGdGhTdEdEdFdjewiWbuaaaaaaaa
+aaaVcRcSbecTbfbfbfbfbfaaaaaaagaaagaaagaaaaaaaaaacUcUcUcUcUfjbJcAemepcZcZdacZcZeFeHcAbJfMdgdgdgdgdgaaaaaaaaaaaabubububudhdidjdjdjdjdjdmdmdjdjdjdjdjdodqbubububuaa
+agbedrbzbebebfaVaVagaWagagaeckaeckaeeKdpagagcUcUcUeJetfPcUcabJcBdwdwdwdwdwdwdwdwcYcBbJbCdggedZeldAdgdgaaaaababaaaaaabugJdCdjdDdEdEdFdGdGhTdEdEdFdjewhjbuaaaaaaaa
 aVbebedIbebebfdJagagaaaaaaaeckaeckaehfaeaaaacUgXgZdNdOhmcUdQbJdRdwdwdwdSdTdUdwdwdwdRdVdWdgeudYeIeRfgdgaadnabababaaaabueadCdjebecedkLdGdGdEeeefegdjbOehbubububuaa
 aVeiejbzekekbfaVaVaaaaaaaaaehfcHeKcDckaeaaaacUhodOeneohpcUhCeqcBhDdwdweresdwdwdwhFcBdVbCdgfXdYdYdYgvdgaaaaaaababaaaabukMkNdjexdEdEdEdGdGdEdEdEdEdjkOkObuezezbubu
 aaaVeAbfbebebfbeeBaVaaaaaaaackaahfaackaaaaaaeCdOeDeEdOhGcUhHeGcAhMcZcZiQliljcZcZlkcAeGeMeNeueOePeQgNdgaaaaaaaabubububueSdCdjdEeTeUdEkPdGkLeVeWdEdjbOcJbuezeXeXbu
-aaagaaaWbebebzbeaVaVagaaaaaackaahfaackaaeCeCeCdOeYeZfadNfbcafccAcAcAcAcAfdcAcAcAcAcAfebCffgQfhdyeQhedgagagagagbufifjbukQkRdjfmdEdEfndGdGfodEdEfpdjkSkSbuezeXeXbu
-aaagaaaVfrfsftfsfufvfvagaghlhshJiBhJhshJhLfBfAfCfDfEfFfGfHfIfJfKfLfLfMfLfNfOfPfOfOfQfRfSfTfUfVfVfWhKfYbtbtbtbtfZgagbhEgdgedjgfggghgigjgkgfglgmgfdjfqfqcubSbSeXbu
+aaagaaaWbebebzbeaVaVagaaaaaackaahfaackaaeCeCeCdOeYeZfadNfbcafccAcAcAcAcAfdcAcAcAcAcAfebCffgQfhdyeQhedgagagagagbufiidbukQkRdjfmdEdEfndGdGfodEdEfpdjkSkSbuezeXeXbu
+aaagaaaVfrfsftfsfufvfvagaghlhshJiBhJhshJhLfBfAfCfDfEfFfGfHfIfJfKfLfLiWfLfNfOjEfOfOfQfRfSfTfUfVfVfWhKfYbtbtbtbtfZgagbhEgdjHdjgfggghgigjgkgfglgmgfdjfqfqcubSbSeXbu
 aaagaaaagnbebzbegoaVagaaaaaaiOaahfaahfaaeCeCeCgpeYgqdOgrfbcafcgsgsgsgsgsgtgsgsgsgsgsfebCffllgudyeQlmdgagagagagbugwgxbufkfldjgygygygydGgzdjdjdjdjdjkSkSbubSgAgAbu
-aaaeagagaVaVbfgBaVaVaaaaaaaaiOaackaahfaaaaaaeCgpgCgDdOlpcUlqeGgsgEgFgGgHgIgJgGgKgLgseGeMdglngMePeQlodgaaaaaaaabubububugOgPdjdGdGkXdGdGgzdjkWgRgSdjgTgUbubSgAgAbu
-aaagaaaaaagVaWaaagaaaaaaaacCiPaeckaehfaeaaaacUlsdOdOgYltcUhCdVhagGgGhbhchdhcgGgGgGhadVdWdglueQeQeQlvdgaaaaaaaaaaaaaabufkfldjhghghhgfhihjdjgfgfhkdjkSkSbubShUhVbu
+aaaeagagaVaVbfgBaVaVaaaaaaaaiOaackaahfaaaaaaeCgpgCgDdOlpcUlqeGgsgEgFgGgHgIkxgGgKgLgseGeMdglngMePeQlodgaaaaaaaabubububugOgPdjdGdGkXdGdGgzdjkWgRgSdjgTgUbubSgAgAbu
+aaagaaaaaagVaWaaagaaaaaaaacCiPaeckaehfaeaaaacUlsdOdOgYltcUhCdVhagGgGhbhchdhcgGgGgGhadVdWdglueQeQeQlvdgaaaaaaaaaaaaaabufkfldjhghghhgfhilbdjgfgfhkdjkSkSbubShUhVbu
 aaagaaaaaaagaaaaagagafaaaaaekZcCjwaeklcDaaaacUlwlxlydOlzcUhqdVhrgGgGgGgGgGhbgGgGgGhrdVbCdglFeQlGlHlIdgaaaaaaaaaaaaaabuhtfldjhuhvgihwlahxhyhzhAhBdjfqfqbujmkTkUbu
-aaagaaaaaaagagagaeaeccagagaekvaeckaehfaeagagcUcUcUlBlClDcUdQdVhagGgGhIgGgGgGgGgGgGhadVbCdglKlLlMdgdgdgaaaaaaaaaaaaaabulbkRdjhNhOgfhPgfhQdjhRgfhSdjkSlcbukVkYbubu
-aaagaaaaaaagaaaaaaaaaaaaaaagkZaghfagckagaaaaaaaacUcUcUcUcUcVdVgshWhXhYhZiahYhZibicgsdViddgdgdgdgdgaaaaaaaaaaaabubububuieifdjigigihgfiihQdjijikildjfqimbubububuaa
+aaagaaaaaaagagagaeaeccagagaekvaeckaehfaeagagcUcUcUlBlClccUdQdVhagGgGhIgGgGgGgGgGgGhadVbCdglAlLlMdgdgdgaaaaaaaaaaaaaabulDkRdjhNhOgfhPgfhQdjhRgfhSdjkSlKbukVkYbubu
+aaagaaaaaaagaaaaaaaaaaaaaaagkZaghfagckagaaaaaaaacUcUcUcUcUfjdVgshWhXhYhZiahYhZibicgsdVlNdgdgdgdgdgaaaaaaaaaaaabubububuieifdjigigihgfiihQdjijikildjfqimbubububuaa
 inioipaaagagaaaaaaaaaaaaaaaeiOaeckaehfaeaaaaaaaacUiqirisitcyiugsgshahahahahahahagsgsivcFbLcGbCbAaaaaaaaaaaaaaabMfqiwbPfkfldjdjdjdjdjdmixdjdjdjdjdjiyizbudHiAbuaa
 aglriniClrlraaaaaaaaaaaaaaaekZaeckaehfcDaaaaaaaacUiDiEiFiGiHiIiJiKiJiJiJiLiJiJiJiKiJiMbCiNbCkFbXcXcXcXdecXcXcXcjlOfqcnfkiRiSldiUiVldiTleiTlfiTldiSiXfqcudHiYbuaa
 inlrlrininlraaaaaeagagagagcHiPaeckaeklcDagagagagcUiZjajbitjcjdjeeMjfbCbCdVbCbCjfeMbCbCjgbLbCbCbAaaaaaaaaaaaaaabMfqfqbPjhjijjlgjkjilgjlkRfqlhfqkSjnfqjobudHbSbuaa
 injpipdbininaaaaaaaaaaaaaaaaagaadfaaagaaaaaaaaaacUcUcUcUcUazjqazazazbAbAjrbAbAazazazjsazazazazazaaaaaaaaaaaaaabubububububujtjtjtjtjtjujvjtjtjtjtjtbubububububuaa
-inlAipipaainaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazjxjyazazjzbCbCdVbCbCbCazazbgjAazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtjBjCjDjEjFjGjHjIjCjJjtaaaaaaaaaaaaaa
+inaEipipaainaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazjxjyazazjzbCbCdVbCbCbCazazbgjAazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtjBjCjDcVjFjGcWjIjCjJjtaaaaaaaaaaaaaa
 lrlrjKjLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazjMjNazjObCjPbCjQbCkIbCjRazbgbgazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtjSjTjUjVjVjGjVjWjXjYjtaaaaaaaaaaaaaa
 jZlrkajLaaagaaaaaaaaagaaaaaaaaaaaaagaaaaaaaaaaaaaaaaaaaaazkbkcazkdbCbCbCdVkebCbCkfazkgkhazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtjtjtkijVjVjGjVkjjtjtjtaaaaaaaaaaaaaa
 kkinlEjLagaaagagagagaaaaaaaaagdlagaaaaagagagagagagagagagazazkmazknbCkJbCkKbCjPbCkoazkpazazagagagagagagagagagagagagagagagagjtkqjTjUjVkrksjVjWjXktjtaaaaaaaaaaaaaa
-kulJkwjLaaaaaaaaaaaaaaaaaaagaaababaaaaaaaaaaaaaaaaaaaaaaaaazkxazkdbCbCbCdVbCbCbCkfazbgazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtkyjCjUkzkAkAkzjWjCkBjtaaaaaaaaaaaaaa
+kulJkwjLaaaaaaaaaaaaaaaaaaagaaababaaaaaaaaaaaaaaaaaaaaaaaaazddazkdbCbCbCdVbCbCbCkfazbgazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtkyjCjUkzkAkAkzjWjCkBjtaaaaaaaaaaaaaa
 kClrkDjLaaagaaaaaaaaaaaaagaaaHabababaaagaaaaaaaaaaaaaaaaaaazazazbCbCjPbCjQbCjPbCbCazazazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajtjtjtjtjtkEkEjtjtjtjtjtaaaaaaaaaaaaaa
-aalNipipaaaaaaaaaaaaaaaaaaaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaazazjfbCbCkGbCbCjfazazaaaaaaaaaaaaaaaaaaaaababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-agipipaaaaaaaaaaaaaaaaaaaaaaabkHababaaaaaaaaaaaaaaaaaaaaaaaaaaaaazazbAazbAazbAazazaaaaaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagcaaaaaa
-aaaaaaaaaaaaaaaaaaaagcaaaaaaaaaaaaaaaaaagcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aadBipipaaaaaaaaaaaaaaaaaaaaabkHkHabaaaaaaaaaaaaaaaaaaaaaaaaaaazazjfbCbCkGbCbCjfazazaaaaaaaaaaaaaaaaaaaaababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+agipipaaaaaaaaaaaaaaaaaaaaaaabkHkHabaaaaaaaaaaaaaaaaaaaaaaaaaaaaazazbAazbAazbAazazaaaaaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababkHkHabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagcaaaaaa
+aaaaaaaaaaaaaaaaaaaagcaaaaaaaaaaaaaaaaaagcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababkHkHabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagcaaaaaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

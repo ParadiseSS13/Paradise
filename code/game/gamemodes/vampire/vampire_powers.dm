@@ -76,8 +76,8 @@
 	//Vampires who have reached their full potential can affect nearly everything
 	if(user.mind.vampire.get_ability(/datum/vampire_passive/full))
 		return 1
-	//Chaplains are resistant to vampire powers
-	if(target.mind && target.mind.assigned_role == "Chaplain")
+	//Holy characters are resistant to vampire powers
+	if(target.mind && target.mind.isholy)
 		return 0
 	return 1
 

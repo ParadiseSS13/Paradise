@@ -88,6 +88,10 @@
 			emergencyresponseteamspawn += loc
 			qdel(src)
 
+		if("Syndicate Officer")
+			syndicateofficer += loc
+			qdel(src)
+
 	GLOB.landmarks_list += src
 	return 1
 
@@ -286,3 +290,7 @@
 	..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
+
+
+/obj/effect/landmark/battle_mob_point
+	name = "Nanomob Battle Avatar Spawn Point"

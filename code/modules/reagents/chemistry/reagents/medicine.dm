@@ -681,11 +681,11 @@
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>You are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					to_chat(ghost, "<span class='ghostalert'>A Strange Reagent is infusing your body with life. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 					window_flash(ghost.client)
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
+				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
@@ -737,9 +737,10 @@
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
-		for(var/block=1;block<=DNA_SE_LENGTH;block++)
-			M.dna.SetSEState(block,0, 1)
-			genemutcheck(M,block,null,MUTCHK_FORCED)
+		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
+			if(!(block in M.dna.default_blocks))
+				M.dna.SetSEState(block, FALSE, TRUE)
+				genemutcheck(M, block, null, MUTCHK_FORCED)
 		M.dna.UpdateSE()
 
 		M.dna.struc_enzymes = M.dna.struc_enzymes_original
@@ -844,13 +845,6 @@
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
-	..()
-
-/datum/reagent/medicine/simethicone
-	name = "Simethicone"
-	id = "simethicone"
-	description = "This strange liquid seems to have no bubbles on the surface."
-	color = "#14AA46"
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"

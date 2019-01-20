@@ -154,6 +154,7 @@
 
 	active = 1
 	update_icon()
+	anchored = 1
 
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))

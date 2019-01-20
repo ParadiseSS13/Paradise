@@ -148,6 +148,7 @@
 
 	for(var/mob/O in hearers(1, loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
+	return TRUE
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)
 	if(!radio_controller)
@@ -167,9 +168,9 @@
 	receiving = TRUE
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
-	..()
-	for(var/obj/effect/anomaly/A in orange(0, src))
-		A.anomalyNeutralize()
+	if(..())
+		for(var/obj/effect/anomaly/A in orange(0, src))
+			A.anomalyNeutralize()
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return

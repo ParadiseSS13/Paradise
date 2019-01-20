@@ -31,6 +31,11 @@
 	if(..())
 		return 1
 
+	if(usr != owner && !check_rights(R_ADMIN))
+		message_admins("Warning: possible href exploit by [key_name(usr)] - failed permissions check in nano_module/law_manager/Topic")
+		log_debug("Warning: possible href exploit by [key_name(usr)] - failed permissions check in nano_module/law_manager/Topic")
+		return 1
+
 	if(href_list["set_view"])
 		current_view = text2num(href_list["set_view"])
 		return 1

@@ -134,12 +134,6 @@
 	log_name = "RP"
 	category = "Defensive"
 
-/datum/spellbook_entry/rathens
-	name = "Rathen's Secret"
-	spell_type = /obj/effect/proc_holder/spell/targeted/rathens
-	log_name = "RS"
-	category = "Defensive"
-
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
@@ -167,8 +161,15 @@
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
+	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall
 	log_name = "FW"
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/greaterforcewall
+	name = "Greater Force Wall"
+	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall/greater
+	log_name = "GFW"
 	category = "Defensive"
 	cost = 1
 
@@ -296,6 +297,13 @@
 	item_path = /obj/item/gun/magic/staff/chaos
 	log_name = "SC"
 
+/datum/spellbook_entry/item/staffslipping
+	name = "Staff of Slipping"
+	desc = "A staff that shoots magical bananas. These bananas will either slip or stun the target when hit. Surprisingly reliable!"
+	item_path = /obj/item/gun/magic/staff/slipping
+	log_name = "SL"
+	cost = 1
+
 /datum/spellbook_entry/item/staffdoor
 	name = "Staff of Door Creation"
 	desc = "A particular staff that can mold solid metal into ornate wooden doors. Useful for getting around in the absence of other transportation. Does not work on glass."
@@ -359,7 +367,7 @@
 
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armor Set"
-	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space."
+	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space. Comes bundled with Boots of Gripping."
 	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
 	log_name = "HS"
 	category = "Defensive"
@@ -367,7 +375,7 @@
 /datum/spellbook_entry/item/armor/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
 	. = ..()
 	if(.)
-		new /obj/item/clothing/shoes/sandal(get_turf(user)) //In case they've lost them.
+		new /obj/item/clothing/shoes/magboots/wizard(get_turf(user))
 		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
 		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
 
@@ -797,7 +805,7 @@
 	stored_swap = null
 
 /obj/item/spellbook/oneuse/forcewall
-	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
+	spell = /obj/effect/proc_holder/spell/targeted/forcewall
 	spellname = "forcewall"
 	icon_state ="bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."

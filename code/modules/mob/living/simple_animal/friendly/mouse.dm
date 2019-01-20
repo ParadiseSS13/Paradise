@@ -6,9 +6,10 @@
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"
 	speak = list("Squeek!","SQUEEK!","Squeek?")
-	speak_emote = list("squeeks","squeeks","squiks")
+	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	var/squeak_sound = 'sound/effects/mousesqueek.ogg'
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -40,7 +41,7 @@
 	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
-			M << 'sound/effects/mousesqueek.ogg'
+			M << squeak_sound
 
 /mob/living/simple_animal/mouse/Life(seconds, times_fired)
 	. = ..()
@@ -67,6 +68,7 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
+	playsound(src, squeak_sound, 40, 1)
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
@@ -89,7 +91,7 @@
 		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-			SEND_SOUND(M, 'sound/effects/mousesqueek.ogg')
+			SEND_SOUND(M, squeak_sound)
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
@@ -100,6 +102,31 @@
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
+
+/mob/living/simple_animal/mouse/emote(act, m_type=1, message = null)
+	if(stat != CONSCIOUS)
+		return
+
+	var/on_CD = 0
+	act = lowertext(act)
+	switch(act)
+		if("squeak")		//Mouse time
+			on_CD = handle_emote_CD()
+		else
+			on_CD = 0
+
+	if(on_CD == 1)
+		return
+	
+	switch(act)
+		if("squeak")
+			message = "<B>\The [src]</B> squeaks!"
+			m_type = 2 //audible
+			playsound(src, squeak_sound, 40, 1)
+		if("help")
+			to_chat(src, "scream, squeak")
+
+	..()
 
 /*
  * Mouse types

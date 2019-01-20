@@ -6,6 +6,7 @@
  *		Pumpkin head
  *		Kitty ears
  *		Cardborg Disguise
+ *		Head Mirror
  */
 
 /*
@@ -131,6 +132,10 @@
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+	species_fit = list("Grey")
+	sprite_sheets = list(
+	"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
 	if(src.icon_state == "ushankadown")
@@ -154,6 +159,10 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
 
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 2 //luminosity when on
@@ -221,6 +230,11 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	species_disguise = "High-tech robot"
+	species_fit = list("Grey")
+	sprite_sheets = list(
+	"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
+
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
 	..()
@@ -233,3 +247,19 @@
 /obj/item/clothing/head/cardborg/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
+
+/*
+ * Head Mirror
+ */
+/obj/item/clothing/head/headmirror
+	name = "head mirror"
+	desc = "A band of rubber with a very reflective looking mirror attached to the front of it. One of the early signs of medical budget cuts."
+	icon_state = "head_mirror"
+	item_state = "head_mirror"
+	species_fit = list("Vox, Drask")
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi',
+	"Drask" = 'icons/mob/species/drask/head.dmi',
+	"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
+

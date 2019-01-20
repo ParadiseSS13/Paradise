@@ -432,6 +432,46 @@
 
 	fix_modules()
 
+/obj/item/robot_module/syndicate_saboteur
+	name = "engineering robot module" //to disguise in examine
+	module_type = "Malf"
+
+	stacktypes = list(
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/sheet/glass/cyborg = 50,
+		/obj/item/stack/sheet/rglass/cyborg = 50,
+		/obj/item/stack/cable_coil/cyborg = 50,
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20
+		)
+
+/obj/item/robot_module/syndicate_saboteur/New()
+	..()
+	modules += new /obj/item/rcd/borg/syndicate(src)
+	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/melee/energy/sword/cyborg(src)
+	modules += new /obj/item/card/emag(src)
+	modules += new /obj/item/borg_chameleon(src)
+	modules += new /obj/item/pinpointer/operative(src)
+	emag = null
+
+	for(var/T in stacktypes)
+		var/obj/item/stack/sheet/W = new T(src)
+		W.amount = stacktypes[T]
+		modules += W
+
+	fix_modules()
+
 /obj/item/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"

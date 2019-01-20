@@ -10,7 +10,7 @@
 
 /mob/living/simple_animal/hostile/poison/AttackingTarget()
 	..()
-	if(isliving(target))
+	if(isliving(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/L = target
 		if(L.reagents)
 			L.reagents.add_reagent("spidertoxin", poison_per_bite)

@@ -187,7 +187,7 @@
 		chassis.occupant_message("<font color='[chassis.zoom_mode ? "blue" : "red"]'>Zoom mode [chassis.zoom_mode ? "en" : "dis"]abled.</font>")
 		if(chassis.zoom_mode)
 			owner.client.AddViewMod("mecha", 12)
-			SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))
+			SEND_SOUND(owner, sound(chassis.zoomsound, volume = 50))
 		else
 			owner.client.RemoveViewMod("mecha")
 		UpdateButtonIcon()
