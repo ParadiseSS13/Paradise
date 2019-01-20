@@ -88,11 +88,6 @@ var/global/sent_syndicate_strike_team = 0
 			is_leader = FALSE
 			syndicate_commando_number--
 
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
-		if(L.name == "Syndicate-Commando-Bomb")
-			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
-			qdel(L)
-
 	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
 	feedback_add_details("admin_verb","SDTHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
