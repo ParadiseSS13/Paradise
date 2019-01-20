@@ -21,6 +21,7 @@
 	can_be_placed_into = null
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
+	no_lid = TRUE
 	var/wipespeed = 30
 
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)

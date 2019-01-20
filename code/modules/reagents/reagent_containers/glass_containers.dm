@@ -12,6 +12,7 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
 	container_type = OPENCONTAINER
+	var/no_lid = FALSE // Stops certain containers having lids, mainly for damp rag
 
 	var/label_text = ""
 	// the fucking asshole who designed this can go die in a fire - Iamgoofball
@@ -57,13 +58,14 @@
 
 /obj/item/reagent_containers/glass/attack_self()
 	..()
-	if(is_open_container())
-		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-		container_type ^= REFILLABLE | DRAINABLE
-	else
-		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-		container_type |= REFILLABLE | DRAINABLE
-	update_icon()
+	if(!no_lid)
+		if(is_open_container())
+			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+			container_type ^= REFILLABLE | DRAINABLE
+		else
+			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+			container_type |= REFILLABLE | DRAINABLE
+		update_icon()
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
