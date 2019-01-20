@@ -117,7 +117,7 @@
 	name = "Syndicate Strike Team"
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_syndicate_commando()
+	return H.equip_syndicate_commando(FALSE, TRUE)
 
 
 /datum/outfit/admin/syndicate/spy
