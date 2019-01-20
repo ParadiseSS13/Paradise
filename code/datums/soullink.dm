@@ -122,6 +122,7 @@
 	if(soulsharer)
 		soulsharer.dust(FALSE)
 
+/datum/soullink/oneway/devilfriend
 
 /////////////////
 // SHARED BODY //

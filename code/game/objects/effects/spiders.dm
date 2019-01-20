@@ -176,7 +176,7 @@
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
-				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", \
+				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
 								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 
 			spawn(rand(20,60))

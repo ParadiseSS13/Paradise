@@ -189,6 +189,13 @@
 			L.EyeBlind(4)
 	return
 
+/mob/living/simple_animal/hostile/statue/update_sight()
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
 //Toggle Night Vision
 /obj/effect/proc_holder/spell/targeted/night_vision
 	name = "Toggle Nightvision"

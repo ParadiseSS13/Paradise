@@ -56,6 +56,7 @@
 #define ANTAG_HUD_VAMPIRE 17
 #define ANTAG_HUD_ABDUCTOR 18
 #define DATA_HUD_ABDUCTOR	19
+#define ANTAG_HUD_DEVIL 20
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
