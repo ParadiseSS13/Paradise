@@ -180,3 +180,95 @@
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self()
 	toggle_veil()
+
+/obj/item/clothing/glasses/hud/modular
+	name = "modular hud attachment"
+	desc = "A modular hud attachment device that has two slots to secure multiple HUDs."
+	icon_state = "healthhud"
+	//icon_state = "modular"
+	species_fit = list("Vox") //Random pasta from med/sec huds
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		)
+	var/huds = 0
+
+/obj/item/clothing/glasses/hud/modular/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+	if(loc != user)
+		. = ..()
+	else if (huds)
+		to_chat(world, "got here")
+		for(var/obj/item/clothing/glasses/hud/h in src)
+			h.remove_hud(user, src)
+			huds --
+			user.put_in_active_hand(h)
+			break
+		update_icon()
+
+/obj/item/clothing/glasses/hud/modular/attackby(obj/item/I, mob/living/carbon/human/user, params)
+	to_chat(world, "got here2 [huds]")
+	if(istype(I, /obj/item/clothing/glasses/hud) && !istype(I, src.type) && istype(user))
+		to_chat(world, "got here1")
+		var/obj/item/clothing/glasses/hud/hud = I
+		if(huds < 2)
+			huds ++
+			user.drop_item()
+			I.loc = src
+			if(hud.invis_view == SEE_INVISIBLE_MINIMUM)
+				invis_view = SEE_INVISIBLE_MINIMUM
+				update_invis()
+			if(user.glasses == src)
+				hud.equipped(user, slot_glasses)
+	update_icon()
+
+/obj/item/clothing/glasses/hud/modular/proc/update_invis()
+	return
+
+/obj/item/clothing/glasses/hud/modular/MouseDrop(obj/over_object as obj) // Pasta from clothing.dm
+	to_chat(world, "heckin")
+	if(ishuman(usr))
+		if(loc != usr)
+			return
+		if(!usr.restrained() && !usr.stat && over_object)
+			if(!usr.canUnEquip(src))
+				to_chat(usr, "[src] appears stuck on you!")
+				return
+			switch(over_object.name)
+				if("r_hand")
+					usr.unEquip(src)
+					usr.put_in_r_hand(src)
+				if("l_hand")
+					usr.unEquip(src)
+					usr.put_in_l_hand(src)
+			src.add_fingerprint(usr)
+			dropped(usr)
+
+/obj/item/clothing/glasses/hud/modular/equipped(mob/living/carbon/human/user, slot)
+	to_chat(world, "Her")
+	if(slot != slot_glasses)
+		return
+	for(var/obj/item/clothing/glasses/hud/hud in src)
+		hud.equipped(user, slot)
+		if(hud.invis_view == SEE_INVISIBLE_MINIMUM)
+			invis_view = SEE_INVISIBLE_MINIMUM
+	update_icon()
+
+/obj/item/clothing/glasses/hud/modular/dropped(mob/living/carbon/human/user)
+	for(var/obj/item/clothing/glasses/hud/hud in src)
+		hud.remove_hud(user, src)
+	update_icon()
+
+/obj/item/clothing/glasses/hud/proc/remove_hud(mob/living/carbon/human/user, obj/item/clothing/glasses/hud/modular/mod)
+	if(HUDType)
+		var/datum/atom_hud/H = huds[HUDType]
+		H.remove_hud_from(user)
+		for(var/obj/item/clothing/glasses/hud/h in mod)
+			if(h != src && h.invis_view == SEE_INVISIBLE_MINIMUM)
+				return
+		if(invis_view == SEE_INVISIBLE_MINIMUM)
+			mod.invis_view = SEE_INVISIBLE_LIVING
+
+/obj/item/clothing/glasses/hud/modular/update_icon()
+	overlays.Cut()
+	//overlays += "[huds.len]huds"
