@@ -1,0 +1,4 @@
+author: "Shadow-Quill"
+delete-after: True
+changes: 
+  - bugfix: "You will no longer smack body scanner consoles when you rotate them."
