@@ -254,6 +254,12 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
 	category = CAT_FOOD
 
+/datum/crafting_recipe/food
+	category = CAT_FOOD
+
+/datum/crafting_recipe/food/New()
+	parts |= reqs
+
 /datum/crafting_recipe/food/cak
 	name = "Living cat/cake hybrid"
 	reqs = list(
@@ -266,4 +272,3 @@
 		/datum/reagent/teslium = 1,
 	)
 	result = /mob/living/simple_animal/pet/cat/cak
-	category = CAT_FOOD
