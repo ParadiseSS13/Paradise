@@ -193,6 +193,7 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 	var/huds = 0
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
 
 /obj/item/clothing/glasses/hud/modular/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(loc != user)

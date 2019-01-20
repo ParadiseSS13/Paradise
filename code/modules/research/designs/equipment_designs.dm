@@ -288,3 +288,25 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	category = list("Equipment")
+	
+/datum/design/modular_hud
+	name = "modular hud attachment device"
+	desc = "A modular hud that has two slots to secure multiple HUDs."
+	id = "modular_hud"
+	req_tech = list("engineering" = 4, "programming" = 5, "magnets" = 3)
+	build_path = /obj/item/clothing/glasses/hud/modular
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	category = list("Equipment")
+	
+/datum/design/bluespace_handcuffs
+	name = "bluespace handcuffs"
+	desc = "A device that dispenses one-time energy cuffs to the victim."
+	id = "bluespace_handcuffs"
+	req_tech = list("powerstorage" = 5, "programming" = 5, "bluespace" = 4)
+	build_path = /obj/item/restraints/handcuffs/bluespace
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_BLUESPACE = 500, MAT_PLASMA = 2000)
+	category = list("Equipment")
+	locked = 1
+	access_requirement = list(access_security) // Not crazy overpowered, any sec boi should be able to use this

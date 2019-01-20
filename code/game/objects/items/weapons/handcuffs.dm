@@ -197,12 +197,13 @@
 
 /obj/item/restraints/handcuffs/bluespace
 	name = "bluespace handcuffs"
-	desc = "A deviece that dispenses one-time energy cuffs to the victim."
+	desc = "A device that dispenses one-time energy cuffs to the victim."
 	icon_state = "handcuff"
 	var/can_charge = 1
 	var/charge_sections = 3
 	var/charge_delay = 4
 	var/charge_tick = 0
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_BLUESPACE = 500, MAT_PLASMA = 2000)	
 
 /obj/item/restraints/handcuffs/bluespace/apply_cuffs(mob/living/carbon/target, mob/user)
 	if(!target.handcuffed && charge_sections)
@@ -213,6 +214,7 @@
 /obj/item/restraints/handcuffs/bluespace/used
 	desc = "A pair of energy handcuffs."
 	icon_state = "cuff_white_used"
+	breakouttime = 450
 
 /obj/item/restraints/handcuffs/bluespace/used/dropped()
 	//new /obj/effect/energy_cuffs()

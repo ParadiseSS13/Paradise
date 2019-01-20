@@ -551,3 +551,13 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
 	build_path = /obj/item/reagent_containers/hypospray/safety/bluespace
 	category = list("Medical")
+
+/datum/design/bluespace_defib
+	name = "bluespace defibrillator"
+	desc = "An upgraded defibrillator that rearranges the quantum state of the heart."
+	id = "bluespace_defib"
+	req_tech = list("biotech" = 6, "bluespace" = 5, "magnets" = 6, "programming" = 5, "powerstorage" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 500, MAT_TITANIUM = 1000)
+	build_path = /obj/item/defibrillator/bluespace
+	category = list("Medical")

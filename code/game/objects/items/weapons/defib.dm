@@ -571,6 +571,7 @@
 	desc = "An upgraded defibrillator that rearranges the quantum state of the heart."
 	origin_tech = "biotech=5;bluespace=3"
 	combat = 1
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 500, MAT_TITANIUM = 1000)
 
 /obj/item/defibrillator/bluespace/update_overlays()
 	. = ..()
