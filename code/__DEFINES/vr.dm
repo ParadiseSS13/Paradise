@@ -6,3 +6,7 @@
 #define VR_SERVER_OFF 0
 #define VR_SERVER_ON 1
 #define VR_SERVER_EMAG 2
+
+#define VR_ROOM_STATIC 0
+#define VR_ROOM_USER 1
+#define VR_ROOM_PVP 2

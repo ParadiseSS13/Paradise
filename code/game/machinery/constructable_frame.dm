@@ -853,7 +853,7 @@ obj/item/circuitboard/rdserver
 	build_path = /obj/machinery/vr_server
 	board_type = "machine"
 	origin_tech = "programming=1"
-	frame_desc = "Requires 2 pieces of cable, 1 Power Cell and 1 Capacitors."
+	frame_desc = "Requires 2 pieces of Cable, 1 Power Cell and 1 Capacitor."
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/cell = 1,

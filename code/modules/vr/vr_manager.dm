@@ -10,7 +10,7 @@ var/list/vr_all_players = list()
 	var/datum/space_chunk/chunk = null
 	var/list/spawn_points = list()
 	var/list/players = list()
-	var/expires = 1
+	var/expires = VR_ROOM_USER
 	var/creator = null
 	var/delete_timer = null
 	var/round_timer = null
@@ -108,14 +108,14 @@ proc/make_vr_room(name, template, expires, creator, password)
 	R.creator = creator
 	R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
 
-	if(expires == 1)
+	if(expires == VR_ROOM_USER)
 		vr_rooms[R.name] = R
 		if(R.delete_timer)
 			deltimer(R.delete_timer)
 		R.delete_timer = addtimer(CALLBACK(R, /datum/vr_room/proc/cleanup), 3 MINUTES, TIMER_STOPPABLE)
-	else if(expires == 0)
+	else if(expires == VR_ROOM_STATIC)
 		vr_rooms_official[R.name] = R
-	else if (expires == 2)
+	else if (expires == VR_ROOM_PVP)
 		vr_rooms_official[R.name] = R
 		if(R.round_timer)
 			deltimer(R.round_timer)
@@ -124,7 +124,7 @@ proc/make_vr_room(name, template, expires, creator, password)
 
 	R.sort_landmarks()
 	R.assign_buttons()
-	if(expires == 2 || expires == 0)
+	if(expires == VR_ROOM_PVP || expires == VR_ROOM_STATIC)
 		R.assign_timers()
 
 	return R

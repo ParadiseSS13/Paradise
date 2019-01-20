@@ -25,11 +25,11 @@
 /mob/living/carbon/human/virtual_reality/proc/handle_despawn()
 	myroom.players.Remove(src)
 	vr_all_players.Remove(src)
-	if((myroom.players.len == 0) && (myroom.expires == 1))
+	if((myroom.players.len == 0) && (myroom.expires == VR_ROOM_USER))
 		if(myroom.delete_timer)
 			deltimer(myroom.delete_timer)
 		myroom.delete_timer = addtimer(CALLBACK(myroom, /datum/vr_room/proc/cleanup), 3 MINUTES, TIMER_STOPPABLE)
-	else if((myroom.players.len == 1) && (myroom.expires == 2))
+	else if((myroom.players.len == 1) && (myroom.expires == VR_ROOM_PVP))
 		if(myroom.round_timer)
 			deltimer(myroom.round_timer)
 		myroom.round_timer = addtimer(CALLBACK(myroom, /datum/vr_room/proc/vr_round), 10 SECONDS, TIMER_STOPPABLE)
@@ -41,9 +41,9 @@
 			else if(P.real_me.can_hear() && P.real_me.ckey && P in myroom.waitlist)
 				to_chat(P.real_me, "\[VR HEADSET\]: [winner.name] has won the PVP match in The [myroom.name]. New match in one minute, please be in the lobby.")
 
-	if(src.ckey)
+	if(ckey)
 		return_to_lobby()
-	if(src.surgeries.len == 0)
+	if(!surgeries.len)
 		var/mob/living/carbon/human/virtual_reality/vr = src
 		var/list/corpse_equipment = vr.get_all_slots()
 		corpse_equipment += vr.get_equipped_items()
@@ -105,7 +105,8 @@
 			var/mob/living/carbon/human/virtual_reality/vr = owner
 			var/obj/item/clothing/ears/vr_headset/goggles
 			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-				goggles = g
+				if(vr.real_me.l_ear == g || vr.real_me.r_ear == g)
+					goggles = g
 			if(!goggles.contained())
 				vr.revert_to_reality(1)
 			else
@@ -135,7 +136,8 @@
 			var/mob/living/carbon/human/virtual_reality/vr = owner
 			var/obj/item/clothing/ears/vr_headset/goggles
 			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-				goggles = g
+				if(vr.real_me.l_ear == g || vr.real_me.r_ear == g)
+					goggles = g
 			if(!goggles.contained())
 				vr.revert_to_reality(0)
 			else

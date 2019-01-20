@@ -67,7 +67,7 @@ obj/machinery/vr_reset_button/attack_hand(mob/user as mob)
 					if(istype(M, /mob/dead/observer) || istype(M, /mob/dview))
 						continue
 					else if(istype(M, /mob/living/carbon/human/virtual_reality))
-						M.forceMove(src.loc)
+						M.forceMove(loc)
 						continue
 					qdel(M, TRUE)
 					CHECK_TICK

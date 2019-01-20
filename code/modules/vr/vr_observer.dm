@@ -25,7 +25,7 @@
 
 /obj/item/device/observer/examine(mob/user)
 	if(..(user, 1))
-		to_chat(user, "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.")
+		to_chat(user, "This video camera can send live feeds to the entertainment network. Its [camera ? null : "in"]active.")
 
 /obj/item/device/observer/hear_talk(mob/M as mob, msg)
 	if(camera && on)
