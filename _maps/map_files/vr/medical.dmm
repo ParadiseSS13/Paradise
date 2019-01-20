@@ -16,7 +16,7 @@
 "ap" = (/obj/machinery/portable_atmospherics/canister/nitrogen,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aq" = (/turf/simulated/floor/mineral/uranium,/area/vr/medical)
 "ar" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
-"as" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Atmospheric Simulation"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
+"as" = (/obj/machinery/chem_dispenser{desc = "It appears Fox is doing more fruit chemistry today!"; hackedcheck = 1; recharge_delay = 0},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "at" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "au" = (/obj/machinery/portable_atmospherics/canister/air,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "av" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
@@ -113,7 +113,6 @@
 "cj" = (/turf/unsimulated/floor{icon_state = "floor"},/area/vr/medical)
 "ck" = (/obj/structure/closet/l3closet/virology,/turf/unsimulated/floor{icon_state = "green"; dir = 1},/area/vr/medical)
 "cl" = (/obj/machinery/smartfridge/secure/chemistry/virology,/turf/unsimulated/floor{icon_state = "green"; dir = 5},/area/vr/medical)
-"cm" = (/obj/machinery/chem_dispenser{desc = "It appears Fox is doing more fruit chemistry today!"; hackedcheck = 1},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cn" = (/obj/structure/chair/stool,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "co" = (/obj/structure/table,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cp" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -202,7 +201,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaabahahahababanaoaoabalapapabaaabagagagabaqaqaqabaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaabahahahahahabarararaEalatatababababalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaababahahahababauaravabalawawabaxaxabalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaabababahabababayazaAabalaBaBabalaxabalabababalababababababababaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaababababaCababababasabababababaDaGaDaFaHaFababbDabaIaJaKaLaJaIabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaababababaCababababaEabababababaDaGaDaFaHaFababbDabaIaJaKaLaJaIabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaMaNaOalalaPalalalalalalalalalalalalalalalalalabaQaRaQaQaRaQabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaSalalalalaPalalalalalalalalalalalalalalalalalabaTaQaUaUaQaTabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaValalalalalababababababababababababababababababaWaQaXaXaQaWabaaaaaaaaaaaaaaaaaaaa
@@ -214,7 +213,7 @@ aaaaaaaaaaaaaaaaaaaaabbRbRbRbRbRbRbRbRbRbRbRbRbRbRbSbSbRbRbRbRbRbRbRbRbRbRbRbRbR
 aaaaaaaaaaaaaaaaaaaaabbRbRbRbRbRbRbRbRbRbRbRbTbTbRbSbSbRbTbTbRbRbRbRbRbRbRbRbRbRbRabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbCdBbEbFdBbCabababababababbVbRbRbVabababababababbCdDbEbFdDbCabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbXbYbYbYbYbXabbZcacbcccdcecfbRbRcfcgcacbccchceabcicjckckcjclabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabcmcncodzcncmabcpbYbYbYbYbYcqbRbRcqbYbYbYbYbYcrabcscjcjcjcjctabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabascncodzcnasabcpbYbYbYbYbYcqbRbRcqbYbYbYbYbYcrabcscjcjcjcjctabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcubYcvcwbYcuabbYbYbYbYbYbYdEbRbRdFbYbYbYbYbYbYabczcjcAcBcjcCabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcDbYbYbYbYcDabcEbYcFcGbYbYababababbYbYcGcFbYcHabcIcJcKcLcMcNabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcObYcPcQbYcOabcRbYbYbYbYbYcSababcTbYbYbYbYbYcUabcVcjcWcXcjcYabaaaaaaaaaaaaaaaaaaaa

@@ -32,6 +32,7 @@
 	shoes = /obj/item/clothing/shoes/white
 	glasses = /obj/item/clothing/glasses/hud/health
 	gloves = /obj/item/clothing/gloves/color/latex
+	back = /obj/item/storage/backpack
 
 /datum/outfit/vr/research
 	name = "medical"
@@ -40,6 +41,8 @@
 	shoes = /obj/item/clothing/shoes/white
 	glasses = /obj/item/clothing/glasses/science
 	gloves = /obj/item/clothing/gloves/color/latex
+	belt = /obj/item/storage/belt/utility/chief/full
+	back = /obj/item/storage/backpack
 
 /datum/outfit/vr/engineering
 	name = "engineering"

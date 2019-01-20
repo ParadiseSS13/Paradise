@@ -104,6 +104,7 @@ obj/machinery/vr_reset_button/engineering
 
 /obj/machinery/computer/rdconsole/vr
 	sync = 0
+	req_access = list()
 
 /obj/machinery/computer/rdconsole/vr/New()
 	..()

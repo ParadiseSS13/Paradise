@@ -125,12 +125,12 @@
 		if(block)
 			if(GetState() && block == MONKEYBLOCK && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>", get_area(user))
 
 		else
 			if(GetState(MONKEYBLOCK) && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>", get_area(user))
 
 
 	if(M != user)
