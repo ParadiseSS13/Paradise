@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Fixed deathgasp emote not being called on death"
-  - bugfix: "Fixed nukies no longer exploding on death"
