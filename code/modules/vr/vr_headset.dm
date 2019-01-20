@@ -58,9 +58,9 @@
 
 /obj/item/clothing/ears/vr_headset/equipped()
 	..()
-	var/area/A = get_area(src)
-	if(exile && (istype(A, /area/security/vr)))
+	if(exile)
 		enter_vr()
+
 
 /obj/item/clothing/ears/vr_headset/item_action_slot_check(slot, mob/user)
     if(slot == slot_l_ear || slot == slot_r_ear)
