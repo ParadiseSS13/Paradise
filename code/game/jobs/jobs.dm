@@ -12,6 +12,7 @@ var/const/ATMOSTECH			=(1<<7)
 var/const/AI				=(1<<8)
 var/const/CYBORG			=(1<<9)
 var/const/CENTCOM			=(1<<10)
+var/const/SYNDICATE			=(1<<11)
 
 var/const/MEDSCI			=(1<<1)
 
@@ -192,5 +193,14 @@ var/global/list/exp_jobsmap = list(
 	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | civilian_positions | list("AI","Cyborg") | whitelisted_positions), // crew positions
 	EXP_TYPE_SPECIAL = list(), // antags, ERT, etc
 	EXP_TYPE_GHOST = list(), // dead people, observers
-	EXP_TYPE_EXEMPT = list() // special grandfather setting
+	EXP_TYPE_EXEMPT = list(), // special grandfather setting
+	EXP_TYPE_COMMAND = list(titles = command_positions),
+	EXP_TYPE_ENGINEERING = list(titles = engineering_positions),
+	EXP_TYPE_MEDICAL = list(titles = medical_positions),
+	EXP_TYPE_SCIENCE = list(titles = science_positions),
+	EXP_TYPE_SUPPLY = list(titles = supply_positions),
+	EXP_TYPE_SECURITY = list(titles = security_positions),
+	EXP_TYPE_SILICON = list(titles = list("AI","Cyborg")),
+	EXP_TYPE_SERVICE = list(titles = service_positions),
+	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions) // karma-locked jobs
 )

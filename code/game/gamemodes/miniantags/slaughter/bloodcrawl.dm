@@ -154,7 +154,6 @@
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	var/canmove = 1
 	density = 0
 	anchored = 1
 	invisibility = 60

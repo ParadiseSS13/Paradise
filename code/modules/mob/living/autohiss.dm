@@ -58,6 +58,16 @@
 		)
 	autohiss_exempt = list("Chittin")
 
+/datum/species/drask
+	autohiss_basic_map = list(
+			"o" = list ("oo", "ooo"),
+			"u" = list ("uu", "uuu")			
+		)
+	autohiss_extra_map = list(
+			"m" = list ("mm", "mmm")
+		)
+	autohiss_exempt = list("Orluum")
+
 
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)
 	if(!autohiss_basic_map)

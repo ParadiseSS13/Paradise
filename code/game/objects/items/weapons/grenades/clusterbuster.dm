@@ -104,7 +104,7 @@
 	payload = /obj/item/grenade/chem_grenade/cleaner
 
 /obj/item/grenade/clusterbuster/teargas
-	name = "Oignon Grenade"
+	name = "Oignon Teargas Grenade"
 	payload = /obj/item/grenade/chem_grenade/teargas
 
 /obj/item/grenade/clusterbuster/facid

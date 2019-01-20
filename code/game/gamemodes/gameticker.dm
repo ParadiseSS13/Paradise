@@ -476,3 +476,6 @@ var/round_start_time = 0
 	event_manager.RoundEnd()
 
 	return 1
+
+/datum/controller/gameticker/proc/HasRoundStarted()
+	return current_state >= GAME_STATE_PLAYING

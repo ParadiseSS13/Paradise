@@ -102,7 +102,8 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
-	ignore_flags = 1 //so you can medipen through hardsuits
+	ignore_flags = TRUE //so you can medipen through hardsuits
+	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 

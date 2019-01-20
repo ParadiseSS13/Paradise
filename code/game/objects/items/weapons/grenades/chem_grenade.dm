@@ -526,20 +526,20 @@
 	update_icon()
 
 /obj/item/grenade/chem_grenade/facid
-	name = "acid grenade"
-	desc = "Used for melting armoured opponents."
+	payload_name = "acid smoke"
+	desc = "Use to chew up opponents from the inside out."
 	stage = READY
 
 /obj/item/grenade/chem_grenade/facid/New()
 	..()
-	var/obj/item/reagent_containers/glass/beaker/bluespace/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/bluespace/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("facid", 280)
+	B1.reagents.add_reagent("facid", 80)
 	B1.reagents.add_reagent("potassium", 20)
 	B2.reagents.add_reagent("phosphorus", 20)
 	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("facid", 260)
+	B2.reagents.add_reagent("facid", 60)
 
 	beakers += B1
 	beakers += B2

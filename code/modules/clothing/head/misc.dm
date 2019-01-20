@@ -20,6 +20,12 @@
 	icon_state = "pwig"
 	item_state = "pwig"
 
+/obj/item/clothing/head/justice_wig
+	name = "Justice wig"
+	desc = "A fancy powdered wig given to arbitrators of the law. It looks itchy."
+	icon_state = "jwig"
+	item_state = "jwig"
+
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
 
@@ -472,3 +478,9 @@
 	name = "magnificent crown"
 	desc = "A crown worn by only the highest emperors of the land."
 	icon_state = "fancycrown"
+
+/obj/item/clothing/head/zepelli
+	name = "chequered diamond hat"
+	desc = "Wearing this makes you feel like a real mozzarella cheeseball. "
+	icon_state = "zepelli"
+	item_state = "zepelli"

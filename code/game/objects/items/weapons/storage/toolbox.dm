@@ -94,15 +94,11 @@
 	new /obj/item/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
 
-
-/obj/item/storage/toolbox/syndicate/trapped
-	name = "suspicious looking toolbox"
-	desc = "Danger. Very robust. Has a small red marker by the handle."
-
-/obj/item/storage/toolbox/syndicate/trapped/New()
-	..()
-	new /obj/item/grenade/chem_grenade/explosion/mine_armed(src)
-
+/obj/item/storage/toolbox/fakesyndi
+	name = "suspicous looking toolbox"
+	icon_state = "syndicate"
+	item_state = "toolbox_syndi"
+	desc = "Danger. Very Robust. The paint is still wet."
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"

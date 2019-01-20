@@ -95,13 +95,11 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 
-/mob/living/simple_animal/slaughter/death(gibbed)
+/mob/living/simple_animal/slaughter/Destroy()
 	// Only execute the below if we successfully died
-	. = ..()
-	if(!.)
-		return FALSE
 	for(var/mob/living/M in consumed_mobs)
 		release_consumed(M)
+	. = ..()
 
 /mob/living/simple_animal/slaughter/proc/release_consumed(mob/living/M)
 	M.forceMove(get_turf(src))

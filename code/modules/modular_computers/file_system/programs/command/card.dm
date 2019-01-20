@@ -34,7 +34,8 @@
 		/datum/job/chaplain,
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
-		/datum/job/civilian
+		/datum/job/civilian,
+		/datum/job/syndicateofficer
 	)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %

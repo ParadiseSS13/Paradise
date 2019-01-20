@@ -117,6 +117,10 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_message = "sub-par bling"
 
+/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_SILVER))
+		M.reagents.add_reagent("toxin", volume)
+	. = ..()
 
 /datum/reagent/aluminum
 	name = "Aluminum"
@@ -158,6 +162,11 @@
 		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
+	..()
+
+/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
+		M.reagents.add_reagent("toxin", volume)
 	..()
 
 //foam
@@ -365,31 +374,6 @@
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
-
-/datum/reagent/fartonium
-	name = "Fartonium"
-	id = "fartonium"
-	description = "Oh god it never ends, IT NEVER STOPS!"
-	reagent_state = GAS
-	color = "#D06E27"
-	taste_message = "mexican cuisine"
-
-/datum/reagent/fartonium/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(66))
-		M.emote("fart")
-
-	if(holder.has_reagent("simethicone"))
-		if(prob(25))
-			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
-			update_flags |= M.adjustBruteLoss(1, FALSE)
-		if(prob(10))
-			M.custom_emote(1,"strains, but nothing happens.")
-			update_flags |= M.adjustBruteLoss(2, FALSE)
-		if(prob(5))
-			M.emote("scream")
-			update_flags |= M.adjustBruteLoss(4, FALSE)
-	return ..() | update_flags
 
 /datum/reagent/hugs
 	name = "Pure hugs"

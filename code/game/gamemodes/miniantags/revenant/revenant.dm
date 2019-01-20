@@ -32,7 +32,7 @@
 	wander = 0
 	density = 0
 	flying = 1
-	anchored = 1
+	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	speed = 1
@@ -91,7 +91,12 @@
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
-
+/mob/living/simple_animal/revenant/update_sight()
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
 
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
@@ -130,7 +135,7 @@
 	else
 		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
 		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
-	
+
 /mob/living/simple_animal/revenant/proc/setupOrDelete()
 	if(mind)
 		giveObjectivesandGoals()

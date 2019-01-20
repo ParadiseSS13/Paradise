@@ -315,6 +315,17 @@ UI STUFF
 	popup.set_content(dat)
 	popup.open()
 
+//Sends a message to the target safely. If the target left the server it won't throw a runtime. Also accepts lists of text
+/datum/controller/subsystem/tickets/proc/to_chat_safe(target, text)
+	if(!target)
+		return FALSE
+	if(istype(text, /list))
+		for(var/T in text)
+			to_chat(target, T)
+	else
+		to_chat(target, text)
+	return TRUE
+
 /datum/controller/subsystem/tickets/Topic(href, href_list)
 
 	if(href_list["refresh"])
@@ -345,14 +356,14 @@ UI STUFF
 		var/indexNum = text2num(href_list["resolve"])
 		if(SStickets.resolveTicket(indexNum))
 			message_adminTicket("[usr.client] / ([usr]) resolved admin ticket number [indexNum]")
-			to_chat(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
+			to_chat_safe(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
 			showUI(usr)
 
 	if(href_list["detailresolve"])
 		var/indexNum = text2num(href_list["detailresolve"])
 		if(SStickets.resolveTicket(indexNum))
 			message_adminTicket("[usr.client] / ([usr]) resolved admin ticket number [indexNum]")
-			to_chat(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
+			to_chat_safe(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailclose"])
@@ -361,9 +372,11 @@ UI STUFF
 			return
 		if(SStickets.closeTicket(indexNum))
 			message_adminTicket("[usr.client] / ([usr]) closed admin ticket number [indexNum]")
-			to_chat(returnClient(indexNum), "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
-			to_chat(returnClient(indexNum), "<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>")
-			to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket has now been closed.</span>")
+			to_chat_safe(returnClient(indexNum), list(
+				"<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>",
+				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+				"<span class='adminticket'>Your ticket has now been closed.</span>"
+				))
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailreopen"])
@@ -376,5 +389,5 @@ UI STUFF
 		var/indexNum = text2num(href_list["assignadmin"])
 		if(SStickets.assignAdminToTicket(usr.client, indexNum))
 			message_adminTicket("[usr.client] / ([usr]) has taken ticket number [indexNum]")
-			to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket is being handled by [usr.client].")
+			to_chat_safe(returnClient(indexNum), "<span class='adminticket'>Your ticket is being handled by [usr.client].")
 		showDetailUI(usr, indexNum)

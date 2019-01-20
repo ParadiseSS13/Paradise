@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/clown
 	name = "clown's locker"
-	req_access = list()
+	req_access = list(access_clown)
 	icon_state = "clownsecure1"
 	icon_closed = "clownsecure"
 	icon_locked = "clownsecure1"
@@ -20,12 +20,13 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/seeds/banana(src)
+	new /obj/item/restraints/handcuffs/toy(src)
 
 
 
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
-	req_access = list()
+	req_access = list(access_mime)
 	icon_state = "mimesecure1"
 	icon_closed = "mimesecure"
 	icon_locked = "mimesecure1"
@@ -46,3 +47,17 @@
 	new /obj/item/toy/crayon/mime(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)
+
+/obj/structure/closet/secure_closet/syndicate_officer
+	name = "officer's locker"
+	req_access = list(access_syndicate_command)
+
+/obj/structure/closet/secure_closet/syndicate_officer/New()
+	..()
+	new /obj/item/storage/box/syndie_kit/elite_hardsuit(src)
+	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	new /obj/item/clothing/glasses/thermal(src)
+	new /obj/item/megaphone(src)
