@@ -62,7 +62,7 @@ obj/machinery/vr_reset_button/attack_hand(mob/user as mob)
 		var/obj/effect/landmark/C = room.reset_point
 		template = vr_templates[template_id]
 		for(var/turf/T in block(locate(C.x+1, C.y+1, C.z), locate(C.x+template.width, C.y+template.height, C.z)))
-			for(var/i = 1 to 3)
+			for(var/i in 1 to 3)
 				for(var/atom/movable/M in T)
 					if(istype(M, /mob/dead/observer) || istype(M, /mob/dview))
 						continue

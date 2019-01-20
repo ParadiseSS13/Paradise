@@ -81,7 +81,7 @@
 		var/datum/map_template/vr/level/temp = vr_templates[R]
 		if(temp.system)
 			continue
-		templates.Add(list(list("name" = temp.name, "id" = temp.id, "description" = temp.description))) // list in a list because Byond merges the first list..
+		templates.Add(list(list("name" = temp, "id" = temp.id, "description" = temp.description))) // list in a list because Byond merges the first list..
 	data["templates"] = templates
 	var/rooms[0]
 	for(var/R in vr_rooms)
@@ -89,6 +89,6 @@
 		var/locked = FALSE
 		if(length(temp.password) > 0)
 			locked = TRUE
-		rooms.Add(list(list("name" = temp.name, "template" = temp.template.name, "creator" = temp.creator, "players" = temp.players.len, "password" = locked))) // list in a list because Byond merges the first list..
+		rooms.Add(list(list("name" = temp, "template" = temp.template, "creator" = temp.creator, "players" = temp.players.len, "password" = locked))) // list in a list because Byond merges the first list..
 	data["rooms"] = rooms
 	return data

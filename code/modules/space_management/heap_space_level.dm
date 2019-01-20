@@ -47,7 +47,7 @@
 	if(C.zpos != zpos)
 		return
 	for(var/turf/T in block(locate(C.x, C.y, C.zpos), locate(C.x+C.width-1, C.y+C.height-1, C.zpos)))
-		for(var/i = 1 to 3)
+		for(var/i in 1 to 3)
 			for(var/atom/movable/M in T)
 				if(istype(M, /mob/dead/observer) || istype(M, /mob/dview))
 					continue

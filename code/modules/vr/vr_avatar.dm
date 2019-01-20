@@ -37,9 +37,9 @@
 		myroom.round_end = world.time + 1 MINUTES
 		for(var/mob/living/carbon/human/virtual_reality/P in vr_all_players)
 			if(P.ckey)
-				to_chat(P, "SYSTEM MESSAGE: [winner.name] has won the PVP match in The [myroom.name]. New match in one minute, please be in the lobby.")
+				to_chat(P, "SYSTEM MESSAGE: [winner] has won the PVP match in The [myroom]. New match in one minute, please be in the lobby.")
 			else if(P.real_me.can_hear() && P.real_me.ckey && P in myroom.waitlist)
-				to_chat(P.real_me, "\[VR HEADSET\]: [winner.name] has won the PVP match in The [myroom.name]. New match in one minute, please be in the lobby.")
+				to_chat(P.real_me, "\[VR HEADSET\]: [winner] has won the PVP match in The [myroom]. New match in one minute, please be in the lobby.")
 
 	if(ckey)
 		return_to_lobby()
