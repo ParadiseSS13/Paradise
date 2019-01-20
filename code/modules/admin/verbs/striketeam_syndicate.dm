@@ -85,6 +85,10 @@ var/global/sent_syndicate_strike_team = 0
 
 			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
 			new_syndicate_commando.faction += "syndicate"
+			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+			opshud.join_hud(new_syndicate_commando.mind.current)
+			set_antag_hud(new_syndicate_commando.mind.current, "hudoperative")
+			new_syndicate_commando.regenerate_icons()
 			is_leader = FALSE
 			syndicate_commando_number--
 
