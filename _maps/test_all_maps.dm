@@ -96,8 +96,15 @@
 	#include "map_files\templates\small_shuttle_1.dmm"
 
 	// VR maps
-	#include "map_files\vr\blood_and_sand.dmm"
+	#include "map_files\vr\blood_and_sand1.dmm"
+	#include "map_files\vr\blood_and_sand2.dmm"
+	#include "map_files\vr\blood_and_sand3.dmm"
+	#include "map_files\vr\bomb_range.dmm"
+	#include "map_files\vr\bombs.dmm"
+	#include "map_files\vr\engine.dmm"
+	#include "map_files\vr\engineering.dmm"
 	#include "map_files\vr\lobby.dmm"
+	#include "map_files\vr\medical.dmm"
 
 
 	// This is pointless, we don't run the server
