@@ -69,7 +69,7 @@ Difficulty: Hard
 	medal_type = MEDAL_PREFIX
 	score_type = BIRD_SCORE
 	del_on_death = TRUE
-	death_sound = 'sound/magic/Repulse.ogg'
+	death_sound = 'sound/magic/repulse.ogg'
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/New()
 	..()
@@ -342,7 +342,7 @@ Difficulty: Hard
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
-	//playsound(T,'sound/magic/Wand_Teleport.ogg', 200, 1)
+	//playsound(T,'sound/magic/wand_teleport.ogg', 200, 1)
 	playsound(source,'sound/magic/blink.ogg', 200, 1)
 	//playsound(source,'sound/machines/AirlockOpen.ogg', 200, 1)
 	blinking = TRUE
@@ -520,7 +520,7 @@ Difficulty: Hard
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	playsound(T,'sound/magic/Blind.ogg', 125, 1, -5) //make a sound
+	playsound(T,'sound/magic/blind.ogg', 125, 1, -5) //make a sound
 	sleep(6) //wait a little
 	bursting = TRUE
 	do_damage(T) //do damage and mark us as bursting
@@ -572,7 +572,7 @@ Difficulty: Hard
 			to_chat(user, "<span class='notice'>You start removing your hierophant rune...</span>")
 			H.timer = world.time + 51
 			if(do_after(user, 50, target = src))
-				playsound(src,'sound/magic/Blind.ogg', 200, 1, -4)
+				playsound(src,'sound/magic/blind.ogg', 200, 1, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You touch the rune with the staff, dispelling it!</span>")
 				H.rune = null

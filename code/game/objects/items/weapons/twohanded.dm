@@ -405,7 +405,7 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message("<span class='warning'>[user] kicks over [src]!</span>", "<span class='danger'>You kick down [src]!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
 		contained_spear.forceMove(T)

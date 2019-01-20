@@ -476,7 +476,7 @@
 						M.Weaken(3)
 						atom_say("A sudden gust of powerful wind slams [M] into the floor!")
 						M.take_organ_damage(25)
-						playsound(src.loc, 'sound/weapons/Genhit.ogg', 100, 1)
+						playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
 					else
 						to_chat(M, "<span class='userdanger'>A violent gale blows past you, and you barely manage to stay standing!</span>")
 				if(ORION_TRAIL_COLLISION) //by far the most damaging event
@@ -489,7 +489,7 @@
 						if(hull)
 							sleep(10)
 							atom_say("A new floor suddenly appears around [src]. What the hell?")
-							playsound(src.loc, 'sound/weapons/Genhit.ogg', 100, 1)
+							playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
 							var/turf/space/T
 							for(T in orange(1, src))
 								T.ChangeTurf(/turf/simulated/floor/plating/)
@@ -573,7 +573,7 @@
 
 	else if(href_list["killcrew"]) //shoot a crewmember
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/Gunshot.ogg', 100, 1)
+		playsound(loc,'sound/weapons/gunshot.ogg', 100, 1)
 
 		if(settlers.len == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")

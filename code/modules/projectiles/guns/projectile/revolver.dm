@@ -420,7 +420,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
-	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
 

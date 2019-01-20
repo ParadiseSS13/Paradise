@@ -550,7 +550,7 @@
 	range = 3
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
-	sound = 'sound/magic/WandODeath.ogg'
+	sound = 'sound/magic/wandodeath.ogg'
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)

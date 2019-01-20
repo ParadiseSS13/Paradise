@@ -76,7 +76,7 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
@@ -101,7 +101,7 @@
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
@@ -178,7 +178,7 @@
 	energy_drain = 20
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/energy/electrode
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
@@ -276,13 +276,13 @@
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
 	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshot.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
-	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
 	projectile = /obj/item/projectile/bullet/mime
@@ -301,7 +301,7 @@
 	origin_tech = "combat=4"
 	equip_cooldown = 20
 	projectile = /obj/item/projectile/bullet/midbullet
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshot.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
 	projectiles_per_shot = 4
@@ -313,7 +313,7 @@
 	origin_tech = "combat=4"
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/weakbullet3
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshot.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
 	projectiles_per_shot = 3
@@ -516,7 +516,7 @@
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M as obj)
 	if(istype(M, /obj/mecha/working))

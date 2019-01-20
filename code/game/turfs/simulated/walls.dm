@@ -268,7 +268,7 @@
 			return
 
 	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
 

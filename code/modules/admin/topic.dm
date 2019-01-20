@@ -1890,7 +1890,7 @@
 		switch(punishment)
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", safety=1)
-				playsound(get_turf(M), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")

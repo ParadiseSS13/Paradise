@@ -128,7 +128,7 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/target/proc/fall()
 	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/Fireball.ogg', 200, 1)
+	playsound(T,'sound/magic/fireball.ogg', 200, 1)
 	new /obj/effect/temp_visual/fireball(T)
 	sleep(12)
 	explosion(T, 0, 0, 1, 0, 0, 0, 1)
@@ -164,7 +164,7 @@ Difficulty: Medium
 			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_walls()
-	playsound(get_turf(src),'sound/magic/Fireball.ogg', 200, 1)
+	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, 1)
 
 	for(var/d in cardinal)
 		spawn(0)

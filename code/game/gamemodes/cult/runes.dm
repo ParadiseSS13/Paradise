@@ -471,7 +471,7 @@ var/list/teleport_runes = list()
 			playsound(T, 'sound/effects/EMPulse.ogg', 100, 1)
 			T.dust() //To prevent the MMI from remaining
 		else
-			playsound(T, 'sound/magic/Disintegrate.ogg', 100, 1)
+			playsound(T, 'sound/magic/disintegrate.ogg', 100, 1)
 			T.gib()
 	rune_in_use = 0
 
