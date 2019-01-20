@@ -52,8 +52,8 @@
 "aZ" = (/obj/structure/table/reinforced,/obj/item/gun/energy/laser/instakill/blue,/obj/item/gun/energy/laser/instakill/red,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "ba" = (/obj/structure/table/reinforced,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/automatic/pistol,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "bb" = (/obj/structure/table/reinforced,/obj/item/gun/projectile/revolver/grenadelauncher/multi,/obj/item/gun/projectile/revolver/grenadelauncher/multi,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
-"bc" = (/obj/machinery/vending/medical,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
-"bd" = (/obj/structure/closet/secure_closet/medical1,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
+"bc" = (/obj/machinery/vending/medical{req_access_txt = ""},/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
+"bd" = (/obj/structure/closet/secure_closet/medical1{icon_state = "medical"; locked = 0; req_access = list()},/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "be" = (/obj/structure/table,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bf" = (/obj/structure/table,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/glass/fifty,/obj/item/stack/sheet/glass/fifty,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bg" = (/obj/machinery/autolathe,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
@@ -96,6 +96,7 @@
 "bR" = (/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bS" = (/obj/effect/landmark{name = "avatarspawn"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bT" = (/obj/machinery/vr_medical_dummy{pixel_y = -26},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
+"bU" = (/obj/structure/closet/secure_closet/medical1{icon_state = "medical"; locked = 0; req_access = list()},/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "bV" = (/turf/unsimulated/wall/fakeglass{dir = 1; icon_state = "fakewindows"; tag = "icon-fakewindows (WEST)"},/area/vr/medical)
 "bW" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Injury Simulation Area"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "bX" = (/obj/machinery/chem_master,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -113,6 +114,7 @@
 "cj" = (/turf/unsimulated/floor{icon_state = "floor"},/area/vr/medical)
 "ck" = (/obj/structure/closet/l3closet/virology,/turf/unsimulated/floor{icon_state = "green"; dir = 1},/area/vr/medical)
 "cl" = (/obj/machinery/smartfridge/secure/chemistry/virology,/turf/unsimulated/floor{icon_state = "green"; dir = 5},/area/vr/medical)
+"cm" = (/obj/structure/closet/secure_closet/reagents{icon_state = "chemical"; locked = 0; req_access = list()},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cn" = (/obj/structure/chair/stool,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "co" = (/obj/structure/table,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cp" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -123,12 +125,12 @@
 "cu" = (/obj/machinery/chem_heater,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cv" = (/obj/structure/table,/obj/item/reagent_containers/glass/bottle/adminordrazine,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cw" = (/obj/structure/table,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
+"cx" = (/obj/structure/closet/secure_closet/reagents{icon_state = "chemical"; locked = 0; req_access = list()},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cy" = (/obj/machinery/door/airlock/medical/glass{id_tag = null; name = "Genetics Lab"; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/vr/medical)
 "cz" = (/obj/machinery/computer/pandemic,/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/vr/medical)
 "cA" = (/obj/structure/table/glass,/obj/item/hand_labeler{pixel_x = -3; pixel_y = -3},/obj/item/storage/box/beakers{pixel_x = 2; pixel_y = 2},/obj/item/storage/box/syringes,/turf/unsimulated/floor{icon_state = "greencorner"},/area/vr/medical)
 "cB" = (/obj/structure/table/glass,/obj/item/hand_labeler{pixel_x = -3; pixel_y = -3},/obj/item/storage/box/beakers{pixel_x = 2; pixel_y = 2},/obj/item/storage/box/syringes,/turf/unsimulated/floor{icon_state = "greencorner"; dir = 8},/area/vr/medical)
 "cC" = (/obj/machinery/computer/pandemic,/turf/unsimulated/floor{icon_state = "green"; dir = 4},/area/vr/medical)
-"cD" = (/obj/structure/closet/secure_closet/reagents,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cE" = (/obj/structure/table/glass,/obj/item/storage/belt/utility/full/multitool,/obj/item/stack/nanopaste,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cF" = (/obj/machinery/optable,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cG" = (/obj/machinery/computer/operating,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -205,7 +207,7 @@ aaaaaaaaaaaaaaaaaaaaababababaCababababaEabababababaDaGaDaFaHaFababbDabaIaJaKaLaJ
 aaaaaaaaaaaaaaaaaaaaabaMaNaOalalaPalalalalalalalalalalalalalalalalalabaQaRaQaQaRaQabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaSalalalalaPalalalalalalalalalalalalalalalalalabaTaQaUaUaQaTabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabaValalalalalababababababababababababababababababaWaQaXaXaQaWabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabaYalaZbaalbbabbcbdbQbebebebfbgbgbfbebebebQbdbcabbhaQbibiaQbhabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabaYalaZbaalbbabbcbdbQbebebebfbgbgbfbebebebQbUbcabbhaQbibiaQbhabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbjalbkblalbmabaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQabaQaQaQaQaQaQabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbnalbobpalbqabaQbrbsbtbubvbwaQaQbxbybzbAbebeaQabaQaQbBbBaQaQabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbCbWbEbFbWbCabaQbGbHbIbJbKbLaQaQbMbNbObPbebeaQabbCcybEbFcybCabaaaaaaaaaaaaaaaaaaaa
@@ -215,7 +217,7 @@ aaaaaaaaaaaaaaaaaaaaabbCdBbEbFdBbCabababababababbVbRbRbVabababababababbCdDbEbFdD
 aaaaaaaaaaaaaaaaaaaaabbXbYbYbYbYbXabbZcacbcccdcecfbRbRcfcgcacbccchceabcicjckckcjclabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabascncodzcnasabcpbYbYbYbYbYcqbRbRcqbYbYbYbYbYcrabcscjcjcjcjctabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcubYcvcwbYcuabbYbYbYbYbYbYdEbRbRdFbYbYbYbYbYbYabczcjcAcBcjcCabaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaabcDbYbYbYbYcDabcEbYcFcGbYbYababababbYbYcGcFbYcHabcIcJcKcLcMcNabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcmbYbYbYbYcxabcEbYcFcGbYbYababababbYbYcGcFbYcHabcIcJcKcLcMcNabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcObYcPcQbYcOabcRbYbYbYbYbYcSababcTbYbYbYbYbYcUabcVcjcWcXcjcYabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabcZbYdadbbYcZabdcdddedfbYdgdhababdidjbYdkdldddmabdncjcjcjcjdoabaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaabbYbYdpdqbYbYababababababdrdsababdsdrababababababdtdudvdwdxdyabaaaaaaaaaaaaaaaaaaaa
