@@ -46,6 +46,17 @@
 	to_chat(usr, "You will [(prefs.sound & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
 	feedback_add_details("admin_verb","AHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/togglementorhelpsound()
+	set name = "Hear/Silence Mentorhelp Bwoinks"
+	set category = "Preferences"
+	set desc = "Toggle hearing a notification when mentorhelps are recieved"
+	if(!holder)
+		return
+	prefs.sound ^= SOUND_MENTORHELP
+	prefs.save_preferences(src)
+	to_chat(usr, "You will [(prefs.sound & SOUND_MENTORHELP) ? "now" : "no longer"] hear a sound when mentorhelps arrive.")
+	feedback_add_details("admin_verb","MHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/deadchat() // Deadchat toggle is usable by anyone.
 	set name = "Show/Hide Deadchat"
 	set category = "Preferences"

@@ -108,7 +108,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		if("Mentorhelp")
 			msg = "<span class='mentorhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;rejectadminhelp=[UID()]'>REJT</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[mob.UID()];is_mhelp=1'>TAKE</A>) :</span> <span class='mentorhelp'>[msg]</span>"
 			for(var/client/X in mentorholders + modholders + adminholders)
-				if(X.prefs.sound & SOUND_ADMINHELP)
+				if(X.prefs.sound & SOUND_MENTORHELP)
 					X << 'sound/effects/adminhelp.ogg'
 				to_chat(X, msg)
 		if("Adminhelp")
