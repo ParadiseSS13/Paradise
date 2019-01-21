@@ -1,0 +1,7 @@
+author: "Nicaragua1"
+delete-after: True
+changes: 
+  - rscadd: "clown bot"
+  - rscadd: "clown box (Its made stamping a piece of cardboard with a clown stamp)"
+  - soundadd: "\"honkbot evil laugh\""
+  - imageadd: "clown bot and box sprites"
