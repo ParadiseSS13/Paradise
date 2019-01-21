@@ -56,6 +56,10 @@
 				vr.unEquip(O)
 			else
 				qdel(O)
+		notransform = 1
+		canmove = 0
+		icon = null
+		invisibility = 101
 		QDEL_IN(src, 15)
 
 
