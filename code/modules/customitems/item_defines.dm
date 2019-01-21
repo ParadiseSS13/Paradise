@@ -1597,3 +1597,10 @@
 	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
 
+/obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
+	name = "Rara's Somber Accordion"
+	desc = "A blue colored accordion with claw indentations on the keys made special for vulpkanins."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "asmer_accordion"
+	item_state = "asmer_accordion"
+

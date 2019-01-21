@@ -26,6 +26,23 @@
 	playsound(src.loc, "rustle", 50, 1, -5)
 	return ..()
 
+/obj/item/storage/backpack/examine(mob/user)
+	var/space_used = 0
+	if(!..(user, 1))
+		return
+	for(var/obj/item/I in contents)
+		space_used += I.w_class
+	if(!space_used)
+		to_chat(user, "<span class='notice'> [src] is empty.</span>")
+	else if(space_used <= max_combined_w_class*0.6)
+		to_chat(user, "<span class='notice'> [src] still has plenty of remaining space.</span>")
+	else if(space_used <= max_combined_w_class*0.8)
+		to_chat(user, "<span class='notice'> [src] is beginning to run out of space.</span>")
+	else if(space_used < max_combined_w_class)
+		to_chat(user, "<span class='notice'> [src] doesn't have much space left.</span>")
+	else
+		to_chat(user, "<span class='notice'> [src] is full.</span>")
+
 /*
  * Backpack Types
  */

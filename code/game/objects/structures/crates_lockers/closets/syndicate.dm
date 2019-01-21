@@ -47,11 +47,6 @@
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
 	new /obj/item/pda/syndicate(src)
 
 /obj/structure/closet/syndicate/resources/

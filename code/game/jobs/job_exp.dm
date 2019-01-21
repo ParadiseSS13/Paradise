@@ -176,10 +176,7 @@ var/global/list/role_playtime_requirements = list(
 			if(dep == EXP_TYPE_EXEMPT)
 				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
-				var/my_pc = num2text(round(exp_data[dep]/exp_data[EXP_TYPE_LIVING]*100))
-				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])] ([my_pc]%)</LI>"
-			else
-				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])] </LI>"
+				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])]</LI>"
 	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
 		return_text += "<LI>Admin</LI>"
 	return_text += "</UL>"

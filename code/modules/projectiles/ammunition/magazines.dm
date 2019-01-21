@@ -221,7 +221,7 @@
 	multiple_sprites = 1
 
 /obj/item/ammo_box/magazine/enforcer
-	name = "handgun magazine (9mm)"
+	name = "handgun magazine (9mm rubber)"
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
@@ -250,6 +250,7 @@
 	return 0
 
 /obj/item/ammo_box/magazine/enforcer/lethal
+	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
 
 /obj/item/ammo_box/magazine/wt550m9

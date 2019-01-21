@@ -379,7 +379,7 @@
 
 /obj/item/ammo_casing/cap
 	desc = "A cap for children toys."
-	caliber = "caps"
+	caliber = "cap"
 	projectile_type = /obj/item/projectile/bullet/cap
 
 /obj/item/ammo_casing/laser

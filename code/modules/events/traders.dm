@@ -6,7 +6,7 @@ var/global/list/unused_trade_stations = list("sol")
 /datum/event/traders
 	var/success_spawn = 0
 	var/station = null
-	var/spawn_count = 3
+	var/spawn_count = 2
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
@@ -16,6 +16,10 @@ var/global/list/unused_trade_stations = list("sol")
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+		event_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
+		return
+
 	var/list/spawnlocs = list()
 	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(landmark.name == "traderstart_[station]")
@@ -35,6 +39,7 @@ var/global/list/unused_trade_stations = list("sol")
 			var/turf/picked_loc = spawnlocs[index]
 			index++
 			var/mob/C = pick_n_take(candidates)
+			spawn_count--
 			if(C)
 				GLOB.respawnable_list -= C.client
 				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
@@ -44,7 +49,9 @@ var/global/list/unused_trade_stations = list("sol")
 				M.mind.objectives += trader_objectives
 				greet_trader(M)
 				success_spawn = 1
-		if(!success_spawn)
+		if(success_spawn)
+			event_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
+		else
 			unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
@@ -55,17 +62,14 @@ var/global/list/unused_trade_stations = list("sol")
 		show_objectives(M.mind)
 
 /datum/event/traders/proc/forge_trader_objectives()
-	var/i = 1
-	var/max_objectives = pick(2, 2, 2, 2, 3, 3, 3, 4)
 	var/list/objs = list()
-	var/list/goals = list("stockparts")
-	while(i<= max_objectives)
-		var/goal = pick(goals)
-		var/datum/objective/trade/O
-		if(goal == "stockparts")
-			O = new /datum/objective/trade/stock(station)
-		O.choose_target()
-		objs += O
 
-		i++
+	var/datum/objective/trade/plasma/P = new /datum/objective/trade/plasma
+	P.choose_target()
+	objs += P
+
+	var/datum/objective/trade/credits/C = new /datum/objective/trade/credits
+	C.choose_target()
+	objs += C
+
 	return objs

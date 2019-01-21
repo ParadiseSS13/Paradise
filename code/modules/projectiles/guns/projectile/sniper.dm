@@ -28,6 +28,14 @@
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
 	origin_tech = "combat=7;syndicate=6"
 
+/obj/item/gun/projectile/automatic/sniper_rifle/soporific
+	name = "Soporific sniper rifle"
+	desc = "A sniper rifle that's primarily used to fire non-lethal soporific rounds."
+	origin_tech = "combat=7;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/soporific
+	can_unsuppress = 0
+	can_suppress = 0
+
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"

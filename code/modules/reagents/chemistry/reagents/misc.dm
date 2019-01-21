@@ -117,6 +117,10 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_message = "sub-par bling"
 
+/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_SILVER))
+		M.reagents.add_reagent("toxin", volume)
+	. = ..()
 
 /datum/reagent/aluminum
 	name = "Aluminum"
@@ -158,6 +162,11 @@
 		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
+	..()
+
+/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
+		M.reagents.add_reagent("toxin", volume)
 	..()
 
 //foam
