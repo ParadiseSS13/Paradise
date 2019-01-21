@@ -1,0 +1,4 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - tweak: "Backpacks will now give a rough indication as to how much space they have left when examining them."
