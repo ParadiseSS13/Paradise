@@ -998,11 +998,6 @@
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
-/obj/item/storage/box/clown
-	name = "clown box"
-	desc = "A colorful cardboard box for the clown"
-	icon_state = "box_clown"
-
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

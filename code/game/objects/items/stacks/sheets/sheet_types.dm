@@ -252,16 +252,6 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
 )
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
-		var/atom/droploc = drop_location()
-		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
-			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
-			new/obj/item/storage/box/clown(droploc) //bugfix
-	else
-		. = ..()
-
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."

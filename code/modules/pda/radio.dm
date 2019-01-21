@@ -96,9 +96,6 @@
 	if(radio_controller)
 		radio_controller.add_object(src, control_freq, filter = bot_filter)
 
-/obj/item/integrated_radio/honkbot
-	bot_filter = RADIO_HONKBOT
-	bot_type = HONK_BOT
 
 /obj/item/integrated_radio/beepsky
 	bot_filter = RADIO_SECBOT
