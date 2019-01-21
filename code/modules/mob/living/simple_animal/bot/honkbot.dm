@@ -29,7 +29,6 @@
 	var/last_found = FALSE	//There's a delay
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
-	
 /obj/machinery/bot_core/honkbot
 	req_one_access = list(access_clown, access_robotics, access_mime)
 
