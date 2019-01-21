@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "RD, CMO, and CE greys will now properly get a translator implant if they need one."
