@@ -530,7 +530,7 @@ var/list/ghostteleportlocs = list()
 //SYNDICATES
 
 /area/syndicate_mothership
-	name = "\improper Syndicate Mothership"
+	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
 	requires_power = 0
 
