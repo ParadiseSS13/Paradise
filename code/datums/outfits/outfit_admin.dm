@@ -117,7 +117,7 @@
 	name = "Syndicate Strike Team"
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_syndicate_commando()
+	return H.equip_syndicate_commando(FALSE, TRUE)
 
 
 /datum/outfit/admin/syndicate/spy
@@ -702,6 +702,8 @@
 
 	uniform = /obj/item/clothing/under/rank/cargotech
 	back = /obj/item/storage/backpack/industrial
+	belt = /obj/item/melee/classic_baton
+	head = /obj/item/clothing/head/soft
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses

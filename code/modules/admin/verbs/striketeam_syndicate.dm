@@ -85,6 +85,10 @@ var/global/sent_syndicate_strike_team = 0
 
 			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
 			new_syndicate_commando.faction += "syndicate"
+			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+			opshud.join_hud(new_syndicate_commando.mind.current)
+			set_antag_hud(new_syndicate_commando.mind.current, "hudoperative")
+			new_syndicate_commando.regenerate_icons()
 			is_leader = FALSE
 			syndicate_commando_number--
 
@@ -93,7 +97,7 @@ var/global/sent_syndicate_strike_team = 0
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>")
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
 	feedback_add_details("admin_verb","SDTHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -122,49 +126,46 @@ var/global/sent_syndicate_strike_team = 0
 	qdel(spawn_location)
 	return new_syndicate_commando
 
-/mob/living/carbon/human/proc/equip_syndicate_commando(is_leader = FALSE)
-
+/mob/living/carbon/human/proc/equip_syndicate_commando(is_leader = FALSE, full_gear = FALSE)
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate/black/red/strike(src), slot_wear_suit)
-	else
-		equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate/black/strike(src), slot_wear_suit)
+	if(!full_gear)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/syndicate/black/red/strike(src), slot_head)
-	else
-		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/syndicate/black/strike(src), slot_head)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
 
 	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), slot_in_backpack)
 
-	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/card/emag(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
-	equip_to_slot_or_del(new /obj/item/grenade/empgrenade(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/double/full(src), slot_s_store)
-	equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol/m1911(src), slot_belt)
+	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
+	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
 
-	equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
+	if(full_gear)
+		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst(src), slot_head)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
+		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
+		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), slot_belt)
+		equip_to_slot_or_del(new /obj/item/tank/jetpack/oxygen/harness(src), slot_s_store)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
+		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
+		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)
 
+	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
+	D.implant(src)
 	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "syndie"
-	W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
 	W.assignment = "Syndicate Commando"
 	W.access += get_syndicate_access(W.assignment)
 	W.registered_name = real_name
