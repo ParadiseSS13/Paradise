@@ -56,7 +56,7 @@
 				vr.unEquip(O)
 			else
 				qdel(O)
-		qdel(src)
+		QDEL_IN(src, 15)
 
 
 /mob/living/carbon/human/virtual_reality/Destroy()
