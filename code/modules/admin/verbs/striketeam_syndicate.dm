@@ -155,6 +155,9 @@ var/global/sent_syndicate_strike_team = 0
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
 		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
 		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)
+
+	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
+	D.implant(src)
 	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "syndie"
