@@ -47,6 +47,8 @@
 	secure = TRUE	//start with ID lock enabled
 
 /obj/machinery/suit_storage_unit/captain
+	name = "captain's suit storage unit"
+	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
 	suit_type    = /obj/item/clothing/suit/space/captain
 	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
@@ -57,6 +59,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/engine
+	name = "engineering suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engineering
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/engineering
 	mask_type    = /obj/item/clothing/mask/breath
@@ -67,6 +70,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/ce
+	name = "chief engineer's suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/elite
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/elite
 	mask_type    = /obj/item/clothing/mask/gas
@@ -77,15 +81,21 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/security
+	name = "security suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/clothing/shoes/magboots
 	req_access = list(access_security)
 
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/security/pod_pilot
+	req_access = list(access_pilot)
+
 /obj/machinery/suit_storage_unit/atmos
+	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/atmos
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/atmos
 	mask_type    = /obj/item/clothing/mask/gas
@@ -96,6 +106,7 @@
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/mining
+	name = "mining suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/mining
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	mask_type    = /obj/item/clothing/mask/breath
@@ -113,7 +124,32 @@
 /obj/machinery/suit_storage_unit/cmo/secure
 	secure = TRUE
 
+//version of the SSU for medbay secondary storage. Includes magboots.
+/obj/machinery/suit_storage_unit/cmo/secure/sec_storage
+	name = "medical suit storage unit"
+	mask_type = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/clothing/shoes/magboots
+
+/obj/machinery/suit_storage_unit/clown
+	name = "clown suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/eva/clown
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/clown
+	req_access = list(access_clown)
+
+/obj/machinery/suit_storage_unit/clown/secure
+	secure = TRUE
+
+/obj/machinery/suit_storage_unit/mime
+	name = "mime suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/eva/mime
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/mime
+	req_access = list(access_mime)
+
+/obj/machinery/suit_storage_unit/mime/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/syndicate
+	name = "syndicate suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/syndi
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	mask_type    = /obj/item/clothing/mask/gas/syndicate
@@ -163,6 +199,39 @@
 
 /obj/machinery/suit_storage_unit/ert/medical/secure
 	secure = TRUE
+
+//telecoms NASA SSU. Suits themselves are assigned in Initialize
+/obj/machinery/suit_storage_unit/telecoms
+	mask_type    = /obj/item/clothing/mask/breath
+	storage_type = /obj/item/tank/jetpack/void
+	req_access = list(access_tcomsat)
+
+/obj/machinery/suit_storage_unit/telecoms/secure
+	secure = TRUE
+
+//copied from /obj/effect/nasavoidsuitspawner
+/obj/machinery/suit_storage_unit/telecoms/Initialize()
+	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
+		if("red")
+			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
+			suit_type = /obj/item/clothing/suit/space/nasavoid
+		if("green")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/green
+			suit_type = /obj/item/clothing/suit/space/nasavoid/green
+		if("ntblue")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/ntblue
+			suit_type = /obj/item/clothing/suit/space/nasavoid/ntblue
+		if("purple")
+			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid/purple
+			suit_type = /obj/item/clothing/suit/space/nasavoid/purple
+		if("yellow")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/yellow
+			suit_type = /obj/item/clothing/suit/space/nasavoid/yellow
+		if("ltblue")
+			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/ltblue
+			suit_type = /obj/item/clothing/suit/space/nasavoid/ltblue
+	..()
+
 
 /obj/machinery/suit_storage_unit/New()
 	..()
