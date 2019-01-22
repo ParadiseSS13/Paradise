@@ -6,7 +6,7 @@
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
 	var/chem_catalysts[] = list() //like tools but for reagents
-	var/category = CAT_MISC // Recipe category
+	var/category = CAT_NONE // Recipe category
 	var/roundstart_enabled = TRUE //Set to FALSE if you don't want a particular crafting recipe to be available all the time
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
@@ -251,6 +251,7 @@
 	reqs = list(/obj/item/camera = 1,
 				/datum/reagent/holywater = 10)
 	parts = list(/obj/item/camera = 1)
+	category = CAT_MISC
 
 /datum/crafting_recipe/papersack
 	name = "Paper Sack"
@@ -273,6 +274,7 @@
 	time = 50
 	reqs = list(/obj/item/stack/tape_roll = 1,
 				/datum/reagent/liquidgibs = 10)
+	category = CAT_MISC
 
 /datum/crafting_recipe/garrote
 	name = "Makeshift Garrote"
@@ -309,6 +311,7 @@
 	time = 15
 	reqs = list(/obj/item/clothing/gloves/color/latex = 1,
 				/obj/item/stack/cable_coil = 5)
+	category = CAT_MISC
 
 /datum/crafting_recipe/gold_horn
 	name = "Golden bike horn"

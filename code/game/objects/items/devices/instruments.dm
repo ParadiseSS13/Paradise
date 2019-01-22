@@ -168,6 +168,7 @@
 				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
+	category = CAT_MISC
 
 /datum/crafting_recipe/guitar
 	name = "Guitar"
@@ -177,6 +178,7 @@
 				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
+	category = CAT_MISC
 
 /datum/crafting_recipe/eguitar
 	name = "Electric Guitar"
@@ -186,3 +188,4 @@
 				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
+	category = CAT_MISC
