@@ -2710,7 +2710,7 @@
 "baf" = (/turf/simulated/floor/plating,/area/gateway)
 "bag" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1; initialize_directions = 11; level = 1},/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
 "bah" = (/obj/effect/decal/warning_stripes/blue/hollow,/obj/machinery/suit_storage_unit/clown,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ai_monitored/storage/eva)
-"bai" = (/obj/effect/decal/warning_stripes/blue/hollow,/obj/machinery/suit_storage_unit/mime/secure,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ai_monitored/storage/eva)
+"bai" = (/obj/effect/decal/warning_stripes/blue/hollow,/obj/machinery/suit_storage_unit/mime,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ai_monitored/storage/eva)
 "baj" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots{pixel_x = 2; pixel_y = 2},/obj/item/clothing/shoes/magboots{pixel_x = -3; pixel_y = -3},/obj/effect/decal/warning_stripes/blue/hollow,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ai_monitored/storage/eva)
 "bak" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating,/area/maintenance/fpmaint)
 "bal" = (/obj/effect/spawner/lootdrop/maintenance,/obj/item/clothing/mask/gas,/turf/simulated/floor/plating,/area/maintenance/fpmaint)
