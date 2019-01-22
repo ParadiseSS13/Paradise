@@ -168,6 +168,7 @@
 	throw_speed = 1
 	throw_range = 5
 	force = 2
+	throwforce = 2
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked", "educated")
 	burn_state = FLAMMABLE
