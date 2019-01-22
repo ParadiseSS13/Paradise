@@ -1,0 +1,6 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - rscadd: "Suit Storage Units to most places that held hardsuits."
+  - rscdel: "Ugly hardsuits on racks"
+  - tweak: "reworked engineering slightly, removed the pointless hardsuit holding room."
