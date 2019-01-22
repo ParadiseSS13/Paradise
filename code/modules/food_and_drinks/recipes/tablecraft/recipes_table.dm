@@ -253,3 +253,22 @@
 	tools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
 	category = CAT_FOOD
+
+/datum/crafting_recipe/food
+	category = CAT_FOOD
+
+/datum/crafting_recipe/food/New()
+	parts |= reqs
+
+/datum/crafting_recipe/food/cak
+	name = "Living cat/cake hybrid"
+	reqs = list(
+		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/internal/heart = 1,
+		/obj/item/reagent_containers/food/snacks/sliceable/birthdaycake  = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab  = 3,
+		/datum/reagent/blood = 30,
+		/datum/reagent/consumable/sprinkles = 5,
+		/datum/reagent/teslium = 1,
+	)
+	result = /mob/living/simple_animal/pet/cat/cak
