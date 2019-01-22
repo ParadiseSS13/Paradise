@@ -198,7 +198,7 @@
 /obj/item/bonesetter/bluespace
 	name = "bluespace bone setter"
 	origin_tech = "materials=5;biotech=5"
-	toolspeed = 0.2
+	toolspeed = 0.5
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
