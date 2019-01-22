@@ -91,7 +91,7 @@
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/security/secure/pod_pilot
+/obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(access_pilot)
 
 /obj/machinery/suit_storage_unit/atmos
