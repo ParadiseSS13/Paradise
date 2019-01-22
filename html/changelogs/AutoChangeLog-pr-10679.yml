@@ -1,0 +1,5 @@
+author: "Terilia"
+delete-after: True
+changes: 
+  - rscadd: "Added Cake Cat - allowing the chef to create a living small pet in his kitchen."
+  - bugfix: "Fixed frosted donuts, as they were filled with \"spinkles\" and not \"sprinkles\""
