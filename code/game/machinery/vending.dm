@@ -1309,7 +1309,7 @@
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6,
-					/obj/item/clothing/ears/vr_headset = 5)
+					/obj/item/clothing/ears/vr_headset = 10)
 	contraband = list(/obj/item/kitchen/knife = 6)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
