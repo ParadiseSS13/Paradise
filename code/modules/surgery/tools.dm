@@ -195,6 +195,11 @@
 /obj/item/bonesetter/augment
 	toolspeed = 0.5
 
+/obj/item/bonesetter/bluespace
+	name = "bluespace bone setter"
+	origin_tech = "materials=5;biotech=5"
+	toolspeed = 0.2
+
 /obj/item/surgical_drapes
 	name = "surgical drapes"
 	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."

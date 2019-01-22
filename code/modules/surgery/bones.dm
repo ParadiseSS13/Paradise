@@ -34,6 +34,7 @@
 
 	allowed_tools = list(
 	/obj/item/bonegel = 100,	\
+	/obj/item/bonesetter/bluespace = 100,	\
 	/obj/item/screwdriver = 90
 	)
 	can_infect = 1
