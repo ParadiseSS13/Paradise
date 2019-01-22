@@ -236,8 +236,8 @@
 			desc = chosen_flag.desc
 			used = TRUE
 
-/obj/item/flag/chameleon/burn()
-	explosion(loc,1,2,4,4, flame_range = 4)
+/obj/item/flag/chameleon/fire_act()
+	explosion(loc, 0, 0, 2)
 	qdel(src)
 
 /obj/item/flag/chameleon/updateFlagIcon()

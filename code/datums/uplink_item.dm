@@ -919,7 +919,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
 	reference = "CHFLAG"
 	item = /obj/item/flag/chameleon
-	cost = 7
+	cost = 2
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
