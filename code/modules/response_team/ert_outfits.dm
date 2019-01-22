@@ -52,8 +52,7 @@
 		/obj/item/clothing/head/helmet/ert/command = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1,
-		/obj/item/flashlight = 1
+		/obj/item/storage/lockbox/mindshield = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/red
@@ -127,8 +126,7 @@
 		/obj/item/clothing/head/helmet/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/storage/box/teargas = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/storage/box/teargas = 1
 	)
 
 /datum/outfit/job/centcom/response_team/security/red
@@ -217,8 +215,7 @@
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/t_scanner = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
-		/obj/item/stack/sheet/metal/fifty = 1,
-		/obj/item/flashlight = 1
+		/obj/item/stack/sheet/metal/fifty = 1
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/red
@@ -305,7 +302,6 @@
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
 		/obj/item/storage/pill_bottle/ert = 1,
-		/obj/item/flashlight = 1,
 		/obj/item/healthupgrade = 1
 	)
 
@@ -385,8 +381,7 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
-		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/storage/box/zipties = 1
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
@@ -395,6 +390,10 @@
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
 	suit_store = /obj/item/gun/energy/gun/advtaser
 	r_pocket = /obj/item/nullrod
+	backpack_contents = list(
+		/obj/item/clothing/mask/gas/sechailer/swat = 1,
+		/obj/item/storage/box/zipties = 1
+		)
 
 /datum/outfit/job/centcom/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
@@ -444,8 +443,7 @@
 		/obj/item/reagent_containers/spray/cleaner = 1,
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/holosign_creator = 1,
-		/obj/item/flashlight = 1)
+		/obj/item/holosign_creator = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"

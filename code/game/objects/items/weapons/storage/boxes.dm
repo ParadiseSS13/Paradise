@@ -987,6 +987,7 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "box_ert"
+	storage_slots = 10
 
 /obj/item/storage/box/responseteam/New()
 	..()
@@ -997,6 +998,7 @@
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/seclite(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
