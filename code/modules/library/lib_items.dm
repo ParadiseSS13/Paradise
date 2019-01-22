@@ -170,7 +170,7 @@
 	force = 2
 	throwforce = 2
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
-	attack_verb = list("bashed", "whacked", "educated")
+	attack_verb = list("bashed", "whacked")
 	burn_state = FLAMMABLE
 
 	var/dat			 // Actual page content
@@ -285,6 +285,14 @@
 	else
 		return ..()
 
+/obj/item/book/attack(mob/M, mob/living/user)
+	if(user.a_intent == INTENT_HELP)
+		force = 0
+		attack_verb = list("educated")
+	else
+		force = initial(force)
+		attack_verb = list("bashed", "whacked")
+	..()
 
 /*
  * Barcode Scanner
