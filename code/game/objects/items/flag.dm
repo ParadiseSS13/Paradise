@@ -275,6 +275,6 @@
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
 
-/obj/item/flag/chameleon/prearmed/New()
+/obj/item/flag/chameleon/depot/New()
 	..()
-	boobytrap = new /obj/item/grenade/syndieminibomb(src)
+	boobytrap = new /obj/item/grenade/gas/plasma(src)
