@@ -1,0 +1,4 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - imageadd: "Updated some drink sprites!"
