@@ -290,9 +290,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
-			if(config.allow_collabs)
-				dat += "<b>Setting NT Skeptical or Opposed may get you a subtle note from the syndicate with information. \
-					Note:This does not make you an antag but you can assist them in ways within bound rules and to enhance roleplay.</b><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(lentext(flavor_text) <= 40)
 				if(!lentext(flavor_text))	dat += "\[...\]<br>"
@@ -1750,7 +1747,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						backbag = new_backbag
 
 				if("nt_relation")
-					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
+					var/relationdesc = "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks."
+					if(config.allow_collabs)
+						relationdesc += " Setting NT Skeptical or Opposed may get you a subtle note from the syndicate. \
+						Note:This does not make you an antag but you can assist Syndicate in ways within bound rules and to enhance roleplay."
+					var/new_relation = input(user, relationdesc, "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
 					if(new_relation)
 						nanotrasen_relation = new_relation
 
