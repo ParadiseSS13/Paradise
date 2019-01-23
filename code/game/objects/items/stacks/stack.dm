@@ -273,7 +273,9 @@
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!in_range(src, user) || issilicon(usr))
+	if(!in_range(src, user))
+		return
+	if(!ishuman(usr))
 		return
 	if(amount < 1)
 		return
