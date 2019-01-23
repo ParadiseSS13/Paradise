@@ -9,7 +9,7 @@
 	var/icon/virtualIcon
 	var/list/bulletholes = list()
 
-	Destroy()
+/obj/item/target/Destroy()
 		// if a target is deleted and associated with a stake, force stake to forget
 		for(var/obj/structure/target_stake/T in view(3,src))
 			if(T.pinned_target == src)
@@ -18,7 +18,7 @@
 				break
 		return ..() // delete target
 
-	Move()
+/obj/item/target/Move()
 		..()
 		// After target moves, check for nearby stakes. If associated, move to target
 		for(var/obj/structure/target_stake/M in view(3,src))
@@ -32,7 +32,7 @@
 
 
 
-	attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/target/attackby(obj/item/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weldingtool))
 			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
@@ -41,7 +41,7 @@
 				return
 
 
-	attack_hand(mob/user as mob)
+/obj/item/target/attack_hand(mob/user as mob)
 		// taking pinned targets off!
 		var/obj/structure/target_stake/stake
 		for(var/obj/structure/target_stake/T in view(3,src))
@@ -70,11 +70,11 @@
 		else
 			..()
 
-	syndicate
+/obj/item/target/syndicate
 		icon_state = "target_s"
 		desc = "A shooting target that looks like a syndicate scum."
 		hp = 2600 // i guess syndie targets are sturdier?
-	alien
+/obj/item/target/alien
 		icon_state = "target_q"
 		desc = "A shooting target that looks like a xenomorphic alien."
 		hp = 2350 // alium onest too kinda
