@@ -255,7 +255,6 @@
 	category = CAT_FOOD
 
 /datum/crafting_recipe/food
-	category = CAT_FOOD
 
 /datum/crafting_recipe/food/New()
 	parts |= reqs
@@ -272,3 +271,4 @@
 		/datum/reagent/teslium = 1,
 	)
 	result = /mob/living/simple_animal/pet/cat/cak
+	category = CAT_FOOD
