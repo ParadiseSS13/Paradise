@@ -216,7 +216,7 @@
 	if(used)
 		return ..()
 
-	var/list/flag_types = typesof(/obj/item/flag) - list(src.type, /obj/item/flag)
+	var/list/flag_types = typesof(/obj/item/flag) - list(/obj/item/flag, /obj/item/flag/chameleon, /obj/item/flag/chameleon/prearmed)
 	var/list/flag = list()
 
 	for(var/flag_type in flag_types)
@@ -274,3 +274,7 @@
 
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
+
+/obj/item/flag/chameleon/prearmed/New()
+	..()
+	boobytrap = new /obj/item/grenade/syndieminibomb(src)

@@ -625,7 +625,7 @@
 "ma" = (/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/outer)
 "mb" = (/obj/effect/landmark{name = "syndi_depot_bot"},/turf/simulated/floor/plating/airless/asteroid,/area/syndicate_depot/outer)
 "mc" = (/obj/machinery/light{dir = 1; on = 1},/obj/item/stack/sheet/metal{layer = 4.1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/core)
-"md" = (/obj/item/flag/chameleon{icon_state = "syndiflag"; name = "Syndicate Flag"; used = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/core)
+"md" = (/obj/item/flag/chameleon/prearmed{icon_state = "syndiflag"; name = "Syndicate Flag"; used = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/core)
 "me" = (/turf/simulated/wall,/area/syndicate_depot/outer)
 "mf" = (/obj/effect/spawner/random_spawners/syndicate/turret/external,/turf/simulated/floor/plating/airless/asteroid,/area/syndicate_depot/outer)
 "mg" = (/obj/machinery/light,/turf/simulated/floor/plating/airless/asteroid,/area/syndicate_depot/outer)
