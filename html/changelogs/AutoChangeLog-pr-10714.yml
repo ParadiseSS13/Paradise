@@ -1,5 +1,0 @@
-author: "Dovydas12345"
-delete-after: True
-changes: 
-  - bugfix: "Fixes simple animals (mice, corgis, etc.) and silicons (borgs, drones) being able to grab decks of cards, paperbins, chairs, stools."
-  - bugfix: "Fixes simple animals (mice, corgis, etc.) and silicons (borgs, drones) being able to split stacks of sheets."
