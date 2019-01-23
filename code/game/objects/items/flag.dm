@@ -216,7 +216,7 @@
 	if(used)
 		return ..()
 
-	var/list/flag_types = typesof(/obj/item/flag) - list(/obj/item/flag, /obj/item/flag/chameleon, /obj/item/flag/chameleon/prearmed)
+	var/list/flag_types = typesof(/obj/item/flag) - list(/obj/item/flag, /obj/item/flag/chameleon, /obj/item/flag/chameleon/depot)
 	var/list/flag = list()
 
 	for(var/flag_type in flag_types)
