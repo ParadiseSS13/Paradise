@@ -1604,3 +1604,11 @@
 	icon_state = "asmer_accordion"
 	item_state = "asmer_accordion"
 
+
+/obj/item/clothing/head/rabbitears/fluff/pinesalad_bunny // Pineapple Salad : Dan Jello
+	name = "Bluespace rabbit ears"
+	desc = "A pair of sparkly bluespace rabbit ears, with a small tag on them that reads,"/"Dan Jello~"/". Yuck, \
+	 there's some pink slime on the part that goes on your head!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ps_bunny"
+
