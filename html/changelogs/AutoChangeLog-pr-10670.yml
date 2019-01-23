@@ -1,5 +1,0 @@
-author: "iantine"
-delete-after: True
-changes: 
-  - rscadd: "Lumi's fluff mouse"
-  - tweak: "Mice now use their rest sprite when resting"

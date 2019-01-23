@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added sprites for the SST hardsuit (Mostly black with dark red), sprited by Ionward"
-  - rscadd: "Mapped SST and SIT shuttles on deltastation map."
