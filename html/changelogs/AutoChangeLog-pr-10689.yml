@@ -1,0 +1,4 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - bugfix: "Damp rags no longer have a lid, and must remain inferior to other containers."
