@@ -144,7 +144,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
-	desc = "Rapidly stimulates and regernates the body's organ system."
+	desc = "Rapidly stimulates and regenerates the body's organ system."
 	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
