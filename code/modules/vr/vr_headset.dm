@@ -48,10 +48,14 @@
 				if(exile && !(istype(A, /area/security/vr)))
 					visible_message("<span class='notice'>ERROR: No connection to containment downlink in this area</span>")
 					return
+				if(istype(H, /mob/living/carbon/human/virtual_reality))
+					to_chat(H, "<span class='notice'>No. You can't enter VR in VR.</span>")
+					return
 				if(vr_human == null)
 					vr_human = spawn_vr_avatar(H, lobby)
 				else
 					control_remote(H, vr_human)
+					H.vr_avatar = vr_human
 				user_health = H.health
 				processing_objects.Add(src)
 				room = A

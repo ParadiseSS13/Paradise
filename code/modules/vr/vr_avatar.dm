@@ -73,6 +73,7 @@
 /mob/living/carbon/human/virtual_reality/proc/revert_to_reality(var/remove)
 	if(real_me && ckey)
 		real_me.ckey = ckey
+		real_me.vr_avatar = null
 		real_me.EyeBlind(2)
 		real_me.Confused(2)
 		var/mob/living/carbon/human/virtual_reality/vr = src
