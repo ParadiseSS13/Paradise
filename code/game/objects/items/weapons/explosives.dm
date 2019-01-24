@@ -135,13 +135,13 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /obj/))
-				location = get_atom_on_turf(target)
+			if(istype(target, /turf/))
+				location = get_turf(target)	// Set the explosion location to turf if planted directly on a wall or floor
 			else
-				location = get_turf(target)
-				target.overlays -= image_overlay
+				location = get_atom_on_turf(target)	// Otherwise, make sure we're blowing up what's on top of the turf
+			target.overlays -= image_overlay
 	else
-		location = get_turf(src)
+		location = get_atom_on_turf(src)
 	if(location)
 		explosion(location,0,0,3)
 		location.ex_act(2, target)
@@ -165,10 +165,13 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			location = get_turf(target)
+			if(istype(target, /turf/))
+				location = get_turf(target)
+			else
+				location = get_atom_on_turf(target)
 			target.overlays -= image_overlay
 	else
-		location = get_turf(src)
+		location = get_atom_on_turf(src)
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
