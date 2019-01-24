@@ -135,13 +135,16 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			location = get_turf(target)
-			target.overlays -= image_overlay
+			if(istype(target, /obj/))
+				location = get_atom_on_turf(target)
+			else
+				location = get_turf(target)
+				target.overlays -= image_overlay
 	else
 		location = get_turf(src)
 	if(location)
-		location.ex_act(2, target)
 		explosion(location,0,0,3)
+		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
 		M.gib()
