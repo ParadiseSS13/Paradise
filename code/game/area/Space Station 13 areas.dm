@@ -1408,28 +1408,28 @@ var/list/ghostteleportlocs = list()
 	valid_territory = FALSE
 
 /area/solar/auxport
-		name = "\improper Fore Port Solar Array"
-		icon_state = "panelsA"
+	name = "\improper Fore Port Solar Array"
+	icon_state = "panelsA"
 
 /area/solar/auxstarboard
-		name = "\improper Fore Starboard Solar Array"
-		icon_state = "panelsA"
+	name = "\improper Fore Starboard Solar Array"
+	icon_state = "panelsA"
 
 /area/solar/fore
-		name = "\improper Fore Solar Array"
-		icon_state = "yellow"
+	name = "\improper Fore Solar Array"
+	icon_state = "yellow"
 
 /area/solar/aft
-		name = "\improper Aft Solar Array"
-		icon_state = "aft"
+	name = "\improper Aft Solar Array"
+	icon_state = "aft"
 
 /area/solar/starboard
-		name = "\improper Aft Starboard Solar Array"
-		icon_state = "panelsS"
+	name = "\improper Aft Starboard Solar Array"
+	icon_state = "panelsS"
 
 /area/solar/port
-		name = "\improper Aft Port Solar Array"
-		icon_state = "panelsP"
+	name = "\improper Aft Port Solar Array"
+	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
 	name = "\improper Fore Port Solar Maintenance"
