@@ -23,6 +23,7 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	allow_pai = 0
 
+	var/block_chance = 50
 	var/spin_icon = "griefsky-c" // griefsky and griefsky junior have dif icons
 	var/dmg = 30
 	var/spam_flag = FALSE
@@ -225,9 +226,8 @@ Auto Patrol: []"},
 		if(!spam_flag)
 			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 			spam_flag = TRUE
-			addtimer(CALLBACK(src, .proc/spam_flag_false), 150) //to avoid spamming comms of sec for each hit
-	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
-							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
+			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			visible_message("[src] flails his swords and cuts [C]!")
 
 /mob/living/simple_animal/bot/griefsky/Life(seconds, times_fired)
 	. = ..()
@@ -426,6 +426,7 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/griefsky/bullet_act(obj/item/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, FALSE)
+	retaliate(P.firer)
 	return FALSE
 
 /obj/machinery/bot_core/secbot
