@@ -900,6 +900,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	icon_state = "dusty_jacket"
 
+/obj/item/clothing/suit/fluff/cheeky_sov_coat //CheekyCrenando: Srusu Rskuzu
+	name = "Srusu's Greatcoat"
+	desc = "A heavy wool Soviet-style greatcoat. A name is written in fancy handwriting on the inside tag: Srusu Rskuzu"
+	icon = 'icons/obj/custom_items.dmi'
+	item_state = "cheeky_sov_coat"
+	icon_state = "cheeky_sov_coat"
+
 /obj/item/clothing/suit/fluff/supplymaster_jacket //Denthamos: Henry Grandpa Gadow
 	name = "faded NT Supply Master's Coat"
 	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
