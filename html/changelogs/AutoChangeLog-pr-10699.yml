@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Reduced the cost of plasteel bomb frame crafting to 3 plasteel sheets (from 10)"
