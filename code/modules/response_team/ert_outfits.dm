@@ -414,7 +414,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/gun/nuclear
-	l_pocket = /obj/item/grenade/clusterbuster/holy
+	l_pocket = /obj/item/grenade/clusterbuster/holywater
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert

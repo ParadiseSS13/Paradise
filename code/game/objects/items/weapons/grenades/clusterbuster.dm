@@ -154,7 +154,7 @@
 	desc = "Almost as good as the summer of '69."
 	payload = /obj/item/grenade/chem_grenade/drugs
 
-/obj/item/grenade/clusterbuster/holy
+/obj/item/grenade/clusterbuster/holywater
 	name = "Purification Grenade"
 	desc = "Blessed excessively."
 	payload = /obj/item/grenade/chem_grenade/holywater

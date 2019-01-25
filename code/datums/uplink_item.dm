@@ -242,6 +242,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 15
 	job = list("Chaplain")
 
+/datum/uplink_item/jobspecific/holy_hand_grenade
+	name = "Holy Hand Grenade"
+	desc = "A grenade on a 5 second fuse that will cause a huge holy explosion. Due to its power, we highly recommend you do NOT count to three before throwing it, and run in the opposite direction instead. Five is right out."
+	reference = "HHG"
+	item = /obj/item/grenade/holy
+	cost = 18
+	job = list("Chaplain")
+	surplus = 0 //we don't want this just given to anybody
+	hijack_only = TRUE //can't be used due to server rules by anyone without hijack anyway
+
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "Artistic Toolbox"
 	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."

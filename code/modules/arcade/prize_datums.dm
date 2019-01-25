@@ -192,6 +192,12 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/gun/projectile/revolver/capgun
 	cost = 75
 
+/datum/prize_item/codex_gigas
+	name = "Toy Codex Gigas"
+	desc = "For helping you come up with writing ideas for your diabolical adventures."
+	typepath = /obj/item/toy/codex_gigas/
+	cost = 75
+
 /datum/prize_item/pet_rock
 	name = "Pet Rock"
 	desc = "A pet of your very own!"
@@ -276,16 +282,16 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/griffin
 	cost = 125
 
-/datum/prize_item/codex_gigas
-	name = "Toy Codex Gigas"
-	desc = "For helping you come up with writing ideas for your diabolical adventures."
-	typepath = /obj/item/toy/codex_gigas/
-	cost = 75
-
 /datum/prize_item/esword
 	name = "Toy Energy Sword"
 	desc = "A plastic replica of an energy blade."
 	typepath = /obj/item/toy/sword
+	cost = 150
+
+/datum/prize_item/holy_hand_grenade
+	name = "Holy Hand Grenade"
+	desc = "Blow thy ennemy to bits in the Lord's mercy."
+	typepath = /obj/item/grenade/holy/fake
 	cost = 150
 
 /datum/prize_item/fakespace
