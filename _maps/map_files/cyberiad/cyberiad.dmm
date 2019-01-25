@@ -3530,7 +3530,7 @@
 "bpT" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/carpet,/area/crew_quarters/mrchangs)
 "bpU" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 1; on = 1},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 8},/area/hydroponics)
 "bpV" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "vault"; tag = "icon-vault (WEST)"},/area/hydroponics)
-"bpW" = (/obj/machinery/smartfridge,/turf/simulated/wall,/area/hydroponics)
+"bpW" = (/obj/machinery/smartfridge,/turf/simulated/floor/plating,/area/hydroponics)
 "bpX" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 1; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/hydroponics)
 "bpY" = (/obj/machinery/door/window/northright{base_state = "right"; dir = 8; icon_state = "right"; name = "Library Desk Door"; req_access_txt = "37"},/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor/wood,/area/library)
 "bpZ" = (/obj/structure/chair/stool,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/plasteel{dir = 1; icon_state = "chapel"},/area/chapel/main)
