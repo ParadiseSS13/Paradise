@@ -1731,7 +1731,7 @@
 "aHo" = (/obj/machinery/airlock_sensor{frequency = 1379; id_tag = "eva_sensor"; pixel_x = 25; pixel_y = 0},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; initialize_directions = 10},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
 "aHp" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/turf/simulated/floor/plating,/area/maintenance/fsmaint)
 "aHq" = (/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 4; frequency = 1379; id_tag = "eva_pump"},/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
-"aHr" = (/obj/structure/table,/obj/item/melee/baseball_bat/homerun,/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"aHr" = (/obj/structure/table,/obj/item/melee/baseball_bat,/turf/simulated/floor/plating,/area/maintenance/fpmaint)
 "aHs" = (/obj/effect/spawner/lootdrop/maintenance{lootcount = 2; name = "2maintenance loot spawner"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
 "aHt" = (/obj/structure/table/wood/poker,/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/carpet,/area/maintenance/fpmaint)
 "aHu" = (/obj/structure/table/wood/poker,/obj/item/dice/d6,/turf/simulated/floor/carpet,/area/maintenance/fpmaint)
