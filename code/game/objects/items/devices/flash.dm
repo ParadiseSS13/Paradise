@@ -188,12 +188,12 @@
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
-/obj/item/flash/cameraflash //todo list give it charges, (change the sound to camera sound?)
+/obj/item/flash/cameraflash
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
-	item_state = "electropack" //spelling, a coders worst enemy
+	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	can_overcharge = FALSE
@@ -213,7 +213,7 @@
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/flash/cameraflash/process() //charging works now
+/obj/item/flash/cameraflash/process() //this and the two parts above are part of the charge system.
 	charge_tick++
 	if(charge_tick < 10)
 		return FALSE
@@ -230,12 +230,7 @@
 			return 0
 
 		if(iscarbon(M))
-			flash_carbon(M, user, 5, 1)
-			if(overcharged)
-				M.adjust_fire_stacks(6)
-				M.IgniteMob()
-				burn_out()
-			return 1
+			flash_carbon(M, user, 5, 1)//removed the overcharge check to trim code
 
 		else if(issilicon(M))
 			if(isrobot(M))
@@ -263,7 +258,7 @@
 		to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
 		if(!try_use_flash(user))
 			return 0
-	
+
 		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 		for(var/mob/living/carbon/M in oviewers(3, null))
 			flash_carbon(M, user, 3, 0)

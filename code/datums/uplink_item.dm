@@ -787,10 +787,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 9
 
 /datum/uplink_item/stealthy_weapons/cameraflash
-	name = "High Powered Camera"
-	desc = "A flash disguised as a camera. This flash has charges but it won't burn out like a regular flash."
-	reference = "HPC"
-	item = /obj/item/flash/cameraflash //this part has you buy a regular flash for now
+	name = "Camera Flash"
+	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\
+			 Due to its design, this flash cannot be overcharged like regular flashes can.\
+			 Useful for stunning borgs and individuals without eye protection or blinding a crowd for a get away."
+	reference = "CF"
+	item = /obj/item/flash/cameraflash
 	cost = 2
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
