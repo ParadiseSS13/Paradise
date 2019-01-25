@@ -1,4 +1,0 @@
-author: "warior4356"
-delete-after: True
-changes: 
-  - bugfix: "Drills now properly stop when turned off."

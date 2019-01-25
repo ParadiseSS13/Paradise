@@ -1,4 +1,0 @@
-author: "blinkdog"
-delete-after: True
-changes: 
-  - bugfix: "Normalized some paths in the code tree"
