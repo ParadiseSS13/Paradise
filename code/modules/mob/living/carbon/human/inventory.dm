@@ -323,6 +323,26 @@
 	else
 		. = ..()
 
+/mob/living/carbon/human/put_in_r_hand(obj/item/W)
+	var/obj/item/organ/external/temp = bodyparts_by_name["r_hand"]
+	if(!temp)
+		to_chat(src, "<span class='warning'>You try to use your right hand, but it's missing!</span>")
+		return FALSE
+	if(temp && !temp.is_usable())
+		to_chat(src, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+		return FALSE
+	..()
+
+/mob/living/carbon/human/put_in_l_hand(obj/item/W)
+	var/obj/item/organ/external/temp = bodyparts_by_name["l_hand"]
+	if(!temp)
+		to_chat(src, "<span class='warning'>You try to use your left hand, but it's missing!</span>")
+		return FALSE
+	if(temp && !temp.is_usable())
+		to_chat(src, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+		return FALSE
+	..()
+
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
 	switch(slot_id)
