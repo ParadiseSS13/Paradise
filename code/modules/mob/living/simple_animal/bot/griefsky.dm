@@ -23,10 +23,10 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	allow_pai = 0
 
-	var/block_chance = 50
+	var/block_chance = 50 // not working yet
 	var/spin_icon = "griefsky-c" // griefsky and griefsky junior have dif icons
 	var/dmg = 30
-	var/spam_flag = FALSE
+	var/spam_flag = 0
 	var/base_icon = "griefsky"
 	var/mob/living/carbon/target
 	var/oldtarget_name
@@ -44,12 +44,7 @@
 	var/onetime = 0
 
 /mob/living/simple_animal/bot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
-	spam_flag = FALSE
-
-/*/mob/living/simple_animal/bot/griefsky/explode()
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/melee/energy/sword(Tsec)
-	..() */
+	spam_flag = 0
 
 /mob/living/simple_animal/bot/griefsky/New()
 	..()
@@ -195,21 +190,6 @@ Auto Patrol: []"},
 			retaliate(H)
 	..()
 
-
-/*/mob/living/simple_animal/bot/griefsky/proc/cuff(mob/living/carbon/C)
-	mode = BOT_ARREST
-	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	spawn(60)
-		if( !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
-			return
-		if(!C.handcuffed)
-			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-			C.update_handcuffed()
-			playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
-			back_to_idle() */
-
 /mob/living/simple_animal/bot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
 	src.do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
@@ -218,14 +198,14 @@ Auto Patrol: []"},
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
-		if(prob(50)) 
+		if(prob(99)) 
 			C.Weaken(5)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		if(!spam_flag)
 			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
-			spam_flag = TRUE
+			spam_flag = 1
 			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
@@ -267,7 +247,7 @@ Auto Patrol: []"},
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			icon_state = spin_icon
-			playsound(src,'sound/effects/spinsabre.ogg',100,TRUE,-1)
+			playsound(src,'sound/effects/spinsabre.ogg',100,1,-1)
 			if(frustration >= 8)
 				walk_to(src,0)
 				back_to_idle()
@@ -277,12 +257,9 @@ Auto Patrol: []"},
 				if(target.stat == !DEAD)	
 					if(Adjacent(target) && isturf(target.loc))	// if right next to perp
 						sword_attack(target)
-
-				//	mode = BOT_PREP_ARREST
 						anchored = 1
 						target_lastloc = target.loc
 						return
-
 					else								// not next to perp
 						var/turf/olddist = get_dist(src, target)
 						walk_to(src, target,1,4)
@@ -296,39 +273,12 @@ Auto Patrol: []"},
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) ||  target.weakened < 2 )
+			if( !Adjacent(target) || !isturf(target.loc))
 				back_to_hunt()
 				return
-
-			if(iscarbon(target) && target.canBeHandcuffed())
-				if(!arrest_type)
-					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						//cuff(target)
-					else
-						back_to_idle()
-						return
 			else
 				back_to_idle()
 				return
-
-	/*	if(BOT_ARREST)
-			if(!target)
-				anchored = 0
-				mode = BOT_IDLE
-				last_found = world.time
-				frustration = 0
-				return
-
-			if(target.handcuffed) //no target or target cuffed? back to idle.
-				back_to_idle()
-				return
-
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.weakened < 2)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
-				back_to_hunt()
-				return
-			else //Try arresting again if the target escapes.
-				mode = BOT_PREP_ARREST
-				anchored = 0 */
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -362,15 +312,11 @@ Auto Patrol: []"},
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
-
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
-
 		threatlevel = C.assess_threat(src)
-
 		if(!threatlevel)
 			continue
-
 		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
@@ -384,6 +330,7 @@ Auto Patrol: []"},
 			break
 		else
 			continue
+
 /mob/living/simple_animal/bot/griefsky/proc/check_for_weapons(var/obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
 		return 1
@@ -398,7 +345,7 @@ Auto Patrol: []"},
 		new /obj/item/robot_parts/r_arm(Tsec)
 	if(prob(75))
 		new /obj/item/melee/energy/sword(Tsec)
-	do_sparks(3, TRUE, src)
+	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 
 /mob/living/simple_animal/bot/griefsky/attack_alien(var/mob/living/carbon/alien/user as mob)
@@ -425,9 +372,9 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/griefsky/bullet_act(obj/item/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
-	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, FALSE)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	retaliate(P.firer)
-	return FALSE
+	return 0
 
 /obj/machinery/bot_core/secbot
 	req_access = list(access_security)
