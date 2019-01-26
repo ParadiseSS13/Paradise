@@ -95,8 +95,8 @@
 						C.begin_step(user, H, selected_zone, target_zone, cautery_tool, current_surgery)
 						if(do_after(user, C.time * cautery_tool.toolspeed, target = M))
 							if(!isrobot(user))
-								cautery_chance *= get_location_modifier(target)
-								cautery_chance *= get_pain_modifier(target)
+								cautery_chance *= get_location_modifier(H)
+								cautery_chance *= get_pain_modifier(H)
 							if(prob(cautery_chance))
 								C.end_step(user, H, selected_zone, target_zone, cautery_tool, current_surgery)
 								M.surgeries -= current_surgery
