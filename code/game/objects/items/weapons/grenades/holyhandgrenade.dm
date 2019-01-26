@@ -21,9 +21,9 @@
 		to_chat(user, "<span class='notice'>You try to prime [src], but it's already been used.</span>")
 	else
 		..()
+		icon_state = "holyhandgrenade" //no glow on the plastic toy
 
 /obj/item/grenade/holy/fake/holy_boom()
 	playsound(loc, 'sound/items/bikehorn.ogg', 50)
 	used = TRUE
 	active = FALSE
-	icon_state = initial(icon_state)
