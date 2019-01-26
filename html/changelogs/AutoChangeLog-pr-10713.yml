@@ -1,0 +1,6 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Chameleon flag reworked : Now cost 1 TC from 7, but starts without an explosive. It can be boobytrapped using any grenade or a syndicate minibomb."
+  - tweak: "Chameleon flag moved from \"Explosives\" to \"Stealthy Tools\" in the uplink."
+  - bugfix: "Fixed description of syndicate flags on the suspicious supply depot."
