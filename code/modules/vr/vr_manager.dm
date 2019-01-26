@@ -140,9 +140,17 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 		var/mob/living/carbon/human/virtual_reality/V = H
 		vr_avatar.real_me = V.real_me
 		V.real_me.vr_avatar = vr_avatar
+		for (var/obj/item/clothing/ears/vr_headset/g in V.real_me.contents)
+			if(V.real_me.l_ear == g || V.real_me.r_ear == g)
+				g.vr_human = vr_avatar
+				vr_avatar.controller = g
 	else
 		vr_avatar.real_me = H
 		H.vr_avatar = vr_avatar
+		for (var/obj/item/clothing/ears/vr_headset/g in H.contents)
+			if(H.l_ear == g || H.r_ear == g)
+				g.vr_human = vr_avatar
+				vr_avatar.controller = g
 
 	vr_avatar.set_species(H.dna.species.type)
 	vr_avatar.dna = H.dna.Clone()
@@ -183,14 +191,11 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 
 	vr_avatar.myroom = room
 	vr_all_players.Add(vr_avatar)
-	for (var/obj/item/clothing/ears/vr_headset/g in H.contents)
-		g.vr_human = vr_avatar
 
 	if(room.name == "Lobby")
 		if(vr_avatar.a_intent != INTENT_HELP)
 			vr_avatar.a_intent_change(INTENT_HELP)
 		vr_avatar.can_change_intents = 0 //Now you have no choice but to be helpful.
-	H.vr_avatar = vr_avatar
 	return vr_avatar
 
 

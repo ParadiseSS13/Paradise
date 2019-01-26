@@ -32,24 +32,21 @@
 		.=1
 	if(href_list["join_room"])
 		var/datum/vr_room/room = vr_rooms[href_list["join_room"]]
-		var/mob/living/carbon/human/virtual_reality/new_vr
 		if(room)
 			if(room.password)
 				var/password = input(usr, "Enter Password","") as null|text
 				if(password == room.password || check_rights(R_ADMIN))
-					new_vr = spawn_vr_avatar(usr, room)
+					spawn_vr_avatar(usr, room)
 					if(!(usr.ckey))
 						usr.death()
 				else
 					to_chat(usr, "<span class='danger'>Incorrect Password!</span>")
 			else
-				new_vr = spawn_vr_avatar(usr, room)
+				spawn_vr_avatar(usr, room)
 				if(!(usr.ckey))
 					usr.death()
-			if(new_vr)
-				for(var/obj/item/clothing/ears/vr_headset/g in new_vr.real_me.contents)
-					g.vr_human = new_vr
 		.=1
+
 	if(href_list["make_room"])
 		var/name = input(usr, "","Name your new Room.") as null|text
 		if(length(name) > 15)
@@ -64,6 +61,7 @@
 				return 0
 		make_vr_room(name, href_list["make_room"], 1, usr.ckey, password)
 		.=1
+
 	if(href_list["delete"])
 		var/datum/vr_room/room = vr_rooms[href_list["delete"]]
 		if(room.creator == usr.ckey || check_rights(R_ADMIN))

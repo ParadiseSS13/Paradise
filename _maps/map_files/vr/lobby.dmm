@@ -16,7 +16,7 @@
 "ap" = (/obj/structure/chair/sofa/right,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aq" = (/obj/structure/chair/sofa/left,/obj/machinery/computer/security/telescreen/entertainment{pixel_y = 30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "ar" = (/obj/structure/table/reinforced,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
-"as" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/spray/cleaner,/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = 29; tank_volume = 500000},/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"as" = (/obj/structure/chair/comfy/beige,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "at" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/spray/cleaner,/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = 29; tank_volume = 500000},/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "au" = (/obj/structure/chair/sofa/right,/obj/machinery/computer/security/telescreen/entertainment{pixel_y = 30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "av" = (/obj/structure/chair/sofa/left,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
@@ -27,18 +27,17 @@
 "aA" = (/obj/structure/chair/sofa/right,/turf/unsimulated/floor{dir = 9; icon_state = "carpetside"},/area/vr/lobby)
 "aB" = (/obj/structure/sign/poster/official/random{pixel_x = -32},/obj/structure/chair/sofa/right{tag = "icon-sofaend_right (EAST)"; icon_state = "sofaend_right"; dir = 4},/turf/unsimulated/floor{dir = 8; icon_state = "carpetside"},/area/vr/lobby)
 "aC" = (/obj/machinery/computer/security/telescreen/entertainment{pixel_y = -60},/turf/unsimulated/floor{dir = 4; icon_state = "carpetside"},/area/vr/lobby)
-"aD" = (/obj/structure/chair,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"aD" = (/obj/structure/chair/comfy/beige{dir = 4},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aE" = (/obj/machinery/computer/security/telescreen/entertainment{pixel_y = -30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aF" = (/obj/machinery/computer/security/telescreen/entertainment{pixel_y = -60},/turf/unsimulated/floor{dir = 8; icon_state = "carpetside"},/area/vr/lobby)
 "aG" = (/obj/structure/sign/poster/official/random{pixel_x = 32},/obj/structure/chair/sofa/left{tag = "icon-sofaend_left (WEST)"; icon_state = "sofaend_left"; dir = 8},/turf/unsimulated/floor{dir = 4; icon_state = "carpetside"},/area/vr/lobby)
 "aH" = (/obj/structure/table/reinforced,/turf/unsimulated/floor{dir = 10; icon_state = "carpetside"},/area/vr/lobby)
 "aI" = (/obj/structure/table/reinforced,/obj/structure/sign/poster/official/random{pixel_x = -32},/obj/machinery/chem_dispenser/beer,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
-"aJ" = (/obj/structure/chair{dir = 4},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"aJ" = (/obj/structure/chair/comfy/beige{dir = 8},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aK" = (/obj/structure/table/reinforced,/obj/machinery/computer/security/telescreen/entertainment{pixel_x = 33; pixel_y = -30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aL" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (WEST)"; icon_state = "fakewindows"; dir = 8},/area/vr/lobby)
 "aM" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/vr/lobby)
 "aN" = (/obj/structure/table/reinforced,/obj/machinery/computer/security/telescreen/entertainment{pixel_x = -33; pixel_y = -30},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
-"aO" = (/obj/structure/chair{dir = 8},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aP" = (/obj/structure/table/reinforced,/obj/structure/sign/poster/official/random{pixel_x = 32},/obj/machinery/chem_dispenser/soda,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
 "aQ" = (/obj/structure/table/reinforced,/turf/unsimulated/floor{dir = 6; icon_state = "carpetside"},/area/vr/lobby)
 "aR" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/food/drinks/drinkingglass,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
@@ -103,15 +102,15 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacadaeabaaaaaaaaaaaaaaaaabafagahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaiajakababababababababababalamanabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaoababapaqarasatarauavababaoabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaoababapaqaratatarauavababaoabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacawabaxayayazayayayayayayayayazayayaxabaAahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaBaCaoayayayayayaDaDaEaEaDaDayayayayayaoaFaGabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaHakabaIayayaJaKararaLaMararaNaOayayaPabalaQabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaRayayayaJaraLaSaTaTaUaMaraOayayayaRabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaBaCaoayayayayayasasaEaEasasayayayayayaoaFaGabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaHakabaIayayaDaKararaLaMararaNaJayayaPabalaQabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaRayayayaDaraLaSaTaTaUaMaraJayayayaRabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaRayayayayayaVaWaTaTaWaVayayayayayaRabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabafaXabaYayayayayayaZbababbayayayayaybcabbdaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbebfaoayayayayayayaybgbgayayayayayayayaobhbiabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbjbkabblayayaDaDaDayayayayaDaDaDbmayblabbnboabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbjbkabblayayasasasayayayayasasasbmayblabbnboabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababaoabarbparbmayaybmarbparabaoabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbdbqaXababababbrbsababababbdbqaXabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbtbubvabababbwbxbxbwabababbybubzabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

@@ -13,7 +13,7 @@
 	name = "Virtual Hub Facility"
 	description = "This is the lobby. The hub for all things VR."
 	death_type = VR_DROP_WHITELIST
-	drop_whitelist = list(/obj/item/reagent_containers/food/drinks/drinkingglass)
+	drop_whitelist = list(/obj/item/reagent_containers/food/drinks/drinkingglass, /obj/item/reagent_containers/spray/cleaner)
 	outfit = /datum/outfit/vr/vr_basic
 	system = 1
 

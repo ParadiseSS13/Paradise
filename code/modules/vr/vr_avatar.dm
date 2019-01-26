@@ -6,6 +6,7 @@
 	var/datum/action/quit_vr/quit_action
 	var/datum/action/back_to_lobby/back_to_lobby
 	var/datum/action/detach_from_avatar/detach_from_avatar
+	var/obj/item/clothing/ears/vr_headset/controller
 
 /mob/living/carbon/human/virtual_reality/New()
 	quit_action = new()
@@ -43,6 +44,8 @@
 
 	if(ckey)
 		return_to_lobby()
+	else if(controller.vr_human == src)
+		controller.vr_human = null
 	if(!surgeries.len)
 		var/mob/living/carbon/human/virtual_reality/vr = src
 		var/list/corpse_equipment = vr.get_all_slots()
@@ -76,17 +79,12 @@
 		real_me.vr_avatar = null
 		real_me.EyeBlind(2)
 		real_me.Confused(2)
-		var/mob/living/carbon/human/virtual_reality/vr = src
-		var/obj/item/clothing/ears/vr_headset/goggles
-		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-			goggles = g
-		if(goggles.contained() && vr_server_status == VR_SERVER_EMAG)
+		if(controller.contained() && vr_server_status == VR_SERVER_EMAG)
 			real_me.adjustBrainLoss(60)
 			real_me.vomit(20)
-		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-			processing_objects.Remove(g)
-			if(remove)
-				g.vr_human = null
+		processing_objects.Remove(controller)
+		if(remove)
+			controller.vr_human = null
 		if(remove)
 			handle_despawn()
 		else
@@ -94,11 +92,8 @@
 
 /mob/living/carbon/human/virtual_reality/proc/return_to_lobby()
 	if(real_me && mind)
-		var/mob/living/carbon/human/virtual_reality/new_vr
 		var/datum/vr_room/lobby = vr_rooms_official["Lobby"]
-		new_vr = spawn_vr_avatar(src, lobby)
-		for(var/obj/item/clothing/ears/vr_headset/g in new_vr.real_me.contents)
-			g.vr_human = new_vr
+		spawn_vr_avatar(src, lobby)
 
 /datum/action/quit_vr
 	name = "Quit Virtual Reality"
@@ -108,11 +103,7 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/ears/vr_headset/goggles
-			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-				if(vr.real_me.l_ear == g || vr.real_me.r_ear == g)
-					goggles = g
-			if(!goggles.contained())
+			if(!vr.controller.contained())
 				vr.revert_to_reality(1)
 			else
 				to_chat(owner, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
@@ -139,11 +130,7 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/ears/vr_headset/goggles
-			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
-				if(vr.real_me.l_ear == g || vr.real_me.r_ear == g)
-					goggles = g
-			if(!goggles.contained())
+			if(!vr.controller.contained())
 				vr.revert_to_reality(0)
 			else
 				to_chat(owner, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
