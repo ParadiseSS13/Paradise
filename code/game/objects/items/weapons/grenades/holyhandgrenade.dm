@@ -2,6 +2,7 @@
 	name = "Holy Hand Grenade"
 	desc = "You feel a divine urge to throw it."
 	icon_state = "holyhandgrenade"
+	item_state = "holyhandgrenade"
 
 /obj/item/grenade/holy/prime()
 	update_mob()
