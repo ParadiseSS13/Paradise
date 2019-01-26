@@ -70,7 +70,7 @@
 			sound_vol *= 0.5
 
 	if(sleeping || stat == UNCONSCIOUS)
-		hear_sleep(message_pieces)
+		hear_sleep(multilingual_to_message(message_pieces))
 		return 0
 
 	var/speaker_name = speaker.name
