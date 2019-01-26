@@ -221,6 +221,27 @@
 /turf/simulated/wall/mineral/titanium/survival/pod
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
 
+//sub-type to prevent deconstruction for derelict
+/turf/simulated/wall/mineral/titanium/nodecon
+	name = "russian wall"
+	desc = "Like regular titanium, but able to deflect capitalist aggressors."
+
+/turf/simulated/wall/mineral/titanium/nodiagonal/nodecon
+	name = "russian wall"
+	desc = "Like regular titanium, but able to deflect capitalist aggressors."
+
+/turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
+	return
+
+/turf/simulated/wall/mineral/titanium/nodiagonal/nodecon/try_decon(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/mineral/titanium/nodiagonal/nodecon/thermitemelt(mob/user as mob, speed)
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
