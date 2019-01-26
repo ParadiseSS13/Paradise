@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Books now deal light damage on hit if you're not on help intent. Space law book deals extra damage."
