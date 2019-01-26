@@ -907,13 +907,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	surplus = 8
 
-/datum/uplink_item/explosives/chameleonflag
-	name = "Chameleon Flag"
-	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
-	reference = "CHFLAG"
-	item = /obj/item/flag/chameleon
-	cost = 7
-
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 25 lethally dangerous and destructive grenades."
@@ -974,6 +967,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
+	cost = 1
+	surplus = 35
+
+/datum/uplink_item/stealthy_tools/chameleonflag
+	name = "Chameleon Flag"
+	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
+	reference = "CHFLAG"
+	item = /obj/item/flag/chameleon
 	cost = 1
 	surplus = 35
 
