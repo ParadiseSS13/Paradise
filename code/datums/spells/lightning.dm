@@ -10,6 +10,7 @@
 	cooldown_min = 30
 	selection_type = "view"
 	random_target = 1
+	special_availability_check = 1
 	var/start_time = 0
 	var/ready = 0
 	var/image/halo = null

@@ -11,11 +11,10 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 		<b>Functions</b>:
 	</div>
 	<div class="itemContent">
-		{{:helper.link('Request Items', 'gear', {'menu' : 0}, null, 'fixedLeftWider')}}
-		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'gear', {'descriptions' : 1}, data.menu == 0 ? '' : 'disabled', 'fixedLeftWider')}}
+		{{:helper.link('Purchase Gear', 'gear', {'menu' : 0, 'category' : null}, null, 'fixedLeftWider')}}
 		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'fixedLeftWider')}}
-		{{:helper.link('Return', 'arrow-left', {'return' : 1}, null, 'fixedLeft')}}
-		{{:helper.link('Close', 'gear', {'lock' : "1"}, null, 'fixedLeft')}}
+		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'info-circle', {'descriptions' : 1}, data.menu == 0 ? '' : 'disabled', 'fixedLeftWider')}}
+		{{:helper.link('Lock Uplink', 'power-off', {'lock' : "1"}, null, 'fixedLeftWider')}}
 	</div>
 </div>
 <br>
@@ -32,30 +31,38 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
         </div>
     </div>
     <br>
-    {{for data.nano_items}}
-        <div class="item">
-            <h3><span class="white">{{:value.Category}}</span></h3>
-        </div>
-        {{for value.items :itemValue:itemIndex}}
-            <div class="item">
-                {{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
-            </div>
 
-            {{if itemValue.Cost <= data.crystals && data.descriptions}}
-                <div class="item">
-                    {{:itemValue.Description}}
-                </div>
-            {{/if}}
-        {{/for}}
-        <br>
-    {{/for}}
-
-    <div class="item">
-        {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, null)}}
-    </div>
-
+	{{for data.nano_items}}
+		{{if value.Category == data.category_choice}}
 		<div class="item">
-        {{:helper.link('Refund item in active hand' , 'gear', {refund : 1}, null, null)}}
+			{{:helper.link ( value.Category, 'arrow-circle-down', {'menu' : 0, 'category' : null}, null, 'white')}}
+		</div>
+		{{else}}
+		<div class="item">
+			{{:helper.link ( value.Category, 'arrow-circle-right', {'menu' : 0, 'category' : value.Category}, null, 'white')}}
+		</div>
+		{{/if}}
+		{{if value.Category == data.category_choice}}
+			<div class="block">
+			{{for value.items :itemValue:itemIndex}}
+				<div class="item">
+					{{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
+				</div>
+				{{if itemValue.Cost <= data.crystals && data.descriptions}}
+					<div class="item">
+						{{:itemValue.Description}}
+					</div>
+				{{/if}}
+			{{/for}}
+			</div>
+		{{/if}}
+	{{/for}}
+	<br>
+	<div class="item">
+		{{:helper.link('Buy Random Item' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, 'white')}}
+	</div>
+	<div class="item">
+        {{:helper.link('Refund item in active hand' , 'gear', {refund : 1}, null, 'white')}}
     </div>
 
 {{else data.menu == 1}}

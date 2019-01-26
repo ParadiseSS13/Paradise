@@ -1,4 +1,4 @@
-/obj/machinery/computer/arcade/
+/obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "random arcade machine"
 	icon = 'icons/obj/computer.dmi'
@@ -573,7 +573,7 @@
 
 	else if(href_list["killcrew"]) //shoot a crewmember
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/gunshots/Gunshot.ogg', 100, 1)
+		playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 
 		if(settlers.len == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
@@ -998,7 +998,7 @@
 	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
 	active = 1
 	visible_message("<span class='notice'>[src] softly beeps and whirs to life!</span>")
-	playsound(src.loc, 'sound/machines/defib_SaftyOn.ogg', 25, 1)
+	playsound(src.loc, 'sound/machines/defib_saftyOn.ogg', 25, 1)
 	atom_say("This is ship ID #[rand(1,1000)] to Orion Port Authority. We're coming in for landing, over.")
 	sleep(20)
 	visible_message("<span class='warning'>[src] begins to vibrate...</span>")

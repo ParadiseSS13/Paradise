@@ -10,7 +10,7 @@
 	var/mob_type = /mob/living/simple_animal/hostile/carp
 	var/spawn_text = "emerges from"
 	status_flags = 0
-	anchored = 1
+	move_resist = MOVE_FORCE_VERY_STRONG
 	AIStatus = AI_OFF
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1

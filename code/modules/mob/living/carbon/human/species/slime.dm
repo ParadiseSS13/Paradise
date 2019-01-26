@@ -42,6 +42,7 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
 		)
+	mutantears = null
 
 	suicide_messages = list(
 		"is melting into a puddle!",
@@ -81,6 +82,9 @@
 			H.update_hair(0)
 			H.update_body()
 	..()
+
+/datum/species/slime/can_hear() // fucking snowflakes 
+	. = TRUE
 
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"

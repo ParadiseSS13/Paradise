@@ -206,6 +206,9 @@
 		else
 			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
 			helmet.loc = get_turf(src)
+			if(istype(helmet,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = helmet
+				S.linkedsuit = null
 			src.helmet = null
 			return
 		if(!boots)
@@ -226,11 +229,12 @@
 			to_chat(user, "You attach \the [W] to \the [src]'s helmet mount.")
 			user.drop_item()
 			W.loc = src
-			src.helmet = W
-			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
-			S.forceMove(src)
-			helmet = S
-			S.link_suit()
+			helmet = W
+			if(istype(helmet,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
+				S.forceMove(src)
+				helmet = S
+				S.link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
@@ -335,6 +339,11 @@
 		linkedsuit = loc
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
+
+	if(!linkedsuit)
+		to_chat(user, "<span class='notice'>You must attach the helmet to a syndicate hardsuit to toggle combat mode!</span>")
+		return
+
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
@@ -453,6 +462,16 @@
 		name = "elite syndicate hardsuit (combat)"
 		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
 
+//Strike team hardsuits
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100)
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"
@@ -470,15 +489,15 @@
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
 	item_color = "wiz"
-	unacidable = 1 //No longer shall our kind be foiled by lone chemists with spray bottles!
+	unacidable = TRUE //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	unacidable = 1
 	species_fit = list("Grey")
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
+	magical = TRUE
 
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
@@ -486,13 +505,13 @@
 	desc = "A bizarre gem-encrusted suit that radiates magical energies."
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
-	unacidable = 1
+	unacidable = TRUE
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/teleportation_scroll,/obj/item/tank)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
-	unacidable = 1
 	sprite_sheets = null
+	magical = TRUE
 
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical

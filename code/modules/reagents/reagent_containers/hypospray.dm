@@ -102,7 +102,8 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
-	ignore_flags = 1 //so you can medipen through hardsuits
+	ignore_flags = TRUE //so you can medipen through hardsuits
+	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 
@@ -143,7 +144,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
-	desc = "Rapidly stimulates and regernates the body's organ system."
+	desc = "Rapidly stimulates and regenerates the body's organ system."
 	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)

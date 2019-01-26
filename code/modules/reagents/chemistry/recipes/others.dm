@@ -239,14 +239,6 @@
 	result_amount = 3
 	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
-/datum/chemical_reaction/fartonium
-	name = "Fartonium"
-	id = "fartonium"
-	result = "fartonium"
-	required_reagents = list("fake_cheese" = 1, "beans" = 1, "????" = 1, "egg" = 1)
-	result_amount = 2
-	mix_message = "The substance makes a little 'toot' noise and starts to smell pretty bad."
-
 /datum/chemical_reaction/soapification
 	name = "Soapification"
 	id = "soapification"

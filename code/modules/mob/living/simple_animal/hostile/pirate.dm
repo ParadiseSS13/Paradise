@@ -34,7 +34,7 @@
 	icon_state = "pirateranged"
 	icon_living = "pirateranged"
 	icon_dead = "piratemelee_dead"
-	projectilesound = 'sound/weapons/laser.ogg'
+	projectilesound = 'sound/weapons/Laser.ogg'
 	ranged = 1
 	rapid = 1
 	retreat_distance = 5

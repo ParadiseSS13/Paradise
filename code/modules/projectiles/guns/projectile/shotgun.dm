@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
-	fire_sound = 'sound/weapons/gunshots/Gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	var/recentpump = 0 // to prevent spammage
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
@@ -208,7 +208,7 @@
 	item_state = "moistnugget"
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
-	fire_sound = 'sound/weapons/gunshots/Gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	var/bolt_open = 0
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)

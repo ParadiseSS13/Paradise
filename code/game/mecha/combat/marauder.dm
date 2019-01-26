@@ -17,6 +17,7 @@
 	internal_damage_threshold = 25
 	force = 45
 	max_equip = 5
+	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -89,6 +90,7 @@
 	initial_icon = "mauler"
 	operation_req_access = list(access_syndicate)
 	wreckage = /obj/effect/decal/mecha_wreckage/mauler
+	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 
 /obj/mecha/combat/marauder/mauler/loaded/New()
 	..()

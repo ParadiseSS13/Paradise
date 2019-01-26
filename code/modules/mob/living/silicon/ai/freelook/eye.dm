@@ -141,6 +141,10 @@
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
-/mob/camera/aiEye/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+/mob/camera/aiEye/hear_say(list/message_pieces, var/verb = "says", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
 	if(relay_speech)
-		ai.relay_speech(speaker, message, verb, language)
+		if(istype(ai))
+			ai.relay_speech(speaker, message_pieces, verb)
+		else
+			var/mob/M = ai
+			M.hear_say(message_pieces, verb, italics, speaker, speech_sound, sound_vol)

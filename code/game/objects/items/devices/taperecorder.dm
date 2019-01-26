@@ -85,7 +85,8 @@
 		icon_state = "taperecorder_idle"
 
 
-/obj/item/taperecorder/hear_talk(mob/living/M as mob, msg)
+/obj/item/taperecorder/hear_talk(mob/living/M as mob, list/message_pieces)
+	var/msg = multilingual_to_message(message_pieces)
 	if(mytape && recording)
 		var/ending = copytext(msg, length(msg))
 		mytape.timestamp += mytape.used_capacity

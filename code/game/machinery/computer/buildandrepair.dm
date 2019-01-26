@@ -4,9 +4,29 @@
 	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "0"
+	max_integrity = 100
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
+	var/base_mineral = /obj/item/stack/sheet/metal
 //	weight = 1.0E8
+
+/obj/structure/computerframe/deconstruct(disassembled = TRUE)
+	drop_computer_parts()
+	return ..() // will qdel the frame
+
+/obj/structure/computerframe/obj_break(damage_flag)
+	deconstruct()
+
+/obj/structure/computerframe/proc/drop_computer_parts()
+	new base_mineral(loc, 5)
+	if(circuit)
+		circuit.forceMove(loc)
+		circuit = null
+	if(state >= 3)
+		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+		A.amount = 5
+	if(state >= 4)
+		new /obj/item/stack/sheet/glass(loc, 2)
 
 /obj/item/circuitboard
 	density = 0
@@ -420,8 +440,7 @@
 				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					new /obj/item/stack/sheet/metal(loc, 5)
-					qdel(src)
+					deconstruct(TRUE)
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
@@ -525,6 +544,7 @@
 /obj/structure/computerframe/HONKputer
 	name = "Bananium Computer-frame"
 	icon = 'icons/obj/machines/HONKputer.dmi'
+	base_mineral = /obj/item/stack/sheet/mineral/bananium
 
 /obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
@@ -544,8 +564,7 @@
 				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					new /obj/item/stack/sheet/mineral/bananium(loc, 5)
-					qdel(src)
+					deconstruct(TRUE)
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)

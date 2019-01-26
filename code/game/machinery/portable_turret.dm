@@ -857,7 +857,7 @@ var/list/turret_icons
 				gun_charge = E.power_supply.charge //the gun's charge is stored in gun_charge
 				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
 
-				if(istype(installation, /obj/item/gun/energy/laser/bluetag) || istype(installation, /obj/item/gun/energy/laser/redtag))
+				if(istype(installation, /obj/item/gun/energy/laser/tag/blue) || istype(installation, /obj/item/gun/energy/laser/tag/red))
 					target_type = /obj/machinery/porta_turret/tag
 				else
 					target_type = /obj/machinery/porta_turret
@@ -986,8 +986,8 @@ var/list/turret_icons
 	// So, nothing, not even emagging them, makes them switch bullet type.
 	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
 	// Otherwise, you end up with situations where one of the two bullet types will never be used.
-	shot_sound = 'sound/weapons/gunshots/Gunshot_MG.ogg'
-	eshot_sound = 'sound/weapons/gunshots/Gunshot_MG.ogg'
+	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"

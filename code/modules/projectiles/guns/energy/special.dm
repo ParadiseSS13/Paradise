@@ -66,7 +66,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
-	fire_sound = 'sound/weapons/gunshots/Gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
@@ -148,7 +148,7 @@
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/Laser.ogg'
 	usesound = 'sound/items/Welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER

@@ -35,6 +35,7 @@
 #define SPECIAL_ROLE_SHADOWLING "Shadowling"
 #define SPECIAL_ROLE_SHADOWLING_THRALL "Shadowling Thrall"
 #define SPECIAL_ROLE_SLAUGHTER_DEMON "Slaughter Demon"
+#define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"
 #define SPECIAL_ROLE_VAMPIRE "Vampire"

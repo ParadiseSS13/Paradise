@@ -76,6 +76,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/attacked_sound = "punch"
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
@@ -561,17 +562,16 @@
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	return
 
-/mob/living/simple_animal/update_sight(reset_sight = FALSE)
+/mob/living/simple_animal/update_sight()
 	if(!client)
 		return
 	if(stat == DEAD)
 		grant_death_vision()
 		return
 
-	if(reset_sight)
-		see_invisible = initial(see_invisible)
-		see_in_dark = initial(see_in_dark)
-		sight = initial(sight)
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
 
 	if(client.eye != src)
 		var/atom/A = client.eye

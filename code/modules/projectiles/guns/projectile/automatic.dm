@@ -20,6 +20,32 @@
 		overlays += "[initial(icon_state)]burst"
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
+/obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
+	. = ..()
+	if(.)
+		if(alarmed) // Did the empty clip alarm go off already?
+			alarmed = 0 // Reset the alarm once a magazine is loaded
+		return
+	if(istype(A, /obj/item/ammo_box/magazine))
+		var/obj/item/ammo_box/magazine/AM = A
+		if(istype(AM, mag_type))
+			if(magazine)
+				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				magazine.loc = get_turf(loc)
+				magazine.update_icon()
+				magazine = null
+			else
+				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
+			if(alarmed)
+				alarmed = 0
+			user.remove_from_mob(AM)
+			magazine = AM
+			magazine.loc = src
+			chamber_round()
+			A.update_icon()
+			update_icon()
+			return 1
+
 /obj/item/gun/projectile/automatic/ui_action_click()
 	burst_select()
 
@@ -57,7 +83,7 @@
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
-	fire_sound = 'sound/weapons/gunshots/Gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -67,7 +93,7 @@
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
-	fire_sound = 'sound/weapons/gunshots/Gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	fire_delay = 2
 	burst_size = 2
 
@@ -90,7 +116,7 @@
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
-	fire_sound = 'sound/weapons/gunshots/Gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
@@ -109,7 +135,7 @@
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
-	fire_sound = 'sound/weapons/gunshots/Gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	burst_size = 2
 
 //M-90gl Carbine//
@@ -120,7 +146,7 @@
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshots/Gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -195,7 +221,7 @@
 	slot_flags = 0
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
-	fire_sound = 'sound/weapons/gunshots/Gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
@@ -209,7 +235,7 @@
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshots/Gunshot_MG.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -225,7 +251,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/Gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -261,7 +287,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
-	fire_sound = 'sound/weapons/gunshots/Gunshot_lascarbine.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0

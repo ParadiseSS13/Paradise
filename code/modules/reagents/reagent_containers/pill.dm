@@ -63,6 +63,12 @@
 	icon_state = "pill21"
 	list_reagents = list("initropidril" = 50)
 
+/obj/item/reagent_containers/food/pill/fakedeath
+	name = "fake death pill"
+	desc = "Swallow then rest to appear dead, stand up to wake up. Also mutes the user's voice."
+	icon_state = "pill4"
+	list_reagents = list("capulettium_plus" = 50)
+
 /obj/item/reagent_containers/food/pill/adminordrazine
 	name = "Adminordrazine pill"
 	desc = "It's magic. We don't have to explain it."

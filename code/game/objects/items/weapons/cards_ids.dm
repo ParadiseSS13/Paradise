@@ -319,6 +319,10 @@
 	name = "agent card"
 	initial_access = list(access_maint_tunnels, access_vox, access_external_airlocks)
 
+/obj/item/card/id/syndicate/command
+	initial_access = list(access_maint_tunnels, access_syndicate, access_syndicate_leader, access_syndicate_command, access_external_airlocks)
+	icon_state = "commander"
+
 /obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return

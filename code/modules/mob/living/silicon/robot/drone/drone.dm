@@ -17,7 +17,6 @@
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
-	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -38,7 +37,6 @@
 
 
 /mob/living/silicon/robot/drone/New()
-
 	..()
 
 	remove_language("Robot Talk")

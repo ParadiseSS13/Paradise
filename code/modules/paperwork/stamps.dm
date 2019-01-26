@@ -76,7 +76,12 @@
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-rep"
 	item_color = "rep"
-	
+
+/obj/item/stamp/magistrate
+	name = "Magistrate's rubber stamp"
+	icon_state = "stamp-magistrate"
+	item_color = "rep"
+
 /obj/item/stamp/centcom
 	name = "Central Command rubber stamp"
 	icon_state = "stamp-cent"

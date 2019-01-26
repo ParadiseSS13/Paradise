@@ -156,6 +156,9 @@
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
 
+	// Species specific boxes
+	var/speciesbox
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -199,7 +202,8 @@
 	if(ears)
 		qdel(ears)
 
-	ears = new mutantears(H)
+	if(mutantears)
+		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
@@ -311,7 +315,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -725,3 +729,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/picked_species = pick(random_species)
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
+
+/datum/species/proc/can_hear(mob/living/carbon/human/H)
+	. = FALSE
+	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
+	if(istype(ears) && !ears.deaf)
+		. = TRUE

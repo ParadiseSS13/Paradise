@@ -94,6 +94,8 @@ PROBABILITY NATIONS 0
 PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
+PROBABILITY DEVIL 0
+PROBABILITY DEVILAGENTS 0
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0

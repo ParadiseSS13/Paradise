@@ -38,7 +38,7 @@ var/list/ai_verbs_default = list(
 	name = "AI"
 	icon = 'icons/mob/AI.dmi'//
 	icon_state = "ai"
-	anchored = 1 // -- TLE
+	move_resist = MOVE_FORCE_VERY_STRONG
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
@@ -533,9 +533,14 @@ var/list/ai_verbs_default = list(
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
 
-	anchored = !anchored // Toggles the anchor
+	var/is_anchored = FALSE
+	if(move_resist == MOVE_FORCE_VERY_STRONG)
+		move_resist = MOVE_FORCE_VERY_STRONG
+	else
+		is_anchored = TRUE
+		move_resist = MOVE_FORCE_NORMAL
 
-	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
+	to_chat(src, "[is_anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
 /mob/living/silicon/ai/update_canmove()
 	return FALSE
@@ -656,7 +661,21 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["ai_take_control"]) //Mech domination
+
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
+
+		if(!M)
+			return
+
+		var/mech_has_controlbeacon = FALSE
+		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in M.trackers)
+			mech_has_controlbeacon = TRUE
+			break
+		if(!can_dominate_mechs && !mech_has_controlbeacon)
+			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			return
+
 		if(controlled_mech)
 			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
 			return
@@ -670,7 +689,7 @@ var/list/ai_verbs_default = list(
 			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
 			return
 		if(M)
-			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
+			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
 	else if(href_list["faketrack"])
 		var/mob/target = locate(href_list["track"]) in GLOB.mob_list
@@ -1184,19 +1203,11 @@ var/list/ai_verbs_default = list(
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
-/mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
-	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
-		if(speaking)
-			text = speaking.scramble(text)
-		else
-			text = stars(text)
+/mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
+	var/message = combine_message(message_pieces, verb, M)
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
-	var/rendered
-	if(speaking)
-		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [speaking.format_message(text, verb)]</span></i>"
-	else
-		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
+	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)

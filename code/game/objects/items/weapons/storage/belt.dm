@@ -88,7 +88,7 @@
 	update_icon()
 
 /obj/item/storage/belt/utility/chief
-	name = "Chief Engineer's toolbelt"
+	name = "advanced toolbelt"
 	desc = "Holds tools, looks snazzy"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
@@ -139,7 +139,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 17
 	use_to_pickup = 1
-	name = "Surgical Belt"
+	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
 	use_item_overlays = 1
@@ -295,12 +295,58 @@
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/storage/belt/military/sst
+	icon_state = "assaultbelt"
+	item_state = "assault"
+
 /obj/item/storage/belt/military/traitor
 	name = "tool-belt"
 	desc = "Can hold various tools. This model seems to have additional compartments."
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
+
+/obj/item/storage/belt/grenade
+	name = "grenadier belt"
+	desc = "A belt for holding grenades."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	storage_slots = 30
+	max_combined_w_class = 60
+	display_contents_with_number = 1
+	can_hold = list(
+		/obj/item/grenade,
+		/obj/item/lighter,
+		/obj/item/reagent_containers/food/drinks/bottle/molotov
+		)
+
+/obj/item/storage/belt/grenade/full/New()
+	..()
+	new /obj/item/grenade/smokebomb(src) //4
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/empgrenade(src) //2
+	new /obj/item/grenade/empgrenade(src)
+	new /obj/item/grenade/gluon(src) //4
+	new /obj/item/grenade/gluon(src)
+	new /obj/item/grenade/gluon(src)
+	new /obj/item/grenade/gluon(src)
+	new /obj/item/grenade/chem_grenade/facid(src) //1
+	new /obj/item/grenade/gas/plasma(src) //2
+	new /obj/item/grenade/gas/plasma(src)
+	new /obj/item/grenade/frag(src) //10
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/frag(src)
+	new /obj/item/grenade/syndieminibomb(src) //2
+	new /obj/item/grenade/syndieminibomb(src)
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"

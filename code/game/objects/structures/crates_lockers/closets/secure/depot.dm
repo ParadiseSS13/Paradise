@@ -6,6 +6,7 @@
 	anchored = 1
 	health = 200
 	req_access = list()
+	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 

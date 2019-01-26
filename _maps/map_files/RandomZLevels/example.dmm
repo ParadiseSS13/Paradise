@@ -54,7 +54,7 @@
 "bb" = (/obj/structure/table,/obj/item/healthanalyzer,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
 "bc" = (/obj/structure/bed,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
 "bd" = (/obj/structure/chair/stool,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
-"be" = (/obj/structure/table,/obj/item/mass_spectrometer/adv,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
+"be" = (/obj/structure/table,/obj/item/reagent_scanner/adv,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
 "bf" = (/obj/structure/table,/obj/item/reagent_containers/glass/beaker,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
 "bg" = (/obj/structure/table,/obj/item/folder/white,/obj/item/pen/red,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)
 "bh" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/example)

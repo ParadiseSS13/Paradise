@@ -35,9 +35,6 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
 	tcamount = between(0, tcamount, 1000)
-	var/spawn_sit_mgmt = 0
-	if(alert("Spawn a syndicate mob for you, so you can brief them before they go?",,"Yes","No")=="Yes")
-		spawn_sit_mgmt = 1
 	if(sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
@@ -85,7 +82,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
 		if(infiltrators.len)
 			var/mob/theguy = pick(infiltrators)
-			if(!spawn_sit_mgmt || theguy.key != key)
+			if(theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
@@ -99,7 +96,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			new_syndicate_infiltrator.loc = warpto.loc
 			sit_spawns_leader -= warpto
 			team_leader = new_syndicate_infiltrator
-			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it. Only your ID opens the exit door.</span>")
+			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it.</span>")
 		else
 			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
 		teamsize--
@@ -114,23 +111,6 @@ var/global/sent_syndicate_infiltration_team = 0
 		num_spawned++
 		if(!teamsize)
 			break
-	if(spawn_sit_mgmt)
-		for(var/obj/effect/landmark/L in sit_spawns_mgmt)
-			var/mob/living/carbon/human/syndimgmtmob = create_syndicate_infiltrator(L, 1, 100, 1)
-			syndimgmtmob.key = key
-			syndimgmtmob.internal = syndimgmtmob.s_store
-			syndimgmtmob.update_action_buttons_icon()
-			syndimgmtmob.faction += "syndicate"
-			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
-			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite, slot_wear_suit)
-			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite, slot_head)
-			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate, slot_wear_mask)
-			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
-			opshud.join_hud(syndimgmtmob.mind.current)
-			set_antag_hud(syndimgmtmob.mind.current, "hudoperative")
-			syndimgmtmob.mind.special_role = "Syndicate Management Consultant"
-			syndimgmtmob.regenerate_icons()
-			to_chat(syndimgmtmob, "<span class='userdanger'>You have spawned as Syndicate Management. You should brief them on their mission before they go.</span>")
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
 	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -172,7 +152,7 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	// Implants:
 	// Uplink
-	var/obj/item/implant/uplink/U = new /obj/item/implant/uplink(src)
+	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
 	U.implant(src)
 	if (flag_mgmt)
 		U.hidden_uplink.uses = 500

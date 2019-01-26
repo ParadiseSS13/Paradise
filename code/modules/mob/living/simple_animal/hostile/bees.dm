@@ -132,6 +132,23 @@
 /mob/living/simple_animal/hostile/poison/bees/worker
 	//Blank type define in case we need to give them special stuff later, plus organization (currently they are same as base type bee)
 
+
+/mob/living/simple_animal/hostile/poison/bees/worker/Destroy()
+	if(beehome)
+		if(beehome.bees)
+			beehome.bees.Remove(src)
+		beehome = null
+	return ..()
+
+/mob/living/simple_animal/hostile/poison/bees/worker/death(gibbed)
+	. = ..()
+	if(!.)
+		return
+	if(beehome)
+		if(beehome.bees)
+			beehome.bees.Remove(src)
+		beehome = null
+
 /mob/living/simple_animal/hostile/poison/bees/worker/examine(mob/user)
 	..()
 

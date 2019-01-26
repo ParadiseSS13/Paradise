@@ -11,8 +11,8 @@
 					{{:value.desc}}
 				</div>
 				<div class='floatRight'>
-					{{:helper.link('Jump', null, {'action': 'jump', 'uid': value.uids})}}
-					{{:helper.link('Spawn', null, {'action': 'spawn', 'uid': value.uids})}}
+					{{:helper.link('Jump', null, {'action': 'jump', 'uid': value.uids}, null)}}
+					{{:helper.link('Spawn', null, {'action': 'spawn', 'uid': value.uids},  value.amount_left > 0 ? null : 'disabled')}}
 				</div>
 			</div>
 		{{/for}}

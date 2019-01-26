@@ -530,7 +530,7 @@ var/list/ghostteleportlocs = list()
 //SYNDICATES
 
 /area/syndicate_mothership
-	name = "\improper Syndicate Mothership"
+	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
 	requires_power = 0
 
@@ -1175,6 +1175,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
+/area/crew_quarters/dorms
+	name = "\improper Dorms"
+	icon_state = "dorms"
+
+/area/crew_quarters/arcade
+	name = "\improper Arcade"
+	icon_state = "arcade"
+
 /area/crew_quarters/cafeteria
 	name = "\improper Cafeteria"
 	icon_state = "cafeteria"
@@ -1226,15 +1234,15 @@ var/list/ghostteleportlocs = list()
 
 /area/magistrateoffice
 	name = "\improper Magistrate's Office"
-	icon_state = "law"
+	icon_state = "magistrate"
 
 /area/clownoffice
 	name = "\improper Clown's Office"
-	icon_state = "dk_yellow"
+	icon_state = "clown_office"
 
 /area/mimeoffice
 	name = "\improper Mime's Office"
-	icon_state = "dk_yellow"
+	icon_state = "mime_office"
 
 /area/civilian/barber
 	name = "\improper Barber Shop"
@@ -1246,7 +1254,7 @@ var/list/ghostteleportlocs = list()
 
 /area/civilian/pet_store
 	name = "\improper Pet Store"
-	icon_state = "Theatre"
+	icon_state = "pet_store"
 
 /area/holodeck
 	name = "\improper Holodeck"
@@ -1399,29 +1407,29 @@ var/list/ghostteleportlocs = list()
 	dynamic_lighting = 0
 	valid_territory = FALSE
 
-	auxport
-		name = "\improper Fore Port Solar Array"
-		icon_state = "panelsA"
+/area/solar/auxport
+	name = "\improper Fore Port Solar Array"
+	icon_state = "panelsA"
 
-	auxstarboard
-		name = "\improper Fore Starboard Solar Array"
-		icon_state = "panelsA"
+/area/solar/auxstarboard
+	name = "\improper Fore Starboard Solar Array"
+	icon_state = "panelsA"
 
-	fore
-		name = "\improper Fore Solar Array"
-		icon_state = "yellow"
+/area/solar/fore
+	name = "\improper Fore Solar Array"
+	icon_state = "yellow"
 
-	aft
-		name = "\improper Aft Solar Array"
-		icon_state = "aft"
+/area/solar/aft
+	name = "\improper Aft Solar Array"
+	icon_state = "aft"
 
-	starboard
-		name = "\improper Aft Starboard Solar Array"
-		icon_state = "panelsS"
+/area/solar/starboard
+	name = "\improper Aft Starboard Solar Array"
+	icon_state = "panelsS"
 
-	port
-		name = "\improper Aft Port Solar Array"
-		icon_state = "panelsP"
+/area/solar/port
+	name = "\improper Aft Port Solar Array"
+	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
 	name = "\improper Fore Port Solar Maintenance"
@@ -1505,7 +1513,7 @@ var/list/ghostteleportlocs = list()
 
 
 /area/medical/biostorage
-	name = "\improper Secondary Storage"
+	name = "\improper Medical Storage"
 	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
@@ -1553,8 +1561,8 @@ var/list/ghostteleportlocs = list()
 	icon_state = "CMO"
 
 /area/medical/cmostore
-	name = "\improper Secure Storage"
-	icon_state = "CMO"
+	name = "\improper Medical Secondary Storage"
+	icon_state = "medbaysecstorage"
 
 /area/medical/robotics
 	name = "\improper Robotics"
@@ -1717,7 +1725,7 @@ var/list/ghostteleportlocs = list()
 
 /area/security/medbay
 	name = "\improper Security Medbay"
-	icon_state = "brig"
+	icon_state = "security_medbay"
 
 /area/security/prisonershuttle
 	name = "\improper Security Prisoner Shuttle"
@@ -1748,7 +1756,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Head of Security's Office"
 	icon_state = "sec_hos"
 
-area/security/podbay
+/area/security/podbay
 	name = "\improper Security Podbay"
 	icon_state = "securitypodbay"
 
@@ -1840,7 +1848,7 @@ area/security/podbay
 	name = "\improper Mech Bay"
 	icon_state = "yellow"
 
-/area/janitor/
+/area/janitor
 	name = "\improper Custodial Closet"
 	icon_state = "janitor"
 
@@ -1966,6 +1974,10 @@ area/security/podbay
 	requires_power = 0
 	name = "\improper Test Room"
 	icon_state = "storage"
+
+/area/storage/office
+	name = "\improper Office Supplies"
+	icon_state = "office_supplies"
 
 // ENGIE OUTPOST
 

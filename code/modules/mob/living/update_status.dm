@@ -44,7 +44,7 @@
 	. = !(disabilities & DEAF)
 
 // Whether the mob is able to see
-// `information_only` is for stuff that's purely informational - like understanding nonverbal languages, or blindness overlays
+// `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
 	return (information_only && stat == DEAD) || !(eye_blind || (disabilities & BLIND) || stat)

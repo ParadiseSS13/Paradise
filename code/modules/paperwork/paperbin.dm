@@ -30,6 +30,8 @@
 	var/mob/M = usr
 	if(M.restrained() || M.stat || !Adjacent(M))
 		return
+	if(!ishuman(M))
+		return
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))
@@ -87,14 +89,14 @@
 
 
 /obj/item/paper_bin/attackby(obj/item/paper/i as obj, mob/user as mob, params)
-	if(!istype(i))
-		return
-
-	user.drop_item()
-	i.loc = src
-	to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
-	papers.Add(i)
-	amount++
+	if(istype(i))
+		user.drop_item()
+		i.loc = src
+		to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
+		papers.Add(i)
+		amount++
+	else
+		return ..()
 
 
 /obj/item/paper_bin/examine(mob/user)
@@ -110,7 +112,7 @@
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin1"
-
+	..()
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"

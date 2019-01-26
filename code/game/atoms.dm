@@ -15,6 +15,7 @@
 	var/atom_say_verb = "says"
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
+
 	///Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
@@ -85,7 +86,7 @@
 	if(opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-	
+
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -323,7 +324,7 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
 
@@ -696,6 +697,9 @@ var/list/blood_splatter_icons = list()
 	return
 
 /atom/proc/ratvar_act()
+	return
+
+/atom/proc/handle_ricochet(obj/item/projectile/P)
 	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d

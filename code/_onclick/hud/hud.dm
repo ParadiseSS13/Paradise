@@ -27,6 +27,8 @@
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
 
+	var/obj/screen/devil/soul_counter/devilsouldisplay
+
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
@@ -79,6 +81,7 @@
 	alien_plasma_display = null
 	vampire_blood_display = null
 	nightvisionicon = null
+	devilsouldisplay = null
 
 	mymob = null
 	return ..()
@@ -155,7 +158,7 @@
 				mymob.client.screen -= infodisplay
 
 	hud_version = display_hud_version
-	persistant_inventory_update()
+	persistent_inventory_update()
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
@@ -171,7 +174,7 @@
 /datum/hud/proc/hidden_inventory_update()
 	return
 
-/datum/hud/proc/persistant_inventory_update()
+/datum/hud/proc/persistent_inventory_update()
 	return
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)

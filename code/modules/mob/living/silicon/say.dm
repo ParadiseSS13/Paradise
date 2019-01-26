@@ -1,9 +1,9 @@
-/mob/living/silicon/handle_message_mode(message_mode, message, verb, speaking, used_radios)
-	log_say(message, src)
+/mob/living/silicon/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
+	log_say(multilingual_to_message(message_pieces), src)
 	if(..())
 		return 1
 
-/mob/living/silicon/robot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
+/mob/living/silicon/robot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return 1
 	if(message_mode)
@@ -13,14 +13,14 @@
 			return 0
 		if(message_mode == "general")
 			message_mode = null
-		return radio.talk_into(src,message,message_mode,verb,speaking)
+		return radio.talk_into(src,message_pieces,message_mode,verb)
 
-/mob/living/silicon/ai/handle_message_mode(message_mode, message, verb, speaking, used_radios)
+/mob/living/silicon/ai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return 1
 	if(message_mode == "department")
 		used_radios += aiRadio
-		return holopad_talk(message, verb, speaking)
+		return holopad_talk(message_pieces, verb)
 	else if(message_mode)
 		used_radios += aiRadio
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
@@ -28,19 +28,19 @@
 			return 0
 		if(message_mode == "general")
 			message_mode = null
-		return aiRadio.talk_into(src,message,message_mode,verb,speaking)
+		return aiRadio.talk_into(src, message_pieces, message_mode, verb)
 
-/mob/living/silicon/pai/handle_message_mode(message_mode, message, verb, speaking, used_radios)
+/mob/living/silicon/pai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return 1
 	else if(message_mode == "whisper")
-		whisper_say(message, speaking)
+		whisper_say(message_pieces)
 		return 1
 	else if(message_mode)
 		if(message_mode == "general")
 			message_mode = null
 		used_radios += radio
-		return radio.talk_into(src,message,message_mode,verb,speaking)
+		return radio.talk_into(src, message_pieces, message_mode, verb)
 
 /mob/living/silicon/say_quote(var/text)
 	var/ending = copytext(text, length(text))
@@ -70,41 +70,14 @@
 	return ..()
 
 //For holopads only. Usable by AI.
-/mob/living/silicon/ai/proc/holopad_talk(var/message, verb, datum/language/speaking)
-	log_say("(HPAD) [message]", src)
-
-	message = trim(message)
-
-	if(!message)
-		return
+/mob/living/silicon/ai/proc/holopad_talk(list/message_pieces, verb)
+	log_say("(HPAD) [multilingual_to_message(message_pieces)]", src)
 
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
-
-		//Human-like, sorta, heard by those who understand humans.
-		var/rendered_a
-		//Speach distorted, heard by those who do not understand AIs.
-		var/message_stars = stars(message)
-		var/rendered_b
-
-		if(speaking)
-			rendered_a = "<span class='game say'><span class='name'>[name]</span> [speaking.format_message(message, verb)]</span>"
-			rendered_b = "<span class='game say'><span class='name'>[voice_name]</span> [speaking.format_message(message_stars, verb)]</span>"
-			to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [speaking.format_message(message, verb)]</span></i>")//The AI can "hear" its own message.
-
-		else
-			rendered_a = "<span class='game say'><span class='name'>[name]</span> [verb], <span class='message'>\"[message]\"</span></span>"
-			rendered_b = "<span class='game say'><span class='name'>[voice_name]</span> [verb], <span class='message'>\"[message_stars]\"</span></span>"
-			to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [verb], <span class='message'><span class='body'>\"[message]\"</span></span></span></i>")//The AI can "hear" its own message.
-
-
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
-			if(M.say_understands(src))//If they understand AI speak. Humans and the like will be able to.
-				M.show_message(rendered_a, 2)
-			else//If they do not.
-				M.show_message(rendered_b, 2)
-		/*Radios "filter out" this conversation channel so we don't need to account for them.
-		This is another way of saying that we won't bother dealing with them.*/
+			M.hear_holopad_talk(message_pieces, verb, src)
+		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")
 	else
 		to_chat(src, "No holopad connected.")
 		return

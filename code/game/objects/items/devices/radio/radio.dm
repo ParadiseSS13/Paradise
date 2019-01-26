@@ -256,9 +256,10 @@ var/global/list/default_medbay_channels = list(
 			break
 	if(jammed)
 		message = Gibberish(message, 100)
+	var/list/message_pieces = message_to_multilingual(message)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
-						message, from, "Automated Announcement", from, "synthesized voice",
+						message_pieces, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, zlevel, connection.frequency, follow_target = follow_target)
 	qdel(A)
 
@@ -285,7 +286,7 @@ var/global/list/default_medbay_channels = list(
 	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
-/obj/item/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
+/obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
 	// If a channel isn't specified, send to common.
 	if(!message_mode || message_mode == "headset")
 		return radio_connection
@@ -301,11 +302,11 @@ var/global/list/default_medbay_channels = list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, message, channel, var/verb = "says", var/datum/language/speaking = null)
+/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, var/verb = "says")
 	if(!on)
 		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
-	if(!M || !message)
+	if(!M || !message_pieces)
 		return 0
 
 	//  Uncommenting this. To the above comment:
@@ -328,7 +329,7 @@ var/global/list/default_medbay_channels = list(
 	*/
 
 	//#### Grab the connection datum ####//
-	var/message_mode = handle_message_mode(M, message, channel)
+	var/message_mode = handle_message_mode(M, message_pieces, channel)
 	switch(message_mode) //special cases
 		if(RADIO_CONNECTION_FAIL)
 			return 0
@@ -361,7 +362,7 @@ var/global/list/default_medbay_channels = list(
 	var/jobname // the mob's "job"
 
 	if(jammed)
-		message = Gibberish(message, 100)
+		Gibberish_all(message_pieces, 100)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
@@ -432,7 +433,7 @@ var/global/list/default_medbay_channels = list(
 
 		  // Other tags:
 			"compression" = rand(45,50), // compressed radio signal
-			"message" = message, // the actual sent message
+			"message" = message_pieces, // the actual sent message
 			"connection" = connection, // the radio connection to use
 			"radio" = src, // stores the radio used for transmission
 			"slow" = 0, // how much to sleep() before broadcasting - simulates net lag
@@ -441,7 +442,6 @@ var/global/list/default_medbay_channels = list(
 			"server" = null, // the last server to log this signal
 			"reject" = 0,	// if nonzero, the signal will not be accepted by any broadcasting machinery
 			"level" = position.z, // The source's z level
-			"language" = speaking,
 			"verb" = verb
 		)
 		signal.frequency = connection.frequency // Quick frequency set
@@ -490,7 +490,7 @@ var/global/list/default_medbay_channels = list(
 		"vmask" = voicemask,	// 1 if the mob is using a voice gas mas
 
 		"compression" = 0, // uncompressed radio signal
-		"message" = message, // the actual sent message
+		"message" = message_pieces, // the actual sent message
 		"connection" = connection, // the radio connection to use
 		"radio" = src, // stores the radio used for transmission
 		"slow" = 0,
@@ -499,7 +499,6 @@ var/global/list/default_medbay_channels = list(
 		"server" = null,
 		"reject" = 0,
 		"level" = position.z,
-		"language" = speaking,
 		"verb" = verb
 	)
 	signal.frequency = connection.frequency // Quick frequency set
@@ -522,15 +521,14 @@ var/global/list/default_medbay_channels = list(
 	if(!connection)	return 0	//~Carn
 
 	return Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
-					  src, message, displayname, jobname, real_name, M.voice_name,
-					  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb,speaking)
+					  src, message_pieces, displayname, jobname, real_name, M.voice_name,
+					  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb)
 
 
-/obj/item/radio/hear_talk(mob/M as mob, msg, var/verb = "says", var/datum/language/speaking = null)
-
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "says")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, msg,null,verb,speaking)
+			talk_into(M, message_pieces, null, verb)
 
 
 /*

@@ -1,4 +1,4 @@
-/datum/event/carp_migration
+/datum/event/carp_migration/koi
 	spawned_mobs = list(
     /mob/living/simple_animal/hostile/retaliate/carp/koi = 95,
     /mob/living/simple_animal/hostile/retaliate/carp/koi/honk = 2,

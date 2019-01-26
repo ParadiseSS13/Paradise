@@ -174,7 +174,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='notice'>Something knocks on [src].</span>")
 	add_fingerprint(user)
-	playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
+	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
 /obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(!can_be_reached(user))

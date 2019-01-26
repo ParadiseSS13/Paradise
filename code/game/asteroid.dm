@@ -63,7 +63,7 @@ var/global/max_secret_rooms = 6
 			treasureitems = list(/mob/living/simple_animal/bot/medbot/mysterious=1, /obj/item/circular_saw=1, /obj/structure/closet/critter/cat=2)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=5,/obj/item/organ/internal/appendix=2,/obj/structure/closet/crate/freezer=2,
 							  /obj/machinery/optable=1,/obj/item/scalpel=1,/obj/item/storage/firstaid/regular=3,
-							  /obj/item/tank/anesthetic=1, /obj/item/surgical_drapes=2, /obj/item/mass_spectrometer/adv=1,/obj/item/clothing/glasses/hud/health=1)
+							  /obj/item/tank/anesthetic=1, /obj/item/surgical_drapes=2, /obj/item/reagent_scanner/adv=1,/obj/item/clothing/glasses/hud/health=1)
 
 		if("cult")
 			theme = "cult"

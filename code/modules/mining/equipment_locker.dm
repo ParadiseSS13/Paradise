@@ -335,6 +335,8 @@
 		var/datum/design/alloy = files.FindDesignByID(alloy_id)
 		if((check_access(inserted_id) || allowed(usr)) && alloy)
 			var/desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
+			if(desired < 1) // Stops an exploit that lets you build negative alloys and get free materials
+				return
 			var/smelt_amount = can_smelt_alloy(alloy)
 			var/amount = round(min(desired,50,smelt_amount))
 			materials.use_amount(alloy.materials, amount)
@@ -843,9 +845,10 @@
 			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
 			return
 
-/obj/item/lazarus_injector/emag_act()
+/obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
 		malfunctioning = 1
+		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)

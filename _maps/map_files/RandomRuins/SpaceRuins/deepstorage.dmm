@@ -37,7 +37,7 @@
 "aK" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/ruin/unpowered)
 "aL" = (/obj/machinery/light/small{dir = 4; pixel_y = -8},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/ruin/unpowered)
 "aM" = (/obj/structure/table,/obj/item/clothing/gloves/combat,/obj/item/clothing/gloves/combat,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"aN" = (/obj/structure/table,/obj/item/mass_spectrometer/adv,/obj/item/mass_spectrometer/adv,/obj/item/healthanalyzer,/obj/item/healthanalyzer,/obj/item/stack/medical/bruise_pack,/obj/item/stack/medical/bruise_pack,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"aN" = (/obj/structure/table,/obj/item/reagent_scanner/adv,/obj/item/healthanalyzer,/obj/item/healthanalyzer,/obj/item/stack/medical/bruise_pack,/obj/item/stack/medical/bruise_pack,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "aO" = (/obj/structure/closet/radiation,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "aP" = (/obj/structure/closet/cardboard,/obj/item/reagent_containers/food/drinks/cans/cola,/obj/item/reagent_containers/food/drinks/cans/cola,/obj/item/reagent_containers/food/drinks/cans/cola,/obj/item/reagent_containers/food/drinks/cans/cola,/obj/item/reagent_containers/food/drinks/cans/cola,/obj/machinery/light{dir = 4; icon_state = "tube1"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "aQ" = (/obj/structure/closet/wardrobe/pink,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/ruin/unpowered)
@@ -177,4 +177,3 @@ aaaaaaaaaaaaaaaaaaaaaaabababababababababababababcececececeababababababababababab
 aaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababcececececeababababababababaaaaaaababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababcececececeababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-

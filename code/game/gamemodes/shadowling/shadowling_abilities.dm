@@ -64,6 +64,9 @@
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishItem(var/obj/item/I) //WARNING NOT SUFFICIENT TO EXTINGUISH AN ITEM HELD BY A MOB
 	if(istype(I, /obj/item/flashlight))
 		var/obj/item/flashlight/F = I
+		if(istype(F, /obj/item/flashlight/flare/glowstick))
+			var/obj/item/flashlight/flare/glowstick/gstick = F
+			gstick.fuel = 0
 		if(F.on)
 			if(is_type_in_list(I, blacklisted_lights))
 				I.visible_message("<span class='danger'>[I] dims slightly before scattering the shadows around it.</span>")

@@ -6,7 +6,8 @@
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
 	var/chem_catalysts[] = list() //like tools but for reagents
-	var/category = CAT_MISC // Recipe category
+	var/category = CAT_NONE // Recipe category
+	var/roundstart_enabled = TRUE //Set to FALSE if you don't want a particular crafting recipe to be available all the time
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
 	//This proc is to replace the make_food proc of recipes from microwaves and such that are being converted to table crafting recipes.
@@ -86,6 +87,17 @@
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
+	time = 40
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/honkbot
+	name = "Honkbot"
+	result = /mob/living/simple_animal/bot/honkbot
+	reqs = list(/obj/item/robot_parts/r_arm = 1,
+				/obj/item/bikehorn = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/storage/box/clown = 1,
+				/obj/item/instrument/trombone  = 1)
 	time = 40
 	category = CAT_ROBOT
 
@@ -239,6 +251,7 @@
 	reqs = list(/obj/item/camera = 1,
 				/datum/reagent/holywater = 10)
 	parts = list(/obj/item/camera = 1)
+	category = CAT_MISC
 
 /datum/crafting_recipe/papersack
 	name = "Paper Sack"
@@ -247,12 +260,21 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
+/datum/crafting_recipe/sushimat
+	name = "Sushi Mat"
+	result = /obj/item/kitchen/sushimat
+	time = 10
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/cable_coil = 2)
+	category = CAT_MISC
+
 /datum/crafting_recipe/notreallysoap
 	name = "Homemade Soap"
 	result = /obj/item/soap/ducttape
 	time = 50
 	reqs = list(/obj/item/stack/tape_roll = 1,
 				/datum/reagent/liquidgibs = 10)
+	category = CAT_MISC
 
 /datum/crafting_recipe/garrote
 	name = "Makeshift Garrote"
@@ -289,6 +311,7 @@
 	time = 15
 	reqs = list(/obj/item/clothing/gloves/color/latex = 1,
 				/obj/item/stack/cable_coil = 5)
+	category = CAT_MISC
 
 /datum/crafting_recipe/gold_horn
 	name = "Golden bike horn"
@@ -389,3 +412,23 @@
 		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	tools = list(/obj/item/screwdriver, /obj/item/wrench)
 	category = CAT_MISC
+
+/datum/crafting_recipe/faketoolbox
+	name = "Black and Red toolbox"
+	result = /obj/item/storage/toolbox/fakesyndi
+	time = 40
+	reqs = list(/datum/reagent/paint/red = 10,
+				/datum/reagent/paint/black = 30,
+				/obj/item/storage/toolbox = 1) //Paint in reagents so it doesnt take the container up, yet still take it from the beaker
+	tools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
+	category = CAT_MISC
+
+/datum/crafting_recipe/snowman
+	name = "Snowman"
+	result = /obj/structure/snowman/built
+	reqs = list(/obj/item/snowball = 10,
+				/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
+				/obj/item/grown/log = 2)
+	time = 50
+	category = CAT_MISC
+	roundstart_enabled = FALSE

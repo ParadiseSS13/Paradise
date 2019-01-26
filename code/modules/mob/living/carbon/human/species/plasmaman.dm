@@ -39,6 +39,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes
 		)
 
+	speciesbox = /obj/item/storage/box/survival_plasmaman
+
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", stutter("ss"))
@@ -89,7 +91,7 @@
 		if("Magistrate")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/magistrate
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate
-		if("Head of Security")
+		if("Head of Security", "Special Operations Officer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
 		if("Captain", "Blueshield")
@@ -98,7 +100,7 @@
 		if("Head of Personnel")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
-		if("Nanotrasen Representative")
+		if("Nanotrasen Representative", "Nanotrasen Navy Officer")
 			suit = /obj/item/clothing/suit/space/eva/plasmaman/nt_rep
 			helm = /obj/item/clothing/head/helmet/space/eva/plasmaman/nt_rep
 		if("Medical Doctor","Brig Physician","Virologist")
@@ -146,6 +148,9 @@
 		if("Mime")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
+		if("Syndicate Officer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/nuclear
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear
 
 	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
 		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)

@@ -153,11 +153,11 @@
 			var/newname = ""
 			switch(lasercolor)
 				if("b")
-					if(!istype(W, /obj/item/gun/energy/laser/bluetag))
+					if(!istype(W, /obj/item/gun/energy/laser/tag/blue))
 						return
 					newname = "bluetag ED-209 assembly"
 				if("r")
-					if(!istype(W, /obj/item/gun/energy/laser/redtag))
+					if(!istype(W, /obj/item/gun/energy/laser/tag/red))
 						return
 					newname = "redtag ED-209 assembly"
 				if("")
@@ -480,3 +480,56 @@
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
+
+//Honkbot Assembly
+/obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/robot_parts/l_arm) && !istype(W, /obj/item/robot_parts/r_arm))
+		return ..()
+
+	if(contents.len)
+		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
+		return
+
+	var/obj/item/honkbot_arm_assembly/A = new /obj/item/honkbot_arm_assembly
+	qdel(W)
+	user.put_in_hands(A)
+	to_chat(user, "<span class='notice'>You add the robot arm to the honkbot.</span>")
+	user.unEquip(src, 1)
+	qdel(src)
+
+/obj/item/honkbot_arm_assembly
+	name = "incomplete honkbot assembly."
+	desc = "A clown box with a robot arm permanently grafted to it."
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "honkbot_arm"
+	w_class = WEIGHT_CLASS_NORMAL
+	req_one_access = list(access_clown, access_robotics, access_mime)
+	var/build_step = 0
+	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
+
+/obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
+	..()
+	if(build_step == 0)
+		if(istype(W, /obj/item/assembly/prox_sensor))
+			if(!user.unEquip(W))
+				return
+			build_step++
+			to_chat(user, "<span class='notice'>You add the proximity sensor to [src].</span>")
+			icon_state = "honkbot_proxy"
+			qdel(W)
+	else if(build_step == 1)
+		if(istype(W, /obj/item/bikehorn))
+			if(!user.unEquip(W))
+				return
+			build_step++
+			to_chat(user, "<span class='notice'>You add the bikehorn to [src]! Honk!</span>")
+			desc = "A clown box with a robot arm and a bikehorn permanently grafted to it. It needs a trombone to be finished"
+			qdel(W)
+	else if(build_step == 2)
+		if(istype(W, /obj/item/instrument/trombone))
+			if(!user.unEquip(W))
+				return
+			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk! </span>")
+			qdel(W)
+			new /mob/living/simple_animal/bot/honkbot(get_turf(loc))
+			qdel(src)

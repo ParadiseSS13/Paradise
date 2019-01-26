@@ -148,7 +148,7 @@
 			selection = available[selected]
 			updateUsrDialog()
 		if("horn")
-			deejay('sound/items/airhorn2.ogg')
+			deejay('sound/items/Airhorn2.ogg')
 		if("alert")
 			deejay('sound/misc/notice1.ogg')
 		if("siren")
@@ -462,7 +462,7 @@
 			if(!(M in rangers))
 				rangers[M] = TRUE
 				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
-			if(prob(5+(allowed(M) * 4)) && M.canmove)
+			if(prob(5+(allowed(M) * 4)) && M.canmove && isliving(M))
 				dance(M)
 		for(var/mob/L in rangers)
 			if(get_dist(src, L) > 10)

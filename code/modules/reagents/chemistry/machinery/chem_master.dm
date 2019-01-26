@@ -48,6 +48,7 @@
 	else
 		spawn(rand(0, 15))
 			stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
 	if(default_unfasten_wrench(user, B))

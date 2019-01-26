@@ -11,7 +11,6 @@
 	var/ask_verb = "asks"            // Used when sentence ends in a ?
 	var/exclaim_verb = "exclaims"    // Used when sentence ends in a !
 	var/whisper_verb                 // Optional. When not specified speech_verb + quietly/softly is used instead.
-	var/signlang_verb = list()       // list of emotes that might be displayed if this language has NONVERBAL or SIGNLANG flags
 	var/colour = "body"              // CSS style to use for strings in this language.
 	var/key = "x"                    // Character used to speak in language eg. :o for Unathi.
 	var/flags = 0                    // Various language flags.
@@ -85,11 +84,11 @@
 
 	return scrambled_text
 
-/datum/language/proc/format_message(message, verb)
-	return "[verb], <span class='message'><span class='[colour]'>\"[capitalize(message)]\"</span></span>"
+/datum/language/proc/format_message(message)
+	return "<span class='message'><span class='[colour]'>[message]</span></span>"
 
-/datum/language/proc/format_message_radio(message, verb)
-	return "[verb], <span class='[colour]'>\"[capitalize(message)]\"</span>"
+/datum/language/proc/format_message_radio(message)
+	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -103,11 +102,11 @@
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
-	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
+	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [get_spoken_verb(message)], [format_message(message)]</span></i>"
 
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
 			to_chat(player, msg_dead)
 			continue
 
@@ -135,10 +134,10 @@
 	key = ""
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER
 
-/datum/language/noise/format_message(message, verb)
+/datum/language/noise/format_message(message)
 	return "<span class='message'><span class='[colour]'>[message]</span></span>"
 
-/datum/language/noise/format_message_radio(message, verb)
+/datum/language/noise/format_message_radio(message)
 	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/noise/get_talkinto_msg_range(message)
@@ -635,10 +634,9 @@
 
 // Language handling.
 /mob/proc/add_language(language)
-
 	var/datum/language/new_language = GLOB.all_languages[language]
 
-	if(!istype(new_language) || new_language in languages)
+	if(!istype(new_language) || (new_language in languages))
 		return FALSE
 
 	languages |= new_language
@@ -657,8 +655,7 @@
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
-
-	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in languages)
+	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
 
 //TBD
 /mob/proc/check_lang_data()

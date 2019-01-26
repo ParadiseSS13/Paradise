@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/m10mm
-	fire_sound = 'sound/weapons/gunshots/Gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	can_suppress = 1
@@ -85,7 +85,7 @@
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
-	fire_sound = 'sound/weapons/gunshots/Gunshot_pistolH.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = 0

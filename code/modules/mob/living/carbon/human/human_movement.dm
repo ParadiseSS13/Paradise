@@ -13,6 +13,8 @@
 	var/obj/item/tank/jetpack/thrust
 	if(istype(back,/obj/item/tank/jetpack))
 		thrust = back
+	else if(istype(s_store,/obj/item/tank/jetpack))
+		thrust = s_store
 	else if(istype(back,/obj/item/rig))
 		var/obj/item/rig/rig = back
 		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
@@ -85,6 +87,13 @@
 					if(!(step_count % 2)) //every other turf makes a sound
 						return 0
 
+				if(istype(shoes, /obj/item/clothing/shoes))
+					var/obj/item/clothing/shoes/shooess = shoes
+					if(shooess.silence_steps)
+						return 0 //silent
+					if(shooess.shoe_sound)
+						return //Handle it on the shoe
+
 				var/range = -(world.view - 2)
 				if(m_intent == MOVE_INTENT_WALK)
 					range -= 0.333
@@ -103,11 +112,6 @@
 					volume -= 4
 				if(!shoes)
 					volume -= 4
-
-				if(istype(shoes, /obj/item/clothing/shoes))
-					var/obj/item/clothing/shoes/shooess = shoes
-					if(shooess.silence_steps)
-						return 0 //silent
 
 				if(!has_organ("l_foot") && !has_organ("r_foot"))
 					return 0 //no feet no footsteps

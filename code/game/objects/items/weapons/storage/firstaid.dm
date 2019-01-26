@@ -330,3 +330,9 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/fakedeath/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/food/pill/fakedeath(src)

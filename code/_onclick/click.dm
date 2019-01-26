@@ -285,12 +285,12 @@
 /mob/proc/CtrlClickOn(var/atom/A)
 	A.CtrlClick(src)
 	return
-/atom/proc/CtrlClick(var/mob/user)
-	return
 
-/atom/movable/CtrlClick(var/mob/user)
-	if(Adjacent(user))
-		user.start_pulling(src)
+/atom/proc/CtrlClick(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
+	var/mob/living/ML = user
+	if(istype(ML))
+		ML.pulled(src)
 
 /*
 	Alt click

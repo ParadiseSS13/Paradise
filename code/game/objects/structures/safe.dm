@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(safes)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
-					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill)
+					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()

@@ -76,6 +76,15 @@
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
+	var/nominalsound = 'sound/mecha/nominal.ogg'
+	var/zoomsound = 'sound/mecha/imag_enh.ogg'
+	var/critdestrsound = 'sound/mecha/critdestr.ogg'
+	var/weapdestrsound = 'sound/mecha/weapdestr.ogg'
+	var/lowpowersound = 'sound/mecha/lowpower.ogg'
+	var/longactivationsound = 'sound/mecha/nominal.ogg'
+	var/starting_voice = /obj/item/mecha_modkit/voice
+	var/activated = FALSE
+	var/power_warned = FALSE
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -120,6 +129,10 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
+
+	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
+	V.install(src)
+	qdel(V)
 
 ////////////////////////
 ////// Helpers /////////
@@ -171,9 +184,9 @@
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			to_chat(user, "[bicon(ME)] [ME]")
 
-/obj/mecha/hear_talk(mob/M, text)
+/obj/mecha/hear_talk(mob/M, list/message_pieces)
 	if(M == occupant && radio.broadcasting)
-		radio.talk_into(M, text)
+		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user )
@@ -872,6 +885,16 @@
 		user.drop_item()
 		qdel(P)
 
+	else if(istype(W, /obj/item/mecha_modkit))
+		if(occupant)
+			to_chat(user, "<span class='notice'>You can't access the mech's modification port while it is occupied.</span>")
+			return
+		var/obj/item/mecha_modkit/M = W
+		if(do_after_once(user, M.install_time, target = src))
+			M.install(src, user)
+		else
+			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
+
 	else
 		return attacked_by(W, user)
 
@@ -993,7 +1016,7 @@
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
-		occupant << sound('sound/mecha/nominal.ogg',volume=50)
+		occupant << sound(nominalsound, volume = 50)
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
@@ -1151,8 +1174,13 @@
 		icon_state = reset_icon()
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-		if(!hasInternalDamage())
-			occupant << sound('sound/mecha/nominal.ogg', volume = 50)
+		if(!activated)
+			occupant << sound(longactivationsound, volume = 50)
+			activated = TRUE
+		else if(!hasInternalDamage())
+			occupant << sound(nominalsound, volume = 50)
+		if(state)
+			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
 		return 1
 	else
 		return 0
@@ -1208,7 +1236,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound('sound/mecha/nominal.ogg',volume=50))
+			to_chat(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
 		return 1
 	else
@@ -1235,6 +1263,7 @@
 		return
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
+	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
@@ -1349,14 +1378,40 @@
 /obj/mecha/proc/use_power(amount)
 	if(get_charge())
 		cell.use(amount)
+		if(occupant)
+			update_cell()
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
+		if(occupant)
+			update_cell()
 		return 1
 	return 0
+
+/obj/mecha/proc/update_cell()
+	if(cell)
+		var/cellcharge = cell.charge/cell.maxcharge
+		switch(cellcharge)
+			if(0.75 to INFINITY)
+				occupant.clear_alert("charge")
+			if(0.5 to 0.75)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+			if(0.25 to 0.5)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				if(power_warned)
+					power_warned = FALSE
+			if(0.01 to 0.25)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				if(!power_warned)
+					occupant << sound(lowpowersound, volume = 50)
+					power_warned = TRUE
+			else
+				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+	else
+		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
 
 /obj/mecha/proc/reset_icon()
 	if(initial_icon)

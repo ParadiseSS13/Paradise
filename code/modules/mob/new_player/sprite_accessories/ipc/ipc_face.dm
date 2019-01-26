@@ -122,13 +122,13 @@
 /datum/sprite_accessory/hair/ipc/fluff
 	fluff = 1
 
-/datum/sprite_accessory/hair/ipc/fluff/lumi_face //Lumi Fluff hair
-	name = "Lumi Face"
-	icon_state = "lumi_face"
+/datum/sprite_accessory/hair/ipc/fluff/lumi_eyes //Lumi Fluff hair
+	name = "Lumi Eyes"
+	icon_state = "lumi_eyes"
 
-/datum/sprite_accessory/hair/ipc/fluff/lumi_blush //Lumi Fluff hair
-	name = "Lumi Blush"
-	icon_state = "lumi_blush"
+/datum/sprite_accessory/hair/ipc/fluff/lumi_music //Lumi Fluff hair
+	name = "Lumi Music"
+	icon_state = "lumi_music"
 
 /datum/sprite_accessory/hair/ipc/fluff/lumi_waiting //Lumi Fluff hair
 	name = "Lumi Waiting"

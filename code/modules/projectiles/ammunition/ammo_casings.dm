@@ -29,6 +29,12 @@
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet2
 
+/obj/item/ammo_casing/c38/invisible
+	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
+
+/obj/item/ammo_casing/c38/invisible/fake
+	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible/fake
+
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	caliber = "10mm"
@@ -364,16 +370,17 @@
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
 	icon_state = "foamdart_riot"
 
-/obj/item/ammo_casing/shotgun/dart/assassination
-	desc = "A specialist shotgun dart designed to inncapacitate and kill the target over time, so you can get very far away from your target"
-
-/obj/item/ammo_casing/shotgun/dart/assassination/New()
-	..()
-	reagents.add_reagent("neurotoxin", 6)
+/obj/item/ammo_casing/shotgun/assassination
+	name = "assassination shell"
+	desc = "A specialist shrapnel shell that has been laced with a silencing toxin."
+	projectile_type = /obj/item/projectile/bullet/pellet/assassination
+	icon_state = "gshell"
+	pellets = 6
+	variance = 25
 
 /obj/item/ammo_casing/cap
 	desc = "A cap for children toys."
-	caliber = "caps"
+	caliber = "cap"
 	projectile_type = /obj/item/projectile/bullet/cap
 
 /obj/item/ammo_casing/laser

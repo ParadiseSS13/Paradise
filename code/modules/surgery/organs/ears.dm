@@ -47,6 +47,9 @@
 /obj/item/organ/internal/ears/proc/MinimumDeafTicks(value)
 	deaf = max(deaf, value)
 
+/obj/item/organ/internal/ears/surgeryize()
+	RestoreEars()
+
 // Mob procs
 /mob/living/carbon/RestoreEars()
 	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
@@ -62,3 +65,4 @@
 	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
 		ears.MinimumDeafTicks(value)
+

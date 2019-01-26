@@ -70,9 +70,6 @@
 	H.dna.SetSEState(JUMPBLOCK, TRUE)
 	genemutcheck(H, JUMPBLOCK, null, MUTCHK_FORCED)
 
-	H.dna.SetSEState(SUPERFARTBLOCK, TRUE)
-	genemutcheck(H, SUPERFARTBLOCK, null, MUTCHK_FORCED)
-
 	H.dna.SetSEState(IMMOLATEBLOCK, TRUE)
 	genemutcheck(H, IMMOLATEBLOCK, null, MUTCHK_FORCED)
 
