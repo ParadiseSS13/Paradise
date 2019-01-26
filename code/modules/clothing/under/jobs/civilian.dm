@@ -14,17 +14,8 @@
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
-	flags_size = ONESIZEFITSALL		
+	flags_size = ONESIZEFITSALL
 
-/obj/item/clothing/under/rank/captains_dress
-	desc = "It's a dress jumpsuit with some gold markings denoting the rank of \"Captain\"."
-	name = "captain's dress jumpsuit"
-	icon_state = "captain_alt"
-	item_state = "captain_alt"
-	item_color = "captain_alt"
-	hispania_icon = TRUE
-	flags_size = ONESIZEFITSALL		
-	
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
 	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
