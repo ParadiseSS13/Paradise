@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Bat swarm can no longer be spawned by gold slime extracts or reality tears. Regular bats can still be spawned."
