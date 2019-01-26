@@ -23,13 +23,6 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
-	
-//Captain: Dress
-/obj/item/clothing/head/caphat/alt
-	name = "captain's dress cap"
-	desc = "Worn only by Captains with an abundance of class."
-	icon_state = "captain_alt"
-	item_state = "captain_alt"
 
 //Head of Personnel
 /obj/item/clothing/head/hopcap
