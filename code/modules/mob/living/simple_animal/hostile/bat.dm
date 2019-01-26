@@ -75,3 +75,4 @@
 	pass_flags = PASSTABLE
 	universal_speak = 1
 	universal_understand = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //badmin only
