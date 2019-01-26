@@ -70,7 +70,6 @@
 
 			else if(!current_surgery.step_in_progress  && ishuman(M)) //early surgery cautery
 				var/datum/surgery_step/generic/cauterize/C = new
-				var/target_zone = check_zone(selected_zone)
 				if(current_surgery.status == 1)
 					M.surgeries -= current_surgery
 					to_chat(user, "You stop the surgery.")
@@ -92,17 +91,17 @@
 								cautery_tool = user.get_inactive_hand()
 
 					if(cautery_chance)
-						C.begin_step(user, H, selected_zone, target_zone, cautery_tool, current_surgery)
+						C.begin_step(user, H, selected_zone, cautery_tool, current_surgery)
 						if(do_after(user, C.time * cautery_tool.toolspeed, target = M))
 							if(!isrobot(user))
 								cautery_chance *= get_location_modifier(H)
 								cautery_chance *= get_pain_modifier(H)
 							if(prob(cautery_chance))
-								C.end_step(user, H, selected_zone, target_zone, cautery_tool, current_surgery)
+								C.end_step(user, H, selected_zone, cautery_tool, current_surgery)
 								M.surgeries -= current_surgery
 								qdel(current_surgery)
 							else
-								C.fail_step(user, H, selected_zone, target_zone, cautery_tool, current_surgery)
+								C.fail_step(user, H, selected_zone, cautery_tool, current_surgery)
 
 					else if(!isrobot(user))
 						to_chat(user, "<span class='notice'>You need to hold a cautery or equivalent in your inactive hand to stop the surgery in progress.</span>")
@@ -148,8 +147,6 @@
 	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat))
 		return TRUE
 	if(locate(/obj/structure/table, M.loc) && (M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat))
-		return TRUE
-	if((istype(M.loc, /turf/simulated/floor) || istype(M.loc, /turf/unsimulated/floor)) && (M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat))
 		return TRUE
 	return FALSE
 

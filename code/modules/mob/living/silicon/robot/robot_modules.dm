@@ -161,6 +161,7 @@
 	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/circular_saw(src)
 	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/gripper/medical(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -422,6 +423,7 @@
 	modules += new /obj/item/FixOVein(src)
 	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
