@@ -221,50 +221,23 @@
 	flash_cur_charges = min(flash_cur_charges+1, flash_max_charges)
 	return TRUE
 
-
 /obj/item/flash/cameraflash/attack(mob/living/M, mob/user)
-	if(flash_cur_charges > 0)
-		flash_cur_charges -= 1
-		to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
-		if(!try_use_flash(user))
-			return 0
-
-		if(iscarbon(M))
-			flash_carbon(M, user, 5, 1)//removed the overcharge check to trim code
-
-		else if(issilicon(M))
-			if(isrobot(M))
-				var/mob/living/silicon/robot/R = M
-				if(R.module) // Perhaps they didn't choose a module yet
-					for(var/obj/item/borg/combat/shield/S in R.module.modules)
-						if(R.activated(S))
-							add_attack_logs(user, M, "Flashed with [src]")
-							user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but is blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by [M.p_their()] shield!</span>")
-							return 1
-			add_attack_logs(user, M, "Flashed with [src]")
-			if(M.flash_eyes(affect_silicon = 1))
-				M.Weaken(rand(5,10))
-				user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
-			return 1
-
-		user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
-	else
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-	return
+    if(flash_cur_charges > 0)
+        flash_cur_charges -= 1
+        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
+        ..()
+    else
+        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+    return
 
 /obj/item/flash/cameraflash/attack_self(mob/living/carbon/user, flag = 0)
-	if(flash_cur_charges > 0)
-		flash_cur_charges -= 1
-		to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
-		if(!try_use_flash(user))
-			return 0
-
-		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
-		for(var/mob/living/carbon/M in oviewers(3, null))
-			flash_carbon(M, user, 3, 0)
-	else
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-	return
+    if(flash_cur_charges > 0)
+        flash_cur_charges -= 1
+        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
+        ..()
+    else
+        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+    return
 
 /obj/item/flash/memorizer
 	name = "memorizer"
