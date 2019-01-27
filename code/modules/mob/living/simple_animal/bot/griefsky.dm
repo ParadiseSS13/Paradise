@@ -25,7 +25,8 @@
 	
 	var/spin_icon = "griefsky-c" // griefsky and griefsky junior have dif icons
 	var/dmg = 30 //esword dmg
-	var/block_chance = 50 //melee
+	var/block_chance_melee = 50
+	var/block_chance_ranged = 90
 	var/spam_flag = 0
 	var/base_icon = "griefsky"
 	var/mob/living/carbon/target
@@ -59,8 +60,9 @@
 /mob/living/simple_animal/bot/griefsky/jgriefsky  // cheaper griefsky less damage
 	name = "Griefsky apprentice"
 	desc = "Is that a secbot with four energy daggers in its arms...?"
-	dmg = 10
-	block_chance = 30
+	dmg = 18 // e dagger
+	block_chance_melee = 30
+	block_chance_ranged = 50
 	spin_icon = "griefskyj-c"
 	window_name = "Automatic Security Unit v7.0"
 	health = 100
@@ -342,7 +344,7 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
-	if(icon_state == spin_icon) //only when the eswords are on
+	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
@@ -354,7 +356,7 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/griefsky/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
-	if(prob(block_chance))
+	if(prob(block_chance_melee))
 		visible_message("[src] deflects [user]'s attack with his energy swords!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)	
 		return TRUE
@@ -368,7 +370,7 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/griefsky/attackby(obj/item/W, mob/user, params) //cant touch or attack him while spinning
 	if(src.icon_state == spin_icon)
-		if(prob(block_chance))
+		if(prob(block_chance_melee))
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			visible_message("[src] deflects [user]'s move with his energy swords!")
