@@ -68,7 +68,17 @@
 	health = 100
 	maxHealth = 100
 	weapon = /obj/item/pen/edagger
-	
+
+/mob/living/simple_animal/bot/griefsky/griefsky/toy  //A toy version of general griefsky!
+	name = "Genewul Bweepskee"
+	desc = "An adorable looking secbot with four toy swords taped to its arms"
+	health = 50
+	maxHealth = 50
+	dmg = 0
+	block_chance_melee = 0
+	block_chance_ranged = 0
+	bot_core_type = /obj/machinery/bot_core/toy
+
 /mob/living/simple_animal/bot/griefsky/turn_on()
 	..()
 	icon_state = "[base_icon][on]"
@@ -382,3 +392,6 @@ Auto Patrol: []"},
 
 /obj/machinery/bot_core/secbot
 	req_access = list(access_security)
+
+/obj/machinery/bot_core/toy
+	req_access = list(access_maint_tunnels, access_theatre, access_robotics)

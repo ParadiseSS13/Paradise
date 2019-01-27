@@ -94,19 +94,6 @@
 	time = 120
 	category = CAT_ROBOT
 
-/datum/crafting_recipe/jgriefsky
-	name = "Griefsky apprentice"
-	result = /mob/living/simple_animal/bot/griefsky/jgriefsky
-	reqs = list(/obj/item/assembly/signaler = 1,
-				/obj/item/clothing/head/helmet = 1,
-				/obj/item/pen/edagger = 4,
-				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/robot_parts/r_arm = 2,
-				/obj/item/robot_parts/l_arm = 2)
-	tools = list(/obj/item/weldingtool)
-	time = 120
-	category = CAT_ROBOT
-
 /datum/crafting_recipe/cleanbot
 	name = "Cleanbot"
 	result = /mob/living/simple_animal/bot/cleanbot
