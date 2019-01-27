@@ -242,6 +242,20 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal/nodecon/thermitemelt(mob/user as mob, speed)
 	return
 
+//sub-type for custom corner edges so that titanium tiles on the derelict can have jagged edges/non-smoothed edges.
+//this is for tile-blending and aesthetic purposes where smoothing on edges is not desired behaviour.
+/turf/simulated/wall/mineral/titanium/nodecon/corner
+	name = "russian wall"
+	desc = "Like regular titanium, but able to deflect capitalist aggressors."
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "swall_f6"
+
+/turf/simulated/wall/mineral/titanium/nodecon/corner/try_decon(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/mineral/titanium/nodecon/corner/thermitemelt(mob/user as mob, speed)
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
