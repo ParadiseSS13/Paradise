@@ -7,9 +7,9 @@
 	anchored = 0
 	health = 150
 	maxHealth = 150
-	base_speed = 4 //he's a fast fucker
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
+	
 
 	radio_channel = "Security" //Security channel
 	bot_type = SEC_BOT
@@ -23,9 +23,9 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	allow_pai = 0
 
-	var/block_chance = 50 // not working yet
 	var/spin_icon = "griefsky-c" // griefsky and griefsky junior have dif icons
-	var/dmg = 30
+	var/dmg = 30 //esword dmg
+	var/block_chance = 50 //melee
 	var/spam_flag = 0
 	var/base_icon = "griefsky"
 	var/mob/living/carbon/target
@@ -38,11 +38,7 @@
 	var/weaponscheck = 0 //If true, arrest people for weapons if they lack access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
-	var/harmbaton = 1 //If true, beat instead of stun
-	var/flashing_lights = 0 //If true, flash lights
-	var/prev_flashing_lights = 0                                       //REMOVE VARS WHEN DONE!!!!!!!!!!!!!PLEASE SACALAS >:/, ya estna en beepsky
-	var/onetime = 0
-
+	
 /mob/living/simple_animal/bot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0
 
@@ -62,7 +58,8 @@
 /mob/living/simple_animal/bot/griefsky/jgriefsky  // cheaper griefsky less damage
 	name = "General griefsky"
 	desc = "It's Prison Ofitser! ."
-	dmg = 15
+	base_speed = 4 //a little bit slower
+	dmg = 15 //energy daggers
 	spin_icon = "griefskyj-c"
 	
 /mob/living/simple_animal/bot/griefsky/turn_on()
@@ -145,10 +142,7 @@ Auto Patrol: []"},
 		target = H
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/griefsky/attack_hand(mob/living/carbon/human/H)
-	if(H.a_intent == INTENT_HARM || H.a_intent == INTENT_DISARM)
-		retaliate(H)
-	return ..()
+
 
 /mob/living/simple_animal/bot/griefsky/attackby(obj/item/W, mob/user, params)
 	..()
@@ -166,13 +160,6 @@ Auto Patrol: []"},
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
 		icon_state = "[base_icon][on]"
-
-/mob/living/simple_animal/bot/griefsky/bullet_act(obj/item/projectile/Proj)            //if you fire him it will increase your threat level
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
-			if(!Proj.nodamage && Proj.damage < src.health)
-				retaliate(Proj.firer)
-	..()
 
 /mob/living/simple_animal/bot/griefsky/UnarmedAttack(atom/A)        //when controlled by a player
 	if(!on)
@@ -198,47 +185,24 @@ Auto Patrol: []"},
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
-		if(prob(99)) 
+		if(prob(50)) 
 			C.Weaken(5)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		if(!spam_flag)
-			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak("Back away! i will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
 			spam_flag = 1
 			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
-
-/mob/living/simple_animal/bot/griefsky/Life(seconds, times_fired)
-	. = ..()
-	if(flashing_lights)
-		switch(light_color)
-			if(LIGHT_COLOR_PURE_RED)
-				light_color = LIGHT_COLOR_PURE_BLUE
-			if(LIGHT_COLOR_PURE_BLUE)
-				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
-	else if(prev_flashing_lights)
-		light_color = LIGHT_COLOR_PURE_RED
-		update_light()
-
-	prev_flashing_lights = flashing_lights
-
-/mob/living/simple_animal/bot/griefsky/verb/toggle_flashing_lights()
-	set name = "Toggle Flashing Lights"
-	set category = "Object"
-	set src = usr
-
-	flashing_lights = !flashing_lights
 
 /mob/living/simple_animal/bot/griefsky/handle_automated_action()
 	if(!..())
 		return
 
-	flashing_lights = mode == BOT_HUNT
-
 	switch(mode)
 		if(BOT_IDLE)		// idle
+			icon_state = "griefsky1"
 			walk_to(src,0)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -247,14 +211,14 @@ Auto Patrol: []"},
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			icon_state = spin_icon
-			playsound(src,'sound/effects/spinsabre.ogg',100,1,-1)
-			if(frustration >= 8)
+			playsound(loc,'sound/effects/spinsabre.ogg',100,1,-1)
+			if(frustration >= 20) // general griefsky doesn't give up so easily, jedi scum
 				walk_to(src,0)
 				back_to_idle()
 				return
 
 			if(target)		// make sure target exists
-				if(target.stat == !DEAD)	
+				if(target.stat == !DEAD)
 					if(Adjacent(target) && isturf(target.loc))	// if right next to perp
 						sword_attack(target)
 						anchored = 1
@@ -262,21 +226,21 @@ Auto Patrol: []"},
 						return
 					else								// not next to perp
 						var/turf/olddist = get_dist(src, target)
-						walk_to(src, target,1,4)
+						walk_to(src, target,1,3) //he's a fast fucker
 						if((get_dist(src, target)) >= (olddist))
 							frustration++
 						else
 							frustration = 0
-				else
+				else 
 					back_to_idle()
+					speak("You fool")
+			else
+				back_to_idle()
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc))
-				back_to_hunt()
-				return
-			else
+			if(target.stat == DEAD)
 				back_to_idle()
 				return
 
@@ -291,6 +255,7 @@ Auto Patrol: []"},
 	return
 
 /mob/living/simple_animal/bot/griefsky/proc/back_to_idle()
+	playsound(loc, 'sound/weapons/saberoff.ogg', 50, 1, -1)
 	anchored = 0
 	mode = BOT_IDLE
 	target = null
@@ -320,8 +285,7 @@ Auto Patrol: []"},
 		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
-			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
+			speak("You are a bold one")
 			visible_message("<b>[src]</b> points at [C.name]!")
 			playsound(loc, 'sound/weapons/saberon.ogg', 50, 1, -1)
 			mode = BOT_HUNT
@@ -370,11 +334,31 @@ Auto Patrol: []"},
 		return
 	..() 
 
-/mob/living/simple_animal/bot/griefsky/bullet_act(obj/item/projectile/P)
-	visible_message("[src] deflects [P] with its energy swords!")
-	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
+/mob/living/simple_animal/bot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
-	return 0
+	if(icon_state == spin_icon) //only when the eswords are on
+		visible_message("[src] deflects [P] with its energy swords!")
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
+	else
+		..()
+	
+/mob/living/simple_animal/bot/griefsky/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
+	return
+
+/mob/living/simple_animal/bot/griefsky/special_retaliate_after_attack(mob/user)
+	if(icon_state != spin_icon)
+		return
+	if(prob(block_chance))
+		visible_message("[src] deflects [user]'s attack with his energy swords!")
+		playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE, -1)	
+		return TRUE
+
+/mob/living/simple_animal/bot/griefsky/attack_hand(mob/living/carbon/human/H)
+	if((H.a_intent == INTENT_HARM) || (H.a_intent == INTENT_DISARM))
+		retaliate(H)
+		if(special_retaliate_after_attack(H))
+			return
+	return ..()
 
 /obj/machinery/bot_core/secbot
 	req_access = list(access_security)
