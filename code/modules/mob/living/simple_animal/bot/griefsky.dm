@@ -1,4 +1,4 @@
-/mob/living/simple_animal/bot/griefsky
+/mob/living/simple_animal/bot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
 	name = "\improper General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
 	icon = 'icons/obj/aibots.dmi'
@@ -59,7 +59,7 @@
 /mob/living/simple_animal/bot/griefsky/jgriefsky  // cheaper griefsky less damage
 	name = "Griefsky apprentice"
 	desc = "Is that a secbot with four energy daggers in its arms...?"
-	dmg = 15 //energy daggers
+	dmg = 10
 	block_chance = 30
 	spin_icon = "griefskyj-c"
 	window_name = "Automatic Security Unit v7.0"
