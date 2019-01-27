@@ -56,7 +56,7 @@
 		if(!name)
 			return 0
 		for(var/datum/vr_room/R in vr_rooms)
-			if(R.creator == usr.ckey)
+			if(R.creator == usr.ckey && 0)
 				to_chat(usr, "The system only supports one room per client. Please try again once your current room has expired or after deleting it.")
 				return 0
 		make_vr_room(name, href_list["make_room"], 1, usr.ckey, password)

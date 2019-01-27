@@ -203,6 +203,9 @@ proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_r
 	if(H.ckey)
 		SSnanoui.close_user_uis(H)
 		vr_avatar.ckey = H.ckey
+		for(var/mob/dead/observer/O in GLOB.player_list)
+			if (O.following && O.following == H)
+				O.ManualFollow(vr_avatar)
 		if(istype(H, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/V = H
 			vr_avatar.real_me = V.real_me
@@ -212,7 +215,10 @@ proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_r
 proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 
 	var/mob/living/carbon/human/virtual_reality/vr_human
-	vr_human = build_virtual_avatar(H, pick(room.spawn_points), room)
+	if(room.spawn_points.len)
+		vr_human = build_virtual_avatar(H, pick(room.spawn_points), room)
+	else
+		log_debug("WARNING: Trying to spawn on non existant map.")
 	room.players.Add(vr_human)
 	if(room.delete_timer)
 		deltimer(room.delete_timer)

@@ -37,14 +37,14 @@ Used In File(s): \code\modules\vr\vr_control.dm
 			<div style="width: 100%;">
 				<table width="100%"><tbody>
 					<tr>
-						<td style="width: 120px;"><b>Room Name</b></td><td style="width: 90px;"><b>Players</b></td><td style="width: 140px;"><b>Map Name</b></td>
+						<td style="width: 120px;"><b>Room Name</b></td><td style="width: 90px;"><b>Players</b></td><td style="width: 130px;"><b>Map Name</b></td>
 					</tr>
 					{{for data.rooms}}
 						<tr>
 							{{if value.password}}	
-								<td style="width: 120px;">{{:value.name}}</td><td style="width: 90px;">{{:value.players}}</td><td style="width: 140px;">{{:value.template}}</td><td>{{:helper.link("Join", 'lock', {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
+								<td style="width: 120px;">{{:value.name}}</td><td style="width: 90px;">{{:value.players}}</td><td style="width: 130px;">{{:value.template}}</td><td>{{:helper.link("Join", 'lock', {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
 							{{else}}
-								<td style="width: 120px;">{{:value.name}}</td><td style="width: 90px;">{{:value.players}}</td><td style="width: 140px;">{{:value.template}}</td><td>{{:helper.link("Join", 'arrow-right', {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
+								<td style="width: 120px;">{{:value.name}}</td><td style="width: 90px;">{{:value.players}}</td><td style="width: 130px;">{{:value.template}}</td><td>{{:helper.link("Join", 'arrow-right', {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
 							{{/if}}
 						</tr>
 					{{/for}}
