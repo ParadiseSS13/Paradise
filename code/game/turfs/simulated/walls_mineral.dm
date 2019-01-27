@@ -228,7 +228,7 @@
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
 
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend
-	fixed_underlay = list("keep"=1)
+	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
 
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
 	smooth = SMOOTH_MORE
@@ -245,7 +245,7 @@
 
 /turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
 	return
-	
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
