@@ -1,4 +1,4 @@
-/mob/living/simple_animal/bot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
+/mob/living/simple_animal/bot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror.
 	name = "\improper General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
 	icon = 'icons/obj/aibots.dmi'
@@ -242,13 +242,6 @@ Auto Patrol: []"},
 					speak("You fool")
 			else
 				back_to_idle()
-
-		if(BOT_PREP_ARREST)		// preparing to arrest target
-
-			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(target.stat == DEAD)
-				back_to_idle()
-				return
 
 		if(BOT_START_PATROL)
 			look_for_perp()
