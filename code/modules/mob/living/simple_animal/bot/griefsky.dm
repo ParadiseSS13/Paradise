@@ -1,6 +1,6 @@
 /mob/living/simple_animal/bot/griefsky
 	name = "\improper General Griefsky"
-	desc = "A little security robot.  He looks less than thrilled."
+	desc = "Is that a secbot with four eswords in its arms...?"
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky0"
 	density = 0
@@ -57,8 +57,8 @@
 	permanent_huds |= secsensor
 
 /mob/living/simple_animal/bot/griefsky/jgriefsky  // cheaper griefsky less damage
-	name = "General griefsky"
-	desc = "Griefsky apprentice ."
+	name = "Griefsky apprentice"
+	desc = "Is that a secbot with four energy daggers in its arms...?"
 	dmg = 15 //energy daggers
 	block_chance = 30
 	spin_icon = "griefskyj-c"
