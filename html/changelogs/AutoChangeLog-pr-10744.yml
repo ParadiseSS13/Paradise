@@ -1,0 +1,4 @@
+author: "Kyep and alonefromhell and Ty Omaha"
+delete-after: True
+changes: 
+  - bugfix: "Whispers are now fully readable in admin log."
