@@ -373,11 +373,11 @@
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			winset(src, "rpane.changelog", "background-color=#bb7700;font-style=bold")
+			winset(src, "rpane.changelog", "background-color=#bb7700;font-color=#FFFFFF;font-style=bold")
 	else
 		if(establish_db_connection())
 			if(prefs.toggles & UI_DARKMODE)
-				winset(src, "rpane.changelog", "background-color=#bb7700;font-style=bold") // makes changelog dark if its been set
+				winset(src, "rpane.changelog", "background-color=#bb7700;font-color=#FFFFFF;font-style=bold") // makes changelog dark if its been set
 			else
 				winset(src, "rpane.changelog", "background-color=#ffffff;font-color=#000000") // makes changelog normal if it hasnt been set
 		else
