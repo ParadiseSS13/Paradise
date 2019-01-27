@@ -20,7 +20,9 @@
 	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	allow_pai = 0
-
+	var/weapon //edagger or esword 
+	weapon = /obj/item/melee/energy/sword
+	
 	var/spin_icon = "griefsky-c" // griefsky and griefsky junior have dif icons
 	var/dmg = 30 //esword dmg
 	var/block_chance = 50 //melee
@@ -36,6 +38,7 @@
 	var/weaponscheck = 0 //If true, arrest people for weapons if they lack access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
+
 	
 /mob/living/simple_animal/bot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0
@@ -55,13 +58,14 @@
 
 /mob/living/simple_animal/bot/griefsky/jgriefsky  // cheaper griefsky less damage
 	name = "General griefsky"
-	desc = "It's Prison Ofitser! ."
-	base_speed = 4 //a little bit slower
+	desc = "Griefsky apprentice ."
 	dmg = 15 //energy daggers
+	block_chance = 30
 	spin_icon = "griefskyj-c"
 	window_name = "Automatic Security Unit v7.0"
 	health = 100
 	maxHealth = 100
+	weapon = /obj/item/pen/edagger
 	
 /mob/living/simple_animal/bot/griefsky/turn_on()
 	..()
@@ -168,7 +172,7 @@ Auto Patrol: []"},
 	if(iscarbon(A))
 		sword_attack(A)
 	else
-		..()
+		..() 
 
 /mob/living/simple_animal/bot/griefsky/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0) //if you throw him something
 	if(istype(AM, /obj/item))
@@ -304,14 +308,21 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/griefsky/explode()
 	walk_to(src,0)
 	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
-	var/atom/Tsec = drop_location()
+	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	if(prob(50))
 		new /obj/item/robot_parts/r_arm(Tsec)
-	if(prob(75))
-		new /obj/item/melee/energy/sword(Tsec)
+	if(prob(50)) //most of the time weapon will be destroyed
+		new weapon(Tsec)
+	if(prob(25))
+		new weapon(Tsec)
+	if(prob(10))
+		new weapon(Tsec)
+	if(prob(5))
+		new weapon(Tsec)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
+	..()
 
 /mob/living/simple_animal/bot/griefsky/attack_alien(var/mob/living/carbon/alien/user as mob)
 	..()
@@ -351,7 +362,7 @@ Auto Patrol: []"},
 		return
 	if(prob(block_chance))
 		visible_message("[src] deflects [user]'s attack with his energy swords!")
-		playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE, -1)	
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)	
 		return TRUE
 
 /mob/living/simple_animal/bot/griefsky/attack_hand(mob/living/carbon/human/H)
@@ -360,6 +371,18 @@ Auto Patrol: []"},
 		if(special_retaliate_after_attack(H))
 			return
 	return ..()
+
+/mob/living/simple_animal/bot/griefsky/attackby(obj/item/W, mob/user, params) //cant touch or attack him while spinning
+	if(src.icon_state == spin_icon)
+		if(prob(block_chance))
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.do_attack_animation(src)
+			visible_message("[src] deflects [user]'s move with his energy swords!")
+			playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
+		else
+			..()
+	else
+		..()
 
 /obj/machinery/bot_core/secbot
 	req_access = list(access_security)
