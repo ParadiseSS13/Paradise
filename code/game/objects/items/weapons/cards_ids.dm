@@ -575,7 +575,7 @@
 	icon_state = "syndie"
 	assignment = "Syndicate Overlord"
 	untrackable = 1
-	access = list(access_syndicate, access_external_airlocks)
+	access = list(access_syndicate, access_syndicate_leader, access_syndicate_command, access_external_airlocks)
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
