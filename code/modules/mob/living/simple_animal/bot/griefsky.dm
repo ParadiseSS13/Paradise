@@ -68,7 +68,7 @@
 	window_name = "Automatic Security Unit v7.0"
 	health = 100
 	maxHealth = 100
-	weapon = /obj/item/pen/edagger
+	weapon = /obj/item/melee/toy/sword
 
 /mob/living/simple_animal/bot/griefsky/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Bweepskee"
@@ -82,6 +82,7 @@
 	block_chance_ranged = 0
 	stun_chance = 0
 	bot_core_type = /obj/machinery/bot_core/toy
+	weapon =
 
 /mob/living/simple_animal/bot/griefsky/turn_on()
 	..()
