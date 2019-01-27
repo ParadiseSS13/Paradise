@@ -9,13 +9,11 @@
 	maxHealth = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
-	
-
 	radio_channel = "Security" //Security channel
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "Securitron"
-	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
+	bot_purpose = "seek out criminals, end their miserable lifes"
 	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v9.0"
@@ -61,6 +59,9 @@
 	base_speed = 4 //a little bit slower
 	dmg = 15 //energy daggers
 	spin_icon = "griefskyj-c"
+	window_name = "Automatic Security Unit v7.0"
+	health = 100
+	maxHealth = 100
 	
 /mob/living/simple_animal/bot/griefsky/turn_on()
 	..()
