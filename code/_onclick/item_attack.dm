@@ -63,8 +63,10 @@
 
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
-	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+	else
+		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
+		if(hitsound)
+			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 
 	user.lastattacked = M
 	M.lastattacker = user
