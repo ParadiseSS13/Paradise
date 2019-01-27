@@ -165,6 +165,7 @@ Auto Patrol: []"},
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
 		icon_state = "[base_icon][on]"
+		light_color = LIGHT_COLOR_PURE_RED
 
 /mob/living/simple_animal/bot/griefsky/UnarmedAttack(atom/A)        //when controlled by a player
 	if(!on)
