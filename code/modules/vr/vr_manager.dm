@@ -106,7 +106,10 @@ proc/make_vr_room(name, template, expires, creator, password)
 	R.chunk = space_manager.allocate_space(R.template.width, R.template.height, "vr")
 	R.expires = expires
 	R.creator = creator
-	R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
+	if(R.chunk.x + R.template.width < world.maxx && R.chunk.y + R.template.height < world.maxy)
+		R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
+	else
+		log_debug("WARNING: Trying to load map out of bounds.")
 
 	if(expires == VR_ROOM_USER)
 		vr_rooms[R.name] = R
