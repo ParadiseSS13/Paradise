@@ -33,8 +33,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return TARGET_INVALID_NOCKEY
 	if(possible_target.current)
 		var/turf/current_location = get_turf(possible_target.current)
-		if(current_location && is_admin_level(current_location.z))
-			return TARGET_INVALID_ADMINZLEVEL
+		if(current_location && !is_level_reachable(current_location.z))
+			return TARGET_INVALID_UNREACHABLE
 
 /datum/objective/proc/find_target()
 	var/list/possible_targets = list()
