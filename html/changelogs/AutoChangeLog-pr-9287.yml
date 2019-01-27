@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - rscadd: "The chemist can now create a new clown-based reagent using banana juice, lube, blood, space drugs, and salt."
+  - rscadd: "Jestosterone heals brute damage for clowns, triggers annoying side-effects in other crewmembers, and is toxic to mimes."
