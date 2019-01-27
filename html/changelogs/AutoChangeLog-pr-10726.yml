@@ -1,5 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - tweak: "ether in syndie medical borg's hypospray replaced with hydrocodone"
-  - bugfix: "syndicate medical borg's hypospray no longer incorrectly lists its content"
