@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "fixed incorrect definitions of some spells related to shapeshifting."
