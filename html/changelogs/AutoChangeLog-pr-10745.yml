@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Antag objectives (kill, debrain, etc) can no longer target people on unreachable zlevels, like the admin-only/centcom zlevel."
