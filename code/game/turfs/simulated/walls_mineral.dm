@@ -228,7 +228,7 @@
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
 
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend
-	fixed_underlay = "keep"
+	fixed_underlay = list("keep"=1)
 
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
 	smooth = SMOOTH_MORE
