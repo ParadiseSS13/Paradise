@@ -27,6 +27,7 @@
 	var/dmg = 30 //esword dmg
 	var/block_chance_melee = 50
 	var/block_chance_ranged = 90
+	var/stun_chance = 50
 	var/spam_flag = 0
 	var/base_icon = "griefsky"
 	var/mob/living/carbon/target
@@ -75,9 +76,11 @@
 	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
+	radio_channel = "Service" //we dont report sec anymore!
 	dmg = 0
 	block_chance_melee = 0
 	block_chance_ranged = 0
+	stun_chance = 0
 	bot_core_type = /obj/machinery/bot_core/toy
 
 /mob/living/simple_animal/bot/griefsky/turn_on()
@@ -204,7 +207,7 @@ Auto Patrol: []"},
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
-		if(prob(50)) 
+		if(prob(stun_chance)) 
 			C.Weaken(5)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
