@@ -221,8 +221,8 @@
 /turf/simulated/wall/mineral/titanium/survival/pod
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
 
-//deconstructable type for derelict
-//these walls are deconstructable/unthermitable
+//undeconstructable type for derelict
+//these walls are undeconstructable/unthermitable
 /turf/simulated/wall/mineral/titanium/nodecon
 	name = "russian wall"
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
