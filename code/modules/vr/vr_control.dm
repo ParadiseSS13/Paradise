@@ -1,5 +1,5 @@
 /obj/machinery/computer/vr_control
-	name = "VR console"
+	name = "N.T.S.R.S. console"
 	desc = "A list and control panel for all virtual servers."
 	icon_screen = "comm_logs"
 	var/making_room = 0

@@ -1,9 +1,10 @@
 // The server
 
 var/vr_server_status = VR_SERVER_OFF
+var/vr_server_admin_disabled = FALSE
 
 /obj/machinery/vr_server
-	name = "vr server"
+	name = "N.T.S.R.S. Server"
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
 	var/active = VR_SERVER_OFF
@@ -30,23 +31,49 @@ var/vr_server_status = VR_SERVER_OFF
 	return
 
 /obj/machinery/vr_server/attack_hand(user as mob)
-	switch(alert("Are you sure you want to push the power button on the Virtual Reality Server?", "VR Server", "Yes", "No"))
-		if("Yes")
-			if(vr_server_status != VR_SERVER_OFF && !active)
-				to_chat(user, "Only one Virtual Reality Server can be online at a time.")
-			else
-				to_chat(user, "You toggle the Virtual Reality Server from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
-				if(!active)
-					if(!emagged)
-						set_state(VR_SERVER_ON)
-					else
-						set_state(VR_SERVER_EMAG)
+	if(check_rights(R_ADMIN))
+		switch(alert("Are you sure you want to push the power button on the Virtual Reality Server?", "VR Server", "Yes", "No", "Admin [vr_server_admin_disabled ? "Enable" : "Disable"] Globally"))
+			if("Admin Disable Globally")
+				vr_server_admin_disabled = TRUE
+				set_state(VR_SERVER_OFF)
+			if("Admin Enable Globally")
+				vr_server_admin_disabled = FALSE
+			if("Yes")
+				if(vr_server_admin_disabled)
+					to_chat(user, "Bluespace override detected. N.T.S.R.S. central server offline.")
+				else if(vr_server_status != VR_SERVER_OFF && !active)
+					to_chat(user, "Only one Virtual Reality Server can be online at a time.")
 				else
-					if(!emagged)
-						set_state(VR_SERVER_OFF)
+					to_chat(user, "You toggle the Virtual Reality Server from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
+					if(!active)
+						if(!emagged)
+							set_state(VR_SERVER_ON)
+						else
+							set_state(VR_SERVER_EMAG)
 					else
-						to_chat(user, "The server refuses to respond to your commands and the main circuit board appears to be fried.")
-				update_icon()
+						if(!emagged)
+							set_state(VR_SERVER_OFF)
+						else
+							to_chat(user, "The server refuses to respond to your commands and the main circuit board appears to be fried.")
+	else
+		switch(alert("Are you sure you want to push the power button on the Virtual Reality Server?", "VR Server", "Yes", "No"))
+			if("Yes")
+				if(vr_server_admin_disabled)
+					to_chat(user, "Bluespace override detected. N.T.S.R.S. central server offline.")
+				else if(vr_server_status != VR_SERVER_OFF && !active)
+					to_chat(user, "Only one Virtual Reality Server can be online at a time.")
+				else
+					to_chat(user, "You toggle the Virtual Reality Server from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
+					if(!active)
+						if(!emagged)
+							set_state(VR_SERVER_ON)
+						else
+							set_state(VR_SERVER_EMAG)
+					else
+						if(!emagged)
+							set_state(VR_SERVER_OFF)
+						else
+							to_chat(user, "The server refuses to respond to your commands and the main circuit board appears to be fried.")
 	return
 
 /obj/machinery/vr_server/attackby(obj/item/I, mob/user, params)
@@ -85,7 +112,10 @@ var/vr_server_status = VR_SERVER_OFF
 	internal_relay = new /obj/machinery/telecomms/relay/preset/vr(src)
 	internal_relay.toggled = 0
 	if(vr_server_status == VR_SERVER_OFF)
-		set_state(VR_SERVER_ON)
+		if(vr_server_admin_disabled)
+			visible_message("Bluespace override detected. N.T.S.R.S. central server offline.")
+		else
+			set_state(VR_SERVER_ON)
 	update_icon()
 
 /obj/machinery/vr_server/power_change()
@@ -108,6 +138,7 @@ var/vr_server_status = VR_SERVER_OFF
 		vr_kick_all_players()
 	else if(vr_server_status == VR_SERVER_ON)
 		internal_relay.toggled = 1
+	update_icon()
 
 /obj/machinery/vr_server/emag_act(user as mob)
 	if(active)

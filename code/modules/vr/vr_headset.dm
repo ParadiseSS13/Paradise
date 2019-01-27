@@ -3,7 +3,7 @@
 
 /obj/item/clothing/ears/vr_headset
 	desc = "Your ticket to another reality. Designed to be worn above the ears."
-	name = "VR Headset"
+	name = "N.T.S.R.S. Headset"
 	icon_state = "brainset"
 	item_state = "brainset"
 	actions_types = list(/datum/action/item_action/enter_vr)
@@ -87,7 +87,7 @@
 
 /obj/item/clothing/ears/vr_headset/exile
 	desc = "The mind is just another prison with the right bars."
-	name = "Exile VR Goggles"
+	name = "Exile N.T.S.R.S. Goggles"
 	icon_state = "prisonerset"
 	item_state = "prisonerset"
 	exile = 1
