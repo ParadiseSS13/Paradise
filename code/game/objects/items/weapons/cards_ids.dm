@@ -358,7 +358,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user,"What would you like to edit on \the [src]?") in list("Name","Photo","Appearance","Sex","Age","Occupation","Money Account","Blood Type","DNA Hash","Fingerprint Hash","Reset Card"))
+				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
 						if(!Adjacent(user))
@@ -542,22 +542,29 @@
 						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 						RebuildHTML()
 
-					if("Reset Card")
-						name = initial(name)
-						registered_name = initial(registered_name)
-						icon_state = initial(icon_state)
-						sex = initial(sex)
-						age = initial(age)
-						assignment = initial(assignment)
-						associated_account_number = initial(associated_account_number)
-						blood_type = initial(blood_type)
-						dna_hash = initial(dna_hash)
-						fingerprint_hash = initial(fingerprint_hash)
-						access = initial_access.Copy() // Initial() doesn't work on lists
-						registered_user = null
+					if("Reset Access")
+						var/response = alert(user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
+						if(response == "Yes")
+							access = initial_access.Copy() // Initial() doesn't work on lists
+							to_chat(user, "<span class='notice'>Card access reset.</span>")
 
-						to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
-						RebuildHTML()
+					if("Delete Card Information")
+						var/response = alert(user, "Are you sure you want to delete all information saved on the card?","Delete Card Information", "No", "Yes")
+						if(response == "Yes")
+							name = initial(name)
+							registered_name = initial(registered_name)
+							icon_state = initial(icon_state)
+							sex = initial(sex)
+							age = initial(age)
+							assignment = initial(assignment)
+							associated_account_number = initial(associated_account_number)
+							blood_type = initial(blood_type)
+							dna_hash = initial(dna_hash)
+							fingerprint_hash = initial(fingerprint_hash)
+							photo = null
+							registered_user = null
+							to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
+							RebuildHTML()
 	else
 		..()
 
