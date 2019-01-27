@@ -986,8 +986,8 @@ var/list/turret_icons
 	// So, nothing, not even emagging them, makes them switch bullet type.
 	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
 	// Otherwise, you end up with situations where one of the two bullet types will never be used.
-	shot_sound = 'sound/weapons/Gunshot.ogg'
-	eshot_sound = 'sound/weapons/Gunshot.ogg'
+	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"
