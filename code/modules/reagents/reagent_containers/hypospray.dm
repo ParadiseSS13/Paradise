@@ -77,6 +77,7 @@
 	name = "bluespace medical hypospray"
 	desc = "An advanced medical hypospray capable of injecting through metal."
 	icon_state = "medivend_hypo_bluespace"
+	item_state = "medivend_hypo_bluespace"
 	volume = 100
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,50,100)
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)

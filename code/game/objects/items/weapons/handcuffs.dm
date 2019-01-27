@@ -198,7 +198,8 @@
 /obj/item/restraints/handcuffs/bluespace
 	name = "bluespace handcuffs"
 	desc = "A device that dispenses one-time energy cuffs to the victim."
-	icon_state = "handcuff"
+	icon_state = "handcuff_bluespace"
+	item_state = "handcuff_bluespace"
 	var/can_charge = 1
 	var/charge_sections = 3
 	var/charge_delay = 4
@@ -213,7 +214,7 @@
 
 /obj/item/restraints/handcuffs/bluespace/used
 	desc = "A pair of energy handcuffs."
-	icon_state = "cuff_white_used"
+	icon_state = "handcuffs_energy"
 	breakouttime = 450
 
 /obj/item/restraints/handcuffs/bluespace/used/dropped()

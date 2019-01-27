@@ -184,7 +184,8 @@ obj/item/tank/emergency_oxygen/double/empty/New()
 obj/item/tank/emergency_oxygen/bluespace
 	name = "bluespace emergency oxygen tank"
 	desc = "An emergency oxygen tank that's bigger on the inside."
-	icon_state = "emergency"
+	icon_state = "emergency_bluespace"
+	item_state = "emergency_bluespace"
 	volume = 10
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
 
