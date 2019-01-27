@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Fixes tape being unapplicable to headsets and the autopsy scanner"
+  - bugfix: "You can't tape intercoms any more"
