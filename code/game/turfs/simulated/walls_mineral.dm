@@ -235,9 +235,9 @@
 	icon_state = "map-shuttle_nd"
 
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth
+	smooth = SMOOTH_FALSE
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_FALSE
 
 //properties for derelict sub-type to prevent said deconstruction/thermiting
 /turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
