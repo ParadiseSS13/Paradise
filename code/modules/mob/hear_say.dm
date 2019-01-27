@@ -158,7 +158,7 @@
 		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
-		if(messages.len > 1)
+		if(messages.len > 0)
 			var/R = rand(1, messages.len)
 			var/heardword = messages[R]
 			if(copytext(heardword,1, 1) in punctuation)
