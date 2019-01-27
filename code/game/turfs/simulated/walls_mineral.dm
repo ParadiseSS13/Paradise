@@ -221,31 +221,6 @@
 /turf/simulated/wall/mineral/titanium/survival/pod
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
 
-//undeconstructable type for derelict
-//these walls are undeconstructable/unthermitable
-/turf/simulated/wall/mineral/titanium/nodecon
-	name = "russian wall"
-	desc = "Like regular titanium, but able to deflect capitalist aggressors."
-
-/turf/simulated/wall/mineral/titanium/nodecon/tileblend
-	fixed_underlay = list("keep"=1)
-
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
-	smooth = SMOOTH_MORE
-	icon_state = "map-shuttle_nd"
-
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth
-	smooth = SMOOTH_FALSE
-	icon = 'icons/turf/shuttle.dmi'
-	icon_state = "wall"
-
-//properties for derelict sub-type to prevent said deconstruction/thermiting
-/turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
-	return
-
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
@@ -290,4 +265,5 @@
 
 /turf/simulated/wall/mineral/plastitanium/copyTurf(turf/T)
 	. = ..()
+	T.transform = transform
 	T.transform = transform
