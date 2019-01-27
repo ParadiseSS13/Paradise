@@ -72,6 +72,7 @@
 /mob/living/simple_animal/bot/griefsky/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Bweepskee"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
+	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
 	dmg = 0
