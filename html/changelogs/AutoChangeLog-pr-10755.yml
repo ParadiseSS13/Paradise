@@ -1,4 +1,0 @@
-author: "AzuleUtama"
-delete-after: True
-changes: 
-  - bugfix: "Fixed Binary Key's description to give the correct code to use when communicating with the AI or borgs."
