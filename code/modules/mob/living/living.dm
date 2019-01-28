@@ -720,6 +720,21 @@
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+	if(isliving(who) && isLivingSSD(who))
+		var/mob/living/L = who
+		var/can_strip_ssd = FALSE
+		if(src in L.ssd_acknowledged)
+			can_strip_ssd = TRUE
+		else
+			var/response = alert(src, "The person you are attempting to strip is suffering from Sudden Sleep Disorder (SSD). \
+			Stripping these people under nearly all circumstances is against the rules. \
+			If you believe you have a reason to still strip the individual, admin help beforehand to be sure it is correct to do so.","SSD WARNING", "Cancel", "Acknowledge")
+			if(response == "Acknowledge")
+				L.ssd_acknowledged.Add(src)
+				to_chat(src, "<span class='notice'>You may now strip [who]. Ensure you have admin permission before doing so.</span>")
+				message_admins("[key_name_admin(src)] has acknowledged <span class='redtext'>(SSD)</span> strip warning, and may now strip [key_name_admin(who)].")
+		if(!can_strip_ssd)
+			return
 	if(what.flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
@@ -733,6 +748,8 @@
 			if(silent)
 				put_in_hands(what)
 			add_attack_logs(src, who, "Stripped of [what]")
+
+
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)

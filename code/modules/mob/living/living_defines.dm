@@ -66,5 +66,8 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 
 	var/list/status_effects //a list of all status effects the mob has
-	
+
 	var/deathgasp_on_death = FALSE
+
+	//List of all mobs that have tried to strip this mob when SSD and acknowledged the SSD warning popup. resets on reconnection
+	var/list/ssd_acknowledged = list()
