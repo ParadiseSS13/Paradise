@@ -409,6 +409,18 @@
 	origin_tech = "magnets=3;syndicate=4"
 	prescription_upgradable = 1
 
+/obj/item/clothing/glasses/thermal/syndi/sunglasses
+	name = "sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover."
+	icon_state = "sun"
+	item_state = "sunglasses"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		)
+
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"
 	desc = "A monocle thermal."
