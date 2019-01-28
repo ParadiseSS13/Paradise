@@ -1,0 +1,5 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Abductors no longer start with your preset character's flavor text."
+  - bugfix: "Abductor scientists now have their SE properly cleaned on spawn."
