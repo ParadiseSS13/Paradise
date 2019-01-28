@@ -732,7 +732,7 @@
 			if(response == "Acknowledge")
 				L.ssd_acknowledged.Add(src)
 				to_chat(src, "<span class='notice'>You may now strip [who]. Ensure you have admin permission before doing so.</span>")
-				message_admins("[key_name_admin(src)] has acknowledged <span class='redtext'>(SSD)</span> strip warning, and may now strip [key_name_admin(who)].")
+				message_admins("[key_name_admin(src)] has acknowledged <span class='alert'>SSD</span> strip warning, and may now strip [key_name_admin(who)].")
 		if(!can_strip_ssd)
 			return
 	if(what.flags & NODROP)
