@@ -125,6 +125,7 @@
 	H.real_name = team_name + " Agent"
 	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
+	H.flavor_text = null
 	H.equipOutfit(/datum/outfit/abductor/agent)
 	greet_agent(agent,team_number)
 	update_abductor_icons_added(agent)
@@ -139,8 +140,9 @@
 	S.scientist = TRUE
 	S.team = team_number
 	H.real_name = team_name + " Scientist"
-	H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
+	H.flavor_text = null
 	H.equipOutfit(/datum/outfit/abductor/scientist)
 	greet_scientist(scientist,team_number)
 	update_abductor_icons_added(scientist)
