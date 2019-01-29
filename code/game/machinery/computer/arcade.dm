@@ -1,4 +1,4 @@
-/obj/machinery/computer/arcade/
+/obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "random arcade machine"
 	icon = 'icons/obj/computer.dmi'
@@ -573,7 +573,7 @@
 
 	else if(href_list["killcrew"]) //shoot a crewmember
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/gunshot.ogg', 100, 1)
+		playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 
 		if(settlers.len == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")

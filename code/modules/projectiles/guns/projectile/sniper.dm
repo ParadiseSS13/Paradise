@@ -6,6 +6,9 @@
 	recoil = 2
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
+	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"

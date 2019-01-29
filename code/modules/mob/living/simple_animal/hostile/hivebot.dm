@@ -15,7 +15,7 @@
 	melee_damage_upper = 3
 	attacktext = "claws"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	projectilesound = 'sound/weapons/gunshot.ogg'
+	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/hivebotbullet
 	faction = list("hivebot")
 	check_friendly_fire = 1

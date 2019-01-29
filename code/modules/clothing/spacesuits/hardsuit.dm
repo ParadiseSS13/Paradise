@@ -462,6 +462,16 @@
 		name = "elite syndicate hardsuit (combat)"
 		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
 
+//Strike team hardsuits
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100)
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"

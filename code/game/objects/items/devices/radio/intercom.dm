@@ -135,6 +135,8 @@
 	return canhear_range
 
 /obj/item/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/stack/tape_roll)) //eww
+		return
 	switch(buildstage)
 		if(3)
 			if(iswirecutter(W) && b_stat && wires.IsAllCut())

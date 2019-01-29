@@ -167,7 +167,7 @@
 			if(!WT.isOn() || !WT.remove_fuel(5, user))
 				return
 			to_chat(user, "<span class='notice'>You cut the [src] apart.</span>")
-			new /obj/item/stack/sheet/plasteel(loc, 5)
+			new /obj/item/stack/sheet/plasteel(loc, 3)
 			qdel(src)
 	else
 		return ..()

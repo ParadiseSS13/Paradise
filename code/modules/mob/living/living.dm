@@ -508,6 +508,7 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED)
 		handle_footstep(loc)
 		step_count++
 
@@ -882,7 +883,7 @@
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)
-		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.	
+		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
 			return
 		stop_pulling()
 		if(AM.pulledby)

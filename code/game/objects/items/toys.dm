@@ -1375,7 +1375,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/gunshot.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return (BRUTELOSS)
 
 /obj/item/toy/russian_revolver/New()
@@ -1409,7 +1409,7 @@ obj/item/toy/cards/deck/syndicate/black
 			return
 		else
 			bullet_position = null
-			playsound(src, 'sound/weapons/gunshot.ogg', 50, 1)
+			playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 			user.visible_message("<span class='danger'>[src] goes off!</span>")
 			user.apply_damage(200, BRUTE, "head", sharp = 1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			user.death()

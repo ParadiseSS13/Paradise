@@ -129,7 +129,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
  */
 var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 50, one_per_turf = 1),
-	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 50),
+	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 50),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
 	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1),
@@ -251,6 +251,16 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
 )
+
+/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
+		var/atom/droploc = drop_location()
+		if(use(1))
+			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
+			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
+			new/obj/item/storage/box/clown(droploc) //bugfix
+	else
+		. = ..()
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"

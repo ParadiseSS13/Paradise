@@ -3,6 +3,7 @@
 #define TARGET_INVALID_NOT_HUMAN	2
 #define TARGET_INVALID_DEAD			3
 #define TARGET_INVALID_NOCKEY		4
+#define TARGET_INVALID_UNREACHABLE	5
 
 //gamemode istype helpers
 #define GAMEMODE_IS_BLOB		(ticker && istype(ticker.mode, /datum/game_mode/blob))
