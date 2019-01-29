@@ -573,8 +573,9 @@ $(function() {
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
 		'shideSpam': getCookie('hidespam'),
+		'darkChat': getCookie('darkChat'),
 	};
-
+	
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
 		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
@@ -612,7 +613,28 @@ $(function() {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
-
+	if (savedConfig.darkChat == "on") {
+		   $("head").append("<link>");
+		   var css = $("head").children(":last");
+		   css.attr({
+		     rel:  "stylesheet",
+		     type: "text/css",
+		     href: "./browserOutput-dark.css"
+		  });
+	} else {
+		   $("head").append("<link>");
+		   var css = $("head").children(":last");
+		   css.attr({
+		     rel:  "stylesheet",
+		     type: "text/css",
+		     href: "./browserOutput.css"
+		  });
+	}
+	if(localStorage){
+		var backlog = localStorage.getItem('backlog')
+		$messages.html(backlog)
+		localStorage.setItem('backlog', '')
+	}
 	(function() {
 		var dataCookie = getCookie('connData');
 		if (dataCookie) {
@@ -1010,6 +1032,17 @@ $(function() {
 		opts.messageCount = 0;
 		opts.previousMessage = '';
 		opts.previousMessageCount = 1;
+	});
+
+	$('#toggleDarkChat').click(function(e) {
+		var backlog = $messages.html()
+		if(getCookie('darkChat') == "on"){
+			setCookie('darkChat', "off", 365)
+		} else {
+			setCookie('darkChat', "on", 365)
+		}
+		localStorage.setItem('backlog', backlog)
+		location.reload();
 	});
 
 	// Tell BYOND to give us a macro list.
