@@ -541,5 +541,5 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	drink_icon = "fernetcoke_glass"
 	drink_name = "Fernet with cola"
-	drink_desc = "This have a nice brown color with a fizzy foam."
-	taste_message = "a sweet oil"
+	drink_desc = "It has a nice brown color and a good amount of fizzy foam."
+	taste_message = "sweet oil "
