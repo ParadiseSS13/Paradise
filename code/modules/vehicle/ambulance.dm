@@ -111,8 +111,4 @@
 			to_chat(usr, "You unhook the bed to the ambulance.")
 		else
 			amb.bed = src
-<<<<<<< HEAD
 			to_chat(usr, "You hook the bed to the ambulance.")
-=======
-			to_chat(usr, "You hook the bed to the ambulance.")
->>>>>>> f1eed639fe6a05285220a7b40dcf353bab591fc8
