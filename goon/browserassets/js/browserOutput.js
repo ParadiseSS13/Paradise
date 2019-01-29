@@ -573,8 +573,9 @@ $(function() {
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
 		'shideSpam': getCookie('hidespam'),
+		'invert': getCookie('invert')
 	};
-
+	
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
 		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
@@ -611,6 +612,24 @@ $(function() {
 	if (savedConfig.shideSpam) {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
+	}
+	if (savedConfig.invert == "on") {
+		   $("head").append("<link>");
+		   var css = $("head").children(":last");
+		   css.attr({
+		     rel:  "stylesheet",
+		     type: "text/css",
+		     href: "./browserOutput-dark.css"
+		  });
+
+	} else {
+		   $("head").append("<link>");
+		   var css = $("head").children(":last");
+		   css.attr({
+		     rel:  "stylesheet",
+		     type: "text/css",
+		     href: "./browserOutput.css"
+		  });
 	}
 
 	(function() {
@@ -1010,6 +1029,16 @@ $(function() {
 		opts.messageCount = 0;
 		opts.previousMessage = '';
 		opts.previousMessageCount = 1;
+	});
+
+	$('#toggleInvert').click(function(e) {
+		//set up color properties to iterate through
+		if(getCookie('invert') == "on"){
+			setCookie('invert', "off", 365)
+		} else {
+			setCookie('invert', "on", 365)
+		}
+		internalOutput('<span class="internal boldnshit">Please reload for the colors to invert.</span>', 'internal');
 	});
 
 	// Tell BYOND to give us a macro list.
