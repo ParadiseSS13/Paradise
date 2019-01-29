@@ -1,0 +1,6 @@
+author: "AffectedArc07 & Teri"
+delete-after: True
+changes: 
+  - rscadd: "There is now a toggle-darkmode verb to switch darkmode on and off"
+  - rscadd: "Chat settings also has a dark mode"
+  - tweak: "The icon for the server is now the paradise palm tree"
