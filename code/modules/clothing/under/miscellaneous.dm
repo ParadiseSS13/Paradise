@@ -427,15 +427,15 @@
 
 // Captain Formal uniform by Danaleja
 /obj/item/clothing/under/dress/dark
-	name = "captain formal uniform"
-	desc = "a captain formal uniform blue"
+	name = "captain's formal blue uniform"
+	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_dark"
 	item_color = "captain_dark"
 	hispania_icon = TRUE
 
 /obj/item/clothing/under/dress/light
-	name = "captain formal uniform"
-	desc = "a captain formal uniform white"
+	name = "captain's formal white uniform"
+	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_light"
 	item_color = "captain_light"
 	hispania_icon = TRUE

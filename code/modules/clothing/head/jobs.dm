@@ -27,13 +27,13 @@
 //Captain formal hat by Danaleja
 
 /obj/item/clothing/head/caphat/dark
-	name = "captain's formal hat blue"
+	name = "captain's formal blue hat"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "caphat_dark"
 	hispania_icon = TRUE
 
 /obj/item/clothing/head/caphat/light
-	name = "captain's formal hat white"
+	name = "captain's formal white hat"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "caphat_light"
 	hispania_icon = TRUE
