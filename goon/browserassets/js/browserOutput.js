@@ -573,7 +573,7 @@ $(function() {
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
 		'shideSpam': getCookie('hidespam'),
-		'invert': getCookie('invert'),
+		'darkChat': getCookie('darkChat'),
 	};
 	
 	if (savedConfig.sfontSize) {
@@ -613,7 +613,7 @@ $(function() {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
-	if (savedConfig.invert == "on") {
+	if (savedConfig.darkChat == "on") {
 		   $("head").append("<link>");
 		   var css = $("head").children(":last");
 		   css.attr({
@@ -1034,12 +1034,12 @@ $(function() {
 		opts.previousMessageCount = 1;
 	});
 
-	$('#toggleInvert').click(function(e) {
+	$('#toggleDarkChat').click(function(e) {
 		var backlog = $messages.html()
-		if(getCookie('invert') == "on"){
-			setCookie('invert', "off", 365)
+		if(getCookie('darkChat') == "on"){
+			setCookie('darkChat', "off", 365)
 		} else {
-			setCookie('invert', "on", 365)
+			setCookie('darkChat', "on", 365)
 		}
 		localStorage.setItem('backlog', backlog)
 		location.reload();
