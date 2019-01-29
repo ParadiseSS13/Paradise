@@ -113,29 +113,3 @@
 		else
 			amb.bed = src
 			to_chat(usr, "You hook the bed to the ambulance.")
-
-/obj/structure/bed/amb_trolley/bluespace
-	name = "bluespace ambulance train trolley"
-	icon = 'icons/vehicles/CargoTrain.dmi'
-	icon_state = "ambulancebluespace"
-	anchored = FALSE
-	var/list/buckled_mobs
-
-/obj/structure/bed/amb_trolley/bluespace/buckle_mob(mob/living/M, force = 0)
-	buckled_mobs += M
-	buckled_mob = null
-	to_chat(world, "memes2")
-	M.alpha = 100
-	. = ..()
-
-/obj/structure/bed/amb_trolley/bluespace/post_unbuckle_mob(mob/living/M)
-	to_chat(world, "memes4, [buckled_mobs]")
-	M.alpha = 255
-	buckled_mobs --
-	if(buckled_mobs)
-		buckled_mob = buckled_mobs[0]
-		user_unbuckle_mob(user_buckle)
-
-/obj/structure/bed/amb_trolley/bluespace/user_unbuckle_mob(mob/user)
-	. = ..()
-	user_buckle = user
