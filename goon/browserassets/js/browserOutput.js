@@ -574,7 +574,6 @@ $(function() {
 		'shighlightColor': getCookie('highlightcolor'),
 		'shideSpam': getCookie('hidespam'),
 		'invert': getCookie('invert'),
-		'backlog': getCookie('backlog')
 	};
 	
 	if (savedConfig.sfontSize) {
