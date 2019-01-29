@@ -403,8 +403,10 @@
 /obj/item/clothing/suit/space/eva/plasmaman/wizard
 	name = "robed plasmaman suit"
 	icon_state = "plasmamanWizardBlue_suit"
+	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard
 	name = "wizard hat"
 	icon_state = "plasmamanWizardBlue_helmet0"
 	base_state = "plasmamanWizardBlue_helmet"
+	magical = TRUE

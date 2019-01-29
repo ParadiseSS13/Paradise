@@ -205,6 +205,8 @@
 	origin_tech = "syndicate=4;magnets=4"
 	var/updated_icon_state = null
 	var/used = FALSE
+	var/obj/item/grenade/boobytrap = null
+	var/mob/trapper = null
 
 /obj/item/flag/chameleon/New()
 	updated_icon_state = icon_state
@@ -214,7 +216,7 @@
 	if(used)
 		return ..()
 
-	var/list/flag_types = typesof(/obj/item/flag) - list(src.type, /obj/item/flag)
+	var/list/flag_types = typesof(/obj/item/flag) - list(/obj/item/flag, /obj/item/flag/chameleon, /obj/item/flag/chameleon/depot)
 	var/list/flag = list()
 
 	for(var/flag_type in flag_types)
@@ -236,9 +238,43 @@
 			desc = chosen_flag.desc
 			used = TRUE
 
+/obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/grenade) && !boobytrap)
+		if(user.drop_item())
+			boobytrap = I
+			trapper = user
+			I.forceMove(src)
+			to_chat(user, "<span class='notice'>You hide [I] in the [src]. It will detonate some time after the flag is lit on fire.</span>")
+			var/turf/bombturf = get_turf(src)
+			var/area/A = get_area(bombturf)
+			message_admins("[key_name_admin(user)] has hidden [I] in the [src] ready for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+			log_game("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
+			investigate_log("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+	else if(isscrewdriver(I) && boobytrap && user == trapper)
+		to_chat(user, "<span class='notice'>You remove [boobytrap] from the [src].</span>")
+		boobytrap.forceMove(get_turf(src))
+		boobytrap = null
+		trapper = null
+	else
+		..()
+
+/obj/item/flag/chameleon/attackby(obj/item/W, mob/user, params)
+	if(is_hot(W) && burn_state != ON_FIRE && boobytrap && trapper)
+		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
+		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
+		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+	..()
+
 /obj/item/flag/chameleon/burn()
-	explosion(loc,1,2,4,4, flame_range = 4)
-	qdel(src)
+	if(boobytrap)
+		boobytrap.prime()
+	..()
 
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
+
+/obj/item/flag/chameleon/depot/New()
+	..()
+	boobytrap = new /obj/item/grenade/gas/plasma(src)

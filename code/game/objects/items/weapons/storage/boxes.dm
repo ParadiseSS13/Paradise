@@ -680,6 +680,56 @@
 		new /obj/item/clothing/head/syndicatefake(src)
 		new /obj/item/clothing/suit/syndicatefake(src)
 
+/obj/item/storage/box/enforcer_rubber
+	name = "enforcer pistol kit (rubber)"
+	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
+	icon_state = "box_ert"
+
+/obj/item/storage/box/enforcer_rubber/New()
+	..()
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+
+/obj/item/storage/box/enforcer_lethal
+	name = "enforcer pistol kit (lethal)"
+	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'LETHAL'."
+	icon_state = "box_ert"
+
+/obj/item/storage/box/enforcer_lethal/New()
+	..()
+	new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
+	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
+	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
+
+/obj/item/storage/box/bartender_rare_ingredients_kit
+	name = "bartender rare reagents kit"
+	desc = "A box intended for experienced bartenders."
+
+/obj/item/storage/box/bartender_rare_ingredients_kit/New()
+	..()
+	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
+	for(var/reag in reagent_list)
+		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		B.reagents.add_reagent(reag, 30)
+		B.name = "[reag] bottle"
+
+/obj/item/storage/box/chef_rare_ingredients_kit
+	name = "chef rare reagents kit"
+	desc = "A box intended for experienced chefs."
+
+/obj/item/storage/box/chef_rare_ingredients_kit/New()
+	..()
+	new /obj/item/reagent_containers/food/condiment/soysauce(src)
+	new /obj/item/reagent_containers/food/condiment/enzyme(src)
+	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/kitchen/knife/butcher(src)
+	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
+	for(var/reag in reagent_list)
+		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		B.reagents.add_reagent(reag, 30)
+		B.name = "[reag] bottle"
+
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
@@ -947,6 +997,11 @@
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
+/obj/item/storage/box/clown
+	name = "clown box"
+	desc = "A colorful cardboard box for the clown"
+	icon_state = "box_clown"
 
 #undef NODESIGN
 #undef NANOTRASEN

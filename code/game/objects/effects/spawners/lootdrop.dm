@@ -166,43 +166,217 @@
 				"" = 80,
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol_rare
-	name = "trader rare item spawner"
-	lootdoubles = 0
+
+
+/obj/effect/spawner/lootdrop/trade_sol/
+	name = "trader item spawner"
+	lootcount = 6
+	lootdoubles = 1
 	color = "#00FFFF"
 
+
+/obj/effect/spawner/lootdrop/trade_sol/civ
+	name = "1. civilian gear"
 	loot = list(
-				/obj/item/card/emag_broken = 2,
-				/obj/item/defibrillator/compact/loaded = 2,
-				/obj/item/gun/energy/laser/retro = 2,
-				/obj/item/rcd/combat = 1,
-				/obj/item/rcd = 2,
+				// General utility gear
+				/obj/item/storage/belt/utility/full/multitool = 150,
+				/obj/item/clothing/gloves/combat = 100,
+				/obj/item/clothing/glasses/welding = 50,
+				/obj/item/reagent_containers/spray/cleaner = 100,
+				/obj/item/clothing/shoes/magboots = 50,
+				/obj/item/soap = 50,
+				/obj/item/clothing/under/syndicate/combat = 50,
+				/obj/item/soap/syndie = 50,
+				/obj/item/lighter/zippo/gonzofist = 50,
+				/obj/item/stack/nanopaste = 50,
+				/obj/item/clothing/under/psyjump = 50,
+				/obj/item/immortality_talisman = 50,
+				/obj/item/grenade/clusterbuster/smoke = 50
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol_common
-	name = "trader common item spawner"
-	lootdoubles = 0
-	color = "#00FFFF"
-
+/obj/effect/spawner/lootdrop/trade_sol/minerals
+	name = "2. minerals"
+	lootdoubles = 1
 	loot = list(
-				/obj/item/tank/anesthetic = 2,
-				/obj/item/weldingtool/hugetank = 2,
-				/obj/item/pickaxe/diamond = 1,
-				/obj/item/spacepod_equipment/weaponry/mining_laser = 1,
-				/obj/item/paicard = 2,
-				/obj/item/gun/projectile/automatic/pistol = 2,
-				/obj/item/megaphone = 2,
-				/obj/item/stock_parts/capacitor = 1,
-				/obj/item/stock_parts/cell/high = 1,
-				/obj/item/stock_parts/manipulator = 1,
-				/obj/item/stock_parts/matter_bin = 1,
-				/obj/item/stock_parts/micro_laser = 1,
-				/obj/item/stock_parts/scanning_module = 1,
-				/obj/item/stack/spacecash/c200 = 1,
-				/obj/item/airlock_electronics = 1,
-				/obj/item/gun/energy/kinetic_accelerator = 1,
-				/obj/item/pizzabox = 3,
+				// Common stuff you get from mining which isn't already present on the station
+				// Note that plasma and derived hybrid materials are NOT included in this list because plasma is the trader's objective!
+				/obj/item/stack/sheet/mineral/silver = 50,
+				/obj/item/stack/sheet/mineral/gold = 50,
+				/obj/item/stack/sheet/mineral/uranium = 50,
+				/obj/item/stack/sheet/mineral/diamond = 50,
+				/obj/item/stack/sheet/mineral/titanium = 50,
+				/obj/item/stack/sheet/plasteel = 50,
+
+				// Hybrid stuff you could in theory get from mining
+				/obj/item/stack/sheet/titaniumglass = 50,
+
+				// Rare stuff you can't get from mining
+				/obj/item/stack/sheet/mineral/tranquillite = 50,
+				/obj/item/stack/sheet/mineral/bananium = 50,
+				/obj/item/stack/sheet/wood = 50,
+				/obj/item/stack/sheet/plastic = 50,
+				/obj/item/stack/sheet/mineral/sandstone = 50
 				)
+
+/obj/effect/spawner/lootdrop/trade_sol/minerals/New()
+	if(loot && loot.len)
+		for(var/i = lootcount, i > 0, i--)
+			if(!loot.len)
+				break
+			var/lootspawn = pickweight(loot)
+			if(!lootdoubles)
+				loot.Remove(lootspawn)
+			if(lootspawn)
+				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
+				S.amount = 25
+	qdel(src)
+
+
+/obj/effect/spawner/lootdrop/trade_sol/donksoft
+	name = "3. donksoft gear"
+	loot = list(
+				// Donksoft guns
+				/obj/item/gun/projectile/automatic/c20r/toy = 50,
+				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
+				/obj/item/gun/projectile/automatic/toy/pistol = 100,
+				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
+				/obj/item/gun/projectile/shotgun/toy = 50,
+				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
+				/obj/item/gun/projectile/shotgun/toy/tommygun = 50
+				)
+
+
+/obj/effect/spawner/lootdrop/trade_sol/sci
+	name = "4. science gear"
+	loot = list(
+				// Robotics
+				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
+				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
+				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
+				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
+				/obj/item/autoimplanter = 50,
+
+				// Research / Experimentor
+				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
+
+				// Xenobio
+				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
+				/obj/item/slimepotion/transference = 50
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/med
+	name = "5. medical gear"
+	loot = list(
+				// Medchem
+				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
+				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+
+				// Surgery
+				/obj/item/scalpel/laser/manager = 100,
+				/obj/item/organ/internal/heart/gland/ventcrawling = 50,
+				/obj/item/organ/internal/heart/gland/heals = 50,
+
+				// Genetics Research (should really be under science, but I was stuck for items to put in medical)
+				/obj/item/dnainjector/regenerate = 50, // regeneration
+				/obj/item/dnainjector/nobreath = 50,
+				/obj/item/dnainjector/telemut = 50,
+
+				// Virology
+				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
+				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/sec
+	name = "6. security gear"
+	loot = list(
+				// Melee
+				/obj/item/kitchen/knife/combat = 50,
+				/obj/item/fluff/desolate_baton_kit = 50, // permission granted by Desolate to use their fluff kit in this loot table
+
+				// Utility
+				/obj/item/storage/belt/military/assault = 50,
+				/obj/item/clothing/mask/gas/sechailer/swat = 50,
+				/obj/item/clothing/glasses/thermal = 50, // see heat-source mobs through walls. Less powerful than already-available xray.
+
+				// Ranged weapons
+				/obj/item/storage/box/enforcer_rubber = 50,
+				/obj/item/storage/box/enforcer_lethal = 50,
+				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
+				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 50, // cycler shotgun, not normally available to crew
+
+				// Cluster grenades
+				/obj/item/grenade/clusterbuster = 50, // cluster flashbang
+				/obj/item/grenade/clusterbuster/teargas = 50
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/eng
+	name = "7. eng gear"
+	loot = list(
+				/obj/item/storage/belt/utility/chief/full = 25,
+				/obj/item/rcd/combat = 25,
+				/obj/item/rpd/bluespace = 25,
+				/obj/item/tank/emergency_oxygen/double/full = 25,
+				/obj/item/slimepotion/speed = 25,
+				/obj/item/storage/backpack/holding = 25,
+				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
+				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
+				/obj/item/grenade/clusterbuster/metalfoam = 25 // cluster metal foam grenade
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/largeitem
+	name = "8. largeitem"
+	lootcount = 1
+	loot = list(
+				/obj/machinery/disco = 20,
+				/obj/mecha/combat/durand/old = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/vehicle
+	name = "9. vehicle"
+	loot = list(
+				/obj/vehicle/motorcycle = 50,
+				/obj/vehicle/snowmobile = 50,
+				/obj/vehicle/snowmobile/blue = 50,
+				/obj/vehicle/space/speedbike/red = 50,
+				/obj/vehicle/space/speedbike = 50
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
+	if(!loot.len)
+		return
+	var/lootspawn = pickweight(loot)
+	var/obj/vehicle/V = new lootspawn(get_turf(src))
+	if(V.keytype)
+		new V.keytype(get_turf(src))
+	qdel(src)
+
+
+/obj/effect/spawner/lootdrop/trade_sol/serv
+	name = "10. service gear"
+	loot = list(
+				// Mining
+				/obj/item/mining_voucher = 100,
+				/obj/item/pickaxe/drill/jackhammer = 100,
+				/obj/item/gun/energy/kinetic_accelerator/experimental = 100,
+				/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 100,
+
+				// Botanist
+				/obj/item/seeds/random/labelled = 100,
+
+				// Clown
+				/obj/item/grenade/clusterbuster/honk = 100,
+				/obj/item/bikehorn/golden = 100,
+
+				// Bartender
+				/obj/item/storage/box/bartender_rare_ingredients_kit = 100,
+
+				// Chef
+				/obj/item/storage/box/chef_rare_ingredients_kit = 100
+				// It would be nice to also have items for other service jobs: Mime, Librarian, Chaplain, etc
+				)
+
+
 
 /obj/effect/spawner/lootdrop/three_course_meal
 	name = "three course meal spawner"

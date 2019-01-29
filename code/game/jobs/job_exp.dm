@@ -7,7 +7,7 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 10, // High, because they're team-based, and we want ERT to be robust
 	ROLE_DEATHSQUAD = 10,
-	ROLE_TRADER = 5,
+	ROLE_TRADER = 20, // Very high, because they're an admin-spawned event with powerful items
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
 	// SOLO ANTAGS
@@ -176,10 +176,7 @@ var/global/list/role_playtime_requirements = list(
 			if(dep == EXP_TYPE_EXEMPT)
 				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
-				var/my_pc = num2text(round(exp_data[dep]/exp_data[EXP_TYPE_LIVING]*100))
-				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])] ([my_pc]%)</LI>"
-			else
-				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])] </LI>"
+				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])]</LI>"
 	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
 		return_text += "<LI>Admin</LI>"
 	return_text += "</UL>"

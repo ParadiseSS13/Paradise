@@ -169,7 +169,7 @@ proc/issyndicate(mob/living/M as mob)
 	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 	M.dna.species.create_organs(M)
-	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
+	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
@@ -266,7 +266,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
-
+	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = 20

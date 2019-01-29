@@ -246,7 +246,7 @@
 	if(escaped_on_pod_5 > 0)
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
 
-	send2mainirc("A round of [src.name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	send2maindiscord("A round of [src.name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	return 0
 
 

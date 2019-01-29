@@ -25,6 +25,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
+	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
 
@@ -41,7 +42,7 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.is_command) && (WINGDINGS in H.mutations)))
+	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
 		if(J.title == "Mime")
 			return
 		if(J.title == "Clown")

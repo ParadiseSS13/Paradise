@@ -17,6 +17,8 @@
 	attack_verb = list("struck", "hit", "bashed")
 
 	var/fire_sound = "gunshot"
+	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
+	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
 	var/suppressed = 0					//whether or not a message is displayed when fired
 	var/can_suppress = 0

@@ -471,7 +471,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		send2discord("message", config.discord_channel_admin, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
 	//Just the standard check to see if it's actually a number
@@ -570,7 +570,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				send2discord("message", config.discord_channel_cidrandomizer, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -583,7 +583,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				send2discord("message", config.discord_channel_cidrandomizer, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")

@@ -1143,6 +1143,37 @@ obj/item/toy/cards/deck/syndicate/black
 		return
 	..()
 
+/obj/item/toy/codex_gigas
+	name = "Toy Codex Gigas"
+	desc = "A tool to help you write fictional devils!"
+	icon = 'icons/obj/library.dmi'
+	icon_state = "demonomicon"
+	w_class = WEIGHT_CLASS_SMALL
+	var/cooldown = FALSE
+
+/obj/item/toy/codex_gigas/attack_self(mob/user)
+	if(!cooldown)
+		user.visible_message(
+			"<span class='notice'>[user] presses the button on \the [src].</span>",
+			"<span class='notice'>You press the button on \the [src].</span>",
+			"<span class='notice'>You hear a soft click.</span>")
+		var/list/messages = list()
+		var/datum/devilinfo/devil = randomDevilInfo()
+		messages += "Some fun facts about: [devil.truename]"
+		messages += "[lawlorify[LORE][devil.bane]]"
+		messages += "[lawlorify[LORE][devil.obligation]]"
+		messages += "[lawlorify[LORE][devil.ban]]"
+		messages += "[lawlorify[LORE][devil.banish]]"
+		playsound(loc, 'sound/machines/click.ogg', 20, 1)
+		cooldown = TRUE
+		for(var/message in messages)
+			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+			sleep(10)
+		spawn(20)
+			cooldown = FALSE
+		return
+		..()
+
 /obj/item/toy/owl
 	name = "owl action figure"
 	desc = "An action figure modeled after 'The Owl', defender of justice."
@@ -1344,7 +1375,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/Gunshot.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return (BRUTELOSS)
 
 /obj/item/toy/russian_revolver/New()
@@ -1378,7 +1409,7 @@ obj/item/toy/cards/deck/syndicate/black
 			return
 		else
 			bullet_position = null
-			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
+			playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 			user.visible_message("<span class='danger'>[src] goes off!</span>")
 			user.apply_damage(200, BRUTE, "head", sharp = 1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			user.death()

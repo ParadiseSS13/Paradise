@@ -297,6 +297,13 @@
 	item_path = /obj/item/gun/magic/staff/chaos
 	log_name = "SC"
 
+/datum/spellbook_entry/item/staffslipping
+	name = "Staff of Slipping"
+	desc = "A staff that shoots magical bananas. These bananas will either slip or stun the target when hit. Surprisingly reliable!"
+	item_path = /obj/item/gun/magic/staff/slipping
+	log_name = "SL"
+	cost = 1
+
 /datum/spellbook_entry/item/staffdoor
 	name = "Staff of Door Creation"
 	desc = "A particular staff that can mold solid metal into ornate wooden doors. Useful for getting around in the absence of other transportation. Does not work on glass."

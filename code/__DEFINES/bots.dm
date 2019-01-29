@@ -31,6 +31,7 @@
 #define FLOOR_BOT			4	// Floorbots
 #define CLEAN_BOT			8	// Cleanbots
 #define MED_BOT				16	// Medibots
+#define HONK_BOT			32	// Honkbots
 
 //Sentience types
 #define SENTIENCE_ORGANIC 1

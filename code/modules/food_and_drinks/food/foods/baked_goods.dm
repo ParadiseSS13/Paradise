@@ -345,7 +345,7 @@
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
 	icon_state = "donut2"
-	list_reagents = list("nutriment" = 3, "sugar" = 2, "spinkles" = 2)
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
 	randomized_sprinkles = 0
 
