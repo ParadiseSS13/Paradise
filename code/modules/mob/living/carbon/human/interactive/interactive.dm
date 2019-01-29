@@ -445,7 +445,8 @@
 						tryWalk(target)
 					else
 						C.help_shake_act(src)
-			if(M.a_intent == INTENT_HARM)
+			if(M.a_intent == INTENT_HARM && !istype(w_uniform, /obj/item/clothing/under/bluespace))
+				to_chat(world, "here")
 				retal = 1
 				retal_target = target
 

@@ -197,6 +197,8 @@
 
 /obj/item/bonesetter/bluespace
 	name = "bluespace bone setter"
+	icon_state = "bone setter_bluespace"
+	item_state = "bone setter_bluespace"
 	origin_tech = "materials=5;biotech=5"
 	toolspeed = 0.5
 

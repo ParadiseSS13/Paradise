@@ -737,3 +737,11 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/AltClick()
 	handle_accessories_removal()
+
+/obj/item/clothing/under/bluespace
+	name = "bluespace under"
+
+/obj/item/clothing/under/bluespace/Initialize()
+	. = ..()
+	set_light(4)
+	

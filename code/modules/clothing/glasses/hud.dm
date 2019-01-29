@@ -182,16 +182,16 @@
 	toggle_veil()
 
 /obj/item/clothing/glasses/hud/modular
-	name = "modular hud attachment"
+	name = "modular hud attachment device"
 	desc = "A modular hud attachment device that has two slots to secure multiple HUDs."
-	icon_state = "healthhud"
-	//icon_state = "modular"
-	species_fit = list("Vox") //Random pasta from med/sec huds
+	icon_state = "mhad_0"
+	item_state = "mhad"
+	species_fit = list("Vox") //Random pasta from med/sec huds. Ionward made sprites for all these species, so it's not pointless pasta.
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
-		)
+		)												// End random pasta
 	var/huds = 0
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
 
@@ -199,7 +199,6 @@
 	if(loc != user)
 		. = ..()
 	else if (huds)
-		to_chat(world, "got here")
 		for(var/obj/item/clothing/glasses/hud/h in src)
 			h.remove_hud(user, src)
 			huds --
@@ -208,9 +207,7 @@
 		update_icon()
 
 /obj/item/clothing/glasses/hud/modular/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	to_chat(world, "got here2 [huds]")
 	if(istype(I, /obj/item/clothing/glasses/hud) && !istype(I, src.type) && istype(user))
-		to_chat(world, "got here1")
 		var/obj/item/clothing/glasses/hud/hud = I
 		if(huds < 2)
 			huds ++
@@ -227,7 +224,6 @@
 	return
 
 /obj/item/clothing/glasses/hud/modular/MouseDrop(obj/over_object as obj) // Pasta from clothing.dm
-	to_chat(world, "heckin")
 	if(ishuman(usr))
 		if(loc != usr)
 			return
@@ -246,7 +242,6 @@
 			dropped(usr)
 
 /obj/item/clothing/glasses/hud/modular/equipped(mob/living/carbon/human/user, slot)
-	to_chat(world, "Her")
 	if(slot != slot_glasses)
 		return
 	for(var/obj/item/clothing/glasses/hud/hud in src)
@@ -271,5 +266,5 @@
 			mod.invis_view = SEE_INVISIBLE_LIVING
 
 /obj/item/clothing/glasses/hud/modular/update_icon()
-	overlays.Cut()
-	//overlays += "[huds.len]huds"
+	icon_state = "mhad_[huds]"
+	item_state = "mhad_[huds]"

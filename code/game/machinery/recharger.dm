@@ -123,6 +123,13 @@
 					use_power(200)
 					using_power = 1
 
+		if(istype(charging, /obj/item/restraints/handcuffs/bluespace))
+			var/obj/item/restraints/handcuffs/bluespace/C = charging
+			if(C.power_supply.charge < C.power_supply.maxcharge)
+				C.power_supply.give(250)
+				use_power(250)
+				using_power = 1
+
 	update_icon(using_power)
 
 /obj/machinery/recharger/emp_act(severity)

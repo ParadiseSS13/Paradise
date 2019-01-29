@@ -569,10 +569,23 @@
 /obj/item/defibrillator/bluespace
 	name = "bluespace defibrillator"
 	desc = "An upgraded defibrillator that rearranges the quantum state of the heart."
+	icon_state = "defib_bluespace"
+	item_state = "defib_bluespace"
 	origin_tech = "biotech=5;bluespace=3"
 	combat = 1
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 500, MAT_TITANIUM = 1000)
 
-/obj/item/defibrillator/bluespace/update_overlays()
-	. = ..()
-	overlays += "defibbluespace"
+/obj/item/defibrillator/bluespace/make_paddles()
+	return new /obj/item/twohanded/shockpaddles/bluespace(src)
+
+/obj/item/twohanded/shockpaddles/bluespace
+	name = "bluespace defibrillator paddles"
+	desc = "A pair of bluespace paddles that use quantum field theory to manipulate the heart's entropy."
+	icon_state = "defibpaddles_bluespace"
+	item_state = "defibpaddles_bluespace"
+
+/obj/item/twohanded/shockpaddles/bluespace/update_icon()
+	icon_state = "defibpaddles_bluespace[wielded]"
+	item_state = "defibpaddles_bluespace[wielded]"
+	if(cooldown)
+		icon_state = "defibpaddles_bluespace[wielded]_cooldown"
