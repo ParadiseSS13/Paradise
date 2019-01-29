@@ -142,14 +142,9 @@
 	data["loading"] = loading
 	data["can_brainscan"] = can_brainscan() // You'll need tier 4s for this
 	data["scan_mode"] = scan_mode
-
-	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
-		data["autoallowed"] = 1
-	else
-		data["autoallowed"] = 0
-	if(src.scanner)
-		data["occupant"] = src.scanner.occupant
-		data["locked"] = src.scanner.locked
+	if(scanner)
+		data["occupant"] = scanner.occupant
+		data["locked"] = scanner.locked
 	data["temp"] = temp
 	data["scantemp"] = scantemp
 	data["disk"] = diskette
