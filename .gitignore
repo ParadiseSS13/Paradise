@@ -21,3 +21,6 @@ data/
 stddef.dm
 .atom-build.json
 *.vscode/*
+tools/midi2piano/midi2piano/obj/x86/Debug/midi2piano.csprojAssemblyReference.cache
+tools/midi2piano/midi2piano/obj/x86/Debug/midi2piano.csproj.CoreCompileInputs.cache
+tools/midi2piano/midi2piano/obj/x86/Debug/project.razor.json
