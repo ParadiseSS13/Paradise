@@ -19,7 +19,7 @@
 	new /obj/item/clothing/glasses/night(src)
 
 /obj/structure/closet/syndicate/suits
-	desc = "It's a storage unit for operative space gear. Not fancy..."
+	desc = "It's a storage unit for operative space gear."
 
 /obj/structure/closet/syndicate/suits/New()
 	..()
@@ -30,7 +30,7 @@
 	new /obj/item/clothing/shoes/magboots/syndie(src)
 
 /obj/structure/closet/syndicate/nuclear
-	desc = "It's a storage unit for a Syndicate boarding party.."
+	desc = "It's a storage unit for a Syndicate boarding party."
 
 /obj/structure/closet/syndicate/nuclear/New()
 	..()
@@ -47,12 +47,22 @@
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/pinpointer/nukeop(src)
 	new /obj/item/pda/syndicate(src)
+
+/obj/structure/closet/syndicate/sst
+	desc = "It's a storage unit for an elite syndicate strike team's gear."
+
+/obj/structure/closet/syndicate/sst/New()
+	..()
+	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/gun/projectile/automatic/l6_saw(src)
+	new /obj/item/tank/jetpack/oxygen/harness(src)
+	new /obj/item/storage/belt/military/sst(src)
+	new /obj/item/clothing/glasses/thermal(src)
+	new /obj/item/clothing/shoes/magboots/syndie/advance(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst(src)
+	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src)
 
 /obj/structure/closet/syndicate/resources/
 	desc = "An old, dusty locker."

@@ -119,6 +119,9 @@
 	return 1
 
 /mob/living/carbon/gib()
+	. = death(1)
+	if(!.)
+		return
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
 			I.remove(src)
@@ -130,7 +133,6 @@
 			src.stomach_contents.Remove(M)
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
-	. = ..()
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
@@ -356,11 +358,15 @@
 
 			else
 				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
+		if(mind && has_bane(BANE_LIGHT))
+			mind.disrupt_spells(-500)
 		return 1
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
+			if(mind && has_bane(BANE_LIGHT))
+				mind.disrupt_spells(0)
 
 
 /mob/living/carbon/proc/tintcheck()

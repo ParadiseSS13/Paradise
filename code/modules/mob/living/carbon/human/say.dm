@@ -109,14 +109,22 @@
 
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, var/verb)
 	var/span = ""
+	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
+	if(translator)
+		if(translator.active)
+			span = translator.speech_span
+			for(var/datum/multilingual_say_piece/S in message_pieces)
+				S.message = "<span class='[span]'>[S.message]</span>"
+			verb = translator.speech_verb
+			return list("verb" = verb)
 	if(mind)
 		span = mind.speech_span
-
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown))
+		|| istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown) \
+		|| GetComponent(/datum/component/jestosterone))
 		span = "sans"
-	
+
 	var/list/parent = ..()
 	verb = parent["verb"]
 

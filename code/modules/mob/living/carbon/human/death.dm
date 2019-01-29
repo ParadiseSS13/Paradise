@@ -50,11 +50,16 @@
 /mob/living/carbon/human/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
+	dust_animation()
+	QDEL_IN(src, 15)
+	return TRUE
+
+/mob/living/carbon/human/dust_animation()
+	var/atom/movable/overlay/animation = null
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -63,7 +68,6 @@
 
 	flick("dust-h", animation)
 	new dna.species.remains_type(get_turf(src))
-	QDEL_IN(src, 0)
 	QDEL_IN(animation, 15)
 	return TRUE
 
@@ -88,7 +92,7 @@
 	return TRUE
 
 /mob/living/carbon/human/death(gibbed)
-	if(can_die() && !gibbed)
+	if(can_die() && !gibbed && deathgasp_on_death)
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
 
 	// Only execute the below if we successfully died
@@ -176,3 +180,12 @@
 	ChangeToHusk()
 	mutations |= NOCLONE
 	return
+
+/mob/living/carbon/human/proc/cure_husk()
+	mutations.Remove(HUSK)
+	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+	if(istype(H))
+		H.disfigured = FALSE
+	update_body(0)
+	update_mutantrace(0)
+	UpdateAppearance() // reset hair from DNA

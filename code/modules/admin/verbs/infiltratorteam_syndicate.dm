@@ -152,7 +152,7 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	// Implants:
 	// Uplink
-	var/obj/item/implant/uplink/U = new /obj/item/implant/uplink(src)
+	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
 	U.implant(src)
 	if (flag_mgmt)
 		U.hidden_uplink.uses = 500

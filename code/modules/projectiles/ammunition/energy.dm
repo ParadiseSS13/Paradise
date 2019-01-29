@@ -87,7 +87,7 @@
 	delay = 15
 
 /obj/item/ammo_casing/energy/electrode/gun
-	fire_sound = 'sound/weapons/gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
@@ -218,7 +218,7 @@
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
-	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/sniper

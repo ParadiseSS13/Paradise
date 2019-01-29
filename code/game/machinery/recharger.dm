@@ -115,7 +115,7 @@
 				if(R.rcell.give(R.rcell.chargerate))
 					use_power(200)
 					using_power = 1
-		
+
 		if(istype(charging, /obj/item/bodyanalyzer))
 			var/obj/item/bodyanalyzer/B = charging
 			if(B.power_supply)
@@ -154,7 +154,7 @@
 	icon_state = icon_state_idle
 
 // Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
-obj/machinery/recharger/wallcharger
+/obj/machinery/recharger/wallcharger
 	name = "wall recharger"
 	icon_state = "wrecharger0"
 	icon_state_off = "wrechargeroff"

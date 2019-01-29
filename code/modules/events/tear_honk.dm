@@ -1,4 +1,4 @@
-/datum/event/tear
+/datum/event/tear/honk
 	var/obj/effect/tear/honk/HE //i could just inherit but its being finicky.
 
 /datum/event/tear/honk/announce()
@@ -9,7 +9,7 @@
 	if(T)
 		HE = new /obj/effect/tear/honk(T.loc)
 
-/datum/event/tear/end()
+/datum/event/tear/honk/end()
 	if(HE)
 		qdel(HE)
 

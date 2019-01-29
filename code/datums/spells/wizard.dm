@@ -185,49 +185,41 @@
 	sound1 = 'sound/magic/Teleport_diss.ogg'
 	sound2 = 'sound/magic/Teleport_app.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
-	name = "Forcewall"
-	desc = "This spell creates an unbreakable wall that lasts for 30 seconds and does not need wizard garb."
-
-	school = "transmutation"
-	charge_max = 100
-	clothes_req = 0
-	invocation = "TARCOL MINTI ZHERI"
-	invocation_type = "whisper"
-	range = 0
-	cooldown_min = 50 //12 deciseconds reduction per rank
-
-	summon_type = list("/obj/effect/forcefield")
-	summon_lifespan = 300
-
-	action_icon_state = "shield"
-	cast_sound = 'sound/magic/ForceWall.ogg'
-
 /obj/effect/proc_holder/spell/targeted/forcewall
-	name = "Greater Forcewall"
-	desc = "Create a magical barrier that only you can pass through."
+	name = "Force Wall"
+	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
 	charge_max = 100
 	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
-	invocation_type = "shout"
+	invocation_type = "whisper"
 	sound = 'sound/magic/ForceWall.ogg'
 	action_icon_state = "shield"
 	range = -1
 	include_user = TRUE
 	cooldown_min = 50 //12 deciseconds reduction per rank
 	var/wall_type = /obj/effect/forcefield/wizard
+	var/large = FALSE
 
-/obj/effect/proc_holder/spell/targeted/forcewall/cast(list/targets,mob/user = usr)
-	new wall_type(get_turf(user),user)
-	if(user.dir == SOUTH || user.dir == NORTH)
-		new wall_type(get_step(user, EAST),user)
-		new wall_type(get_step(user, WEST),user)
-	else
-		new wall_type(get_step(user, NORTH),user)
-		new wall_type(get_step(user, SOUTH),user)
+/obj/effect/proc_holder/spell/targeted/forcewall/cast(list/targets, mob/user = usr)
+	new wall_type(get_turf(user), user)
+	if(large) //Extra THICK
+		if(user.dir == SOUTH || user.dir == NORTH)
+			new wall_type(get_step(user, EAST), user)
+			new wall_type(get_step(user, WEST), user)
+		else
+			new wall_type(get_step(user, NORTH), user)
+			new wall_type(get_step(user, SOUTH), user)
 
+/obj/effect/proc_holder/spell/targeted/forcewall/greater
+	name = "Greater Force Wall"
+	desc = "Create a larger magical barrier that only you can pass through, but requires wizard garb. Lasts 30 seconds."
+
+	clothes_req = TRUE
+	invocation = "TARCOL GRANDI ZHERI"
+	invocation_type = "shout"
+	large = TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"

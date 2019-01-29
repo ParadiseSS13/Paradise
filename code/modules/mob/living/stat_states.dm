@@ -64,4 +64,10 @@
 	for(var/s in sharedSoullinks)
 		var/datum/soullink/S = s
 		S.sharerRevives(src)
+
+	if(mind)
+		for(var/S in mind.spell_list)
+			var/obj/effect/proc_holder/spell/spell = S
+			spell.updateButtonIcon()
+
 	return 1

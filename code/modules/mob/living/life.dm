@@ -3,9 +3,9 @@
 	set background = BACKGROUND_ENABLED
 
 	if(notransform)
-		return
+		return 0
 	if(!loc)
-		return
+		return 0
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	if(stat != DEAD)

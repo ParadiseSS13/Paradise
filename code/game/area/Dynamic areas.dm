@@ -20,7 +20,7 @@
 	name = "dynamic area source"
 
 /area/dynamic/source/lobby_bar
-	name = "\improper Bar"
+	name = "\improper Bar Lounge"
 	match_tag = "arrivals"
 	match_width = 5
 	match_height = 4

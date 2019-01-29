@@ -70,10 +70,6 @@
 	modePlayer += traitors
 	..()
 
-/datum/game_mode/traitor/setup_chumps()
-	//since we actually have potential collaborators, we don't prepare any chumps to avoid extra people knowing our codewords.
-	return
-
 /datum/game_mode/proc/forge_traitor_objectives(datum/mind/traitor)
 	if(istype(traitor.current, /mob/living/silicon))
 		var/objective_count = 0
@@ -346,20 +342,6 @@
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
 	if(!safety)//If they are not a rev. Can be added on to.
 		give_codewords(traitor_mob)
-
-	// Tell them about people they might want to contact.
-	var/mob/living/carbon/human/M = get_nt_opposed()
-	if(M && M != traitor_mob)
-		to_chat(traitor_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting [M.p_them()].")
-		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
-		//let's also inform their contact that they might be called upon, but leave it vague.
-		inform_collab(M)
-
-/datum/game_mode/traitor/inform_collab(mob/living/carbon/human/M)
-	if(M.mind in traitors)		//if you are already a traitor, you already know the codewords and your role, so skip this message.
-		return
-	..(M)
-
 
 /datum/game_mode/proc/remove_traitor(datum/mind/traitor_mind)
 	if(traitor_mind in traitors)

@@ -125,6 +125,8 @@
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = HIDEEARS | HIDEEYES
+	magical = TRUE
 
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
@@ -203,7 +205,7 @@
 	var/safety = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/phrase_list = list(
-					
+
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
 								"compliance" 	        = "Compliance is in your best interest.",
@@ -272,11 +274,11 @@
 	else if(actiontype == /datum/action/item_action/selectphrase)
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
-		
+
 		if (!safety)
 			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
 			return
-		
+
 		switch(aggressiveness)
 			if(1)
 				phrase = (phrase < 6) ? (phrase + 1) : 1

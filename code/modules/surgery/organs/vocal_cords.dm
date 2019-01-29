@@ -156,13 +156,12 @@ var/static/regex/multispin_words = regex("like a record baby")
 
 	for(var/V in listeners)
 		var/mob/living/L = V
-		/*if(L.mind && L.mind.devilinfo && findtext(message, L.mind.devilinfo.truename))
+		if(L.mind && L.mind.devilinfo && findtext(message, L.mind.devilinfo.truename))
 			var/start = findtext(message, L.mind.devilinfo.truename)
 			listeners = list(L) //let's be honest you're never going to find two devils with the same name
 			power_multiplier *= 5 //if you're a devil and god himself addressed you, you fucked up
 			//Cut out the name so it doesn't trigger commands
 			message = copytext(message, 0, start)+copytext(message, start + length(L.mind.devilinfo.truename), length(message) + 1)
-			break*/
 		if(findtext(message, L.real_name) == 1)
 			specific_listeners += L //focus on those with the specified name
 			//Cut out the name so it doesn't trigger commands

@@ -34,7 +34,8 @@
 		return
 
 	H.dna.SetSEState(SOBERBLOCK,1)
-	H.mutations += SOBER
+	genemutcheck(H, SOBERBLOCK, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(SOBERBLOCK)
 	H.check_mutations = 1
 
 
@@ -249,9 +250,8 @@
 		implant.insert(H)
 
 	H.mutations.Add(CLUMSY)
-	H.dna.SetSEState(COMICBLOCK, 1, 1)
-	genemutcheck(H, COMICBLOCK, null, MUTCHK_FORCED)
-
+	if(!ismachine(H))
+		H.mutations.Add(COMIC)
 
 /datum/job/mime
 	title = "Mime"

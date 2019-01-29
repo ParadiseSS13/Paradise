@@ -219,7 +219,7 @@ var/round_start_time = 0
 
 	var/list/admins_number = staff_countup(R_BAN)
 	if(admins_number[1] == 0 && admins_number[3] == 0)
-		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
+		send2discord("message", config.discord_channel_admin_notify, "Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
@@ -476,3 +476,6 @@ var/round_start_time = 0
 	event_manager.RoundEnd()
 
 	return 1
+
+/datum/controller/gameticker/proc/HasRoundStarted()
+	return current_state >= GAME_STATE_PLAYING

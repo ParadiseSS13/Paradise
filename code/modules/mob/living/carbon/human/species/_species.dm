@@ -315,7 +315,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -381,7 +381,6 @@
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
@@ -390,6 +389,7 @@
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
+		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block()) //cqc
