@@ -1749,7 +1749,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("nt_relation")
 					var/relationdesc = "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks."
 					if(config.allow_collabs)
-						relationdesc += " Setting NT Skeptical or Opposed may get you a subtle note from the syndicate. \
+						relationdesc += "\n\nSetting NT Skeptical or Opposed may get you a subtle note from the syndicate. \
 						Note:This does not make you an antag but you can assist Syndicate in ways within bound rules and to enhance roleplay."
 					var/new_relation = input(user, relationdesc, "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
 					if(new_relation)
