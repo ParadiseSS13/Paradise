@@ -14,7 +14,6 @@
 	var/datum/dna2/record/active_record = null
 	var/obj/item/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
-	var/autoprocess = 0
 	var/obj/machinery/clonepod/selected_pod
 	// 0: Standard body scan
 	// 1: The "Best" scan available
@@ -31,21 +30,21 @@
 	return ..()
 
 /obj/machinery/computer/cloning/process()
-	if(!scanner || !pods.len || !autoprocess || stat & NOPOWER)
+	if(!scanner || !pods.len || stat & NOPOWER)
 		return
 
-	if(scanner.occupant && can_autoprocess())
+	if(scanner.occupant)
 		scan_mob(scanner.occupant)
 
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
-			for(var/datum/dna2/record/R in src.records)
+			for(var/datum/dna2/record/R in records)
 				if(!(pod.occupant || pod.mess))
 					if(pod.growclone(R))
 						records.Remove(R)
 
 /obj/machinery/computer/cloning/proc/updatemodules()
-	src.scanner = findscanner()
+	scanner = findscanner()
 	releasecloner()
 	findcloner()
 	if(!selected_pod && pods.len)
@@ -83,10 +82,10 @@
 
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
-		if(!src.diskette)
+		if(!diskette)
 			user.drop_item()
 			W.loc = src
-			src.diskette = W
+			diskette = W
 			to_chat(user, "You insert [W].")
 			SSnanoui.update_uis(src)
 			return
@@ -129,23 +128,18 @@
 
 /obj/machinery/computer/cloning/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	data["menu"] = src.menu
-	data["scanner"] = sanitize("[src.scanner]")
+	data["menu"] = menu
+	data["scanner"] = sanitize("[scanner]")
 
-	var/canpodautoprocess = 0
 	if(pods.len)
-		data["numberofpods"] = src.pods.len
+		data["numberofpods"] = pods.len
 
 		var/list/tempods[0]
-		for(var/obj/machinery/clonepod/pod in pods)
-			if(pod.efficiency > 5)
-				canpodautoprocess = 1
-
-			tempods.Add(list(list("pod" = "\ref[pod]", "name" = sanitize(capitalize(pod.name)), "biomass" = pod.biomass)))
-			data["pods"] = tempods
+			for(var/obj/machinery/clonepod/pod in pods)
+				tempods.Add(list(list("pod" = "\ref[pod]", "name" = sanitize(capitalize(pod.name)), "biomass" = pod.biomass)))
+				data["pods"] = tempods
 
 	data["loading"] = loading
-	data["autoprocess"] = autoprocess
 	data["can_brainscan"] = can_brainscan() // You'll need tier 4s for this
 	data["scan_mode"] = scan_mode
 
@@ -158,7 +152,7 @@
 		data["locked"] = src.scanner.locked
 	data["temp"] = temp
 	data["scantemp"] = scantemp
-	data["disk"] = src.diskette
+	data["disk"] = diskette
 	data["selected_pod"] = "\ref[selected_pod]"
 	var/list/temprecords[0]
 	for(var/datum/dna2/record/R in records)
@@ -166,18 +160,18 @@
 		temprecords.Add(list(list("record" = "\ref[R]", "realname" = sanitize(tempRealName))))
 	data["records"] = temprecords
 
-	if(src.menu == 3)
-		if(src.active_record)
-			data["activerecord"] = "\ref[src.active_record]"
+	if(menu == 3)
+		if(active_record)
+			data["activerecord"] = "\ref[active_record]"
 			var/obj/item/implant/health/H = null
-			if(src.active_record.implant)
-				H = locate(src.active_record.implant)
+			if(active_record.implant)
+				H = locate(active_record.implant)
 
 			if((H) && (istype(H)))
 				data["health"] = H.sensehealth()
-			data["realname"] = sanitize(src.active_record.dna.real_name)
-			data["unidentity"] = src.active_record.dna.uni_identity
-			data["strucenzymes"] = src.active_record.dna.struc_enzymes
+			data["realname"] = sanitize(active_record.dna.real_name)
+			data["unidentity"] = active_record.dna.uni_identity
+			data["strucenzymes"] = active_record.dna.struc_enzymes
 		if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
 			data["podready"] = 1
 		else
@@ -206,92 +200,84 @@
 			loading = 0
 			SSnanoui.update_uis(src)
 
-	if(href_list["task"])
-		switch(href_list["task"])
-			if("autoprocess")
-				autoprocess = 1
-				SSnanoui.update_uis(src)
-			if("stopautoprocess")
-				autoprocess = 0
-				SSnanoui.update_uis(src)
 
 	//No locking an open scanner.
-	else if((href_list["lock"]) && (!isnull(src.scanner)))
-		if((!src.scanner.locked) && (src.scanner.occupant))
-			src.scanner.locked = 1
+	else if((href_list["lock"]) && (!isnull(scanner)))
+		if((!scanner.locked) && (scanner.occupant))
+			scanner.locked = 1
 		else
-			src.scanner.locked = 0
+			scanner.locked = 0
 
 	else if(href_list["view_rec"])
-		src.active_record = locate(href_list["view_rec"])
-		if(istype(src.active_record,/datum/dna2/record))
-			if((isnull(src.active_record.ckey)))
-				qdel(src.active_record)
-				src.temp = "<span class=\"bad\">Error: Record corrupt.</span>"
+		active_record = locate(href_list["view_rec"])
+		if(istype(active_record,/datum/dna2/record))
+			if((isnull(active_record.ckey)))
+				qdel(active_record)
+				temp = "<span class=\"bad\">Error: Record corrupt.</span>"
 			else
-				src.menu = 3
+				menu = 3
 		else
-			src.active_record = null
-			src.temp = "<span class=\"bad\">Error: Record missing.</span>"
+			active_record = null
+			temp = "<span class=\"bad\">Error: Record missing.</span>"
 
 	else if(href_list["del_rec"])
-		if((!src.active_record) || (src.menu < 3))
+		if((!active_record) || (menu < 3))
 			return
-		if(src.menu == 3) //If we are viewing a record, confirm deletion
-			src.temp = "Please confirm that you want to delete the record?"
-			src.menu = 4
+		if(menu == 3) //If we are viewing a record, confirm deletion
+			temp = "Please confirm that you want to delete the record?"
+			menu = 4
 
-		else if(src.menu == 4)
+		else if(menu == 4)
 			var/obj/item/card/id/C = usr.get_active_hand()
 			if(istype(C)||istype(C, /obj/item/pda))
-				if(src.check_access(C))
-					src.records.Remove(src.active_record)
-					qdel(src.active_record)
-					src.temp = "Record deleted."
-					src.menu = 2
+				if(check_access(C))
+					records.Remove(active_record)
+					qdel(active_record)
+					temp = "Record deleted."
+					menu = 2
 				else
-					src.temp = "<span class=\"bad\">Error: Access denied.</span>"
+					temp = "<span class=\"bad\">Error: Access denied.</span>"
 
 	else if(href_list["disk"]) //Load or eject.
 		switch(href_list["disk"])
 			if("load")
-				if((isnull(src.diskette)) || isnull(src.diskette.buf))
-					src.temp = "<span class=\"bad\">Error: The disk's data could not be read.</span>"
+				if((isnull(diskette)) || isnull(diskette.buf))
+					temp = "<span class=\"bad\">Error: The disk's data could not be read.</span>"
 					SSnanoui.update_uis(src)
 					return
-				if(isnull(src.active_record))
-					src.temp = "<span class=\"bad\">Error: No active record was found.</span>"
-					src.menu = 1
+				if(isnull(active_record))
+					temp = "<span class=\"bad\">Error: No active record was found.</span>"
+					menu = 1
 					SSnanoui.update_uis(src)
 					return
 
-				src.active_record = src.diskette.buf.copy()
+				active_record = diskette.buf.copy()
 
-				src.temp = "Load successful."
+				temp = "Load successful."
 
 			if("eject")
-				if(!isnull(src.diskette))
-					src.diskette.loc = src.loc
-					src.diskette = null
+				if(!isnull(diskette))
+					diskette.loc = loc
+					diskette = null
 
 	else if(href_list["save_disk"]) //Save to disk!
-		if((isnull(src.diskette)) || (src.diskette.read_only) || (isnull(src.active_record)))
-			src.temp = "<span class=\"bad\">Error: The data could not be saved.</span>"
+		if((isnull(diskette)) || (diskette.read_only) || (isnull(active_record)))
+			temp = "<span class=\"bad\">Error: The data could not be saved.</span>"
 			SSnanoui.update_uis(src)
 			return
 
 		// DNA2 makes things a little simpler.
-		src.diskette.buf=src.active_record.copy()
-		src.diskette.buf.types=0
+		diskette.buf=active_record.copy()
+		diskette.buf.types=0
 		switch(href_list["save_disk"]) //Save as Ui/Ui+Ue/Se
 			if("ui")
-				src.diskette.buf.types=DNA2_BUF_UI
+				diskette.buf.types=DNA2_BUF_UI
 			if("ue")
-				src.diskette.buf.types=DNA2_BUF_UI|DNA2_BUF_UE
+				diskette.buf.types=DNA2_BUF_UI|DNA2_BUF_UE
 			if("se")
-				src.diskette.buf.types=DNA2_BUF_SE
-		src.diskette.name = "data disk - '[src.active_record.dna.real_name]'"
-		src.temp = "Save \[[href_list["save_disk"]]\] successful."
+				diskette.buf.types=DNA2_BUF_SE
+		diskette.name = "data disk - '[active_record.dna.real_name]'"
+		temp = "Save \[[href_list["save_disk"]]\] successful."
 
 	else if(href_list["refresh"])
 		SSnanoui.update_uis(src)
@@ -336,7 +322,7 @@
 			temp = "<span class=\"bad\">Error: Data corruption.</span>"
 
 	else if(href_list["menu"])
-		src.menu = text2num(href_list["menu"])
+		menu = text2num(href_list["menu"])
 		temp = ""
 		scantemp = "Scanner ready."
 	else if(href_list["toggle_mode"])
@@ -345,7 +331,7 @@
 		else
 			scan_mode = 0
 
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	SSnanoui.update_uis(src)
 	return
 
@@ -355,6 +341,10 @@
 	if(scanner.stat & (NOPOWER|BROKEN))
 		return
 	if(scan_brain && !can_brainscan())
+		return
+	if(subject.stat != DEAD)
+		scantemp = "<span class=\"bad\">Error: Unable to scan living specimens.</span>"
+		SSnanoui.update_uis(src)
 		return
 	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.dna.species.species_traits))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
@@ -379,7 +369,7 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		SSnanoui.update_uis(src)
 		return
-	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if((NOCLONE in subject.mutations) && scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		SSnanoui.update_uis(src)
 		return
@@ -423,21 +413,19 @@
 	if(!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
 		R.mind = "\ref[subject.mind]"
 
-	src.records += R
+	records += R
 	scantemp = "Subject successfully scanned. " + extra_info
 	SSnanoui.update_uis(src)
 
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/find_record(var/find_key)
 	var/selected_record = null
-	for(var/datum/dna2/record/R in src.records)
+	for(var/datum/dna2/record/R in records)
 		if(R.ckey == find_key)
 			selected_record = R
 			break
 	return selected_record
 
-/obj/machinery/computer/cloning/proc/can_autoprocess()
-	return (scanner && scanner.scan_level > 2)
 
 /obj/machinery/computer/cloning/proc/can_brainscan()
 	return (scanner && scanner.scan_level > 3)

@@ -671,11 +671,11 @@
 				SM.revive()
 				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-
+				
 	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
+				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150 || !(NO_SCAN in M.dna.species.species_traits)) //if damage is above a certain level or is a race that can use a cloner
 					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 					M.gib()
 					return

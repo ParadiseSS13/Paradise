@@ -319,7 +319,7 @@
 			occupant.Paralyse(4)
 
 			 //Slowly get that clone healed and finished.
-			occupant.adjustCloneLoss(-((speed_coeff/2)))
+			occupant.adjustCloneLoss(-((speed_coeff/4)))
 
 			// For human species that lack non-vital parts for some weird reason
 			if(organs_number)
