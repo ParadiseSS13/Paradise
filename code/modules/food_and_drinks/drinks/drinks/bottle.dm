@@ -249,6 +249,12 @@
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
+/obj/item/reagent_containers/food/drinks/bottle/fernet
+	name = "Fernet Branca"
+	desc = "A bottle of strange bitter alcohol."
+	icon_state = "fernet"
+	list_reagents = list("fernet" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -357,3 +363,4 @@
 		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
 		overlays -= fire_overlay
 		active = 0
+

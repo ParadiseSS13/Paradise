@@ -79,3 +79,11 @@
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+
+/obj/item/reagent_containers/food/snacks/empanada
+	name = "Empanada"
+	desc = "A meaty goodness"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "empanada"
+	bitesize = 3
+	list_reagents = list("nutriment" = 3, "vitamin" = 2)

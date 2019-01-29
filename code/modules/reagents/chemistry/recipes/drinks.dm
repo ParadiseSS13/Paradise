@@ -879,3 +879,12 @@
 	result_amount = 3
 	mix_message = "The beer looks a little more delicious."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/fernetcola
+	name = "Fernet with cola"
+	id = "fernetcola"
+	result = "fernetcola"
+	required_reagents = list("fernet" = 1, "cola" = 2)
+	result_amount = 5
+	mix_message = "This should be more drinkable now."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
