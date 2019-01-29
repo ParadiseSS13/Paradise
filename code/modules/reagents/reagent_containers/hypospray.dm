@@ -73,6 +73,16 @@
 	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
 
+/obj/item/reagent_containers/hypospray/safety/bluespace
+	name = "bluespace medical hypospray"
+	desc = "An advanced medical hypospray capable of injecting through metal."
+	icon_state = "medivend_hypo_bluespace"
+	item_state = "medivend_hypo_bluespace"
+	volume = 100
+	ignore_flags = 1
+	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,50,100)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
+
 /obj/item/reagent_containers/hypospray/safety/ert
 	list_reagents = list("omnizine" = 30)
 
@@ -144,7 +154,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
-	desc = "Rapidly stimulates and regenerates the body's organ system."
+	desc = "Rapidly stimulates and regernates the body's organ system."
 	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
