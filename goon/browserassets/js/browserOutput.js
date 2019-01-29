@@ -631,9 +631,10 @@ $(function() {
 		     href: "./browserOutput.css"
 		  });
 	}
-	if(savedConfig.backlog != undefined){
-		$messages.html(savedConfig.backlog)
-		setCookie('backlog', undefined, 365)
+	if(localStorage){
+		var backlog = localStorage.getItem('backlog')
+		$messages.html(backlog)
+		localStorage.setItem('backlog', '')
 	}
 	(function() {
 		var dataCookie = getCookie('connData');
@@ -1038,11 +1039,10 @@ $(function() {
 		var backlog = $messages.html()
 		if(getCookie('invert') == "on"){
 			setCookie('invert', "off", 365)
-			setCookie('backlog', backlog, 365)
 		} else {
 			setCookie('invert', "on", 365)
-			setCookie('backlog', backlog, 365)
 		}
+		localStorage.setItem('backlog', backlog)
 		location.reload();
 	});
 
