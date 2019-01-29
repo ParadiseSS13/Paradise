@@ -425,6 +425,21 @@
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
 
+// Captain Formal uniform by Danaleja
+/obj/item/clothing/under/dress/dark
+	name = "captain formal uniform"
+	desc = "a captain formal uniform blue"
+	icon_state = "captain_dark"
+	item_color = "captain_dark"
+	hispania_icon = TRUE
+
+/obj/item/clothing/under/dress/light
+	name = "captain formal uniform"
+	desc = "a captain formal uniform white"
+	icon_state = "captain_light"
+	item_color = "captain_light"
+	hispania_icon = TRUE
+	
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
