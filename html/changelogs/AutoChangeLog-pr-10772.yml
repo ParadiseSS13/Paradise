@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Player-controlled hellhounds will no longer activate their smoke attack when they touch people on help intent."
+  - tweak: "Greater hellhounds (a far more dangerous version of the hellhound) now have descriptions that make it clear they are not the same as the regular hellhounds people are used to seeing."
