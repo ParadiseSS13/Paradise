@@ -573,7 +573,8 @@ $(function() {
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
 		'shideSpam': getCookie('hidespam'),
-		'invert': getCookie('invert')
+		'invert': getCookie('invert'),
+		'backlog': getCookie('backlog')
 	};
 	
 	if (savedConfig.sfontSize) {
@@ -621,7 +622,6 @@ $(function() {
 		     type: "text/css",
 		     href: "./browserOutput-dark.css"
 		  });
-
 	} else {
 		   $("head").append("<link>");
 		   var css = $("head").children(":last");
@@ -631,7 +631,10 @@ $(function() {
 		     href: "./browserOutput.css"
 		  });
 	}
-
+	if(savedConfig.backlog != undefined){
+		$messages.html(savedConfig.backlog)
+		setCookie('backlog', undefined, 365)
+	}
 	(function() {
 		var dataCookie = getCookie('connData');
 		if (dataCookie) {
@@ -1032,13 +1035,15 @@ $(function() {
 	});
 
 	$('#toggleInvert').click(function(e) {
-		//set up color properties to iterate through
+		var backlog = $messages.html()
 		if(getCookie('invert') == "on"){
 			setCookie('invert', "off", 365)
+			setCookie('backlog', backlog, 365)
 		} else {
 			setCookie('invert', "on", 365)
+			setCookie('backlog', backlog, 365)
 		}
-		internalOutput('<span class="internal boldnshit">Please reload for the colors to invert.</span>', 'internal');
+		location.reload();
 	});
 
 	// Tell BYOND to give us a macro list.
