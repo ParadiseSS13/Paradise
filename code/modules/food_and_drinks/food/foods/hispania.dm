@@ -82,7 +82,7 @@
 
 /obj/item/reagent_containers/food/snacks/empanada
 	name = "Empanada"
-	desc = "A meaty goodness"
+	desc = "Meaty goodness"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "empanada"
 	bitesize = 3

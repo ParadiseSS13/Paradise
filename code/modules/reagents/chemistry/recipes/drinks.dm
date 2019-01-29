@@ -886,5 +886,5 @@
 	result = "fernetcola"
 	required_reagents = list("fernet" = 1, "cola" = 2)
 	result_amount = 5
-	mix_message = "This should be more drinkable now."
+	mix_message = "You should be able to drink it now."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
