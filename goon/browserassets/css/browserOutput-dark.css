@@ -83,6 +83,7 @@ a.popt {text-decoration: none;}
 	right: 40px;
 	width: 45px;
 	background: #ddd;
+	color: #000;
 	height: 30px;
 	padding: 8px 0 2px 0;
 }
@@ -91,6 +92,7 @@ a.popt {text-decoration: none;}
 	display: block;
 	text-align: center;
 	font-size: 8pt;
+	color: #000;
 	padding-top: 2px;
 }
 #options {
