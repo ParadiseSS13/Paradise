@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "fixes the viruses symptom creation being bugged. No more bluespace symptom creation"
