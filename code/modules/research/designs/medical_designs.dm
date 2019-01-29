@@ -561,3 +561,13 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 500, MAT_TITANIUM = 1000)
 	build_path = /obj/item/defibrillator/bluespace
 	category = list("Medical")
+
+/datum/design/bluespace_bonesetter
+	name = "bluespace bone setter"
+	desc = "An upgraded bone setter capable of applying bone gel as well as setting the bone."
+	id = "bluespace_bonesetter"
+	req_tech = list("biotech" = 6, "bluespace" = 7, "magnets" = 7, "programming" = 5, "materials" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 500, MAT_URANIUM = 2000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/bonesetter/bluespace
+	category = list("Medical")

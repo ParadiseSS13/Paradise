@@ -201,6 +201,7 @@
 	item_state = "bone setter_bluespace"
 	origin_tech = "materials=5;biotech=5"
 	toolspeed = 0.5
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 500, MAT_URANIUM = 2000)
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
