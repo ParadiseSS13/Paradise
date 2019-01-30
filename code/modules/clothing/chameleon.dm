@@ -93,29 +93,30 @@
 	if(user && src in user.contents)
 		switch(input_glasses)
 			if("Sunglasses")
-				E = /obj/item/clothing/glasses/sunglasses
+				E = new /obj/item/clothing/glasses/sunglasses
 			if("Medical HUD")
-				E = /obj/item/clothing/glasses/hud/health
+				E = new /obj/item/clothing/glasses/hud/health
 			if("Mesons")
-				E = /obj/item/clothing/glasses/meson
+				E = new /obj/item/clothing/glasses/meson
 			if("Science Goggles")
-				E = /obj/item/clothing/glasses/science
+				E = new /obj/item/clothing/glasses/science
 			if("Glasses")
-				E = /obj/item/clothing/glasses/regular
+				E = new /obj/item/clothing/glasses/regular
 			if("Security Sunglasses")
-				E = /obj/item/clothing/glasses/hud/security/sunglasses
+				E = new /obj/item/clothing/glasses/hud/security/sunglasses
 			if("Eyepatch")
-				E = /obj/item/clothing/glasses/eyepatch
+				E = new /obj/item/clothing/glasses/eyepatch
 			if("Welding")
-				E = /obj/item/clothing/glasses/welding
+				E = new /obj/item/clothing/glasses/welding
 			if("Gar")
-				E = /obj/item/clothing/glasses/fluff/kamina
+				E = new /obj/item/clothing/glasses/fluff/kamina
 			if("Diagnostics")
-				E = /obj/item/clothing/glasses/hud/diagnostic
-		name = E.name
-		desc = E.desc
-		icon_state = E.icon_state
-		item_state = E.item_state
+				E = new /obj/item/clothing/glasses/hud/diagnostic
+		if(E)
+			name = E.name
+			desc = E.desc
+			icon_state = E.icon_state
+			item_state = E.item_state
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "Chameleon Security HUD"
