@@ -28,6 +28,7 @@
 	heat_level_2 = 420 //Default 400
 	heat_level_3 = 480 //Default 460
 
+	blood_color = "#960147"
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
@@ -38,11 +39,11 @@
 	brute_mod = 1.05
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi,
 		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
