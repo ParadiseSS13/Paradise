@@ -1002,8 +1002,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/thermal
-	name = "Thermal Imaging Glasses"
-	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
+	name = "Chameleon Thermal Goggles"
+	desc = "A set of thermal imaging goggles which can be disguised to look like most forms of eyewear found on NT stations. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Highly vulnerable to flashes and strong light sources."
 	reference = "THIG"
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6

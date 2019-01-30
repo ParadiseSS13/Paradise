@@ -125,3 +125,13 @@
 
 /obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
 	chameleon(user)
+
+/obj/item/clothing/glasses/thermal/syndi
+	name = "Optical Meson Scanner"
+	desc = "Used for seeing walls, floors, and stuff through anything."
+	icon_state = "meson"
+	origin_tech = "magnets=3;syndicate=4"
+	prescription_upgradable = 1
+
+/obj/item/clothing/glasses/thermal/syndi/attack_self(mob/user)
+	chameleon(user)

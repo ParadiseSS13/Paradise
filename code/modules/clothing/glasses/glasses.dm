@@ -402,13 +402,6 @@
 						M.CureNearsighted()
 		..()
 
-/obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
-	name = "Optical Meson Scanner"
-	desc = "Used for seeing walls, floors, and stuff through anything."
-	icon_state = "meson"
-	origin_tech = "magnets=3;syndicate=4"
-	prescription_upgradable = 1
-
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"
 	desc = "A monocle thermal."
