@@ -4,7 +4,6 @@
 	var/climbable
 	var/mob/climber
 	var/broken = FALSE
-	#define isstructure(A)	(istype((A), /obj/structure))
 
 /obj/structure/blob_act()
 	if(prob(50))
