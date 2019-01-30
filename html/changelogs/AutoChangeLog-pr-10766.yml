@@ -1,0 +1,6 @@
+author: "Shadeykins"
+delete-after: True
+changes: 
+  - rscadd: "New Russian statue"
+  - tweak: "Moved some cables, swapped a vendor."
+  - bugfix: "Fixed missing door button, some dupes, and unintended object behavior."
