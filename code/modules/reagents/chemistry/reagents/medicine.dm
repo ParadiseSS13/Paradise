@@ -675,7 +675,9 @@
 	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150 || !(NO_SCAN in M.dna.species.species_traits)) //if damage is above a certain level or is a race that can use a cloner
+				if(!(NO_SCAN in M.dna.species.species_traits))
+					return
+				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150) 
 					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 					M.gib()
 					return
