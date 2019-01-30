@@ -720,7 +720,7 @@
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
-	if(isliving(who) && isLivingSSD(who))
+	if(isliving(who) && isLivingSSD(who) && !config.disable_ssd_warn_popup)
 		var/mob/living/L = who
 		var/can_strip_ssd = FALSE
 		if(src in L.ssd_acknowledged)

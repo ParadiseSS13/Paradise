@@ -182,8 +182,10 @@
 	var/dooc_allowed = 1
 	var/dsay_allowed = 1
 
+
 	var/disable_lobby_music = 0 // Disables the lobby music
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
+	var/disable_ssd_warn_popup = 0 //disable SSD popup when trying to strip an SSD
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
 
@@ -393,10 +395,10 @@
 
 				if("githuburl")
 					config.githuburl = value
-				
+
 				if("discordurl")
 					config.discordurl = value
-				
+
 				if("donationsurl")
 					config.donationsurl = value
 
@@ -591,6 +593,9 @@
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
+
+				if("disable_ssd_warn_popup")
+					config.disable_ssd_warn_popup = 1
 
 				if("extra_space_ruin_levels_min")
 					var/vvalue = text2num(value)

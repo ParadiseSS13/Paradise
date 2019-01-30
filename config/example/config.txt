@@ -335,6 +335,9 @@ EXTRA_SPACE_RUINS_LEVELS_MAX 4
 ## Uncomment this if you want to disable the popup alert for people on the same CID
 #DISABLE_CID_WARN_POPUP
 
+## Uncomment this if you want to disable the popup alert for stripping SSD people
+#DISABLE_SSD_WARN_POPUP
+
 ## How many loadout points players may spend in character setup
 #MAX_LOADOUT_POINTS 5
 
