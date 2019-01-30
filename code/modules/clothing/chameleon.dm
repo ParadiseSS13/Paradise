@@ -19,11 +19,11 @@
 	var/blocked = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/rank/centcom) // Stops random coloured jumpsuit and undefined centcomm suit appearing in the list.
 	for(var/U in subtypesof(/obj/item/clothing/under/color) - blocked)
 		var/obj/item/clothing/under/V = new U
-		src.clothing_choices += V
+		clothing_choices += V
 
 	for(var/U in subtypesof(/obj/item/clothing/under/rank) - blocked)
 		var/obj/item/clothing/under/V = new U
-		src.clothing_choices += V
+		clothing_choices += V
 	return
 
 obj/item/clothing/under/chameleon/attackby(obj/item/clothing/under/U as obj, mob/user as mob, params)
@@ -32,10 +32,10 @@ obj/item/clothing/under/chameleon/attackby(obj/item/clothing/under/U as obj, mob
 		to_chat(user, "<span class='warning'>Nothing happens.</span>")
 		return
 	if(istype(U, /obj/item/clothing/under))
-		if(src.clothing_choices.Find(U))
+		if(clothing_choices.Find(U))
 			to_chat(user, "<span class='warning'>Pattern is already recognised by the suit.</span>")
 			return
-		src.clothing_choices += U
+		clothing_choices += U
 		to_chat(user, "<span class='warning'>Pattern absorbed by the suit.</span>")
 
 /obj/item/clothing/under/chameleon/emp_act(severity)
@@ -82,7 +82,7 @@ obj/item/clothing/under/chameleon/attackby(obj/item/clothing/under/U as obj, mob
 	//to prevent an infinite loop
 	for(var/U in typesof(/obj/item/clothing/under)-blocked)
 		var/obj/item/clothing/under/V = new U
-		src.clothing_choices += V
+		clothing_choices += V
 
 // Chameleon Eyewear
 
