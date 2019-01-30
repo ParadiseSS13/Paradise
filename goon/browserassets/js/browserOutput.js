@@ -1035,6 +1035,7 @@ $(function() {
 	});
 
 	$('#toggleDarkChat').click(function(e) {
+		internalOutput('<span class="internal boldnshit">Dark Chat toggled. Reconnecting to chat.</span>', 'internal');
 		var backlog = $messages.html()
 		if(getCookie('darkChat') == "on"){
 			setCookie('darkChat', "off", 365)
