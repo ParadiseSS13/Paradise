@@ -33,9 +33,6 @@
 	if(!scanner || !pods.len || stat & NOPOWER)
 		return
 
-	if(scanner.occupant)
-		scan_mob(scanner.occupant)
-
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
 			for(var/datum/dna2/record/R in records)
