@@ -1277,7 +1277,7 @@
 "yS" = (/obj/machinery/computer/account_database{name = "Admin Accounts Database"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
 "yT" = (/obj/machinery/door/airlock/maintenance_hatch{req_access_txt = "106"},/turf/simulated/shuttle/plating,/area/centcom/evac)
 "yU" = (/obj/machinery/computer/secure_data,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
-"yV" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch to lock down external access to the admin room."; icon_state = "doorctrl0"; id = "ADMINLOCKDOWN"; name = "Lockdown"; pixel_y = 0; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
+"yV" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch to lock down external access to the admin room."; icon_state = "doorctrl0"; id = "ADMINLOCKDOWN"; name = "Lockdown"; pixel_y = 0; req_access_txt = "0"; range = 30},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
 "yW" = (/obj/structure/table/reinforced,/obj/item/paper_bin,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/centcom/evac)
 "yX" = (/obj/structure/table/reinforced,/obj/machinery/recharger{pixel_y = 0},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/centcom/evac)
 "yY" = (/obj/structure/table/reinforced,/obj/item/pen,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/centcom/evac)
