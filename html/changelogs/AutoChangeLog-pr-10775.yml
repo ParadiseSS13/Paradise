@@ -1,4 +1,0 @@
-author: "Terilia"
-delete-after: True
-changes: 
-  - rscadd: "Added a notification about the chat reconnecting on toggling of the dark chat mode."
