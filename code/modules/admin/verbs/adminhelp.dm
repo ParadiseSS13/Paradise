@@ -134,13 +134,19 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	var/admin_number_present = adminholders.len - admin_number_afk
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
+	var/message = "[selected_type] from [key_name(src)]: [original_msg]"
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
-			send2admindiscord("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
+			message += " - !!No admins online!!"
 		else
-			send2admindiscord("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
-	else
-		send2admindiscord("[selected_type] from [key_name(src)]: [original_msg]")
+			message += " - !!All admins AFK ([admin_number_afk])!!"
+	
+	switch(selected_type)
+		if("Mentorhelp")
+			send2mentordiscord(message)
+		if ("Adminhelp")
+			send2admindiscord(message)
+	
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 

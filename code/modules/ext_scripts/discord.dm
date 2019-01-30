@@ -12,6 +12,11 @@
 		send2discord("message", config.discord_channel_admin, message)
 	return
 
+/proc/send2mentordiscord(message)
+	if(config.discord_channel_mentor)
+		send2discord("message", config.discord_channel_mentor, message)
+	return
+
 /hook/startup/proc/discordNotify()
     if(config.discord_channel_main)
         send2discord("startup", config.discord_channel_main, "Server starting up on [station_name()]. Connect to: [config.server? "[config.server]" : "[world.address]:[world.port]"]")

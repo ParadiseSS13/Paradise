@@ -145,6 +145,7 @@
 	var/discord_channel_admin = ""
 	var/discord_channel_admin_notify = ""
 	var/discord_channel_cidrandomizer = ""
+	var/discord_channel_mentor = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -517,6 +518,9 @@
 
 				if("discord_channel_cidrandomizer")
 					config.discord_channel_cidrandomizer = value
+
+				if("discord_channel_mentor")
+					config.discord_channel_mentor = value
 
 				if("python_path")
 					if(value)

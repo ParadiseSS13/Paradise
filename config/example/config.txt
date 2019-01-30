@@ -275,6 +275,9 @@ GHOST_INTERACTION
 ## Channel ID where the bot should post its cidrandomizer notifications
 #DISCORD_CHANNEL_CIDRANDOMIZER 0123456789
 
+## Channel ID where the bot should post its mentor notifications
+#DISCORD_CHANNEL_MENTOR 0123456789
+
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
