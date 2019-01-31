@@ -1,5 +1,0 @@
-author: "Darkmight9"
-delete-after: True
-changes: 
-  - rscadd: "Adds the Camera Flash. A flash disguised as a camera for use as a cheap stun against non-sec, blinding crowds for a get away, and stunning borgs for emaging. Has a charge based system to prevent burning out."
-  - tweak: "Did some changes to flash code allowing different flashes to not be overcharged if one wants to or play a different sound when used."
