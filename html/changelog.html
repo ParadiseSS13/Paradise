@@ -57,9 +57,29 @@
 		<div class="commit sansserif">
 
 			<h2 class="date">31 January 2019</h2>
+			<h3 class="author">Kyep updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed various door control buttons that did not work correctly (brig prison lockdown, admin room lockdown, terror spider away mission containment doors, etc). refactor: refactored door_control buttons to check the GLOB.airlocks list, rather than doing a range(huge_number) check.</li>
+				<li class="tweak">Terror Spider movement speed settings are no longer ignored when under player control. Instead, movement speed has been unified for both AI and player controlled spiders. Under player control, reds will now be slower, and purples will be faster. Under AI control, all spiders will be slower, except reds, which will be faster.</li>
+			</ul>
 			<h3 class="author">alffd updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscdel">revert to SS13 bot standard.</li>
+			</ul>
+			<h3 class="author">datlo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed surgery bugging and sometimes not starting properly when you try to surgery on a table or roller bed.</li>
+				<li class="rscadd">Surgery can now be done on any type of bed, with penalties.</li>
+				<li class="tweak">Help intent is now required to start surgery. Was already needed to do surgery steps.</li>
+				<li class="tweak">Surgery early cautery has been refactored. It is still done by holding a cautery in your inactive hand, but can now be done using ghetto tools, which can fail.</li>
+				<li class="rscadd">Medical cyborgs now have a laser scalpel instead of scalpel and cautery. lt is slightly faster and more versatile than standard tools.</li>
+				<li class="rscadd">Medical cyborgs now have a medical gripper. You can help patients up with it.</li>
+				<li class="rscadd">Medical cyborg can now cauterize incisions early by using the laser scalpel.</li>
+				<li class="rscadd">Added two black suit jackets to the arrivals locker room vendor</li>
+				<li class="rscadd">Added the armored suit jacket to the Bond, Payday, and Professional syndicate bundles.</li>
+				<li class="tweak">Replaced the X4 in the Payday bundles by a C4.</li>
+				<li class="tweak">The professional syndicate bundle now gets thermal fake sunglasses instead of thermal  fake mesons.</li>
+				<li class="tweak">Replaced the toolbox in the professional syndicate bundle by a pair of combat gloves.</li>
 			</ul>
 
 			<h2 class="date">30 January 2019</h2>

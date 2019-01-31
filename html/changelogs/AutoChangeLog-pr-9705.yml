@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Terror Spider movement speed settings are no longer ignored when under player control. Instead, movement speed has been unified for both AI and player controlled spiders. Under player control, reds will now be slower, and purples will be faster. Under AI control, all spiders will be slower, except reds, which will be faster."
