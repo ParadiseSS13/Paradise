@@ -126,7 +126,7 @@
 		if(!current_state)
 			log_and_message_admins(message)
 			if(send_to_irc)
-				send2admindiscord(message)
+				send2adminirc(message)
 		return TRUE
 	else
 		return FALSE

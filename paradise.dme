@@ -1445,7 +1445,7 @@
 #include "code\modules\examine\descriptions\structures.dm"
 #include "code\modules\examine\descriptions\turfs.dm"
 #include "code\modules\examine\descriptions\weapons.dm"
-#include "code\modules\ext_scripts\discord.dm"
+#include "code\modules\ext_scripts\irc.dm"
 #include "code\modules\ext_scripts\python.dm"
 #include "code\modules\fancytitle\fancytitle.dm"
 #include "code\modules\fish\fish_eggs.dm"

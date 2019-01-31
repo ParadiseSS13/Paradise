@@ -137,7 +137,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
 	if(announceinirc)
-		send2discord("message", config.discord_channel_admin,"BAN ALERT","[a_ckey] applied a [bantype_str] on [ckey]")
+		send2irc("BAN ALERT","[a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
 		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
