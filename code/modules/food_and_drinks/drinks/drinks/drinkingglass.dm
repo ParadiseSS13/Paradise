@@ -1,5 +1,4 @@
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass
 	name = "glass"
 	desc = "Your standard drinking glass."
@@ -43,8 +42,6 @@
 		name = R.drink_name
 		desc = R.drink_desc
 		if(R.drink_icon)
-			if(R.drink_hispania)
-				icon = 'icons/hispania/obj/drinks.dmi'
 			icon_state = R.drink_icon
 		else
 			var/image/I = image(icon, "glassoverlay")
@@ -65,6 +62,6 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss
 	list_reagents = list("devilskiss" = 50)
-	
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 50)
