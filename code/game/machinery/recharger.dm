@@ -8,7 +8,7 @@
 	idle_power_usage = 4
 	active_power_usage = 250
 	var/obj/item/charging = null
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/restraints/handcuffs/bluespace)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -115,13 +115,20 @@
 				if(R.rcell.give(R.rcell.chargerate))
 					use_power(200)
 					using_power = 1
-
+		
 		if(istype(charging, /obj/item/bodyanalyzer))
 			var/obj/item/bodyanalyzer/B = charging
 			if(B.power_supply)
 				if(B.power_supply.give(B.power_supply.chargerate))
 					use_power(200)
 					using_power = 1
+
+		if(istype(charging, /obj/item/restraints/handcuffs/bluespace))
+			var/obj/item/restraints/handcuffs/bluespace/C = charging
+			if(C.power_supply.charge < C.power_supply.maxcharge)
+				C.power_supply.give(250)
+				use_power(250)
+				using_power = 1
 
 	update_icon(using_power)
 
@@ -154,7 +161,7 @@
 	icon_state = icon_state_idle
 
 // Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
-/obj/machinery/recharger/wallcharger
+obj/machinery/recharger/wallcharger
 	name = "wall recharger"
 	icon_state = "wrecharger0"
 	icon_state_off = "wrechargeroff"

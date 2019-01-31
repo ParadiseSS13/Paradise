@@ -16,6 +16,9 @@
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
+	var/icon_hands_r = "markus" // icons/mob/screen_gen.dmi, its the actual icon of cuffs in your inventory when you are cuffed.
+	var/icon_hands_l = "gabrielle"
+	var/icon_overlay = "handcuff1" // icons/mob/mob.dmi, it's what players percieve when your cuffed.
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
@@ -128,6 +131,7 @@
 	name = "fluffy pink handcuffs"
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
+	icon_overlay = "pinkcuff1"
 
 /obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
@@ -194,3 +198,46 @@
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
+
+/obj/item/restraints/handcuffs/bluespace
+	name = "bluespace handcuffs"
+	desc = "A device that dispenses one-time energy cuffs to the victim."
+	icon_state = "handcuff_bluespace"
+	item_state = "handcuff_bluespace"
+	icon_overlay = "handcuff1_energy"
+	icon_hands_l = "energy_l"
+	icon_hands_r = "energy_r"
+	var/obj/item/stock_parts/cell/power_supply
+	var/can_charge = 1
+	var/charge_delay = 4
+	var/charge_tick = 0
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_BLUESPACE = 500, MAT_PLASMA = 2000)
+
+/obj/item/restraints/handcuffs/bluespace/New()
+	..()
+	power_supply = new(src)
+	power_supply.give(power_supply.maxcharge)
+
+/obj/item/restraints/handcuffs/bluespace/apply_cuffs(mob/living/carbon/target, mob/user)
+	if(!target.handcuffed && power_supply.charge >= 250)
+		power_supply.use(250)
+		target.handcuffed = new /obj/item/restraints/handcuffs/bluespace/used(target)
+		target.update_handcuffed()
+
+/obj/item/restraints/handcuffs/bluespace/used
+	desc = "A pair of energy handcuffs."
+	icon_state = "handcuffs_energy"
+	breakouttime = 450
+
+/obj/item/restraints/handcuffs/bluespace/used/dropped()
+	qdel(src)
+
+/obj/item/restraints/handcuffs/bluespace/attack(mob/living/carbon/C, mob/user)
+	if(!istype(C) || !user.IsAdvancedToolUser())
+		return
+
+	if(!C.handcuffed)
+		if(power_supply.charge < 250)
+			to_chat(user, "The [name] is out of charges!")
+			return
+	. = ..()

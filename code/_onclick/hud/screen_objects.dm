@@ -375,11 +375,9 @@
 
 /obj/screen/inventory/hand/update_icon()
 	..()
+	var/state
 	if(!active_overlay)
 		active_overlay = image("icon"=icon, "icon_state"="hand_active")
-	if(!handcuff_overlay)
-		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
-		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
 	overlays.Cut()
 
@@ -387,6 +385,9 @@
 		if(iscarbon(hud.mymob))
 			var/mob/living/carbon/C = hud.mymob
 			if(C.handcuffed)
+				var/obj/item/restraints/handcuffs/H = C.handcuffed
+				state = (slot_id == slot_r_hand) ? H.icon_hands_r : H.icon_hands_l
+				handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 				overlays += handcuff_overlay
 
 		if(slot_id == slot_l_hand && hud.mymob.hand)
