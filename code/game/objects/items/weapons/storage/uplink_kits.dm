@@ -184,6 +184,17 @@
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/implanter/emp/(src)
 
+/obj/item/storage/box/syndie_kit/c4
+	name = "Pack of C-4 Explosives"
+
+/obj/item/storage/box/syndie_kit/c4/New()
+	..()
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
 	can_hold = list(/obj/item/throwing_star, /obj/item/restraints/legcuffs/bola/tactical)
