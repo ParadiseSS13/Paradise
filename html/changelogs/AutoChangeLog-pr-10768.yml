@@ -1,0 +1,8 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added two black suit jackets to the arrivals locker room vendor"
+  - rscadd: "Added the armored suit jacket to the Bond, Payday, and Professional syndicate bundles."
+  - tweak: "Replaced the X4 in the Payday bundles by a C4."
+  - tweak: "The professional syndicate bundle now gets thermal fake sunglasses instead of thermal  fake mesons."
+  - tweak: "Replaced the toolbox in the professional syndicate bundle by a pair of combat gloves."
