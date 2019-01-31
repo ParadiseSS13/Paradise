@@ -98,7 +98,7 @@
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
-		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
 		used = FALSE

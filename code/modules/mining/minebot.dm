@@ -111,7 +111,7 @@
 	var/pressure = environment.return_pressure()
 	if(pressure > 50)
 		K.name = "weakened [K.name]"
-		
+
 		K.damage *= K.pressure_decrease
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)

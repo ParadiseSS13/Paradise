@@ -4,7 +4,7 @@
 	icon_state = "shuriken"
 	item_state = null
 	icon = 'icons/obj/ninjaobjects.dmi'
-	fire_sound = 'sound/weapons/Genhit.ogg'
+	fire_sound = 'sound/weapons/genhit.ogg'
 	cell_type = "/obj/item/stock_parts/cell/infinite"
 	projectile_type = "/obj/item/projectile/energy/shuriken"
 	charge_cost = 0

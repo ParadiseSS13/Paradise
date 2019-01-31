@@ -48,7 +48,7 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/circuitboard/computer
 	board_type = "computer"

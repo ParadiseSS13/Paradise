@@ -27,7 +27,7 @@
 	var/tattoo_g = 1
 	var/tattoo_b = 1
 	toolspeed = 1
-	usesound = 'sound/items/Welder2.ogg'
+	usesound = 'sound/items/welder2.ogg'
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
@@ -550,7 +550,7 @@
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
 		H.update_inv_head()
 		qdel(target)
