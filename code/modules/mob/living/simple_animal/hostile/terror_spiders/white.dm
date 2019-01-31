@@ -19,7 +19,6 @@
 	health = 200
 	melee_damage_lower = 5
 	melee_damage_upper = 15
-	move_to_delay = 4
 	spider_tier = TS_TIER_2
 	web_infects = 1
 

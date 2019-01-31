@@ -20,8 +20,9 @@
 	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 25
-	move_to_delay = 4
 	spider_tier = TS_TIER_2
+	move_to_delay = 5 // at 20ticks/sec, this is 4 tile/sec movespeed, same as a human. Faster than a normal spider, so it can intercept attacks on queen.
+	speed = 0 // '0' (also the default for human mobs) converts to 2.5 total delay, or 4 tiles/sec.
 	spider_opens_doors = 2
 	ventcrawler = 0
 	ai_ventcrawls = 0
