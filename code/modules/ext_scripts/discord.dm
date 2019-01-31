@@ -1,6 +1,7 @@
 /proc/send2discord(command, channel, message)
     if (config.use_discord_bot && config.discord_host)
-        world.Export("http://[config.discord_host]/?command=[command]&channel=[channel]&message=[paranoid_sanitize(message)]")
+		spawn(1)
+        	world.Export("http://[config.discord_host]/?command=[command]&channel=[channel]&message=[paranoid_sanitize(message)]")
 
 /proc/send2maindiscord(message)
 	if(config.discord_channel_main)
