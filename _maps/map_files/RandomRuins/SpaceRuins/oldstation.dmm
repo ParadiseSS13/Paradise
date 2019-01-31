@@ -24,7 +24,7 @@
 "ax" = (/obj/effect/decal/remains/robot{icon_state = "gib5"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/ancientstation/hivebot)
 "ay" = (/obj/structure/shuttle/engine/large{icon_state = "large_engine"; dir = 4},/turf/simulated/wall,/area/ruin/space/ancientstation/hivebot)
 "az" = (/turf/simulated/wall/rust,/area/ruin/space/ancientstation)
-"aA" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/machinery/door_control{id = "ancient"; name = "Charlie Station Lockdown Button"; range = 30},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
+"aA" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/machinery/door_control{id = "ancient"; name = "Charlie Station Lockdown Button"},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aB" = (/obj/effect/decal/cleanable/dirt,/obj/structure/chair{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aC" = (/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/item/toy/cards/deck,/obj/item/folder/blue,/obj/item/pen,/turf/simulated/floor/plasteel,/area/ruin/space/ancientstation/comm)
 "aD" = (/obj/machinery/door/airlock/highsecurity,/turf/simulated/floor/plating,/area/ruin/space/ancientstation/hivebot)
