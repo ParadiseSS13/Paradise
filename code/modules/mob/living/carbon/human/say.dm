@@ -125,6 +125,9 @@
 		|| GetComponent(/datum/component/jestosterone))
 		span = "sans"
 
+	if(WINGDINGS in mutations)
+		span = "wingdings"
+
 	var/list/parent = ..()
 	verb = parent["verb"]
 
