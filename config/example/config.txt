@@ -254,26 +254,26 @@ ALIEN_PLAYER_RATIO 0.2
 ##Remove the # to let ghosts spin chairs
 GHOST_INTERACTION
 
-## Password used for authorizing external tools.
+## Password used for authorizing ircbot and other external tools.
 #COMMS_PASSWORD
 
-## Uncomment to enable sending data to the Discord bot.
-#USE_DISCORD_BOT
+## Uncomment to enable sending data to the IRC bot.
+#USE_IRC_BOT
 
-## Host where the Discord bot is hosted.
-#DISCORD_HOST 127.0.0.1:5001
+## Host(s) where the IRC bot is hosted.  Seperate IP's by ;.  Port 45678 needs to be open.
+#IRC_BOT_HOST 127.0.0.1;localhost
 
-## Channel ID where the Bot should post its main notifications
-#DISCORD_CHANNEL_MAIN 0123456789
+## IRC channel to send information to.  Leave blank to disable.
+#MAIN_IRC #main
 
-## Channel ID where the Bot should post its admin messages
-#DISCORD_CHANNEL_ADMIN 0123456789
+## IRC channel to send adminhelps to.  Leave blank to disable adminhelps-to-irc.
+#ADMIN_IRC #admin
 
-## Channel ID where the Bot should post its admin notifications
-#DISCORD_CHANNEL_ADMIN_NOTIFY 0123456789
+## IRC channel to send direct messages to admins to. Leave blank to disable.
+#ADMIN_NOTIFY_IRC #paradiseStaff
 
-## Channel ID where the bot should post its cidrandomizer notifications
-#DISCORD_CHANNEL_CIDRANDOMIZER 0123456789
+## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
+#CIDRANDOMIZER_IRC #cidrandomizer
 
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
