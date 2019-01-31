@@ -50,12 +50,12 @@
 				else
 					return 1
 
-		if(isscrewdriver(src) && ismachine(M))
+		if(isscrewdriver(src) && ismachine(M) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
 				return 1
-		if(is_sharp(src))
+		if(is_sharp(src) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
