@@ -41,18 +41,18 @@ var/round_start_time = 0
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
-	'sound/music/Title1.ogg',
-	'sound/music/Title2.ogg',
-	'sound/music/Title3.ogg',
-	'sound/music/Title4.ogg',
-	'sound/music/Title5.ogg',
-	'sound/music/Title6.ogg',
-	'sound/music/Title7.ogg',
-	'sound/music/Title8.ogg',
-	'sound/music/Title9.ogg',
-	'sound/music/Title10.ogg',
-	'sound/music/Title11.ogg',
-	'sound/music/Title12.ogg',)
+	'sound/music/title1.ogg',
+	'sound/music/title2.ogg',
+	'sound/music/title3.ogg',
+	'sound/music/title4.ogg',
+	'sound/music/title5.ogg',
+	'sound/music/title6.ogg',
+	'sound/music/title7.ogg',
+	'sound/music/title8.ogg',
+	'sound/music/title9.ogg',
+	'sound/music/title10.ogg',
+	'sound/music/title11.ogg',
+	'sound/music/title12.ogg',)
 	do
 		pregame_timeleft = config.pregame_timestart
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
