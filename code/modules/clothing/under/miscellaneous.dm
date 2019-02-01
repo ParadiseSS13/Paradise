@@ -53,13 +53,6 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
-/obj/item/clothing/under/sexyclown
-	name = "sexy-clown suit"
-	desc = "It makes you look HONKable!"
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	item_color = "sexyclown"
-
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
