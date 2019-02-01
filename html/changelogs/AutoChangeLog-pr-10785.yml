@@ -1,0 +1,5 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - tweak: "Disabled darkmode is now normal grey, not full white"
+  - tweak: "Changelog button now respects darkmode and will update when clicked"
