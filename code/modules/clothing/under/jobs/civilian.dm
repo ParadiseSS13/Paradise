@@ -81,6 +81,13 @@
 			score_clownabuse++
 	return ..()
 
+/obj/item/clothing/under/rank/clown/sexy
+	name = "sexy-clown suit"
+	desc = "It makes you look HONKable!"
+	icon_state = "sexyclown"
+	item_state = "sexyclown"
+	item_color = "sexyclown"
+
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
 	name = "head of personnel's jumpsuit"

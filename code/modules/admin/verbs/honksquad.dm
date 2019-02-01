@@ -106,8 +106,8 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
 	if(src.gender == FEMALE)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sexyclown(src), slot_wear_mask)
-		equip_to_slot_or_del(new /obj/item/clothing/under/sexyclown(src), slot_w_uniform)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/sexy(src), slot_wear_mask)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/sexy(src), slot_w_uniform)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), slot_w_uniform)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
