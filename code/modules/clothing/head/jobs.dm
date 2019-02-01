@@ -24,6 +24,20 @@
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
 
+//Captain formal hat by Danaleja
+
+/obj/item/clothing/head/caphat/dark
+	name = "captain's formal blue hat"
+	desc = "Worn only by Captains with an abundance of class."
+	icon_state = "caphat_dark"
+	hispania_icon = TRUE
+
+/obj/item/clothing/head/caphat/light
+	name = "captain's formal white hat"
+	desc = "Worn only by Captains with an abundance of class."
+	icon_state = "caphat_light"
+	hispania_icon = TRUE
+
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"

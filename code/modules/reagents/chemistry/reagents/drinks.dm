@@ -520,7 +520,6 @@
 	drink_name = "Rainbow Juice"
 	drink_desc = "A colorful mixture of fruit juices."
 	taste_message = "gayness"
-	drink_hispania = TRUE
 
 /datum/reagent/consumable/drink/unclegits_specialmilk
 	name= "Uncle Git's Special Milk"
@@ -532,4 +531,15 @@
 	drink_name = "Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
 	taste_message = "someone else's child"
-	drink_hispania = TRUE
+
+
+/datum/reagent/consumable/drink/fernetcola
+	name= "Fernet with cola"
+	id = "fernetcola"
+	description = "A drinkable version of Fernet."
+	color = "#2f1b1b"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "fernetcoke_glass"
+	drink_name = "Fernet with cola"
+	drink_desc = "It has a nice brown color and a good amount of fizzy foam."
+	taste_message = "sweet oil "
