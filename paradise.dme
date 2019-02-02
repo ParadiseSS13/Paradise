@@ -2026,6 +2026,7 @@
 #include "code\modules\nano\interaction\conscious.dm"
 #include "code\modules\nano\interaction\contained.dm"
 #include "code\modules\nano\interaction\default.dm"
+#include "code\modules\nano\interaction\ghost.dm"
 #include "code\modules\nano\interaction\inventory.dm"
 #include "code\modules\nano\interaction\inventory_deep.dm"
 #include "code\modules\nano\interaction\not_incapacitated.dm"
