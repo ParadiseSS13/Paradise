@@ -878,6 +878,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/plastic/c4
 	cost = 1
 
+/datum/uplink_item/explosives/plastic_explosives_pack
+	name = "Pack of 5 C-4 Explosives"
+	desc = "A package containing 5 C-4 Explosives at a discounted price. For when you need that little bit extra for your sabotaging needs."
+	reference = "C4P"
+	item = /obj/item/storage/box/syndie_kit/c4
+	cost = 4
+
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"
 	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
