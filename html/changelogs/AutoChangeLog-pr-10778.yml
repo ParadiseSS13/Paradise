@@ -1,7 +1,0 @@
-author: "MINIMAN10000"
-delete-after: True
-changes: 
-  - rscadd: "Mobs in help intent do not push mobs pulling a structure or the structure they are pulling"
-  - bugfix: "mobs standing on the same tile when being walked into on help intent."
-  - bugfix: "structures pulled beyond 1 distance call stop_pulling"
-  - bugfix: "stop_pulling() now sets pulledby to null"
