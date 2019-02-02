@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Made playtime numbers displayed to admins (in the playtime report) and players (in the 'check my playtime' verb) clearer in meaning."
