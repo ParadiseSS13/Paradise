@@ -426,6 +426,23 @@
 		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/card/mining_point_card,               			   500),
 		)
 
+/obj/machinery/mineral/equipment_vendor/golem
+	name = "golem ship equipment vendor"
+	circuit = /obj/item/circuitboard/machine/mining_equipment_vendor/golem
+
+/obj/machinery/mineral/equipment_vendor/golem/Initialize()
+	. = ..()
+	desc += "\nIt seems a few selections have been added."
+	prize_list += list(
+		new /datum/data/mining_equipment("Extra Id",       				/obj/item/card/id/mining, 				                   		250),
+		new /datum/data/mining_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
+		new /datum/data/mining_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
+		new /datum/data/mining_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
+		new /datum/data/mining_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
+		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
+		new /datum/data/mining_equipment("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard,					1700),
+		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)
+		)
 
 /datum/data/mining_equipment/
 	var/equipment_name = "generic"
