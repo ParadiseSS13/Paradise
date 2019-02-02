@@ -110,6 +110,8 @@ proc/make_vr_room(name, template, expires, creator, password)
 		R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
 	else
 		log_debug("WARNING: Trying to load map out of bounds.")
+		spawn(5 SECONDS)
+			R.cleanup()
 
 	if(expires == VR_ROOM_USER)
 		vr_rooms[R.name] = R

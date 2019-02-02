@@ -18,7 +18,7 @@
 	if(!special)
 		if(stored_mmi)
 			. = stored_mmi
-			if(owner.mind)
+			if(owner.mind && !istype(owner, /mob/living/carbon/human/virtual_reality))
 				owner.mind.transfer_to(stored_mmi.brainmob)
 			stored_mmi.forceMove(get_turf(owner))
 			stored_mmi = null

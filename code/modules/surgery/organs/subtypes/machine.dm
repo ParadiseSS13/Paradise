@@ -126,7 +126,7 @@
 		qdel(src)
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/remove(mob/living/user, special = 0)
-	if(stored_mmi && dna)
+	if(stored_mmi && dna && !istype(owner, /mob/living/carbon/human/virtual_reality))
 		stored_mmi.name = "[initial(name)] ([dna.real_name])"
 		stored_mmi.brainmob.real_name = dna.real_name
 		stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
