@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "Non-breathing mobs no longer cause an increase in germ level by not wearing a mask."
