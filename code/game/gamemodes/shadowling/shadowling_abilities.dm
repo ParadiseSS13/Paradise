@@ -641,7 +641,7 @@
 					return
 				to_chat(user, "<span class='shadowling'><b><i>You release a massive surge of power into [thrallToRevive]!</b></i></span>")
 				user.visible_message("<span class='boldannounce'><i>Red lightning surges into [thrallToRevive]'s face!</i></span>")
-				playsound(thrallToRevive, 'sound/weapons/Egloves.ogg', 50, 1)
+				playsound(thrallToRevive, 'sound/weapons/egloves.ogg', 50, 1)
 				playsound(thrallToRevive, 'sound/machines/defib_zap.ogg', 50, 1)
 				user.Beam(thrallToRevive,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 				thrallToRevive.Weaken(5)
@@ -673,7 +673,7 @@
 					return
 				to_chat(user, "<span class='shadowling'><b><i>You release a massive surge of power into [thrallToRevive]!</b></i></span>")
 				user.visible_message("<span class='boldannounce'><i>Red lightning surges from [user]'s hands into [thrallToRevive]'s chest!</i></span>")
-				playsound(thrallToRevive, 'sound/weapons/Egloves.ogg', 50, 1)
+				playsound(thrallToRevive, 'sound/weapons/egloves.ogg', 50, 1)
 				playsound(thrallToRevive, 'sound/machines/defib_zap.ogg', 50, 1)
 				user.Beam(thrallToRevive,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 				sleep(10)
@@ -753,7 +753,7 @@
 		charge_counter = charge_max
 		return
 
-	playsound(user.loc, 'sound/magic/Staff_Chaos.ogg', 100, 1)
+	playsound(user.loc, 'sound/magic/staff_chaos.ogg', 100, 1)
 	for(var/mob/living/boom in targets)
 		if(is_shadow(boom)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
 			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.</span>")
@@ -763,7 +763,7 @@
 							"<span class='shadowling'>You direct a lance of telekinetic energy at [boom].</span>")
 		sleep(4)
 		if(iscarbon(boom))
-			playsound(boom, 'sound/magic/Disintegrate.ogg', 100, 1)
+			playsound(boom, 'sound/magic/disintegrate.ogg', 100, 1)
 		boom.visible_message("<span class='userdanger'>[boom] explodes!</span>")
 		boom.gib()
 
@@ -862,7 +862,7 @@
 			if(is_shadow_or_thrall(target))
 				continue
 			to_chat(target, "<span class='userdanger'>You are struck by a bolt of lightning!</span>")
-			playsound(target, 'sound/magic/LightningShock.ogg', 50, 1)
+			playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
 			target.Weaken(8)
 			target.take_organ_damage(0,50)
 			user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)

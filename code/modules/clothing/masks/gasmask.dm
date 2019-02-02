@@ -119,6 +119,12 @@
 		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
 		return 1
 
+/obj/item/clothing/mask/gas/clown_hat/sexy
+	name = "sexy-clown wig and mask"
+	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
+	icon_state = "sexyclown"
+	item_state = "sexyclown"
+
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
 	desc = "Some pranksters are truly magical."
@@ -134,13 +140,6 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = NODROP
-
-/obj/item/clothing/mask/gas/sexyclown
-	name = "sexy-clown wig and mask"
-	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"

@@ -1410,29 +1410,29 @@ var/list/ghostteleportlocs = list()
 	dynamic_lighting = 0
 	valid_territory = FALSE
 
-	auxport
-		name = "\improper Fore Port Solar Array"
-		icon_state = "panelsA"
+/area/solar/auxport
+	name = "\improper Fore Port Solar Array"
+	icon_state = "panelsA"
 
-	auxstarboard
-		name = "\improper Fore Starboard Solar Array"
-		icon_state = "panelsA"
+/area/solar/auxstarboard
+	name = "\improper Fore Starboard Solar Array"
+	icon_state = "panelsA"
 
-	fore
-		name = "\improper Fore Solar Array"
-		icon_state = "yellow"
+/area/solar/fore
+	name = "\improper Fore Solar Array"
+	icon_state = "yellow"
 
-	aft
-		name = "\improper Aft Solar Array"
-		icon_state = "aft"
+/area/solar/aft
+	name = "\improper Aft Solar Array"
+	icon_state = "aft"
 
-	starboard
-		name = "\improper Aft Starboard Solar Array"
-		icon_state = "panelsS"
+/area/solar/starboard
+	name = "\improper Aft Starboard Solar Array"
+	icon_state = "panelsS"
 
-	port
-		name = "\improper Aft Port Solar Array"
-		icon_state = "panelsP"
+/area/solar/port
+	name = "\improper Aft Port Solar Array"
+	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
 	name = "\improper Fore Port Solar Maintenance"
@@ -1763,7 +1763,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Head of Security's Office"
 	icon_state = "sec_hos"
 
-area/security/podbay
+/area/security/podbay
 	name = "\improper Security Podbay"
 	icon_state = "securitypodbay"
 
@@ -1855,7 +1855,7 @@ area/security/podbay
 	name = "\improper Mech Bay"
 	icon_state = "yellow"
 
-/area/janitor/
+/area/janitor
 	name = "\improper Custodial Closet"
 	icon_state = "janitor"
 

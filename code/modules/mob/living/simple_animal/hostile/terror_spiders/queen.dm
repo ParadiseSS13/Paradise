@@ -21,7 +21,6 @@
 	regen_points_per_tick = 3
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	move_to_delay = 15 // yeah, this is very slow, but
 	ventcrawler = 1
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can

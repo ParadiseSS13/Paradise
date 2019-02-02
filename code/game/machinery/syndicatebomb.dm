@@ -167,7 +167,7 @@
 			if(!WT.isOn() || !WT.remove_fuel(5, user))
 				return
 			to_chat(user, "<span class='notice'>You cut the [src] apart.</span>")
-			new /obj/item/stack/sheet/plasteel(loc, 5)
+			new /obj/item/stack/sheet/plasteel(loc, 3)
 			qdel(src)
 	else
 		return ..()
@@ -457,7 +457,7 @@
 				reactants += S.reagents
 
 	if(!chem_splash(get_turf(src), spread_range, reactants, temp_boost))
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
 		return // The Explosion didn't do anything. No need to log, or disappear.
 
 	if(adminlog)

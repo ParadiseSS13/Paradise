@@ -200,7 +200,7 @@ proc/get_radio_key_from_channel(var/channel)
 		message_range = 1
 		if(first_piece.speaking)
 			message_range = first_piece.speaking.get_talkinto_msg_range(message)
-		
+
 		var/msg
 		if(!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG))
 			msg = "<span class='notice'>[src] talks into [used_radios[1]]</span>"
@@ -353,6 +353,8 @@ proc/get_radio_key_from_channel(var/channel)
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 		return
 
+	log_whisper(multilingual_to_message(message_pieces), src)
+
 	var/message_range = 1
 	var/eavesdropping_range = 2
 	var/watching_range = 5
@@ -455,7 +457,6 @@ proc/get_radio_key_from_channel(var/channel)
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 
-	log_whisper(multilingual_to_message(message_pieces), src)
 	return 1
 
 /mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())

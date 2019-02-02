@@ -471,7 +471,7 @@ var/list/teleport_runes = list()
 			playsound(T, 'sound/effects/EMPulse.ogg', 100, 1)
 			T.dust() //To prevent the MMI from remaining
 		else
-			playsound(T, 'sound/magic/Disintegrate.ogg', 100, 1)
+			playsound(T, 'sound/magic/disintegrate.ogg', 100, 1)
 			T.gib()
 	rune_in_use = 0
 
@@ -728,7 +728,7 @@ var/list/teleport_runes = list()
 	visible_message("<span class='warning'>[src] glows blue for a moment before vanishing.</span>")
 	switch(invokers.len)
 		if(1 to 2)
-			playsound(E, 'sound/items/Welder2.ogg', 25, 1)
+			playsound(E, 'sound/items/welder2.ogg', 25, 1)
 			for(var/M in invokers)
 				to_chat(M, "<span class='warning'>You feel a minute vibration pass through you...</span>")
 		if(3 to 6)

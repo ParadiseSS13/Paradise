@@ -55,7 +55,7 @@
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	log_admin("[key_name(usr)] used there can be only one.")
 	nologevent = 1
-	world << sound('sound/music/THUNDERDOME.ogg')
+	world << sound('sound/music/thunderdome.ogg')
 
 /client/proc/only_me()
 	if(!ticker)
@@ -101,4 +101,4 @@
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	log_admin("[key_name(usr)] used there can be only me.")
 	nologevent = 1
-	world << sound('sound/music/THUNDERDOME.ogg')
+	world << sound('sound/music/thunderdome.ogg')

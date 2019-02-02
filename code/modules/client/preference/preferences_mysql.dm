@@ -55,7 +55,7 @@
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
-	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
+	toggles			= sanitize_integer(toggles, 0, 262143, initial(toggles))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
@@ -482,7 +482,10 @@
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash
-	winset(C, "rpane.changelog", "background-color=none;font-style=")
+	if(preferences_datums[C.ckey].toggles & UI_DARKMODE)
+		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
+	else
+		winset(C, "rpane.changelog", "background-color=none;font-style=none")
 	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -491,3 +494,9 @@
 		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
 		return
 	return 1
+
+/datum/preferences/proc/UpdateChangelogButton(client/C)
+	if(preferences_datums[C.ckey].toggles & UI_DARKMODE)
+		winset(C, "rpane.changelog", "background-color=#40628a;text-color=#ffffff;font-style=none")
+	else
+		winset(C, "rpane.changelog", "background-color=none;text-color=#000000;font-style=none")

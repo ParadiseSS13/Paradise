@@ -202,3 +202,15 @@
 /datum/dna/gene/disability/wingdings/New()
 	block = WINGDINGSBLOCK
 
+/datum/dna/gene/disability/wingdings/OnSay(var/mob/M, var/message)
+	var/list/chars = string2charlist(message)
+	var/garbled_message = ""
+	for(var/C in chars)
+		if(C in GLOB.alphabet_uppercase)
+			garbled_message += pick(GLOB.alphabet_uppercase)
+		else if(C in GLOB.alphabet)
+			garbled_message += pick(GLOB.alphabet)
+		else
+			garbled_message += C
+	message = garbled_message
+	return message

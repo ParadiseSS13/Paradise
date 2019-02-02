@@ -135,6 +135,8 @@
 		new /obj/item/storage/backpack/satchel_eng(src)
 	new /obj/item/storage/backpack/duffel/atmos(src)
 	new /obj/item/extinguisher(src)
+	new /obj/item/grenade/gas/oxygen(src)
+	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/emergency_oxygen/engi(src)

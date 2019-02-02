@@ -153,7 +153,7 @@
 	projectile_type = /obj/item/projectile/kinetic
 	select_name = "kinetic"
 	e_cost = 500
-	fire_sound = 'sound/weapons/Kenetic_accel.ogg' // fine spelling there chap
+	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -239,7 +239,7 @@
 	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = 1
 	module_type = /obj/item/robot_module/miner
-	usesound = 'sound/items/Screwdriver.ogg'
+	usesound = 'sound/items/screwdriver.ogg'
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30

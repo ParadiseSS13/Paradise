@@ -296,7 +296,7 @@ REAGENT SCANNER
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
@@ -569,9 +569,19 @@ REAGENT SCANNER
 	var/ready = TRUE // Ready to scan
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
+	var/scan_time = 10 SECONDS //how long does it take to scan
+	var/scan_cd = 60 SECONDS //how long before we can scan again
 
 /obj/item/bodyanalyzer/advanced
 	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+
+/obj/item/bodyanalyzer/borg
+	name = "cyborg body analyzer"
+	desc = "Scan an entire body to prepare for field surgery. Consumes power for each scan."
+
+/obj/item/bodyanalyzer/borg/syndicate
+	scan_time = 5 SECONDS
+	scan_cd = 20 SECONDS
 
 /obj/item/bodyanalyzer/New()
 	..()
@@ -581,7 +591,7 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/proc/setReady()
 	ready = TRUE
-	playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
+	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)
 	update_icon()
 
 /obj/item/bodyanalyzer/update_icon(printing = FALSE)
@@ -614,29 +624,46 @@ REAGENT SCANNER
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 
+/obj/item/bodyanalyzer/borg/attack(mob/living/M, mob/living/silicon/robot/user)
+	if(user.incapacitated() || !user.Adjacent(M))
+		return
+
+	if(!ready)
+		to_chat(user, "<span class='notice'>[src] is currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining.</span>")
+		return
+
+	if(user.cell.charge >= usecharge)
+		mobScan(M, user)
+	else
+		to_chat(user, "<span class='notice'>You need to recharge before you can use [src]</span>")
+
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
 	if(ishuman(M))
 		var/report = generate_printing_text(M, user)
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
-		if(do_after(user, 100, target = M))
+		if(do_after(user, scan_time, target = M))
 			var/obj/item/paper/printout = new
 			printout.info = report
 			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			user.put_in_hands(printout)
-			time_to_use = world.time + 600
-			power_supply.use(usecharge)
+			time_to_use = world.time + scan_cd
+			if(isrobot(user))
+				var/mob/living/silicon/robot/R = user
+				R.cell.use(usecharge)
+			else
+				power_supply.use(usecharge)
 			ready = FALSE
 			update_icon(TRUE)
-			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
+			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
 
 	else if(iscorgi(M) && M.stat == DEAD)
 		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
-		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
-		time_to_use = world.time + 600
+		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
+		time_to_use = world.time + scan_cd
 	else
 		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")
 

@@ -21,7 +21,7 @@
 	crushed_can.is_glass = is_glass
 	crushed_can.is_plastic = is_plastic
 	if(is_glass)
-		playsound(user.loc, 'sound/effects/Glassbr3.ogg', rand(10, 50), 1)
+		playsound(user.loc, 'sound/effects/glassbr3.ogg', rand(10, 50), 1)
 		crushed_can.name = "broken bottle"
 	else
 		playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
