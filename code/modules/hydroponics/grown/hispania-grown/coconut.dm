@@ -2,7 +2,7 @@
 /obj/item/seeds/coconut
 	name = "pack of coconut seeds"
 	desc = "These seeds grow into coconut palms."
-	icon = 'icons/hispania/hydroponics/seeds.dmi'
+	icon = 'icons/hispania/obj/hydroponics/seeds.dmi'
 	icon_state = "seed-coconut"
 	species = "coconut"
 	plantname = "Coconut palm"
@@ -10,7 +10,7 @@
 	lifespan = 55
 	endurance = 35
 	yield = 5
-	growing_icon = 'icons/hispania/hydroponics/growing_fruits.dmi'
+	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "coconut-grow"
 	icon_dead = "coconut-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
@@ -23,7 +23,7 @@
 	seed = /obj/item/seeds/coconut
 	name = "Coconut"
 	desc = "A seed? A nut? A fruit?"
-	icon = 'icons/hispania/hydroponics/harvest.dmi'
+	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'
 	icon_state = "coconut"
 	force = 5
 	throwforce = 5
@@ -81,7 +81,7 @@ obj/item/reagent_containers/food/snacks/grown/coconutsliced
 /obj/item/seeds/coconut/bombonut
 	name = "pack of bombonut seeds"
 	desc = "The explosive variety of coconuts."
-	icon = 'icons/hispania/hydroponics/seeds.dmi'
+	icon = 'icons/hispania/obj/hydroponics/seeds.dmi'
 	icon_state = "seed-bombonut"
 	species = "coconut"
 	plantname = "Coconut palm"
@@ -89,7 +89,7 @@ obj/item/reagent_containers/food/snacks/grown/coconutsliced
 	lifespan = 55
 	endurance = 35
 	yield = 5
-	growing_icon = 'icons/hispania/hydroponics/growing_fruits.dmi'
+	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "coconut-grow"
 	icon_dead = "coconut-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
