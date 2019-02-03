@@ -133,10 +133,3 @@
 	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
-
-/obj/effect/mob_spawn/human/golem/adamantine/New() //check config to see if we allow free golems to spawn
-	..()
-	if(!config.unrestricted_free_golems && (GAMEMODE_IS_BLOB || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_WIZARD))
-		qdel(src)
-	else if(!prob(config.prob_free_golems))
-		qdel(src)

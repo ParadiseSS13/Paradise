@@ -85,7 +85,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/golem(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/golem(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
-	H.skin_colour = golem_colour
+	//H.skin_colour = golem_colour
 	H.regenerate_icons()
 	to_chat(H, info_text)
 
@@ -386,16 +386,16 @@
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
-/*
+
 /datum/species/golem/sand/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message("<span class='danger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>", \
 			"<span class='userdanger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>")
-			return BULLET_ACT_BLOCK
-	return BULLET_ACT_HIT
-*/
+			return FALSE
+	return TRUE
+
 /datum/unarmed_attack/golem/sand
 	attack_sound = 'sound/effects/shovel_dig.ogg'
 
@@ -419,21 +419,28 @@
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
-/*
+
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.flag == "laser" || P.flag == "energy")
+		if(P.is_reflectable)
 			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
 			if(P.starting)
 				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
 				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/turf/target = get_turf(P.starting)
+				var/turf/curloc = get_turf(H)
+
 				// redirect the projectile
-				P.preparePixelProjectile(locate(CLAMP(target.x + new_x, 1, world.maxx), CLAMP(target.y + new_y, 1, world.maxy), H.z), H)
-			return BULLET_ACT_FORCE_PIERCE
-	return BULLET_ACT_HIT
-*/
+				P.firer = src
+				P.original = locate(new_x, new_y, P.z)
+				P.starting = curloc
+				P.current = curloc
+				P.yo = new_y - curloc.y
+				P.xo = new_x - curloc.x
+				P.Angle = null
+			return FALSE
+	return TRUE
+
 /datum/unarmed_attack/golem/glass
 	attack_sound = 'sound/effects/glassbr2.ogg'
 
@@ -473,7 +480,6 @@
 	do_teleport(H, picked)
 	return TRUE
 
-/*
 /datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
@@ -494,11 +500,11 @@
 	if(world.time > last_teleport + teleport_cooldown && user != H)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/on_hit(obj/item/projectile/P, mob/living/carbon/human/H)
-	..()
+/datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
-*/
+	return TRUE
+
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
@@ -568,8 +574,8 @@
 	golem_colour = "ff0"
 	//say_mod = "honks"
 	punchdamagelow = 0
-	punchdamagehigh = 1
-	punchstunthreshold = 2 //Harmless and can't stun
+	punchdamagehigh = 0
+	punchstunthreshold = 1 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
 	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	prefix = "Bananium"
@@ -587,7 +593,6 @@
 	last_banana = world.time
 	last_honk = world.time
 	H.job = "Clown"
-	H.mutations.Add(CLUMSY)
 	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
@@ -595,7 +600,7 @@
 /datum/species/golem/bananium/get_random_name()
 	var/golem_name = pick(GLOB.clown_names)
 	return golem_name
-/*
+
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
 	if(world.time > last_banana + banana_cooldown && M != H &&  M.a_intent != INTENT_HELP)
@@ -608,11 +613,11 @@
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-/datum/species/golem/bananium/on_hit(obj/item/projectile/P, mob/living/carbon/human/H)
-	..()
+/datum/species/golem/bananium/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
+	return TRUE
 
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
@@ -624,7 +629,7 @@
 		else
 			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 			last_banana = world.time
-*/
+
 /datum/species/golem/bananium/handle_life(mob/living/carbon/human/H)
 	if(!active)
 		if(world.time > last_honk + honkooldown)
@@ -639,8 +644,10 @@
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
 /datum/unarmed_attack/golem/bananium
-	attack_verb = list("honk")
+	attack_verb = list("HONK")
 	attack_sound = 'sound/items/airhorn2.ogg'
+	animation_type = ATTACK_EFFECT_DISARM
+	harmless = TRUE
 
 //...
 /datum/species/golem/tranquillite
