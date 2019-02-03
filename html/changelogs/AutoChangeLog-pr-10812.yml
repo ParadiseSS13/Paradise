@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a few edge cases of being able to create immunity to a few diseases"
