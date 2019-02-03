@@ -944,6 +944,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/assembly/igniter = 1)
 
+/obj/item/circuitboard/ore_redemption/golem
+	name = "Golem Ship Ore Redemption (Machine Board)
+	build_path = /obj/machinery/mineral/ore_redemption/golem
+
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor

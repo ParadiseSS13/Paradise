@@ -51,7 +51,19 @@
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/golem
-	req_access_reclaim = access_mineral_storeroom
+	req_access = list(access_free_golems)
+	req_access_reclaim = access_free_golems
+
+/obj/machinery/mineral/ore_redemption/golem
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/assembly/igniter(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(files)
@@ -432,6 +444,16 @@
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
 
+/obj/machinery/mineral/equipment_vendor/golem/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
+
 /obj/machinery/mineral/equipment_vendor/golem/Initialize()
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
@@ -440,7 +462,7 @@
 		new /datum/data/mining_equipment("Extra Golem Creation Disk",   /obj/item/disk/design_disk/golem_shell,				            250),
 		new /datum/data/mining_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
 		new /datum/data/mining_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
-		new /datum/data/mining_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
+		new /datum/data/mining_equipment("Toolbelt",					/obj/item/storage/belt/utility/full/multitool,	    			350),
 		new /datum/data/mining_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
 		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
 		new /datum/data/mining_equipment("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
