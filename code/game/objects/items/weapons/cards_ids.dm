@@ -695,12 +695,6 @@
 	icon_state = "cargo"
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 
-/obj/item/card/id/mining
-	name = "Mining ID"
-	registered_name = null
-	icon_state = "cargo"
-	access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_maint_tunnels, access_mineral_storeroom)
-
 /obj/item/card/id/engineering
 	name = "Engineering ID"
 	registered_name = "Engineer"
@@ -791,6 +785,13 @@
 	icon_state = "ERT_engineering"
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/golem
+	name = "Free Golem ID"
+	desc = "A card used to claim mining points and buy gear."
+	icon_state = "research"
+	access = list(access_mineral_storeroom)
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
