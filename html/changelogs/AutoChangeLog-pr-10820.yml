@@ -1,0 +1,4 @@
+author: "MINIMAN10000"
+delete-after: True
+changes: 
+  - bugfix: "Boom function now properly checks for fuel"
