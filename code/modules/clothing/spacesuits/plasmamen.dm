@@ -102,6 +102,11 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/eva/plasmaman/extinguish_light()
+	if(on)
+		toggle_light()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+
 // ENGINEERING
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric suit"

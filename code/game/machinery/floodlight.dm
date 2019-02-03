@@ -132,3 +132,7 @@
 				cell = W
 				to_chat(user, "You insert the power cell.")
 	updateicon()
+
+/obj/machinery/floodlight/extinguish_light()
+	on = 0
+	set_light(0)
