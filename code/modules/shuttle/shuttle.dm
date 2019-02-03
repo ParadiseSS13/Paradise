@@ -840,6 +840,12 @@
 	shuttleId = "freegolem"
 	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
 
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	..()
+
 /obj/machinery/computer/shuttle/vox
 	name = "skipjack control console"
 	req_access = list(access_vox)
