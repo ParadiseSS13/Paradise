@@ -957,7 +957,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/matter_bin = 3)
 
-/obj/item/circuitboard/machine/mining_equipment_vendor/golem
+/obj/item/circuitboard/mining_equipment_vendor/golem
 	name = "Golem Ship Equipment Vendor (Machine Board)"
 	build_path = /obj/machinery/mineral/equipment_vendor/golem
 

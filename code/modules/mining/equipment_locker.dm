@@ -54,7 +54,7 @@
 	req_access = list(access_free_golems)
 	req_access_reclaim = access_free_golems
 
-/obj/machinery/mineral/ore_redemption/golem
+/obj/machinery/mineral/ore_redemption/golem/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
