@@ -85,6 +85,9 @@
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
+		to_chat(new_spawn, "<span class='warning'>You are not an antagonist, but you are not a crewmember either. \
+		You may interact or trade with crew you come across, aswell as defend yourself and your ship \
+		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
