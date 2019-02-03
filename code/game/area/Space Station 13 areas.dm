@@ -169,7 +169,6 @@ var/list/ghostteleportlocs = list()
 	music = "music/escape.ogg"
 	icon_state = "shuttle2"
 
-
 /area/shuttle/pod_1
 	name = "\improper Escape Pod One"
 	music = "music/escape.ogg"
@@ -460,6 +459,10 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
+
+/area/shuttle/freegolem
+	name = "Free Golem Ship"
+	icon_state = "purple"
 
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 

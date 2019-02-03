@@ -68,6 +68,22 @@
 	..()
 	qdel(src)
 
+//free golem blueprints, like permit but can claim as much as needed
+
+/obj/item/areaeditor/golem
+	name = "Golem Land Claim"
+	desc = "Used to define new areas in space."
+	fluffnotice = "Praise the Liberator!"
+
+/obj/item/areaeditor/golem/attack_self(mob/user)
+	. = ..()
+	var/area/A = get_area()
+	if(get_area_type() == AREA_STATION)
+		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
+	popup.set_content(.)
+	popup.open()
+	onclose(usr, "blueprints")
 
 //Station blueprints!!!
 /obj/item/areaeditor/blueprints
@@ -312,3 +328,4 @@
 	name = "station schematics"
 	desc = "A digital copy of the station blueprints stored in your memory."
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
+

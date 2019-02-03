@@ -530,10 +530,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimegolem/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
-	var/obj/effect/golemrune/Z = new /obj/effect/golemrune
-	Z.forceMove(get_turf(holder.my_atom))
-	notify_ghosts("Golem rune created in [get_area(Z)].", source = Z)
+	new /obj/item/stack/sheet/mineral/adamantine(get_turf(holder.my_atom))
 
 //Bluespace
 /datum/chemical_reaction/slimefloor2

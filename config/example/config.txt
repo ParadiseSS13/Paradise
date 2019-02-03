@@ -97,6 +97,12 @@ PROBABILITY ABDUCTION 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
 
+## Probability in % for Free Golems to spawn at roundstart, set to 0 for no golems
+PROB_FREEGOLEMS 50
+
+## Uncomment to allow free golems on all roundtypes. Otherwise, disabled on wiz, raging mages, blob, and nuclear.
+#UNRESTRICTED_FREEGOLEMS
+
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0
 

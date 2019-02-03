@@ -12,7 +12,6 @@
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\cyberiad.dm"
-#include "_maps\map_files\RandomRuins\SpaceRuins\freegolems.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1247,7 +1246,8 @@
 #include "code\modules\awaymissions\mission_code\stationCollision.dm"
 #include "code\modules\awaymissions\mission_code\UO71-terrorspiders.dm"
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
-#include "code\modules\awaymissions\mission_code\ruins\freegolems.dm"
+#include "code\modules\awaymissions\mission_code\ghost_role_spawners\golems.dm"
+#include "code\modules\awaymissions\mission_code\ghost_role_spawners\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\buildmode\bm_mode.dm"
 #include "code\modules\buildmode\buildmode.dm"

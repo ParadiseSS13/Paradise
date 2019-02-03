@@ -390,7 +390,7 @@
 		qdel(src)
 
 ////////Adamantine Golem stuff I dunno where else to put it
-
+/*
 /obj/effect/golemrune
 	anchored = 1
 	desc = "a strange rune used to create golems. It glows when spirits are nearby."
@@ -463,10 +463,7 @@
 			return
 		ghosts.Add(O)
 		to_chat(O, "<span class='notice'>You are signed up to be a golem.</span>")
-
-
-
-
+*/
 /obj/effect/timestop
 	anchored = 1
 	name = "chronofield"

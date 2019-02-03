@@ -685,6 +685,12 @@
 	icon_state = "cargo"
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 
+/obj/item/card/id/mining
+	name = "Mining ID"
+	registered_name = null
+	icon_state = "cargo"
+	access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_maint_tunnels, access_mineral_storeroom)
+
 /obj/item/card/id/engineering
 	name = "Engineering ID"
 	registered_name = "Engineer"
