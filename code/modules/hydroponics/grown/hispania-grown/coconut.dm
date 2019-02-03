@@ -2,7 +2,7 @@
 /obj/item/seeds/coconut
 	name = "pack of coconut seeds"
 	desc = "These seeds grow into coconut palms."
-	icon = 'icons/obj/hydroponics/hispania-seeds.dmi'
+	icon = 'icons/hispania/hydroponics/seeds.dmi'
 	icon_state = "seed-coconut"
 	species = "coconut"
 	plantname = "Coconut palm"
@@ -10,7 +10,7 @@
 	lifespan = 55
 	endurance = 35
 	yield = 5
-	growing_icon = 'icons/obj/hydroponics/hispania-growing_fruits.dmi'
+	growing_icon = 'icons/hispania/hydroponics/growing_fruits.dmi'
 	icon_grow = "coconut-grow"
 	icon_dead = "coconut-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
@@ -23,7 +23,7 @@
 	seed = /obj/item/seeds/coconut
 	name = "Coconut"
 	desc = "A seed? A nut? A fruit?"
-	icon = 'icons/obj/hydroponics/hispania-harvest.dmi'
+	icon = 'icons/hispania/hydroponics/harvest.dmi'
 	icon_state = "coconut"
 	force = 5
 	throwforce = 5
@@ -48,7 +48,7 @@
 /obj/item/reagent_containers/food/drinks/grown/coconut
 	name = "Coconut drink"
 	desc = "Full of juice"
-	icon = 'icons/obj/hispania-drinks.dmi'
+	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coconutdrink"
 	item_state = "coconutdrink"
 	list_reagents = list("ale" = 30)
@@ -69,7 +69,7 @@
 obj/item/reagent_containers/food/snacks/grown/coconutsliced
 	name = "sliced coconut"
 	desc = "A coconut split in half"
-	icon = 'icons/obj/food/hispania-food.dmi'
+	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "coconut-slice"
 	filling_color = "#FF4500"
 	bitesize = 2
@@ -81,15 +81,15 @@ obj/item/reagent_containers/food/snacks/grown/coconutsliced
 /obj/item/seeds/coconut/bombonut
 	name = "pack of bombonut seeds"
 	desc = "The explosive variety of coconuts."
-	icon = 'icons/obj/hydroponics/hispania-seeds.dmi'
-	icon_state = "seed-coconut"
+	icon = 'icons/hispania/hydroponics/seeds.dmi'
+	icon_state = "seed-bombonut"
 	species = "coconut"
 	plantname = "Coconut palm"
 	product = /obj/item/grown/coconut
 	lifespan = 55
 	endurance = 35
 	yield = 5
-	growing_icon = 'icons/obj/hydroponics/hispania-growing_fruits.dmi'
+	growing_icon = 'icons/hispania/hydroponics/growing_fruits.dmi'
 	icon_grow = "coconut-grow"
 	icon_dead = "coconut-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
