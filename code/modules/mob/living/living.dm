@@ -80,6 +80,10 @@
 	if(moving_diagonally) //no mob swap during diagonal moves.
 		return 1
 
+	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
+		if(isstructure(M.pulling) || isstructure(pulling))
+			return 1
+
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
@@ -128,6 +132,13 @@
 
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
+
+	if(isstructure(AM) && AM.pulledby)
+		if(a_intent == INTENT_HELP && AM.pulledby != src) // Help intent doesn't push other peoples pulled structures
+			return FALSE
+		if(get_dist(get_step(AM, get_dir(src, AM)), AM.pulledby)>1)//Release pulled structures beyond 1 distance
+			AM.pulledby.stop_pulling()
+
 	if(now_pushing)
 		return TRUE
 	if(moving_diagonally) // no pushing during diagonal moves
@@ -976,3 +987,8 @@
 
 /mob/living/proc/fakefire()
 	return
+
+/mob/living/extinguish_light()
+	for(var/atom/A in src)
+		if(A.light_range > 0)
+			A.extinguish_light()

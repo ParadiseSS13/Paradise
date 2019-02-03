@@ -449,7 +449,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
 				continue
 		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_living_num() < min_hours * 60)
+			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 				continue
 		if(check_antaghud && cannotPossess(G))
 			continue

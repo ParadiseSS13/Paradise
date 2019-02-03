@@ -61,61 +61,6 @@
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
 	action_icon_state = "veil"
 
-/obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishItem(var/obj/item/I) //WARNING NOT SUFFICIENT TO EXTINGUISH AN ITEM HELD BY A MOB
-	if(istype(I, /obj/item/flashlight))
-		var/obj/item/flashlight/F = I
-		if(istype(F, /obj/item/flashlight/flare/glowstick))
-			var/obj/item/flashlight/flare/glowstick/gstick = F
-			gstick.fuel = 0
-		if(F.on)
-			if(is_type_in_list(I, blacklisted_lights))
-				I.visible_message("<span class='danger'>[I] dims slightly before scattering the shadows around it.</span>")
-				return
-			F.on = 0
-			F.update_brightness()
-	else if(istype(I, /obj/item/pda))
-		var/obj/item/pda/P = I
-		var/datum/data/pda/utility/flashlight/FL = P.find_program(/datum/data/pda/utility/flashlight)
-		if(FL && FL.fon)
-			FL.start()
-	else if(istype(I, /obj/item/clothing/head/helmet/space/hardsuit))
-		var/obj/item/clothing/head/helmet/space/hardsuit/R = I
-		if(R.on)
-			R.toggle_light()
-			R.visible_message("<span class='danger'>[R]'s light fades and turns off.</span>")
-	else if(istype(I, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = I
-		if(P.on)
-			P.toggle_light()
-			P.visible_message("<span class='danger'>[P]'s light fades and turns off.</span>")
-	else if(istype(I, /obj/item/gun))
-		var/obj/item/gun/G = I
-		if(G.gun_light)
-			var/obj/item/flashlight/F = G.gun_light
-			if(F.on)
-				G.toggle_gunlight()
-				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")
-	else if(istype(I, /obj/item/clothing/head/hardhat)) //There really needs to be a better way to handle this.
-		var/obj/item/clothing/head/hardhat/hhat = I
-		if(hhat.on)
-			hhat.on = 0
-			hhat.set_light(0)
-			hhat.icon_state = "hardhat0_[hhat.item_color]"
-			hhat.item_state = "hardhat0_[hhat.item_color]"
-			hhat.visible_message("<span class='danger'>[hhat]'s light fades and turns off.</span>")
-	return I.light_range
-
-/obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(mob/living/L)
-	for(var/obj/item/F in L)
-		if(F.light_range > 0)
-			extinguishItem(F)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		var/obj/item/organ/internal/lantern/O = H.get_int_organ(/obj/item/organ/internal/lantern)
-		if(O && O.glowing)
-			O.toggle_biolum(1)
-			H.visible_message("<span class='danger'>[H] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
-
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
 		charge_counter = charge_max
@@ -125,23 +70,8 @@
 		G.visible_message("<span class='warning'>\The [G] withers away!</span>")
 		qdel(G)
 	for(var/turf/T in targets)
-		for(var/obj/item/F in T.contents)
-			extinguishItem(F)
-		for(var/obj/machinery/floodlight/F in T.contents)
-			F.on = 0
-			F.set_light(0)
-		for(var/obj/machinery/light/L in T.contents)
-			L.on = 0
-			L.visible_message("<span class='danger'>[L] flickers and falls dark.</span>")
-			L.update(0)
-		for(var/obj/machinery/computer/C in T.contents)
-			C.set_light(0)
-			C.visible_message("<span class='danger'>[C] grows dim, its screen barely readable.</span>")
-		for(var/mob/living/H in T.contents)
-			extinguishMob(H)
-		for(var/mob/living/silicon/robot/borg in T.contents)
-			borg.update_headlamp(1, charge_max)
-
+		for(var/atom/A in T.contents)
+			A.extinguish_light()
 
 /obj/effect/proc_holder/spell/targeted/shadow_walk
 	name = "Shadow Walk"

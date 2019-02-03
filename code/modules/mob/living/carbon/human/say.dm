@@ -91,6 +91,9 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
+	if(oxyloss > 10 || losebreath >= 4)
+		emote("gasp")
+		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
