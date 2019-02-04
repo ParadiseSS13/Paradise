@@ -133,7 +133,7 @@
 	)
 
 	implants = list(/obj/item/implant/mindshield)
-/*
+
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
@@ -141,7 +141,7 @@
 			if("Forensic Technician")
 				suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
 				head = null
-*/
+
 /datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -150,45 +150,6 @@
 	H.dna.SetSEState(SOBERBLOCK,1)
 	H.mutations += SOBER
 	H.check_mutations = 1
-
-/datum/job/forensic
-	title = "Forensic Specialist"
-	flag = FORENSIC
-	department_flag = KARMA
-	total_positions = 1
-	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
-	access = list(access_medical, access_morgue, access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels, access_court, access_weapons, access_forensics_lockers)
-	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
-	minimal_player_age = 14
-	exp_requirements = 720
-	exp_type = EXP_TYPE_CREW
-	outfit = /datum/outfit/job/forensic
-
-/datum/outfit/job/forensic
-	name = "Forensic Specialist"
-	jobtype = /datum/job/forensic
-
-	uniform = /obj/item/clothing/under/det
-	suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
-	shoes = /obj/item/clothing/shoes/brown
-	head = /obj/item/clothing/head/det_hat
-	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/sunglasses/noir
-	id = /obj/item/card/id/security
-	l_pocket = /obj/item/toy/crayon/white
-	r_pocket = /obj/item/lighter/zippo
-	pda = /obj/item/pda/detective
-	backpack_contents = list(
-		/obj/item/storage/box/evidence = 1,
-		/obj/item/detective_scanner = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
-	)
-
-	implants = list(/obj/item/implant/mindshield)
 
 /datum/job/officer
 	title = "Security Officer"
@@ -206,8 +167,6 @@
 	exp_requirements = 720
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
-	alt_titles = list("Spacepod Pilot")
-
 
 /datum/outfit/job/officer
 	name = "Security Officer"
@@ -229,7 +188,6 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-
 
 /*
 /datum/job/brigdoc
@@ -262,8 +220,8 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+*/
 
-*//*
 /datum/job/pilot
 	title = "Security Pod Pilot"
 	flag = PILOT
@@ -299,40 +257,3 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/engineer
-*/
-/datum/outfit/job/officer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			/*if("Tactical Medic")
-				uniform = /obj/item/clothing/under/rank/security/brigphys
-				suit = /obj/item/clothing/suit/storage/fr_jacket
-				shoes = /obj/item/clothing/shoes/white
-				l_ear = /obj/item/radio/headset/headset_sec/alt
-				glasses = /obj/item/clothing/glasses/hud/health/health_advanced
-				id = /obj/item/card/id/security
-				suit_store = /obj/item/flashlight/pen
-				l_hand = /obj/item/storage/firstaid/adv
-				pda = /obj/item/pda/medical
-				implants = list(/obj/item/implant/mindshield)
-				backpack = /obj/item/storage/backpack/medic
-				satchel = /obj/item/storage/backpack/satchel_med
-				dufflebag = /obj/item/storage/backpack/duffel/medical*/
-			if("Spacepod Pilot")
-				uniform = /obj/item/clothing/under/rank/security/pod_pilot
-				suit = /obj/item/clothing/suit/jacket/pilot
-				gloves = /obj/item/clothing/gloves/color/black
-				shoes = /obj/item/clothing/shoes/jackboots
-				l_ear = /obj/item/radio/headset/headset_sec/alt
-				id = /obj/item/card/id/security
-				l_pocket = /obj/item/flash
-				suit_store = /obj/item/gun/energy/gun/advtaser
-				pda = /obj/item/pda/security
-				backpack_contents = list(
-					/obj/item/restraints/handcuffs = 1
-				)
-				implants = list(/obj/item/implant/mindshield)
-				backpack = /obj/item/storage/backpack/security
-				satchel = /obj/item/storage/backpack/satchel_sec
-				dufflebag = /obj/item/storage/backpack/duffel/security
-				box = /obj/item/storage/box/engineer
