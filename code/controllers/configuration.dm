@@ -67,7 +67,7 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
-	var/prob_free_golems = 100 //chance for free golems spawners to appear roundstart
+	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
 	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
 
 	var/traitor_objectives_amount = 2
