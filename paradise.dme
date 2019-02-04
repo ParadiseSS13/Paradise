@@ -2325,6 +2325,7 @@
 #include "code\modules\surgery\organs\organ_internal.dm"
 #include "code\modules\surgery\organs\pain.dm"
 #include "code\modules\surgery\organs\parasites.dm"
+#include "code\modules\surgery\organs\plasmaman.dm"
 #include "code\modules\surgery\organs\robolimbs.dm"
 #include "code\modules\surgery\organs\skeleton.dm"
 #include "code\modules\surgery\organs\vocal_cords.dm"
