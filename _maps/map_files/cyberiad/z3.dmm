@@ -35,7 +35,7 @@
 "aI" = (/turf/simulated/mineral/random,/area/mine/dangerous/explored/golem)
 "aJ" = (/turf/simulated/floor/plating/airless/asteroid,/area/mine/dangerous/explored/golem)
 "aK" = (/turf/simulated/mineral/random/high_chance,/area/mine/dangerous/explored/golem)
-"aL" = (/turf/simulated/shuttle/wall{icon_state = "swall_s6"; dir = 2},/area/shuttle/freegolem)
+"aL" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/freegolem)
 "aM" = (/turf/simulated/shuttle/wall{tag = "icon-swall12"; icon_state = "swall12"; dir = 2},/area/shuttle/freegolem)
 "aN" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"; locked = 1},/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
 "aO" = (/turf/simulated/shuttle/wall{dir = 2; icon_state = "swall8"; tag = "icon-swall12"},/area/shuttle/freegolem)
@@ -89,7 +89,7 @@
 "bK" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/obj/structure/table/wood,/obj/item/bedsheet/rd/royal_cape{layer = 3; pixel_x = 5; pixel_y = 9},/obj/item/book/manual/research_and_development{name = "Sacred Text of the Liberator"; pixel_x = -4; pixel_y = 3},/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bL" = (/obj/machinery/light,/obj/structure/chair/comfy/purp{icon_state = "comfychair"; dir = 1},/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bM" = (/obj/structure/reagent_dispensers/watertank/high,/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
-"bN" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s5"; icon_state = "swall_s5"; dir = 2},/area/shuttle/freegolem)
+"bN" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/freegolem)
 "bO" = (/obj/item/resonator/upgraded,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bP" = (/obj/machinery/autolathe,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bQ" = (/turf/simulated/shuttle/wall{icon_state = "swallc4"},/area/shuttle/freegolem)
@@ -695,4 +695,3 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-
