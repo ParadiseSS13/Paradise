@@ -1,5 +1,7 @@
 /obj/item/organ/internal/liver/kidan
+icon = 'icons/obj/species_organs/kidan.dmi'
 	alcohol_intensity = 0.5
+
 
 #define KIDAN_LANTERN_HUNGERCOST 0.5
 #define KIDAN_LANTERN_MINHUNGER 150
@@ -106,6 +108,29 @@
 			toggle_biolum(1)
 
 	. = ..()
+
+/obj/item/organ/internal/eyes/kidan
+	name = "unathi eyeballs"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/internal/heart/kidan
+	name = "unathi heart"
+	desc = "A large looking heart"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/internal/brain/kidan
+	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon_state = "brain2"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+	mmi_icon_state = "mmi_full"
+
+/obj/item/organ/internal/lungs/kidan
+	name = "unathi heart"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/internal/kidneys/kidan
+	name = "unathi kidneys"
+	icon = 'icons/obj/species_organs/kidan.dmi'
 
 #undef KIDAN_LANTERN_HUNGERCOST
 #undef KIDAN_LANTERN_MINHUNGER

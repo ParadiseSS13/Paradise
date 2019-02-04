@@ -315,7 +315,8 @@
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
-	icon_state = "lungs-plasma"
+	icon = 'icons/obj/species_organs/drask.dmi'
+	icon_state = "lungs"
 
 	safe_oxygen_min = 0 //We don't breath this
 	safe_toxins_min = 16 //We breathe THIS!
@@ -324,6 +325,8 @@
 /obj/item/organ/internal/lungs/vox
 	name = "Vox lungs"
 	desc = "They're filled with dust....wow."
+	icon = 'icons/obj/species_organs/vox.dmi'
+	icon_state = "lungs"
 
 	safe_oxygen_min = 0 //We don't breathe this
 	safe_oxygen_max = 0.05 //This is toxic to us
@@ -331,7 +334,7 @@
 	oxy_damage_type = TOX //And it poisons us
 
 /obj/item/organ/internal/lungs/drask
-	icon = 'icons/obj/surgery_drask.dmi'
+	icon = 'icons/obj/species_organs/drask.dmi'
 
 	cold_message = "an invigorating coldness"
 	cold_level_3_threshold = 60
