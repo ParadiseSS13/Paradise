@@ -795,7 +795,7 @@
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)
 	if(!registered && ishuman(user))
-		registered_name = user.name
+		registered_name = user.real_name
 		SetOwnerInfo(user)
 		assignment = "Free Golem"
 		RebuildHTML()

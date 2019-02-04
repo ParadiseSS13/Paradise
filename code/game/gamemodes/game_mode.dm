@@ -499,6 +499,7 @@ proc/display_roundstart_logout_report()
 		G.print_result()
 
 /datum/game_mode/proc/check_free_golems() //check config and gamemode for free golems setting and run the prob to check if the round will have free golems spawned or not
-	if((!config.unrestricted_free_golems && free_golems_disabled) || !prob(config.prob_free_golems))
-		for(var/obj/effect/mob_spawn/human/golem/G in GLOB.free_golem_shells)
-			qdel(G)
+	if((config.unrestricted_free_golems || !free_golems_disabled) && prob(config.prob_free_golems))
+		for(var/obj/effect/landmark/free_golem_spawn/L in GLOB.landmarks_list)
+			if(isturf(L.loc))
+				new /obj/effect/mob_spawn/human/golem/adamantine(L.loc)

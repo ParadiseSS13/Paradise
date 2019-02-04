@@ -63,8 +63,8 @@
 "bk" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/space)
 "bl" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/space)
 "bm" = (/turf/simulated/shuttle/wall{tag = "icon-swall11"; icon_state = "swall11"; dir = 2},/area/space)
-"bn" = (/obj/effect/mob_spawn/human/golem/adamantine,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
-"bo" = (/obj/effect/mob_spawn/human/golem/adamantine,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
+"bn" = (/obj/machinery/light{dir = 1; on = 1},/obj/effect/landmark/free_golem_spawn,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
+"bo" = (/obj/effect/landmark/free_golem_spawn,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bp" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/space)
 "bq" = (/obj/machinery/mineral/equipment_vendor/golem,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "br" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"; locked = 1},/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
@@ -96,7 +96,7 @@
 "bR" = (/obj/structure/table/wood,/obj/machinery/reagentgrinder,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bS" = (/obj/machinery/computer/arcade/orion_trail,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bT" = (/obj/machinery/light,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
-"bU" = (/obj/effect/mob_spawn/human/golem/adamantine,/obj/machinery/light,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
+"bU" = (/obj/machinery/light,/obj/effect/landmark/free_golem_spawn,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bV" = (/obj/machinery/vending/coffee/free,/turf/simulated/shuttle/floor{icon_state = "floor5"},/area/shuttle/freegolem)
 "bW" = (/obj/structure/lattice,/obj/structure/grille,/turf/space,/area/space)
 "bX" = (/obj/machinery/power/solar,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/space)
@@ -695,3 +695,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+
