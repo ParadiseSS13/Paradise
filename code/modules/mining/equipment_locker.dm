@@ -459,14 +459,13 @@
 	desc += "\nIt seems a few selections have been added."
 	prize_list += list(
 		new /datum/data/mining_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
-		new /datum/data/mining_equipment("Extra Golem Creation Disk",   /obj/item/disk/design_disk/golem_shell,				            250),
-		new /datum/data/mining_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
-		new /datum/data/mining_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
-		new /datum/data/mining_equipment("Toolbelt",					/obj/item/storage/belt/utility/full/multitool,	    			350),
+		new /datum/data/mining_equipment("Science Backpack",			/obj/item/storage/backpack/science,								250),
+		new /datum/data/mining_equipment("Toolbelt",					/obj/item/storage/belt/utility/full/multitool,	    			250),
+		new /datum/data/mining_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	250),
 		new /datum/data/mining_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
 		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
 		new /datum/data/mining_equipment("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
-		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)
+		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								1500)
 		)
 
 /datum/data/mining_equipment/

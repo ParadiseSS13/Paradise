@@ -647,7 +647,6 @@
 /obj/structure/closet/crate/golemgear/New()
 	..()
 	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/storage/backpack/satchel_eng(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)

@@ -463,6 +463,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/freegolem
 	name = "Free Golem Ship"
 	icon_state = "purple"
+	xenobiology_compatible = TRUE
 
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
