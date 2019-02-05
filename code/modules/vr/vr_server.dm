@@ -30,6 +30,10 @@ var/vr_server_admin_disabled = FALSE
 		icon_state = "[icon_state]_o"
 	return
 
+/obj/machinery/vr_server/attack_ghost(mob/dead/observer/user as mob)
+	if(user.can_admin_interact())
+		attack_hand(user)
+	
 /obj/machinery/vr_server/attack_hand(user as mob)
 	if(check_rights(R_ADMIN))
 		switch(alert("Are you sure you want to push the power button on the Virtual Reality Server?", "VR Server", "Yes", "No", "Admin [vr_server_admin_disabled ? "Enable" : "Disable"] Globally"))

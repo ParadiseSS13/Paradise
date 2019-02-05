@@ -77,7 +77,7 @@
 	description = "Its not malpractice if its virtual."
 	death_type = VR_DROP_BLACKLIST
 	drop_blacklist = list(/obj/item/clothing/under/rank/medical, /obj/item/clothing/suit/storage/labcoat, /obj/item/clothing/shoes/white, /obj/item/card/id/medical,
-							/obj/item/clothing/glasses/science, /obj/item/clothing/gloves/color/latex)
+							/obj/item/clothing/glasses/science, /obj/item/clothing/gloves/color/latex, /obj/item/clothing/glasses/hud/health)
 	outfit = /datum/outfit/vr/medical
 
 /datum/map_template/vr/level/bombs
@@ -103,7 +103,7 @@
 	description = "A true open world sandbox."
 	death_type = VR_DROP_BLACKLIST
 	drop_blacklist = list(/obj/item/clothing/under/rank/engineer, /obj/item/clothing/suit/storage/hazardvest, /obj/item/clothing/shoes/workboots, /obj/item/card/id/engineering,
-							/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/chief/full, /obj/item/storage/backpack/industrial)
+							/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/chief/full, /obj/item/clothing/head/hardhat)
 	outfit = /datum/outfit/vr/engineering
 
 /datum/map_template/vr/level/engine

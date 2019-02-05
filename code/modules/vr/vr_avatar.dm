@@ -20,8 +20,9 @@
 /mob/living/carbon/human/virtual_reality/death()
 	if(!can_die())
 		return FALSE
+	. = ..(gibbed = 1)
 	handle_despawn()
-	return ..(gibbed = 1)
+
 
 /mob/living/carbon/human/virtual_reality/proc/handle_despawn()
 	myroom.players.Remove(src)
@@ -47,16 +48,15 @@
 	else if(controller.vr_human == src)
 		controller.vr_human = null
 	if(!surgeries.len)
-		var/mob/living/carbon/human/virtual_reality/vr = src
-		var/list/corpse_equipment = vr.get_all_slots()
-		corpse_equipment += vr.get_equipped_items()
+		var/list/corpse_equipment = src.get_all_slots()
+		corpse_equipment += src.get_equipped_items()
 		for(var/obj/O in corpse_equipment)
 			if(myroom.template.death_type == VR_DROP_ALL)
-				vr.unEquip(O)
+				src.unEquip(O)
 			else if(myroom.template.death_type == VR_DROP_BLACKLIST && !(O.type in myroom.template.drop_blacklist))
-				vr.unEquip(O)
+				src.unEquip(O)
 			else if(myroom.template.death_type == VR_DROP_WHITELIST && (O.type in myroom.template.drop_whitelist))
-				vr.unEquip(O)
+				src.unEquip(O)
 			else
 				qdel(O)
 		notransform = 1

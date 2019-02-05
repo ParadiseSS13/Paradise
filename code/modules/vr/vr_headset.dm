@@ -51,7 +51,7 @@
 				if(istype(H, /mob/living/carbon/human/virtual_reality))
 					to_chat(H, "<span class='notice'>No. You can't enter VR in VR.</span>")
 					return
-				if(vr_human == null)
+				if(vr_human == null || vr_human.loc == null)
 					vr_human = spawn_vr_avatar(H, lobby)
 				else
 					control_remote(H, vr_human)

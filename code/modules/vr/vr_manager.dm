@@ -211,6 +211,7 @@ proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_r
 		for(var/mob/dead/observer/O in GLOB.player_list)
 			if (O.following && O.following == H)
 				O.ManualFollow(vr_avatar)
+				O.following = vr_avatar
 		if(istype(H, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/V = H
 			vr_avatar.real_me = V.real_me
