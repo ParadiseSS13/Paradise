@@ -849,7 +849,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Chav accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
 
