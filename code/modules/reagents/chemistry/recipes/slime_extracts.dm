@@ -530,6 +530,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimegolem/on_reaction(datum/reagents/holder)
+	feedback_add_details("slime_cores_used","[type]")
 	new /obj/item/stack/sheet/mineral/adamantine(get_turf(holder.my_atom))
 
 //Bluespace
