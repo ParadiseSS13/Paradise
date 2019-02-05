@@ -1,7 +1,7 @@
 datum/game_mode/nations
 	name = "nations"
 	config_tag = "nations"
-	required_players = 15
+	required_players = 20
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
