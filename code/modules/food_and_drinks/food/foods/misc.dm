@@ -4,7 +4,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/eggplantparm
-	name = "Eggplant Parmigiana"
+	name = "eggplant parmigiana"
 	desc = "The only good recipe for eggplant."
 	icon_state = "eggplantparm"
 	trash = /obj/item/trash/plate
@@ -12,7 +12,7 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 
 /obj/item/reagent_containers/food/snacks/soylentgreen
-	name = "Soylent Green"
+	name = "soylent green"
 	desc = "Not made of people. Honest." //Totally people.
 	icon_state = "soylent_green"
 	trash = /obj/item/trash/waffles
@@ -20,7 +20,7 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/soylentviridians
-	name = "Soylent Virdians"
+	name = "soylent virdians"
 	desc = "Not made of people. Honest." //Actually honest for once.
 	icon_state = "soylent_yellow"
 	trash = /obj/item/trash/waffles
@@ -28,7 +28,7 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight
-	name = "monkey's Delight"
+	name = "monkey's delight"
 	desc = "Eeee Eee!"
 	icon_state = "monkeysdelight"
 	trash = /obj/item/trash/tray
@@ -38,14 +38,14 @@
 
 /obj/item/reagent_containers/food/snacks/dionaroast
 	name = "roast diona"
-	desc = "It's like an enormous, leathery carrot. With an eye."
+	desc = "It's like an enormous leathery carrot... With an eye."
 	icon_state = "dionaroast"
 	trash = /obj/item/trash/plate
 	filling_color = "#75754B"
 	list_reagents = list("plantmatter" = 4, "nutriment" = 2, "radium" = 2, "vitamin" = 4)
 
 /obj/item/reagent_containers/food/snacks/tofurkey
-	name = "Tofurkey"
+	name = "tofurkey"
 	desc = "A fake turkey made from tofu."
 	icon_state = "tofurkey"
 	filling_color = "#FFFEE0"
@@ -58,7 +58,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/aesirsalad
-	name = "Aesir salad"
+	name = "aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
 	icon_state = "aesirsalad"
 	trash = /obj/item/trash/snack_bowl
@@ -97,7 +97,7 @@
 	list_reagents = list("nutriment" = 4)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket
-	name = "Warm Donk-pocket"
+	name = "warm Donk-pocket"
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
@@ -107,7 +107,7 @@
 	M.reagents.add_reagent("omnizine", 15)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket_weak
-	name = "Lightly Warm Donk-pocket"
+	name = "lightly warm Donk-pocket"
 	desc = "The food of choice for the seasoned traitor. This one is lukewarm."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
@@ -135,7 +135,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/boiledslimecore
-	name = "Boiled Slime Core"
+	name = "boiled slime core"
 	desc = "A boiled red thing."
 	icon_state = "boiledrorocore"
 	bitesize = 3
@@ -162,7 +162,7 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/liquidfood
-	name = "\improper LiquidFood Ration"
+	name = "\improper LiquidFood ration"
 	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
 	icon_state = "liquidfood"
 	trash = /obj/item/trash/liquidfood
