@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "fixed a \"_logging.dm,85: Cannot execute null.simple info line()\" runtime when xenobio slimes emoted."
