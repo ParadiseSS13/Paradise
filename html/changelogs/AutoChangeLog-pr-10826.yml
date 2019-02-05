@@ -1,0 +1,4 @@
+author: "Alonefromhell"
+delete-after: True
+changes: 
+  - bugfix: "LDM and Sorium should no longer push/pull ghosts"
