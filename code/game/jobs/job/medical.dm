@@ -50,9 +50,9 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
-	alt_titles = list("Surgeon","Nurse","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic")
+	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -74,7 +74,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
-/*
+
 /datum/job/coroner
 	title = "Coroner"
 	flag = CORONER
@@ -85,7 +85,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -114,7 +114,7 @@
 					/obj/item/autopsy_scanner = 1,
 					/obj/item/reagent_scanner = 1,
 					/obj/item/storage/box/bodybags = 1)
-*/
+
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
@@ -136,101 +136,9 @@
 					head = /obj/item/clothing/head/nursehat
 				else
 					uniform = /obj/item/clothing/under/rank/medical/purple
-			if("Coroner")
-
-				uniform = /obj/item/clothing/under/rank/medical/mortician
-				suit = /obj/item/clothing/suit/storage/labcoat/mortician
-				shoes = /obj/item/clothing/shoes/white
-				l_ear = /obj/item/radio/headset/headset_med
-				id = /obj/item/card/id/medical
-				suit_store = /obj/item/flashlight/pen
-				l_hand = /obj/item/clipboard
-				pda = /obj/item/pda/medical
-
-				backpack = /obj/item/storage/backpack/medic
-				satchel = /obj/item/storage/backpack/satchel_med
-				dufflebag = /obj/item/storage/backpack/duffel/medical
-
-				backpack_contents = list(
-								/obj/item/clothing/head/surgery/black = 1,
-								/obj/item/autopsy_scanner = 1,
-								/obj/item/reagent_scanner/adv =1,
-								/obj/item/storage/box/bodybags = 1)
-
-			if("Geneticist")
-
-				uniform = /obj/item/clothing/under/rank/geneticist
-				suit = /obj/item/clothing/suit/storage/labcoat/genetics
-				shoes = /obj/item/clothing/shoes/white
-				l_ear = /obj/item/radio/headset/headset_medsci
-				id = /obj/item/card/id/medical
-				suit_store = /obj/item/flashlight/pen
-				pda = /obj/item/pda/geneticist
-
-				backpack = /obj/item/storage/backpack/genetics
-				satchel = /obj/item/storage/backpack/satchel_gen
-				dufflebag = /obj/item/storage/backpack/duffel/genetics
-
-			if("Chemist")
-				uniform = /obj/item/clothing/under/rank/chemist
-				suit = /obj/item/clothing/suit/storage/labcoat/chemist
-				shoes = /obj/item/clothing/shoes/white
-				l_ear = /obj/item/radio/headset/headset_med
-				glasses = /obj/item/clothing/glasses/science
-				id = /obj/item/card/id/medical
-				pda = /obj/item/pda/chemist
-
-				backpack = /obj/item/storage/backpack/chemistry
-				satchel = /obj/item/storage/backpack/satchel_chem
-				dufflebag = /obj/item/storage/backpack/duffel/chemistry
-
-			if("Virologist")
-
-				uniform = /obj/item/clothing/under/rank/virologist
-				suit = /obj/item/clothing/suit/storage/labcoat/virologist
-				shoes = /obj/item/clothing/shoes/white
-				mask = /obj/item/clothing/mask/surgical
-				l_ear = /obj/item/radio/headset/headset_med
-				id = /obj/item/card/id/medical
-				suit_store = /obj/item/flashlight/pen
-				pda = /obj/item/pda/viro
-
-				backpack = /obj/item/storage/backpack/virology
-				satchel = /obj/item/storage/backpack/satchel_vir
-				dufflebag = /obj/item/storage/backpack/duffel/virology
-
-			if("Psychiatrist")
-
-				uniform = /obj/item/clothing/under/rank/medical
-				suit = /obj/item/clothing/suit/storage/labcoat
-				shoes = /obj/item/clothing/shoes/laceup
-				l_ear = /obj/item/radio/headset/headset_med
-				id = /obj/item/card/id/medical
-				suit_store = /obj/item/flashlight/pen
-				pda = /obj/item/pda/medical
-			if("Paramedic")
-
-				uniform = /obj/item/clothing/under/rank/medical/paramedic
-				shoes = /obj/item/clothing/shoes/black
-				head = /obj/item/clothing/head/soft/blue
-				mask = /obj/item/clothing/mask/cigarette
-				l_ear = /obj/item/radio/headset/headset_med
-				id = /obj/item/card/id/medical
-				l_pocket = /obj/item/flashlight/pen
-				pda = /obj/item/pda/medical
-				backpack_contents = list(
-					/obj/item/healthanalyzer = 1,
-			/*		/obj/item/clothing/head/helmet/paramedic  */
-				)
-
-				backpack = /obj/item/storage/backpack/medic
-				satchel = /obj/item/storage/backpack/satchel_med
-				dufflebag = /obj/item/storage/backpack/duffel/medical
-				box = /obj/item/storage/box/engineer
-
-
+			
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
-/*
+
 /datum/job/chemist
 	title = "Chemist"
 	flag = CHEMIST
@@ -241,7 +149,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
@@ -264,8 +172,7 @@
 	backpack = /obj/item/storage/backpack/chemistry
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
-*/
-/*
+
 /datum/job/geneticist
 	title = "Geneticist"
 	flag = GENETICIST
@@ -276,7 +183,7 @@
 	supervisors = "the chief medical officer and the research director"
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -298,8 +205,7 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
-*/
-/*
+
 /datum/job/virologist
 	title = "Virologist"
 	flag = VIROLOGIST
@@ -310,7 +216,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
@@ -334,8 +240,7 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
-*/
-/*
+
 /datum/job/psychiatrist
 	title = "Psychiatrist"
 	flag = PSYCHIATRIST
@@ -346,7 +251,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_psychiatrist)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_psychiatrist, access_maint_tunnels)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
@@ -373,8 +278,7 @@
 				uniform = /obj/item/clothing/under/rank/psych/turtleneck
 			if("Therapist")
 				uniform = /obj/item/clothing/under/rank/medical
-*/
-/*
+
 /datum/job/paramedic
 	title = "Paramedic"
 	flag = PARAMEDIC
@@ -385,7 +289,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access=list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -412,4 +316,3 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
-*/

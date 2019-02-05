@@ -9,7 +9,7 @@
 	department_head = list("Captain")
 	selection_color = "#ffddff"
 	req_admin_notify = 1
-	access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue,
+	access = list(access_rd, access_heads, access_tox, access_morgue,
 					access_tox_storage, access_tech_storage, access_teleporter, access_sec_doors,
 					access_research, access_robotics, access_xenobiology, access_ai_upload,
 					access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_mineral_storeroom, access_network, access_eva)
@@ -57,7 +57,7 @@
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom, access_tech_storage)
+	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom)
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Roboticist")
 	minimal_player_age = 3
@@ -85,7 +85,6 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
-/*
 /datum/job/roboticist
 	title = "Roboticist"
 	flag = ROBOTICIST
@@ -121,16 +120,3 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
-*/
-/datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Roboticist")
-				uniform = /obj/item/clothing/under/rank/roboticist
-				suit = /obj/item/clothing/suit/storage/labcoat
-				belt = /obj/item/storage/belt/utility/full
-				shoes = /obj/item/clothing/shoes/black
-				l_ear = /obj/item/radio/headset/headset_sci
-				id = /obj/item/card/id/research
-				pda = /obj/item/pda/roboticist
