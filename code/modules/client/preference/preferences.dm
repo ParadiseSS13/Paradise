@@ -844,17 +844,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Needs glasses")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_EPILEPTIC, "Seizures")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_TOURETTES, "Tourettes syndrome") // this will / can not be abused. It also SEVERELY stuns. It's just for fun.
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Chav accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SCRAMBLED, "Can't speak properly")
 
 
 	HTML += {"</ul>
@@ -2204,14 +2201,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.dna.SetSEState(GLASSESBLOCK, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLASSESBLOCK)
 
-	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
-		character.dna.SetSEState(EPILEPSYBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(EPILEPSYBLOCK)
-
-	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(DEAFBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(DEAFBLOCK)
-
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(BLINDBLOCK, TRUE, TRUE)
 		character.dna.default_blocks.Add(BLINDBLOCK)
@@ -2224,10 +2213,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.dna.SetSEState(MUTEBLOCK, TRUE, TRUE)
 		character.dna.default_blocks.Add(MUTEBLOCK)
 
-	if(disabilities & DISABILITY_FLAG_TOURETTES)
-		character.dna.SetSEState(TWITCHBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(TWITCHBLOCK)
-
 	if(disabilities & DISABILITY_FLAG_NERVOUS)
 		character.dna.SetSEState(NERVOUSBLOCK, TRUE, TRUE)
 		character.dna.default_blocks.Add(NERVOUSBLOCK)
@@ -2236,9 +2221,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.dna.SetSEState(SWEDEBLOCK, TRUE, TRUE)
 		character.dna.default_blocks.Add(SWEDEBLOCK)
 
-	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
-		character.dna.SetSEState(SCRAMBLEBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(SCRAMBLEBLOCK)
+	if(disabilities & DISABILITY_FLAG_CHAV)
+		character.dna.SetSEState(CHAVBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(CHAVBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
 		character.dna.SetSEState(LISPBLOCK, TRUE, TRUE)
@@ -2247,10 +2232,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_DIZZY)
 		character.dna.SetSEState(DIZZYBLOCK, TRUE, TRUE)
 		character.dna.default_blocks.Add(DIZZYBLOCK)
-
-	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
-		character.dna.SetSEState(SCRAMBLEBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(SCRAMBLEBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
 		character.dna.SetSEState(WINGDINGSBLOCK, TRUE, TRUE)
