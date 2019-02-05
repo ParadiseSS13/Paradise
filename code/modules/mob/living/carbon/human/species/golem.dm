@@ -84,7 +84,6 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/golem(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/golem(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
-	//H.skin_colour = golem_colour
 	H.regenerate_icons()
 	to_chat(H, info_text)
 
@@ -129,14 +128,13 @@
 	name = "Plasma Golem"
 	skinned_type = /obj/item/stack/ore/plasma
 	golem_colour = rgb(170, 51, 221)
-	//Can burn and takes damage from heat
 	heat_level_1 = 360
 	heat_level_2 = 400
 	heat_level_3 = 460
 	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
 	prefix = "Plasma"
-	special_names = list("Flood","Fire","Bar","Man")
+	special_names = list("Flood", "Fire", "Bar", "Man")
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
