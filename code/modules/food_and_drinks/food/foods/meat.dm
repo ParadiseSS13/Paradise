@@ -115,7 +115,7 @@
 
 /obj/item/reagent_containers/food/snacks/raw_bacon
 	name = "raw bacon"
-	desc = "God's gift to man, in uncooked form."
+	desc = "God's gift to man in uncooked form."
 	icon_state = "raw_bacon"
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
 
