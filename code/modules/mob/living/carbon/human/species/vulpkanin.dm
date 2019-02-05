@@ -22,6 +22,8 @@
 	hunger_drain = 0.11
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
+
+	blood_color = "#ef0b0b"
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
@@ -29,11 +31,11 @@
 	scream_verb = "yelps"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
+		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
 		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
+		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/

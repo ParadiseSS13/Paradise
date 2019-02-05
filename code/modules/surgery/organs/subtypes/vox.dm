@@ -34,8 +34,7 @@
 	..()
 
 /obj/item/organ/internal/liver/vox
-	icon = 'icons/obj/species_organs/unathi.dmi'
-	desc = "A large looking liver"
+	icon = 'icons/obj/species_organs/vox.dmi'
 	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/eyes/vox
@@ -44,8 +43,7 @@
 
 /obj/item/organ/internal/heart/vox
 	name = "vox heart"
-	desc = "A large looking heart"
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/species_organs/vox.dmi'
 
 /obj/item/organ/internal/brain/vox
 	icon = 'icons/obj/species_organs/vox.dmi'
@@ -54,7 +52,6 @@
 	mmi_icon = 'icons/obj/species_organs/vox.dmi'
 	mmi_icon_state = "mmi_full"
 
-
-/obj/item/organ/internal/kidneys/unathi
+/obj/item/organ/internal/kidneys/vox
 	name = "vox kidneys"
 	icon = 'icons/obj/species_organs/vox.dmi'

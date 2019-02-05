@@ -315,7 +315,7 @@
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/species_organs/plasmaman.dmi'
 	icon_state = "lungs"
 
 	safe_oxygen_min = 0 //We don't breath this

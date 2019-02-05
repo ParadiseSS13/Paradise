@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/skrell
+	icon = 'icons/obj/species_organs/skrell.dmi'
 	alcohol_intensity = 4
 
 /obj/item/organ/internal/headpocket
@@ -80,7 +81,7 @@
 /obj/item/organ/internal/kidneys/skrell
 	name = "skrell kidneys"
 	icon = 'icons/obj/species_organs/skrell.dmi'
-	desc = "The smallest kidneys you have ever seen, it probably doesn't work."
+	desc = "The smallest kidneys you have ever seen, it probably doesn't even work."
 
 /obj/item/organ/internal/eyes/skrell
 	name = "skrell eyeballs"

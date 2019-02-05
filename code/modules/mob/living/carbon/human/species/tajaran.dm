@@ -31,17 +31,17 @@
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
-	blood_color = "#962a03"
+	blood_color = "#961b03"
 	flesh_color = "#AFA59E"
 	base_color = "#424242"
 	butt_sprite = "tajaran"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/tajaran,
+		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
 		"liver" =    /obj/item/organ/internal/liver/tajaran,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
+		"brain" =    /obj/item/organ/internal/brain/tajaran,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
