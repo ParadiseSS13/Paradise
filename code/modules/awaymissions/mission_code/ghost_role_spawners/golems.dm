@@ -19,6 +19,7 @@
 		/obj/item/stack/sheet/metal					= /datum/species/golem,
 		/obj/item/stack/sheet/glass					= /datum/species/golem/glass,
 		/obj/item/stack/sheet/plasteel				= /datum/species/golem/plasteel,
+		/obj/item/stack/ore/glass					= /datum/species/golem/sand,
 		/obj/item/stack/sheet/mineral/sandstone		= /datum/species/golem/sand,
 		/obj/item/stack/sheet/mineral/plasma		= /datum/species/golem/plasma,
 		/obj/item/stack/sheet/mineral/diamond		= /datum/species/golem/diamond,
