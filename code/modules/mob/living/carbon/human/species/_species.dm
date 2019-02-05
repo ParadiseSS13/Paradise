@@ -361,7 +361,9 @@
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
+			playsound(target.loc, attack.attack_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
 		if(!iscarbon(user))

@@ -41,7 +41,7 @@
 "aO" = (/turf/simulated/shuttle/wall{dir = 2; icon_state = "swall8"; tag = "icon-swall12"},/area/shuttle/freegolem)
 "aP" = (/turf/simulated/shuttle/wall{icon_state = "swall3"; dir = 2},/area/shuttle/freegolem)
 "aQ" = (/obj/structure/closet/crate/golemgear,/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
-"aR" = (/obj/item/storage/toolbox/mechanical,/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
+"aR" = (/obj/item/storage/toolbox/mechanical,/obj/item/reagent_containers/spray/cleaner,/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
 "aS" = (/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
 "aT" = (/obj/structure/lattice,/turf/space,/area/space)
 "aU" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/shuttle/plating,/area/shuttle/freegolem)
