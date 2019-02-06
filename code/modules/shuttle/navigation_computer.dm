@@ -1,6 +1,8 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker
 	name = "navigation computer"
 	desc = "Used to designate a precise transit location for a spacecraft."
+	icon_screen = "navigation"
+	icon_keyboard = "med_key"
 	jump_action = null
 	var/datum/action/innate/shuttledocker_rotate/rotate_action = new
 	var/datum/action/innate/shuttledocker_place/place_action = new
@@ -282,8 +284,6 @@
 
 /mob/camera/aiEye/remote/shuttle_docker/update_remote_sight(mob/living/user)
 	user.sight = SEE_TURFS
-	//user.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	//user.sync_lighting_plane_alpha()
 	return TRUE
 
 /datum/action/innate/shuttledocker_rotate

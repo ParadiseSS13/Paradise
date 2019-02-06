@@ -8,8 +8,8 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox
 	name = "skipjack navigation computer"
 	desc = "Used to designate a precise transit location for the skipjack."
-	icon_screen = "shuttle"
-	icon_keyboard = "tech_key"
+	icon_screen = "navigation"
+	icon_keyboard = "med_key"
 	shuttleId = "skipjack"
 	shuttlePortId = "skipjack_custom"
 	view_range = 13

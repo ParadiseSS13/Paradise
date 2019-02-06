@@ -64,7 +64,7 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the syndicate shuttle."
-	icon_screen = "syndishuttle"
+	icon_screen = "syndinavigation"
 	icon_keyboard = "syndie_key"
 	shuttleId = "syndicate"
 	shuttlePortId = "syndicate_custom"
@@ -74,7 +74,7 @@
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SST
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst
 	name = "SST shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the SST shuttle."
 	shuttleId = "sst"
@@ -83,7 +83,7 @@
 	x_offset = 0
 	y_offset = 0
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SIT
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit
 	name = "SIT shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the SIT shuttle."
 	shuttleId = "sit"
