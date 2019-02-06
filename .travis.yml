@@ -26,6 +26,7 @@ env:
     - DM_MAPFILE="metastation"
     - DM_MAPFILE="delta"
     - DM_MAPFILE="test_all_maps"
+    - DM_MAPFILE="hispania"
 
 stages:
   - File Checks
