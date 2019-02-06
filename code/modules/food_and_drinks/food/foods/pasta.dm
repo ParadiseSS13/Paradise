@@ -53,7 +53,7 @@
 	list_reagents = list("nutriment" = 8, "synaptizine" = 5, "vitamin" = 4)
 
 /obj/item/reagent_containers/food/snacks/spesslaw
-	name = "spesslaw"
+	name = "Spesslaw"
 	desc = "A lawyer's favourite."
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "spesslaw"
