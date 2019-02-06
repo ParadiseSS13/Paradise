@@ -23,7 +23,7 @@
 	list_reagents = list("protein" = 1, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/pistachios
-	name = "Pistachios"
+	name = "pistachios"
 	icon_state = "pistachios"
 	desc = "Deliciously salted pistachios. A perfectly valid choice..."
 	trash = /obj/item/trash/pistachios

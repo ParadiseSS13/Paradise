@@ -46,7 +46,7 @@
 	list_reagents = list("nutriment" = 4)
 
 /obj/item/reagent_containers/food/snacks/fishburger
-	name = "fillet -o- carp sandwich"
+	name = "Fillet-O-Carp sandwich"
 	desc = "Almost like a carp is yelling somewhere... Give me back that fillet -o- carp, give me that carp."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishburger"

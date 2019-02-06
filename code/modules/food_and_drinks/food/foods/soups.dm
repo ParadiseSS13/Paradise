@@ -68,7 +68,7 @@
 	reagents.add_reagent("[extra_reagent]", 5)
 
 /obj/item/reagent_containers/food/snacks/wishsoup
-	name = "wish soup"
+	name = "Wish Soup"
 	desc = "I wish this was soup."
 	icon_state = "wishsoup"
 	trash = /obj/item/trash/snack_bowl

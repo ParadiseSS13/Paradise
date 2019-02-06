@@ -40,7 +40,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
-	desc = "Tastes like the HoP's hopes and dreams"
+	desc = "Tastes like the Head of Personnel's hopes and dreams"
 
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "pug meat"
@@ -140,7 +140,7 @@
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
-	desc = "It looks juicy and tastes amazing! Mmm... Bacon."
+	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
 	icon_state = "bacon2"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 

@@ -66,14 +66,14 @@
 	filling_color = "#BAA14C"
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
-	name = "hawaiian pizza"
+	name = "Hawaiian pizza"
 	desc = "Love it or hate it, this pizza divides opinions. Complete with juicy pineapple."
 	icon_state = "hawaiianpizza" //NEEDED
 	slice_path = /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
 	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
-	name = "hawaiian pizza slice"
+	name = "Hawaiian pizza slice"
 	desc = "A slice of polarising pizza."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "hawaiianpizzaslice"

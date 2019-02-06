@@ -58,7 +58,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/aesirsalad
-	name = "aesir salad"
+	name = "Aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
 	icon_state = "aesirsalad"
 	trash = /obj/item/trash/snack_bowl

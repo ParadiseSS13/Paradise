@@ -509,32 +509,32 @@
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/rice
-	name = "asteroid crunch bar"
+	name = "Asteroid Crunch Bar"
 	desc = "Crunchy rice deposits in delicious chocolate! A favorite of miners galaxy-wide."
 	icon_state = "asteroidcrunch"
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/toffee
-	name = "yum-baton bar"
+	name = "Yum-Baton Bar"
 	desc = "Chocolate and toffee in the shape of a baton. Security sure knows how to pound these down!"
 	icon_state = "yumbaton"
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/caramel
-	name = "malper bar"
+	name = "Malper Bar"
 	desc = "A chocolate syringe filled with a caramel injection. Just what the doctor ordered!"
 	icon_state = "malper"
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/caramel_nougat
-	name = "toxins test bar"
+	name = "Toxins Test Bar"
 	desc = "An explosive combination of chocolate, caramel, and nougat. Research has never been so tasty!"
 	icon_state = "toxinstest"
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/nougat
-	name = "tool-erone bar"
+	name = "Tool-erone Bar"
 	desc = "Chocolate-covered nougat, shaped like a wrench. Great for an engineer on the go!"
 	icon_state = "toolerone"
 	filling_color = "#7D5F46"

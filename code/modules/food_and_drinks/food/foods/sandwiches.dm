@@ -112,7 +112,7 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/bigbiteburger
-	name = "big bite burger"
+	name = "BigBite burger"
 	desc = "Forget the Big Mac, THIS is the future!"
 	icon_state = "bigbiteburger"
 	filling_color = "#E3D681"
@@ -120,7 +120,7 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 
 /obj/item/reagent_containers/food/snacks/superbiteburger
-	name = "super bite burger"
+	name = "SuperBite burger"
 	desc = "This is a mountain of a burger. FOOD!"
 	icon_state = "superbiteburger"
 	filling_color = "#CCA26A"
