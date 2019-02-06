@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/skrell
+	name = "skrell liver"
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	alcohol_intensity = 4
 

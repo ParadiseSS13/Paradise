@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/plasmaman
+	name = "plasmaman liver"
 	icon = 'icons/obj/species_organs/plasmaman.dmi'
 
 /obj/item/organ/internal/eyes/plasmaman

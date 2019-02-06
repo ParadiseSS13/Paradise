@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/vulpkanin
+	name = "vulpkanin liver"
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	alcohol_intensity = 1.4
 
@@ -26,7 +27,7 @@
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/vulpkanin
-	name = "vulpkanin heart"
+	name = "vulpkanin lungs"
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 
 /obj/item/organ/internal/kidneys/vulpkanin

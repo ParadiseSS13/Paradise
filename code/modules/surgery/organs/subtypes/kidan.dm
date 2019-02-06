@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/kidan
+	name = "kidan liver"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	alcohol_intensity = 0.5
 
@@ -121,11 +122,11 @@
 /obj/item/organ/internal/brain/kidan
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "brain2"
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/kidan
-	name = "kidan heart"
+	name = "kidan lungs"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 
 /obj/item/organ/internal/kidneys/kidan

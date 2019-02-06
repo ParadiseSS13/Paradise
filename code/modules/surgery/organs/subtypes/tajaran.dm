@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/tajaran
+	name = "tajaran liver"
 	icon = 'icons/obj/species_organs/tajaran.dmi'
 	alcohol_intensity = 1.4
 
@@ -26,7 +27,7 @@
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/tajaran
-	name = "tajaran heart"
+	name = "tajaran lungs"
 	icon = 'icons/obj/species_organs/tajaran.dmi'
 
 /obj/item/organ/internal/kidneys/tajaran

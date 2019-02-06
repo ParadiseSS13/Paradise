@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/vox
+	name = "vox liver"
 	icon = 'icons/obj/species_organs/vox.dmi'
 	alcohol_intensity = 1.6
 
@@ -32,10 +33,6 @@
 		if(!stackdamaged)
 			stackdamaged = TRUE
 	..()
-
-/obj/item/organ/internal/liver/vox
-	icon = 'icons/obj/species_organs/vox.dmi'
-	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/eyes/vox
 	name = "vox eyeballs"

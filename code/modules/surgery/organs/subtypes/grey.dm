@@ -30,7 +30,7 @@
 	icon = 'icons/obj/species_organs/grey.dmi'
 
 /obj/item/organ/internal/lungs/grey
-	name = "grey heart"
+	name = "grey lungs"
 	icon = 'icons/obj/species_organs/grey.dmi'
 
 /obj/item/organ/internal/kidneys/grey

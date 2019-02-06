@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/unathi
+	name = "unathi liver"
 	icon = 'icons/obj/species_organs/unathi.dmi'
 	desc = "A large looking liver"
 	alcohol_intensity = 0.8
@@ -21,7 +22,7 @@
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/unathi
-	name = "unathi heart"
+	name = "unathi lungs"
 	icon = 'icons/obj/species_organs/unathi.dmi'
 
 /obj/item/organ/internal/kidneys/unathi
