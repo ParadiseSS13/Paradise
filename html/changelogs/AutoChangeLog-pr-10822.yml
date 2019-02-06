@@ -1,0 +1,4 @@
+author: "DrunkDwarf"
+delete-after: True
+changes: 
+  - bugfix: "Reduced the size of the Ward-Takahashi Alt IPC head to prevent pixels clipping when wearing human clothing."
