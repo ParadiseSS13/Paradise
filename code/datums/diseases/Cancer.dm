@@ -1,12 +1,12 @@
 /datum/disease/Cancer
 	form = "Condition"
-	name = "Cancer"
+	name = "Space Cancer"
 	max_stages = 5
 	cure_text = "Surgery"
 	agent = "Cancer Cells"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 1
-	desc = "An Old Terminal Disease That Killed a lot of people in the past."
+	desc = "The Old and Trusty Cancer but in SPACE."
 	severity = "Very Dangerous!"
 	disease_flags = CAN_CARRY|CAN_RESIST
 	spread_flags = NON_CONTAGIOUS
