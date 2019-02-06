@@ -107,7 +107,7 @@
 	M.reagents.add_reagent("omnizine", 15)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket_weak
-	name = "lightly warm Donk-pocket"
+	name = "lukewarm Donk-pocket"
 	desc = "The food of choice for the seasoned traitor. This one is lukewarm."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
