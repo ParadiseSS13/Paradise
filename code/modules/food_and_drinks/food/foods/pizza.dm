@@ -251,4 +251,4 @@
 
 /obj/item/pizzabox/hawaiian/New()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
-	boxtag = "hawaiian feast"
+	boxtag = "Hawaiian feast"
