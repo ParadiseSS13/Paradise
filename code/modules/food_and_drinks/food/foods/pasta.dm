@@ -44,7 +44,7 @@
 	list_reagents = list("nutriment" = 6, "tomatojuice" = 10, "vitamin" = 4)
 
 /obj/item/reagent_containers/food/snacks/meatballspaghetti
-	name = "spaghetti & Meatballs"
+	name = "spaghetti & meatballs"
 	desc = "Now thats a nice'a meatball!"
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "meatballspaghetti"
