@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(janitorial_equipment, list())		//list of janitorial equipment
 GLOBAL_LIST_INIT(crafting_recipes, list()) //list of all crafting recipes
 GLOBAL_LIST_INIT(prisoncomputer_list, list())
 GLOBAL_LIST_INIT(cell_logs, list())
+GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(machines, list())

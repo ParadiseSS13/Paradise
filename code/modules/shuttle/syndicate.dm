@@ -7,7 +7,8 @@
 	req_access = list(access_syndicate)
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
+	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
+	resistance_flags = INDESTRUCTIBLE
 	var/challenge = FALSE
 	var/moved = FALSE
 
@@ -39,5 +40,56 @@
 			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
 			return 0
 	..()
+
+/obj/machinery/computer/shuttle/sst
+	name = "Syndicate Strike Time Shuttle Console"
+	desc = "Used to call and send the SST shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
+	req_access = list(access_syndicate)
+	shuttleId = "sst"
+	possible_destinations = "sst_home;sst_away;sst_custom"
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/shuttle/sit
+	name = "Syndicate Infiltration Team Shuttle Console"
+	desc = "Used to call and send the SIT shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
+	req_access = list(access_syndicate)
+	shuttleId = "sit"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
+	name = "syndicate shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the syndicate shuttle."
+	icon_screen = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	shuttleId = "syndicate"
+	shuttlePortId = "syndicate_custom"
+	view_range = 13
+	x_offset = -5
+	y_offset = -1
+	see_hidden = TRUE
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SST
+	name = "SST shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the SST shuttle."
+	shuttleId = "sst"
+	shuttlePortId = "sst_custom"
+	view_range = 13
+	x_offset = 0
+	y_offset = 0
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/SIT
+	name = "SIT shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the SIT shuttle."
+	shuttleId = "sit"
+	shuttlePortId = "sit_custom"
+	view_range = 13
+	x_offset = 0
+	y_offset = 0
 
 #undef SYNDICATE_CHALLENGE_TIMER

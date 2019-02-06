@@ -27,6 +27,7 @@
 	flags = traits
 	build_space_destination_arrays()
 	set_linkage(transition_type)
+	set_navbeacon()
 
 /datum/space_level/Destroy()
 	if(linkage == CROSSLINKED)
@@ -133,6 +134,14 @@
 			reset_connections()
 		if(SELFLOOPING)
 			link_to_self() // `link_to_self` is defined in space_transitions.dm
+
+//create docking ports for navigation consoles to jump to
+/datum/space_level/proc/set_navbeacon()
+	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(src)
+	D.name = name
+	D.id = "nav_z[zpos]"
+	D.register()
+	D.forceMove(locate(122, 122, zpos))
 
 var/list/atmos_machine_typecache = typecacheof(/obj/machinery/atmospherics)
 var/list/cable_typecache = typecacheof(/obj/structure/cable)
