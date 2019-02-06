@@ -205,6 +205,9 @@ var/global/datum/controller/occupations/job_master
 					continue
 				filteredCandidates += V
 
+			if(!filteredCandidates.len)
+				continue
+
 			var/mob/new_player/candidate = pick(filteredCandidates)
 			if(AssignRole(candidate, command_position))
 				return 1
