@@ -19,7 +19,14 @@
 # USABLE AWAY MISSIONS              #
 #===================================#
 
-_maps/map_files/RandomZLevels/MinaGate.dmm
+_maps/map_files/RandomZLevels/beach.dmm
+_maps/map_files/RandomZLevels/moonoutpost19.dmm
+_maps/map_files/RandomZLevels/undergroundoutpost45.dmm
+_maps/map_files/RandomZLevels/academy.dmm
+_maps/map_files/RandomZLevels/blackmarketpackers.dmm
+_maps/map_files/RandomZLevels/spacehotel.dmm
+_maps/map_files/RandomZLevels/wildwest.dmm
+_maps/map_files/RandomZLevels/terrorspiders.dmm
 
 #===================================#
 # SPECIAL AWAY MISSIONS             #
