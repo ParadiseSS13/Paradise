@@ -140,21 +140,21 @@
 
 		if(/obj/item/gun/energy/taser)
 			eprojectile = /obj/item/projectile/beam
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 
 		if(/obj/item/gun/energy/gun)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/nuclear)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/turret)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)

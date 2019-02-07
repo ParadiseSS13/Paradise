@@ -4,7 +4,7 @@
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
-	fire_sound = 'sound/weapons/IonRifle.ogg'
+	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
 	flags =  CONDUCT
@@ -148,8 +148,8 @@
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/Laser.ogg'
-	usesound = 'sound/items/Welder.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
+	usesound = 'sound/items/welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT

@@ -21,7 +21,6 @@
 	regen_points_per_hp = 6 // double the normal - IE halved regen speed
 	melee_damage_lower = 30
 	melee_damage_upper = 40
-	move_to_delay = 4 // faster than normal
 	ventcrawler = 0
 	ai_ventcrawls = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS

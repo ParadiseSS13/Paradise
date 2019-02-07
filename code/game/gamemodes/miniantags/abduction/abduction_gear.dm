@@ -457,7 +457,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
-			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
+			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return 0
 
 	switch(mode)
@@ -487,7 +487,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -499,7 +499,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(L.stunned || L.sleeping)
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
-		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 		L.Sleeping(60)
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else

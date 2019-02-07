@@ -27,7 +27,7 @@
 	var/tattoo_g = 1
 	var/tattoo_b = 1
 	toolspeed = 1
-	usesound = 'sound/items/Welder2.ogg'
+	usesound = 'sound/items/welder2.ogg'
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
@@ -550,7 +550,7 @@
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
 		H.update_inv_head()
 		qdel(target)
@@ -1627,3 +1627,40 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ps_bunny"
 
+
+/obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
+	name = "Suspicious Outfit"
+	desc = "A very expensive top with intricate details tailored to fit a vox and paired with a glittery blue skirt, probably illegal."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	icon_state = "kiaoutfit"
+	item_state = "kiaoutfit"
+	item_color = "kiaoutfit"
+	displays_id = FALSE
+	species_restricted = list("Vox")
+
+/obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi
+	name = "Suspicious Witch Hat"
+	desc = "A black witch hat with a blue sash decorated with tiny glimmering stars and a gold squid-like medallion, probably possessed."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "kiahat"
+	item_state = "kiahat"
+	item_color = "kiahat"
+
+/obj/item/clothing/mask/gas/fluff/kiamask //FullOfSkittles: Kiachi
+	name = "Suspicious Mask"
+	desc = "A sleek mask that blends in with the owner's existing quills using strange technology. It might even be magic..."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	icon_state = "kiamask"
+	item_state = "kiamask"
+	item_color = "kiamask"
+	species_restricted = list("Vox")

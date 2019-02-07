@@ -296,7 +296,7 @@ REAGENT SCANNER
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
@@ -591,7 +591,7 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/proc/setReady()
 	ready = TRUE
-	playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
+	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)
 	update_icon()
 
 /obj/item/bodyanalyzer/update_icon(printing = FALSE)

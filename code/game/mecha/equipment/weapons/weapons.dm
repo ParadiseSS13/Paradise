@@ -76,7 +76,7 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
@@ -101,7 +101,7 @@
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
@@ -178,7 +178,7 @@
 	energy_drain = 20
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/energy/electrode
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
@@ -202,7 +202,7 @@
 	if(!equip_ready)
 		return 0
 
-	playsound(chassis, 'sound/items/AirHorn.ogg', 100, 1)
+	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
 		if(istype(M, /mob/living/carbon/human))
@@ -517,7 +517,7 @@
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M as obj)
 	if(istype(M, /obj/mecha/working))

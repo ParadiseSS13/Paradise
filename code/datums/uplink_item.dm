@@ -786,6 +786,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 9
 
+/datum/uplink_item/stealthy_weapons/cameraflash
+	name = "Camera Flash"
+	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\
+			 Due to its design, this flash cannot be overcharged like regular flashes can.\
+			 Useful for stunning borgs and individuals without eye protection or blinding a crowd for a get away."
+	reference = "CF"
+	item = /obj/item/flash/cameraflash
+	cost = 2
+
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
@@ -868,6 +877,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "C4"
 	item = /obj/item/grenade/plastic/c4
 	cost = 1
+
+/datum/uplink_item/explosives/plastic_explosives_pack
+	name = "Pack of 5 C-4 Explosives"
+	desc = "A package containing 5 C-4 Explosives at a discounted price. For when you need that little bit extra for your sabotaging needs."
+	reference = "C4P"
+	item = /obj/item/storage/box/syndie_kit/c4
+	cost = 4
 
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"

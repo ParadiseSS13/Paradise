@@ -4,7 +4,7 @@
 	icon_state = "whetstone"
 	desc = "A block of stone used to sharpen things."
 	w_class = WEIGHT_CLASS_SMALL
-	usesound = 'sound/items/Screwdriver.ogg'
+	usesound = 'sound/items/screwdriver.ogg'
 	var/used = 0
 	var/increment = 4
 	var/max = 30

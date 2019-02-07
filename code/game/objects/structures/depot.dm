@@ -64,7 +64,7 @@
 		depotarea.activate_self_destruct("Fusion reactor cracked open. Core loose!", TRUE)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
-		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)
+		playsound(loc, 'sound/machines/alarm.ogg', 100, 0, 0)
 		O.deliberate = TRUE
 		O.max_cycles = 6
 	if(!skip_qdel)

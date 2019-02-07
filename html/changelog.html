@@ -56,6 +56,144 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">06 February 2019</h2>
+			<h3 class="author">DrunkDwarf updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Reduced the size of the Ward-Takahashi Alt IPC head to prevent pixels clipping when wearing human clothing.</li>
+			</ul>
+
+			<h2 class="date">05 February 2019</h2>
+			<h3 class="author">Alonefromhell updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">LDM and Sorium should no longer push/pull ghosts</li>
+			</ul>
+			<h3 class="author">Kyep updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed a "_logging.dm,85: Cannot execute null.simple info line()" runtime when xenobio slimes emoted.</li>
+			</ul>
+
+			<h2 class="date">03 February 2019</h2>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes a few edge cases of being able to create immunity to a few diseases</li>
+				<li class="rscadd">Adds suspiciously Voxy outfit to the game</li>
+				<li class="tweak">Lack of breathing will render you unable to speak</li>
+			</ul>
+			<h3 class="author">MINIMAN10000 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Boom function now properly checks for fuel</li>
+			</ul>
+			<h3 class="author">Tayyyyyyy, TaukaUsanake updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">pAI units now have access to a flashlight module, which can be obtained with 5 RAM points.</li>
+			</ul>
+
+			<h2 class="date">02 February 2019</h2>
+			<h3 class="author">AzuleUtama updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added Pack of C-4 for Traitors and Nuke ops. Comes with 5 C-4 charges for 4TC.</li>
+			</ul>
+			<h3 class="author">Kyep updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Made playtime numbers displayed to admins (in the playtime report) and players (in the 'check my playtime' verb) clearer in meaning.</li>
+			</ul>
+			<h3 class="author">MINIMAN10000 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Mobs in help intent do not push mobs pulling a structure or the structure they are pulling</li>
+				<li class="bugfix">mobs standing on the same tile when being walked into on help intent.</li>
+				<li class="bugfix">structures pulled beyond 1 distance call stop_pulling</li>
+				<li class="bugfix">stop_pulling() now sets pulledby to null</li>
+			</ul>
+			<h3 class="author">Shadeykins updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Thunderdome volume.</li>
+				<li class="bugfix">Newscaster placement</li>
+				<li class="tweak">Power alarm subtype (noalarm), vomit/blood</li>
+			</ul>
+			<h3 class="author">TDSSS updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Mob spawner menu buttons now work. This time it really works, I swear.</li>
+			</ul>
+			<h3 class="author">uc_guy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Non-breathing mobs no longer cause an increase in germ level by not wearing a mask.</li>
+			</ul>
+
+			<h2 class="date">01 February 2019</h2>
+			<h3 class="author">AffectedArc07 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Disabled darkmode is now normal grey, not full white</li>
+				<li class="tweak">Changelog button now respects darkmode and will update when clicked</li>
+			</ul>
+			<h3 class="author">Citinited updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Sexy clown suits now have the squeak component</li>
+				<li class="bugfix">You can now change the way your sexy clown mask looks</li>
+			</ul>
+			<h3 class="author">Ty-Omaha updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Admin save feature in build mode will ignore mobs</li>
+			</ul>
+			<h3 class="author">datlo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Wingdings now garbles sentences.</li>
+				<li class="bugfix">Clown and mime now have their ID properly updated to their new name after they rename roundstart</li>
+				<li class="rscadd">Added some ID photo outfits to some jobs missing it.</li>
+				<li class="tweak">Agent ID photo editing refactored. The photo now looks the same as a real ID, with an outfit based on the job you've forged on the ID.</li>
+				<li class="tweak">Agent ID should now be impossible to distinguish from a real ID by non-antagonists once properly forged.</li>
+				<li class="tweak">You can now reset access or delete the agent ID's information without having to do both.</li>
+			</ul>
+
+			<h2 class="date">31 January 2019</h2>
+			<h3 class="author">Darkmight9 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds the Camera Flash. A flash disguised as a camera for use as a cheap stun against non-sec, blinding crowds for a get away, and stunning borgs for emaging. Has a charge based system to prevent burning out.</li>
+				<li class="tweak">Did some changes to flash code allowing different flashes to not be overcharged if one wants to or play a different sound when used.</li>
+			</ul>
+			<h3 class="author">Kyep updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed various door control buttons that did not work correctly (brig prison lockdown, admin room lockdown, terror spider away mission containment doors, etc). refactor: refactored door_control buttons to check the GLOB.airlocks list, rather than doing a range(huge_number) check.</li>
+				<li class="tweak">Terror Spider movement speed settings are no longer ignored when under player control. Instead, movement speed has been unified for both AI and player controlled spiders. Under player control, reds will now be slower, and purples will be faster. Under AI control, all spiders will be slower, except reds, which will be faster.</li>
+			</ul>
+			<h3 class="author">alffd updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">revert to SS13 bot standard.</li>
+			</ul>
+			<h3 class="author">datlo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed surgery bugging and sometimes not starting properly when you try to surgery on a table or roller bed.</li>
+				<li class="rscadd">Surgery can now be done on any type of bed, with penalties.</li>
+				<li class="tweak">Help intent is now required to start surgery. Was already needed to do surgery steps.</li>
+				<li class="tweak">Surgery early cautery has been refactored. It is still done by holding a cautery in your inactive hand, but can now be done using ghetto tools, which can fail.</li>
+				<li class="rscadd">Medical cyborgs now have a laser scalpel instead of scalpel and cautery. lt is slightly faster and more versatile than standard tools.</li>
+				<li class="rscadd">Medical cyborgs now have a medical gripper. You can help patients up with it.</li>
+				<li class="rscadd">Medical cyborg can now cauterize incisions early by using the laser scalpel.</li>
+				<li class="rscadd">Added two black suit jackets to the arrivals locker room vendor</li>
+				<li class="rscadd">Added the armored suit jacket to the Bond, Payday, and Professional syndicate bundles.</li>
+				<li class="tweak">Replaced the X4 in the Payday bundles by a C4.</li>
+				<li class="tweak">The professional syndicate bundle now gets thermal fake sunglasses instead of thermal  fake mesons.</li>
+				<li class="tweak">Replaced the toolbox in the professional syndicate bundle by a pair of combat gloves.</li>
+				<li class="bugfix">Wingdings mutation works again.</li>
+			</ul>
+
+			<h2 class="date">30 January 2019</h2>
+			<h3 class="author">AffectedArc07 & Teri updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">There is now a toggle-darkmode verb to switch darkmode on and off</li>
+				<li class="rscadd">Chat settings also has a dark mode</li>
+				<li class="tweak">The icon for the server is now the paradise palm tree</li>
+			</ul>
+			<h3 class="author">Shadeykins updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">New Russian statue</li>
+				<li class="tweak">Moved some cables, swapped a vendor.</li>
+				<li class="bugfix">Fixed missing door button, some dupes, and unintended object behavior.</li>
+			</ul>
+			<h3 class="author">Terilia updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a notification about the chat reconnecting on toggling of the dark chat mode.</li>
+			</ul>
+
 			<h2 class="date">29 January 2019</h2>
 			<h3 class="author">Alonefromhell and Mitchs98 and farie82 updated:</h3>
 			<ul class="changes bgimages16">
