@@ -61,7 +61,7 @@
 	list_reagents = list("nutriment" = 8, "synaptizine" = 10, "vitamin" = 6)
 
 /obj/item/reagent_containers/food/snacks/macncheese
-	name = "macaroni cheese"
+	name = "mac n cheese"
 	desc = "One of the most comforting foods in the world. Apparently."
 	trash = /obj/item/trash/snack_bowl
 	icon = 'icons/obj/food/pasta.dmi'

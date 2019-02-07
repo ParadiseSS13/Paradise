@@ -80,7 +80,7 @@
 	filling_color = "#e5b437"
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
-	name = "macaroni cheese pizza"
+	name = "mac n cheese pizza"
 	desc = "Gastronomists have yet to classify this dish as 'pizza'."
 	icon_state = "macpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
@@ -88,7 +88,7 @@
 	filling_color = "#ffe45d"
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
-	name = "macaroni cheese pizza slice"
+	name = "mac n cheese pizza slice"
 	desc = "A delicious slice of pizza topped with macaroni cheese... wait, what the hell? Who would do this?!"
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "macpizzaslice"
