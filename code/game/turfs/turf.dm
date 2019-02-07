@@ -88,16 +88,15 @@
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(var/obj/item/projectile/Proj)
+	var/obj/machinery/porta_turret/T = locate(/obj/machinery/porta_turret) in contents
+	if(T && T.health > 0)
+		T.bullet_act(Proj)
+		return FALSE
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))
 		src.ex_act(2)
-	..()
-	return 0
-
-/turf/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/bullet/gyro))
 		explosion(src, -1, 0, 2)
 	..()
-	return 0
 
 /turf/Enter(atom/movable/mover as mob|obj, atom/forget as mob|obj|turf|area)
 	if(!mover)
