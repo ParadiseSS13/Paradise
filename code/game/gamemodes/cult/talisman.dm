@@ -419,4 +419,5 @@
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 							"<span class='userdanger'>Your [src] shatters in a discharge of dark magic!</span>")
+	qdel(src)
 	. = ..()
