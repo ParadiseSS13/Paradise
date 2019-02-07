@@ -17,7 +17,7 @@
 #define DISABILITY_FLAG_LISP        256
 #define DISABILITY_FLAG_DIZZY       512
 #define DISABILITY_FLAG_CHAV        1024
-#define DISABILITY_FLAG_BLIND       2048
+#define DISABILITY_FLAG_DEAF        2048
 
 ///////////////////////////////////////
 // MUTATIONS
