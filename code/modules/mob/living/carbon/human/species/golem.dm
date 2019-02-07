@@ -292,6 +292,7 @@
 	name = "Wood Golem"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, VIRUSIMMUNE, NOGUNS, IS_PLANT)
 	//Can burn and take damage from heat
 	brute_mod = 0.7 //30% damage reduction down from 55%
 	burn_mod = 1
