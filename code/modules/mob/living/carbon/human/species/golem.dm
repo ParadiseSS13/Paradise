@@ -5,7 +5,7 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NOGUNS)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, VIRUSIMMUNE, NOGUNS)
 	brute_mod = 0.45 //55% damage reduction
 	burn_mod = 0.45
 	tox_mod = 0.45
