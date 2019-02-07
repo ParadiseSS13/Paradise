@@ -1,4 +1,0 @@
-author: "Dovydas12345"
-delete-after: True
-changes: 
-  - bugfix: "Fixes cult shackles appearing on the ground when removed"
