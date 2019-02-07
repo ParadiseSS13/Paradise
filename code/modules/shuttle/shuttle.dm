@@ -842,7 +842,7 @@
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
 		return
 	..()
 
