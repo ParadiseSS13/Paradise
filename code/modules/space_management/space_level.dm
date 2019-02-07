@@ -141,7 +141,7 @@
 	D.name = name
 	D.id = "nav_z[zpos]"
 	D.register()
-	D.forceMove(locate(122, 122, zpos))
+	D.forceMove(locate(200, 200, zpos))
 
 var/list/atmos_machine_typecache = typecacheof(/obj/machinery/atmospherics)
 var/list/cable_typecache = typecacheof(/obj/structure/cable)

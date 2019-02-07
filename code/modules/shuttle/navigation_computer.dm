@@ -10,10 +10,11 @@
 	var/shuttlePortId = ""
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
-	var/access_station = TRUE //can we park near the station?
-	var/access_sats = TRUE //can we park near telecomms/construction site?
-	var/access_mining = TRUE //can we park near the mining asteroid?
-	var/access_derelict = FALSE //can we explore the derelict zlevel?
+	var/access_station = TRUE //can we park near X?
+	var/access_tcomms = TRUE
+	var/access_construction = TRUE
+	var/access_mining = TRUE
+	var/access_derelict = FALSE
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 7
@@ -29,8 +30,10 @@
 	GLOB.navigation_computers += src
 	if(access_station)
 		jumpto_ports += list("nav_z1" = 1)
-	if(access_sats)
-		jumpto_ports += list("nav_z3" = 1, "nav_z4" = 1)
+	if(access_tcomms)
+		jumpto_ports += list("nav_z3" = 1)
+	if(access_construction)
+		jumpto_ports += list("nav_z4" = 1)
 	if(access_mining)
 		jumpto_ports += list("nav_z5" = 1)
 	if(access_derelict)
@@ -278,9 +281,13 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	..()
-	var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
-	console.checkLandingSpot()
+	if(istype(get_turf(T), /turf/space) || istype(get_area(T), /area/space))
+		..()
+		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
+		console.checkLandingSpot()
+		return
+	else
+		return
 
 /mob/camera/aiEye/remote/shuttle_docker/update_remote_sight(mob/living/user)
 	user.sight = SEE_TURFS
