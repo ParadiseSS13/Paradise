@@ -49,7 +49,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -274,7 +274,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 
-/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
+/mob/dead/observer/proc/notify_cloning(message, sound, atom/source, flashwindow = TRUE)
+	if(flashwindow)
+		window_flash(client)
 	if(message)
 		to_chat(src, "<span class='ghostalert'>[message]</span>")
 		if(source)
@@ -292,7 +294,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				source.plane = old_plane
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
-		src << sound(sound)
+		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]

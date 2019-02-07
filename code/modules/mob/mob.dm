@@ -1156,12 +1156,10 @@ var/list/slot_equipment_priority = list( \
 	if(mind)
 		return mind.grab_ghost(force = force)
 
-/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow = TRUE)
+/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
-		if(flashwindow)
-			window_flash(ghost.client)
-		ghost.notify_cloning(message, sound, source)
+		ghost.notify_cloning(message, sound, source, flashwindow)
 		return ghost
 
 /mob/proc/fakevomit(green = 0, no_text = 0) //for aesthetic vomits that need to be instant and do not stun. -Fox

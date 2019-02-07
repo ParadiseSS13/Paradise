@@ -660,55 +660,53 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(volume < 1)
-		// gotta pay to play
-		return ..()
-	if(isanimal(M))
+	if(isanimal(M) && volume >= 1)
 		if(method == TOUCH)
 			var/mob/living/simple_animal/SM = M
 			if(SM.stat == DEAD)
 				SM.revive()
 				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
-				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+				SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
-	if(iscarbon(M))
+	if(iscarbon(M) && volume >= 5)
 		if(method == INGEST)
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 					M.gib()
 					return
-				var/mob/dead/observer/ghost = M.get_ghost()
-				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>A Strange Reagent is infusing your body with life. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-					window_flash(ghost.client)
-					ghost << sound('sound/effects/genetics.ogg')
-					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
-					var/time_dead = world.time - M.timeofdeath
-					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-					M.adjustCloneLoss(50)
-					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0,15))
-					M.adjustToxLoss(rand(0,15))
-					M.adjustFireLoss(rand(0,15))
+				if(!M.suiciding && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
-							// Per non-vital body part:
-							// 0% chance of necrosis within 1 minute of death
-							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
-								// side effects may include: Organ failure
-								O.necrotize(FALSE)
-								if(O.status & ORGAN_DEAD)
-									O.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
+						if(NO_SCAN in H.dna.species.species_traits)
+							return
+					if(M.notify_ghost_cloning(source = M))
+						M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
+					else
+						var/time_dead = world.time - M.timeofdeath
+						M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+						M.adjustCloneLoss(50)
+						M.setOxyLoss(0)
+						M.adjustBruteLoss(rand(0,15))
+						M.adjustToxLoss(rand(0,15))
+						M.adjustFireLoss(rand(0,15))
+						if(ishuman(M))
+							var/mob/living/carbon/human/H = M
+							var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
+							for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+								// Per non-vital body part:
+								// 0% chance of necrosis within 1 minute of death
+								// 40% chance of necrosis after 20 minutes of death
+								if(!O.vital && prob(necrosis_prob))
+									// side effects may include: Organ failure
+									O.necrotize(FALSE)
+									if(O.status & ORGAN_DEAD)
+										O.germ_level = INFECTION_LEVEL_THREE
+							H.update_body()
 
-					M.update_revive()
-					M.stat = UNCONSCIOUS
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+						M.update_revive()
+						M.stat = UNCONSCIOUS
+						add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /datum/reagent/medicine/mannitol
