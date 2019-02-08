@@ -202,6 +202,42 @@
 			H.enemies |= enemies
 	return 0
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_cocoon_target()
+	if(cocoon_target)
+		if(get_dist(src, cocoon_target) <= 1)
+			spider_steps_taken = 0
+			DoWrap()
+		else
+			if(spider_steps_taken > spider_max_steps)
+				spider_steps_taken = 0
+				cocoon_target = null
+				busy = 0
+				stop_automated_movement = 0
+			else
+				spider_steps_taken++
+				CreatePath(cocoon_target)
+				step_to(src,cocoon_target)
+				if(spider_debug)
+					visible_message("<span class='notice'>[src] moves towards [cocoon_target] to cocoon it.</span>")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/seek_cocoon_target()
+	last_cocoon_object = world.time
+	var/list/can_see = view(src, 10)
+	for(var/mob/living/C in can_see)
+		if(C.stat == DEAD && !isterrorspider(C) && !C.anchored)
+			spider_steps_taken = 0
+			cocoon_target = C
+			return
+	for(var/obj/O in can_see)
+		if(O.anchored)
+			continue
+		if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
+			if(!istype(O, /obj/item/paper))
+				cocoon_target = O
+				stop_automated_movement = 1
+				spider_steps_taken = 0
+				return
+
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PATHING CODE -----------------------------
 // --------------------------------------------------------------------------------

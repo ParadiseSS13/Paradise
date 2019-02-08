@@ -52,6 +52,28 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoVentSmash()
 
+// ---------- PRINCESS ACTIONS
+
+/datum/action/innate/terrorspider/evolvequeen
+	name = "Evolve Queen"
+	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon_state = "terror_queen"
+
+/datum/action/innate/terrorspider/evolvequeen/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/princess/user = owner
+	if(!istype(user))
+		to_chat(user, "<span class='warning'>ERROR: attempt to use evolve queen ability on a non-princess</span>")
+		return
+	var/feedings_left = user.feedings_to_evolve - user.fed
+	if(feedings_left > 0)
+		to_chat(user, "<span class='warning'>You must wrap [feedings_left] more humanoid prey before you can do this!</span>")
+		return
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in ts_spiderlist)
+		if(Q.spider_awaymission == user.spider_awaymission)
+			to_chat(user, "<span class='warning'>The presence of another Queen in the area is preventing you from maturing.")
+			return
+	user.evolve_to_queen()
+
 // ---------- QUEEN ACTIONS
 
 /datum/action/innate/terrorspider/queen/queennest
