@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscdel: "Characters are no longer massively more/less likely to be chosen for head jobs, especially the Captain job, based on their character's age."
