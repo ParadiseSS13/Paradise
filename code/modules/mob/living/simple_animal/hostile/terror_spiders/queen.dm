@@ -322,7 +322,7 @@
 		return
 	if(spider_can_fakelings)
 		spider_can_fakelings--
-		var/numlings = 15
+		var/numlings = 25
 		for(var/i in 1 to numlings)
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
