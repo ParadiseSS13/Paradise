@@ -34,6 +34,7 @@ var/global/list/ts_spiderling_list = list()
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	poison_type = "" // we do not use that silly system.
+	a_intent = INTENT_HARM
 
 	// Movement
 	pass_flags = PASSTABLE
