@@ -275,9 +275,9 @@ var/global/list/ts_spiderling_list = list()
 				spider_placed = 1
 	else
 		ts_count_alive_station++
-	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(CALLBACK(src, .proc/CheckFaction), 150)
-	addtimer(CALLBACK(src, .proc/announcetoghosts), 300)
+	// after 10 seconds, assuming nobody took control of it yet, offer it to ghosts.
+	addtimer(CALLBACK(src, .proc/CheckFaction), 90)
+	addtimer(CALLBACK(src, .proc/announcetoghosts), 100)
 	var/datum/atom_hud/U = huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 
