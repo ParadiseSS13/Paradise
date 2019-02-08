@@ -45,7 +45,7 @@
 			if(get_dist(src,Q) > 20)
 				if(!degenerate && !Q.degenerate)
 					degenerate = 1
-					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
+					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
 					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
 	return ..()
 

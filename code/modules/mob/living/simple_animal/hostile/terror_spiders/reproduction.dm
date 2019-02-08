@@ -13,7 +13,6 @@
 	var/stillborn = FALSE
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
-	var/use_vents = 1
 	var/ventcrawl_chance = 30 // 30% every process(), assuming 33% wander does not trigger
 	var/immediate_ventcrawl = TRUE
 	var/list/enemies = list()
@@ -135,7 +134,7 @@
 			var/target_atom = pick(nearby)
 			if(!istype(get_turf(target_atom),/turf/space))
 				walk_to(src, target_atom)
-	else if(immediate_ventcrawl || (prob(ventcrawl_chance) && use_vents))
+	else if(immediate_ventcrawl || prob(ventcrawl_chance))
 		immediate_ventcrawl = FALSE
 		if(!stillborn)
 			var/safety_score = score_surroundings(src)
@@ -171,12 +170,11 @@
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
 // --------------------------------------------------------------------------------
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number, lay_crawl)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number)
 	stop_automated_movement = 1
 	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src))
 	C.spiderling_type = lay_type
 	C.spiderling_number = lay_number
-	C.spiderling_ventcrawl = lay_crawl
 	C.faction = faction
 	C.spider_myqueen = spider_myqueen
 	C.master_commander = master_commander
@@ -196,7 +194,6 @@
 	var/spider_myqueen = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
-	var/spiderling_ventcrawl = 1
 	var/list/enemies = list()
 
 /obj/structure/spider/eggcluster/terror_eggcluster/New()
@@ -234,7 +231,6 @@
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			if(spiderling_type)
 				S.grow_as = spiderling_type
-			S.use_vents = spiderling_ventcrawl
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
 			S.master_commander = master_commander

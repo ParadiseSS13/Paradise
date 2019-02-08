@@ -155,7 +155,7 @@
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					spider_lastspawn = world.time
-					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
 					neststep = 3
 			if(3)
 				// Create spiders (random T1 types) until nest is full.
@@ -169,7 +169,7 @@
 							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 							if(!N)
 								spider_lastspawn = world.time
-								DoLayTerrorEggs(pick(spider_types_standard), 2, 0)
+								DoLayTerrorEggs(pick(spider_types_standard), 2)
 			if(4)
 				// Nest should be full. If so, pulse attack command. Otherwise, start replenishing nest (stage 5).
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
@@ -192,13 +192,13 @@
 								var/num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
 								var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
 								if(num_purple < 4)
-									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
+									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
 								else if(num_white < 2)
-									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2, 0)
+									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2)
 								else if(num_brown < 2)
-									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 2, 0)
+									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 2)
 								else
-									DoLayTerrorEggs(pick(spider_types_standard), 2, 0)
+									DoLayTerrorEggs(pick(spider_types_standard), 2)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
 	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
@@ -269,17 +269,17 @@
 		else
 			if(eggtype == TS_DESC_MOTHER)
 				canlay -= 12
-				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, 1, 0)
+				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, 1)
 			else if(eggtype == TS_DESC_PRINCE)
 				canlay -= 12
-				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, 1, 0)
+				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, 1)
 		return
 	else if(eggtype == TS_DESC_BROWN)
 		if(canlay < 4)
 			to_chat(src, "<span class='danger'>Insufficient strength. It takes as much effort to lay one of those as it does to lay 4 normal eggs.</span>")
 		else
 			canlay -= 4
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1, 0)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1)
 		return
 	var/numlings = 1
 	if(eggtype != TS_DESC_PURPLE)
@@ -295,15 +295,15 @@
 	canlay -= numlings
 	eggslaid += numlings
 	if(eggtype == TS_DESC_RED)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, numlings, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, numlings)
 	else if(eggtype == TS_DESC_GRAY)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, numlings, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, numlings)
 	else if(eggtype == TS_DESC_GREEN)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, numlings, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, numlings)
 	else if(eggtype == TS_DESC_BLACK)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, numlings, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, numlings)
 	else if(eggtype == TS_DESC_PURPLE)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, numlings, 0)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, numlings)
 	else
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 

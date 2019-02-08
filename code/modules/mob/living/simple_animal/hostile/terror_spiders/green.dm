@@ -52,15 +52,15 @@
 			return 0
 	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
 	if(eggtype == TS_DESC_RED)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)
 	else if(eggtype == TS_DESC_GRAY)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, 1, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, 1)
 	else if(eggtype == TS_DESC_GREEN)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 1, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 1)
 	else if(eggtype == TS_DESC_BLACK)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 1, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 1)
 	else if(eggtype == TS_DESC_BROWN)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1, 1)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1)
 	else
 		to_chat(src, "<span class='warning'>Unrecognized egg type!</span>")
 		fed += feedings_to_lay
