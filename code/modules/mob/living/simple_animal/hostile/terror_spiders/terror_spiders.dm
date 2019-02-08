@@ -276,9 +276,9 @@ var/global/list/ts_spiderling_list = list()
 				spider_placed = 1
 	else
 		ts_count_alive_station++
-	// after 10 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(CALLBACK(src, .proc/CheckFaction), 90)
-	addtimer(CALLBACK(src, .proc/announcetoghosts), 100)
+	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
+	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
+	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
 	var/datum/atom_hud/U = huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 
@@ -361,9 +361,9 @@ var/global/list/ts_spiderling_list = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 1 || (!("terrorspiders" in faction)) || master_commander != null)
-		visible_message("<span class='danger'>[src] writhes in pain!</span>")
-		log_runtime(EXCEPTION("Terror spider created with incorrect faction list at: [atom_loc_line(src)]"))
-		death()
+		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
+		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
+		gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
 	if(D.operating)
