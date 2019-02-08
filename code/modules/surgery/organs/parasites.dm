@@ -87,28 +87,22 @@
 			owner.Stun(20)
 			owner.Weaken(20)
 			// yes, this is a long stun - that's intentional. Gotta give the spiderlings time to escape.
-			var/obj/structure/spider/spiderling/terror_spiderling/S1 = new(get_turf(owner))
-			S1.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
-			S1.name = "red spiderling"
-			if(prob(50))
-				S1.stillborn = 1
-			var/obj/structure/spider/spiderling/terror_spiderling/S2 = new(get_turf(owner))
-			S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
-			S2.name = "gray spiderling"
-			if(prob(50))
-				S2.stillborn = 1
-			var/obj/structure/spider/spiderling/terror_spiderling/S3 = new(get_turf(owner))
-			S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
-			S3.name = "green spiderling"
-			if(prob(50))
-				S3.stillborn = 1
 			if(alternate_ending)
-				S1.stillborn = 1
-				S2.stillborn = 1
-				S3.stillborn = 1
 				owner.gib()
 			else
 				owner.adjustToxLoss(rand(100,180)) // normal case, range: 100-180, average 140, almost crit (150).
+				if(prob(50))
+					var/obj/structure/spider/spiderling/terror_spiderling/S1 = new(get_turf(owner))
+					S1.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
+					S1.name = "red spiderling"
+				if(prob(50))
+					var/obj/structure/spider/spiderling/terror_spiderling/S2 = new(get_turf(owner))
+					S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
+					S2.name = "gray spiderling"
+				if(prob(50))
+					var/obj/structure/spider/spiderling/terror_spiderling/S3 = new(get_turf(owner))
+					S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
+					S3.name = "green spiderling"
 		if(130) // 4m 20s
 			to_chat(owner,"<span class='danger'>The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting.</span>")
 			qdel(src)
