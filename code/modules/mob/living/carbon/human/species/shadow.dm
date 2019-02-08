@@ -18,6 +18,7 @@
 		)
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	dies_at_threshold = TRUE
 
 	oxy_mod = 0
 

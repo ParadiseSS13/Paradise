@@ -6,7 +6,7 @@
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NOGUNS)
-
+	dies_at_threshold = TRUE
 	oxy_mod = 0
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something

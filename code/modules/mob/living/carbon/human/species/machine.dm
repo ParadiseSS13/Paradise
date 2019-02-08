@@ -37,6 +37,7 @@
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
 	can_revive_by_healing = 1
+	dies_at_threshold = TRUE
 	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'

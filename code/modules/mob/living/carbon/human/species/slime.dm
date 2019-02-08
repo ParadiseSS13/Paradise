@@ -27,6 +27,7 @@
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_INTORGANS, NO_SCAN)
+	dies_at_threshold = TRUE
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -83,7 +84,7 @@
 			H.update_body()
 	..()
 
-/datum/species/slime/can_hear() // fucking snowflakes 
+/datum/species/slime/can_hear() // fucking snowflakes
 	. = TRUE
 
 /datum/action/innate/slimecolor

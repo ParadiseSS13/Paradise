@@ -47,7 +47,7 @@
 
 	var/datum/gas_mixture/breath
 
-	if(health <= config.health_threshold_crit)
+	if(health <= HEALTH_THRESHOLD_CRIT)
 		AdjustLoseBreath(1)
 
 	//Suffocate
@@ -406,7 +406,7 @@
 	handle_hud_icons_health_overlay()
 
 /mob/living/carbon/proc/handle_hud_icons_health_overlay()
-	if(stat == UNCONSCIOUS && health <= config.health_threshold_crit)
+	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		var/severity = 0
 		switch(health)
 			if(-20 to -10) severity = 1

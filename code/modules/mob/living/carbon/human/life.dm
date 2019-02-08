@@ -242,7 +242,7 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 
 	if(!L || L && (L.status & ORGAN_DEAD))
-		if(health >= config.health_threshold_crit)
+		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
 		else if(!(NOCRITDAMAGE in dna.species.species_traits))
 			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)

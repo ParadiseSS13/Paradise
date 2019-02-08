@@ -92,6 +92,7 @@
 	var/is_small
 	var/show_ssd = 1
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
+	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
@@ -302,7 +303,7 @@
 		H.SetLoseBreath(0)
 
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
-		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	return
 
@@ -315,7 +316,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else

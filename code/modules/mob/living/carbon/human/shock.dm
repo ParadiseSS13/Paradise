@@ -28,7 +28,7 @@
 
 	updateshock()
 
-	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
+	if(health <= HEALTH_THRESHOLD_CRIT)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)
 
 	if(traumatic_shock >= 100)

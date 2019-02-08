@@ -1669,7 +1669,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
 					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")
 	if(do_mob(src, H, 40))
-		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
+		if(H.health > HEALTH_THRESHOLD_DEAD && H.health <= HEALTH_THRESHOLD_CRIT)
 			var/suff = min(H.getOxyLoss(), 7)
 			H.adjustOxyLoss(-suff)
 			H.updatehealth("cpr")
@@ -1696,7 +1696,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return FALSE
 
 /mob/living/carbon/human/InCritical()
-	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+	return (health <= HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS)
 
 
 /mob/living/carbon/human/IsAdvancedToolUser()

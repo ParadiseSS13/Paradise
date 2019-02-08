@@ -1,7 +1,7 @@
 /mob/var/suiciding = 0
 
 /mob/living/carbon/human/proc/do_suicide(damagetype, byitem)
-	var/threshold = (config.health_threshold_crit + config.health_threshold_dead) / 2
+	var/threshold = (HEALTH_THRESHOLD_CRIT + HEALTH_THRESHOLD_DEAD) / 2
 	var/dmgamt = maxHealth - threshold
 
 	var/damage_mod = 1

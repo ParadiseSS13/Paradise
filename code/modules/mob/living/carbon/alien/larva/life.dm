@@ -19,7 +19,7 @@
 			return 1
 
 		//UNCONSCIOUS. NO-ONE IS HOME
-		if( (getOxyLoss() > 25) || (config.health_threshold_crit >= health) )
+		if( (getOxyLoss() > 25) || (HEALTH_THRESHOLD_CRIT >= health && check_death_method()))
 			//if( health <= 20 && prob(1) )
 			//	spawn(0)
 			//		emote("gasp")
