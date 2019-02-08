@@ -68,7 +68,7 @@
 			to_chat(owner,"<span class='notice'>The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")
 			owner.adjustBruteLoss(-10)
 		if(30) // 1m... the point where the venom uses and accellerates the healing process, to feed the eggs
-			to_chat(owner,"<span class='notice'>Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>")
+			to_chat(owner,"<span class='notice'>Your wound has completely sealed up, though the skin is still black. You feel significantly better.</span>")
 			owner.adjustBruteLoss(-20)
 		if(90) // 3m... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
 			to_chat(owner,"<span class='notice'>The black flesh around your old spider bite wound has started to peel off.</span>")
