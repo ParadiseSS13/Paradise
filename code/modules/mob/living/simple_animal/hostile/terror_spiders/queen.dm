@@ -31,6 +31,7 @@
 	projectiletype = /obj/item/projectile/terrorqueenspit
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
+	web_type = /obj/structure/spider/terrorweb/queen
 	var/spider_spawnfrequency = 1200 // 120 seconds
 	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on ai spiders once nest setup is complete.
 	var/spider_lastspawn = 0
@@ -347,3 +348,13 @@
 				L.Hallucinate(400)
 		if(!isterrorspider(L))
 			L.adjustToxLoss(bonus_tox)
+
+/obj/structure/spider/terrorweb/queen
+	name = "toxic terror web"
+
+/obj/structure/spider/terrorweb/queen/web_special_ability(var/mob/living/carbon/C)
+	if(istype(C))
+		var/inject_target = pick("chest","head")
+		if(C.can_inject(null, 0, inject_target, 0))
+			C.Hallucinate(400)
+			C.adjustToxLoss(30)

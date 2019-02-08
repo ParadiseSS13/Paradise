@@ -7,7 +7,7 @@
 
 /datum/action/innate/terrorspider/web/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
-	user.Web(0)
+	user.Web()
 
 /datum/action/innate/terrorspider/wrap
 	name = "Wrap"
@@ -30,16 +30,6 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/green/user = owner
 	user.DoLayGreenEggs()
 
-// ---------- PRINCE ACTIONS
-
-/datum/action/innate/terrorspider/thickweb
-	name = "Thick Web"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "stickyweb2"
-
-/datum/action/innate/terrorspider/thickweb/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
-	user.Web(1)
 
 // ---------- BOSS ACTIONS
 
@@ -125,7 +115,9 @@
 
 // ---------- WEB
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/Web(var/thick = 0)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
+	if(!web_type)
+		return
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	if(do_after(src, delay_web, target = loc))
@@ -138,15 +130,8 @@
 			if(T)
 				to_chat(src, "<span class='danger'>There is already a web here.</span>")
 			else
-				var/obj/structure/spider/terrorweb/W = new /obj/structure/spider/terrorweb(loc)
+				var/obj/structure/spider/terrorweb/W = new web_type(loc)
 				W.creator_ckey = ckey
-				if(thick)
-					W.opacity = 1
-					W.name = "thick terror web"
-					W.health = W.health * 2
-				if(web_infects)
-					W.infectious = 1
-					W.name = "sharp terror web"
 
 /obj/structure/spider/terrorweb
 	name = "terror web"
@@ -157,7 +142,6 @@
 	health = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
-	var/infectious = 0
 
 /obj/structure/spider/terrorweb/New()
 	..()
@@ -186,11 +170,7 @@
 			DeCloakNearby()
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
-				if(!IsTSInfected(C) && infectious)
-					var/inject_target = pick("chest","head")
-					if(C.can_inject(null, 0, inject_target, 0))
-						to_chat(C, "<span class='danger'>[src] slices into you!</span>")
-						new /obj/item/organ/internal/body_egg/terror_eggs(C)
+				web_special_ability(C)
 				spawn(70)
 					if(C.loc == loc)
 						qdel(src)
@@ -207,6 +187,9 @@
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
 		return
 	..()
+
+/obj/structure/spider/terrorweb/proc/web_special_ability(var/mob/living/carbon/C)
+	return
 
 // ---------- WRAP
 

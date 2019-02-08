@@ -24,6 +24,7 @@
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 2 // movement_delay() gives 4.5, or 0.45s between steps, which = about 2.2 tiles/second. Player is slightly faster than AI, but cannot move on diagonals.
 	spider_opens_doors = 2
+	web_type = /obj/structure/spider/terrorweb/red
 	var/enrage = 0
 	var/melee_damage_lower_rage0 = 15
 	var/melee_damage_upper_rage0 = 20
@@ -58,3 +59,8 @@
 			melee_damage_lower = melee_damage_lower_rage1
 			melee_damage_upper = melee_damage_upper_rage1
 	..()
+
+
+/obj/structure/spider/terrorweb/red
+	health = 30
+	name = "strong terror web"

@@ -20,6 +20,7 @@
 	health = 150
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+	web_type = /obj/structure/spider/terrorweb/green
 	var/feedings_to_lay = 2
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 
@@ -87,3 +88,12 @@
 	else
 		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
 	L.attack_animal(src)
+
+/obj/structure/spider/terrorweb/green
+	name = "slimy terror web"
+
+/obj/structure/spider/terrorweb/green/web_special_ability(var/mob/living/carbon/C)
+	if(istype(C))
+		if(C.eye_blurry < 60)
+			C.AdjustEyeBlurry(30)
+

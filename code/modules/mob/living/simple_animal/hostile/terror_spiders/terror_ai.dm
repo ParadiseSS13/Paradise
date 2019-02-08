@@ -134,14 +134,11 @@
 					L.do_attack_animation(src)
 					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
 					break
-		else if(ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
+		else if(web_type && ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
-				var/obj/structure/spider/terrorweb/W = new /obj/structure/spider/terrorweb(loc)
-				if(web_infects)
-					W.infectious = 1
-					W.name = "sharp terror web"
+				new web_type(loc)
 				visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 			if(prob(idle_ventcrawl_chance))

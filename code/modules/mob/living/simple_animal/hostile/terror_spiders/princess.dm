@@ -6,7 +6,7 @@
 // -------------: AI: as green, but will evolve to queen when it can
 // -------------: SPECIAL: can evolve into a queen, if fed enough
 // -------------: TO FIGHT IT: kill it before it evolves
-// -------------: SPRITES FROM: Chai in the Paradise Discord
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/princess
 	name = "Princess of Terror spider"
@@ -25,6 +25,7 @@
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
+	web_type = /obj/structure/spider/terrorweb/queen
 	var/feedings_to_evolve = 3
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/evolvequeen/evolvequeen_action
@@ -64,3 +65,4 @@
 		evolve_to_queen()
 	else if(world.time > (last_cocoon_object + freq_cocoon_object))
 		seek_cocoon_target()
+

@@ -148,6 +148,7 @@ var/global/list/ts_spiderling_list = list()
 	var/web_infects = 0
 
 	var/datum/action/innate/terrorspider/web/web_action
+	var/web_type = /obj/structure/spider/terrorweb
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// Breathing - require some oxygen, and no toxins, but take little damage from this requirement not being met (they can hold their breath)
@@ -255,8 +256,9 @@ var/global/list/ts_spiderling_list = list()
 		add_language("Galactic Common")
 	default_language = GLOB.all_languages["Spider Hivemind"]
 
-	web_action = new()
-	web_action.Grant(src)
+	if(web_type)
+		web_action = new()
+		web_action.Grant(src)
 	wrap_action = new()
 	wrap_action.Grant(src)
 

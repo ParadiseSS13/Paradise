@@ -28,15 +28,11 @@
 	ai_ventcrawls = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
+	web_type = /obj/structure/spider/terrorweb/purple
+	ai_spins_webs = FALSE
 	var/dcheck_counter = 0
 	var/queen_visible = 1
 	var/cycles_noqueen = 0
-	var/datum/action/innate/terrorspider/thickweb/thickweb_action
-
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/New()
-	..()
-	thickweb_action = new()
-	thickweb_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
 	if(can_die() && spider_myqueen)
@@ -93,3 +89,8 @@
 				to_chat(src,"<span class='userdanger'>Your link to your Queen has been broken! Your life force starts to drain away!</span>")
 				melee_damage_lower = 5
 				melee_damage_upper = 10
+
+/obj/structure/spider/terrorweb/purple
+	name = "thick terror web"
+	opacity = 1
+	health = 40

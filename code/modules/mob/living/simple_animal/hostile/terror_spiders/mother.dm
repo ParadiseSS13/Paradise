@@ -23,6 +23,7 @@
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
+	web_type = null
 	var/canspawn = TRUE
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
