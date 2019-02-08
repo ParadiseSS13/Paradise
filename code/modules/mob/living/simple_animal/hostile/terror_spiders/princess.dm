@@ -19,8 +19,9 @@
 	maxHealth = 150
 	health = 150
 	regen_points_per_hp = 1 // always regens very fast
+	force_threshold = 18 // outright immune to anything of force under 18, same as queen
 	melee_damage_lower = 10
-	melee_damage_upper = 30
+	melee_damage_upper = 20
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
