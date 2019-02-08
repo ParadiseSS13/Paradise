@@ -13,6 +13,8 @@
 	var/stillborn = FALSE
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
+	var/spider_mymother = null
+	var/goto_mother = FALSE
 	var/ventcrawl_chance = 30 // 30% every process(), assuming 33% wander does not trigger
 	var/immediate_ventcrawl = TRUE
 	var/list/enemies = list()
@@ -45,16 +47,19 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(var/atom/A = src)
 	var/safety_score = 0
-	for(var/mob/living/L in view(7, get_turf(A)))
+	var/turf/T = get_turf(A)
+	for(var/mob/living/L in viewers(T))
 		if(isterrorspider(L))
 			if(L.stat == DEAD)
 				safety_score--
 			else
 				safety_score++
+				if(spider_mymother && L == spider_mymother)
+					safety_score++
 		else if(L.stat != DEAD)
 			safety_score--
 	if(debug_ai_choices)
-		debug_visual(get_turf(A), safety_score, A)
+		debug_visual(T, safety_score, A)
 	return safety_score
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/debug_visual(var/turf/T, var/score, var/atom/A)
@@ -91,6 +96,11 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
+			if(spider_mymother && (goto_mother || prob(10)))
+				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(5, spider_mymother))
+					if(!v.welded)
+						exit_vent = v
+				goto_mother = FALSE
 			if(!stillborn)
 				var/current_safety_score = score_surroundings(src)
 				var/new_safety_score = score_surroundings(exit_vent)
@@ -136,7 +146,7 @@
 				walk_to(src, target_atom)
 	else if(immediate_ventcrawl || prob(ventcrawl_chance))
 		immediate_ventcrawl = FALSE
-		if(!stillborn)
+		if(!stillborn && !goto_mother)
 			var/safety_score = score_surroundings(src)
 			if(safety_score > 0)
 				// This area seems safe (friendly spiders present). Do not leave this area.
@@ -161,6 +171,7 @@
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
 				S.spider_myqueen = spider_myqueen
+				S.spider_mymother = spider_mymother
 				S.master_commander = master_commander
 				S.enemies = enemies
 				qdel(src)
@@ -177,6 +188,7 @@
 	C.spiderling_number = lay_number
 	C.faction = faction
 	C.spider_myqueen = spider_myqueen
+	C.spider_mymother = src
 	C.master_commander = master_commander
 	C.enemies = enemies
 	if(spider_growinstantly)
@@ -192,6 +204,7 @@
 	var/spider_growinstantly = 0
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
+	var/spider_mymother = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
 	var/list/enemies = list()
@@ -233,6 +246,7 @@
 				S.grow_as = spiderling_type
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
+			S.spider_mymother = spider_mymother
 			S.master_commander = master_commander
 			S.enemies = enemies
 			if(spider_growinstantly)

@@ -82,6 +82,7 @@
 		/mob/living/simple_animal/hostile/poison/terror_spider/white, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/black)
 		S.spider_myqueen = spider_myqueen
+		S.spider_mymother = src
 		if(prob(sbpc))
 			S.stillborn = TRUE
 		if(spider_growinstantly)

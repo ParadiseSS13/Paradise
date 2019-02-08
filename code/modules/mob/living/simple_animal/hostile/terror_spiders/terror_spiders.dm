@@ -143,6 +143,7 @@ var/global/list/ts_spiderling_list = list()
 	var/attackstep = 0
 	var/attackcycles = 0
 	var/spider_myqueen = null
+	var/spider_mymother = null
 	var/mylocation = null
 	var/chasecycles = 0
 	var/web_infects = 0

@@ -328,6 +328,7 @@
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S.stillborn = 1
+			S.spider_mymother = src
 		if(!spider_can_fakelings)
 			queenfakelings_action.Remove(src)
 	else
