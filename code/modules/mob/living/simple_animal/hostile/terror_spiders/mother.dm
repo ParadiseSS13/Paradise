@@ -13,9 +13,9 @@
 	desc = "An enormous spider. Hundreds of tiny spiderlings are crawling all over it. Their beady little eyes all stare at you. The horror!"
 	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
 	ai_target_method = TS_DAMAGE_SIMPLE
-	icon_state = "terror_gray2"
-	icon_living = "terror_gray2"
-	icon_dead = "terror_gray2_dead"
+	icon_state = "terror_mother"
+	icon_living = "terror_mother"
+	icon_dead = "terror_mother_dead"
 	maxHealth = 50
 	health = 50
 	melee_damage_lower = 10
