@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Health HUDs now have a defib indicator showing if they can be revived with a defib or not"
-  - tweak: "Defib \"safe\" time reduced from 5 minutes to 2 minutes"
-  - bugfix: "fixes a bug where sometimes revived individuals still appeared to be dead or severely damaged on health HUDs after being revived with a defib"
