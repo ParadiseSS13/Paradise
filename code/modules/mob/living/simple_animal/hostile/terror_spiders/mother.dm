@@ -25,6 +25,7 @@
 	spider_opens_doors = 2
 	web_type = null
 	var/canspawn = TRUE
+	var/spawncount = 30
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
@@ -38,7 +39,7 @@
 			canspawn = FALSE
 		if(canspawn)
 			canspawn = FALSE
-			for(var/i in 0 to 30)
+			for(var/i in 0 to spawncount)
 				var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 				if(prob(50))
 					S.stillborn = 1
