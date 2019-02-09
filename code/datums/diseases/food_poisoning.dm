@@ -13,6 +13,7 @@
 	severity = MINOR
 	disease_flags = CURABLE
 	spread_flags = NON_CONTAGIOUS
+	virus_heal_resistant = TRUE
 	var/remissive = 0
 
 /datum/disease/food_poisoning/stage_act()

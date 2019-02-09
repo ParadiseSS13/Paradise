@@ -75,6 +75,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isslime(A)		(istype((A), /mob/living/carbon/slime))
 
+//Structures
+#define isstructure(A)	(istype((A), /obj/structure))
+
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)

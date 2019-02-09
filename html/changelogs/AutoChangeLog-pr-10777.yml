@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed various door control buttons that did not work correctly (brig prison lockdown, admin room lockdown, terror spider away mission containment doors, etc).
-refactor: refactored door_control buttons to check the GLOB.airlocks list, rather than doing a range(huge_number) check."

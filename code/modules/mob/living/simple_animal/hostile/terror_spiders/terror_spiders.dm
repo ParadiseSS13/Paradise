@@ -36,11 +36,22 @@ var/global/list/ts_spiderling_list = list()
 	poison_type = "" // we do not use that silly system.
 
 	// Movement
+	pass_flags = PASSTABLE
+	turns_per_move = 5 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
-	turns_per_move = 5
+	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
+	// 5 = 4 tiles/sec, 6 = 3.3 tiles/sec. 3 = 6.6 tiles/sec.
+
+	// Player spider movement speed is controlled by the 'speed' var.
+	// Higher numbers mean slower speed. Can be negative for major speed increase. Call movement_delay() on mob to convert this var to into a step delay.
+	// '-1' (default for fast humans) converts to 1.5 or 6.6 tiles/sec
+	// '0' (default for human mobs) converts to 2.5, or 4 tiles/sec.
+	// '1' (default for most simple_mobs, including terror spiders) converts to 3.5, or 2.8 tiles/sec.
+	// '2' converts to 4.5, or 2.2 tiles/sec.
+
+	// Atmos
 	pressure_resistance = 50    //50 kPa difference required to push
 	throw_pressure_limit = 100  //100 kPa difference required to throw
-	pass_flags = PASSTABLE
 
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
