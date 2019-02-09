@@ -388,3 +388,8 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ##Uncomment to enable developer start. Auto starts the server after initialization
 ##DEVELOPER_EXPRESS_START
+
+##Disable subsystems by name comma delimited. Last verified 1-30-2019 list of subsystems
+## Garbage, Atoms, Machines, Timer, Fires, Mobs, Nanoui, NPC AI, NPC Pool, Space Drift, Sun, Throwing, Weather,
+## Atmospherics, Icon Smoothing, Overlay, Tickets, Shuttle, Night Shift, Nano-Mob Hunter GO Server
+DEVELOPER_DISABLE_SUBSYSTEM
