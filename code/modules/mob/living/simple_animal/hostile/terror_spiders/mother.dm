@@ -25,7 +25,8 @@
 	spider_opens_doors = 2
 	web_type = null
 	var/canspawn = TRUE
-	var/spawncount = 30
+	var/spawn_count = 30
+	var/spawn_pc_stillborn = 50
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
@@ -39,9 +40,9 @@
 			canspawn = FALSE
 		if(canspawn)
 			canspawn = FALSE
-			for(var/i in 0 to spawncount)
+			for(var/i in 0 to spawn_count)
 				var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-				if(prob(50))
+				if(prob(spawn_pc_stillborn))
 					S.stillborn = 1
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 				S.amount_grown = 50 // double speed growth
