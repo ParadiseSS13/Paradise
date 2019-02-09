@@ -10,7 +10,7 @@
 					ext_python("ircbot_message.py", "[config.comms_password] [IP] [channel] [paranoid_sanitize(msg)]")
 	return
 
-	/proc/send2mainirc(var/msg, var/lesser_sanitize = FALSE)
+/proc/send2mainirc(var/msg, var/lesser_sanitize = FALSE)
 	if(config.main_irc)
 		send2irc(config.main_irc, msg, lesser_sanitize)
 	return
