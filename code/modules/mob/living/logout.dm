@@ -10,4 +10,5 @@
 			Sleeping(2)
 			player_logged = 1
 			last_logout = world.time
-			overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+			if(istype(src, /mob/living/carbon/human)) //only human carbon SSD warnings
+				overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow")
