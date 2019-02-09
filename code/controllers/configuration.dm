@@ -209,6 +209,7 @@
 
 	// Developer
 	var/developer_express_start = 0
+	var/developer_disable_subsystem[]
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -636,6 +637,8 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
+				if("developer_disable_subsystem")
+					config.developer_disable_subsystem = splittext(value, ",")
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
