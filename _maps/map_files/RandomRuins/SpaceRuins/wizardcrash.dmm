@@ -49,14 +49,14 @@
 "aW" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/wood{tag = "icon-wood-broken6"; icon_state = "wood-broken6"},/area/ruin/unpowered)
 "aX" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/wood,/area/ruin/unpowered)
 "aY" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/plating,/area/ruin/unpowered)
-"aZ" = (/obj/effect/spawner/random_spawners/blood_maybe,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"aZ" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "ba" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{dir = 1; icon_state = "chapel"},/area/ruin/unpowered)
 "bb" = (/obj/structure/chair,/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/ruin/unpowered)
 "bc" = (/obj/effect/decal/remains/human,/obj/item/reagent_containers/food/snacks/meat/monkey,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "bd" = (/obj/structure/showcase,/turf/simulated/floor/plasteel{dir = 1; icon_state = "chapel"},/area/ruin/unpowered)
-"be" = (/obj/effect/spawner/random_spawners/blood_often,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"be" = (/obj/structure/grille{density = 0; icon_state = "brokengrille"},/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/wood,/area/ruin/unpowered)
 "bf" = (/obj/item/shard{icon_state = "medium"},/turf/simulated/floor/plating,/area/ruin/unpowered)
-"bg" = (/obj/effect/spawner/random_spawners/blood_maybe,/obj/structure/grille{density = 0; icon_state = "brokengrille"},/turf/simulated/floor/wood,/area/ruin/unpowered)
+"bg" = (/obj/item/reagent_containers/food/snacks/meat/monkey,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "bh" = (/obj/machinery/door/window,/turf/simulated/floor/wood,/area/ruin/unpowered)
 "bi" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "chapel"},/area/ruin/unpowered)
 "bj" = (/obj/item/reagent_containers/food/snacks/meat/human,/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/plasteel{icon_state = "chapel"},/area/ruin/unpowered)
@@ -67,7 +67,6 @@
 "bo" = (/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/ruin/unpowered)
 "bp" = (/obj/structure/rack,/obj/item/twohanded/staff,/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/ruin/unpowered)
 "bq" = (/obj/effect/decal/remains/human,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"br" = (/obj/effect/spawner/random_spawners/blood_maybe,/obj/item/reagent_containers/food/snacks/meat/monkey,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "bs" = (/turf/simulated/floor/plasteel{icon_state = "chapel"},/area/ruin/unpowered)
 "bt" = (/obj/structure/showcase,/turf/simulated/floor/plasteel{dir = 8; icon_state = "chapel"},/area/ruin/unpowered)
 "bu" = (/obj/structure/rack,/obj/item/twohanded/staff/broom,/turf/simulated/floor/plasteel{icon_state = "chapel"},/area/ruin/unpowered)
@@ -114,9 +113,9 @@ aaaaaaaaaeaNaOaCaCaGaCaCaPaQaeaaaaaaaaaa
 aaaaaaaeaeaRaCaCaAaCaCaCaSaTaeaeaaaaaaaa
 aaaaaeaeaeaUaUaUaVaCaVaWaXaXaeaeaeaaaaaa
 aaaaaeaYbcaZaZaUaCaCaCaXbabbbdbCaeaaaaaa
-aaaaaebebeaSbfbgaCaCaCbhbibjbEbkaeaaaaaa
+aaaaaeaSaSaSbfbeaCaCaCbhbibjbEbkaeaaaaaa
 aaaaaeblaSaZaSaUbmaCaCaXbnbobnbpaeaaaaaa
-aaaaaebqbraZaSaUaCaCaCaXbibsbtbuaeaaaaaa
+aaaaaebqbgaSaSaUaCaCaCaXbibsbtbuaeaaaaaa
 aaaaaeaeaeaeaeaeaebvaeaeaeaeaeaeaeaaaaaa
 aaaaaebwbxbBbxaSbybIbyaSbxbBbxbzaeaaaaaa
 aaaaaebAbJbKbLaSbJbKbLaSbJbKbLbPaeaaaaaa
