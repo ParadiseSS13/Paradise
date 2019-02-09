@@ -6,8 +6,6 @@
 	update_sight()
 
 	//If they're SSD, remove it so they can wake back up.
-	if(player_logged && istype(src, /mob/living/carbon/human))
-		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 	player_logged = 0
 	//Vents
 	if(ventcrawler)
