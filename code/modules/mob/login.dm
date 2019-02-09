@@ -70,7 +70,7 @@
 			AA.display_to(list(src))
 
 	update_client_colour(0)
-	overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+
 	callHook("mob_login", list("client" = client, "mob" = src))
 
 // Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().

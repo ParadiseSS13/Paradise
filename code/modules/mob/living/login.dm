@@ -6,8 +6,9 @@
 	update_sight()
 
 	//If they're SSD, remove it so they can wake back up.
+	if(player_logged)
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 	player_logged = 0
-
 	//Vents
 	if(ventcrawler)
 		to_chat(src, "<span class='notice'>You can ventcrawl! Use alt+click on vents to quickly travel about the station.</span>")
