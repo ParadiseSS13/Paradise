@@ -185,7 +185,7 @@
 	name = "Strange Reagent"
 	id = "strange_reagent"
 	result = "strange_reagent"
-	required_reagents = list("uranium" = 1, "holywater" = 1, "mutagen" = 1)
+	required_reagents = list("earthsblood" = 1, "holywater" = 1, "mutagen" = 1)
 	result_amount = 1
 	mix_message = "The substance begins moving on its own somehow."
 
