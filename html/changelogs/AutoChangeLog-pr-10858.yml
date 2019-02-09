@@ -1,4 +1,0 @@
-author: "AffectedArc07"
-delete-after: True
-changes: 
-  - tweak: "Fixed roundstart message in discord so that people are notified instead of characters being replaced"
