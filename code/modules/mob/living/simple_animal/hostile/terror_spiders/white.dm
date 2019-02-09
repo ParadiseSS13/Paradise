@@ -59,7 +59,8 @@
 
 
 /obj/structure/spider/terrorweb/white
-	name = "sickly terror web"
+	name = "infested web"
+	desc = "This web is covered in hundreds of tiny, biting spiders - and their eggs."
 
 /obj/structure/spider/terrorweb/white/web_special_ability(var/mob/living/carbon/C)
 	if(istype(C))

@@ -90,7 +90,8 @@
 	L.attack_animal(src)
 
 /obj/structure/spider/terrorweb/green
-	name = "slimy terror web"
+	name = "slimy web"
+	desc = "This web is partly composed of strands of green slime."
 
 /obj/structure/spider/terrorweb/green/web_special_ability(var/mob/living/carbon/C)
 	if(istype(C))

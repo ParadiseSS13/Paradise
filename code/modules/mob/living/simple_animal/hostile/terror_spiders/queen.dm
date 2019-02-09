@@ -351,7 +351,8 @@
 			L.adjustToxLoss(bonus_tox)
 
 /obj/structure/spider/terrorweb/queen
-	name = "toxic terror web"
+	name = "shimmering web"
+	desc = "This web seems to shimmer all different colors in the light."
 
 /obj/structure/spider/terrorweb/queen/web_special_ability(var/mob/living/carbon/C)
 	if(istype(C))

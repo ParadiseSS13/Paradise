@@ -47,7 +47,8 @@
 
 
 /obj/structure/spider/terrorweb/black
-	name = "dark terror web"
+	name = "sinister web"
+	desc = "This web has beads of a dark fluid on its strands."
 
 /obj/structure/spider/terrorweb/black/web_special_ability(var/mob/living/carbon/C)
 	if(istype(C))

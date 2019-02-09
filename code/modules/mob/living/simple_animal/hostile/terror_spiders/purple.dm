@@ -91,6 +91,7 @@
 				melee_damage_upper = 10
 
 /obj/structure/spider/terrorweb/purple
-	name = "thick terror web"
+	name = "thick web"
+	desc = "This web is so thick, most cannot see beyond it."
 	opacity = 1
 	health = 40
