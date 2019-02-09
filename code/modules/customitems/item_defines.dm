@@ -847,6 +847,15 @@
 	species_fit = null
 	sprite_sheets = null
 
+/obj/item/clothing/suit/storage/labcoat/fluff/pulsecoat //ozewse : Daniel Harper : Donated to them by Runemeds, who is the original donor.
+	name = "EMT pulse coat"
+	desc = "An EMT labcoat modified to track the wearer's heartbeat. It's so worn out that it doesn't seem to accurately track heartbeat anymore. Also, the zipper is stuck."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "pulsecoat"
+	item_state = "pulsecoat"
+	ignore_suitadjust = 1
+	actions_types = list()
+
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
 	name = "custom purple military jacket"
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one has a medical patch on it."
@@ -1115,6 +1124,11 @@
 	flags = NODROP|BLOCKHAIR
 	flags_inv = HIDEEARS
 
+/obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
+	name = "red trench coat"
+	desc = "A red coat with cheaply made plastic accessories."
+	icon_state = "pineapple_trench"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
 	icon = 'icons/obj/custom_items.dmi'
@@ -1312,6 +1326,13 @@
 
 /obj/item/toy/plushie/fluff/fox/ui_action_click()
 	change_color()
+
+/obj/item/clothing/suit/jacket/miljacket/desert/fox
+	name = "rugged military jacket"
+	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "fox_coat"
+	item_color = "fox_coat"
 
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
