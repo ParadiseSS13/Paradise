@@ -945,7 +945,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/assembly/igniter = 1)
 
 /obj/item/circuitboard/ore_redemption/golem
-	name = "Golem Ship Ore Redemption (Machine Board)"
+	name = "circuit board (Golem Ore Redemption)"
 	build_path = /obj/machinery/mineral/ore_redemption/golem
 
 /obj/item/circuitboard/mining_equipment_vendor
@@ -958,7 +958,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 3)
 
 /obj/item/circuitboard/mining_equipment_vendor/golem
-	name = "Golem Ship Equipment Vendor (Machine Board)"
+	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor/golem
 
 /obj/item/circuitboard/clawgame
