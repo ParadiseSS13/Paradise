@@ -1,4 +1,4 @@
-/proc/send2irc(var/channel, var/msg, var/lesser_sanitize=0)
+/proc/send2irc(var/channel, var/msg, var/lesser_sanitize = FALSE)
 	if(config.use_irc_bot && config.irc_bot_host.len)
 		for(var/IP in config.irc_bot_host)
 			spawn(0)
@@ -10,7 +10,7 @@
 					ext_python("ircbot_message.py", "[config.comms_password] [IP] [channel] [paranoid_sanitize(msg)]")
 	return
 
-/proc/send2mainirc(var/msg, var/lesser_sanitize=0)
+	/proc/send2mainirc(var/msg, var/lesser_sanitize = FALSE)
 	if(config.main_irc)
 		send2irc(config.main_irc, msg, lesser_sanitize)
 	return
