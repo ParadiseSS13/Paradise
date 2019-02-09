@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "Singularities can no longer be pushed"
