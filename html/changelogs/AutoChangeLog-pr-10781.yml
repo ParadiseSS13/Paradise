@@ -1,4 +1,0 @@
-author: "MINIMAN10000"
-delete-after: True
-changes: 
-  - rscadd: "Configuration option for disabling subsystems"
