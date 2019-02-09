@@ -661,10 +661,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(volume < 1)
-		// gotta pay to play
-		return ..()
-	if(isanimal(M))
+	if(isanimal(M) && volume >= 1)
 		if(method == TOUCH)
 			var/mob/living/simple_animal/SM = M
 			if(SM.stat == DEAD)
@@ -672,7 +669,7 @@
 				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 
-	if(iscarbon(M))
+	if(iscarbon(M) && volume >= 10)
 		if(method == INGEST)
 			if(M.stat == DEAD)
 				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
