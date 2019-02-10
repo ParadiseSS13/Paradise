@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Allows you to switch strap sides on leather satchel"
