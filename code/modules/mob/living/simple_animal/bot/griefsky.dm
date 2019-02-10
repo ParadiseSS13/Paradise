@@ -1,12 +1,10 @@
 /mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
 	name = "General Beepsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky0"
 	health = 100
 	maxHealth = 100
 	base_icon = "griefsky"
-	bot_core_type = /obj/machinery/bot_core/secbot
 	window_name = "Automatic Security Unit v3.0"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
