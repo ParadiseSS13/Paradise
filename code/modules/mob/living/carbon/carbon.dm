@@ -1,6 +1,9 @@
 /mob/living
 	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
+	var/tackling = 0
+	var/tackle_cooldown = 0
+	var/tackle_cooldown_time = 120 // Nobody is going to want tackles to be spammed
 
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
@@ -502,21 +505,61 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/carbon/ClickOn(var/atom/A, var/params)
+	face_atom(A)
+	if(INTENT_GRAB && src.in_throw_mode)
+		toggle_tackle(A)
+	else
+		..()
+
+#define MAX_CARBON_TACKLE_DIST 3
+
+//New leap code using xeno leap code but repurposed for humans
+/mob/living/carbon/proc/toggle_tackle(var/atom/A)
+	if (tackle_cooldown > world.time)
+		to_chat(src,"<span class='danger'>You are too tired to tackle!</span>")
+		return
+	
+	if(tackling) //Leap while you leap, so you can leap while you leap
+		return
+
+	if(!has_gravity(src) || !has_gravity(A))
+		to_chat(src, "<span class='danger'>You can't find your footing!</span>")
+		//It's also extremely buggy visually, so it's balance+bugfix
+		return
+
+	if(lying)
+		return
+
+	else
+		tackling = 1
+		update_icons()
+		throw_at(A, MAX_CARBON_TACKLE_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .tackle_end))
+
+/mob/living/carbon/proc/tackle_end()
+	tackling = 0
+	update_icons()
+
+/mob/living/carbon/throw_impact(atom/A)
 	. = ..()
-	var/hurt = TRUE
+	var/hurt
+	if (!tackling)	
+		hurt = TRUE
+
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(isrobot(D.thrower))
 			var/mob/living/silicon/robot/R = D.thrower
 			if(!R.emagged)
 				hurt = FALSE*/
-	if(hit_atom.density && isturf(hit_atom))
+
+	if(A.density && isturf(A))
 		if(hurt)
 			Weaken(1)
 			take_organ_damage(10)
-	if(iscarbon(hit_atom) && hit_atom != src)
-		var/mob/living/carbon/victim = hit_atom
+
+	if(iscarbon(A) && A != src)
+		var/mob/living/carbon/victim = A
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)
@@ -524,6 +567,39 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			Weaken(1)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+
+	if(!tackling)
+		return ..()
+
+	if(A)
+		throw_mode_off()
+		tackle_cooldown = world.time + tackle_cooldown_time
+		if(isliving(A))
+			var/mob/living/L = A
+			var/blocked = 0
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				if(H.check_shields(0, "the [name]", src, attack_type = LEAP_ATTACK))
+					blocked = 1
+			if(!blocked)
+				L.visible_message("<span class ='danger'>[src] tackles [L]!</span>", "<span class ='userdanger'>[src] tackles you!</span>")
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L
+					H.apply_effect(3, WEAKEN, H.run_armor_check(null, "melee"))
+				else
+					L.Weaken(3)
+				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
+				step_towards(src,L)
+			else
+				src.Weaken(2, 1, 1)
+		else if(A.density && !A.CanPass(src))
+			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='danger'>[src] smashes into [A]!</span>")
+			src.Weaken(2, 1, 1)
+
+		if(tackling)
+			tackling = 0
+			update_icons()
+			update_canmove()
 
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(in_throw_mode)
