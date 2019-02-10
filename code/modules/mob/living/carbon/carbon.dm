@@ -543,7 +543,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/throw_impact(atom/A)
 	. = ..()
-	var/hurt
+	var/hurt = FALSE
 	if (!tackling)	
 		hurt = TRUE
 
@@ -568,11 +568,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			Weaken(1)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
-
-	if(!tackling)
+	if (!tackling)
 		return ..()
 
-	if(A)
+	if(A && !hurt)
 		throw_mode_off()
 		tackle_cooldown = world.time + tackle_cooldown_time
 		if(isliving(A))
@@ -586,9 +585,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				L.visible_message("<span class ='danger'>[src] tackles [L]!</span>", "<span class ='userdanger'>[src] tackles you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.apply_effect(3, WEAKEN, H.run_armor_check(null, "melee"))
+					H.apply_effect(2, WEAKEN, H.run_armor_check(null, "melee"))
+					src.apply_effect(1, WEAKEN, H.run_armor_check(null, "melee")) // gives the user a shorter stun time
 				else
-					L.Weaken(3)
+					L.Weaken(2)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
