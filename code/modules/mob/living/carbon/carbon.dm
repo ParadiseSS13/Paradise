@@ -3,7 +3,7 @@
 	var/datum/middleClickOverride/middleClickOverride = null
 	var/tackling = 0
 	var/tackle_cooldown = 0
-	var/tackle_cooldown_time = 120 // Nobody is going to want tackles to be spammed
+	var/tackle_cooldown_time = 200 // Nobody is going to want tackles to be spammed
 	var/anime_mode = FALSE
 
 /mob/living/carbon/Destroy()
