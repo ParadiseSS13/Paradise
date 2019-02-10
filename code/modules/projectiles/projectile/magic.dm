@@ -137,13 +137,13 @@
 /obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
-		A.locked = 0
+		A.locked = FALSE
 	D.open()
 
 /obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
-		SC.locked = 0
+		SC.locked = FALSE
 	C.open()
 
 /obj/item/projectile/magic/change
