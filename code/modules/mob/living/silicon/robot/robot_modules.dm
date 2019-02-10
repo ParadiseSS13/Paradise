@@ -426,6 +426,7 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
+	modules += new /obj/item/gun/syringe/cyborg/syndicate(src)
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)

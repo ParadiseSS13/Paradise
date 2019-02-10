@@ -70,19 +70,64 @@
 		if(syringes.len < max_syringes)
 			if(!user.unEquip(A))
 				return
-			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
+			to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
 			syringes.Add(A)
 			A.loc = src
-			return 1
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
-	return 0
+	else if(istype(A, /obj/item/ammo_box/syringe))
+		if(syringes.len < max_syringes)
+			var/obj/item/ammo_box/syringe/L = A
+			var/obj/item/reagent_containers/syringe/S = L.get_round()
+			if(!S)
+				to_chat(user, "<span class='notice'>[A] is out of syringes.</span>")
+				return FALSE
+			to_chat(user, "<span class='notice'>You load a syringe into [src]!</span>")
+			syringes.Add(S)
+			S.loc = src
+			return TRUE
+		else
+			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
+	return FALSE
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
+
+/obj/item/gun/syringe/combat
+	name = "combat syringe gun"
+	desc = "A combat syringe gun that can hold up to twelve syringes."
+	icon_state = "rapidsyringegun"
+	max_syringes = 12
+
+/obj/item/gun/syringe/cyborg
+	name = "cyborg syringe gun"
+	desc = "A syringe gun that fires ether syringes in order to put unruly patients to sleep. Slowly reloads overtime, can be accelerated at a charging station."
+	icon_state = "rapidsyringegun"
+	max_syringes = 6
+	var/syringe_type = /obj/item/reagent_containers/syringe/ether
+
+/obj/item/gun/syringe/cyborg/New()
+	..()
+	recharge_syringe(max_syringes)
+
+/obj/item/gun/syringe/cyborg/attack_self(mob/living/user as mob)
+
+/obj/item/gun/syringe/cyborg/proc/recharge_syringe(var/amount = 1)
+	for(var/i = 0, i < amount, i++)
+		if(syringes.len < max_syringes)
+			var/S = new syringe_type(src)
+			syringes.Add(S)
+		else
+			return
+
+/obj/item/gun/syringe/cyborg/syndicate
+	desc = "A combat syringe gun that fires non-lethal bioterror syringes. Confuses, mutes, and knocks out the target. Slowly reloads overtime, can be accelerated at a charging station."
+	max_syringes = 12
+	syringe_type = /obj/item/reagent_containers/syringe/bioterror
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"

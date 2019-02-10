@@ -318,7 +318,12 @@
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
 
+/obj/item/reagent_containers/syringe/ether
+	name = "Syringe (ether)"
+	desc = "Contains ether - used to put patients to sleep."
+	list_reagents = list("ether" = 15)
+
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
-	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
+	list_reagents = list("neurotoxin2" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
