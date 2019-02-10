@@ -7,6 +7,7 @@
 	maxHealth = 100
 	base_icon = "griefsky"
 	bot_core_type = /obj/machinery/bot_core/secbot
+	window_name = "Automatic Security Unit v3.0"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword
