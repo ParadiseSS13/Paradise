@@ -1,0 +1,4 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - bugfix: "Admins that linked their discord account that round no longer show up as \"the adminkey\" in adminwho."
