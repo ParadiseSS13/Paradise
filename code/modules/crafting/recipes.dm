@@ -83,7 +83,7 @@
 
 /datum/crafting_recipe/griefsky
 	name = "General Griefsky"
-	result = /mob/living/simple_animal/bot/griefsky
+	result = /mob/living/simple_animal/bot/secbot/griefsky
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
 				/obj/item/melee/energy/sword = 4,
