@@ -3,7 +3,7 @@
     set category = "OOC"
     set name = "Link Discord Account"
     set desc = "Link your discord account to your BYOND account."
-    user_ckey = sanitizeSQL(usr.ckey) // Probably not neccassary but better safe than sorry
+    var/user_ckey = sanitizeSQL(usr.ckey) // Probably not neccassary but better safe than sorry
     if(!config.sql_enabled)
         to_chat(src, "<span class='warning'>This is feature requires the SQL backend</span>")
         return
