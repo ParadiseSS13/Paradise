@@ -507,7 +507,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/ClickOn(var/atom/A, var/params)
 	face_atom(A)
-	if(INTENT_GRAB && src.in_throw_mode)
+	var/obj/item/item_in_hand = src.get_active_hand()
+	if(INTENT_GRAB && src.in_throw_mode && !item_in_hand) // must be in grab and throw mode with nothing in hand
 		toggle_tackle(A)
 	else
 		..()
@@ -523,7 +524,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(tackling) //Leap while you leap, so you can leap while you leap
 		return
 
-	if(!has_gravity(src) || !has_gravity(A))
+	if(!has_gravity(src))
 		to_chat(src, "<span class='danger'>You can't find your footing!</span>")
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
@@ -591,10 +592,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				src.Weaken(2, 1, 1)
+				Weaken(2, 1, 1)
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='danger'>[src] smashes into [A]!</span>")
-			src.Weaken(2, 1, 1)
+			Weaken(2, 1, 1)
 
 		if(tackling)
 			tackling = 0
