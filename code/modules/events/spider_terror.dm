@@ -37,8 +37,18 @@
 			spawncount = 1
 	while(spawncount >= 1 && vents.len)
 		var/obj/vent = pick(vents)
-		var/obj/structure/spider/spiderling/terror_spiderling/S = new(vent.loc)
-		S.grow_as = spider_type
-		S.amount_grown = 90
+
+		// If the vent we picked has any living mob nearby, just remove it from the list, loop again, and pick something else.
+
+		var/turf/T = get_turf(vent)
+		var/hostiles_present = FALSE
+		for(var/mob/living/L in viewers(T))
+			if(L.stat != DEAD)
+				hostiles_present = TRUE
+				break
+
 		vents -= vent
-		spawncount--
+		if(!hostiles_present)
+			new spider_type(vent.loc)
+			spawncount--
+
