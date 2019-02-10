@@ -178,7 +178,7 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
-//this section is attacks blocking
+//this section is blocking attack
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
