@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - bugfix: "Reviver implant does not heal when you sleep, only when you fall unconscious involuntarily"
