@@ -15,13 +15,6 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 
-/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
-	return ..()
-
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -396,10 +389,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
 		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol
@@ -526,10 +515,6 @@
 		if(36 to INFINITY)
 			M.Paralyse(15)
 			M.Drowsy(20)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
 	..()
 
 /datum/reagent/medicine/oculine

@@ -27,8 +27,8 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
-	if(times_fired % 4 == 2 || failed_last_breath)
-		breathe() //Breathe per 4 ticks, unless suffocating
+	if(times_fired % 2 == 1)
+		breathe() //Breathe every other tick, unless suffocating
 	else
 		if(istype(loc, /obj/))
 			var/obj/location_as_object = loc
@@ -47,13 +47,13 @@
 
 	var/datum/gas_mixture/breath
 
-	if(health <= HEALTH_THRESHOLD_CRIT)
+	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
 		AdjustLoseBreath(1)
 
 	//Suffocate
 	if(losebreath > 0)
 		AdjustLoseBreath(-1)
-		if(prob(10))
+		if(prob(75))
 			emote("gasp")
 		if(istype(loc, /obj/))
 			var/obj/loc_as_obj = loc
@@ -97,7 +97,6 @@
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		failed_last_breath = TRUE
 		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 		return FALSE
 
@@ -121,15 +120,12 @@
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			failed_last_breath = TRUE
 			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-			failed_last_breath = TRUE
 		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
-		failed_last_breath = FALSE
 		adjustOxyLoss(-5)
 		oxygen_used = breath.oxygen
 		clear_alert("not_enough_oxy")
@@ -407,34 +403,36 @@
 
 /mob/living/carbon/proc/handle_hud_icons_health_overlay()
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
-		var/severity = 0
-		switch(health)
-			if(-20 to -10) severity = 1
-			if(-30 to -20) severity = 2
-			if(-40 to -30) severity = 3
-			if(-50 to -40) severity = 4
-			if(-60 to -50) severity = 5
-			if(-70 to -60) severity = 6
-			if(-80 to -70) severity = 7
-			if(-90 to -80) severity = 8
-			if(-95 to -90) severity = 9
-			if(-INFINITY to -95) severity = 10
-		overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
-	else if(stat == CONSCIOUS)
-		clear_fullscreen("crit")
-		if(oxyloss)
+		if(check_death_method())
 			var/severity = 0
-			switch(oxyloss)
-				if(10 to 20) severity = 1
-				if(20 to 25) severity = 2
-				if(25 to 30) severity = 3
-				if(30 to 35) severity = 4
-				if(35 to 40) severity = 5
-				if(40 to 45) severity = 6
-				if(45 to INFINITY) severity = 7
-			overlay_fullscreen("oxy", /obj/screen/fullscreen/oxy, severity)
-		else
-			clear_fullscreen("oxy")
+			switch(health)
+				if(-20 to -10) severity = 1
+				if(-30 to -20) severity = 2
+				if(-40 to -30) severity = 3
+				if(-50 to -40) severity = 4
+				if(-60 to -50) severity = 5
+				if(-70 to -60) severity = 6
+				if(-80 to -70) severity = 7
+				if(-90 to -80) severity = 8
+				if(-95 to -90) severity = 9
+				if(-INFINITY to -95) severity = 10
+			overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
+	else if(stat == CONSCIOUS)
+		if(check_death_method())
+			clear_fullscreen("crit")
+			if(oxyloss)
+				var/severity = 0
+				switch(oxyloss)
+					if(10 to 20) severity = 1
+					if(20 to 25) severity = 2
+					if(25 to 30) severity = 3
+					if(30 to 35) severity = 4
+					if(35 to 40) severity = 5
+					if(40 to 45) severity = 6
+					if(45 to INFINITY) severity = 7
+				overlay_fullscreen("oxy", /obj/screen/fullscreen/oxy, severity)
+			else
+				clear_fullscreen("oxy")
 
 		//Fire and Brute damage overlay (BSSR)
 		var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp

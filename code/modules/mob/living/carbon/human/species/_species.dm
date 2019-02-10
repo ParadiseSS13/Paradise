@@ -256,8 +256,6 @@
 				. += (health_deficiency / 75)
 			else
 				. += (health_deficiency / 25)
-		if(H.shock_stage >= 10)
-			. += 3
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
@@ -535,7 +533,7 @@
 	return FALSE
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return 100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.getStaminaLoss()
+	return H.health - H.staminaloss
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)

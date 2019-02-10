@@ -19,7 +19,6 @@
 	var/safe_toxins_max = 0.05
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
-	var/gas_toxicity_multiplier = 100
 
 	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
@@ -88,12 +87,11 @@
 		return
 
 	if(!breath || (breath.total_moles() == 0))
-		if(H.health >= HEALTH_THRESHOLD_CRIT)
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		else if(!(NOCRITDAMAGE in H.dna.species.species_traits))
-			H.adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+		if(isspaceturf(loc))
+			H.adjustOxyLoss(10)
+		else
+			H.adjustOxyLoss(5)
 
-		H.failed_last_breath = TRUE
 		if(safe_oxygen_min)
 			H.throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 		else if(safe_toxins_min)
@@ -102,6 +100,10 @@
 			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
 		else if(safe_nitro_min)
 			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+		return FALSE
+
+
+	if(health < HEALTH_THRESHOLD_CRIT)
 		return FALSE
 
 	var/gas_breathed = 0
@@ -118,8 +120,8 @@
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = (breath.oxygen/safe_oxygen_max) * gas_toxicity_multiplier
-			H.apply_damage_type(Clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
+			var/ratio = breath.oxygen/safe_oxygen_max
+			H.apply_damage_type(ratio * 325, oxy_damage_type)
 			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 		else
 			H.clear_alert("too_much_oxy")
@@ -130,8 +132,7 @@
 			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen)
 			H.throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 		else
-			H.failed_last_breath = FALSE
-			H.adjustOxyLoss(-5)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.oxygen
 			H.clear_alert("not_enough_oxy")
 
@@ -145,8 +146,8 @@
 	//Too much nitrogen!
 	if(safe_nitro_max)
 		if(N2_pp > safe_nitro_max)
-			var/ratio = (breath.nitrogen/safe_nitro_max) * gas_toxicity_multiplier
-			H.apply_damage_type(Clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
+			var/ratio = breath.nitrogen/safe_nitro_max
+			H.apply_damage_type(ratio * 325, nitro_damage_type)
 			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
 		else
 			H.clear_alert("too_much_nitro")
@@ -157,8 +158,7 @@
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
 			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
 		else
-			H.failed_last_breath = FALSE
-			H.adjustOxyLoss(-5)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.nitrogen
 			H.clear_alert("not_enough_nitro")
 
@@ -176,9 +176,9 @@
 				H.co2overloadtime = world.time
 			else if(world.time - H.co2overloadtime > 120)
 				H.Paralyse(3)
-				H.apply_damage_type(3, co2_damage_type) // Lets hurt em a little, let them know we mean business
+				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
-					H.apply_damage_type(8, co2_damage_type)
+					H.apply_damage_type(15, co2_damage_type)
 				H.throw_alert("too_much_co2", /obj/screen/alert/too_much_co2)
 			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
 				H.emote("cough")
@@ -193,8 +193,7 @@
 			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide)
 			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
 		else
-			H.failed_last_breath = FALSE
-			H.adjustOxyLoss(-5)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.carbon_dioxide
 			H.clear_alert("not_enough_co2")
 
@@ -209,8 +208,8 @@
 	//Too much toxins!
 	if(safe_toxins_max)
 		if(Toxins_pp > safe_toxins_max)
-			var/ratio = (breath.toxins/safe_toxins_max) * gas_toxicity_multiplier
-			H.apply_damage_type(Clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type)
+			var/ratio = breath.toxins/safe_toxins_max
+			H.apply_damage_type(ratio * 325, tox_damage_type)
 			H.throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 		else
 			H.clear_alert("too_much_tox")
@@ -222,8 +221,7 @@
 			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins)
 			H.throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
 		else
-			H.failed_last_breath = FALSE
-			H.adjustOxyLoss(-5)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.toxins
 			H.clear_alert("not_enough_tox")
 
@@ -261,11 +259,9 @@
 	if(breath_pp > 0)
 		var/ratio = safe_breath_min/breath_pp
 		H.adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS)) // Don't fuck them up too fast (space only does HUMAN_MAX_OXYLOSS after all!
-		H.failed_last_breath = TRUE
 		. = true_pp*ratio/6
 	else
 		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.failed_last_breath = TRUE
 
 
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures

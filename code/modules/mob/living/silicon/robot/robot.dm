@@ -830,9 +830,6 @@ var/list/robot_verbs_default = list(
 					qdel(D)
 				src.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(src.module)
 				src.module.rebuild()
-			if(src.module && istype(src.module, /obj/item/robot_module/medical))
-				for(var/obj/item/borg_defib/F in src.module.modules)
-					F.safety = 0
 			if(module)
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()

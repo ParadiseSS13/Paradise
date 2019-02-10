@@ -462,7 +462,6 @@
 			human_mob = src
 			human_mob.set_heartattack(FALSE)
 			human_mob.restore_blood()
-			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
 

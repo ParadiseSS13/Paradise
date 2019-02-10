@@ -27,8 +27,6 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
-		H.traumatic_shock = 0
-		H.shock_stage = 0
 		H.next_pain_time = 0
 		H.dna.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
