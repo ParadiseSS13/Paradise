@@ -181,7 +181,7 @@
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
@@ -197,7 +197,7 @@
 	uniform = /obj/item/clothing/under/rank/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_medsci
+	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
