@@ -40,6 +40,10 @@
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
 	playsound(loc, 'sound/weapons/saberoff.ogg', 50, 1, -1)
+
+/mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
+	..()
+	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 	
 /mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM)
 	..()
