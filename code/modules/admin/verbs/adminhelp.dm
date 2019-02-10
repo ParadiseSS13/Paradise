@@ -3,6 +3,55 @@
 //This is a list of words which are ignored by the parser when comparing message contents for names. MUST BE IN LOWER CASE!
 var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","alien","as")
 
+/client/verb/mentorhelp()
+	set category = "Admin"
+	set name = "Mentorhelp"
+
+	//handle muting and automuting
+	if(prefs.muted & MUTE_ADMINHELP)
+		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send mentorhelps (Muted).</font>")
+		return
+	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
+
+	var/original_msg = input("Please enter your message.", "Mentor help", null, null) as text|null
+
+	var/list/ls = process_ahelp_message(original_msg)
+	if(!ls) 
+		return // Went wrong in the process proc, stop
+	if(!mob)	return						//this doesn't happen
+
+	var/msg = ls[1]
+	var/ai_found = ls[2] == "TRUE" // passing two values yo.
+
+	//send this msg to all admins
+	var/admin_number_afk = 0
+	var/list/mentorholders = list()
+	var/list/modholders = list()
+	var/list/adminholders = list()
+	for(var/client/X in GLOB.admins)
+		if(check_rights(R_ADMIN, 0, X.mob))
+			if(X.is_afk())
+				admin_number_afk++
+			adminholders += X
+			continue
+		if(check_rights(R_MOD, 0, X.mob))
+			modholders += X
+			continue
+		if(check_rights(R_MENTOR, 0, X.mob))
+			mentorholders += X
+			continue
+	
+	var/selected_type = "Mentorhelp"
+	msg = "<span class='mentorhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;rejectadminhelp=[UID()]'>REJT</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[mob.UID()];is_mhelp=1'>TAKE</A>) :</span> <span class='mentorhelp'>[msg]</span>"
+	for(var/client/X in mentorholders + modholders + adminholders)
+		if(X.prefs.sound & SOUND_MENTORHELP)
+			X << 'sound/effects/adminhelp.ogg'
+		to_chat(X, msg)
+		
+	var/admin_number_present = adminholders.len - admin_number_afk
+	ahelp_finishing(original_msg, selected_type, admin_number_present, admin_number_afk)
+	feedback_add_details("admin_verb","MH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/adminhelp()
 	set category = "Admin"
 	set name = "Adminhelp"
@@ -14,22 +63,63 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
 
-	var/msg
-	var/list/type = list("Mentorhelp","Adminhelp")
-	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
-	if(selected_type)
-		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
+	var/selected_type = "Adminhelp"
+	var/original_msg = input("Please enter your message.", "Admin Help", null, null) as text|null
 
-	//clean the input msg
+	var/list/ls = process_ahelp_message(original_msg)
+	if(!ls) 
+		return // Went wrong in the process proc, stop
+	if(!mob)	return						//this doesn't happen
+
+	var/msg = ls[1]
+	var/ai_found = ls[2] == "TRUE" // passing two values yo.
+	
+	//send this msg to all admins
+	var/admin_number_afk = 0
+	var/list/modholders = list()
+	var/list/adminholders = list()
+	for(var/client/X in GLOB.admins)
+		if(check_rights(R_ADMIN, 0, X.mob))
+			if(X.is_afk())
+				admin_number_afk++
+			adminholders += X
+			continue
+		if(check_rights(R_MOD, 0, X.mob))
+			modholders += X
+			continue
+	
+	var/ticketNum // Holder for the ticket number
+	var/prunedmsg ="[usr.client]: [msg]" // Message without links
+	if(SStickets.checkForOpenTicket(usr)) // If user already has an open ticket
+		var/datum/admin_ticket/T = SStickets.checkForOpenTicket(usr) // Make T equal to the ticket they have open
+		ticketNum = T.ticketNum // ticketNum is the number of their ticket.
+		T.addResponse(usr.client, msg)
+	else
+		ticketNum = SStickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
+	msg = "<span class='adminhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;openadminticket=[ticketNum]'>TICKET</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""](<A HREF='?_src_=holder;take_question=[mob.UID()]'>TAKE</A>) :</span> <span class='adminhelp'>[msg]</span>"
+	//Open a new adminticket and inform the user.
+	SStickets.newTicket(src, prunedmsg, msg)
+	for(var/client/X in modholders + adminholders)
+		if(X.prefs.sound & SOUND_ADMINHELP)
+			X << 'sound/effects/adminhelp.ogg'
+		window_flash(X)
+		to_chat(X, msg)
+	
+	var/admin_number_present = adminholders.len - admin_number_afk
+	ahelp_finishing(original_msg, selected_type, admin_number_present, admin_number_afk)
+	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+//Clean the input msg and return the new message and if the AI is found in the text
+/client/proc/process_ahelp_message(msg)
 	if(!msg)
 		return
 
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
-	var/original_msg = msg
 
 	//explode the input msg into a list
 	var/list/msglist = splittext(msg, " ")
@@ -40,7 +130,8 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/ckeys = list()
 	for(var/mob/M in GLOB.mob_list)
 		var/list/indexing = list(M.real_name, M.name)
-		if(M.mind)	indexing += M.mind.name
+		if(M.mind)
+			indexing += M.mind.name
 
 		for(var/string in indexing)
 			var/list/L = splittext(string, " ")
@@ -60,7 +151,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			//ckeys
 			ckeys[M.ckey] = M
 
-	var/ai_found = 0
+	var/ai_found = FALSE
 	msg = ""
 	var/list/mobs_found = list()
 	for(var/original_word in msglist)
@@ -68,7 +159,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		if(word)
 			if(!(word in adminhelp_ignored_words))
 				if(word == "ai")
-					ai_found = 1
+					ai_found = TRUE
 				else
 					var/mob/found = ckeys[word]
 					if(!found)
@@ -79,60 +170,16 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 						if(!(found in mobs_found))
 							mobs_found += found
 							if(!ai_found && isAI(found))
-								ai_found = 1
+								ai_found = TRUE
 							msg += "<b><font color='black'>[original_word] </font></b> "
 							continue
 			msg += "[original_word] "
+	var/list/results = list(msg, ai_found ? "TRUE": "FALSE") // I hate passing it like this
+	return results
 
-	if(!mob)	return						//this doesn't happen
-
-	//send this msg to all admins
-	var/admin_number_afk = 0
-	var/list/mentorholders = list()
-	var/list/modholders = list()
-	var/list/adminholders = list()
-	for(var/client/X in GLOB.admins)
-		if(check_rights(R_ADMIN, 0, X.mob))
-			if(X.is_afk())
-				admin_number_afk++
-			adminholders += X
-			continue
-		if(check_rights(R_MOD, 0, X.mob))
-			modholders += X
-			continue
-		if(check_rights(R_MENTOR, 0, X.mob))
-			mentorholders += X
-			continue
-
-	switch(selected_type)
-		if("Mentorhelp")
-			msg = "<span class='mentorhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;rejectadminhelp=[UID()]'>REJT</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[mob.UID()];is_mhelp=1'>TAKE</A>) :</span> <span class='mentorhelp'>[msg]</span>"
-			for(var/client/X in mentorholders + modholders + adminholders)
-				if(X.prefs.sound & SOUND_MENTORHELP)
-					X << 'sound/effects/adminhelp.ogg'
-				to_chat(X, msg)
-		if("Adminhelp")
-			var/ticketNum // Holder for the ticket number
-			var/prunedmsg ="[usr.client]: [msg]" // Message without links
-			if(SStickets.checkForOpenTicket(usr)) // If user already has an open ticket
-				var/datum/admin_ticket/T = SStickets.checkForOpenTicket(usr) // Make T equal to the ticket they have open
-				ticketNum = T.ticketNum // ticketNum is the number of their ticket.
-				T.addResponse(usr.client, msg)
-			else
-				ticketNum = SStickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
-			msg = "<span class='adminhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;openadminticket=[ticketNum]'>TICKET</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""](<A HREF='?_src_=holder;take_question=[mob.UID()]'>TAKE</A>) :</span> <span class='adminhelp'>[msg]</span>"
-			//Open a new adminticket and inform the user.
-			SStickets.newTicket(src, prunedmsg, msg)
-			for(var/client/X in modholders + adminholders)
-				if(X.prefs.sound & SOUND_ADMINHELP)
-					X << 'sound/effects/adminhelp.ogg'
-				window_flash(X)
-				to_chat(X, msg)
-
-	//show it to the person adminhelping too
+//Does the logging and the user notifying
+/client/proc/ahelp_finishing(original_msg, selected_type, admin_number_present, admin_number_afk)//show it to the person adminhelping too
 	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")
-
-	var/admin_number_present = adminholders.len - admin_number_afk
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
@@ -141,8 +188,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
 		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
-	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
 
 /proc/send2irc_adminless_only(source, msg, requiredflags = R_BAN)
 	var/admin_number_total = 0		//Total number of admins
