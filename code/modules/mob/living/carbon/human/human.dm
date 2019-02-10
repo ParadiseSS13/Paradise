@@ -1651,6 +1651,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+	if(H == src)
+		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
+		return
 	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return

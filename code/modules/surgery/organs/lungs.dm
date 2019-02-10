@@ -103,7 +103,7 @@
 		return FALSE
 
 
-	if(health < HEALTH_THRESHOLD_CRIT)
+	if(H.health < HEALTH_THRESHOLD_CRIT)
 		return FALSE
 
 	var/gas_breathed = 0
