@@ -2812,6 +2812,8 @@
 					W.icon_state = "schoolgirl"
 					W.item_state = "w_suit"
 					W.item_color = "schoolgirl"
+				for(var/mob/living/L in world)
+					L.anime_mode = TRUE
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				world << sound('sound/AI/animes.ogg')
 			if("eagles")//SCRAW

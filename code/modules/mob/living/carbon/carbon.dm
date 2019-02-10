@@ -4,6 +4,7 @@
 	var/tackling = 0
 	var/tackle_cooldown = 0
 	var/tackle_cooldown_time = 120 // Nobody is going to want tackles to be spammed
+	var/anime_mode = FALSE
 
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
@@ -582,7 +583,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(H.check_shields(0, "the [name]", src, attack_type = LEAP_ATTACK))
 					blocked = 1
 			if(!blocked)
-				L.visible_message("<span class ='danger'>[src] tackles [L]!</span>", "<span class ='userdanger'>[src] tackles you!</span>")
+				if (anime_mode)
+					L.visible_message("<span class ='danger'>[src] glomps [L]!</span>", "<span class ='userdanger'>[src] glomps you!</span>")
+				else
+					L.visible_message("<span class ='danger'>[src] tackles [L]!</span>", "<span class ='userdanger'>[src] tackles you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
 					H.apply_effect(2, WEAKEN, H.run_armor_check(null, "melee"))
