@@ -832,13 +832,6 @@
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
-/obj/machinery/computer/shuttle/ert
-	name = "specops shuttle console"
-	req_access = list(access_cent_general)
-	shuttleId = "specops"
-	possible_destinations = "specops_home;specops_away"
-	resistance_flags = INDESTRUCTIBLE
-
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."

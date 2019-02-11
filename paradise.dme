@@ -2271,6 +2271,7 @@
 #include "code\modules\security_levels\security levels.dm"
 #include "code\modules\shuttle\assault_pod.dm"
 #include "code\modules\shuttle\emergency.dm"
+#include "code\modules\shuttle\ert.dm"
 #include "code\modules\shuttle\navigation_computer.dm"
 #include "code\modules\shuttle\on_move.dm"
 #include "code\modules\shuttle\ripple.dm"
