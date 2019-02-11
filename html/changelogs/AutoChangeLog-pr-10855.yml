@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Cryotubes no longer passively heal patients without chems. Effectiveness at stabilizing critical patients increased"
-  - tweak: "Sleepers no longer gain additional chemicals when upgraded. Selection of chemicals altered"
