@@ -494,9 +494,3 @@
 		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
 		return
 	return 1
-
-/datum/preferences/proc/UpdateChangelogButton(client/C)
-	if(preferences_datums[C.ckey].toggles & UI_DARKMODE)
-		winset(C, "rpane.changelog", "background-color=#40628a;text-color=#ffffff;font-style=none")
-	else
-		winset(C, "rpane.changelog", "background-color=none;text-color=#000000;font-style=none")
