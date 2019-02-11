@@ -837,10 +837,7 @@
 	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
-<<<<<<< HEAD
 	resistance_flags = INDESTRUCTIBLE
-=======
->>>>>>> refs/remotes/ParadiseSS13/master
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
@@ -855,18 +852,13 @@
 	circuit = /obj/item/circuitboard/golem_ship
 	shuttleId = "freegolem"
 	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user))
 		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
 		return
 	..()
-
-/obj/machinery/computer/shuttle/vox
-	name = "skipjack control console"
-	req_access = list(access_vox)
-	shuttleId = "skipjack"
-	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5"
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
