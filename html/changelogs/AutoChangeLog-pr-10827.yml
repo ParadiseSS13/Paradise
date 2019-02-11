@@ -1,0 +1,5 @@
+author: "Shadeykins"
+delete-after: True
+changes: 
+  - rscadd: "Added Chav to roundstart character preferences."
+  - rscdel: "Removed Epilepsy, Tourette's, and Can't speak properly from roundstart character preferences."
