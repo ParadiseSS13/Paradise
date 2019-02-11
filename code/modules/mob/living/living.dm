@@ -253,10 +253,11 @@
 			if(health < HEALTH_THRESHOLD_DEAD)
 				break
 			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 /mob/living/proc/InCritical()
-	return (health < 0 && health > -95.0 && stat == UNCONSCIOUS)
+	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 /mob/living/ex_act(severity)
 	..()
