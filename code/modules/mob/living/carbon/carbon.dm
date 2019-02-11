@@ -451,6 +451,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						continue
 					if(istype(I, /obj/item/organ))
 						continue
+					if(I.flags & ABSTRACT)
+						continue
 					else
 						failed++
 
