@@ -842,10 +842,7 @@
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		update_flags |= M.Stun(1, FALSE)
 		update_flags |= M.Weaken(1, FALSE)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(!H.undergoing_cardiac_arrest())
-				H.set_heartattack(TRUE)
+		M.ForceContractDisease(new /datum/disease/heart_failure(0))
 	return ..() | update_flags
 
 /datum/reagent/fungus
