@@ -1,0 +1,4 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - rscadd: "Added an admin verb that allows admins to forcefully unlink discord accounts"
