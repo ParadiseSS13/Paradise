@@ -1,0 +1,10 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Reworked golems to use the ghost spawner system. Craft a golem shell with adamantine then apply 10 sheets of minerals to finish it."
+  - rscadd: "Added golem subtypes. Each material has pros and sometimes cons. Type depends on the material used during construction."
+  - rscadd: "Golems are now more resistant to damage and are no longer slowed by the cold of space."
+  - tweak: "Golems now get golem-y names."
+  - bugfix: "Fixed golem's stone face hiding their identity, showing them as unknown."
+  - rscadd: "Added the Free Golems mob spawners and ship. Go do whatever."
+  - rscadd: "Added a small asteroid on the telecomms zlevel."
