@@ -1076,3 +1076,21 @@ var/list/turret_icons
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
+
+/obj/machinery/porta_turret/public
+	name = "Public Turret"
+	desc = "A turret designed for more public areas. The internals of this type has been rigged to explode to prevent the theft of the turret's gun."
+
+/obj/machinery/porta_turret/public/New()
+	..()
+	if(req_access && req_access.len)
+		req_access.Cut()
+	req_one_access = list(access_security, access_heads, access_research, access_mining)	//mining access is for a future thing involving the asteroid
+	one_access = 1
+
+	setup()
+
+/obj/machinery/porta_turret/public/die()	//When the turret dies it harmlessly self destructs
+	health = 0
+	playsound(get_turf(src), 'sound/goonstation/misc/fuse.ogg', 200, 1)
+	qdel(src)
