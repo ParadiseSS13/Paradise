@@ -59,34 +59,34 @@
 		return ..(target, user, proximity)
 
 /obj/item/reagent_containers/food/drinks/cans/cola
-	name = "Space Cola"
+	name = "space cola"
 	desc = "Cola. in space."
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/beer
-	name = "Space Beer"
+	name = "space beer"
 	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
 	is_glass = 1
 	list_reagents = list("beer" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
-	name = "Admin Booze"
+	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
 	icon_state = "adminbooze"
 	is_glass = 1
 	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
 
 /obj/item/reagent_containers/food/drinks/cans/madminmalt
-	name = "Madmin Malt"
+	name = "madmin malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
 	icon_state = "madminmalt"
 	is_glass = 1
 	list_reagents = list("hell_water" = 20, "neurotoxin" = 15, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/badminbrew
-	name = "Badmin Brew"
+	name = "badmin brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
 	is_glass = 1
@@ -156,7 +156,7 @@
 	list_reagents = list("tonic" = 50)
 
 /obj/item/reagent_containers/food/drinks/cans/sodawater
-	name = "Soda Water"
+	name = "soda water"
 	desc = "A can of soda water. Still water's more refreshing cousin."
 	icon_state = "sodawater"
 	list_reagents = list("sodawater" = 50)

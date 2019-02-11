@@ -837,7 +837,10 @@
 	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
+<<<<<<< HEAD
 	resistance_flags = INDESTRUCTIBLE
+=======
+>>>>>>> refs/remotes/ParadiseSS13/master
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"

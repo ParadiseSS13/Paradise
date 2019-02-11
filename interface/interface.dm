@@ -38,7 +38,7 @@
 		'html/changelog.html'
 		)
 	src << browse('html/changelog.html', "window=changes;size=675x650")
-	prefs.UpdateChangelogButton(src)
+	update_changelog_button()
 	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes
 		prefs.SetChangelog(src,changelog_hash)
 

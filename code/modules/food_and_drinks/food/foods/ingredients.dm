@@ -4,7 +4,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/tofu
-	name = "Tofu"
+	name = "tofu"
 	icon_state = "tofu"
 	desc = "We all love tofu."
 	filling_color = "#FFFEE0"
@@ -12,7 +12,7 @@
 	list_reagents = list("plantmatter" = 2)
 
 /obj/item/reagent_containers/food/snacks/fried_tofu
-	name = "Fried Tofu"
+	name = "fried tofu"
 	icon_state = "tofu"
 	desc = "Proof that even vegetarians crave unhealthy foods."
 	filling_color = "#FFFEE0"
@@ -20,8 +20,8 @@
 	list_reagents = list("plantmatter" = 3)
 
 /obj/item/reagent_containers/food/snacks/soydope
-	name = "Soy Dope"
-	desc = "Dope from a soy."
+	name = "soy dope"
+	desc = "Like regular dope, but for the health concious consumer."
 	icon_state = "soydope"
 	trash = /obj/item/trash/plate
 	filling_color = "#C4BF76"
@@ -33,7 +33,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
-	name = "Cheese wheel"
+	name = "cheese wheel"
 	desc = "A big wheel of delicious Cheddar."
 	icon_state = "cheesewheel"
 	slice_path = /obj/item/reagent_containers/food/snacks/cheesewedge
@@ -42,14 +42,14 @@
 	list_reagents = list("nutriment" = 15, "vitamin" = 5, "cheese" = 20)
 
 /obj/item/reagent_containers/food/snacks/cheesewedge
-	name = "Cheese wedge"
+	name = "cheese wedge"
 	desc = "A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far."
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
 
 /obj/item/reagent_containers/food/snacks/weirdcheesewedge
-	name = "Weird Cheese"
-	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the looser sense of the word."
+	name = "weird cheese"
+	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."
 	icon_state = "weirdcheesewedge"
 	filling_color = "#00FF33"
 	list_reagents = list("mercury" = 5, "lsd" = 5, "ethanol" = 5, "weird_cheese" = 5)
@@ -76,13 +76,13 @@
 	list_reagents = list("protein" = 2)
 
 /obj/item/reagent_containers/food/snacks/watermelonslice
-	name = "Watermelon Slice"
+	name = "watermelon slice"
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice"
 	filling_color = "#FF3867"
 
 /obj/item/reagent_containers/food/snacks/pineappleslice
-	name = "Pineapple Slices"
+	name = "pineapple slices"
 	desc = "Rings of pineapple."
 	icon_state = "pineappleslice"
 	filling_color = "#e5b437"
@@ -134,14 +134,14 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/chocolatebar
-	name = "Chocolate Bar"
+	name = "chocolate bar"
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "sugar" = 2, "cocoa" = 2)
 
 /obj/item/reagent_containers/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
-	name = "Pile of Chocolate"
+	name = "pile of chocolate"
 	desc = "A pile of pure chocolate pieces."
 	icon_state = "cocoa"
 	filling_color = "#7D5F46"

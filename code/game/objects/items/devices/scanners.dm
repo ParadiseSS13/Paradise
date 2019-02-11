@@ -162,6 +162,10 @@ REAGENT SCANNER
 	user.show_message("<span class='notice'>Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(M.timeofdeath && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))
 		user.show_message("<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>")
+		var/tdelta = round(world.time - M.timeofdeath)
+		if(tdelta < (DEFIB_TIME_LIMIT * 10))
+			user.show_message("<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
+
 	if(istype(M, /mob/living/carbon/human) && mode == 1)
 		var/mob/living/carbon/human/H = M
 		var/list/damaged = H.get_damaged_organs(1,1)
