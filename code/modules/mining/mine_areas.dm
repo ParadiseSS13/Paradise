@@ -16,6 +16,9 @@
 	outdoors = 1
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 
+/area/mine/dangerous/explored/golem
+	name = "Small Asteroid"
+
 /area/mine/dangerous/unexplored
 	name = "Mine"
 	icon_state = "unexplored"

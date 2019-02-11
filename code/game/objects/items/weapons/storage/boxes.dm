@@ -1003,6 +1003,18 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
+/obj/item/storage/box/rndboards
+	name = "the Liberator's legacy"
+	desc = "A box containing a gift for worthy golems."
+
+/obj/item/storage/box/rndboards/New()
+	..()
+	contents = list()
+	new /obj/item/circuitboard/protolathe(src)
+	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/circuit_imprinter(src)
+	new /obj/item/circuitboard/rdconsole/public(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

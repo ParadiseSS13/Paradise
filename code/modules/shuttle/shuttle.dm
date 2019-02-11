@@ -826,13 +826,25 @@
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
 
-
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
+
+/obj/machinery/computer/shuttle/golem_ship
+	name = "Golem Ship Console"
+	desc = "Used to control the Golem Ship."
+	circuit = /obj/item/circuitboard/golem_ship
+	shuttleId = "freegolem"
+	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
+
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user))
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		return
+	..()
 
 /obj/machinery/computer/shuttle/vox
 	name = "skipjack control console"

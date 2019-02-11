@@ -785,6 +785,27 @@
 	icon_state = "ERT_engineering"
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/golem
+	name = "Free Golem ID"
+	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
+	icon_state = "research"
+	access = list(access_free_golems, access_robotics, access_clown, access_mime) //access to robots/mechs
+	var/registered = FALSE
+
+/obj/item/card/id/golem/attack_self(mob/user as mob)
+	if(!registered && ishuman(user))
+		registered_name = user.real_name
+		SetOwnerInfo(user)
+		assignment = "Free Golem"
+		RebuildHTML()
+		UpdateName()
+		desc = "A card used to claim mining points and buy gear."
+		registered = TRUE
+		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+	else
+		..()
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
