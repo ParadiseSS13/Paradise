@@ -889,3 +889,13 @@
 	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/safe_internals
 	category = list("initial", "Construction")
+
+/datum/design/golem_shell
+	name = "Golem Shell Construction"
+	desc = "Allows for the construction of a Golem Shell."
+	id = "golem"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 40000)
+	build_path = /obj/item/golem_shell
+	category = list("Imported")
+

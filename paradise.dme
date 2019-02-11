@@ -1246,6 +1246,8 @@
 #include "code\modules\awaymissions\mission_code\stationCollision.dm"
 #include "code\modules\awaymissions\mission_code\UO71-terrorspiders.dm"
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
+#include "code\modules\awaymissions\mission_code\ghost_role_spawners\golems.dm"
+#include "code\modules\awaymissions\mission_code\ghost_role_spawners\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\wizardcrash.dm"
 #include "code\modules\buildmode\bm_mode.dm"

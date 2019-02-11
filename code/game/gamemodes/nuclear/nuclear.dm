@@ -12,6 +12,7 @@ proc/issyndicate(mob/living/M as mob)
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
+	free_golems_disabled = TRUE
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
