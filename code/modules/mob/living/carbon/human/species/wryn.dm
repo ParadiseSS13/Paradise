@@ -40,6 +40,7 @@
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
 
 	oxy_mod = 0
+	dies_at_threshold = TRUE
 
 	reagent_tag = PROCESS_ORG
 	base_color = "#704300"
