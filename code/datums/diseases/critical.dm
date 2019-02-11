@@ -66,7 +66,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Cardiac Stimulants"
-	cures = list("atropine","epinephrine")
+	cures = list("atropine", "epinephrine")
 	cure_chance = 10
 	needs_all_cures = FALSE
 	viable_mobtypes = list(/mob/living/carbon/human)

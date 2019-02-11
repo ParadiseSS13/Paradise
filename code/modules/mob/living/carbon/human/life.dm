@@ -1013,7 +1013,7 @@
 			return
 
 		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
-			if(istype(get_turf(src), /turf/space))
+			if(isinspace())
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
 				//Divided by 2, otherwise it is too slow.
@@ -1031,7 +1031,7 @@
 		if(pulse == PULSE_NONE)
 			return
 
-		if(pulse >= PULSE_2FAST || istype(get_turf(src), /turf/space))
+		if(pulse >= PULSE_2FAST || isinspace())
 			//PULSE_THREADY - maximum value for pulse, currently it 5.
 			//High pulse value corresponds to a fast rate of heartbeat.
 			//Divided by 2, otherwise it is too slow.

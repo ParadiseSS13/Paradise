@@ -538,7 +538,7 @@
 	return FALSE
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return H.health - H.staminaloss
+	return H.health - H.getStaminaLoss()
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)

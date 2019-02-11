@@ -209,7 +209,7 @@
 
 /mob/living/proc/setCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
-		return 0	//godmode
+		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
 	cloneloss = amount
 	if(old_cloneloss == cloneloss)
