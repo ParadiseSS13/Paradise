@@ -354,7 +354,7 @@
 	name = "shimmering web"
 	desc = "This web seems to shimmer all different colors in the light."
 
-/obj/structure/spider/terrorweb/queen/web_special_ability(var/mob/living/carbon/C)
+/obj/structure/spider/terrorweb/queen/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		var/inject_target = pick("chest","head")
 		if(C.can_inject(null, 0, inject_target, 0))

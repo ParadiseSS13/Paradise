@@ -45,7 +45,7 @@
 		S.immediate_ventcrawl = TRUE
 	. = ..()
 
-/obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(var/atom/A = src)
+/obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
 	var/safety_score = 0
 	var/turf/T = get_turf(A)
 	for(var/mob/living/L in viewers(T))
@@ -62,7 +62,7 @@
 		debug_visual(T, safety_score, A)
 	return safety_score
 
-/obj/structure/spider/spiderling/terror_spiderling/proc/debug_visual(var/turf/T, var/score, var/atom/A)
+/obj/structure/spider/spiderling/terror_spiderling/proc/debug_visual(turf/T, score, atom/A)
 	// This proc exists to help debug why spiderlings are making the ventcrawl AI choices they do.
 	// It won't be called unless you set the spiderling's debug_ai_choices to true.
 	if(debug_ai_choices && istype(T))

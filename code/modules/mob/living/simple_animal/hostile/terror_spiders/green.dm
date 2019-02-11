@@ -93,7 +93,7 @@
 	name = "slimy web"
 	desc = "This web is partly composed of strands of green slime."
 
-/obj/structure/spider/terrorweb/green/web_special_ability(var/mob/living/carbon/C)
+/obj/structure/spider/terrorweb/green/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(C.eye_blurry < 60)
 			C.AdjustEyeBlurry(30)

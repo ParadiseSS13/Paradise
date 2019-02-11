@@ -50,7 +50,7 @@
 	else if(fed == 1)
 		icon_state = "terror_princess2"
 		icon_living = "terror_princess2"
-		icon_dead = "terror_princess_dead2"
+		icon_dead = "terror_princess2_dead"
 		desc = "An enormous spider. It used to look strangely cute and fluffy, but now the effect is spoiled by parts of its fur, which have turned an ominous blood red in color."
 	else
 		icon_state = "terror_princess3"

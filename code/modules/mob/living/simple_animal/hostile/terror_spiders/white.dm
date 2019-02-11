@@ -62,7 +62,7 @@
 	name = "infested web"
 	desc = "This web is covered in hundreds of tiny, biting spiders - and their eggs."
 
-/obj/structure/spider/terrorweb/white/web_special_ability(var/mob/living/carbon/C)
+/obj/structure/spider/terrorweb/white/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!IsTSInfected(C))
 			var/inject_target = pick("chest","head")

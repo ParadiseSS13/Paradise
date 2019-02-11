@@ -188,7 +188,7 @@
 		return
 	..()
 
-/obj/structure/spider/terrorweb/proc/web_special_ability(var/mob/living/carbon/C)
+/obj/structure/spider/terrorweb/proc/web_special_ability(mob/living/carbon/C)
 	return
 
 // ---------- WRAP
