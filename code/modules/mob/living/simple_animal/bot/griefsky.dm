@@ -60,6 +60,13 @@
 	QDEL_NULL(weapon)
 	return ..()
 
+/mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //hopefuly no one controls this thing
+	if(!on)
+		return
+	if(iscarbon(A))
+		var/mob/living/carbon/C = A
+		sword_attack(C)
+
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
