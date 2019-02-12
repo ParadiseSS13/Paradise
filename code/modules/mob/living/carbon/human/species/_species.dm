@@ -712,6 +712,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.weakeyes = 1
 		H.sight |= H.vision_type.sight_flags
 
+	if(NIGHTVISION in H.mutations)
+		H.see_in_dark = max(H.see_in_dark, 8)
+		H.see_invisible = SEE_INVISIBLE_MINIMUM
+	
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 

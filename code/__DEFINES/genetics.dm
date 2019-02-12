@@ -26,7 +26,7 @@
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2
-#define XRAY			3
+#define NIGHTVISION		3
 #define HULK			4
 #define CLUMSY			5
 #define FAT				6
@@ -35,6 +35,7 @@
 
 // Extra powers:
 #define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+#define XRAY            10
 
 //species mutation
 #define WINGDINGS		10	// Ayy lmao

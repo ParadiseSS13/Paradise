@@ -152,23 +152,23 @@
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
 		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
-/datum/dna/gene/basic/xray
-	name="X-Ray Vision"
-	activation_messages=list("The walls suddenly disappear.")
-	deactivation_messages=list("the walls around you re-appear.")
+/datum/dna/gene/basic/night_vision
+	name="Night Vision"
+	activation_messages=list("The shadows suddenly disappear.")
+	deactivation_messages=list("the shadows around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation=XRAY
+	mutation=NIGHTVISION
 	activation_prob=15
 
-/datum/dna/gene/basic/xray/New()
-	block=XRAYBLOCK
+/datum/dna/gene/basic/night_vision/New()
+	block=NIGHTVISIONBLOCK
 
-/datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
+/datum/dna/gene/basic/night_vision/activate(mob/living/M, connected, flags)
 	..()
 	M.update_sight()
 	M.update_icons() //Apply eyeshine as needed.
 
-/datum/dna/gene/basic/xray/deactivate(mob/living/M, connected, flags)
+/datum/dna/gene/basic/night_vision/deactivate(mob/living/M, connected, flags)
 	..()
 	M.update_sight()
 	M.update_icons() //Remove eyeshine as needed.

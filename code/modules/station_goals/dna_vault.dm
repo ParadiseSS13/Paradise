@@ -277,7 +277,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			grant_power(H, FIREBLOCK, COLDRES)
 		if(VAULT_XRAY)
 			to_chat(H, "<span class='notice'>You can suddenly see through walls.</span>")
-			grant_power(H, XRAYBLOCK, XRAY)
+			H.mutations.Add(XRAY) // No longer has a block attached to it
 		if(VAULT_TELEKINESIS)
 			to_chat(H, "<span class='notice'>You gain the ability to control objects from a distance.</span>")
 			grant_power(H, TELEBLOCK, TK)

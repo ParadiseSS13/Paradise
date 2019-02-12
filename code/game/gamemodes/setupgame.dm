@@ -40,7 +40,7 @@
 	HULKBLOCK          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	TELEBLOCK          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	FIREBLOCK          = getAssignedBlock("FIRE",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	XRAYBLOCK          = getAssignedBlock("XRAY",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	NIGHTVISIONBLOCK   = getAssignedBlock("NIGHTVISION",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	CLUMSYBLOCK        = getAssignedBlock("CLUMSY",        numsToAssign)
 	FAKEBLOCK          = getAssignedBlock("FAKE",          numsToAssign)
 	COUGHBLOCK         = getAssignedBlock("COUGH",         numsToAssign)

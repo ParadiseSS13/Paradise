@@ -1551,7 +1551,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
-	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
+	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations) && !(NIGHTVISION in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY or night vision
 		return FALSE
 
 	return TRUE
