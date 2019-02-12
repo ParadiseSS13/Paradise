@@ -714,8 +714,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		H.see_in_dark = max(H.see_in_dark, 8)
-		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
