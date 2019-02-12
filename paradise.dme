@@ -1928,6 +1928,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\hive.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\mother.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\prince.dm"
+#include "code\modules\mob\living\simple_animal\hostile\terror_spiders\princess.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\purple.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\queen.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\red.dm"
