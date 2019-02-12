@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "hydrocodone")
+	var/list/brine_types = list("corazone", "salbutamol", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -177,6 +177,12 @@
 		return
 	if(occupant && occupant.stat != DEAD)
 		to_chat(user,  "Current clone cycle is [round(get_completion())]% complete.")
+
+/obj/machinery/clonepod/return_air() //non-reactive air
+	var/datum/gas_mixture/GM = new
+	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
+	GM.temperature = T20C
+	return GM
 
 /obj/machinery/clonepod/proc/get_completion()
 	. = (100 * ((occupant.health + 100) / (heal_level + 100)))
