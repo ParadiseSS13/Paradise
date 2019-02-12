@@ -19,6 +19,7 @@
 	var/dissipate_strength = 1 //How much energy do we lose?
 	var/move_self = 1 //Do we move on our own?
 	var/grav_pull = 4 //How many tiles out do we pull?
+	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
 	var/consume_range = 0 //How many tiles out do we eat
 	var/event_chance = 15 //Prob for event each tick
 	var/target = null //its target. moves towards the target if it has one

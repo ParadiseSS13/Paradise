@@ -33,6 +33,7 @@
 
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
+	var/mob/dead/observer/O = user
 	if(ticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
@@ -40,6 +41,12 @@
 		return
 	if(jobban_isbanned(user, banType))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return
+	if(cannotPossess(user))
+		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
+	if(!O.can_reenter_corpse)
+		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return

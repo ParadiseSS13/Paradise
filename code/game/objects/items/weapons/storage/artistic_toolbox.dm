@@ -116,8 +116,9 @@
 	cure_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = BIOHAZARD
-	disease_flags = CURABLE
+	disease_flags = CAN_CARRY
 	spread_flags = NON_CONTAGIOUS
+	virus_heal_resistant = TRUE
 	var/obj/item/storage/toolbox/green/memetic/progenitor = null
 
 /datum/disease/memetic_madness/Destroy()

@@ -482,7 +482,10 @@
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash
-	winset(C, "rpane.changelog", "background-color=none;font-style=")
+	if(preferences_datums[C.ckey].toggles & UI_DARKMODE)
+		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
+	else
+		winset(C, "rpane.changelog", "background-color=none;font-style=none")
 	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()

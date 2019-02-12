@@ -92,7 +92,7 @@
 			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 	if((message && stat == CONSCIOUS))
 		if(client)
-			log_emote("[name]/[key] : [message]")
+			log_emote("[name]/[key] : [message]", src)
 		if(m_type & 1)
 			visible_message(message)
 		else

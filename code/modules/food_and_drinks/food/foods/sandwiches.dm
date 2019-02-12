@@ -5,14 +5,14 @@
 
 /obj/item/reagent_containers/food/snacks/brainburger
 	name = "brainburger"
-	desc = "A strange looking burger. It looks almost sentient."
+	desc = "A strange looking burger. It appears almost sentient."
 	icon_state = "brainburger"
 	filling_color = "#F2B6EA"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/ghostburger
-	name = "Ghost Burger"
+	name = "ghost burger"
 	desc = "Spooky! It doesn't look very filling."
 	icon_state = "ghostburger"
 	filling_color = "#FFF2FF"
@@ -47,8 +47,8 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/tofuburger
-	name = "Tofu Burger"
-	desc = "What.. is that meat?"
+	name = "tofu burger"
+	desc = "Making this should probably be a criminal offense."
 	icon_state = "tofuburger"
 	filling_color = "#FFFEE0"
 	bitesize = 3
@@ -73,14 +73,14 @@
 
 /obj/item/reagent_containers/food/snacks/xenoburger
 	name = "xenoburger"
-	desc = "Smells caustic. Tastes like heresy."
+	desc = "Smells caustic and tastes like heresy."
 	icon_state = "xburger"
 	filling_color = "#43DE18"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/clownburger
-	name = "Clown Burger"
+	name = "clown burger"
 	desc = "This tastes funny..."
 	icon_state = "clownburger"
 	filling_color = "#FF00FF"
@@ -88,7 +88,7 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/mimeburger
-	name = "Mime Burger"
+	name = "mime burger"
 	desc = "Its taste defies language."
 	icon_state = "mimeburger"
 	filling_color = "#FFFFFF"
@@ -97,14 +97,14 @@
 
 /obj/item/reagent_containers/food/snacks/baseballburger
 	name = "home run baseball burger"
-	desc = "It's still warm. The steam coming off of it looks like baseball."
+	desc = "It's still warm. Batter up!"
 	icon_state = "baseball"
 	filling_color = "#CD853F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/spellburger
-	name = "Spell Burger"
+	name = "spell burger"
 	desc = "This is absolutely Ei Nath."
 	icon_state = "spellburger"
 	filling_color = "#D505FF"
@@ -112,15 +112,15 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/bigbiteburger
-	name = "Big Bite Burger"
-	desc = "Forget the Big Mac. THIS is the future!"
+	name = "BigBite burger"
+	desc = "Forget the Big Mac, THIS is the future!"
 	icon_state = "bigbiteburger"
 	filling_color = "#E3D681"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 
 /obj/item/reagent_containers/food/snacks/superbiteburger
-	name = "Super Bite Burger"
+	name = "SuperBite burger"
 	desc = "This is a mountain of a burger. FOOD!"
 	icon_state = "superbiteburger"
 	filling_color = "#CCA26A"
@@ -128,8 +128,8 @@
 	list_reagents = list("nutriment" = 40, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/jellyburger
-	name = "Jelly Burger"
-	desc = "Culinary delight..?"
+	name = "jelly burger"
+	desc = "Culinary delight...?"
 	icon_state = "jellyburger"
 	filling_color = "#B572AB"
 	bitesize = 3
@@ -146,7 +146,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/sandwich
-	name = "Sandwich"
+	name = "sandwich"
 	desc = "A grand creation of meat, cheese, bread, and several leaves of lettuce! Arthur Dent would be proud."
 	icon_state = "sandwich"
 	trash = /obj/item/trash/plate
@@ -154,7 +154,7 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/toastedsandwich
-	name = "Toasted Sandwich"
+	name = "toasted sandwich"
 	desc = "Now if you only had a pepper bar."
 	icon_state = "toastedsandwich"
 	trash = /obj/item/trash/plate
@@ -162,15 +162,15 @@
 	list_reagents = list("nutriment" = 6, "carbon" = 2)
 
 /obj/item/reagent_containers/food/snacks/grilledcheese
-	name = "Grilled Cheese Sandwich"
-	desc = "Goes great with Tomato soup!"
+	name = "grilled cheese sandwich"
+	desc = "Goes great with tomato soup!"
 	icon_state = "toastedsandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
 
 /obj/item/reagent_containers/food/snacks/jellysandwich
-	name = "Jelly Sandwich"
+	name = "jelly sandwich"
 	desc = "You wish you had some peanut butter to go with this..."
 	icon_state = "jellysandwich"
 	trash = /obj/item/trash/plate

@@ -373,15 +373,8 @@
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			winset(src, "rpane.changelog", "background-color=#bb7700;font-color=#FFFFFF;font-style=bold")
-	else
-		if(establish_db_connection())
-			if(prefs.toggles & UI_DARKMODE)
-				winset(src, "rpane.changelog", "background-color=#bb7700;font-color=#FFFFFF;font-style=bold") // makes changelog dark if its been set
-			else
-				winset(src, "rpane.changelog", "background-color=#ffffff;font-color=#000000") // makes changelog normal if it hasnt been set
-		else
-			winset(src, "rpane.changelog", "background-color=#ffffff;font-color=#000000") // makes changelog normal if DB isnt connected
+			update_changelog_button()
+			
 
 	if(!void)
 		void = new()
@@ -679,6 +672,7 @@
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
+	update_changelog_button()
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
@@ -713,34 +707,51 @@
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
+	update_changelog_button()
 	/* Rpane */
-	winset(src, "rpane.textb", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.forumb", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=#ffffff;text-color=#000000")
+	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
+	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
+	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
 	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=#ffffff;text-color=#000000")
-	winset(src, "mainwindow.mebutton", "background-color=#ffffff;text-color=#000000")
-	winset(src, "mainwindow.hotkey_toggle", "background-color=#ffffff;text-color=#000000")
+	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	winset(src, "mainwindow.hotkey_toggle", "background-color=none;text-color=#000000")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#ffffff")
-	winset(src, "mainwindow.mainvsplit", "background-color=#ffffff")
-	winset(src, "mainwindow.tooltip", "background-color=#ffffff")
+	winset(src, "mainwindow", "background-color=none")
+	winset(src, "mainwindow.mainvsplit", "background-color=none")
+	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
-	winset(src, "outputwindow.outputwindow", "background-color=#ffffff")
-	winset(src, "outputwindow.browseroutput", "background-color=#ffffff")
+	winset(src, "outputwindow.outputwindow", "background-color=none")
+	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#ffffff")
-	winset(src, "rpane.rpane", "background-color=#ffffff")
-	winset(src, "rpane.rpanewindow", "background-color=#ffffff")
+	winset(src, "rpane", "background-color=none")
+	winset(src, "rpane.rpane", "background-color=none")
+	winset(src, "rpane.rpanewindow", "background-color=none")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#ffffff")
-	winset(src, "browserwindow.browser", "background-color=#ffffff")
+	winset(src, "browserwindow", "background-color=none")
+	winset(src, "browserwindow.browser", "background-color=none")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#ffffff;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=#ffffff;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=#ffffff")
+	winset(src, "infowindow", "background-color=none;text-color=#000000")
+	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
+
+// Better changelog button handling
+/client/proc/update_changelog_button()
+	if(establish_db_connection())
+		if(prefs.lastchangelog != changelog_hash) 
+			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+		else
+			if(prefs.toggles & UI_DARKMODE) 
+				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+			else
+				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+	else
+		if(prefs.toggles & UI_DARKMODE) 
+			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+		else
+			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")

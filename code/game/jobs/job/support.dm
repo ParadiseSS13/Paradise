@@ -237,8 +237,8 @@
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		mask = /obj/item/clothing/mask/gas/sexyclown
-		uniform = /obj/item/clothing/under/sexyclown
+		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
+		uniform = /obj/item/clothing/under/rank/clown/sexy
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
