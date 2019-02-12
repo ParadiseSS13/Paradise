@@ -26,7 +26,8 @@
 	handle_diseases()
 
 	//Heart Attack, if applicable
-	handle_heartattack()
+	if(stat != DEAD)
+		handle_heartattack()
 
 	//Handle temperature/pressure differences between body and environment
 	if(environment)
