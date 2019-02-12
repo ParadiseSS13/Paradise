@@ -48,9 +48,11 @@
 /mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM)
 	..()
 	if(ismob(AM) && AM == target)
+		var/mob/living/carbon/C = AM
 		visible_message("[src] flails his swords and cuts [AM]!")
 		playsound(loc,'sound/effects/spinsabre.ogg',100,1,-1)
 		sword_attack(AM)
+		C.Weaken(2)
 
 /mob/living/simple_animal/bot/secbot/griefsky/New()
 	..()
@@ -111,6 +113,7 @@
 						target_lastloc = target.loc
 						sword_attack(target)
 						anchored = TRUE
+						frustration++
 						return
 					else								// not next to perp
 						var/turf/olddist = get_dist(src, target)
