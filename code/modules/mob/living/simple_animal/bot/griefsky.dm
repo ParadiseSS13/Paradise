@@ -49,7 +49,7 @@
 	..()
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM
-		visible_message("[src] flails his swords and cuts [AM]!")
+		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
 		playsound(loc,'sound/effects/spinsabre.ogg',100,1,-1)
 		C.Weaken(2)
 
