@@ -381,8 +381,8 @@
 /obj/item/twohanded/shockpaddles/proc/do_help(mob/living/carbon/human/H, mob/living/user)
 	for(var/obj/item/carried_item in H.contents)
 		if(istype(carried_item, /obj/item/clothing/suit/space))
-			if(!defib.combat)
-				user.visible_message("<span class='notice'>[defib] buzzes: Patient's chest is obscured. Operation aborted.</span>")
+			if((!combat && !req_defib) || (req_defib && !defib.combat))
+				user.audible_message("<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Patient's chest is obscured. Operation aborted.</span>")
 				playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 				update_icon()
 				return
