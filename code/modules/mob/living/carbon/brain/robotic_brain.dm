@@ -26,6 +26,9 @@
 	return ..()
 
 /obj/item/mmi/robotic_brain/attack_self(mob/user)
+	if(isgolem(user))
+		to_chat(user, "<span class='warning'>[src] seems to require an organic or robotic user. You can't find a way to activate it.")
+		return
 	if(requires_master && !imprinted_master)
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		imprinted_master = user

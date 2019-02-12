@@ -122,6 +122,10 @@ var/global/list/datum/stack_recipe/silverfancy_tile_recipes = list ( \
 	mineralType = "titanium"
 	materials = list(MAT_TITANIUM=500)
 
+/obj/item/stack/tile/mineral/titanium/purple
+	turf_type = /turf/simulated/floor/mineral/titanium/purple
+	icon_state = "tile_plasma"
+
 /obj/item/stack/tile/mineral/plastitanium
 	name = "plas-titanium tile"
 	singular_name = "plas-titanium floor tile"
