@@ -86,3 +86,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		spawn(10)
 			icon_state = "d_analyzer_l"
 			busy = 0
+
+/obj/machinery/r_n_d/destructive_analyzer/old
+	icon = 'icons/obj/machines/research_old.dmi'
+	desc = "A prototype that is supposed to breakdown a item or material and learn science from it."

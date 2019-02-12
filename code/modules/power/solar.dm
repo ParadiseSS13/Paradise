@@ -530,6 +530,24 @@
 		broken()
 		src.density = 0
 
+/obj/machinery/power/solar_control/old
+	name = "solar panel control"
+	desc = "A controller for solar panel arrays."
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "old_solar"
+	icon_keyboard = ""
+
+
+/obj/machinery/power/solar_control/old/update_icon()
+	overlays.Cut()
+	if(stat & BROKEN)
+		overlays += "[icon_state]_broken"
+	else
+		overlays += icon_screen
+	if(cdir > -1)
+		overlays += image('icons/obj/computer.dmi', "old_solcon-o", FLY_LAYER, angle2dir(cdir))
+
 //
 // MISC
 //

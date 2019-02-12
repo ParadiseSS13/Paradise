@@ -156,3 +156,10 @@
 	user.visible_message("<span class='danger'>[user.name] smashes against the [src.name] with its claws.</span>",\
 	"<span class='danger'>You smash against the [src.name] with your claws.</span>",\
 	"<span class='danger'>You hear a clicking sound.</span>")
+
+/obj/machinery/computer/old
+	name = "old computer"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "oldcomp"
+	icon_keyboard = ""
+	icon_screen = "oldcomp_broken"

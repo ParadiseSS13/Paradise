@@ -108,3 +108,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return FALSE
 	else
 		return ..()
+
+/obj/machinery/r_n_d/circuit_imprinter/old
+	icon = 'icons/obj/machines/research_old.dmi'
+	desc = "A prototype that is able to create circuit boards for computers and machines."
