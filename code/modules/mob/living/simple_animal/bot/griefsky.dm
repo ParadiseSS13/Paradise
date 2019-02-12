@@ -60,7 +60,7 @@
 	QDEL_NULL(weapon)
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //hopefuly no one controls this thing
+/mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention
 	if(!on)
 		return
 	if(iscarbon(A))
