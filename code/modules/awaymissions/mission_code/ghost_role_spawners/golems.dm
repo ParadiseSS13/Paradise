@@ -85,6 +85,8 @@
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
+		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
+		Adamantine golems are the only golems that can resonate to all golems.</b>")
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
 		to_chat(new_spawn, "<span class='warning'>You are not an antagonist, but you are not a crewmember either. \
 		You may interact or trade with crew you come across, aswell as defend yourself and your ship \
