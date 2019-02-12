@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Added pink (princess) T3 terror spider, better terror spiderling AI."
+  - tweak: "Tweaked green and mother terror spiders. All terror spider types now have their own variants of the standard spider web."
