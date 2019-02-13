@@ -1034,6 +1034,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "party equipment"
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/bar
+	name = "Bar Starter Kit"
+	contains = list(/obj/item/storage/box/drinkingglasses,
+					/obj/item/circuitboard/soda,
+					/obj/item/circuitboard/beer)
+	cost = 20
+	containername = "beer starter kit"
+	announce_beacons = list("Bar" = list("Bar"))
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"

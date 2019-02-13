@@ -617,6 +617,30 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
 
+/obj/item/circuitboard/soda
+	name = "Circuit board (Soda Machine)"
+	build_path = /obj/machinery/chem_dispenser/soda
+	board_type = "machine"
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Capacitor, 1 Console Screen, and 1 Power Cell."
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/console_screen = 1,
+							/obj/item/stock_parts/cell = 1)
+
+/obj/item/circuitboard/beer
+	name = "Circuit board (Beer Machine)"
+	build_path = /obj/machinery/chem_dispenser/beer
+	board_type = "machine"
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Capacitor, 1 Console Screen, and 1 Power Cell."
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/console_screen = 1,
+							/obj/item/stock_parts/cell = 1)
+
 
 /obj/item/circuitboard/circuit_imprinter
 	name = "Circuit board (Circuit Imprinter)"

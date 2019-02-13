@@ -387,7 +387,7 @@
 	drink_desc = "No relation to a certain rap artist/ actor."
 
 /datum/reagent/consumable/drink/bananahonk
-	name = "Banana Mama"
+	name = "Banana Honk"
 	id = "bananahonk"
 	description = "A drink from Clown Heaven."
 	color = "#664300" // rgb: 102, 67, 0
