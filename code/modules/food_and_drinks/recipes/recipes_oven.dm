@@ -167,8 +167,7 @@
 
 /datum/recipe/oven/cookies
 	items = list(
-		/obj/item/reagent_containers/food/snacks/rawcookies,
-		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/rawcookies/chocochips,
 	)
 	result = /obj/item/storage/bag/tray/cookies_tray
 
@@ -176,7 +175,8 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/rawcookies,
 	)
-	result = /obj/item/storage/bag/tray/sugarcookies_tray
+	result = /obj/item/storage/bag/tray/cookies_tray/sugarcookie
+///	result = /obj/item/storage/bag/tray/sugarcookies_tray
 
 ////
 
