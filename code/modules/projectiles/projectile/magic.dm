@@ -125,6 +125,8 @@
 		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
+	else if(istype(target, /obj/structure/closet))
+		OpenCloset(target)
 
 /obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
@@ -135,8 +137,14 @@
 /obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
-		A.locked = 0
+		A.locked = FALSE
 	D.open()
+
+/obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
+	if(istype(C, /obj/structure/closet/secure_closet))
+		var/obj/structure/closet/secure_closet/SC = C
+		SC.locked = FALSE
+	C.open()
 
 /obj/item/projectile/magic/change
 	name = "bolt of change"

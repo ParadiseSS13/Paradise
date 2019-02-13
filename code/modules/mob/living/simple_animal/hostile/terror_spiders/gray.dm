@@ -25,6 +25,7 @@
 	wander = 0 // wandering defeats the purpose of stealth
 	idle_vision_range = 3 // very low idle vision range
 	delay_web = 20 // double speed
+	web_type = /obj/structure/spider/terrorweb/gray
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(mob/living/carbon/human/L, poisonable)
@@ -136,3 +137,8 @@
 				if(get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
 					step_to(src,temp_vent)
 					// if you're bumped off your vent, try to get back to it
+
+/obj/structure/spider/terrorweb/gray
+	alpha = 100
+	name = "transparent web"
+	desc = "This web is partly transparent, making it harder to see, and easier to get caught by."

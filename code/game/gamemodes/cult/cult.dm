@@ -44,6 +44,7 @@ var/global/list/all_cults = list()
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
+	free_golems_disabled = TRUE
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0

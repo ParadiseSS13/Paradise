@@ -119,6 +119,11 @@ LINEN BINS
 	dream_messages = list("authority", "a silvery ID", "a bomb", "a mech", "a facehugger", "maniacal laughter", "the research director")
 	nightmare_messages = list("toxins full of plasma", "UPGRADE THE SLEEPERS", "rogue ai")
 
+/obj/item/bedsheet/rd/royal_cape
+	name = "Royal Cape of the Liberator"
+	desc = "Majestic."
+	dream_messages = list("mining", "stone", "a golem", "freedom", "doing whatever")
+
 /obj/item/bedsheet/medical
 	name = "medical blanket"
 	desc = "It's a sterilized* blanket commonly used in the Medbay.  *Sterilization is voided if a virologist is present onboard the station."

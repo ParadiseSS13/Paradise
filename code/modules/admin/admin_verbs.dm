@@ -79,6 +79,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/list_ssds,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
+	/client/proc/show_discord_duplicates,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -1045,3 +1046,12 @@ var/list/admin_verbs_ticket = list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/show_discord_duplicates()
+	set name = "Show Duplicate Discord Links"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	holder.discord_duplicates()
