@@ -1,0 +1,4 @@
+author: "aleksix"
+delete-after: True
+changes: 
+  - bugfix: "made the lighter size consistent before and after first lighting."
