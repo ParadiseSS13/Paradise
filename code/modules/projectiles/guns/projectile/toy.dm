@@ -121,8 +121,8 @@
 	name = "donksoft sniper rifle"
 	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = 0
-	needs_permit = 0
+	can_suppress = FALSE
+	needs_permit = FALSE
 	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
 
