@@ -40,8 +40,6 @@
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	skinned_type = /obj/item/stack/sheet/wood
 
-	oxy_mod = 0
-
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"

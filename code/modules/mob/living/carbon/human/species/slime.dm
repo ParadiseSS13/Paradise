@@ -20,7 +20,6 @@
 	cold_level_3 = 200
 	coldmod = 3
 
-	oxy_mod = 0
 	brain_mod = 2.5
 
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')

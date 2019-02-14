@@ -1,3 +1,8 @@
+/mob/living/carbon/human/SetLoseBreath(amount)
+	if(NO_BREATHE in dna.species.species_traits)
+		return FALSE
+	. = ..()
+
 /mob/living/carbon/human/SetStunned(amount, updating = 1, force = 0)
 	if(dna.species)
 		amount = amount * dna.species.stun_mod

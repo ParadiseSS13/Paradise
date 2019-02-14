@@ -123,6 +123,8 @@
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
+	if(BREATHLESS in mutations)
+		return FALSE
 	var/old_oxyloss = oxyloss
 	oxyloss = max(oxyloss + amount, 0)
 	if(old_oxyloss == oxyloss)
@@ -136,6 +138,8 @@
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
+	if(BREATHLESS in mutations)
+		return FALSE
 	var/old_oxyloss = oxyloss
 	oxyloss = amount
 	if(old_oxyloss == oxyloss)

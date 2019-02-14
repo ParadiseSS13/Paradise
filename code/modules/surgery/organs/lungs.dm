@@ -20,17 +20,10 @@
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
 
-	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
-	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
+
 	var/oxy_damage_type = OXY
-	var/nitro_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
-	var/nitro_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/nitro_damage_type = OXY
-	var/co2_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
-	var/co2_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/co2_damage_type = OXY
-	var/tox_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
-	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
 
 	var/cold_message = "your face freezing and an icicle forming"
@@ -334,7 +327,7 @@
 	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal when the air is cold
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
-	cold_damage_types = list(BRUTE = 1, BURN = 0.5)
+	cold_damage_types = list(BRUTE = 0.5, BURN = 0.25)
 
 /obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"

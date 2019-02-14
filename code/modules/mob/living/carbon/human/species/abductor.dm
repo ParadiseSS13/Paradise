@@ -16,7 +16,6 @@
 
 	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_EXAMINE)
 	dies_at_threshold = TRUE
-	oxy_mod = 0
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI

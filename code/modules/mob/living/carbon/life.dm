@@ -430,9 +430,9 @@
 	else if(stat == CONSCIOUS)
 		if(check_death_method())
 			clear_fullscreen("crit")
-			if(oxyloss)
+			if(getOxyLoss())
 				var/severity = 0
-				switch(oxyloss)
+				switch(getOxyLoss())
 					if(10 to 20)
 						severity = 1
 					if(20 to 25)

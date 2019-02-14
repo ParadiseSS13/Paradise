@@ -20,8 +20,6 @@
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
 	dies_at_threshold = TRUE
 
-	oxy_mod = 0
-
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
 	suicide_messages = list(
