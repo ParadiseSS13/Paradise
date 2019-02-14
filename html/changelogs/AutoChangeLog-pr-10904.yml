@@ -1,0 +1,4 @@
+author: "aleksix"
+delete-after: True
+changes: 
+  - bugfix: "posibrains and robobrains don't vanish upon the controlling player's suicide"
