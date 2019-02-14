@@ -26,12 +26,12 @@
 	var/datum/action/innate/slime_pick_up/slime_up_action = new
 	var/datum/action/innate/feed_slime/feed_slime_action = new
 	var/datum/action/innate/monkey_recycle/monkey_recycle_action = new
-	var/datum/action/innate/mutate_slime/mutate_slime_action = new
+	var/datum/action/innate/transfer_potion/transfer_potion_action = new
 
 	var/list/stored_slimes = list()
 	var/max_slimes = 5
 	var/monkeys = 0
-	var/mutators = 0
+	var/obj/item/slimepotion/current_potion
 
 	icon_screen = "slime_comp"
 	icon_keyboard = "rd_key"
@@ -65,10 +65,10 @@
 		monkey_recycle_action.Grant(user)
 		actions += monkey_recycle_action
 	
-	if(mutate_slime_action)
-		mutate_slime_action.target = src
-		mutate_slime_action.Grant(user)
-		actions += mutate_slime_action
+	if(transfer_potion_action)
+		transfer_potion_action.target = src
+		transfer_potion_action.Grant(user)
+		actions += transfer_potion_action
 
 
 /obj/machinery/computer/camera_advanced/xenobio/attack_hand(mob/user)
@@ -78,17 +78,20 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		monkeys++
-		to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
-		user.drop_item()
-		qdel(O)
-		return
-	else if (istype(O, /obj/item/slimepotion/mutator))
-		mutators++
-		to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [mutators] slime mutation potions stored.</span>")
-		user.drop_item()
-		qdel(O)
-		return
+		if(user.drop_item())
+			monkeys++
+			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
+			qdel(O)
+			return
+	else if (istype(O, /obj/item/slimepotion))
+		var/replaced = FALSE
+		if(user.drop_item())
+			if(!QDELETED(current_potion))
+				current_potion.forceMove(drop_location())
+				replaced = TRUE
+			current_potion = O
+			to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""].</span>")
+			return
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/P = O
 		var/loaded = 0
@@ -99,15 +102,6 @@
 			qdel(MC)
 		if(loaded)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
-			loaded = 0
-		
-		for(var/obj/item/slimepotion/mutator/M in P.contents)
-			loaded = 1
-			mutators++
-			P.remove_from_storage(M)
-			qdel(M)
-		if(loaded)
-			to_chat(user, "<span class='notice'>You fill [src] with the slime mutation potions stored in [O]. [src] now has [mutators] slime mutation potions stored.</span>")
 		return
 	..()
 
@@ -195,27 +189,26 @@
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
-/datum/action/innate/mutate_slime
-	name = "Mutate Slimes"
-	button_icon_state = "mutate_slimes"
+/datum/action/innate/transfer_potion
+	name = "Transfer Potion"
+	button_icon_state = "transfer_potion"
 
-/datum/action/innate/mutate_slime/Activate()
+/datum/action/innate/transfer_potion/Activate()
 	if(!target || !ishuman(owner))
 		return
+
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
+	if(QDELETED(X.current_potion))
+		to_chat(owner, "<span class='warning'>No potion loaded.</span>")
+		return
+
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/slime/S in remote_eye.loc)
-			if(X.mutators)
-				var/obj/item/slimepotion/mutator/M = new /obj/item/slimepotion/mutator
-				if(!M.attack(S, owner))
-					X.mutators--
-					to_chat(owner, "[X] now has [X.mutators] slime mutation potions left.")
-				else
-					qdel(M)
-			else
-				//to_chat(ownder, "<span class='notice'>The console contains 0 slime mutators!</span>") Leaving this out because the monkey feeder thing doesn't have one of these if you don't have any monkeys left.
+			if(!QDELETED(X.current_potion))
+				X.current_potion.attack(S, C)
+				break
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
