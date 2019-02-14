@@ -353,7 +353,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !ismindshielded(M) && !isgolem(M) && !isanimal(M) && ishuman(M))
+		if(!iscultist(M) && !ismindshielded(M) && !isgolem(M) && ishuman(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
