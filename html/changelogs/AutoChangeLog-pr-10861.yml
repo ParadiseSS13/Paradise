@@ -1,0 +1,5 @@
+author: "EmanTheAlmighty"
+delete-after: True
+changes: 
+  - rscadd: "Sentience event now adds some damage to the affected mob."
+  - tweak: "Sentience event now adds health to the affected mob, rather than replacing the old value with another value."
