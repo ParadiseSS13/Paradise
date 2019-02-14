@@ -938,8 +938,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/public
 
 /obj/machinery/computer/rdconsole/public/old
-	name = "public R&D console"
-	desc = "A console used to interface with R&D tools."
+	name = "Experimental R&D console"
+	desc = "A console used to interface with a new experimental R&D system."
 	icon_state = "oldcomp"
 	icon_screen = "old_rnd"
 	icon_keyboard = ""

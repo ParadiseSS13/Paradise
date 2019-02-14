@@ -478,3 +478,7 @@
 /obj/machinery/mecha_part_fabricator/robot
 	name = "Robotic Fabricator"
 	part_sets = list("Cyborg")
+
+/obj/machinery/mecha_part_fabricator/old
+	name = "Experimental Fabricator"
+	icon = 'icons/obj/machines/research_old.dmi'

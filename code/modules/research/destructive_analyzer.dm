@@ -88,5 +88,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 			busy = 0
 
 /obj/machinery/r_n_d/destructive_analyzer/old
+	name = "Experimental Destructive Analyzer"
 	icon = 'icons/obj/machines/research_old.dmi'
 	desc = "A prototype that is supposed to breakdown a item or material and learn science from it."

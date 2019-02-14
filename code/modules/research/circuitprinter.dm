@@ -110,5 +110,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return ..()
 
 /obj/machinery/r_n_d/circuit_imprinter/old
+	name = "Experimental Circuit Imprinter"
 	icon = 'icons/obj/machines/research_old.dmi'
 	desc = "A prototype that is able to create circuit boards for computers and machines."
