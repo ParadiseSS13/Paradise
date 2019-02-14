@@ -133,7 +133,7 @@
 
 /obj/item/reagent_containers/food/snacks/cookiedough
 	var/flat = FALSE
-	name = "cookie dough"
+	name = "pastry dough"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	desc = "The base for tasty cookies."
 	icon_state = "cookiedough"
@@ -142,7 +142,7 @@
 /obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
     if(flat)
         icon_state = "cookiedough_flat"
-        name = "flat cookie dough"
+        name = "flat pastry dough"
     else
         icon_state = "cookiedough"
 
@@ -165,10 +165,10 @@
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
 	else
-		..()
+		return..()
 
 
-/obj/item/reagent_containers/food/snacks/rawcookies/
+/obj/item/reagent_containers/food/snacks/rawcookies
 	name = "raw cookies"
 	desc = "Ready for oven!"
 	icon = 'icons/obj/food/food_ingredients.dmi'
@@ -185,7 +185,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to add this</span>")
 	else
-		..()
+		return..()
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
 	name = "raw cookies"
@@ -215,7 +215,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
 	else
-		..()
+		return..()
 
 
 /obj/item/reagent_containers/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
