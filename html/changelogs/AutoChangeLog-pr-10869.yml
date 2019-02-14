@@ -1,5 +1,0 @@
-author: "AzuleUtama"
-delete-after: True
-changes: 
-  - rscadd: "Added Super Surplus Crates from TG. They contain 125TC worth of gear, but cost 40TC meaning you'll need to team up if you want one."
-  - bugfix: "The Surplus chance value for various uplink items will now work when ordering a crate."
