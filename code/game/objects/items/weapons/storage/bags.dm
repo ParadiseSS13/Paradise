@@ -460,7 +460,7 @@
 	return ..()
 
 
-/obj/item/storage/bag/tray/cookies_tray/
+/obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
 /obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
