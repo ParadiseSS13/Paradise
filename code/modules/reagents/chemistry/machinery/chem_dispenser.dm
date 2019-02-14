@@ -264,7 +264,7 @@
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
-	/var/list/special_reagents2 = list(list(""),
+	var/list/special_reagents2 = list(list(""),
 							list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha"),
 							list("triple_citrus", "icecoffe","icetea"))
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
@@ -296,9 +296,8 @@
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/soda/RefreshParts()
-	var/i
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		for(i=1, i<=M.rating, i++)
+		for(var/i in 1 to M.rating)
 			dispensable_reagents = sortList(dispensable_reagents | special_reagents2[i])
 
 /obj/machinery/chem_dispenser/soda/attackby(obj/item/I, mob/user, params)
@@ -306,7 +305,7 @@
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		..()
+		return ..()
 	else
 		..()
 
@@ -316,23 +315,23 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/wrench))
+	if(iswrench(I))
 		playsound(src, I.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='caution'>[src] is now secured.</span>")
 
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(iscrowbar(I))
 			if(beaker)
 				var/obj/item/reagent_containers/glass/B = beaker
 				B.forceMove(loc)
 				beaker = null
 			default_deconstruction_crowbar(I)
-			return 1
+			return TRUE
 
 
 /obj/machinery/chem_dispenser/beer
@@ -343,7 +342,7 @@
 	max_energy = 100
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
-	/var/list/special_reagents3 = list(list("iced_beer"),
+	var/list/special_reagents3 = list(list("iced_beer"),
 								list("irishcream", "manhattan",),
 								list("antihol", "synthignon", "bravebull"))
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
@@ -375,9 +374,8 @@
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/beer/RefreshParts()
-	var/i
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		for(i=1, i<=M.rating, i++)
+		for(var/i in 1 to M.rating)
 			dispensable_reagents = sortList(dispensable_reagents | special_reagents3[i])
 
 /obj/machinery/chem_dispenser/beer/attackby(obj/item/I, mob/user, params)
@@ -385,7 +383,7 @@
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		..()
+		return ..()
 	else
 		..()
 
@@ -395,23 +393,23 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/wrench))
+	if(iswrench(I))
 		playsound(src, I.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='caution'>[src] is now secured.</span>")
 
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(iscrowbar(I))
 			if(beaker)
 				var/obj/item/reagent_containers/glass/B = beaker
 				B.forceMove(loc)
 				beaker = null
 			default_deconstruction_crowbar(I)
-			return 1
+			return TRUE
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
