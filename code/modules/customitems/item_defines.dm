@@ -1476,6 +1476,13 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
 
+/obj/item/storage/backpack/duffel/fluff/thebrew //Greey: Korala Ice
+	name = "The Brew"
+	desc = "Amber colored duffle bag resembling a long lost friend, a spirit long forgotten."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "greeyfluff"
+	item_state = "greeyfluff"
+
 /obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
