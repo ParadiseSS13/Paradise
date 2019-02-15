@@ -842,7 +842,7 @@
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		update_flags |= M.Stun(1, FALSE)
 		update_flags |= M.Weaken(1, FALSE)
-		M.ForceContractDisease(new /datum/disease/heart_failure(0))
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..() | update_flags
 
 /datum/reagent/fungus

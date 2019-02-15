@@ -378,9 +378,9 @@
 			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss())
-					occupant.adjustOxyLoss(-10)
+					occupant.adjustOxyLoss(-6)
 			else
-				occupant.adjustOxyLoss(-2)
+				occupant.adjustOxyLoss(-1.2)
 		if(beaker && next_trans == 0)
 			var/proportion = 10 * min(1/beaker.volume, 1)
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
@@ -388,7 +388,7 @@
 			beaker.reagents.reaction(occupant, TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
-	if(next_trans == 10)
+	if(next_trans == 17)
 		next_trans = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()

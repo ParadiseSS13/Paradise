@@ -71,7 +71,6 @@
 		contents = list()
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/tank/emergency_oxygen( src )
-		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		new /obj/item/flashlight/flare/glowstick/emergency( src )
 		return
 
@@ -83,7 +82,6 @@
 	contents = list()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_plasmaman
@@ -94,7 +92,6 @@
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer
@@ -104,7 +101,6 @@
 		contents = list()
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/tank/emergency_oxygen/engi( src )
-		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		new /obj/item/flashlight/flare/glowstick/emergency( src )
 		return
 
@@ -116,7 +112,6 @@
 		new /obj/item/clothing/mask/breath(src)
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
-		new /obj/item/reagent_containers/hypospray/autoinjector(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_syndi

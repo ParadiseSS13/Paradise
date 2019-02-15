@@ -77,7 +77,7 @@
 	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO
-	list_reagents = list("omnizine" = 30)
+	list_reagents = list("mitocholide" = 30)
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"

@@ -1,4 +1,17 @@
-/datum/disease/shock
+/datum/disease/critical
+
+/datum/disease/critical/stage_act() //overriden to ensure unique behavior
+	stage = min(stage, max_stages)
+
+	if(prob(stage_prob))
+		stage = min(stage + 1, max_stages)
+
+	for(var/C_id in cures)
+		if(affected_mob.reagents.has_reagent(C_id))
+			if(prob(cure_chance))
+				cure()
+
+/datum/disease/critical/shock
 	name = "Shock"
 	form = "Medical Emergency"
 	spread_text = "The patient is in shock"
@@ -14,7 +27,7 @@
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 
-/datum/disease/shock/stage_act()
+/datum/disease/critical/shock/stage_act()
 	..()
 	if(affected_mob.health >= 25)
 		to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
@@ -56,10 +69,10 @@
 				to_chat(affected_mob, "<span class='danger'>You can't breathe!</span>")
 				affected_mob.AdjustLoseBreath(1)
 			if(prob(5))
-				var/datum/disease/D = new /datum/disease/heart_failure
+				var/datum/disease/D = new /datum/disease/critical/heart_failure
 				affected_mob.ForceContractDisease(D)
 
-/datum/disease/heart_failure
+/datum/disease/critical/heart_failure
 	name = "Cardiac Failure"
 	form = "Medical Emergency"
 	spread_text = "The patient is having a cardiac emergency"
@@ -77,7 +90,7 @@
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 
-/datum/disease/heart_failure/stage_act()
+/datum/disease/critical/heart_failure/stage_act()
 	..()
 	switch(stage)
 		if(1)

@@ -124,7 +124,7 @@
 
 /datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/heart_failure(0))
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..()
 
 /datum/reagent/heartworms
