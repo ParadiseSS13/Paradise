@@ -1,0 +1,6 @@
+author: "Terilia"
+delete-after: True
+changes: 
+  - rscadd: "Added the donksoft sniper rifle"
+  - rscadd: "special donksoft sniper foam darts & special foamforce sniper foam darts"
+  - rscadd: "Sniper Foam Boxes && Riot Sniper Foam Boxes."
