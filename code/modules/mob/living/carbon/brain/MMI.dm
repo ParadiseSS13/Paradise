@@ -19,6 +19,10 @@
 	var/obj/item/radio/radio = null // For use with the radio MMI upgrade
 	var/datum/action/generic/configure_mmi_radio/radio_action = null
 
+	// Used for cases when mmi or one of it's children commits suicide.
+	// Needed to fix a rather insane bug when a posibrain/robotic brain commits suicide
+	var/dead_icon = "mmi_dead"
+
 /obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
