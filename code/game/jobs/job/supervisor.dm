@@ -167,6 +167,10 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
 	outfit = /datum/outfit/job/blueshield
 
+/datum/job/blueshield/equip(mob/living/carbon/human/H)
+	..()
+	H.martial_art = new /datum/martial_art/cqc
+
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
