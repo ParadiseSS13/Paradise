@@ -390,7 +390,7 @@
 			BB.icon_state = initial(BB.icon_state)
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-	name = "riot sniper foam dart"
+	name = "riot foam sniper dart"
 	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
 	caliber = "foam_force_sniper"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
