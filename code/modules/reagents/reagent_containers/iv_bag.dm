@@ -10,6 +10,7 @@
 	icon_state = "ivbag"
 	volume = 200
 	possible_transfer_amounts = list(1,5,10)
+	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	var/label_text
 	var/mode = IV_INJECT
