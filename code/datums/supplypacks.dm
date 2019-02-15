@@ -823,7 +823,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "IV drip crate"
-	access = access_cmo
+	access = access_medical
 
 /datum/supply_packs/medical/surgery
 	name = "Surgery Crate"

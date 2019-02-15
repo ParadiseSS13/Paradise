@@ -21,6 +21,8 @@
 	var/mob/living/carbon/human/imprinted_master = null
 	var/ejected_flavor_text = "circuit"
 
+	dead_icon = "boris_blank"
+
 /obj/item/mmi/robotic_brain/Destroy()
 	imprinted_master = null
 	return ..()
@@ -229,3 +231,4 @@
 	silenced = TRUE
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
+	dead_icon = "posibrain"

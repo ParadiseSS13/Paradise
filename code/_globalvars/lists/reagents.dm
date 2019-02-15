@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
 								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
-								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin"))
+								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin", "jestosterone"))
 // Rare chemicals
 GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines
