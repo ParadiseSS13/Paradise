@@ -49,7 +49,9 @@
 		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		update_icon()
 	else if (bag && istype(I, /obj/item/reagent_containers))
-		bag.attackby(I) // TODO - Make sure this shit even works.
+		bag.attackby(I)
+		I.afterattack(bag, usr, 1)
+		update_icon()
 	else
 		return ..()
 

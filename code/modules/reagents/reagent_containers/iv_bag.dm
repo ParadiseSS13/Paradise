@@ -61,8 +61,8 @@
 
 	if(mode) 	// Injecting
 		if(reagents.total_volume)
-			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1) //the fraction that is transfered of the total volume
-			reagents.reaction(injection_target, INGEST, fraction) //make reagents reacts, but don't spam messages
+			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1) 	//The amount of reagents we'll transfer to the person
+			reagents.reaction(injection_target, INGEST, fraction) 						//React the amount we're transfering.
 			reagents.trans_to(injection_target, amount_per_transfer_from_this)
 			update_icon()
 	else		// Drawing
@@ -84,19 +84,19 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(injection_target)
+		if(injection_target) // Removing the needle
 			if(L != injection_target)
 				to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
 				return
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
-									"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
+								"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
 				if(!do_mob(user, L))
 					return
 			L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
-									"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
+								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
 			end_processing()
-		else
+		else // Inserting the needle
 			if(!L.can_inject(user, 1))
 				return
 			if(L != user)
@@ -153,6 +153,7 @@
 	if(blood_type != null)
 		set_label(blood_type)
 		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
+		amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 		update_icon()
 
 
