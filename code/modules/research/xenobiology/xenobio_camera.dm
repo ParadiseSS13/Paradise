@@ -125,7 +125,7 @@
 	else if (istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
 		if(user.drop_item())
-			if(current_potion)
+			if(!QDELETED(current_potion))
 				current_potion.forceMove(drop_location())
 				replaced = TRUE
 			current_potion = O
