@@ -731,13 +731,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "first aid kits crate"
 
 /datum/supply_packs/medical/firstaidadv
-	name = "Advanced First Aid Kits Crate"
+	name = "Neurological First Aid Kits Crate"
 	contains = list(/obj/item/storage/firstaid/adv,
 					/obj/item/storage/firstaid/adv,
 					/obj/item/storage/firstaid/adv,
 					/obj/item/storage/firstaid/adv)
 	cost = 10
-	containername = "advanced first aid kits crate"
+	containername = "neurological first aid kits crate"
 
 /datum/supply_packs/medical/firstaidmachine
 	name = "Machine First Aid Kits Crate"

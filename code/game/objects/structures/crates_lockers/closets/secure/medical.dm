@@ -95,11 +95,11 @@
 	new /obj/item/clothing/accessory/stethoscope(src)
 	new /obj/item/flashlight/pen(src)
 	new /obj/item/storage/firstaid/regular(src)
-	new /obj/item/storage/firstaid/adv(src)
 	new /obj/item/storage/firstaid/brute(src)
 	new /obj/item/storage/firstaid/fire(src)
 	new /obj/item/storage/firstaid/o2(src)
 	new /obj/item/storage/firstaid/toxin(src)
+	new /obj/item/storage/firstaid/adv(src)
 
 
 // Psychiatrist's pill bottle

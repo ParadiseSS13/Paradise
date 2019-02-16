@@ -300,8 +300,7 @@
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/ert/medical = 1,
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/adv = 1,
-		/obj/item/storage/firstaid/regular = 1,
+		/obj/item/storage/firstaid/regular = 2,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
 		/obj/item/storage/pill_bottle/ert = 1,

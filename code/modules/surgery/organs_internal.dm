@@ -69,7 +69,7 @@
 	name = "manipulate organs"
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/reagent_containers/food/snacks/organ = 0)
 	var/implements_extract = list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
-	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
+	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/FixOVein = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/reagent_containers/dropper = 100,
                 /obj/item/reagent_containers/syringe = 100,
 								/obj/item/reagent_containers/glass/bottle = 90,
@@ -200,10 +200,6 @@
 		var/tool_name = "[tool]"
 		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
-		else if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			to_chat(user, "They do not have organs to mend!")
@@ -235,12 +231,8 @@
 /datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
-		if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			return
@@ -367,7 +359,7 @@
 
 		var/dam_amt = 2
 
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+		if(istype(tool, /obj/item/FixOVein))
 			target.adjustToxLoss(5)
 
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))

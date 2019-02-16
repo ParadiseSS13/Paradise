@@ -44,9 +44,27 @@
 
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
-	desc = "A small bottle of toxins. Do not drink, it is poisonous."
+	desc = "A small bottle containing toxic compounds."
 	icon_state = "small_bottle"
 	list_reagents = list("toxin" = 30)
+
+/obj/item/reagent_containers/glass/bottle/atropine
+	name = "atropine bottle"
+	desc = "A small bottle containing atropine, used for cardiac emergencies."
+	icon_state = "small_bottle"
+	list_reagents = list("atropine" = 30)
+
+/obj/item/reagent_containers/glass/bottle/saline
+	name = "saline-glucose bottle"
+	desc = "A small bottle containing saline-glucose solution."
+	icon_state = "small_bottle"
+	list_reagents = list("salglu_solution" = 30)
+
+/obj/item/reagent_containers/glass/bottle/salicylic
+	name = "salicylic acid bottle"
+	desc = "A small bottle containing medicine for pain and fevers."
+	icon_state = "small_bottle"
+	list_reagents = list("sal_acid" = 30)
 
 /obj/item/reagent_containers/glass/bottle/cyanide
 	name = "cyanide bottle"
@@ -99,13 +117,13 @@
 
 /obj/item/reagent_containers/glass/bottle/morphine
 	name = "Morphine Bottle"
-	desc = "A small bottle. Contains morphine."
-	icon_state = "round_bottle"
+	desc = "A small bottle of morphine, a powerful painkiller."
+	icon_state = "bottle"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ether
 	name = "Ether Bottle"
-	desc = "A small bottle. Contains ether."
+	desc = "A small bottle of an ether, a strong anesthetic and sedative."
 	icon_state = "round_bottle"
 	list_reagents = list("ether" = 30)
 
@@ -117,7 +135,7 @@
 
 /obj/item/reagent_containers/glass/bottle/epinephrine
 	name = "Epinephrine Bottle"
-	desc = "A small bottle. Contains epinephrine."
+	desc = "A small bottle. Contains epinephrine - used to stabilize patients."
 	icon_state = "round_bottle"
 	list_reagents = list("epinephrine" = 30)
 
@@ -236,8 +254,20 @@
 /obj/item/reagent_containers/glass/bottle/diphenhydramine
 	name = "diphenhydramine bottle"
 	desc = "A small bottle of diphenhydramine."
-	icon_state = "bottle"
+	icon_state = "round_bottle"
 	list_reagents = list("diphenhydramine" = 30)
+
+/obj/item/reagent_containers/glass/bottle/oculine
+	name = "oculine bottle"
+	desc = "A small bottle of combined eye and ear medication."
+	icon_state = "round_bottle"
+	list_reagents = list("oculine" = 30)
+
+/obj/item/reagent_containers/glass/bottle/potassium_iodide
+	name = "potassium iodide bottle"
+	desc = "A small bottle of potassium iodide."
+	icon_state = "wide_bottle"
+	list_reagents = list("potass_iodide" = 30)
 
 /obj/item/reagent_containers/glass/bottle/flu_virion
 	name = "Flu virion culture bottle"
