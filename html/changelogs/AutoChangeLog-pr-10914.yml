@@ -1,0 +1,5 @@
+author: "Terilia"
+delete-after: True
+changes: 
+  - rscadd: "creates an admin log, if a player is being hit by a Foam Dart which has been tinkered with."
+  - bugfix: "fixes a small misalignment in the magazine sprite if a dart is loaded."
