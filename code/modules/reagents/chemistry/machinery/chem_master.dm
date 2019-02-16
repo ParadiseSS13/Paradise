@@ -206,7 +206,7 @@
 				if(count > 20) count = 20	//Pevent people from creating huge stacks of pills easily. Maybe move the number to defines?
 				if(count <= 0) return
 				var/amount_per_pill = reagents.total_volume/count
-				if(amount_per_pill > 50) amount_per_pill = 50
+				if(amount_per_pill > 100) amount_per_pill = 100
 				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)") as text|null
 				if(!name)
 					return
