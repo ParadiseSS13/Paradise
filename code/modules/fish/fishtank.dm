@@ -522,6 +522,8 @@
 		return ..()
 
 /obj/machinery/fishtank/attack_hand(mob/user)
+	if(isAI(user)) //No tapping the fish tanks for you!
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(user.a_intent == INTENT_HARM)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
