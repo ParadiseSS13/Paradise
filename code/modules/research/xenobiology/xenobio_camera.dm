@@ -52,7 +52,7 @@
 	qdel(current_potion)
 	qdel(scanner)
 	for(var/i in contents)
-		var/mob/living/simple_animal/slime/S = i
+		var/mob/living/carbon/slime/S = i
 		if(istype(S))
 			S.forceMove(drop_location())
 	return ..()
