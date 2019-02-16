@@ -35,6 +35,7 @@
 	var/monkeys = 0
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/item/slime_scanner/scanner = new /obj/item/slime_scanner
+	var/obj/machinery/monkey_recycler/connected_recycler
 
 	icon_screen = "slime_comp"
 	icon_keyboard = "rd_key"
@@ -45,6 +46,16 @@
 	eyeobj.visible_icon = 1
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
+
+/obj/machinery/computer/camera_advanced/xenobio/Destroy()
+	stored_slimes = null
+	qdel(current_potion)
+	qdel(scanner)
+	for(var/i in contents)
+		var/mob/living/simple_animal/slime/S = i
+		if(istype(S))
+			S.forceMove(drop_location())
+	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/carbon/user)
 	..()
@@ -114,7 +125,7 @@
 	else if (istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
 		if(user.drop_item())
-			if(!QDELETED(current_potion))
+			if(current_potion)
 				current_potion.forceMove(drop_location())
 				replaced = TRUE
 			current_potion = O
@@ -131,6 +142,13 @@
 		if(loaded)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
 		return
+	else if (istype(O, /obj/item/multitool))
+		var/obj/item/multitool/I = O
+		if (istype(I.buffer, /obj/machinery/monkey_recycler))
+			to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
+			connected_recycler = I.buffer
+			connected_recycler.connected += src
+			return
 	..()
 
 /datum/action/innate/slime_place
@@ -207,12 +225,17 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
-
+	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
+	
+	if(!recycler)
+		to_chat(owner, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
+		return
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(issmall(M) && M.stat)
 				M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
-				X.monkeys = round(X.monkeys + 0.2,0.1)
+				recycler.use_power(500)
+				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
@@ -391,9 +414,13 @@
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(M.loc)
-
+	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
+	if(!recycler)
+		to_chat(C, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
+		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(issmall(M) && M.stat)
 			M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
-			X.monkeys = round(X.monkeys + 0.2,0.1)
+			recycler.use_power(500)
+			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)
