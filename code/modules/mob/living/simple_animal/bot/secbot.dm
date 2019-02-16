@@ -121,7 +121,7 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += text({"
-<TT><B>Securitron v1.6 controls</B></TT><BR><BR>
+<TT><B>[window_name]</B></TT><BR><BR>
 Status: []<BR>
 Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 Maintenance panel panel is [open ? "opened" : "closed"]"},
