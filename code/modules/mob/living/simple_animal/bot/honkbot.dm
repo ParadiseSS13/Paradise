@@ -287,7 +287,7 @@
 		new /obj/item/robot_parts/r_arm(Tsec)
 		new /obj/item/bikehorn(Tsec)
 		new /obj/item/assembly/prox_sensor(Tsec)
-
+	new /obj/effect/decal/cleanable/blood/oil(loc)
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(3, 1, src)
 	s.start()
