@@ -349,6 +349,7 @@
 		if(!user.unEquip(A))
 			return
 		A.loc = FD
+		FD.log_override = FALSE
 		FD.pen = A
 		FD.damage = 5
 		FD.nodamage = 0
