@@ -226,6 +226,6 @@
 			visible_message("[src] deflects [user]'s move with his energy swords!")
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		else
-			..()
+			return ..()
 	else
-		..()
+		return ..()
