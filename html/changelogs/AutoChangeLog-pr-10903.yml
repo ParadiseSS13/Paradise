@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - rscdel: "Removes some of the chaplain special religion names"

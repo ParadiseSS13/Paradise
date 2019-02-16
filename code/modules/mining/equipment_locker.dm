@@ -50,6 +50,21 @@
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
+/obj/machinery/mineral/ore_redemption/golem
+	req_access = list(access_free_golems)
+	req_access_reclaim = access_free_golems
+
+/obj/machinery/mineral/ore_redemption/golem/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/assembly/igniter(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
+
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(files)
 	GET_COMPONENT(materials, /datum/component/material_container)
@@ -426,6 +441,32 @@
 		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/card/mining_point_card,               			   500),
 		)
 
+/obj/machinery/mineral/equipment_vendor/golem
+	name = "golem ship equipment vendor"
+
+/obj/machinery/mineral/equipment_vendor/golem/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
+
+/obj/machinery/mineral/equipment_vendor/golem/Initialize()
+	. = ..()
+	desc += "\nIt seems a few selections have been added."
+	prize_list += list(
+		new /datum/data/mining_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
+		new /datum/data/mining_equipment("Science Backpack",			/obj/item/storage/backpack/science,								250),
+		new /datum/data/mining_equipment("Toolbelt",					/obj/item/storage/belt/utility/full/multitool,	    			250),
+		new /datum/data/mining_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	250),
+		new /datum/data/mining_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
+		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
+		new /datum/data/mining_equipment("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
+		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								1500)
+		)
 
 /datum/data/mining_equipment/
 	var/equipment_name = "generic"

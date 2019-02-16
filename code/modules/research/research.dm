@@ -386,3 +386,13 @@ datum/tech/robotics
 	name = default_name
 	desc = default_desc
 	blueprint = null
+
+/obj/item/disk/design_disk/golem_shell
+	name = "golem creation disk"
+	desc = "A gift from the Liberator."
+	icon_state = "datadisk1"
+
+/obj/item/disk/design_disk/golem_shell/Initialize()
+	. = ..()
+	var/datum/design/golem_shell/G = new
+	blueprint = G

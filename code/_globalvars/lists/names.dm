@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(first_names_female, file2list("config/names/first_female.txt"))
 GLOBAL_LIST_INIT(last_names, file2list("config/names/last.txt"))
 GLOBAL_LIST_INIT(clown_names, file2list("config/names/clown.txt"))
 GLOBAL_LIST_INIT(mime_names, file2list("config/names/mime.txt"))
+GLOBAL_LIST_INIT(golem_names, file2list("config/names/golem.txt"))
 
 GLOBAL_LIST_INIT(verbs, file2list("config/names/verbs.txt"))
 GLOBAL_LIST_INIT(adjectives, file2list("config/names/adjectives.txt"))

@@ -124,6 +124,21 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	materials = list(MAT_METAL = 50000)
 
+/obj/item/ammo_box/foambox/sniper
+	name = "ammo box (Foam Sniper Darts)"
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foambox_sniper"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
+	max_ammo = 40
+	materials = list(MAT_METAL = 900)
+
+/obj/item/ammo_box/foambox/sniper/riot
+	icon_state = "foambox_sniper_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	materials = list(MAT_METAL = 90000)
+
+
+
 /obj/item/ammo_box/caps
 	name = "speed loader (caps)"
 	icon_state = "357"

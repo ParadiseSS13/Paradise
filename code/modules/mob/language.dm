@@ -529,6 +529,13 @@
 			return TRUE
 	return FALSE
 
+/datum/language/abductor/golem
+	name = "Golem Mindlink"
+	desc = "Communicate with other alien alloy golems through a psychic link."
+
+/datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
+	return TRUE
+
 /datum/language/corticalborer
 	name = "Cortical Link"
 	desc = "Cortical borers possess a strange link between their tiny minds."

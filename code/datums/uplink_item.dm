@@ -921,7 +921,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PB"
 	item = /obj/item/pizza_bomb
 	cost = 5
-	surplus = 8
+	surplus = 80
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
@@ -1597,6 +1597,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
 	cant_discount = TRUE // You fucking wish
+	var/crate_value = 50
+
+/datum/uplink_item/badass/surplus_crate/super
+	name = "Syndicate Super Surplus Crate"
+	desc = "A crate containing 125 telecrystals worth of random syndicate leftovers."
+	reference = "SYSS"
+	cost = 40
+	crate_value = 125
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
@@ -1604,16 +1612,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
+	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
 	U.uses -= cost
-	U.used_TC = 20
-	var/remaining_TC = 50
+	U.used_TC = cost
 
 	var/datum/uplink_item/I
 	while(remaining_TC)
 		I = pick(buyable_items)
-		if(!I.surplus)
+		if(!I.surplus || prob(100 - I.surplus))
 			continue
 		if(I.cost > remaining_TC)
 			continue
