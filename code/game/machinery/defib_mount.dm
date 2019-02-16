@@ -34,8 +34,7 @@
 	update_icon()
 
 /obj/machinery/defibrillator_mount/Destroy()
-	if(defib)
-		QDEL_NULL(defib)
+	QDEL_NULL(defib)
 	. = ..()
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
