@@ -145,27 +145,3 @@
 	ammo_type = /obj/item/ammo_casing/cap
 	max_ammo = 7
 	multiple_sprites = 1
-
-//SYRINGES
-/obj/item/ammo_box/syringe
-	name = "Syringe Speedloader"
-	desc = "Use on a syringe gun to reload."
-	icon_state = "tranqloader7"
-	ammo_type = /obj/item/reagent_containers/syringe
-	max_ammo = 12
-	materials = list()
-	var/syringe_type = /obj/item/reagent_containers/syringe/ether
-
-/obj/item/ammo_box/syringe/update_mat_value()
-	return
-
-/obj/item/ammo_box/syringe/New()
-	..()
-	stored_ammo = list()
-	for(var/i in 1 to max_ammo)
-		stored_ammo += new syringe_type(src)
-	update_icon()
-
-/obj/item/ammo_box/syringe/bioterror
-	name = "Syringe Speedloader (bioterror)"
-	syringe_type = /obj/item/reagent_containers/syringe/bioterror

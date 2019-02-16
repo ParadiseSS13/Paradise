@@ -731,10 +731,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 
 /datum/uplink_item/ammo/bioterror
-	name = "Bioterror Syringes Speedloader"
-	desc = "A speedloader filled with 12 preloaded syringes, containing various chemicals that seize up the victim's motor and broca system, muting, confusing, and after a short delay knocking out the target."
+	name = "Box of Bioterror Syringes"
+	desc = "A box full of preloaded syringes, containing various chemicals that seize up the victim's motor and broca system , making it impossible for them to move or speak while in their system."
 	reference = "BTS"
-	item = /obj/item/ammo_box/syringe/bioterror
+	item = /obj/item/storage/box/syndie_kit/bioterror
 	cost = 5
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -843,11 +843,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 50
 	excludefrom = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/stealthy_weapons/CSG
-	name = "Combat Syringe Gun"
-	desc = "A rapid syringe gun able to hold twelves shots and fire them rapidly. Can be loaded using a Bioterror speedloader or manually with your own syringes."
-	reference = "CSG"
-	item = /obj/item/gun/syringe/combat
+/datum/uplink_item/stealthy_weapons/RSG
+	name = "Rapid Syringe Gun"
+	desc = "A rapid syringe gun able to hold six shot and fire them rapidly. Great together with the bioterror syringe"
+	reference = "RSG"
+	item = /obj/item/gun/syringe/rapidsyringe
 	cost = 4
 	gamemodes = list(/datum/game_mode/nuclear)
 
