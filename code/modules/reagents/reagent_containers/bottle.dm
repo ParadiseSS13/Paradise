@@ -130,7 +130,7 @@
 /obj/item/reagent_containers/glass/bottle/charcoal
 	name = "Charcoal Bottle"
 	desc = "A small bottle. Contains charcoal."
-	icon_state = "round_bottle"
+	icon_state = "wide_bottle"
 	list_reagents = list("charcoal" = 30)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine
