@@ -2036,3 +2036,39 @@ var/mob/dview/dview_mob = new
 
 /proc/pass()
 	return
+
+// All soapstone procs
+/proc/load_soapstone_messages()
+	var/DBQuery/pull_soapstone = dbcon.NewQuery("SELECT * FROM [format_table_name("soapstone")] WHERE map='[using_map.station_name]'")
+	if(!pull_soapstone.Execute())
+		var/err = pull_soapstone.ErrorMsg()
+		log_game("SQL ERROR during soapstone message pulling. Error : \[[err]\]\n")
+
+	var/count = 0
+	while(pull_soapstone.NextRow())
+		var/id = pull_soapstone.item[1]
+		var/author_ckey = pull_soapstone.item[2]
+		var/coord_list = splittext(pull_soapstone.item[3], ", ")
+		var/message = pull_soapstone.item[4]
+		var/coords = list()
+		coords["x"] = coord_list[1]
+		coords["y"] = coord_list[2]
+		coords["z"] = coord_list[3]
+		var/turf/newloc = locate(text2num(coords["x"]), text2num(coords["y"]), text2num(coords["z"]))
+		if(!good_chisel_message_location(newloc))
+			delete_soapstone_message(id)
+		var/obj/structure/chisel_message/M = new(newloc)
+		M.hidden_message = message
+		M.creator_key = author_ckey
+		M.id = id
+		M.update_icon()
+		count += 1
+	to_chat(world, "<span class='boldannounce'>Loaded [count] soapstone messages</span>")
+
+// Delete a message
+/proc/delete_soapstone_message(var/target_id)
+	var/DBQuery/delete_soapstone_id = dbcon.NewQuery("DELETE FROM [format_table_name("soapstone")] WHERE id=[target_id]")
+	if(!delete_soapstone_id.Execute())
+		var/err = delete_soapstone_id.ErrorMsg()
+		log_game("SQL ERROR while deleting soapstone message. Error : \[[err]\]\n")
+		return

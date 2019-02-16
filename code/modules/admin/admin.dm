@@ -1092,3 +1092,38 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	dat += "</table></body></html>"
 
 	usr << browse(dat, "window=duplicates;size=500x480")
+
+//Soapstone_messages
+/datum/admins/proc/soapstone_messages()
+	if(!usr.client.holder)
+		return
+	var/dat = "<html><head><title>Soapstone Messages</title></head>"
+	dat += "<body><p><i>All soapstone messages for this map are shown below. This includes messages for other Z levels. <br>Deletions will remove message from the database but will not take effect until next round. The message can still be admin deleted from the world</i>"
+	dat += "<table border=1 cellspacing=5><B><tr><th>ID</th><th>Author CKEY</th><th>Location</th><th>Message</th><th>Inscription Date</th><th>Delete</th></B></tr>"
+	var/DBQuery/soapstone_saved = dbcon.NewQuery("SELECT * FROM [format_table_name("soapstone")] WHERE map='[using_map.station_name]' ORDER BY id ASC")
+	if(!soapstone_saved.Execute())
+		var/err = soapstone_saved.ErrorMsg()
+		log_game("SQL ERROR while getting saved soapstone messages. Error : \[[err]\]\n")
+		return
+	while(soapstone_saved.NextRow())
+		var/id = soapstone_saved.item[1]
+		var/author_ckey = soapstone_saved.item[2]
+		// Split coords
+		var/coord_list = splittext(soapstone_saved.item[3], ", ")
+		var/coords = list()
+		coords["x"] = coord_list[1]
+		coords["y"] = coord_list[2]
+		coords["z"] = coord_list[3]
+		// Rest of the pulll
+		var/soapstone_message = soapstone_saved.item[4]
+		var/soapstone_timestamp = soapstone_saved.item[6]
+		dat += "<tr><td><b>[id]</b></td>"
+		dat += "<td>[author_ckey]</td>"
+		dat += "<td><a href='?src=[UID()];adminplayerobservecoodjump=1;X=[coords["x"]];Y=[coords["y"]];Z=[coords["z"]]'> X:[coords["x"]] Y:[coords["y"]]  Z:[coords["z"]]</a></td>"
+		dat += "<td>[soapstone_message]</td>"
+		dat += "<td>[soapstone_timestamp]</td>"
+		dat += "<td><a href='?src=[UID()];delete_soapstone=[id]'>Delete</td></tr>"
+		
+	dat += "</table></body></html>"
+
+	usr << browse(dat, "window=soapstones;size=720x480")

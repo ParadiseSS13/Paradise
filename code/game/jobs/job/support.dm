@@ -357,6 +357,9 @@
 	r_pocket = /obj/item/barcodescanner
 	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
+	backpack_contents = list(
+		/obj/item/soapstone = 1
+	)
 
 /datum/job/barber
 	title = "Barber"

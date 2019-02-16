@@ -189,7 +189,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		CHECK_TICK
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
-
+	load_soapstone_messages() // There is almost certainley a better place for this but fuck it
 	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
 	log_world(msg)

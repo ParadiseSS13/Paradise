@@ -1661,6 +1661,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "polo supply crate"
 
+// To get another soapstone
+/datum/supply_packs/misc/soapstone
+	name = "Soapstone Crate"
+	// All it contains
+	contains = list(/obj/item/soapstone)
+	cost = 20
+	containername = "soapstone crate"
+
 ///////////// Station Goals
 
 /datum/supply_packs/misc/bsa

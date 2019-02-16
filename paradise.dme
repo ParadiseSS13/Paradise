@@ -1568,6 +1568,7 @@
 #include "code\modules\library\lib_items.dm"
 #include "code\modules\library\lib_machines.dm"
 #include "code\modules\library\lib_readme.dm"
+#include "code\modules\library\soapstone.dm"
 #include "code\modules\library\computers\base.dm"
 #include "code\modules\library\computers\checkout.dm"
 #include "code\modules\library\computers\public.dm"

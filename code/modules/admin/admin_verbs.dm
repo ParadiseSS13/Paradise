@@ -80,6 +80,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/show_discord_duplicates,
+	/client/proc/show_soapstone_messages,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -1055,3 +1056,12 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	holder.discord_duplicates()
+
+/client/proc/show_soapstone_messages()
+	set name = "Show Soapstone Messages"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	holder.soapstone_messages()

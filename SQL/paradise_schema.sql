@@ -535,3 +535,20 @@ CREATE TABLE IF NOT EXISTS `discord` (
   PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `soapstone`
+--
+DROP TABLE IF EXISTS `soapstone`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `soapstone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `coord` text NOT NULL COMMENT 'X, Y, Z',
+  `message_text` text NOT NULL,
+  `map` text NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;

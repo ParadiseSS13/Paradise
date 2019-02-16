@@ -3363,6 +3363,32 @@
 		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 
+	// Delete a soapstone message
+	else if(href_list["delete_soapstone"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/target_id = href_list["delete_soapstone"]
+		// Select current content for admin logging
+		var/DBQuery/pull_soapstone_data = dbcon.NewQuery("SELECT * FROM [format_table_name("soapstone")] WHERE id = [target_id]") 
+		if(!pull_soapstone_data.Execute())
+			var/err = pull_soapstone_data.ErrorMsg()
+			log_game("SQL ERROR while pulling soapstone data. Error : \[[err]\]\n")
+			return
+		var/author_ckey
+		var/text
+		while(pull_soapstone_data.NextRow())
+			author_ckey = pull_soapstone_data.item[2]
+			text = pull_soapstone_data.item[4]
+		// Now the actual deletion
+		var/DBQuery/delete_soapstone_id = dbcon.NewQuery("DELETE FROM [format_table_name("soapstone")] WHERE id = '[target_id]'")
+		if(!delete_soapstone_id.Execute())
+			var/err = delete_soapstone_id.ErrorMsg()
+			log_game("SQL ERROR while deleting soapstone message. Error : \[[err]\]\n")
+			return
+		to_chat(src, "<span class='notice'>Successfully deleted soapstone message with text \"[text]\", written by [author_ckey]</span>")
+		message_admins("[key_name_admin(usr)] admin_deleted soapstone message with text \"[text]\", written by [author_ckey]")
+		log_admin("[key_name_admin(usr)] admin_deleted soapstone message with text \"[text]\", written by [author_ckey]")
+
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
