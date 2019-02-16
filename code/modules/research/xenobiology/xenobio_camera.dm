@@ -48,13 +48,11 @@
 	eyeobj.icon_state = "camera_target"
 
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
-	stored_slimes = null
-	qdel(current_potion)
+	QDEL_NULL(current_potion)
 	qdel(scanner)
-	for(var/i in contents)
-		var/mob/living/carbon/slime/S = i
-		if(istype(S))
-			S.forceMove(drop_location())
+	for(var/mob/living/carbon/slime/S in stored_slimes)
+		S.forceMove(drop_location())
+	stored_slimes.Cut()
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/carbon/user)
