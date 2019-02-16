@@ -85,6 +85,7 @@ var/global/sent_strike_team = 0
 				R.mind.original = R
 				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+				R.mind.offstation_role = TRUE
 				if(!(R.mind in ticker.minds))
 					ticker.minds += R.mind
 				ticker.mode.traitors += R.mind

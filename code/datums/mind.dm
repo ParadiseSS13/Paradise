@@ -30,6 +30,7 @@
 
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
+	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
