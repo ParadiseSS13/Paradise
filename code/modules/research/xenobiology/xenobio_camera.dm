@@ -33,7 +33,7 @@
 	var/list/stored_slimes = list()
 	var/max_slimes = 5
 	var/monkeys = 0
-	var/obj/item/slimepotion/current_potion
+	var/obj/item/slimepotion/slime/current_potion
 	var/obj/item/slime_scanner/scanner = new /obj/item/slime_scanner
 
 	icon_screen = "slime_comp"
@@ -111,7 +111,7 @@
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 			qdel(O)
 			return
-	else if (istype(O, /obj/item/slimepotion))
+	else if (istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
 		if(user.drop_item())
 			if(!QDELETED(current_potion))
