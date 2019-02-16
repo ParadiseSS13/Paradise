@@ -1,4 +1,0 @@
-author: "aleksix"
-delete-after: True
-changes: 
-  - bugfix: "AI's \"Wipe Core\" now properly ghosts the player"
