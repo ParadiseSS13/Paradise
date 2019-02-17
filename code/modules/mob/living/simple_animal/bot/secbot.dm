@@ -224,7 +224,7 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/proc/lights_switch()
 	spawn(0)
-		var/flash_lights = 10
+		var/flash_lights = 20
 		while(flash_lights)
 			light_color = LIGHT_COLOR_PURE_BLUE
 			sleep(3)
@@ -280,7 +280,6 @@ Auto Patrol: []"},
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
-			lights_switch()
 			if(frustration >= 8)	// if can't reach perp for long enough, go idle
 				walk_to(src,0)
 				back_to_idle()
@@ -392,6 +391,7 @@ Auto Patrol: []"},
 			mode = BOT_HUNT
 			spawn(0)
 				handle_automated_action()	// ensure bot quickly responds to a perp
+			lights_switch()
 			break
 		else
 			continue
