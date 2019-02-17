@@ -216,7 +216,6 @@ Auto Patrol: []"},
 	else
 		..()
 
-
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
@@ -225,6 +224,17 @@ Auto Patrol: []"},
 			retaliate(H)
 	..()
 
+/mob/living/simple_animal/bot/secbot/proc/lights_switch()
+	spawn(0)
+		var/flash_lights = 10
+		while(flash_lights)
+			light_color = LIGHT_COLOR_PURE_BLUE
+			sleep(3)
+			light_color = LIGHT_COLOR_PURE_RED
+			sleep(3)
+			flash_lights--
+	//	update_light()
+		light_color = LIGHT_COLOR_WHITE
 
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
@@ -260,7 +270,7 @@ Auto Patrol: []"},
 	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
 							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
 
-/mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
+/*/mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
 	if(flashing_lights)
 		switch(light_color)
@@ -278,7 +288,7 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
 	set name = "Toggle Flashing Lights"
 	set category = "Object"
-	set src = usr
+	set src = usr 
 
 	flashing_lights = !flashing_lights
 
@@ -286,7 +296,7 @@ Auto Patrol: []"},
 	if(!..())
 		return
 
-	flashing_lights = mode == BOT_HUNT
+	flashing_lights = mode == BOT_HUNT */
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
@@ -297,6 +307,7 @@ Auto Patrol: []"},
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
+			lights_switch()
 			if(frustration >= 8)
 				walk_to(src,0)
 				back_to_idle()
