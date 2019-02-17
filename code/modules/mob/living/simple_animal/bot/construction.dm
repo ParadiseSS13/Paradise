@@ -389,7 +389,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "helmet_signaler"
 	item_state = "helmet"
-	var/created_name = "Griefsky" //To preserve the name if it's a unique securitron I guess
+	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
 
 /obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
