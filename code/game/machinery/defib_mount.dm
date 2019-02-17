@@ -15,7 +15,7 @@
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
 /obj/machinery/defibrillator_mount/New(location, direction, building = 0)
-	. = ..()
+	..()
 
 	if(location)
 		loc = location
@@ -29,13 +29,13 @@
 
 
 /obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
-	. = ..()
+	..()
 	defib = new/obj/item/defibrillator/loaded(src)
 	update_icon()
 
 /obj/machinery/defibrillator_mount/Destroy()
 	QDEL_NULL(defib)
-	. = ..()
+	return ..()
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	..()
@@ -116,12 +116,12 @@
 		else
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
 		return
-	..()
+	return ..()
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
 	if(!istype(user))
 		return
-	if(user.stat || user.restrained())
+	if(user.incapacitated())
 		return
 	if(!Adjacent(user))
 		return

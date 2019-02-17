@@ -27,14 +27,14 @@
 		return
 
 	if(Adjacent(target) && usr.Adjacent(target))
-		bag.afterattack(target, usr, 1)
+		bag.afterattack(target, usr, TRUE)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
 		user.put_in_hands(bag)
-	bag.update_icon()
-	bag = null
-	update_icon()
+		bag.update_icon()
+		bag = null
+		update_icon()
 
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
@@ -50,7 +50,7 @@
 		update_icon()
 	else if (bag && istype(I, /obj/item/reagent_containers))
 		bag.attackby(I)
-		I.afterattack(bag, usr, 1)
+		I.afterattack(bag, usr, TRUE)
 		update_icon()
 	else
 		return ..()

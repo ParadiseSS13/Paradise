@@ -81,9 +81,8 @@
 	if(!target.reagents)
 		return
 
-	var/mob/living/L
 	if(isliving(target))
-		L = target
+		var/mob/living/L = target
 		if(injection_target) // Removing the needle
 			if(L != injection_target)
 				to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
@@ -142,18 +141,18 @@
 /obj/item/reagent_containers/iv_bag/salglu/New()
 	..()
 	set_label("Saline-Glucose")
-	reagents.add_reagent("salglu_solution", 200)
+	reagents = list_reagents = list("salglu_solution" = 200)
 	update_icon()
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
 	var/blood_type
+	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
 /obj/item/reagent_containers/iv_bag/blood/New()
 	..()
 	if(blood_type != null)
 		set_label(blood_type)
 		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
-		amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 		update_icon()
 
 

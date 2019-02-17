@@ -196,7 +196,7 @@
 	desc = "A box full of empty IV bags."
 	icon_state = "beaker"
 
-	New()
+/obj/item/storage/box/iv_bags/New()
 		..()
 		new /obj/item/reagent_containers/iv_bag( src )
 		new /obj/item/reagent_containers/iv_bag( src )
