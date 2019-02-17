@@ -482,6 +482,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
+	name = "Compact Sniper Rifle"
+	desc = "A compact, non-scopable version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
+	reference = "CSR"
+	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
+	cost = 16
+	surplus = 0
+	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
