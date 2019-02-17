@@ -33,8 +33,6 @@
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0 //If true, beat instead of stun
-	var/flashing_lights = 0 //If true, flash lights
-	var/prev_flashing_lights = 0
 	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky
@@ -233,7 +231,7 @@ Auto Patrol: []"},
 			light_color = LIGHT_COLOR_PURE_RED
 			sleep(3)
 			flash_lights--
-	//	update_light()
+		update_light()
 		light_color = LIGHT_COLOR_WHITE
 
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
@@ -270,33 +268,9 @@ Auto Patrol: []"},
 	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
 							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
 
-/*/mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
-	. = ..()
-	if(flashing_lights)
-		switch(light_color)
-			if(LIGHT_COLOR_PURE_RED)
-				light_color = LIGHT_COLOR_PURE_BLUE
-			if(LIGHT_COLOR_PURE_BLUE)
-				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
-	else if(prev_flashing_lights)
-		light_color = LIGHT_COLOR_PURE_RED
-		update_light()
-
-	prev_flashing_lights = flashing_lights
-
-/mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
-	set name = "Toggle Flashing Lights"
-	set category = "Object"
-	set src = usr 
-
-	flashing_lights = !flashing_lights
-
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())
 		return
-
-	flashing_lights = mode == BOT_HUNT */
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
@@ -306,9 +280,8 @@ Auto Patrol: []"},
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
-			// if can't reach perp for long enough, go idle
 			lights_switch()
-			if(frustration >= 8)
+			if(frustration >= 8)	// if can't reach perp for long enough, go idle
 				walk_to(src,0)
 				back_to_idle()
 				return
