@@ -1,5 +1,0 @@
-author: "Nicaragua1"
-delete-after: True
-changes: 
-  - bugfix: "Name of secbots"
-  - bugfix: "Honkbot wasnt dropping oil when exploded"
