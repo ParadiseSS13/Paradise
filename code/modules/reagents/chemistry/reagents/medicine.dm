@@ -659,7 +659,7 @@
 	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
+				if(M.getBruteLoss() + M.getFireLoss() >= 150)
 					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 					M.gib()
 					return
@@ -670,26 +670,11 @@
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
-					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0,15))
-					M.adjustToxLoss(rand(0,15))
-					M.adjustFireLoss(rand(0,15))
-					if(ishuman(M))
-						var/mob/living/carbon/human/H = M
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
-							// Per non-vital body part:
-							// 0% chance of necrosis within 1 minute of death
-							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
-								// side effects may include: Organ failure
-								O.necrotize(FALSE)
-								if(O.status & ORGAN_DEAD)
-									O.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
+					M.adjustBruteLoss(rand(0, 15))
+					M.adjustToxLoss(rand(0, 15))
+					M.adjustFireLoss(rand(0, 15))
 
 					M.update_revive()
 					M.stat = UNCONSCIOUS
