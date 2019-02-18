@@ -231,6 +231,9 @@ Auto Patrol: []"},
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	INVOKE_ASYNC(src, .proc/cuff_callback, C)
+			
+/mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
 	if(do_after(src, 60, target = C))
 		if(!C.handcuffed)
 			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
