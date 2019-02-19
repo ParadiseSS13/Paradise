@@ -78,6 +78,8 @@
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(10)
 		user.put_in_hands(R)
+	else
+		return ..()
 
 /obj/item/autopsy_scanner/attack_self(mob/user)
 	var/scan_data = ""

@@ -268,7 +268,7 @@ Just a object used in constructing fire alarms
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/machinery/partyalarm
 	name = "\improper PARTY BUTTON"

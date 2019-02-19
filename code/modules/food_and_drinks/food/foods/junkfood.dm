@@ -23,9 +23,9 @@
 	list_reagents = list("protein" = 1, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/pistachios
-	name = "Pistachios"
+	name = "pistachios"
 	icon_state = "pistachios"
-	desc = "A snack of deliciously salted pistachios. A perfectly valid choice..."
+	desc = "Deliciously salted pistachios. A perfectly valid choice..."
 	trash = /obj/item/trash/pistachios
 	filling_color = "#BAD145"
 	junkiness = 20
@@ -68,7 +68,7 @@
 
 /obj/item/reagent_containers/food/snacks/tastybread
 	name = "bread tube"
-	desc = "Bread in a tube. Chewy...and surprisingly tasty."
+	desc = "Bread in a tube. Chewy and surprisingly tasty."
 	icon_state = "tastybread"
 	trash = /obj/item/trash/tastybread
 	filling_color = "#A66829"

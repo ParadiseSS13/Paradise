@@ -12,6 +12,7 @@ proc/issyndicate(mob/living/M as mob)
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
+	free_golems_disabled = TRUE
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
@@ -53,6 +54,7 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
+		synd_mind.offstation_role = TRUE
 	return 1
 
 
@@ -171,6 +173,7 @@ proc/issyndicate(mob/living/M as mob)
 	M.dna.species.create_organs(M)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
+	M.flavor_text = null
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
@@ -416,7 +419,7 @@ proc/issyndicate(mob/living/M as mob)
 		text += "(Syndicates used [TC_uses] TC) [purchases]"
 
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
-			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
+			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
 
 		to_chat(world, text)
 	return 1

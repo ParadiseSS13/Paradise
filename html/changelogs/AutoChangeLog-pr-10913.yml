@@ -1,0 +1,6 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Golems can no longer be objective targets"
+  - bugfix: "Offstation antag/special roles such as the ERT, abductors, etc, can no longer be objectives targets"
+  - bugfix: "Nukies no longer retain flavor text from saved character"

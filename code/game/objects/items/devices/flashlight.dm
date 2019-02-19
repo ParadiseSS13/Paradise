@@ -84,6 +84,11 @@
 	else
 		return ..()
 
+/obj/item/flashlight/extinguish_light()
+	if(on)
+		on = FALSE
+		update_brightness()
+
 /obj/item/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff."
@@ -122,7 +127,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
-	on = 1
+	on = TRUE
 
 
 // green-shaded desk lamp
@@ -142,7 +147,7 @@
 		attack_self(usr)
 
 //Bananalamp
-obj/item/flashlight/lamp/bananalamp
+/obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
@@ -292,6 +297,9 @@ obj/item/flashlight/lamp/bananalamp
 	new T(loc)
 	return INITIALIZE_HINT_QDEL
 
+/obj/item/flashlight/flare/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+
 /obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
@@ -312,7 +320,7 @@ obj/item/flashlight/lamp/bananalamp
 	brightness_on = 6
 	light_color = "#FFBF00"
 	materials = list()
-	on = 1 //Bio-luminesence has one setting, on.
+	on = TRUE //Bio-luminesence has one setting, on.
 
 /obj/item/flashlight/slime/New()
 	set_light(brightness_on)
@@ -322,6 +330,9 @@ obj/item/flashlight/lamp/bananalamp
 
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
+
+/obj/item/flashlight/slime/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"

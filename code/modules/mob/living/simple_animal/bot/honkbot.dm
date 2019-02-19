@@ -286,6 +286,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
+	new /obj/effect/decal/cleanable/blood/oil(loc)
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(3, 1, src)
 	s.start()

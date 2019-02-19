@@ -377,7 +377,7 @@
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	activation_method = "touch"
 	cooldown_add = 50
-	activation_sound = 'sound/magic/TIMEPARADOX2.ogg'
+	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook)
 
 /obj/machinery/anomalous_crystal/refresher/New()

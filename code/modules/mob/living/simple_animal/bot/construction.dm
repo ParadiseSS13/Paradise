@@ -396,8 +396,8 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "helmet_signaler"
 	item_state = "helmet"
-	var/build_step = 0
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
+	var/build_step = 0
 
 /obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
 	..()
@@ -489,6 +489,68 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
+
+//General Griefsky
+
+	else if((istype(I, /obj/item/wrench)) && (build_step == 3))		
+		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly
+		user.put_in_hands(A)
+		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
+		user.unEquip(src, 1)
+		qdel(src)
+
+/obj/item/griefsky_assembly
+	name = "\improper Griefsky assembly"
+	desc = "Some sort of bizarre assembly."
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "griefsky_assembly"
+	item_state = "griefsky_assembly"
+	var/build_step = 0
+	var/toy_step = 0
+
+/obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
+	..()
+	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3 ))
+		if(!user.unEquip(I))
+			return
+		build_step++
+		to_chat(user, "<span class='notice'>You add an energy sword to [src]!.</span>")
+		qdel(I)
+		
+	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step == 3))
+		if(!user.unEquip(I))
+			return
+		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
+		var/mob/living/simple_animal/bot/secbot/griefsky/S = new /mob/living/simple_animal/bot/secbot/griefsky 
+		S.forceMove(get_turf(src))
+		qdel(I)
+		qdel(src)
+
+	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3 ))
+		if(!user.unEquip(I))
+			return
+		toy_step++
+		to_chat(user, "<span class='notice'>You add a toy sword to [src]!.</span>")
+		qdel(I)
+
+	else if((istype(I, /obj/item/toy/sword)) && (toy_step == 3))
+		if(!user.unEquip(I))
+			return
+		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
+		var/mob/living/simple_animal/bot/secbot/griefsky/toy/S = new /mob/living/simple_animal/bot/secbot/griefsky/toy 
+		S.forceMove(get_turf(src))
+		qdel(I)
+		qdel(src)
+
+	else if(istype(I, /obj/item/screwdriver))
+		if((build_step == 1) || (build_step == 2) || (build_step == 3) || (build_step == 4))
+			new /obj/item/melee/energy/sword(get_turf(src))
+			to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
+			build_step--
+		else if((toy_step == 1) || (toy_step == 2) || (toy_step == 3) || (toy_step == 4))
+			new /obj/item/toy/sword(get_turf(src))
+			to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
+			toy_step--
 
 //Honkbot Assembly
 /obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)

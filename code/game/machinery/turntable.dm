@@ -1,5 +1,5 @@
 /sound/turntable/test
-	file = 'sound/turntable/TestLoop1.ogg'
+	file = 'sound/turntable/testloop1.ogg'
 	falloff = 2
 	repeat = 1
 
@@ -44,7 +44,7 @@
 	if( href_list["on1"] )
 		if(src.playing == 0)
 //			to_chat(world, "Should be working...")
-			var/sound/S = sound('sound/turntable/TestLoop1.ogg')
+			var/sound/S = sound('sound/turntable/testloop1.ogg')
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -76,7 +76,7 @@
 	if( href_list["on2"] )
 		if(src.playing == 0)
 //			to_chat(world, "Should be working...")
-			var/sound/S = sound('sound/turntable/TestLoop2.ogg')
+			var/sound/S = sound('sound/turntable/testloop2.ogg')
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -107,7 +107,7 @@
 	if( href_list["on3"] )
 		if(src.playing == 0)
 //			to_chat(world, "Should be working...")
-			var/sound/S = sound('sound/turntable/TestLoop3.ogg')
+			var/sound/S = sound('sound/turntable/testloop3.ogg')
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2

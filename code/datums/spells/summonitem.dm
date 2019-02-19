@@ -96,7 +96,7 @@
 					if(istype(item_to_retrive.loc, /obj/structure/disposalholder) || istype(item_to_retrive.loc, /obj/machinery/disposal))//fixes the breaking of disposals. No more bluespace connected disposal bins!
 						break
 					item_to_retrive = item_to_retrive.loc
-				
+
 				infinite_recursion += 1
 
 			if(!item_to_retrive)
@@ -116,10 +116,10 @@
 			if(butterfingers)
 				item_to_retrive.loc = target.loc
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears!</span>")
-				playsound(get_turf(target),'sound/magic/SummonItems_generic.ogg',50,1)
+				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 			else
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [target]'s hand!</span>")
-				playsound(get_turf(target),'sound/magic/SummonItems_generic.ogg',50,1)
+				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 
 		if(message)
 			to_chat(target, message)

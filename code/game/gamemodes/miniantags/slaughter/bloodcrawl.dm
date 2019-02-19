@@ -64,7 +64,7 @@
 				var/mob/living/simple_animal/slaughter/SD = src
 				sound = SD.feast_sound
 			else
-				sound = 'sound/misc/Demon_consume.ogg'
+				sound = 'sound/misc/demon_consume.ogg'
 
 			for(var/i in 1 to 3)
 				playsound(get_turf(src), sound, 100, 1)
