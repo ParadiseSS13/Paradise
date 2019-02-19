@@ -49,6 +49,8 @@
 			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
+	for(var/datum/disease/critical/C in user.viruses)
+		C.cure()
 	user.status_flags &= ~(FAKEDEATH)
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
