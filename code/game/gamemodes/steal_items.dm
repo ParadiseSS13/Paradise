@@ -74,6 +74,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	typepath = /obj/item/areaeditor/blueprints
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
+	location_override = "the Chief Engineer's office. Taking with you a clear photo of the blueprints is also an option"
 
 /datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints))
@@ -88,18 +89,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	name = "a nasa voidsuit"
 	typepath = /obj/item/clothing/suit/space/nasavoid
 	protected_jobs = list("Research Director")
-
-/datum/theft_objective/slime_extract
-	name = "a sample of unused slime extract"
-	typepath = /obj/item/slime_extract
-	protected_jobs = list("Research Director","Scientist")
-	location_override = "Xenobiology"
-
-/datum/theft_objective/slime_extract/check_special_completion(var/obj/item/slime_extract/E)
-	if(..())
-		if(E.Uses > 0)
-			return 1
-	return 0
 
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
@@ -129,6 +118,13 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	name = "an ablative armor vest"
 	typepath = /obj/item/clothing/suit/armor/laserproof
 	protected_jobs = list("Head of Security", "Warden")
+	location_override = "the Armory. Breaking open a cargo crate is also an option"
+
+/datum/theft_objective/riotshotgun
+	name = "a riot shotgun"
+	typepath = /obj/item/gun/projectile/shotgun/riot
+	protected_jobs = list("Head Of Security", "Warden")
+	location_override = "the Armory. Breaking open a cargo crate is also an option"
 
 /datum/theft_objective/krav
 	name = "the warden's krav maga martial arts gloves"
@@ -165,17 +161,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 
 /datum/theft_objective/number/proc/getAmountStolen(var/obj/item/I)
 	return I:amount
-
-/datum/theft_objective/number/plasma_gas
-	name = "moles of plasma (full tank)"
-	typepath = /obj/item/tank
-	min=28
-	max=28
-	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")
-	location_override = "Engineering or Toxin Mixing"
-
-/datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
-	return I:air_contents:toxins
 
 /datum/theft_objective/unique
 	flags = THEFT_FLAG_UNIQUE
