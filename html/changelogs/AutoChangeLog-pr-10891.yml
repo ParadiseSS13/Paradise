@@ -1,4 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - tweak: "Using a multitool on a conveyor switch now switches between one and two directions without needing you to set it on a menu."
