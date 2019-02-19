@@ -492,7 +492,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 
 //Honkbot Assembly
 /obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/robot_parts/l_arm) && !istype(W, /obj/item/robot_parts/r_arm))
+	if(!istype(W, /obj/item/robot_parts/l_arm) && !istype(W, /obj/item/robot_parts/r_arm))
 		return ..()
 	else
 		robot_arm = W.type
