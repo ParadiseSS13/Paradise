@@ -245,7 +245,7 @@
 	if(M.damtype =="brute")
 		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 	else if(M.damtype == "fire")
-		playsound(src, 'sound/items/Welder.ogg', 50, 1)
+		playsound(src, 'sound/items/welder.ogg', 50, 1)
 	else
 		return
 	M.occupant_message("<span class='danger'>You hit [src].</span>")

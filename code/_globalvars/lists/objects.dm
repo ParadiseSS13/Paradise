@@ -36,7 +36,6 @@ GLOBAL_LIST_INIT(tracked_implants, list())			//list of all current implants that
 GLOBAL_LIST_INIT(pinpointer_list, list())			//list of all pinpointers. Used to change stuff they are pointing to all at once.
 GLOBAL_LIST_INIT(nuclear_uplink_list, list())			//list of all existing nuke ops uplinks
 GLOBAL_LIST_INIT(abductor_equipment, list())			//list of all abductor equipment
-
 GLOBAL_LIST_INIT(global_intercoms, list())			//list of all intercomms, across all z-levels
 GLOBAL_LIST_INIT(global_radios, list())				//list of all radios, across all z-levels
 

@@ -19,9 +19,8 @@
 	health = 200
 	melee_damage_lower = 5
 	melee_damage_upper = 15
-	move_to_delay = 4
 	spider_tier = TS_TIER_2
-	web_infects = 1
+	web_type = /obj/structure/spider/terrorweb/white
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/LoseTarget()
@@ -57,3 +56,16 @@
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
 		return 1
 	return 0
+
+
+/obj/structure/spider/terrorweb/white
+	name = "infested web"
+	desc = "This web is covered in hundreds of tiny, biting spiders - and their eggs."
+
+/obj/structure/spider/terrorweb/white/web_special_ability(mob/living/carbon/C)
+	if(istype(C))
+		if(!IsTSInfected(C))
+			var/inject_target = pick("chest","head")
+			if(C.can_inject(null, 0, inject_target, 0))
+				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+				new /obj/item/organ/internal/body_egg/terror_eggs(C)

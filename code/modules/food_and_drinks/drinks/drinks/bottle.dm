@@ -192,7 +192,7 @@
 	list_reagents = list("rum" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/holywater
-	name = "Flask of Holy Water"
+	name = "flask of holy water"
 	desc = "A flask of the chaplain's holy water."
 	icon_state = "holyflask"
 	list_reagents = list("holywater" = 100)
@@ -232,8 +232,8 @@
 	list_reagents = list("wine" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/absinthe
-	name = "Extra-Strong Absinthe"
-	desc = "A strong alcoholic drink brewed and distributed by REDACTED."
+	name = "Yellow Marquee Absinthe"
+	desc = "A strong alcoholic drink brewed and distributed by Yellow Marquee."
 	icon_state = "absinthebottle"
 	list_reagents = list("absinthe" = 100)
 
@@ -252,7 +252,7 @@
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
-	name = "Orange Juice"
+	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
 	icon_state = "orangejuice"
 	item_state = "carton"
@@ -260,7 +260,7 @@
 	list_reagents = list("orangejuice" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/cream
-	name = "Milk Cream"
+	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
 	icon_state = "cream"
 	item_state = "carton"
@@ -268,7 +268,7 @@
 	list_reagents = list("cream" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/tomatojuice
-	name = "Tomato Juice"
+	name = "tomato juice"
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
 	icon_state = "tomatojuice"
 	item_state = "carton"
@@ -276,7 +276,7 @@
 	list_reagents = list("tomatojuice" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/limejuice
-	name = "Lime Juice"
+	name = "lime juice"
 	desc = "Sweet-sour goodness."
 	icon_state = "limejuice"
 	item_state = "carton"
@@ -284,7 +284,7 @@
 	list_reagents = list("limejuice" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/milk
-	name = "Milk"
+	name = "milk"
 	desc = "Soothing milk."
 	icon_state = "milk"
 	item_state = "carton"

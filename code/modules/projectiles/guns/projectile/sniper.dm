@@ -6,6 +6,9 @@
 	recoil = 2
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
+	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"
@@ -156,3 +159,22 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+
+//toy magazine
+/obj/item/ammo_box/magazine/toy/sniper_rounds
+	name = "donksoft Sniper magazine"
+	icon_state = ".50mag"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	max_ammo = 6
+	caliber = "foam_force_sniper"
+
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon()
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+	else if(ammo)
+		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
+	else
+		icon_state = "[initial(icon_state)]"

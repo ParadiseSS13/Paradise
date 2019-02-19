@@ -9,7 +9,7 @@
 	item_state = "lighter-g"
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -43,7 +43,7 @@
 			attack_verb = list("burnt", "singed")
 			if(istype(src, /obj/item/lighter/zippo) )
 				user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
-				playsound(src.loc, 'sound/items/ZippoLight.ogg', 25, 1)
+				playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 			else
 				if(prob(75))
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
@@ -69,7 +69,7 @@
 			attack_verb = null //human_defense.dm takes care of it
 			if(istype(src, /obj/item/lighter/zippo) )
 				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
-				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
+				playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 

@@ -91,6 +91,9 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
+	if(oxyloss > 10 || losebreath >= 4)
+		emote("gasp")
+		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
@@ -121,7 +124,8 @@
 		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown))
+		|| istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown) \
+		|| GetComponent(/datum/component/jestosterone))
 		span = "sans"
 
 	if(WINGDINGS in mutations)

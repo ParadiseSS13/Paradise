@@ -31,6 +31,15 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return TARGET_INVALID_DEAD
 	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
+	if(possible_target.current)
+		var/turf/current_location = get_turf(possible_target.current)
+		if(current_location && !is_level_reachable(current_location.z))
+			return TARGET_INVALID_UNREACHABLE
+	if(isgolem(possible_target.current))
+		return TARGET_INVALID_GOLEM
+	if(possible_target.offstation_role)
+		return TARGET_INVALID_EVENT
+
 
 /datum/objective/proc/find_target()
 	var/list/possible_targets = list()
