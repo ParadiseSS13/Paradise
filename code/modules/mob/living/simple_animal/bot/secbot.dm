@@ -417,23 +417,18 @@ Auto Patrol: []"},
 	return 0
 
 /mob/living/simple_animal/bot/secbot/explode()
-
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
-
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
-
 	if(prob(50))
-		new /obj/item/robot_parts/l_arm(Tsec)
-
+		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)
-
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
