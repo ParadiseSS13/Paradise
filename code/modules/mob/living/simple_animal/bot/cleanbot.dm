@@ -179,14 +179,10 @@
 	on = 0
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
-
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
-
 	new /obj/item/assembly/prox_sensor(Tsec)
-
 	if(prob(50))
-		new /obj/item/robot_parts/l_arm(Tsec)
-
+		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)
 	..()
 
