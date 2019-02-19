@@ -120,12 +120,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	protected_jobs = list("Head of Security", "Warden")
 	location_override = "the Armory. Breaking open a cargo crate is also an option"
 
-/datum/theft_objective/riotshotgun
-	name = "a riot shotgun"
-	typepath = /obj/item/gun/projectile/shotgun/riot
-	protected_jobs = list("Head Of Security", "Warden")
-	location_override = "the Armory. Breaking open a cargo crate is also an option"
-
 /datum/theft_objective/krav
 	name = "the warden's krav maga martial arts gloves"
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
