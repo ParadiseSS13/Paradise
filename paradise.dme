@@ -641,6 +641,7 @@
 #include "code\game\machinery\syndicatebomb.dm"
 #include "code\game\machinery\teleporter.dm"
 #include "code\game\machinery\transformer.dm"
+#include "code\game\machinery\turnstile.dm"
 #include "code\game\machinery\turntable.dm"
 #include "code\game\machinery\turret_control.dm"
 #include "code\game\machinery\vending.dm"
