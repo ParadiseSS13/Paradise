@@ -373,6 +373,12 @@
 				name = "Definitely Not [real_name]"
 				desc = "That's Definitely Not [real_name]"
 				valid = 1
+			
+			if(/obj/item/clothing/head/beret/centcom/officer/navy)
+				name = "Blueshield [real_name]"
+				desc = "Will stand by you until the bitter end."
+				emote_see = list("stands with pride.", "growls heroically.")
+				valid = 1
 
 	if(valid)
 		if(user && !user.drop_item())
