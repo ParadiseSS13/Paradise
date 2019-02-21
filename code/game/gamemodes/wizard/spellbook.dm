@@ -252,10 +252,11 @@
 	category = "Assistance"
 	cost = 1
 
-/datum/spellbook_entry/cluwne
-	name = "Curse of the Cluwne"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/cluwne
-	log_name = "CC"
+/datum/spellbook_entry/banana_touch
+	name = "Banana Touch"
+	spell_type = /obj/effect/proc_holder/spell/targeted/touch/banana
+	log_name = "BT"
+	cost = 1
 
 /datum/spellbook_entry/item
 	name = "Buy Item"

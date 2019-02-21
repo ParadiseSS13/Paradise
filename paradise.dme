@@ -339,6 +339,7 @@
 #include "code\datums\outfits\outfit_admin.dm"
 #include "code\datums\ruins\space.dm"
 #include "code\datums\spells\area_teleport.dm"
+#include "code\datums\spells\banana_touch.dm"
 #include "code\datums\spells\bloodcrawl.dm"
 #include "code\datums\spells\chaplain.dm"
 #include "code\datums\spells\charge.dm"
