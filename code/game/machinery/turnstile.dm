@@ -51,18 +51,18 @@
 
 			if(allowed_access)
 				flick("operate", src)
-				playsound(src,'sound/items/ratchet.ogg',50,0,3)
+				playsound(src,'sound/items/ratchet.ogg', 50, 0, 3)
 				return TRUE
 			else
 				flick("deny", src)
-				playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
+				playsound(src,'sound/machines/deniedbeep.ogg', 50, 0, 3)
 				return FALSE
 	if(isitem(AM))
 		return TRUE
 	else
 		return FALSE
 
-/obj/machinery/turnstile/CheckExit(atom/movable/AM as mob|obj, target)
+/obj/machinery/turnstile/CheckExit(atom/movable/AM, target)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		var/outdir = dir
