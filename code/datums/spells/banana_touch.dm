@@ -26,6 +26,7 @@
 	s.set_up(5, 0, target)
 	s.start()
 
+	to_chat(user, "<font color='red' size='6'>HONK</font>")
 	var/mob/living/carbon/human/H = target
 	H.bananatouched()
 	..()
@@ -50,8 +51,6 @@
 		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/clown, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes, slot_shoes, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat, slot_wear_mask, TRUE, TRUE)
-	mutations.Add(CLUMSY)
-	mutations.Add(COMIC)
 	dna.SetSEState(CLUMSYBLOCK, TRUE, TRUE)
 	dna.SetSEState(COMICBLOCK, TRUE, TRUE)
 	genemutcheck(src, CLUMSYBLOCK, null, MUTCHK_FORCED)
