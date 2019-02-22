@@ -515,9 +515,8 @@
 		user.add_language("Bubblish")
 		user.add_language("Orluum")
 		user.add_language("Clownish")
-		user.add_language("Elysian")
+		user.add_language("Elysiun")
 		user.add_language("Neo-Russkiya")
-		user.add_language("Traditional Russkiya")
 	else
 		user.remove_language("Sinta'unathi")
 		user.remove_language("Siik'tajr")
@@ -529,9 +528,8 @@
 		user.remove_language("Bubblish")
 		user.remove_language("Orluum")
 		user.remove_language("Clownish")
-		user.remove_language("Elysian")
+		user.remove_language("Elysiun")
 		user.remove_language("Neo-Russkiya")
-		user.remove_language("Traditional Russkiya")
 
 /datum/pai_software/translator/is_active(mob/living/silicon/pai/user)
 	return user.translator_on

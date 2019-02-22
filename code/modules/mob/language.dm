@@ -429,12 +429,12 @@
 //Out of system languages (non-standard, but still common)
 /datum/language/com_srus
 	name = "Neo-Russkiya"
-	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. Maintained primarily by USSP citizens and fringe traders."
+	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
 	exclaim_verb = "exaggerates"
 	colour = "com_srus"
-	key = "<"
+	key = ">"
 	space_chance = 65
 	english_names = 1
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
@@ -447,28 +447,20 @@
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
-//Trad space russkiya for event usage, like USSP officials or operatives. Child of com_srus since same syllables.
-/datum/language/com_srus/trad_srus
-	name = "Traditional Russkiya"
-	desc = "A more formalized form of Russkiya that attempts to (poorly) adhere to old Russian grammar and rules. The official langauge of the USSP."
-	colour = "trad_srus"
-	key = ">"
-	flags = RESTRICTED
-
-/datum/language/elysian
-	name = "Elysian"
-	desc = "A secretive winding language rarely spoken outside the Elysium Republic. It's often considered rude to speak in this tongue due to the Elysium Republic's stance on non-humans."
+/datum/language/elysiun
+	name = "Elysiun"
+	desc = "A secretive winding language taught in the Elysium Republic. In a fit of counter-culture, the language has been flipped on its original connotation, finding popular use in cutting edge fine art and progessive movements, much to the Republic's outrage."
 	speech_verb = "dulciquents"
 	ask_verb = "interpolates"
 	whisper_verb = "susurates"
-	colour = "elysian"
+	colour = "elysiun"
 	key = "?"
 	space_chance = 80
 	english_names = 1
-	syllables = list("sull","omus","mi","hiw","jirik","fush","fushur","omie","mishur","rishur","lizu",
-					 "soussur","ruju","omiemi","ilk","lurju","uru","wu","hulli","ulcesu","phrillium",
-					 "wori","worouc","worus","worom","leom","huzu","wirr","jus","jusous","ramiw","huur",
-					 "suu","shumu","frumk","kuesur","umiur","srull","worum","worom","phrouku","sephouk")
+	syllables = list("soilano","hosso","fo","noz","ossomo","fef","rin","blino","lino","hobline","newo","olz","zan","zar"
+					 "zin","zop","lab","oaz","boaz","zralo","frin","riveb","sowol","ralabo","noi","alo","e am","hof","zhamo"
+					 "fleob","ofoman","farhol","morhol","zafri","ossizo","vlol","som","vondo","yalaz","el","ed","ert","et"
+					 "flet","het","bet","fet","fot","fhot","fhlet","vhon","dofov","zalay","foy","soilany","soil","schlyt","zet")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
