@@ -434,7 +434,7 @@
 	whisper_verb = "mutters"
 	colour = "com_srus"
 	key = "<"
-	space_chance = 60
+	space_chance = 65
 	english_names = 1
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
 					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
@@ -454,7 +454,7 @@
 	whisper_verb = "mutters"
 	colour = "trad_srus"
 	key = ">"
-	space_chance = 35
+	space_chance = 60
 	english_names = 1
 	flags = RESTRICTED
 
