@@ -17,7 +17,7 @@
 	if(HasDisease(D))
 		return 0
 
-	if(count_by_type(viruses, /datum/disease/advance) >= 3)
+	if(count_by_type(viruses, /datum/disease/advance) > 0)
 		return 0
 
 	if(!(type in D.viable_mobtypes))

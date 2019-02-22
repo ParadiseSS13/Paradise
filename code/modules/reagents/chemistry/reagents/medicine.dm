@@ -955,26 +955,6 @@
 	update_flags |= M.adjustFireLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 
-//virus-specific symptom reagents
-
-/datum/reagent/medicine/synaphydramine
-	name = "Diphen-Synaptizine"
-	id = "synaphydramine"
-	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
-	color = "#EC536D" // rgb: 236, 83, 109
-
-/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
-	if(holder.has_reagent("lsd"))
-		holder.remove_reagent("lsd", 5)
-	if(holder.has_reagent("histamine"))
-		holder.remove_reagent("histamine", 5)
-	M.AdjustHallucinate(-10)
-	if(prob(30))
-		update_flags |= M.adjustToxLoss(1, FALSE)
-	return ..() | update_flags
-
 //////////////////////////////
 //		Synth-Meds			//
 //////////////////////////////
