@@ -459,8 +459,8 @@
 	name = "Elysian"
 	desc = "A secretive winding language rarely spoken outside the Elysium Republic. It's often considered rude to speak in this tongue due to the Elysium Republic's stance on non-humans."
 	speech_verb = "dulciquents"
-	ask_verb = "interpollates"
-	whisper_verb = "sussurates"
+	ask_verb = "interpolates"
+	whisper_verb = "susurates"
 	colour = "elysian"
 	key = "?"
 	space_chance = 80
