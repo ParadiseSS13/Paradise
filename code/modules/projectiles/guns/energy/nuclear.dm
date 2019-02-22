@@ -57,7 +57,7 @@
 	ammo_x_offset = 4
 
 /obj/item/gun/energy/gun/blueshield
-	name = "advanced stun revolver"
+	name = "Aegis SG7 stun revolver"
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
 	icon_state = "bsgun"
 	item_state = "gun"

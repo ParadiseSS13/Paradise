@@ -180,7 +180,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(
 		/obj/item/storage/box/deathimp = 1,
-		/obj/item/gun/energy/gun/blueshield = 1
+		/obj/item/storage/box/blueshield_gun_package = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security

@@ -4,6 +4,7 @@
  *
  *	Contains:
  *		Empty box, starter boxes (survival/engineer),
+ *		Blueshield Equipment boxes,
  *		Latex glove and sterile mask boxes,
  *		Syringe, beaker, dna injector boxes,
  *		Blanks, flashbangs, and EMP grenade boxes,
@@ -129,6 +130,68 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
 		new /obj/item/reagent_containers/food/pill/initropidril(src)
 		new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/blueshield/laser
+	name = "Blueshield Equipment (Aegis SG7 stun revolver)"
+	desc = "It's a box containing an Aegis SG7 stun revolver."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "blu_box"
+
+	New()
+		..()
+		contents = list()
+		new /obj/item/gun/energy/gun/blueshield(src)
+
+/obj/item/storage/box/blueshield/revolver
+	name = "Blueshield Equipment (.38 Mars Special revolver)"
+	desc = "It's a box containing a .38 Mars Special Revolver and two .38 caliber speedloaders."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "blu_box"
+
+	New()
+		..()
+		contents = list()
+		new /obj/item/gun/projectile/revolver/detective(src)
+		new /obj/item/ammo_box/c38(src)
+		new /obj/item/ammo_box/c38(src)
+
+/obj/item/storage/box/blueshield/enforcer
+	name = "Blueshield Equipment (9mm Enforcer semi automatic pistol)"
+	desc = "It's a box containing a 9mm Enforcer and two magazines."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "blu_box"
+
+	New()
+		..()
+		contents = list()
+		new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
+		new /obj/item/ammo_box/magazine/enforcer(src)
+		new /obj/item/ammo_box/magazine/enforcer(src)
+
+/obj/item/storage/box/blueshield_gun_package
+	name = "Blueshield equipment box"
+	desc = "You'll find the Blueshield's gun of choice inside. Schrödinger would be proud."
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "blu_wrapped"
+	var/list/options = list(".38 Mars Special Revolver" = /obj/item/storage/box/blueshield/revolver,
+	"9mm Enforcer Semi Automatic Pistol" = /obj/item/storage/box/blueshield/enforcer,
+	"Aegis SG7 Laser Gun" = /obj/item/storage/box/blueshield/laser)
+
+/obj/item/storage/box/blueshield_gun_package/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	var/choice = input(H, "Choose your weapon:", "Blueshield Gun") as anything in options|null
+	if(!choice || !Adjacent(H))
+		return
+	var/path_variable = options[choice]
+	var/obj/item/storage/S = new path_variable(user)
+	if(!istype(S))
+		return
+	user.put_in_hands(S)
+	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	qdel(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
