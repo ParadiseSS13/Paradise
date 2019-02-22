@@ -432,6 +432,7 @@
 	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. Maintained primarily by USSP citizens and fringe traders."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
+	exclaim_verb = "exaggerates"
 	colour = "com_srus"
 	key = "<"
 	space_chance = 65
@@ -450,8 +451,6 @@
 /datum/language/com_srus/trad_srus
 	name = "Traditional Russkiya"
 	desc = "A more formalized form of Russkiya that attempts to (poorly) adhere to old Russian grammar and rules. The official langauge of the USSP."
-	speech_verb = "articulates"
-	whisper_verb = "mutters"
 	colour = "trad_srus"
 	key = ">"
 	space_chance = 60
