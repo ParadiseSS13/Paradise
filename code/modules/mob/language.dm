@@ -468,10 +468,10 @@
 	key = "?"
 	space_chance = 80
 	english_names = 1
-	syllables = list("sull", "omus", "mi", "hiw", "jirik", "fush", "fushur", "omie", "mishur", "rishur", "lizu",
-					 "soussur", "ruju", "omiemi", "ilk", "lurju", "uru", "wu", "hulli", "ulcesu", "phrillium",
-					 "wori", "worouc", "worus", "worom", "leom", "huzu", "wirr", "jus", "jusous", "ramiw", "huur",
-					 "suu", "shumu", "frumk", "kuesur", "umiur", "srull", "worum", "worom", "phrouku", "sephouk")
+	syllables = list("sull","omus","mi","hiw","jirik","fush","fushur","omie","mishur","rishur","lizu",
+					 "soussur","ruju","omiemi","ilk","lurju","uru","wu","hulli","ulcesu","phrillium",
+					 "wori","worouc","worus","worom","leom","huzu","wirr","jus","jusous","ramiw","huur",
+					 "suu","shumu","frumk","kuesur","umiur","srull","worum","worom","phrouku","sephouk")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
