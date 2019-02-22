@@ -445,7 +445,7 @@
 					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
 					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi")
+					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
 //Trad space russkiya for event usage, like USSP officials or operatives. Child of com_srus since same syllables.
 /datum/language/com_srus/trad_srus
