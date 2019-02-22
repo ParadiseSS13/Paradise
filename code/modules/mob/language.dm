@@ -457,9 +457,9 @@
 	key = "?"
 	space_chance = 80
 	english_names = 1
-	syllables = list("soilano","hosso","fo","noz","ossomo","fef","rin","blino","lino","hobline","newo","olz","zan","zar"
-					 "zin","zop","lab","oaz","boaz","zralo","frin","riveb","sowol","ralabo","noi","alo","e am","hof","zhamo"
-					 "fleob","ofoman","farhol","morhol","zafri","ossizo","vlol","som","vondo","yalaz","el","ed","ert","et"
+	syllables = list("soilano","hosso","fo","noz","ossomo","fef","rin","blino","lino","hobline","newo","olz","zan","zar",
+					 "zin","zop","lab","oaz","boaz","zralo","frin","riveb","sowol","ralabo","noi","alo","e am","hof","zhamo",
+					 "fleob","ofoman","farhol","morhol","zafri","ossizo","vlol","som","vondo","yalaz","el","ed","ert","et",
 					 "flet","het","bet","fet","fot","fhot","fhlet","vhon","dofov","zalay","foy","soilany","soil","schlyt","zet")
 
 /datum/language/wryn
