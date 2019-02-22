@@ -460,7 +460,7 @@
 
 /datum/language/elysian
 	name = "Elysian"
-	desc = "A secretive winding language rarely spoken outside the Elysian Republic. It's often considered rude to speak in this tongue due to the Elysian Republic's stance on non-humans."
+	desc = "A secretive winding language rarely spoken outside the Elysium Republic. It's often considered rude to speak in this tongue due to the Elysium Republic's stance on non-humans."
 	speech_verb = "dulciquents"
 	ask_verb = "interpollates"
 	whisper_verb = "sussurates"
