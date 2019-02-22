@@ -414,7 +414,7 @@
 	exclaim_verb = "snarls"
 	colour = "gutter"
 	key = "3"
-	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
+	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar", "geh", "heh", "gra")
 
 /datum/language/clown
 	name = "Clownish"
@@ -425,6 +425,53 @@
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
+
+//Out of system languages (non-standard, but still common)
+/datum/language/com_srus
+	name = "Neo-Russkiya"
+	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and Earth Russian. Maintained primarily by USSP citizens and fringe traders."
+	speech_verb = "articulates"
+	whisper_verb = "mutters"
+	colour = "com_srus"
+	key = "<"
+	space_chance = 60
+	english_names = 1
+	syllables = list("dyen", "bar", "bota", "vyek", "tvo", "slov", "slav", "syen", "doup", "vah", "laz", "gloz", "yet",
+					 "nyet", "da", "sky", "glav", "glaz", "netz", "doomat", "zat", "moch", "boz",
+					 "comy", "vrad", "vrade", "tay", "bli", "ay", "nov", "livn", "tolv", "glaz", "gliz",
+					 "ouy", "zet", "yevt", "dat", "botat", "nev", "novy", "vzy", "nov", "sho", "obsh", "dasky",
+					 "key", "skey", "ovsky", "skaya", "bib", "kiev", "studen", "var", "bul", "vyan",
+					 "tzion", "vaya", "myak", "gino", "volo", "olam", "miti", "nino", "menov", "perov",
+					 "odasky", "trov", "niki", "ivano", "dostov", "sokol", "oupa", "pervom", "schel",
+					 "tizan", "chka", "tagan", "dobry", "okt", "boda", "veta", "idi", "cyk", "blyt", "hui", "na",
+					 "udi", "litchki", "casa", "linka", "toly", "anatov", "vich", "vech", "vuch", "toi")
+
+//Trad space russkiya for event usage, like USSP officials or operatives. Child of com_srus since same syllables.
+/datum/language/com_srus/trad_srus
+	name = "Traditional Russkiya"
+	desc = "A more formalized form of Russkiya that attempts to adhere to Sol Russian grammar and rules. The official langauge of the USSP."
+	speech_verb = "articulates"
+	whisper_verb = "mutters"
+	colour = "trad_srus"
+	key = ">"
+	space_chance = 35
+	english_names = 1
+	flags = RESTRICTED
+
+/datum/language/elysian
+	name = "Elysian"
+	desc = "A secretive winding language spoken rarely outside the Elysian Republic. It's often considered rude to speak in this tongue due to the Elysian Republic's stance on non-humans."
+	speech_verb = "dulciquents"
+	ask_verb = "interpollates"
+	whisper_verb = "sussurates"
+	colour = "elysian"
+	key = "?"
+	space_chance = 80
+	english_names = 1
+	syllables = list("sull", "omus", "mi", "hiw", "jirik", "fush", "fushur", "omie", "mishur", "rishur", "lizu",
+					 "soussur", "ruju", "omiemi", "ilk", "lurju", "uru", "wu", "hulli", "ulcesu", "phrillium",
+					 "wori", "worouc", "worus", "worom", "leom", "huzu", "wirr", "jus", "jusous", "ramiw", "huur",
+					 "suu", "shumu", "frumk", "kuesur", "umiur", "srull", "worum", "worom", "phrouku", "sephouk")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"

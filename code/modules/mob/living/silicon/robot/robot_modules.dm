@@ -78,6 +78,9 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
+	R.add_language("Elysian", 0)
+	R.add_language("Common Space Russian", 0)
+	R.add_language("Traditional Space Russian", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -330,6 +333,9 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
+	R.add_language("Elysian", 1)
+	R.add_language("Common Space Russian", 1)
+	R.add_language("Traditional Space Russian", 1)
 
 
 /obj/item/robot_module/miner
