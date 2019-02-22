@@ -453,8 +453,6 @@
 	desc = "A more formalized form of Russkiya that attempts to (poorly) adhere to old Russian grammar and rules. The official langauge of the USSP."
 	colour = "trad_srus"
 	key = ">"
-	space_chance = 60
-	english_names = 1
 	flags = RESTRICTED
 
 /datum/language/elysian
