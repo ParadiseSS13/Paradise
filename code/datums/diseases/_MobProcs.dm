@@ -9,21 +9,21 @@
 
 /mob/proc/CanContractDisease(datum/disease/D)
 	if(stat == DEAD)
-		return 0
+		return FALSE
 
 	if(D.GetDiseaseID() in resistances)
-		return 0
+		return FALSE
 
 	if(HasDisease(D))
-		return 0
+		return FALSE
 
-	if(count_by_type(viruses, /datum/disease/advance) > 0)
-		return 0
+	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) > 0)
+		return FALSE
 
 	if(!(type in D.viable_mobtypes))
 		return -1 //for stupid fucking monkies
 
-	return 1
+	return TRUE
 
 
 /mob/proc/ContractDisease(datum/disease/D)
