@@ -39,6 +39,17 @@
 	can_unsuppress = 0
 	can_suppress = 0
 
+/obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
+	name = "compact sniper rifle"
+	desc = "a compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
+	recoil = 0
+	weapon_weight = WEAPON_LIGHT
+	fire_delay = 0
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	can_unsuppress = FALSE
+	can_suppress = FALSE
+	zoomable = FALSE
+
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"
@@ -158,6 +169,23 @@
 	stun = 0
 	dismemberment = 0
 	weaken = 0
+	breakthings = FALSE
+
+//compact ammo
+/obj/item/ammo_box/magazine/sniper_rounds/compact
+	name = "sniper rounds (compact)"
+	desc = "An extremely powerful round capable of inflicting massive damage on a target."
+	ammo_type = /obj/item/ammo_casing/compact
+	max_ammo = 4
+
+/obj/item/ammo_casing/compact
+	desc = "A .50 caliber compact round casing."
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	icon_state = ".50"
+
+/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+	dismemberment = 0
 	breakthings = FALSE
 
 //toy magazine
