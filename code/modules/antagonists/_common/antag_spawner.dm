@@ -47,7 +47,7 @@
 			used = TRUE
 			var/mob/M = pick(borg_candidates)
 			var/client/C = M.client
-			spawn_antag(C, get_turf(src.loc), "syndieborg")
+			spawn_antag(C, get_turf(loc), "syndieborg")
 			qdel(src)
 		else
 			checking = FALSE
@@ -63,7 +63,7 @@
 			var/mob/M = pick(nuclear_candidates)
 			var/client/nukeop_client = M.client
 			var/client/borg_client = user.client
-			spawn_antag(borg_client, get_turf(src.loc), "syndieborg")
+			spawn_antag(borg_client, get_turf(loc), "syndieborg")
 			user.key = nukeop_client.key
 			ticker.mode.greet_syndicate(user.mind)
 			qdel(src)
