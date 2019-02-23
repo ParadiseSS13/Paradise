@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
 	name = "Compact Sniper Rifle"
-	desc = "A compact, non-scopable version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
+	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
 	reference = "CSR"
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
 	cost = 16
