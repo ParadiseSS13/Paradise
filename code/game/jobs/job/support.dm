@@ -64,7 +64,10 @@
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
-
+	backpack_contents = list(
+		/obj/item/book/manual/hispania_recipes = 1,
+		/obj/item/storage/box/survival = 1
+	)
 
 
 /datum/job/hydro
