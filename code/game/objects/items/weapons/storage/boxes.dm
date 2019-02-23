@@ -134,7 +134,6 @@
 /obj/item/storage/box/blueshield/laser
 	name = "Blueshield Equipment (Aegis SG7 stun revolver)"
 	desc = "It's a box containing an Aegis SG7 stun revolver."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "blu_box"
 
 	New()
@@ -145,7 +144,6 @@
 /obj/item/storage/box/blueshield/revolver
 	name = "Blueshield Equipment (.38 Mars Special revolver)"
 	desc = "It's a box containing a .38 Mars Special Revolver and two .38 caliber speedloaders."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "blu_box"
 
 	New()
@@ -158,7 +156,6 @@
 /obj/item/storage/box/blueshield/enforcer
 	name = "Blueshield Equipment (9mm Enforcer semi automatic pistol)"
 	desc = "It's a box containing a 9mm Enforcer and two magazines."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "blu_box"
 
 	New()
