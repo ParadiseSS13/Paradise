@@ -1,8 +1,0 @@
-
-author: Ralta
-
-delete-after: True
-
-changes: 
-  - rscadd: "Added ability for Ian to wear Blueshield/CentComm berets."
-  - tweak: "beret_centcom_officer and beret_centcom_officer_navy copied to corgi_head.dmi spritesheet."
