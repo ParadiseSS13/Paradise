@@ -10,14 +10,14 @@
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
 /obj/machinery/iv_drip/update_icon()
-	overlays.Cut()
+	cut_overlays()
 
 	if(bag)
-		overlays += "hangingbag"
+		add_overlay("hangingbag")
 		if(bag.reagents.total_volume)
 			var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "hangingbag-fluid")
 			filling.icon += mix_color_from_reagents(bag.reagents.reagent_list)
-			overlays += filling
+			add_overlay(overlays)
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
 	if(usr.incapacitated())

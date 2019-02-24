@@ -138,11 +138,10 @@
 
 // PRE-FILLED IV BAGS BELOW
 
-/obj/item/reagent_containers/iv_bag/salglu/New()
+/obj/item/reagent_containers/iv_bag/salglu
 	..()
-	set_label("Saline-Glucose")
-	reagents = list_reagents = list("salglu_solution" = 200)
-	update_icon()
+	name = "\improper IV Bag (Saline Glucose)"
+	list_reagents = list("salglu_solution" = 200)
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
 	var/blood_type

@@ -197,14 +197,14 @@
 	icon_state = "beaker"
 
 /obj/item/storage/box/iv_bags/New()
-		..()
-		new /obj/item/reagent_containers/iv_bag( src )
-		new /obj/item/reagent_containers/iv_bag( src )
-		new /obj/item/reagent_containers/iv_bag( src )
-		new /obj/item/reagent_containers/iv_bag( src )
-		new /obj/item/reagent_containers/iv_bag( src )
-		new /obj/item/reagent_containers/iv_bag( src )
-		new /obj/item/reagent_containers/iv_bag( src )
+	..()
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
 
 /obj/item/storage/box/injectors
 	name = "\improper DNA injectors"
