@@ -36,6 +36,14 @@
 	var/time = 0
 	var/officer = "None"
 
+/obj/machinery/door_timer/New()
+ 	GLOB.celltimers_list += src
+ 	return ..()
+
+/obj/machinery/door_timer/Destroy()
+ 	GLOB.celltimers_list -= src
+ 	return ..()
+
 /obj/machinery/door_timer/proc/print_report()
 	var/logname = input(usr, "Name of the guilty?","[id] log name")
 	var/logcharges = stripped_multiline_input(usr, "What have they been charged with?","[id] log charges")
