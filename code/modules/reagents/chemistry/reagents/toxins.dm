@@ -1037,7 +1037,7 @@
 /datum/reagent/capulettium
 	name = "Capulettium"
 	id = "capulettium"
-	description = "A rare drug that causes the user to fall unconscious and appear dead as long as it's in the body."
+	description = "A rare drug that causes the user to appear dead for some time."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
