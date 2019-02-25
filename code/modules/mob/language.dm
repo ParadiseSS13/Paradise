@@ -426,7 +426,6 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-//Out of system languages (non-standard, but still common)
 /datum/language/com_srus
 	name = "Neo-Russkiya"
 	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
@@ -446,21 +445,6 @@
 					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
-
-/datum/language/elysiun
-	name = "Elysiun"
-	desc = "A secretive winding language taught in the Elysium Republic. In a fit of counter-culture, the language has been flipped on its original connotation, finding popular use in cutting edge fine art and progessive movements, much to the Republic's outrage."
-	speech_verb = "dulciquents"
-	ask_verb = "interpolates"
-	whisper_verb = "susurates"
-	colour = "elysiun"
-	key = "?"
-	space_chance = 80
-	english_names = 1
-	syllables = list("soilano","hosso","fo","noz","ossomo","fef","rin","blino","lino","hobline","newo","olz","zan","zar",
-					 "zin","zop","lab","oaz","boaz","zralo","frin","riveb","sowol","ralabo","noi","alo","e am","hof","zhamo",
-					 "fleob","ofoman","farhol","morhol","zafri","ossizo","vlol","som","vondo","yalaz","el","ed","ert","et",
-					 "flet","het","bet","fet","fot","fhot","fhlet","vhon","dofov","zalay","foy","soilany","soil","schlyt","zet")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
