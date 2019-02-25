@@ -209,7 +209,7 @@
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/brigcells
+	build_path = /obj/item/circuitboard/prisoner
 	category = list("Computer Boards")
 
 /datum/design/brigcells
@@ -219,7 +219,7 @@
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/prisoner
+	build_path = /obj/item/circuitboard/brigcells
 	category = list("Computer Boards")
 
 /datum/design/rdconsole
