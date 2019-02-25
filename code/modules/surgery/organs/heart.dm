@@ -146,7 +146,6 @@
 	icon_state = "heart-c-on"
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
-	origin_tech = "biotech=5"
 	status = ORGAN_ROBOT
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
@@ -155,7 +154,6 @@
 	icon_state = "heart-c-u-on"
 	icon_base = "heart-c-u"
 	dead_icon = "heart-c-u-off"
-	origin_tech = "biotech=6"
 	var/emagged = FALSE
 	var/attempted_restart = FALSE
 
