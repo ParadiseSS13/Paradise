@@ -125,7 +125,7 @@ Bonus
 /datum/symptom/heal/longevity/Start(datum/disease/advance/A)
 	longevity = rand(initial(longevity) - 5, initial(longevity) + 5)
 
-/datum/symptom/heal/GetEfficiency()
+/datum/symptom/heal/longevity/GetEfficiency()
 	return longevity //Slowly let all viruses gradually heal if they have longevity
 
 /*
