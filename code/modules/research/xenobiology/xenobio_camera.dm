@@ -413,6 +413,7 @@
 			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
 			food.LAssailant = C
 			X.monkeys --
+			X.monkeys = round(X.monkeys, 0.1)
 			to_chat(user, "[X] now has [X.monkeys] monkeys left.")
 
 //Pick up monkey
