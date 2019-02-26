@@ -157,7 +157,7 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
-	else if (istype(I, /obj/item/kitchen/cutter) && flat)
+	else if(istype(I, /obj/item/kitchen/cutter) && flat)
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/rawcookies(loc)
 			to_chat(user, "<span class='notice'>You cut [src] into cookies.</span>")
@@ -165,7 +165,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
 	else
-		return..()
+		return ..()
 
 
 /obj/item/reagent_containers/food/snacks/rawcookies
@@ -185,7 +185,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to add this</span>")
 	else
-		return..()
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
 	name = "raw cookies"
@@ -215,7 +215,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
 	else
-		return..()
+		return ..()
 
 
 /obj/item/reagent_containers/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
