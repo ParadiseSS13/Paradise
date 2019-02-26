@@ -176,7 +176,7 @@
 		/obj/item/reagent_containers/food/snacks/rawcookies,
 	)
 	result = /obj/item/storage/bag/tray/cookies_tray/sugarcookie
-///	result = /obj/item/storage/bag/tray/sugarcookies_tray
+
 
 ////
 
