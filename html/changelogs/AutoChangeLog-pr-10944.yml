@@ -1,6 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Pink terror spiders are now called Queens after they evolve."
-  - tweak: "The terror spider major event now has a princess variant, and no longer has a mother variant."
-  - rscadd: "White terror spider infestations are now less predictable, more spread out over time, and affected by nutrition and some chems, but also have worse consequences if left completely untreated for a long time."

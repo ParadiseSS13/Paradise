@@ -1,6 +1,0 @@
-author: "Ralta"
-delete-after: True
-changes: 
-  - rscadd: "Ian can now wear a CentComm Officer Beret to become Blueshield Ian"
-  - rscadd: "Sprite added for Blueshield armor to corgi_back.dmi"
-  - tweak: "beret_centcom_officer and beret_centcom_officer_navy copied to corgi_head.dmi spritesheet"

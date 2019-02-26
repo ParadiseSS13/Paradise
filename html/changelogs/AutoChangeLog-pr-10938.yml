@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added a \"voice\" option to the magic mirror, letting you toggle comic sans/wingdings/swedish/chav"
