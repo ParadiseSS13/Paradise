@@ -128,7 +128,7 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = null
+	taste_message = "metal"
 
 
 /datum/reagent/silicon
@@ -176,7 +176,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
-	taste_message = null
+	taste_message = "extreme discomfort"
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -215,7 +215,7 @@
 	description = "A purple gaseous element."
 	reagent_state = GAS
 	color = "#493062"
-	taste_message = null
+	taste_message = "chemtrail resistance"
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -261,7 +261,7 @@
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
-	taste_message = null
+	taste_message = "nail polish remover"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -274,7 +274,7 @@
 	description = "Volatile."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	taste_message = null
+	taste_message = "one third of an explosion"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -534,7 +534,7 @@
 	description = "Finely ground Coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	taste_message = "bitterness"
+	taste_message = "waste"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -542,7 +542,7 @@
 	description = "Finely shredded Tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
-	taste_message = "bitterness"
+	taste_message = "the future"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -566,6 +566,7 @@
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
+	taste_message = "obscurity and toil"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
@@ -573,6 +574,7 @@
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	tox_prob = 25
+	taste_message = "evolution"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
@@ -580,6 +582,7 @@
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
+	taste_message = "bountifulness"
 
 ///Alchemical Reagents
 
