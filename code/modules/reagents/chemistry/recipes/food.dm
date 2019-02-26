@@ -99,7 +99,7 @@
 
 /datum/chemical_reaction/dough/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/reagent_containers/food/snacks/dough(location)
 
 ///Cookies by Ume
@@ -114,7 +114,7 @@
 
 /datum/chemical_reaction/cookiedough/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/reagent_containers/food/snacks/cookiedough(location)
 
 
