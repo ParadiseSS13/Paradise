@@ -382,7 +382,7 @@
 	id_tag = "s_docking_airlock";
 	locked = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aO" = (
 /turf/simulated/shuttle/wall{
@@ -399,23 +399,23 @@
 /area/shuttle/freegolem)
 "aQ" = (
 /obj/structure/closet/crate/golemgear,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aR" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/item/reagent_containers/spray/cleaner,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aS" = (
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aT" = (
 /obj/structure/lattice,
 /turf/space,
 /area/space)
 "aU" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/shuttle/plating,
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aV" = (
 /obj/structure/shuttle/engine/heater{
@@ -436,7 +436,7 @@
 /area/shuttle/freegolem)
 "aX" = (
 /obj/machinery/light/small,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aY" = (
 /turf/simulated/shuttle/wall{
@@ -487,24 +487,15 @@
 	},
 /area/shuttle/freegolem)
 "bf" = (
-/obj/machinery/computer/arcade/battle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "bg" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/door/airlock/shuttle,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bh" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/turf/simulated/wall/mineral/titanium/interior,
 /area/shuttle/freegolem)
 "bi" = (
 /turf/simulated/shuttle/wall{
@@ -546,20 +537,12 @@
 	},
 /area/space)
 "bn" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/effect/landmark/free_golem_spawn,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/vending/hydroseeds,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bo" = (
-/obj/effect/landmark/free_golem_spawn,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/vending/hydronutrients,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bp" = (
 /obj/machinery/door/unpowered/shuttle,
@@ -568,10 +551,7 @@
 	},
 /area/space)
 "bq" = (
-/obj/machinery/mineral/equipment_vendor/golem,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "br" = (
 /obj/structure/fans/tiny,
@@ -594,10 +574,11 @@
 	},
 /area/space)
 "bt" = (
-/obj/item/resonator,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bu" = (
 /turf/simulated/shuttle/floor{
@@ -610,19 +591,16 @@
 	},
 /area/space)
 "bv" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11";
-	dir = 2
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
+/obj/effect/landmark/free_golem_spawn,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bw" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/effect/landmark/free_golem_spawn,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bx" = (
 /turf/simulated/shuttle/wall{
@@ -646,10 +624,8 @@
 	},
 /area/space)
 "bA" = (
-/obj/machinery/mineral/ore_redemption/golem,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bB" = (
 /turf/simulated/shuttle/wall{
@@ -685,53 +661,22 @@
 	},
 /area/shuttle/freegolem)
 "bF" = (
-/obj/machinery/computer/shuttle/golem_ship,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/mineral/equipment_vendor/golem,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bG" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/item/resonator,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bH" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
+/obj/machinery/light{
+	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bI" = (
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem";
-	name = "Free Golem Ship";
-	roundstart_move = "freegolem_transit";
-	width = 16
-	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_z3";
-	name = "Small Asteroid";
-	width = 16
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/item/gun/energy/kinetic_accelerator,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bJ" = (
 /obj/structure/window/full/shuttle{
@@ -761,18 +706,12 @@
 	},
 /area/shuttle/freegolem)
 "bL" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/purp{
-	icon_state = "comfychair";
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/mineral/ore_redemption/golem,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bM" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/turf/simulated/shuttle/plating,
+/obj/machinery/computer/shuttle/golem_ship,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bN" = (
 /turf/space,
@@ -782,16 +721,16 @@
 	},
 /area/shuttle/freegolem)
 "bO" = (
-/obj/item/resonator/upgraded,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/machinery/light{
+	dir = 1
 	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bP" = (
-/obj/machinery/autolathe,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
 	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bQ" = (
 /turf/simulated/shuttle/wall{
@@ -799,36 +738,56 @@
 	},
 /area/shuttle/freegolem)
 "bR" = (
-/obj/structure/table/wood,
-/obj/machinery/reagentgrinder,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	locked = 1
 	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "freegolem";
+	name = "Free Golem Ship";
+	roundstart_move = "freegolem_transit";
+	width = 16
+	},
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "freegolem_z3";
+	name = "Small Asteroid";
+	width = 16
+	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bS" = (
-/obj/machinery/computer/arcade/orion_trail,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/machinery/light,
+/obj/structure/chair/comfy/purp{
+	icon_state = "comfychair";
+	dir = 1
 	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bT" = (
-/obj/machinery/light,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/machinery/light/small,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
 	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bU" = (
-/obj/machinery/light,
-/obj/effect/landmark/free_golem_spawn,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	locked = 1
 	},
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bV" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/item/resonator/upgraded,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bW" = (
 /obj/structure/lattice,
@@ -1440,13 +1399,8 @@
 /turf/simulated/floor/plasteel,
 /area/tcommsat/computer)
 "dr" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/autolathe,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "ds" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -1863,22 +1817,12 @@
 /area/tcommsat/chamber)
 "ej" = (
 /obj/structure/table/wood,
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire,
-/obj/machinery/light,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "ek" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/adv,
-/obj/item/storage/firstaid/adv,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/computer/arcade/battle,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "el" = (
 /obj/machinery/door/window/brigdoor{
@@ -1934,12 +1878,8 @@
 /turf/space,
 /area/turret_protected/tcomsat)
 "eq" = (
-/obj/structure/table/wood,
-/obj/item/areaeditor/golem,
-/obj/item/disk/design_disk/golem_shell,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/machinery/computer/arcade/orion_trail,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "er" = (
 /obj/structure/window/reinforced{
@@ -2019,10 +1959,8 @@
 	},
 /area/tcommsat/chamber)
 "ex" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/shuttle/plating,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "ey" = (
 /obj/structure/cable{
@@ -2068,8 +2006,9 @@
 	},
 /area/tcommsat/chamber)
 "eA" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/shuttle/plating,
+/obj/machinery/light,
+/obj/effect/landmark/free_golem_spawn,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "eB" = (
 /turf/simulated/floor/bluegrid{
@@ -2166,8 +2105,8 @@
 /turf/space,
 /area/turret_protected/tcomsat)
 "eI" = (
-/obj/structure/ore_box,
-/turf/simulated/shuttle/plating,
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "eJ" = (
 /obj/structure/cable{
@@ -2251,10 +2190,11 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "eQ" = (
-/obj/item/gun/energy/kinetic_accelerator,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/brute,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "eR" = (
 /obj/structure/window/reinforced{
@@ -2526,13 +2466,10 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "fp" = (
-/obj/machinery/light/small,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/adv,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "fq" = (
 /obj/structure/grille,
@@ -2643,10 +2580,13 @@
 	},
 /area/tcommsat/chamber)
 "fy" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/structure/table/wood,
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "fz" = (
 /obj/machinery/telecomms/processor/preset_four,
@@ -2924,16 +2864,16 @@
 	},
 /area/tcommsat/chamber)
 "fY" = (
-/obj/machinery/vending/hydronutrients,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
+/obj/structure/table/wood,
+/obj/item/areaeditor/golem,
+/obj/item/disk/design_disk/golem_shell,
+/turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "fZ" = (
-/obj/machinery/vending/hydroseeds,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/obj/machinery/light/small{
+	dir = 1
 	},
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "ga" = (
 /obj/machinery/telecomms/server/presets/command,
@@ -2959,6 +2899,10 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
+"gc" = (
+/obj/machinery/chem_master,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
 "gd" = (
 /obj/machinery/camera{
 	c_tag = "Telecomms Server Room South";
@@ -2980,6 +2924,10 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
+"ge" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
 "gf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3023,6 +2971,10 @@
 "gj" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/tcomfoyer)
+"gk" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
 "gr" = (
 /obj/structure/window/reinforced,
 /obj/machinery/light{
@@ -16669,8 +16621,8 @@ aL
 aP
 br
 aY
-bF
-bL
+bM
+bS
 be
 br
 aP
@@ -16923,14 +16875,14 @@ aa
 aa
 aa
 aM
-fY
-bg
+bo
+bq
 aZ
+bq
+bq
 bg
-bg
-aZ
-bg
-bS
+bq
+eq
 aM
 aa
 aa
@@ -17180,14 +17132,14 @@ aa
 aa
 aa
 aM
-fZ
-bg
+bn
+bq
 aZ
+bq
+bq
 bg
-bg
-aZ
-bg
-bf
+bq
+ek
 aM
 aa
 aa
@@ -17437,14 +17389,14 @@ aL
 aP
 aP
 aY
+bt
+bq
 bh
-bg
-aM
-bg
-bg
-aM
-bg
-bT
+bq
+bq
+bh
+bq
+ex
 be
 aP
 aP
@@ -17693,18 +17645,18 @@ aa
 aM
 aQ
 aS
-aZ
 bg
+bq
+bq
+bh
+bq
+bq
+bh
+bq
+bq
 bg
-aM
-bg
-bg
-aM
-bg
-bg
-aZ
 aS
-eI
+ge
 aM
 aa
 aa
@@ -17950,18 +17902,18 @@ aa
 aM
 aQ
 aS
-aZ
 bg
+bq
+bq
+bh
+bO
+bq
+bh
+bq
+bq
 bg
-aM
-bG
-bg
-aM
-bg
-bg
-aZ
 aS
-eI
+ge
 aM
 aa
 aa
@@ -18207,18 +18159,18 @@ aa
 aM
 aQ
 aX
-aM
-bn
-bt
-aM
-bg
-bg
-aM
-bt
-bU
-aM
-ex
-eI
+bh
+bv
+bG
+bh
+bq
+bq
+bh
+bG
+eA
+bh
+fZ
+ge
 aM
 aa
 aa
@@ -18464,18 +18416,18 @@ aa
 aM
 aQ
 aS
-aM
-bo
-bt
-aM
-bg
-bg
-aM
-bt
-bo
-aM
+bh
+bw
+bG
+bh
+bq
+bq
+bh
+bG
+bw
+bh
 aS
-eI
+ge
 aM
 aa
 aa
@@ -18721,18 +18673,18 @@ aa
 aM
 aQ
 aS
-be
-aP
-aZ
-bv
-aZ
-aZ
-bv
-aZ
-aP
-aY
+bh
+bh
+bg
+bh
+bg
+bg
+bh
+bg
+bh
+bh
 aS
-eI
+ge
 aM
 aa
 aa
@@ -18978,18 +18930,18 @@ aa
 aM
 aQ
 aX
-aM
-bV
-bg
-bw
-bg
-bg
-bw
-bg
-fy
-aM
-ex
+bh
+bA
+bq
+bH
+bq
+bq
+bH
+bq
 eI
+bh
+fZ
+ge
 aM
 aa
 aa
@@ -19235,18 +19187,18 @@ aa
 aM
 aQ
 aS
-aZ
 bg
+bq
+bq
+bq
+bq
+bq
+bq
+bq
+bq
 bg
-bg
-bg
-bg
-bg
-bg
-bg
-aZ
 aS
-eI
+ge
 aM
 aa
 aa
@@ -19492,18 +19444,18 @@ aa
 aM
 aQ
 aS
-aZ
 bg
+bq
+bq
+bq
+bq
+bq
+bq
+bq
+bq
 bg
-bg
-bg
-bg
-bg
-bg
-bg
-aZ
 aS
-eI
+ge
 aM
 aa
 aa
@@ -19749,16 +19701,16 @@ aa
 aM
 aR
 aS
-aM
-bg
-bg
-bg
-bg
-bg
-bg
-bg
-dr
-aM
+bh
+bq
+bq
+bq
+bq
+bq
+bq
+bq
+eQ
+bh
 aS
 aR
 aM
@@ -20006,17 +19958,17 @@ aa
 aN
 aS
 aX
-aM
 bh
-bg
-bg
-bg
-bg
-bg
-bg
-ej
-aM
-ex
+bt
+bq
+bq
+bq
+bq
+bq
+bq
+fy
+bh
+fZ
 aS
 aN
 aa
@@ -20263,16 +20215,16 @@ aa
 aN
 aS
 aS
-aM
-bg
-bg
-eQ
-bg
-bg
-bO
-bg
-ek
-aM
+bh
+bq
+bq
+bI
+bq
+bq
+bV
+bq
+fp
+bh
 aS
 aS
 aN
@@ -20518,20 +20470,20 @@ aa
 aa
 aa
 aM
-bM
 aU
-aM
+bf
+bh
+bF
 bq
-bg
-bA
-bg
-bg
-bP
-bR
-eq
-aM
-eA
-eA
+bL
+bq
+bq
+dr
+ej
+fY
+bh
+gc
+gk
 aM
 aa
 aa
@@ -20777,16 +20729,16 @@ aI
 aM
 aV
 aV
-aM
-aV
-aV
-bB
-bH
-fp
 bB
 aV
 aV
-aM
+bB
+bP
+bT
+bB
+aV
+aV
+bB
 aV
 aV
 aM
@@ -21038,8 +20990,8 @@ aO
 aW
 aW
 bC
-bI
-br
+bR
+bU
 bQ
 aW
 aW
