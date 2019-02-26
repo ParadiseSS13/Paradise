@@ -1,5 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - tweak: "changed a whole bunch of strings to add a bit more flavor to most reagents in the game (most of these can be found in the spreadsheet)."
-  - experiment: "resurrected the old \"flavor_strength\" value which appears fully functional in testing but has been entirely unused."
