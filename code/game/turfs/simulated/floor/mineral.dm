@@ -110,7 +110,6 @@
 
 /turf/simulated/floor/mineral/titanium/purple
 	icon_state = "shuttlefloor5"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/purple
 	icons = list("shuttlefloor5","shuttlefloor5_dam")
 
 /turf/simulated/floor/mineral/titanium/purple/airless

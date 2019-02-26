@@ -140,7 +140,7 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body")
 
 	switch(choice)
 		if("Name")
@@ -172,25 +172,6 @@
 				AC.whitelist = race_list
 				ui_users[user] = AC
 			AC.ui_interact(user)
-		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav")
-			var/voice_mutation
-			switch(voice_choice)
-				if("Comic Sans")
-					voice_mutation = COMICBLOCK
-				if("Wingdings")
-					voice_mutation = WINGDINGSBLOCK
-				if("Swedish")
-					voice_mutation = SWEDEBLOCK
-				if("Chav")
-					voice_mutation = CHAVBLOCK
-			if(voice_mutation)
-				if(H.dna.GetSEState(voice_mutation))
-					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
-				else
-					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
 	return

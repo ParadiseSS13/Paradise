@@ -38,10 +38,7 @@
 	evolvequeen_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/princess/proc/evolve_to_queen()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = new /mob/living/simple_animal/hostile/poison/terror_spider/queen(loc)
-	if(mind)
-		mind.transfer_to(Q)
-	qdel(src)
+	change_mob_type(/mob/living/simple_animal/hostile/poison/terror_spider/queen, null, null, 1, 1)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/princess/DoWrap()
 	. = ..()

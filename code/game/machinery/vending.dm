@@ -1232,8 +1232,7 @@
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
 					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
-					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
-					/obj/item/kitchen/cutter = 2)
+					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1)
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 

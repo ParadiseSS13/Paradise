@@ -308,7 +308,7 @@
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Coffee"
 	drink_desc = "A drink to perk you up and refresh you!"
-	taste_message = "refreshingly cold coffee"
+	taste_message = "coffee"
 
 /datum/reagent/consumable/drink/coffee/soy_latte
 	name = "Soy Latte"
@@ -320,7 +320,6 @@
 	drink_icon = "soy_latte"
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
-	taste_message = "fake milky coffee"
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -339,7 +338,6 @@
 	drink_icon = "cafe_latte"
 	drink_name = "Cafe Latte"
 	drink_desc = "A nice, strong and refreshing beverage while you are reading."
-	taste_message = "milky coffee"
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -355,7 +353,6 @@
 	color = "#673629"
 	drink_name = "Cafe Mocha"
 	drink_desc = "The perfect blend of coffe, milk, and chocolate."
-	taste_message = "chocolatey coffee"
 
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
@@ -388,7 +385,6 @@
 	drink_icon = "icetea"
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
-	taste_message = "cold tea"
 
 /datum/reagent/consumable/drink/bananahonk
 	name = "Banana Honk"
@@ -398,7 +394,7 @@
 	drink_icon = "bananahonkglass"
 	drink_name = "Banana Honk"
 	drink_desc = "A drink from Banana Heaven."
-	taste_message = "HONK"
+	taste_message = "honks"
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -466,7 +462,7 @@
 	drink_icon = "bluecherryshake"
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
-	taste_message = "blues"
+	taste_message = "cherry milkshake"
 
 /datum/reagent/consumable/drink/pumpkin_latte
 	name = "Pumpkin Latte"

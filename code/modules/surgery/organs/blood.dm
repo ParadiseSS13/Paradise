@@ -210,7 +210,6 @@
 		blood_data["real_name"] = real_name
 		blood_data["blood_color"] = dna.species.blood_color
 		blood_data["factions"] = faction
-		blood_data["dna"] = dna.Clone()
 		return blood_data
 
 //get the id of the substance this mob use as blood.

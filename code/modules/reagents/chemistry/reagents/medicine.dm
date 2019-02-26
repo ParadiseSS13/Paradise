@@ -14,7 +14,6 @@
 	color = "#C805DC"
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
-	taste_message = "numbness"
 
 /datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -29,7 +28,6 @@
 	description = "Sterilizes wounds in preparation for surgery."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	taste_message = "antiseptic"
 
 	//makes you squeaky clean
 /datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -49,7 +47,6 @@
 	reagent_state = LIQUID
 	color = "#FA46FA"
 	overdose_threshold = 40
-	taste_message = "stimulant"
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -92,7 +89,6 @@
 	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	taste_message = "nurturing"
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -116,7 +112,6 @@
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
 	heart_rate_decrease = 1
-	taste_message = "a safe refuge"
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -140,7 +135,6 @@
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
-	taste_message = "reformation"
 
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -169,7 +163,6 @@
 	reagent_state = LIQUID
 	color = "#0AB478"
 	metabolization_rate = 0.2
-	taste_message = "antibiotics"
 
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -178,7 +171,6 @@
 	reagent_state = LIQUID
 	color = "#F0C814"
 	metabolization_rate = 3
-	taste_message = "burn cream"
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -204,7 +196,6 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 3
-	taste_message = "wound cream"
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -252,7 +243,6 @@
 	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
-	taste_message = "blood"
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
@@ -274,7 +264,6 @@
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
 	color = "#000000"
-	taste_message = "dust"
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -294,7 +283,6 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 30
 	addiction_chance = 5
-	taste_message = "health"
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -350,7 +338,6 @@
 	reagent_state = LIQUID
 	color = "#22AB35"
 	metabolization_rate = 0.8
-	taste_message = "a painful cleansing"
 
 /datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -369,7 +356,6 @@
 	description = "Potassium Iodide is a medicinal drug used to counter the effects of radiation poisoning."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
-	taste_message = "cleansing"
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	if(prob(80))
@@ -382,7 +368,6 @@
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	taste_message = "a purge"
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -406,7 +391,6 @@
 	metabolization_rate = 0.1
 	shock_reduction = 25
 	overdose_threshold = 25
-	taste_message = "relief"
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -425,7 +409,6 @@
 	reagent_state = LIQUID
 	color = "#00FFFF"
 	metabolization_rate = 0.2
-	taste_message = "safety"
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -441,7 +424,6 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 	addiction_chance = 20
-	taste_message = "oxygenation"
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -462,7 +444,6 @@
 	metabolization_rate = 0.3
 	overdose_threshold = 35
 	addiction_chance = 25
-	taste_message = "stimulation"
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -511,7 +492,6 @@
 	reagent_state = LIQUID
 	color = "#5BCBE1"
 	addiction_chance = 10
-	taste_message = "antihistamine"
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-20)
@@ -534,7 +514,6 @@
 	overdose_threshold = 20
 	addiction_chance = 50
 	shock_reduction = 50
-	taste_message = "a delightful numbing"
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
@@ -559,7 +538,6 @@
 	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	taste_message = "clarity"
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -591,7 +569,6 @@
 	color = "#000000"
 	metabolization_rate = 0.2
 	overdose_threshold = 25
-	taste_message = "a moment of respite"
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -619,7 +596,6 @@
 	color = "#96B1AE"
 	metabolization_rate = 0.2
 	overdose_threshold = 20
-	taste_message = "borrowed time"
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -675,7 +651,6 @@
 	reagent_state = LIQUID
 	color = "#A0E85E"
 	metabolization_rate = 0.2
-	taste_message = "life"
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -741,7 +716,6 @@
 	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
-	taste_message = "neurogenisis"
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -753,7 +727,6 @@
 	id = "mutadone"
 	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
 	color = "#5096C8"
-	taste_message = "cleanliness"
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
@@ -782,7 +755,6 @@
 	id = "antihol"
 	description = "A medicine which quickly eliminates alcohol in the body."
 	color = "#009CA8"
-	taste_message = "sobriety"
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -869,7 +841,6 @@
 	description = "A hormone generated by the pancreas responsible for metabolizing carbohydrates and fat in the bloodstream."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	taste_message = "tiredness"
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
@@ -882,7 +853,6 @@
 	color = "#D782E6"
 	addiction_chance = 20
 	overdose_threshold = 50
-	taste_message = "warmth and stability"
 
 /datum/reagent/medicine/teporone/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 310)
@@ -897,7 +867,6 @@
 	description = "Haloperidol is a powerful antipsychotic and sedative. Will help control psychiatric problems, but may cause brain damage."
 	reagent_state = LIQUID
 	color = "#FFDCFF"
-	taste_message = "stability"
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -929,7 +898,6 @@
 	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.1
-	taste_message = "sleepiness"
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
@@ -951,7 +919,6 @@
 	reagent_state = SOLID
 	color = "#555555"
 	can_synth = FALSE
-	taste_message = "bodily perfection"
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -971,7 +938,6 @@
 	color = "#DCDCDC"
 	overdose_threshold = 30
 	metabolization_rate = 0.1
-	taste_message = "faint hope"
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -989,6 +955,26 @@
 	update_flags |= M.adjustFireLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 
+//virus-specific symptom reagents
+
+/datum/reagent/medicine/synaphydramine
+	name = "Diphen-Synaptizine"
+	id = "synaphydramine"
+	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
+	color = "#EC536D" // rgb: 236, 83, 109
+
+/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustDrowsy(-5)
+	if(holder.has_reagent("lsd"))
+		holder.remove_reagent("lsd", 5)
+	if(holder.has_reagent("histamine"))
+		holder.remove_reagent("histamine", 5)
+	M.AdjustHallucinate(-10)
+	if(prob(30))
+		update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
+
 //////////////////////////////
 //		Synth-Meds			//
 //////////////////////////////
@@ -1001,7 +987,6 @@
 	reagent_state = LIQUID
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
-	taste_message = "overclocking"
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1032,7 +1017,6 @@
 	reagent_state = LIQUID
 	color = "#D7B395"
 	process_flags = SYNTHETIC
-	taste_message = "heavy metals"
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1049,7 +1033,6 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
-	taste_message = "knitting wounds"
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1068,7 +1051,6 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
-	taste_message = "soothed burns"
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1087,7 +1069,6 @@
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
 	color = "#FFAF00"
 	overdose_threshold = 25
-	taste_message = "a gift from nature"
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1113,7 +1094,6 @@
 	id = "corazone"
 	description = "A medication used to treat pain, fever, and inflammation, along with heart attacks."
 	color = "#F5F5F5"
-	taste_message = "a brief respite"
 
 // This reagent's effects are handled in heart attack handling code
 
@@ -1124,7 +1104,6 @@
 	color = "#9b3401"
 	metabolization_rate = 0.5
 	can_synth = FALSE
-	taste_message = "wholeness"
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
