@@ -176,6 +176,38 @@
 	return ..()
 
 
+/datum/reagent/stable_mutagen
+	name = "Stable mutagen"
+	id = "stable_mutagen"
+	description = "Just the regular, boring sort of mutagenic compound.  Works in a completely predictable manner."
+	reagent_state = LIQUID
+	color = "#7DFF00"
+
+/datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
+	if(!ishuman(M) || !M.dna)
+		return
+	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	if(current_cycle == 10 && islist(data))
+		if(istype(data["dna"], /datum/dna))
+			var/mob/living/carbon/human/H = M
+			var/datum/dna/D = data["dna"]
+			H.set_species(D.species.type, retain_damage = TRUE)
+			H.dna = D.Clone()
+			H.real_name = D.real_name
+			domutcheck(H, null, MUTCHK_FORCED)
+			H.dna.UpdateSE()
+			H.dna.UpdateUI()
+			H.sync_organ_dna(TRUE)
+			H.UpdateAppearance()
+
+	return ..()
+
+/datum/reagent/stable_mutagen/on_tick()
+	var/datum/reagent/blood/B = locate() in holder.reagent_list
+	if(B && islist(B.data) && !data)
+		data = B.data.Copy()
+	..()
+
 /datum/reagent/uranium
 	name ="Uranium"
 	id = "uranium"
