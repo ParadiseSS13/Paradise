@@ -1069,7 +1069,7 @@
 /datum/reagent/capulettium
 	name = "Capulettium"
 	id = "capulettium"
-	description = "A rare drug that causes the user to fall unconscious and appear dead as long as it's in the body."
+	description = "A rare drug that causes the user to appear dead for some time."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
@@ -1078,10 +1078,18 @@
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
-		if(1 to 10)
+		if(1 to 5)
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+		if(6 to 10)
+			M.Drowsy(10)
 		if(11)
 			fakedeath(M)
+		if(61 to 69)
+			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+		if(70 to INFINITY)
+			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+			if(M.status_flags & FAKEDEATH)
+				fakerevive(M)
 	return ..() | update_flags
 
 /datum/reagent/capulettium/on_mob_delete(mob/living/M)
