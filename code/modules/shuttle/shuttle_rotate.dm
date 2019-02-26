@@ -80,18 +80,6 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 
 /************************************Machine rotate procs************************************/
 
-/*/obj/machinery/atmospherics/shuttleRotate(rotation, params)
-	var/list/real_node_connect = getNodeConnects()
-	for(var/i in 1 to device_type)
-		real_node_connect[i] = angle2dir(rotation+dir2angle(real_node_connect[i]))
-	. = ..()
-	SetInitDirections()
-	var/list/supposed_node_connect = getNodeConnects()
-	var/list/nodes_copy = nodes.Copy()
-	for(var/i in 1 to device_type)
-		var/new_pos = supposed_node_connect.Find(real_node_connect[i])
-		nodes[new_pos] = nodes_copy[i]
-*/
 //prevents shuttles attempting to rotate this since it messes up sprites
 /obj/machinery/gateway/shuttleRotate(rotation, params)
 	params = NONE
@@ -101,12 +89,3 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 /obj/machinery/gravity_generator/shuttleRotate(rotation, params)
 	params = NONE
 	return ..()
-/*
-/obj/machinery/door/airlock/shuttleRotate(rotation, params)
-	. = ..()
-	if(cyclelinkeddir && (params & ROTATE_DIR))
-		cyclelinkeddir = angle2dir(rotation+dir2angle(cyclelinkeddir))
-		// If we update the linked airlock here, the partner airlock might
-		// not be present yet, so don't do that. Just assume we're still
-		// partnered with the same airlock as before.
-*/
