@@ -1,0 +1,7 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Free Golem Ship's interior walls and floors are now fully simulated titanium walls/floors, so they can be deconstructed, built upon, etc.
+balance: Increased the cost of RND boards for free golems to 2000 mining points (from 1500)"
+  - tweak: "Golems can no longer activate robotic brains or have their brain put into an MMI."
+  - tweak: "Replaced one welding fuel tank in the golem ship by a chem master 3000."
