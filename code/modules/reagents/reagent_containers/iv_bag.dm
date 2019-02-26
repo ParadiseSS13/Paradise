@@ -139,7 +139,6 @@
 // PRE-FILLED IV BAGS BELOW
 
 /obj/item/reagent_containers/iv_bag/salglu
-	..()
 	name = "\improper IV Bag (Saline Glucose)"
 	list_reagents = list("salglu_solution" = 200)
 
