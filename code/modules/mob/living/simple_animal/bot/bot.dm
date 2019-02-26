@@ -1110,4 +1110,3 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)
-	drop_item = null
