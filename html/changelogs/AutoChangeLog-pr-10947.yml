@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds upgraded cybernetic heart to R&D"
+  - rscadd: "can now repair robotic organs, outside of the body, with nanopaste"
