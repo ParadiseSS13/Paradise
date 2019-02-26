@@ -17,8 +17,10 @@
 	if(HasDisease(D))
 		return FALSE
 
-	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) > 0)
-		return FALSE
+	if(istype(D, /datum/disease/advance))
+		var/datum/disease/advance/A = D
+		if(!A.eventSpawned && count_by_type(viruses, /datum/disease/advance) > 0)
+			return FALSE
 
 	if(!(type in D.viable_mobtypes))
 		return -1 //for stupid fucking monkies

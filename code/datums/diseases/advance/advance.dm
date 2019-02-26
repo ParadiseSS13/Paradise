@@ -34,7 +34,7 @@ var/list/advance_cures = 	list(
 	viable_mobtypes = list(/mob/living/carbon/human)
 
 	// NEW VARS
-
+	var/eventSpawned = FALSE // If the virus will go through the virus limit or not
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = 0
