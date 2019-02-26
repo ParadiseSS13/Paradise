@@ -63,6 +63,15 @@
 		if(species_override)
 			dna.species = new species_override
 
+/obj/item/organ/attackby(obj/item/I, mob/user, params)
+	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nano = I
+		nano.use(1)
+		rejuvenate()
+		to_chat(user, "<span class='notice'>You repair the damage on [src].</span>")
+		return
+	return ..()
+
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
@@ -138,7 +147,10 @@
 /obj/item/organ/examine(mob/user)
 	..(user)
 	if(status & ORGAN_DEAD)
-		to_chat(user, "<span class='notice'>The decay has set in.</span>")
+		if(!is_robotic())
+			to_chat(user, "<span class='notice'>The decay has set in.</span>")
+		else
+			to_chat(user, "<span class='notice'>It looks in need of repairs.</span>")
 
 /obj/item/organ/proc/handle_germ_effects()
 	//** Handle the effects of infections
@@ -171,6 +183,7 @@
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
+	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
 	else
@@ -268,6 +281,9 @@
 			receive_damage(20, 1)
 		if(2)
 			receive_damage(7, 1)
+
+/obj/item/organ/proc/shock_organ(intensity)
+	return
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
