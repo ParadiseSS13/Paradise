@@ -201,7 +201,7 @@
 	icon_state = "COOKIE!!!"
 	bitesize = 1
 	filling_color = "#DBC94F"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list("nutriment" = 1, "sugar" = 3, "hot_coco" = 5 )
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"
@@ -215,7 +215,7 @@
 	name = "sugar cookie"
 	desc = "Just like your little sister used to make."
 	icon_state = "sugarcookie"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("nutriment" = 1, "sugar" = 3)
 
 
 //////////////////////
