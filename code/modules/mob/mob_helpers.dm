@@ -584,10 +584,18 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					break
 			if(newname)
 				break	//That's a suitable name!
-			to_chat(src, "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken.")
+			to_chat(src, "Sorry, that [role] name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken.")
 
 		if(!newname)	//we'll stick with the oldname then
 			return
+
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.cannamepick == FALSE)
+				to_chat(src, "You cant namepick!")
+				return; //nope, sorry. cant namepick twice, use character preferences next time.
+			else
+				H.cannamepick = FALSE
 
 		rename_character(oldname, newname)
 

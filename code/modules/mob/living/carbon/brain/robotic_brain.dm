@@ -109,7 +109,7 @@
 	if(..())
 		if(imprinted_master)
 			to_chat(H, "<span class='biggerdanger'>You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost.</span>")
-
+			H.rename_self("Robotic Chassis", TRUE, FALSE)
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE

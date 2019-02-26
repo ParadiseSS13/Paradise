@@ -5,6 +5,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
+	var/mob/living/carbon/human/cannamepick = FALSE
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
@@ -115,6 +116,7 @@
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	..()
 	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
+	cannamepick = TRUE
 	update_dna()
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
