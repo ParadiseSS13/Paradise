@@ -191,14 +191,15 @@
 		if(istype(data["dna"], /datum/dna))
 			var/mob/living/carbon/human/H = M
 			var/datum/dna/D = data["dna"]
-			H.set_species(D.species.type, retain_damage = TRUE)
-			H.dna = D.Clone()
-			H.real_name = D.real_name
-			domutcheck(H, null, MUTCHK_FORCED)
-			H.dna.UpdateSE()
-			H.dna.UpdateUI()
-			H.sync_organ_dna(TRUE)
-			H.UpdateAppearance()
+			if(!D.species.is_small)
+				H.set_species(D.species.type, retain_damage = TRUE)
+				H.dna = D.Clone()
+				H.real_name = D.real_name
+				domutcheck(H, null, MUTCHK_FORCED)
+				H.dna.UpdateSE()
+				H.dna.UpdateUI()
+				H.sync_organ_dna(TRUE)
+				H.UpdateAppearance()
 
 	return ..()
 
