@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(monkey_recyclers)
+
 /obj/machinery/monkey_recycler
 	name = "Monkey Recycler"
 	desc = "A machine used for recycling dead monkeys into monkey cubes."
@@ -22,9 +24,12 @@
 	component_parts += new /obj/item/circuitboard/monkey_recycler(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	GLOB.monkey_recyclers += src
 	RefreshParts()
-	
+
 /obj/machinery/monkey_recycler/Destroy()
+	if(src in GLOB.monkey_recyclers)
+		GLOB.monkey_recyclers -= src
 	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
 		console.connected_recycler = null
 	return ..()
@@ -71,7 +76,7 @@
 		else
 			var/obj/item/multitool/M = O
 			M.buffer = src
-			to_chat(user, "<span class='notice'>You save the data in the [O.name]'s buffer.</span>")
+			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
 	if(stat != 0) //NOPOWER etc
 		return
 	if(istype(O, /obj/item/grab))

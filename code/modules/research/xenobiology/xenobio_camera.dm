@@ -26,9 +26,9 @@
 	var/datum/action/innate/slime_pick_up/slime_up_action = new
 	var/datum/action/innate/feed_slime/feed_slime_action = new
 	var/datum/action/innate/monkey_recycle/monkey_recycle_action = new
-	var/datum/action/innate/transfer_potion/transfer_potion_action = new
-	var/datum/action/innate/hotkey_help/hotkey_help_action = new
-	var/datum/action/innate/slime_scan/slime_scan_action = new
+	var/datum/action/innate/feed_potion/potion_action = new
+	var/datum/action/innate/hotkey_help/hotkey_help = new
+	var/datum/action/innate/slime_scan/scan_action = new
 
 	var/list/stored_slimes = list()
 	var/max_slimes = 5
@@ -47,6 +47,12 @@
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
 
+/obj/machinery/computer.camera_advanced/xenobio/New()
+	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
+		if(get_area(recycler.loc) == get_area(loc))
+			connected_recycler = recycler
+			connected_recycler.connected += src
+
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
 	QDEL_NULL(current_potion)
 	qdel(scanner)
@@ -57,40 +63,41 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/carbon/user)
 	..()
+
 	if(slime_up_action)
 		slime_up_action.target = src
 		slime_up_action.Grant(user)
 		actions += slime_up_action
-	
+
 	if(slime_place_action)
 		slime_place_action.target = src
 		slime_place_action.Grant(user)
 		actions += slime_place_action
-	
+
 	if(feed_slime_action)
 		feed_slime_action.target = src
 		feed_slime_action.Grant(user)
 		actions += feed_slime_action
-	
+
 	if(monkey_recycle_action)
 		monkey_recycle_action.target = src
 		monkey_recycle_action.Grant(user)
 		actions += monkey_recycle_action
+
+	if(scan_action)
+		scan_action.target = src
+		scan_action.Grant(user)
+		actions += scan_action
+
+	if(potion_action)
+		potion_action.target = src
+		potion_action.Grant(user)
+		actions += potion_action
 	
-	if(transfer_potion_action)
-		transfer_potion_action.target = src
-		transfer_potion_action.Grant(user)
-		actions += transfer_potion_action
-	
-	if(hotkey_help_action)
-		hotkey_help_action.target = src
-		hotkey_help_action.Grant(user)
-		actions += hotkey_help_action
-	
-	if(slime_scan_action)
-		slime_scan_action.target = src
-		slime_scan_action.Grant(user)
-		actions += slime_scan_action
+	if(hotkey_help)
+		hotkey_help.target = src
+		hotkey_help.Grant(user)
+		actions += hotkey_help
 
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, .proc/XenoSlimeClickCtrl)	
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, .proc/XenoSlimeClickAlt)	
@@ -98,6 +105,12 @@
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, .proc/XenoTurfClickShift)	
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, .proc/XenoTurfClickCtrl)	
 	RegisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL, .proc/XenoMonkeyClickCtrl)
+
+	if(!connected_recycler)
+		for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
+			if(get_area(recycler.loc) == get_area(loc))
+				connected_recycler = recycler
+				connected_recycler.connected += src
 
 /obj/machinery/computer/camera_advanced/xenobio/remove_eye_control(mob/living/user)
 	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL)	
@@ -120,7 +133,7 @@
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 			qdel(O)
 			return
-	else if (istype(O, /obj/item/slimepotion/slime))
+	else if(istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
 		if(user.drop_item())
 			if(!QDELETED(current_potion))
@@ -140,14 +153,14 @@
 		if(loaded)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
 		return
-	else if (istype(O, /obj/item/multitool))
-		var/obj/item/multitool/I = O
+	..()
+
+/obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/living/user, obj/item/multitool/I)
 		if (istype(I.buffer, /obj/machinery/monkey_recycler))
 			to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
 			connected_recycler = I.buffer
 			connected_recycler.connected += src
-			return
-	..()
+			return TRUE
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"
@@ -238,11 +251,11 @@
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
-/datum/action/innate/transfer_potion
+/datum/action/innate/feed_potion
 	name = "Transfer Potion"
 	button_icon_state = "slime_potion"
 
-/datum/action/innate/transfer_potion/Activate()
+/datum/action/innate/feed_potion/Activate()
 	if(!target || !ishuman(owner))
 		return
 
@@ -256,9 +269,8 @@
 
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/slime/S in remote_eye.loc)
-			if(!QDELETED(X.current_potion))
-				X.current_potion.attack(S, C)
-				break
+			X.current_potion.attack(S, C)
+			break
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
@@ -398,7 +410,7 @@
 
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(E.loc)
+			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
 			food.LAssailant = C
 			X.monkeys --
 			to_chat(user, "[X] now has [X.monkeys] monkeys left.")
