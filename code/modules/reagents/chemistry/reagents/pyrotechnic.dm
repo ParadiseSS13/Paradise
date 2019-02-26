@@ -78,7 +78,7 @@
 	color = "#FF0000"
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "literally liquid fire"
+	taste_message = null
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -115,7 +115,6 @@
 	description = "Sends everything flying from the detonation point."
 	reagent_state = LIQUID
 	color = "#FFA500"
-	taste_message = "sound and fury"
 
 /datum/reagent/sorium_vortex
 	name = "sorium_vortex"
@@ -158,7 +157,6 @@
 	description = "Makes a very bright flash."
 	reagent_state = LIQUID
 	color = "#FFFF00"
-	taste_message = "even more speed"
 
 /datum/reagent/smoke_powder
 	name = "Smoke Powder"
@@ -166,7 +164,6 @@
 	description = "Makes a large cloud of smoke that can carry reagents."
 	reagent_state = LIQUID
 	color = "#808080"
-	taste_message = "ninjutsu"
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
@@ -174,7 +171,6 @@
 	description = "Makes a deafening noise."
 	reagent_state = LIQUID
 	color = "#0000FF"
-	taste_message = "speed"
 
 /datum/reagent/phlogiston
 	name = "Phlogiston"
@@ -183,7 +179,6 @@
 	reagent_state = LIQUID
 	color = "#FF9999"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "burning"
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -204,7 +199,6 @@
 	reagent_state = LIQUID
 	color = "#FF9999"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "flammable goop"
 
 /datum/reagent/napalm/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(1)
@@ -220,7 +214,6 @@
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the mob down to 0K."
 	color = "#B2B2FF" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "cold"
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
@@ -246,7 +239,6 @@
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents."
 	color = "#B20000" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "heat"
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
@@ -268,7 +260,6 @@
 	reagent_state = LIQUID
 	color = "#A0A090"
 	var/cooling_temperature = 3 // more effective than water
-	taste_message = "extreme discomfort"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
