@@ -142,6 +142,7 @@
 //List of active diseases
 
 	var/list/viruses = list() // list of all diseases in a mob
+	var/list/advanced_symptoms = list() // list of all advanced virus symptoms, saved as: list<symptom_type,list(symptom)>
 	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER

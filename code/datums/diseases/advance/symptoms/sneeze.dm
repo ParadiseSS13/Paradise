@@ -26,14 +26,14 @@ Bonus
 	level = 1
 	severity = 1
 
-/datum/symptom/sneeze/Activate(datum/disease/advance/A)
+/datum/symptom/sneeze/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(1, 2, 3)
 				M.emote("sniff")
 			else
 				M.emote("sneeze")
-				A.spread(5)
+				virus.spread(5)
 	return

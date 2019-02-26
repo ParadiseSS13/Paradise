@@ -28,8 +28,8 @@ Bonus
 /datum/symptom/dizzy/Activate(datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(1, 2, 3, 4)
 				to_chat(M, "<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>")
 			else

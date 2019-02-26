@@ -24,15 +24,15 @@ BONUS
 	level = 4
 	severity = 1
 
-/datum/symptom/vitiligo/Activate(datum/disease/advance/A)
+/datum/symptom/vitiligo/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/M = virus.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			if(H.s_tone == -85)
 				return
-			switch(A.stage)
+			switch(virus.stage)
 				if(5)
 					H.s_tone = -85
 					H.update_body(0)
@@ -68,15 +68,15 @@ BONUS
 	level = 4
 	severity = 1
 
-/datum/symptom/revitiligo/Activate(datum/disease/advance/A)
+/datum/symptom/revitiligo/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/M = virus.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			if(H.s_tone == 85)
 				return
-			switch(A.stage)
+			switch(virus.stage)
 				if(5)
 					H.s_tone = 85
 					H.update_body(0)

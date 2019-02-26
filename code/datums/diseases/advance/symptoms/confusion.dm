@@ -26,11 +26,11 @@ Bonus
 	severity = 2
 
 
-/datum/symptom/confusion/Activate(datum/disease/advance/A)
+/datum/symptom/confusion/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/carbon/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/carbon/M = virus.affected_mob
+		switch(virus.stage)
 			if(1, 2, 3, 4)
 				to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>")
 			else

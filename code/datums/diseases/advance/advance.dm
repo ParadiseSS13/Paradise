@@ -39,12 +39,6 @@ var/list/advance_cures = 	list(
 	var/id = ""
 	var/processing = 0
 
-/*
-
-	OLD PROCS
-
- */
-
 /datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D)
 	if(!istype(D))
 		D = null
@@ -53,10 +47,12 @@ var/list/advance_cures = 	list(
 	if(!symptoms || !symptoms.len)
 
 		if(!D || !D.symptoms || !D.symptoms.len)
-			symptoms = GenerateSymptoms(0, 2)
+			for(var/i = prob(20) + 1, i>0, i--)
+				Evolve(0,2)
 		else
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
+				S.virus = src
 
 	Refresh()
 	..(process, D)
@@ -68,18 +64,14 @@ var/list/advance_cures = 	list(
 			S.End(src)
 	return ..()
 
-// Randomly pick a symptom to activate.
+
 /datum/disease/advance/stage_act()
 	..()
 	if(symptoms && symptoms.len)
-
 		if(!processing)
 			processing = 1
 			for(var/datum/symptom/S in symptoms)
 				S.Start(src)
-
-		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
 
@@ -99,6 +91,13 @@ var/list/advance_cures = 	list(
 		var/id = "[GetDiseaseID()]"
 		if(resistance && !(id in affected_mob.resistances))
 			affected_mob.resistances[id] = id
+		
+		for(var/datum/symptom/S in symptoms) //Remove symptoms from the mob
+			if(affected_mob.advanced_symptoms[S.type])
+				for(var/datum/symptom/S2 in affected_mob.advanced_symptoms[S.type])
+					if(S2.virus.IsSame(src))
+						affected_mob.advanced_symptoms[S.type].Remove(S2)
+		
 		remove_virus()
 	qdel(src)	//delete the datum to stop it processing
 
@@ -126,11 +125,8 @@ var/list/advance_cures = 	list(
 	return 0
 
 // Will generate new unique symptoms, use this if there are none. Returns a list of symptoms that were generated.
-/datum/disease/advance/proc/GenerateSymptoms(level_min, level_max, amount_get = 0)
-
-	var/list/generated = list() // Symptoms we generated.
-
-	// Generate symptoms. By default, we only choose non-deadly symptoms.
+/datum/disease/advance/proc/GenerateSymptom(level_min, level_max)
+	// Generate symptoms.
 	var/list/possible_symptoms = list()
 	for(var/symp in list_symptoms)
 		var/datum/symptom/S = new symp
@@ -139,19 +135,9 @@ var/list/advance_cures = 	list(
 				possible_symptoms += S
 
 	if(!possible_symptoms.len)
-		return generated
+		return null
 
-	// Random chance to get more than one symptom
-	var/number_of = amount_get
-	if(!amount_get)
-		number_of = 1
-		while(prob(20))
-			number_of += 1
-
-	for(var/i = 1; number_of >= i && possible_symptoms.len; i++)
-		generated += pick_n_take(possible_symptoms)
-
-	return generated
+	return pick(possible_symptoms)
 
 /datum/disease/advance/proc/Refresh(new_name = 0)
 	var/list/properties = GenerateProperties()
@@ -247,7 +233,6 @@ var/list/advance_cures = 	list(
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
 		var/res = Clamp(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-//		to_chat(world, "Res = [res]")
 		cures = list(advance_cures[res])
 
 		// Get the cure name from the cure_id
@@ -259,7 +244,7 @@ var/list/advance_cures = 	list(
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/advance/proc/Evolve(min_level, max_level)
-	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
+	var/s = GenerateSymptom(min_level, max_level)
 	if(s)
 		AddSymptom(s)
 		Refresh(1)
@@ -303,11 +288,13 @@ var/list/advance_cures = 	list(
 	else
 		RemoveSymptom(pick(symptoms))
 		symptoms += S
+	S.virus = src
 	return
 
 // Simply removes the symptom.
 /datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
 	symptoms -= S
+	S.virus = null
 	return
 
 /*

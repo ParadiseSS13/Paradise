@@ -24,11 +24,11 @@ Bonus
 	transmittable = -2
 	level = 4
 
-/datum/symptom/damage_converter/Activate(datum/disease/advance/A)
+/datum/symptom/damage_converter/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 10))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(4, 5)
 				Convert(M)
 	return

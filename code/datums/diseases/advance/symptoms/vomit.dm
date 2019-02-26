@@ -29,11 +29,11 @@ Bonus
 	level = 3
 	severity = 4
 
-/datum/symptom/vomit/Activate(datum/disease/advance/A)
+/datum/symptom/vomit/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB / 2))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(1, 2, 3, 4)
 				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
 			else

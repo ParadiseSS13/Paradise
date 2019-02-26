@@ -25,19 +25,22 @@ Bonus
 	level = 6
 	severity = 5
 
-/datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
+/datum/symptom/flesh_eating/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(2,3)
 				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
 			if(4,5)
 				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
-				Flesheat(M, A)
+				Flesheat(M)
 	return
 
-/datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
-	var/get_damage = ((sqrtor0(16-A.totalStealth()))*5)
+/datum/symptom/flesh_eating/proc/Flesheat(mob/living/M)
+	var/get_damage = sqrtor0(GetEfficiency())*5
 	M.adjustBruteLoss(get_damage)
 	return 1
+
+/datum/symptom/flesh_eating/GetEfficiency()
+	return 16-virus.totalStealth()

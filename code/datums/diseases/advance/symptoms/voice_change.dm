@@ -25,12 +25,12 @@ Bonus
 	level = 6
 	severity = 2
 
-/datum/symptom/voice_change/Activate(datum/disease/advance/A)
+/datum/symptom/voice_change/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 
-		var/mob/living/carbon/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/carbon/M = virus.affected_mob
+		switch(virus.stage)
 			if(1, 2, 3, 4)
 				to_chat(M, "<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
 			else

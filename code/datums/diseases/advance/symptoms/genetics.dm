@@ -27,13 +27,13 @@ Bonus
 	var/list/possible_mutations
 	var/archived_dna = null
 
-/datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
+/datum/symptom/genetic_mutation/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5)) // 15% chance
-		var/mob/living/carbon/M = A.affected_mob
+		var/mob/living/carbon/M = virus.affected_mob
 		if(!M.has_dna())
 			return
-		switch(A.stage)
+		switch(virus.stage)
 			if(4, 5)
 				to_chat(M, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
 				M.dna.remove_mutation_group(possible_mutations)

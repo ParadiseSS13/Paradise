@@ -25,16 +25,19 @@ Bonus
 	level = 2
 	severity = 2
 
-/datum/symptom/shivering/Activate(datum/disease/advance/A)
+/datum/symptom/shivering/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/carbon/M = A.affected_mob
+		var/mob/living/carbon/M = virus.affected_mob
 		to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
-		if(M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			Chill(M, A)
+		if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)
+			Chill(M)
 	return
 
-/datum/symptom/shivering/proc/Chill(mob/living/M, datum/disease/advance/A)
-	var/get_cold = (sqrtor0(16+A.totalStealth()*2))+(sqrtor0(21+A.totalResistance()*2))
-	M.bodytemperature = min(M.bodytemperature - (get_cold * A.stage), BODYTEMP_COLD_DAMAGE_LIMIT + 1)
+/datum/symptom/shivering/proc/Chill(mob/living/M)
+	var/get_cold = GetEfficiency()
+	M.bodytemperature = max(M.bodytemperature - get_cold, BODYTEMP_COLD_DAMAGE_LIMIT + 1)
 	return 1
+
+/datum/symptom/shivering/GetEfficiency()
+	return (sqrtor0(16+virus.totalStealth()*2))+(sqrtor0(21+virus.totalResistance()*2)) * virus.stage

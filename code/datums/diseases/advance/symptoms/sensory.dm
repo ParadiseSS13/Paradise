@@ -24,24 +24,24 @@ Bonus
 	level = 5
 	severity = 0
 
-/datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
+/datum/symptom/mind_restoration/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/M = virus.affected_mob
 		var/datum/reagents/RD = M.reagents
 
-		if(A.stage >= 3)
+		if(virus.stage >= 3)
 			M.AdjustSlur(-2)
 			M.AdjustDrunk(-4)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3, 0, 1)
-		if(A.stage >= 4)
+		if(virus.stage >= 4)
 			M.AdjustDrowsy(-2)
 			if(RD.has_reagent("lsd"))
 				RD.remove_reagent("lsd", 5)
 			if(RD.has_reagent("histamine"))
 				RD.remove_reagent("histamine", 5)
 			M.AdjustHallucinate(-10)
-		if(A.stage >= 5)
+		if(virus.stage >= 5)
 			RD.check_and_add("mannitol", 10, 10)
 
 /datum/symptom/sensory_restoration
@@ -52,11 +52,11 @@ Bonus
 	transmittable = -4
 	level = 4
 
-/datum/symptom/sensory_restoration/Activate(datum/disease/advance/A)
+/datum/symptom/sensory_restoration/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(4, 5)
 				if(M.reagents.get_reagent_amount("oculine") < 20)
 					M.reagents.add_reagent("oculine", 20)

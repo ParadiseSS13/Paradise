@@ -24,11 +24,11 @@ Bonus
 	transmittable = -4
 	level = 6
 
-/datum/symptom/oxygen/Activate(datum/disease/advance/A)
+/datum/symptom/oxygen/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(4, 5)
 				if(M.reagents.get_reagent_amount("salbutamol") < 20)
 					M.reagents.add_reagent("salbutamol", 20)

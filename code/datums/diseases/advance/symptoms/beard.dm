@@ -24,14 +24,14 @@ BONUS
 	level = 4
 	severity = 1
 
-/datum/symptom/beard/Activate(datum/disease/advance/A)
+/datum/symptom/beard/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/M = virus.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-			switch(A.stage)
+			switch(virus.stage)
 				if(1, 2)
 					to_chat(H, "<span class='warning'>Your chin itches.</span>")
 					if(head_organ.f_style == "Shaved")

@@ -21,11 +21,11 @@ BONUS
 	transmittable = 0
 	level = 3
 
-/datum/symptom/viraladaptation/Activate(datum/disease/advance/A)
+/datum/symptom/viraladaptation/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(1)
 				to_chat(M, "<span class='notice'>You feel off, but no different from before.</span>")
 			if(5)
@@ -54,11 +54,11 @@ BONUS
 	transmittable = 3
 	level = 3
 
-/datum/symptom/viraladaptation/Activate(datum/disease/advance/A)
+/datum/symptom/viraladaptation/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(1)
 				to_chat(M, "<span class='notice'>You feel better, but no different from before.</span>")
 			if(5)

@@ -17,7 +17,7 @@
 	if(HasDisease(D))
 		return FALSE
 
-	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) > 0)
+	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) >= 3)
 		return FALSE
 
 	if(!(type in D.viable_mobtypes))
@@ -35,6 +35,11 @@
 /mob/proc/AddDisease(datum/disease/D)
 	var/datum/disease/DD = new D.type(1, D, 0)
 	viruses += DD
+	if(istype(DD, /datum/disease/advance))
+		var/datum/disease/advance/A = DD
+		for(var/datum/symptom/S in A.symptoms)
+			S.virus = A //Since we made a new one
+			AddSymptom(S)
 	DD.affected_mob = src
 	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
@@ -51,6 +56,11 @@
 
 	DD.affected_mob.med_hud_set_status()
 
+//Adds an advanced symptom to the mob
+/mob/proc/AddSymptom(datum/symptom/S)
+	if(!(S.type in advanced_symptoms)) //Fill the entry if the type is not yet in the associative list
+		advanced_symptoms[S.type] = list()
+	advanced_symptoms[S.type].Add(S)
 
 /mob/living/carbon/ContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))

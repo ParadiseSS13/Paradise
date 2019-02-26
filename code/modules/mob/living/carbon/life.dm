@@ -203,6 +203,16 @@
 
 		if(stat != DEAD)
 			D.stage_act()
+	
+	if(stat != DEAD)
+		for(var/symptom_type in advanced_symptoms) //Activate the best symptoms
+			var/datum/symptom/bestSymptom = null
+			for(var/datum/symptom/S in advanced_symptoms[symptom_type])
+				
+				if(!bestSymptom || bestSymptom.GetEfficiency() < S.GetEfficiency())
+					bestSymptom = S
+			if(bestSymptom)
+				bestSymptom.Activate()
 
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()

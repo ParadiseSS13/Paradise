@@ -24,20 +24,22 @@ Bonus
 	transmittable = -4
 	level = 6
 
-/datum/symptom/heal/Activate(datum/disease/advance/A)
+/datum/symptom/heal/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 10))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
+		var/mob/living/M = virus.affected_mob
+		switch(virus.stage)
 			if(4, 5)
-				Heal(M, A)
+				Heal(M)
 	return
 
-/datum/symptom/heal/proc/Heal(mob/living/M, datum/disease/advance/A)
-	var/get_damage = (sqrtor0(20+A.totalStageSpeed())*(1+rand()))
+/datum/symptom/heal/proc/Heal(mob/living/M)
+	var/get_damage = (sqrtor0(GetEfficiency())*(1+rand()))
 	M.adjustToxLoss(-get_damage)
 	return 1
 
+/datum/symptom/heal/GetEfficiency()
+	return 20+virus.totalStageSpeed()
 /*
 //////////////////////////////////////
 
@@ -65,13 +67,13 @@ Bonus
 	level = 3
 	var/list/cured_diseases = list()
 
-/datum/symptom/heal/metabolism/Heal(mob/living/M, datum/disease/advance/A)
+/datum/symptom/heal/metabolism/Heal(mob/living/M)
 	var/cured = 0
 	for(var/thing in M.viruses)
 		var/datum/disease/D = thing
 		if(D.virus_heal_resistant)
 			continue
-		if(D != A)
+		if(D != virus)
 			cured = 1
 			cured_diseases += D.GetDiseaseID()
 			D.cure()
@@ -115,13 +117,16 @@ Bonus
 	level = 3
 	var/longevity = 30
 
-/datum/symptom/heal/longevity/Heal(mob/living/M, datum/disease/advance/A)
+/datum/symptom/heal/longevity/Heal(mob/living/M)
 	longevity -= 1
 	if(!longevity)
-		A.cure()
+		virus.cure()
 
 /datum/symptom/heal/longevity/Start(datum/disease/advance/A)
 	longevity = rand(initial(longevity) - 5, initial(longevity) + 5)
+
+/datum/symptom/heal/GetEfficiency()
+	return longevity //Slowly let all viruses gradually heal if they have longevity
 
 /*
 /*

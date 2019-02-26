@@ -24,15 +24,15 @@ BONUS
 	level = 4
 	severity = 1
 
-/datum/symptom/shedding/Activate(datum/disease/advance/A)
+/datum/symptom/shedding/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/M = virus.affected_mob
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-			switch(A.stage)
+			switch(virus.stage)
 				if(3, 4)
 					if(!(head_organ.h_style == "Bald") && !(head_organ.h_style == "Balding Hair"))
 						to_chat(H, "<span class='warning'>Your hair starts to fall out in clumps...</span>")

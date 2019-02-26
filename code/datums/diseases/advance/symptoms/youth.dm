@@ -24,13 +24,13 @@ BONUS
 	transmittable = -4
 	level = 5
 
-/datum/symptom/youth/Activate(datum/disease/advance/A)
+/datum/symptom/youth/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 2))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/M = virus.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			switch(A.stage)
+			switch(virus.stage)
 				if(1)
 					if(H.age > 41)
 						H.age = 41

@@ -25,14 +25,14 @@ Bonus
 	level = 5
 	severity = 4
 
-/datum/symptom/visionloss/Activate(datum/disease/advance/A)
+/datum/symptom/visionloss/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/carbon/M = A.affected_mob
+		var/mob/living/carbon/M = virus.affected_mob
 		var/obj/item/organ/internal/eyes/eyes = M.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) //NO EYES, NO PROBLEM! Rip out your eyes today to prevent future blindness!
 			return
-		switch(A.stage)
+		switch(virus.stage)
 			if(1, 2)
 				to_chat(M, "<span class='warning'>Your eyes itch.</span>")
 			if(3, 4)

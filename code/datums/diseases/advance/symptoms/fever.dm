@@ -25,17 +25,20 @@ Bonus
 	level = 2
 	severity = 2
 
-/datum/symptom/fever/Activate(datum/disease/advance/A)
+/datum/symptom/fever/Activate()
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/carbon/M = A.affected_mob
+		var/mob/living/carbon/M = virus.affected_mob
 		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
 		if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT)
-			Heat(M, A)
+			Heat(M)
 
 	return
 
-/datum/symptom/fever/proc/Heat(mob/living/M, datum/disease/advance/A)
-	var/get_heat = (sqrtor0(21+A.totalTransmittable()*2))+(sqrtor0(20+A.totalStageSpeed()*3))
-	M.bodytemperature = min(M.bodytemperature + (get_heat * A.stage), BODYTEMP_HEAT_DAMAGE_LIMIT - 1)
+/datum/symptom/fever/proc/Heat(mob/living/M)
+	var/get_heat = GetEfficiency()
+	M.bodytemperature = min(M.bodytemperature + get_heat, BODYTEMP_HEAT_DAMAGE_LIMIT - 1)
 	return 1
+
+/datum/symptom/fever/GetEfficiency()
+	return (sqrtor0(21+virus.totalTransmittable()*2))+(sqrtor0(20+virus.totalStageSpeed()*3)) * virus.stage

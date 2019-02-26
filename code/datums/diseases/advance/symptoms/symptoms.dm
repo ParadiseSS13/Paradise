@@ -17,6 +17,7 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 	var/severity = 0
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
 	var/id = ""
+	var/datum/disease/advance/virus = null // Virus it belongs to
 
 /datum/symptom/New()
 	var/list/S = list_symptoms
@@ -34,6 +35,8 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 /datum/symptom/proc/End(datum/disease/advance/A)
 	return
 
-/datum/symptom/proc/Activate(datum/disease/advance/A)
+/datum/symptom/proc/Activate()
 	return
 
+/datum/symptom/proc/GetEfficiency()
+	return virus.stage
