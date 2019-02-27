@@ -74,6 +74,12 @@
 	else
 		return 0
 
+/obj/item/extinguisher/attack(mob/living/M, mob/living/user, def_zone)
+	if(!safety && user.a_intent == INTENT_HELP) //No hitting people when wanting to extinguish
+		return 0
+	. = ..()
+	
+
 /obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
