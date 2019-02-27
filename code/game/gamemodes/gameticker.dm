@@ -41,18 +41,11 @@ var/round_start_time = 0
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
-	'sound/music/title1.ogg',
-	'sound/music/title2.ogg',
-	'sound/music/title3.ogg',
-	'sound/music/title4.ogg',
-	'sound/music/title5.ogg',
-	'sound/music/title6.ogg',
-	'sound/music/title7.ogg',
-	'sound/music/title8.ogg',
-	'sound/music/title9.ogg',
-	'sound/music/title10.ogg',
-	'sound/music/title11.ogg',
-	'sound/music/title12.ogg',)
+	'sound/music/thunderdome.ogg',\
+	'sound/music/space.ogg',\
+	'sound/music/title1.ogg',\
+	'sound/music/title2.ogg',\
+	'sound/music/title3.ogg',)
 	do
 		pregame_timeleft = config.pregame_timestart
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
@@ -483,3 +476,6 @@ var/round_start_time = 0
 	event_manager.RoundEnd()
 
 	return 1
+
+/datum/controller/gameticker/proc/HasRoundStarted()
+	return current_state >= GAME_STATE_PLAYING

@@ -10,6 +10,16 @@
 	hidden_uplink.uses = 10
 	..()
 
+/obj/item/implant/uplink/sit/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = "sit"
+
+/obj/item/implant/uplink/admin/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = "admin"
+
 /obj/item/implant/uplink/implant(mob/source)
 	var/obj/item/implant/imp_e = locate(src.type) in source
 	if(imp_e && imp_e != src)

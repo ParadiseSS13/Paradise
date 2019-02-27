@@ -6,6 +6,9 @@
 	recoil = 2
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
+	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"
@@ -27,6 +30,25 @@
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
 	origin_tech = "combat=7;syndicate=6"
+
+/obj/item/gun/projectile/automatic/sniper_rifle/soporific
+	name = "Soporific sniper rifle"
+	desc = "A sniper rifle that's primarily used to fire non-lethal soporific rounds."
+	origin_tech = "combat=7;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/soporific
+	can_unsuppress = 0
+	can_suppress = 0
+
+/obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
+	name = "compact sniper rifle"
+	desc = "a compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
+	recoil = 0
+	weapon_weight = WEAPON_LIGHT
+	fire_delay = 0
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	can_unsuppress = FALSE
+	can_suppress = FALSE
+	zoomable = FALSE
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
@@ -148,3 +170,39 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+
+//compact ammo
+/obj/item/ammo_box/magazine/sniper_rounds/compact
+	name = "sniper rounds (compact)"
+	desc = "An extremely powerful round capable of inflicting massive damage on a target."
+	ammo_type = /obj/item/ammo_casing/compact
+	max_ammo = 4
+
+/obj/item/ammo_casing/compact
+	desc = "A .50 caliber compact round casing."
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	icon_state = ".50"
+
+/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+	dismemberment = 0
+	breakthings = FALSE
+
+//toy magazine
+/obj/item/ammo_box/magazine/toy/sniper_rounds
+	name = "donksoft Sniper magazine"
+	icon_state = ".50mag"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	max_ammo = 6
+	caliber = "foam_force_sniper"
+
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon()
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+	else if(ammo)
+		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
+	else
+		icon_state = "[initial(icon_state)]"

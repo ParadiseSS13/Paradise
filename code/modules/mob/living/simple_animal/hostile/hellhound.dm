@@ -2,7 +2,7 @@
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 	name = "Lesser Hellhound"
-	desc = "A horrifying, black canine monster, with glowing red eyes and vicious-looking teeth. A firey, lava-like substance drips from it."
+	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
@@ -97,7 +97,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/AttackingTarget()
 	. = ..()
-	if(ishuman(target))
+	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
 
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
@@ -117,6 +117,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "Greater Hellhound"
+	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
 	icon_resting = "hellhoundgreater_sit"

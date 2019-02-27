@@ -163,7 +163,7 @@
 	name = "makeshift bolt"
 	desc = "A sharpened metal rod that can be fired out of a crossbow."
 	icon_state = "metal-rod"
-	throwforce = 8
+	throwforce = 10
 	var/superheated = 0
 
 /obj/item/arrow/rod/removed()

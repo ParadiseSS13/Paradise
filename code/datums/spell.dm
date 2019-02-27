@@ -141,14 +141,14 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
 	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
 		var/mob/living/carbon/human/H = user
-		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard) && !istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman/wizard))
-			to_chat(user, "<span class='notice'>I don't feel strong enough without my robe.</span>")
+		var/obj/item/clothing/robe = H.wear_suit
+		var/obj/item/clothing/hat = H.head
+		var/obj/item/clothing/shoes = H.shoes
+		if(!robe || !hat || !shoes)
+			to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
 			return 0
-		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal) && !istype(H.shoes, /obj/item/clothing/shoes/magboots/wizard))
-			to_chat(user, "<span class='notice'>I don't feel strong enough without my sandals.</span>")
-			return 0
-		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard))
-			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
+		if(!robe.magical || !hat.magical || !shoes.magical)
+			to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
 			return 0
 	else if(!ishuman(user))
 		if(clothes_req || human_req)
@@ -293,6 +293,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			adjust_var(user, holder_var_type, -holder_var_amount)
 
 	return
+
+/obj/effect/proc_holder/spell/proc/updateButtonIcon()
+	if(action)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	switch(type)
@@ -459,11 +463,12 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
 		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard) && !istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman/wizard))
+			var/obj/item/clothing/robe = H.wear_suit
+			var/obj/item/clothing/hat = H.head
+			var/obj/item/clothing/shoes = H.shoes
+			if(!robe || !hat || !shoes)
 				return 0
-			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal) && !istype(H.shoes, /obj/item/clothing/shoes/magboots/wizard))
-				return 0
-			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard))
+			if(!robe.magical || !hat.magical || !shoes.magical)
 				return 0
 	else
 		if(clothes_req  || human_req)

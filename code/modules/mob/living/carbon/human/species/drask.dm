@@ -6,14 +6,14 @@
 	language = "Orluum"
 	eyes = "drask_eyes_s"
 
-	speech_sounds = list('sound/voice/DraskTalk.ogg')
+	speech_sounds = list('sound/voice/drasktalk.ogg')
 	speech_chance = 20
-	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
-	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
-	male_cough_sounds = 'sound/voice/DraskCough.ogg'
-	female_cough_sounds = 'sound/voice/DraskCough.ogg'
-	male_sneeze_sound = 'sound/voice/DraskSneeze.ogg'
-	female_sneeze_sound = 'sound/voice/DraskSneeze.ogg'
+	male_scream_sound = 'sound/voice/drasktalk2.ogg'
+	female_scream_sound = 'sound/voice/drasktalk2.ogg'
+	male_cough_sounds = 'sound/voice/draskcough.ogg'
+	female_cough_sounds = 'sound/voice/draskcough.ogg'
+	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'
+	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
 	burn_mod = 2
 	//exotic_blood = "cryoxadone"
@@ -35,6 +35,7 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	has_gender = FALSE
 	dietflags = DIET_OMNI
 
 	cold_level_1 = -1 //Default 260 - Lower is better

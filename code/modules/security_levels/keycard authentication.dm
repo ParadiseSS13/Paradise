@@ -166,7 +166,7 @@
 				return
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
-			discordbot("[config.ryzorbot]", "ert", "isadmin=false&reason=[json_encode(ert_reason)]&timestamp=[station_time_timestamp()]")
+			//discordbot("[config.ryzorbot]", "ert", "isadmin=false&reason=[json_encode(ert_reason)]&timestamp=[station_time_timestamp()]")
 
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)

@@ -57,7 +57,7 @@
 	else
 		atom_say("WINNER!")
 	new /obj/item/toy/prizeball(get_turf(src))
-	playsound(src.loc, 'sound/arcade/Win.ogg', 50, 1, extrarange = -3, falloff = 10)
+	playsound(src.loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff = 10)
 	addtimer(CALLBACK(src, .update_icon), 10)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)

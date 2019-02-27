@@ -222,6 +222,10 @@ var/global/list/damage_icon_parts = list()
 				base_icon.Blend(temp, ICON_OVERLAY)
 
 		if(!skeleton)
+			if(isgolem(src))
+				var/datum/species/golem/G = src.dna.species
+				if(G.golem_colour)
+					base_icon.ColorTone(G.golem_colour)
 			if(husk)
 				base_icon.ColorTone(husk_color_mod)
 			else if(hulk)
@@ -239,6 +243,7 @@ var/global/list/damage_icon_parts = list()
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		human_icon_cache[icon_key] = new_base
 		standing += new_base
+
 		//END CACHED ICON GENERATION.
 
 	overlays_standing[LIMBS_LAYER] = standing
@@ -683,6 +688,8 @@ var/global/list/damage_icon_parts = list()
 		else
 			overlays_standing[GLASSES_LAYER] = new_glasses
 			apply_overlay(GLASSES_LAYER)
+
+	update_misc_effects()
 
 /mob/living/carbon/human/update_inv_ears(var/update_icons=1)
 	remove_overlay(EARS_LAYER)

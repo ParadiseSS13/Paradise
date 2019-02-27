@@ -191,6 +191,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
 		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
+		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
 	)

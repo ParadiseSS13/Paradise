@@ -176,6 +176,39 @@
 	return ..()
 
 
+/datum/reagent/stable_mutagen
+	name = "Stable mutagen"
+	id = "stable_mutagen"
+	description = "Just the regular, boring sort of mutagenic compound.  Works in a completely predictable manner."
+	reagent_state = LIQUID
+	color = "#7DFF00"
+
+/datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
+	if(!ishuman(M) || !M.dna)
+		return
+	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	if(current_cycle == 10 && islist(data))
+		if(istype(data["dna"], /datum/dna))
+			var/mob/living/carbon/human/H = M
+			var/datum/dna/D = data["dna"]
+			if(!D.species.is_small)
+				H.set_species(D.species.type, retain_damage = TRUE)
+				H.dna = D.Clone()
+				H.real_name = D.real_name
+				domutcheck(H, null, MUTCHK_FORCED)
+				H.dna.UpdateSE()
+				H.dna.UpdateUI()
+				H.sync_organ_dna(TRUE)
+				H.UpdateAppearance()
+
+	return ..()
+
+/datum/reagent/stable_mutagen/on_tick()
+	var/datum/reagent/blood/B = locate() in holder.reagent_list
+	if(B && islist(B.data) && !data)
+		data = B.data.Copy()
+	..()
+
 /datum/reagent/uranium
 	name ="Uranium"
 	id = "uranium"
@@ -1051,18 +1084,24 @@
 		if(6 to 10)
 			M.Drowsy(10)
 		if(11)
-			update_flags |= M.Paralyse(10, FALSE)
-			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
-		if(12 to 60)
-			update_flags |= M.Paralyse(10, FALSE)
-		if(61 to INFINITY)
+			fakedeath(M)
+		if(61 to 69)
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+		if(70 to INFINITY)
+			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+			if(M.status_flags & FAKEDEATH)
+				fakerevive(M)
 	return ..() | update_flags
+
+/datum/reagent/capulettium/on_mob_delete(mob/living/M)
+	if(M.status_flags & FAKEDEATH)
+		fakerevive(M)
+	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
 	id = "capulettium_plus"
-	description = "A rare and expensive drug that causes the user to appear dead for some time while they retain consciousness and vision."
+	description = "A rare and expensive drug that will silence the user and let him appear dead as long as it's in the body. Rest to play dead, stand up to wake up."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
@@ -1070,7 +1109,16 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
+	if((M.status_flags & FAKEDEATH) && !M.resting)
+		fakerevive(M)
+	else if(!(M.status_flags & FAKEDEATH) && M.resting)
+		fakedeath(M)
 	return ..()
+
+/datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
+	if(M.status_flags & FAKEDEATH)
+		fakerevive(M)
+	..()
 
 /datum/reagent/toxic_slurry
 	name = "Toxic Slurry"

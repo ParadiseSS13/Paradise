@@ -9,6 +9,7 @@
 	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	var/recentpump = 0 // to prevent spammage
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
@@ -44,7 +45,7 @@
 
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/shotgunpump.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc
@@ -54,6 +55,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
+		playsound(src, chambered.drop_sound, 60, 1)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -206,10 +208,11 @@
 	item_state = "moistnugget"
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
+	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	var/bolt_open = 0
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
-	playsound(M, 'sound/weapons/shotgunpump.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
 	if(bolt_open)
 		pump_reload(M)
 	else
@@ -312,6 +315,7 @@
 		to_chat(user, "You switch to tube B.")
 	else
 		to_chat(user, "You switch to tube A.")
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
 	if(user.incapacitated() || !Adjacent(user) || !istype(user))

@@ -40,6 +40,9 @@
 		else
 			light = new /datum/light_source(src, .)
 
+/atom/proc/extinguish_light()
+	return
+
 /atom/Destroy()
 	if(light)
 		light.destroy()

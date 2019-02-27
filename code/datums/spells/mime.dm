@@ -79,6 +79,7 @@
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
+	large = TRUE
 
 /obj/effect/proc_holder/spell/targeted/forcewall/mime/Click()
 	if(usr && usr.mind)
