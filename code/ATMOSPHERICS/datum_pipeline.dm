@@ -100,6 +100,8 @@ var/pipenetwarnings = 10
 		addMachineryMember(A)
 
 /datum/pipeline/proc/merge(datum/pipeline/E)
+	if(!E) //Uh oh
+		return
 	air.volume += E.air.volume
 	members.Add(E.members)
 	for(var/obj/machinery/atmospherics/pipe/S in E.members)
@@ -115,10 +117,12 @@ var/pipenetwarnings = 10
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
 	var/datum/pipeline/P = returnPipenet(A)
-	P.addMember(A, src)
+	if(P) //Sanity checking
+		P.addMember(A, src)
 
 /obj/machinery/atmospherics/pipe/addMember(obj/machinery/atmospherics/A)
-	parent.addMember(A, src)
+	if(parent && A) //Sanity checking
+		parent.addMember(A, src)
 
 /datum/pipeline/proc/temporarily_store_air()
 	//Update individual gas_mixtures by volume ratio
