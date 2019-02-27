@@ -76,7 +76,7 @@
 
 /obj/item/extinguisher/attack(mob/living/M, mob/living/user, def_zone)
 	if(!safety && user.a_intent == INTENT_HELP) //No hitting people when wanting to extinguish
-		return 0
+		return FALSE
 	. = ..()
 	
 
