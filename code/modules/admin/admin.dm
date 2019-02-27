@@ -1077,7 +1077,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	// If anyone reads this, I spent a whole 30 minutes writing just this fucking query. It is the messiest SQL statement I have ever written
 	// If anyone even thinks about touching this I will impale you on a railroad spike
 	// It hurts to wake up in the morning, -aa07
-	var/DBQuery/discord_ids = dbcon.NewQuery("SELECT a.* FROM [format_table_name("discord")] a JOIN (SELECT discord_id, ckey, COUNT(*) FROM [format_table_name("discord")] GROUP BY discord_id HAVING count(*) > 1 ) b ON a.discord_id = b.discord_id ORDER BY a.discord_id")
+	var/datum/DBQuery/discord_ids = SSdbcore.NewQuery("SELECT a.* FROM [format_table_name("discord")] a JOIN (SELECT discord_id, ckey, COUNT(*) FROM [format_table_name("discord")] GROUP BY discord_id HAVING count(*) > 1 ) b ON a.discord_id = b.discord_id ORDER BY a.discord_id")
 	if(!discord_ids.Execute())
 		var/err = discord_ids.ErrorMsg()
 		log_game("SQL ERROR while selecting discord accounts. Error : \[[err]\]\n")
@@ -1088,7 +1088,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		dat += "<tr><td><b>" + id + "</b></td>"
 		dat += "<td>" + ckey + "</td>"
 		dat += "<td><a href='?src=[UID()];force_discord_unlink=[ckey]'>Unlink</td></tr>"
-		
+
 	dat += "</table></body></html>"
 
 	usr << browse(dat, "window=duplicates;size=500x480")

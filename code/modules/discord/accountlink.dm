@@ -7,7 +7,7 @@
     if(!config.sql_enabled)
         to_chat(src, "<span class='warning'>This is feature requires the SQL backend</span>")
         return
-    var/DBQuery/db_discord_id = dbcon.NewQuery("SELECT discord_id FROM [format_table_name("discord")] WHERE ckey = '[user_ckey]'")
+    var/datum/DBQuery/db_discord_id = SSdbcore.NewQuery("SELECT discord_id FROM [format_table_name("discord")] WHERE ckey = '[user_ckey]'")
     if(!db_discord_id.Execute())
         var/err = db_discord_id.ErrorMsg()
         log_game("SQL ERROR while selecting discord account. Error : \[[err]\]\n")
@@ -22,7 +22,7 @@
             src << link("https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID")
         var/entered_id = input("Please enter your Discord ID.", "Enter Discord ID", null, null) as text|null
         var/sql_id = sanitizeSQL(entered_id)
-        var/DBQuery/store_discord_id = dbcon.NewQuery("INSERT INTO [format_table_name("discord")] (ckey, discord_id, notify) VALUES ('[user_ckey]', [sql_id], 0)")
+        var/datum/DBQuery/store_discord_id = SSdbcore.NewQuery("INSERT INTO [format_table_name("discord")] (ckey, discord_id, notify) VALUES ('[user_ckey]', [sql_id], 0)")
         if(!store_discord_id.Execute())
             var/err = db_discord_id.ErrorMsg()
             log_game("SQL ERROR while linking discord account. Error : \[[err]\]\n")
@@ -33,7 +33,7 @@
         var/choice = alert("You already have the Discord Account [stored_id] linked to [user_ckey]. Would you like to unlink or replace","Already Linked","Unlink","Replace")
         switch(choice)
             if("Unlink")
-                var/DBQuery/unlink_discord_id = dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[user_ckey]'")
+                var/datum/DBQuery/unlink_discord_id = SSdbcore.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[user_ckey]'")
                 if(!unlink_discord_id.Execute())
                     var/err = unlink_discord_id.ErrorMsg()
                     log_game("SQL ERROR while unlinking discord account. Error : \[[err]\]\n")
@@ -43,7 +43,7 @@
             if("Replace")
                 var/entered_id = input("Please enter your Discord ID. Instructions can be found at https://bit.ly/2AfUu40", "Enter Discord ID", null, null) as text|null
                 var/sql_id = sanitizeSQL(entered_id)
-                var/DBQuery/store_discord_id = dbcon.NewQuery("UPDATE [format_table_name("discord")] SET discord_id = '[sql_id]' WHERE ckey='[user_ckey]'")
+                var/datum/DBQuery/store_discord_id = SSdbcore.NewQuery("UPDATE [format_table_name("discord")] SET discord_id = '[sql_id]' WHERE ckey='[user_ckey]'")
                 if(!store_discord_id.Execute())
                     var/err = db_discord_id.ErrorMsg()
                     to_chat(src, "<span class='warning'>Error replacing Discord account. Please inform an administrator</span>")

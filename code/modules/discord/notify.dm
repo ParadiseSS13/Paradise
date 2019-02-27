@@ -6,7 +6,7 @@
     if(!config.sql_enabled)
         to_chat(src, "<span class='warning'>This is feature requires the SQL backend</span>")
         return
-    var/DBQuery/db_discord_id = dbcon.NewQuery("SELECT discord_id FROM [format_table_name("discord")] WHERE ckey = '[ckey]'")
+    var/datum/DBQuery/db_discord_id = SSdbcore.NewQuery("SELECT discord_id FROM [format_table_name("discord")] WHERE ckey = '[ckey]'")
     if(!db_discord_id.Execute())
         var/err = db_discord_id.ErrorMsg()
         log_game("SQL ERROR while selecting discord account. Error : \[[err]\]\n")
@@ -19,7 +19,7 @@
         to_chat(src, "<span class='warning'>This requires you to link your Discord account with the \"Link Discord Account\" verb.</span>")
         return
     else // Linked
-        var/DBQuery/toggle_status = dbcon.NewQuery("SELECT notify FROM [format_table_name("discord")] WHERE ckey = '[ckey]'")
+        var/datum/DBQuery/toggle_status = SSdbcore.NewQuery("SELECT notify FROM [format_table_name("discord")] WHERE ckey = '[ckey]'")
         if(!toggle_status.Execute())
             var/err = toggle_status.ErrorMsg()
             log_game("SQL ERROR while getting discord account. Error : \[[err]\]\n")
@@ -29,7 +29,7 @@
         if(notify_status) // Data is there
             switch(notify_status)
                 if("0")
-                    var/DBQuery/update_notify = dbcon.NewQuery("UPDATE [format_table_name("discord")] SET notify = 1 WHERE ckey='[ckey]'")
+                    var/datum/DBQuery/update_notify = SSdbcore.NewQuery("UPDATE [format_table_name("discord")] SET notify = 1 WHERE ckey='[ckey]'")
                     if(!update_notify.Execute())
                         var/err = db_discord_id.ErrorMsg()
                         to_chat(src, "<span class='warning'>Error updating notify status. Please inform an administrator</span>")
@@ -37,7 +37,7 @@
                         return
                     to_chat(src, "<span class='notice'>You will now be notified on discord when the next round is starting</span>")
                 if("1")
-                    var/DBQuery/update_notify = dbcon.NewQuery("UPDATE [format_table_name("discord")] SET notify = 0 WHERE ckey='[ckey]'")
+                    var/datum/DBQuery/update_notify = SSdbcore.NewQuery("UPDATE [format_table_name("discord")] SET notify = 0 WHERE ckey='[ckey]'")
                     if(!update_notify.Execute())
                         var/err = db_discord_id.ErrorMsg()
                         to_chat(src, "<span class='warning'>Error updating notify status. Please inform an administrator</span>")

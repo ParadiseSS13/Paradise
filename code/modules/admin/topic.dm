@@ -3304,7 +3304,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/target_ckey = href_list["force_discord_unlink"]
-		var/DBQuery/admin_unlink_discord_id = dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
+		var/datum/DBQuery/admin_unlink_discord_id = SSdbcore.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
 		if(!admin_unlink_discord_id.Execute())
 			var/err = admin_unlink_discord_id.ErrorMsg()
 			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")

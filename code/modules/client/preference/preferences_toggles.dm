@@ -55,7 +55,7 @@
 	prefs.sound ^= SOUND_MENTORHELP
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.sound & SOUND_MENTORHELP) ? "now" : "no longer"] hear a sound when mentorhelps arrive.")
-	feedback_add_details("admin_verb","MHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "MHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/deadchat() // Deadchat toggle is usable by anyone.
 	set name = "Show/Hide Deadchat"
@@ -218,4 +218,4 @@
 		activate_darkmode()
 	else
 		deactivate_darkmode()
-	feedback_add_details("admin_verb","TDarkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TDarkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
