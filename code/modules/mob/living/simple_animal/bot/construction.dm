@@ -1,4 +1,5 @@
 //Bot Construction
+var/robot_arm = /obj/item/robot_parts/l_arm
 
 //Cleanbot assembly
 /obj/item/bucket_sensor
@@ -22,6 +23,7 @@
 		var/turf/T = get_turf(loc)
 		var/mob/living/simple_animal/bot/cleanbot/A = new /mob/living/simple_animal/bot/cleanbot(T)
 		A.name = created_name
+		A.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
@@ -268,6 +270,7 @@
 		var/turf/T = get_turf(user.loc)
 		var/mob/living/simple_animal/bot/floorbot/A = new /mob/living/simple_animal/bot/floorbot(T)
 		A.name = created_name
+		A.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
@@ -284,7 +287,10 @@
 //Medbot Assembly
 /obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
-		return ..()
+		return ..()	
+	else
+		robot_arm = I.type
+		
 
 	//Making a medibot!
 	if(contents.len)
@@ -292,7 +298,7 @@
 		return
 
 	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly(loc, med_bot_skin)
-
+	
 	A.req_one_access = req_one_access
 	A.syndicate_aligned = syndicate_aligned
 	A.treatment_oxy = treatment_oxy
@@ -377,6 +383,7 @@
 						S.treatment_fire = treatment_fire
 						S.treatment_tox = treatment_tox
 						S.treatment_virus = treatment_virus
+						S.robot_arm = robot_arm
 					else
 						new /mob/living/simple_animal/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
 					user.unEquip(src, 1)
@@ -440,6 +447,7 @@
 		to_chat(user, "<span class='notice'>You add the robot arm to [src]!</span>")
 		name = "helmet/signaler/prox sensor/robot arm assembly"
 		overlays += "hs_arm"
+		robot_arm = I.type
 		qdel(I)
 
 	else if((istype(I, /obj/item/melee/baton)) && (build_step >= 3))
@@ -450,6 +458,7 @@
 		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot
 		S.forceMove(get_turf(src))
 		S.name = created_name
+		S.robot_arm = robot_arm
 		qdel(I)
 		qdel(src)
 
@@ -547,6 +556,8 @@
 /obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/robot_parts/l_arm) && !istype(W, /obj/item/robot_parts/r_arm))
 		return ..()
+	else
+		robot_arm = W.type
 
 	if(contents.len)
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
@@ -593,5 +604,6 @@
 				return
 			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk! </span>")
 			qdel(W)
-			new /mob/living/simple_animal/bot/honkbot(get_turf(loc))
+			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(T)
+			A.robot_arm = robot_arm
 			qdel(src)
