@@ -11,10 +11,12 @@ var/list/archive_diseases = list()
 
 // The order goes from easy to cure to hard to cure.
 var/list/advance_cures = 	list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
+									list("sodiumchloride", "sugar"), list("orangejuice", "limejuice"),
+									list("bilk", "potass_iodide"), list("triple_citrus", "doctorsdelight"),
+									list("insulin", "spaceacillin"), list("salglu_solution", "diethylamine"), 
+									list("ethanol", "antihol"),	list("teporone", "perfluorodecalin"),
+									list("diphenhydramine", "sal_acid"), list("lipolicide", "atrazine"),
+									list("silver", "gold"), list("mitocholide", "omnizine")
 								)
 
 /*
@@ -247,9 +249,10 @@ var/list/advance_cures = 	list(
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
 		var/res = Clamp(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-//		to_chat(world, "Res = [res]")
-		cures = list(advance_cures[res])
-
+		
+		var/index = Clamp(properties["stealth"] + properties["transmittable"] - properties["stage_rate"]/2, 1, advance_cures[res].len)  //Pick a symptom
+		cures = list(advance_cures[res][index])
+		
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
 		cure_text = D.name
