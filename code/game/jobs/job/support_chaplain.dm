@@ -64,11 +64,6 @@
 				B.name = "Uplifting Primer"
 			if("toolboxia")
 				B.name = "Toolbox Manifesto Robusto"
-			if("homosexuality")
-				B.name = "Guys Gone Wild"
-			if("lol", "wtf", "gay", "penis", "ass", "poo", "badmin", "shitmin", "deadmin", "cock", "cocks")
-				B.name = pick("Woodys Got Wood: The Aftermath", "War of the Cocks", "Sweet Bro and Hella Jef: Expanded Edition")
-				H.setBrainLoss(99) // starts off retarded as fuck
 			if("science")
 				B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 			else

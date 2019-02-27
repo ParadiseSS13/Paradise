@@ -19,7 +19,8 @@
 	var/checking = FALSE
 	var/TC_cost = 0
 	var/borg_to_spawn
-	var/list/possible_types = list("Assault", "Medical")
+	var/upload_mind
+	var/list/possible_types = list("Assault", "Medical", "Saboteur")
 
 /obj/item/antag_spawner/borg_tele/attack_self(mob/user)
 	if(used)
@@ -34,19 +35,42 @@
 	borg_to_spawn = input("What type of borg would you like to teleport?", "Cyborg Type", type) as null|anything in possible_types
 	if(!borg_to_spawn || checking || used)
 		return
-	checking = TRUE
-	to_chat(user, "<span class='notice'>The device is now checking for possible borgs.</span>")
-	var/list/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", ROLE_OPERATIVE, 1)
-	if(borg_candidates.len > 0 && !used)
-		checking = FALSE
-		used = TRUE
-		var/mob/M = pick(borg_candidates)
-		var/client/C = M.client
-		spawn_antag(C, get_turf(src.loc), "syndieborg")
-	else
-		checking = FALSE
-		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
+	upload_mind = input("Would you like to continue playing as an operative or take over the cyborg? (Another player will control your old self)", "Play as") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
+	if(!upload_mind || checking || used)
 		return
+	if(upload_mind == "Nuclear Operative")
+		checking = TRUE
+		to_chat(user, "<span class='notice'>The device is now checking for possible borgs.</span>")
+		var/list/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", ROLE_OPERATIVE, 1)
+		if(borg_candidates.len > 0 && !used)
+			checking = FALSE
+			used = TRUE
+			var/mob/M = pick(borg_candidates)
+			var/client/C = M.client
+			spawn_antag(C, get_turf(loc), "syndieborg")
+			qdel(src)
+		else
+			checking = FALSE
+			to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
+			return
+	else if(upload_mind == "Syndicate Cyborg")
+		checking = TRUE
+		to_chat(user, "<span class='notice'>You attempt to upload your consciousness into a new syndicate cyborg.</span>")
+		var/list/nuclear_candidates = pollCandidates("Do you want to play as the Syndicate Nuclear Operative [user.real_name]?", ROLE_OPERATIVE, 1)
+		if(nuclear_candidates.len > 0 && !used)
+			checking = FALSE
+			used = TRUE
+			var/mob/M = pick(nuclear_candidates)
+			var/client/nukeop_client = M.client
+			var/client/borg_client = user.client
+			spawn_antag(borg_client, get_turf(loc), "syndieborg")
+			user.key = nukeop_client.key
+			ticker.mode.greet_syndicate(user.mind)
+			qdel(src)
+		else
+			checking = FALSE
+			to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
+			return
 
 /obj/item/antag_spawner/borg_tele/spawn_antag(client/C, turf/T, type = "")
 	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
@@ -57,6 +81,8 @@
 	switch(borg_to_spawn)
 		if("Medical")
 			R = new /mob/living/silicon/robot/syndicate/medical(T)
+		if("Saboteur")
+			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
 		else
 			R = new /mob/living/silicon/robot/syndicate(T) //Assault borg by default
 	R.key = C.key
@@ -95,7 +121,7 @@
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
-		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
 		used = FALSE

@@ -137,7 +137,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
-	var/on = 0					// 1 if on, 0 if off
+	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = 0
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
@@ -158,7 +158,6 @@
 	var/nightshift_light_range = 8
 	var/nightshift_light_power = 0.45
 	var/nightshift_light_color = "#FFDDCC"
-
 
 // the smaller bulb light fixture
 
@@ -213,7 +212,7 @@
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
-		on = 0
+		on = FALSE
 //		A.update_lights()
 	return ..()
 
@@ -224,13 +223,13 @@
 			icon_state = "[base_state][on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
-			on = 0
+			on = FALSE
 		if(LIGHT_BURNED)
 			icon_state = "[base_state]-burned"
-			on = 0
+			on = FALSE
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
-			on = 0
+			on = FALSE
 	return
 
 // update the icon_state and luminosity of the light depending on its state
@@ -255,7 +254,7 @@
 				if(status == LIGHT_OK && trigger)
 					status = LIGHT_BURNED
 					icon_state = "[base_state]-burned"
-					on = 0
+					on = FALSE
 					set_light(0)
 			else
 				use_power = ACTIVE_POWER_USE
@@ -359,7 +358,7 @@
 
 		else
 			user.visible_message("<span class='danger'>[user.name] hits the light.</span>")
-			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
@@ -536,7 +535,7 @@
 
 	if(!skip_sound_and_sparks)
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
-			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(on || overloaded)
 			do_sparks(3, 1, src)
 	status = LIGHT_BROKEN
@@ -719,7 +718,7 @@
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = 1
-		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 		update()
 
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
@@ -730,3 +729,8 @@
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
+
+/obj/machinery/light/extinguish_light()
+	on = FALSE
+	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	update(0)

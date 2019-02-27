@@ -611,3 +611,20 @@
 		data["holder"] = 0
 
 	return data
+
+/datum/pai_software/flashlight
+	name = "Flashlight"
+	ram_cost = 5
+	id = "flashlight"
+
+/datum/pai_software/flashlight/toggle(mob/living/silicon/pai/user)
+	var/atom/movable/actual_location = istype(user.loc, /obj/item/paicard) ? user.loc : user
+	if(user.flashlight_on)
+		actual_location.set_light(2)
+		user.card.set_light(2)
+		return
+	actual_location.set_light(2)
+	user.card.set_light(0)
+
+/datum/pai_software/flashlight/is_active(mob/living/silicon/pai/user)
+	return user.flashlight_on

@@ -1,5 +1,5 @@
 
-/obj/item/encryptionkey/
+/obj/item/encryptionkey
 	name = "Standard Encryption Key"
 	desc = "An encyption key for a radio headset. Contains cypherkeys."
 	icon = 'icons/obj/radio.dmi'
@@ -43,7 +43,7 @@
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
-	desc = "An encryption key for a radio headset. To access the binary channel, use :b."
+	desc = "An encryption key for a radio headset. To access the binary channel, use :+."
 	icon_state = "cypherkey"
 	translate_binary = TRUE
 	origin_tech = "syndicate=3;engineering=4;bluespace=3"

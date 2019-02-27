@@ -19,6 +19,7 @@
 	var/safe_toxins_max = 0.05
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
+	var/gas_toxicity_multiplier = 100
 
 	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
@@ -117,7 +118,7 @@
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = (breath.oxygen/safe_oxygen_max) * 10
+			var/ratio = (breath.oxygen/safe_oxygen_max) * gas_toxicity_multiplier
 			H.apply_damage_type(Clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 		else
@@ -144,7 +145,7 @@
 	//Too much nitrogen!
 	if(safe_nitro_max)
 		if(N2_pp > safe_nitro_max)
-			var/ratio = (breath.nitrogen/safe_nitro_max) * 10
+			var/ratio = (breath.nitrogen/safe_nitro_max) * gas_toxicity_multiplier
 			H.apply_damage_type(Clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
 			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
 		else
@@ -208,7 +209,7 @@
 	//Too much toxins!
 	if(safe_toxins_max)
 		if(Toxins_pp > safe_toxins_max)
-			var/ratio = (breath.toxins/safe_toxins_max) * 10
+			var/ratio = (breath.toxins/safe_toxins_max) * gas_toxicity_multiplier
 			H.apply_damage_type(Clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type)
 			H.throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 		else
@@ -325,7 +326,7 @@
 	desc = "They're filled with dust....wow."
 
 	safe_oxygen_min = 0 //We don't breathe this
-	safe_oxygen_max = 1 //This is toxic to us
+	safe_oxygen_max = 0.05 //This is toxic to us
 	safe_nitro_min = 16 //We breathe THIS!
 	oxy_damage_type = TOX //And it poisons us
 

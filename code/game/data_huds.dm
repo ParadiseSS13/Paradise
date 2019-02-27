@@ -164,6 +164,11 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(stat == DEAD || (status_flags & FAKEDEATH))
+		if(timeofdeath)
+			var/tdelta = round(world.time - timeofdeath)
+			if(tdelta < (DEFIB_TIME_LIMIT * 10))
+				holder.icon_state = "huddefib"
+				return
 		holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"

@@ -10,7 +10,7 @@
 		"heart" =    /obj/item/organ/internal/heart,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"brain" =    /obj/item/organ/internal/brain/abductor,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)

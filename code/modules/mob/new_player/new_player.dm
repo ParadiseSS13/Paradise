@@ -383,6 +383,7 @@
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
+		AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
 		job_master.prioritized_jobs -= thisjob
@@ -414,6 +415,13 @@
 						rank = character.mind.role_alt_title
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 					call(/mob/new_player/proc/start_player)(character)
+
+/mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
+	spawn(30)
+		for(var/C in employmentCabinets)
+			var/obj/structure/filingcabinet/employment/employmentCabinet = C
+			if(!employmentCabinet.virgin)
+				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
 	if(ticker.current_state == GAME_STATE_PLAYING)

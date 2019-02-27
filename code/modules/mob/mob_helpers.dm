@@ -485,8 +485,6 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
-					if(title)
-						A.name = title
 					A.desc = message
 					A.action = action
 					A.target = source
@@ -538,6 +536,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
 					ID.name = "[newname]'s ID Card ([ID.assignment])"
+					ID.RebuildHTML()
 					if(!search_pda)	break
 					search_id = 0
 
@@ -560,7 +559,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
 	return 1
 
-/mob/proc/rename_self(var/role, var/allow_numbers=0)
+/mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE)
 	spawn(0)
 		var/oldname = real_name
 
@@ -568,8 +567,11 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		var/newname
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
-			newname = input(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname) as text
-			if((world.time - time_passed) > 1800)
+			if(force)
+				newname = input(src, "Pick a new name.", "Name Change", oldname) as text
+			else
+				newname = input(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname) as text
+			if(((world.time - time_passed) > 1800) && !force)
 				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.

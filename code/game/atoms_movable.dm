@@ -33,14 +33,12 @@
 	. = ..()
 	areaMaster = get_area(src)
 
-/atom/movable/attempt_init()
+/atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
 		space_manager.postpone_init(T.z, src)
 		return
 	. = ..()
-
-
 
 /atom/movable/Destroy()
 	if(loc)
@@ -95,6 +93,7 @@
 		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
 		pulling = null
+		pulledby = null
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_canmove()// mob gets up if it was lyng down in a chokehold

@@ -54,7 +54,7 @@
 		if(3)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
-				affected_mob << 'sound/items/AirHorn.ogg'
+				affected_mob << 'sound/items/airhorn.ogg'
 		if(4)
 			if(prob(5))
 				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )

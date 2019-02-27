@@ -1523,7 +1523,7 @@ window "mainwindow"
 		is-default = true
 		is-maximized = true
 		title = "Paradise Station 13"
-		icon = 'icons\\ss13_64.png'
+		icon = 'icons\\paradise.png'
 		menu = "menu"
 		macro = "macro"
 		saved-params = "pos;size;is-minimized;is-maximized"
@@ -1658,7 +1658,7 @@ window "rpane"
 		show-splitter = true
 	elem "textb"
 		type = BUTTON
-		pos = 0,0
+		pos = 0,7
 		size = 60x16
 		is-visible = false
 		saved-params = "is-checked"
@@ -1669,7 +1669,7 @@ window "rpane"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 64,0
+		pos = 64,7
 		size = 60x16
 		is-visible = false
 		saved-params = "is-checked"
@@ -1679,64 +1679,43 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 155,0
+		pos = 155,7
 		size = 60x16
 		text = "Wiki"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 220,0
+		pos = 220,7
 		size = 60x16
 		text = "Forum"
 		command = "forum"
-	elem "rulesb"
-		type = BUTTON
-		pos = 285,0
-		size = 60x16
-		text = "Rules"
-		command = "rules"
-	elem "githubb"
-		type = BUTTON
-		pos = 350,0
-		size = 60x16
-		text = "GitHub"
-		command = "github"
 	elem "changelog"
 		type = BUTTON
-		pos = 415,0
-		size = 67x16
+		pos = 285,7
+		size = 60x16
 		text = "Changelog"
 		command = "Changelog"
+	elem "rulesb"
+		type = BUTTON
+		pos = 350,7
+		size = 60x16
+		background-color = #FF0000
+		text-color = #FFFFFF
+		font-style = bold
+		text = "Rules"
+		command = "rules"
 	elem "discordb"
 		type = BUTTON
-		pos = 487,0
+		pos = 415,7
 		size = 60x16
 		background-color = #7289DA
 		text-color = #FFFFFF
 		font-style = bold
 		text = "Discord"
 		command = "discord"
-	elem "karma"
-		type = BUTTON
-		pos = 552,0
-		size = 60x16
-		background-color = #FF4500
-		text-color = #FFFFFF
-		font-style = bold
-		text = "Karma"
-		command = "karmashop"
-	elem "donate"
-		type = BUTTON
-		pos = 617,0
-		size = 60x16
-		background-color = #008000
-		text-color = #FFFFFF
-		font-style = bold
-		text = "Donate"
-		command = "Donate"
 	elem "browseb"
 		type = BUTTON
-		pos = 561,0
+		pos = 561,7
 		size = 60x16
 		is-visible = false
 		saved-params = "is-checked"
@@ -1758,8 +1737,8 @@ window "browserwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
-		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,0;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
-		on-hide = ".winset\"rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=65,0 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0\""
+		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,7;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
+		on-hide = ".winset\"rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=65,7 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0\""
 
 window "infowindow"
 	elem "infowindow"
@@ -1778,5 +1757,5 @@ window "infowindow"
 		tab-text-color = #000000
 		allow-html = true
 		multi-line = true
-		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,0:rpane.infob.pos=65,0 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
+		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,7:rpane.infob.pos=65,7 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
 		on-hide = ".winset\"rpane.infob.is-visible=false;rpane.browseb.is-visible=true?rpane.browseb.is-checked=true rpane.rpanewindow.left=browserwindow:rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=\""

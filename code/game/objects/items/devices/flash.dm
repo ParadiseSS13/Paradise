@@ -17,7 +17,8 @@
 	var/last_used = 0 //last world.time it was used.
 	var/battery_panel = 0 //whether the flash can be modified with a cell or not
 	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
-
+	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
+	var/use_sound = 'sound/weapons/flash.ogg'
 
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
@@ -26,19 +27,20 @@
 	return 1
 
 /obj/item/flash/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/screwdriver))
-		if(battery_panel)
-			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-			battery_panel = 0
-		else
-			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-			battery_panel = 1
-	if(battery_panel && !overcharged)
-		if(istype(W, /obj/item/stock_parts/cell))
-			to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-			qdel(W)
-			overcharged = 1
-			overlays += "overcharge"
+	if(can_overcharge)
+		if(istype(W, /obj/item/screwdriver))
+			if(battery_panel)
+				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
+				battery_panel = 0
+			else
+				to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
+				battery_panel = 1
+		if(battery_panel && !overcharged)
+			if(istype(W, /obj/item/stock_parts/cell))
+				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
+				qdel(W)
+				overcharged = 1
+				overlays += "overcharge"
 
 /obj/item/flash/random/New()
 	..()
@@ -71,7 +73,7 @@
 	if(broken)
 		return 0
 
-	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
+	playsound(src.loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
 	times_used++
 
@@ -185,6 +187,57 @@
 /obj/item/flash/cyborg/attack_self(mob/user)
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
+
+/obj/item/flash/cameraflash
+	name = "camera"
+	icon = 'icons/obj/items.dmi'
+	desc = "A polaroid camera. 10 photos left."
+	icon_state = "camera"
+	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = SLOT_BELT
+	can_overcharge = FALSE
+	var/flash_max_charges = 5
+	var/flash_cur_charges = 5
+	var/charge_tick = 0
+	use_sound = 'sound/items/polaroid1.ogg'
+
+/obj/item/flash/cameraflash/burn_out() //stops from burning out
+	return
+
+/obj/item/flash/cameraflash/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/flash/cameraflash/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/flash/cameraflash/process() //this and the two parts above are part of the charge system.
+	charge_tick++
+	if(charge_tick < 10)
+		return FALSE
+	charge_tick = 0
+	flash_cur_charges = min(flash_cur_charges+1, flash_max_charges)
+	return TRUE
+
+/obj/item/flash/cameraflash/attack(mob/living/M, mob/user)
+    if(flash_cur_charges > 0)
+        flash_cur_charges -= 1
+        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
+        ..()
+    else
+        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+    return
+
+/obj/item/flash/cameraflash/attack_self(mob/living/carbon/user, flag = 0)
+    if(flash_cur_charges > 0)
+        flash_cur_charges -= 1
+        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
+        ..()
+    else
+        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+    return
 
 /obj/item/flash/memorizer
 	name = "memorizer"

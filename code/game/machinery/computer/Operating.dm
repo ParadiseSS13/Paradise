@@ -221,6 +221,6 @@
 				if(crit && victim.health <= -50 )
 					playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
 				if(oxy && victim.getOxyLoss()>oxyAlarm)
-					playsound(src.loc, 'sound/machines/defib_saftyOff.ogg', 50, 0)
+					playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
 				if(healthAnnounce && victim.health <= healthAlarm)
 					atom_say("[round(victim.health)]")

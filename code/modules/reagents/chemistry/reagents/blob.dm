@@ -122,7 +122,7 @@
 	for(var/atom/movable/X in range(range_power,pull))
 		if(istype(X, /obj/effect))
 			continue
-		if(!X.anchored)
+		if(X.move_resist <= MOVE_FORCE_DEFAULT && !X.anchored)
 			var/distance = get_dist(X, pull)
 			var/moving_power = max(range_power - distance, 1)
 			spawn(0)

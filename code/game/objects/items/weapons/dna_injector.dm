@@ -121,7 +121,7 @@
 
 	var/attack_log = "injected with the Isolated [name]"
 
-	if(buf.types & DNA2_BUF_SE)
+	if(buf && buf.types & DNA2_BUF_SE)
 		if(block)
 			if(GetState() && block == MONKEYBLOCK && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"

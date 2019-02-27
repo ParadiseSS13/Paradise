@@ -143,6 +143,7 @@
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
+#define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species

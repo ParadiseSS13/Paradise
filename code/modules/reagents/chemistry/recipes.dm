@@ -70,7 +70,7 @@ var/list/chemical_mob_spawn_nicecritters = list() // and possible friendly mobs
 		if(istype(X, /obj/effect))
 			continue  //stop pulling smoke and hotspots please
 		if(istype(X, /atom/movable))
-			if((X) && !X.anchored)
+			if((X) && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 				if(setting_type)
 					playsound(T, 'sound/effects/bang.ogg', 25, 1)
 					for(var/i = 0, i < pull_times, i++)

@@ -262,5 +262,5 @@
 		"Station Integrity"			=	"[station_integrity]"
 		)
 
-	var/parselist = json_encode(scorelist)*/
-	discordbot("[config.ryzorbot]", "end", "notify")
+	var/parselist = json_encode(scorelist)
+	discordbot("[config.ryzorbot]", "end", "notify")*/

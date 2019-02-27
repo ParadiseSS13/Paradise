@@ -53,13 +53,6 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
-/obj/item/clothing/under/sexyclown
-	name = "sexy-clown suit"
-	desc = "It makes you look HONKable!"
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	item_color = "sexyclown"
-
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -144,6 +137,19 @@
 /obj/item/clothing/under/rank/centcom/representative/New()
 	..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
+
+/obj/item/clothing/under/rank/centcom/magistrate
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
+	name = "\improper Nanotrasen Navy Uniform"
+	icon_state = "officer"
+	item_state = "g_suit"
+	item_color = "officer"
+	displays_id = 0
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/centcom/magistrate/New()
+	..()
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -813,7 +819,6 @@
 	flags = NODROP
 	has_sensor = 0 // HUNKE
 
-
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"
 	desc = "A victorian style dress, fancy!"
@@ -855,3 +860,10 @@
 	item_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/burial
+	name = "burial garments"
+	desc = "Traditional burial garments from the early 22nd century."
+	icon_state = "burial"
+	item_state = "burial"
+	item_color = "burial"
