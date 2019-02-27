@@ -231,16 +231,10 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(amount < 1)
-		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(locate(src) in R.module.modules)
-				R.module.modules -= src
-			if(R)
-				R.unEquip(src, TRUE)
-	zero_amount()
+	if(check)
+		zero_amount()
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/item/stack/proc/get_amount()
 	return amount
@@ -307,6 +301,12 @@
 
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
+		if(isrobot(loc))
+			var/mob/living/silicon/robot/R = loc
+			if(locate(src) in R.module.modules)
+				R.module.modules -= src
+		if(usr)
+			usr.unEquip(src, TRUE)
 		qdel(src)
 		return TRUE
 	return FALSE
