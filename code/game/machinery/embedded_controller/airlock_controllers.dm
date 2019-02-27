@@ -14,7 +14,8 @@
 
 /obj/machinery/embedded_controller/radio/airlock/Initialize()
 	..()
-	program = new/datum/computer/file/embedded_program/airlock(src)
+	spawn(25) //Necessary as we initialize before we can use a timer. We need a bit of delay as otherwise the program may grab incorrect values
+		program = new/datum/computer/file/embedded_program/airlock(src)
 
 //Advanced airlock controller for when you want a more versatile airlock controller - useful for turning simple access control rooms into airlocks
 /obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller
