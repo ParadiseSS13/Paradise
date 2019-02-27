@@ -18,7 +18,7 @@
 	var/datum/disease/advance/A
 	while(!success)
 		A = new
-		for(var/i = rand(4, 6), i > 0, i--)
+		for(var/i = rand(2, 6), i > 0, i--)
 			A.Evolve(1, 6)
 		success = CheckVirus(A)
 	A.AssignName(GenerateName())
