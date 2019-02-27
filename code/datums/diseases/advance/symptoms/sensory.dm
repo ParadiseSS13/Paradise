@@ -66,7 +66,7 @@ Bonus
 
 /*
 //////////////////////////////////////
-Sensory-Destruction
+Neural-Destruction
 	noticable.
 	Lowers resistance
 	Decreases stage speed tremendously.
@@ -80,14 +80,14 @@ Bonus
 	impedrezene to ruin the brain
 //////////////////////////////////////
 */
-/datum/symptom/sensory_destruction
-	name = "Sensory destruction"
+/datum/symptom/neural_destruction
+	name = "Neural destruction"
 	resistance = -2
 	stage_speed = -3
 	level = 6
 	severity = 5
 
-/datum/symptom/sensory_destruction/Activate(datum/disease/advance/A)
+/datum/symptom/neural_destruction/Activate(datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
