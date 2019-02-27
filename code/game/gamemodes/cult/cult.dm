@@ -39,11 +39,12 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
+	free_golems_disabled = TRUE
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
@@ -156,7 +157,8 @@ var/global/list/all_cults = list()
 		if(mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
-
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(mob)
 	var/obj/item/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,

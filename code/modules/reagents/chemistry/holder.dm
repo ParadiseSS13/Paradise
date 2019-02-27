@@ -577,9 +577,9 @@ var/const/INGEST = 2
 		reagent_list += R
 		R.holder = src
 		R.volume = amount
+		R.on_new(data)
 		if(data)
 			R.data = data
-			R.on_new(data)
 
 		update_total()
 		if(my_atom)
@@ -722,9 +722,10 @@ var/const/INGEST = 2
 	// that could possibly eat up a lot of memory needlessly
 	// if most data lists are read-only.
 	if(trans_data["viruses"])
-		var/list/v = trans_data["viruses"]
-		trans_data["viruses"] = v.Copy()
-
+		var/list/temp = list()
+		for(var/datum/disease/v in trans_data["viruses"])
+			temp.Add(v.Copy())
+		trans_data["viruses"] = temp
 	return trans_data
 
 ///////////////////////////////////////////////////////////////////////////////////

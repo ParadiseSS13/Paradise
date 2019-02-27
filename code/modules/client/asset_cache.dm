@@ -17,8 +17,8 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 //When sending mutiple assets, how many before we give the client a quaint little sending resources message
 #define ASSET_CACHE_TELL_CLIENT_AMOUNT 8
 
-//When passively preloading assets, how many to send at once? Too high creates noticable lag where as too low can flood the client's cache with "verify" files 
-#define ASSET_CACHE_PRELOAD_CONCURRENT 3 
+//When passively preloading assets, how many to send at once? Too high creates noticable lag where as too low can flood the client's cache with "verify" files
+#define ASSET_CACHE_PRELOAD_CONCURRENT 3
 
 /client
 	var/list/cache = list() // List of all assets sent to this client by the asset cache.
@@ -191,6 +191,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
 		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
+		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
 	)

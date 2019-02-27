@@ -9,7 +9,7 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -175,6 +175,7 @@
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
 	if(you_are)
+		SEND_SOUND(vampire.current, 'sound/ambience/antag/vampalert.ogg')
 		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
@@ -185,7 +186,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
 			vampire.current.mutations.Remove(CLUMSY)
-
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(vampire.current)
 	var/obj_count = 1
 	for(var/datum/objective/objective in vampire.objectives)
 		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")

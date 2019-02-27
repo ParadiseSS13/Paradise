@@ -5,7 +5,7 @@
 	icon_state = "saber"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
-	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
 	burst_size = 3
@@ -22,7 +22,7 @@
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
@@ -116,3 +116,15 @@
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/gun/projectile/automatic/sniper_rifle/toy
+	name = "donksoft sniper rifle"
+	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."
+	icon = 'icons/obj/guns/toy.dmi'
+	can_suppress = FALSE
+	needs_permit = FALSE
+	zoomable = FALSE
+	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
+
+/obj/item/gun/projectile/automatic/sniper_rifle/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
+	..()

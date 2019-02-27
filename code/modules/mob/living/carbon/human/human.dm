@@ -4,6 +4,7 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
+	deathgasp_on_death = TRUE
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
@@ -733,7 +734,7 @@
 									found_record = 1
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else 
+									else
 										var/rank
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
@@ -1179,7 +1180,6 @@
 	restore_all_organs() //Rejuvenate and reset all existing organs.
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
-	update_revive()
 
 	if(!isskeleton(src) && (SKELETON in mutations))
 		mutations.Remove(SKELETON)
@@ -1567,17 +1567,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
 			if(istype(wear_suit, /obj/item/clothing/suit/redtag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/gun/energy/laser/redtag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/tag/red)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/red)))
 				threatcount += 4
-			if(istype(belt, /obj/item/gun/energy/laser/redtag))
+			if(istype(belt, /obj/item/gun/energy/laser/tag/red))
 				threatcount += 2
 
 		if(lasercolor == "r")
 			if(istype(wear_suit, /obj/item/clothing/suit/bluetag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/gun/energy/laser/bluetag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/tag/blue)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/blue)))
 				threatcount += 4
-			if(istype(belt, /obj/item/gun/energy/laser/bluetag))
+			if(istype(belt, /obj/item/gun/energy/laser/tag/blue))
 				threatcount += 2
 
 		return threatcount
@@ -1942,3 +1942,62 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
+
+/mob/living/carbon/human/proc/influenceSin()
+	var/datum/objective/sintouched/O
+	switch(rand(1,7))//traditional seven deadly sins... except lust.
+		if(1) // acedia
+			log_game("[src] was influenced by the sin of Acedia.")
+			O = new /datum/objective/sintouched/acedia
+		if(2) // Gluttony
+			log_game("[src] was influenced by the sin of gluttony.")
+			O = new /datum/objective/sintouched/gluttony
+		if(3) // Greed
+			log_game("[src] was influenced by the sin of greed.")
+			O = new /datum/objective/sintouched/greed
+		if(4) // sloth
+			log_game("[src] was influenced by the sin of sloth.")
+			O = new /datum/objective/sintouched/sloth
+		if(5) // Wrath
+			log_game("[src] was influenced by the sin of wrath.")
+			O = new /datum/objective/sintouched/wrath
+		if(6) // Envy
+			log_game("[src] was influenced by the sin of envy.")
+			O = new /datum/objective/sintouched/envy
+		if(7) // Pride
+			log_game("[src] was influenced by the sin of pride.")
+			O = new /datum/objective/sintouched/pride
+	ticker.mode.sintouched += src.mind
+	src.mind.objectives += O
+	var/obj_count = 1
+	to_chat(src, "<span class='notice> Your current objectives:")
+	for(var/datum/objective/objective in src.mind.objectives)
+		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		obj_count++
+
+/mob/living/carbon/human/is_literate()
+	return getBrainLoss() < 100
+
+
+/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+	if(!overlays_standing[FIRE_LAYER])
+		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
+		update_icons()
+
+/mob/living/carbon/human/fakefireextinguish()
+	overlays_standing[FIRE_LAYER] = null
+	update_icons()
+/mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
+	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
+		dna.SetSEState(block, FALSE, TRUE)
+		genemutcheck(src, block, null, MUTCHK_FORCED)
+	dna.UpdateSE()
+
+/mob/living/carbon/human/extinguish_light()
+	// Parent function handles stuff the human may be holding
+	..()
+
+	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
+	if(O && O.glowing)
+		O.toggle_biolum(TRUE)
+		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")

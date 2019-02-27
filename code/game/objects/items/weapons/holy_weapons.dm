@@ -448,6 +448,7 @@
 
 	if(praying)
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
+		return
 
 	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")

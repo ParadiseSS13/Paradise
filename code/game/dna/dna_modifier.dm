@@ -52,7 +52,7 @@
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
 	desc = "It scans DNA structures."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = 1
 	anchored = 1.0

@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
+	move_force = MOVE_FORCE_DEFAULT
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
@@ -183,8 +184,11 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	..()
 
 /obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
+	if(move_force < (AM.move_resist))
+		return FALSE
 	if(!AM.anchored && AM.loc == loc)
 		step(AM, forwards)
+
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
 	if(stat & BROKEN)
@@ -308,21 +312,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		to_chat(user,"<span class='notice'>You detach the conveyor switch.</span>")
 		qdel(src)
 	else if(ismultitool(I))
-		update_multitool_menu(user)
+		one_way = !one_way
+		to_chat(user, "<span class='notice'>[src] will now go [one_way ? "forwards only" : "both forwards and backwards"].</span>")
 	else
 		return ..()
-
-/obj/machinery/conveyor_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
-	..()
-	if("toggle_logic" in href_list)
-		one_way = !one_way
-		update_multitool_menu(user)
-
-/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
- 	<ul>
- 	<li><b>One direction only:</b> <a href='?src=[UID()];toggle_logic=1'>[one_way ? "On" : "Off"]</a></li>
- 	</ul>"}
 
 /obj/machinery/conveyor_switch/power_change()
 	..()

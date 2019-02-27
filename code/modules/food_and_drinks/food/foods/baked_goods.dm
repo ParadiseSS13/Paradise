@@ -88,6 +88,23 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#FADA8E"
 
+/obj/item/reagent_containers/food/snacks/sliceable/bananacake
+	name = "banana cake"
+	desc = "A cake with added bananas."
+	icon_state = "bananacake"
+	slice_path = /obj/item/reagent_containers/food/snacks/bananacakeslice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#FADA8E"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+
+/obj/item/reagent_containers/food/snacks/bananacakeslice
+	name = "banana cake slice"
+	desc = "Just a slice of cake, it is enough for everyone."
+	icon_state = "bananacake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#FADA8E"
+
 /obj/item/reagent_containers/food/snacks/sliceable/limecake
 	name = "lime cake"
 	desc = "A cake with added lime."
@@ -184,7 +201,7 @@
 	icon_state = "COOKIE!!!"
 	bitesize = 1
 	filling_color = "#DBC94F"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list("nutriment" = 1, "sugar" = 3, "hot_coco" = 5 )
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"
@@ -198,7 +215,7 @@
 	name = "sugar cookie"
 	desc = "Just like your little sister used to make."
 	icon_state = "sugarcookie"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("nutriment" = 1, "sugar" = 3)
 
 
 //////////////////////
@@ -328,7 +345,7 @@
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
 	icon_state = "donut2"
-	list_reagents = list("nutriment" = 3, "sugar" = 2, "spinkles" = 2)
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
 	randomized_sprinkles = 0
 

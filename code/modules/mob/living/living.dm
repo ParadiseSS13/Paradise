@@ -50,7 +50,7 @@
 		if(ObjBump(A))
 			return
 	if(istype(A, /atom/movable))
-		if(PushAM(A))
+		if(PushAM(A, move_force))
 			return
 
 //Called when we bump into a mob
@@ -79,6 +79,10 @@
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
 		return 1
+
+	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
+		if(isstructure(M.pulling) || isstructure(pulling))
+			return 1
 
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
@@ -127,32 +131,48 @@
 	return
 
 //Called when we want to push an atom/movable
-/mob/living/proc/PushAM(atom/movable/AM)
+/mob/living/proc/PushAM(atom/movable/AM, force = move_force)
+
+	if(isstructure(AM) && AM.pulledby)
+		if(a_intent == INTENT_HELP && AM.pulledby != src) // Help intent doesn't push other peoples pulled structures
+			return FALSE
+		if(get_dist(get_step(AM, get_dir(src, AM)), AM.pulledby)>1)//Release pulled structures beyond 1 distance
+			AM.pulledby.stop_pulling()
+
 	if(now_pushing)
-		return 1
+		return TRUE
 	if(moving_diagonally) // no pushing during diagonal moves
-		return 1
+		return TRUE
 	if(!client && (mob_size < MOB_SIZE_SMALL))
 		return
-	if(!AM.anchored)
-		now_pushing = 1
-		var/t = get_dir(src, AM)
-		if(istype(AM, /obj/structure/window))
-			var/obj/structure/window/W = AM
-			if(W.fulltile)
-				for(var/obj/structure/window/win in get_step(W, t))
-					now_pushing = 0
-					return
-		if(pulling == AM)
-			stop_pulling()
-		var/current_dir
-		if(isliving(AM))
-			current_dir = AM.dir
-		step(AM, t)
-		if(current_dir)
-			AM.setDir(current_dir)
-		now_pushing = 0
-
+	now_pushing = TRUE
+	var/t = get_dir(src, AM)
+	var/push_anchored = FALSE
+	if((AM.move_resist * MOVE_FORCE_CRUSH_RATIO) <= force)
+		if(move_crush(AM, move_force, t))
+			push_anchored = TRUE
+	if((AM.move_resist * MOVE_FORCE_FORCEPUSH_RATIO) <= force)			//trigger move_crush and/or force_push regardless of if we can push it normally
+		if(force_push(AM, move_force, t, push_anchored))
+			push_anchored = TRUE
+	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
+		now_pushing = FALSE
+		return
+	if(istype(AM, /obj/structure/window))
+		var/obj/structure/window/W = AM
+		if(W.fulltile)
+			for(var/obj/structure/window/win in get_step(W,t))
+				now_pushing = FALSE
+				return
+	if(pulling == AM)
+		stop_pulling()
+	var/current_dir
+	if(isliving(AM))
+		current_dir = AM.dir
+	if(step(AM, t))
+		step(src, t)
+	if(current_dir)
+		AM.setDir(current_dir)
+	now_pushing = FALSE
 
 /mob/living/Stat()
 	. = ..()
@@ -187,9 +207,20 @@
 	set name = "Pull"
 	set category = "Object"
 
-	if(AM.Adjacent(src))
+	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
-	return
+	else
+		stop_pulling()
+
+/mob/living/stop_pulling()
+	..()
+	if(pullin)
+		pullin.update_icon(src)
+
+/mob/living/verb/stop_pulling1()
+	set name = "Stop Pulling"
+	set category = "IC"
+	stop_pulling()
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
@@ -206,7 +237,7 @@
 			return TRUE
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		A << 'sound/weapons/TargetOn.ogg'
+		A << 'sound/weapons/targeton.ogg'
 		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
 	return TRUE
@@ -488,6 +519,7 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED)
 		handle_footstep(loc)
 		step_count++
 
@@ -852,6 +884,37 @@
 		return 0
 	return 1
 
+/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
+	if(!AM || !src)
+		return FALSE
+	if(!(AM.can_be_pulled(src, state, force)))
+		return FALSE
+	if(incapacitated())
+		return
+	// If we're pulling something then drop what we're currently pulling and pull this instead.
+	AM.add_fingerprint(src)
+	if(pulling)
+		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
+			return
+		stop_pulling()
+		if(AM.pulledby)
+			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
+			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+	pulling = AM
+	AM.pulledby = src
+	if(pullin)
+		pullin.update_icon(src)
+	if(ismob(AM))
+		var/mob/M = AM
+		if(!iscarbon(src))
+			M.LAssailant = null
+		else
+			M.LAssailant = usr
+
+/mob/living/proc/check_pull()
+	if(pulling && !(pulling in orange(1)))
+		stop_pulling()
+
 /mob/living/proc/get_taste_sensitivity()
 	return 1
 
@@ -889,3 +952,43 @@
 		return
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
+
+/mob/living/proc/owns_soul()
+	if(mind)
+		return mind.soulOwner == mind
+	return 1
+
+/mob/living/proc/return_soul()
+	if(mind)
+		if(mind.soulOwner.devilinfo)//Not sure how this could happen, but whatever.
+			mind.soulOwner.devilinfo.remove_soul(mind)
+		mind.soulOwner = mind
+		mind.damnation_type = 0
+
+/mob/living/proc/has_bane(banetype)
+	if(mind)
+		if(mind.devilinfo)
+			return mind.devilinfo.bane == banetype
+	return 0
+
+/mob/living/proc/check_weakness(obj/item/weapon, mob/living/attacker)
+	if(mind && mind.devilinfo)
+		return check_devil_bane_multiplier(weapon, attacker)
+	return 1
+
+/mob/living/proc/check_acedia()
+	if(src.mind && src.mind.objectives)
+		for(var/datum/objective/sintouched/acedia/A in src.mind.objectives)
+			return 1
+	return 0
+
+/mob/living/proc/fakefireextinguish()
+	return
+
+/mob/living/proc/fakefire()
+	return
+
+/mob/living/extinguish_light()
+	for(var/atom/A in src)
+		if(A.light_range > 0)
+			A.extinguish_light()

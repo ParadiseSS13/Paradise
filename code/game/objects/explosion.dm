@@ -1,6 +1,6 @@
 //TODO: Flash range does nothing currently
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0 ,silent = 0, smoke = 1, cause = null)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0 ,silent = 0, smoke = 1, cause = null, breach = TRUE)
 	src = null	//so we don't abort once src is deleted
 	epicenter = get_turf(epicenter)
 
@@ -132,7 +132,10 @@
 							if(AM && AM.simulated)
 								AM.ex_act(dist)
 							CHECK_TICK
-					T.ex_act(dist)
+					if(breach)
+						T.ex_act(dist)
+					else
+						T.ex_act(3)
 
 			CHECK_TICK
 			//--- THROW ITEMS AROUND ---

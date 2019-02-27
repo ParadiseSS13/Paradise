@@ -96,6 +96,7 @@
 /var/const/access_syndicate = 150//General Syndicate Access
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
 /var/const/access_vox = 152//Vox Access
+/var/const/access_syndicate_command = 153//Admin syndi officer
 
 //Trade Stations
 var/const/access_trade_sol = 160
@@ -106,6 +107,8 @@ var/const/access_trade_sol = 160
 //Awaymissions
 /var/const/access_away01 = 271
 
+//Ghost roles
+var/const/access_free_golems = 300
 
 /obj/var/list/req_access = null
 /obj/var/req_access_txt = "0"
@@ -234,6 +237,8 @@ var/const/access_trade_sol = 160
 			return list(access_vox)
 		if("Syndicate Commando")
 			return list(access_syndicate, access_syndicate_leader)
+		if("Syndicate Officer")
+			return list(access_syndicate, access_syndicate_leader, access_syndicate_command)
 
 /proc/get_all_accesses()
 	return list(access_security, access_sec_doors, access_brig, access_armory, access_forensics_lockers, access_court,
@@ -253,7 +258,7 @@ var/const/access_trade_sol = 160
 	return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_shuttles, access_cent_telecomms, access_cent_teleporter, access_cent_specops, access_cent_specops_commander, access_cent_blackops, access_cent_thunder, access_cent_bridge, access_cent_commander)
 
 /proc/get_all_syndicate_access()
-	return list(access_syndicate, access_syndicate_leader, access_vox)
+	return list(access_syndicate, access_syndicate_leader, access_vox, access_syndicate_command)
 
 /proc/get_all_misc_access()
 	return list(access_salvage_captain, access_trade_sol, access_crate_cash, access_away01)
@@ -496,6 +501,8 @@ var/const/access_trade_sol = 160
 			return "Syndicate Operative Leader"
 		if(access_vox)
 			return "Vox"
+		if(access_syndicate_command)
+			return "Syndicate Command"
 
 /proc/get_all_jobs()
 	var/list/all_jobs = list()

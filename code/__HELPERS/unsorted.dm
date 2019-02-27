@@ -248,7 +248,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	to_chat(user, "<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>")
+	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -257,16 +257,17 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
-		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
-		to_chat(user, "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>")
+		user.show_message("<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
+		user.show_message("<span class='notice'>Nitrogen: [round(n2_concentration*100)] % ([round(air_contents.nitrogen,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>Oxygen: [round(o2_concentration*100)] % ([round(air_contents.oxygen,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)</span>", 1)
 		if(unknown_concentration>0.01)
-			to_chat(user, "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>")
-		to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>")
+			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
+		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
+		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
 	else
-		to_chat(user, "<span class='notice'>[target] is empty!</span>")
+		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -1228,14 +1229,6 @@ var/global/list/common_tools = list(
 	istype(W, /obj/item/bonesetter)
 	)
 
-//check if mob is lying down on something we can operate him on.
-/proc/can_operate(mob/living/carbon/M)
-	return (locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting)) || \
-	(locate(/obj/structure/bed/roller, M.loc) && 	\
-	(M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat)) && prob(75) || 	\
-	(locate(/obj/structure/table/, M.loc) && 	\
-	(M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat) && prob(66))
-
 /proc/reverse_direction(var/dir)
 	switch(dir)
 		if(NORTH)
@@ -1495,7 +1488,7 @@ var/mob/dview/dview_mob = new
 	invisibility = 101
 	density = 0
 
-	anchored = 1
+	move_resist = INFINITY
 	simulated = 0
 
 	see_in_dark = 1e6

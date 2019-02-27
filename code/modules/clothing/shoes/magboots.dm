@@ -7,6 +7,7 @@
 	var/magpulse = 0
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
+	var/magpulse_name = "mag-pulse traction system"
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
@@ -21,7 +22,7 @@
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "You [magpulse ? "enable" : "disable"] the mag-pulse traction system.")
+	to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
@@ -33,7 +34,7 @@
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	..(user)
-	to_chat(user, "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"].")
+	to_chat(user, "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"].")
 
 
 /obj/item/clothing/shoes/magboots/advance
@@ -65,7 +66,28 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	slowdown = SHOES_SLOWDOWN+1
 	slowdown_active = SHOES_SLOWDOWN+1
 	slowdown_passive = SHOES_SLOWDOWN+1
+	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
 	silence_steps = 1
 	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
+
+/obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
+	name = "boots of gripping"
+	desc = "These magical boots, once activated, will stay gripped to any surface without slowing you down."
+	icon_state = "wizmag0"
+	magboot_state = "wizmag"
+	slowdown_active = SHOES_SLOWDOWN //wiz hardsuit already slows you down, no need to double it
+	magpulse_name = "gripping ability"
+	magical = TRUE
+
+/obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
+	if(user)
+		if(user.mind in ticker.mode.wizards)
+			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
+				set_light(0)
+			else
+				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+			..()
+		else
+			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")

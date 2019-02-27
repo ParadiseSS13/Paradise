@@ -52,7 +52,8 @@
 		/obj/item/clothing/head/helmet/ert/command = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1
+		/obj/item/storage/lockbox/mindshield = 1,
+		/obj/item/flashlight = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/red
@@ -216,7 +217,8 @@
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/t_scanner = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
-		/obj/item/stack/sheet/metal/fifty = 1
+		/obj/item/stack/sheet/metal/fifty = 1,
+		/obj/item/flashlight = 1
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/red
@@ -224,7 +226,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
 	belt = /obj/item/storage/belt/utility/chief/full
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
 	cybernetic_implants = list(
@@ -235,7 +237,7 @@
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma = 1,
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
@@ -302,7 +304,9 @@
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
-		/obj/item/storage/pill_bottle/ert = 1
+		/obj/item/storage/pill_bottle/ert = 1,
+		/obj/item/flashlight = 1,
+		/obj/item/healthupgrade = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
@@ -330,7 +334,8 @@
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
 		/obj/item/clothing/shoes/magboots = 1,
-		/obj/item/bodyanalyzer = 1
+		/obj/item/bodyanalyzer = 1,
+		/obj/item/healthupgrade = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
@@ -351,8 +356,9 @@
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
-		/obj/item/storage/belt/medical/surgery/loaded = 1,
-		/obj/item/roller = 1
+		/obj/item/roller = 1,
+		/obj/item/healthanalyzer/advanced = 1
+
 		)
 
 	cybernetic_implants = list(
@@ -379,7 +385,8 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
-		/obj/item/storage/box/zipties = 1
+		/obj/item/storage/box/zipties = 1,
+		/obj/item/flashlight/seclite = 1
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber

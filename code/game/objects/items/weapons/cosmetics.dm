@@ -100,7 +100,7 @@
 	icon_state = "razor"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
-	usesound = 'sound/items/Welder2.ogg'
+	usesound = 'sound/items/welder2.ogg'
 	toolspeed = 1
 
 /obj/item/razor/attack(mob/living/carbon/M as mob, mob/user as mob)

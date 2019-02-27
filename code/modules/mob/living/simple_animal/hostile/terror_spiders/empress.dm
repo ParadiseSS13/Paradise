@@ -16,7 +16,6 @@
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 60
-	move_to_delay = 5
 	ventcrawler = 1
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
@@ -43,30 +42,32 @@
 	queenfakelings_action.button.name = "Empress Lings"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/LayQueenEggs()
-	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE)
+	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE)
 	var/numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
 	switch(eggtype)
 		if(TS_DESC_RED)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, numlings)
 		if(TS_DESC_GRAY)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, numlings)
 		if(TS_DESC_GREEN)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, numlings)
 		if(TS_DESC_BLACK)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, numlings)
 		if(TS_DESC_PURPLE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,numlings,0)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, numlings)
 		if(TS_DESC_WHITE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white,numlings,0)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, numlings)
 		if(TS_DESC_PRINCE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, numlings)
+		if(TS_DESC_PRINCESS)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/princess, numlings)
 		if(TS_DESC_MOTHER)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, numlings)
 		if(TS_DESC_QUEEN)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen,numlings,1)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen, numlings)
 		else
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 
@@ -81,6 +82,7 @@
 		/mob/living/simple_animal/hostile/poison/terror_spider/white, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/black)
 		S.spider_myqueen = spider_myqueen
+		S.spider_mymother = src
 		if(prob(sbpc))
 			S.stillborn = TRUE
 		if(spider_growinstantly)
@@ -94,7 +96,7 @@
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		qdel(T)
 	for(var/obj/structure/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
-		T.stillborn = TRUE
+		qdel(T)
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
 

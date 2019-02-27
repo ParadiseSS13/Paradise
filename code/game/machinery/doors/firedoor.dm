@@ -10,7 +10,7 @@
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "Apply crowbar."
-	icon = 'icons/obj/doors/Doorfireglass.dmi'
+	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
 	density = FALSE
@@ -80,7 +80,7 @@
 	else if(glass)
 		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
 							 "<span class='warning'>You bang on \the [src].</span>")
-		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)
+		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 10, 1)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
@@ -159,7 +159,7 @@
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
 	if(active_alarm && hasPower())
-		overlays += image('icons/obj/doors/Doorfire.dmi', "alarmlights")
+		overlays += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 	if(density)
 		icon_state = "door_closed"
 		if(welded)
@@ -225,7 +225,7 @@
 	qdel(src)
 
 /obj/machinery/door/firedoor/border_only
-	icon = 'icons/obj/doors/edge_Doorfire.dmi'
+	icon = 'icons/obj/doors/edge_doorfire.dmi'
 	flags = ON_BORDER
 	can_crush = FALSE
 
@@ -258,7 +258,7 @@
 
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
 	opacity = 1
 	explosion_block = 2
@@ -275,12 +275,12 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/firelock_frame
 	name = "firelock frame"
 	desc = "A partially completed firelock."
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE

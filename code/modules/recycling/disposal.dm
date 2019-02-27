@@ -416,6 +416,9 @@
 	for(var/mob/living/silicon/robot/drone/D in src)
 		wrapcheck = 1
 
+	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
+		wrapcheck = 1
+
 	for(var/obj/item/smallDelivery/O in src)
 		wrapcheck = 1
 
@@ -460,7 +463,7 @@
 
 			AM.loc = src.loc
 			AM.pipe_eject(0)
-			if(!istype(AM,/mob/living/silicon/robot/drone)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+			if(!istype(AM, /mob/living/silicon/robot/drone) && !istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)
@@ -522,7 +525,7 @@
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	for(var/mob/living/M in D)
-		if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
+		if(M && M.stat != 2 && !istype(M, /mob/living/silicon/robot/drone) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
 			hasmob = 1
 
 	//Checks 1 contents level deep. This means that players can be sent through disposals...
@@ -530,7 +533,7 @@
 	for(var/obj/O in D)
 		if(O.contents)
 			for(var/mob/living/M in O.contents)
-				if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
+				if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
 					hasmob = 1
 
 	// now everything inside the disposal gets put into the holder
@@ -552,6 +555,9 @@
 		if(istype(AM, /mob/living/silicon/robot/drone))
 			var/mob/living/silicon/robot/drone/drone = AM
 			destinationTag = drone.mail_destination
+		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
+			var/mob/living/silicon/robot/syndicate/saboteur/S = AM
+			destinationTag = S.mail_destination
 		if(istype(AM, /obj/item/shippingPackage) && !hasmob)
 			var/obj/item/shippingPackage/sp = AM
 			if(sp.sealed)	//only sealed packages get delivered to their intended destination
@@ -1303,7 +1309,7 @@
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
-		if(istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+		if(istype(AM,/mob/living/silicon/robot/drone) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 			return
 		spawn(5)
 			if(QDELETED(AM))

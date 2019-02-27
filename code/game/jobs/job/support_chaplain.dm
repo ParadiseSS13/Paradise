@@ -64,11 +64,6 @@
 				B.name = "Uplifting Primer"
 			if("toolboxia")
 				B.name = "Toolbox Manifesto Robusto"
-			if("homosexuality")
-				B.name = "Guys Gone Wild"
-			if("lol", "wtf", "gay", "penis", "ass", "poo", "badmin", "shitmin", "deadmin", "cock", "cocks")
-				B.name = pick("Woodys Got Wood: The Aftermath", "War of the Cocks", "Sweet Bro and Hella Jef: Expanded Edition")
-				H.setBrainLoss(99) // starts off retarded as fuck
 			if("science")
 				B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 			else
@@ -76,7 +71,7 @@
 		SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
 		var/deity_name = "Space Jesus"
-		var/new_deity = sanitize(copytext(input(H, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
+		var/new_deity = sanitize(copytext(input(H, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name), 1, MAX_NAME_LEN))
 
 		if((length(new_deity) == 0) || (new_deity == "Space Jesus") )
 			new_deity = deity_name
@@ -91,9 +86,9 @@
 		var/new_book_style = "Bible"
 
 		while(!accepted)
-			if(!B)
+			if(!B || !H.client)
 				break // prevents possible runtime errors
-			new_book_style = input(H,"Which bible style would you like?") in list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
+			new_book_style = input(H, "Which bible style would you like?") in list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
 			switch(new_book_style)
 				if("Koran")
 					B.icon_state = "koran"
@@ -153,7 +148,9 @@
 
 			H.update_inv_l_hand() // so that it updates the bible's item_state in his hand
 
-			switch(input(H,"Look at your bible - is this what you want?") in list("Yes","No"))
+			if(!B || !H.client)
+				break // prevents possible runtime errors
+			switch(input(H, "Look at your bible - is this what you want?") in list("Yes", "No"))
 				if("Yes")
 					accepted = 1
 				if("No")

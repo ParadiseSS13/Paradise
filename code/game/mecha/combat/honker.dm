@@ -15,6 +15,7 @@
 	wreckage = /obj/effect/decal/mecha_wreckage/honker
 	add_req_access = 0
 	max_equip = 3
+	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
 
 /obj/mecha/combat/honker/loaded/New()

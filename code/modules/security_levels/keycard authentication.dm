@@ -151,6 +151,12 @@
 			make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
 			revoke_maint_all_access()
+		if("Activate Station-Wide Emergency Access")
+			make_station_all_access()
+			feedback_inc("alert_keycard_auth_stationGrant",1)
+		if("Deactivate Station-Wide Emergency Access")
+			revoke_station_all_access()
+			feedback_inc("alert_keycard_auth_stationRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
 				to_chat(usr, "<span class='warning'>All Emergency Response Teams are dispatched and can not be called at this time.</span>")
@@ -177,6 +183,7 @@
 	return ticker.mode && ticker.mode.ert_disabled
 
 var/global/maint_all_access = 0
+var/global/station_all_access = 0
 
 /proc/make_maint_all_access()
 	for(var/area/maintenance/A in world)
@@ -195,3 +202,18 @@ var/global/maint_all_access = 0
 	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
 	maint_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
+
+/proc/make_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = 1
+			D.update_icon(0)
+	minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	station_all_access = 1
+/proc/revoke_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = 0
+			D.update_icon(0)
+	minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	station_all_access = 0

@@ -9,17 +9,17 @@
 	var/area/syndicate_depot/core/depotarea
 	var/has_overloaded = FALSE
 
-/obj/structure/fusionreactor/Initialize()
-	..()
+/obj/structure/fusionreactor/New()
+	. = ..()
+	// Do not attempt to put the code below into Initialize() or even LateInitialize() with a "return INITIALIZE_HINT_LATELOAD". It won't work!
 	depotarea = areaMaster
 	if(istype(depotarea))
 		depotarea.reactor = src
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/fusionreactor/LateInitialize()
-	for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
-		if(!istype(T.depotarea))
-			T.depotarea = depotarea
+		for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
+			if(!istype(T.depotarea))
+				T.depotarea = depotarea
+	else
+		log_debug("[src] at [x],[y],[z] failed depotarea istype check during New()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
 /obj/structure/fusionreactor/Destroy()
 	if(istype(depotarea))
@@ -64,7 +64,7 @@
 		depotarea.activate_self_destruct("Fusion reactor cracked open. Core loose!", TRUE)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
-		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)
+		playsound(loc, 'sound/machines/alarm.ogg', 100, 0, 0)
 		O.deliberate = TRUE
 		O.max_cycles = 6
 	if(!skip_qdel)
@@ -84,8 +84,9 @@
 	var/max_fire_range = 9
 	var/area/syndicate_depot/core/depotarea
 
-/obj/effect/overload/Initialize()
+/obj/effect/overload/New()
 	. = ..()
+	// Do not attempt to put the code below into Initialize() or even LateInitialize() with a "return INITIALIZE_HINT_LATELOAD". It won't work!
 	processing_objects.Add(src)
 	depotarea = areaMaster
 	if(istype(depotarea))
@@ -93,6 +94,8 @@
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.updateicon()
 		depotarea.shields_down()
+	else
+		log_debug("[src] at [x],[y],[z] failed depotarea istype check during New()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
 /obj/effect/overload/process()
 	var/turf/T = get_turf(src)
@@ -116,6 +119,8 @@
 		L.open()
 	for(var/mob/living/M in range(30, T))
 		M.gib()
+	for(var/obj/mecha/E in range(30, T))
+		E.Destroy()
 	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
 	processing_objects.Remove(src)
 	qdel(src)

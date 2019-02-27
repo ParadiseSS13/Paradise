@@ -13,7 +13,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
-	exp_requirements = 1200
+	exp_requirements = 2400
 	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
@@ -68,7 +68,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
-	exp_requirements = 600
+	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_ai_upload, access_eva, access_heads,
@@ -125,7 +125,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_ntrep)
+			            access_clown, access_mime, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_ntrep)
 	outfit = /datum/outfit/job/nanotrasenrep
 
 /datum/outfit/job/nanotrasenrep
@@ -205,7 +205,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
+			            access_clown, access_mime, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_lawyer, access_magistrate, access_heads)
 	outfit = /datum/outfit/job/judge
 
@@ -257,7 +257,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/flash

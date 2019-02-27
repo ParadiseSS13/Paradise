@@ -162,7 +162,7 @@
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
 						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
 					blade_sharpness += 1
-					playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
+					playsound(src, 'sound/items/screwdriver.ogg', 100, 1)
 					return
 				else
 					blade_status = GUILLOTINE_BLADE_RAISED

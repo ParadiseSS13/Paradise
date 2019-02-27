@@ -1878,7 +1878,7 @@
 		switch(punishment)
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", safety=1)
-				playsound(get_turf(M), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -3298,6 +3298,20 @@
 
 		// Refresh the page
 		src.view_flagged_books()
+
+	// Force unlink a discord key
+	else if(href_list["force_discord_unlink"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/target_ckey = href_list["force_discord_unlink"]
+		var/DBQuery/admin_unlink_discord_id = dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
+		if(!admin_unlink_discord_id.Execute())
+			var/err = admin_unlink_discord_id.ErrorMsg()
+			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")
+			return
+		to_chat(src, "<span class='notice'>Successfully forcefully unlinked discord account from [target_ckey]</span>")
+		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
+		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

@@ -72,6 +72,7 @@
 		H.mind_initialize()
 		H.mind.assigned_role = "Event Character"
 		H.mind.special_role = "Event Character"
+		H.mind.offstation_role = TRUE
 
 		H.key = thisplayer.key
 

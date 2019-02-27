@@ -522,6 +522,17 @@ var/global/list/rockTurfEdgeCache = list(
 				O.attackby(W,user)
 				return
 
+	if(istype(W, /obj/item/stack/tile/plasteel) && isarea(loc))
+		var/area/A = loc
+		if(A.outdoors)
+			to_chat(user, "<span class='warning'>You must define a room as part of the station using blueprints or an equivalent item first.</span>")
+			return
+		playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+		make_plating()
+		icon_plating = "plating"
+		icon_state = "plating"
+		update_icon()
+
 /turf/simulated/floor/plating/airless/asteroid/gets_drilled()
 	if(!dug)
 		gets_dug()

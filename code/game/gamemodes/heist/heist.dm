@@ -53,6 +53,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = SPECIAL_ROLE_RAIDER
 		raider.special_role = SPECIAL_ROLE_RAIDER
+		raider.offstation_role = TRUE
 	..()
 	return 1
 

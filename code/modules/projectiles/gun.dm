@@ -17,6 +17,8 @@
 	attack_verb = list("struck", "hit", "bashed")
 
 	var/fire_sound = "gunshot"
+	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
+	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
 	var/suppressed = 0					//whether or not a message is displayed when fired
 	var/can_suppress = 0
@@ -302,6 +304,11 @@ obj/item/gun/proc/newshot()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+/obj/item/gun/extinguish_light()
+	if(gun_light.on)
+		toggle_gunlight()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/gun/pickup(mob/user)
 	..()

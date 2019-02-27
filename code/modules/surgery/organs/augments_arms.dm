@@ -33,9 +33,8 @@
 	..()
 	to_chat(user, "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>")
 
-/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/W, mob/user, params)
-	..()
-	if(isscrewdriver(W))
+/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
 		if(parent_organ == "r_arm")
 			parent_organ = "l_arm"
 		else
@@ -43,8 +42,8 @@
 		slot = parent_organ + "_device"
 		to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
 		update_icon()
-	else if(istype(W, /obj/item/card/emag))
-		emag_act()
+	else
+		return ..()
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -126,21 +125,35 @@
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
 	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
-	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act())
+	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
 	if(!holder || (holder in src))
 		holder = null
 		if(contents.len == 1)
 			Extend(contents[1])
-		else // TODO: make it similar to borg's storage-like module selection
-			var/obj/item/choise = input("Activate which item?", "Arm Implant", null, null) as null|anything in items_list
-			if(owner && owner == usr && owner.stat != DEAD && (src in owner.internal_organs) && !holder && istype(choise) && (choise in contents))
-				// This monster sanity check is a nice example of how bad input() is.
-				Extend(choise)
+		else
+			radial_menu(owner)
 	else
 		Retract()
 
+/obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
+	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !holder)
+
+/obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
+	var/list/choices = list()
+	for(var/obj/I in items_list)
+		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	if(!check_menu(user))
+		return
+	var/obj/item/selected
+	for(var/obj/item in items_list)
+		if(item.name == choice)
+			selected = item
+			break
+	if(istype(selected) && (selected in contents))
+		Extend(selected)
 
 /obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
 	if(emp_proof)
@@ -185,16 +198,18 @@
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "utilitybelt")
 
 /obj/item/organ/internal/cyberimp/arm/toolset/l
 	parent_organ = "l_arm"
 
-/obj/item/organ/internal/cyberimp/arm/toolset/emag_act()
+/obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
@@ -207,12 +222,16 @@
 	desc = "A cybernetic implant that allows the user to project a healing beam from their hand."
 	contents = newlist(/obj/item/gun/medbeam)
 	origin_tech = "materials=5;combat=2;biotech=5;powerstorage=4;syndicate=1"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/chronos.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "chronogun")
 
 /obj/item/organ/internal/cyberimp/arm/flash
 	name = "integrated high-intensity photon projector" //Why not
 	desc = "An integrated projector mounted onto a user's arm, that is able to be used as a powerful flash."
 	contents = newlist(/obj/item/flash/armimplant)
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
 
 /obj/item/organ/internal/cyberimp/arm/flash/New()
 	..()
@@ -249,8 +268,10 @@
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/bonesetter/augment)
+	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
 /obj/item/organ/internal/cyberimp/arm/surgery/l
 	parent_organ = "l_arm"
@@ -334,9 +355,13 @@
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 
 	contents = newlist(/obj/item/melee/classic_baton)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton")
 
 /obj/item/organ/internal/cyberimp/arm/advmop
 	name = "advanced mop implant"
 	desc = "Advanced mop implant. Does what it says on the tin" // A better description
 
 	contents = newlist(/obj/item/mop/advanced)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")

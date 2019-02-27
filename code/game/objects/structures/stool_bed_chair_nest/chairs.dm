@@ -59,6 +59,8 @@
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 			return
+		if(!ishuman(usr))
+			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
 		var/C = new item_chair(loc)
 		usr.put_in_hands(C)
@@ -319,7 +321,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
-	var/obj/structure/chair/stool/origin = null
 
 /obj/item/chair/stool/bar
 	name = "bar stool"
@@ -375,7 +376,7 @@
 
 /obj/item/chair/stool/attack_self(mob/user as mob)
 	..()
-	origin.loc = get_turf(src)
+	new origin_type(get_turf(loc))
 	user.unEquip(src)
 	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
 	qdel(src)

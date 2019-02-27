@@ -3,6 +3,7 @@
 	layer = 4.0
 	animate_movement = 2
 	pressure_resistance = 8
+	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
@@ -35,7 +36,6 @@
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 	var/memory = ""
-	var/atom/movable/pulling = null
 	var/next_move = null
 	var/notransform = null	//Carbon
 	var/other = 0.0
@@ -48,7 +48,6 @@
 	var/bhunger = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0
-	var/canmove = 1
 	var/lastpuke = 0
 	var/unacidable = 0
 	var/can_strip = 1

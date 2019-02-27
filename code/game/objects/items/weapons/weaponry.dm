@@ -89,7 +89,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("jabbed","stabbed","ripped")
 
-obj/item/wirerod
+/obj/item/wirerod
 	name = "Wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
@@ -101,7 +101,7 @@ obj/item/wirerod
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
@@ -191,7 +191,7 @@ obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
-		playsound(get_turf(src), 'sound/weapons/HOMERUN.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
 	else

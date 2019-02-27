@@ -102,4 +102,4 @@
 
 /obj/item/pizza_bomb/autoarm
 	timer_set = 1
-	timer = 10
+	timer = 30 // 3 seconds

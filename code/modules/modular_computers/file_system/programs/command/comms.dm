@@ -153,11 +153,6 @@
 
 	data["shuttle"] = shuttle
 
-	if(trade_dockrequest_timelimit > world.time)
-		data["dock_request"] = 1
-	else
-		data["dock_request"] = 0
-
 	return data
 
 /datum/computer_file/program/comm/Topic(href, href_list)
@@ -380,17 +375,6 @@
 						to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
 				else
 					to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
-
-			if("AcceptDocking")
-				to_chat(usr, "Docking request accepted!")
-				trade_dock_timelimit = world.time + 1200
-				trade_dockrequest_timelimit = 0
-				event_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
-			if("DenyDocking")
-				to_chat(usr, "Docking requeset denied!")
-				trade_dock_timelimit = 0
-				trade_dockrequest_timelimit = 0
-				event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 
 	SSnanoui.update_uis(src)
 	return 1

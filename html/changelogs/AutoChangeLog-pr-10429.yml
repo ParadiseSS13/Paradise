@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Can't become 1 pixel big anymore due to genetics"

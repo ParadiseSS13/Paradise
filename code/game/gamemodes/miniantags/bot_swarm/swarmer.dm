@@ -93,7 +93,7 @@
 	obj_damage = 0
 	environment_smash = 0
 	attacktext = "shocks"
-	attack_sound = 'sound/effects/EMPulse.ogg'
+	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
 	faction = list("swarmer")
@@ -311,7 +311,7 @@
 		to_chat(S, "<span class='warning'>Destroying this machine while it is occupied would result in biological and sentient resources to be harmed. Aborting.</span>")
 		return
 	..()
-	
+
 /mob/living/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisperseTarget(src)
 

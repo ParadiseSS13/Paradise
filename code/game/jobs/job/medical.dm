@@ -16,7 +16,7 @@
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
-	exp_requirements = 600
+	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/cmo
 

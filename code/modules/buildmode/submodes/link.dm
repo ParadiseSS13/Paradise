@@ -47,7 +47,7 @@
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
 					goto(line_jump)
-			if(P.id_tag == M.id && (P in range(M.range, M)) && P.id_tag && P.id_tag != "")
+			if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
 				P.id_tag = null
 				to_chat(user, "[P] unlinked.")
 				goto(line_jump)
@@ -86,7 +86,7 @@
 
 	if(istype(link_obj, /obj/machinery/door_control))
 		var/obj/machinery/door_control/M = link_obj
-		for(var/obj/machinery/door/airlock/P in range(M.range,M))
+		for(var/obj/machinery/door/airlock/P in GLOB.airlocks)
 			if(P.id_tag == M.id)
 				form_connection(M, P, M.normaldoorcontrol)
 		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)

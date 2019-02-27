@@ -10,6 +10,7 @@ var/list/robot_verbs_default = list(
 	maxHealth = 100
 	health = 100
 	universal_understand = 1
+	deathgasp_on_death = TRUE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -1291,61 +1292,6 @@ var/list/robot_verbs_default = list(
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-
-
-/mob/living/silicon/robot/syndicate
-	base_icon = "syndie_bloodhound"
-	icon_state = "syndie_bloodhound"
-	lawupdate = 0
-	scrambledcodes = 1
-	pdahide = 1
-	faction = list("syndicate")
-	designation = "Syndicate Assault"
-	modtype = "Syndicate"
-	req_access = list(access_syndicate)
-	ionpulse = 1
-	magpulse = 1
-	lawchannel = "State"
-	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
-							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
-							<i>Help the operatives secure the disk at all costs!</i></b>"
-
-/mob/living/silicon/robot/syndicate/New(loc)
-	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
-
-/mob/living/silicon/robot/syndicate/init()
-	laws = new /datum/ai_laws/syndicate_override
-	module = new /obj/item/robot_module/syndicate(src)
-
-	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/radio/borg/syndicate(src)
-	radio.recalculateChannels()
-
-	spawn(5)
-		if(playstyle_string)
-			to_chat(src, playstyle_string)
-
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
-
-/mob/living/silicon/robot/syndicate/medical
-	base_icon = "syndi-medi"
-	icon_state = "syndi-medi"
-	modtype = "Syndicate Medical"
-	designation = "Syndicate Medical"
-	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
-						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
-						Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
-						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-
-/mob/living/silicon/robot/syndicate/medical/init()
-	..()
-	module = new /obj/item/robot_module/syndicate_medical(src)
-
 /mob/living/silicon/robot/combat
 	base_icon = "droidcombat"
 	icon_state = "droidcombat"
@@ -1433,6 +1379,9 @@ var/list/robot_verbs_default = list(
 			disable_component("comms", 160)
 		if(2)
 			disable_component("comms", 60)
+
+/mob/living/silicon/robot/extinguish_light()
+	update_headlamp(1, 150)
 
 /mob/living/silicon/robot/rejuvenate()
 	..()

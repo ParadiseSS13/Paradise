@@ -91,9 +91,6 @@
 			O.unwield(user)
 	return unwield(user)
 
-/obj/item/twohanded/update_icon()
-	return
-
 /obj/item/twohanded/attack_self(mob/user)
 	..()
 	if(wielded) //Trying to unwield it
@@ -178,10 +175,11 @@
 	force_wielded = 24
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	usesound = 'sound/items/Crowbar.ogg'
+	usesound = 'sound/items/crowbar.ogg'
 
 /obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
+	..()
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -208,6 +206,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	var/w_class_on = WEIGHT_CLASS_BULKY
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
@@ -232,6 +231,7 @@
 	else
 		icon_state = "dualsaber0"
 		set_light(0)
+	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HULK in user.mutations)
@@ -278,6 +278,7 @@
 /obj/item/twohanded/dualsaber/unwield()
 	..()
 	hitsound = "swing_hit"
+	w_class = initial(w_class)
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(wielded)
@@ -289,6 +290,7 @@
 		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
+	w_class = w_class_on
 
 /obj/item/twohanded/dualsaber/attackby(obj/item/W, mob/user, params)
 	if(ismultitool(W))
@@ -327,6 +329,7 @@
 		icon_state = "spearbomb[wielded]"
 	else
 		icon_state = "spearglass[wielded]"
+	..()
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -405,7 +408,7 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message("<span class='warning'>[user] kicks over [src]!</span>", "<span class='danger'>You kick down [src]!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
 		contained_spear.forceMove(T)
@@ -509,6 +512,7 @@
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
+	..()
 
 /obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
 	if(wielded)
@@ -565,6 +569,7 @@
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
+	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
@@ -640,6 +645,7 @@
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
+	..()
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -670,6 +676,7 @@
 
 /obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[wielded]"
+	..()
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -725,6 +732,7 @@
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
+	..()
 
 /obj/item/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -751,3 +759,72 @@
 				if(prob(4))
 					charged++
 					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
+
+/obj/item/twohanded/pitchfork
+	icon_state = "pitchfork0"
+	name = "pitchfork"
+	desc = "A simple tool used for moving hay."
+	force = 7
+	throwforce = 15
+	w_class = WEIGHT_CLASS_BULKY
+	force_unwielded = 7
+	force_wielded = 15
+	attack_verb = list("attacked", "impaled", "pierced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/twohanded/pitchfork/demonic
+	name = "demonic pitchfork"
+	desc = "A red pitchfork, it looks like the work of the devil."
+	force = 19
+	throwforce = 24
+	force_unwielded = 19
+	force_wielded = 25
+
+/obj/item/twohanded/pitchfork/demonic/greater
+	force = 24
+	throwforce = 50
+	force_unwielded = 24
+	force_wielded = 34
+
+/obj/item/twohanded/pitchfork/demonic/ascended
+	force = 100
+	throwforce = 100
+	force_unwielded = 100
+	force_wielded = 500000 // Kills you DEAD.
+
+/obj/item/twohanded/pitchfork/update_icon()
+	icon_state = "pitchfork[wielded]"
+
+/obj/item/twohanded/pitchfork/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide...</span>")
+	return (BRUTELOSS)
+
+/obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
+	if(istype(user, /mob/living))
+		var/mob/living/U = user
+		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
+			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
+				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
+			if(ishuman(U))
+				var/mob/living/carbon/human/H = U
+				H.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
+			else
+				U.adjustFireLoss(rand(force/2,force))
+
+/obj/item/twohanded/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
+	if(user.mind && !user.mind.devilinfo && (user.mind.soulOwner != user.mind))
+		to_chat(user, "<span class ='warning'>The [src] burns in your hands.</span>")
+		user.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
+	..()
+
+// It's no fun being the lord of all hell if you can't get out of a simple room
+/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !wielded)
+		return
+	if(istype(target, /turf/simulated/wall))
+		var/turf/simulated/wall/W = target
+		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		W.devastate_wall(TRUE)
+		return 1
+	..()

@@ -140,12 +140,20 @@
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 
+/obj/item/gun/energy/kinetic_accelerator/experimental
+	name = "experimental kinetic accelerator"
+	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
+	icon_state = "kineticgun_h"
+	item_state = "kineticgun_h"
+	origin_tech = "combat=5;powerstorage=3;engineering=5"
+	max_mod_capacity = 200
+
 //Casing
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic
 	select_name = "kinetic"
 	e_cost = 500
-	fire_sound = 'sound/weapons/Kenetic_accel.ogg' // fine spelling there chap
+	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -231,7 +239,7 @@
 	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = 1
 	module_type = /obj/item/robot_module/miner
-	usesound = 'sound/items/Screwdriver.ogg'
+	usesound = 'sound/items/screwdriver.ogg'
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30

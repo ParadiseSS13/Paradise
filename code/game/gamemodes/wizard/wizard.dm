@@ -7,6 +7,7 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
+	free_golems_disabled = TRUE
 
 	var/use_huds = 0
 	var/finished = 0

@@ -127,7 +127,7 @@
 	if(devastated)
 		devastate_wall()
 	else
-		playsound(src, 'sound/items/Welder.ogg', 100, 1)
+		playsound(src, 'sound/items/welder.ogg', 100, 1)
 		var/newgirder = break_wall()
 		if(newgirder) //maybe we don't /want/ a girder!
 			transfer_fingerprints_to(newgirder)
@@ -170,12 +170,13 @@
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
-		playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-		user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
-		if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
-			return
+		if(!our_rpd.ranged)
+			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
+			user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
+			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
+				return
 		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
 		return
 	else
 		..()
@@ -268,7 +269,7 @@
 			return
 
 	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
 

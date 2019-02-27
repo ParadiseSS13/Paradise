@@ -316,10 +316,10 @@
 	if(SSshuttle.supply.mode == SHUTTLE_CALL)
 		supplyData["shuttle_moving"] = 1
 
-	if(!is_station_level(SSshuttle.supply.z))
-		supplyData["shuttle_loc"] = "station"
+	if(is_station_level(SSshuttle.supply.z))
+		supplyData["shuttle_loc"] = "Station"
 	else
-		supplyData["shuttle_loc"] = "centcom"
+		supplyData["shuttle_loc"] = "CentCom"
 
 	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] Mins)"
 

@@ -18,7 +18,7 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	var/feast_sound = 'sound/misc/Demon_consume.ogg'
+	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -95,13 +95,11 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 
-/mob/living/simple_animal/slaughter/death(gibbed)
+/mob/living/simple_animal/slaughter/Destroy()
 	// Only execute the below if we successfully died
-	. = ..()
-	if(!.)
-		return FALSE
 	for(var/mob/living/M in consumed_mobs)
 		release_consumed(M)
+	. = ..()
 
 /mob/living/simple_animal/slaughter/proc/release_consumed(mob/living/M)
 	M.forceMove(get_turf(src))
@@ -248,7 +246,7 @@
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
-	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == /obj/effect/proc_holder/spell/bloodcrawl)
 			qdel(src)
