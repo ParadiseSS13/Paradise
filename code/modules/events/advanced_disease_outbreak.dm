@@ -27,7 +27,13 @@
 
 /datum/event/disease_outbreak/advanced/proc/CheckVirus(datum/disease/advance/A)
 	if(A.spread_flags == BLOOD)
-		return FALSE //Want it to spread atleast
+		var/spread = FALSE
+		for(var/datum/symptom/S in A.symptoms)
+			if(istype(S, /datum/symptom/sneeze))
+				spread = TRUE
+				break
+		if(!spread)
+			return FALSE //Want it to spread atleast
 	return TRUE
 
 /datum/event/disease_outbreak/advanced/proc/GenerateName()
