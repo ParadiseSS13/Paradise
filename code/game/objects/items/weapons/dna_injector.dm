@@ -18,7 +18,8 @@
 	var/datatype = 0
 	var/value = 0
 
-/obj/item/dnainjector/proc/setbuf()
+/obj/item/dnainjector/Initialize()
+	. = ..()
 	if(datatype && block)
 		buf = new
 		buf.dna = new
@@ -74,10 +75,8 @@
 		H = M
 
 	if(!buf)
-		setbuf()
-		if(!buf)
-			log_runtime(EXCEPTION("[src] used by [user] on [M] failed to initialize properly."), src)
-			return
+		log_runtime(EXCEPTION("[src] used by [user] on [M] failed to initialize properly."), src)
+		return
 
 	spawn(0) //Some mutations have sleeps in them, like monkey
 		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
@@ -166,7 +165,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/hulkmut/setbuf()
+/obj/item/dnainjector/hulkmut/Initialize()
 	block = HULKBLOCK
 	..()
 
@@ -177,7 +176,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antihulk/setbuf()
+/obj/item/dnainjector/antihulk/Initialize()
 	block = HULKBLOCK
 	..()
 
@@ -188,7 +187,7 @@
 	value = 0xFFF
 	//block = 8
 
-/obj/item/dnainjector/xraymut/setbuf()
+/obj/item/dnainjector/xraymut/Initialize()
 	block = XRAYBLOCK
 	..()
 
@@ -199,7 +198,7 @@
 	value = 0x001
 	//block = 8
 
-/obj/item/dnainjector/antixray/setbuf()
+/obj/item/dnainjector/antixray/Initialize()
 	block = XRAYBLOCK
 	..()
 
@@ -210,7 +209,7 @@
 	value = 0xFFF
 	//block = 10
 
-/obj/item/dnainjector/firemut/setbuf()
+/obj/item/dnainjector/firemut/Initialize()
 	block = FIREBLOCK
 	..()
 
@@ -221,7 +220,7 @@
 	value = 0x001
 	//block = 10
 
-/obj/item/dnainjector/antifire/setbuf()
+/obj/item/dnainjector/antifire/Initialize()
 	block = FIREBLOCK
 	..()
 
@@ -232,7 +231,7 @@
 	value = 0xFFF
 	//block = 12
 
-/obj/item/dnainjector/telemut/setbuf()
+/obj/item/dnainjector/telemut/Initialize()
 	block = TELEBLOCK
 	..()
 
@@ -248,7 +247,7 @@
 	value = 0x001
 	//block = 12
 
-/obj/item/dnainjector/antitele/setbuf()
+/obj/item/dnainjector/antitele/Initialize()
 	block = TELEBLOCK
 	..()
 
@@ -259,7 +258,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/nobreath/setbuf()
+/obj/item/dnainjector/nobreath/Initialize()
 	block = BREATHLESSBLOCK
 	..()
 
@@ -270,7 +269,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antinobreath/setbuf()
+/obj/item/dnainjector/antinobreath/Initialize()
 	block = BREATHLESSBLOCK
 	..()
 
@@ -281,7 +280,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/remoteview/setbuf()
+/obj/item/dnainjector/remoteview/Initialize()
 	block = REMOTEVIEWBLOCK
 	..()
 
@@ -292,7 +291,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antiremoteview/setbuf()
+/obj/item/dnainjector/antiremoteview/Initialize()
 	block = REMOTEVIEWBLOCK
 	..()
 
@@ -303,7 +302,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/regenerate/setbuf()
+/obj/item/dnainjector/regenerate/Initialize()
 	block = REGENERATEBLOCK
 	..()
 
@@ -314,7 +313,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antiregenerate/setbuf()
+/obj/item/dnainjector/antiregenerate/Initialize()
 	block = REGENERATEBLOCK
 	..()
 
@@ -325,7 +324,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/runfast/setbuf()
+/obj/item/dnainjector/runfast/Initialize()
 	block = INCREASERUNBLOCK
 	..()
 
@@ -336,7 +335,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antirunfast/setbuf()
+/obj/item/dnainjector/antirunfast/Initialize()
 	block = INCREASERUNBLOCK
 	..()
 
@@ -347,7 +346,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/morph/setbuf()
+/obj/item/dnainjector/morph/Initialize()
 	block = MORPHBLOCK
 	..()
 
@@ -358,7 +357,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antimorph/setbuf()
+/obj/item/dnainjector/antimorph/Initialize()
 	block = MORPHBLOCK
 	..()
 
@@ -369,7 +368,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/noprints/setbuf()
+/obj/item/dnainjector/noprints/Initialize()
 	block = NOPRINTSBLOCK
 	..()
 
@@ -380,7 +379,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antinoprints/setbuf()
+/obj/item/dnainjector/antinoprints/Initialize()
 	block = NOPRINTSBLOCK
 	..()
 
@@ -391,7 +390,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/insulation/setbuf()
+/obj/item/dnainjector/insulation/Initialize()
 	block = SHOCKIMMUNITYBLOCK
 	..()
 
@@ -402,7 +401,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antiinsulation/setbuf()
+/obj/item/dnainjector/antiinsulation/Initialize()
 	block = SHOCKIMMUNITYBLOCK
 	..()
 
@@ -413,7 +412,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/midgit/setbuf()
+/obj/item/dnainjector/midgit/Initialize()
 	block = SMALLSIZEBLOCK
 	..()
 
@@ -424,7 +423,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antimidgit/setbuf()
+/obj/item/dnainjector/antimidgit/Initialize()
 	block = SMALLSIZEBLOCK
 	..()
 
@@ -436,7 +435,7 @@
 	value = 0x001
 	//block = 1
 
-/obj/item/dnainjector/antiglasses/setbuf()
+/obj/item/dnainjector/antiglasses/Initialize()
 	block = GLASSESBLOCK
 	..()
 
@@ -447,7 +446,7 @@
 	value = 0xFFF
 	//block = 1
 
-/obj/item/dnainjector/glassesmut/setbuf()
+/obj/item/dnainjector/glassesmut/Initialize()
 	block = GLASSESBLOCK
 	..()
 
@@ -458,7 +457,7 @@
 	value = 0xFFF
 	//block = 3
 
-/obj/item/dnainjector/epimut/setbuf()
+/obj/item/dnainjector/epimut/Initialize()
 	block = EPILEPSYBLOCK
 	..()
 
@@ -469,7 +468,7 @@
 	value = 0x001
 	//block = 3
 
-/obj/item/dnainjector/antiepi/setbuf()
+/obj/item/dnainjector/antiepi/Initialize()
 	block = EPILEPSYBLOCK
 	..()
 
@@ -480,7 +479,7 @@
 	value = 0x001
 	//block = 5
 
-/obj/item/dnainjector/anticough/setbuf()
+/obj/item/dnainjector/anticough/Initialize()
 	block = COUGHBLOCK
 	..()
 
@@ -491,7 +490,7 @@
 	value = 0xFFF
 	//block = 5
 
-/obj/item/dnainjector/coughmut/setbuf()
+/obj/item/dnainjector/coughmut/Initialize()
 	block = COUGHBLOCK
 	..()
 
@@ -502,7 +501,7 @@
 	value = 0xFFF
 	//block = 6
 
-/obj/item/dnainjector/clumsymut/setbuf()
+/obj/item/dnainjector/clumsymut/Initialize()
 	block = CLUMSYBLOCK
 	..()
 
@@ -513,7 +512,7 @@
 	value = 0x001
 	//block = 6
 
-/obj/item/dnainjector/anticlumsy/setbuf()
+/obj/item/dnainjector/anticlumsy/Initialize()
 	block = CLUMSYBLOCK
 	..()
 
@@ -524,7 +523,7 @@
 	value = 0x001
 	//block = 7
 
-/obj/item/dnainjector/antitour/setbuf()
+/obj/item/dnainjector/antitour/Initialize()
 	block = TWITCHBLOCK
 	..()
 
@@ -535,7 +534,7 @@
 	value = 0xFFF
 	//block = 7
 
-/obj/item/dnainjector/tourmut/setbuf()
+/obj/item/dnainjector/tourmut/Initialize()
 	block = TWITCHBLOCK
 	..()
 
@@ -546,7 +545,7 @@
 	value = 0xFFF
 	//block = 9
 
-/obj/item/dnainjector/stuttmut/setbuf()
+/obj/item/dnainjector/stuttmut/Initialize()
 	block = NERVOUSBLOCK
 	..()
 
@@ -558,7 +557,7 @@
 	value = 0x001
 	//block = 9
 
-/obj/item/dnainjector/antistutt/setbuf()
+/obj/item/dnainjector/antistutt/Initialize()
 	block = NERVOUSBLOCK
 	..()
 
@@ -569,7 +568,7 @@
 	value = 0xFFF
 	//block = 11
 
-/obj/item/dnainjector/blindmut/setbuf()
+/obj/item/dnainjector/blindmut/Initialize()
 	block = BLINDBLOCK
 	..()
 
@@ -580,7 +579,7 @@
 	value = 0x001
 	//block = 11
 
-/obj/item/dnainjector/antiblind/setbuf()
+/obj/item/dnainjector/antiblind/Initialize()
 	block = BLINDBLOCK
 	..()
 
@@ -591,7 +590,7 @@
 	value = 0xFFF
 	//block = 12
 
-/obj/item/dnainjector/telemut/setbuf()
+/obj/item/dnainjector/telemut/Initialize()
 	block = TELEBLOCK
 	..()
 
@@ -602,7 +601,7 @@
 	value = 0x001
 	//block = 12
 
-/obj/item/dnainjector/antitele/setbuf()
+/obj/item/dnainjector/antitele/Initialize()
 	block = TELEBLOCK
 	..()
 
@@ -613,7 +612,7 @@
 	value = 0xFFF
 	//block = 13
 
-/obj/item/dnainjector/deafmut/setbuf()
+/obj/item/dnainjector/deafmut/Initialize()
 	block = DEAFBLOCK
 	..()
 
@@ -624,7 +623,7 @@
 	value = 0x001
 	//block = 13
 
-/obj/item/dnainjector/antideaf/setbuf()
+/obj/item/dnainjector/antideaf/Initialize()
 	block = DEAFBLOCK
 	..()
 
@@ -635,7 +634,7 @@
 	value = 0xFFF
 	//block = 2
 
-/obj/item/dnainjector/hallucination/setbuf()
+/obj/item/dnainjector/hallucination/Initialize()
 	block = HALLUCINATIONBLOCK
 	..()
 
@@ -646,7 +645,7 @@
 	value = 0x001
 	//block = 2
 
-/obj/item/dnainjector/antihallucination/setbuf()
+/obj/item/dnainjector/antihallucination/Initialize()
 	block = HALLUCINATIONBLOCK
 	..()
 
@@ -657,7 +656,7 @@
 	value = 0xFFF
 	//block = 14
 
-/obj/item/dnainjector/h2m/setbuf()
+/obj/item/dnainjector/h2m/Initialize()
 	block = MONKEYBLOCK
 	..()
 
@@ -668,6 +667,6 @@
 	value = 0x001
 	//block = 14
 
-/obj/item/dnainjector/m2h/setbuf()
+/obj/item/dnainjector/m2h/Initialize()
 	block = MONKEYBLOCK
 	..()
