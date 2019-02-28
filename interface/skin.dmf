@@ -1692,21 +1692,19 @@ window "rpane"
 	elem "changelog"
 		type = BUTTON
 		pos = 285,7
-		size = 60x16
+		size = 67x16
 		text = "Changelog"
 		command = "Changelog"
 	elem "rulesb"
 		type = BUTTON
-		pos = 350,7
+		pos = 357,7
 		size = 60x16
-		background-color = #FF0000
-		text-color = #FFFFFF
 		font-style = bold
 		text = "Rules"
 		command = "rules"
 	elem "discordb"
 		type = BUTTON
-		pos = 415,7
+		pos = 422,7
 		size = 60x16
 		background-color = #7289DA
 		text-color = #FFFFFF
