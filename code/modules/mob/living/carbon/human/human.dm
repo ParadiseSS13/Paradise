@@ -109,8 +109,12 @@
 /mob/living/carbon/human/machine/Initialize(mapload)
 	..(mapload, /datum/species/machine)
 
+//ZOMBIE CODE
+
 /mob/living/carbon/human/zombie/Initialize(mapload)
 	..(mapload, /datum/species/zombie)
+
+//END ZOMBIE CODE
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
@@ -1233,10 +1237,16 @@
 		return 1
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
+
+//ZOMBIE CODE
+
 	if(iszombie(src))
 		playsound(src, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
-		..(I, cuff_break = 1)
-		unEquip(I)
+		if(..(I, cuff_break = 1))
+			unEquip(I)
+
+//END ZOMBIE CODE
+
 	if(HULK in mutations)
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = 1))
