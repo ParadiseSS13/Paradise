@@ -1,3 +1,10 @@
+/obj/item/organ/internal/brain/zombie
+	name = "brain"
+
+/obj/item/organ/internal/brain/zombie/insert(mob/living/carbon/M, special = 0)
+	..()
+	M.reagents.add_reagent("virush", 5)
+
 /obj/item/organ/internal/eyes/zombie
 	name = "strange eyeballs"
 	colourmatrix = MATRIX_GREYSCALE

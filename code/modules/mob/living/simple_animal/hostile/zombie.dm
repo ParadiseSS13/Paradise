@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/zombie
-	name = "zombie"
+	name = "Weak zombie"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "zombie_s"
 	icon_living = "zombie_s"
@@ -8,9 +8,9 @@
 	response_disarm = "shoves"
 	response_harm = "bites"
 	speed = 1
-	turns_per_move = 1
-	maxHealth = 200
-	health = 200
+	turns_per_move = 2
+	maxHealth = 30
+	health = 30
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/)
 	harm_intent_damage = 10
 	obj_damage = 20
