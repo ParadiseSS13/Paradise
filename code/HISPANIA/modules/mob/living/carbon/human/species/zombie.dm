@@ -1,15 +1,14 @@
 /datum/species/zombie
 	name = "Zombie"
 	name_plural = "Zombies"
-	blurb = "It's a corpse, one dead person." //Descripcion de la raza.
-
+	blurb = "It's a corpse, a dead person." //Descripcion de la raza.
 	icobase = 'icons/mob/human_races/r_zombie.dmi'
 	deform = 'icons/mob/human_races/r_zombie.dmi'
 	unarmed_type = /datum/unarmed_attack/zombie
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, NOGUNS, NOCRITDAMAGE, RESISTCOLD, NO_EXAMINE, NO_DNA, NOTRANSSTING, NO_INTORGANS, NO_PAIN, VIRUSIMMUNE)
 	reagent_tag = null
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	hunger_drain = -1
+	hunger_drain = 0
 	dietflags = DIET_CARN //Comen carne.
 	language = "Zombie"
 	default_language = "Zombie"
@@ -21,7 +20,7 @@
 	death_message = "Stops moving..."
 	total_health = 85
 	brute_mod = 1.0
-	burn_mod = 0.85
+	burn_mod = 0.80
 	stun_mod = 0.3
 	//Estas muerto, no respiras, no metabolizas.
 	tox_mod = 0
@@ -31,15 +30,16 @@
 	slowdown = 2 //Mas lentos que un humano.
 	punchdamagelow = 5
 	punchdamagehigh = 9
-	punchstunthreshold = 14 //Solo tumbaran con una probabilidad del 25% con cada golpe.
+	punchstunthreshold = 14 //Cantidad de daño que deben ejercer para tumbar.
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/zombie,
-		"lungs" =    /obj/item/organ/internal/lungs/zombie,
-		"liver" =    /obj/item/organ/internal/liver/zombie,
-		"kidneys" =  /obj/item/organ/internal/kidneys/zombie,
-		"appendix" = /obj/item/organ/internal/appendix/zombie,
-		"eyes" = /obj/item/organ/internal/eyes/zombie,
+		"brain" =	/obj/item/organ/internal/brain/zombie,
+		"heart" =	/obj/item/organ/internal/heart/zombie,
+		"lungs" =	/obj/item/organ/internal/lungs/zombie,
+		"liver" =	/obj/item/organ/internal/liver/zombie,
+		"kidneys" =	/obj/item/organ/internal/kidneys/zombie,
+		"appendix" =	/obj/item/organ/internal/appendix/zombie,
+		"eyes" =	/obj/item/organ/internal/eyes/zombie,
 		)
 
 	has_limbs = list(
@@ -57,12 +57,6 @@
 
 /datum/species/zombie/handle_life(mob/living/carbon/human/H)
 	if(prob(7))
-		H.adjustBruteLoss(-7)
-		H.adjustToxLoss(-7)
-
-/obj/machinery/door/airlock/attack_hand(mob/user)
-	..()
-	return
-
-
-
+		H.adjustBruteLoss(-10)
+		H.adjustFireLoss(-10)
+		H.adjustToxLoss(-10)
