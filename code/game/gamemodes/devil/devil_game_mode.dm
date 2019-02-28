@@ -4,7 +4,7 @@
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate",
 						 "Internal Affairs Agent", "Librarian", "Chaplain", "Head of Security", "Captain",  "Brig Physician",
 						 "Nanotrasen Navy Officer", "Special Operations Officer", "AI", "Cyborg")
-	required_players = 6
+	required_players = 8
 	required_enemies = 1
 	recommended_enemies = 2
 
