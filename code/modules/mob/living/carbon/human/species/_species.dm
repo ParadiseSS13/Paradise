@@ -351,20 +351,19 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block()) //cqc
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
-	//zombie code
-	if(iszombie(user) && prob(70))
+	//ZOMBIE CODE
+	if(iszombie(user))
 		var/mob/living/L = target
 		var/poison_per_bite = 10
 		var/poison_type = "virush"
 		if(L.reagents)
 			L.reagents.add_reagent("virush", poison_per_bite)
-			if(prob(poison_per_bite))
-				to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
-				L.reagents.add_reagent(poison_type, poison_per_bite)
-				//end zombie code
+			to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
+			L.reagents.add_reagent(poison_type, poison_per_bite)
+		//END ZOMBIE CODE
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
@@ -526,14 +525,6 @@
 	var/animation_type = ATTACK_EFFECT_PUNCH
 	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 
-/datum/unarmed_attack/zombie
-	attack_verb = list("bites", "slash")
-	damage = 5
-	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	animation_type = ATTACK_EFFECT_BITE
-
-
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
 
@@ -553,6 +544,14 @@
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
 	damage = 6
+
+/datum/unarmed_attack/zombie
+	attack_verb = list("bites", "slash")
+	damage = 6
+	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	animation_type = ATTACK_EFFECT_BITE
+
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return FALSE
