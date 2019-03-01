@@ -26,10 +26,7 @@
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
 			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
-			if(!(flags & NODROP))
-				flags |= NODROP
-			else
-				flags &= ~NODROP
+			flags ^= NODROP
 	else
 		to_chat(user, "<span class='warning'>You can't seem to understand what this does.</span>")
 
@@ -99,6 +96,7 @@
 	H.death()
 	H.ghostize()
 	if(H == original_owner)
+		H.unEquip(src, TRUE)
 		qdel(H)
 		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
 		fake_toolbox.desc = "It looks a lot duller than it used to."
@@ -109,14 +107,10 @@
 		H.forceMove(get_turf(src))
 		visible_message("<span class='warning'>[H] bursts out of [src]!</span>")
 
-	for(var/A in servantlinks)
-		var/datum/disease/memetic_madness/D = A
-		if(D)
-			D.cure()
-			break
+	for(var/datum/disease/memetic_madness/D in servantlinks)
+		D.cure()
 
-	if(servantlinks)
-		servantlinks.Cut()
+	servantlinks.Cut()
 	servantlinks = null
 	original_owner = null
 	visible_message("<span class='userdanger'>[src] screams!</span>")
