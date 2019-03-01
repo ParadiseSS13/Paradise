@@ -13,17 +13,31 @@
 	force = 5
 	throwforce = 10
 	origin_tech = "combat=4;engineering=4;syndicate=2"
+	actions_types = list(/datum/action/item_action/toggle)
 	var/list/servantlinks = list()
 	var/hunger = 0
 	var/hunger_message_level = 0
-	var/original_owner = null
-	var/activated = 0
-	var/mindless_override = 0
+	var/mob/living/carbon/human/original_owner = null
+	var/activated = FALSE
+	var/mindless_override = FALSE
+
+/obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user)
+	if(user.HasDisease(new /datum/disease/memetic_madness(0)))
+		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
+		if(istype(M))
+			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
+			if(!(flags & NODROP))
+				flags |= NODROP
+			else
+				flags &= ~NODROP
+	else
+		to_chat(user, "<span class='warning'>You can't see to understand what this does.</span>")
+
 
 /obj/item/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
 	if(!activated)
 		if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
-			activated = 1
+			activated = TRUE
 			user.ForceContractDisease(new /datum/disease/memetic_madness(0))
 			for(var/datum/disease/memetic_madness/DD in user.viruses)
 				DD.progenitor = src
@@ -40,7 +54,7 @@
 
 /obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
 	if(activated)
-		if(istype(I, /obj/item/grab/))
+		if(istype(I, /obj/item/grab))
 			var/obj/item/grab/G = I
 			if(!G.affecting)
 				return
@@ -71,19 +85,21 @@
 			throwforce += 5
 			return
 
-	..()
+	return ..()
 
-/obj/item/storage/toolbox/green/memetic/proc/consume(mob/M)
-	if(!M)
+/obj/item/storage/toolbox/green/memetic/proc/consume(mob/living/carbon/human/H)
+	if(!H)
 		return
 	hunger = 0
 	hunger_message_level = 0
 	playsound(src.loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
-	M.emote("scream")
-	M.death()
-	M.ghostize()
-	if(M == original_owner)
-		qdel(M)
+	H.emote("scream")
+	if(ismachine(H))
+		H.adjustFireLoss(1000) // Damn snowflakes
+	H.death()
+	H.ghostize()
+	if(H == original_owner)
+		qdel(H)
 		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
 		fake_toolbox.desc = "It looks a lot duller than it used to."
 		qdel(src)
