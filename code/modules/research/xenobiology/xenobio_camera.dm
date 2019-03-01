@@ -34,7 +34,6 @@
 	var/max_slimes = 5
 	var/monkeys = 0
 	var/obj/item/slimepotion/slime/current_potion
-	var/obj/item/slime_scanner/scanner = new /obj/item/slime_scanner
 	var/obj/machinery/monkey_recycler/connected_recycler
 
 	icon_screen = "slime_comp"
@@ -55,7 +54,6 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
 	QDEL_NULL(current_potion)
-	qdel(scanner)
 	for(var/mob/living/carbon/slime/S in stored_slimes)
 		S.forceMove(drop_location())
 	stored_slimes.Cut()
@@ -296,11 +294,10 @@
 		return
 	var/mob/living/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/slime/S in remote_eye.loc)
-			X.scanner.attack(S, C)
+			slime_scan(S, C)
 	else
 		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
@@ -346,7 +343,7 @@
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		scanner.attack(S, C)
+		slime_scan(S, C)
 
 //Feeds a potion to slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickAlt(mob/living/user, mob/living/carbon/slime/S)
