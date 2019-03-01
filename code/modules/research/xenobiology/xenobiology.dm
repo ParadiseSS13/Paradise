@@ -358,6 +358,10 @@
 	C.slowdown = 0
 	qdel(src)
 
+/obj/item/slimepotion/speed/MouseDrop(obj/over_object)
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
 	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
@@ -388,6 +392,10 @@
 	uses --
 	if(!uses)
 		qdel(src)
+
+/obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
 
 /obj/effect/timestop
 	anchored = 1
