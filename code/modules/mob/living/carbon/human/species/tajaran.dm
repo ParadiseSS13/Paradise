@@ -31,7 +31,6 @@
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
-	blood_color = "#961b03"
 	flesh_color = "#AFA59E"
 	base_color = "#424242"
 	butt_sprite = "tajaran"

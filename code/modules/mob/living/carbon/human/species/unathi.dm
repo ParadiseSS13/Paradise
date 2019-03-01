@@ -28,7 +28,6 @@
 	heat_level_2 = 420 //Default 400
 	heat_level_3 = 480 //Default 460
 
-	blood_color = "#960147"
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
