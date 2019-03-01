@@ -374,7 +374,11 @@
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 			update_changelog_button()
-			
+
+	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+		if(establish_db_connection())
+			wants_karma = FALSE
+			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 
 	if(!void)
 		void = new()

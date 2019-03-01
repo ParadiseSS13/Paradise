@@ -219,3 +219,17 @@
 	else
 		deactivate_darkmode()
 	feedback_add_details("admin_verb","TDarkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/verb/toggle_karma()
+	set name = "Toggle Karma Gains"
+	set category = "Special Verbs"
+	set desc = "This button will allow you to stop other people giving you karma."
+	if (prefs.toggles & DISABLE_KARMA)
+		wants_karma = FALSE
+		to_chat(usr, "<span class='notice'>You have disabled karma gains.")
+	else
+		wants_karma = TRUE
+		to_chat(usr, "<span class='notice'>You have enabled karma gains.")
+	prefs.toggles ^= DISABLE_KARMA
+	prefs.save_preferences(src)
+	return
