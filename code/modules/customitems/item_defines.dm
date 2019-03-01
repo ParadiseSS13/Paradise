@@ -1138,6 +1138,19 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
+	name = "telecommunications bomber jacket"
+	desc = "Looks like something only a nerd would buy. Has a tag inside reading <i>Property of DTX</i>."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dtxbomber"
+	item_state = "dtxbomber"
+	ignore_suitadjust = 0
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
 	icon = 'icons/obj/custom_items.dmi'
