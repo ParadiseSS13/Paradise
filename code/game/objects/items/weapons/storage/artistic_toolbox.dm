@@ -31,7 +31,7 @@
 			else
 				flags &= ~NODROP
 	else
-		to_chat(user, "<span class='warning'>You can't see to understand what this does.</span>")
+		to_chat(user, "<span class='warning'>You can't seem to understand what this does.</span>")
 
 
 /obj/item/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
