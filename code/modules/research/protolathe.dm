@@ -113,6 +113,6 @@ Note: Must be placed west/left of and R&D console to function.
 		return ..()
 
 /obj/machinery/r_n_d/protolathe/old
-	name = "Experimental Protolathe"
+	name = "Protolathe"
 	icon = 'icons/obj/machines/research_old.dmi'
 	desc = "A prototype that, hopefully, will be able to speed up the process of creating new technologies."
