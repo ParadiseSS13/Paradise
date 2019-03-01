@@ -85,6 +85,7 @@ var/global/sent_strike_team = 0
 				R.mind.original = R
 				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+				R.mind.offstation_role = TRUE
 				if(!(R.mind in ticker.minds))
 					ticker.minds += R.mind
 				ticker.mode.traitors += R.mind
@@ -178,7 +179,7 @@ var/global/sent_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
 	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
 

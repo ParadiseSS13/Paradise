@@ -54,6 +54,7 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
+		synd_mind.offstation_role = TRUE
 	return 1
 
 
@@ -172,6 +173,7 @@ proc/issyndicate(mob/living/M as mob)
 	M.dna.species.create_organs(M)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
+	M.flavor_text = null
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde

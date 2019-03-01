@@ -298,7 +298,7 @@ var/list/advance_cures = 	list(
 	if(HasSymptom(S))
 		return
 
-	if(symptoms.len < 5 + rand(-1, 1))
+	if(symptoms.len < (VIRUS_SYMPTOM_LIMIT - 1) + rand(-1, 1))
 		symptoms += S
 	else
 		RemoveSymptom(pick(symptoms))
@@ -364,7 +364,7 @@ var/list/advance_cures = 	list(
 	if(!user)
 		return
 
-	var/i = 5
+	var/i = VIRUS_SYMPTOM_LIMIT
 
 	var/datum/disease/advance/D = new(0, null)
 	D.symptoms = list()
