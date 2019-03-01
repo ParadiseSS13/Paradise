@@ -460,6 +460,19 @@
 	return ..()
 
 
+/obj/item/storage/bag/tray/cookies_tray
+	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
+
+/obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
+	..()
+	for(var/i in 1 to 6)
+		var/obj/item/C = new cookie(src)
+		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
+	rebuild_overlays()
+
+/obj/item/storage/bag/tray/cookies_tray/sugarcookie
+	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
+
 /*
  *	Chemistry bag
  */

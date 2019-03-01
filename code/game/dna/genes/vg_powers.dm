@@ -227,7 +227,7 @@
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))	return
 	var/say = input("What do you wish to say") as text|null
-	if(!say)
+	if(!say || usr.stat)
 		return
 	say = strip_html(say)
 	say = pencode_to_html(say, usr, format = 0, fields = 0)

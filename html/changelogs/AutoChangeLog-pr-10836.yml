@@ -1,0 +1,6 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added navigation computers to the nuclear, SIT, SST, ERT, and vox shuttles. This computer lets you set a custom destination to jump to."
+  - tweak: "Most off-station shuttle consoles are now indestructible and impossible to deconstruct."
+  - rscadd: "Added atmos blocking tiny fans and a security camera console to the ERT shuttle."

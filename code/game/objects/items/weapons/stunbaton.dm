@@ -172,6 +172,10 @@
 			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return
 
+	if(iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.shock_internal_organs(33)
+
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.apply_effect(STUTTER, stunforce)

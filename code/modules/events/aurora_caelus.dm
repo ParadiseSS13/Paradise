@@ -40,7 +40,7 @@ We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/
 	event_announcement.Announce("The Aurora Caelus event is now ending. Starlight conditions will slowly return to normal. \
 When this has concluded, please return to your workplace and continue work as normal. \
 Have a pleasant shift, [station_name()], and thank you for watching with us.",
-"Harmless ions approaching", new_sound = 'sound/misc/notice2.ogg', from = "Nanotrasen Meteorology Division")
+"Harmless ions dissipating", new_sound = 'sound/misc/notice2.ogg', from = "Nanotrasen Meteorology Division")
 
 /datum/event/aurora_caelus/proc/fade_to_black(turf/space/S)
 	set waitfor = FALSE

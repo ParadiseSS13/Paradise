@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixed cases of some genetics block SE injectors that are spawned at round start (such as the ones that can appear on the Sol Trade ship) not initializing properly, which would cause them to fail to work, and generate a runtime error.
+refactor: Did some minor refactoring to dna_injector.dm, fixing bad spacing."

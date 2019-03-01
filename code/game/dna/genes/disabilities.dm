@@ -105,15 +105,25 @@
 /datum/dna/gene/disability/nervousness/New()
 	block=NERVOUSBLOCK
 
+
 /datum/dna/gene/disability/blindness
 	name="Blindness"
-	activation_message="You can't seem to see anything."
-	deactivation_message ="You can see now, in case you didn't notice..."
+	activation_message = "You can't seem to see anything."
+	deactivation_message = "You can see now, in case you didn't notice..."
 	instability = -GENE_INSTABILITY_MAJOR
-	disability=BLIND
+	disability = BLIND
 
 /datum/dna/gene/disability/blindness/New()
-	block=BLINDBLOCK
+	block = BLINDBLOCK
+
+/datum/dna/gene/disability/blindness/activate(mob/M, connected, flags)
+	..()
+	M.update_blind_effects()
+
+/datum/dna/gene/disability/blindness/deactivate(mob/M, connected, flags)
+	..()
+	M.update_blind_effects()
+
 
 /datum/dna/gene/disability/colourblindness
 	name = "Colourblindness"
