@@ -191,6 +191,21 @@
 		new /obj/item/reagent_containers/glass/beaker( src )
 		new /obj/item/reagent_containers/glass/beaker( src )
 
+/obj/item/storage/box/iv_bags
+	name = "IV Bags"
+	desc = "A box full of empty IV bags."
+	icon_state = "beaker"
+
+/obj/item/storage/box/iv_bags/New()
+	..()
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+
 /obj/item/storage/box/injectors
 	name = "\improper DNA injectors"
 	desc = "This box contains injectors it seems."
