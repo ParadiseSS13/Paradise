@@ -1,0 +1,5 @@
+author: "Dave-TH"
+delete-after: True
+changes: 
+  - rscadd: "Wall-mounted defib frames. Swipe an appropriate card to lock the defib in place and use it to save lives!"
+  - tweak: "IV bags have been refactored and may now accept any chemical. Play around with them a bit!"
