@@ -165,17 +165,11 @@
 	},
 /area/shuttle/abandoned)
 "aaw" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_n";
-	name = "north of station";
-	width = 18
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
-/turf/space,
-/area/space)
+/area/shuttle/syndicate)
 "aax" = (
 /turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
@@ -743,15 +737,9 @@
 	},
 /area/shuttle/abandoned)
 "abT" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
+/obj/machinery/computer/camera_advanced/shuttle_docker/vox,
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "abU" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -2157,16 +2145,11 @@
 	},
 /area/security/armoury)
 "aex" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_nw";
-	name = "northwest of SS13";
-	width = 19
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
-/turf/space,
-/area/space)
+/area/shuttle/syndicate_sit)
 "aey" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2802,17 +2785,11 @@
 	},
 /area/security/main)
 "afy" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_ne";
-	name = "northeast of station";
-	width = 18
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
-/turf/space,
-/area/space)
+/area/shuttle/syndicate_elite)
 "afz" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/shuttle/floor{
@@ -3746,9 +3723,16 @@
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ahb" = (
-/obj/machinery/computer/station_alert,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "109"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
 "ahc" = (
 /obj/machinery/computer/shuttle/vox,
 /turf/simulated/shuttle/floor4/vox,
@@ -15846,11 +15830,11 @@
 	},
 /area/shuttle/syndicate_elite)
 "aAi" = (
-/obj/structure/table,
+/obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
-/area/shuttle/syndicate_sit)
+/area/shuttle/specops)
 "aAj" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -42713,11 +42697,16 @@
 	},
 /area/shuttle/specops)
 "bAS" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 4;
+	pixel_y = 32
 	},
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (NORTH)";
+	icon_state = "tube1";
+	dir = 1
+	},
+/obj/structure/chair,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -43230,6 +43219,10 @@
 	},
 /area/shuttle/escape)
 "bBZ" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 4;
+	pixel_y = 32
+	},
 /obj/structure/chair,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -43292,18 +43285,30 @@
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "bCi" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 4;
-	pixel_y = 32
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "109"
 	},
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 11;
+	id = "specops";
+	name = "ert shuttle";
+	roundstart_move = "specops_away";
+	width = 5
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 11;
+	id = "specops_home";
+	name = "port bay 2";
+	width = 5
 	},
+/obj/structure/fans/tiny,
+/turf/simulated/shuttle/plating,
 /area/shuttle/specops)
 "bCj" = (
 /obj/effect/decal/cleanable/fungus,
@@ -43316,9 +43321,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bCl" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 4;
-	pixel_y = 32
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -44026,31 +44030,6 @@
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
-/area/shuttle/specops)
-"bDH" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
-	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 11;
-	id = "specops";
-	name = "ert shuttle";
-	roundstart_move = "specops_away";
-	width = 5
-	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 11;
-	id = "specops_home";
-	name = "port bay 2";
-	width = 5
-	},
-/turf/simulated/shuttle/plating,
 /area/shuttle/specops)
 "bDI" = (
 /obj/structure/rack{
@@ -86896,17 +86875,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
-"cYz" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_se";
-	name = "southeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "cYA" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -90750,17 +90718,6 @@
 "dfV" = (
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"dfW" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_sw";
-	name = "southwest of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "dfX" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -95417,18 +95374,6 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/turret_protected/aisat_interior)
-"doT" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_sw";
-	name = "southwest of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
 "doV" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -95916,18 +95861,6 @@
 /area/aisat{
 	name = "\improper AI Satellite Hallway"
 	})
-"drn" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_s";
-	name = "south of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
 "dro" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -96180,18 +96113,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"drW" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_se";
-	name = "southeast of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
 "drX" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -106302,9 +106223,9 @@ bwI
 brQ
 bjQ
 bAR
-bBZ
+aAi
 bCb
-bEL
+bCl
 bAR
 aLd
 aaa
@@ -106815,10 +106736,10 @@ bvj
 bwJ
 brO
 aSd
-bAS
+ahb
 bCb
 bCb
-bCb
+bEL
 bAR
 aSd
 aaa
@@ -107072,7 +106993,7 @@ bvj
 bwI
 brO
 aSd
-bAS
+ahb
 bCb
 bCb
 bEL
@@ -107330,7 +107251,7 @@ bwI
 brR
 aSd
 bAR
-bCl
+bBZ
 bCb
 bEL
 bAR
@@ -107587,7 +107508,7 @@ bwI
 brO
 aMs
 bAR
-bCi
+bAS
 bCb
 bEL
 bAR
@@ -107806,8 +107727,8 @@ aze
 aAh
 aAh
 aCT
-azg
-azg
+aCX
+afy
 aFf
 aFe
 aab
@@ -108102,7 +108023,7 @@ byd
 aMs
 aaa
 bAT
-bDH
+bCi
 bER
 aaa
 aSd
@@ -108527,7 +108448,7 @@ aaa
 aaa
 aaa
 abH
-abT
+aaw
 abV
 abV
 abI
@@ -109980,7 +109901,7 @@ aaa
 aaa
 aaa
 aaa
-doT
+aaa
 aaa
 aaa
 aaa
@@ -113453,12 +113374,12 @@ awv
 axl
 ayk
 azf
-aAi
+aEf
 aBk
 aBk
 aCY
-aEf
-ayk
+diy
+aFk
 aFi
 aGn
 aGn
@@ -113972,7 +113893,7 @@ aBl
 aBl
 ayk
 diy
-aFk
+aex
 aFi
 aGn
 aDD
@@ -115614,7 +115535,7 @@ aaa
 aaa
 aaa
 aaa
-dfW
+aaa
 aaa
 aaa
 aaa
@@ -115990,7 +115911,7 @@ aaa
 aaa
 aaa
 aaa
-aex
+aaa
 aaa
 aaa
 aaa
@@ -123417,7 +123338,7 @@ aaa
 aaa
 aaa
 aaa
-aaw
+aaa
 aaa
 aaa
 aaa
@@ -125933,7 +125854,7 @@ aaa
 aaa
 aaa
 aaa
-drn
+aaa
 aaa
 aaa
 aaa
@@ -145547,7 +145468,7 @@ aaa
 aaa
 aaa
 aaa
-afy
+aaa
 aaa
 aaa
 aaa
@@ -152747,7 +152668,7 @@ aaa
 aaa
 aaa
 agz
-ahb
+abT
 aha
 ahK
 agZ
@@ -153695,7 +153616,7 @@ aaa
 aaa
 aaa
 aaa
-drW
+aaa
 aaa
 aaa
 aaa
@@ -155182,7 +155103,7 @@ aaa
 aaa
 aaa
 aaa
-cYz
+aaa
 aaa
 aaa
 aaa
