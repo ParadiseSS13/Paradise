@@ -26,9 +26,9 @@
 	var/datum/action/innate/slime_pick_up/slime_up_action = new
 	var/datum/action/innate/feed_slime/feed_slime_action = new
 	var/datum/action/innate/monkey_recycle/monkey_recycle_action = new
+	var/datum/action/innate/slime_scan/scan_action = new
 	var/datum/action/innate/feed_potion/potion_action = new
 	var/datum/action/innate/hotkey_help/hotkey_help = new
-	var/datum/action/innate/slime_scan/scan_action = new
 
 	var/list/stored_slimes = list()
 	var/max_slimes = 5
@@ -39,14 +39,7 @@
 	icon_screen = "slime_comp"
 	icon_keyboard = "rd_key"
 
-/obj/machinery/computer/camera_advanced/xenobio/CreateEye()
-	eyeobj = new /mob/camera/aiEye/remote/xenobio(get_turf(src))
-	eyeobj.origin = src
-	eyeobj.visible_icon = 1
-	eyeobj.icon = 'icons/obj/abductor.dmi'
-	eyeobj.icon_state = "camera_target"
-
-/obj/machinery/computer.camera_advanced/xenobio/New()
+/obj/machinery/camera_advanced/xenobio/New()
 	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
 		if(get_area(recycler.loc) == get_area(loc))
 			connected_recycler = recycler
@@ -58,6 +51,13 @@
 		S.forceMove(drop_location())
 	stored_slimes.Cut()
 	return ..()
+
+/obj/machinery/computer/camera_advanced/xenobio/CreateEye()
+	eyeobj = new /mob/camera/aiEye/remote/xenobio(get_turf(src))
+	eyeobj.origin = src
+	eyeobj.visible_icon = 1
+	eyeobj.icon = 'icons/obj/abductor.dmi'
+	eyeobj.icon_state = "camera_target"
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/carbon/user)
 	..()
@@ -249,8 +249,24 @@
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
+/datum/action/innate/slime_scan
+	name = "Scan Slime"
+	button_icon_state = "slime_scan"
+
+/datum/action/innate/slime_scan/Activate()
+	if(!target || !isliving(owner))
+		return
+	var/mob/living/C = owner
+	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+
+	if(cameranet.checkTurfVis(remote_eye.loc))
+		for(var/mob/living/carbon/slime/S in remote_eye.loc)
+			slime_scan(S, C)
+	else
+		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
+
 /datum/action/innate/feed_potion
-	name = "Transfer Potion"
+	name = "Apply Potion"
 	button_icon_state = "slime_potion"
 
 /datum/action/innate/feed_potion/Activate()
@@ -284,22 +300,6 @@
 	to_chat(owner, "Ctrl-click a slime to scan it.")
 	to_chat(owner, "Alt-click a slime to feed it a potion.")
 	to_chat(owner, "Ctrl-click or a dead monkey to recycle it, or the floor to place a new monkey.")
-
-/datum/action/innate/slime_scan
-	name = "Scan Slime"
-	button_icon_state = "slime_scan"
-
-/datum/action/innate/slime_scan/Activate()
-	if(!target || !isliving(owner))
-		return
-	var/mob/living/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
-
-	if(cameranet.checkTurfVis(remote_eye.loc))
-		for(var/mob/living/carbon/slime/S in remote_eye.loc)
-			slime_scan(S, C)
-	else
-		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console

@@ -28,8 +28,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	RefreshParts()
 
 /obj/machinery/monkey_recycler/Destroy()
-	if(src in GLOB.monkey_recyclers)
-		GLOB.monkey_recyclers -= src
+	GLOB.monkey_recyclers -= src
 	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
 		console.connected_recycler = null
 	return ..()
