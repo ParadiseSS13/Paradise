@@ -174,6 +174,12 @@
 		affected_mob.AdjustDizzy(-10)
 		affected_mob.AdjustDrowsy(-10)
 		affected_mob.SetSleeping(0)
+		affected_mob.SetSlowed(0)
+		affected_mob.SetConfused(0)
+		if(ishuman(affected_mob))
+			var/mob/living/carbon/human/H = affected_mob
+			if(H.traumatic_shock < 100)
+				H.shock_stage = 0
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)
