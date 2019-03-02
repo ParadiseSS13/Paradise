@@ -1,5 +1,0 @@
-author: "Nicaragua1"
-delete-after: True
-changes: 
-  - bugfix: "Bots now drop their proper robotic arm"
-  - tweak: "Honkbot drop is consistent with other bots"
