@@ -220,8 +220,8 @@ var/global/list/all_cults = list()
 	set_antag_hud(cult_mind.current, null)
 
 /datum/game_mode/proc/update_cult_comms_added(datum/mind/cult_mind)
-		var/datum/action/innate/cultcomm/C = new()
-		C.Grant(cult_mind.current)
+	var/datum/action/innate/cultcomm/C = new()
+	C.Grant(cult_mind.current)
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
