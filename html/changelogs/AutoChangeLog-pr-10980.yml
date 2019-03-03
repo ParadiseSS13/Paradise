@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes genetic powers always activating when injected"
+  - bugfix: "Fixes Diona being able to be speedy and irradiate themselves with genetic powers"
