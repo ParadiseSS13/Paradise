@@ -8,6 +8,7 @@
 	icon_state = "defibrillator_mount"
 	density = FALSE
 	use_power = IDLE_POWER_USE
+	anchored = TRUE
 	idle_power_usage = 1
 	power_channel = EQUIP
 	req_one_access = list(access_medical, access_heads) //used to control clamps
@@ -146,6 +147,7 @@
 	desc = "A frame for a defibrillator mount."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
+	sheets_refunded = 0
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	w_class = WEIGHT_CLASS_BULKY
 
