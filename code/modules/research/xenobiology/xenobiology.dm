@@ -359,7 +359,7 @@
 	qdel(src)
 
 /obj/item/slimepotion/speed/MouseDrop(obj/over_object)
-	if(istype(usr.loc, /obj/mecha) || usr.restrained() || usr.stat)
+	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
@@ -396,7 +396,7 @@
 		qdel(src)
 
 /obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
-	if(istype(usr.loc, /obj/mecha) || usr.restrained() || usr.stat)
+	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
