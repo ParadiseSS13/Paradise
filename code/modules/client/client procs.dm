@@ -311,9 +311,10 @@
 
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && address in localhost_addresses)
-		new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
+	if(!config.disable_localhost_admin)
+		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+		if(!isnull(address) && address in localhost_addresses)
+			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
