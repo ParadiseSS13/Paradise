@@ -305,8 +305,9 @@
 			var/mob/living/silicon/robot/R = loc
 			if(locate(src) in R.module.modules)
 				R.module.modules -= src
-		if(usr)
-			usr.unEquip(src, TRUE)
+		if(ismob(loc))
+			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
+			L.unEquip(src, TRUE)
 		qdel(src)
 		return TRUE
 	return FALSE
