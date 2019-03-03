@@ -17,7 +17,7 @@
 		if(bag.reagents.total_volume)
 			var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "hangingbag-fluid")
 			filling.icon += mix_color_from_reagents(bag.reagents.reagent_list)
-			add_overlay(overlays)
+			add_overlay(filling)
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
 	if(usr.incapacitated())
