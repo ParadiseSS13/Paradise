@@ -84,3 +84,5 @@ GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 var/copier_items_printed = 0
 var/copier_max_items = 300
 var/copier_items_printed_logged = FALSE
+// For TGS DMAPI
+var/global/client_count = 0

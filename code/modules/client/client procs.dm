@@ -282,6 +282,7 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	++global.client_count
 	var/tdata = TopicData //save this for later use
 	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
@@ -395,6 +396,7 @@
 //DISCONNECT//
 //////////////
 /client/Del()
+	--global.client_count
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
