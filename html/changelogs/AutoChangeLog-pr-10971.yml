@@ -1,4 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - bugfix: "Fixes #10815 - Cloned cultists now retain their Commune ability"
