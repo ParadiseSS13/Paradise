@@ -1,0 +1,5 @@
+author: "Nicaragua1"
+delete-after: True
+changes: 
+  - tweak: "Genewul Giftskee is less annoying"
+  - bugfix: "Fixed Griefsky acces and drop"
