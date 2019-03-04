@@ -63,6 +63,7 @@
 	var/new_destination		// pending new destination (waiting for beacon response)
 	var/destination			// destination description tag
 	var/next_destination	// the next destination in the patrol route
+	var/robot_arm = /obj/item/robot_parts/r_arm
 
 	var/blockcount = 0		//number of times retried a blocked path
 	var/awaiting_beacon	= 0	// count of pticks awaiting a beacon response
@@ -1106,3 +1107,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(I)
 		I.icon = null
 	path.Cut(1, 2)
+
+/mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
+	new drop_item(dropzone)

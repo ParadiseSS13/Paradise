@@ -72,8 +72,8 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Steal blood"
-	icon_icon = 'icons/obj/bloodpack.dmi'
-	button_icon_state = "full"
+	icon_icon = 'icons/goonstation/objects/iv.dmi'
+	button_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner
