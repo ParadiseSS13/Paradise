@@ -414,7 +414,7 @@
 	exclaim_verb = "snarls"
 	colour = "gutter"
 	key = "3"
-	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
+	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 
 /datum/language/clown
 	name = "Clownish"
@@ -425,6 +425,26 @@
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
+
+/datum/language/com_srus
+	name = "Neo-Russkiya"
+	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
+	speech_verb = "articulates"
+	whisper_verb = "mutters"
+	exclaim_verb = "exaggerates"
+	colour = "com_srus"
+	key = ">"
+	space_chance = 65
+	english_names = 1
+	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"

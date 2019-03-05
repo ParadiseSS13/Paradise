@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes invisible stacks in hands"
-  - bugfix: "Fixes invisible bluespace crystals"
