@@ -78,10 +78,11 @@
 			return 1
 	return 0
 
-//helper for getting the appropriate health status UPDATED BY PUCKABOO2 TO INCLUDE NEGATIVES.
+//helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
 	if(M.stat == DEAD || (M.status_flags & FAKEDEATH))
-		return "health-100" //what's our health? it doesn't matter, we're dead, or faking
+		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
+
 	var/maxi_health = M.maxHealth
 	if(iscarbon(M) && M.health < 0)
 		maxi_health = 100 //so crit shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
@@ -91,7 +92,7 @@
 		if(100 to INFINITY)
 			return "health100"
 		if(95 to 100)
-			return "health95" //For telling patients to eat a warm donk pocket and go on with their shift.
+			return "health95"
 		if(90 to 95)
 			return "health90"
 		if(80 to 90)
@@ -127,13 +128,13 @@
 		if(-70 to -60)
 			return "health-60"
 		if(-80 to -70)
-			return "health-70" //Doc?
+			return "health-70"
 		if(-90 to -80)
-			return "health-80" //Hey, doc?
+			return "health-80"
 		if(-100 to -90)
-			return "health-90" //HURRY UP, DOC!
+			return "health-90"
 		else
-			return "health-100" //doc u had 1 job
+			return "health-100" //past this point, you're just in trouble
 	return "0"
 
 
@@ -164,11 +165,6 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(stat == DEAD || (status_flags & FAKEDEATH))
-		if(timeofdeath)
-			var/tdelta = round(world.time - timeofdeath)
-			if(tdelta < (DEFIB_TIME_LIMIT * 10))
-				holder.icon_state = "huddefib"
-				return
 		holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"

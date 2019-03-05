@@ -209,7 +209,7 @@
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-	if(health >= config.health_threshold_crit)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
 			visible_message( \
