@@ -4,7 +4,7 @@
 
 /datum/sprite_accessory/hair/short
 	name = "Short Hair"	  // try to capatilize the names please~
-	icon_state = "short" // you do not need to define _s or _l sub-states, game automatically does this for you a 
+	icon_state = "short" // you do not need to define _s or _l sub-states, game automatically does this for you a
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/cut
@@ -683,3 +683,9 @@
 ///////////////////////////////////
 //////END POLARIS HAIRSTYLES///////
 //////////////////////////////////
+
+///Fluff HairStyles//
+datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
+	name = "Sasook Hair"
+	icon_state = "psalad_fluff_hair"
+	species_allowed = list("Slime People")
