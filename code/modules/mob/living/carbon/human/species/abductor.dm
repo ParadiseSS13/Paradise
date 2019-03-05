@@ -7,6 +7,7 @@
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"
 	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain/abductor,
