@@ -133,6 +133,7 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/hanheld_defibrillator
 	)
 
 /obj/item/storage/belt/medical/surgery
