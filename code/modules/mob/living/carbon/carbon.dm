@@ -216,7 +216,8 @@
 				text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
 				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
-
+			if(roundstart_quirks.len)
+				to_chat(src, "<span class='notice'>You have these quirks: [get_trait_string()].</span>")
 			var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
 			for(var/X in H.bodyparts)
 				var/obj/item/organ/external/LB = X

@@ -591,6 +591,14 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 		rename_character(oldname, newname)
 
+/mob/has_trait(trait, list/sources, check_mind=TRUE)
+	. = ..(trait, sources)
+	if(.)
+		return
+
+	if(check_mind && istype(mind))
+		return mind.has_trait(trait, sources)
+
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
 	var/leng = lentext(phrase)
@@ -643,3 +651,4 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 
 #define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+

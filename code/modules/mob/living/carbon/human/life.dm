@@ -917,9 +917,8 @@
 	if(isSynthetic())
 		return
 
-	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
+	if(reagents.has_reagent("formaldehyde") || has_trait(TRAIT_HUSK)) //embalming fluid stops decay
 		return
-
 	if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
 		return
 

@@ -22,3 +22,6 @@
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
+	
+/obj/item/choice_beacon/proc/generate_display_names() // return the list that will be used in the choice selection. entries should be in (type.name = type) fashion. see choice_beacon/hero for how this is done.
+	return list()

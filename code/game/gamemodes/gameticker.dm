@@ -371,6 +371,7 @@ var/round_start_time = 0
 				job_master.AssignRank(player, player.mind.assigned_role, 0)
 				job_master.EquipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
+				SSquirks.AssignQuirks(player, player.client, TRUE)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!istype(M,/mob/new_player))

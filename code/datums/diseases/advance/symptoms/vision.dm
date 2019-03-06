@@ -46,5 +46,5 @@ Bonus
 				if(eyes.damage >= 10)
 					M.BecomeNearsighted()
 					if(prob(eyes.damage - 10 + 1))
-						if(M.BecomeBlind())
+						if(!M.has_trait(TRAIT_BLIND) && M.BecomeBlind())
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")

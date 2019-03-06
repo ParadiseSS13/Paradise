@@ -14,6 +14,9 @@
 	if(D.GetDiseaseID() in resistances)
 		return FALSE
 
+	if(has_trait(TRAIT_NOBREATH) || has_trait(TRAIT_VIRUSIMMUNE))
+		return FALSE
+
 	if(HasDisease(D))
 		return FALSE
 

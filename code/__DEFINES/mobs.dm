@@ -46,6 +46,7 @@
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
 #define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
+#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
 
 //Mob attribute defaults.
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.

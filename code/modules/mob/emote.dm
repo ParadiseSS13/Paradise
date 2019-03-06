@@ -25,7 +25,6 @@
 
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
-
 	if(stat || !use_me && usr == src)
 		if(usr)
 			to_chat(usr, "You are unable to emote.")
@@ -57,6 +56,8 @@
  // Maybe some people are okay with that.
 
 		for(var/mob/M in GLOB.player_list)
+			if(M.has_trait(TRAIT_EMOTEMUTE))
+				break
 			if(!M.client)
 				continue //skip monkeys and leavers
 			if(istype(M, /mob/new_player))

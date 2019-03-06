@@ -29,7 +29,10 @@ Bonus
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
+			if(0, 1, 2, 3)
+				M.remove_trait(TRAIT_NOBREATH, DISEASE_TRAIT)
 			if(4, 5)
+				M.add_trait(TRAIT_NOBREATH, DISEASE_TRAIT)
 				if(M.reagents.get_reagent_amount("salbutamol") < 20)
 					M.reagents.add_reagent("salbutamol", 20)
 			else
