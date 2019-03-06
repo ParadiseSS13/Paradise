@@ -1050,7 +1050,7 @@
 */
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(NO_BLOOD in dna.species.species_traits)
+	if((NO_BLOOD in dna.species.species_traits) && !dna.species.forced_heartattack)
 		return FALSE
 	if(NO_INTORGANS in dna.species.species_traits)
 		return FALSE
