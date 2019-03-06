@@ -224,7 +224,7 @@
 	set name = "Toggle Karma Gains"
 	set category = "Special Verbs"
 	set desc = "This button will allow you to stop other people giving you karma."
-	if (prefs.toggles & DISABLE_KARMA)
+	if(prefs.toggles & DISABLE_KARMA)
 		wants_karma = FALSE
 		to_chat(usr, "<span class='notice'>You have disabled karma gains.")
 	else
