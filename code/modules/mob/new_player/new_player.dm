@@ -369,7 +369,7 @@
 
 	character = job_master.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
-
+	SSquirks.AssignQuirks(character, character.client, TRUE)
 	ticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == "Cyborg")
