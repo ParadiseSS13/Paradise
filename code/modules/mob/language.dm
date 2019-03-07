@@ -433,7 +433,7 @@
 	whisper_verb = "mutters"
 	exclaim_verb = "exaggerates"
 	colour = "com_srus"
-	key = ">"
+	key = "?"
 	space_chance = 65
 	english_names = 1
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
