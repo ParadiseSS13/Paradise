@@ -185,16 +185,24 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
-	var/is_seen = FALSE
+	var/sees_someone = FALSE
 	for(var/mob/living/L in oviewers(7, src))
-		if(L.ckey && L.client && && L.stat != DEAD)
-			is_seen = TRUE
-			break
-	if(is_seen)
-		to_chat(src, "<span class='userdanger'>You cannot do this while observed by another player. Go somewhere more secluded first.</span>")
+		if(!L.ckey)
+			continue
+		if(!L.client)
+			continue
+		if(L.stat == DEAD)
+			continue
+		if(L.invisibility >= see_invisible)
+			continue
+		sees_someone = TRUE
+		break
+	if(sees_someone)
+		to_chat(src, "<span class='userdanger'>You cannot do this while another player is nearby. Go somewhere more secluded first.</span>")
 		return
 
 	if(!warningmsg)
+		cryo_ssd(src)
 		ghostize(1)
 		force_cryo_human(src)
 	else
@@ -203,7 +211,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		StartResting()
+		cryo_ssd(src)
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 		force_cryo_human(src)
