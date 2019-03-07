@@ -433,6 +433,7 @@
 		CHECK_TICK
 
 /obj/item/storage/New()
+	..()
 	can_hold = typecacheof(can_hold)
 	cant_hold = typecacheof(cant_hold)
 
