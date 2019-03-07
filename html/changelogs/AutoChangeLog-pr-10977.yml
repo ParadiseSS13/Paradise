@@ -1,5 +1,0 @@
-author: "AzuleUtama"
-delete-after: True
-changes: 
-  - rscadd: "Uplink items now use tooltips for their descriptions."
-  - tweak: "Uplink reformatted slightly."
