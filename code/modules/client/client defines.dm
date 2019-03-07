@@ -60,7 +60,6 @@
 	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
-	var/wants_karma = TRUE // let's just keep it true as default for obvious reasons
 	/////////////////////////////////////////////
 	// /vg/: MEDIAAAAAAAA
 	// Set on login.
