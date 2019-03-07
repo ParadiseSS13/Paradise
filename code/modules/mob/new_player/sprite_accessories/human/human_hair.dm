@@ -685,7 +685,7 @@
 //////////////////////////////////
 
 ///Fluff HairStyles//
-datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
+/datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
 	name = "Sasook Hair"
 	icon_state = "psalad_fluff_hair"
 	species_allowed = list("Slime People")
