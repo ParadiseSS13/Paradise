@@ -185,21 +185,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
-	var/sees_someone = FALSE
-	for(var/mob/living/L in oviewers(7, src))
-		if(!L.ckey)
-			continue
-		if(!L.client)
-			continue
-		if(L.stat == DEAD)
-			continue
-		if(L.invisibility >= see_invisible)
-			continue
-		sees_someone = TRUE
-		break
-	if(sees_someone)
-		to_chat(src, "<span class='userdanger'>You cannot do this while another player is nearby. Go somewhere more secluded first.</span>")
-		return
+	if(stat == CONSCIOUS)
+		var/sees_someone = FALSE
+		for(var/mob/living/L in oviewers(7, src))
+			if(!L.ckey)
+				continue
+			if(!L.client)
+				continue
+			if(L.stat == DEAD)
+				continue
+			if(L.invisibility >= see_invisible)
+				continue
+			sees_someone = TRUE
+			break
+		if(sees_someone)
+			to_chat(src, "<span class='userdanger'>You cannot do this while another player is nearby. Go somewhere more secluded first.</span>")
+			return
 
 	if(!warningmsg)
 		if(stat == CONSCIOUS)
