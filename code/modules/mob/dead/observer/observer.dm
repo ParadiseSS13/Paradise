@@ -49,7 +49,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -185,8 +185,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
+	var/is_seen = FALSE
+	for(var/mob/living/L in oviewers(7, src))
+		if(L.ckey && L.client && && L.stat != DEAD)
+			is_seen = TRUE
+			break
+	if(is_seen)
+		to_chat(src, "<span class='userdanger'>You cannot do this while observed by another player. Go somewhere more secluded first.</span>")
+		return
+
 	if(!warningmsg)
 		ghostize(1)
+		force_cryo_human(src)
 	else
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
@@ -196,6 +206,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		StartResting()
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
+		force_cryo_human(src)
 	var/obj/structure/morgue/Morgue = locate() in M.loc
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
