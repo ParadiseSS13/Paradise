@@ -85,7 +85,7 @@ var/list/karma_spenders = list()
 		log_game("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return FALSE
-	if(!M.client.wants_karma)
+	if(M.get_preference(DISABLE_KARMA))
 		to_chat(src, "<span class='warning'>That player has turned off incoming karma.")
 		return FALSE
 	return TRUE
