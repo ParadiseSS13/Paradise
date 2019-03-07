@@ -298,7 +298,7 @@
 	if(traitor_mob.mind)
 		if(traitor_mob.mind.assigned_role == "Clown")
 			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			traitor_mob.mutations.Remove(CLUMSY)
+			traitor_mob.remove_trait(TRAIT_CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(traitor_mob)
 

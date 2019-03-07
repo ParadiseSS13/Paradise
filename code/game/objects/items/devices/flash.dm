@@ -21,7 +21,7 @@
 	var/use_sound = 'sound/weapons/flash.ogg'
 
 /obj/item/flash/proc/clown_check(mob/user)
-	if(user && (CLUMSY in user.mutations) && prob(50))
+	if(user && user.has_trait(TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 15, 0)
 		return 0
 	return 1

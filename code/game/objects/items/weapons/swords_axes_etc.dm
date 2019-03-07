@@ -30,7 +30,7 @@
 /obj/item/melee/classic_baton/attack(mob/target as mob, mob/living/user as mob)
 	if(on)
 		add_fingerprint(user)
-		if((CLUMSY in user.mutations) && prob(50))
+		if(user.has_trait(TRAIT_CLUMSY) && prob(50))
 			to_chat(user, "<span class ='danger'>You club yourself over the head.</span>")
 			user.Weaken(3 * force)
 			if(ishuman(user))

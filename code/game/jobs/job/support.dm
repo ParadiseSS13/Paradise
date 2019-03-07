@@ -249,7 +249,7 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.mutations.Add(CLUMSY)
+	H.add_trait(TRAIT_CLUMSY)
 	if(!ismachine(H))
 		H.mutations.Add(COMIC)
 
@@ -260,7 +260,7 @@
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Add(CLUMSY)
+	H.add_trait(TRAIT_CLUMSY)
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
@@ -268,7 +268,7 @@
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Remove(CLUMSY)
+	H.remove_trait(TRAIT_CLUMSY)
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()

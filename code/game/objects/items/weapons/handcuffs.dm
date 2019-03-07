@@ -24,7 +24,7 @@
 	if(!istype(C))
 		return
 
-	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
+	if(user.has_trait(TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
 

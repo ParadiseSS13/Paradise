@@ -19,7 +19,7 @@
 		if(!armed)
 			if(ishuman(usr))
 				var/mob/living/carbon/human/user = usr
-				if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+				if((user.getBrainLoss() >= 60 || user.has_trait(TRAIT_CLUMSY)) && prob(50))
 					to_chat(user, "Your hand slips, setting off the trigger.")
 					pulse(0)
 		update_icon()
@@ -68,7 +68,7 @@
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || user.has_trait(TRAIT_CLUMSY)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"

@@ -227,9 +227,9 @@
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
-	M.mutations.Add(CLUMSY)
+	M.add_trait(TRAIT_CLUMSY)
 	M.mutations.Add(COMICBLOCK)
-	M.dna.SetSEState(CLUMSYBLOCK,1,1)
+	//M.dna.SetSEState(CLUMSYBLOCK,1,1)
 	M.dna.SetSEState(COMICBLOCK,1,1)
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
