@@ -202,19 +202,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(!warningmsg)
-		cryo_ssd(src)
+		if(stat == CONSCIOUS)
+			cryo_ssd(src)
 		ghostize(1)
-		force_cryo_human(src)
+		if(stat == CONSCIOUS)
+			force_cryo_human(src)
 	else
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		cryo_ssd(src)
+		if(stat == CONSCIOUS)
+			cryo_ssd(src)
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
-		force_cryo_human(src)
+		if(stat == CONSCIOUS)
+			force_cryo_human(src)
 	var/obj/structure/morgue/Morgue = locate() in M.loc
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
