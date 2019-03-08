@@ -74,7 +74,7 @@
 	list_reagents = list("nutriment" = 5, "gravy" = 5, "mashedpotatoes" = 10, "vitamin" = 2)
 
 /obj/item/reagent_containers/food/snacks/stuffing
-	name = "Stuffing"
+	name = "stuffing"
 	desc = "Moist, peppery breadcrumbs for filling the body cavities of dead birds. Dig in!"
 	icon_state = "stuffing"
 	filling_color = "#C9AC83"
@@ -88,7 +88,7 @@
 	list_reagents = list("nutriment" = 6)
 
 /obj/item/reagent_containers/food/snacks/boiledrice
-	name = "Boiled Rice"
+	name = "boiled rice"
 	desc = "A boring dish of boring rice."
 	icon_state = "boiledrice"
 	trash = /obj/item/trash/snack_bowl

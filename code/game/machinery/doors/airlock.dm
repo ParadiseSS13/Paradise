@@ -90,9 +90,9 @@ var/list/airlock_overlays = list()
 
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
-	var/doorDeni = 'sound/machines/DeniedBeep.ogg' // i'm thinkin' Deni's
-	var/boltUp = 'sound/machines/BoltsUp.ogg'
-	var/boltDown = 'sound/machines/BoltsDown.ogg'
+	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
+	var/boltUp = 'sound/machines/boltsup.ogg'
+	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = 0
 
 /obj/machinery/door/airlock/welded
@@ -645,11 +645,11 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
 			return
 		wires.Interact(user)
-
-	if(iszombie(user)) //From attack_alien
+//ZOMBIE CODE
+	if(iszombie(user))
 		add_fingerprint(user)
 		if(isElectrified())
-			shock(user, 100)
+			shock(user, 50)
 			return
 		if(!density) //Already open
 			return
@@ -659,19 +659,17 @@ About the new airlock wires panel:
 		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 							"<span class='noticealien'>You begin digging your hands into [src] with all your might!</span>",\
 							"<span class='warning'>You hear groaning metal...</span>")
-		var/time_to_open = 20
+		var/time_to_open = 15
 		if(arePowerSystemsOn())
-			time_to_open = 90 //Powered airlocks take longer to open, and are loud.
+			time_to_open = 60 //Powered airlocks take longer to open, and are loud.
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
-
 
 		if(do_after(user, time_to_open, target = src))
 			if(density && !open(1)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 				to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
-
 	else
 		..()
-
+//END ZOMBIE CODE
 
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
@@ -1349,7 +1347,7 @@ About the new airlock wires panel:
 			else return FALSE
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
-			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 		note.forceMove(get_turf(user))
 		note = null
 		update_icon()

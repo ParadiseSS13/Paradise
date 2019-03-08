@@ -18,14 +18,14 @@
 // ***********************************************************
 
 /obj/item/reagent_containers/food/snacks/chocolatebar
-	name = "Chocolate Bar"
+	name = "chocolate bar"
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 
 /obj/item/reagent_containers/food/snacks/candy/caramel
-	name = "Caramel"
+	name = "caramel"
 	desc = "Chewy and dense, yet it practically melts in your mouth!"
 	icon_state = "caramel"
 	filling_color = "#DB944D"
@@ -33,21 +33,21 @@
 
 
 /obj/item/reagent_containers/food/snacks/candy/toffee
-	name = "Toffee"
+	name = "toffee"
 	desc = "A hard, brittle candy with a distinctive taste."
 	icon_state = "toffee"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/nougat
-	name = "Nougat"
+	name = "nougat"
 	desc = "A soft, chewy candy commonly found in candybars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/taffy
-	name = "Saltwater Taffy"
+	name = "saltwater taffy"
 	desc = "Old fashioned saltwater taffy. Chewy!"
 	icon_state = "candy1"
 	filling_color = "#7D5F46"
@@ -58,7 +58,7 @@
 	icon_state = pick("candy1", "candy2", "candy3", "candy4", "candy5")
 
 /obj/item/reagent_containers/food/snacks/candy/fudge
-	name = "Fudge"
+	name = "fudge"
 	desc = "Chocolate fudge, a timeless classic treat."
 	icon_state = "fudge"
 	filling_color = "#7D5F46"
@@ -66,26 +66,26 @@
 	list_reagents = list("cream" = 3, "chocolate" = 6)
 
 /obj/item/reagent_containers/food/snacks/candy/fudge/peanut
-	name = "Peanut Fudge"
+	name = "peanut fudge"
 	desc = "Chocolate fudge, with bits of peanuts mixed in. People with nut allergies shouldn't eat this."
 	icon_state = "fudge_peanut"
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/fudge/cherry
-	name = "Chocolate Cherry Fudge"
+	name = "chocolate cherry fudge"
 	desc = "Chocolate fudge surrounding sweet cherries. Good for tricking kids into eating some fruit."
 	icon_state = "fudge_cherry"
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/fudge/cookies_n_cream
-	name = "Cookies 'n' Cream Fudge"
+	name = "cookies 'n' cream fudge"
 	desc = "An extra creamy fudge with bits of real chocolate cookie mixed in. Crunchy!"
 	icon_state = "fudge_cookies_n_cream"
 	filling_color = "#7D5F46"
 	list_reagents = list("cream" = 6, "chocolate" = 6)
 
 /obj/item/reagent_containers/food/snacks/candy/fudge/turtle
-	name = "Turtle Fudge"
+	name = "turtle fudge"
 	desc = "Chocolate fudge with caramel and nuts. It doesn't contain real turtles, thankfully."
 	icon_state = "fudge_turtle"
 	filling_color = "#7D5F46"
@@ -95,7 +95,7 @@
 // ***********************************************************
 
 /obj/item/reagent_containers/food/snacks/candy/donor
-	name = "Donor Candy"
+	name = "donor candy"
 	desc = "A little treat for blood donors."
 	trash = /obj/item/trash/candy
 	bitesize = 5
@@ -516,7 +516,7 @@
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/toffee
-	name = "Yum-baton Bar"
+	name = "Yum-Baton Bar"
 	desc = "Chocolate and toffee in the shape of a baton. Security sure knows how to pound these down!"
 	icon_state = "yumbaton"
 	filling_color = "#7D5F46"

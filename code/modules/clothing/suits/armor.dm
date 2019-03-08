@@ -440,7 +440,7 @@
 	name = "emergency response team security armor"
 	desc = "A set of armor worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "ertarmor_sec"
-	
+
 
 /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	name = "emergency response team paranormal armor"
@@ -465,3 +465,15 @@
 	name = "emergency response team janitor armor"
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "ertarmor_jan"
+
+//same defense as basic sec armor
+/obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
+	allowed = list(/obj/item/tank/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	cold_protection = UPPER_TORSO|LOWER_TORSO
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	burn_state = FIRE_PROOF
+	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)

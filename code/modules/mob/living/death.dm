@@ -56,6 +56,9 @@
 	SetJitter(0)
 	SetLoseBreath(0)
 
+	if(!gibbed && deathgasp_on_death)
+		emote("deathgasp")
+
 	if(suiciding)
 		mind.suicided = TRUE
 	clear_fullscreens()
@@ -64,6 +67,8 @@
 
 	med_hud_set_health()
 	med_hud_set_status()
+	if(!gibbed && !QDELETED(src))
+		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 1)
 	callHook("death", list(src, gibbed))
 
 	for(var/s in ownedSoullinks)
@@ -86,6 +91,8 @@
 
 	if(ticker && ticker.mode)
 		ticker.mode.check_win()
+	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
+		mind.devilinfo.beginResurrectionCheck(src)
 
 	// u no we dead
 	return TRUE

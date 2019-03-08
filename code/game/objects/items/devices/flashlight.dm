@@ -84,6 +84,11 @@
 	else
 		return ..()
 
+/obj/item/flashlight/extinguish_light()
+	if(on)
+		on = FALSE
+		update_brightness()
+
 /obj/item/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff."
@@ -122,7 +127,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
-	on = 1
+	on = TRUE
 
 
 // green-shaded desk lamp
@@ -142,7 +147,7 @@
 		attack_self(usr)
 
 //Bananalamp
-obj/item/flashlight/lamp/bananalamp
+/obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
@@ -154,23 +159,24 @@ obj/item/flashlight/lamp/bananalamp
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	w_class = WEIGHT_CLASS_SMALL
-	brightness_on = 8 // Made it brighter (from 7 to 8).
-	light_color = "#ff0000" // changed colour to a more brighter red.
+	brightness_on = 8
+	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
+	var/fuel_lower = 800
+	var/fuel_upp = 1000
 
 /obj/item/flashlight/flare/New()
-	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
+	fuel = rand(fuel_lower, fuel_upp)
 	..()
 
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
-	if(pos)
+	if(pos && produce_heat)
 		pos.hotspot_expose(produce_heat, 5)
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
@@ -178,6 +184,10 @@ obj/item/flashlight/lamp/bananalamp
 		if(!fuel)
 			src.icon_state = "[initial(icon_state)]-empty"
 		processing_objects -= src
+
+/obj/item/flashlight/flare/Destroy()
+	processing_objects.Remove(src)
+	..()
 
 /obj/item/flashlight/flare/proc/turn_off()
 	on = 0
@@ -209,10 +219,86 @@ obj/item/flashlight/lamp/bananalamp
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message("<span class='notice'>[user] activates the flare.</span>", "<span class='notice'>You pull the cord on the flare, activating it!</span>")
+		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
+
+// GLOWSTICKS
+
+/obj/item/flashlight/flare/glowstick
+	name = "green glowstick"
+	desc = "A military-grade glowstick."
+	brightness_on = 4
+	color = LIGHT_COLOR_GREEN
+	icon_state = "glowstick"
+	item_state = "glowstick"
+	togglesound = 'sound/effects/bone_break_1.ogg'
+	produce_heat = 0
+	fuel_lower = 1600
+	fuel_upp = 2000
+
+/obj/item/flashlight/flare/glowstick/Initialize()
+	light_color = color
+	..()
+
+/obj/item/flashlight/flare/glowstick/update_icon()
+	item_state = "glowstick"
+	cut_overlays()
+	if(!fuel)
+		icon_state = "glowstick-empty"
+		cut_overlays()
+		update_brightness(0)
+	else if(on)
+		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+		glowstick_overlay.color = color
+		add_overlay(glowstick_overlay)
+		item_state = "glowstick-on"
+		update_brightness(brightness_on)
+	else
+		icon_state = "glowstick"
+		cut_overlays()
+
+/obj/item/flashlight/flare/glowstick/red
+	name = "red glowstick"
+	color = LIGHT_COLOR_RED
+
+/obj/item/flashlight/flare/glowstick/blue
+	name = "blue glowstick"
+	color = LIGHT_COLOR_BLUE
+
+/obj/item/flashlight/flare/glowstick/orange
+	name = "orange glowstick"
+	color = LIGHT_COLOR_ORANGE
+
+/obj/item/flashlight/flare/glowstick/yellow
+	name = "yellow glowstick"
+	color = LIGHT_COLOR_YELLOW
+
+/obj/item/flashlight/flare/glowstick/pink
+	name = "pink glowstick"
+	color = LIGHT_COLOR_PINK
+
+/obj/item/flashlight/flare/glowstick/emergency
+	name = "emergency glowstick"
+	desc = "A cheap looking, mass produced glowstick. You can practically feel it was made on a tight budget."
+	color = LIGHT_COLOR_BLUE
+	fuel_lower = 30
+	fuel_upp = 90
+
+/obj/item/flashlight/flare/glowstick/random
+	name = "random colored glowstick"
+	icon_state = "random_glowstick"
+	color = null
+
+/obj/item/flashlight/flare/glowstick/random/Initialize()
+	..()
+	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
+	new T(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/item/flashlight/flare/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -234,7 +320,7 @@ obj/item/flashlight/lamp/bananalamp
 	brightness_on = 6
 	light_color = "#FFBF00"
 	materials = list()
-	on = 1 //Bio-luminesence has one setting, on.
+	on = TRUE //Bio-luminesence has one setting, on.
 
 /obj/item/flashlight/slime/New()
 	set_light(brightness_on)
@@ -244,6 +330,9 @@ obj/item/flashlight/lamp/bananalamp
 
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
+
+/obj/item/flashlight/slime/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
@@ -304,110 +393,3 @@ obj/item/flashlight/lamp/bananalamp
 	var/range = null
 	unacidable = TRUE
 	burn_state = LAVA_PROOF
-
-/obj/item/flashlight/glowstick
-	name = "green glowstick"
-	desc = "A military-grade glowstick."
-	w_class = WEIGHT_CLASS_SMALL
-	brightness_on = 4
-	color = LIGHT_COLOR_GREEN
-	icon_state = "glowstick"
-	item_state = "glowstick"
-	togglesound = 'sound/effects/bone_break_1.ogg'
-	var/fuel = 0
-	var/fuel_lower = 1600
-	var/fuel_upp = 2000
-
-/obj/item/flashlight/glowstick/Initialize()
-	fuel = rand(fuel_lower, fuel_upp)
-	light_color = color
-	. = ..()
-
-/obj/item/flashlight/glowstick/Destroy()
-	processing_objects.Remove(src)
-	. = ..()
-
-/obj/item/flashlight/glowstick/process()
-	fuel = max(fuel - 1, 0)
-	if(!fuel)
-		turn_off()
-		processing_objects.Remove(src)
-		update_icon()
-
-/obj/item/flashlight/glowstick/proc/turn_off()
-	on = FALSE
-	update_icon()
-
-/obj/item/flashlight/glowstick/update_icon()
-	item_state = "glowstick"
-	cut_overlays()
-	if(!fuel)
-		icon_state = "glowstick-empty"
-		cut_overlays()
-		update_brightness(0)
-	else if(on)
-		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
-		glowstick_overlay.color = color
-		add_overlay(glowstick_overlay)
-		item_state = "glowstick-on"
-		update_brightness(brightness_on)
-	else
-		icon_state = "glowstick"
-		cut_overlays()
-
-/obj/item/flashlight/glowstick/attack_self(mob/user)
-	if(!fuel)
-		to_chat(user, "<span class='notice'>[src] is spent.</span>")
-		return
-	if(on)
-		to_chat(user, "<span class='notice'>[src] is already lit.</span>")
-		return
-
-	. = ..()
-	if(.)
-		user.visible_message("<span class='notice'>[user] cracks and shakes [src].</span>", "<span class='notice'>You crack and shake [src], turning it on!</span>")
-		activate()
-
-/obj/item/flashlight/glowstick/proc/activate()
-	if(!on)
-		on = TRUE
-		processing_objects.Add(src)
-		update_icon()
-
-/obj/item/flashlight/glowstick/red
-	name = "red glowstick"
-	color = LIGHT_COLOR_RED
-
-/obj/item/flashlight/glowstick/blue
-	name = "blue glowstick"
-	color = LIGHT_COLOR_BLUE
-
-/obj/item/flashlight/glowstick/orange
-	name = "orange glowstick"
-	color = LIGHT_COLOR_ORANGE
-
-/obj/item/flashlight/glowstick/yellow
-	name = "yellow glowstick"
-	color = LIGHT_COLOR_YELLOW
-
-/obj/item/flashlight/glowstick/pink
-	name = "pink glowstick"
-	color = LIGHT_COLOR_PINK
-
-/obj/item/flashlight/glowstick/emergency
-	name = "emergency glowstick"
-	desc = "A cheap looking, mass produced glowstick. You can practically feel it was made on a tight budget."
-	color = LIGHT_COLOR_BLUE
-	fuel_lower = 30
-	fuel_upp = 90
-
-/obj/item/flashlight/glowstick/random
-	name = "random colored glowstick"
-	icon_state = "random_glowstick"
-	color = null
-
-/obj/item/flashlight/glowstick/random/Initialize()
-	..()
-	var/T = pick(typesof(/obj/item/flashlight/glowstick) - /obj/item/flashlight/glowstick/random)
-	new T(loc)
-	return INITIALIZE_HINT_QDEL

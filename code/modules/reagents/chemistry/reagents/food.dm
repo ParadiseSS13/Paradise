@@ -23,6 +23,7 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	taste_message = null
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -57,7 +58,7 @@
 	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
 	reagent_state = SOLID
 	color = "#664330" // rgb: 102, 67, 48
-	taste_message = null
+	taste_message = "nutrition"
 
 /datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -272,6 +273,7 @@
 	reagent_state = SOLID
 	color = "#B1B0B0"
 	overdose_threshold = 100
+	taste_strength = 2
 	taste_message = "salt"
 
 /datum/reagent/consumable/sodiumchloride/overdose_process(mob/living/M, severity)
@@ -324,7 +326,7 @@
 	id = "sprinkles"
 	description = "Multi-colored little bits of sugar, commonly found on donuts. Loved by cops."
 	color = "#FF00FF" // rgb: 255, 0, 255
-	taste_message = "sweetness"
+	taste_message = "crunchy sweetness"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -433,7 +435,7 @@
 	description = "Blue and tastier kind of cherry jelly."
 	reagent_state = LIQUID
 	color = "#00F0FF"
-	taste_message = "cherry jelly"
+	taste_message = "the blues"
 
 /datum/reagent/consumable/egg
 	name = "Egg"
@@ -462,7 +464,7 @@
 	description = "A sweet syrup derived from corn starch that has had its starches converted into maltose and other sugars."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	taste_message = "sweetness"
+	taste_message = "cheap sugar substitute"
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 1.2)
@@ -502,7 +504,7 @@
 	id = "onionjuice"
 	description = "A strong tasting substance that can induce partial blindness."
 	color = "#c0c9a0"
-	taste_message = "bitterness"
+	taste_message = "pungency"
 
 /datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(method == TOUCH)
@@ -708,7 +710,7 @@
 	description = "A paste comprised of highly-processed organic material. Uncomfortably similar to deviled ham spread."
 	reagent_state = LIQUID
 	color = "#EBD7D7"
-	taste_message = "meat"
+	taste_message = "meat?"
 
 /datum/reagent/consumable/meatslurry/on_mob_life(mob/living/M)
 	if(prob(4))
@@ -810,6 +812,7 @@
 	color = "#F5F5F5"
 	metabolization_rate = 0.2
 	taste_message = "excellent cuisine"
+	taste_strength = 4
 
 /datum/reagent/msg/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

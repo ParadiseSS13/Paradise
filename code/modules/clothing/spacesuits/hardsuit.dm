@@ -57,6 +57,11 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light()
+	if(on)
+		toggle_light()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == slot_head)
 		return 1
@@ -339,7 +344,7 @@
 		linkedsuit = loc
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
-	
+
 	if(!linkedsuit)
 		to_chat(user, "<span class='notice'>You must attach the helmet to a syndicate hardsuit to toggle combat mode!</span>")
 		return
@@ -462,6 +467,16 @@
 		name = "elite syndicate hardsuit (combat)"
 		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
 
+//Strike team hardsuits
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100)
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"
@@ -479,15 +494,15 @@
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
 	item_color = "wiz"
-	unacidable = 1 //No longer shall our kind be foiled by lone chemists with spray bottles!
+	unacidable = TRUE //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	unacidable = 1
 	species_fit = list("Grey")
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
+	magical = TRUE
 
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
@@ -495,13 +510,13 @@
 	desc = "A bizarre gem-encrusted suit that radiates magical energies."
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
-	unacidable = 1
+	unacidable = TRUE
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/teleportation_scroll,/obj/item/tank)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
-	unacidable = 1
 	sprite_sheets = null
+	magical = TRUE
 
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
@@ -634,7 +649,7 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/process()
 	if(world.time > recharge_cooldown && current_charges < max_charges)
 		current_charges = Clamp((current_charges + recharge_rate), 0, max_charges)
-		playsound(loc, 'sound/magic/Charge.ogg', 50, 1)
+		playsound(loc, 'sound/magic/charge.ogg', 50, 1)
 		if(current_charges == max_charges)
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 			processing_objects.Remove(src)

@@ -4,7 +4,7 @@
 	traitors_possible = 2//hard limit on traitors if scaling is turned off
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
 	restricted_jobs = list("AI", "Cyborg")
-	required_players = 12
+	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 2
 	var/protected_species_vampire = list("Machine")

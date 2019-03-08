@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 	flags_2 = NO_MAT_REDEMPTION_2
 	req_access = list(access_engine)
 
@@ -456,20 +456,24 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 /obj/item/rcd/proc/checkResource(amount, mob/user)
 	return matter >= amount
 
+/obj/item/rcd/borg
+	canRwall = 1
+	var/use_multiplier = 160
+
+/obj/item/rcd/borg/syndicate
+	use_multiplier = 80
+
 /obj/item/rcd/borg/useResource(amount, mob/user)
 	if(!isrobot(user))
 		return 0
 	var/mob/living/silicon/robot/R = user
-	return R.cell.use(amount * 160)
+	return R.cell.use(amount * use_multiplier)
 
 /obj/item/rcd/borg/checkResource(amount, mob/user)
 	if(!isrobot(user))
 		return 0
 	var/mob/living/silicon/robot/R = user
-	return R.cell.charge >= (amount * 160)
-
-/obj/item/rcd/borg
-	canRwall = 1
+	return R.cell.charge >= (amount * use_multiplier)
 
 /obj/item/rcd/proc/detonate_pulse()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and \

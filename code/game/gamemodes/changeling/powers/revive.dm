@@ -55,6 +55,7 @@
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()
+	user.mind.changeling.regenerating = FALSE
 
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")
 

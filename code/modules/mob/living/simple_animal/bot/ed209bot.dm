@@ -36,12 +36,12 @@
 	var/target_lastloc //Loc of target when arrested.
 	var/last_found //There's a delay
 	var/declare_arrests = 1 //When making an arrest, should it notify everyone wearing sechuds?
-	var/idcheck = 1 //If true, arrest people with no IDs
+	var/idcheck = 0 //If true, arrest people with no IDs
 	var/weaponscheck = 1 //If true, arrest people for weapons if they don't have access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
-	var/shoot_sound = 'sound/weapons/Taser.ogg'
+	var/shoot_sound = 'sound/weapons/taser.ogg'
 
 
 /mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
@@ -357,7 +357,7 @@
 			target = C
 			oldtarget_name = C.name
 			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/EDPlaceholder.ogg'), 50, 0)
+			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			spawn(0)
@@ -387,11 +387,11 @@
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/bluetag/G = new /obj/item/gun/energy/laser/bluetag(Tsec)
+		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/redtag/G = new /obj/item/gun/energy/laser/redtag(Tsec)
+		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 
@@ -416,7 +416,7 @@
 	..()
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
-	shoot_sound = 'sound/weapons/Laser.ogg'
+	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler
@@ -424,7 +424,7 @@
 			projectile = /obj/item/projectile/beam
 	else
 		if(!lasercolor)
-			shoot_sound = 'sound/weapons/Taser.ogg'
+			shoot_sound = 'sound/weapons/taser.ogg'
 			projectile = /obj/item/projectile/energy/electrode
 		else if(lasercolor == "b")
 			projectile = /obj/item/projectile/beam/lasertag/bluetag
@@ -553,18 +553,11 @@
 	icon_state = "[lasercolor]ed209-c"
 	spawn(2)
 		icon_state = "[lasercolor]ed209[on]"
-	var/threat = 5
-	if(istype(C, /mob/living/carbon/human))
-		C.stuttering = 5
-		C.Stun(5)
-		C.Weaken(5)
-		var/mob/living/carbon/human/H = C
-		threat = H.assess_threat(src)
-	else
-		C.Weaken(5)
-		C.stuttering = 5
-		C.Stun(5)
-	add_attack_logs(src, C, "Stunned by [src]")
+	var/threat = C.assess_threat(src)
+	C.SetStuttering(5)
+	C.Stun(5)
+	C.Weaken(5)
+	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)

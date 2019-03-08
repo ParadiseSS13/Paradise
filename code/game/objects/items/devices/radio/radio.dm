@@ -256,9 +256,10 @@ var/global/list/default_medbay_channels = list(
 			break
 	if(jammed)
 		message = Gibberish(message, 100)
+	var/list/message_pieces = message_to_multilingual(message)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
-						message, from, "Automated Announcement", from, "synthesized voice",
+						message_pieces, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, zlevel, connection.frequency, follow_target = follow_target)
 	qdel(A)
 

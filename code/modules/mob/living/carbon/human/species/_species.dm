@@ -315,7 +315,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -351,26 +351,29 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block()) //cqc
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
-	//zombie code
-	if(iszombie(user) && prob(70))
+	//ZOMBIE CODE
+	if(iszombie(user))
 		var/mob/living/L = target
 		var/poison_per_bite = 10
 		var/poison_type = "virush"
 		if(L.reagents)
 			L.reagents.add_reagent("virush", poison_per_bite)
-			if(prob(poison_per_bite))
-				to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
-				L.reagents.add_reagent(poison_type, poison_per_bite)
-				//end zombie code
+			to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
+			L.reagents.add_reagent(poison_type, poison_per_bite)
+		//END ZOMBIE CODE
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
 		user.do_attack_animation(target, attack.animation_type)
+		if(attack.harmless)
+			playsound(target.loc, attack.attack_sound, 25, 1, -1)
+			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
 		if(!iscarbon(user))
@@ -392,7 +395,6 @@
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
@@ -401,6 +403,7 @@
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
+		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block()) //cqc
@@ -520,14 +523,7 @@
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
-
-/datum/unarmed_attack/zombie
-	attack_verb = list("bites", "slash")
-	damage = 5
-	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	animation_type = ATTACK_EFFECT_BITE
-
+	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -548,6 +544,14 @@
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
 	damage = 6
+
+/datum/unarmed_attack/zombie
+	attack_verb = list("bites", "slash")
+	damage = 6
+	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	animation_type = ATTACK_EFFECT_BITE
+
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return FALSE
@@ -728,8 +732,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		H.see_in_dark = max(H.see_in_dark, 8)
-		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
@@ -737,6 +739,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+
+/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
+	return TRUE
+
+/datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

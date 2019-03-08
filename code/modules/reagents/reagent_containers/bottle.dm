@@ -206,6 +206,16 @@
 	desc = "A bottle of the ever-changing quantum hair dye."
 	list_reagents = list("hair_dye" = 50)
 
+/obj/item/reagent_containers/glass/bottle/reagent/omnizine
+	name = "Omnizine Bottle"
+	desc = "A reagent bottle. Contains Omnizine."
+	list_reagents = list("omnizine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
+	name = "Strange Reagent Bottle"
+	desc = "A bottle of glowing fluid."
+	list_reagents = list("strange_reagent" = 30)
+
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
 /obj/item/reagent_containers/glass/bottle/traitor
@@ -326,20 +336,20 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/tuberculosis
 
+/obj/item/reagent_containers/glass/bottle/regeneration
+	name = "Regeneration culture bottle"
+	desc = "A small bottle. Contains a sample of a virus that heals toxin damage."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/heal
+
+/obj/item/reagent_containers/glass/bottle/sensory_restoration
+	name = "Sensory Restoration culture bottle"
+	desc = "A small bottle. Contains a sample of a virus that heals sensory damage."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/sensory_restoration
+
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure
 	name = "BVAK bottle"
 	desc = "A small bottle containing Bio Virus Antidote Kit."
 	icon_state = "wide_bottle"
 	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
-
-/obj/item/reagent_containers/glass/bottle/virush
-	name = "VirusH bottle"
-	desc = "A small bottle containing VirusH."
-	icon_state = "wide_bottle"
-	list_reagents = list("virush" = 30)
-
-/obj/item/reagent_containers/glass/bottle/virushcure
-	name = "MCS"
-	desc = "A small bottle containing mother cell stabilizer."
-	icon_state = "wide_bottle"
-	list_reagents = list("virushcure" = 30)

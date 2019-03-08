@@ -107,6 +107,8 @@ var/const/access_trade_sol = 160
 //Awaymissions
 /var/const/access_away01 = 271
 
+//Ghost roles
+var/const/access_free_golems = 300
 
 /obj/var/list/req_access = null
 /obj/var/req_access_txt = "0"

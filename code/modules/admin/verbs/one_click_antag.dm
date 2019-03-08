@@ -415,7 +415,7 @@ client/proc/one_click_antag()
 	new_syndicate_commando.mind_initialize()
 	new_syndicate_commando.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
-
+	new_syndicate_commando.mind.offstation_role = TRUE
 	//Adds them to current traitor list. Which is really the extra antagonist list.
 	ticker.mode.traitors += new_syndicate_commando.mind
 	new_syndicate_commando.equip_syndicate_commando(syndicate_leader_selected)

@@ -46,6 +46,17 @@
 	to_chat(usr, "You will [(prefs.sound & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
 	feedback_add_details("admin_verb","AHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/togglementorhelpsound()
+	set name = "Hear/Silence Mentorhelp Bwoinks"
+	set category = "Preferences"
+	set desc = "Toggle hearing a notification when mentorhelps are recieved"
+	if(!holder)
+		return
+	prefs.sound ^= SOUND_MENTORHELP
+	prefs.save_preferences(src)
+	to_chat(usr, "You will [(prefs.sound & SOUND_MENTORHELP) ? "now" : "no longer"] hear a sound when mentorhelps arrive.")
+	feedback_add_details("admin_verb","MHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/deadchat() // Deadchat toggle is usable by anyone.
 	set name = "Show/Hide Deadchat"
 	set category = "Preferences"
@@ -196,3 +207,15 @@
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
+
+/client/verb/toggle_darkmode()
+	set name = "Toggle Darkmode"
+	set category = "Preferences"
+	set desc = "Toggles UI style between dark and light"
+	prefs.toggles ^= UI_DARKMODE
+	prefs.save_preferences(src)
+	if(prefs.toggles & UI_DARKMODE)
+		activate_darkmode()
+	else
+		deactivate_darkmode()
+	feedback_add_details("admin_verb","TDarkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
