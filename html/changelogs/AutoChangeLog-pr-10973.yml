@@ -1,0 +1,4 @@
+author: "Jazz23"
+delete-after: True
+changes: 
+  - rscadd: "Mousedrop applies slime speed/chill potions."
