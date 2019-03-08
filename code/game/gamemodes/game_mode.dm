@@ -522,7 +522,7 @@ proc/display_roundstart_logout_report()
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, "hudunknown1")
+	set_antag_hud(mob_mind.current, "hudevent")
 
 /datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
