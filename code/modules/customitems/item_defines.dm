@@ -698,6 +698,84 @@
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
 
+/obj/item/gun/projectile/revolver/fluff_patch // sniper_fairy : P.A.T.C.H.
+	name = "custom donksoft revolver"
+	desc = "A custom toy revolver that has been modified into a carbine. It has the name P.A.T.C.H. carved into the handle. Ages 8 and up."
+	sawn_desc = "A custom toy revolver. It has the name P.A.T.C.H. carved into the handle. Ages 8 and up."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "shazgun"
+	item_state = "shazgun"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/caseless/toy
+	origin_tech = ""
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	force = 0
+	throwforce = 0
+	can_suppress = 0
+	clumsy_check = 0
+	needs_permit = 0
+	sawn_state = SAWN_INTACT
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_BACK
+
+/obj/item/gun/projectile/revolver/fluff_patch/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/screwdriver))
+		sawoff(user)
+
+/obj/item/gun/projectile/revolver/fluff_patch/sawoff(mob/user)
+	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
+		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		return
+	if(chambered)
+		afterattack(user, user)
+		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+		return
+	if(sawn_state == SAWN_OFF)
+		if(do_after(user, 30, target = src))
+			user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You put the stock and long barrel on \the [src].</span>")
+			post_unsaw()
+			return
+	else
+		if(do_after(user, 30, target = src))
+			user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You take the stock and long barrel off \the [src].</span>")
+			post_sawoff()
+			return
+
+/obj/item/gun/projectile/revolver/fluff_patch/proc/post_sawoff()
+	desc = sawn_desc
+	w_class = WEIGHT_CLASS_NORMAL
+	item_state = "shazgun-sawn"
+	slot_flags &= ~SLOT_BACK
+	slot_flags |= SLOT_BELT
+	sawn_state = SAWN_OFF
+	update_icon()
+
+/obj/item/gun/projectile/revolver/fluff_patch/proc/post_unsaw()
+	desc = initial(desc)
+	w_class = initial(w_class)
+	item_state = "shazgun"
+	slot_flags &= ~SLOT_BELT
+	slot_flags |= SLOT_BACK
+	sawn_state = SAWN_INTACT
+	update_icon()
+
+
+/obj/item/ammo_box/magazine/internal/cylinder/caseless	//To make the above fluff item to work, may be used elsewhere
+
+/obj/item/ammo_box/magazine/internal/cylinder/caseless/rotate()
+    var/obj/item/ammo_casing/b = stored_ammo[1]
+    stored_ammo.Cut(1,2)
+    if(b && !b.BB)
+        b = null
+    stored_ammo.Insert(0, b)
+
+/obj/item/ammo_box/magazine/internal/cylinder/caseless/toy
+    ammo_type = /obj/item/ammo_casing/caseless/foam_dart
+    caliber = "foam_force"
+    max_ammo = 7
+
 
 //////////////////////////////////
 //////////// Clothing ////////////
