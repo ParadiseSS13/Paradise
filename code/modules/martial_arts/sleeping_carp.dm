@@ -34,6 +34,10 @@
 		return 1
 	return 0
 
+/datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H)
+	. = ..()
+	H.add_trait(TRAIT_NOGUNS)
+
 /datum/martial_art/the_sleeping_carp/proc/wristWrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)

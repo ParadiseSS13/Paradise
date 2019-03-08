@@ -1,5 +1,8 @@
 /mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
+		if(user.has_trait(TRAIT_PACIFISM))
+			to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
+			return 
 		..(user, TRUE)
 		adjustBruteLoss(15)
 		var/hitverb = "punched"
@@ -18,6 +21,9 @@
 	if(..())
 		switch(M.a_intent)
 			if(INTENT_HARM)
+				if(M.has_trait(TRAIT_PACIFISM))
+					to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
+					return 
 				var/damage = rand(1, 9)
 				if(prob(90))
 					playsound(loc, "punch", 25, 1, -1)

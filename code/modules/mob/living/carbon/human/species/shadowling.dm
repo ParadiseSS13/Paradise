@@ -9,7 +9,7 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_EXAMINE) //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_EXAMINE) //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	oxy_mod = 0
 	heatmod = 1.5
@@ -20,6 +20,10 @@
 	has_organ = list(
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes)
+
+/datum/species/shadow/ling/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.add_trait(TRAIT_NOGUNS)
 
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)

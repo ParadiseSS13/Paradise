@@ -167,6 +167,9 @@ obj/item/gun/proc/newshot()
 	return
 
 /obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+	if(user.has_trait(TRAIT_PACIFISM))
+		to_chat(user, "<span class='notice'>You don't want to risk harming anyone!</span>")
+		return
 	add_fingerprint(user)
 
 	if(semicd)
@@ -376,6 +379,9 @@ obj/item/gun/proc/newshot()
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
 	if(chambered && chambered.BB)
+		if(user.has_trait(TRAIT_PACIFISM))
+			to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
+			return
 		chambered.BB.damage *= 5
 
 	process_fire(target, user, 1, params)

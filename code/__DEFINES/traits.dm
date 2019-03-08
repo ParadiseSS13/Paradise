@@ -1,5 +1,5 @@
 //mob traits
-#define TRAIT_BLIND 			"blind"
+#define TRAIT_BLIND 			"blind" //Done
 #define TRAIT_MUTE				"mute"
 #define TRAIT_EMOTEMUTE			"emotemute"
 #define TRAIT_DEAF				"deaf"
@@ -7,10 +7,10 @@
 #define TRAIT_FAT				"fat"
 #define TRAIT_HUSK				"husk"
 #define TRAIT_BADDNA			"baddna"
-#define TRAIT_CLUMSY			"clumsy"
+#define TRAIT_CLUMSY			"clumsy" //Done
 #define TRAIT_DUMB				"dumb"
 #define TRAIT_MONKEYLIKE		"monkeylike" //sets IsAdvancedToolUser to FALSE
-#define TRAIT_PACIFISM			"pacifism"
+#define TRAIT_PACIFISM			"pacifism" //done - I think. Not sure if I overlooked something.
 #define TRAIT_IGNORESLOWDOWN	"ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_DEATHCOMA			"deathcoma" //Causes death-like unconsciousness
@@ -32,7 +32,7 @@
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER		"dismember_immunity"
 #define TRAIT_NOFIRE			"nonflammable"
-#define TRAIT_NOGUNS			"no_guns"
+#define TRAIT_NOGUNS			"no_guns" //done I think. 
 #define TRAIT_NOHUNGER			"no_hunger"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"
 #define TRAIT_LIMBATTACHMENT 	"limb_attach"

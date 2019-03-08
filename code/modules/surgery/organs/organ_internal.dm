@@ -238,7 +238,7 @@
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 
-	M.mutations.Remove(CLUMSY)
+	M.remove_trait(TRAIT_CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
 	M.dna.SetSEState(CLUMSYBLOCK,0)
 	M.dna.SetSEState(COMICBLOCK,0)

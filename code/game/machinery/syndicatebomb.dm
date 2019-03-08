@@ -185,6 +185,9 @@
 	if(wires && open_panel)
 		wires.Interact(user)
 	if(!open_panel && can_interact(user))
+		if(user.has_trait(TRAIT_PACIFISM))
+			to_chat(user, "<span class='notice'>You really don't want to touch this!</span>")
+			return
 		if(!active)
 			spawn()
 				settings(user)

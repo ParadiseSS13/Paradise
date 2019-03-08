@@ -234,10 +234,12 @@
 		return 0
 	if(!(status_flags & CANPUSH))
 		return 0
-
+	if(user.has_trait(TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm anyone!</span>")
+		return
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
-			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
+			to_chat(user, "<span class='notice'>You don't want to risk hurting [src]!</span>")
 			return
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
@@ -271,6 +273,10 @@
 	if(M.Victim)
 		return // can't attack while eating!
 
+	if(has_trait(TRAIT_PACIFISM))
+		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+		return 
+
 	if(stat != DEAD)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
@@ -296,6 +302,9 @@
 		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else
+		if(M.has_trait(TRAIT_PACIFISM))
+			to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+			return 
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		M.do_attack_animation(src)

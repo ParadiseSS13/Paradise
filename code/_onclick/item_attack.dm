@@ -38,6 +38,7 @@
 	if(force && user.has_trait(TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
+		
 	if(check_martial_counter(M, user))
 		return 0
 	if(can_operate(M))  //Checks if mob is lying down on table for surgery

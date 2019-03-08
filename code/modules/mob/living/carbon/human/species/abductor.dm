@@ -15,7 +15,7 @@
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_EXAMINE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NO_EXAMINE)
 
 	oxy_mod = 0
 
@@ -35,6 +35,7 @@
 /datum/species/abductor/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
+	H.add_trait(TRAIT_NOGUNS)
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
 	var/datum/atom_hud/abductor_hud = huds[DATA_HUD_ABDUCTOR]

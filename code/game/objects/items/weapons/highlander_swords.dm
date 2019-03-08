@@ -12,6 +12,10 @@
 //Highlander Claymore
 //	Grants the wielder the Highlander Style Martial Art
 
+/datum/martial_art/highlander/teach(mob/living/carbon/human/H)
+	. = ..()
+	H.add_trait(TRAIT_NOGUNS)
+
 /obj/item/claymore/highlander
 	name = "Highlander Claymore"
 	desc = "Imbues the wielder with legendary martial prowress and a nigh-unquenchable thirst for glorious battle!"

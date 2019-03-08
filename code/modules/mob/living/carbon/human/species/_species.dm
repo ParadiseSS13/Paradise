@@ -351,6 +351,9 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
+	if(user.has_trait(TRAIT_PACIFISM))
+		to_chat(user, "<span class='notice'>You don't want to hurt [target]!</span>")
+		return 
 	if(target.check_block()) //cqc
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
