@@ -35,6 +35,7 @@
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
+	var/list/datum/mind/eventmiscs = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
@@ -454,6 +455,20 @@ proc/display_roundstart_logout_report()
 		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
 	return text
 
+/proc/printeventplayer(datum/mind/ply)
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
+	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
+		text += " the [ply.special_role]"
+	text += " and"
+	if(ply.current)
+		if(ply.current.stat == DEAD)
+			text += " <b>died</b>"
+		else
+			text += " <b>survived</b>"
+	else
+		text += " <b>had [ply.p_their()] body destroyed</b>"
+	return text
+
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
 	var/count = 1
@@ -503,3 +518,13 @@ proc/display_roundstart_logout_report()
 		for(var/obj/effect/landmark/free_golem_spawn/L in GLOB.landmarks_list)
 			if(isturf(L.loc))
 				new /obj/effect/mob_spawn/human/golem/adamantine(L.loc)
+
+/datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	antaghud.join_hud(mob_mind.current)
+	set_antag_hud(mob_mind.current, "hudunknown1")
+
+/datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	antaghud.leave_hud(mob_mind.current)
+	set_antag_hud(mob_mind.current, null)
