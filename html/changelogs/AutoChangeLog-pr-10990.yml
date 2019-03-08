@@ -1,0 +1,6 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - bugfix: "Fixed nuke ops cybernetic bundles giving 6 implants rather than 5."
+  - bugfix: "Fixed nuke ops cybernetic bundles being delivered in a box that was then delivered inside another box.
+balance: Nuke ops shotgun ammo bags and cybernetic bundles can no longer be discounted."
