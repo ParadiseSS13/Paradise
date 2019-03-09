@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "His Grace now allows you to toggle on/off binding to your hand"
-  - tweak: "Activating his grace is now down by attempting to open it while it's in your hands"
-  - tweak: "His Grace now removes slowed status, confusion, and resets shock stage if you're healthy"
-  - rscadd: "His Grace can now consume all mobs. Mobs consumed are permanently killed"
-  - rscadd: "His Grace will now neatly package up the inventory of people he consumes"

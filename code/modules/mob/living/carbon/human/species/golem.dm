@@ -87,6 +87,19 @@
 	H.regenerate_icons()
 	to_chat(H, info_text)
 
+/datum/species/golem/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(istype(H.w_uniform, /obj/item/clothing/under/golem)) // Doing these if checks here just in case the golem is somehow wearing something other than their golem shell, which should be impossible but you never know.
+		qdel(H.w_uniform)
+	if(istype(H.wear_suit, /obj/item/clothing/suit/golem))
+		qdel(H.wear_suit)
+	if(istype(H.shoes, /obj/item/clothing/shoes/golem))
+		qdel(H.shoes)
+	if(istype(H.wear_mask, /obj/item/clothing/mask/gas/golem))
+		qdel(H.wear_mask)
+	if(istype(H.gloves, /obj/item/clothing/gloves/golem))
+		qdel(H.gloves)
+
 //Random Golem
 
 /datum/species/golem/random

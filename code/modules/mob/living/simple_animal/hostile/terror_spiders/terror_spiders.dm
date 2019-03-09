@@ -33,7 +33,6 @@ var/global/list/ts_spiderling_list = list()
 	melee_damage_upper = 20
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	poison_type = "" // we do not use that silly system.
 	a_intent = INTENT_HARM
 
 	// Movement

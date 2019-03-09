@@ -209,6 +209,9 @@
 	// Developer
 	var/developer_express_start = 0
 
+	// Automatic localhost admin disable
+	var/disable_localhost_admin = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -641,6 +644,8 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
+				if("disable_localhost_admin")
+					config.disable_localhost_admin = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
