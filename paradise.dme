@@ -1135,6 +1135,7 @@
 #include "code\modules\admin\DB ban\functions.dm"
 #include "code\modules\admin\permissionverbs\permissionedit.dm"
 #include "code\modules\admin\tickets\adminticketsverbs.dm"
+#include "code\modules\admin\tickets\mentorticketsverbs.dm"
 #include "code\modules\admin\verbs\adminhelp.dm"
 #include "code\modules\admin\verbs\adminjump.dm"
 #include "code\modules\admin\verbs\adminpm.dm"

@@ -76,13 +76,12 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/existingTicket = checkForOpenTicket(C)
 	if(existingTicket)
 		existingTicket.setCooldownPeriod()
-		to_chat(C.mob, "[span_text]Your ticket #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
+		to_chat(C.mob, "[span_text]Your [ticket_name] #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		return
 
 	if(!title)
 		title = passedContent
 
-	message_admins("making new ticket title: [title]; src type: [src.type]")
 	var/datum/ticket/T =  new(title, passedContent, getTicketCounterAndInc())
 	allTickets += T
 	T.clientName = C
@@ -265,7 +264,6 @@ UI STUFF
 	popup.open()
 
 /datum/controller/subsystem/tickets/proc/showDetailUI(mob/user, ticketID)
-	message_admins("src type: [src.type]; ticketID [ticketID]; allTickets len [LAZYLEN(allTickets)]")
 	var/datum/ticket/T = allTickets[ticketID]
 	var/status = "[T.state2text()]"
 
@@ -275,7 +273,7 @@ UI STUFF
 
 	dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
-	dat += "<h3>[T.clientName] / [T.mobControlled] opened this ticket at [T.timeOpened] at location [T.locationSent]</h3>"
+	dat += "<h3>[T.clientName] / [T.mobControlled] opened this [ticket_name] at [T.timeOpened] at location [T.locationSent]</h3>"
 	dat += "<h4>Ticket Status: <font color='red'>[status]</font>"
 	dat += "<table style='width:950px; border: 3px solid;'>"
 	dat += "<tr><td>[T.title]</td></tr>"
@@ -288,7 +286,7 @@ UI STUFF
 	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.stafAssigned)
-		dat += "No staf member assigned to this ticket - <a href='?src=[UID()];assignstaf=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "No staf member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaf=[T.ticketNum]'>Take Ticket</a><br />"
 	else
 		dat += "[T.stafAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaf=[T.ticketNum]'>Take Ticket</a><br />"
 
@@ -309,7 +307,7 @@ UI STUFF
 //dat
 	var/tickets = checkForTicket(user.client)
 	var/dat
-	dat += "<h1>Your open tickets</h1>"
+	dat += "<h1>Your open [ticket_system_name]</h1>"
 	dat += "<table>"
 	for(var/datum/ticket/T in tickets)
 		dat += "<tr><td><h2>Ticket #[T.ticketNum]</h2></td></tr>"
@@ -317,7 +315,7 @@ UI STUFF
 			dat += "<tr><td>[T.content[i]]</td></tr>"
 	dat += "</table>"
 
-	var/datum/browser/popup = new(user, "userticketsdetail", "Tickets", 1000, 600)
+	var/datum/browser/popup = new(user, "[ticket_system_name]userticketsdetail", ticket_system_name, 1000, 600)
 	popup.set_content(dat)
 	popup.open()
 
@@ -377,6 +375,9 @@ UI STUFF
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailclose"])
+		if(!check_rights(R_ADMIN))
+			to_chat(usr, "Admin status is required to close tickets.")
+			return
 		var/indexNum = text2num(href_list["detailclose"])
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return
@@ -385,9 +386,10 @@ UI STUFF
 			to_chat_safe(returnClient(indexNum), list(
 				"<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staf member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
-				"[span_text]Your ticket has now been closed.</span>"
+				"[span_text]Your [ticket_name] has now been closed.</span>"
 				))
 			showDetailUI(usr, indexNum)
+			
 
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])
@@ -397,8 +399,10 @@ UI STUFF
 
 	if(href_list["assignstaf"])
 		var/indexNum = text2num(href_list["assignstaf"])
-		if(assignStafToTicket(usr.client, indexNum))
-			message_staf("[usr.client] / ([usr]) has taken ticket number [indexNum]")
-			to_chat_safe(returnClient(indexNum), "[span_text]Your ticket is being handled by [usr.client].")
+		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
 
+/datum/controller/subsystem/tickets/proc/takeTicket(var/index)
+	if(assignStafToTicket(usr.client, index))
+		message_staf("[usr.client] / ([usr]) has taken [ticket_name] number [index]")
+		to_chat_safe(returnClient(index), "[span_text]Your [ticket_name] is being handled by [usr.client].")
