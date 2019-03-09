@@ -1117,6 +1117,7 @@
 #include "code\HISPANIA\modules\hydroponics\grown\coconut.dm"
 #include "code\HISPANIA\modules\mob\language.dm"
 #include "code\HISPANIA\modules\mob\living\carbon\human\species\zombie.dm"
+#include "code\HISPANIA\modules\mob\living\simple_animal\hostile\venus_human_trap.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\admin.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\alcohol.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\disease.dm"
