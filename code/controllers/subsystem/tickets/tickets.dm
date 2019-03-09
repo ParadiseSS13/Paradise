@@ -15,7 +15,8 @@ SUBSYSTEM_DEF(tickets)
 	var/span_text = "<span class='adminticket'>"
 	var/ticket_system_name = "Admin Tickets"
 	var/ticket_name = "Admin Ticket"
-
+	var/close_rights = R_ADMIN
+	var/list/close_messages
 	init_order = INIT_ORDER_TICKETS
 	wait = 300
 	priority = FIRE_PRIORITY_TICKETS
@@ -27,6 +28,9 @@ SUBSYSTEM_DEF(tickets)
 	var/ticketCounter = 1
 
 /datum/controller/subsystem/tickets/Initialize()
+	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
+				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staf member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
+				"[span_text]Your [ticket_name] has now been closed.</span>")
 	LAZYINITLIST(allTickets)
 	return ..()
 
@@ -375,19 +379,15 @@ UI STUFF
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailclose"])
-		if(!check_rights(R_ADMIN))
-			to_chat(usr, "Admin status is required to close tickets.")
-			return
 		var/indexNum = text2num(href_list["detailclose"])
+		if(!check_rights(close_rights))
+			to_chat(usr, "Not enough rights to close this ticket.")
+			return
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
 			message_staf("[usr.client] / ([usr]) closed [ticket_name] number [indexNum]")
-			to_chat_safe(returnClient(indexNum), list(
-				"<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staf member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
-				"[span_text]Your [ticket_name] has now been closed.</span>"
-				))
+			to_chat_safe(returnClient(indexNum), close_messages)
 			showDetailUI(usr, indexNum)
 			
 

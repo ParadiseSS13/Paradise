@@ -954,9 +954,9 @@ var/list/admin_verbs_ticket = list(
 	prefs.toggles ^= CHAT_NO_MENTORTICKETLOGS
 	prefs.save_preferences(src)
 	if(prefs.toggles & CHAT_NO_MENTORTICKETLOGS)
-		to_chat(usr, "You now won't get admin ticket messages.")
+		to_chat(usr, "You now won't get mentor ticket messages.")
 	else
-		to_chat(usr, "You now will get admin ticket messages.")
+		to_chat(usr, "You now will get mentor ticket messages.")
 
 /client/proc/toggleticketlogs()
 	set name = "Toggle Admin Ticket Messgaes"
