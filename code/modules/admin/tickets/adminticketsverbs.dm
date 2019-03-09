@@ -22,12 +22,7 @@
 
 	SStickets.resolveAllOpenTickets()
 
-/client/proc/openAdminUserUI()
-
+/client/verb/openAdminUserUI()
 	set name = "My Admin Tickets"
 	set category = "Admin"
-
-	if(!holder || !check_rights(R_ADMIN))
-		return
-
 	SStickets.userDetailUI(usr)

@@ -22,12 +22,7 @@
 
 	SSmentor_tickets.resolveAllOpenTickets()
 
-/client/proc/openMentorUserUI()
-
+/client/verb/openMentorUserUI()
 	set name = "My Mentor Tickets"
 	set category = "Admin"
-
-	if(!holder || !check_rights(R_MENTOR))
-		return
-
 	SSmentor_tickets.userDetailUI(usr)
