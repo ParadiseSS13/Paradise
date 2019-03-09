@@ -189,14 +189,14 @@
 	var/tickets = list()
 	tickets = SStickets.checkForTicket(C)
 	if(tickets)
-		for(var/datum/admin_ticket/i in tickets)
+		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg) // Add this response to their open tickets.
 		return
 
 	if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 		tickets = SStickets.checkForTicket(src)
 		if(tickets)
-			for(var/datum/admin_ticket/i in tickets)
+			for(var/datum/ticket/i in tickets)
 				i.addResponse(src, msg)
 			return
 

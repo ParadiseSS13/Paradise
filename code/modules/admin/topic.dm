@@ -32,6 +32,12 @@
 		var/ticketID = text2num(href_list["openadminticket"])
 		SStickets.showDetailUI(usr, ticketID)
 
+	if(href_list["openmentorticket"])
+		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+			return
+		var/ticketID = text2num(href_list["openmentorticket"])
+		SSmentor_tickets.showDetailUI(usr, ticketID)
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 

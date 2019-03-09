@@ -28,6 +28,11 @@ var/global/nologevent = 0
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
 				to_chat(C, msg)
 
+/proc/message_mentorTicket(var/msg)
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
+				to_chat(C, msg)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
 	if(!M || !M.ckey)
