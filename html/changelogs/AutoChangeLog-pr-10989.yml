@@ -1,0 +1,4 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - tweak: "Discord-related verbs are now under \"Special Verbs\" instead of \"OOC\""
