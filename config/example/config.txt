@@ -394,3 +394,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ##Uncomment to enable developer start. Auto starts the server after initialization
 ##DEVELOPER_EXPRESS_START
+
+## Uncomment to disable automatic admin for localhost
+#DISABLE_LOCALHOST_ADMIN
