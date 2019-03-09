@@ -1,5 +1,7 @@
 
-/*
+///Nerfed Venus Trap///
+
+
 /obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
 	name = "flower bud"
 	desc = "A large pulsating plant..."
@@ -48,15 +50,16 @@
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"
 	desc = "Now you know how the fly feels."
+	icon = 'icons/hispania/mob/animals.dmi'
 	icon_state = "venus_human_trap"
 	layer = MOB_LAYER + 0.9
 	health = 50
 	maxHealth = 50
 	ranged = 1
 	harm_intent_damage = 5
-	obj_damage = 60
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	obj_damage = 10
+	melee_damage_lower = 5
+	melee_damage_upper = 5
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -115,5 +118,3 @@
 	if(.)
 		if(the_target in grasping)
 			return 0
-
-*/
