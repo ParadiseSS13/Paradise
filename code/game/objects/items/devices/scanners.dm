@@ -188,8 +188,14 @@ REAGENT SCANNER
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
 			user.show_message("<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
-	if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
-		user.show_message("<span class='alert'><b>Warning: Medical Emergency detected</b>\nName: Cardiac Arrest.\nType: The patient's heart has stopped.\nStage: 1/1.\nPossible Cure: Electric Shock</span>")
+	if(H.undergoing_cardiac_arrest())
+		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
+		if(heart && !(heart.status & ORGAN_DEAD))
+			user.show_message("<span class='alert'><b>Warning: Medical Emergency detected</b>\nName: Cardiac Arrest.\nType: The patient's heart has stopped.\nStage: 1/1.\nPossible Cure: Electric Shock</span>")
+		else if(heart && (heart.status & ORGAN_DEAD))
+			user.show_message("<span class='alert'><b>Subject's heart is necrotic.</b></span>")
+		else if(!heart)
+			user.show_message("<span class='alert'><b>Subject has no heart.</b></span>")
 
 	if(H.getStaminaLoss())
 		user.show_message("<span class='info'>Subject appears to be suffering from fatigue.</span>")
@@ -197,12 +203,16 @@ REAGENT SCANNER
 		user.show_message("<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
 	if(H.has_brain_worms())
 		user.show_message("<span class='warning'>Subject suffering from aberrant brain activity. Recommend further scanning.</span>")
-	else if(H.getBrainLoss() >= 100 || !H.get_int_organ(/obj/item/organ/internal/brain))
-		user.show_message("<span class='warning'>Subject is brain dead.</span>")
-	else if(H.getBrainLoss() >= 60)
-		user.show_message("<span class='warning'>Severe brain damage detected. Subject likely to have mental retardation.</span>")
-	else if(H.getBrainLoss() >= 10)
-		user.show_message("<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
+
+	if(H.get_int_organ(/obj/item/organ/internal/brain))
+		if(H.getBrainLoss() >= 100)
+			user.show_message("<span class='warning'>Subject is brain dead.</span>")
+		else if(H.getBrainLoss() >= 60)
+			user.show_message("<span class='warning'>Severe brain damage detected. Subject likely to have mental retardation.</span>")
+		else if(H.getBrainLoss() >= 10)
+			user.show_message("<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
+	else
+		user.show_message("<span class='warning'>Subject has no brain.</span>")
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
