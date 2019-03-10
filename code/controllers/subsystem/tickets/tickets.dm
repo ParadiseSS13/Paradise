@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staf member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
+				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
 				"[span_text]Your [ticket_name] has now been closed.</span>")
 	LAZYINITLIST(allTickets)
 	return ..()
@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(tickets)
 		var/report
 		for(var/num in stales)
 			report += "[num], "
-		message_staf("[span_text]Tickets [report] have been open for over [TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
+		message_staff("[span_text]Tickets [report] have been open for over [TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
 
 /datum/controller/subsystem/tickets/stat_entry()
 	..("Tickets: [LAZYLEN(allTickets)]")
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(tickets)
 		var/datum/ticket/ticket = T
 		if(!(ticket.ticketState == TICKET_OPEN))
 			continue
-		if(world.time > ticket.timeUntilStale && (!ticket.lastStafResponse || !ticket.stafAssigned))
+		if(world.time > ticket.timeUntilStale && (!ticket.lastStaffResponse || !ticket.staffAssigned))
 			var/id = ticket.makeStale()
 			stales += id
 	return stales
@@ -138,27 +138,27 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	return T.clientName
 
-/datum/controller/subsystem/tickets/proc/assignStafToTicket(client/C, var/N)
+/datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, var/N)
 	var/datum/ticket/T = allTickets[N]
-	T.assignStaf(C)
+	T.assignStaff(C)
 	return TRUE
 
-//Single staf ticket
+//Single staff ticket
 
 /datum/ticket
 	var/ticketNum // Ticket number
 	var/clientName // Client which opened the ticket
 	var/timeOpened // Time the ticket was opened
 	var/title //The initial message with links
-	var/list/content // content of the staf help
-	var/lastStafResponse // Last staf member who responded
-	var/lastResponseTime // When the staf last responded
+	var/list/content // content of the staff help
+	var/lastStaffResponse // Last staff member who responded
+	var/lastResponseTime // When the staff last responded
 	var/locationSent // Location the player was when they send the ticket
 	var/mobControlled // Mob they were controlling
 	var/ticketState // State of the ticket, open, closed, resolved etc
 	var/timeUntilStale // When the ticket goes stale
 	var/ticketCooldown // Cooldown before allowing the user to open another ticket.
-	var/stafAssigned // Staf member who has assigned themselves to this ticket
+	var/staffAssigned // Staff member who has assigned themselves to this ticket
 
 /datum/ticket/New(tit, cont, num)
 	title = tit
@@ -174,9 +174,9 @@ SUBSYSTEM_DEF(tickets)
 /datum/ticket/proc/setCooldownPeriod()
 	ticketCooldown = world.time + TICKET_DUPLICATE_COOLDOWN
 
-//Set the last staf who responded as the client passed as an arguement.
-/datum/ticket/proc/setLastStafResponse(client/C)
-	lastStafResponse = C
+//Set the last staff who responded as the client passed as an arguement.
+/datum/ticket/proc/setLastStaffResponse(client/C)
+	lastStaffResponse = C
 	lastResponseTime = worldtime2text()
 
 //Return the ticket state as a colour coded text string.
@@ -191,16 +191,16 @@ SUBSYSTEM_DEF(tickets)
 		if(TICKET_STALE)
 			return "<font color='orange'>STALE</font>"
 
-//Assign the client passed to var/stafAsssigned
-/datum/ticket/proc/assignStaf(client/C)
+//Assign the client passed to var/staffAsssigned
+/datum/ticket/proc/assignStaff(client/C)
 	if(!C)
 		return
-	stafAssigned = C
+	staffAssigned = C
 	return TRUE
 
 /datum/ticket/proc/addResponse(client/C, msg)
 	if(C.holder)
-		setLastStafResponse(C)
+		setLastStaffResponse(C)
 	msg = "[C]: [msg]"
 	content += msg
 
@@ -289,15 +289,15 @@ UI STUFF
 	dat += "</table><br /><br />"
 	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
-	if(!T.stafAssigned)
-		dat += "No staf member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaf=[T.ticketNum]'>Take Ticket</a><br />"
+	if(!T.staffAssigned)
+		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.stafAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaf=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 
-	if(T.lastStafResponse)
-		dat += "<b>Last Staf response Response:</b> [T.lastStafResponse] at [T.lastResponseTime]"
+	if(T.lastStaffResponse)
+		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
 	else
-		dat +="<font color='red'>No Staf Response</font>"
+		dat +="<font color='red'>No Staff Response</font>"
 
 	dat += "<br /><br />"
 
@@ -334,8 +334,8 @@ UI STUFF
 		to_chat(target, text)
 	return TRUE
 
-//Sends a message to the designated staf
-/datum/controller/subsystem/tickets/proc/message_staf(var/msg)
+//Sends a message to the designated staff
+/datum/controller/subsystem/tickets/proc/message_staff(var/msg)
 	message_adminTicket(msg)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
@@ -367,14 +367,14 @@ UI STUFF
 	if(href_list["resolve"])
 		var/indexNum = text2num(href_list["resolve"])
 		if(resolveTicket(indexNum))
-			message_staf("[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]")
+			message_staff("[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]")
 			to_chat_safe(returnClient(indexNum), "[span_text]Your [ticket_name] has now been resolved.</span>")
 			showUI(usr)
 
 	if(href_list["detailresolve"])
 		var/indexNum = text2num(href_list["detailresolve"])
 		if(resolveTicket(indexNum))
-			message_staf("[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]")
+			message_staff("[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]")
 			to_chat_safe(returnClient(indexNum), "[span_text]Your [ticket_name] has now been resolved.</span>")
 			showDetailUI(usr, indexNum)
 
@@ -386,7 +386,7 @@ UI STUFF
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
-			message_staf("[usr.client] / ([usr]) closed [ticket_name] number [indexNum]")
+			message_staff("[usr.client] / ([usr]) closed [ticket_name] number [indexNum]")
 			to_chat_safe(returnClient(indexNum), close_messages)
 			showDetailUI(usr, indexNum)
 			
@@ -394,15 +394,15 @@ UI STUFF
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])
 		if(openTicket(indexNum))
-			message_staf("[usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]")
+			message_staff("[usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]")
 			showDetailUI(usr, indexNum)
 
-	if(href_list["assignstaf"])
-		var/indexNum = text2num(href_list["assignstaf"])
+	if(href_list["assignstaff"])
+		var/indexNum = text2num(href_list["assignstaff"])
 		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
 
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
-	if(assignStafToTicket(usr.client, index))
-		message_staf("[usr.client] / ([usr]) has taken [ticket_name] number [index]")
+	if(assignStaffToTicket(usr.client, index))
+		message_staff("[usr.client] / ([usr]) has taken [ticket_name] number [index]")
 		to_chat_safe(returnClient(index), "[span_text]Your [ticket_name] is being handled by [usr.client].")

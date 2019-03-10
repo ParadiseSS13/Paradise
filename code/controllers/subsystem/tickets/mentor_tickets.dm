@@ -11,7 +11,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	span_text = "<span class='mentorhelp'>"
 	close_rights = R_MENTOR
 
-/datum/controller/subsystem/tickets/mentor_tickets/message_staf(var/msg)
+/datum/controller/subsystem/tickets/mentor_tickets/message_staff(var/msg)
 	message_mentorTicket(msg)
 
 /datum/controller/subsystem/tickets/mentor_tickets/Initialize()
