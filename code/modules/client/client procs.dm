@@ -378,8 +378,7 @@
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			update_changelog_button()
-			
+			update_changelog_button()			
 
 	if(!void)
 		void = new()
