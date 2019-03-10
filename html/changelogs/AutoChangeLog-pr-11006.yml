@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Admins can now flag characters as having an event role, which makes them show up when admins look at the antag list, in admin attack logs, on antaghuds, and on the end-round score screen."
