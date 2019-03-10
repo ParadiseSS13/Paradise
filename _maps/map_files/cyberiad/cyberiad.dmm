@@ -70461,6 +70461,11 @@
 /obj/structure/table,
 /obj/item/analyzer,
 /obj/item/healthanalyzer,
+/obj/machinery/camera{
+	c_tag = "Tech Storage";
+	dir = 2;
+	network = list("SS13")
+	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvv" = (
@@ -70496,37 +70501,35 @@
 /turf/simulated/wall,
 /area/storage/tech)
 "cvy" = (
-/obj/machinery/camera{
-	c_tag = "Tech Storage";
-	dir = 2;
-	network = list("SS13")
+/obj/structure/table,
+/obj/item/circuitboard/rdconsole/public{
+	pixel_x = -4
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/cyborgrecharger{
-	pixel_x = -4;
+/obj/item/circuitboard/rdserver{
+	pixel_x = 4;
 	pixel_y = -2
 	},
-/obj/item/circuitboard/mech_bay_power_console{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/circuitboard/mech_recharger,
-/obj/item/circuitboard/mechfab{
+/obj/item/circuitboard/destructive_analyzer,
+/obj/item/circuitboard/protolathe{
+	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_x = 0;
-	pixel_y = 24
+/obj/item/circuitboard/circuit_imprinter{
+	pixel_x = -4;
+	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 2;
+	icon_state = "left";
+	name = "Research Circuit Boards";
+	req_access_txt = "7"
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -70546,6 +70549,17 @@
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_x = 0;
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1;
+	d2 = 2
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -72185,27 +72199,17 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rdconsole/public{
-	pixel_x = -4
-	},
-/obj/item/circuitboard/rdserver{
-	pixel_x = 4;
+/obj/item/circuitboard/cyborgrecharger{
+	pixel_x = -4;
 	pixel_y = -2
 	},
-/obj/item/circuitboard/destructive_analyzer,
-/obj/item/circuitboard/protolathe{
-	pixel_x = -2;
+/obj/item/circuitboard/mech_bay_power_console{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/circuitboard/mech_recharger,
+/obj/item/circuitboard/mechfab{
 	pixel_y = 3
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/item/circuitboard/circuit_imprinter{
-	pixel_x = -4;
-	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -72226,6 +72230,12 @@
 /obj/item/circuitboard/arcade/orion_trail{
 	pixel_x = -4;
 	pixel_y = 2
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -72638,25 +72648,6 @@
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"czm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/storage/tech)
 "czn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96601,6 +96592,25 @@
 /obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"kmi" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/storage/tech)
 
 (1,1,1) = {"
 aaa
@@ -124000,9 +124010,9 @@ cqO
 ckv
 cgW
 cvy
-cwW
+cwO
 cyw
-czm
+czv
 cBs
 cwO
 cEe
@@ -124514,9 +124524,9 @@ cqQ
 csC
 cgW
 cvA
-cwO
+cwW
 cyy
-czv
+kmi
 cBt
 cAK
 cvx
