@@ -177,7 +177,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
-		// If it's not too early, we'll skip straight to ghosting out without penalty
 	else if(suiciding && TOO_EARLY_TO_GHOST)
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
@@ -186,45 +185,49 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		warningmsg = "You have lost your right to respawn"
 
 	if(stat == CONSCIOUS)
-		var/sees_someone = FALSE
-		for(var/mob/living/L in oviewers(7, src))
-			if(!L.ckey)
-				continue
-			if(!L.client)
-				continue
-			if(L.stat == DEAD)
-				continue
-			if(L.invisibility >= see_invisible)
-				continue
-			sees_someone = TRUE
-			break
-		if(sees_someone)
-			to_chat(src, "<span class='userdanger'>You cannot do this while another player is nearby. Go somewhere more secluded first.</span>")
+
+		if(isAI(src))
+			to_chat(src, "<span class='userdanger'>AIs cannot ghost while alive. If you must leave the round, use OOC -> Wipe Core instead.</span>")
 			return
 
-	if(!warningmsg)
-		if(stat == CONSCIOUS)
-			cryo_ssd(src)
-		ghostize(1)
-		if(stat == CONSCIOUS)
-			force_cryo_human(src)
-	else
+		if(sees_someone_nearby())
+			to_chat(src, "<span class='userdanger'>You cannot ghost while alive with another player nearby. Go somewhere more secluded first.</span>")
+			return
+
+	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
-			return	//didn't want to ghost after-all
-		if(stat == CONSCIOUS)
-			cryo_ssd(src)
-		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
-		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
-		if(stat == CONSCIOUS)
-			force_cryo_human(src)
+			return
+
+	var/move_to_cryo = ishuman(src) && stat == CONSCIOUS && !P && !restrained()
+	if(move_to_cryo)
+		if(!do_after(src, 600, 0, target = src))
+			return
+		if(restrained())
+			move_to_cryo = FALSE
+
+	if(move_to_cryo)
+		cryo_ssd(src)
+	if(warningmsg)
+		// Not respawnable
+		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+	else
+		// Respawnable
+		ghostize(1)
+	if(move_to_cryo)
+		force_cryo_human(src)
+
+	// If mob in morgue tray, update tray
 	var/obj/structure/morgue/Morgue = locate() in M.loc
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
+
+	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
@@ -232,6 +235,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			P.despawn_occupant()
 	return
 
+/mob/living/proc/sees_someone_nearby()
+	for(var/mob/living/L in oviewers(7, src))
+		if(!L.ckey)
+			continue
+		if(!L.client)
+			continue
+		if(L.stat == DEAD)
+			continue
+		if(L.invisibility >= see_invisible)
+			continue
+		return TRUE
 
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
