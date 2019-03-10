@@ -111,28 +111,31 @@
 /area/ruin/space/ancientstation/comm)
 "au" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/comm)
 "av" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
 /obj/item/paper/fluff/ruins/oldstation/damagereport,
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/comm)
 "aw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
 /obj/item/paper/fluff/ruins/oldstation/report,
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/comm)
 "ax" = (
@@ -407,9 +410,10 @@
 /area/ruin/space/ancientstation/comm)
 "bi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
@@ -418,9 +422,10 @@
 /area/ruin/space/ancientstation/comm)
 "bj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
@@ -1283,11 +1288,12 @@
 	},
 /area/ruin/space/ancientstation/comm)
 "dy" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/sec)
 "dz" = (
@@ -1491,11 +1497,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/sec)
 "dZ" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 1
@@ -1526,21 +1533,24 @@
 /area/ruin/space/ancientstation/rnd)
 "ec" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/public,
+/obj/structure/table,
+/obj/machinery/computer/rdconsole/public/old{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/rnd)
 "ed" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/destructive_analyzer,
+/obj/machinery/r_n_d/destructive_analyzer/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/rnd)
 "ee" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/mecha_part_fabricator/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1891,15 +1901,15 @@
 /area/ruin/space/ancientstation/deltacorridor)
 "eT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/r_n_d/protolathe/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/rnd)
 "eU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/item/reagent_containers/dropper,
+/obj/machinery/r_n_d/circuit_imprinter/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2934,12 +2944,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/deltacorridor)
 "gX" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
 /obj/item/card/id/away/old/apc,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -4433,9 +4440,10 @@
 /area/ruin/space/ancientstation)
 "kf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/powered)
@@ -4474,6 +4482,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/decal/warning_stripes/southeastcorner,
+/obj/machinery/door_control{
+	id = "proto";
+	name = "Prototype Chambers Lockdown Button";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4629,11 +4642,12 @@
 	},
 /area/ruin/space/ancientstation/proto)
 "kA" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/computer/old{
+	name = "Broken Computer";
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5056,10 +5070,12 @@
 /area/ruin/space/ancientstation/sec)
 "lw" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/solar_control{
-	name = "Station Solar Control Computer"
-	},
 /obj/item/paper/solar,
+/obj/structure/table,
+/obj/machinery/power/solar_control/old{
+	name = "Station Solar Control Computer";
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
