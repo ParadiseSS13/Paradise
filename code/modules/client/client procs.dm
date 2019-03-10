@@ -383,6 +383,9 @@
 	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
 			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+	else
+		if (establish_db_connection())
+			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	if(!void)
 		void = new()
