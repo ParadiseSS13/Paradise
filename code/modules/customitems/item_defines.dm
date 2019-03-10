@@ -698,7 +698,24 @@
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
 
-/obj/item/gun/projectile/revolver/fluff_patch // sniper_fairy : P.A.T.C.H.
+/obj/item/fluff/revolver_kit // sniper_fairy : P.A.T.C.H.
+	name = "nerf pistol conversion kit"
+	desc = "An assorted set of parts to convert a nerf pistol into a nerf revolver."
+	icon_state = "modkit"
+
+/obj/item/fluff/revolver_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/gun/projectile/automatic/toy/pistol))
+		to_chat(user, "<span class='notice'>You modify [target] into a custom foam force revolver.</span>")
+		var/obj/item/gun/projectile/revolver/fluff_patch/P = new(get_turf(target))
+		target.transfer_fingerprints_to(P)
+		qdel(target)
+		qdel(src)
+		return
+
+/obj/item/gun/projectile/revolver/fluff_patch //Spawned from the above kit
 	name = "custom donksoft revolver"
 	desc = "A custom toy revolver that has been modified into a carbine. It has the name P.A.T.C.H. carved into the handle. Ages 8 and up."
 	sawn_desc = "A custom toy revolver. It has the name P.A.T.C.H. carved into the handle. Ages 8 and up."
