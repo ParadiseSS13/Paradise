@@ -310,6 +310,11 @@
 	GLOB.directory[ckey] = src
 
 	//Admin Authorisation
+	// Automatically makes localhost connection an admin
+	if(!config.disable_localhost_admin)
+		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+		if(!isnull(address) && address in localhost_addresses)
+			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
@@ -374,7 +379,13 @@
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 			update_changelog_button()
-			
+
+	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+		if(establish_db_connection())
+			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+	else
+		if(establish_db_connection())
+			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	if(!void)
 		void = new()
@@ -665,7 +676,7 @@
 
 /client/proc/on_varedit()
 	var_edited = TRUE
-  
+
 /////////////////
 // DARKMODE UI //
 /////////////////
@@ -702,7 +713,7 @@
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
 	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
-	// NOTIFY USER 
+	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
 /client/proc/deactivate_darkmode()
@@ -743,15 +754,15 @@
 // Better changelog button handling
 /client/proc/update_changelog_button()
 	if(establish_db_connection())
-		if(prefs.lastchangelog != changelog_hash) 
+		if(prefs.lastchangelog != changelog_hash)
 			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
 		else
-			if(prefs.toggles & UI_DARKMODE) 
+			if(prefs.toggles & UI_DARKMODE)
 				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 			else
 				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
 	else
-		if(prefs.toggles & UI_DARKMODE) 
+		if(prefs.toggles & UI_DARKMODE)
 			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")

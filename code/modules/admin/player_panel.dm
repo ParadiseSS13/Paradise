@@ -518,7 +518,7 @@
 
 		if(ticker.mode.vampire_enthralled.len)
 			dat += check_role_table("Vampire Thralls", ticker.mode.vampire_enthralled)
-		
+
 		if(ticker.mode.devils.len)
 			dat += check_role_table("Devils", ticker.mode.devils)
 
@@ -533,6 +533,9 @@
 
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
+
+		if(ticker.mode.eventmiscs.len)
+			dat += check_role_table("Event Roles", ticker.mode.eventmiscs)
 
 		if(ts_spiderlist.len)
 			var/list/spider_minds = list()

@@ -266,6 +266,8 @@
 		if("scream")
 			message = "<B>\The [src]</B> whimpers."
 			m_type = 2
+		if("help")
+			to_chat(src, "scream")
 
 	..(act, m_type, message)
 

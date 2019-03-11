@@ -1,16 +1,180 @@
-"a" = (/turf/unsimulated/floor/carpet,/area/template_noop)
-"b" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-r"},/area/template_noop)
-"c" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-y"},/area/template_noop)
-"d" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-g"},/area/template_noop)
-"e" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on"},/area/template_noop)
-"f" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-b"},/area/template_noop)
-"g" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-p"},/area/template_noop)
-"h" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-w"},/area/template_noop)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"b" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on-r"
+	},
+/area/template_noop)
+"c" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on-y"
+	},
+/area/template_noop)
+"d" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on-g"
+	},
+/area/template_noop)
+"e" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on"
+	},
+/area/template_noop)
+"f" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on-b"
+	},
+/area/template_noop)
+"g" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on-p"
+	},
+/area/template_noop)
+"h" = (
+/turf/unsimulated/floor{
+	luminosity = 1;
+	icon_state = "light_on-w"
+	},
+/area/template_noop)
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaa
-aabcdefghgfedcbcdef
-abcdefghgfedcbcdefg
-bcdefghgfedcbcdefga
-aaaaaaaaaaaaaaaaaaa
+a
+a
+a
+b
+a
+"}
+(2,1,1) = {"
+a
+a
+b
+c
+a
+"}
+(3,1,1) = {"
+a
+b
+c
+d
+a
+"}
+(4,1,1) = {"
+a
+c
+d
+e
+a
+"}
+(5,1,1) = {"
+a
+d
+e
+f
+a
+"}
+(6,1,1) = {"
+a
+e
+f
+g
+a
+"}
+(7,1,1) = {"
+a
+f
+g
+h
+a
+"}
+(8,1,1) = {"
+a
+g
+h
+g
+a
+"}
+(9,1,1) = {"
+a
+h
+g
+f
+a
+"}
+(10,1,1) = {"
+a
+g
+f
+e
+a
+"}
+(11,1,1) = {"
+a
+f
+e
+d
+a
+"}
+(12,1,1) = {"
+a
+e
+d
+c
+a
+"}
+(13,1,1) = {"
+a
+d
+c
+b
+a
+"}
+(14,1,1) = {"
+a
+c
+b
+c
+a
+"}
+(15,1,1) = {"
+a
+b
+c
+d
+a
+"}
+(16,1,1) = {"
+a
+c
+d
+e
+a
+"}
+(17,1,1) = {"
+a
+d
+e
+f
+a
+"}
+(18,1,1) = {"
+a
+e
+f
+g
+a
+"}
+(19,1,1) = {"
+a
+f
+g
+a
+a
 "}
