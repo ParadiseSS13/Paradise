@@ -1805,14 +1805,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 
-		if(src.has_trait(TRAIT_NOGUNS) && !martial_art)
+		if(has_trait(TRAIT_NOGUNS) && !martial_art)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 
 
-	if(martial_art && src.has_trait(TRAIT_NOGUNS)) //great dishonor to famiry
+	if(martial_art && has_trait(TRAIT_NOGUNS)) //great dishonor to famiry
 		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 
-	if(src.has_trait(TRAIT_NOGUNS))
+	if(has_trait(TRAIT_NOGUNS))
 		to_chat(src, "<span class='warning'>You cannot use guns!</span>")
 		return 
 	return .

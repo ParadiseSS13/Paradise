@@ -550,3 +550,19 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
 	return list(viewX, viewY)
+
+/proc/string2charlist(string) 
+	return splittext(string, regex("(\\x0A|.)")) - splittext(string, "")
+
+/proc/wingdinghelper(var/mob/M, var/message)
+	var/list/chars = string2charlist(message)
+	var/garbled_message = ""
+	for(var/C in chars)
+		if(C in GLOB.alphabet_uppercase)
+			garbled_message += pick(GLOB.alphabet_uppercase)
+		else if(C in GLOB.alphabet)
+			garbled_message += pick(GLOB.alphabet)
+		else
+			garbled_message += C
+	message = garbled_message
+	return message

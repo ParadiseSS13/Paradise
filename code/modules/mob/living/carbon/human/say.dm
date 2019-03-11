@@ -128,13 +128,15 @@
 		|| GetComponent(/datum/component/jestosterone))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
+	if(has_trait(TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()
 	verb = parent["verb"]
 
 	for(var/datum/multilingual_say_piece/S in message_pieces)
+		if(has_trait(TRAIT_WINGDINGS))
+			S.message = wingdinghelper(src, S.message)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 

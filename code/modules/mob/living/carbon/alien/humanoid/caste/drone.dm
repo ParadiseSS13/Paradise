@@ -31,7 +31,7 @@
 				continue
 			no_queen = 0
 
-		if(src.has_brain_worms())
+		if(has_brain_worms())
 			to_chat(src, "<span class='warning'>We cannot perform this ability at the present time!</span>")
 			return
 		if(no_queen)

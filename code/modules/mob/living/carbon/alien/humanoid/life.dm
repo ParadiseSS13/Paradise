@@ -19,7 +19,7 @@
 			Stun(10)
 			emote("twitch")
 			return
-	if(disabilities & NERVOUS)
+	if(has_trait(TRAIT_NERVOUS))
 		if(prob(10))
 			stuttering = max(10, stuttering)
 

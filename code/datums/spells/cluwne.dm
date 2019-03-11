@@ -55,7 +55,7 @@
 	if(tumor)
 		tumor.remove(src)
 	else
-		src.remove_trait(TRAIT_CLUMSY)
+		remove_trait(TRAIT_CLUMSY)
 		mutations.Remove(COMICBLOCK)
 		//dna.SetSEState(CLUMSYBLOCK,0)
 		dna.SetSEState(COMICBLOCK,0)

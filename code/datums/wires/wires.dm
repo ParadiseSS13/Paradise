@@ -87,7 +87,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && H.disabilities & COLOURBLIND)
+		if(eyes && has_trait(TRAIT_COLORBLIND))
 			replace_colours = eyes.replace_colours
 
 

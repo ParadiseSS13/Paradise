@@ -215,14 +215,14 @@
 
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
-			if(src.has_trait(TRAIT_PACIFISM))
+			if(has_trait(TRAIT_PACIFISM))
 				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
 		selected.action(target, params)
 	else
-		if(src.has_trait(TRAIT_PACIFISM))
+		if(has_trait(TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 			return
 		if(internal_damage & MECHA_INT_CONTROL_LOST)

@@ -84,7 +84,7 @@
 			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
-	if(disabilities & NERVOUS)
+	if(has_trait(TRAIT_NERVOUS))
 		if(prob(10))
 			Stuttering(10)
 

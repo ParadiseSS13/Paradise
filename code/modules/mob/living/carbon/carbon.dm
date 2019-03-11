@@ -567,7 +567,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		var/mob/throwable_mob = G.get_mob_if_throwable() //throw the person instead of the grab
 		qdel(G)	//We delete the grab.
 		if(throwable_mob)
-			if(src.has_trait(TRAIT_PACIFISM))
+			if(has_trait(TRAIT_PACIFISM))
 				to_chat(src, "<span class='warning'>You don't want to harm [throwable_mob]!</span>")
 				return
 			thrown_thing = throwable_mob

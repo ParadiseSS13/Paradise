@@ -441,3 +441,40 @@
 		tick_counter = 0
 	else
 		++tick_counter
+
+/datum/quirk/alienvoice/
+	name = "Alien Voice"
+	desc = "Garbles the subject's voice into an incomprehensible speech."
+	gain_text = "<span class='wingdings'>Your vocal cords feel alien.</span>"
+	lose_text = "<span class='notice'>Your vocal cords no longer feel alien.</span>"
+	medical_record_text = "Patient vocal cord seem alien."
+	value = -2
+	mob_trait = TRAIT_WINGDINGS
+
+/datum/quirk/nervous/
+	name = "Nervousness"
+	desc = "Garbles the subject's voice into an incomprehensible speech."
+	gain_text = "<span class='notice'>You feel nervous..</span>"
+	lose_text = "<span class='notice'>You feel much calmer..</span>"
+	medical_record_text = "Patient seems easily disturbed."
+	value = -1
+	mob_trait = TRAIT_NERVOUS
+
+/datum/quirk/colorblind/
+	name = "Colourblindness"
+	desc = "Garbles the subject's voice into an incomprehensible speech."
+	gain_text = "<span class='notice'>You feel a peculiar prickling in your eyes while your perception of colour changes.</span>"
+	lose_text = "<span class='notice'>Your eyes tingle unsettlingly, though everything seems to become alot more colourful.</span>"
+	medical_record_text = "Patient seems unable to see colors."
+	value = -1
+	mob_trait = TRAIT_COLORBLIND
+
+/datum/quirk/colorblind/add()
+	..()
+	quirk_holder.update_client_colour() //Handle the activation of the colourblindness on the mob.
+	quirk_holder.update_icons() //Apply eyeshine as needed.
+
+/datum/quirk/colorblind/remove()
+	..()
+	quirk_holder.update_client_colour() //Handle the activation of the colourblindness on the mob.
+	quirk_holder.update_icons() //Apply eyeshine as needed.

@@ -26,7 +26,7 @@
 	return eyes_icon
 
 /obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
-	if(!is_robotic() && owner.disabilities & COLOURBLIND)
+	if(!is_robotic() && owner.has_trait(TRAIT_COLORBLIND))
 		return colourblind_matrix
 	else
 		return colourmatrix
