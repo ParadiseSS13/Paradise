@@ -72185,9 +72185,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rdconsole/public{
-	pixel_x = -4
-	},
 /obj/item/circuitboard/rdserver{
 	pixel_x = 4;
 	pixel_y = -2
@@ -72207,6 +72204,7 @@
 	pixel_x = -4;
 	pixel_y = -3
 	},
+/obj/item/circuitboard/rdconsole,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cyx" = (
