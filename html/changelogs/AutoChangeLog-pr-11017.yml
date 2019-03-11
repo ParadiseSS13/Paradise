@@ -1,5 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - tweak: "Display if karma gains are enabled or not on round start(instead of just disabled)"
-  - bugfix: "Fix wrong message when toggling karma"
