@@ -1684,12 +1684,12 @@
 	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
-	name = "Old purple scarf"
-	desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "rbscarf"
-	item_state = "rbscarf"
-	item_color = "rbscarf"
+    name = "Old purple scarf"
+    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "rbscarf"
+    item_state = "rbscarf"
+    item_color = "rbscarf"
 
 /obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
 	name = "Rara's Somber Accordion"
