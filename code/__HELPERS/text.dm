@@ -109,6 +109,15 @@
 	else
 		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 
+// Uses client.typing to check if the popup should appear or not
+/proc/typing_input(mob/user, message = "", title = "", default = "")
+	if(user.client.checkTyping()) // Prevent double windows
+		return null
+	user.client.typing = TRUE
+	var/msg = input(user, message, title, default) as text|null
+	user.client.typing = FALSE
+	return msg
+
 //Filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
 	if(!t_in || length(t_in) > max_length)
