@@ -30,7 +30,7 @@ var/global/admin_ooc_colour = "#b82e00"
 			return
 	
 	if(!msg)
-		msg = typing_input(src.mob, "", "ooc (text)")
+		msg = typing_input(src.mob, "", "ooc \"text\"")
 		
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
@@ -182,7 +182,7 @@ var/global/admin_ooc_colour = "#b82e00"
 			return
 
 	if(!msg)
-		msg = typing_input(src.mob, "", "LOOC (text)")
+		msg = typing_input(src.mob, "Local OOC, seen only by those in view.", "looc \"text\"")
 
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
