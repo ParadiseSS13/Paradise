@@ -2,7 +2,7 @@
 
 /obj/item/defibrillator
 	name = "defibrillator"
-	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients. Ctrl-click on it to remove the paddles from the defibrillator."
+	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
 	icon_state = "defibunit"
 	item_state = "defibunit"
 	slot_flags = SLOT_BACK
@@ -40,6 +40,10 @@
 	update_power()
 	update_overlays()
 	update_charge()
+
+/obj/item/defibrillator/examine(mob/user)
+	..(user)
+	to_chat(user,"<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.")
 
 /obj/item/defibrillator/proc/update_power()
 	if(bcell)
