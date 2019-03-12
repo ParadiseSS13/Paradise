@@ -790,6 +790,8 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("scream", "screams")
+			if(has_trait(TRAIT_MUTE))
+				return FALSE
 			var/M = handle_emote_param(param)
 			if(miming)
 				message = "<B>[src]</B> acts out a scream[M ? " at [M]" : ""]!"

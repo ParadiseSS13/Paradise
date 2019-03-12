@@ -544,7 +544,7 @@
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_DISPOSING, src, D)
 		if(istype(AM, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = AM
-			if(FAT in H.mutations)		// is a human and fat?
+			if(H.has_trait(TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = 1			// set flag on holder
 		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 			var/obj/structure/bigDelivery/T = AM

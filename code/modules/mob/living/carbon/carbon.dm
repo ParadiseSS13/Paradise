@@ -29,7 +29,7 @@
 			nutrition -= hunger_drain / 10
 			if(m_intent == MOVE_INTENT_RUN)
 				nutrition -= hunger_drain / 10
-		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
+		if((has_trait(TRAIT_FAT)) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster

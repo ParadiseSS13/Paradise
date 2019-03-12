@@ -76,7 +76,7 @@
 
 /datum/dna/gene/disability/fat/New()
 	..()
-	block=FATBLOCK
+	add_trait(TRAIT_FAT)
 
 // WAS: /datum/bioEffect/chav
 /datum/dna/gene/disability/speech/chav

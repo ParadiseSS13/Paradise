@@ -117,7 +117,7 @@
 	else
 		to_chat(src, "Err, well, you *would*, but you don't have a torso. Yell at a coder.")
 		log_debug("[src] at ([x],[y],[z]) doesn't have a torso.")
-	mutations.Remove(FAT)
+	remove_trait(TRAIT_FAT)
 	update_mutantrace(0)
 	update_mutations(0)
 	update_body(0, 1)
@@ -132,7 +132,7 @@
 	else
 		to_chat(src, "Err, well, you *would*, but you don't have a torso. Yell at a coder.")
 		log_debug("[src] at ([x],[y],[z]) doesn't have a torso.")
-	mutations.Add(FAT)
+	add_trait(TRAIT_FAT)
 	update_mutantrace(0)
 	update_mutations(0)
 	update_body(0, 1)

@@ -423,7 +423,7 @@
 		if(2)	return 0 //if it returns 2, it wants no normal handling
 
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
-		if(FAT in mutations)
+		if(has_trait(TRAIT_FAT))
 			//testing("[M] TOO FAT TO WEAR [src]!")
 			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)

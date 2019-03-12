@@ -31,7 +31,7 @@
 	taste_message = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(FAT in M.mutations)
+	if(M.has_trait(TRAIT_FAT))
 		M.gib()
 	return ..()
 

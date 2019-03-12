@@ -15,7 +15,7 @@ var/global/image/typing_indicator
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.disabilities & MUTE || H.silent)
+		if(H.has_trait(TRAIT_MUTE)|| H.silent)
 			overlays -= typing_indicator
 			return
 

@@ -375,7 +375,7 @@
 	gain_text = "<span class='danger'>You suddenly feel the craving for drugs.</span>"
 	lose_text = "<span class='notice'>You feel like you should kick your drug habit.</span>"
 	medical_record_text = "Patient has a history of hard drugs."
-	var/drug_list = list("crank", "krokodil", "morphine", "happiness", "methamphetamine") //List of possible IDs
+	var/drug_list = list("crank", "krokodil", "morphine", "happiness", "methamphetamine", "space_drugs") //List of possible IDs
 	var/reagent_id //ID picked from list
 	var/datum/reagent/reagent_type //If this is defined, reagent_id will be unused and the defined reagent type will be instead.
 	var/datum/reagent/reagent_instance
@@ -462,7 +462,7 @@
 
 /datum/quirk/colorblind/
 	name = "Colourblindness"
-	desc = "Garbles the subject's voice into an incomprehensible speech."
+	desc = "You are unable to see the rainbow. Tasting it still works fine though."
 	gain_text = "<span class='notice'>You feel a peculiar prickling in your eyes while your perception of colour changes.</span>"
 	lose_text = "<span class='notice'>Your eyes tingle unsettlingly, though everything seems to become alot more colourful.</span>"
 	medical_record_text = "Patient seems unable to see colors."
@@ -478,3 +478,22 @@
 	..()
 	quirk_holder.update_client_colour() //Handle the activation of the colourblindness on the mob.
 	quirk_holder.update_icons() //Apply eyeshine as needed.
+
+/datum/quirk/mute/
+	name = "Mute"
+	desc = "You do not have a lot to say."
+	gain_text = "<span class='notice'>You become quiet.</span>"
+	lose_text = "<span class='notice'>You feel the need to express yourself via your Voice.</span>"
+	medical_record_text = "Patient seems unable to produce a sound."
+	value = -1
+	mob_trait = TRAIT_MUTE
+
+
+/datum/quirk/fat/
+	name = "Overweight"
+	desc = "You are overweight."
+	gain_text = "<span class='notice'>You feel big.</span>"
+	lose_text = "<span class='notice'>You feel slim.</span>"
+	medical_record_text = "Patient seems to be overweight, but you don't really need a scanner to tell you, do you?"
+	value = -1
+	mob_trait = TRAIT_FAT

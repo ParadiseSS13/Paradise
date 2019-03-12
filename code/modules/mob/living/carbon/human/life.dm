@@ -585,7 +585,7 @@
 
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(CAN_BE_FAT in dna.species.species_traits)
-		if(FAT in mutations)
+		if(has_trait(TRAIT_FAT))
 			if(overeatduration < 100)
 				becomeSlim()
 		else

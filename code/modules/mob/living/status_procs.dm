@@ -482,11 +482,10 @@
 // Deaf
 
 /mob/living/proc/BecomeDeaf()
-	disabilities |= DEAF
+	add_trait(TRAIT_DEAF)
 
 /mob/living/proc/CureDeaf()
-	disabilities &= ~DEAF
-	CureIfHasDisability(DEAFBLOCK)
+	remove_trait(TRAIT_DEAF)
 
 // Epilepsy
 
@@ -500,11 +499,10 @@
 // Mute
 
 /mob/living/proc/BecomeMute()
-	disabilities |= MUTE
+	add_trait(TRAIT_MUTE)
 
 /mob/living/proc/CureMute()
-	disabilities &= ~MUTE
-	CureIfHasDisability(MUTEBLOCK)
+	remove_trait(TRAIT_MUTE)
 
 // Nearsighted
 

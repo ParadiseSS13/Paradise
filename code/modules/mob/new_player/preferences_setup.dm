@@ -401,7 +401,7 @@
 
 	var/icon/clothes_s = null
 	var/uniform_dmi='icons/mob/uniform.dmi'
-	if(disabilities&DISABILITY_FLAG_FAT)
+	if(has_trait(TRAIT_FAT))
 		uniform_dmi='icons/mob/uniform_fat.dmi'
 	if(job_support_low & CIVILIAN)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
 		clothes_s = new /icon(uniform_dmi, "grey_s")

@@ -41,8 +41,6 @@
 	if(!status_traits[trait])
 		return FALSE
 
-	. = FALSE
-
 	if(sources && !islist(sources))
 		sources = list(sources)
 	if(LAZYLEN(sources))
@@ -51,6 +49,8 @@
 				return TRUE
 	else if(LAZYLEN(status_traits[trait]))
 		return TRUE
+	
+	return FALSE
 
 /datum/proc/remove_all_traits(remove_species_traits = FALSE, remove_organ_traits = FALSE, remove_quirks = FALSE)
 	if(!status_traits)

@@ -447,7 +447,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_mutations(var/update_icons=1)
 	remove_overlay(MUTATIONS_LAYER)
 	var/fat
-	if(FAT in mutations)
+	if(has_trait(TRAIT_FAT))
 		fat = "fat"
 
 	var/mutable_appearance/standing = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
@@ -554,7 +554,7 @@ var/global/list/damage_icon_parts = list()
 			t_color = icon_state
 
 		var/mutable_appearance/standing = mutable_appearance('icons/mob/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
-		if(FAT in mutations)
+		if(has_trait(TRAIT_FAT))
 			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
@@ -857,7 +857,7 @@ var/global/list/damage_icon_parts = list()
 			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-		else if(FAT in mutations)
+		else if(has_trait(TRAIT_FAT))
 			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = mutable_appearance('icons/mob/suit_fat.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 			else
@@ -1277,7 +1277,7 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
 	var/husk = (HUSK in mutations)
-	var/fat = (FAT in mutations)
+	var/fat = (has_trait(TRAIT_FAT))
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 

@@ -19,7 +19,7 @@
 		return
 	var/mob/living/carbon/C = owner
 	// genetic deafness prevents the body from using the ears, even if healthy
-	if(C.disabilities & DEAF)
+	if(owner.has_trait(TRAIT_DEAF))
 		deaf = max(deaf, 1)
 	else
 		if(ishuman(C))
