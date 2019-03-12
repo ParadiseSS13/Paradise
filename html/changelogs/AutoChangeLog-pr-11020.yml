@@ -1,5 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - bugfix: "Fixes #10261 - Pure Vampires in Traitor+Vampire gamemode will now properly show in AntagHUD"
-  - bugfix: "Fixes #9494 - Pure Changelings in Traitor+Changeling gamemode will now properly show in AntagHUD"
