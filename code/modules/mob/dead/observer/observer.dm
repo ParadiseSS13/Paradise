@@ -181,18 +181,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
+		if(isAI(src))
+			warningmsg = "You are a living AI! You should probably use OOC -> Wipe Core instead."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
-
-	if(stat == CONSCIOUS)
-
-		if(isAI(src))
-			to_chat(src, "<span class='userdanger'>AIs cannot ghost while alive. If you must leave the round, use OOC -> Wipe Core instead.</span>")
-			return
-
-		if(sees_someone_nearby())
-			to_chat(src, "<span class='userdanger'>You cannot ghost while alive with another player nearby. Go somewhere more secluded first.</span>")
-			return
 
 	if(warningmsg)
 		var/response
@@ -201,15 +193,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(response != "Ghost")
 			return
 
-	var/move_to_cryo = ishuman(src) && stat == CONSCIOUS && !P && !restrained()
-	if(move_to_cryo)
-		if(!do_after(src, 600, 0, target = src))
-			return
-		if(restrained())
-			move_to_cryo = FALSE
+	if(stat == CONSCIOUS)
+		player_ghosted = 1
 
-	if(move_to_cryo)
-		cryo_ssd(src)
 	if(warningmsg)
 		// Not respawnable
 		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
@@ -217,8 +203,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		// Respawnable
 		ghostize(1)
-	if(move_to_cryo)
-		force_cryo_human(src)
 
 	// If mob in morgue tray, update tray
 	var/obj/structure/morgue/Morgue = locate() in M.loc
