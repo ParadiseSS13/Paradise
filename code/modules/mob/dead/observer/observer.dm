@@ -219,18 +219,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			P.despawn_occupant()
 	return
 
-/mob/living/proc/sees_someone_nearby()
-	for(var/mob/living/L in oviewers(7, src))
-		if(!L.ckey)
-			continue
-		if(!L.client)
-			continue
-		if(L.stat == DEAD)
-			continue
-		if(L.invisibility >= see_invisible)
-			continue
-		return TRUE
-
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
 	dir = direct
