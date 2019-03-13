@@ -1508,6 +1508,7 @@ var/list/ghostteleportlocs = list()
 
 /area/engine/star_podbay
 	name = "\improper Starboard Podbay"
+	icon_state = "engine"
 
 /area/engine/supermatter
 	name = "\improper Supermatter Engine"
