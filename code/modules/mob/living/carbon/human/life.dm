@@ -42,7 +42,7 @@
 	handle_ghosted()
 
 /mob/living/carbon/human/proc/handle_ghosted()
-	if(player_ghosted > 0 && stat == CONSCIOUS && !restrained())
+	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
 		if(key)
 			player_ghosted = 0
 		else

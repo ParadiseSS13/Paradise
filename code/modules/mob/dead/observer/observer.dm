@@ -194,7 +194,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 
 	if(stat == CONSCIOUS)
-		player_ghosted = 1
+		if(!is_admin_level(z))
+			player_ghosted = 1
+		if(mind && mind.special_role)
+			message_admins("[key_name_admin(src)] has ghosted while alive, with special_role: [mind.special_role]")
 
 	if(warningmsg)
 		// Not respawnable
