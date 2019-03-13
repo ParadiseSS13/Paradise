@@ -9,7 +9,7 @@
 	guardianhealthdisplay = new /obj/screen/healths/guardian()
 	infodisplay += guardianhealthdisplay
 
-	using = new /obj/screen/act_intent/simple_animal()
+	using = new /obj/screen/act_intent/guardian()
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
