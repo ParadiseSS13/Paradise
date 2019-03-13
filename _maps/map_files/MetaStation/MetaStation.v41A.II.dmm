@@ -94554,20 +94554,10 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/folder/white{
-	pixel_y = 4
-	},
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 8
-	},
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
