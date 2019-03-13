@@ -195,6 +195,18 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
+/area/shuttle/large_pod_1
+	name = "\improper Large Escape Pod One"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+	nad_allowed = TRUE
+
+/area/shuttle/large_pod_2
+	name = "\improper Large Escape Pod Two"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+	nad_allowed = TRUE
+
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
 	music = "music/escape.ogg"
@@ -1000,12 +1012,20 @@ var/list/ghostteleportlocs = list()
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
 
+/area/maintenance/security
+	name = "Security Maintenance"
+	icon_state = "fsmaint"
+
 
 //Hallway
 
 /area/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
 	icon_state = "hallF"
+
+/area/hallway/primary/forestarboard
+	name = "\improper Fore Starboard Hallway"
+	icon_state = "hallS"
 
 /area/hallway/primary/starboard
 	name = "\improper Starboard Primary Hallway"
@@ -1060,6 +1080,18 @@ var/list/ghostteleportlocs = list()
 
 /area/hallway/secondary/entry/louge
 	name = "\improper Arrivals Lounge"
+
+/area/hallway/secondary/entry/D1
+	name = "\improper Shuttle Dock Hallway - Dock One"
+
+/area/hallway/secondary/entry/D2
+	name = "\improper Shuttle Dock Hallway - Dock Two"
+
+/area/hallway/secondary/entry/D3
+	name = "\improper Shuttle Dock Hallway - Dock Three"
+
+/area/hallway/secondary/entry/D4
+	name = "\improper Shuttle Dock Hallway - Dock Four"
 
 
 //Command
@@ -1165,6 +1197,38 @@ var/list/ghostteleportlocs = list()
 	icon_state = "Sleep"
 	valid_territory = FALSE
 
+/area/crew_quarters/sleep/vistor_room_1
+	name = "\improper Visitor Room 1"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/vistor_room_2
+	name = "\improper Visitor Room 2"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/vistor_room_3
+	name = "\improper Visitor Room 3"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/vistor_room_4
+	name = "\improper Visitor Room 4"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/vistor_room_5
+	name = "\improper Visitor Room 5"
+	icon_state = "Sleep"
+
+/area/crew_quarters/visitor_lodging
+ 	name = "\improper Visitor Lodging"
+ 	icon_state = "visitor_lodging"
+
+/area/crew_quarters/visitor_dinning
+ 	name = "\improper Visitor Dinning"
+ 	icon_state = "visitor_dinning"
+
+/area/crew_quarters/visitor_laundry
+ 	name = "\improper Visitor Laundry"
+ 	icon_state = "visitor_laundry"
+
 /area/crew_quarters/sleep_male
 	name = "\improper Male Dorm"
 	icon_state = "Sleep"
@@ -1193,6 +1257,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
+/area/crew_quarters/pool
+	name = "\improper Pool Room"
+	icon_state = "fitness"
+
 /area/crew_quarters/dorms
 	name = "\improper Dorms"
 	icon_state = "dorms"
@@ -1203,6 +1271,10 @@ var/list/ghostteleportlocs = list()
 
 /area/crew_quarters/cafeteria
 	name = "\improper Cafeteria"
+	icon_state = "cafeteria"
+
+/area/crew_quarters/coffee_shop
+	name = "\improper Coffee Shop"
 	icon_state = "cafeteria"
 
 /area/crew_quarters/kitchen
@@ -1414,6 +1486,29 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Hanger Bay"
 	icon_state = "engine"
 
+/area/engine/hallway
+	name = "\improper Engineering Hallway"
+	icon_state = "engineering_aft_hallway"
+
+/area/engine/locker
+	name = "\improper Locker Room"
+	icon_state = "engineering_locker"
+
+/area/engine/engi_wash
+	name = "\improper Engineering Washroom"
+	icon_state = "toilet"
+
+/area/engine/powermonitor
+	name = "\improper Engineering Power Monitoring"
+	icon_state = "engine_smes"
+
+/area/engine/port_podbay
+	name = "\improper Port Podbay"
+	icon_state = "engine"
+
+/area/engine/star_podbay
+	name = "\improper Starboard Podbay"
+
 /area/engine/supermatter
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
@@ -1510,6 +1605,10 @@ var/list/ghostteleportlocs = list()
 /area/toxins/explab_chamber
 	name = "\improper E.X.P.E.R.I-MENTOR Chamber"
 	icon_state = "toxmisc"
+
+/area/toxins/washroom
+	name = "\improper Science Washroom"
+	icon_state = "toilet"
 
 //MedBay
 
@@ -1627,6 +1726,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"
 
+/area/medical/surgeryprep
+	name = "\improper Pre-Op Prep Room"
+	icon_state = "surgery"
+
 /area/medical/cryo
 	name = "\improper Cryogenics"
 	icon_state = "cryo"
@@ -1650,6 +1753,10 @@ var/list/ghostteleportlocs = list()
 /area/medical/paramedic
 	name = "\improper Paramedic"
 	icon_state = "medbay"
+
+/area/medical/washroom
+	name = "\improper Medical Washroom"
+	icon_state = "toilet"
 
 //Security
 
@@ -1830,6 +1937,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Vacant Office"
 	icon_state = "security"
 
+/area/security/sec_wash
+	name = "\improper Security Washroom"
+	icon_state = "toilet"
+
 /area/quartermaster
 	name = "\improper Quartermasters"
 	icon_state = "quart"
@@ -1861,6 +1972,10 @@ var/list/ghostteleportlocs = list()
 /area/quartermaster/miningstorage
 	name = "\improper Mining Storage"
 	icon_state = "green"
+
+/area/quartermaster/washroom
+	name = "\improper Cargo Washroom"
+	icon_state = "toilet"
 
 /area/quartermaster/mechbay
 	name = "\improper Mech Bay"
@@ -2206,6 +2321,9 @@ var/list/ghostteleportlocs = list()
 /area/construction
 	name = "\improper Construction Area"
 	icon_state = "yellow"
+
+/area/construction/arrivals
+	name = "\improper Arrivals Construction Area"
 
 /area/mining_construction
 	name = "Auxillary Base Construction"
@@ -2693,6 +2811,7 @@ var/list/the_station_areas = list (
 	/area/maintenance,
 	/area/hallway,
 	/area/hallway/primary/fore,
+	/area/hallway/primary/forestarboard,
 	/area/hallway/primary/starboard,
 	/area/hallway/primary/aft,
 	/area/hallway/primary/port,
