@@ -1,0 +1,4 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - tweak: "universal translate no longer makes emotes over comms impossible"
