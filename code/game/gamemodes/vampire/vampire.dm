@@ -277,6 +277,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
+	var/list/cant = list("Your empty eyes make you want to eat", "I do not find the grace to feed on this", "His blood tastes like garlic", "Your victim needs a soul for you to feed upon")
+	if(H.ckey == null)
+		to_chat(owner, "<span class='warning'>[pick(cant)].")
+		draining = null
+		return
 	if(owner.is_muzzled())
 		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>")
 		draining = null
