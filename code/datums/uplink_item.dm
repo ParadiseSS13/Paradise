@@ -482,6 +482,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
+	name = "Compact Sniper Rifle"
+	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
+	reference = "CSR"
+	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
+	cost = 16
+	surplus = 0
+	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
@@ -632,6 +642,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/loaded
 	cost = 10 //bulk buyer's discount. Very useful if you're buying a mech and dont have TC left to buy people non-shotgun guns
 	gamemodes = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/ammo/bullslug
 	name = "Bulldog - 12g Slug Magazine"
@@ -921,7 +932,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PB"
 	item = /obj/item/pizza_bomb
 	cost = 5
-	surplus = 8
+	surplus = 80
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
@@ -1451,10 +1462,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Cybernetic Implants"
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
+	var/cyber_bundle = FALSE
 
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
 	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
+		if(findtext(item, /obj/item/organ/internal/cyberimp) && !cyber_bundle)
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
 			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
@@ -1498,6 +1510,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
+	cyber_bundle = TRUE
+	cant_discount = TRUE
 
 // POINTLESS BADASSERY
 
@@ -1597,6 +1611,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
 	cant_discount = TRUE // You fucking wish
+	var/crate_value = 50
+
+/datum/uplink_item/badass/surplus_crate/super
+	name = "Syndicate Super Surplus Crate"
+	desc = "A crate containing 125 telecrystals worth of random syndicate leftovers."
+	reference = "SYSS"
+	cost = 40
+	crate_value = 125
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
@@ -1604,16 +1626,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
+	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
 	U.uses -= cost
-	U.used_TC = 20
-	var/remaining_TC = 50
+	U.used_TC = cost
 
 	var/datum/uplink_item/I
 	while(remaining_TC)
 		I = pick(buyable_items)
-		if(!I.surplus)
+		if(!I.surplus || prob(100 - I.surplus))
 			continue
 		if(I.cost > remaining_TC)
 			continue

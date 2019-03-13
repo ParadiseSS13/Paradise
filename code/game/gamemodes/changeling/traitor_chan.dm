@@ -38,5 +38,6 @@
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
+		update_change_icons_added(changeling)
 	..()
 	return

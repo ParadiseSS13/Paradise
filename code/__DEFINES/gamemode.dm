@@ -4,6 +4,8 @@
 #define TARGET_INVALID_DEAD			3
 #define TARGET_INVALID_NOCKEY		4
 #define TARGET_INVALID_UNREACHABLE	5
+#define TARGET_INVALID_GOLEM		6
+#define TARGET_INVALID_EVENT		7
 
 //gamemode istype helpers
 #define GAMEMODE_IS_BLOB		(ticker && istype(ticker.mode, /datum/game_mode/blob))
@@ -51,3 +53,4 @@
 #define SPECIAL_ROLE_XENOMORPH_DRONE "Xenomorph Drone"
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
+#define SPECIAL_ROLE_EVENTMISC "Event Role"

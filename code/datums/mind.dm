@@ -30,6 +30,7 @@
 
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
+	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -314,6 +315,13 @@
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
+/datum/mind/proc/memory_edit_eventmisc(mob/living/H)
+	. = _memory_edit_header("event", list())
+	if(src in ticker.mode.eventmiscs)
+		. += "<b>YES</b>|<a href='?src=[UID()];eventmisc=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
+
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
 	if(src in ticker.mode.traitors)
@@ -401,6 +409,7 @@
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
 	if(is_type_in_typecache(current, devils_typecache))
 		sections["devil"] = memory_edit_devil(H)
+	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
 	/** SILICON ***/
@@ -447,7 +456,7 @@
 		out += gen_objective_text(admin = TRUE)
 	out += "<a href='?src=[UID()];obj_add=1'>Add objective</a><br><br>"
 	out += "<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br><br>"
-	usr << browse(out, "window=edit_memory[src];size=400x500")
+	usr << browse(out, "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -1030,6 +1039,21 @@
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
 
+	else if(href_list["eventmisc"])
+		switch(href_list["eventmisc"])
+			if("clear")
+				if(src in ticker.mode.eventmiscs)
+					ticker.mode.eventmiscs -= src
+					ticker.mode.update_eventmisc_icons_removed(src)
+					special_role = null
+					message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
+					log_admin("[key_name(usr)] has de-eventantag'ed [current].")
+			if("eventmisc")
+				ticker.mode.eventmiscs += src
+				special_role = SPECIAL_ROLE_EVENTMISC
+				ticker.mode.update_eventmisc_icons_added(src)
+				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
+				log_admin("[key_name(usr)] has eventantag'ed [current].")
 	else if(href_list["devil"])
 		switch(href_list["devil"])
 			if("clear")

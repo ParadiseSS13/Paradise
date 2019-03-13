@@ -1,6 +1,6 @@
 // DONT TOUCH ANYTHING IN HERE UNLESS YOU KNOW WHAT YOU ARE DOING -affected
 /client/verb/linkdiscord()
-    set category = "OOC"
+    set category = "Special Verbs"
     set name = "Link Discord Account"
     set desc = "Link your discord account to your BYOND account."
     var/user_ckey = sanitizeSQL(usr.ckey) // Probably not neccassary but better safe than sorry
@@ -17,7 +17,7 @@
     while(db_discord_id.NextRow())
         stored_id = db_discord_id.item[1]
     if(!stored_id) // Not linked
-        var/know_how = alert("Do you know how to get a discord user ID?","Question","Yes","No")
+        var/know_how = alert("Do you know how to get a discord user ID? This ID is NOT your discord username and numbers!","Question","Yes","No")
         if(know_how == "No") // Opens discord support on how to collect IDs
             src << link("https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID")
         var/entered_id = input("Please enter your Discord ID.", "Enter Discord ID", null, null) as text|null

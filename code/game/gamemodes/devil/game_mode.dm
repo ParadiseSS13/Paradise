@@ -39,6 +39,8 @@
 	if(devil_mind.assigned_role == "Clown")
 		to_chat(devil_mind.current, "Your infernal nature allows you to wield weapons without harming yourself.")
 		devil_mind.current.mutations.Remove(CLUMSY)
+		var/datum/action/innate/toggle_clumsy/A = new
+		A.Grant(devil_mind.current)
 	spawn(10)
 		devil_mind.devilinfo.update_hud()
 	if(issilicon(devil_mind.current))
