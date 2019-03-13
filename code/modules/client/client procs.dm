@@ -310,6 +310,11 @@
 	GLOB.directory[ckey] = src
 
 	//Admin Authorisation
+	// Automatically makes localhost connection an admin
+	if(!config.disable_localhost_admin)
+		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+		if(!isnull(address) && address in localhost_addresses)
+			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
@@ -375,6 +380,12 @@
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 			update_changelog_button()
 
+	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+		if(SSdbcore.Connect())
+			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+	else
+		if(SSdbcore.Connect())
+			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	if(!void)
 		void = new()

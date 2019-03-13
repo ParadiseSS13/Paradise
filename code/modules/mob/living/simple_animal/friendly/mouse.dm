@@ -17,9 +17,9 @@
 	maxHealth = 5
 	health = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "stamps on the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stamps on"
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB

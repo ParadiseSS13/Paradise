@@ -460,6 +460,16 @@ var/round_start_time = 0
 	if(dronecount)
 		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
 
+	if(ticker.mode.eventmiscs.len)
+		var/emobtext = ""
+		for(var/datum/mind/eventmind in ticker.mode.eventmiscs)
+			emobtext += printeventplayer(eventmind)
+			emobtext += "<br>"
+			emobtext += printobjectives(eventmind)
+			emobtext += "<br>"
+		emobtext += "<br>"
+		to_chat(world, emobtext)
+
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes

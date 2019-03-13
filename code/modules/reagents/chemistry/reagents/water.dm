@@ -198,7 +198,7 @@
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
-	color = "#C80000" // rgb: 200, 0, 0
+	color = "#770000" // rgb: 40, 0, 0
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"

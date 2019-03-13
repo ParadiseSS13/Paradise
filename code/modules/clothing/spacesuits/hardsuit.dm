@@ -72,7 +72,7 @@
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 

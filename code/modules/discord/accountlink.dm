@@ -1,6 +1,6 @@
 // DONT TOUCH ANYTHING IN HERE UNLESS YOU KNOW WHAT YOU ARE DOING -affected
 /client/verb/linkdiscord()
-    set category = "OOC"
+    set category = "Special Verbs"
     set name = "Link Discord Account"
     set desc = "Link your discord account to your BYOND account."
     var/user_ckey = sanitizeSQL(usr.ckey) // Probably not neccassary but better safe than sorry

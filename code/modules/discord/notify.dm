@@ -1,6 +1,6 @@
 // DONT TOUCH ANYTHING IN HERE UNLESS YOU KNOW WHAT YOU ARE DOING -affected
 /client/verb/notify_restart()
-    set category = "OOC"
+    set category = "Special Verbs"
     set name = "Notify Restart"
     set desc = "Notifies you on Discord when the server restarts."
     if(!config.sql_enabled)
