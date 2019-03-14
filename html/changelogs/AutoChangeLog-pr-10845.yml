@@ -1,0 +1,5 @@
+author: "Quantum-M"
+delete-after: True
+changes: 
+  - tweak: "Changes the stamp sprites."
+  - imageadd: "Add new sprites for the infernal and employment contracts."
