@@ -688,11 +688,11 @@
 ////Ume hairstyles////
 //////////////////////
 
-/datum/sprite_accessory/hair/80s_ponytail
+/datum/sprite_accessory/hair/eighties_ponytail
 	name = "80's ponytail"
 	icon_state = "80_ponytail"
 
-/datum/sprite_accessory/hair/80_ponytail_alt
+/datum/sprite_accessory/hair/eighties_ponytailalt
 	name = "80's ponytail alt"
 	icon_state = "80_ponytail_alt"
 
@@ -732,7 +732,21 @@
 	name = "Amanita short"
 	icon_state = "amanita_short"
 
+/datum/sprite_accessory/hair/long_curls
+	name = "Long curls"
+	icon_state = "long_curls"
 
+/datum/sprite_accessory/hair/long_curls_alt
+	name = "Long curls alt"
+	icon_state = "long_curls_alt"
+
+/datum/sprite_accessory/hair/long_buns
+	name = "Long buns"
+	icon_state = "long_buns"
+
+/datum/sprite_accessory/hair/low_twins
+	name = "Low twins"
+	icon_state = "low_twins"
 
 ///Ume hairs end here///
 
