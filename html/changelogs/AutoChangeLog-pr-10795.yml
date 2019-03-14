@@ -1,5 +1,0 @@
-author: "Quantum-M"
-delete-after: True
-changes: 
-  - imageadd: "Different organ sprites for each species"
-  - imageadd: "Different MMI sprites based on different species brains."
