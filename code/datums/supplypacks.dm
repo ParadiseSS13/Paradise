@@ -149,6 +149,27 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	access = access_hydroponics
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
+/datum/supply_packs/emergency/voxsupport
+	name = "Vox Life Support Supplies"
+	contains = list(/obj/item/clothing/mask/breath/vox,
+					/obj/item/clothing/mask/breath/vox,
+					/obj/item/tank/emergency_oxygen/vox,
+					/obj/item/tank/emergency_oxygen/vox)
+	cost = 50
+	containertype = /obj/structure/closet/crate/medical
+	containername = "vox life support supplies crate"
+
+/datum/supply_packs/emergency/plasmamansupport
+	name = "Plasmaman Life Support Supplies"
+	contains = list(/obj/item/clothing/mask/breath,
+					/obj/item/tank/emergency_oxygen/plasma,
+					/obj/item/clothing/suit/space/eva/plasmaman,
+					/obj/item/clothing/head/helmet/space/eva/plasmaman)
+	cost = 75
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "plasmaman life support supplies crate"
+	access = access_eva
+
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
 	contains = list(/obj/item/storage/box/emps,
