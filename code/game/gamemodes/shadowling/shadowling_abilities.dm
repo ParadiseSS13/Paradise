@@ -4,7 +4,7 @@
 	if(!H || !istype(H)) return
 	if(H.incorporeal_move == 1)
 		to_chat(usr, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
-		return 0
+		return FALSE
 	if(isshadowling(H) && is_shadow(H))
 		return 1
 	if(isshadowlinglesser(H) && is_thrall(H))
