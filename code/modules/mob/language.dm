@@ -153,10 +153,7 @@
 	colour = "soghun"
 	key = "o"
 	flags = RESTRICTED
-	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
-	"ho","oh","hu","uh","hs","sh","la","al","le","el","li","il","lo","ol","lu","ul","ls","sl","ka","ak","ke","ek", \
-	"ki","ik","ko","ok","ku","uk","ks","sk","sa","as","se","es","si","is","so","os","su","us","ss","ss","ra","ar", \
-	"re","er","ri","ir","ro","or","ru","ur","rs","sr","a","a","e","e","i","i","o","o","u","u","s","s" )
+	syllables = list("owo","wats dis")
 
 /datum/language/unathi/get_random_name()
 
@@ -174,10 +171,7 @@
 	colour = "tajaran"
 	key = "j"
 	flags = RESTRICTED
-	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
-	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
-	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
-	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
+	syllables = list("owo","wats dis")
 
 /datum/language/tajaran/get_random_name(gender)
 	var/new_name = ..(gender,1)
@@ -196,10 +190,7 @@
 	colour = "vulpkanin"
 	key = "7"
 	flags = RESTRICTED
-	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
-	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
-	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
-	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
+	syllables = list("owo","wats dis")
 
 /datum/language/skrell
 	name = "Skrellian"
@@ -210,7 +201,7 @@
 	colour = "skrell"
 	key = "k"
 	flags = RESTRICTED
-	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
+	syllables = list("owo","wats dis")
 
 /datum/language/vox
 	name = "Vox-pidgin"
@@ -221,8 +212,7 @@
 	colour = "vox"
 	key = "v"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya", "yi", "chi","cha","kah", \
-	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
+	syllables = list("owo","wats dis")
 
 /datum/language/vox/get_random_name()
 	var/sounds = rand(2, 8)
@@ -243,7 +233,7 @@
 	colour = "diona"
 	key = "q"
 	flags = RESTRICTED
-	syllables = list("hs","zt","kr","st","sh")
+	syllables = list("owo","wats dis")
 
 /datum/language/diona/get_random_name()
 	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace of", "Dreams of", "Witnessing", "To Walk Beneath", "Approaching the", "Glimmer of", "The Ripple of", "Colors of", "The Still of", "Silence of", "Gentle Breeze of", "Glistening Waters under", "Child of", "Blessed Plant-ling of", "Grass-Walker of", "Element of", "Spawn of"))]"
@@ -259,7 +249,7 @@
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+	syllables = list("o","w","wo","ow")
 
 /datum/language/trinary/get_random_name()
 	var/new_name
@@ -278,7 +268,7 @@
 	colour = "kidan"
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("click","clack")
+	syllables = list("owo","wats dis")
 
 /datum/language/kidan/get_random_name()
 	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
@@ -298,7 +288,7 @@
 	colour = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("blob","plop","pop","bop","boop")
+	syllables = list("owo","wats dis")
 
 /datum/language/grey
 	name = "Psionic Communication"
@@ -343,7 +333,7 @@
 	colour = "drask"
 	key = "%"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
+	syllables = list("owo","wats dis")
 
 /datum/language/drask/get_random_name()
 	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
@@ -378,7 +368,7 @@
 	colour = "solcom"
 	key = "1"
 	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	syllables = list("owo","wats dis")
 	english_names = 1
 
 /datum/language/human/get_spoken_verb(msg_end)
@@ -397,14 +387,7 @@
 	colour = "say_quote"
 	key = "2"
 	space_chance = 100
-	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+	syllables = list("owo","wats dis")
 
 /datum/language/gutter
 	name = "Gutter"
@@ -414,7 +397,7 @@
 	exclaim_verb = "snarls"
 	colour = "gutter"
 	key = "3"
-	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
+	syllables = list("owo","wats dis")
 
 /datum/language/clown
 	name = "Clownish"
@@ -436,15 +419,7 @@
 	key = "?"
 	space_chance = 65
 	english_names = 1
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	syllables = list("owo","wats dis")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
