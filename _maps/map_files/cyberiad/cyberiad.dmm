@@ -88319,12 +88319,6 @@
 /obj/item/stack/spacecash/c200,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"dbj" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/engi_shuttle)
 "dbk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -96601,6 +96595,172 @@
 /obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"epr" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"eEC" = (
+/turf/simulated/wall,
+/area/engine/ptc)
+"fGi" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Power Transfer Crystal";
+	req_access_txt = "10";
+	req_one_access_txt = null
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/engi_shuttle)
+"huT" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24;
+	shock_proof = 0
+	},
+/obj/machinery/computer/monitor,
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"hzn" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/engi_shuttle)
+"jvN" = (
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"nNl" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"osS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/engi_shuttle)
+"pww" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"rHL" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"spc" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Power Transfer Crystal";
+	req_access_txt = "10";
+	req_one_access_txt = null
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"sWh" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/engi_shuttle)
+"vfu" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"vCJ" = (
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1;
+	d2 = 2
+	},
+/obj/machinery/power/ptc,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"vGM" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
+"vJr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plating,
+/area/engine/ptc)
 
 (1,1,1) = {"
 aaa
@@ -118111,7 +118271,7 @@ cRz
 cUb
 cRz
 cRz
-aab
+aaa
 aaa
 aaa
 aaa
@@ -118368,12 +118528,12 @@ cSR
 cUa
 cVl
 cRA
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+eEC
+eEC
+eEC
+eEC
+eEC
+eEC
 aaa
 aaa
 aaa
@@ -118625,12 +118785,12 @@ cTa
 cUe
 cVd
 cRA
-aaa
-aab
-aab
-aaa
-aaa
-aaa
+jvN
+pww
+jvN
+epr
+huT
+eEC
 aaa
 aaa
 aaa
@@ -118882,12 +119042,12 @@ cST
 cUd
 cVm
 cRA
-aab
-aab
-aaa
-aaa
-aaa
-aaa
+jvN
+vCJ
+rHL
+spc
+vJr
+eEC
 aaa
 aaa
 aaa
@@ -119139,13 +119299,13 @@ cRA
 cUg
 cRA
 cRA
-aab
-aab
+jvN
+nNl
+jvN
+vfu
+vGM
+eEC
 aaa
-aab
-aab
-aaa
-aab
 ddL
 aab
 aaa
@@ -119400,7 +119560,7 @@ cXu
 cXu
 cXu
 cXu
-cXu
+fGi
 cXu
 cXu
 cXu
@@ -119657,7 +119817,7 @@ cXu
 cYt
 cYt
 dao
-dbj
+cYB
 dbU
 cXu
 cZu
@@ -119914,7 +120074,7 @@ cXu
 cYt
 cYt
 dap
-cZu
+cYB
 cZw
 cXu
 cZu
@@ -120171,7 +120331,7 @@ cXu
 cYu
 cYu
 cZu
-cZu
+cYB
 cZu
 dcU
 cZu
@@ -120428,7 +120588,7 @@ cXu
 cYA
 cZu
 cZu
-cZu
+cYB
 cZu
 dcM
 dcM
@@ -120682,10 +120842,10 @@ cKb
 cRG
 cNB
 cXu
-cYB
-cZu
-cZu
-cZu
+osS
+sWh
+sWh
+hzn
 cZu
 dcM
 aab

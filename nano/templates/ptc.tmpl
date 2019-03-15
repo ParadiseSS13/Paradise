@@ -1,0 +1,59 @@
+<!--
+Title: Power Transfer Crystal
+Used In File(s): \code\game\machinery\ptc.dm
+-->
+<h2>Statistics</h2>
+<div class='item'>
+  <div class='itemLabel'>
+		<b>Supply Points:</b>
+	</div>
+	<div class='itemContent'>
+		<span class='average'>{{:helper.smoothRound(data.supplypoints)}}</span>
+	</div>
+</div>
+<h2>Power Setting</h2>
+<div class='item'>
+  {{if data.powerlevel == 0}}
+    <div class='itemContent'>{{:helper.link('OFF',null,{'power' : '0'},null,'linkOn')}}</div>
+  {{else}}
+    <div class='itemContent'>{{:helper.link('OFF',null,{'power' : '0'},null,'link')}}</div>
+  {{/if}}
+</div>
+<div class='item'>
+  {{if data.powerlevel == 1}}
+    <div class='itemContent'>{{:helper.link('Power: 1KW | Points Per Minute: 1',null,{'power' : '1'},null,'linkOn')}}</div>
+  {{else}}
+    <div class='itemContent'>{{:helper.link('Power: 1KW | Points Per Minute: 1',null,{'power' : '1'},null,'link')}}</div>
+  {{/if}}
+</div>
+<div class='item'>
+  {{if data.powerlevel == 2}}
+    <div class='itemContent'>{{:helper.link('Power: 10KW | Points Per Minute: 5',null,{'power' : '2'},null,'linkOn')}}</div>
+  {{else}}
+    <div class='itemContent'>{{:helper.link('Power: 10KW | Points Per Minute: 5',null,{'power' : '2'},null,'link')}}</div>
+  {{/if}}
+</div>
+<div class='item'>
+  {{if data.powerlevel == 3}}
+    <div class='itemContent'>{{:helper.link('Power: 100KW | Points Per Minute: 10',null,{'power' : '3'},null,'linkOn')}}</div>
+  {{else}}
+    <div class='itemContent'>{{:helper.link('Power: 100KW | Points Per Minute: 10',null,{'power' : '3'},null,'link')}}</div>
+  {{/if}}
+</div>
+<div class='item'>
+  {{if data.powerlevel == 4}}
+    <div class='itemContent'>{{:helper.link('Power: 1MW | Points Per Minute: 15',null,{'power' : '4'},null,'linkOn')}}</div>
+  {{else}}
+    <div class='itemContent'>{{:helper.link('Power: 1MW | Points Per Minute: 15',null,{'power' : '4'},null,'link')}}</div>
+  {{/if}}
+</div>
+{{if data.emagged == 1}}
+<div class='notice'>WARNING: The following mode may cause station power failures</div>
+<div class='item'>
+  {{if data.powerlevel == 5}}
+    <div class='itemContent'>{{:helper.link('Power: 10MW | Points Per Minute: 25',null,{'power' : '5'},null,'linkOn')}}</div>
+  {{else}}
+    <div class='itemContent'>{{:helper.link('Power: 10MW | Points Per Minute: 25',null,{'power' : '5'},null,'link')}}</div>
+  {{/if}}
+</div>
+{{/if}}

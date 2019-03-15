@@ -1417,6 +1417,9 @@ var/list/ghostteleportlocs = list()
 /area/engine/supermatter
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
+/area/engine/ptc
+	name = "\improper PTC Control Room"
+	icon_state = "engine"
 
 //Solars
 
