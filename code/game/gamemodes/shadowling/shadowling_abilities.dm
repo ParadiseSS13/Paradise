@@ -3,7 +3,7 @@
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
 	if(!H || !istype(H)) return
 	if(H.incorporeal_move == 1)
-		to_chat(usr, "<span class='warning'>You can't use your abilities while you are traversing between worlds!</span>")
+		to_chat(usr, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
 		return 0
 	if(isshadowling(H) && is_shadow(H))
 		return 1
