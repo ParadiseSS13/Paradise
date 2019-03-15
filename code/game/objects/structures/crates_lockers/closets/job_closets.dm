@@ -32,7 +32,7 @@
 	new /obj/item/clothing/head/soft/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
-
+	new /obj/item/scythe(src)
 /*
  * Chef
  */
