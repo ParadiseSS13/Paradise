@@ -237,10 +237,9 @@ datum/chemical_reaction/flash_powder
 			holder.remove_reagent(f_reagent, holder.get_reagent_amount(f_reagent))
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/smoke_spread/chem/S = new
-	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 	if(S)
-		S.set_up(holder, 10, 0, location)
+		S.set_up(holder, location)
 		if(created_volume < 5)
 			S.start(1)
 		if(created_volume >=5 && created_volume < 10)
