@@ -30,13 +30,13 @@
 		"shows their true colors, which happens to be the color of plasma!")
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
+		"heart" =    /obj/item/organ/internal/heart/plasmaman,
 		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"liver" =    /obj/item/organ/internal/liver/plasmaman,
+		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
+		"brain" =    /obj/item/organ/internal/brain/plasmaman,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
+		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
 		)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman

@@ -1156,8 +1156,18 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat"
 	item_state = "shesicoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/shesi
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/head/hood/fluff/shesi //MrSynnester : Shesi Skaklas
+	name = "custom made winter hood"
+	desc = "A custom made winter coat hood. Looks comfy."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "shesicoat_hood2"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1682,6 +1692,14 @@
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
+
+/obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
+    name = "Old purple scarf"
+    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "rbscarf"
+    item_state = "rbscarf"
+    item_color = "rbscarf"
 
 /obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
 	name = "Rara's Somber Accordion"
