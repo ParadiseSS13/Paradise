@@ -980,6 +980,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
+/datum/uplink_item/stealthy_tools/chameleon_cardboard
+	name = "Chameleon Cardboard Box"
+	desc = "Just a box..."
+	reference = "CCB"
+	item = /obj/structure/closet/cardboard/chameleon
+	cost = 3
+
 /datum/uplink_item/stealthy_tools/chameleon_jumpsuit
 	name = "Chameleon Jumpsuit"
 	desc = "A jumpsuit used to imitate the uniforms of Nanotrasen crewmembers."
