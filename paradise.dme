@@ -1729,6 +1729,7 @@
 #include "code\modules\mob\living\carbon\human\inventory.dm"
 #include "code\modules\mob\living\carbon\human\life.dm"
 #include "code\modules\mob\living\carbon\human\login.dm"
+#include "code\modules\mob\living\carbon\human\logout.dm"
 #include "code\modules\mob\living\carbon\human\npcs.dm"
 #include "code\modules\mob\living\carbon\human\say.dm"
 #include "code\modules\mob\living\carbon\human\shock.dm"
