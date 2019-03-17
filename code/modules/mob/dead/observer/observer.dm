@@ -235,6 +235,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	..()
 
+/mob/dead/observer/experience_pressure_difference()
+	return 0
+
 /mob/dead/observer/can_use_hands()	return 0
 
 /mob/dead/observer/Stat()
