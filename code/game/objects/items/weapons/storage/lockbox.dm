@@ -133,5 +133,5 @@
 
 /obj/item/storage/lockbox/t4/New()
 	..()
-	for(var/i in 0 to 3)
+	for(var/i in 0 to 2)
 		new /obj/item/grenade/plastic/x4/thermite(src)
