@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "It is no longer possible to crawl into a vent while you are simultaneously buckled to a chair or other solid object."
