@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Adds a confirmation to the start now verb. Make it ansari proof"
