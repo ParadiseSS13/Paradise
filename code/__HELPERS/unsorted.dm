@@ -1494,9 +1494,6 @@ var/mob/dview/dview_mob = new
 	canmove = FALSE
 	see_in_dark = 1e6
 
-/mob/dview/experience_pressure_difference()
-	return 0
-
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 
 /mob/dview/Destroy()

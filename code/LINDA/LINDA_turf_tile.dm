@@ -311,7 +311,7 @@
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	if(last_forced_movement >= SSair.times_fired)
 		return 0
-	else if(!anchored && !pulledby)
+	else if((!anchored || move_resist == INFINITY) && !pulledby)
 		var/turf/target = get_turf(src)
 		var/datum/gas_mixture/target_air = target.return_air()
 		if(isspaceturf(target) || isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
