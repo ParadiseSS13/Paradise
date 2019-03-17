@@ -31,6 +31,18 @@
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
+	var/occupant = "None"
+	var/crimes = "None"
+	var/time = 0
+	var/officer = "None"
+
+/obj/machinery/door_timer/New()
+ 	GLOB.celltimers_list += src
+ 	return ..()
+
+/obj/machinery/door_timer/Destroy()
+ 	GLOB.celltimers_list -= src
+ 	return ..()
 
 /obj/machinery/door_timer/proc/print_report()
 	var/logname = input(usr, "Name of the guilty?","[id] log name")
@@ -38,6 +50,10 @@
 
 	if(!logname || !logcharges)
 		return 0
+	occupant = logname
+	crimes = logcharges
+	time = timetoset
+	officer = usr.name
 
 	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
@@ -121,6 +137,7 @@
 	if(timing)
 		if(timeleft() <= 0)
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
+			occupant = "None"
 			timer_end() // open doors, reset timer, clear status screen
 			timing = 0
 			. = PROCESS_KILL
@@ -181,7 +198,11 @@
 	if(stat & (NOPOWER|BROKEN))
 		return 0
 
-	// Reset releasetime
+	// Reset vars
+	occupant = "None"
+	crimes = "None"
+	time = 0
+	officer = "None"
 	releasetime = 0
 	printed = 0
 	if(prisoner)
