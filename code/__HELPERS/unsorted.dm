@@ -1487,7 +1487,8 @@ var/mob/dview/dview_mob = new
 /mob/dview
 	invisibility = 101
 	density = 0
-
+	move_force = 0
+	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
 
