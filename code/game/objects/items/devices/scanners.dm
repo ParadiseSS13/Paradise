@@ -526,6 +526,9 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/M as mob, mob/living/user as mob)
+	slime_scan(M, user)
+
+/proc/slime_scan(mob/living/carbon/slime/M, mob/living/user)
 	if(!isslime(M))
 		user.show_message("<span class='warning'>This device can only scan slimes!</span>", 1)
 		return
