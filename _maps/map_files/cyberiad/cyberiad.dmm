@@ -2151,6 +2151,7 @@
 	},
 /area/shuttle/syndicate_sit)
 "aey" = (
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -6056,13 +6057,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "akN" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
+/obj/structure/closet/secure_closet/hos,
+/obj/item/reagent_containers/food/drinks/flask/barflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7070,8 +7072,6 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "amt" = (
-/obj/structure/closet/secure_closet/hos,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Security's Desk";
@@ -7080,6 +7080,7 @@
 	pixel_x = 30;
 	pixel_y = 0
 	},
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8160,7 +8161,7 @@
 	},
 /area/security/evidence)
 "aom" = (
-/obj/machinery/computer/station_alert/all,
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"

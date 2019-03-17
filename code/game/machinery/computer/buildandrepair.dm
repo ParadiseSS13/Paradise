@@ -219,6 +219,9 @@
 /obj/item/circuitboard/prisoner
 	name = "Circuit board (Prisoner Management)"
 	build_path = /obj/machinery/computer/prisoner
+/obj/item/circuitboard/brigcells
+	name = "Circuit board (Brig Cell Control)"
+	build_path = /obj/machinery/computer/brigcells
 
 
 // RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
