@@ -14691,7 +14691,7 @@
 /obj/machinery/camera{
 	c_tag = "Prison South";
 	dir = 1;
-	network = list("SS13")
+	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
