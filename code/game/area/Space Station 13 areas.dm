@@ -1759,6 +1759,11 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Medical Washroom"
 	icon_state = "toilet"
 
+/area/medical/checkpoint
+	name = "\improper Medical Checkpoint"
+	icon_state = "medbay"
+	music = 'sound/ambience/signal.ogg'
+
 //Security
 
 /area/security/main
