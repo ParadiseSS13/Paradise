@@ -1,5 +1,0 @@
-author: "AffectedArc07 and Alonefromhell"
-delete-after: True
-changes: 
-  - rscadd: "Cell management consoles: See the status of all brig cells without having to leave your office"
-  - imageadd: "New screen sprite for cell management console"
