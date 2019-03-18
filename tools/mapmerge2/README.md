@@ -13,17 +13,20 @@ version of the map while maintaining all the actual changes. It requires an old
 version of the map to use as a reference and a new version of the map which
 contains the desired changes.
 
-## Installation/Usage
+## Installation
 
-To install Python dependencies, run `Install Requirements.bat`
+To install Python dependencies, run `requirements-install.bat`, or run
+`python -m pip install -r requirements.txt` directly. See the [Git hooks]
+documentation to install the Git pre-commit hook which runs the map merger
+automatically, or use `tools/mapmerge/Prepare Maps.bat` to save backups before
+running `mapmerge.bat`.
 
-**BEFORE** making a map edit, run `Prepare Maps.bat` to create your backups. *These are required to run mapmerge successfully.*
-
-**AFTER** you have made your edit, run `Run Mapmerge.bat` to merge the maps. 
+For up-to-date installation and detailed troubleshooting instructions, visit
+the [Map Merger] wiki article.
 
 ## Code Structure
 
-All the scripts are inside the `/src/` folder. Frontend scripts are meant to be run directly. They obey the environment
+Frontend scripts are meant to be run directly. They obey the environment
 variables `TGM` to set whether files are saved in TGM (1) or DMM (0) format,
 and `MAPROOT` to determine where maps are kept. By default, TGM is used and
 the map root is autodetected. Each script may either prompt for the desired map
@@ -31,12 +34,19 @@ or be run with command-line parameters indicating which maps to act on. The
 scripts include:
 
 * `convert.py` for converting maps to and from the TGM format. Used by
-  `Convert DMM to TGM.bat` and `Convert TGM to DMM.bat`.
+  `tgm2dmm.bat` and `dmm2tgm.bat`.
 * `mapmerge.py` for running the map merge on map backups saved by
-  `Prepare Maps.bat`. Used by `Run Mapmerge.bat`
+  `Prepare Maps.bat`. Used by `mapmerge.bat`
 
 Implementation modules:
 
 * `dmm.py` includes the map reader and writer.
 * `mapmerge.py` includes the implementation of the map merge operation.
 * `frontend.py` includes the common code for the frontend scripts.
+
+`precommit.py` is run by the [Git hooks] if installed, and merges the new
+version of any map saved in the index (`git add`ed) with the old version stored
+in Git when run.
+
+[Map Merger]: https://tgstation13.org/wiki/Map_Merger
+[Git hooks]: ../hooks/README.md

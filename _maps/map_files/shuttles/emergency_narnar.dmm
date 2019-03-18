@@ -296,12 +296,12 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aR" = (
+/obj/effect/spawner/window/reinforced{
+	color = "red"
+	},
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3";
 	dir = 2
-	},
-/obj/effect/spawner/window/reinforced{
-	color = "red"
 	},
 /turf/simulated/wall/cult,
 /area/shuttle/escape)
