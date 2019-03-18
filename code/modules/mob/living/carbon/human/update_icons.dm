@@ -172,7 +172,7 @@ var/global/list/damage_icon_parts = list()
 	var/husk_color_mod = rgb(96, 88, 80)
 	var/hulk_color_mod = rgb(48, 224, 40)
 
-	var/husk = (HUSK in mutations)
+	var/husk = (has_trait(TRAIT_HUSK))
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 
@@ -1276,7 +1276,7 @@ var/global/list/damage_icon_parts = list()
 	return out
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
-	var/husk = (HUSK in mutations)
+	var/husk = (has_trait(TRAIT_HUSK))
 	var/fat = (has_trait(TRAIT_FAT))
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)

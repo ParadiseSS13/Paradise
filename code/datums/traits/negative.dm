@@ -482,8 +482,8 @@
 /datum/quirk/mute/
 	name = "Mute"
 	desc = "You do not have a lot to say."
-	gain_text = "<span class='notice'>You become quiet.</span>"
-	lose_text = "<span class='notice'>You feel the need to express yourself via your Voice.</span>"
+	gain_text = "<span class='notice'>You feel unable to produce a sound.</span>"
+	lose_text = "<span class='notice'>Your vocal cords can produce a sound again.</span>"
 	medical_record_text = "Patient seems unable to produce a sound."
 	value = -1
 	mob_trait = TRAIT_MUTE
@@ -497,3 +497,13 @@
 	medical_record_text = "Patient seems to be overweight, but you don't really need a scanner to tell you, do you?"
 	value = -1
 	mob_trait = TRAIT_FAT
+
+/datum/quirk/fat/add()
+	..()
+	quirk_holder.nutrition = 2000
+	quirk_holder.overeatduration = 2000
+
+/datum/quirk/fat/remove()
+	..()
+	quirk_holder.overeatduration = 0
+	quirk_holder.nutrition = 350 //Back to normal levels. 

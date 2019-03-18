@@ -369,7 +369,7 @@
 
 	character = job_master.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
-	SSquirks.AssignQuirks(character, character.client, TRUE)
+	
 	ticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == "Cyborg")
@@ -386,6 +386,8 @@
 
 	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
 		job_master.prioritized_jobs -= thisjob
+	
+	SSquirks.AssignQuirks(character, character.client, TRUE) // last
 	qdel(src)
 
 

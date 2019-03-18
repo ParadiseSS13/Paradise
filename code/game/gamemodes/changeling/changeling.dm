@@ -315,7 +315,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		to_chat(user, "<span class='warning'>[T] is not compatible with our biology.</span>")
 		return
 
-	if((NOCLONE || SKELETON || HUSK) in T.mutations)
+	if((NOCLONE || SKELETON) in T.mutations || T.has_trait(TRAIT_HUSK))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 

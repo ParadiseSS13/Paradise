@@ -4,12 +4,12 @@
 #define TRAIT_EMOTEMUTE			"emotemute" //done?
 #define TRAIT_DEAF				"deaf" //done
 #define TRAIT_NEARSIGHT			"nearsighted" //done
-#define TRAIT_FAT				"fat"
-#define TRAIT_HUSK				"husk"
-#define TRAIT_BADDNA			"baddna"
+#define TRAIT_FAT				"fat" //done but feels messy
+#define TRAIT_HUSK				"husk" //done
+#define TRAIT_BADDNA			"baddna" //UNSURE about this one. 
 #define TRAIT_CLUMSY			"clumsy" //Done
-#define TRAIT_DUMB				"dumb"
-#define TRAIT_MONKEYLIKE		"monkeylike" //sets IsAdvancedToolUser to FALSE
+#define TRAIT_DUMB				"dumb" //Done as the original isn't used. 
+#define TRAIT_MONKEYLIKE		"monkeylike" 
 #define TRAIT_PACIFISM			"pacifism" //done - I think. Not sure if I overlooked something.
 #define TRAIT_IGNORESLOWDOWN	"ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"

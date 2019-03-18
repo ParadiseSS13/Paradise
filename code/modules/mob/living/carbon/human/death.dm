@@ -159,7 +159,7 @@
 
 /mob/living/carbon/human/proc/ChangeToHusk()
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(HUSK in mutations)
+	if(has_trait(TRAIT_HUSK))
 		return
 
 	if(istype(H))
@@ -171,7 +171,7 @@
 	update_fhair(0)
 	update_hair(0)
 
-	mutations.Add(HUSK)
+	add_trait(TRAIT_HUSK)
 	update_body(0)
 	update_mutantrace()
 	return
@@ -182,7 +182,7 @@
 	return
 
 /mob/living/carbon/human/proc/cure_husk()
-	mutations.Remove(HUSK)
+	remove_trait(TRAIT_HUSK)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(istype(H))
 		H.disfigured = FALSE

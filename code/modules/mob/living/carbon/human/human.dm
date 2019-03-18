@@ -518,7 +518,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	if(!head || head.disfigured || cloneloss > 50 || !real_name || has_trait(TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -1185,8 +1185,8 @@
 		mutations.Remove(SKELETON)
 	if(NOCLONE in mutations)
 		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
+	if(has_trait(TRAIT_HUSK))
+		remove_trait(TRAIT_HUSK)
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for(var/obj/item/organ/internal/brain/H in world)
