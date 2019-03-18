@@ -367,7 +367,6 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
-	new /obj/item/mmi/syndie(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
