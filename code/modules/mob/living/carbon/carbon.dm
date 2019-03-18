@@ -442,6 +442,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			if(!do_after(src, 45, target = src))
 				return
 
+			if(buckled)
+				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+				return
+
 			if(!client)
 				return
 

@@ -1809,7 +1809,6 @@
 	},
 /area/ruin/space/ancientstation/engi)
 "eK" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -1820,6 +1819,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "eL" = (
@@ -2997,12 +2997,12 @@
 	},
 /area/ruin/space/ancientstation/sec)
 "hf" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "hg" = (
@@ -3117,7 +3117,6 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "hs" = (
-/turf/simulated/floor/plating/airless,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3131,6 +3130,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "ht" = (
@@ -3302,7 +3302,6 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "hJ" = (
-/turf/simulated/floor/plating/airless,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3311,6 +3310,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "hK" = (
@@ -3704,7 +3704,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/deltacorridor)
 "iB" = (
-/turf/simulated/floor/plating/airless,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3723,6 +3722,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "iC" = (
@@ -3826,21 +3826,21 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/powered)
 "iO" = (
-/turf/simulated/floor/plating,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "iP" = (
-/turf/simulated/floor/plating,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "iQ" = (
@@ -4130,12 +4130,12 @@
 	},
 /area/ruin/space/ancientstation/proto)
 "jw" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "jx" = (
@@ -4483,12 +4483,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/atmo)
 "kl" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "km" = (
@@ -4579,12 +4579,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/atmo)
 "kv" = (
-/turf/simulated/floor/plating,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/template_noop)
 "kw" = (

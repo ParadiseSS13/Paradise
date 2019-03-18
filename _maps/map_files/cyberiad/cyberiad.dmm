@@ -619,8 +619,8 @@
 	},
 /area/shuttle/abandoned)
 "abG" = (
-/turf/space,
 /obj/machinery/porta_turret/syndicate,
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "diagonalWall3"
@@ -686,8 +686,8 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "abL" = (
-/turf/space,
 /obj/machinery/porta_turret/syndicate,
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
@@ -2151,6 +2151,7 @@
 	},
 /area/shuttle/syndicate_sit)
 "aey" = (
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -6056,13 +6057,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "akN" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
+/obj/structure/closet/secure_closet/hos,
+/obj/item/reagent_containers/food/drinks/flask/barflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6581,12 +6583,12 @@
 /turf/simulated/floor/plating,
 /area/security/hos)
 "alD" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
 /obj/machinery/power/tracker,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "alE" = (
@@ -7003,7 +7005,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "amo" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -7011,6 +7012,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "amp" = (
@@ -7070,8 +7072,6 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "amt" = (
-/obj/structure/closet/secure_closet/hos,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Security's Desk";
@@ -7080,6 +7080,7 @@
 	pixel_x = 30;
 	pixel_y = 0
 	},
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7385,12 +7386,12 @@
 	},
 /area/security/hos)
 "amU" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
 /obj/machinery/power/tracker,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "amV" = (
@@ -7542,8 +7543,8 @@
 	},
 /area/security/permabrig)
 "ann" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "ano" = (
@@ -7783,7 +7784,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
 "anG" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -7791,6 +7791,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "anH" = (
@@ -8160,7 +8161,7 @@
 	},
 /area/security/evidence)
 "aom" = (
-/obj/machinery/computer/station_alert/all,
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -8456,7 +8457,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "aoK" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -8469,6 +8469,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "aoL" = (
@@ -8826,7 +8827,6 @@
 /turf/simulated/floor/plating,
 /area/security/main)
 "apn" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -8845,6 +8845,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "apo" = (
@@ -9793,8 +9794,8 @@
 	},
 /area/lawoffice)
 "arb" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "arc" = (
@@ -10293,7 +10294,6 @@
 	},
 /area/security/evidence)
 "arL" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -10306,10 +10306,10 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "arM" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -10329,14 +10329,15 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "arN" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "arO" = (
@@ -10405,11 +10406,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "arU" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "arV" = (
@@ -11004,7 +11005,6 @@
 	},
 /area/shuttle/trade/sol)
 "asL" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -11024,10 +11024,10 @@
 	icon_state = "1-8";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "asM" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -11040,6 +11040,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "asN" = (
@@ -13075,7 +13076,6 @@
 	},
 /area/security/permabrig)
 "avM" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1450;
@@ -13085,6 +13085,7 @@
 	pixel_y = -25;
 	req_access_txt = "13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "avN" = (
@@ -13418,7 +13419,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "awk" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -13433,6 +13433,7 @@
 	pixel_y = 1;
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "awl" = (
@@ -13711,10 +13712,10 @@
 	},
 /area/security/permabrig)
 "awP" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f6";
 	icon_state = "swall_f6";
@@ -13722,20 +13723,20 @@
 	},
 /area/shuttle/pod_3)
 "awQ" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "awR" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "awS" = (
@@ -14008,13 +14009,13 @@
 	},
 /area/lawoffice)
 "axq" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "axr" = (
@@ -14330,10 +14331,10 @@
 	},
 /area/security/prison/cell_block/A)
 "axN" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f5";
 	icon_state = "swall_f5";
@@ -14809,7 +14810,6 @@
 	},
 /area/security/execution)
 "ayE" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -14825,6 +14825,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "ayF" = (
@@ -15159,7 +15160,6 @@
 /turf/simulated/wall/r_wall,
 /area/security/processing)
 "azb" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1450;
@@ -15169,6 +15169,7 @@
 	pixel_y = -25;
 	req_access_txt = "13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "azc" = (
@@ -16525,7 +16526,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aBx" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -16535,6 +16535,7 @@
 	pixel_y = 0;
 	req_access_txt = "13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "aBy" = (
@@ -18243,7 +18244,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aEM" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -18253,6 +18253,7 @@
 	pixel_y = -25;
 	req_access_txt = "13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "aEN" = (
@@ -22882,16 +22883,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aON" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
 	},
 /area/shuttle/pod_1)
 "aOO" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f9";
 	dir = 2
@@ -23349,8 +23350,8 @@
 /turf/simulated/wall,
 /area/maintenance/electrical)
 "aPP" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -23404,8 +23405,8 @@
 	},
 /area/hallway/secondary/entry)
 "aPU" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f9";
 	dir = 2
@@ -33753,6 +33754,13 @@
 	},
 /area/hydroponics)
 "bje" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "asteroid";
@@ -33762,13 +33770,6 @@
 	tag = "icon-siding2 (NORTH)";
 	icon_state = "siding2";
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-siding1 (NORTH)";
@@ -33781,16 +33782,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bjg" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -33799,13 +33790,6 @@
 	},
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/plasteel{
-	tag = "icon-siding2 (NORTH)";
-	icon_state = "siding2";
-	dir = 1
-	},
-/area/hydroponics)
-"bjh" = (
-/turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "asteroid";
 	tag = "icon-asteroid (NORTH)"
@@ -33815,11 +33799,28 @@
 	icon_state = "siding1";
 	dir = 1
 	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
+"bjh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-siding2 (NORTH)";
@@ -40653,12 +40654,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bwX" = (
-/turf/space,
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
 	dir = 2
@@ -41449,12 +41450,12 @@
 	},
 /area/hallway/primary/central/ne)
 "bys" = (
-/turf/space,
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -66710,7 +66711,6 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "cpz" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -66723,6 +66723,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cpA" = (
@@ -80064,7 +80065,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cMB" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -80083,6 +80083,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cMC" = (
@@ -80625,11 +80626,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cNE" = (
-/turf/space,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10;
 	level = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cNF" = (
@@ -81634,13 +81635,13 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cPw" = (
-/turf/space,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cPx" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cPy" = (
@@ -81683,12 +81684,12 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cPC" = (
-/turf/space,
 /obj/machinery/power/tracker,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cPD" = (
@@ -81728,29 +81729,29 @@
 	},
 /area/toxins/xenobiology)
 "cPG" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cPH" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cPI" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cPJ" = (
@@ -81919,7 +81920,6 @@
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cQa" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -81935,6 +81935,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cQb" = (
@@ -82065,11 +82066,11 @@
 /turf/space,
 /area/space)
 "cQq" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cQr" = (
@@ -82565,7 +82566,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cRe" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -82584,6 +82584,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cRf" = (
@@ -83266,7 +83267,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cSk" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -83279,6 +83279,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cSl" = (
@@ -84244,7 +84245,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "cTR" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1450;
@@ -84254,6 +84254,7 @@
 	pixel_y = 8;
 	req_access_txt = "13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cTS" = (
@@ -86905,12 +86906,12 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cYz" = (
-/turf/space,
 /obj/machinery/access_button/airlock_exterior{
 	master_tag = "atmospherics_south";
 	pixel_x = -25;
 	pixel_y = -8
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cYA" = (
@@ -89472,7 +89473,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddA" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -89489,6 +89489,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddB" = (
@@ -89499,19 +89500,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "ddC" = (
-/turf/space,
 /obj/structure/transit_tube{
 	icon_state = "E-W-Pass"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "ddD" = (
-/turf/space,
 /obj/item/wrench,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "ddE" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -89519,6 +89519,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddF" = (
@@ -89572,7 +89573,6 @@
 /turf/space,
 /area/space)
 "ddM" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -89582,23 +89582,23 @@
 	pixel_y = 25;
 	req_access_txt = "75;13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "ddN" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddO" = (
-/turf/space,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6;
 	level = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "ddP" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -89611,10 +89611,10 @@
 	icon_state = "1-4";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddQ" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -89634,14 +89634,15 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddR" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddS" = (
@@ -89649,15 +89650,14 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "ddT" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddU" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -89677,10 +89677,10 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddV" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -89693,13 +89693,14 @@
 	icon_state = "2-8";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddW" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f6";
 	icon_state = "swall_f6";
@@ -89707,7 +89708,6 @@
 	},
 /area/shuttle/pod_4)
 "ddX" = (
-/turf/space,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1450;
@@ -89717,16 +89717,17 @@
 	pixel_y = 25;
 	req_access_txt = "13"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk0";
 	icon_state = "catwalk0"
 	},
 /area/space)
 "ddY" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f5";
 	icon_state = "swall_f5";
@@ -89755,7 +89756,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "deb" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -89766,6 +89766,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "dec" = (
@@ -89773,15 +89774,14 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ded" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "dee" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -89789,10 +89789,10 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "def" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -89811,12 +89811,13 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "deg" = (
-/turf/space,
 /obj/structure/cable,
 /obj/machinery/power/tracker,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "deh" = (

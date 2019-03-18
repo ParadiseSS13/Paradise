@@ -15,8 +15,8 @@
 /turf/space,
 /area/space)
 "aac" = (
-/turf/space,
 /obj/machinery/porta_turret/syndicate,
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "diagonalWall3"
@@ -82,8 +82,8 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "aah" = (
-/turf/space,
 /obj/machinery/porta_turret/syndicate,
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
@@ -760,12 +760,12 @@
 	},
 /area/shuttle/syndicate)
 "abA" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abB" = (
@@ -867,12 +867,11 @@
 	},
 /area/shuttle/syndicate)
 "abL" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abM" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -883,6 +882,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abN" = (
@@ -943,7 +943,6 @@
 	},
 /area/shuttle/syndicate)
 "abU" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -959,14 +958,15 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abV" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abW" = (
@@ -974,15 +974,14 @@
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abX" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abY" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -998,10 +997,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "abZ" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -1012,6 +1011,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "aca" = (
@@ -1054,8 +1054,8 @@
 	},
 /area/solar/auxport)
 "acf" = (
-/turf/space,
 /obj/item/stack/cable_coil,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "acg" = (
@@ -1265,11 +1265,11 @@
 /turf/space,
 /area/space)
 "acz" = (
-/turf/space,
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "acA" = (
@@ -1519,8 +1519,8 @@
 	},
 /area/security/permabrig)
 "acY" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f5";
 	icon_state = "swall_f5";
@@ -1604,8 +1604,8 @@
 	},
 /area/security/permabrig)
 "adg" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f9";
 	icon_state = "swall_f9";
@@ -1623,20 +1623,20 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
 "adi" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "adj" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "adk" = (
@@ -1989,8 +1989,8 @@
 	},
 /area/shuttle/vox)
 "adP" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "adQ" = (
@@ -2125,7 +2125,6 @@
 /turf/space,
 /area/space)
 "aeg" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -2136,6 +2135,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "aeh" = (
@@ -2404,7 +2404,6 @@
 	},
 /area/security/permabrig)
 "aeA" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -2420,6 +2419,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "aeB" = (
@@ -2889,11 +2889,11 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "afo" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "afp" = (
@@ -2914,11 +2914,11 @@
 	},
 /area/security/permabrig)
 "afq" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "afr" = (
@@ -3109,7 +3109,6 @@
 	name = "\improper Recreation Area"
 	})
 "afG" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3125,6 +3124,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "afH" = (
@@ -3375,7 +3375,6 @@
 /turf/simulated/floor/engine,
 /area/security/podbay)
 "age" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -3386,6 +3385,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "agf" = (
@@ -3446,12 +3446,12 @@
 	},
 /area/security/permabrig)
 "agn" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	pixel_y = 1;
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "ago" = (
@@ -3653,8 +3653,8 @@
 	name = "\improper Recreation Area"
 	})
 "agH" = (
-/turf/space,
 /obj/item/stack/cable_coil,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "agI" = (
@@ -3694,12 +3694,12 @@
 /turf/simulated/floor/plating,
 /area/security/hos)
 "agM" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "agN" = (
@@ -5100,21 +5100,21 @@
 	},
 /area/security/armoury)
 "aiQ" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "aiR" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxport)
 "aiS" = (
@@ -5385,10 +5385,10 @@
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ajr" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
 	dir = 2
@@ -5682,10 +5682,10 @@
 	},
 /area/security/permabrig)
 "ajS" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -6292,11 +6292,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "akX" = (
-/turf/space,
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/auxstarboard)
 "akY" = (
@@ -11638,11 +11638,11 @@
 	name = "Port Maintenance"
 	})
 "auv" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/maintenance/auxsolarstarboard)
 "auw" = (
@@ -27719,12 +27719,12 @@
 	name = "Arrivals"
 	})
 "aWE" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
-	},
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
 	},
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
@@ -27742,12 +27742,12 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
 "aWG" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
-	},
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
 	},
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
@@ -31843,8 +31843,8 @@
 	name = "\improper MiniSat Exterior"
 	})
 "bdO" = (
-/turf/space,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
@@ -35755,8 +35755,8 @@
 	},
 /area/shuttle/arrival/station)
 "bkj" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f5";
 	icon_state = "swall_f5";
@@ -36476,8 +36476,8 @@
 	name = "\improper Cargo Office"
 	})
 "bly" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f9";
 	icon_state = "swall_f9";
@@ -43938,7 +43938,6 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "bxm" = (
-/turf/space,
 /obj/structure/transit_tube{
 	icon_state = "W-NE-SE"
 	},
@@ -43951,10 +43950,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "bxn" = (
-/turf/space,
 /obj/structure/transit_tube{
 	tag = "icon-D-SW";
 	icon_state = "D-SW"
@@ -43972,10 +43971,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "bxo" = (
-/turf/space,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
 	level = 1
@@ -43985,6 +43984,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "bxp" = (
@@ -44013,7 +44013,6 @@
 	name = "\improper MiniSat Exterior"
 	})
 "bxq" = (
-/turf/space,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -44026,6 +44025,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "bxr" = (
@@ -49927,12 +49927,12 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bGW" = (
-/turf/space,
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
 	dir = 2
@@ -53183,12 +53183,12 @@
 	},
 /area/tcommsat/server)
 "bMv" = (
-/turf/space,
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -65912,8 +65912,8 @@
 	},
 /area/hydroponics)
 "ciB" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "ciC" = (
@@ -67032,11 +67032,11 @@
 /turf/space,
 /area/space)
 "ckr" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cks" = (
@@ -68466,12 +68466,12 @@
 	name = "\improper Secure Lab"
 	})
 "cmH" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cmI" = (
@@ -74372,7 +74372,6 @@
 	},
 /area/solar/port)
 "cvQ" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -74383,6 +74382,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cvR" = (
@@ -76922,7 +76922,6 @@
 	name = "Aft Maintenance"
 	})
 "cAf" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -76938,6 +76937,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cAg" = (
@@ -77552,11 +77552,11 @@
 	},
 /area/medical/chemistry)
 "cBe" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cBf" = (
@@ -77575,11 +77575,11 @@
 	},
 /area/crew_quarters/hor)
 "cBg" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cBh" = (
@@ -78214,7 +78214,6 @@
 	name = "Aft Maintenance"
 	})
 "cCf" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -78230,6 +78229,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cCg" = (
@@ -78302,7 +78302,6 @@
 	},
 /area/medical/genetics)
 "cCj" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -78313,6 +78312,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cCk" = (
@@ -78462,8 +78462,8 @@
 	},
 /area/medical/surgeryobs)
 "cCw" = (
-/turf/space,
 /obj/item/stack/cable_coil,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cCx" = (
@@ -78493,11 +78493,11 @@
 	},
 /area/medical/surgeryobs)
 "cCz" = (
-/turf/space,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cCA" = (
@@ -78809,12 +78809,12 @@
 	},
 /area/medical/cryo)
 "cCZ" = (
-/turf/space,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cDa" = (
@@ -82331,12 +82331,12 @@
 	name = "\improper Toxins Lab"
 	})
 "cIN" = (
-/turf/space,
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/port)
 "cIO" = (
@@ -86868,11 +86868,11 @@
 	name = "Aft Maintenance"
 	})
 "cPU" = (
-/turf/space,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/space)
 "cPV" = (
@@ -91758,12 +91758,12 @@
 	name = "\improper Departure Lounge"
 	})
 "cXN" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cXO" = (
@@ -92024,12 +92024,12 @@
 	},
 /area/chapel/main)
 "cYi" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cYj" = (
@@ -92221,12 +92221,12 @@
 	name = "\improper Recreation Area"
 	})
 "cYA" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cYB" = (
@@ -92482,8 +92482,8 @@
 	name = "\improper Departure Lounge"
 	})
 "cYY" = (
-/turf/space,
 /obj/structure/cable,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cYZ" = (
@@ -92523,7 +92523,6 @@
 	},
 /area/solar/starboard)
 "cZc" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -92534,10 +92533,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cZd" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -92553,6 +92552,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cZe" = (
@@ -92596,11 +92596,11 @@
 	name = "\improper Arcade"
 	})
 "cZj" = (
-/turf/space,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cZk" = (
@@ -92807,8 +92807,8 @@
 	name = "\improper Arcade"
 	})
 "cZA" = (
-/turf/space,
 /obj/item/stack/cable_coil,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cZB" = (
@@ -93002,11 +93002,11 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "cZW" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "cZX" = (
@@ -94632,7 +94632,6 @@
 	name = "\improper Secure Lab"
 	})
 "dcv" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -94648,6 +94647,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "dcw" = (
@@ -94845,7 +94845,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "dcN" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -94856,6 +94855,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "dcO" = (
@@ -95128,11 +95128,11 @@
 /turf/space,
 /area/space)
 "ddw" = (
-/turf/space,
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddx" = (
@@ -95200,11 +95200,11 @@
 	name = "\improper Secure Lab"
 	})
 "ddD" = (
-/turf/space,
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
 "ddE" = (
