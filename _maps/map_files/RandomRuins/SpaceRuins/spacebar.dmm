@@ -143,8 +143,8 @@
 	name = "Space Bar"
 	})
 "aA" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -157,8 +157,8 @@
 /turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "aC" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f9";
 	dir = 2
@@ -442,8 +442,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "bp" = (
-/turf/simulated/floor/plating/airless/asteroid,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating/airless/asteroid,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -464,8 +464,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "bs" = (
-/turf/simulated/floor/plating/airless/asteroid,
 /obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating/airless/asteroid,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f9";
 	dir = 2

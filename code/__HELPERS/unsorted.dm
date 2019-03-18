@@ -1487,10 +1487,11 @@ var/mob/dview/dview_mob = new
 /mob/dview
 	invisibility = 101
 	density = 0
-
+	move_force = 0
+	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-
+	canmove = FALSE
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
