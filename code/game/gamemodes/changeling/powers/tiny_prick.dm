@@ -88,7 +88,7 @@
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((target.has_trait(TRAIT_HUSK)s) || (!ishuman(target)))
+	if((target.has_trait(TRAIT_HUSK)) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
 	if(ishuman(target))
