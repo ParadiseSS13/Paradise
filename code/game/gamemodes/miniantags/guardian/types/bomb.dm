@@ -72,6 +72,7 @@
 
 /obj/item/guardian_bomb/pickup(mob/living/user)
 	detonate(user)
+	return FALSE // Disarm or blow up. No picking up
 
 /obj/item/guardian_bomb/examine(mob/user)
 	stored_obj.examine(user)

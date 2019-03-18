@@ -311,7 +311,7 @@ obj/item/gun/proc/newshot()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/gun/pickup(mob/user)
-	..()
+	. = ..()
 	if(azoom)
 		azoom.Grant(user)
 
