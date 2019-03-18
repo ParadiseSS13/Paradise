@@ -773,6 +773,20 @@
 		new /obj/item/storage/pill_bottle( src )
 		new /obj/item/storage/pill_bottle( src )
 
+/obj/item/storage/box/patch_packs
+	name = "box of patch packs"
+	desc = "It has pictures of patch packs on its front."
+
+/obj/item/storage/box/patch_packs/New()
+	..()
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+	new /obj/item/storage/pill_bottle/patch_pack(src)
+
 /obj/item/storage/box/bodybags
 	name = "body bags"
 	desc = "This box contains body bags."

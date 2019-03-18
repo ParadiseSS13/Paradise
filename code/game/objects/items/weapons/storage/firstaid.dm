@@ -234,6 +234,7 @@
 /*
  * Pill Bottles
  */
+
 /obj/item/storage/pill_bottle
 	name = "pill bottle"
 	desc = "It's an airtight container for storing medication."
@@ -241,17 +242,37 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/reagent_containers/food/pill, /obj/item/dice, /obj/item/paper)
-	allow_quick_gather = 1
-	use_to_pickup = 1
-	storage_slots = 14
-	display_contents_with_number = 1
+	can_hold = list(/obj/item/reagent_containers/food/pill)
+	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
+	allow_quick_gather = TRUE
+	use_to_pickup = TRUE
+	storage_slots = 50
+	max_combined_w_class = 50
+	display_contents_with_number = TRUE
 	var/base_name = ""
 	var/label_text = ""
+	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
+	var/rapid_intake_message = "unscrews the cap on the pill bottle and begins dumping the entire contents down their throat!"
+	var/rapid_post_instake_message = "downs the entire bottle of pills in one go!"
 
 /obj/item/storage/pill_bottle/New()
 	..()
 	base_name = name
+
+/obj/item/storage/pill_bottle/attack(mob/M, mob/user)
+	if(iscarbon(M) && contents.len)
+		if(applying_meds)
+			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
+			return
+		applying_meds = TRUE
+		for(var/obj/item/reagent_containers/food/pill/P in contents)
+			if(P.attack(M, user))
+				applying_meds = FALSE
+			else
+				applying_meds = FALSE
+			break
+	else
+		return ..()
 
 /obj/item/storage/pill_bottle/ert/New()
 	..()
@@ -262,27 +283,21 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
-	if(ishuman(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~
-		var/mob/M = usr
-		if(!( istype(over_object, /obj/screen) ))
-			return ..()
-		if((!( M.restrained() ) && !( M.stat ) /*&& M.pocket == src*/))
-			switch(over_object.name)
-				if("r_hand")
-					M.unEquip(src)
-					M.put_in_r_hand(src)
-				if("l_hand")
-					M.unEquip(src)
-					M.put_in_l_hand(src)
-			src.add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			src.show_to(usr)
-			return
-	return
+/obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+	if(iscarbon(over_object))
+		var/mob/living/carbon/C = over_object
+		if(loc == C && src == C.get_active_hand())
+			if(!contents.len)
+				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
+				return
+			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
+			if(do_mob(C, C, 100)) // 10 seconds
+				for(var/obj/item/reagent_containers/food/pill/P in contents)
+					P.attack(C, C)
+				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
+		return
+
+	return ..()
 
 /obj/item/storage/pill_bottle/attackby(var/obj/item/I, mob/user as mob, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
@@ -294,13 +309,21 @@
 			label_text = tmp_label
 			update_name_label()
 	else
-		..()
+		return ..()
 
 /obj/item/storage/pill_bottle/proc/update_name_label()
 	if(label_text == "")
 		name = base_name
 	else
 		name = "[base_name] ([label_text])"
+
+/obj/item/storage/pill_bottle/patch_pack
+	name = "Patch Pack"
+	icon_state = "solid"
+	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
+	cant_hold = list()
+	rapid_intake_message = "flips the lid of the Patch Pack open and begins rapidly stamping patches on themselves!"
+	rapid_post_instake_message = "stamps the entire contents of the Patch Pack all over their entire body!"
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
