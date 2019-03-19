@@ -30,6 +30,8 @@
 	var/mob/M = usr
 	if(M.restrained() || M.stat || !Adjacent(M))
 		return
+	if(!ishuman(M))
+		return
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))

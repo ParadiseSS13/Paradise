@@ -207,3 +207,27 @@
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
+
+/client/verb/toggle_darkmode()
+	set name = "Toggle Darkmode"
+	set category = "Preferences"
+	set desc = "Toggles UI style between dark and light"
+	prefs.toggles ^= UI_DARKMODE
+	prefs.save_preferences(src)
+	if(prefs.toggles & UI_DARKMODE)
+		activate_darkmode()
+	else
+		deactivate_darkmode()
+	feedback_add_details("admin_verb","TDarkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/verb/toggle_karma()
+	set name = "Toggle Karma Gains"
+	set category = "Special Verbs"
+	set desc = "This button will allow you to stop other people giving you karma."
+	prefs.toggles ^= DISABLE_KARMA
+	prefs.save_preferences(src)
+	if(prefs.toggles & DISABLE_KARMA)
+		to_chat(usr, "<span class='notice'>You have disabled karma gains.")
+	else
+		to_chat(usr, "<span class='notice'>You have enabled karma gains.")
+	return

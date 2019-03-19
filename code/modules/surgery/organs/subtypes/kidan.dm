@@ -1,5 +1,8 @@
 /obj/item/organ/internal/liver/kidan
+	name = "kidan liver"
+	icon = 'icons/obj/species_organs/kidan.dmi'
 	alcohol_intensity = 0.5
+
 
 #define KIDAN_LANTERN_HUNGERCOST 0.5
 #define KIDAN_LANTERN_MINHUNGER 150
@@ -8,6 +11,7 @@
 /obj/item/organ/internal/lantern
 	name = "Bioluminescent Lantern"
 	desc = "A specialized tissue that reacts with oxygen, nutriment and blood to produce light in Kidan."
+	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "kid_lantern"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
@@ -106,6 +110,28 @@
 			toggle_biolum(1)
 
 	. = ..()
+
+/obj/item/organ/internal/eyes/kidan
+	name = "kidan eyeballs"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/internal/heart/kidan
+	name = "kidan heart"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/internal/brain/kidan
+	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon_state = "brain2"
+	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
+	mmi_icon_state = "mmi_full"
+
+/obj/item/organ/internal/lungs/kidan
+	name = "kidan lungs"
+	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/internal/kidneys/kidan
+	name = "kidan kidneys"
+	icon = 'icons/obj/species_organs/kidan.dmi'
 
 #undef KIDAN_LANTERN_HUNGERCOST
 #undef KIDAN_LANTERN_MINHUNGER

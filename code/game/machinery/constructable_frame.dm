@@ -617,6 +617,30 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
 
+/obj/item/circuitboard/soda
+	name = "Circuit board (Soda Machine)"
+	build_path = /obj/machinery/chem_dispenser/soda
+	board_type = "machine"
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Capacitor, 1 Console Screen, and 1 Power Cell."
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/console_screen = 1,
+							/obj/item/stock_parts/cell = 1)
+
+/obj/item/circuitboard/beer
+	name = "Circuit board (Beer Machine)"
+	build_path = /obj/machinery/chem_dispenser/beer
+	board_type = "machine"
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Capacitor, 1 Console Screen, and 1 Power Cell."
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/console_screen = 1,
+							/obj/item/stock_parts/cell = 1)
+
 
 /obj/item/circuitboard/circuit_imprinter
 	name = "Circuit board (Circuit Imprinter)"
@@ -651,7 +675,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/port_gen/pacman/mrs
 	origin_tech = "programming=3;powerstorage=4;engineering=4;plasmatech=4"
 
-obj/item/circuitboard/rdserver
+/obj/item/circuitboard/rdserver
 	name = "Circuit Board (R&D Server)"
 	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
@@ -944,6 +968,10 @@ obj/item/circuitboard/rdserver
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/assembly/igniter = 1)
 
+/obj/item/circuitboard/ore_redemption/golem
+	name = "circuit board (Golem Ore Redemption)"
+	build_path = /obj/machinery/mineral/ore_redemption/golem
+
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor
@@ -952,6 +980,10 @@ obj/item/circuitboard/rdserver
 	req_components = list(
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/matter_bin = 3)
+
+/obj/item/circuitboard/mining_equipment_vendor/golem
+	name = "circuit board (Mining Equipment Vendor)"
+	build_path = /obj/machinery/mineral/equipment_vendor/golem
 
 /obj/item/circuitboard/clawgame
 	name = "circuit board (Claw Game)"

@@ -197,40 +197,18 @@ var/global/datum/controller/occupations/job_master
 			if(!candidates.len)
 				continue
 
-			// Build a weighted list, weight by age.
-			var/list/weightedCandidates = list()
-
-			// Different head positions have different good ages.
-			var/good_age_minimal = 25
-			var/good_age_maximal = 60
-			if(command_position == "Captain")
-				good_age_minimal = 30
-				good_age_maximal = 70 // Old geezer captains ftw
+			var/list/filteredCandidates = list()
 
 			for(var/mob/V in candidates)
 				// Log-out during round-start? What a bad boy, no head position for you!
 				if(!V.client)
 					continue
-				var/age = V.client.prefs.age
-				switch(age)
-					if(good_age_minimal - 10 to good_age_minimal)
-						weightedCandidates[V] = 3 // Still a bit young.
-					if(good_age_minimal to good_age_minimal + 10)
-						weightedCandidates[V] = 6 // Better.
-					if(good_age_minimal + 10 to good_age_maximal - 10)
-						weightedCandidates[V] = 10 // Great.
-					if(good_age_maximal - 10 to good_age_maximal)
-						weightedCandidates[V] = 6 // Still good.
-					if(good_age_maximal to good_age_maximal + 10)
-						weightedCandidates[V] = 6 // Bit old, don't you think?
-					if(good_age_maximal to good_age_maximal + 50)
-						weightedCandidates[V] = 3 // Geezer.
-					else
-						// If there's ABSOLUTELY NOBODY ELSE
-						if(candidates.len == 1)
-							weightedCandidates[V] = 1
+				filteredCandidates += V
 
-			var/mob/new_player/candidate = pickweight(weightedCandidates)
+			if(!filteredCandidates.len)
+				continue
+
+			var/mob/new_player/candidate = pick(filteredCandidates)
 			if(AssignRole(candidate, command_position))
 				return 1
 
@@ -448,7 +426,7 @@ var/global/datum/controller/occupations/job_master
 		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
 	if(job.req_admin_notify)
 		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
-	
+
 	return H
 /datum/controller/occupations/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
 	if(!H)

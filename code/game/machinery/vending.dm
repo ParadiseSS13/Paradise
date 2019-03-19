@@ -1187,8 +1187,8 @@
 					/obj/item/clothing/head/bandana = 1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/suit/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,/obj/item/clothing/suit/holidaypriest = 1,/obj/item/clothing/head/wizard/marisa/fake = 1,
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,/obj/item/clothing/under/sundress = 1,/obj/item/clothing/head/witchwig = 1,/obj/item/twohanded/staff/broom = 1,
-					/obj/item/clothing/suit/wizrobe/fake = 1,/obj/item/clothing/head/wizard/fake = 1,/obj/item/twohanded/staff = 3,/obj/item/clothing/mask/gas/sexyclown = 1,
-					/obj/item/clothing/under/sexyclown = 1,/obj/item/clothing/mask/gas/sexymime = 1,/obj/item/clothing/under/sexymime = 1,
+					/obj/item/clothing/suit/wizrobe/fake = 1,/obj/item/clothing/head/wizard/fake = 1,/obj/item/twohanded/staff = 3,/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
+					/obj/item/clothing/under/rank/clown/sexy = 1,/obj/item/clothing/mask/gas/sexymime = 1,/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,/obj/item/clothing/mask/face/bee = 1,/obj/item/clothing/mask/face/bear = 1,/obj/item/clothing/mask/face/raven = 1,/obj/item/clothing/mask/face/jackal = 1,/obj/item/clothing/mask/face/fox = 1,/obj/item/clothing/mask/face/tribal = 1,/obj/item/clothing/mask/face/rat = 1,
 					/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1, /obj/item/clothing/head/sombrero = 1, /obj/item/clothing/suit/poncho = 1,
@@ -1235,7 +1235,8 @@
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
 					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
-					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1)
+					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
+					/obj/item/kitchen/cutter = 2)
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
@@ -1382,7 +1383,7 @@
 	vend_reply = "Thank you for using the ClothesMate!"
 	products = list(/obj/item/clothing/head/that=2,/obj/item/clothing/head/fedora=1,/obj/item/clothing/glasses/monocle=1,
 	/obj/item/clothing/under/suit_jacket/navy=2,/obj/item/clothing/under/kilt=1,/obj/item/clothing/under/overalls=1,
-	/obj/item/clothing/under/suit_jacket/really_black=2,/obj/item/clothing/under/pants/jeans=3,/obj/item/clothing/under/pants/classicjeans=2,
+	/obj/item/clothing/under/suit_jacket/really_black=2,/obj/item/clothing/suit/storage/lawyer/blackjacket=2,/obj/item/clothing/under/pants/jeans=3,/obj/item/clothing/under/pants/classicjeans=2,
 	/obj/item/clothing/under/pants/camo = 1,/obj/item/clothing/under/pants/blackjeans=2,/obj/item/clothing/under/pants/khaki=2,
 	/obj/item/clothing/under/pants/white=2,/obj/item/clothing/under/pants/red=1,/obj/item/clothing/under/pants/black=2,
 	/obj/item/clothing/under/pants/tan=2,/obj/item/clothing/under/pants/blue=1,/obj/item/clothing/under/pants/track=1,/obj/item/clothing/suit/jacket/miljacket = 1,

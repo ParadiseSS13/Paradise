@@ -169,8 +169,12 @@
 		if(check_martial_counter(L, user))
 			return
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
-			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
+			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return
+
+	if(iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.shock_internal_organs(33)
 
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
@@ -182,7 +186,7 @@
 		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 								"<span class='userdanger'>[user] has stunned you with [src]!</span>")
 		add_attack_logs(user, L, "stunned")
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
 	deductcharge(hitcost)
 

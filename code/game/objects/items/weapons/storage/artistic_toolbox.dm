@@ -13,57 +13,74 @@
 	force = 5
 	throwforce = 10
 	origin_tech = "combat=4;engineering=4;syndicate=2"
+	actions_types = list(/datum/action/item_action/toggle)
 	var/list/servantlinks = list()
 	var/hunger = 0
 	var/hunger_message_level = 0
-	var/original_owner = null
-	var/activated = 0
-	var/mindless_override = 0
+	var/mob/living/carbon/human/original_owner = null
+	var/activated = FALSE
+
+/obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user)
+	if(user.HasDisease(new /datum/disease/memetic_madness(0)))
+		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
+		if(istype(M))
+			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
+			flags ^= NODROP
+	else
+		to_chat(user, "<span class='warning'>You can't seem to understand what this does.</span>")
+
 
 /obj/item/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
-	if(!activated)
-		if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
-			activated = 1
-			user.ForceContractDisease(new /datum/disease/memetic_madness(0))
-			for(var/datum/disease/memetic_madness/DD in user.viruses)
-				DD.progenitor = src
-				servantlinks.Add(DD)
-				break
-			force += 4
-			throwforce += 4
-			user << 'sound/goonstation/effects/screech.ogg'
-			shake_camera(user, 20, 1)
-			to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
-			original_owner = user
-			return
+	if(loc == user)
+		if(!activated)
+			if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
+				activated = TRUE
+				user.ForceContractDisease(new /datum/disease/memetic_madness(0))
+				for(var/datum/disease/memetic_madness/DD in user.viruses)
+					DD.progenitor = src
+					servantlinks.Add(DD)
+					break
+				force += 4
+				throwforce += 4
+				SEND_SOUND(user, 'sound/goonstation/effects/screech.ogg')
+				shake_camera(user, 20, 1)
+				var/acount = 0
+				var/amax = rand(10, 15)
+				var/up_and_down
+				var/asize = 1
+				while(acount <= amax)
+					up_and_down += "<font size=[asize]>a</font>"
+					if(acount > (amax * 0.5))
+						asize--
+					else
+						asize++
+					acount++
+				to_chat(user, "<span class='warning'>[up_and_down]</span>")
+				to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
+				original_owner = user
+				return
 	..()
 
 /obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
 	if(activated)
-		if(istype(I, /obj/item/grab/))
+		if(istype(I, /obj/item/grab))
 			var/obj/item/grab/G = I
-			if(!G.affecting)
-				return
+			var/mob/living/victim = G.affecting
 			if(!user.HasDisease(new /datum/disease/memetic_madness(0)))
 				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
 				return
-			if(!ishuman(G.affecting) || issmall(G.affecting))
-				to_chat(user, "<span class='warning'>His Grace will not accept such a meager offering!</span>")
+			if(!victim)
 				return
-			if(!mindless_override)
-				if(G.affecting.mind == null && G.affecting.ckey == null)
-					to_chat(user, "<span class='warning'>His Grace will not accept a soulless shell for an offering!</span>")
-					return
-			if(!G.affecting.stat && !G.affecting.restrained() && !G.affecting.weakened)
+			if(!victim.stat && !victim.restrained() && !victim.weakened)
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
-			user.visible_message("<span class='userdanger'>[user] is trying to feed [G.affecting] to [src]!</span>")
-			if(!do_mob(user, G.affecting, 30))
+			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
+			if(!do_mob(user, victim, 30))
 				return
-			G.affecting.forceMove(src)
-			user.visible_message("<span class='userdanger'>[user] has fed [G.affecting] to [src]!</span>")
 
-			consume(G.affecting)
+			user.visible_message("<span class='userdanger'>[user] has fed [victim] to [src]!</span>")
+
+			consume(victim)
 			qdel(G)
 
 			to_chat(user, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
@@ -71,40 +88,52 @@
 			throwforce += 5
 			return
 
-	..()
+	return ..()
 
-/obj/item/storage/toolbox/green/memetic/proc/consume(mob/M)
-	if(!M)
+/obj/item/storage/toolbox/green/memetic/proc/consume(mob/living/L)
+	if(!L)
 		return
 	hunger = 0
 	hunger_message_level = 0
-	playsound(src.loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
-	M.emote("scream")
-	M.death()
-	M.ghostize()
-	if(M == original_owner)
-		qdel(M)
+	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
+
+	if(L != original_owner)
+		var/list/equipped_items = L.get_equipped_items(TRUE)
+		if(L.l_hand)
+			equipped_items += L.l_hand
+		if(L.r_hand)
+			equipped_items += L.r_hand
+		if(equipped_items.len)
+			var/obj/item/storage/box/B = new(src)
+			B.name = "Box-'[L.real_name]'"
+			for(var/obj/item/SI in equipped_items)
+				L.unEquip(SI, TRUE)
+				SI.forceMove(B)
+			equipped_items.Cut()
+
+	L.forceMove(src)
+
+	L.emote("scream")
+	L.death()
+	L.ghostize()
+	if(L == original_owner)
+		L.unEquip(src, TRUE)
+		qdel(L)
 		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
 		fake_toolbox.desc = "It looks a lot duller than it used to."
 		qdel(src)
+	else
+		qdel(L)
 
 /obj/item/storage/toolbox/green/memetic/Destroy()
-	for(var/mob/living/carbon/human/H in src)
-		H.forceMove(get_turf(src))
-		visible_message("<span class='warning'>[H] bursts out of [src]!</span>")
+	for(var/datum/disease/memetic_madness/D in servantlinks)
+		D.cure()
 
-	for(var/A in servantlinks)
-		var/datum/disease/memetic_madness/D = A
-		if(D)
-			D.cure()
-			break
-
-	if(servantlinks)
-		servantlinks.Cut()
+	servantlinks.Cut()
 	servantlinks = null
 	original_owner = null
 	visible_message("<span class='userdanger'>[src] screams!</span>")
-	playsound(src.loc, 'sound/goonstation/effects/screech.ogg', 100, 1)
+	playsound(loc, 'sound/goonstation/effects/screech.ogg', 100, 1)
 	return ..()
 
 /datum/disease/memetic_madness
@@ -116,11 +145,14 @@
 	cure_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = BIOHAZARD
-	disease_flags = CURABLE
+	disease_flags = CAN_CARRY
 	spread_flags = NON_CONTAGIOUS
+	virus_heal_resistant = TRUE
 	var/obj/item/storage/toolbox/green/memetic/progenitor = null
 
 /datum/disease/memetic_madness/Destroy()
+	if(progenitor)
+		progenitor.servantlinks.Remove(src)
 	progenitor = null
 	if(affected_mob)
 		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
@@ -142,6 +174,12 @@
 		affected_mob.AdjustDizzy(-10)
 		affected_mob.AdjustDrowsy(-10)
 		affected_mob.SetSleeping(0)
+		affected_mob.SetSlowed(0)
+		affected_mob.SetConfused(0)
+		if(ishuman(affected_mob))
+			var/mob/living/carbon/human/H = affected_mob
+			if(H.traumatic_shock < 100)
+				H.shock_stage = 0
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)

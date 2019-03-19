@@ -12,7 +12,7 @@
 /obj/machinery/computer/cryopod
 	name = "cryogenic oversight console"
 	desc = "An interface between crew and the cryogenic storage oversight systems."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cellconsole"
 	circuit = /obj/item/circuitboard/cryopodcontrol
 	density = 0
@@ -167,7 +167,7 @@
 /obj/structure/cryofeed
 	name = "cryogenic feed"
 	desc = "A bewildering tangle of machinery and pipes."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cryo_rear"
 	anchored = 1
 
@@ -189,7 +189,7 @@
 /obj/machinery/cryopod
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "body_scanner_0"
 	density = 1
 	anchored = 1

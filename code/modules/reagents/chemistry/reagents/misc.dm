@@ -128,7 +128,7 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = null
+	taste_message = "metal"
 
 
 /datum/reagent/silicon
@@ -176,7 +176,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
-	taste_message = null
+	taste_message = "extreme discomfort"
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -215,7 +215,7 @@
 	description = "A purple gaseous element."
 	reagent_state = GAS
 	color = "#493062"
-	taste_message = null
+	taste_message = "chemtrail resistance"
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -261,7 +261,7 @@
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
-	taste_message = null
+	taste_message = "nail polish remover"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -274,7 +274,7 @@
 	description = "Volatile."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	taste_message = null
+	taste_message = "one third of an explosion"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -419,6 +419,70 @@
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
+/datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+	name = "Jestosterone"
+	id = "jestosterone"
+	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
+	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
+	taste_message = "a funny flavour"
+
+/datum/reagent/jestosterone/on_new()
+	..()
+	var/mob/living/carbon/C = holder.my_atom
+	if(!istype(C))
+		return
+	var/mind_type = FALSE
+	if(C.mind)
+		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+			mind_type = "Clown"
+			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+		else if(C.mind.assigned_role == "Mime")
+			mind_type = "Mime"
+			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			C.AdjustDizzy(volume)
+		else
+			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			C.AdjustDizzy(volume)
+	C.AddComponent(/datum/component/jestosterone, mind_type)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
+
+/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
+	if(!istype(M))
+		return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.emote("giggle")
+	GET_COMPONENT_FROM(jestosterone_component, /datum/component/jestosterone, M)
+	if(jestosterone_component.mind_type == "Clown")
+		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+	else
+		M.AdjustDizzy(10, 0, 500)
+		M.Druggy(15)
+		if(prob(10))
+			M.EyeBlurry(5)
+		if(prob(6))
+			var/list/clown_message = list("You feel light-headed.",
+			"You can't see straight.",
+			"You feel about as funny as the station clown.",
+			"Bright colours and rainbows cloud your vision.",
+			"Your funny bone aches.",
+			"What was that?!",
+			"You can hear bike horns in the distance.",
+			"You feel like <em>SHOUTING</em>!",
+			"Sinister laughter echoes in your ears.",
+			"Your legs feel like jelly.",
+			"You feel like telling a pun.")
+			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+		if(jestosterone_component.mind_type == "Mime")
+			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..() | update_flags
+
+/datum/reagent/jestosterone/on_mob_delete(mob/living/M)
+	..()
+	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
+	GET_COMPONENT_FROM(squeaking, /datum/component/squeak, M)
+	remove_fun.Destroy()
+	squeaking.Destroy()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
@@ -470,7 +534,7 @@
 	description = "Finely ground Coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	taste_message = "bitterness"
+	taste_message = "waste"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -478,7 +542,7 @@
 	description = "Finely shredded Tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
-	taste_message = "bitterness"
+	taste_message = "the future"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -502,6 +566,7 @@
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
+	taste_message = "obscurity and toil"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
@@ -509,6 +574,7 @@
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	tox_prob = 25
+	taste_message = "evolution"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
@@ -516,6 +582,7 @@
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
+	taste_message = "bountifulness"
 
 ///Alchemical Reagents
 

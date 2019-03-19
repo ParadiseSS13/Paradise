@@ -76,6 +76,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/attacked_sound = "punch"
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
@@ -263,6 +264,8 @@
 		if("scream")
 			message = "<B>\The [src]</B> whimpers."
 			m_type = 2
+		if("help")
+			to_chat(src, "scream")
 
 	..(act, m_type, message)
 

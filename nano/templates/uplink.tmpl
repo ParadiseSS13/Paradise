@@ -4,23 +4,21 @@ Title: Syndicate Uplink, uses some javascript to change nanoUI up a bit.
 Used In File(s): \code\game\objects\items\devices\uplinks.dm
  -->
 {{:helper.syndicateMode()}}
-<H2><span class="white">{{:data.welcome}}</span></H2>
+<script>
+	{{var tooltiptext = function(desc_text) { var text = ""; if(desc_text){text += desc_text + " ";}return text;};}}
+</script>
+<center><H1><span class="white">{{:data.welcome}}</span></H1></center>
+<H2><span class="itemLabel">Uplink Functions</span></H2>
 <br>
 <div class="item">
-	<div class="itemLabelNarrow">
-		<b>Functions</b>:
-	</div>
-	<div class="itemContent">
-		{{:helper.link('Purchase Gear', 'gear', {'menu' : 0, 'category' : null}, null, 'fixedLeftWider')}}
-		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'fixedLeftWider')}}
-		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'info-circle', {'descriptions' : 1}, data.menu == 0 ? '' : 'disabled', 'fixedLeftWider')}}
-		{{:helper.link('Lock Uplink', 'power-off', {'lock' : "1"}, null, 'fixedLeftWider')}}
-	</div>
+		{{:helper.link('Purchase Gear', 'gear', {'menu' : 0, 'category' : null}, null, 'white')}}
+		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'white')}}
+		{{:helper.link('Lock Uplink', 'power-off', {'lock' : "1"}, null, 'white')}}
 </div>
 <br>
 
 {{if data.menu == 0}}
-    <H2><span class="white">Request items:</span></H2>
+    <H2><span class="white">Purchase Gear</span></H2>
     <span class="white"><i>Each item costs a number of tele-crystals as indicated by the number following their name.</i></span>
 	<div class="item">
         <div class="itemLabel">
@@ -44,16 +42,15 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 		{{/if}}
 		{{if value.Category == data.category_choice}}
 			<div class="block">
-			{{for value.items :itemValue:itemIndex}}
-				<div class="item">
-					{{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
-				</div>
-				{{if itemValue.Cost <= data.crystals && data.descriptions}}
-					<div class="item">
-						{{:itemValue.Description}}
-					</div>
-				{{/if}}
-			{{/for}}
+				<table>
+					{{for value.items :itemValue:itemIndex}}
+						<tr>
+						<td><div class='floatLeft tooltipRight' data-tooltip='{{:tooltiptext(itemValue.Description)}}'>
+						{{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
+						</div></td>
+						</tr>
+					{{/for}}
+				</table>
 			</div>
 		{{/if}}
 	{{/for}}

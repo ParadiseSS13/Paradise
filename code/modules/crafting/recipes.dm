@@ -6,7 +6,7 @@
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
 	var/chem_catalysts[] = list() //like tools but for reagents
-	var/category = CAT_MISC // Recipe category
+	var/category = CAT_NONE // Recipe category
 	var/roundstart_enabled = TRUE //Set to FALSE if you don't want a particular crafting recipe to be available all the time
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
@@ -81,12 +81,36 @@
 	time = 60
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/griefsky
+	name = "General Griefsky"
+	result = /mob/living/simple_animal/bot/secbot/griefsky
+	reqs = list(/obj/item/assembly/signaler = 1,
+				/obj/item/clothing/head/helmet = 1,
+				/obj/item/melee/energy/sword = 4,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/robot_parts/r_arm = 2,
+				/obj/item/robot_parts/l_arm = 2)
+	tools = list(/obj/item/weldingtool)
+	time = 120
+	category = CAT_ROBOT
+
 /datum/crafting_recipe/cleanbot
 	name = "Cleanbot"
 	result = /mob/living/simple_animal/bot/cleanbot
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
+	time = 40
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/honkbot
+	name = "Honkbot"
+	result = /mob/living/simple_animal/bot/honkbot
+	reqs = list(/obj/item/robot_parts/r_arm = 1,
+				/obj/item/bikehorn = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/storage/box/clown = 1,
+				/obj/item/instrument/trombone  = 1)
 	time = 40
 	category = CAT_ROBOT
 
@@ -240,6 +264,7 @@
 	reqs = list(/obj/item/camera = 1,
 				/datum/reagent/holywater = 10)
 	parts = list(/obj/item/camera = 1)
+	category = CAT_MISC
 
 /datum/crafting_recipe/papersack
 	name = "Paper Sack"
@@ -262,6 +287,7 @@
 	time = 50
 	reqs = list(/obj/item/stack/tape_roll = 1,
 				/datum/reagent/liquidgibs = 10)
+	category = CAT_MISC
 
 /datum/crafting_recipe/garrote
 	name = "Makeshift Garrote"
@@ -298,6 +324,7 @@
 	time = 15
 	reqs = list(/obj/item/clothing/gloves/color/latex = 1,
 				/obj/item/stack/cable_coil = 5)
+	category = CAT_MISC
 
 /datum/crafting_recipe/gold_horn
 	name = "Golden bike horn"

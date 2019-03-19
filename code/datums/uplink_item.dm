@@ -482,6 +482,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
+	name = "Compact Sniper Rifle"
+	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
+	reference = "CSR"
+	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
+	cost = 16
+	surplus = 0
+	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
@@ -632,6 +642,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/loaded
 	cost = 10 //bulk buyer's discount. Very useful if you're buying a mech and dont have TC left to buy people non-shotgun guns
 	gamemodes = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/ammo/bullslug
 	name = "Bulldog - 12g Slug Magazine"
@@ -786,6 +797,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 9
 
+/datum/uplink_item/stealthy_weapons/cameraflash
+	name = "Camera Flash"
+	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\
+			 Due to its design, this flash cannot be overcharged like regular flashes can.\
+			 Useful for stunning borgs and individuals without eye protection or blinding a crowd for a get away."
+	reference = "CF"
+	item = /obj/item/flash/cameraflash
+	cost = 2
+
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
@@ -857,13 +877,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 3
 
-/datum/uplink_item/stealthy_weapons/chamsechud
-	name = "Chameleon Security HUD"
-	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
-	reference = "CHHUD"
-	item = /obj/item/clothing/glasses/hud/security/chameleon
-	cost = 2
-
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
@@ -875,6 +888,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "C4"
 	item = /obj/item/grenade/plastic/c4
 	cost = 1
+
+/datum/uplink_item/explosives/plastic_explosives_pack
+	name = "Pack of 5 C-4 Explosives"
+	desc = "A package containing 5 C-4 Explosives at a discounted price. For when you need that little bit extra for your sabotaging needs."
+	reference = "C4P"
+	item = /obj/item/storage/box/syndie_kit/c4
+	cost = 4
 
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"
@@ -912,14 +932,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PB"
 	item = /obj/item/pizza_bomb
 	cost = 5
-	surplus = 8
-
-/datum/uplink_item/explosives/chameleonflag
-	name = "Chameleon Flag"
-	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
-	reference = "CHFLAG"
-	item = /obj/item/flag/chameleon
-	cost = 7
+	surplus = 80
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
@@ -957,7 +970,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and Implanter Kit"
-	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \
+	desc = "A box that contains two EMP grenades and an EMP implant with 2 uses. Useful to disrupt communication, \
 			security's energy weapons, and silicon lifeforms when you're in a tight spot."
 	reference = "EMPK"
 	item = /obj/item/storage/box/syndie_kit/emp
@@ -984,6 +997,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 35
 
+/datum/uplink_item/stealthy_tools/chameleonflag
+	name = "Chameleon Flag"
+	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
+	reference = "CHFLAG"
+	item = /obj/item/flag/chameleon
+	cost = 1
+	surplus = 35
+
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "No-Slip Syndicate Shoes"
 	desc = "These allow you to run on wet floors. They do not work on lubricated surfaces."
@@ -999,6 +1020,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4 //but they aren't
 	gamemodes = list(/datum/game_mode/nuclear)
 	excludefrom = list()
+
+/datum/uplink_item/stealthy_tools/chamsechud
+	name = "Chameleon Security HUD"
+	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
+	reference = "CHHUD"
+	item = /obj/item/clothing/glasses/hud/security/chameleon
+	cost = 2
+
+/datum/uplink_item/stealthy_tools/thermal
+	name = "Thermal Imaging Glasses"
+	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
+	reference = "THIG"
+	item = /obj/item/clothing/glasses/thermal/syndi
+	cost = 6
+
+/datum/uplink_item/stealthy_tools/traitor_belt
+	name = "Traitor's Toolbelt"
+	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
+	reference = "SBM"
+	item = /obj/item/storage/belt/military/traitor
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
@@ -1129,14 +1172,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 4
 
-/datum/uplink_item/device_tools/traitor_belt
-	name = "Traitor's Toolbelt"
-	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
-	reference = "SBM"
-	item = /obj/item/storage/belt/military/traitor
-	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
@@ -1206,17 +1241,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
-
-/datum/uplink_item/device_tools/thermal
-	name = "Thermal Imaging Glasses"
-	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
-	reference = "THIG"
-	item = /obj/item/clothing/glasses/thermal/syndi
-	cost = 6
-
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
-	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
+	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
 	reference = "BITK"
 	item = /obj/item/encryptionkey/binary
 	cost = 5
@@ -1386,14 +1413,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
-	desc = "An implant injected into the body and later activated using a bodily gesture to attempt to slip restraints."
+	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 5
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "An implant injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 14
@@ -1416,7 +1443,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/adrenal
 	name = "Adrenal Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to inject a chemical cocktail, which has a mild healing effect along with removing all stuns and increasing his speed."
+	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
 	cost = 8
@@ -1435,10 +1462,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Cybernetic Implants"
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
+	var/cyber_bundle = FALSE
 
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
 	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
+		if(findtext(item, /obj/item/organ/internal/cyberimp) && !cyber_bundle)
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
 			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
@@ -1482,6 +1510,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
+	cyber_bundle = TRUE
+	cant_discount = TRUE
 
 // POINTLESS BADASSERY
 
@@ -1581,6 +1611,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
 	cant_discount = TRUE // You fucking wish
+	var/crate_value = 50
+
+/datum/uplink_item/badass/surplus_crate/super
+	name = "Syndicate Super Surplus Crate"
+	desc = "A crate containing 125 telecrystals worth of random syndicate leftovers."
+	reference = "SYSS"
+	cost = 40
+	crate_value = 125
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
@@ -1588,16 +1626,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
+	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
 	U.uses -= cost
-	U.used_TC = 20
-	var/remaining_TC = 50
+	U.used_TC = cost
 
 	var/datum/uplink_item/I
 	while(remaining_TC)
 		I = pick(buyable_items)
-		if(!I.surplus)
+		if(!I.surplus || prob(100 - I.surplus))
 			continue
 		if(I.cost > remaining_TC)
 			continue

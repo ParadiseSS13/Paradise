@@ -41,6 +41,10 @@
 	update_overlays()
 	update_charge()
 
+/obj/item/defibrillator/examine(mob/user)
+	..(user)
+	to_chat(user,"<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.")
+
 /obj/item/defibrillator/proc/update_power()
 	if(bcell)
 		if(bcell.charge < paddles.revivecost)
@@ -118,11 +122,11 @@
 	if(safety)
 		safety = 0
 		src.visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyOff.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
 	else
 		safety = 1
 		src.visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyOn.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50, 0)
 	update_icon()
 	..()
 
@@ -294,8 +298,10 @@
 	return unwield(user)
 
 /obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
-	if(defib && !(defib.Adjacent(user)))
-		defib.remove_paddles(user)
+	if(defib)
+		var/turf/t = get_turf(defib)
+		if(!t.Adjacent(user))
+			defib.remove_paddles(user)
 
 /obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
@@ -336,6 +342,7 @@
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
 				H.set_heartattack(TRUE)
+			H.shock_internal_organs(100)
 			add_attack_logs(user, M, "Stunned with [src]")
 			defib.deductcharge(revivecost)
 			cooldown = 1
@@ -357,8 +364,8 @@
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
-			var/tlimit = 3000 //past this much time the patient is unrecoverable (in deciseconds)
-			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
+			var/tlimit = DEFIB_TIME_LIMIT * 10 //past this much time the patient is unrecoverable (in deciseconds)
+			var/tloss = DEFIB_TIME_LOSS * 10 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
@@ -386,6 +393,7 @@
 							update_icon()
 							return
 						H.set_heartattack(FALSE)
+						H.shock_internal_organs(100)
 						user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -420,6 +428,9 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+						H.shock_internal_organs(100)
+						H.med_hud_set_health()
+						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
 					else
@@ -480,6 +491,7 @@
 			H.Weaken(5)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
+			H.shock_internal_organs(100)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_attack_logs(user, M, "Stunned with [src]")
@@ -535,6 +547,7 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+						H.shock_internal_organs(100)
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)

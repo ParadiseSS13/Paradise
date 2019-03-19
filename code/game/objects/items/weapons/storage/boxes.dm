@@ -191,6 +191,21 @@
 		new /obj/item/reagent_containers/glass/beaker( src )
 		new /obj/item/reagent_containers/glass/beaker( src )
 
+/obj/item/storage/box/iv_bags
+	name = "IV Bags"
+	desc = "A box full of empty IV bags."
+	icon_state = "beaker"
+
+/obj/item/storage/box/iv_bags/New()
+	..()
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+	new /obj/item/reagent_containers/iv_bag( src )
+
 /obj/item/storage/box/injectors
 	name = "\improper DNA injectors"
 	desc = "This box contains injectors it seems."
@@ -997,6 +1012,23 @@
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
+/obj/item/storage/box/clown
+	name = "clown box"
+	desc = "A colorful cardboard box for the clown"
+	icon_state = "box_clown"
+
+/obj/item/storage/box/rndboards
+	name = "the Liberator's legacy"
+	desc = "A box containing a gift for worthy golems."
+
+/obj/item/storage/box/rndboards/New()
+	..()
+	contents = list()
+	new /obj/item/circuitboard/protolathe(src)
+	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/circuit_imprinter(src)
+	new /obj/item/circuitboard/rdconsole/public(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

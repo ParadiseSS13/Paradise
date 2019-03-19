@@ -93,6 +93,7 @@ var/global/sent_honksquad = 0
 	new_honksquad.mind_initialize()
 	new_honksquad.mind.assigned_role = SPECIAL_ROLE_HONKSQUAD
 	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
+	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language("Clownish")
 	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected)
@@ -106,8 +107,8 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
 	if(src.gender == FEMALE)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sexyclown(src), slot_wear_mask)
-		equip_to_slot_or_del(new /obj/item/clothing/under/sexyclown(src), slot_w_uniform)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/sexy(src), slot_wear_mask)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/sexy(src), slot_w_uniform)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), slot_w_uniform)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
@@ -119,6 +120,7 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/stamp/clown(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/patch/jestosterone(src), slot_r_store)
 	if(prob(50))
 		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
 	else

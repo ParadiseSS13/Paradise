@@ -231,16 +231,10 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(amount < 1)
-		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(locate(src) in R.module.modules)
-				R.module.modules -= src
-			if(R)
-				R.unEquip(src, TRUE)
-	zero_amount()
+	if(check)
+		zero_amount()
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/item/stack/proc/get_amount()
 	return amount
@@ -273,7 +267,9 @@
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!in_range(src, user) || issilicon(usr))
+	if(!in_range(src, user))
+		return
+	if(!ishuman(usr))
 		return
 	if(amount < 1)
 		return
@@ -305,6 +301,13 @@
 
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
+		if(isrobot(loc))
+			var/mob/living/silicon/robot/R = loc
+			if(locate(src) in R.module.modules)
+				R.module.modules -= src
+		if(ismob(loc))
+			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
+			L.unEquip(src, TRUE)
 		qdel(src)
 		return TRUE
 	return FALSE

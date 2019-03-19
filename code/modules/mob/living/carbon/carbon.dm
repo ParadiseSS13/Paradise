@@ -147,6 +147,7 @@
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
 	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
+	shock_internal_organs(shock_damage)
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -441,6 +442,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			if(!do_after(src, 45, target = src))
 				return
 
+			if(buckled)
+				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+				return
+
 			if(!client)
 				return
 
@@ -450,6 +455,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 					if(istype(I, /obj/item/implant))
 						continue
 					if(istype(I, /obj/item/organ))
+						continue
+					if(I.flags & ABSTRACT)
 						continue
 					else
 						failed++
@@ -1114,3 +1121,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()
+
+/mob/living/carbon/proc/shock_internal_organs(intensity)
+	for(var/obj/item/organ/O in internal_organs)
+		O.shock_organ(intensity)

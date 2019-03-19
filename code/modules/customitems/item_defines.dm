@@ -27,7 +27,7 @@
 	var/tattoo_g = 1
 	var/tattoo_b = 1
 	toolspeed = 1
-	usesound = 'sound/items/Welder2.ogg'
+	usesound = 'sound/items/welder2.ogg'
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
@@ -550,7 +550,7 @@
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
 		H.update_inv_head()
 		qdel(target)
@@ -847,6 +847,15 @@
 	species_fit = null
 	sprite_sheets = null
 
+/obj/item/clothing/suit/storage/labcoat/fluff/pulsecoat //ozewse : Daniel Harper : Donated to them by Runemeds, who is the original donor.
+	name = "EMT pulse coat"
+	desc = "An EMT labcoat modified to track the wearer's heartbeat. It's so worn out that it doesn't seem to accurately track heartbeat anymore. Also, the zipper is stuck."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "pulsecoat"
+	item_state = "pulsecoat"
+	ignore_suitadjust = 1
+	actions_types = list()
+
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
 	name = "custom purple military jacket"
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one has a medical patch on it."
@@ -899,6 +908,13 @@
 	desc = "A worn leather jacket. Some burn holes have been patched."
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	icon_state = "dusty_jacket"
+
+/obj/item/clothing/suit/fluff/cheeky_sov_coat //CheekyCrenando: Srusu Rskuzu
+	name = "Srusu's Greatcoat"
+	desc = "A heavy wool Soviet-style greatcoat. A name is written in fancy handwriting on the inside tag: Srusu Rskuzu"
+	icon = 'icons/obj/custom_items.dmi'
+	item_state = "cheeky_sov_coat"
+	icon_state = "cheeky_sov_coat"
 
 /obj/item/clothing/suit/fluff/supplymaster_jacket //Denthamos: Henry Grandpa Gadow
 	name = "faded NT Supply Master's Coat"
@@ -981,6 +997,14 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
+	species_fit = null
+	sprite_sheets = null
+
+/obj/item/clothing/suit/storage/labcoat/fluff/ionward_labcoat // Ionward: Gemini
+	name = "Technocracy labcoat"
+	desc = "A thin, faded, carbon fiber labcoat. On the back, a Technocracy vessel's logo. Inside, the name 'Gemini' is printed on the collar."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ionward_labcoat_open"
 	species_fit = null
 	sprite_sheets = null
 
@@ -1099,6 +1123,64 @@
 	body_parts_covered = HEAD
 	flags = NODROP|BLOCKHAIR
 	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
+	name = "red trench coat"
+	desc = "A red coat with cheaply made plastic accessories."
+	icon_state = "pineapple_trench"
+
+/obj/item/fluff/pinapplehairgel ////Pineapple Salad: Dan Jello
+	name = "slime hair gel"
+	desc = "A bottle containing extra..material..for custom 'hair' styling."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ps_hairgel"
+	attack_verb = list("smacked")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/pinapplehairgel/attack_self(mob/user)
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || !isslimeperson(target))
+		return
+
+	if(target.change_hair("Sasook Hair", 1))
+		to_chat(target, "<span class='notice'>You dump some of [src] on your head and style it around.</span>")
+
+
+
+/obj/item/clothing/suit/hooded/wintercoat/fluff/shesi //MrSynnester : Shesi Skaklas
+	name = "custom made winter coat"
+	desc = "A custom made winter coat with the arms removed. Looks comfy."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "shesicoat"
+	item_state = "shesicoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/shesi
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	cold_protection = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/head/hood/fluff/shesi //MrSynnester : Shesi Skaklas
+	name = "custom made winter hood"
+	desc = "A custom made winter coat hood. Looks comfy."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "shesicoat_hood2"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
+	name = "telecommunications bomber jacket"
+	desc = "Looks like something only a nerd would buy. Has a tag inside reading <i>Property of DTX</i>."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dtxbomber"
+	item_state = "dtxbomber"
+	ignore_suitadjust = 0
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
@@ -1298,6 +1380,13 @@
 /obj/item/toy/plushie/fluff/fox/ui_action_click()
 	change_color()
 
+/obj/item/clothing/suit/jacket/miljacket/desert/fox
+	name = "rugged military jacket"
+	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "fox_coat"
+	item_color = "fox_coat"
+
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
@@ -1430,6 +1519,13 @@
 	desc = "It's a backpack, but it's also a cat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
+
+/obj/item/storage/backpack/duffel/fluff/thebrew //Greey: Korala Ice
+	name = "The Brew"
+	desc = "Amber colored duffle bag resembling a long lost friend, a spirit long forgotten."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "greeyfluff"
+	item_state = "greeyfluff"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"
@@ -1597,6 +1693,14 @@
 	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
 
+/obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
+    name = "Old purple scarf"
+    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "rbscarf"
+    item_state = "rbscarf"
+    item_color = "rbscarf"
+
 /obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
 	name = "Rara's Somber Accordion"
 	desc = "A blue colored accordion with claw indentations on the keys made special for vulpkanins."
@@ -1604,3 +1708,48 @@
 	icon_state = "asmer_accordion"
 	item_state = "asmer_accordion"
 
+
+/obj/item/clothing/head/rabbitears/fluff/pinesalad_bunny // Pineapple Salad : Dan Jello
+	name = "Bluespace rabbit ears"
+	desc = "A pair of sparkly bluespace rabbit ears, with a small tag on them that reads, 'Dan Jello~'. Yuck, \
+	 there's some pink slime on the part that goes on your head!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ps_bunny"
+
+
+/obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
+	name = "Suspicious Outfit"
+	desc = "A very expensive top with intricate details tailored to fit a vox and paired with a glittery blue skirt, probably illegal."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	icon_state = "kiaoutfit"
+	item_state = "kiaoutfit"
+	item_color = "kiaoutfit"
+	displays_id = FALSE
+	species_restricted = list("Vox")
+
+/obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi
+	name = "Suspicious Witch Hat"
+	desc = "A black witch hat with a blue sash decorated with tiny glimmering stars and a gold squid-like medallion, probably possessed."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "kiahat"
+	item_state = "kiahat"
+	item_color = "kiahat"
+
+/obj/item/clothing/mask/gas/fluff/kiamask //FullOfSkittles: Kiachi
+	name = "Suspicious Mask"
+	desc = "A sleek mask that blends in with the owner's existing quills using strange technology. It might even be magic..."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	icon_state = "kiamask"
+	item_state = "kiamask"
+	item_color = "kiamask"
+	species_restricted = list("Vox")

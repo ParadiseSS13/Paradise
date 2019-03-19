@@ -136,7 +136,7 @@
 		var/P = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 		new P(loc)
 		new P(loc)
-	playsound(src, 'sound/items/Welder.ogg', 100, 1)
+	playsound(src, 'sound/items/welder.ogg', 100, 1)
 	qdel(src)
 
 /*
@@ -243,7 +243,7 @@
 	..()
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
-	playsound(src, 'sound/items/Welder.ogg', 100, 1)
+	playsound(src, 'sound/items/welder.ogg', 100, 1)
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)

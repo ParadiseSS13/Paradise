@@ -172,7 +172,7 @@
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> [M ? "drones at [M]" : "rumbles"]."
-			playsound(loc, 'sound/voice/DraskTalk.ogg', 50, 0)
+			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 0)
 			m_type = 2
 
 		if("squish", "squishes")

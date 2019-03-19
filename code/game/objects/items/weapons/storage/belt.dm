@@ -295,6 +295,10 @@
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/storage/belt/military/sst
+	icon_state = "assaultbelt"
+	item_state = "assault"
+
 /obj/item/storage/belt/military/traitor
 	name = "tool-belt"
 	desc = "Can hold various tools. This model seems to have additional compartments."

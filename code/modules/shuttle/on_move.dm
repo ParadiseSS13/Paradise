@@ -61,18 +61,3 @@
 	. = ..()
 	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
 		INVOKE_ASYNC(src, .proc/unlock)
-
-// Shuttle Rotation //
-/atom/proc/shuttleRotate(rotation)
-	//rotate our direction
-	dir = angle2dir(rotation+dir2angle(dir))
-
-	//rotate the pixel offsets too.
-	if(pixel_x || pixel_y)
-		if(rotation < 0)
-			rotation += 360
-		for(var/turntimes=rotation/90;turntimes>0;turntimes--)
-			var/oldPX = pixel_x
-			var/oldPY = pixel_y
-			pixel_x = oldPY
-			pixel_y = (oldPX*(-1))

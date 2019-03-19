@@ -24,6 +24,7 @@
 	var/timid = FALSE
 
 	var/list/ripples = list()
+	var/hidden = FALSE //are we invisible to shuttle navigation computers?
 
 	//these objects are indestructable
 /obj/docking_port/Destroy(force)
@@ -76,6 +77,12 @@
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
+//returns turfs within our projected rectangle in no particular order
+/obj/docking_port/proc/return_turfs()
+	var/list/L = return_coords()
+	var/turf/T0 = locate(L[1], L[2], z)
+	var/turf/T1 = locate(L[3], L[4], z)
+	return block(T0, T1)
 
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
@@ -200,6 +207,7 @@
 	icon_state = "pinonclose"
 
 	var/area/shuttle/areaInstance
+	var/list/shuttle_areas
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
@@ -227,12 +235,16 @@
 	highlight("#0f0")
 	#endif
 
-
-
-
 /obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
+	shuttle_areas = list()
+	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
+	for(var/i in 1 to all_turfs.len)
+		var/turf/curT = all_turfs[i]
+		var/area/cur_area = curT.loc
+		if(istype(cur_area, areaInstance))
+			shuttle_areas[cur_area] = TRUE
 	..()
 
 /obj/docking_port/mobile/register()
@@ -255,6 +267,7 @@
 		areaInstance = null
 		destination = null
 		previous = null
+		shuttle_areas = null
 	return ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
@@ -819,14 +832,6 @@
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
-/obj/machinery/computer/shuttle/ert
-	name = "specops shuttle console"
-	//circuit = /obj/item/circuitboard/ert
-	req_access = list(access_cent_general)
-	shuttleId = "specops"
-	possible_destinations = "specops_home;specops_away"
-
-
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
@@ -834,11 +839,19 @@
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
-/obj/machinery/computer/shuttle/vox
-	name = "skipjack control console"
-	req_access = list(access_vox)
-	shuttleId = "skipjack"
-	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5"
+/obj/machinery/computer/shuttle/golem_ship
+	name = "Golem Ship Console"
+	desc = "Used to control the Golem Ship."
+	circuit = /obj/item/circuitboard/golem_ship
+	shuttleId = "freegolem"
+	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user))
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		return
+	..()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
@@ -857,28 +870,11 @@
 	desc = "Used to call and send the administration shuttle."
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away"
-
-/obj/machinery/computer/shuttle/sst
-	name = "Syndicate Strike Time Shuttle Console"
-	desc = "Used to call and send the SST shuttle."
-	icon_keyboard = "syndie_key"
-	icon_screen = "syndishuttle"
-	req_access = list(access_syndicate)
-	shuttleId = "sst"
-	possible_destinations = "sst_home;sst_away"
-
-/obj/machinery/computer/shuttle/sit
-	name = "Syndicate Infiltration Team Shuttle Console"
-	desc = "Used to call and send the SIT shuttle."
-	icon_keyboard = "syndie_key"
-	icon_screen = "syndishuttle"
-	req_access = list(access_syndicate)
-	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"
-
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(access_trade_sol)

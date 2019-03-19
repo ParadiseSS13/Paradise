@@ -161,6 +161,7 @@
 					//The objects that corgis can wear on their backs.
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
+						/obj/item/clothing/suit/armor/vest/blueshield,
 						/obj/item/clothing/suit/space/deathsquad,
 						/obj/item/clothing/suit/space/hardsuit/engineering,
 						/obj/item/radio,
@@ -364,6 +365,12 @@
 			if(/obj/item/clothing/mask/fakemoustache)
 				name = "Definitely Not [real_name]"
 				desc = "That's Definitely Not [real_name]"
+				valid = 1
+			
+			if(/obj/item/clothing/head/beret/centcom/officer, /obj/item/clothing/head/beret/centcom/officer/navy)
+				name = "Blueshield [real_name]"
+				desc = "Will stand by you until the bitter end."
+				emote_see = list("stands with pride.", "growls heroically.")
 				valid = 1
 
 	if(valid)

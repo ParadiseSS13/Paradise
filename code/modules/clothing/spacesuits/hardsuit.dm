@@ -57,6 +57,11 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light()
+	if(on)
+		toggle_light()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == slot_head)
 		return 1
@@ -67,7 +72,7 @@
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 
@@ -462,6 +467,16 @@
 		name = "elite syndicate hardsuit (combat)"
 		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
 
+//Strike team hardsuits
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
+	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100)
+	icon_state = "hardsuit0-sst"
+	item_color = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"
@@ -634,7 +649,7 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/process()
 	if(world.time > recharge_cooldown && current_charges < max_charges)
 		current_charges = Clamp((current_charges + recharge_rate), 0, max_charges)
-		playsound(loc, 'sound/magic/Charge.ogg', 50, 1)
+		playsound(loc, 'sound/magic/charge.ogg', 50, 1)
 		if(current_charges == max_charges)
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 			processing_objects.Remove(src)

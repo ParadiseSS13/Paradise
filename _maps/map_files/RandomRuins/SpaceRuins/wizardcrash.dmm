@@ -1,0 +1,1293 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/space,
+/area/space)
+"ab" = (
+/turf/simulated/floor/plating/airless/asteroid,
+/area/ruin/unpowered)
+"ac" = (
+/turf/simulated/mineral,
+/area/ruin/unpowered)
+"ad" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken3";
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"ae" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/unpowered)
+"af" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken3";
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"ag" = (
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken7";
+	icon_state = "wood-broken7"
+	},
+/area/ruin/unpowered)
+"ah" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/obj/item/shard,
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken3";
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"ai" = (
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/unpowered)
+"aj" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ak" = (
+/obj/item/shard,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"al" = (
+/obj/structure/shuttle/window,
+/obj/structure/grille,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"am" = (
+/obj/structure/table/wood,
+/obj/item/dice/d20,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"an" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ao" = (
+/obj/item/flag/wiz,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ap" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aq" = (
+/obj/item/clothing/suit/wizrobe,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ar" = (
+/obj/item/flag/wiz,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken3";
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"as" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"at" = (
+/obj/item/bedsheet/wiz,
+/obj/structure/bed,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"au" = (
+/obj/structure/table/wood,
+/obj/item/pen,
+/obj/item/paper/fluff/ruins/wizardcrash,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"av" = (
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aw" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ax" = (
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken3";
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"ay" = (
+/obj/effect/decal/remains/robot,
+/obj/item/clothing/head/wizard,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"az" = (
+/obj/item/spellbook/oneuse/charge{
+	desc = "For the technology-hating wizard.";
+	spell = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech;
+	spellname = "Disable Technology";
+	used = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aA" = (
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken6";
+	icon_state = "wood-broken6"
+	},
+/area/ruin/unpowered)
+"aB" = (
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"aC" = (
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aD" = (
+/obj/structure/closet{
+	icon_closed = "cabinet_closed";
+	icon_opened = "cabinet_open";
+	icon_state = "cabinet_closed"
+	},
+/obj/item/storage/backpack/satchel,
+/obj/item/lighter/zippo,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"aE" = (
+/obj/structure/bookcase,
+/obj/item/book/codex_gigas,
+/obj/item/book/manual/hydroponics_pod_people,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aF" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken6";
+	icon_state = "wood-broken6"
+	},
+/area/ruin/unpowered)
+"aG" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aH" = (
+/obj/structure/chair/wood/normal{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"aI" = (
+/obj/structure/table/wood,
+/obj/item/toy/character/wizard,
+/obj/item/paper/spells,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"aJ" = (
+/obj/structure/cult/pylon,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aK" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/window/westleft,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aL" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aM" = (
+/obj/machinery/door/airlock/external,
+/turf/space,
+/area/ruin/unpowered)
+"aN" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/barman_recipes,
+/obj/item/book/manual/engineering_hacking,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aO" = (
+/obj/item/storage/bag/books,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aP" = (
+/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aQ" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aR" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aS" = (
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aT" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/obj/structure/reagent_dispensers/oil,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aU" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aV" = (
+/obj/item/flag/wiz,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aW" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/wood{
+	tag = "icon-wood-broken6";
+	icon_state = "wood-broken6"
+	},
+/area/ruin/unpowered)
+"aX" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aY" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"aZ" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"ba" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bb" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bc" = (
+/obj/effect/decal/remains/human,
+/obj/item/reagent_containers/food/snacks/meat/monkey,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bd" = (
+/obj/structure/showcase,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"be" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"bf" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bg" = (
+/obj/item/reagent_containers/food/snacks/meat/monkey,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bh" = (
+/obj/machinery/door/window,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"bi" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bj" = (
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bk" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bl" = (
+/mob/living/simple_animal/hostile/creature{
+	health = 150;
+	name = "Experiment 17e"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bm" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"bn" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bo" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bp" = (
+/obj/structure/rack,
+/obj/item/twohanded/staff,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bq" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bs" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bt" = (
+/obj/structure/showcase,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bu" = (
+/obj/structure/rack,
+/obj/item/twohanded/staff/broom,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bv" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"bw" = (
+/obj/item/storage/toolbox/electrical,
+/obj/structure/table,
+/obj/item/clothing/gloves/color/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bx" = (
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"by" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bz" = (
+/mob/living/simple_animal/hostile/mimic/crate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bA" = (
+/obj/structure/table,
+/obj/item/wrench,
+/obj/item/weldingtool,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bB" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bC" = (
+/obj/structure/rack,
+/obj/item/kitchen/knife/ritual,
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bD" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bE" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ruin/unpowered)
+"bF" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bG" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/space,
+/area/ruin/unpowered)
+"bH" = (
+/turf/simulated/wall/mineral/titanium,
+/area/space)
+"bI" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bJ" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 0
+	},
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bK" = (
+/obj/singularity/academy,
+/turf/space,
+/area/ruin/unpowered)
+"bL" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bM" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/unpowered)
+"bN" = (
+/obj/effect/spawner/lootdrop/wizardcrash,
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"bO" = (
+/obj/structure/shuttle/window,
+/obj/structure/grille,
+/turf/space,
+/area/ruin/unpowered)
+"bP" = (
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ab
+ac
+ac
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+bH
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+aa
+aa
+aa
+aa
+aa
+ae
+ae
+aY
+aS
+bl
+bq
+ae
+bw
+bA
+bD
+ae
+ae
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(5,1,1) = {"
+aa
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ae
+ae
+al
+ae
+ae
+bO
+ae
+ae
+ae
+bc
+aS
+aS
+bg
+ae
+bx
+bJ
+bx
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(6,1,1) = {"
+aa
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ae
+am
+au
+aC
+aE
+aC
+aN
+aR
+aU
+aZ
+aS
+aZ
+aS
+ae
+bB
+bK
+bM
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(7,1,1) = {"
+aa
+aa
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ah
+an
+av
+aC
+aF
+aC
+aO
+aC
+aU
+aZ
+bf
+aS
+aS
+ae
+bx
+bL
+bx
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(8,1,1) = {"
+aa
+aa
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ae
+ae
+ao
+aw
+aC
+aC
+aC
+aC
+aC
+aU
+aU
+be
+aU
+aU
+ae
+aS
+aS
+aS
+ae
+ae
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(9,1,1) = {"
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aC
+ai
+ap
+ax
+aC
+aC
+aG
+aC
+aA
+aV
+aC
+aC
+bm
+aC
+ae
+by
+bJ
+bx
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(10,1,1) = {"
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+af
+aj
+aq
+ay
+aC
+aG
+aJ
+aG
+aC
+aC
+aC
+aC
+aC
+aC
+bv
+bI
+bK
+bM
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(11,1,1) = {"
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ae
+ag
+ak
+aC
+az
+aC
+aC
+aG
+aC
+aC
+aV
+aC
+aC
+aC
+aC
+ae
+by
+bL
+bx
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(12,1,1) = {"
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ae
+ae
+ar
+aA
+aC
+aC
+aC
+aC
+aC
+aW
+aX
+bh
+aX
+aX
+ae
+aS
+aS
+aS
+ae
+ae
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(13,1,1) = {"
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+al
+as
+as
+aB
+aH
+aK
+aP
+aS
+aX
+ba
+bi
+bn
+bi
+ae
+bx
+bJ
+bx
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(14,1,1) = {"
+aa
+aa
+aa
+ab
+ab
+ac
+ac
+ac
+ac
+ac
+ae
+at
+aB
+aD
+aI
+aL
+aQ
+aT
+aX
+bb
+bj
+bo
+bs
+ae
+bB
+bK
+bM
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(15,1,1) = {"
+aa
+aa
+aa
+aa
+ab
+ac
+ac
+ac
+ac
+ac
+ae
+ae
+al
+ae
+ae
+aM
+ae
+ae
+ae
+bd
+bE
+bn
+bt
+ae
+bx
+bL
+bx
+bF
+bG
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(16,1,1) = {"
+aa
+aa
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ae
+ae
+bC
+bk
+bp
+bu
+ae
+bz
+bP
+bN
+ae
+ae
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(17,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ac
+ac
+ac
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+bH
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(18,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(19,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(20,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}

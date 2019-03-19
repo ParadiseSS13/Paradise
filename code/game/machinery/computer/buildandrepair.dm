@@ -48,7 +48,7 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/circuitboard/computer
 	board_type = "computer"
@@ -219,6 +219,9 @@
 /obj/item/circuitboard/prisoner
 	name = "Circuit board (Prisoner Management)"
 	build_path = /obj/machinery/computer/prisoner
+/obj/item/circuitboard/brigcells
+	name = "Circuit board (Brig Cell Control)"
+	build_path = /obj/machinery/computer/brigcells
 
 
 // RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
@@ -316,6 +319,9 @@
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship
+/obj/item/circuitboard/golem_ship
+	name = "circuit Board (Golem Ship)"
+	build_path = /obj/machinery/computer/shuttle/golem_ship
 /obj/item/circuitboard/shuttle/syndicate
 	name = "circuit board (Syndicate Shuttle)"
 	build_path = /obj/machinery/computer/shuttle/syndicate

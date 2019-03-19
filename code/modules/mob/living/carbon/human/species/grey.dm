@@ -8,10 +8,10 @@
 	butt_sprite = "grey"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/grey,
+		"lungs" =    /obj/item/organ/internal/lungs/grey,
 		"liver" =    /obj/item/organ/internal/liver/grey,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"kidneys" =  /obj/item/organ/internal/kidneys/grey,
 		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
@@ -42,7 +42,7 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.is_command) && (WINGDINGS in H.mutations)))
+	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
 		if(J.title == "Mime")
 			return
 		if(J.title == "Clown")

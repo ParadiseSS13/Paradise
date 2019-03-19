@@ -424,6 +424,7 @@
 	if(H.mind in ticker.mode.cult)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
+		ticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
 	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(H.mind.vampire)

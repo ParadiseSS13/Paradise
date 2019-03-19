@@ -34,7 +34,7 @@
 	ranged_message = "shoots"
 	ranged_cooldown_time = 30
 	projectiletype = /obj/item/projectile/kinetic
-	projectilesound = 'sound/weapons/Gunshot4.ogg'
+	projectilesound = 'sound/weapons/gunshots/gunshot4.ogg'
 	speak_emote = list("states")
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
@@ -111,7 +111,7 @@
 	var/pressure = environment.return_pressure()
 	if(pressure > 50)
 		K.name = "weakened [K.name]"
-		
+
 		K.damage *= K.pressure_decrease
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
