@@ -12,6 +12,7 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
+	sentience_type = SENTIENCE_OTHER
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
@@ -20,6 +21,14 @@
 
 /mob/living/simple_animal/hostile/blob/blob_act()
 	return
+
+
+/mob/living/simple_animal/hostile/blob/AttackingTarget()
+	if(ckey)
+		if(istype(target, /obj/structure/blob))
+			return FALSE
+	return ..()
+
 
 ////////////////
 // BLOB SPORE //
