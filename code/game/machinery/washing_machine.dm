@@ -141,8 +141,7 @@
 					G.icon_state = new_glove_icon_state
 					G.item_color = wash_color
 					G.name = new_glove_name
-					if(!istype(G, /obj/item/clothing/gloves/color/black/thief))
-						G.desc = new_desc
+					G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
 					if(S.chained == 1)
