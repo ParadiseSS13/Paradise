@@ -912,6 +912,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/radio/beacon/syndicate/bomb
 	hijack_only = TRUE
 	cost = 10
+	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -976,6 +978,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	hijack_only = TRUE
 	cost = 12
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and Implanter Kit"
