@@ -910,7 +910,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
-	hijack_only = TRUE
 	cost = 10
 	surplus = 0
 	cant_discount = TRUE
