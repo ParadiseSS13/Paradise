@@ -19,9 +19,8 @@
 
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
-	explosion(T,0,0,2)
+	fireflash(holder.my_atom, 1)
+	explosion(T, 0, 0, 2)
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"

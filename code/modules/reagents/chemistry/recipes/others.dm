@@ -171,16 +171,6 @@
 	mix_message = "The mixture bubbles and gives off an unpleasant medicinal odor."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/ash
-	name = "Ash"
-	id = "ash"
-	result = "ash"
-	required_reagents = list("oil" = 1)
-	result_amount = 0.5
-	min_temp = T0C + 600
-	mix_sound = null
-	no_message = 1
-
 /datum/chemical_reaction/colorful_reagent
 	name = "colorful_reagent"
 	id = "colorful_reagent"

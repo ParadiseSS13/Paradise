@@ -12,6 +12,9 @@
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(is_hot(src) && A.reagents && !ismob(A))
+		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+		A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
@@ -123,9 +126,7 @@
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(is_hot(src) && target.reagents && !ismob(target) && proximity_flag)
-		to_chat(user, "<span class='notice'>You heat [target].</span>")
-		target.reagents.temperature_reagents(is_hot(src))
+	return
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)

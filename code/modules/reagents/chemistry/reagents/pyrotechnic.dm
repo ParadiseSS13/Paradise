@@ -8,6 +8,43 @@
 	drink_name = "Glass of welder fuel"
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 	taste_message = "mistakes"
+	var/max_radius = 7
+	var/min_radius = 0
+	var/volume_radius_modifier = -0.15
+	var/volume_radius_multiplier = 0.09
+	var/explosion_threshold = 100
+	var/min_explosion_radius = 0
+	var/max_explosion_radius = 4
+	var/volume_explosion_radius_multiplier = 0.005
+	var/volume_explosion_radius_modifier = 0
+	var/combustion_temp = T0C + 200
+
+/datum/reagent/fuel/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > combustion_temp)
+		if(volume < 1)
+			if(holder)
+				holder.del_reagent(id)
+			return
+		var/turf/T = get_turf(holder.my_atom)
+		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
+		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
+		if(holder && volume >= explosion_threshold)
+			if(holder.my_atom)
+				holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
+				message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+				log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+				holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
+			explosion(T, -1, -1, boomrange, 1)
+		if(holder)
+			holder.del_reagent(id)
+
+/datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(50)
+	T.reagents.add_reagent("fuel", volume)
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH)
@@ -22,6 +59,12 @@
 	reagent_state = LIQUID
 	color = "#7A2B94"
 	taste_message = "corporate assets going to waste"
+
+/datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature >= T0C + 100)
+		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		if(holder)
+			holder.del_reagent(id)
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -48,11 +91,27 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "rust"
 
-/datum/reagent/thermite/reaction_turf(turf/simulated/wall/W, volume)
-	if(volume >= 5 && istype(W))
-		W.thermite = 1
-		W.overlays.Cut()
-		W.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
+/datum/reagent/thermite/reaction_temperature(exposed_temperature, exposed_volume)
+	var/turf/simulated/S = holder.my_atom
+	if(!istype(S))
+		return
+
+	if(exposed_temperature >= T0C + 100)
+		var/datum/reagents/Holder = holder
+		var/Id = id
+		var/Volume = volume
+		Holder.del_reagent(Id)
+		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
+
+/datum/reagent/thermite/reaction_turf(turf/simulated/S, volume)
+	if(istype(S))
+		if(!S.reagents)
+			S.create_reagents(volume)
+		S.reagents.add_reagent("thermite", volume)
+		S.overlays.Cut()
+		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
+		if(S.active_hotspot)
+			S.reagents.temperature_reagents(S.active_hotspot.temperature, S.active_hotspot.volume, 10, 300)
 
 /datum/reagent/glycerol
 	name = "Glycerol"
@@ -87,21 +146,11 @@
 	update_flags |= M.adjustFireLoss(burndmg, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/clf3/reaction_turf(turf/simulated/T, volume)
-	if(prob(1) && istype(T, /turf/simulated/floor/plating))
-		var/turf/simulated/floor/plating/F = T
-		F.ChangeTurf(/turf/space)
-	if(istype(T, /turf/simulated/floor))
-		var/turf/simulated/floor/F = T
-		if(prob(volume/10))
-			F.make_plating()
-		if(istype(F, /turf/simulated/floor))
-			new /obj/effect/hotspot(F)
-	if(prob(volume/10) && istype(T, /turf/simulated/wall))
-		var/turf/simulated/wall/W = T
-		W.ChangeTurf(/turf/simulated/floor)
-	if(istype(T, /turf/simulated/shuttle))
-		new /obj/effect/hotspot(T)
+/datum/reagent/clf3/reaction_turf(turf/T, volume)
+	if(volume < 3)
+		return
+	var/radius = min((volume - 3) * 0.15, 3)
+	fireflash_sm(T, radius, 4500 + volume * 500, 350)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
@@ -116,6 +165,15 @@
 	reagent_state = LIQUID
 	color = "#FFA500"
 
+/datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
+	if(prob(75))
+		return
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(50)
+	T.reagents.add_reagent("sorium", 5)
+
 /datum/reagent/sorium_vortex
 	name = "sorium_vortex"
 	id = "sorium_vortex"
@@ -129,6 +187,15 @@
 	reagent_state = LIQUID
 	color = "#800080"
 	taste_message = "the end of the world"
+
+/datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
+	if(prob(75))
+		return
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(50)
+	T.reagents.add_reagent("liquid_dark_matter", 5)
 
 /datum/reagent/ldm_vortex
 	name = "LDM Vortex"
@@ -291,6 +358,12 @@
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
 	taste_message = "corporate assets going to waste"
+
+/datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature >= T0C + 100)
+		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		if(holder)
+			holder.del_reagent(id)
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

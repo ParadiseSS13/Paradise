@@ -83,9 +83,7 @@
 	min_temp = T0C + 150
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+	fireflash(holder.my_atom, 1, 7000)
 
 /datum/chemical_reaction/sorium
 	name = "Sorium"
@@ -98,7 +96,7 @@
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 0, created_volume)
 	holder.remove_reagent("sorium", created_volume)
 
 /datum/chemical_reaction/sorium_vortex
@@ -111,7 +109,7 @@
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 0, created_volume)
 	holder.remove_reagent("sorium_vortex", created_volume)
 
 /datum/chemical_reaction/liquid_dark_matter
@@ -125,7 +123,7 @@
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 1, created_volume)
 	holder.remove_reagent("liquid_dark_matter", created_volume)
 
 /datum/chemical_reaction/ldm_vortex
@@ -138,7 +136,7 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 1, created_volume)
 	holder.remove_reagent("ldm_vortex", created_volume)
 
 /datum/chemical_reaction/blackpowder

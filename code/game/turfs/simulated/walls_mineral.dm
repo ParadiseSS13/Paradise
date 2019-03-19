@@ -247,6 +247,9 @@
 /turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
 	return
 
+/turf/simulated/wall/mineral/titanium/nodecon/burn_down()
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium

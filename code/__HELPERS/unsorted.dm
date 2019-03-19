@@ -216,6 +216,23 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			line+=locate(px,py,M.z)
 	return line
 
+//Same as the thing below just for density and without support for atoms.
+/proc/can_line(atom/source, atom/target, length = 5)
+	var/turf/current = get_turf(source)
+	var/turf/target_turf = get_turf(target)
+	var/steps = 0
+
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(!current)
+			return FALSE
+		if(current.density)
+			return FALSE
+		current = get_step_towards(current, target_turf)
+		steps++
+	return TRUE
+
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
