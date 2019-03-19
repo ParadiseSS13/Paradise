@@ -261,10 +261,10 @@
 	return 0
 
 /obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(!broken)
 		if(exposed_temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
-	..()
 
 /obj/structure/grille/hitby(atom/movable/AM)
 	if(istype(AM, /obj))

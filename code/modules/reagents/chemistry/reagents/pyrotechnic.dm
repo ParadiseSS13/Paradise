@@ -224,8 +224,9 @@
 /datum/reagent/cryostylane/on_tick()
 	if(holder.has_reagent("oxygen"))
 		holder.remove_reagent("oxygen", 1)
-		holder.chem_temp -= 10
-		holder.handle_reactions()
+		holder.remove_reagent("cryostylane", 1)
+		holder.temperature_reagents(holder.chem_temp - 200)
+		holder.temperature_reagents(holder.chem_temp - 200)
 	..()
 
 /datum/reagent/cryostylane/reaction_turf(turf/T, volume)
@@ -249,8 +250,9 @@
 /datum/reagent/pyrosium/on_tick()
 	if(holder.has_reagent("oxygen"))
 		holder.remove_reagent("oxygen", 1)
-		holder.chem_temp += 10
-		holder.handle_reactions()
+		holder.remove_reagent("pyrosium", 1)
+		holder.temperature_reagents(holder.chem_temp + 200)
+		holder.temperature_reagents(holder.chem_temp + 200)
 	..()
 
 /datum/reagent/firefighting_foam

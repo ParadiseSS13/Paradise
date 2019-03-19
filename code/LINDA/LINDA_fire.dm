@@ -1,5 +1,7 @@
 
 /atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature)
 	return null
 
 
@@ -10,6 +12,8 @@
 
 /turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	var/datum/gas_mixture/air_contents = return_air()
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature, 10, 300)
 	if(!air_contents)
 		return 0
 	if(active_hotspot)

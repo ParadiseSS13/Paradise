@@ -113,7 +113,8 @@
 	else
 		return ..()
 
-/obj/effect/snow/fire_act()
+/obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	qdel(src)
 
 /obj/effect/snow/ex_act(severity)
@@ -133,7 +134,8 @@
 	..()
 	qdel(src)
 
-/obj/item/snowball/fire_act()
+/obj/item/snowball/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	qdel(src)
 
 /obj/item/snowball/ex_act(severity)

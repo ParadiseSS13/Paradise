@@ -80,7 +80,7 @@
 	result = "clf3"
 	required_reagents = list("chlorine" = 1, "fluorine" = 3)
 	result_amount = 2
-	min_temp = 424
+	min_temp = T0C + 150
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -107,7 +107,7 @@
 	result = "sorium_vortex"
 	required_reagents = list("sorium" = 1)
 	result_amount = 1
-	min_temp = 474
+	min_temp = T0C + 200
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
@@ -134,7 +134,7 @@
 	result = "ldm_vortex"
 	required_reagents = list("liquid_dark_matter" = 1)
 	result_amount = 1
-	min_temp = 474
+	min_temp = T0C + 200
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
@@ -155,7 +155,7 @@
 	result = null
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
-	min_temp = 474
+	min_temp = T0C + 200
 	no_message = 1
 	mix_sound = null
 
@@ -202,7 +202,7 @@ datum/chemical_reaction/flash_powder
 	id = "flash_powder_flash"
 	result = null
 	required_reagents = list("flash_powder" = 1)
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -256,7 +256,7 @@ datum/chemical_reaction/flash_powder
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
-	min_temp = 374
+	min_temp = T0C + 100
 	secondary = 1
 	result_amount = 1
 	forbidden_reagents = list("stimulants")
@@ -307,7 +307,7 @@ datum/chemical_reaction/flash_powder
 	id = "sonic_powder_deafen"
 	result = null
 	required_reagents = list("sonic_powder" = 1)
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/sonic_powder_deafen/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

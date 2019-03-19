@@ -401,7 +401,7 @@
 
 	add_fingerprint(user)
 
-/obj/item/paper/fire_act()
+/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(burn_state >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
 		info = "[stars(info)]"

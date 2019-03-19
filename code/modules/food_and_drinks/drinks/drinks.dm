@@ -106,17 +106,6 @@
 
 	return FALSE
 
-/obj/item/reagent_containers/food/drinks/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return FALSE
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
 	if(!..(user, 1))
 		return

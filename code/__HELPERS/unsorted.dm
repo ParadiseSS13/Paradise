@@ -1165,7 +1165,7 @@ var/global/list/common_tools = list(
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/O = W
 		if(O.isOn())
-			return 3800
+			return 2500
 		else
 			return 0
 	if(istype(W, /obj/item/lighter))
@@ -1207,7 +1207,7 @@ var/global/list/common_tools = list(
 		else
 			return 0
 	if(istype(W, /obj/item/assembly/igniter))
-		return 1000
+		return 20000
 	else
 		return 0
 

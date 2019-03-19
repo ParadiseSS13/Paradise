@@ -9,7 +9,7 @@ var/const/INGEST = 2
 	var/total_volume = 0
 	var/maximum_volume = 100
 	var/atom/my_atom = null
-	var/chem_temp = 300
+	var/chem_temp = T20C
 	var/list/datum/reagent/addiction_list = new/list()
 	var/flags
 
@@ -166,6 +166,30 @@ var/const/INGEST = 2
 	handle_reactions()
 	return amount
 
+/datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
+	chem_temp = new_temp
+	if(react)
+		temperature_react()
+		handle_reactions()
+
+/datum/reagents/proc/temperature_react() //Calls the temperature reaction procs without changing the temp.
+	for(var/datum/reagent/current_reagent in reagent_list)
+		current_reagent.reaction_temperature(chem_temp, 100)
+
+/datum/reagents/proc/temperature_reagents(exposed_temperature, divisor = 35, change_cap = 15) //This is what you use to change the temp of a reagent holder.
+	//Do not manually change the reagent unless you know what youre doing.
+	var/difference = abs(chem_temp - exposed_temperature)
+	var/change = min(max((difference / divisor), 1), change_cap)
+	if(exposed_temperature > chem_temp)
+		chem_temp += change
+	else if(exposed_temperature < chem_temp)
+		chem_temp -= change
+
+	chem_temp = max(min(chem_temp, 10000), 0) //Cap for the moment.
+	temperature_react()
+
+	handle_reactions()
+
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
 	if(!target)
 		return
@@ -194,8 +218,7 @@ var/const/INGEST = 2
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		chem_temp = M.bodytemperature
-		handle_reactions()
+		temperature_reagents(M.bodytemperature - 30)
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
@@ -548,14 +571,14 @@ var/const/INGEST = 2
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = 0)
 	if(!isnum(amount))
 		return 1
 	update_total()
 	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return 0
-	chem_temp = round(((amount * reagtemp) + (total_volume * chem_temp)) / (total_volume + amount)) //equalize with new chems
+	chem_temp = (chem_temp * total_volume + reagtemp * amount) / (total_volume + amount) //equalize with new chems
 
 	for(var/A in reagent_list)
 
@@ -567,6 +590,7 @@ var/const/INGEST = 2
 				my_atom.on_reagent_change()
 			R.on_merge(data)
 			if(!no_react)
+				temperature_react()
 				handle_reactions()
 			return 0
 
@@ -585,6 +609,7 @@ var/const/INGEST = 2
 		if(my_atom)
 			my_atom.on_reagent_change()
 		if(!no_react)
+			temperature_react()
 			handle_reactions()
 		return 0
 	else

@@ -123,7 +123,9 @@
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	return
+	if(is_hot(src) && target.reagents && !ismob(target) && proximity_flag)
+		to_chat(user, "<span class='notice'>You heat [target].</span>")
+		target.reagents.temperature_reagents(is_hot(src))
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)

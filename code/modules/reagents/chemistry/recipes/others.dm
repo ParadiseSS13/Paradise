@@ -74,7 +74,7 @@
 	result = "diethylamine"
 	required_reagents = list ("ammonia" = 1, "ethanol" = 1)
 	result_amount = 2
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_message = "A horrible smell pours forth from the mixture."
 
 /datum/chemical_reaction/space_cleaner
@@ -98,7 +98,7 @@
 	id = "plastic_polymers"
 	result = null
 	required_reagents = list("oil" = 5, "sacid" = 2, "ash" = 3)
-	min_temp = 374
+	min_temp = T0C + 100
 	result_amount = 1
 
 /datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
@@ -177,7 +177,7 @@
 	result = "ash"
 	required_reagents = list("oil" = 1)
 	result_amount = 0.5
-	min_temp = 480
+	min_temp = T0C + 600
 	mix_sound = null
 	no_message = 1
 
@@ -195,7 +195,7 @@
 	result = null
 	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 3
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -208,7 +208,7 @@
 	result = null
 	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 5
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_message = "The substance turns an airy sky-blue and foams up into a new shape."
 
 /datum/chemical_reaction/flaptonium/on_reaction(datum/reagents/holder, created_volume)
@@ -244,7 +244,7 @@
 	id = "soapification"
 	result = null
 	required_reagents = list("liquidgibs" = 10, "lye"  = 10) // requires two scooped gib tiles
-	min_temp = 374
+	min_temp = T0C + 100
 	result_amount = 1
 
 
@@ -257,7 +257,7 @@
 	id = "candlefication"
 	result = null
 	required_reagents = list("liquidgibs" = 5, "oxygen"  = 5) //
-	min_temp = 374
+	min_temp = T0C + 100
 	result_amount = 1
 
 /datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
@@ -295,7 +295,7 @@
 	id = "jestosterone"
 	result = "jestosterone"
 	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "banana" = 1, "lube" = 1, "space_drugs" = 1) //Or one freshly-squeezed clown
-	min_temp = 374
+	min_temp = T0C + 100
 	result_amount = 5
 	mix_message = "The substance quickly shifts colour, cycling from red, to yellow, to green, to blue, and finally settles at a vibrant fuchsia."
 
@@ -338,7 +338,7 @@
 	result = "ice"
 	required_reagents = list("water" = 1)
 	result_amount = 1
-	max_temp = 273
+	max_temp = T0C
 	mix_message = "Ice forms as the water freezes."
 	mix_sound = null
 
@@ -348,7 +348,7 @@
 	result = "water"
 	required_reagents = list("ice" = 1)
 	result_amount = 1
-	min_temp = 301 // In Space.....ice melts at 82F...don't ask
+	min_temp = T0C + 29 // In Space.....ice melts at 82F...don't ask
 	mix_message = "Water pools as the ice melts."
 	mix_sound = null
 

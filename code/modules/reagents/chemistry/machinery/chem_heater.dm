@@ -7,8 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/obj/item/reagent_containers/beaker = null
-	var/desired_temp = 300
-	var/heater_coefficient = 0.03
+	var/desired_temp = T0C
 	var/on = FALSE
 
 /obj/machinery/chem_heater/New()
@@ -19,34 +18,22 @@
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
-/obj/machinery/chem_heater/upgraded/New()
-	..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_heater(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	RefreshParts()
-
-/obj/machinery/chem_heater/RefreshParts()
-	heater_coefficient = 0.03
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		heater_coefficient *= M.rating
-
 /obj/machinery/chem_heater/process()
 	..()
 	if(stat & NOPOWER)
 		return
-	var/state_change = 0
+	var/state_change = FALSE
 	if(on)
 		if(beaker)
-			if(beaker.reagents.chem_temp > desired_temp)
-				beaker.reagents.chem_temp += min(-1, max((desired_temp - beaker.reagents.chem_temp) * heater_coefficient, -15))
-			if(beaker.reagents.chem_temp < desired_temp)
-				beaker.reagents.chem_temp += max(1, min((desired_temp - beaker.reagents.chem_temp) * heater_coefficient, 15))
-			beaker.reagents.chem_temp = round(beaker.reagents.chem_temp) //stops stuff like 456.12312312302
-
-			beaker.reagents.handle_reactions()
-			state_change = 1
+			if(!beaker.reagents.total_volume)
+				on = FALSE
+				SSnanoui.update_uis(src)
+				return
+			beaker.reagents.temperature_reagents(desired_temp)
+			beaker.reagents.temperature_reagents(desired_temp)
+			if(abs(beaker.reagents.chem_temp - desired_temp) <= 3)
+				on = FALSE
+			state_change = TRUE
 
 	if(state_change)
 		SSnanoui.update_uis(src)
@@ -54,7 +41,6 @@
 /obj/machinery/chem_heater/proc/eject_beaker()
 	if(beaker)
 		beaker.forceMove(get_turf(src))
-		beaker.reagents.handle_reactions()
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
@@ -111,6 +97,8 @@
 		return 0
 
 	if(href_list["toggle_on"])
+		if(!beaker.reagents.total_volume)
+			return
 		on = !on
 		. = 1
 

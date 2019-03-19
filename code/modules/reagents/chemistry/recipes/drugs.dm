@@ -15,7 +15,7 @@
 	result_amount = 5
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
 	mix_sound = 'sound/goonstation/effects/crystalshatter.ogg'
-	min_temp = 390
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -30,7 +30,7 @@
 	required_reagents = list("diphenhydramine" = 1, "morphine" = 1, "cleaner" = 1, "potassium" = 1, "phosphorus" = 1, "fuel" = 1)
 	result_amount = 6
 	mix_message = "The mixture dries into a pale blue powder."
-	min_temp = 380
+	min_temp = T0C + 100
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/chemical_reaction/methamphetamine
@@ -39,7 +39,7 @@
 	result = "methamphetamine"
 	required_reagents = list("ephedrine" = 1, "iodine" = 1, "phosphorus" = 1, "hydrogen" = 1)
 	result_amount = 4
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
@@ -57,7 +57,7 @@
 	result = "bath_salts"
 	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
 	result_amount = 6
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
