@@ -49,10 +49,9 @@
 
 /datum/effect_system/smoke_spread/chem/New()
 	..()
-	chemholder = new/obj()
-	var/datum/reagents/R = new/datum/reagents(500)
-	chemholder.reagents = R
-	R.my_atom = chemholder
+	chemholder = new
+	chemholder.create_reagents(1000)
+	chemholder.reagents.set_reacting(FALSE) // Just in case
 
 /datum/effect_system/smoke_spread/chem/Destroy()
 	QDEL_NULL(chemholder)
