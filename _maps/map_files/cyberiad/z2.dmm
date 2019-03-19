@@ -8787,7 +8787,7 @@
 /area/admin)
 "vc" = (
 /obj/structure/rack,
-/obj/item/clothing/gloves/color/yellow/thief{
+/obj/item/clothing/gloves/color/yellow/fake/thief{
 	pixel_x = -3;
 	pixel_y = 3
 	},

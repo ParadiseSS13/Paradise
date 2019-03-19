@@ -294,10 +294,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //Assistant
 
 /datum/uplink_item/jobspecific/pickpocketgloves
-	name = "Pickpocket's Insulated Gloves"
-	desc = "A pair of sleek insulated gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
+	name = "Pickpocket's Gloves"
+	desc = "A pair of sleek yellow gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand. These gloves will NOT protect from electric shock."
 	reference = "PG"
-	item = /obj/item/clothing/gloves/color/yellow/thief
+	item = /obj/item/clothing/gloves/color/yellow/fake/thief
 	cost = 3
 	job = list("Civilian")
 

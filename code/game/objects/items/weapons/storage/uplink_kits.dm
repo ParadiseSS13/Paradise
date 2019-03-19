@@ -17,7 +17,7 @@
 			if("thief")	// 27TC
 				new /obj/item/gun/energy/kinetic_accelerator/crossbow(src)
 				new /obj/item/chameleon(src)
-				new /obj/item/clothing/gloves/color/yellow/thief(src)
+				new /obj/item/clothing/gloves/color/yellow/fake/thief(src)
 				new /obj/item/card/id/syndicate(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
 				new /obj/item/storage/box/syndie_kit/safecracking(src)
