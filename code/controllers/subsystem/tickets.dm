@@ -72,7 +72,6 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/admin_ticket/existingTicket = checkForOpenTicket(C)
 	if(existingTicket)
 		existingTicket.setCooldownPeriod()
-		to_chat(C.mob, "<span class='adminticket'>Your ticket #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		return
 
 	if(!title)
