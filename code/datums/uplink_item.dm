@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
-			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
 	if(item)
@@ -910,7 +910,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
-	cost = 11
+	hijack_only = TRUE
+	cost = 10
 
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -960,12 +961,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
-/datum/uplink_item/explosives/atmosgrenades
-	name = "Atmos Grenades"
-	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
-	reference = "AGG"
-	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
-	cost = 11
+/datum/uplink_item/explosives/atmosn2ogrenades
+	name = "Knockout Gas Grenades"
+	desc = "A box of two (2) grenades that spread knockout gas over a large area. Equip internals before using one of these."
+	reference = "ANG"
+	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
+	cost = 8
+
+/datum/uplink_item/explosives/atmosfiregrenades
+	name = "Plasma Fire Grenades"
+	desc = "A box of two (2) grenades that cause large plasma fires. Can be used to deny access to a large area. Most useful if you have an atmospherics hardsuit."
+	reference = "APG"
+	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
+	hijack_only = TRUE
+	cost = 12
 	surplus = 0
 
 /datum/uplink_item/explosives/emp

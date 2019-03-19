@@ -279,7 +279,7 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/storage/box/syndie_kit/atmosgasgrenades = 1,
+		/obj/item/storage/box/syndie_kit/atmosn2ogrenades = 1,
 		/obj/item/grenade/plastic/x4 = 1)
 
 
