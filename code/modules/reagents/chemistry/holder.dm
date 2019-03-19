@@ -554,6 +554,35 @@ var/const/INGEST = 2
 		react_type = "OBJ"
 	else
 		return
+
+	if(react_type == "LIVING" && ishuman(A))
+		var/mob/living/carbon/human/H = A
+		if(method == TOUCH)
+			var/obj/item/organ/external/head/affecting = H.get_organ("head")
+			if(affecting)
+				if(chem_temp > H.dna.species.heat_level_1)
+					if(H.reagent_safety_check())
+						to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
+						affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
+						H.emote("scream")
+						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
+				else if(chem_temp < H.dna.species.cold_level_1)
+					if(H.reagent_safety_check(FALSE))
+						to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
+						affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
+						H.emote("scream")
+						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
+
+		if(method == INGEST)
+			if(chem_temp > H.dna.species.heat_level_1)
+				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
+				H.adjustFireLoss(7)
+				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
+			else if(chem_temp < H.dna.species.cold_level_1)
+				to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
+				H.adjustFireLoss(7)
+				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
+
 	for(var/datum/reagent/R in reagent_list)
 		switch(react_type)
 			if("LIVING")

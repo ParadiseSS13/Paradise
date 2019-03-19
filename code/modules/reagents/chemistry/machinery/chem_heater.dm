@@ -94,11 +94,11 @@
 
 /obj/machinery/chem_heater/Topic(href, href_list)
 	if(..())
-		return 0
+		return FALSE
 
 	if(href_list["toggle_on"])
 		if(!beaker.reagents.total_volume)
-			return
+			return FALSE
 		on = !on
 		. = 1
 
@@ -110,7 +110,7 @@
 			var/target = input("Please input the target temperature", name) as num
 			desired_temp = Clamp(target, 0, 1000)
 		else
-			return 0
+			return FALSE
 		. = 1
 
 	if(href_list["eject_beaker"])
