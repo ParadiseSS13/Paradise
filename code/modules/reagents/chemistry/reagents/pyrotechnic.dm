@@ -1,3 +1,80 @@
+/datum/reagent/phlogiston
+	name = "phlogiston"
+	id = "phlogiston"
+	description = "It appears to be liquid fire."
+	reagent_state = LIQUID
+	color = "#FFAF00"
+	process_flags = ORGANIC | SYNTHETIC
+	var/temp_fire = 4000
+	var/temp_deviance = 1000
+	var/size_divisor = 40
+	var/mob_burning =  6.6 // 33
+
+/datum/reagent/phlogiston/reaction_turf(turf/T, volume)
+	if(holder.chem_temp <= T0C - 50)
+		return
+	var/radius = min(max(0, volume / size_divisor), 8)
+	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
+
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(holder.chem_temp <= T0C - 50)
+		return
+	M.adjust_fire_stacks(mob_burning)
+	M.IgniteMob()
+	if(method == INGEST)
+		M.adjustFireLoss(min(max(15, volume * 3), 45))
+		to_chat(M, "<span class='warning'>It burns!</span>")
+		M.emote("scream")
+
+/datum/reagent/phlogiston/on_mob_life(mob/living/M)
+	if(holder.chem_temp <= T0C - 50)
+		return
+	M.adjust_fire_stacks(0.4)
+	M.IgniteMob()
+	return ..()
+
+/datum/reagent/phlogiston/firedust
+	name = "phlogiston dust"
+	id = "phlogiston_dust"
+	description = "And this is solid fire. However that works."
+	temp_fire = 1500
+	temp_deviance = 500
+	size_divisor = 80
+	mob_burning = 3 // 15
+
+/datum/reagent/napalm
+	name = "napalm"
+	id = "napalm"
+	description = "A highly flammable jellied fuel."
+	reagent_state = LIQUID
+	process_flags = ORGANIC | SYNTHETIC
+	color = "#C86432"
+
+/datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C + 100)
+		var/radius = min(max(0, volume * 0.15), 8)
+		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
+		if(holder)
+			holder.del_reagent(id)
+
+/datum/reagent/napalm/reaction_turf(turf/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("napalm", volume)
+
+/datum/reagent/napalm/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH)
+		if(M.on_fire)
+			M.adjust_fire_stacks(14)
+			M.emote("scream")
+
+/datum/reagent/napalm/on_mob_life(mob/living/M)
+	if(M.on_fire)
+		M.adjust_fire_stacks(2)
+	return ..()
+
 /datum/reagent/fuel
 	name = "Welding fuel"
 	id = "fuel"
@@ -8,6 +85,7 @@
 	drink_name = "Glass of welder fuel"
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 	taste_message = "mistakes"
+	process_flags = ORGANIC | SYNTHETIC
 	var/max_radius = 7
 	var/min_radius = 0
 	var/volume_radius_modifier = -0.15
@@ -18,6 +96,11 @@
 	var/volume_explosion_radius_multiplier = 0.005
 	var/volume_explosion_radius_modifier = 0
 	var/combustion_temp = T0C + 200
+
+/datum/reagent/fuel/on_mob_life(mob/living/M)
+	if(M.on_fire)
+		M.adjust_fire_stacks(0.4)
+	return ..()
 
 /datum/reagent/fuel/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > combustion_temp)
@@ -48,9 +131,8 @@
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH)
-		M.adjust_fire_stacks(volume / 10)
-		return
-	..()
+		if(M.on_fire)
+			M.adjust_fire_stacks(6)
 
 /datum/reagent/plasma
 	name = "Plasma"
@@ -76,10 +158,10 @@
 		C.adjustPlasma(10)
 	return ..() | update_flags
 
-/datum/reagent/plasma/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma is stronger than fuel!
+/datum/reagent/plasma/reaction_mob(mob/living/M, method = TOUCH, volume)//Splashing people with plasma is stronger than fuel!
 	if(method == TOUCH)
-		M.adjust_fire_stacks(volume / 5)
-		..()
+		if(M.on_fire)
+			M.adjust_fire_stacks(6)
 
 
 /datum/reagent/thermite
@@ -90,6 +172,11 @@
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "rust"
+
+/datum/reagent/thermite/reaction_mob(mob/living/M, method= TOUCH, volume)
+	if(method == TOUCH)
+		if(M.on_fire)
+			M.adjust_fire_stacks(20)
 
 /datum/reagent/thermite/reaction_temperature(exposed_temperature, exposed_volume)
 	var/turf/simulated/S = holder.my_atom
@@ -140,11 +227,9 @@
 	taste_message = null
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	M.adjust_fire_stacks(2)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	update_flags |= M.adjustFireLoss(burndmg, FALSE)
-	return ..() | update_flags
+	if(M.on_fire)
+		M.adjust_fire_stacks(1)
+	return ..()
 
 /datum/reagent/clf3/reaction_turf(turf/T, volume)
 	if(volume < 3)
@@ -152,11 +237,14 @@
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
 
-/datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		M.adjust_fire_stacks(min(volume/5, 10))
+/datum/reagent/clf3/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH || method == INGEST)
+		M.adjust_fire_stacks(10)
 		M.IgniteMob()
-		M.bodytemperature += 30
+	if(method == INGEST)
+		M.adjustFireLoss(min(max(30, volume * 6), 90))
+		to_chat(M, "<span class='warning'>It burns!</span>")
+		M.emote("scream")
 
 /datum/reagent/sorium
 	name = "Sorium"
@@ -224,6 +312,7 @@
 	description = "Makes a very bright flash."
 	reagent_state = LIQUID
 	color = "#FFFF00"
+	penetrates_skin = TRUE
 
 /datum/reagent/smoke_powder
 	name = "Smoke Powder"
@@ -238,42 +327,7 @@
 	description = "Makes a deafening noise."
 	reagent_state = LIQUID
 	color = "#0000FF"
-
-/datum/reagent/phlogiston
-	name = "Phlogiston"
-	id = "phlogiston"
-	description = "Catches you on fire and makes you ignite."
-	reagent_state = LIQUID
-	color = "#FF9999"
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/phlogiston/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	update_flags |= M.adjustFireLoss(burndmg, FALSE)
-	return ..() | update_flags
-
-/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
-	M.adjust_fire_stacks(1)
-	M.IgniteMob()
-	..()
-
-/datum/reagent/napalm
-	name = "Napalm"
-	id = "napalm"
-	description = "Very flammable."
-	reagent_state = LIQUID
-	color = "#FF9999"
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/napalm/on_mob_life(mob/living/M)
-	M.adjust_fire_stacks(1)
-	return ..()
-
-/datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		M.adjust_fire_stacks(min(volume/4, 20))
+	penetrates_skin = TRUE
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
@@ -295,6 +349,10 @@
 		holder.temperature_reagents(holder.chem_temp - 200)
 		holder.temperature_reagents(holder.chem_temp - 200)
 	..()
+
+/datum/reagent/cryostylane/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH)
+		M.ExtinguishMob()
 
 /datum/reagent/cryostylane/reaction_turf(turf/T, volume)
 	if(volume >= 5)
@@ -333,8 +391,7 @@
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
 	if(method == TOUCH)
-		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
-		M.ExtinguishMob()
+		M.adjust_fire_stacks(-10) // more effective than water
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
 	O.extinguish()

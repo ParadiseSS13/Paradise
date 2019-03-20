@@ -212,6 +212,40 @@ datum/chemical_reaction/flash_powder
 				continue
 			C.Stun(5)
 
+/datum/chemical_reaction/phlogiston
+	name = "Phlogiston"
+	id = "phlogiston"
+	result = "phlogiston"
+	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1, "stabilizing_agent" = 1)
+	result_amount = 4
+	mix_message = "The substance becomes sticky and extremely warm."
+
+/datum/chemical_reaction/phlogiston_dust
+	name = "Phlogiston Dust"
+	id = "phlogiston_dust"
+	result = "phlogiston_dust"
+	required_reagents = list("phlogiston" = 1, "charcoal" = 1, "phosphorus" = 1, "sulfur" = 1)
+	result_amount = 2
+	mix_message = "The substance becomes a pile of burning dust."
+
+/datum/chemical_reaction/phlogiston_fire //This MUST be above the smoke recipe.
+	name = "Phlogiston Fire"
+	id = "phlogiston_fire"
+	result = "phlogiston"
+	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1)
+	mix_message = "The substance erupts into wild flames."
+
+/datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
+	fireflash(get_turf(holder.my_atom), min(max(2, round(created_volume / 10)), 8))
+
+/datum/chemical_reaction/napalm
+	name = "Napalm"
+	id = "napalm"
+	result = "napalm"
+	required_reagents = list("fuel" = 1, "sugar" = 1, "ethanol" = 1)
+	result_amount = 3
+	mix_message = "The mixture congeals into a sticky gel."
+
 /datum/chemical_reaction/smoke_powder
 	name = "smoke_powder"
 	id = "smoke_powder"
@@ -336,28 +370,6 @@ datum/chemical_reaction/flash_powder
 					else
 						if(ears.ear_damage >= 5)
 							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
-
-
-/datum/chemical_reaction/phlogiston
-	name = "phlogiston"
-	id = "phlogiston"
-	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "sacid" = 1, "plasma" = 1)
-	result_amount = 3
-
-/datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.has_reagent("stabilizing_agent"))
-		return
-	var/turf/simulated/T = get_turf(holder.my_atom)
-	for(var/turf/simulated/turf in range(min(created_volume/10,4),T))
-		new /obj/effect/hotspot(turf)
-
-/datum/chemical_reaction/napalm
-	name = "Napalm"
-	id = "napalm"
-	result = "napalm"
-	required_reagents = list("sugar" = 1, "fuel" = 1, "ethanol" = 1 )
-	result_amount = 1
 
 /datum/chemical_reaction/cryostylane
 	name = "cryostylane"
