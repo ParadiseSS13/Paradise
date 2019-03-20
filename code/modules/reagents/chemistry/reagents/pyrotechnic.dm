@@ -198,7 +198,7 @@
 		S.overlays.Cut()
 		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
 		if(S.active_hotspot)
-			S.reagents.temperature_reagents(S.active_hotspot.temperature, S.active_hotspot.volume, 10, 300)
+			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
 /datum/reagent/glycerol
 	name = "Glycerol"
@@ -344,8 +344,8 @@
 
 /datum/reagent/cryostylane/on_tick()
 	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 1)
-		holder.remove_reagent("cryostylane", 1)
+		holder.remove_reagent("oxygen", 2)
+		holder.remove_reagent("cryostylane", 2)
 		holder.temperature_reagents(holder.chem_temp - 200)
 		holder.temperature_reagents(holder.chem_temp - 200)
 	..()
@@ -374,8 +374,8 @@
 
 /datum/reagent/pyrosium/on_tick()
 	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 1)
-		holder.remove_reagent("pyrosium", 1)
+		holder.remove_reagent("oxygen", 2)
+		holder.remove_reagent("pyrosium", 2)
 		holder.temperature_reagents(holder.chem_temp + 200)
 		holder.temperature_reagents(holder.chem_temp + 200)
 	..()

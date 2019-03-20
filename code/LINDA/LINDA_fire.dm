@@ -59,11 +59,14 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/just_spawned = 1
 	var/bypassing = 0
+	var/fake = FALSE
+	var/burn_time = 0
 
 /obj/effect/hotspot/New()
 	..()
-	SSair.hotspots += src
-	perform_exposure()
+	if(!fake)
+		SSair.hotspots += src
+		perform_exposure()
 	dir = pick(cardinal)
 	air_update_turf()
 
@@ -162,7 +165,8 @@
 /obj/effect/hotspot/Destroy()
 	set_light(0)
 	SSair.hotspots -= src
-	DestroyTurf()
+	if(!fake)
+		DestroyTurf()
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
@@ -190,6 +194,15 @@
 	if(isliving(L))
 		L.fire_act()
 
+/obj/effect/hotspot/fake // Largely for the fireflash procs below
+	fake = TRUE
+	burn_time = 30
+
+/obj/effect/hotspot/fake/New()
+	..()
+	if(burn_time)
+		QDEL_IN(src, burn_time)
+
 /proc/fireflash(atom/center, radius, temp)
 	if(!temp)
 		temp = rand(2800, 3200)
@@ -201,14 +214,18 @@
 		if(!can_line(get_turf(center), T, radius + 1))
 			continue
 
-		var/obj/effect/hotspot/H = new(T)
+		var/obj/effect/hotspot/fake/H = new(T)
 		H.temperature = temp
 		H.volume = 400
-		if(istype(T, /turf/simulated))
-			var/turf/simulated/S = T
-			S.active_hotspot = H
+		H.color = heat2color(H.temperature)
+		H.set_light(l_color = H.color)
 
 		T.hotspot_expose(H.temperature, H.volume)
+		for(var/atom/A in T)
+			if(isliving(A))
+				continue
+			if(A != H)
+				A.fire_act(null, H.temperature, H.volume)
 
 		if(istype(T, /turf/simulated/floor))
 			var/turf/simulated/floor/F = T
@@ -248,14 +265,13 @@
 		var/need_expose = 0
 		var/expose_temp = 0
 		if(!existing_hotspot)
-			var/obj/effect/hotspot/H = new(T)
+			var/obj/effect/hotspot/fake/H = new(T)
 			need_expose = TRUE
 			H.temperature = temp - dist * falloff
 			expose_temp = H.temperature
 			H.volume = 400
-			if(istype(T, /turf/simulated))
-				var/turf/simulated/S = T
-				S.active_hotspot = H
+			H.color = heat2color(H.temperature)
+			H.set_light(l_color = H.color)
 			existing_hotspot = H
 
 		else if(existing_hotspot.temperature < temp - dist * falloff)
@@ -264,15 +280,23 @@
 			if(expose_temp > prev_temp * 3)
 				need_expose = TRUE
 			existing_hotspot.temperature = temp - dist * falloff
+			existing_hotspot.color = heat2color(existing_hotspot.temperature)
+			existing_hotspot.set_light(l_color = existing_hotspot.color)
 
 		affected[T] = existing_hotspot.temperature
 		if(need_expose && expose_temp)
 			T.hotspot_expose(expose_temp, existing_hotspot.volume)
+			for(var/atom/A in T)
+				if(isliving(A))
+					continue
+				if(A != existing_hotspot)
+					A.fire_act(null, expose_temp, existing_hotspot.volume)
 		if(istype(T, /turf/simulated/floor))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()
 		for(var/mob/living/L in T)
 			L.adjust_fire_stacks(3)
+			L.IgniteMob()
 			L.bodytemperature = (2 * L.bodytemperature + temp) / 3
 
 		if(T.density)

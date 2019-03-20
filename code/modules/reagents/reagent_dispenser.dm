@@ -26,7 +26,8 @@
 	..()
 	if(reagents)
 		for(var/i in 1 to 8)
-			reagents.temperature_reagents(exposed_temperature, exposed_volume)
+			if(reagents)
+				reagents.temperature_reagents(exposed_temperature)
 
 /obj/structure/reagent_dispensers/proc/boom()
 	visible_message("<span class='danger'>[src] ruptures!</span>")
@@ -91,8 +92,8 @@
 			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/boom(var/rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
-	if(rigtrigger == TRUE) // If the explosion is triggered by an assembly holder
+/obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
+	if(rigtrigger) // If the explosion is triggered by an assembly holder
 		message_admins("A fueltank, last rigged by [lastrigger], was triggered at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
 		log_game("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]")
 		investigate_log("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]", INVESTIGATE_BOMB)
