@@ -352,6 +352,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Research Director")
 
 //Roboticist
+/datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
 	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
 	reference = "SMMI"
