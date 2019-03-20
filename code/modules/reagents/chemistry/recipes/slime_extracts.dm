@@ -250,7 +250,7 @@
 
 /datum/chemical_reaction/slimestabilizer/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/stabilizer/P = new /obj/item/slimepotion/stabilizer
+	var/obj/item/slimepotion/slime/stabilizer/P = new /obj/item/slimepotion/slime/stabilizer
 	P.forceMove(get_turf(holder.my_atom))
 
 //Dark Blue
@@ -380,7 +380,7 @@
 
 /datum/chemical_reaction/slimepsteroid/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/steroid/P = new /obj/item/slimepotion/steroid
+	var/obj/item/slimepotion/slime/steroid/P = new /obj/item/slimepotion/slime/steroid
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimejam
@@ -423,7 +423,7 @@
 
 /datum/chemical_reaction/slimemutator/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/mutator/P = new /obj/item/slimepotion/mutator
+	var/obj/item/slimepotion/slime/mutator/P = new /obj/item/slimepotion/slime/mutator
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimebloodlust
@@ -469,7 +469,7 @@
 
 /datum/chemical_reaction/docility/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/docility/P = new /obj/item/slimepotion/docility
+	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
 	P.forceMove(get_turf(holder.my_atom))
 
 

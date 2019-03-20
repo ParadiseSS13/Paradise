@@ -91,7 +91,7 @@
 /proc/log_adminsay(text, mob/speaker)
 	if(config.log_adminchat)
 		WRITE_LOG(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
-	
+
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
 
@@ -136,6 +136,9 @@
 
 /proc/log_href(text)
 	WRITE_LOG(GLOB.world_href_log, "HREF: [html_decode(text)]")
+
+/proc/log_asset(text)
+	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
 
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_error_log, "SQL: [text]")

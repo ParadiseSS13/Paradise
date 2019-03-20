@@ -2,6 +2,8 @@
 	var/server_name = null				// server name (for world name / status)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
+	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
+
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
 	var/log_ooc = 0						// log OOC channel
@@ -381,6 +383,9 @@
 
 				if("serversuffix")
 					config.server_suffix = 1
+
+				if("minimum_client_build")
+					config.minimum_client_build = text2num(value)
 
 				if("nudge_script_path")
 					config.nudge_script_path = value
