@@ -62,3 +62,21 @@
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "labcoatlonground_science_open"
 	item_state = "labcoatlonground_science_open"
+
+//Code and Sprites by Danaleja2005
+
+
+/obj/item/clothing/suit/storage/labcoat/RDlargeroundcut_dark
+	name = "Research Director's large labcoat"
+	desc = "One purple dark long labcoat."
+	icon = 'icons/hispania/mob/suit.dmi'
+	icon_state = "labcoatlonground_RD_dark_open"
+	item_state = "labcoatlonground_RD_dark_open"
+
+
+/obj/item/clothing/suit/storage/labcoat/RDlarge_dark
+	name = "Research Director's large labcoat"
+	desc = "One purple dark long labcoat."
+	icon = 'icons/hispania/mob/suit.dmi'
+	icon_state = "labcoatlong_RD_dark_open"
+	item_state = "labcoatlong_RD_dark_open"
