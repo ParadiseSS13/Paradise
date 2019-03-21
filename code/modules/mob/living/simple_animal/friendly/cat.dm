@@ -168,7 +168,7 @@
 	
 	switch(act)
 		if("meow")
-			message = "<B>[src]</B> meows!"
+			message = "<B>[src]</B> [pick(emote_hear)]!"
 			m_type = 2 //audible
 			playsound(src, meow_sound, 50, 0.75)
 		if("hiss")
