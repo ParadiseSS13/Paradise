@@ -386,29 +386,6 @@
 	log_name = "CT"
 	category = "Assistance"
 
-/datum/spellbook_entry/item/bloodbottle
-	name = "Bottle of Blood"
-	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon
-	log_name = "BB"
-	limit = 3
-	category = "Assistance"
-
-/datum/spellbook_entry/item/hugbottle
-	name = "Bottle of Tickles"
-	desc = "A bottle of magically infused fun, the smell of which will \
-		attract adorable extradimensional beings when broken. These beings \
-		are similar to slaughter demons, but they do not permamently kill \
-		their victims, instead putting them in an extradimensional hugspace, \
-		to be released on the demon's death. Chaotic, but not ultimately \
-		damaging. The crew's reaction to the other hand could be very \
-		destructive."
-	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
-	cost = 1 //non-destructive; it's just a jape, sibling!
-	log_name = "HB"
-	limit = 3
-	category = "Assistance"
-
 /datum/spellbook_entry/item/tarotdeck
 	name = "Tarot Deck"
 	desc = "A deck of tarot cards that can be used to summon a spirit companion for the wizard."
@@ -436,74 +413,6 @@
 	log_name = "CH"
 	cost = 1
 	category = "Defensive"
-
-/datum/spellbook_entry/summon
-	name = "Summon Stuff"
-	category = "Rituals"
-	refundable = 0
-	buy_word = "Cast"
-	var/active = 0
-
-/datum/spellbook_entry/summon/CanBuy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	return ..() && !active
-
-/datum/spellbook_entry/summon/GetInfo()
-	var/dat =""
-	dat += "<b>[name]</b>"
-	if(cost>0)
-		dat += " Cost:[cost]<br>"
-	else
-		dat += " No Cost<br>"
-	dat += "<i>[desc]</i><br>"
-	if(active)
-		dat += "<b>Already cast!</b><br>"
-	return dat
-
-/datum/spellbook_entry/summon/guns
-	name = "Summon Guns"
-	category = "Rituals"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. Just be careful not to stand still too long!"
-	cost = 0
-	log_name = "SG"
-
-/datum/spellbook_entry/summon/guns/IsAvailible()
-	if(!ticker.mode) // In case spellbook is placed on map
-		return 0
-	if(ticker.mode.name == "ragin' mages")
-		return 0
-	else
-		return 1
-
-/datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned",log_name)
-	user.rightandwrong(0)
-	book.uses += 1
-	active = 1
-	to_chat(user, "<span class='notice'>You have cast summon guns and gained an extra charge for your spellbook.</span>")
-	return 1
-
-/datum/spellbook_entry/summon/magic
-	name = "Summon Magic"
-	category = "Challenges"
-	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
-	cost = 0
-	log_name = "SU"
-
-/datum/spellbook_entry/summon/magic/IsAvailible()
-	if(!ticker.mode) // In case spellbook is placed on map
-		return 0
-	if(ticker.mode.name == "ragin' mages")
-		return 0
-	else
-		return 1
-
-/datum/spellbook_entry/summon/magic/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned",log_name)
-	user.rightandwrong(1)
-	book.uses += 1
-	active = 1
-	to_chat(user, "<span class='notice'>You have cast summon magic and gained an extra charge for your spellbook.</span>")
-	return 1
 
 /obj/item/spellbook
 	name = "spell book"
@@ -548,18 +457,6 @@
 
 			qdel(O)
 
-	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
-		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
-
-		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
-			uses += 1
-		else
-			uses += 2
-		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
-			if(!isnull(BB.limit))
-				BB.limit++
-		qdel(O)
-
 /obj/item/spellbook/proc/GetCategoryHeader(var/category)
 	var/dat = ""
 	switch(category)
@@ -583,11 +480,6 @@
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
-		if("Challenges")
-			dat += "The Wizard Federation typically has hard limits on the potency and number of spells brought to the station based on risk.<BR>"
-			dat += "Arming the station against you will increases the risk, but will grant you one more charge for your spellbook.<BR>"
-		if("Rituals")
-			dat += "These powerful spells change the very fabric of reality. Not always in your favour.<BR>"
 	return dat
 
 /obj/item/spellbook/proc/wrap(var/content)
