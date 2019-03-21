@@ -431,7 +431,7 @@
 	var/list/categories = list()
 
 /obj/item/spellbook/proc/initialize()
-	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
+	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
 		if(E.IsAvailible())
