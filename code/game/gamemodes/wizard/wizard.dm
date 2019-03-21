@@ -9,13 +9,22 @@
 	recommended_enemies = 1
 	free_golems_disabled = TRUE
 
-	var/use_huds = 0
-	var/finished = 0
-	var/but_wait_theres_more = 0
+	var/use_huds = FALSE
+	var/finished = FALSE
+	var/making_mage = FALSE
+	var/mages_made = 1
+	var/time_checked = 0
+	var/players_per_mage = 25
+	var/list/previous_wizards = list()
+	var/check_previous_wizs = FALSE
+
+	var/multi_wizard_drifting = FALSE
+	var/delay_per_mage = 4200 // Every 7 minutes by default
+	var/time_till_chaos = 18000 // Half-hour in
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
-	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
+	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. Help defeat them!</B>")
 
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
@@ -109,7 +118,7 @@
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
-	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
+	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in wizard.objectives)
@@ -165,38 +174,143 @@
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return 1
 
-
 /datum/game_mode/wizard/check_finished()
 	var/wizards_alive = 0
-	var/traitors_alive = 0
+	// Accidental pun!
+	var/wizard_cap = num_players_started() / players_per_mage
 	for(var/datum/mind/wizard in wizards)
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(isnull(wizard.current))
 			continue
-		if(wizard.current.stat==DEAD)
+		if(!istype(wizard.current, /mob/living/carbon))
+			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
+				end_squabble(get_area(wizard.current))
 			continue
+		if(istype(wizard.current, /mob/living/carbon/brain))
+			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
+				end_squabble(get_area(wizard.current))
+			continue
+		if(wizard.current.stat == DEAD)
+			var/obj/effect/proc_holder/spell/targeted/lichdom/lich = locate() in wizard.spell_list
+			if(lich) //Check if the lich can revive. If they can they dont count as dead
+				if(!lich.marked_item || QDELETED(lich.marked_item))
+					continue
+				var/turf/lich_turf = get_turf(wizard.current)
+				var/turf/item_turf = get_turf(lich.marked_item)
+				if(lich_turf.z != item_turf.z)
+					continue
+			else
+				if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+					message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
+					end_squabble(get_area(wizard.current))
+				continue
+		if(wizard.current.stat == UNCONSCIOUS)
+			if(wizard.current.health < 0)
+				if(istype(get_area(wizard.current), /area/wizard_station))
+					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
+					end_squabble(get_area(wizard.current))
+		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
+			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+			wizard.current.gib() // Let's keep the round moving
+			continue
+		if(!wizard.current.client)
+			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
-	if(!wizards_alive)
-		for(var/datum/mind/traitor in traitors)
-			if(!istype(traitor.current,/mob/living/carbon))
-				continue
-			if(traitor.current.stat==DEAD)
-				continue
-			traitors_alive++
-
-	if(wizards_alive || traitors_alive || but_wait_theres_more)
-		return ..()
+	if(wizards_alive && multi_wizard_drifting)
+		if(!time_checked)
+			time_checked = world.time
+		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
+			time_checked = world.time
+			make_more_mages()
 	else
-		finished = 1
-		return 1
+		if(wizards.len >= wizard_cap)
+			finished = TRUE
+			return TRUE
+		else
+			make_more_mages()
+	return ..()
 
+// To silence all struggles within the wizard's lair
+/datum/game_mode/wizard/proc/end_squabble(var/area/wizard_station/A)
+	if(!istype(A)) return // You could probably do mean things with this otherwise
+	var/list/marked_for_death = list()
+	for(var/mob/living/L in A) // To hit non-wizard griefers
+		if(L.mind || L.client)
+			marked_for_death |= L
+	for(var/datum/mind/M in wizards)
+		if(istype(M.current) && istype(get_area(M.current), /area/wizard_station))
+			mages_made -= 1
+			wizards -= M // No, you don't get to occupy a slot
+			marked_for_death |= M.current
+	for(var/mob/living/L in marked_for_death)
+		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
+			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
+		L.ghostize()
+		if(istype(L, /mob/living/carbon/brain))
+			// diediedie
+			var/mob/living/carbon/brain/B = L
+			if(istype(B.loc, /obj/item))
+				qdel(B.loc)
+			if(B && B.container)
+				qdel(B.container)
+		if(L)
+			qdel(L)
+	for(var/obj/item/spellbook/B in A)
+		// No goodies for you
+		qdel(B)
 
+/datum/game_mode/wizard/proc/make_more_mages()
+	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		return FALSE
+	making_mage = TRUE
+	var/list/candidates = list()
+	var/mob/dead/observer/harry = null
+	spawn(rand(200, 600))
+		message_admins("SWF is still pissed, sending another wizard.")
+		if(multi_wizard_drifting)
+			candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the wizard
+		else
+			candidates = pollCandidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, 1)
+		if(!candidates.len)
+			making_mage = FALSE
+			return FALSE
+		else
+			harry = pick(candidates)
+			making_mage = 0
+			if(harry)
+				var/mob/living/carbon/human/new_character = makeBody(harry)
+				new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+				mages_made++
+				return TRUE
+			else
+				log_runtime(EXCEPTION("The candidates list for wizard contained non-observer entries!"), src)
+				return FALSE
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
-	if(finished && !ragin)
-		feedback_set_details("round_end_result","wizard loss - wizard killed")
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
-	..()
+// ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
+// This probably wouldn't do half bad as a proc in __HELPERS
+// Lemme know if this causes species to mess up spectacularly or anything
+/datum/game_mode/wizard/proc/makeBody(var/mob/dead/observer/G)
+	if(!G || !G.key) return // Let's not steal someone's soul here
+
+	var/mob/living/carbon/human/new_character = new(pick(latejoin))
+
+	G.client.prefs.copy_to(new_character)
+
+	new_character.key = G.key
+
+	return new_character
+
+/datum/game_mode/wizard/declare_completion()
+	if(finished)
+		feedback_set_details("round_end_result","wizard loss - wizards killed")
+		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		..()
 	return 1
 
 
@@ -230,7 +344,7 @@
 					wizardwin = 0
 				count++
 
-			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
+			if(wizard.current && wizard.current.stat != DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 				feedback_add_details("wizard_success","SUCCESS")
 			else
@@ -247,7 +361,7 @@
 			text += "<br>"
 
 		to_chat(world, text)
-	return 1
+	return TRUE
 
 //OTHER PROCS
 
