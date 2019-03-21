@@ -24,13 +24,6 @@
 	return
 
 
-/mob/living/simple_animal/hostile/blob/AttackingTarget()
-	if(ckey)
-		if(istype(target, /obj/structure/blob))
-			return FALSE
-	return ..()
-
-
 ////////////////
 // BLOB SPORE //
 ////////////////

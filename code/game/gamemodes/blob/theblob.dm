@@ -34,9 +34,6 @@
 	if(height==0)
 		return 1
 	if(istype(mover) && mover.checkpass(PASSBLOB))
-		var/mob/living/L = mover
-		if(istype(L) && L.ckey)
-			return 0
 		return 1
 	return 0
 
