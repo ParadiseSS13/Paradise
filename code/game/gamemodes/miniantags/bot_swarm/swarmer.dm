@@ -36,17 +36,22 @@
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
 
-	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_swarmer == "No")
-		return
-
 	if(jobban_isbanned(user, "Syndicate"))
 		to_chat(user, "<span class='warning'>You are banned from antagonists!</span>")
+		return
+
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
+
+	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
+	if(be_swarmer == "No")
 		return
 
 	if(crit_fail)//in case it depowers while ghost is looking at yes/no
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
+
 	if(QDELETED(src))
 		to_chat(user, "Swarmer has been occupied by someone else.")
 		return
