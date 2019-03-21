@@ -13,6 +13,8 @@
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks", "woofs", "yaps","pants")
 	emote_see = list("shakes its head", "shivers")
+	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
+	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	speak_chance = 1
 	turns_per_move = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3)
@@ -394,6 +396,40 @@
 
 	return valid
 
+/mob/living/simple_animal/pet/corgi/death(gibbed)
+	playsound(src, yelp_sound, 75, 1)
+	..()
+
+/mob/living/simple_animal/pet/corgi/emote(act, m_type=1, message = null)
+	if(stat != CONSCIOUS)
+		return
+
+	var/on_CD = 0
+	act = lowertext(act)
+	switch(act)
+		if("bark")
+			on_CD = handle_emote_CD()
+		if("growl")
+			on_CD = handle_emote_CD()
+		else
+			on_CD = 0
+
+	if(on_CD == 1)
+		return
+	
+	switch(act)
+		if("bark")
+			message = "<B>[src]</B> [pick(src.speak_emote)]!"
+			m_type = 2 //audible
+			playsound(src, pick(src.bark_sound), 50, 0.85)
+		if("growl")
+			message = "<B>[src]</B> growls!"
+			m_type = 2 //audible
+		if("help")
+			to_chat(src, "scream, bark, growl")
+
+	..()
+
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/corgi/Ian
@@ -567,6 +603,8 @@
 	desc = "It's a borgi."
 	icon_state = "borgi"
 	icon_living = "borgi"
+	bark_sound = null	//No robo-bjork...
+	yelp_sound = null	//Or robo-Yelp.
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

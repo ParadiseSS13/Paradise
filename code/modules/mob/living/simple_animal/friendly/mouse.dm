@@ -9,7 +9,7 @@
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	var/squeak_sound = 'sound/effects/mousesqueek.ogg'
+	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -72,7 +72,6 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
-	playsound(src, squeak_sound, 40, 1)
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
@@ -100,6 +99,7 @@
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
+	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
