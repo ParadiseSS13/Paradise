@@ -32,6 +32,8 @@ DECLARE_LEVEL(MINING, CROSSLINKED, list(REACHABLE, STATION_CONTACT, AI_OK, ORE_L
 DECLARE_LEVEL(EMPTY_AREA, CROSSLINKED, list(REACHABLE)),\
 DECLARE_LEVEL(EMPTY_AREA_2, CROSSLINKED, list(REACHABLE)))
 
+	#define USING_MAP_DATUM /datum/map/ragnarok
+
 #elif !defined(MAP_OVERRIDE)
 
 	#warn a map has already been included, ignoring Ragnarok.

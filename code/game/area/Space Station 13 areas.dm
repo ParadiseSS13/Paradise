@@ -1322,6 +1322,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Law Office"
 	icon_state = "law"
 
+/area/lawofficeprivate1
+	name = "\improper Private Office 1"
+	icon_state = "law"
+
+/area/lawofficeprivate2
+	name = "\improper Private Office 2"
+	icon_state = "law"
+
 /area/magistrateoffice
 	name = "\improper Magistrate's Office"
 	icon_state = "magistrate"
