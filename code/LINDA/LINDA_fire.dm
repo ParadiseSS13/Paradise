@@ -207,7 +207,7 @@
 	if(!temp)
 		temp = rand(2800, 3200)
 	for(var/turf/T in view(radius, get_turf(center)))
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(locate(/obj/effect/hotspot) in T)
 			continue
@@ -227,7 +227,7 @@
 			if(A != H)
 				A.fire_act(null, H.temperature, H.volume)
 
-		if(istype(T, /turf/simulated/floor))
+		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()
 
@@ -291,7 +291,7 @@
 					continue
 				if(A != existing_hotspot)
 					A.fire_act(null, expose_temp, existing_hotspot.volume)
-		if(istype(T, /turf/simulated/floor))
+		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()
 		for(var/mob/living/L in T)
