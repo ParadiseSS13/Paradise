@@ -100,7 +100,7 @@
 			beacon_cooldown = world.time+3000
 
 	else
-		to_chat(src, "<span class='danger'>Your power is on cooldown. You must wait another another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds between placing beacons.</span>")
+		to_chat(src, "<span class='danger'>Your power is on cooldown. You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds between placing beacons.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
