@@ -220,15 +220,11 @@
 			time_checked = world.time
 			make_more_mages()
 	else if(!wizards_alive)
-		make_more_mages()
-	/*
-	else if(!wizards_alive)
 		if(wizards.len >= wizard_cap)
 			finished = TRUE
 			return TRUE
 		else
 			make_more_mages()
-	*/
 	return ..()
 
 // To silence all struggles within the wizard's lair
