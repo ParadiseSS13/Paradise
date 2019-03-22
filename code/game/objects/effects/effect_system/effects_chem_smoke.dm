@@ -7,6 +7,7 @@
 	icon_state = "smoke"
 	density = FALSE
 	opacity = FALSE
+	layer = ABOVE_MOB_LAYER
 	animate_movement = NO_STEPS
 	var/matrix/first = matrix()
 	var/matrix/second = matrix()
