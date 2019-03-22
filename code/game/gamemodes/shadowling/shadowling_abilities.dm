@@ -411,11 +411,9 @@
 		B.icon_state = null //Invisible
 		B.reagents.add_reagent("blindness_smoke", 10)
 		var/datum/effect_system/smoke_spread/chem/S = new
-		S.attach(B)
 		if(S)
-			S.set_up(B.reagents, 10, 0, B.loc)
+			S.set_up(B.reagents, B.loc, TRUE)
 			S.start(4)
-			sleep(10)
 		qdel(B)
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls

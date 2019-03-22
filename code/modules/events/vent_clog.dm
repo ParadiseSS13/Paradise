@@ -29,7 +29,7 @@
 		R.add_reagent(pick(gunk), 50)
 
 		var/datum/effect_system/smoke_spread/chem/smoke = new
-		smoke.set_up(R, rand(1, 2), 0, vent, 0, silent = 1)
+		smoke.set_up(R, vent, TRUE)
 		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 		smoke.start(3)
 		qdel(R)
