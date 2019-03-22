@@ -1060,6 +1060,16 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
+"gw" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/AIsattele)
+"AV" = (
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
+/turf/simulated/floor/plating/airless,
+/area/AIsattele)
 
 (1,1,1) = {"
 aa
@@ -55476,8 +55486,8 @@ aa
 ay
 em
 em
-er
-eB
+AV
+gw
 eG
 em
 em
