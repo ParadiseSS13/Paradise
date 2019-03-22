@@ -69,6 +69,9 @@
 	QDEL_NULL(files)
 	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.retrieve_all()
+	inserted_id.forceMove(loc)
+	for(var/obj/item/circuitboard/ore_redemption/C in component_parts)
+		C.points = points
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
@@ -81,6 +84,8 @@
 		ore_pickup_rate_temp = 15 * M.rating
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		point_upgrade_temp = 0.65 + (0.35 * L.rating)
+	for(var/obj/item/circuitboard/ore_redemption/C in component_parts)
+		points = C.points
 	ore_pickup_rate = ore_pickup_rate_temp
 	point_upgrade = point_upgrade_temp
 	sheet_per_ore = sheet_per_ore_temp

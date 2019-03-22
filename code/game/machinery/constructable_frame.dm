@@ -961,6 +961,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/mineral/ore_redemption
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=2"
+	var/points
 	req_components = list(
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/matter_bin = 1,
