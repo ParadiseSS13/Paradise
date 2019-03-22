@@ -218,13 +218,13 @@
 			time_checked = world.time
 		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
 			time_checked = world.time
-			make_more_mages()
+			addtimer(CALLBACK(src, .proc/make_more_mages), rand(200, 600))
 	else if(!wizards_alive)
 		if(wizards.len >= wizard_cap)
 			finished = TRUE
 			return TRUE
 		else
-			make_more_mages()
+			addtimer(CALLBACK(src, .proc/make_more_mages), rand(200, 600))
 	return ..()
 
 // To silence all struggles within the wizard's lair
@@ -262,29 +262,29 @@
 	making_mage = TRUE
 	var/list/candidates = list()
 	var/mob/dead/observer/harry = null
-	spawn(rand(200, 600))
-		message_admins("SWF is still pissed, sending another wizard.")
-		for(var/obj/item/I in summoned_items) //Wipe all summoned items so the new wiz isnt fucked over by a previous one.
-			I.loc.visible_message("<span class='warning'>The [I] suddenly disappears!</span>")
-			qdel(I)
-		if(multi_wizard_drifting)
-			candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the next ragin mage
+	message_admins("SWF is still pissed, sending another wizard.")
+	for(var/obj/item/I in summoned_items) //Wipe all summoned items so the new wiz isnt fucked over by a previous one.
+		I.visible_message("<span class='warning'>The [I] suddenly disappears!</span>")
+		summoned_items -= I
+		qdel(I)
+	if(multi_wizard_drifting)
+		candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the next ragin mage
+	else
+		candidates = pollCandidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, 1)
+	if(!candidates.len)
+		making_mage = FALSE
+		return FALSE
+	else
+		harry = pick(candidates)
+		making_mage = 0
+		if(harry)
+			var/mob/living/carbon/human/new_character = makeBody(harry)
+			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+			mages_made++
+			return TRUE
 		else
-			candidates = pollCandidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, 1)
-		if(!candidates.len)
-			making_mage = FALSE
+			log_runtime(EXCEPTION("The candidates list for wizard contained non-observer entries!"), src)
 			return FALSE
-		else
-			harry = pick(candidates)
-			making_mage = 0
-			if(harry)
-				var/mob/living/carbon/human/new_character = makeBody(harry)
-				new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
-				mages_made++
-				return TRUE
-			else
-				log_runtime(EXCEPTION("The candidates list for wizard contained non-observer entries!"), src)
-				return FALSE
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
