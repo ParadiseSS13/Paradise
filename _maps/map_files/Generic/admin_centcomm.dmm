@@ -2803,6 +2803,7 @@
 	dwidth = 11;
 	height = 18;
 	id = "emergency_syndicate";
+	ignore_bounds = 1;
 	name = "404 Not Found";
 	turf_type = /turf/unsimulated/floor/snow;
 	width = 29
@@ -7246,6 +7247,7 @@
 	dwidth = 11;
 	height = 18;
 	id = "emergency_away";
+	ignore_bounds = 1;
 	name = "emergency centcom";
 	width = 29
 	},

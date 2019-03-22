@@ -72833,20 +72833,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"czh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 4
-	},
-/area/crew_quarters/fitness)
 "czi" = (
 /obj/machinery/field/generator{
 	anchored = 1;
@@ -73584,33 +73570,11 @@
 	},
 /area/crew_quarters/fitness)
 "cAw" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+/obj/machinery/camera,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
 	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
-"cAx" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
-"cAy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/wall,
-/area/crew_quarters/fitness)
-"cAz" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
 "cAA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -74486,20 +74450,7 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness)
-"cCa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
 "cCb" = (
-/turf/simulated/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/holodeck/alphadeck)
-"cCc" = (
-/obj/machinery/camera{
-	c_tag = "Holodeck Fore"
-	},
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},
@@ -76262,88 +76213,39 @@
 	},
 /area/crew_quarters/fitness)
 "cFC" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"cFD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 4
-	},
-/area/crew_quarters/fitness)
-"cFE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cFF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/light,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cFG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	level = 1
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cFH" = (
+"cFJ" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5;
 	level = 1
 	},
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
 	},
-/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
-"cFI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cFJ" = (
+"cFK" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
 	external_pressure_bound = 100;
 	on = 1;
 	pressure_checks = 1
 	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 0;
-	pixel_y = 32
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
 	},
-/obj/machinery/camera{
-	c_tag = "Holodeck Control Room"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cFK" = (
-/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cFL" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
@@ -77325,26 +77227,29 @@
 /area/crew_quarters/fitness)
 "cHa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 4
 	},
 /area/crew_quarters/fitness)
-"cHb" = (
-/obj/machinery/computer/HolodeckControl,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
 "cHc" = (
+/obj/machinery/computer/HolodeckControl,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"cHd" = (
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cHd" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/crew_quarters/fitness)
 "cHe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78092,11 +77997,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
-"cIr" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
 "cIs" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -78115,9 +78015,14 @@
 	},
 /area/crew_quarters/fitness)
 "cIt" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/holodeck,
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/crew_quarters/fitness)
 "cIu" = (
 /obj/machinery/door/airlock/external{
@@ -78433,9 +78338,15 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "cJm" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
+/obj/structure/table/reinforced,
+/obj/item/paper/holodeck,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/crew_quarters/fitness)
 "cJn" = (
 /turf/simulated/floor/plasteel{
@@ -78558,71 +78469,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/crew_quarters/fitness)
-"cJD" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 2
-	},
-/area/crew_quarters/fitness)
-"cJE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cJF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1;
-	in_use = 1
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cJG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cJH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cJI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
-"cJJ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	on = 1
-	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cJK" = (
 /obj/effect/spawner/window/reinforced,
@@ -79434,11 +79280,6 @@
 	icon_state = "neutralcorner";
 	dir = 2
 	},
-/area/crew_quarters/fitness)
-"cLw" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
 "cLx" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -81001,16 +80842,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"cOw" = (
-/obj/machinery/camera{
-	c_tag = "Holodeck Aft";
-	dir = 1;
-	network = list("SS13")
-	},
-/turf/simulated/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/holodeck/alphadeck)
 "cOx" = (
 /obj/machinery/atmospherics/binary/valve,
 /obj/effect/decal/warning_stripes/east,
@@ -82017,9 +81848,6 @@
 /area/crew_quarters/fitness)
 "cQo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
@@ -82028,28 +81856,6 @@
 	icon_state = "neutralcorner";
 	dir = 2
 	},
-/area/crew_quarters/fitness)
-"cQp" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5;
-	level = 1
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
-"cQq" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
-"cQr" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
 "cQs" = (
 /obj/structure/table,
@@ -83614,10 +83420,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"cTg" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall/rust,
-/area/maintenance/fpmaint2)
 "cTh" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -84736,12 +84538,18 @@
 	},
 /area/crew_quarters/fitness)
 "cUP" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
+/obj/machinery/computer/shuttle/engineering,
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "cUQ" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "cUR" = (
@@ -85461,24 +85269,21 @@
 	dir = 4
 	},
 /area/medical/medbay3)
-"cWk" = (
-/obj/structure/table,
-/obj/item/bikehorn/rubberducky,
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/maintenance/fpmaint2)
 "cWl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+/obj/machinery/door/airlock/external{
+	id_tag = "engineering_home";
+	name = "Engineering Dock Airlock";
+	req_access_txt = "0";
+	req_one_access_txt = "10;24"
 	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "cWm" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "cWn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -86372,11 +86177,6 @@
 	icon_state = "escape"
 	},
 /area/crew_quarters/fitness)
-"cXR" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "cXS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86457,8 +86257,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "cYc" = (
 /obj/structure/cable{
@@ -116010,17 +115809,303 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/maintenance/fsmaint)
-"dZV" = (
-/obj/docking_port/stationary{
+"ecP" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"fWB" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Engineering Maintenance";
+	req_access_txt = "10";
+	req_one_access_txt = null
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
+"hDf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
 	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"hJp" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-propulsion (EAST)";
+	icon_state = "propulsion";
+	dir = 4
+	},
+/area/shuttle/constructionsite)
+"imt" = (
+/obj/machinery/camera{
+	c_tag = "Warden's Office";
+	dir = 8;
+	network = list("SS13","Security")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"isq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"iyA" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "0";
+	req_one_access_txt = "10;24"
+	},
+/obj/docking_port/mobile{
+	dir = 2;
 	dwidth = 3;
 	height = 5;
-	id = "sit_engshuttle";
-	name = "Engineering Maintenance";
-	width = 11
+	id = "engineering";
+	name = "engineering shuttle";
+	rebuildable = 1;
+	roundstart_move = "engineering_away";
+	width = 7
 	},
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 3;
+	height = 5;
+	id = "engineering_home";
+	name = "engineering dock";
+	width = 7
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/constructionsite)
+"iFu" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"jLx" = (
 /turf/space,
-/area/space)
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"jMz" = (
+/obj/machinery/computer/atmos_alert,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"kis" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"kTK" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/constructionsite)
+"ldU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/fpmaint2)
+"lLO" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"lYs" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f10";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"mUe" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"njP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"ppH" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "engineering_home";
+	name = "Engineering Dock Airlock";
+	req_access_txt = "0";
+	req_one_access_txt = "10;24"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
+"prh" = (
+/obj/machinery/door/airlock/glass{
+	name = "Holodeck Door"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"rle" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall2";
+	icon_state = "swall2";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"rqp" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"rXH" = (
+/obj/machinery/computer/shuttle/engineering,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"rZg" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral";
+	dir = 4
+	},
+/area/crew_quarters/fitness)
+"toG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	req_access_txt = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"uOg" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"vzh" = (
+/obj/machinery/computer/station_alert,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"vJd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"wki" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"wsX" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall1";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"wuZ" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"xrQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"xEO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"xWL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"yfE" = (
+/turf/simulated/shuttle/wall,
+/area/shuttle/constructionsite)
 
 (1,1,1) = {"
 aaa
@@ -135459,11 +135544,11 @@ abj
 aaa
 abj
 abj
-abj
-abi
-aaa
-aaa
-aaa
+uOg
+hJp
+hJp
+hJp
+jLx
 aaa
 aaa
 aaa
@@ -135712,15 +135797,15 @@ bYh
 cJK
 bYh
 bYh
-cCx
-cJK
-cCx
-cCx
-abj
-abi
-aaa
-aaa
-aaa
+bYh
+bYh
+bYh
+bYh
+kis
+yfE
+yfE
+yfE
+kis
 aaa
 aaa
 aaa
@@ -135968,16 +136053,16 @@ bYh
 cQs
 cRD
 cTi
-cTg
+bYh
 cUP
-cWk
-cXR
-cCx
-aaa
-abi
-aaa
-aaa
-aaa
+cJK
+cbC
+cJK
+kis
+rqp
+rqp
+rqp
+kis
 aaa
 aaa
 aaa
@@ -136225,16 +136310,16 @@ bYh
 cQv
 cQt
 cbC
-cTg
+bYh
 cUQ
 cWl
 cYb
-cCx
-abj
-abj
-aaa
-aaa
-aaa
+ppH
+iyA
+mUe
+mUe
+lLO
+kis
 aaa
 aaa
 aaa
@@ -136483,15 +136568,15 @@ bYh
 cjX
 bYh
 bYh
+fWB
 bYh
-cjX
 bYh
 bYh
-abj
-aaa
-aaa
-aaa
-aaa
+kis
+rqp
+mUe
+rqp
+kis
 aaa
 aaa
 aaa
@@ -136740,15 +136825,15 @@ cLA
 cQu
 cLA
 cLA
-cEG
+ldU
 cWm
 cXT
 bYh
-abj
-aaa
-aaa
-aaa
-aaa
+kis
+vzh
+rXH
+jMz
+kis
 aaa
 aaa
 aaa
@@ -137001,14 +137086,14 @@ cfm
 cHf
 cdt
 cJK
-abj
+lYs
+wsX
+kTK
+rle
+ecP
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-dZV
 aaa
 aaa
 aaa
@@ -137260,7 +137345,7 @@ cFR
 bYh
 abj
 abj
-aaa
+abj
 dbz
 dbz
 aMW
@@ -171935,7 +172020,7 @@ cwo
 cxC
 czg
 czg
-czg
+iFu
 czg
 czg
 cFC
@@ -172190,20 +172275,20 @@ ctB
 ctB
 cwr
 cxD
-czh
-cAv
-cAv
-cAv
 cxD
-cFD
+cTe
+hDf
+cxD
+cAv
+cAv
 cHa
-cHa
-cJD
-cLv
 cMR
 cMR
+cTe
+wuZ
+cTe
 cQo
-cMR
+cLv
 cLv
 cUM
 cWh
@@ -172446,20 +172531,20 @@ csj
 ctC
 ctC
 ctC
+ctC
+ctC
+cuM
+xrQ
+csi
 csj
 csj
 csj
 csj
 csj
-csj
-cFE
-csj
-csj
-cJE
-csj
-csj
-csj
-csj
+csi
+isq
+cuM
+csi
 csj
 csj
 cUN
@@ -172703,20 +172788,20 @@ csj
 ctD
 cuN
 cws
+rZg
+rZg
+cuM
+wki
 csj
-aaa
-aaa
-abj
-aaa
+cCb
+cCb
+cCb
+cCb
+cCb
 csj
-cFF
-csi
-csi
-cJF
+njP
+cuM
 csj
-aaa
-abj
-aaa
 aaa
 csj
 cUO
@@ -172960,20 +173045,20 @@ csi
 csj
 csj
 csj
+csj
 csi
-abj
 cAw
-cCa
-cCa
-cCa
-cFG
+wki
 csj
+cCb
+cCb
+cCb
+cCb
+cCb
 csj
-cJG
-cLw
-cLw
-cLw
-cQp
+cwo
+cuM
+csj
 abj
 csi
 csj
@@ -173217,22 +173302,22 @@ abj
 abj
 abj
 abj
-csj
-aaa
-cAx
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cQq
 aaa
 csj
+cuM
+wki
+prh
+cCb
+cCb
+cCb
+cCb
+cCb
+prh
+cwo
+cuM
+csj
+aaa
+aaa
 abj
 abj
 abj
@@ -173474,22 +173559,22 @@ aaa
 aaa
 aaa
 abj
-csj
-aaa
-cAx
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cQq
 aaa
 csj
+cuM
+xWL
+csj
+cCb
+cCb
+cCb
+cCb
+cCb
+csj
+vJd
+cuM
+csj
+aaa
+aaa
 abj
 aaa
 aaa
@@ -173731,22 +173816,22 @@ abi
 abj
 abj
 abj
+aaa
+csj
+cuM
+xWL
+csj
+cCb
+cCb
+cCb
+cCb
+cCb
+csj
+vJd
+cuM
 csj
 abj
-cAy
-cCc
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cOw
-cwl
-abj
-csj
+aaa
 abj
 abi
 aaa
@@ -173988,22 +174073,22 @@ aaa
 aaa
 aaa
 abj
-csj
-aaa
-cAx
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cQq
 aaa
 csj
+cuM
+xWL
+csj
+cCb
+cCb
+cCb
+cCb
+cCb
+csj
+vJd
+cuM
+csj
+aaa
+aaa
 abj
 abi
 aaa
@@ -174245,22 +174330,22 @@ aaa
 aaa
 abi
 abj
-csj
-aaa
-cAx
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cCb
-cQq
 aaa
 csj
+cuM
+xWL
+csj
+cCb
+cCb
+cCb
+cCb
+cCb
+csj
+vJd
+cuM
+csj
+aaa
+aaa
 abj
 abi
 aaa
@@ -174500,26 +174585,26 @@ aaa
 aaa
 aaa
 aaa
-abi
-abj
-csi
-abj
-cAz
-cCa
-cCa
-cCa
-cFH
+aaa
+aaa
+aaa
 csj
+cuM
+wki
+prh
+cCb
+cCb
+cCb
+cCb
+cCb
+prh
+cwo
+cuM
 csj
-cJH
-cLw
-cLw
-cLw
-cQr
-abj
-csi
-abj
-abi
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -174758,24 +174843,24 @@ aaa
 aaa
 aaa
 aaa
-abj
-csj
-aaa
-aaa
-abj
-aaa
-csj
-cFF
-csi
-csi
-cJF
-csj
-aaa
-abj
 aaa
 aaa
 csj
-abj
+cuM
+wki
+csj
+cCb
+cCb
+cCb
+cCb
+cCb
+csj
+cwo
+cuM
+csj
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175015,25 +175100,25 @@ aaZ
 aaa
 aaa
 aaa
-abj
+aaa
+aaa
 csj
+cuM
+wki
 csj
+cCb
+cCb
+cCb
+cCb
+cCb
 csj
+cwo
+cuM
 csj
-csj
-csj
-cFE
-csj
-csj
-cJE
-csj
-csj
-csj
-csj
-csj
-csj
-abj
-abi
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175272,24 +175357,24 @@ aaa
 aaa
 aaa
 aaa
-abj
-abj
-abj
-abj
-abj
-abj
+aaa
+aaa
 csj
-cFI
-cHb
-cIr
-cJI
+cuM
+xrQ
+csi
 csj
-abj
-abj
-abj
-abj
-abj
-abj
+csj
+csj
+csj
+csj
+csi
+isq
+cuM
+csj
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175530,21 +175615,21 @@ aaa
 aaa
 aaa
 aaa
-abi
-abi
 aaa
-abi
-abj
-csi
+csj
+cuM
+cxC
+toG
+toG
 cFJ
 cHc
 cJm
-cJJ
-csi
-abj
+cTe
+cTe
+xEO
+cuM
+csj
 aaa
-abi
-abi
 aaa
 aaa
 aaa
@@ -175788,19 +175873,19 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
 csj
+cAw
+cuM
+cuM
+cuM
 cFK
 cHd
 cIt
-cFK
+imt
+cuM
+cuM
+cuM
 csj
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -176045,19 +176130,19 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+csi
 csj
 csj
 csj
 csj
 csj
 csj
-aaa
-aaa
-aaa
+csj
+csj
+csj
+csj
+csj
+csi
 aaa
 aaa
 aaa
@@ -176826,11 +176911,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abj
+abj
+abj
+abj
+abj
 aaa
 aaa
 aaa
@@ -177083,10 +177168,10 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
-aaa
-aaa
-aaZ
+abi
+abi
 aaa
 aaa
 aaa

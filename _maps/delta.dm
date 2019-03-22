@@ -16,15 +16,15 @@ Lovingly ported by Purpose2 to Paradise
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\delta\delta.dmm"
-	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\cyberiad\z3.dmm"
-	#include "map_files\cyberiad\z4.dmm"
-	#include "map_files\generic\z5.dmm"
-	#include "map_files\cyberiad\z6.dmm"
-	#include "map_files\generic\z7.dmm"
+	#include "map_files\Delta\Delta.dmm" // Z1
+	#include "map_files\Generic\admin_centcomm.dmm" // Z2
+	#include "map_files\Generic\tcommsat.dmm" // Z3
+	#include "map_files\Generic\engineering_outpost.dmm" // Z4
+	#include "map_files\Generic\mining_asteroid.dmm" // Z5
+	#include "map_files\Generic\derelict.dmm" // Z6
+	#include "map_files\Generic\space.dmm" // Z7
 
-	#define MAP_FILE "delta.dmm"
+	#define MAP_FILE "Delta.dmm"
 	#define MAP_NAME "Kerberos"
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\

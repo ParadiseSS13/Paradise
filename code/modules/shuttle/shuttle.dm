@@ -154,7 +154,7 @@
 
 /obj/docking_port/stationary
 	name = "dock"
-
+	var/ignore_bounds = 0
 	var/turf_type = /turf/space
 	var/area_type = /area/space
 
@@ -278,6 +278,8 @@
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
 	if(!istype(S))
 		return SHUTTLE_NOT_A_DOCKING_PORT
+	if(S.ignore_bounds == 1) // Does the port ignore size bounds
+		return SHUTTLE_CAN_DOCK	
 	if(istype(S, /obj/docking_port/stationary/transit))
 		return SHUTTLE_CAN_DOCK
 	//check dock is big enough to contain us
