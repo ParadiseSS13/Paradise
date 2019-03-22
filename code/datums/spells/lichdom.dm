@@ -160,8 +160,9 @@
 		to_chat(linked_lich,  "<span class='userdanger'>You feel your soul snap back to you, your phylactery drops on the floor!</span>")
 
 /obj/item/phylactery/Destroy()
-	to_chat(linked_lich,  "<span class='userdanger'>Your phylactery was destroyed. Your inanimate bones drop to the floor.</span>")
-	linked_lich.dust()
+	if(linked_lich)
+		to_chat(linked_lich,  "<span class='userdanger'>Your phylactery was destroyed. Your inanimate bones drop to the floor.</span>")
+		linked_lich.dust()
 	GLOB.poi_list.Remove(src)
 	processing_objects.Remove(src)
 	return ..()
