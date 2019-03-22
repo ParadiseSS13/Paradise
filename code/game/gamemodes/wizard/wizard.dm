@@ -15,8 +15,7 @@
 	var/mages_made = 1
 	var/time_checked = 0
 	var/players_per_mage = 25
-	var/list/previous_wizards = list()
-	var/check_previous_wizs = FALSE
+	var/list/summoned_items = list() //list of summoned guns/magic, deleted when a new wizard is spawned
 
 	var/multi_wizard_drifting = FALSE
 	var/delay_per_mage = 4200 // Every 7 minutes by default
@@ -178,6 +177,7 @@
 	var/wizards_alive = 0
 	// Accidental pun!
 	var/wizard_cap = num_players_started() / players_per_mage
+
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
@@ -193,21 +193,12 @@
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(wizard.current.stat == DEAD)
-			var/obj/effect/proc_holder/spell/targeted/lichdom/lich = locate() in wizard.spell_list
-			if(lich) //Check if the lich can revive. If they can they dont count as dead
-				if(!lich.marked_item || QDELETED(lich.marked_item))
-					continue
-				var/turf/lich_turf = get_turf(wizard.current)
-				var/turf/item_turf = get_turf(lich.marked_item)
-				if(lich_turf.z != item_turf.z)
-					continue
-			else
-				if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-					message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
-					end_squabble(get_area(wizard.current))
-				continue
+		if(wizard.current.stat == DEAD && !isskeleton(wizard.current)) //Liches arent dead until they are gibbed or dusted
+			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
+				end_squabble(get_area(wizard.current))
+			continue
 		if(wizard.current.stat == UNCONSCIOUS)
 			if(wizard.current.health < 0)
 				if(istype(get_area(wizard.current), /area/wizard_station))
@@ -218,7 +209,7 @@
 			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 			wizard.current.gib() // Let's keep the round moving
 			continue
-		if(!wizard.current.client)
+		if(!wizard.current.client && !isskeleton(wizard.current))
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
@@ -228,12 +219,16 @@
 		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
 			time_checked = world.time
 			make_more_mages()
-	else
+	else if(!wizards_alive)
+		make_more_mages()
+	/*
+	else if(!wizards_alive)
 		if(wizards.len >= wizard_cap)
 			finished = TRUE
 			return TRUE
 		else
 			make_more_mages()
+	*/
 	return ..()
 
 // To silence all struggles within the wizard's lair
@@ -273,8 +268,11 @@
 	var/mob/dead/observer/harry = null
 	spawn(rand(200, 600))
 		message_admins("SWF is still pissed, sending another wizard.")
+		for(var/obj/item/I in summoned_items) //Wipe all summoned items so the new wiz isnt fucked over by a previous one.
+			I.loc.visible_message("<span class='warning'>The [I] suddenly disappears!</span>")
+			qdel(I)
 		if(multi_wizard_drifting)
-			candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the wizard
+			candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the next ragin mage
 		else
 			candidates = pollCandidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, 1)
 		if(!candidates.len)

@@ -88,6 +88,9 @@
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
+		for(var/obj/item/I in mind.summoned_items)
+			I.loc.visible_message("<span class='warning'>[I] suddenly disappears!</span>")
+			qdel(I)
 
 	if(ticker && ticker.mode)
 		ticker.mode.check_win()

@@ -34,6 +34,7 @@
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	var/list/summoned_items = list() //List of items summoned by this wizard. Deleted when a new wizard is spawned.
 
 	var/role_alt_title
 
