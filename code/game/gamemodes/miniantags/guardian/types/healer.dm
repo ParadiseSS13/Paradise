@@ -1,5 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/healer
-	a_intent = INTENT_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 15
@@ -21,7 +20,6 @@
 	icon_state = "seal"
 	attacktext = "slaps"
 	speak_emote = list("barks")
-	a_intent = INTENT_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 0
@@ -60,6 +58,7 @@
 	if(loc == summoner)
 		if(toggle)
 			a_intent = INTENT_HARM
+			hud_used.action_intent.icon_state = a_intent;
 			speed = 0
 			damage_transfer = 0.7
 			if(adminseal)
@@ -70,6 +69,7 @@
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
+			hud_used.action_intent.icon_state = a_intent;
 			speed = 1
 			damage_transfer = 1
 			if(adminseal)
@@ -80,7 +80,6 @@
 			toggle = TRUE
 	else
 		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
-
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
 	set name = "Place Bluespsace Beacon"
@@ -101,7 +100,7 @@
 			beacon_cooldown = world.time+3000
 
 	else
-		to_chat(src, "<span class='danger'>Your power is on cooldown. You must wait five minutes between placing beacons.</span>")
+		to_chat(src, "<span class='danger'>Your power is on cooldown. You must wait another another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds between placing beacons.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
