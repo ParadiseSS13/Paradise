@@ -1,4 +1,0 @@
-author: "Mitchs98"
-delete-after: True
-changes: 
-  - bugfix: "Fixed Dionae names so \"Embrace of Starsong (as Embrace Of Starsong)\" will no longer happen when renaming ID's at a ID Console."

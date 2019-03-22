@@ -1,5 +1,0 @@
-author: "Quantum-M"
-delete-after: True
-changes: 
-  - rscadd: "Vox Cargo Crate - Contains two vox tanks and two vox masks. Costs 50 cargo points."
-  - rscadd: "Plasmaman Cargo Crate - Contains a Orange plasmaman space suit and helmet, along with a breathing mask and a emergency plasmaman tank. Costs 75 cargo points and requires EVA access."
