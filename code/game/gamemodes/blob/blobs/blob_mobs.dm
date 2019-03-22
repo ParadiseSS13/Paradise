@@ -113,9 +113,8 @@
 	else
 		reagents.add_reagent("spore", 8)
 
-	// Attach the smoke spreader and setup/start it.
-	S.attach(location)
-	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
+	// Setup up the smoke spreader and start it.
+	S.set_up(reagents, location, TRUE)
 	S.start()
 	qdel(src)
 
