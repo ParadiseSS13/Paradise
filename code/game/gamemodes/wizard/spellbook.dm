@@ -228,7 +228,6 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	log_name = "LD"
 	category = "Defensive"
-	refundable = 0
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
