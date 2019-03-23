@@ -1,5 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - bugfix: "Players who enable AntagHUD are now unable to join the round as swarmers"
-  - rscadd: "Adds a message explaining why Antag-banned players cannot join the round as cortical borer"
