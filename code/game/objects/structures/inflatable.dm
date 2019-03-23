@@ -167,6 +167,8 @@
 
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
+	torn = /obj/item/inflatable/door/torn
+	intact = /obj/item/inflatable/door
 
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
