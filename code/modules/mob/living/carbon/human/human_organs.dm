@@ -157,7 +157,6 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/O in all_bits)
 		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
-			message_admins("organ: [O.name]")
 			O.set_dna(dna)
 
 /*
