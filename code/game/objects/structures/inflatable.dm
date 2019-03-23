@@ -125,13 +125,13 @@
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
 	if(violent)
 		visible_message("[src] rapidly deflates!")
-		var/obj/item/inflatable/torn/R = new torn(loc)///obj/item/inflatable/torn(loc)
+		var/obj/item/inflatable/torn/R = new torn(loc)
 		src.transfer_fingerprints_to(R)
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
 		spawn(50)
-			var/obj/item/inflatable/R = new intact(loc)///obj/item/inflatable(loc)
+			var/obj/item/inflatable/R = new intact(loc)
 			src.transfer_fingerprints_to(R)
 			qdel(src)
 
