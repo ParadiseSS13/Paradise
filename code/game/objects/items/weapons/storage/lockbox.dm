@@ -24,6 +24,8 @@
 			if(locked)
 				icon_state = icon_locked
 				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
+				if(user.s_active)
+					user.s_active.close(user)
 				return
 			else
 				icon_state = icon_closed
@@ -131,5 +133,5 @@
 
 /obj/item/storage/lockbox/t4/New()
 	..()
-	for(var/i = 0, i < 3, i++)
+	for(var/i in 0 to 2)
 		new /obj/item/grenade/plastic/x4/thermite(src)
