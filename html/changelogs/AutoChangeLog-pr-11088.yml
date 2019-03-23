@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Admins offering control of a mob with no real_name to ghosts will no longer cause a \"Do you want to play as ?\" popup. Instead, the ? will be replaced with a descriptive string, such as \"the blobbernaut\"."
