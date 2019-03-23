@@ -319,7 +319,7 @@
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "Patch Pack"
-	icon_state = "solid"
+	icon_state = "patch_pack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the Patch Pack open and begins rapidly stamping patches on themselves!"
