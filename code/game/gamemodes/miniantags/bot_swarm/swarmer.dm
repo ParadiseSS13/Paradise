@@ -96,10 +96,12 @@
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
+	a_intent = INTENT_HARM
+	can_change_intents = 0
 	faction = list("swarmer")
 	projectiletype = /obj/item/projectile/beam/disabler
 	pass_flags = PASSTABLE
-	mob_size = MOB_SIZE_TINY
+	mob_size = MOB_SIZE_SMALL
 	ventcrawler = 2
 	ranged = 1
 	light_color = LIGHT_COLOR_CYAN
