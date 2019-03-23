@@ -564,3 +564,19 @@
 
 /mob/living/proc/has_quirk(quirk)
 	return roundstart_quirks[quirk]
+
+
+//FAKEDEATH
+/mob/living/proc/cure_fakedeath(list/sources)
+	remove_trait(TRAIT_FAKEDEATH, sources)
+	remove_trait(TRAIT_DEATHCOMA, sources)
+	update_stat()
+
+/mob/living/proc/fakedeath(source, silent = FALSE)
+	if(stat == DEAD)
+		return
+	if(!silent)
+		emote("deathgasp")
+	add_trait(TRAIT_FAKEDEATH, source)
+	add_trait(TRAIT_DEATHCOMA, source)
+	update_stat()

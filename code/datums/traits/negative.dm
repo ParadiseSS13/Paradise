@@ -507,3 +507,23 @@
 	..()
 	quirk_holder.overeatduration = 0
 	quirk_holder.nutrition = 350 //Back to normal levels. 
+
+
+/datum/quirk/test/
+	name = "TESTQUIRK"
+	desc = "You are overweight."
+	gain_text = "<span class='notice'>You feel big.</span>"
+	lose_text = "<span class='notice'>You feel slim.</span>"
+	medical_record_text = "Patient seems to be overweight, but you don't really need a scanner to tell you, do you?"
+	value = -1
+	mob_trait = TRAIT_IGNORESLOWDOWN
+
+/datum/quirk/test/add()
+	..()
+	quirk_holder.nutrition = 2000
+	quirk_holder.overeatduration = 2000
+
+/datum/quirk/test/remove()
+	..()
+	quirk_holder.overeatduration = 0
+	quirk_holder.nutrition = 350 //Back to normal levels. 

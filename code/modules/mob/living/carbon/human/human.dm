@@ -1700,6 +1700,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/IsAdvancedToolUser()
+	if(has_trait(TRAIT_MONKEYLIKE))
+		return FALSE
 	if(dna.species.has_fine_manipulation)
 		return 1
 	return 0

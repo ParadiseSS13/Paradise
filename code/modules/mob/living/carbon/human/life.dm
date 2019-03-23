@@ -747,7 +747,7 @@
 						adjustFireLoss(-1)
 						adjustToxLoss(-1)
 
-		else if(status_flags & FAKEDEATH)
+		else if(has_trait(TRAIT_DEATHCOMA))
 			stat = UNCONSCIOUS
 
 		//Vision //god knows why this is here

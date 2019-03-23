@@ -216,19 +216,14 @@
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
 	var/flight = 0	//Check for flight and flying items
-	var/ignoreslow = 0
 	var/gravity = 0
-
 	if(H.flying)
 		flight = 1
-
-	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-		ignoreslow = 1
 
 	if(has_gravity(H))
 		gravity = 1
 
-	if(!ignoreslow && gravity)
+	if(!has_trait(TRAIT_IGNORESLOWDOWN) && gravity)
 		if(slowdown)
 			. = slowdown
 
@@ -250,7 +245,7 @@
 			for(var/datum/reagent/R in H.reagents.reagent_list)
 				if(R.shock_reduction)
 					health_deficiency -= R.shock_reduction
-		if(health_deficiency >= 40)
+		if(!has_trait(TRAIT_IGNOREDAMAGESLOWDOWN) && health_deficiency >= 40)
 			if(flight)
 				. += (health_deficiency / 75)
 			else

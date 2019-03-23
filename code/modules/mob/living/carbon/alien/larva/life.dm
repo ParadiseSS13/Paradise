@@ -33,6 +33,11 @@
 			stat = UNCONSCIOUS
 			if(prob(10) && health)
 				emote("hiss_")
+		if(has_trait(TRAIT_DEATHCOMA))
+			if(stat == CONSCIOUS)
+				stat = UNCONSCIOUS
+				SetEyeBlind(1)
+				Paralyse(3)
 		//CONSCIOUS
 		else
 			stat = CONSCIOUS

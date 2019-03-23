@@ -226,7 +226,7 @@
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
-	if(status_flags & FAKEDEATH)
+	if(has_trait(TRAIT_DEATHCOMA))
 		return FALSE
 	if(!..())
 		return FALSE

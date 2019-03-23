@@ -9,11 +9,11 @@
 #define TRAIT_BADDNA			"baddna" //UNSURE about this one. 
 #define TRAIT_CLUMSY			"clumsy" //Done
 #define TRAIT_DUMB				"dumb" //Done as the original isn't used. 
-#define TRAIT_MONKEYLIKE		"monkeylike" 
+#define TRAIT_MONKEYLIKE		"monkeylike" //too dumb to use advanced tools, and done. 
 #define TRAIT_PACIFISM			"pacifism" //done - I think. Not sure if I overlooked something.
-#define TRAIT_IGNORESLOWDOWN	"ignoreslow"
-#define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
-#define TRAIT_DEATHCOMA			"deathcoma" //Causes death-like unconsciousness
+#define TRAIT_IGNORESLOWDOWN	"ignoreslow" //done
+#define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown" //done I think
+#define TRAIT_DEATHCOMA			"deathcoma" //not yet done, person can still move @_@
 #define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_DISFIGURED		"disfigured"
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.

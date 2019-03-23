@@ -330,6 +330,10 @@ var/list/sting_paths
 		to_chat(user, "We lack the energy to evolve new abilities right now.")
 		return
 
+	if(user.has_trait(TRAIT_DEATHCOMA))//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
+		to_chat(user, "We lack the energy to evolve new abilities right now.")
+		return
+
 	geneticpoints -= thepower.dna_cost
 	purchasedpowers += thepower
 	thepower.on_purchase(user)
