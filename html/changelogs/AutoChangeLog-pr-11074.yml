@@ -1,4 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "When disarming a bomb from a guardian you now don't pickup an empty object."

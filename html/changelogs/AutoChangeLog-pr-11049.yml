@@ -1,4 +1,0 @@
-author: "Tails2091"
-delete-after: True
-changes: 
-  - bugfix: "Lockboxes actually close when locked now."
