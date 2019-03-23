@@ -27,10 +27,12 @@
 
 /obj/structure/inflatable/Initialize(location)
 	..()
-	air_update_turf(1)
+	air_update_turf(TRUE)
 
 /obj/structure/inflatable/Destroy()
-	air_update_turf(1)
+	var/turf/T = get_turf(src)
+	spawn(0)
+		T.air_update_turf(TRUE)
 	return ..()
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
