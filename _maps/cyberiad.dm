@@ -13,15 +13,15 @@ z7 = empty
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\Cyberiad\Cyberiad.dmm" // Z1
-	#include "map_files\Generic\admin_centcomm.dmm" // Z2
-	#include "map_files\Generic\tcommsat.dmm" // Z3
-	#include "map_files\Generic\engineering_outpost.dmm" // Z4
-	#include "map_files\Generic\mining_asteroid.dmm" // Z5
-	#include "map_files\Generic\derelict.dmm" // Z6
-	#include "map_files\Generic\space.dmm" // Z7
+	#include "map_files\cyberiad\cyberiad.dmm" // Z1
+	#include "map_files\generic\admin_centcomm.dmm" // Z2
+	#include "map_files\generic\tcommsat.dmm" // Z3
+	#include "map_files\generic\engineering_outpost.dmm" // Z4
+	#include "map_files\generic\mining_asteroid.dmm" // Z5
+	#include "map_files\generic\derelict.dmm" // Z6
+	#include "map_files\generic\space.dmm" // Z7
 
-	#define MAP_FILE "Cyberiad.dmm"
+	#define MAP_FILE "cyberiad.dmm"
 	#define MAP_NAME "Cyberiad"
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\

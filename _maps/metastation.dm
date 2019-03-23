@@ -15,12 +15,12 @@ z7 = empty space
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\MetaStation\MetaStation.dmm" // Z1
-	#include "map_files\Generic\admin_centcomm.dmm" // Z2
-	#include "map_files\Generic\tcommsat.dmm" // Z3
-	#include "map_files\Generic\engineering_outpost.dmm" // Z4
-	#include "map_files\Generic\mining_asteroid.dmm" // Z5
-	#include "map_files\Generic\derelict.dmm" // Z6
-	#include "map_files\Generic\space.dmm" // Z7
+	#include "map_files\generic\admin_centcomm.dmm" // Z2
+	#include "map_files\generic\tcommsat.dmm" // Z3
+	#include "map_files\generic\engineering_outpost.dmm" // Z4
+	#include "map_files\generic\mining_asteroid.dmm" // Z5
+	#include "map_files\generic\derelict.dmm" // Z6
+	#include "map_files\generic\space.dmm" // Z7
 
 	#define MAP_FILE "MetaStation.dmm"
 	#define MAP_NAME "Cerebron"
