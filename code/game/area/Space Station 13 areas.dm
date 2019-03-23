@@ -1499,7 +1499,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "engineering_aft_hallway"
 
 /area/engine/locker
-	name = "\improper Locker Room"
+	name = "\improper Engineering Locker Room"
 	icon_state = "engineering_locker"
 
 /area/engine/engi_wash
@@ -1762,6 +1762,10 @@ var/list/ghostteleportlocs = list()
 /area/medical/paramedic
 	name = "\improper Paramedic"
 	icon_state = "medbay"
+
+/area/medical/locker
+	name = "\improper Medical Locker Room"
+	icon_state = "locker"
 
 /area/medical/washroom
 	name = "\improper Medical Washroom"
