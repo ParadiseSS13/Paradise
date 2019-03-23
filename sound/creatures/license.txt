@@ -1,2 +1,0 @@
-dog_yelp.ogg is DogYelp.wav, by TobiasKosmos (https://freesound.org/people/TobiasKosmos/sounds/163280/). It has been licensed under CC-BY 3.0 license.
-It has been cropped, EQ'd, and compressed to .ogg for in-game use.
