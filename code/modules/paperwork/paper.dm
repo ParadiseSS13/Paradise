@@ -711,7 +711,7 @@
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
 			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
-	..()
+	. = ..()
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
