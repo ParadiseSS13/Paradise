@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(mapping)
    	name = "Mapping"
-   	init_order = 12
+   	init_order = INIT_ORDER_MAPPING // 9
    	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/mapping/New()

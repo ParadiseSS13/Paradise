@@ -45,39 +45,39 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 
-#define INIT_ORDER_GARBAGE 19
-#define INIT_ORDER_DBCORE 18
-#define INIT_ORDER_BLACKBOX 17
-#define INIT_ORDER_SERVER_MAINT 16
-#define INIT_ORDER_INPUT 15
-#define INIT_ORDER_RESEARCH 14
-#define INIT_ORDER_EVENTS 13
-#define INIT_ORDER_JOBS 12
-#define INIT_ORDER_TRAITS 11
-#define INIT_ORDER_TICKER 10
-#define INIT_ORDER_MAPPING 9
-#define INIT_ORDER_NETWORKS 8
-#define INIT_ORDER_ATOMS 7
-#define INIT_ORDER_LANGUAGE 6
-#define INIT_ORDER_MACHINES 5
-#define INIT_ORDER_CIRCUIT 4
-#define INIT_ORDER_TIMER 1
-#define INIT_ORDER_DEFAULT 0
-#define INIT_ORDER_AIR -1
-#define INIT_ORDER_MINIMAP -3
-#define INIT_ORDER_ASSETS -4
-#define INIT_ORDER_ICON_SMOOTHING -5
-#define INIT_ORDER_OVERLAY -6
+#define INIT_ORDER_PERSISTENCE -100
+#define INIT_ORDER_PATH -50
+#define INIT_ORDER_SQUEAK -40
+#define INIT_ORDER_NANOMOB -23
+#define INIT_ORDER_NIGHTSHIFT -22
+#define INIT_ORDER_SHUTTLE -21
+#define INIT_ORDER_LIGHTING -20
 #define INIT_ORDER_XKEYSCORE -10
 #define INIT_ORDER_STICKY_BAN -10
 #define INIT_ORDER_TICKETS -10
-#define INIT_ORDER_LIGHTING -20
-#define INIT_ORDER_SHUTTLE -21
-#define INIT_ORDER_NIGHTSHIFT -22
-#define INIT_ORDER_NANOMOB -23
-#define INIT_ORDER_SQUEAK -40
-#define INIT_ORDER_PATH -50
-#define INIT_ORDER_PERSISTENCE -100
+#define INIT_ORDER_OVERLAY -6
+#define INIT_ORDER_ICON_SMOOTHING -5
+#define INIT_ORDER_ASSETS -4
+#define INIT_ORDER_MINIMAP -3
+#define INIT_ORDER_AIR -1
+#define INIT_ORDER_DEFAULT 0
+#define INIT_ORDER_TIMER 1
+#define INIT_ORDER_CIRCUIT 4
+#define INIT_ORDER_MACHINES 5
+#define INIT_ORDER_LANGUAGE 6
+#define INIT_ORDER_ATOMS 7
+#define INIT_ORDER_NETWORKS 8
+#define INIT_ORDER_MAPPING 9
+#define INIT_ORDER_TICKER 10
+#define INIT_ORDER_TRAITS 11
+#define INIT_ORDER_JOBS 12
+#define INIT_ORDER_EVENTS 13
+#define INIT_ORDER_RESEARCH 14
+#define INIT_ORDER_INPUT 15
+#define INIT_ORDER_SERVER_MAINT 16
+#define INIT_ORDER_BLACKBOX 17
+#define INIT_ORDER_DBCORE 18
+#define INIT_ORDER_GARBAGE 19
 
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
