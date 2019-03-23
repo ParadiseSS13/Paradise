@@ -56,7 +56,9 @@
 	..()
 
 /obj/structure/alien/resin/Destroy()
-	air_update_turf(1)
+	var/turf/T = get_turf(src)
+	spawn(0)
+		T.air_update_turf(TRUE)
 	return ..()
 
 /obj/structure/alien/resin/Move()
