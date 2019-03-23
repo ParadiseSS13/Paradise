@@ -1,0 +1,4 @@
+author: "Calecute"
+delete-after: True
+changes: 
+  - bugfix: "South Prison camera now belongs to Prison camera network, thus showind in Prison camera monitor"
