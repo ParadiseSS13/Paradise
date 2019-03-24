@@ -1,0 +1,10 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Pills maximum size increased from 50 to 100"
+  - tweak: "Chem Master bottle size increased from 30 to 50"
+  - tweak: "Pill bottles can now hold 50 pills instead of 14"
+  - rscdel: "Pill bottles can no longer hold patches"
+  - rscadd: "Adds Patch Boxes, which can hold patches, but not pills"
+  - rscadd: "Can now use a pill bottle or patch box on someone to apply a pill/patch from the bottle/box to a mob. Usual delays will still apply"
+  - rscadd: "Can down an entire pill bottle at once!"
