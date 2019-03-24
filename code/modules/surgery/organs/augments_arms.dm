@@ -277,6 +277,24 @@
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
+/obj/item/organ/internal/cyberimp/arm/chef
+	name = "culinary implant"
+	desc = "A set of culinary tools hidden behind a concealed panel on the user's arm"
+	contents = newlist(/obj/item/kitchen/knife/augment, /obj/item/kitchen/rollingpin/augment, /obj/item/kitchen/sushimat/augment, /obj/item/kitchen/cutter/augment)
+	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/hats.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "chef")
+
+/obj/item/organ/internal/cyberimp/arm/toolset/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/chef/emag_act(mob/user)
+	if(!(locate(/obj/item/kitchen/knife/butcher/augment) in items_list))
+		to_chat(user, "<span class='notice'>You unlock [src]'s integrated cleaver!</span>")
+		items_list += new /obj/item/kitchen/knife/butcher/augment(src)
+		return TRUE
+	return FALSE
+
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord
 	name = "APC-compatible power adapter implant"

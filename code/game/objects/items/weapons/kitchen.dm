@@ -123,6 +123,10 @@
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
 	return (BRUTELOSS)
 
+/obj/item/kitchen/knife/augment
+	desc = "A small Chef's Knife, guarunteed to stay sharp slice after slice!"
+	w_class = WEIGHT_CLASS_TINY
+
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
 	desc = "The bluntest of blades."
@@ -146,6 +150,10 @@
 	throwforce = 8
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/kitchen/knife/butcher/augment
+	desc = "A smaller Cleaver used for chopping up meat."
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "Meat Cleaver"
@@ -198,6 +206,10 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+
+/obj/item/kitchen/rollingpin/augment
+	desc = "A small rolling pin, useful for knocking out Bartenders."
+	w_class = WEIGHT_CLASS_TINY
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -270,7 +282,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("rolled", "cracked", "battered", "thrashed")
 
-
+/obj/item/kitchen/sushimat/augment
+	desc = "A small wooden make to make sushi with."
+	w_class = WEIGHT_CLASS_TINY
 
 /// circular cutter by Ume
 
@@ -285,3 +299,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "slashed", "pricked", "thrashed")
+
+/obj/item/kitchen/cutter/augment
+	desc = "A small circular cutter to shape cookies and dough."
+	w_class = WEIGHT_CLASS_TINY
