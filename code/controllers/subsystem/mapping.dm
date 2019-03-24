@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(mapping)
 	// Populate mining Z-level hidden rooms
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
+	..()
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT 
