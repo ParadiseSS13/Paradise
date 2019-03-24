@@ -279,8 +279,6 @@ datum/chemical_reaction/flash_powder
 			S.start(3)
 		if(created_volume >=15)
 			S.start(4)
-	if(holder && holder.my_atom)
-		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"
