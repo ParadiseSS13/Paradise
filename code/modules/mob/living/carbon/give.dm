@@ -4,22 +4,15 @@
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
 		to_chat(usr, "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>")//cheesy messages ftw
+		return
 
+	if(target.incapacitated() || usr.incapacitated() || target.client == null)
 		return
-	if(target.stat == 2 || usr.stat == 2|| target.client == null)
-		return
-	var/obj/item/I
-	if(!usr.hand && usr.r_hand == null)
-		to_chat(usr, "<span class='warning'> You don't have anything in your right hand to give to [target.name]</span>")
-		return
-	if(usr.hand && usr.l_hand == null)
-		to_chat(usr, "<span class='warning'> You don't have anything in your left hand to give to [target.name]</span>")
-		return
-	if(usr.hand)
-		I = usr.l_hand
-	else if(!usr.hand)
-		I = usr.r_hand
+	
+	var/obj/item/I = get_active_hand()
+
 	if(!I)
+		to_chat(usr, "<span class='warning'> You don't have anything in your hand to give to [target.name]</span>")
 		return
 	if((I.flags & NODROP) || (I.flags & ABSTRACT))
 		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
@@ -29,6 +22,8 @@
 			if("Yes")
 				if(!I)
 					return
+				if(target.incapacitated() || usr.incapacitated())
+					return
 				if(!Adjacent(target))
 					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
@@ -37,32 +32,17 @@
 					to_chat(usr, "<span class='warning'>\the [I.name] stays stuck to your hand when you try to give it!</span>")
 					to_chat(target, "<span class='warning'>\the [I.name] stays stuck to [usr.name]'s hand when you try to take it!</span>")
 					return
-				if((usr.hand && usr.l_hand != I) || (!usr.hand && usr.r_hand != I))
+				if(I != get_active_hand())
 					to_chat(usr, "<span class='warning'> You need to keep the item in your active hand.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] seem to have given up on giving \the [I.name] to you.</span>")
-					return
-				if(target.resting)
-					to_chat(usr, "<span class='warning'> They are resting and can't accept \the [I.name].</span>")
-					to_chat(target, "<span class='warning'> You can't can't accept \the [I.name] while resting.</span>")
 					return
 				if(target.r_hand != null && target.l_hand != null)
 					to_chat(target, "<span class='warning'> Your hands are full.</span>")
 					to_chat(usr, "<span class='warning'> Their hands are full.</span>")
 					return
-				else
-					usr.drop_item()
-					if(target.r_hand == null)
-						target.r_hand = I
-					else
-						target.l_hand = I
-				I.loc = target
-				I.layer = 20
-				I.plane = HUD_PLANE
+				usr.unEquip(I)
+				target.put_in_hands(I)
 				I.add_fingerprint(target)
-				src.update_inv_l_hand()
-				src.update_inv_r_hand()
-				target.update_inv_l_hand()
-				target.update_inv_r_hand()
 				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
 				I.on_give(usr, target)
 			if("No")

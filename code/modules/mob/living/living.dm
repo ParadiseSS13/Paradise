@@ -749,16 +749,11 @@
 // Override if a certain mob should be behave differently when placing items (can't, for example)
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
 	what = get_active_hand()
+	if(what && what.flags & NODROP)
+		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
+		return
 	if(what)
-		if(what.flags & NODROP)
-			to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
-			return
 		if(!what.mob_can_equip(who, where, 1))
-			if((where == slot_l_hand || where == slot_r_hand) && isliving(who))
-				var/mob/living/L = who
-				if(L.resting)
-					to_chat(src, "<span class='warning'>[who.name] can't hold \the [what.name] while resting.</span>")
-					return
 			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 		if(!silent)
@@ -766,8 +761,7 @@
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)	
-				if(!who.equip_to_slot_if_possible(what, where, 0, 1))
-					what.loc = who.loc
+				who.equip_to_slot_if_possible(what, where, 0, 1)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()

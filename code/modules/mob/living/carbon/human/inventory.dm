@@ -434,11 +434,11 @@
 		if(slot_l_hand)
 			if(l_hand)
 				return 0
-			return !resting
+			return !incapacitated()
 		if(slot_r_hand)
 			if(r_hand)
 				return 0
-			return !resting
+			return !incapacitated()
 		if(slot_wear_mask)
 			if(wear_mask)
 				return 0
