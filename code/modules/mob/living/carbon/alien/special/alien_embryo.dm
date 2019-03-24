@@ -65,7 +65,7 @@
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = FALSE)
 	if(!owner || polling)
 		return
 	polling = 1
@@ -103,7 +103,7 @@
 			if(gib_on_success)
 				owner.gib()
 			else
-				owner.adjustBruteLoss(40)
+				owner.adjustBruteLoss(200)
 				owner.overlays -= overlay
 			qdel(src)
 
