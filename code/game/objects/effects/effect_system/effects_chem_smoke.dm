@@ -113,6 +113,8 @@
 
 /datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range = 2)
 	for(var/atom/A in view(effect_range, get_turf(location)))
+		if(istype(A, /obj/effect/particle_effect)) // Don't impact particle effects, as there can be hundreds of them in a small area. Also, we don't want smoke particles adding themselves to this list. Major performance issue.
+			continue
 		if(A in smoked_atoms)
 			continue
 		smoked_atoms += A
