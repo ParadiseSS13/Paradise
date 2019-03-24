@@ -754,7 +754,7 @@
 			to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 			return
 		if(!what.mob_can_equip(who, where, 1))
-			if(isliving(who))
+			if((where == slot_l_hand || where == slot_r_hand) && isliving(who))
 				var/mob/living/L = who
 				if(L.resting)
 					to_chat(src, "<span class='warning'>[who.name] can't hold \the [what.name] while resting.</span>")
