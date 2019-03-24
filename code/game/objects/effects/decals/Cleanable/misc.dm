@@ -90,7 +90,8 @@
 	icon_state = "cobweb1"
 	burntime = 1
 
-/obj/effect/decal/cleanable/cobweb/fire_act()
+/obj/effect/decal/cleanable/cobweb/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	qdel(src)
 
 /obj/effect/decal/cleanable/molten_object

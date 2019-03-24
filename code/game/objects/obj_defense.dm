@@ -93,7 +93,7 @@
 /obj/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	collision_damage(pusher, force, direction)
 	return TRUE
-	
+
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
@@ -163,14 +163,15 @@
 
 //// FIRE
 
-/obj/fire_act(global_overlay=1)
+/obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	if(!burn_state)
 		burn_state = ON_FIRE
 		SSfires.processing[src] = src
 		burn_world_time = world.time + burntime*rand(10,20)
 		if(global_overlay)
 			overlays += fire_overlay
-		return 1
+		return TRUE
 
 /obj/proc/burn()
 	empty_object_contents(1, loc)

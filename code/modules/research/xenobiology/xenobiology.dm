@@ -205,6 +205,7 @@
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
+		SM.can_collar = 1
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
@@ -254,6 +255,7 @@
 	SM.universal_speak = 1
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
+	SM.can_collar = 1
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")

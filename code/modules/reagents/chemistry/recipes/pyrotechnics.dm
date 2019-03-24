@@ -80,12 +80,10 @@
 	result = "clf3"
 	required_reagents = list("chlorine" = 1, "fluorine" = 3)
 	result_amount = 2
-	min_temp = 424
+	min_temp = T0C + 150
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+	fireflash(holder.my_atom, 1, 7000)
 
 /datum/chemical_reaction/sorium
 	name = "Sorium"
@@ -98,7 +96,7 @@
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 0, created_volume)
 	holder.remove_reagent("sorium", created_volume)
 
 /datum/chemical_reaction/sorium_vortex
@@ -107,11 +105,11 @@
 	result = "sorium_vortex"
 	required_reagents = list("sorium" = 1)
 	result_amount = 1
-	min_temp = 474
+	min_temp = T0C + 200
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 0, created_volume)
 	holder.remove_reagent("sorium_vortex", created_volume)
 
 /datum/chemical_reaction/liquid_dark_matter
@@ -125,7 +123,7 @@
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 1, created_volume)
 	holder.remove_reagent("liquid_dark_matter", created_volume)
 
 /datum/chemical_reaction/ldm_vortex
@@ -134,11 +132,11 @@
 	result = "ldm_vortex"
 	required_reagents = list("liquid_dark_matter" = 1)
 	result_amount = 1
-	min_temp = 474
+	min_temp = T0C + 200
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	goonchem_vortex(T, 1, created_volume)
 	holder.remove_reagent("ldm_vortex", created_volume)
 
 /datum/chemical_reaction/blackpowder
@@ -155,23 +153,23 @@
 	result = null
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
-	min_temp = 474
+	min_temp = T0C + 200
 	no_message = 1
 	mix_sound = null
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	do_sparks(2, 1, location)
-	sleep(rand(20,30))
-	blackpowder_detonate(holder, created_volume)
+	spawn(rand(5, 15))
+		blackpowder_detonate(holder, created_volume)
 
 /proc/blackpowder_detonate(datum/reagents/holder, created_volume)
-	var/turf/simulated/T = get_turf(holder.my_atom)
+	var/turf/T = get_turf(holder.my_atom)
 	var/ex_severe = round(created_volume / 100)
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(T,ex_severe,ex_heavy,ex_light,ex_flash, 1)
+	explosion(T, ex_severe, ex_heavy,ex_light, ex_flash, 1)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		spawn(0)
@@ -202,7 +200,7 @@ datum/chemical_reaction/flash_powder
 	id = "flash_powder_flash"
 	result = null
 	required_reagents = list("flash_powder" = 1)
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -213,6 +211,40 @@ datum/chemical_reaction/flash_powder
 				C.Weaken(5)
 				continue
 			C.Stun(5)
+
+/datum/chemical_reaction/phlogiston
+	name = "Phlogiston"
+	id = "phlogiston"
+	result = "phlogiston"
+	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1, "stabilizing_agent" = 1)
+	result_amount = 4
+	mix_message = "The substance becomes sticky and extremely warm."
+
+/datum/chemical_reaction/phlogiston_dust
+	name = "Phlogiston Dust"
+	id = "phlogiston_dust"
+	result = "phlogiston_dust"
+	required_reagents = list("phlogiston" = 1, "charcoal" = 1, "phosphorus" = 1, "sulfur" = 1)
+	result_amount = 2
+	mix_message = "The substance becomes a pile of burning dust."
+
+/datum/chemical_reaction/phlogiston_fire //This MUST be above the smoke recipe.
+	name = "Phlogiston Fire"
+	id = "phlogiston_fire"
+	result = "phlogiston"
+	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1)
+	mix_message = "The substance erupts into wild flames."
+
+/datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
+	fireflash(get_turf(holder.my_atom), min(max(2, round(created_volume / 10)), 8))
+
+/datum/chemical_reaction/napalm
+	name = "Napalm"
+	id = "napalm"
+	result = "napalm"
+	required_reagents = list("fuel" = 1, "sugar" = 1, "ethanol" = 1)
+	result_amount = 3
+	mix_message = "The mixture congeals into a sticky gel."
 
 /datum/chemical_reaction/smoke_powder
 	name = "smoke_powder"
@@ -233,14 +265,12 @@ datum/chemical_reaction/flash_powder
 
 /datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
 	for(var/f_reagent in forbidden_reagents)
-		if(holder.has_reagent(f_reagent))
-			holder.remove_reagent(f_reagent, holder.get_reagent_amount(f_reagent))
+		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/smoke_spread/chem/S = new
-	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 	if(S)
-		S.set_up(holder, 10, 0, location)
+		S.set_up(holder, location)
 		if(created_volume < 5)
 			S.start(1)
 		if(created_volume >=5 && created_volume < 10)
@@ -256,7 +286,7 @@ datum/chemical_reaction/flash_powder
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
-	min_temp = 374
+	min_temp = T0C + 100
 	secondary = 1
 	result_amount = 1
 	forbidden_reagents = list("stimulants")
@@ -307,7 +337,7 @@ datum/chemical_reaction/flash_powder
 	id = "sonic_powder_deafen"
 	result = null
 	required_reagents = list("sonic_powder" = 1)
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/sonic_powder_deafen/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -338,28 +368,6 @@ datum/chemical_reaction/flash_powder
 					else
 						if(ears.ear_damage >= 5)
 							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
-
-
-/datum/chemical_reaction/phlogiston
-	name = "phlogiston"
-	id = "phlogiston"
-	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "sacid" = 1, "plasma" = 1)
-	result_amount = 3
-
-/datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.has_reagent("stabilizing_agent"))
-		return
-	var/turf/simulated/T = get_turf(holder.my_atom)
-	for(var/turf/simulated/turf in range(min(created_volume/10,4),T))
-		new /obj/effect/hotspot(turf)
-
-/datum/chemical_reaction/napalm
-	name = "Napalm"
-	id = "napalm"
-	result = "napalm"
-	required_reagents = list("sugar" = 1, "fuel" = 1, "ethanol" = 1 )
-	result_amount = 1
 
 /datum/chemical_reaction/cryostylane
 	name = "cryostylane"
