@@ -529,9 +529,7 @@
 
 /obj/structure/fans/Destroy()
 	arbitraryatmosblockingvar = 0
-	var/turf/T = get_turf(src)
-	spawn(0)
-		T.air_update_turf(TRUE)
+	air_update_turf(1)
 	return ..()
 
 /obj/structure/fans/CanAtmosPass(turf/T)

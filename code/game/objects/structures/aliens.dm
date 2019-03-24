@@ -57,9 +57,8 @@
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
-	spawn(0)
-		T.air_update_turf(TRUE)
-	return ..()
+	. = ..()
+	T.air_update_turf(TRUE)
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
