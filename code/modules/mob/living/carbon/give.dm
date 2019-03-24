@@ -33,9 +33,17 @@
 					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
 					return
+				if((I.flags & NODROP) || (I.flags & ABSTRACT))
+					to_chat(usr, "<span class='warning'>\the [I.name] stays stuck to your hand when you try to give it!</span>")
+					to_chat(target, "<span class='warning'>\the [I.name] stays stuck to [usr.name]'s hand when you try to take it!</span>")
+					return
 				if((usr.hand && usr.l_hand != I) || (!usr.hand && usr.r_hand != I))
 					to_chat(usr, "<span class='warning'> You need to keep the item in your active hand.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] seem to have given up on giving \the [I.name] to you.</span>")
+					return
+				if(target.resting)
+					to_chat(usr, "<span class='warning'> They are resting and can't accept \the [I.name].</span>")
+					to_chat(target, "<span class='warning'> You can't can't accept \the [I.name] while resting.</span>")
 					return
 				if(target.r_hand != null && target.l_hand != null)
 					to_chat(target, "<span class='warning'> Your hands are full.</span>")
