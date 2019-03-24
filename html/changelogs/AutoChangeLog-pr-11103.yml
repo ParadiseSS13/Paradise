@@ -1,0 +1,9 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Holo firedoors now update atmos correctly after being destroyed"
+  - bugfix: "Inflatable walls/doors now update atmos correctly after being destroyed"
+  - bugfix: "Alien resin walls now update atmos correctly after being destroyed"
+  - bugfix: "Foamed metal walls now update atmos correctly after being destroyed"
+  - bugfix: "Pod doors (shouldn't ever happen) now update atmos correctly after being destroyed"
+  - bugfix: "Mining flaps now update atmos correctly after being destroyed"
