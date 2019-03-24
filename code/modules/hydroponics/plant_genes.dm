@@ -411,8 +411,6 @@
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.set_up(G.reagents, splat_location)
 	S.start(smoke_amount)
-	if(G && G.reagents)
-		G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

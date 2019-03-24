@@ -18,7 +18,7 @@
 	var/spread_amount = 96
 
 /obj/effect/particle_effect/chem_smoke/New(location, chem_color)
-	..()
+	..(location)
 	color = chem_color
 	pixel_x += -16 + rand(-3, 3)
 	pixel_y += -16 + rand(-3, 3)
@@ -65,6 +65,7 @@
 	else
 		location = get_turf(loca)
 	carry.copy_to(chemholder, carry.total_volume)
+	carry.clear_reagents()
 	if(!silent)
 		var/contained = ""
 		for(var/reagent in carry.reagent_list)
@@ -105,7 +106,7 @@
 				new /obj/effect/particle_effect/chem_smoke(location, color)
 
 		if(x % 10 == 0) //Once every 10 ticks.
-			SmokeEm(effect_range)
+			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range)
 
 		sleep(1)
 	qdel(src)
