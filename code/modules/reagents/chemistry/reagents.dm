@@ -32,6 +32,9 @@
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null
+	if(islist(data))
+		data.Cut()
+	data = null
 
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return

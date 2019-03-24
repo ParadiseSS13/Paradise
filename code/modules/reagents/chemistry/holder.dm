@@ -292,6 +292,8 @@ var/const/INGEST = 2
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
+				qdel(R)
+
 	if(update_flags & STATUS_UPDATE_HEALTH)
 		M.updatehealth("reagent metabolism")
 	else if(update_flags & STATUS_UPDATE_STAT)
