@@ -1,6 +1,0 @@
-author: "Tails2091"
-delete-after: True
-changes: 
-  - rscadd: "New emotes to Cats and Corgis."
-  - tweak: "Change directories for some creature sounds to be in the creature sound folder."
-  - soundadd: "Two bark sounds, a yelp, and a meow."
