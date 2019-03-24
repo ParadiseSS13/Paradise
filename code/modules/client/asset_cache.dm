@@ -294,7 +294,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 /datum/asset/chem_master/register()
 	for(var/i = 1 to 20)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
-	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
+	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])

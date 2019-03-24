@@ -49566,11 +49566,9 @@
 	pixel_y = 0;
 	step_size = 0
 	},
-/obj/item/storage/box/pillbottles,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
