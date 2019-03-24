@@ -283,7 +283,7 @@
 	attack_verb = list("rolled", "cracked", "battered", "thrashed")
 
 /obj/item/kitchen/sushimat/augment
-	desc = "A small wooden make to make sushi with."
+	desc = "A small wooden mat to make sushi with."
 	w_class = WEIGHT_CLASS_TINY
 
 /// circular cutter by Ume
