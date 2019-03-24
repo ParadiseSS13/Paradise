@@ -33,6 +33,9 @@
 	. = ..()
 	holder = null
 
+/datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
+	return
+
 /datum/reagent/proc/reaction_mob(mob/living/M, method = TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  //for catching rare runtimes
 		if(method == TOUCH && penetrates_skin)

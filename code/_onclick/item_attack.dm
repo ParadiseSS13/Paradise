@@ -12,6 +12,9 @@
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(is_hot(src) && A.reagents && !ismob(A))
+		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+		A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment

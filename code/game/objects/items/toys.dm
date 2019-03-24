@@ -275,7 +275,8 @@
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
-/obj/item/toy/snappop/fire_act()
+/obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	pop_burst()
 
 /obj/item/toy/snappop/throw_impact(atom/hit_atom)
@@ -1689,5 +1690,5 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/restraints/handcuffs/toy
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
-	breakouttime = 0 
+	breakouttime = 0
 	ignoresClumsy = TRUE

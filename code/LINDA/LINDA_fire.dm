@@ -1,5 +1,7 @@
 
 /atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature)
 	return null
 
 
@@ -10,6 +12,8 @@
 
 /turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	var/datum/gas_mixture/air_contents = return_air()
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature, 10, 300)
 	if(!air_contents)
 		return 0
 	if(active_hotspot)
@@ -55,31 +59,37 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/just_spawned = 1
 	var/bypassing = 0
+	var/fake = FALSE
+	var/burn_time = 0
 
 /obj/effect/hotspot/New()
 	..()
-	SSair.hotspots += src
-	perform_exposure()
+	if(!fake)
+		SSair.hotspots += src
+		perform_exposure()
 	dir = pick(cardinal)
 	air_update_turf()
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc
-	if(!istype(location) || !(location.air))	return 0
+	if(!istype(location) || !(location.air))
+		return FALSE
 
-	if(volume > CELL_VOLUME*0.95)	bypassing = 1
-	else bypassing = 0
+	if(volume > CELL_VOLUME * 0.95)
+		bypassing = TRUE
+	else
+		bypassing = FALSE
 
 	if(bypassing)
 		if(!just_spawned)
-			volume = location.air.fuel_burnt*FIRE_GROWTH_RATE
+			volume = location.air.fuel_burnt * FIRE_GROWTH_RATE
 			temperature = location.air.temperature
 	else
-		var/datum/gas_mixture/affected = location.air.remove_ratio(volume/location.air.volume)
+		var/datum/gas_mixture/affected = location.air.remove_ratio(volume / location.air.volume)
 		affected.temperature = temperature
 		affected.react()
 		temperature = affected.temperature
-		volume = affected.fuel_burnt*FIRE_GROWTH_RATE
+		volume = affected.fuel_burnt * FIRE_GROWTH_RATE
 		location.assume_air(affected)
 
 	for(var/A in loc)
@@ -89,7 +99,7 @@
 
 	color = heat2color(temperature)
 	set_light(l_color = color)
-	return 0
+	return FALSE
 
 
 /obj/effect/hotspot/process()
@@ -155,7 +165,8 @@
 /obj/effect/hotspot/Destroy()
 	set_light(0)
 	SSair.hotspots -= src
-	DestroyTurf()
+	if(!fake)
+		DestroyTurf()
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
@@ -182,3 +193,147 @@
 	..()
 	if(isliving(L))
 		L.fire_act()
+
+/obj/effect/hotspot/fake // Largely for the fireflash procs below
+	fake = TRUE
+	burn_time = 30
+
+/obj/effect/hotspot/fake/New()
+	..()
+	if(burn_time)
+		QDEL_IN(src, burn_time)
+
+/proc/fireflash(atom/center, radius, temp)
+	if(!temp)
+		temp = rand(2800, 3200)
+	for(var/turf/T in view(radius, get_turf(center)))
+		if(isspaceturf(T))
+			continue
+		if(locate(/obj/effect/hotspot) in T)
+			continue
+		if(!can_line(get_turf(center), T, radius + 1))
+			continue
+
+		var/obj/effect/hotspot/fake/H = new(T)
+		H.temperature = temp
+		H.volume = 400
+		H.color = heat2color(H.temperature)
+		H.set_light(l_color = H.color)
+
+		T.hotspot_expose(H.temperature, H.volume)
+		for(var/atom/A in T)
+			if(isliving(A))
+				continue
+			if(A != H)
+				A.fire_act(null, H.temperature, H.volume)
+
+		if(isfloorturf(T))
+			var/turf/simulated/floor/F = T
+			F.burn_tile()
+
+		for(var/mob/living/L in T)
+			L.adjust_fire_stacks(3)
+			L.IgniteMob()
+			L.bodytemperature = max(temp / 3, L.bodytemperature)
+
+/proc/fireflash_s(atom/center, radius, temp, falloff)
+	if(temp < T0C + 60)
+		return list()
+	var/list/open = list()
+	var/list/affected = list()
+	var/list/closed = list()
+	var/turf/Ce = get_turf(center)
+	var/max_dist = radius
+	if(falloff)
+		max_dist = min((temp - (T0C + 60)) / falloff, radius)
+	open[Ce] = 0
+	while(open.len)
+		var/turf/T = open[1]
+		var/dist = open[T]
+		open -= T
+		closed += T
+
+		if(isspaceturf(T))
+			continue
+		if(dist > max_dist)
+			continue
+		if(!ff_cansee(Ce, T))
+			continue
+
+		var/obj/effect/hotspot/existing_hotspot = locate(/obj/effect/hotspot) in T
+		var/prev_temp = 0
+		var/need_expose = 0
+		var/expose_temp = 0
+		if(!existing_hotspot)
+			var/obj/effect/hotspot/fake/H = new(T)
+			need_expose = TRUE
+			H.temperature = temp - dist * falloff
+			expose_temp = H.temperature
+			H.volume = 400
+			H.color = heat2color(H.temperature)
+			H.set_light(l_color = H.color)
+			existing_hotspot = H
+
+		else if(existing_hotspot.temperature < temp - dist * falloff)
+			expose_temp = (temp - dist * falloff) - existing_hotspot.temperature
+			prev_temp = existing_hotspot.temperature
+			if(expose_temp > prev_temp * 3)
+				need_expose = TRUE
+			existing_hotspot.temperature = temp - dist * falloff
+			existing_hotspot.color = heat2color(existing_hotspot.temperature)
+			existing_hotspot.set_light(l_color = existing_hotspot.color)
+
+		affected[T] = existing_hotspot.temperature
+		if(need_expose && expose_temp)
+			T.hotspot_expose(expose_temp, existing_hotspot.volume)
+			for(var/atom/A in T)
+				if(isliving(A))
+					continue
+				if(A != existing_hotspot)
+					A.fire_act(null, expose_temp, existing_hotspot.volume)
+		if(isfloorturf(T))
+			var/turf/simulated/floor/F = T
+			F.burn_tile()
+		for(var/mob/living/L in T)
+			L.adjust_fire_stacks(3)
+			L.IgniteMob()
+			L.bodytemperature = (2 * L.bodytemperature + temp) / 3
+
+		if(T.density)
+			continue
+		for(var/obj/O in T)
+			if(O.density)
+				continue
+		if(dist == max_dist)
+			continue
+
+		for(var/dir in cardinal)
+			var/turf/link = get_step(T, dir)
+			if (!link)
+				continue
+			var/dx = link.x - Ce.x
+			var/dy = link.y - Ce.y
+			var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)
+			if(!(link in closed))
+				if(link in open)
+					if(open[link] > target_dist)
+						open[link] = target_dist
+				else
+					open[link] = target_dist
+
+	return affected
+
+/proc/fireflash_sm(atom/center, radius, temp, falloff, capped = TRUE, bypass_rng = FALSE)
+	var/list/affected = fireflash_s(center, radius, temp, falloff)
+	for(var/turf/simulated/T in affected)
+		var/mytemp = affected[T]
+		var/melt = 1643.15 // default steel melting point
+		var/divisor = melt
+		if(mytemp >= melt * 2)
+			var/chance = mytemp / divisor
+			if(capped)
+				chance = min(chance, 30)
+			if(prob(chance) || bypass_rng)
+				T.visible_message("<span class='warning'>[T] melts!</span>")
+				T.burn_down()
+	return affected

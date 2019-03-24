@@ -169,6 +169,7 @@
 	icon_state = "xeno"
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -359,7 +360,8 @@
 	else
 		return ..()
 
-/obj/structure/snowman/built/fire_act()
+/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	qdel(src)
 
 
