@@ -26,8 +26,12 @@
 
 	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
-		apply_cuffs(user,user)
-
+		apply_cuffs(user, user)
+		return
+	
+	cuff(C, user)
+	
+/obj/item/restraints/handcuffs/proc/cuff(mob/living/carbon/C, mob/user, remove_src = TRUE)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!H.has_left_hand() || !H.has_right_hand())
@@ -40,26 +44,31 @@
 
 		playsound(loc, cuffsound, 30, 1, -2)
 		if(do_mob(user, C, 30))
-			apply_cuffs(C,user)
+			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			if(istype(src, /obj/item/restraints/handcuffs/cable))
-				feedback_add_details("handcuffs","C")
+				feedback_add_details("handcuffs", "C")
 			else
-				feedback_add_details("handcuffs","H")
+				feedback_add_details("handcuffs", "H")
 
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
-/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user)
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, remove_src = TRUE)
 	if(!target.handcuffed)
-		user.drop_item()
+		if(remove_src)
+			user.drop_item()
 		if(trashtype)
 			target.handcuffed = new trashtype(target)
-			qdel(src)
+			if(remove_src)
+				qdel(src)
 		else
-			loc = target
-			target.handcuffed = src
+			if(remove_src)
+				loc = target
+				target.handcuffed =  src
+			else
+				target.handcuffed = new type(loc)
 		target.update_handcuffed()
 		return
 
@@ -170,23 +179,7 @@
 
 /obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
 	if(isrobot(user))
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(!(H.get_organ("l_hand") || H.get_organ("r_hand")))
-				to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
-				return
-		if(!C.handcuffed)
-			playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
-			C.visible_message("<span class='danger'>[user] is trying to put zipties on [C]!</span>", \
-								"<span class='userdanger'>[user] is trying to put zipties on [C]!</span>")
-			if(do_mob(user, C, 30))
-				if(!C.handcuffed)
-					C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-					C.update_handcuffed()
-					to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-					add_attack_logs(user, C, "Handcuffed (ziptie-cuffed)")
-			else
-				to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+		cuff(C, user, FALSE)
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
