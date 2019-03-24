@@ -49243,10 +49243,6 @@
 	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
-"bKP" = (
-/obj/machinery/blackbox_recorder,
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload)
 "bKQ" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
@@ -49290,10 +49286,6 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload)
-"bKW" = (
-/obj/machinery/message_server,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bKX" = (
@@ -58912,69 +58904,112 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
-"caT" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai_upload)
 "caU" = (
-/obj/machinery/porta_turret{
+/obj/structure/table/wood,
+/obj/machinery/light/small{
 	dir = 8
+	},
+/obj/item/radio/off{
+	pixel_y = 4
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "caV" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
+/obj/structure/table/wood,
+/obj/item/folder/blue,
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_y = 31
 	},
+/obj/item/folder/blue,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "caW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/showcase{
+	density = 0;
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	dir = 2;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_y = 20
 	},
-/area/turret_protected/ai_upload)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "caX" = (
-/obj/structure/cable{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "caY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/camera/motion{
-	c_tag = "MiniSat AI Upload";
-	network = list("SS13","Minisat");
-	start_active = 1
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
+/obj/structure/showcase{
+	density = 0;
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	dir = 2;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_y = 20
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "caZ" = (
-/obj/machinery/porta_turret{
-	dir = 8
+/obj/machinery/light/small{
+	dir = 4
 	},
-/obj/machinery/firealarm{
-	pixel_y = 24
+/obj/item/radio/intercom{
+	dir = 8;
+	name = "Station Intercom (Telecoms)";
+	pixel_y = 30
+	},
+/obj/structure/table/wood,
+/obj/item/phone{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/cigbutt/cigarbutt{
+	pixel_x = 5;
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cba" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/west,
@@ -60154,94 +60189,64 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/security/brig)
-"ccT" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window{
-	base_state = "leftsecure";
+"ccU" = (
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	icon_state = "leftsecure";
-	name = "Core Modules";
-	req_access_txt = "20"
+	on = 1
 	},
-/obj/item/aiModule/paladin{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/aiModule/asimov,
-/obj/item/aiModule/corp{
-	pixel_x = -3;
-	pixel_y = -3
+/obj/structure/chair/office/dark{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
-"ccU" = (
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "ccV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5;
-	level = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "ccW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
-"ccX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"ccY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
-	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"ccZ" = (
-/obj/structure/table/reinforced,
-/obj/structure/sign/electricshock{
-	pixel_x = 32;
-	pixel_y = 0
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 8;
-	icon_state = "rightsecure";
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/item/aiModule/antimov{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/protectStation{
-	pixel_x = -3;
-	pixel_y = -3
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"ccX" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"ccY" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cda" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1
@@ -61255,183 +61260,94 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/brig)
-"ceJ" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
-/turf/simulated/floor/plating,
-/area/turret_protected/ai_upload)
-"ceK" = (
-/obj/structure/table/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/item/aiModule/freeformcore{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/aiModule/safeguard,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
 "ceL" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
-"ceM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"ceN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/computer/message_monitor,
+/obj/machinery/alarm{
 	dir = 4;
-	level = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"ceM" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"ceN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "ceO" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "ceP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "ceQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"ceR" = (
-/obj/structure/table/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/door/window{
-	base_state = "leftsecure";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	icon_state = "leftsecure";
-	name = "High-Risk Modules";
-	req_access_txt = "20"
+	on = 1;
+	scrub_N2O = 0;
+	scrub_Toxins = 0
 	},
-/obj/item/aiModule/tyrant{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge{
-	pixel_x = -3;
-	pixel_y = -3
-	},
+/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
-"ceS" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "ceT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -62281,75 +62197,118 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "cgt" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/turret_protected/ai_upload)
+/obj/machinery/hologram/holopad,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
 "cgu" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	external_pressure_bound = 101.325;
-	on = 1;
-	pressure_checks = 1
+/obj/machinery/microwave{
+	pixel_y = 4
 	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cgv" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
+/obj/machinery/light/small,
+/obj/item/storage/box/donkpockets,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cgw" = (
-/obj/machinery/computer/aiupload,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/item/twohanded/required/kirbyplants{
+	tag = "icon-plant-21";
+	icon_state = "plant-21"
 	},
-/area/turret_protected/ai_upload)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cgx" = (
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cgy" = (
-/obj/machinery/computer/borgupload,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/filingcabinet{
+	pixel_x = 3
 	},
-/area/turret_protected/ai_upload)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cgz" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
+/obj/machinery/light/small,
+/obj/item/folder,
+/obj/item/folder,
+/obj/machinery/camera{
+	c_tag = "Telecoms - Control Room";
+	dir = 1;
+	network = list("SS13","tcomm")
 	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"cgA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/structure/table/wood,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"cgA" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Telecoms Admin";
+	departmentType = 5;
+	name = "Telecoms RC";
+	pixel_y = -30
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/item/paper_bin{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
 "cgB" = (
 /obj/machinery/camera{
 	c_tag = "Singularity NorthEast";
@@ -63050,60 +63009,20 @@
 	icon_state = "dark"
 	},
 /area/construction/hallway)
-"chT" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/reset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
-"chU" = (
-/obj/machinery/ai_status_display{
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
-"chV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
 "chW" = (
-/obj/machinery/ai_slipper,
-/obj/structure/cable{
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Server Room"
+	},
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"chX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
-"chY" = (
-/obj/machinery/status_display{
-	pixel_x = 32;
-	pixel_y = -32
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload)
-"chZ" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/quarantine,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/server)
 "cia" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63960,53 +63879,70 @@
 /turf/simulated/floor/plating,
 /area/security/range)
 "cjC" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/freeform,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/light/small{
+	dir = 1
 	},
-/area/turret_protected/ai_upload)
+/obj/machinery/camera{
+	c_tag = "Telecoms - Server Room - Fore-Port";
+	dir = 2;
+	network = list("SS13","tcomm")
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
 "cjD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/telecomms/receiver/preset_left,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/obj/machinery/flasher{
-	id = null;
-	pixel_x = -24;
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/server)
 "cjE" = (
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/greengrid,
-/area/turret_protected/ai_upload)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tcommsat/server)
 "cjF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/flasher{
-	id = null;
-	pixel_x = 24;
-	pixel_y = -24
+/obj/machinery/telecomms/receiver/preset_right,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/server)
 "cjG" = (
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/light/small{
+	dir = 1
 	},
-/area/turret_protected/ai_upload)
+/obj/machinery/camera{
+	c_tag = "Telecoms - Server Room - Fore-Starboard";
+	dir = 2;
+	network = list("SS13","tcomm")
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
 "cjH" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plating/airless,
@@ -65007,57 +64943,14 @@
 /turf/simulated/floor/plating,
 /area/security/range)
 "clk" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "south bump";
-	pixel_y = -24
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/obj/structure/cable,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
-"cll" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/turret_protected/ai_upload)
-"clm" = (
-/obj/structure/table/reinforced,
-/obj/item/twohanded/required/kirbyplants,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
-"cln" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	icon_state = "alarm0";
-	pixel_x = 0;
-	pixel_y = -22
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai_upload)
+/area/tcommsat/server)
 "clo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -65844,14 +65737,6 @@
 "cmI" = (
 /turf/simulated/wall/rust,
 /area/security/range)
-"cmJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai_upload)
-"cmK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai_upload)
 "cmL" = (
 /obj/structure/lattice,
 /turf/space,
@@ -66464,21 +66349,27 @@
 /turf/simulated/floor/plating,
 /area/security/range)
 "cnV" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
-/area/space)
+/obj/machinery/telecomms/processor/preset_two,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
 "cnW" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "cnX" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
-/area/space)
+/obj/machinery/telecomms/processor/preset_four,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
 "cnY" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced,
@@ -67001,25 +66892,23 @@
 	},
 /area/construction/hallway)
 "cpc" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/machinery/telecomms/server/presets/engineering,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway)
+/area/tcommsat/server)
 "cpd" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/machinery/telecomms/server/presets/science,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway)
+/area/tcommsat/server)
 "cpe" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -67997,18 +67886,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"cqK" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway)
 "cqL" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -68017,17 +67894,19 @@
 	},
 /area/construction/hallway)
 "cqM" = (
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	on = 1
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway)
+/area/tcommsat/server)
 "cqN" = (
 /obj/machinery/field/generator{
 	anchored = 1;
@@ -78689,10 +78568,18 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cKl" = (
-/obj/structure/window/reinforced,
-/turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/obj/item/folder,
+/obj/item/folder,
+/obj/structure/table/glass,
+/obj/item/pen/multi,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
 "cKm" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -115809,14 +115696,109 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/maintenance/fsmaint)
-"ecP" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
+"enl" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"enS" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"eZZ" = (
+/obj/machinery/telecomms/server/presets/security,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"fhY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/wall/r_wall,
+/area/tcommsat/server)
+"fpC" = (
+/obj/machinery/computer/shuttle/engineering,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
-"fWB" = (
+"fKd" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/space,
+/area/space)
+"fOg" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"fOX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"fUc" = (
+/obj/machinery/alarm/server{
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Telecoms - Server Room - Aft-Port";
+	dir = 4;
+	network = list("SS13","tcomm")
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"gbC" = (
+/obj/machinery/telecomms/bus/preset_one,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"gfr" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Maintenance";
 	req_access_txt = "10";
@@ -115827,7 +115809,268 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
-"hDf" = (
+"glb" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"gTI" = (
+/obj/machinery/telecomms/processor/preset_one,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"hdF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"htz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/fpmaint2)
+"hAn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"hOi" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/tcommsat/server)
+"hOz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"hQN" = (
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"hTY" = (
+/obj/machinery/telecomms/broadcaster/preset_left,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"ihm" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"irQ" = (
+/obj/structure/table/wood,
+/obj/machinery/ai_status_display{
+	pixel_y = 31
+	},
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"iyt" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"ize" = (
+/obj/structure/window/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/space,
+/turf/simulated/floor/plating/airless/catwalk,
+/area/space)
+"iHe" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/space,
+/area/space)
+"iVa" = (
+/obj/machinery/telecomms/server/presets/service,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"jdg" = (
+/obj/machinery/door/airlock/glass{
+	name = "Holodeck Door"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"jAl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"jRU" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "engineering_home";
+	name = "Engineering Dock Airlock";
+	req_access_txt = "0";
+	req_one_access_txt = "10;24"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
+"kqG" = (
+/turf/simulated/shuttle/wall,
+/area/shuttle/constructionsite)
+"kNd" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-propulsion (EAST)";
+	icon_state = "propulsion";
+	dir = 4
+	},
+/area/shuttle/constructionsite)
+"lnV" = (
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 4;
+	name = "Telecoms Server Room APC";
+	pixel_x = 25
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Telecoms - Server Room - Aft-Starboard";
+	dir = 8;
+	network = list("SS13","tcomm")
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"lrA" = (
+/obj/machinery/computer/station_alert,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"lBT" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall2";
+	icon_state = "swall2";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"lFC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral";
+	dir = 4
+	},
+/area/crew_quarters/fitness)
+"miC" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f10";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"mmW" = (
+/obj/machinery/telecomms/bus/preset_four,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"mpF" = (
+/turf/simulated/wall/r_wall,
+/area/tcommsat/server)
+"mDt" = (
+/obj/machinery/computer/security/telescreen{
+	dir = 8;
+	name = "Telecoms Camera Monitor";
+	network = list("tcomm");
+	pixel_x = 26
+	},
+/obj/machinery/computer/telecomms/monitor{
+	network = "tcommsat"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"mJF" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"mKT" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"new" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -115838,15 +116081,118 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"hJp" = (
+"nTn" = (
+/obj/machinery/telecomms/processor/preset_three,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"ofD" = (
+/turf/simulated/wall/r_wall,
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"oHh" = (
+/obj/machinery/telecomms/server/presets/common,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"oJv" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/space,
+/area/space)
+"oPG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"pOS" = (
+/obj/machinery/telecomms/broadcaster/preset_right,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"qjI" = (
+/obj/machinery/telecomms/hub/preset,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"qop" = (
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"qsy" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/construction/hallway)
+"rpG" = (
+/obj/machinery/telecomms/server/presets/command,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"rAA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	req_access_txt = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
+"rGl" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
-	tag = "icon-propulsion (EAST)";
-	icon_state = "propulsion";
-	dir = 4
+	icon_state = "swall_f6";
+	dir = 2
 	},
 /area/shuttle/constructionsite)
-"imt" = (
+"rLx" = (
 /obj/machinery/camera{
 	c_tag = "Warden's Office";
 	dir = 8;
@@ -115857,19 +116203,91 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"isq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+"rUa" = (
+/obj/machinery/computer/telecomms/traffic,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
 	},
-/obj/machinery/light{
-	dir = 1
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"sId" = (
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 4;
+	name = "Telecoms Control Room APC";
+	pixel_x = 26
+	},
+/obj/machinery/computer/telecomms/server{
+	network = "tcommsat"
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/tcommsat/computer{
+	name = "\improper Telecoms Control Room"
+	})
+"sSk" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"tcv" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"iyA" = (
+"txc" = (
+/obj/machinery/blackbox_recorder,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"tBg" = (
+/obj/machinery/telecomms/server/presets/medical,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"tSa" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/constructionsite)
+"tTY" = (
+/obj/machinery/telecomms/server/presets/supply,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"uqU" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
@@ -115896,150 +116314,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/constructionsite)
-"iFu" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"jLx" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/constructionsite)
-"jMz" = (
-/obj/machinery/computer/atmos_alert,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
-"kis" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/constructionsite)
-"kTK" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/constructionsite)
-"ldU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/fpmaint2)
-"lLO" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/machinery/light,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
-"lYs" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/shuttle/constructionsite)
-"mUe" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
-"njP" = (
+"uRi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/camera,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"ppH" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "engineering_home";
-	name = "Engineering Dock Airlock";
-	req_access_txt = "0";
-	req_one_access_txt = "10;24"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
-"prh" = (
-/obj/machinery/door/airlock/glass{
-	name = "Holodeck Door"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"rle" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall2";
-	icon_state = "swall2";
-	dir = 2
-	},
-/area/shuttle/constructionsite)
-"rqp" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
-"rXH" = (
-/obj/machinery/computer/shuttle/engineering,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
-"rZg" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral";
-	dir = 4
-	},
-/area/crew_quarters/fitness)
-"toG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	req_access_txt = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"uOg" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/constructionsite)
-"vzh" = (
-/obj/machinery/computer/station_alert,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
-"vJd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/chair{
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -116047,43 +116326,16 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"wki" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+"vFs" = (
+/obj/machinery/message_server,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"wsX" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall1";
-	dir = 2
-	},
-/area/shuttle/constructionsite)
-"wuZ" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"xrQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"xEO" = (
+/area/tcommsat/server)
+"vId" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -116092,20 +116344,100 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"xWL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+"vTv" = (
+/obj/machinery/computer/atmos_alert,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
 	},
-/obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/fitness)
-"yfE" = (
-/turf/simulated/shuttle/wall,
 /area/shuttle/constructionsite)
+"wnw" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/space,
+/area/space)
+"wIL" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"xpf" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"xwd" = (
+/obj/machinery/telecomms/bus/preset_two,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"xBb" = (
+/obj/machinery/telecomms/bus/preset_three,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Base";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"xDp" = (
+/obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Telecoms - Server Room - Aft";
+	dir = 1;
+	network = list("SS13","tcomm")
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/ntnet_relay,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/tcommsat/server)
+"xFn" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall1";
+	dir = 2
+	},
+/area/shuttle/constructionsite)
+"ykn" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/construction/hallway)
 
 (1,1,1) = {"
 aaa
@@ -122925,15 +123257,15 @@ abi
 abi
 abi
 abi
+abi
+abi
+abi
+abi
+abi
+abi
 abj
 abi
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -123181,16 +123513,16 @@ bpm
 bmo
 bmo
 bpm
+bpm
+bpm
+bpm
+bpm
+bpm
+bpm
 bmo
 bpm
 aaa
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -123439,15 +123771,15 @@ brp
 cuj
 brp
 brp
+brp
+brp
+brp
+brp
+brp
+brp
 cpb
 brs
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -123693,18 +124025,18 @@ bms
 bms
 bpu
 bms
-bms
+fKd
+bpu
+bpu
+bpu
+bpu
+bpu
+bpu
 bpu
 bPC
 bpo
 brr
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -123944,24 +124276,24 @@ bTy
 bVN
 cmx
 bNM
-bJh
-bJh
-ceJ
-cgt
-bJh
-bJh
-abj
-abj
+ofD
+ofD
+ofD
+ofD
+mpF
+mpF
+mpF
+mpF
+mpF
+mpF
+mpF
+mpF
+oJv
+aaa
 bku
 bpo
 brs
 abj
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -124201,26 +124533,26 @@ bTz
 bVI
 bNM
 bNM
-caT
-ccT
-ceK
-caU
-chT
-bJh
-bJh
-abj
+ofD
+ofD
+ofD
+ofD
+mpF
+gTI
+gbC
+enS
+vFs
+mpF
+mpF
+mpF
+mpF
+aaa
 bkt
 bpo
 brr
 abi
 abi
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -124459,25 +124791,25 @@ bVO
 bPI
 bNM
 caU
-bMY
+rUa
 ceL
 cgu
-chU
+mpF
 cjC
-bJh
-bJh
+hQN
+hQN
+xwd
+oHh
+fUc
+hTY
+mpF
+aaa
 bkt
 bpo
 bLS
 bpm
 aaa
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -124719,22 +125051,22 @@ caV
 ccU
 ceM
 cgv
-chV
+mpF
 cjD
 clk
-cmJ
+hQN
 cnV
 cpc
-cqK
+hQN
+rpG
+mpF
+mpF
+bku
+bmq
+qsy
 csk
 brr
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -124976,22 +125308,22 @@ caW
 ccV
 ceN
 cgw
-ccU
-bMY
-cll
-bJh
+hOi
+hOi
+hOi
+hQN
+hQN
+hQN
+hQN
+eZZ
+mpF
+mpF
 bkt
 bmq
 cqL
 bpq
 brs
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -125235,20 +125567,20 @@ ceO
 cgx
 chW
 cjE
-clm
+chW
 cgt
 cKl
+qjI
+fOX
+xDp
+fhY
+mpF
+ize
 bmq
 bnP
 bpq
 brr
 abj
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -125490,22 +125822,22 @@ caY
 ccX
 ceP
 cgy
-ccU
-bMY
-caU
-bJh
+hOi
+hOi
+hOi
+qop
+sSk
+sSk
+wIL
+iVa
+mpF
+mpF
 bkt
 bmq
 cqL
 bpq
 brs
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -125743,26 +126075,26 @@ bTF
 bVP
 bXK
 bNM
-caV
+irQ
 ccY
 ceQ
 cgz
-chX
+mpF
 cjF
-cln
-cmK
+clk
+hQN
 cnX
 cpd
 cqM
+tTY
+mpF
+mpF
+bku
+bmq
+ykn
 csl
 brr
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -126001,25 +126333,25 @@ bVT
 bXL
 bNM
 caZ
-bMY
-ceL
+mDt
+sId
 cgA
-chY
+mpF
 cjG
-bJh
-bJh
+hQN
+hQN
+mmW
+tBg
+lnV
+pOS
+mpF
+aaa
 bkt
 bpo
 bLM
 bpu
 aaa
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -126257,26 +126589,26 @@ bTH
 bVI
 bNM
 bNM
-caT
-ccZ
-ceR
-caU
-chZ
-bJh
-bJh
-abj
+ofD
+ofD
+ofD
+ofD
+mpF
+nTn
+xBb
+xpf
+txc
+mpF
+mpF
+mpF
+mpF
+aaa
 bkt
 bpo
 brr
 abi
 abi
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -126514,24 +126846,24 @@ bTI
 bVU
 bPN
 bNM
-bJh
-bJh
-ceS
-cgt
-bJh
-bJh
-abj
-abj
+ofD
+ofD
+ofD
+ofD
+mpF
+mpF
+mpF
+mpF
+mpF
+mpF
+mpF
+mpF
+iHe
+aaa
 bku
 bpo
 brs
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -126777,18 +127109,18 @@ bmo
 bmo
 bpm
 bmo
-bmo
+wnw
+bpm
+bpm
+bpm
+bpm
+bpm
+bpm
 bpm
 cnY
 bpo
 brr
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -127037,15 +127369,15 @@ brp
 cvS
 brp
 brp
+brp
+brp
+brp
+brp
+brp
+brp
 cpe
 brs
 abj
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -127293,16 +127625,16 @@ bpu
 bms
 bms
 bpu
+bpu
+bpu
+bpu
+bpu
+bpu
+bpu
 bms
 bms
 aaa
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -127551,15 +127883,15 @@ abj
 abi
 abi
 abi
+abi
+abi
+abi
+abi
+abi
+abi
 abj
 abi
 abi
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -135544,11 +135876,11 @@ abj
 aaa
 abj
 abj
-uOg
-hJp
-hJp
-hJp
-jLx
+rGl
+kNd
+kNd
+kNd
+iyt
 aaa
 aaa
 aaa
@@ -135801,11 +136133,11 @@ bYh
 bYh
 bYh
 bYh
-kis
-yfE
-yfE
-yfE
-kis
+mJF
+kqG
+kqG
+kqG
+mJF
 aaa
 aaa
 aaa
@@ -136058,11 +136390,11 @@ cUP
 cJK
 cbC
 cJK
-kis
-rqp
-rqp
-rqp
-kis
+mJF
+mKT
+mKT
+mKT
+mJF
 aaa
 aaa
 aaa
@@ -136314,12 +136646,12 @@ bYh
 cUQ
 cWl
 cYb
-ppH
-iyA
-mUe
-mUe
-lLO
-kis
+jRU
+uqU
+ihm
+ihm
+fOg
+mJF
 aaa
 aaa
 aaa
@@ -136568,15 +136900,15 @@ bYh
 cjX
 bYh
 bYh
-fWB
+gfr
 bYh
 bYh
 bYh
-kis
-rqp
-mUe
-rqp
-kis
+mJF
+mKT
+ihm
+mKT
+mJF
 aaa
 aaa
 aaa
@@ -136825,15 +137157,15 @@ cLA
 cQu
 cLA
 cLA
-ldU
+htz
 cWm
 cXT
 bYh
-kis
-vzh
-rXH
-jMz
-kis
+mJF
+lrA
+fpC
+vTv
+mJF
 aaa
 aaa
 aaa
@@ -137086,11 +137418,11 @@ cfm
 cHf
 cdt
 cJK
-lYs
-wsX
-kTK
-rle
-ecP
+miC
+xFn
+tSa
+lBT
+glb
 aaa
 aaa
 aaa
@@ -154775,7 +155107,7 @@ bEc
 bFE
 bHo
 bJh
-bKP
+bMX
 bMW
 bOO
 bQK
@@ -156831,7 +157163,7 @@ bEk
 bFM
 bHw
 bJh
-bKW
+bMX
 bNa
 bOS
 bQN
@@ -172020,7 +172352,7 @@ cwo
 cxC
 czg
 czg
-iFu
+enl
 czg
 czg
 cFC
@@ -172277,7 +172609,7 @@ cwr
 cxD
 cxD
 cTe
-hDf
+new
 cxD
 cAv
 cAv
@@ -172285,7 +172617,7 @@ cHa
 cMR
 cMR
 cTe
-wuZ
+tcv
 cTe
 cQo
 cLv
@@ -172534,7 +172866,7 @@ ctC
 ctC
 ctC
 cuM
-xrQ
+hOz
 csi
 csj
 csj
@@ -172542,7 +172874,7 @@ csj
 csj
 csj
 csi
-isq
+uRi
 cuM
 csi
 csj
@@ -172788,10 +173120,10 @@ csj
 ctD
 cuN
 cws
-rZg
-rZg
+lFC
+lFC
 cuM
-wki
+jAl
 csj
 cCb
 cCb
@@ -172799,7 +173131,7 @@ cCb
 cCb
 cCb
 csj
-njP
+hAn
 cuM
 csj
 aaa
@@ -173048,7 +173380,7 @@ csj
 csj
 csi
 cAw
-wki
+jAl
 csj
 cCb
 cCb
@@ -173305,14 +173637,14 @@ abj
 aaa
 csj
 cuM
-wki
-prh
+jAl
+jdg
 cCb
 cCb
 cCb
 cCb
 cCb
-prh
+jdg
 cwo
 cuM
 csj
@@ -173562,7 +173894,7 @@ abj
 aaa
 csj
 cuM
-xWL
+oPG
 csj
 cCb
 cCb
@@ -173570,7 +173902,7 @@ cCb
 cCb
 cCb
 csj
-vJd
+hdF
 cuM
 csj
 aaa
@@ -173819,7 +174151,7 @@ abj
 aaa
 csj
 cuM
-xWL
+oPG
 csj
 cCb
 cCb
@@ -173827,7 +174159,7 @@ cCb
 cCb
 cCb
 csj
-vJd
+hdF
 cuM
 csj
 abj
@@ -174076,7 +174408,7 @@ abj
 aaa
 csj
 cuM
-xWL
+oPG
 csj
 cCb
 cCb
@@ -174084,7 +174416,7 @@ cCb
 cCb
 cCb
 csj
-vJd
+hdF
 cuM
 csj
 aaa
@@ -174333,7 +174665,7 @@ abj
 aaa
 csj
 cuM
-xWL
+oPG
 csj
 cCb
 cCb
@@ -174341,7 +174673,7 @@ cCb
 cCb
 cCb
 csj
-vJd
+hdF
 cuM
 csj
 aaa
@@ -174590,14 +174922,14 @@ aaa
 aaa
 csj
 cuM
-wki
-prh
+jAl
+jdg
 cCb
 cCb
 cCb
 cCb
 cCb
-prh
+jdg
 cwo
 cuM
 csj
@@ -174847,7 +175179,7 @@ aaa
 aaa
 csj
 cuM
-wki
+jAl
 csj
 cCb
 cCb
@@ -175104,7 +175436,7 @@ aaa
 aaa
 csj
 cuM
-wki
+jAl
 csj
 cCb
 cCb
@@ -175361,7 +175693,7 @@ aaa
 aaa
 csj
 cuM
-xrQ
+hOz
 csi
 csj
 csj
@@ -175369,7 +175701,7 @@ csj
 csj
 csj
 csi
-isq
+uRi
 cuM
 csj
 aaa
@@ -175619,14 +175951,14 @@ aaa
 csj
 cuM
 cxC
-toG
-toG
+rAA
+rAA
 cFJ
 cHc
 cJm
 cTe
 cTe
-xEO
+vId
 cuM
 csj
 aaa
@@ -175881,7 +176213,7 @@ cuM
 cFK
 cHd
 cIt
-imt
+rLx
 cuM
 cuM
 cuM

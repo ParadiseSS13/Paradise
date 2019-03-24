@@ -16,7 +16,7 @@ z7 = empty space
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\MetaStation\MetaStation.dmm" // Z1
 	#include "map_files\generic\admin_centcomm.dmm" // Z2
-	#include "map_files\generic\tcommsat.dmm" // Z3
+	#include "map_files\generic\tcommsat-blown.dmm" // Z3
 	#include "map_files\generic\engineering_outpost.dmm" // Z4
 	#include "map_files\generic\mining_asteroid.dmm" // Z5
 	#include "map_files\generic\derelict.dmm" // Z6
