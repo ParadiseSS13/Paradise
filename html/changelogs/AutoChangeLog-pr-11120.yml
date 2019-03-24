@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes some reagent performance edges cases"
+  - bugfix: "Fixes chem smoke lagging under some circumstances"
+  - bugfix: "Fixes smoke not wanting to garbage collect"
