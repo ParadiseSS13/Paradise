@@ -177,6 +177,41 @@
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
+///Vampire "hunger"
+
+/obj/screen/alert/fat/vampire
+	name = "Fat"
+	desc = "You drank too much blood, somehow, lardass. Run around the station and lose some weight."
+	icon_state = "v_fat"
+
+/obj/screen/alert/full/vampire
+	name = "Full"
+	desc = "You feel full and satisfied, but you know you will thirst for more blood soon..."
+	icon_state = "v_full"
+
+/obj/screen/alert/well_fed/vampire
+	name = "Well Fed"
+	desc = "You feel quite satisfied, but you could do with a bit more blood."
+	icon_state = "v_well_fed"
+
+/obj/screen/alert/fed/vampire
+	name = "Fed"
+	desc = "You feel moderately satisfied, but a bit more of blood may not hurt."
+	icon_state = "v_fed"
+
+/obj/screen/alert/hungry/vampire
+	name = "Hungry"
+	desc = "You currently thirst for blood."
+	icon_state = "v_hungry"
+
+/obj/screen/alert/starving/vampire
+	name = "Starving"
+	desc = "You're severely thirsty. The thirst pains make moving around a chore."
+	icon_state = "v_starving"
+
+//End of Vampire "hunger"
+
+
 /obj/screen/alert/hot
 	name = "Too Hot"
 	desc = "You're flaming hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
