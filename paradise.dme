@@ -131,6 +131,7 @@
 #include "code\_onclick\hud\alert.dm"
 #include "code\_onclick\hud\alien.dm"
 #include "code\_onclick\hud\alien_larva.dm"
+#include "code\_onclick\hud\blob_overmind.dm"
 #include "code\_onclick\hud\bot.dm"
 #include "code\_onclick\hud\constructs.dm"
 #include "code\_onclick\hud\devil.dm"

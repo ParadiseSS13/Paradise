@@ -43,7 +43,7 @@
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
-	
+
 	if(!S)
 		if(!B)//We are on a blob
 			to_chat(src, "There is no blob here!")
@@ -59,7 +59,7 @@
 		B.color = blob_reagent_datum.color
 		B.change_to(/obj/structure/blob/shield)
 	else
-	
+
 		if(istype(S, /obj/structure/blob/shield/reflective))
 			to_chat(src, "<span class='warning'>There's already a reflector blob here!</span>")
 			return
@@ -68,12 +68,12 @@
 		else if(S.health < S.maxHealth * 0.5)
 			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
 			return
-	
+
 		else if (!can_buy(15))
 			return
-		
+
 		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")
-		
+
 		S.change_to(/obj/structure/blob/shield/reflective)
 		S.color = blob_reagent_datum.color
 	return
@@ -424,3 +424,22 @@
 		BLO.adjustcolors(blob_reagent_datum.color)
 
 	to_chat(src, "Your reagent is now: <b>[blob_reagent_datum.name]</b>!")
+
+/mob/camera/blob/verb/blob_help()
+	set category = "Blob"
+	set name = "*Blob Help*"
+	set desc = "Help on how to blob."
+	to_chat(src, "<b>As the overmind, you can control the blob!</b>")
+	to_chat(src, "Your blob reagent is: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font>!")
+	to_chat(src, "<b>You can expand, which will attack people, damage objects, or place a Normal Blob if the tile is clear.</b>")
+	to_chat(src, "<i>Normal Blobs</i> will expand your reach and can be upgraded into special blobs that perform certain functions.")
+	to_chat(src, "<b>You can upgrade normal blobs into the following types of blob:</b>")
+	to_chat(src, "<i>Shield Blobs</i> are strong and expensive blobs which take more damage. In additon, they are fireproof and can block air, use these to protect yourself from station fires. Upgrading them again will result in a reflective blob, capable of reflecting most laser projectiles at the cost of the strong blob's extra health.")
+	to_chat(src, "<i>Storage Blobs</i> are storage towers which will store extra resources for you. This increases your max resource cap by 50.")
+	to_chat(src, "<i>Resource Blobs</i> are blobs which produce more resources for you, build as many of these as possible to consume the station. This type of blob must be placed near node blobs or your core to work.")
+	to_chat(src, "<i>Factory Blobs</i> are blobs that spawn blob spores which will attack nearby enemies. This type of blob must be placed near node blobs or your core to work.")
+	to_chat(src, "<i>Blobbernauts</i> can be produced from factories for a cost, and are hard to kill, powerful, but ultimately dumb. The factory used to create one will be destroyed in the process.")
+	to_chat(src, "<i>Node Blobs</i> are blobs which grow, like the core. Like the core it can activate resource and factory blobs.")
+	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
+	to_chat(src, "<b>Shortcuts:</b> CTRL Click = Expand Blob / Middle Mouse Click = Rally Spores / Alt Click = Create Shield")
+	to_chat(src, "Attempting to talk will send a message to all other overminds, allowing you to coordinate with them.")
