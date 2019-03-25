@@ -141,7 +141,7 @@
 						W.adjacent_fire_act(W, radiated_temperature)
 					continue
 				var/turf/simulated/T = get_step(src, direction)
-				if(istype(T) && T.active_hotspot)
+				if(istype(T) && !T.active_hotspot)
 					T.hotspot_expose(radiated_temperature, CELL_VOLUME/4)
 
 	else
