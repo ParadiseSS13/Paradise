@@ -34,7 +34,7 @@
 /obj/item/restraints/handcuffs/proc/cuff(mob/living/carbon/C, mob/user, remove_src = TRUE)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(!H.has_left_hand() || !H.has_right_hand())
+		if(!(H.has_left_hand() || H.has_right_hand()))
 			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
 			return
 
