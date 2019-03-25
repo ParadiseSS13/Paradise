@@ -181,7 +181,7 @@
 
 /obj/screen/alert/fat/vampire
 	name = "Fat"
-	desc = "You drank too much blood, somehow, lardass. Run around the station and lose some weight."
+	desc = "You somehow drank too much blood, lardass. Run around the station and lose some weight."
 	icon_state = "v_fat"
 
 /obj/screen/alert/full/vampire
@@ -196,7 +196,7 @@
 
 /obj/screen/alert/fed/vampire
 	name = "Fed"
-	desc = "You feel moderately satisfied, but a bit more of blood may not hurt."
+	desc = "You feel moderately satisfied, but a bit more blood wouldn't hurt."
 	icon_state = "v_fed"
 
 /obj/screen/alert/hungry/vampire
