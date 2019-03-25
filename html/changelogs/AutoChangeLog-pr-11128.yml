@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes hotspots being slow to ignite turfs around them"
-  - bugfix: "Fixes LINDA not conducting temperature through things."
