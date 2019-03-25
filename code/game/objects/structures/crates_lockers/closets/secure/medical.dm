@@ -13,6 +13,9 @@
 	..()
 	new /obj/item/storage/box/autoinjectors(src)
 	new /obj/item/storage/box/syringes(src)
+	new /obj/item/storage/box/pillbottles(src)
+	new /obj/item/storage/box/patch_packs(src)
+	new /obj/item/storage/box/iv_bags(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
@@ -216,6 +219,8 @@
 	..()
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/pillbottles(src)
+	new /obj/item/storage/box/patch_packs(src)
+	new /obj/item/storage/box/patch_packs(src)
 
 
 /obj/structure/closet/secure_closet/medical_wall

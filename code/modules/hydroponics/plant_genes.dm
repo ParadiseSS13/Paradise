@@ -409,11 +409,8 @@
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
-	S.attach(splat_location)
-	S.set_up(G.reagents, 2, 0, splat_location)
+	S.set_up(G.reagents, splat_location)
 	S.start(smoke_amount)
-	if(G && G.reagents)
-		G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

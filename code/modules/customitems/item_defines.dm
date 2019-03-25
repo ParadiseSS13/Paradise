@@ -1753,3 +1753,24 @@
 	item_state = "kiamask"
 	item_color = "kiamask"
 	species_restricted = list("Vox")
+
+
+
+/obj/item/clothing/gloves/ring/fluff
+	name = "fluff ring"
+	desc = "Someone forgot to set this fluff item's description, notify a coder!"
+	icon = 'icons/obj/custom_items.dmi'
+	fluff_material = TRUE
+
+/obj/item/clothing/gloves/ring/fluff/update_icon()
+	return
+
+/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I as obj, mob/user as mob, params)
+	return
+
+
+
+/obj/item/clothing/gloves/ring/fluff/benjaminfallout	//Benjaminfallout: Pretzel Brassheart
+	name = "Pretzel's Ring"
+	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
+	icon_state = "benjaminfallout_ring"

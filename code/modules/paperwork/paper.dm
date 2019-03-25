@@ -401,7 +401,7 @@
 
 	add_fingerprint(user)
 
-/obj/item/paper/fire_act()
+/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(burn_state >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
 		info = "[stars(info)]"
@@ -711,7 +711,7 @@
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
 			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
-	..()
+	. = ..()
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"

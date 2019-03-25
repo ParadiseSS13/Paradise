@@ -351,6 +351,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	job = list("Research Director")
 
+//Roboticist
+/datum/uplink_item/jobspecific/syndiemmi
+	name = "Syndicate MMI"
+	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	reference = "SMMI"
+	item = /obj/item/mmi/syndie
+	cost = 2
+	job = list("Roboticist")
+	surplus = 0
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -1160,10 +1170,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Prototype Bone Repair Kit"

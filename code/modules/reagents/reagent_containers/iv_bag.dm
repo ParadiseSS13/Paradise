@@ -24,7 +24,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/iv_bag/pickup(mob/user)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/iv_bag/dropped(mob/user)

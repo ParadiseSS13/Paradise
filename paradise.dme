@@ -786,6 +786,7 @@
 #include "code\game\objects\effects\decals\Cleanable\robots.dm"
 #include "code\game\objects\effects\decals\Cleanable\tracks.dm"
 #include "code\game\objects\effects\effect_system\effect_system.dm"
+#include "code\game\objects\effects\effect_system\effects_chem_smoke.dm"
 #include "code\game\objects\effects\effect_system\effects_explosion.dm"
 #include "code\game\objects\effects\effect_system\effects_foam.dm"
 #include "code\game\objects\effects\effect_system\effects_other.dm"

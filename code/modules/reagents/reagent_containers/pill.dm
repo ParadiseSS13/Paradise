@@ -8,7 +8,7 @@
 	icon_state = null
 	item_state = "pill"
 	possible_transfer_amounts = null
-	volume = 50
+	volume = 100
 	consume_sound = null
 	taste = FALSE
 
