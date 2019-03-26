@@ -1138,7 +1138,7 @@
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/chaplain_hood
+	head = /obj/item/clothing/head/hooded/chaplain_hood
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/syndicate
