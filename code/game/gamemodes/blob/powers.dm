@@ -409,7 +409,7 @@
 /mob/camera/blob/verb/chemical_reroll()
 	set category = "Blob"
 	set name = "Reactive Chemical Adaptation (50)"
-	set desc = "Replaces your chemical with a different one"
+	set desc = "Replaces your chemical with a random, different one."
 
 	if(!can_buy(50))
 		return
@@ -417,13 +417,15 @@
 	var/datum/reagent/blob/B = pick((subtypesof(/datum/reagent/blob) - blob_reagent_datum.type))
 	blob_reagent_datum = new B
 
+	color = blob_reagent_datum.complementary_color
+
 	for(var/obj/structure/blob/BL in blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
 	for(var/mob/living/simple_animal/hostile/blob/BLO)
 		BLO.adjustcolors(blob_reagent_datum.color)
 
-	to_chat(src, "Your reagent is now: <b>[blob_reagent_datum.name]</b>!")
+	to_chat(src, "Your reagent is now: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")
 
 /mob/camera/blob/verb/blob_help()
 	set category = "Blob"
@@ -441,5 +443,5 @@
 	to_chat(src, "<i>Storage Blobs</i> are storage towers which will store extra resources for you. This increases your max resource cap by 50.")
 	to_chat(src, "<i>Node Blobs</i> are blobs which grow, like the core. Like the core it can activate resource and factory blobs.")
 	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
-	to_chat(src, "<b>Shortcuts:</b> CTRL Click = Expand Blob / Middle Mouse Click = Rally Spores / Alt Click = Create Shield")
+	to_chat(src, "<b>Shortcuts:</b> CTRL Click = Expand Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Alt Click = Create Shield Blob")
 	to_chat(src, "Attempting to talk will send a message to all other <b>overminds</b>, allowing you to coordinate with them.")

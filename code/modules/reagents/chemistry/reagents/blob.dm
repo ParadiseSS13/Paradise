@@ -14,6 +14,7 @@
 	description = "Deals High Brute damage, as well as Stamina damage."
 	id = "ripping_tendrils"
 	color = "#7F0000"
+	complementary_color = "#a15656"
 	message_living = ", and you feel your skin ripping and tearing off"
 
 /datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -29,6 +30,7 @@
 	description = "Deals High Burn damage, and sets the victim aflame."
 	id = "boiling_oil"
 	color = "#B68D00"
+	complementary_color = "#c0a856"
 	message = "The blob splashes you with burning oil"
 	message_living = ", and you feel your skin char and melt"
 
@@ -45,6 +47,7 @@
 	description = "Deals High Toxin damage, causes Hallucinations, and injects Spores into the bloodstream."
 	id = "envenomed_filaments"
 	color = "#9ACD32"
+	complementary_color = "#b0cd73"
 	message_living = ", and you feel sick and nauseated"
 
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -59,6 +62,7 @@
 	description = "Deals Medium Brute damage, but massive amounts of Respiration Damage."
 	id = "lexorin_jelly"
 	color = "#00FFC5"
+	complementary_color = "#56ebc9"
 	message_living = ", and your lungs feel heavy and weak"
 
 /datum/reagent/blob/lexorin_jelly/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -74,6 +78,7 @@
 	description = "Deals Randomized damage, between 0.33 to 2.33 times the standard amount."
 	id = "kinetic"
 	color = "#FFA500"
+	complementary_color = "#ebb756"
 	message = "The blob pummels you"
 
 /datum/reagent/blob/kinetic/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -87,6 +92,7 @@
 	description = "Deals Medium Brute damage, Stamina Damage, and injects Frost Oil into its victims, freezing them to death."
 	id = "cryogenic_liquid"
 	color = "#8BA6E9"
+	complementary_color = "#a8b7df"
 	message = "The blob splashes you with an icy liquid"
 	message_living = ", and you feel cold and tired"
 
@@ -102,6 +108,7 @@
 	description = "Deals High Brute damage and sucks everyone and everything closer, creating a vortex of death."
 	id = "dark_matter"
 	color = "#61407E"
+	complementary_color = "#8f7ca0"
 	message = "You feel a thrum as the blob strikes you, and everything flies at you"
 
 /datum/reagent/blob/dark_matter/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -116,6 +123,7 @@
 	description = "Deals High Brute damage, and sends people flying away."
 	id = "b_sorium"
 	color = "#808000"
+	complementary_color = "#a2a256"
 	message = "The blob slams into you, and sends you flying"
 
 /datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=TOUCH, volume)
