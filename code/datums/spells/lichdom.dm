@@ -134,7 +134,7 @@
 					H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 					H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)
 
-/mob/living/carbon/human/proc/check_phylactery() //called in life.dm
+/mob/living/proc/check_phylactery() //called in life.dm
 	var/obj/effect/proc_holder/spell/targeted/lichdom/S = locate(/obj/effect/proc_holder/spell/targeted/lichdom) in mind.spell_list
 	if(!S)
 		lich = FALSE
