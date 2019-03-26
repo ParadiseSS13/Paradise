@@ -192,7 +192,7 @@
 		return AIMove(n, direct, mob)
 
 
-	if(Process_Grab())
+	if(!mob.restrained(TRUE) && Process_Grab())
 		return
 
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
@@ -213,7 +213,12 @@
 
 	if(mob.restrained()) // Why being pulled while cuffed prevents you from moving
 		for(var/mob/M in orange(1, mob))
-			if(M.pulling == mob)
+			var/grabbed = FALSE
+			for(var/obj/item/grab/G in mob.grabbed_by)
+				if(G.assailant == M)
+					grabbed = TRUE
+					break
+			if(M.pulling == mob || grabbed)	
 				if(!M.incapacitated() && mob.Adjacent(M))
 					to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
 					move_delay = world.time + 10
