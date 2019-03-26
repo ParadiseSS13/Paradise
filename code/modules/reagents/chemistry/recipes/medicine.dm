@@ -50,7 +50,7 @@
 	required_reagents = list("ash" = 1, "sodiumchloride" = 1)
 	result_amount = 2
 	mix_message = "The mixture yields a fine black powder."
-	min_temp = 380
+	min_temp = T0C + 100
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/chemical_reaction/silver_sulfadiazine
@@ -92,7 +92,7 @@
 	result = "calomel"
 	required_reagents = list("mercury" = 1, "chlorine" = 1)
 	result_amount = 2
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_message = "Stinging vapors rise from the solution."
 
 /datum/chemical_reaction/potass_iodide
@@ -135,7 +135,7 @@
 	result = "perfluorodecalin"
 	required_reagents = list("hydrogen" = 1, "fluorine" = 1, "oil" = 1)
 	result_amount = 3
-	min_temp = 370
+	min_temp = T0C + 100
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -195,7 +195,7 @@
 	result = null
 	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
 	result_amount = 3
-	min_temp = 374
+	min_temp = T0C + 100
 
 /datum/chemical_reaction/life/on_reaction(datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, 1, "Life")
@@ -263,7 +263,7 @@
 	result = "liquid_solder"
 	required_reagents = list("ethanol" = 1, "copper" = 1, "silver" = 1)
 	result_amount = 3
-	min_temp = 370
+	min_temp = T0C + 100
 	mix_message = "The solution gently swirls with a metallic sheen."
 
 /datum/chemical_reaction/corazone

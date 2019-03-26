@@ -23,8 +23,7 @@
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		// Put out fire
-		M.adjust_fire_stacks(-(volume / 10))
-		M.ExtinguishMob()
+		M.adjust_fire_stacks(-(volume * 0.2))
 		if(ishuman(M))
 
 			var/mob/living/carbon/human/H = M

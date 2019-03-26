@@ -47,4 +47,4 @@
 			H.reagents.add_reagent(poison_type, poison_dose)
 			poison_total -= poison_dose
 			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
-	..()
+	return ..()

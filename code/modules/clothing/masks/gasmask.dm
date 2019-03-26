@@ -188,7 +188,7 @@
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		playsound(src.loc, 'sound/misc/hoot.ogg', 50, 1)
+		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
 
 // ********************************************************************

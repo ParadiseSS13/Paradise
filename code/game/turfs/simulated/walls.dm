@@ -201,6 +201,11 @@
 		for(var/i=0, i<number_rots, i++)
 			new /obj/effect/overlay/wall_rot(src)
 
+/turf/simulated/wall/burn_down()
+	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
+		return
+	ChangeTurf(/turf/simulated/floor)
+
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
 	var/wait = 100
 	if(speed)
@@ -282,9 +287,6 @@
 	if(rotting && try_rot(I, user, params))
 		return
 
-	if(thermite && try_thermite(I, user, params))
-		return
-
 	if(try_decon(I, user, params))
 		return
 
@@ -314,20 +316,6 @@
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
-	return FALSE
-
-/turf/simulated/wall/proc/try_thermite(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			thermitemelt(user)
-			return TRUE
-
-	else if(istype(I, /obj/item/gun/energy/plasmacutter))
-		thermitemelt(user)
-		return TRUE
-
-
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)

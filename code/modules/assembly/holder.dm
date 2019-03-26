@@ -121,7 +121,7 @@
 	return
 
 /obj/item/assembly_holder/pickup()
-	..()
+	. = ..()
 	process_movement()
 
 /obj/item/assembly_holder/Bump()

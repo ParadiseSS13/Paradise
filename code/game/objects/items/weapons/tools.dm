@@ -469,7 +469,6 @@
 /obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
 	if(!proximity)
 		return
-
 	if(welding)
 		remove_fuel(1)
 		var/turf/location = get_turf(user)

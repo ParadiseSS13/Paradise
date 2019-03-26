@@ -32,7 +32,7 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/misc/nymphchirp.ogg' //used in emote
+	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
 	speed = 0
 	stop_automated_movement = 0
@@ -109,6 +109,8 @@
 			forceMove(M)
 		else
 			get_scooped(M)
+	else 
+		..()
 
 /mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)
