@@ -66,5 +66,7 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 
 	var/list/status_effects //a list of all status effects the mob has
-	
+
 	var/deathgasp_on_death = FALSE
+
+	var/lich = FALSE

@@ -69,6 +69,7 @@
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
 			lich.set_species(/datum/species/skeleton)
+			lich.lich = TRUE
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
 			charge_max += 600
 			var/mob/old_body = current_body
@@ -123,6 +124,7 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.set_species(/datum/species/skeleton)
+					H.lich = TRUE
 					H.unEquip(H.wear_suit)
 					H.unEquip(H.head)
 					H.unEquip(H.shoes)
@@ -131,3 +133,18 @@
 					H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
 					H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 					H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)
+
+/mob/living/carbon/human/proc/check_phylactery() //called in life.dm
+	var/obj/effect/proc_holder/spell/targeted/lichdom/S = locate(/obj/effect/proc_holder/spell/targeted/lichdom) in mind.spell_list
+	if(!S)
+		lich = FALSE
+		return
+	if(!S.marked_item || QDELETED(S.marked_item))
+		to_chat(src, "<span class='userdanger'>Your phylactery was destroyed. You are now truly dead.</span>")
+		dust()
+		return
+	var/turf/phyl_turf = get_turf(S.marked_item)
+	var/turf/lich_turf = get_turf(src)
+	if(phyl_turf.z != lich_turf.z)
+		S.marked_item.forceMove(lich_turf)
+		to_chat(src,  "<span class='userdanger'>You feel your soul snap back to you, your phylactery appears and drops on the floor under you!</span>")

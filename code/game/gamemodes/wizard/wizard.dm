@@ -193,7 +193,7 @@
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(wizard.current.stat == DEAD && !isskeleton(wizard.current)) //Liches arent dead until they are gibbed or dusted
+		if(wizard.current.stat == DEAD && !wizard.current.lich) //Liches arent dead until they are gibbed dusted or cremated
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
@@ -209,7 +209,7 @@
 			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 			wizard.current.gib() // Let's keep the round moving
 			continue
-		if(!wizard.current.client && !isskeleton(wizard.current))
+		if(!wizard.current.client && !wizard.current.lich) //Liches can leave their body when dead
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
