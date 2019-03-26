@@ -176,7 +176,7 @@
 					var/datum/reagents/R = beaker.reagents
 					var/id = href_list["remove"]
 					R.remove_reagent(id, amount)
-				else if(isnum(amount) && (amount = -1)) //Isolate instead
+				else if(isnum(amount) && (amount == -1)) //Isolate instead
 					var/datum/reagents/R = beaker.reagents
 					var/id = href_list["remove"]
 					R.isolate_reagent(id)
