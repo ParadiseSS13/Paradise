@@ -513,3 +513,12 @@ emp_act
 		return TRUE
 	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return TRUE
+
+/mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
+	if(wear_mask)
+		to_chat(src, "<span class='danger'>Your [wear_mask.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	if(head)
+		to_chat(src, "<span class='danger'>Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	return TRUE

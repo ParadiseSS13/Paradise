@@ -20,7 +20,7 @@
 	var/image/C = new('icons/mob/blob.dmi', "blob_node_overlay")
 	src.overlays += C
 
-/obj/structure/blob/node/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/node/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/structure/blob/node/Destroy()

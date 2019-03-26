@@ -35,22 +35,9 @@
 			if(!reagents.total_volume && !noclear) //scooped up all of it
 				qdel(src)
 				return
-	if(is_hot(W)) //todo: make heating a reagent holder proc
-		if(istype(W, /obj/item/clothing/mask/cigarette))
-			return
-		else
-			src.reagents.chem_temp += 15
-			src.reagents.handle_reactions()
-			to_chat(user, "<span class='notice'>You heat [src] with [W]!</span>")
 
 /obj/effect/decal/cleanable/ex_act()
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			R.on_ex_act()
-	..()
-
-/obj/effect/decal/cleanable/fire_act()
-	if(reagents)
-		reagents.chem_temp += 30
-		reagents.handle_reactions()
 	..()

@@ -45,7 +45,7 @@
 	GLOB.poi_list.Remove(src)
 	return ..()
 
-/obj/structure/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/structure/blob/core/update_icon()

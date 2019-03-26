@@ -721,6 +721,7 @@
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > max_temperature)
 		log_message("Exposed to dangerous temperature.", 1)
 		take_damage(5, "fire")

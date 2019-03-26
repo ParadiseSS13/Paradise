@@ -318,7 +318,7 @@
 			R.add_reagent(chosenchem , 15)
 			investigate_log("Experimentor has released [chosenchem] smoke.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, 1, 0, src, 0, silent = 1)
+			smoke.set_up(R, src, TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -330,7 +330,7 @@
 			R.my_atom = src
 			R.add_reagent(chosenchem , 15)
 			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, 1, 0, src, 0, silent = 1)
+			smoke.set_up(R, src, TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -417,7 +417,7 @@
 			R.add_reagent("frostoil" , 15)
 			investigate_log("Experimentor has released frostoil gas.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, 1, 0, src, 0, silent = 1)
+			smoke.set_up(R, src, TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)

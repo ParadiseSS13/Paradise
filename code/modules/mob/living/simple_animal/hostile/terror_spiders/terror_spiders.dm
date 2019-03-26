@@ -71,6 +71,9 @@ var/global/list/ts_spiderling_list = list()
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
 
+	// Sentience Type
+	sentience_type = SENTIENCE_OTHER
+
 	// Languages are handled in terror_spider/New()
 
 	// Interaction keywords

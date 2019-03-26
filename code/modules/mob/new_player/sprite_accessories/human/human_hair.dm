@@ -684,6 +684,73 @@
 //////END POLARIS HAIRSTYLES///////
 //////////////////////////////////
 
+//////////////////////
+////Ume hairstyles////
+//////////////////////
+
+/datum/sprite_accessory/hair/eighties_ponytail
+	name = "80's ponytail"
+	icon_state = "80_ponytail"
+
+/datum/sprite_accessory/hair/eighties_ponytailalt
+	name = "80's ponytail alt"
+	icon_state = "80_ponytail_alt"
+
+/datum/sprite_accessory/hair/big_bow
+	name = "Big bow"
+	icon_state = "big_bow"
+
+/datum/sprite_accessory/hair/buns
+	name = "Buns"
+	icon_state = "buns"
+
+/datum/sprite_accessory/hair/himecut_long
+	name = "Himecut long"
+	icon_state = "himecut_long"
+
+/datum/sprite_accessory/hair/himecut_long_ponytail
+	name = "Himecut long ponytail"
+	icon_state = "himecut_long_ponytail"
+
+/datum/sprite_accessory/hair/himecut_ponytail
+	name = "Himecut ponytail"
+	icon_state = "himecut_ponytail"
+
+/datum/sprite_accessory/hair/ombre_twintails
+	name = "Ombre twintails"
+	icon_state = "ombre_twintails"
+
+/datum/sprite_accessory/hair/ombre_twintails_alt
+	name = "Ombre twintails alt"
+	icon_state = "ombre_twintails_alt"
+
+/datum/sprite_accessory/hair/sailor
+	name = "Sailor"
+	icon_state = "sailor"
+
+/datum/sprite_accessory/hair/amanita_short
+	name = "Amanita short"
+	icon_state = "amanita_short"
+
+/datum/sprite_accessory/hair/long_curls
+	name = "Long curls"
+	icon_state = "long_curls"
+
+/datum/sprite_accessory/hair/long_curls_alt
+	name = "Long curls alt"
+	icon_state = "long_curls_alt"
+
+/datum/sprite_accessory/hair/long_buns
+	name = "Long buns"
+	icon_state = "long_buns"
+
+/datum/sprite_accessory/hair/low_twins
+	name = "Low twins"
+	icon_state = "low_twins"
+
+///Ume hairs end here///
+
+
 ///Fluff HairStyles//
 /datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
 	name = "Sasook Hair"
