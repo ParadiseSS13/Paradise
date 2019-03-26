@@ -13,10 +13,12 @@
 	var/finished = FALSE
 	var/making_mage = FALSE
 	var/mages_made = 1
+	var/wizard_cap = 0 //calculated either 5 minutes in or first wiz respawn whichever first
 	var/time_checked = 0
 	var/players_per_mage = 25
 	var/list/summoned_items = list() //list of summoned guns/magic, deleted when a new wizard is spawned
 
+	//Ragin mages vars
 	var/multi_wizard_drifting = FALSE
 	var/delay_per_mage = 4200 // Every 7 minutes by default
 	var/time_till_chaos = 18000 // Half-hour in
@@ -61,7 +63,7 @@
 		greet_wizard(wizard)
 		if(use_huds)
 			update_wiz_icons_added(wizard)
-
+		addtimer(CALLBACK(src, .proc/calculate_wiz_cap), 3000) //5 minutes to catch latejoins/early cryos and get a more accurate count of players on station
 	..()
 
 /datum/game_mode/proc/remove_wizard(datum/mind/wizard_mind)
@@ -173,10 +175,13 @@
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return 1
 
+/datum/game_mode/wizard/proc/calculate_wiz_cap()
+	if(wizard_cap)
+		return
+	wizard_cap = num_players_started() / players_per_mage
+
 /datum/game_mode/wizard/check_finished()
 	var/wizards_alive = 0
-	// Accidental pun!
-	var/wizard_cap = num_players_started() / players_per_mage
 
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
@@ -197,23 +202,61 @@
 			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 			wizard.current.gib() // Let's keep the round moving
 			continue
-		if(!wizard.current.client && !wizard.current.lich) //Liches can leave their body when dead
+		if(!wizard.current.client && !wizard.current.lich) //Liches can leave their body when "dead"
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
-	if(wizards_alive && multi_wizard_drifting)
+	if(wizards_alive && multi_wizard_drifting && !making_mage)
 		if(!time_checked)
 			time_checked = world.time
-		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
-			time_checked = world.time
+		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage)
+			if(!wizard_cap)
+				calculate_wiz_cap()
+			if(mages_made < wizard_cap)
+				time_checked = world.time
+				making_mage = TRUE
+				addtimer(CALLBACK(src, .proc/make_more_mages), rand(200, 600))
+	else if(!wizards_alive && !making_mage)
+		if(!wizard_cap)
+			calculate_wiz_cap()
+		if(mages_made < wizard_cap)
+			making_mage = TRUE
 			addtimer(CALLBACK(src, .proc/make_more_mages), rand(200, 600))
-	else if(!wizards_alive)
-		if(wizards.len >= wizard_cap)
+		else
 			finished = TRUE
 			return TRUE
-		else
-			addtimer(CALLBACK(src, .proc/make_more_mages), rand(200, 600))
 	return ..()
+
+/datum/game_mode/wizard/proc/make_more_mages()
+	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		making_mage = FALSE
+		return FALSE
+	var/list/candidates = list()
+	var/mob/dead/observer/harry = null
+	for(var/obj/item/I in summoned_items) //Wipe all summoned items so the new wiz isnt fucked over by a previous one.
+		I.visible_message("<span class='warning'>[I] suddenly disappears!</span>")
+		summoned_items -= I
+		qdel(I)
+	if(multi_wizard_drifting)
+		candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the next ragin mage
+	else
+		candidates = pollCandidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, 1)
+	if(!candidates.len)
+		making_mage = FALSE
+		return FALSE
+	else
+		harry = pick(candidates)
+		if(harry)
+			var/mob/living/carbon/human/new_character = makeBody(harry)
+			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+			mages_made++
+			message_admins("SWF is still pissed, sending another wizard. Wizard number [mages_made] out of [wizard_cap]")
+			making_mage = FALSE
+			return TRUE
+		else
+			log_runtime(EXCEPTION("The candidates list for wizard contained non-observer entries!"), src)
+			making_mage = FALSE
+			return FALSE
 
 // To silence all struggles within the wizard's lair
 /datum/game_mode/wizard/proc/end_squabble(var/area/wizard_station/A)
@@ -243,36 +286,6 @@
 	for(var/obj/item/spellbook/B in A)
 		// No goodies for you
 		qdel(B)
-
-/datum/game_mode/wizard/proc/make_more_mages()
-	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		return FALSE
-	making_mage = TRUE
-	var/list/candidates = list()
-	var/mob/dead/observer/harry = null
-	message_admins("SWF is still pissed, sending another wizard.")
-	for(var/obj/item/I in summoned_items) //Wipe all summoned items so the new wiz isnt fucked over by a previous one.
-		I.visible_message("<span class='warning'>The [I] suddenly disappears!</span>")
-		summoned_items -= I
-		qdel(I)
-	if(multi_wizard_drifting)
-		candidates = get_candidate_ghosts(ROLE_WIZARD) //GOTTA GO FAST dont bother asking ghosts just spawn the next ragin mage
-	else
-		candidates = pollCandidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, 1)
-	if(!candidates.len)
-		making_mage = FALSE
-		return FALSE
-	else
-		harry = pick(candidates)
-		making_mage = 0
-		if(harry)
-			var/mob/living/carbon/human/new_character = makeBody(harry)
-			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
-			mages_made++
-			return TRUE
-		else
-			log_runtime(EXCEPTION("The candidates list for wizard contained non-observer entries!"), src)
-			return FALSE
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
