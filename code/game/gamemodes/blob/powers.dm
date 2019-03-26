@@ -443,5 +443,5 @@
 	to_chat(src, "<i>Storage Blobs</i> are storage towers which will store extra resources for you. This increases your max resource cap by 50.")
 	to_chat(src, "<i>Node Blobs</i> are blobs which grow, like the core. Like the core it can activate resource and factory blobs.")
 	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
-	to_chat(src, "<b>Shortcuts:</b> CTRL Click = Expand Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Alt Click = Create Shield Blob")
+	to_chat(src, "<b>Shortcuts:</b> Click = Expand Blob <b>|</b> CTRL Click = Create Shield Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Alt Click = Remove Blob")
 	to_chat(src, "Attempting to talk will send a message to all other <b>overminds</b>, allowing you to coordinate with them.")
