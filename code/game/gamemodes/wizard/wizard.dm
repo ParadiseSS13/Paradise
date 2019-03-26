@@ -181,16 +181,10 @@
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
-		if(!istype(wizard.current, /mob/living/carbon))
+		if(!istype(wizard.current, /mob/living/carbon/human))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
-				end_squabble(get_area(wizard.current))
-			continue
-		if(istype(wizard.current, /mob/living/carbon/brain))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
+				message_admins("[wizard.current] was transformed/killed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat == DEAD && !wizard.current.lich) //Liches arent dead until they are gibbed dusted or cremated
@@ -199,12 +193,6 @@
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(wizard.current.stat == UNCONSCIOUS)
-			if(wizard.current.health < 0)
-				if(istype(get_area(wizard.current), /area/wizard_station))
-					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
-					end_squabble(get_area(wizard.current))
 		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
 			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 			wizard.current.gib() // Let's keep the round moving

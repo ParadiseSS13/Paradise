@@ -3,8 +3,6 @@
 
 	voice = GetVoice()
 
-	if(lich)
-		check_phylactery() //lichdom.dm
 	if(..())
 
 		if(check_mutations)

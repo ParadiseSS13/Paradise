@@ -51,6 +51,8 @@
 	if(get_nations_mode())
 		process_nations()
 
+	if(lich)
+		check_phylactery() //lichdom.dm
 	..()
 
 /mob/living/proc/handle_breathing(times_fired)
