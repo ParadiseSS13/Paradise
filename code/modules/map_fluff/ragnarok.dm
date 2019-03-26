@@ -3,7 +3,7 @@
 	full_name = "NSS Ragnarok"
 
 	station_name  = "NSS Ragnarok"
-	station_short = "Ragnmarok"
+	station_short = "Ragnarok"
 	dock_name     = "NAS Odin"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
