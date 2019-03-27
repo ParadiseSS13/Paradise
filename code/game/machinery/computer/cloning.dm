@@ -36,12 +36,25 @@
 
 	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
-
+	
+	if(!length(records))
+		return
+	var/list/toClone = records.Copy()
+	var/datum/dna2/record/lastEntry = toClone[length(toClone)] // Most recently added record
+	// Prevent double cloning
+	for(var/obj/machinery/clonepod/pod in pods)
+		if(pod.occupant)
+			for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
+				if(hook.soulowner.ckey == lastEntry.ckey)
+					toClone.Remove(lastEntry) // Fucker is getting cloned. No two bodies greedy shit
+					break
+	
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
-			for(var/datum/dna2/record/R in src.records)
+			for(var/datum/dna2/record/R in toClone)
 				if(!(pod.occupant || pod.mess))
 					if(pod.growclone(R))
+						toClone.Remove(R)
 						records.Remove(R)
 
 /obj/machinery/computer/cloning/proc/updatemodules()
