@@ -479,6 +479,10 @@
 		var/mob/living/M = G.affecting
 		time_till_despawn = initial(time_till_despawn)
 
+		if(ismachine(M))
+			to_chat(user, "<span class='notice'>IPCs cannot be put into cryo.</span>")
+			return
+
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
 			return
@@ -547,7 +551,9 @@
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
-
+	if(ismachine(L))
+		to_chat(user, "<span class='notice'>IPCs cannot be put into cryo.</span>")
+		return
 	if(L.stat == DEAD)
 		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
 		return
