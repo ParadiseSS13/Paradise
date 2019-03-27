@@ -140,7 +140,9 @@
 			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
 		else
 			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
-
+	for(var/mob/living/carbon/M in orange(10,targloc))
+		if(istajaran(M) || isfarwa(M))
+			step_to(M, targloc)
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/list/showto = list()
