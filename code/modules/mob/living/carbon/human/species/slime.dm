@@ -33,7 +33,7 @@
 	reagent_tag = PROCESS_ORG
 
 	blood_color = "#0064C8"
-	exotic_blood = "water"
+	exotic_blood = "lube"
 	blood_damage_type = TOX
 
 	butt_sprite = "slime"
@@ -83,7 +83,7 @@
 			H.update_body()
 	..()
 
-/datum/species/slime/can_hear() // fucking snowflakes 
+/datum/species/slime/can_hear() // fucking snowflakes
 	. = TRUE
 
 /datum/action/innate/slimecolor

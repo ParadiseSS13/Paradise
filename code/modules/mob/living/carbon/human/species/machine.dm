@@ -31,7 +31,7 @@
 	flesh_color = "#AAAAAA"
 
 	blood_color = "#3C3C3C"
-	exotic_blood = "oil"
+	exotic_blood = "beer"
 	blood_damage_type = STAMINA
 
 	//Default styles for created mobs.
