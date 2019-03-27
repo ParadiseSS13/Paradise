@@ -182,7 +182,7 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
 
-	var/list/candidates = pollCandidates("Do you want to play as a Morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
+	var/list/candidates = pollCandidates("Do you want to play as a morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
