@@ -62,12 +62,16 @@
 
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in traitors)
-		forge_traitor_objectives(traitor)
 		update_traitor_icons_added(traitor)
 		spawn(rand(10,100))
 			finalize_traitor(traitor)
 			greet_traitor(traitor)
 	modePlayer += traitors
+	..()
+
+//Used by to give objectives with a delay from the start
+/datum/game_mode/traitor/delayed_objectives(var/datum/mind/antag)
+	forge_traitor_objectives(antag)
 	..()
 
 /datum/game_mode/proc/forge_traitor_objectives(datum/mind/traitor)
@@ -179,12 +183,7 @@
 	else
 		SEND_SOUND(traitor.current, 'sound/ambience/antag/tatoralert.ogg')
 	to_chat(traitor.current, "<B><font size=3 color=red>You are the traitor.</font></B>")
-	var/obj_count = 1
-	for(var/datum/objective/objective in traitor.objectives)
-		to_chat(traitor.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	return
-
+	to_chat(traitor.current, "<B>The Syndicate will contact you within 10 minutes to give you your objectives. Lay low till then.</B>")
 
 /datum/game_mode/proc/finalize_traitor(var/datum/mind/traitor)
 	if(istype(traitor.current, /mob/living/silicon))
@@ -412,12 +411,6 @@
 	//Spawn and equip documents
 	var/mob/living/carbon/human/mob = owner.current
 
-	var/obj/item/folder/syndicate/folder
-	if(owner == exchange_red)
-		folder = new/obj/item/folder/syndicate/red(mob.locs)
-	else
-		folder = new/obj/item/folder/syndicate/blue(mob.locs)
-
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
@@ -425,10 +418,16 @@
 		"left hand" = slot_l_hand,
 		"right hand" = slot_r_hand,
 	)
-
-	var/where = "At your feet"
-	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
-	if(equipped_slot)
-		where = "In your [equipped_slot]"
-	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
-	mob.update_icons()
+	to_chat(mob, "<span class='warning'>You've been tasked of keeping hold of a folder containing <b>secret documents</b>. A nearby syndicate operative will teleport the documents into your backback in about 10 seconds. Make sure there is room.</span><BR>")
+	spawn(100)
+		var/obj/item/folder/syndicate/folder
+		if(owner == exchange_red)
+			folder = new/obj/item/folder/syndicate/red(mob.locs)
+		else
+			folder = new/obj/item/folder/syndicate/blue(mob.locs)
+		var/where = "At your feet"
+		var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
+		if(equipped_slot)
+			where = "In your [equipped_slot]"
+		to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
+		mob.update_icons()

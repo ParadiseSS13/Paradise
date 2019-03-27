@@ -67,9 +67,13 @@
 /datum/game_mode/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
 		grant_vampire_powers(vampire.current)
-		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
 		update_vampire_icons_added(vampire)
+	..()
+
+//Used by to give objectives with a delay from the start
+/datum/game_mode/vampire/delayed_objectives(var/datum/mind/antag)
+	forge_vampire_objectives(antag)
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
@@ -180,7 +184,7 @@
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(vampire.current, dat)
-	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
+	to_chat(vampire.current, "<B>The Syndicate will contact you within 10 minutes to give you your objectives. Lay low till then.</B>")
 
 	if(vampire.current.mind)
 		if(vampire.current.mind.assigned_role == "Clown")
@@ -188,11 +192,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			vampire.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(vampire.current)
-	var/obj_count = 1
-	for(var/datum/objective/objective in vampire.objectives)
-		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	return
 
 /datum/vampire
 	var/bloodtotal = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS

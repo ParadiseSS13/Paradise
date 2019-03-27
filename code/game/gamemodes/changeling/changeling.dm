@@ -65,10 +65,14 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		grant_changeling_powers(changeling.current)
-		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
 		update_change_icons_added(changeling)
 
+	..()
+
+//Used by to give objectives with a delay from the start
+/datum/game_mode/changeling/delayed_objectives(var/datum/mind/antag)
+	forge_changeling_objectives(antag)
 	..()
 
 /datum/game_mode/proc/forge_changeling_objectives(datum/mind/changeling)
@@ -142,11 +146,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changeling.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(changeling.current)
-	var/obj_count = 1
-	for(var/datum/objective/objective in changeling.objectives)
-		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	return
+	to_chat(changeling.current, "<B>The hivemind will contact you within 10 minutes to give you your objectives. Lay low till then.</B>")
 
 /datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
 	if(changeling_mind in changelings)

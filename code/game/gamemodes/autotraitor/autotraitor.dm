@@ -56,8 +56,6 @@
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
-//	if(!traitors.len)
-//		return 0
 	return 1
 
 
@@ -86,25 +84,7 @@
 				if(ishuman(player) || isrobot(player) || isAI(player))
 					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 						possible_traitors += player.mind
-		for(var/datum/mind/player in possible_traitors)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					possible_traitors -= player
-			if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
-				continue
-			var/mob/living/carbon/human/H = player.current
-			for(var/obj/item/implant/mindshield/I in H.contents)
-				if(I && I.implanted)
-					possible_traitors -= player
 
-		//message_admins("Live Players: [playercount]")
-		//message_admins("Live Traitors: [traitorcount]")
-//		message_admins("Potential Traitors:")
-//		for(var/mob/living/traitorlist in possible_traitors)
-//			message_admins("[traitorlist.real_name]")
-
-//		var/r = rand(5)
-//		var/target_traitors = 1
 		var/max_traitors = 1
 		var/traitor_prob = 0
 		max_traitors = round(playercount / 10) + 1
@@ -114,10 +94,18 @@
 
 
 		if(traitorcount < max_traitors)
-			//message_admins("Number of Traitors is below maximum.  Rolling for new Traitor.")
-			//message_admins("The probability of a new traitor is [traitor_prob]%")
 
 			if(prob(traitor_prob))
+				for(var/datum/mind/player in possible_traitors)
+					for(var/job in restricted_jobs)
+						if(player.assigned_role == job)
+							possible_traitors -= player
+					if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
+						continue
+					var/mob/living/carbon/human/H = player.current
+					for(var/obj/item/implant/mindshield/I in H.contents)
+						if(I && I.implanted)
+							possible_traitors -= player
 				message_admins("Making a new Traitor.")
 				if(!possible_traitors.len)
 					message_admins("No potential traitors.  Cancelling new traitor.")
@@ -142,15 +130,7 @@
 				tatorhud.join_hud(newtraitor)
 				set_antag_hud(newtraitor, "hudsyndicate")
 
-				var/obj_count = 1
-				to_chat(newtraitor, "<span class='notice'>Your current objectives:</span>")
-				for(var/datum/objective/objective in newtraitor.mind.objectives)
-					to_chat(newtraitor, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-					obj_count++
-			//else
-				//message_admins("No new traitor being added.")
-		//else
-			//message_admins("Number of Traitors is at maximum.  Not making a new Traitor.")
+				show_objectives(newtraitor)
 
 		traitorcheckloop()
 

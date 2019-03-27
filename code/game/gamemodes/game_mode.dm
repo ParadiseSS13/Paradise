@@ -70,6 +70,8 @@
 ///post_setup()
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
 /datum/game_mode/proc/post_setup()
+	for(var/datum/mind/traitor in traitors + changelings + vampires)
+		addtimer(CALLBACK(src, .proc/delayed_objectives, traitor), rand(3000, 6000)) // 5-10 minutes callback
 
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
@@ -85,6 +87,12 @@
 	start_state = new /datum/station_state()
 	start_state.count()
 	return 1
+
+//Used by to give objectives with a delay from the start
+/datum/game_mode/proc/delayed_objectives(var/datum/mind/antag)
+	to_chat(antag.current, "<span class='warning'>You've received new objectives.</span>")
+	show_objectives(antag)
+	return
 
 ///process()
 ///Called by the gameticker
