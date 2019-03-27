@@ -73,6 +73,9 @@
 /mob/living/carbon/human/tajaran/Initialize(mapload)
 	..(mapload, /datum/species/tajaran)
 
+/mob/living/carbon/human/vulpkanin
+	name += "McCloud"
+
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
 	..(mapload, /datum/species/vulpkanin)
 
