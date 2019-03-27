@@ -27,6 +27,8 @@
 		name = real_name
 		if(mind)
 			mind.name = real_name
+	if(isvulpkanin(src))
+		real_name += "McCloud"
 
 	create_reagents(330)
 
@@ -72,9 +74,6 @@
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
 	..(mapload, /datum/species/tajaran)
-
-/mob/living/carbon/human/vulpkanin
-	name += "McCloud"
 
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
 	..(mapload, /datum/species/vulpkanin)

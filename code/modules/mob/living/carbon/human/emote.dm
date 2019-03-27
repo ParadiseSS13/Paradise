@@ -802,7 +802,9 @@
 						playsound(loc, "[dna.species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
 					else
 						playsound(loc, "[dna.species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
-
+					if(isvox(M))
+						for(var/mob/living/C in hearers(7, M))
+							C.BecomeDeaf()
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
 					m_type = 2
