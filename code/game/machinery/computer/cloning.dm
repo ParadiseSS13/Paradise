@@ -44,10 +44,14 @@
 	// Prevent double cloning
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(pod.occupant)
-			for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
-				if(hook.soulowner.ckey == lastEntry.ckey)
-					toClone.Remove(lastEntry) // Fucker is getting cloned. No two bodies greedy shit
-					break
+			if(pod.occupant.ckey == null) // Uses soulhooks
+				for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
+					if(hook.soulowner.ckey == lastEntry.ckey)
+						toClone.Remove(lastEntry) // Guy is getting cloned so remove the entry
+						break
+			else if(pod.occupant.ckey == lastEntry.ckey) // Directly put in body
+				toClone.Remove(lastEntry) // Guy is getting cloned so remove the entry
+				break
 	
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
