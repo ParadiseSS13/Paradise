@@ -29,6 +29,7 @@
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
+	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
 /obj/New()
 	..()
@@ -75,6 +76,16 @@
 	set waitfor = 0
 	processing_objects.Remove(src)
 	return 0
+
+//user: The mob that is suiciding
+//damagetype: The type of damage the item will inflict on the user
+//BRUTELOSS = 1
+//FIRELOSS = 2
+//TOXLOSS = 4
+//OXYLOSS = 8
+//Output a creative message and then return the damagetype done
+/obj/proc/suicide_act(mob/user)
+	return FALSE
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)

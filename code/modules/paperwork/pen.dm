@@ -26,7 +26,7 @@
 
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/pen/blue
 	name = "blue-ink pen"
