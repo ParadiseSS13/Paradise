@@ -246,17 +246,18 @@
 	set hidden = 1
 	if(InCritical())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		adjustOxyLoss(health - config.health_threshold_dead)
+		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
 		for(var/i = 1 to 5)
-			if(health < config.health_threshold_dead)
+			if(health < HEALTH_THRESHOLD_DEAD)
 				break
-			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
+			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 /mob/living/proc/InCritical()
-	return (health < 0 && health > -95.0 && stat == UNCONSCIOUS)
+	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 /mob/living/ex_act(severity)
 	..()
@@ -462,7 +463,6 @@
 			human_mob = src
 			human_mob.set_heartattack(FALSE)
 			human_mob.restore_blood()
-			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
 

@@ -7,6 +7,7 @@
 	//language = "Clatter"
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG

@@ -11,9 +11,8 @@
 	flesh_color = "#E6E6C6"
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
-
-	oxy_mod = 0
 
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG

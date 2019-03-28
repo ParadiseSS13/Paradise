@@ -313,7 +313,7 @@
 
 /obj/item/twohanded/shockpaddles/attack(mob/M, mob/user)
 	var/tobehealed
-	var/threshold = -config.health_threshold_dead
+	var/threshold = -HEALTH_THRESHOLD_DEAD
 	var/mob/living/carbon/human/H = M
 
 	if(busy)
@@ -472,7 +472,7 @@
 
 /obj/item/borg_defib/attack(mob/M, mob/user)
 	var/tobehealed
-	var/threshold = -config.health_threshold_dead
+	var/threshold = -HEALTH_THRESHOLD_DEAD
 	var/mob/living/carbon/human/H = M
 
 	if(busy)

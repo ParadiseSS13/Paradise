@@ -160,6 +160,7 @@
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()
 	if(!ishuman(owner))
 		return
+
 	if(!(status & ORGAN_DEAD) && !attempted_restart && !beating)
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(20) && emagged)
@@ -172,6 +173,28 @@
 			Restart()
 			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
 			addtimer(CALLBACK(src, .proc/recharge), 300)
+		else
+			attempted_restart = TRUE
+			if(emagged)
+				addtimer(CALLBACK(src, .proc/recharge), 200)
+			else
+				addtimer(CALLBACK(src, .proc/recharge), 300)
+			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+
+	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
+		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
+		if(prob(40) && emagged)
+			attempted_restart = TRUE
+			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
+				HF.cure()
+			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, .proc/recharge), 200)
+		else if(prob(25))
+			attempted_restart = TRUE
+			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
+				HF.cure()
+			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, .proc/recharge), 200)
 		else
 			attempted_restart = TRUE
 			if(emagged)
@@ -230,7 +253,7 @@
 			owner.adjustFireLoss(numHigh)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			Stop()
+			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 		if(prob(numMid))
 			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
 			Stop()
@@ -246,4 +269,4 @@
 			owner.adjustFireLoss(numMid)
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			Stop()
+			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
