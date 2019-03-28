@@ -177,7 +177,9 @@
 		var/obj/structure/closet/crate/O = target
 		if(O.opened)
 			return
-		if(use(3))
+		if(amount >= 3 && do_after_once(src, 15, target = target))
+			if(O.opened || !use(3))
+				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.icon_state = "deliverycrate"
 			P.wrapped = O
@@ -189,7 +191,9 @@
 		var/obj/structure/closet/O = target
 		if(O.opened)
 			return
-		if(use(3))
+		if(amount >= 3 && do_after_once(src, 15, target = target))
+			if(O.opened || !use(3))
+				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.wrapped = O
 			P.init_welded = O.welded
