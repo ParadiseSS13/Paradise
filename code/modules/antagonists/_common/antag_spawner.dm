@@ -161,7 +161,7 @@
 
 /obj/item/antag_spawner/morph
 	name = "vial of ooze"
-	desc = "A magically infused bottle of ooze, distilled by methods rather not be spoken of."
+	desc = "A magically infused bottle of ooze, distilled by methods rather not be spoken of. Used to awaken an all-consuming monstrosity."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialooze"
 	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
@@ -210,7 +210,6 @@
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
-	M.mind.objectives += KillDaCrew
 	M.mind.objectives += KillDaCrew
 	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
