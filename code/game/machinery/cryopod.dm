@@ -205,7 +205,7 @@
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
 	// 15 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
+	var/time_till_despawn = 3000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/radio/intercom/announce
