@@ -14,11 +14,11 @@ z7 = empty
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\Ragnarok\ragnarok.dmm"
-	#include "map_files\Ragnarok\z2.dmm"
+	#include "map_files\cyberiad\z2.dmm"
 	#include "map_files\cyberiad\z3.dmm"
 	#include "map_files\cyberiad\z4.dmm"
 	#include "map_files\generic\z5.dmm"
-	#include "map_files\Ragnarok\z6.dmm"
+	#include "map_files\cyberiad\z6.dmm"
 	#include "map_files\generic\z7.dmm"
 
 	#define MAP_FILE "ragnarok.dmm"
