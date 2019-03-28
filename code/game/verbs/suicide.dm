@@ -55,8 +55,6 @@
 	be_suicidal()
 
 /mob/living/carbon/human/proc/be_suicidal(forced = FALSE)
-	set hidden = 1
-
 	if(stat == DEAD)
 		to_chat(src, "You're already dead!")
 		return

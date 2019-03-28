@@ -83,6 +83,9 @@
 //FIRELOSS = 2
 //TOXLOSS = 4
 //OXYLOSS = 8
+//SHAME = 16
+//OBLITERATION = 32
+
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
 	return FALSE

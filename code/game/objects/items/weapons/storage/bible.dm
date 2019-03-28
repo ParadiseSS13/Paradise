@@ -10,7 +10,7 @@
 	var/deity_name = "Christ"
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to trascend understanding of the universe!</b></span>")
+	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to transcend understanding of the universe!</b></span>")
 	user.dust()
 	return OBLITERATION
 
