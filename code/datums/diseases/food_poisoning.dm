@@ -16,6 +16,7 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/food_poisoning/stage_act()
+	..()
 	if(affected_mob.sleeping && prob(33))
 		to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 		cure()
