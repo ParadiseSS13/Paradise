@@ -323,6 +323,12 @@ PLAYER_REROUTE_CAP 0
 ## Disable the loading of space ruins
 #DISABLE_SPACE_RUINS
 
+## Minimum number of space ruins levels to generate
+EXTRA_SPACE_RUIN_LEVELS_MIN 2
+
+## Maximum number of space ruins levels to generate
+EXTRA_SPACE_RUIN_LEVELS_MAX 4
+
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC
 
