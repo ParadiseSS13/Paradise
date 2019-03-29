@@ -77,7 +77,7 @@
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
 			if(SEC_LEVEL_GAMMA)
-				security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!", new_sound = '/sound/effects/siren-spooky.ogg/)
+				security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!", new_sound = sound('sound/effects/siren-spooky.ogg'))
 				security_level = SEC_LEVEL_GAMMA
 
 				move_gamma_ship()
@@ -102,7 +102,7 @@
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!", new_sound = '/sound/effects/purge_siren.ogg')
+				security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!", new_sound = sound('sound/effects/purge_siren.ogg'))
 				security_level = SEC_LEVEL_EPSILON
 
 				post_status("alert", "epsilonalert")
