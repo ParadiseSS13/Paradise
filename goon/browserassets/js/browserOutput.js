@@ -962,10 +962,6 @@ $(function() {
 	});
 
 	$('#highlightTerm').click(function(e) {
-		if(!($().mark)) {
-			internalOutput('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
-			return;
-		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
