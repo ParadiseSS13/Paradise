@@ -1,0 +1,4 @@
+author: "ingles98"
+delete-after: True
+changes: 
+  - bugfix: "Plasma Golems will now report their suicide acts to the Admins."
