@@ -257,7 +257,7 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 1 * REAGENTS_METABOLISM
+	nutriment_factor = 0
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
