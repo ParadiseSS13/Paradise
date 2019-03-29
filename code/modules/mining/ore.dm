@@ -48,7 +48,7 @@
 			if(istype(thing, /obj/item/storage/bag/ore))
 				OB = thing
 				break
-	if(OB && istype(F, /turf/simulated/floor/plating/airless/asteroid))
+	if(OB && istype(F, /turf/simulated/floor/plating/asteroid/airless))
 		F.attackby(OB, AM)
 	return ..()
 

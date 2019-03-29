@@ -140,6 +140,7 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
 	var/pre_attack = 0
+	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/asteroid/goliath_hide{layer = 4.1})
 
 /mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
@@ -151,7 +152,7 @@
 		pre_attack++
 	if(!pre_attack || stat || AIStatus == AI_IDLE)
 		return
-	icon_state = "Goliath_preattack"
+	icon_state = pre_attack_icon
 
 /mob/living/simple_animal/hostile/asteroid/goliath/revive()
 	move_force = MOVE_FORCE_VERY_STRONG
@@ -181,7 +182,7 @@
 		icon_state = icon_aggro
 	return
 
-/obj/effect/goliath_tentacle/
+/obj/effect/goliath_tentacle
 	name = "Goliath tentacle"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "Goliath_tentacle"
@@ -266,3 +267,261 @@
 			else
 				to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 				return
+
+/////////////////////Lavaland
+
+//Watcher
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	name = "watcher"
+	desc = "A levitating, eye-like creature held aloft by winglike formations of sinew. A sharp spine of crystal protrudes from its body."
+	icon = 'icons/mob/lavaland/watcher.dmi'
+	icon_state = "watcher"
+	icon_living = "watcher"
+	icon_aggro = "watcher"
+	icon_dead = "watcher_dead"
+	pixel_x = -10
+	throw_message = "bounces harmlessly off of"
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	attacktext = "impales"
+	a_intent = INTENT_HARM
+	speak_emote = list("telepathically cries")
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	stat_attack = 1
+	flying = TRUE
+	robust_searching = 1
+	loot = list()
+	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
+
+//Goliath
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast
+	name = "goliath"
+	desc = "A hulking, armor-plated beast with long tendrils arching from its back."
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "goliath"
+	icon_living = "goliath"
+	icon_aggro = "goliath"
+	icon_dead = "goliath_dead"
+	throw_message = "does nothing to the tough hide of the"
+	pre_attack_icon = "goliath2"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
+	loot = list()
+	stat_attack = 1
+	robust_searching = 1
+
+//Gutlunches
+
+/obj/item/udder/gutlunch
+	name = "nutrient sac"
+
+/obj/item/udder/gutlunch/New()
+	reagents = new(50)
+	reagents.my_atom = src
+
+/obj/item/udder/gutlunch/generateMilk()
+	if(prob(60))
+		reagents.add_reagent("cream", rand(2, 5))
+	if(prob(45))
+		reagents.add_reagent("salglu_solution", rand(2,5))
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch
+	name = "gutlunch"
+	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, nutritious milk."
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "gutlunch"
+	icon_living = "gutlunch"
+	icon_dead = "gutlunch"
+	speak_emote = list("warbles", "quavers")
+	emote_hear = list("trills.")
+	emote_see = list("sniffs.", "burps.")
+	weather_immunities = list("lava","ash")
+	faction = list("mining", "ashwalker")
+	density = 0
+	speak_chance = 1
+	turns_per_move = 8
+	obj_damage = 0
+	environment_smash = 0
+	move_to_delay = 15
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "squishes"
+	friendly = "pinches"
+	a_intent = INTENT_HELP
+	ventcrawler = 2
+	gold_core_spawnable = 2
+	stat_attack = 1
+	gender = NEUTER
+	stop_automated_movement = FALSE
+	stop_automated_movement_when_pulled = TRUE
+	stat_exclusive = TRUE
+	robust_searching = TRUE
+	search_objects = TRUE
+	del_on_death = TRUE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
+	deathmessage = "is pulped into bugmash."
+
+	simplespecies = /mob/living/simple_animal/hostile/asteroid/gutlunch
+	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck = 45, /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen = 55)
+
+	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs)
+	var/obj/item/udder/gutlunch/udder = null
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/New()
+	udder = new()
+	..()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
+	qdel(udder)
+	udder = null
+	return ..()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
+	cut_overlays()
+	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
+		add_overlay("gl_full")
+	..()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/attackby(obj/item/O, mob/user, params)
+	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
+		udder.milkAnimal(O, user)
+		regenerate_icons()
+	else
+		..()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
+	if(is_type_in_typecache(target, wanted_objects)) //we eats
+		udder.generateMilk()
+		regenerate_icons()
+		visible_message("<span class='notice'>[src] slurps up [target].</span>")
+		qdel(target)
+	..()
+
+/obj/item/udder/gutlunch
+	name = "nutrient sac"
+
+/obj/item/udder/gutlunch/New()
+	reagents = new(50)
+	reagents.my_atom = src
+
+/obj/item/udder/gutlunch/generateMilk()
+	if(prob(60))
+		reagents.add_reagent("cream", rand(2, 5))
+	if(prob(45))
+		reagents.add_reagent("salglu_solution", rand(2,5))
+
+
+//Male gutlunch. They're smaller and more colorful!
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+	name = "gubbuck"
+	gender = MALE
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/New()
+	..()
+	add_atom_colour(pick("#E39FBB", "#D97D64", "#CF8C4A"), FIXED_COLOUR_PRIORITY)
+	resize = 0.85
+	update_transform()
+
+//Lady gutlunch. They make the babby.
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen
+	name = "guthen"
+	gender = FEMALE
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
+	..()
+	if(udder.reagents.total_volume == udder.reagents.maximum_volume) //Only breed when we're full.
+		make_babies()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()
+	. = ..()
+	if(.)
+		udder.reagents.clear_reagents()
+		regenerate_icons()
+
+//Nests
+/mob/living/simple_animal/hostile/spawner/lavaland
+	name = "necropolis tendril"
+	desc = "A vile tendril of corruption, originating deep underground. Terrible monsters are pouring out of it."
+	icon = 'icons/mob/nest.dmi'
+	icon_state = "tendril"
+	icon_living = "tendril"
+	icon_dead = "tendril"
+	faction = list("mining")
+	weather_immunities = list("lava","ash")
+	luminosity = 1
+	health = 250
+	maxHealth = 250
+	max_mobs = 3
+	spawn_time = 300 //30 seconds default
+	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	spawn_text = "emerges from"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = INFINITY
+	loot = list(/obj/effect/collapse, /obj/structure/closet/crate/necropolis/tendril)
+	del_on_death = 1
+	var/gps = null
+
+/mob/living/simple_animal/hostile/spawner/lavaland/New()
+	..()
+	//for(var/F in RANGE_TURFS(1, src)) TODO: Uncomment
+		//if(ismineralturf(F))
+			//var/turf/simulated/mineral/M = F 
+			//M.ChangeTurf(M.turf_type, FALSE, TRUE)
+	gps = new /obj/item/gps/internal(src)
+
+/mob/living/simple_animal/hostile/spawner/lavaland/Destroy()
+	qdel(gps)
+	. = ..()
+
+#define MEDAL_PREFIX "Tendril"
+/mob/living/simple_animal/hostile/spawner/lavaland/death()
+	var/last_tendril = TRUE
+	for(var/mob/living/simple_animal/hostile/spawner/lavaland/other in GLOB.mob_list)
+		if(other != src)
+			last_tendril = FALSE
+			break
+	if(last_tendril && !admin_spawned)
+		if(global.medal_hub && global.medal_pass && global.medals_enabled)
+			for(var/mob/living/L in view(7,src))
+				if(L.stat)
+					continue
+				if(L.client)
+					var/client/C = L.client
+					var/suffixm = ALL_KILL_MEDAL
+					var/prefix = MEDAL_PREFIX
+					UnlockMedal("[prefix] [suffixm]",C)
+					SetScore(TENDRIL_CLEAR_SCORE,C,1)
+	..()
+#undef MEDAL_PREFIX
+
+/obj/effect/collapse
+	name = "collapsing necropolis tendril"
+	desc = "Get clear!"
+	luminosity = 1
+	layer = ABOVE_OPEN_TURF_LAYER
+	icon = 'icons/mob/nest.dmi'
+	icon_state = "tendril"
+	anchored = TRUE
+
+/obj/effect/collapse/New()
+	..()
+	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
+	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
+	playsound(get_turf(src),'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
+	spawn(50)
+		for(var/mob/M in range(7,src))
+			shake_camera(M, 15, 1)
+		playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, 1)
+		visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
+		for(var/turf/T in range(2,src))
+			if(!T.density)
+				T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
+		qdel(src)
+
+/mob/living/simple_animal/hostile/spawner/lavaland/goliath
+	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+
+/mob/living/simple_animal/hostile/spawner/lavaland/legion
+	mob_type = /mob/living/simple_animal/hostile/asteroid/hivelord/legion

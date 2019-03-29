@@ -81,11 +81,11 @@
 /turf/simulated/mineral,
 /area/ruin/unpowered)
 "ai" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aj" = (
 /obj/structure/flora/rock,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ak" = (
 /obj/structure/grille,
@@ -123,7 +123,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub{
 	will_burrow = 0
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aq" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -131,11 +131,11 @@
 /area/ruin/unpowered)
 "ar" = (
 /obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "as" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "at" = (
 /turf/simulated/wall/r_wall,
@@ -152,7 +152,7 @@
 "aw" = (
 /obj/structure/flora/rock,
 /obj/machinery/light,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ax" = (
 /obj/structure/table/reinforced,

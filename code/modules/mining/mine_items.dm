@@ -81,7 +81,6 @@
 	item_state = "pickaxe"
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
-	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=2;engineering=3"
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
@@ -98,7 +97,6 @@
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
-	digspeed = 30 //mines faster than a normal pickaxe, bought from mining vendor
 	origin_tech = "materials=3;engineering=4"
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	toolspeed = 0.75
@@ -107,7 +105,6 @@
 	name = "golden pickaxe"
 	icon_state = "gpickaxe"
 	item_state = "gpickaxe"
-	digspeed = 20
 	origin_tech = "materials=4;engineering=4"
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
 	toolspeed = 0.6
@@ -116,7 +113,6 @@
 	name = "diamond-tipped pickaxe"
 	icon_state = "dpickaxe"
 	item_state = "dpickaxe"
-	digspeed = 20 //mines twice as fast as a normal pickaxe, bought from mining vendor
 	origin_tech = "materials=5;engineering=4"
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	toolspeed = 0.5
@@ -125,7 +121,6 @@
 	name = "mining drill"
 	icon_state = "handdrill"
 	item_state = "jackhammer"
-	digspeed = 25 //available from roundstart, faster than a pickaxe.
 	digsound = list('sound/weapons/drill.ogg')
 	hitsound = 'sound/weapons/drill.ogg'
 	usesound = 'sound/weapons/drill.ogg'
@@ -141,7 +136,6 @@
 /obj/item/pickaxe/drill/diamonddrill
 	name = "diamond-tipped mining drill"
 	icon_state = "diamonddrill"
-	digspeed = 10
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
 	desc = "Yours is the drill that will pierce the heavens!"
 	toolspeed = 0.25
@@ -156,14 +150,12 @@
 /obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
-	digspeed = 10
 	toolspeed = 0.25
 
 /obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
 	icon_state = "jackhammer"
 	item_state = "jackhammer"
-	digspeed = 5 //the epitome of powertools. extremely fast mining, laughs at puny walls
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'

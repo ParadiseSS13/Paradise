@@ -18,7 +18,7 @@
 /turf/space,
 /area/space)
 "ad" = (
-/turf/simulated/floor/plating/airless/asteroid/cave,
+/turf/simulated/floor/plating/asteroid/airless/cave,
 /area/mine/dangerous/unexplored)
 "ae" = (
 /turf/simulated/mineral/random,
@@ -660,7 +660,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/mine/abandoned)
 "bV" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "bW" = (
 /obj/structure/alien/weeds{
@@ -981,7 +981,7 @@
 /area/mine/dangerous/explored)
 "cL" = (
 /obj/structure/ore_box,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "cM" = (
 /obj/effect/decal/remains/xeno,
@@ -1121,7 +1121,7 @@
 /area/mine/north_outpost)
 "dh" = (
 /obj/structure/glowshroom,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "di" = (
 /obj/structure/alien/resin/wall,
@@ -1237,7 +1237,7 @@
 "ds" = (
 /obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap,
 /obj/structure/glowshroom,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "dt" = (
 /obj/effect/decal/warning_stripes/north,
@@ -1286,7 +1286,7 @@
 /turf/space,
 /area/mine/north_outpost)
 "dy" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/unexplored)
 "dz" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
@@ -3123,7 +3123,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/west_outpost)
 "hA" = (
 /obj/machinery/computer/arcade,
@@ -4323,7 +4323,7 @@
 /area/space)
 "ki" = (
 /obj/machinery/light,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kj" = (
 /obj/structure/disposalpipe/segment{
@@ -4421,21 +4421,21 @@
 /area/mine/living_quarters)
 "ku" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kx" = (
 /obj/machinery/access_button{
@@ -4773,7 +4773,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ll" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space)
 "lm" = (
 /obj/effect/spawner/window/reinforced,
@@ -5341,7 +5341,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/living_quarters)
 "mv" = (
 /obj/effect/decal/warning_stripes/northeast,
@@ -5489,7 +5489,7 @@
 /obj/effect/decal/remains/human{
 	desc = "Seems to be all that remains of a poor miner that didn't heed the warning signs."
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "mK" = (
 /obj/structure/table/reinforced,

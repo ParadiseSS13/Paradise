@@ -4196,7 +4196,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space)
 "lF" = (
 /obj/structure/window/basic{
@@ -4222,7 +4222,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space)
 "lJ" = (
 /obj/machinery/vending/sovietsoda,
@@ -5375,7 +5375,7 @@
 /turf/simulated/mineral/random,
 /area/space)
 "ps" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space)
 
 (1,1,1) = {"

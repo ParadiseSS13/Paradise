@@ -20,7 +20,7 @@
 	},
 /area/awaymission/beach)
 "ad" = (
-/turf/unsimulated/floor/lava/dense,
+/turf/simulated/floor/plating/lava/smooth,
 /area/awaymission)
 "ae" = (
 /turf/unsimulated/wall/metal,
@@ -860,7 +860,7 @@
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach)
 "bD" = (
-/turf/unsimulated/floor/lava,
+/turf/simulated/floor/plating/lava/smooth,
 /area/awaymission)
 "bE" = (
 /obj/effect/decal{
@@ -1587,7 +1587,7 @@
 /turf/unsimulated/beach/coastline/dense,
 /area/awaymission/beach)
 "cO" = (
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission)
 "cP" = (
 /obj/effect/decal/snow/sand/edge{
@@ -1828,7 +1828,7 @@
 	requires_power = 0
 	})
 "dk" = (
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1879,7 +1879,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_w"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1890,7 +1890,7 @@
 	light_color = "#ffffc0";
 	light_power = 2
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1906,7 +1906,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_e"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1949,7 +1949,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_n"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1965,7 +1965,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_e"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1981,7 +1981,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_n"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -2049,7 +2049,7 @@
 	},
 /area/awaymission)
 "dF" = (
-/turf/unsimulated/floor/lava,
+/turf/simulated/floor/plating/lava/smooth,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -2063,7 +2063,7 @@
 /turf/unsimulated/beach/water/drop/dense,
 /area/awaymission/beach)
 "dH" = (
-/turf/unsimulated/floor/lava/dense,
+/turf/simulated/floor/plating/lava/smooth,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0

@@ -29,7 +29,7 @@
 "ac" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -44,7 +44,7 @@
 	icon_state = "weeds1"
 	},
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -61,7 +61,7 @@
 	icon_state = "egg_hatched";
 	name = "egg"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -76,7 +76,7 @@
 	icon_state = "weeds2"
 	},
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -95,7 +95,7 @@
 	icon_state = "egg_hatched";
 	name = "egg"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -107,7 +107,7 @@
 	})
 "ah" = (
 /obj/structure/alien/weeds,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -122,7 +122,7 @@
 	icon_state = "weeds2"
 	},
 /mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -135,7 +135,7 @@
 "aj" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -154,7 +154,7 @@
 	icon_state = "egg_hatched";
 	name = "egg"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -169,7 +169,7 @@
 	icon_state = "weeds1"
 	},
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -181,7 +181,7 @@
 	})
 "am" = (
 /obj/structure/alien/weeds/node,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -196,7 +196,7 @@
 	icon_state = "weeds2"
 	},
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -210,7 +210,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -233,7 +233,7 @@
 	color = "red";
 	icon_state = "gib1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -247,7 +247,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -263,7 +263,7 @@
 	},
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -287,7 +287,7 @@
 	color = "red";
 	icon_state = "gib1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -302,7 +302,7 @@
 	icon_state = "weeds2"
 	},
 /mob/living/simple_animal/hostile/alien/sentinel,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -318,7 +318,7 @@
 	color = "red";
 	icon_state = "gib2_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -333,7 +333,7 @@
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -395,7 +395,7 @@
 "aC" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -423,7 +423,7 @@
 	color = "red";
 	icon_state = "gibdown1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -493,7 +493,7 @@
 	color = "red";
 	icon_state = "gib1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -511,7 +511,7 @@
 	color = "red";
 	icon_state = "gib2_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -531,7 +531,7 @@
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -546,7 +546,7 @@
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -619,7 +619,7 @@
 	pixel_x = 7;
 	pixel_y = -6
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -638,7 +638,7 @@
 	pixel_x = -16;
 	plants_off = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -714,7 +714,7 @@
 	name = "Syndicate Outpost"
 	})
 "aZ" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -732,7 +732,7 @@
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -747,7 +747,7 @@
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -838,7 +838,7 @@
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -851,7 +851,7 @@
 "bj" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -869,7 +869,7 @@
 	color = "red";
 	icon_state = "gib2_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -1350,7 +1350,7 @@
 "bW" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -2150,7 +2150,7 @@
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -2401,7 +2401,7 @@
 	pixel_x = -7;
 	pixel_y = -4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2453,7 +2453,7 @@
 	pixel_x = -3;
 	pixel_y = 9
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2525,7 +2525,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2542,7 +2542,7 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2562,7 +2562,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2586,7 +2586,7 @@
 	})
 "dI" = (
 /obj/item/storage/bag/ore,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2599,7 +2599,7 @@
 	})
 "dJ" = (
 /obj/item/pickaxe/drill,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2644,7 +2644,7 @@
 	pixel_x = -7;
 	pixel_y = -4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2676,7 +2676,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -2697,7 +2697,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -2709,7 +2709,7 @@
 	})
 "dP" = (
 /obj/structure/alien/weeds/node,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2723,7 +2723,7 @@
 "dQ" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2739,7 +2739,7 @@
 	icon_state = "weeds2"
 	},
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2760,7 +2760,7 @@
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -2772,7 +2772,7 @@
 	})
 "dT" = (
 /obj/structure/alien/weeds,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2786,7 +2786,7 @@
 "dU" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2801,7 +2801,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2817,7 +2817,7 @@
 	icon_state = "weeds1"
 	},
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2832,7 +2832,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -2845,7 +2845,7 @@
 	})
 "dY" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a2{
 	has_gravity = 1;
 	name = "MO19 Research"
@@ -5694,7 +5694,7 @@
 	})
 "hW" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -6443,7 +6443,7 @@
 "jb" = (
 /obj/item/stack/rods,
 /obj/item/shard,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -6762,7 +6762,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -6778,7 +6778,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -6794,7 +6794,7 @@
 	icon_state = "weeds2"
 	},
 /obj/structure/alien/weeds/node,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -7836,7 +7836,7 @@
 	name = "MO19 Arrivals"
 	})
 "ld" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f6";
 	icon_state = "swall_f6";
@@ -7856,7 +7856,7 @@
 	name = "MO19 Arrivals"
 	})
 "lf" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	dir = 3;
 	icon_state = "swall_f10";
@@ -7908,7 +7908,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -7918,7 +7918,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -8170,7 +8170,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -8467,7 +8467,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (WEST)"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -8872,7 +8872,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -9045,7 +9045,7 @@
 	name = "MO19 Arrivals"
 	})
 "ne" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -9226,7 +9226,7 @@
 	name = "MO19 Arrivals"
 	})
 "nw" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f9";
 	dir = 2
@@ -9323,7 +9323,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -9641,7 +9641,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -9654,7 +9654,7 @@
 	})
 "of" = (
 /obj/item/trash/candy,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -9681,7 +9681,7 @@
 	})
 "oh" = (
 /obj/item/pickaxe,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -9739,7 +9739,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');
@@ -9754,7 +9754,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
 	ambientsounds = list('sound/ambience/ambimine.ogg');

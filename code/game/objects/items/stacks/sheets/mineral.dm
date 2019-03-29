@@ -108,6 +108,11 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount = 1, res_amount = 1), \
 	)
 
+var/global/list/datum/stack_recipe/snow_recipes = list(
+	new/datum/stack_recipe("snowman", /obj/structure/snowman, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Snowball", /obj/item/snowball, 1)
+	)
+
 /obj/item/stack/sheet/mineral
 	force = 5
 	throwforce = 5
@@ -319,4 +324,20 @@ var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 
 /obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
 	recipes = adamantine_recipes
+	..()
+
+/*
+ * Snow
+ */
+/obj/item/stack/sheet/mineral/snow
+	name = "snow"
+	icon_state = "sheet-snow"
+	item_state = "sheet-snow"
+	singular_name = "snow block"
+	force = 1
+	throwforce = 2
+	merge_type = /obj/item/stack/sheet/mineral/snow
+
+/obj/item/stack/sheet/mineral/snow/New(loc, amount = null)
+	recipes = snow_recipes
 	..()

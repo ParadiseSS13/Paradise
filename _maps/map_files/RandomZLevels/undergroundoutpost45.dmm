@@ -1088,7 +1088,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -1102,7 +1102,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -2775,7 +2775,7 @@
 "eK" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -3177,7 +3177,7 @@
 	name = "UO45 Central Hall"
 	})
 "fo" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -3470,7 +3470,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -3714,7 +3714,7 @@
 	})
 "gg" = (
 /obj/structure/alien/weeds,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -3936,7 +3936,7 @@
 "gC" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/weeds,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -4283,7 +4283,7 @@
 	})
 "he" = (
 /obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -4297,7 +4297,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "UO45 Central Hall"
@@ -4333,7 +4333,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "UO45 Central Hall"
@@ -6044,7 +6044,7 @@
 	})
 "jM" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a2{
 	has_gravity = 1;
 	name = "UO45 Crew Quarters"
@@ -6086,7 +6086,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	has_gravity = 1;
 	name = "UO45 Research"
@@ -8325,7 +8325,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a2{
 	has_gravity = 1;
 	name = "UO45 Crew Quarters"
@@ -10502,21 +10502,21 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a2{
 	has_gravity = 1;
 	name = "UO45 Crew Quarters"
 	})
 "pw" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a6{
 	has_gravity = 1;
 	name = "UO45 Gateway"
 	})
 "px" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	has_gravity = 1;
 	name = "UO45 Research"
@@ -10896,7 +10896,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a6{
 	has_gravity = 1;
 	name = "UO45 Gateway"
@@ -11215,7 +11215,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -11229,7 +11229,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 6
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -11243,7 +11243,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -13959,7 +13959,7 @@
 	})
 "uc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -14769,7 +14769,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/purple{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -15093,7 +15093,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -15451,7 +15451,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 9
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16674,7 +16674,7 @@
 	},
 /obj/structure/bed/nest,
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16693,7 +16693,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16707,7 +16707,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a2{
 	has_gravity = 1;
 	name = "UO45 Crew Quarters"
@@ -16719,7 +16719,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16733,7 +16733,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	has_gravity = 1;
 	name = "UO45 Research"
@@ -16742,7 +16742,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a4{
 	has_gravity = 1;
 	name = "UO45 Mining"
@@ -16751,14 +16751,14 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a4{
 	has_gravity = 1;
 	name = "UO45 Mining"
 	})
 "ym" = (
 /obj/structure/ore_box,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16770,7 +16770,7 @@
 	})
 "yn" = (
 /obj/structure/closet/crate,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16786,7 +16786,7 @@
 	icon_state = "weeds1"
 	},
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16802,7 +16802,7 @@
 	icon_state = "weeds2"
 	},
 /obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16818,7 +16818,7 @@
 	icon_state = "weeds2"
 	},
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16837,7 +16837,7 @@
 	color = "red";
 	icon_state = "gib2_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16852,7 +16852,7 @@
 	tag = "icon-weeds2";
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16867,7 +16867,7 @@
 	color = "red"
 	},
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16883,7 +16883,7 @@
 	icon_state = "weeds1"
 	},
 /obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16896,7 +16896,7 @@
 "yv" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16917,7 +16917,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16932,7 +16932,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16947,7 +16947,7 @@
 	tag = "icon-weeds1";
 	icon_state = "weeds1"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16959,7 +16959,7 @@
 	})
 "yz" = (
 /obj/structure/alien/resin/membrane,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16978,7 +16978,7 @@
 	color = "red"
 	},
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -16996,7 +16996,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17011,7 +17011,7 @@
 	color = "red";
 	icon_state = "gib1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17033,7 +17033,7 @@
 	icon_state = "tracks"
 	},
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17046,7 +17046,7 @@
 "yE" = (
 /obj/structure/alien/weeds,
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17061,7 +17061,7 @@
 	color = "red";
 	icon_state = "gibdown1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17083,7 +17083,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17102,7 +17102,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17116,7 +17116,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -17132,7 +17132,7 @@
 	color = "red";
 	icon_state = "gibdown1_flesh"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;

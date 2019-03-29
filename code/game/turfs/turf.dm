@@ -41,6 +41,9 @@
 	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
 		queue_smooth(src)
 
+/turf/proc/process()
+	return;
+
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
 	log_startup_progress("Smoothing atoms...")
@@ -166,6 +169,9 @@
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 	if(L)
 		qdel(L)
+
+/turf/proc/TerraformTurf(path)
+	return ChangeTurf(path)
 
 //Creates a new turf
 /turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)

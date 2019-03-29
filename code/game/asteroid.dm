@@ -87,7 +87,7 @@ var/global/max_secret_rooms = 6
 		if("cavein")
 			theme = "cavein"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
-			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
+			floortypes = list(/turf/simulated/floor/plating/asteroid/airless, /turf/simulated/floor/beach/sand)
 			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/pickaxe/drill/diamonddrill=2,
 							/obj/item/resonator/upgraded=1, /obj/item/pickaxe/drill/jackhammer=5)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=3,/obj/effect/decal/remains/human=1,/obj/item/clothing/under/overalls=1,
@@ -96,7 +96,7 @@ var/global/max_secret_rooms = 6
 		if("xenoden")
 			theme = "xenoden"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
-			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
+			floortypes = list(/turf/simulated/floor/plating/asteroid/airless, /turf/simulated/floor/beach/sand)
 			treasureitems = list(/obj/item/clothing/mask/facehugger=1,/obj/item/stack/sheet/animalhide/xeno=2,/obj/item/clothing/suit/xenos=2,/obj/item/clothing/head/xenos=2,/obj/item/guardiancreator/biological/choose=1)
 			fluffitems = list(/obj/effect/decal/remains/human=1,/obj/effect/decal/cleanable/blood/xeno=5)
 
@@ -177,7 +177,7 @@ var/global/max_secret_rooms = 6
 			valid = 0
 			continue
 
-		if(locate(/turf/simulated/floor/plating/airless/asteroid) in range(5,T))//A little less strict than the other checks due to tunnels
+		if(locate(/turf/simulated/floor/plating/asteroid/airless) in range(5,T))//A little less strict than the other checks due to tunnels
 			valid = 0
 			continue
 
@@ -188,10 +188,6 @@ var/global/max_secret_rooms = 6
 
 	if(room)//time to fill it with stuff
 		var/list/emptyturfs = room["floors"]
-		for(var/turf/simulated/floor/A in emptyturfs) //remove pls doesn't fix problem
-			if(istype(A))
-				spawn(2)
-					A.fullUpdateMineralOverlays()
 		T = pick(emptyturfs)
 		if(T)
 			new /obj/structure/glowshroom/single(T) //Just to make it a little more visible

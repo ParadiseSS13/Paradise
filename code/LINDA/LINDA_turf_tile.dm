@@ -54,6 +54,8 @@
 
 	var/atmos_overlay_type = "" //current active overlay
 
+	var/planetary_atmos = FALSE //air will revert to initial_gas_mix over time
+
 /turf/simulated/New()
 	..()
 	if(!blocks_air)
