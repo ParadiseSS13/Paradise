@@ -1297,31 +1297,6 @@ proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
-proc/rotate_icon(file, state, step = 1, aa = FALSE)
-	var icon/base = icon(file, state)
-
-	var w, h, w2, h2
-
-	if(aa)
-		aa++
-		w = base.Width()
-		w2 = w * aa
-		h = base.Height()
-		h2 = h * aa
-
-	var icon{result = icon(base); temp}
-
-	for(var/angle in 0 to 360 step step)
-		if(angle == 0  ) continue
-		if(angle == 360)   continue
-		temp = icon(base)
-		if(aa) temp.Scale(w2, h2)
-		temp.Turn(angle)
-		if(aa) temp.Scale(w,   h)
-		result.Insert(temp, "[angle]")
-
-	return result
-
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 

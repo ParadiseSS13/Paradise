@@ -43,7 +43,6 @@ GLOBAL_LIST_EMPTY(safes)
 	tumbler_2_open = rand(0, 99)
 
 	tumbler_1_pos = rand(0, 99)
-	do
 	tumbler_1_open = rand(0, 99)
 	while(tumbler_1_open > Wrap(tumbler_2_open +48, 0, 100) && tumbler_1_open < Wrap(tumbler_2_open + 53, 0, 100)) // prevents a combination that wont open
 	do
