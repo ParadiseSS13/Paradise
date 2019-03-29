@@ -214,6 +214,8 @@ var/global/list/ts_spiderling_list = list()
 				var/mob/living/carbon/human/H = G
 				if(!(H.dna.species.reagent_tag & PROCESS_ORG) || (!H.dna.species.tox_mod))
 					can_poison = 0
+				if(H.stat != DEAD && H.health < HEALTH_THRESHOLD_DEAD) // Intentionally not HEALTH_THRESHOLD_CRIT, as that is softcrit
+					H.death()
 			spider_specialattack(G,can_poison)
 		else
 			G.attack_animal(src)
