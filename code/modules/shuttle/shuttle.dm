@@ -714,6 +714,8 @@
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
+/obj/machinery/computer/shuttle/Initialize()
+	..()
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
