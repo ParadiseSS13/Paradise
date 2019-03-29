@@ -24,6 +24,12 @@
 	canlay = 1000
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
+	icon = 'icons/mob/terrorspider64.dmi'
+	pixel_x = -16
+	mob_size = MOB_SIZE_LARGE
+	icon_state = "terror_empress"
+	icon_living = "terror_empress"
+	icon_dead = "terror_empress_dead"
 	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
 	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
