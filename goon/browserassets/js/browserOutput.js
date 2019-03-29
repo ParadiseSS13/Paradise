@@ -157,13 +157,10 @@ function setHighlightColor(match) {
 
 //Highlights words based on user settings
 function highlightTerms(el) {
-	var element = $(el)
-	if(!(element.mark)) { // mark.js isn't loaded; give up
-		return
-	}
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			element.mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
+			var rexp = new RegExp("("+opts.highlightTerms[i]+")","gmi")
+			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>")
 		}
 	}
 }
@@ -976,7 +973,7 @@ $(function() {
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
-				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.</div>' +
+				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>Regex compatible.</div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
