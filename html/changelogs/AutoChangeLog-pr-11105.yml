@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - bugfix: "Fixes #11087 - Swarmers are now locked to their default action intent"
+  - tweak: "Swarmers are now able to open airlocks and windoors (access restrictions still apply)"
