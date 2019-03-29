@@ -20,7 +20,3 @@
 	access_construction = TRUE
 	access_mining = TRUE
 
-/area/asclepius
-	name = "NHV Asclepius"
-	icon_state = "shuttle"
-	requires_power = 0

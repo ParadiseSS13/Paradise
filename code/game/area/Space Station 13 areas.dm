@@ -332,17 +332,10 @@ var/list/ghostteleportlocs = list()
 	name = "Steel Rain"
 	icon_state = "shuttle"
 
-/area/shuttle/administration
-	name = "\improper Administration Shuttle"
-	icon_state = "shuttlered"
-
-/area/shuttle/administration/centcom
-	name = "\improper Administration Shuttle Centcom"
-	icon_state = "shuttlered"
-
-/area/shuttle/administration/station
-	name = "\improper Administration Shuttle"
-	icon_state = "shuttlered2"
+/area/shuttle/asclepius
+	name = "NHV Asclepius"
+	icon_state = "shuttle"
+	requires_power = 0
 
 /area/shuttle/thunderdome
 	name = "honk"
@@ -2674,7 +2667,7 @@ var/list/centcom_areas = list (
 	/area/shuttle/escape_pod3/centcom,
 	/area/shuttle/escape_pod5/centcom,
 	/area/shuttle/transport1,
-	/area/shuttle/administration/centcom,
+	/area/shuttle/asclepius,
 	/area/shuttle/specops/centcom,
 )
 
@@ -2687,7 +2680,7 @@ var/list/the_station_areas = list (
 	/area/shuttle/escape_pod3/station,
 	/area/shuttle/escape_pod5/station,
 	/area/shuttle/prison/station,
-	/area/shuttle/administration/station,
+	/area/shuttle/asclepius,
 	/area/shuttle/specops/station,
 	/area/atmos,
 	/area/maintenance,

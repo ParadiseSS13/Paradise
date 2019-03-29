@@ -2274,6 +2274,7 @@
 #include "code\modules\ruins\ruin_areas.dm"
 #include "code\modules\security_levels\keycard authentication.dm"
 #include "code\modules\security_levels\security levels.dm"
+#include "code\modules\shuttle\asclepius.dm"
 #include "code\modules\shuttle\assault_pod.dm"
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\shuttle\ert.dm"
