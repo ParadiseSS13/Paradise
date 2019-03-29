@@ -103,7 +103,8 @@
 			if(gib_on_success)
 				owner.gib()
 			else
-				owner.adjustBruteLoss(200)
+				owner.apply_damage(100, BRUTE, "chest")
+				owner.apply_damage(100, BRUTE, "groin")
 				owner.overlays -= overlay
 			qdel(src)
 
