@@ -189,7 +189,7 @@
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
 		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
-			NewTerrainFloors = /turf/simulated/floor/basalt // Needs to be updated after turf update
+			NewTerrainFloors = /turf/simulated/floor/asteroid/basalt // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/cult
 			NewFlora = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
 			florachance = 1

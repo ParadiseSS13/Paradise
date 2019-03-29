@@ -163,7 +163,7 @@
 	unacidable = 1
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
-	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/airless // /turf/simulated/floor/plating/asteroid/basalt once Lavaland turfs are added
+	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"
 	var/create_cooldown = 100
 	var/create_delay = 30

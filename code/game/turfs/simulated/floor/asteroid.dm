@@ -93,7 +93,6 @@
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt"
 	icon_plating = "basalt"
 	environment_type = "basalt"

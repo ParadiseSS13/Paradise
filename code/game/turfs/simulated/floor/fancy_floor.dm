@@ -78,31 +78,6 @@
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
 
-// NEEDS TO BE UPDATED
-/turf/simulated/floor/basalt //By your powers combined, I am captain planet
-	name = "volcanic floor"
-	icon_state = "basalt0"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-
-/turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
-	if(..())
-		return
-	if(istype(W, /obj/item/shovel))
-		new /obj/item/stack/ore/glass/basalt(src, 2)
-		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		make_plating()
-
-/turf/simulated/floor/basalt/New()
-	..()
-	if(prob(15))
-		icon_state = "basalt[rand(0, 12)]"
-		switch(icon_state)
-			if("basalt1", "basalt2", "basalt3")
-				set_light(1, 1)
-
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
