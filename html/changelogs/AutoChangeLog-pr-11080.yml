@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Blob mobs can no longer be spawned in xenobio."
+  - tweak: "Blob mobs spawned by blob cores can no longer have sentience potions used on them, which would allow whoever controls them to kill the blob with no countermeasure."
