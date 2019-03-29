@@ -138,7 +138,7 @@
 "cH" = (/obj/machinery/computer/shuttle/ferry,/turf/unsimulated/floor{name = "plating"},/area/centcom/evac)
 "cI" = (/turf/simulated/floor/holofloor{dir = 2; icon_state = "red"},/area/holodeck/source_emptycourt)
 "cJ" = (/turf/unsimulated/wall/fakeglass,/area/centcom/ferry)
-"cK" = (/obj/machinery/computer/shuttle/admin,/turf/unsimulated/floor{name = "plating"},/area/centcom/evac)
+"cK" = (/obj/machinery/computer/shuttle/asclepius,/turf/unsimulated/floor{name = "plating"},/area/centcom/evac)
 "cL" = (/turf/simulated/floor/holofloor{dir = 8; icon_state = "red"},/area/holodeck/source_boxingcourt)
 "cM" = (/turf/simulated/floor/holofloor{dir = 4; icon_state = "rampbottom"; tag = "icon-rampbottom"},/area/holodeck/source_theatre)
 "cN" = (/obj/docking_port/stationary/transit{dir = 4; dwidth = 1; height = 4; id = "pod4_transit"; name = "pod 4 in transit"; width = 3},/turf/space/transit/east{dir = 8},/area/space)
