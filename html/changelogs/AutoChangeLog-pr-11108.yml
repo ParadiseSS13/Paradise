@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "hotspot sprites updated; fire will also now appear over top of things, rather than underneath it"
