@@ -177,7 +177,7 @@
 		var/obj/structure/closet/crate/O = target
 		if(O.opened)
 			return
-		if(amount >= 3 && do_after_once(usr, 15, target = target))
+		if(amount >= 3 && do_after_once(user, 15, target = target))
 			if(O.opened || !use(3))
 				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
@@ -191,7 +191,7 @@
 		var/obj/structure/closet/O = target
 		if(O.opened)
 			return
-		if(amount >= 3 && do_after_once(usr, 15, target = target))
+		if(amount >= 3 && do_after_once(user, 15, target = target))
 			if(O.opened || !use(3))
 				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
