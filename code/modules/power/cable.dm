@@ -504,7 +504,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return(OXYLOSS)
+	return OXYLOSS
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
 	..()

@@ -59,7 +59,7 @@
 	if(!gibbed && deathgasp_on_death)
 		emote("deathgasp")
 
-	if(suiciding)
+	if(mind && suiciding)
 		mind.suicided = TRUE
 	clear_fullscreens()
 	update_sight()
