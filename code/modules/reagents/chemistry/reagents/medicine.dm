@@ -16,13 +16,6 @@
 	shock_reduction = 200
 	taste_message = "numbness"
 
-/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
-	return ..()
-
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -412,10 +405,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
 		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol
@@ -472,7 +461,7 @@
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
-	if(M.oxyloss > 75)
+	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
 	if(M.health < 0 || M.health > 0 && prob(33))
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -547,10 +536,6 @@
 		if(36 to INFINITY)
 			M.Paralyse(15)
 			M.Drowsy(20)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
 	..()
 
 /datum/reagent/medicine/oculine
@@ -600,7 +585,7 @@
 	if(prob(4))
 		M.emote("collapse")
 	M.AdjustLoseBreath(-5, bound_lower = 5)
-	if(M.oxyloss > 65)
+	if(M.getOxyLoss() > 65)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -25)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -636,7 +621,7 @@
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-1, bound_lower = 3)
-	if(M.oxyloss > 35)
+	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -789,7 +774,7 @@
 	M.SetSlur(0)
 	M.AdjustDrunk(-4)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
-	if(M.toxloss <= 25)
+	if(M.getToxLoss() <= 25)
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags
 

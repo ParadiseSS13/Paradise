@@ -40,6 +40,9 @@
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
 
+//Health Defines
+#define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_DEAD -100
 
 //Grab levels
 #define GRAB_PASSIVE  1

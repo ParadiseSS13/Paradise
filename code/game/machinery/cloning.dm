@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "hydrocodone")
+	var/list/brine_types = list("corazone", "salbutamol", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -479,7 +479,6 @@
 	occupant.forceMove(get_turf(src))
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
-	occupant.shock_stage = 0 //Reset Shock
 	occupant.special_post_clone_handling()
 	occupant = null
 	update_icon()

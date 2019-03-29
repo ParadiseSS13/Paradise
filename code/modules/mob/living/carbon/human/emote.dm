@@ -680,6 +680,14 @@
 			message = "<B>[src]</B> trembles."
 			m_type = 1
 
+		if("shudder", "shudders")
+			message = "<B>[src]</B> shudders."
+			m_type = 1
+
+		if("bshake", "bshakes")
+			message = "<B>[src]</B> shakes."
+			m_type = 1
+
 		if("sneeze", "sneezes")
 			if(miming)
 				message = "<B>[src]</B> sneezes."
