@@ -1,0 +1,15 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Crit has been dramatically overhauled. Treating patients now requires a broader range of medicine. Recommend checking out a guide for how to treat using the new system!"
+  - rscadd: "Medical vendors now have styptic and silver sulfadiazine, saline, atropine, mannitol, mutadone, calomel, diphenhydramine, oculine, insulin, morphine, and potassium iodide for helping treat new patients. Amount of Gauze, Advanced Trauma, and Burn packs has also been increased."
+  - rscadd: "Adds new handheld defibs. Utilize these for treating patients with cardiac arrest. Note: these do not revive people from the dead!"
+  - rscadd: "Doctors lockers now have a handheld defib in addition to a regular defib."
+  - rscadd: "Medical borgs now have a handheld defib"
+  - tweak: "CPR dramatically buffed. Heavily lowers O2 damage and resets losebreath to 0"
+  - tweak: "Cryoxadone tuned down a little"
+  - tweak: "Health analyzer UI altered ever so slightly for cardiac arerest, so it's easier to find"
+  - rscadd: "Added bacon grease reagent to traitor poison bottles; induces immediate cardiac failure"
+  - tweak: "Upgraded Robotic Hearts now attempt to correct both cardiac failure and cardiac arrest
+tweak; Upgraded Robotic Hearts now do not punish you quite as severely for receiving a shock while having one (EMPs will still destroy you though)"
+  - rscdel: "Corazone recipe removed"
