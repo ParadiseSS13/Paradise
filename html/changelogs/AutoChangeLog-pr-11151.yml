@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes some suicides dealing damage and gibbing you at the same time"
-  - rscadd: "Allows you to suicide with more object types. Currently the only new object type you can suicide with is the gibber"

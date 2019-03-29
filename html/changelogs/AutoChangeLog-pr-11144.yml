@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Roundstart chem dispensers are now construcable/deconstrucable and can be moved"
-  - tweak: "Energy ratio for chem dispensers increased by x10 (how many reagents you can dispense before running out and how quickly it recharges is all the same, however)"
-  - rscadd: "Adds the ability to add a single unit of reagent in the chem dispenser"
-  - rscadd: "Adds the ability to isolate reagents in the chem dispenser"
-  - rscdel: "Portable chem dispenser removed (the circuit board for them now makes full dispensers)"

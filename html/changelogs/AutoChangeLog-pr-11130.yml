@@ -1,9 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Added new Blob UI and icons, ported from /tg/station13"
-  - rscadd: "Added new *Blob Help* verb, designated to help out new players playing as Blob"
-  - rscadd: "Added descriptions for each Blob reagent"
-  - rscadd: "Added complementary colors for each Blob reagent"
-  - tweak: "Blob marker now uses complementary color of Blob reagent as it's own color"
-  - tweak: "Blob shortcuts updated. Blob shortcuts are now:  Click = Expand Blob | CTRL Click = Create Shield Blob | Middle Mouse Click = Rally Spores | Alt Click = Remove Blob"

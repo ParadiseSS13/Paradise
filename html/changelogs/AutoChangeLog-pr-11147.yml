@@ -1,6 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Added new Wizard item - Bottle of Ooze! This powerful item awakens all-consuming Morph, ready to eat everyone and everything on the station! Be careful though, as Morph diet also includes Wizards.. Costs 1 point in the spellbook."
-  - imageadd: "Added custom icon for Bottle of Ooze"
-  - tweak: "Morph introduction is now properly formatted"
