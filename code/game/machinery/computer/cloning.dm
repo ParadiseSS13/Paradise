@@ -39,26 +39,12 @@
 	
 	if(!length(records))
 		return
-	var/list/toClone = records.Copy()
-	var/datum/dna2/record/lastEntry = toClone[length(toClone)] // Most recently added record
-	// Prevent double cloning
-	for(var/obj/machinery/clonepod/pod in pods)
-		if(pod.occupant)
-			if(pod.occupant.ckey == null) // Uses soulhooks
-				for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
-					if(hook.soulowner.ckey == lastEntry.ckey)
-						toClone.Remove(lastEntry) // Guy is getting cloned so remove the entry
-						break
-			else if(pod.occupant.ckey == lastEntry.ckey) // Directly put in body
-				toClone.Remove(lastEntry) // Guy is getting cloned so remove the entry
-				break
 	
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
-			for(var/datum/dna2/record/R in toClone)
+			for(var/datum/dna2/record/R in records)
 				if(!(pod.occupant || pod.mess))
 					if(pod.growclone(R))
-						toClone.Remove(R)
 						records.Remove(R)
 
 /obj/machinery/computer/cloning/proc/updatemodules()
@@ -408,6 +394,19 @@
 		scantemp = "Subject already in database."
 		SSnanoui.update_uis(src)
 		return
+
+	for(var/obj/machinery/clonepod/pod in pods)
+		if(pod.occupant)
+			if(pod.occupant.ckey == null) // Uses soulhooks
+				for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
+					if(hook.soulowner.ckey == subject.ckey)
+						scantemp = "Subject already getting cloned."
+						SSnanoui.update_uis(src)
+						return
+			else if(pod.occupant.ckey == subject.ckey) // Directly put in body
+				scantemp = "Subject already getting cloned."
+				SSnanoui.update_uis(src)
+				return
 
 	subject.dna.check_integrity()
 
