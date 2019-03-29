@@ -45,7 +45,6 @@
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/is_zombie = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
@@ -174,7 +173,6 @@
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
