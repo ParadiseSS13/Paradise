@@ -506,18 +506,10 @@
 			M.fakevomit()
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
+	if(volume > 40 && prob(4))
+		M.delayed_gib()
+		return
 	return ..() | update_flags
-
-/datum/reagent/venom/overdose_process(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(volume >= 40)
-		if(prob(4))
-			M.visible_message("<span class='danger'><B>[M]</B> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-			update_flags |= M.Weaken(15, FALSE)
-			M.AdjustJitter(1000)
-			spawn(rand(20, 100))
-				M.gib()
-	return list(0, update_flags)
 
 /datum/reagent/neurotoxin2
 	name = "Neurotoxin"
