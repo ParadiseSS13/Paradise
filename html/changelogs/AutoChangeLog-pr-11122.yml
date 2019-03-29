@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Borgs can now only cuff people with two hands. Just like humanoids"
