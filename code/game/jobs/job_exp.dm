@@ -100,6 +100,7 @@ var/global/list/role_playtime_requirements = list(
 // Procs
 
 /proc/role_available_in_playtime(client/C, role)
+	// "role" is a special role defined in role_playtime_requirements above. e.g: ROLE_ERT. This is *not* a job title.
 	if(!C)
 		return 0
 	if(!role)
@@ -108,11 +109,18 @@ var/global/list/role_playtime_requirements = list(
 		return 0
 	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
-
-	var/datum/job/job = job_master.GetJob(role)
-	if(!job)
+	var/list/play_records = params2list(C.prefs.exp)
+	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
+	if(isexempt)
 		return 0
-	return job.available_in_playtime(C)
+	var/minimal_player_hrs = role_playtime_requirements[role]
+	if(!minimal_player_hrs)
+		return 0
+	var/req_mins = minimal_player_hrs * 60
+	var/my_exp = text2num(play_records[EXP_TYPE_CREW])
+	if(!isnum(my_exp))
+		return req_mins
+	return max(0, req_mins - my_exp)
 
 
 /datum/job/proc/available_in_playtime(client/C)
