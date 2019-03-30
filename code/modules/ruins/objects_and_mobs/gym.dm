@@ -50,7 +50,6 @@
 		obj_flags &= ~IN_USE
 		user.pixel_y = 0
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
 		icon_state = initial(icon_state)
 		to_chat(user, finishmessage)
 		user.apply_status_effect(STATUS_EFFECT_EXERCISED)

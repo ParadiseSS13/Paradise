@@ -117,7 +117,7 @@ What are the archived variables for?
 
 					trace_gas.moles -= reaction_rate*0.05
 
-					temperature -= (reaction_rate*20000)/heat_capacity()
+					temperature += (reaction_rate*20000)/heat_capacity()
 
 					reacting = 1
 

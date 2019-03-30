@@ -232,3 +232,22 @@
 /obj/item/reagent_containers/food/snacks/goliath
 	)
 	result = /obj/item/reagent_containers/food/snacks/goliath_steak
+	
+/datum/recipe/grill/shrimp_skewer
+	items = list(
+		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/stack/rods,
+	)
+	result = /obj/item/reagent_containers/food/snacks/shrimp_skewer
+
+/datum/recipe/grill/fish_skewer
+	reagents = list("flour" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+		/obj/item/stack/rods,
+	)
+	result = /obj/item/reagent_containers/food/snacks/fish_skewer

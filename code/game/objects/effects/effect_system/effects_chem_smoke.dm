@@ -7,6 +7,7 @@
 	icon_state = "smoke"
 	density = FALSE
 	opacity = FALSE
+	layer = ABOVE_MOB_LAYER
 	animate_movement = NO_STEPS
 	var/matrix/first = matrix()
 	var/matrix/second = matrix()
@@ -17,7 +18,7 @@
 	var/spread_amount = 96
 
 /obj/effect/particle_effect/chem_smoke/New(location, chem_color)
-	..()
+	..(location)
 	color = chem_color
 	pixel_x += -16 + rand(-3, 3)
 	pixel_y += -16 + rand(-3, 3)
@@ -64,6 +65,7 @@
 	else
 		location = get_turf(loca)
 	carry.copy_to(chemholder, carry.total_volume)
+	carry.clear_reagents()
 	if(!silent)
 		var/contained = ""
 		for(var/reagent in carry.reagent_list)
@@ -104,7 +106,7 @@
 				new /obj/effect/particle_effect/chem_smoke(location, color)
 
 		if(x % 10 == 0) //Once every 10 ticks.
-			SmokeEm(effect_range)
+			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range)
 
 		sleep(1)
 	qdel(src)
@@ -112,6 +114,8 @@
 
 /datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range = 2)
 	for(var/atom/A in view(effect_range, get_turf(location)))
+		if(istype(A, /obj/effect/particle_effect)) // Don't impact particle effects, as there can be hundreds of them in a small area. Also, we don't want smoke particles adding themselves to this list. Major performance issue.
+			continue
 		if(A in smoked_atoms)
 			continue
 		smoked_atoms += A

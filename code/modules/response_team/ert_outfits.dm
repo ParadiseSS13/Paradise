@@ -306,7 +306,8 @@
 		/obj/item/roller = 1,
 		/obj/item/storage/pill_bottle/ert = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/healthupgrade = 1
+		/obj/item/healthupgrade = 1,
+		/obj/item/handheld_defibrillator = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
@@ -335,7 +336,8 @@
 		/obj/item/roller = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
-		/obj/item/healthupgrade = 1
+		/obj/item/healthupgrade = 1,
+		/obj/item/handheld_defibrillator = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
@@ -357,7 +359,8 @@
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller = 1,
-		/obj/item/healthanalyzer/advanced = 1
+		/obj/item/healthanalyzer/advanced = 1,
+		/obj/item/handheld_defibrillator = 1
 
 		)
 

@@ -61,7 +61,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 
 
-/obj/item/clothing/mask/cigarette/fire_act()
+/obj/item/clothing/mask/cigarette/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	light()
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, params)

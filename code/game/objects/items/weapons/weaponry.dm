@@ -12,8 +12,8 @@
 
 
 /obj/item/banhammer/suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
-		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
+	to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
+	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/sord
 	name = "\improper SORD"
@@ -49,7 +49,7 @@
 
 /obj/item/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/claymore/ceremonial
 	name = "ceremonial claymore"
@@ -76,7 +76,7 @@
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/harpoon
 	name = "harpoon"

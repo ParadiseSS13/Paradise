@@ -12,6 +12,8 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
+	sentience_type = SENTIENCE_OTHER
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
@@ -20,6 +22,7 @@
 
 /mob/living/simple_animal/hostile/blob/blob_act()
 	return
+
 
 ////////////////
 // BLOB SPORE //
@@ -46,7 +49,7 @@
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
-/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	adjustBruteLoss(Clamp(0.01 * exposed_temperature, 1, 5))
 

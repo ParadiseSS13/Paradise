@@ -217,9 +217,9 @@
 			item.temperature_expose(air, air.temperature, CELL_VOLUME)
 		temperature_expose(air, air.temperature, CELL_VOLUME)
 
-		if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
-			if(consider_superconductivity(starting = 1))
-				remove = 0
+	if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
+		if(consider_superconductivity(starting = 1))
+			remove = 0
 
 	if(air.temperature < T0C && air.return_pressure() > 10)
 		icy = 1

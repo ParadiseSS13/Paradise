@@ -409,6 +409,15 @@
 	limit = 3
 	category = "Assistance"
 
+/datum/spellbook_entry/item/oozebottle
+	name = "Bottle of Ooze"
+	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with. Be careful though, as Morph diet includes Wizards."
+	item_path = /obj/item/antag_spawner/morph
+	cost = 1
+	log_name = "BO"
+	limit = 3
+	category = "Assistance"
+
 /datum/spellbook_entry/item/tarotdeck
 	name = "Tarot Deck"
 	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \

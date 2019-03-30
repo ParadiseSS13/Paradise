@@ -491,5 +491,6 @@
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
 	spawn(10)
-		user.gib()
-	return BRUTELOSS
+		if(user)
+			user.gib()
+	return OBLITERATION

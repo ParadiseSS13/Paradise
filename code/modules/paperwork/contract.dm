@@ -104,7 +104,7 @@
 		H.visible_message("<span class='suicide'>[H] holds up a contract claiming his soul, then immediately catches fire.  It looks like \he's trying to commit suicide!</span>")
 		H.adjust_fire_stacks(20)
 		H.IgniteMob()
-		return(FIRELOSS)
+		return FIRELOSS
 	else
 		..()
 

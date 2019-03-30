@@ -31,8 +31,10 @@
 
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)	return 1
-	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
+	if(height==0)
+		return 1
+	if(istype(mover) && mover.checkpass(PASSBLOB))
+		return 1
 	return 0
 
 /obj/structure/blob/CanAStarPass(ID, dir, caller)
@@ -45,7 +47,7 @@
 	Life()
 	return
 
-/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	var/damage = Clamp(0.01 * exposed_temperature, 0, 4)
 	take_damage(damage, BURN)

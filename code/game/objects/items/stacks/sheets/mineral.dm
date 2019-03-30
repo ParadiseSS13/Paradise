@@ -184,7 +184,8 @@ var/global/list/datum/stack_recipe/snow_recipes = list(
 	else
 		return ..()
 
-/obj/item/stack/sheet/mineral/plasma/fire_act()
+/obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, amount*10)
 	qdel(src)
 

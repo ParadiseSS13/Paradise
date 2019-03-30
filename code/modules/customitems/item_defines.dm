@@ -154,7 +154,7 @@
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
