@@ -46,13 +46,26 @@
 			return
 		var/mob/living/carbon/human/M = target
 		user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
-		target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
-		if(in_range(target, user))
+		var/distance = get_dist(target, user)
+		if (distance <= 1) //Melee glare
+			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 			to_chat(target, "<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		else //Only alludes to the shadowling if the target is close by
+			target.Stun(10)
+			M.AdjustSilence(10)
+		else //Distant glare
+			var/loss = 10 - distance
+			var/duration = 10 - loss
+			if(loss <= 0)
+				to_chat(user, "<span class='danger'>Your glare had no effect over such long distance!</span>")
+				return
+			target.slowed = duration
+			target.stuttering = duration
+			to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted..</span>")
+			sleep(duration*10)
+			target.Stun(loss)
+			M.AdjustSilence(loss)
+			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
-		target.Stun(10)
-		M.AdjustSilence(10)
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
