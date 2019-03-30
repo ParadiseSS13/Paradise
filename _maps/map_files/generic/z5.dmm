@@ -748,7 +748,7 @@
 /obj/machinery/camera{
 	c_tag = "North Outpost";
 	dir = 8;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -1721,7 +1721,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Storage";
 	dir = 8;
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -1749,7 +1749,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Medical";
 	dir = 8;
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -2292,7 +2292,7 @@
 "fF" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
@@ -2419,7 +2419,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
 	dir = 4;
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2586,7 +2586,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Security Hallway";
 	dir = 8;
-	network = list("Labor");
+	network = list("Labor Camp");
 	pixel_x = 0;
 	pixel_y = 0
 	},
@@ -2786,7 +2786,7 @@
 /obj/machinery/camera{
 	c_tag = "Communications Relay";
 	dir = 8;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -3013,7 +3013,7 @@
 "hj" = (
 /obj/machinery/computer/security{
 	name = "Labor Camp Monitoring";
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -3497,7 +3497,7 @@
 /obj/machinery/camera{
 	c_tag = "Crew Area";
 	dir = 1;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3559,7 +3559,7 @@
 /obj/machinery/camera{
 	c_tag = "Storage Room";
 	dir = 1;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -3861,7 +3861,7 @@
 /obj/machinery/camera{
 	c_tag = "West Outpost";
 	dir = 1;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/west_outpost)
@@ -3960,7 +3960,7 @@
 "js" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway";
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
@@ -4071,7 +4071,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/machinery/light_switch{
 	pixel_y = 28

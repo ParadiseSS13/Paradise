@@ -15266,7 +15266,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/shuttle/siberia)
 "azl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
@@ -15845,7 +15845,7 @@
 /area/shuttle/siberia)
 "aAk" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/shuttle/siberia)
 "aAl" = (
 /obj/machinery/door/airlock/external{
@@ -66164,7 +66164,7 @@
 /area/blueshield)
 "coN" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/shuttle/mining)
 "coO" = (
 /turf/space,

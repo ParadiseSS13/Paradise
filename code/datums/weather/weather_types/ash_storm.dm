@@ -21,7 +21,7 @@
 
 	immunity_type = "ash"
 
-//	probability = 90
+	probability = 90
 
 	barometer_predictable = TRUE
 
@@ -105,4 +105,4 @@
 
 	aesthetic = TRUE
 
-//	probability = 10
+	probability = 10
