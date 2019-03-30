@@ -118,7 +118,7 @@
 			src.overmind = B
 			color = overmind.blob_reagent_datum.color
 			if(B.mind && !B.mind.special_role)
-				B.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+				B.mind.make_Overmind()
 			spawn(0)
 				if(is_offspring)
 					B.is_offspring = TRUE
@@ -131,7 +131,7 @@
 	if(overmind)
 		overmind.add_points(60)
 		if(overmind.mind)
-			overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+			overmind.mind.make_Overmind()
 		else
 			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
 	else

@@ -1442,6 +1442,11 @@
 		ticker.mode.greet_changeling(src)
 		ticker.mode.update_change_icons_added(src)
 
+/datum/mind/proc/make_Overmind()
+	if(!(src in ticker.mode.blob_overminds))
+		ticker.mode.blob_overminds += src
+		special_role = SPECIAL_ROLE_BLOB_OVERMIND
+
 /datum/mind/proc/make_Wizard()
 	if(!(src in ticker.mode.wizards))
 		ticker.mode.wizards += src

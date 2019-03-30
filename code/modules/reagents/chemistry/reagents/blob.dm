@@ -104,21 +104,6 @@
 		M.adjustStaminaLoss(0.4*volume)
 		M.reagents.add_reagent("frostoil", 0.4*volume)
 
-/* /datum/reagent/blob/dark_matter
-	name = "Dark Matter"
-	description = "Deals High Brute damage and sucks everyone and everything closer, creating a vortex of death."
-	id = "dark_matter"
-	color = "#61407E"
-	complementary_color = "#8f7ca0"
-	message = "You feel a thrum as the blob strikes you, and everything flies at you"
-
-/datum/reagent/blob/dark_matter/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		reagent_vortex(M, 0, volume)
-		volume = ..()
-		M.apply_damage(0.6*volume, BRUTE)
-
-*/
 /datum/reagent/blob/b_sorium
 	name = "Sorium"
 	description = "Deals High Brute damage, and sends people flying away."
