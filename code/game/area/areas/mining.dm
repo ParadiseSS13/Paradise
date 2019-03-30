@@ -18,6 +18,9 @@
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 	flags = NONE
 
+/area/mine/dangerous/explored/golem
+	name = "Small Asteroid"
+
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
@@ -78,6 +81,8 @@
 	name = "Labor Camp Security"
 	icon_state = "security"
 
+/area/mine/podbay
+	name = "Mining Podbay"
 
 
 

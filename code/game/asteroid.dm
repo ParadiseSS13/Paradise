@@ -139,7 +139,7 @@ var/global/max_secret_rooms = 6
 	possiblethemes -= theme //once a theme is selected, it's out of the running!
 	var/floor = pick(floortypes)
 
-	turfs = get_area_turfs(/area/mine/dangerous/unexplored)
+	turfs = get_area_turfs(/area/mine/unexplored)
 
 	if(!turfs.len)
 		return 0

@@ -40,6 +40,16 @@
 		var/mob/MM = AM
 		if(MM.flying)
 			return 0
+
+	if(ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		if(istype(H.belt, /obj/item/device/wormhole_jaunter))
+			var/obj/item/device/wormhole_jaunter/J = H.belt
+			//To freak out any bystanders
+			visible_message("<span class='boldwarning'>[H] falls into [src]!</span>")
+			J.chasm_react(H)
+			return 0
+
 	return 1
 
 /turf/simulated/floor/chasm/proc/drop(atom/movable/AM)

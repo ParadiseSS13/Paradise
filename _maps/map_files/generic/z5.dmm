@@ -4,7 +4,7 @@
 /area/space)
 "ab" = (
 /turf/simulated/mineral,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "ac" = (
 /obj/docking_port/stationary{
 	dheight = 9;
@@ -19,10 +19,10 @@
 /area/space)
 "ad" = (
 /turf/simulated/floor/plating/asteroid/airless/cave,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "ae" = (
 /turf/simulated/mineral/random,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "af" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -60,7 +60,7 @@
 /area/space)
 "ak" = (
 /turf/simulated/mineral/random/high_chance,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "al" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1287,7 +1287,7 @@
 /area/mine/north_outpost)
 "dy" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "dz" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /turf/simulated/floor/plasteel{
@@ -1595,7 +1595,7 @@
 /area/mine/abandoned)
 "em" = (
 /turf/simulated/mineral/random/labormineral,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "en" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless{
@@ -1795,7 +1795,7 @@
 /area/mine/laborcamp)
 "eB" = (
 /turf/simulated/wall,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "eC" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
@@ -1975,7 +1975,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "eX" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -2175,21 +2175,21 @@
 	icon_state = "asteroidwarning";
 	dir = 10
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "ft" = (
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-asteroidwarning (SOUTHEAST)";
 	icon_state = "asteroidwarning";
 	dir = 6
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "fu" = (
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-asteroidwarning";
 	icon_state = "asteroidwarning";
 	dir = 2
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "fv" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3133,7 +3133,7 @@
 /area/mine/living_quarters)
 "hB" = (
 /turf/space,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "hC" = (
 /obj/structure/lattice,
 /turf/space,
@@ -3539,7 +3539,7 @@
 "iz" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/mineral/random,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "iA" = (
 /obj/machinery/light/small{
 	dir = 4

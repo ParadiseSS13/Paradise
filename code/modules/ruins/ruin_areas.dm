@@ -1,11 +1,10 @@
 //Parent types
 
-/area/ruin/
+/area/ruin
 	name = "\improper Unexplored Location"
 	icon_state = "away"
 	has_gravity = 1
 	there_can_be_many = 1
-
 
 /area/ruin/unpowered
 	always_unpowered = 0
@@ -15,9 +14,6 @@
 
 /area/ruin/powered
 	requires_power = 0
-
-
-
 
 //Areas
 
@@ -34,7 +30,6 @@
 /area/ruin/onehalf/hallway
 	name = "Hallway"
 	icon_state = "hallC"
-
 
 /area/ruin/onehalf/drone_bay
 	name = "Mining Drone Bay"

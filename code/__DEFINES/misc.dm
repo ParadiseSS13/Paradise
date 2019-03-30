@@ -141,6 +141,8 @@
 
 #define LIGHT_COLOR_WHITE		"#FFFFFF"
 
+#define LIGHT_COLOR_LAVA       "#C48A18" //Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
+
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm

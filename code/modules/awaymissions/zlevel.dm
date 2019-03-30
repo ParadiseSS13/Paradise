@@ -22,9 +22,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			var/atom/A = R
 			if(A.smooth)
 				queue_smooth(A)
-		if(istype(T, /turf/simulated/mineral)) // For the listening post, among other maps
-			var/turf/simulated/mineral/MT = T
-			MT.add_edges()
 	log_debug("\tTook [stop_watch(subtimer)]s")
 	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 

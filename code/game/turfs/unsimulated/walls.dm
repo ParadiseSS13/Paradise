@@ -33,3 +33,31 @@
 /turf/unsimulated/wall/abductor
 	icon_state = "alien1"
 	explosion_block = 50
+
+/turf/unsimulated/wall/necropolis
+	name = "necropolis wall"
+	desc = "A seemingly impenetrable wall."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "necro"
+	explosion_block = 50
+	baseturf = /turf/unsimulated/wall/necropolis
+
+/turf/unsimulated/wall/boss
+	name = "necropolis wall"
+	desc = "A thick, seemingly indestructible stone wall."
+	icon = 'icons/turf/walls/boss_wall.dmi'
+	icon_state = "wall"
+	canSmoothWith = list(/turf/unsimulated/wall/boss, /turf/unsimulated/wall/boss/see_through)
+	explosion_block = 50
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
+	smooth = SMOOTH_TRUE
+
+/turf/unsimulated/wall/boss/see_through
+	opacity = FALSE
+
+/turf/unsimulated/wall/hierophant
+	name = "wall"
+	desc = "A wall made out of smooth, cold stone."
+	icon = 'icons/turf/walls/hierophant_wall.dmi'
+	icon_state = "hierophant"
+	smooth = SMOOTH_TRUE

@@ -592,23 +592,4 @@ Difficulty: Hard
 	desc = "Heed its words."
 	invisibility = 100
 
-/turf/simulated/indestructible/hierophant
-	icon_state = "hierophant1"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	desc = "A floor with a square pattern. It's faintly cool to the touch."
-
-/turf/simulated/indestructible/hierophant/New()
-	..()
-	if(prob(50))
-		icon_state = "hierophant2"
-
-/turf/simulated/indestructible/riveted/hierophant
-	name = "wall"
-	desc = "A wall made out of smooth, cold stone."
-	icon = 'icons/turf/walls/hierophant_wall.dmi'
-	icon_state = "hierophant"
-	smooth = SMOOTH_TRUE
-
 #undef MEDAL_PREFIX
