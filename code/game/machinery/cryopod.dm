@@ -477,7 +477,9 @@
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G.affecting
-
+		
+		time_till_despawn = (((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_factor)
+		
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
 			return
@@ -559,6 +561,8 @@
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
 
+	time_till_despawn = (((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_factor)
+	
 	if(L.client)
 		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
 			if(!L) return
