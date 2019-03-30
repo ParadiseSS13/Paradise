@@ -37,7 +37,7 @@
 	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
 	
-	if(!length(records))
+	if(!LAZYLEN(records))
 		return
 	
 	for(var/obj/machinery/clonepod/pod in pods)
@@ -403,10 +403,6 @@
 						scantemp = "Subject already getting cloned."
 						SSnanoui.update_uis(src)
 						return
-			else if(pod.occupant.ckey == subject.ckey) // Directly put in body
-				scantemp = "Subject already getting cloned."
-				SSnanoui.update_uis(src)
-				return
 
 	subject.dna.check_integrity()
 
