@@ -19,7 +19,7 @@
 		listeners = listeners & hearers(maxdistance, turf_source)
 	for(var/P in listeners)
 		var/mob/M = P
-		if(!M || !M.client || M.z != turf_source.z)
+		if(!M || !M.client || M.loc.z != turf_source.z)
 			continue
 		var/distance = get_dist(M, turf_source)
 
