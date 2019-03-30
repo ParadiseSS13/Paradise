@@ -56,7 +56,7 @@
 	var/tturf = get_turf(target)
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
-		new /obj/effect/goliath_tentacle/original(tturf)
+		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
 		pre_attack = 0
@@ -74,48 +74,65 @@
 		icon_state = icon_aggro
 	return
 
-/obj/effect/goliath_tentacle
+/obj/effect/temp_visual/goliath_tentacle
 	name = "Goliath tentacle"
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "Goliath_tentacle"
-	var/latched = 0
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "Goliath_tentacle_spawn"
+	layer = BELOW_MOB_LAYER
+	var/mob/living/spawner
 
-/obj/effect/goliath_tentacle/New()
-	var/turftype = get_turf(src)
-	if(istype(turftype, /turf/simulated/mineral))
-		var/turf/simulated/mineral/M = turftype
+/obj/effect/temp_visual/goliath_tentacle/New(var/loc, mob/living/new_spawner)
+	. = ..()
+	for(var/obj/effect/temp_visual/goliath_tentacle/T in loc)
+		if(T != src)
+			return INITIALIZE_HINT_QDEL
+
+	if(!QDELETED(new_spawner))
+		spawner = new_spawner
+
+	if(ismineralturf(loc))
+		var/turf/simulated/mineral/M = loc
 		M.gets_drilled()
-	spawn(20)
-		Trip()
+	deltimer(timerid)
+	timerid = addtimer(CALLBACK(src, .proc/tripanim), 7, TIMER_STOPPABLE)
 
-/obj/effect/goliath_tentacle/original
-
-/obj/effect/goliath_tentacle/original/New()
-	for(var/obj/effect/goliath_tentacle/original/O in loc)//No more GG NO RE from 2+ goliaths simultaneously tentacling you
-		if(O != src)
-			qdel(src)
+/obj/effect/temp_visual/goliath_tentacle/original/New(var/loc, mob/living/new_spawner)
+	. = ..()
 	var/list/directions = cardinal.Copy()
-	var/counter
-	for(counter = 1, counter <= 3, counter++)
-		var/spawndir = pick(directions)
-		directions -= spawndir
-		var/turf/T = get_step(src,spawndir)
-		new /obj/effect/goliath_tentacle(T)
-	..()
+	for(var/i in 1 to 3)
+		var/spawndir = pick_n_take(directions)
+		var/turf/T = get_step(src, spawndir)
+		if(T)
+			new /obj/effect/temp_visual/goliath_tentacle(T, new_spawner)
 
+	icon_state = "Goliath_tentacle_wiggle"
+	deltimer(timerid)
+	timerid = addtimer(CALLBACK(src, .proc/trip), 3, TIMER_STOPPABLE)
 
-/obj/effect/goliath_tentacle/proc/Trip()
-	for(var/mob/living/M in src.loc)
-		M.Stun(5)
-		M.adjustBruteLoss(rand(10,15))
-		latched = 1
-		if(src && M)
-			visible_message("<span class='danger'>The [src.name] grabs hold of [M.name]!</span>")
+/obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
+	icon_state = "Goliath_tentacle_wiggle"
+	deltimer(timerid)
+	timerid = addtimer(CALLBACK(src, .proc/trip), 3, TIMER_STOPPABLE)
+
+/obj/effect/temp_visual/goliath_tentacle/proc/trip()
+	var/latched = FALSE
+	for(var/mob/living/L in loc)
+		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
+			continue
+		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		L.Stun(5)
+		L.adjustBruteLoss(rand(10,15))
+		latched = TRUE
 	if(!latched)
-		qdel(src)
+		retract()
 	else
-		spawn(50)
-			qdel(src)
+		deltimer(timerid)
+		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
+
+/obj/effect/temp_visual/goliath_tentacle/proc/retract()
+	icon_state = "Goliath_tentacle_retract"
+	deltimer(timerid)
+	timerid = QDEL_IN(src, 7)
 
 /obj/item/asteroid/goliath_hide
 	name = "goliath hide plates"
