@@ -5,16 +5,12 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/duration = 10
 	var/randomdir = TRUE
-	var/timerid
 
 /obj/effect/temp_visual/New()
 	if(randomdir)
 		setDir(pick(cardinal))
 
-	timerid = QDEL_IN(src, duration)
-
-/obj/effect/temp_visual/Destroy()
-	deltimer(timerid)
+	QDEL_IN(src, duration)
 
 /obj/effect/temp_visual/singularity_act()
 	return
