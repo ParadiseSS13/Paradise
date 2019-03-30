@@ -308,6 +308,9 @@
 #define CRYO_DESTROY 0
 #define CRYO_PRESERVE 1
 #define CRYO_OBJECTIVE 2
+/obj/machinery/cryopod/proc/calculate_time()
+	var/calculated_time = (length(GLOB.clients) >= 80) ? 3000 : 9000  //calculated with a D
+	return calculated_time
 
 /obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
 	for(var/datum/theft_objective/T in control_computer.theft_cache)
@@ -478,7 +481,7 @@
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G.affecting
 		
-		time_till_despawn = (((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_factor)
+		time_till_despawn = calculate_time()
 		
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
@@ -561,7 +564,7 @@
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
 
-	time_till_despawn = (((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_factor)
+	time_till_despawn = calculate_time()
 	
 	if(L.client)
 		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
@@ -595,7 +598,7 @@
 	if(!E)
 		return
 	E.forceMove(src)
-	time_till_despawn = (((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_factor) //Calculate population to see if we want a quicker despawn time
+	time_till_despawn = (calculate_time() / willing_factor) //Calculate population to see if we want a quicker despawn time
 	if(orient_right)
 		icon_state = "[occupied_icon_state]-r"
 	else
@@ -677,7 +680,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
-		time_till_despawn = ((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_time_divisor //If there is a high population then we decrease the amount of time it takes to despawn. 
+		time_till_despawn = (calculate_time()/ willing_time_divisor) //If there is a high population then we decrease the amount of time it takes to despawn. 
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"
