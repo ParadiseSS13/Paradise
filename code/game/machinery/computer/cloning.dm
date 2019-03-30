@@ -396,13 +396,12 @@
 		return
 
 	for(var/obj/machinery/clonepod/pod in pods)
-		if(pod.occupant)
-			if(pod.occupant.ckey == null) // Uses soulhooks
-				for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
-					if(hook.soulowner.ckey == subject.ckey)
-						scantemp = "Subject already getting cloned."
-						SSnanoui.update_uis(src)
-						return
+		if(pod.occupant && pod.occupant.ckey == null)
+			for(var/datum/soullink/soulhook/hook in pod.sharedSoulhooks) //Check the soul hooks to see if the to be cloned person is in here
+				if(hook.soulowner.ckey == subject.ckey)
+					scantemp = "Subject already getting cloned."
+					SSnanoui.update_uis(src)
+					return
 
 	subject.dna.check_integrity()
 
