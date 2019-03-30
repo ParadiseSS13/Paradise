@@ -708,7 +708,7 @@
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7,src)
-	if(!target)
+	if(!target || !target.client)
 		return 0
 
 	for(var/datum/data/vending_product/R in product_records)
