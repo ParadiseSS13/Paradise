@@ -56,7 +56,7 @@ var/global/pipe_processing_killed = 0
 
 	var/mining_type = MINETYPE
 	if (mining_type == "lavaland")
-		seedRuins(list(5), config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
+		seedRuins(5, config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
 		spawn_rivers()
 	else
 		make_mining_asteroid_secret()

@@ -92,6 +92,12 @@
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 
+/datum/disease/has_cure()
+	if (affected_mob.has_status_effect(STATUS_EFFECT_EXERCISED))
+		return TRUE
+
+	return ..()
+
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())
 		switch(stage)

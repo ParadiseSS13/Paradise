@@ -378,6 +378,13 @@
 	item_color = "necklace"
 	slot_flags = SLOT_TIE
 
+/obj/item/clothing/accessory/necklace/dope
+	name = "gold necklace"
+	desc = "Damn, it feels good to be a gangster."
+	icon_state = "bling"
+	item_color = "bling"
+	item_color = "bling"
+
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."

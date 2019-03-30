@@ -16,7 +16,6 @@
 	playsound(loc, pick(hit_sounds), 25, 1, -1)
 	if(isliving(user))
 		var/mob/living/L = user
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
 		L.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
 /obj/structure/weightmachine
@@ -33,21 +32,21 @@
 	. = ..()
 	if(.)
 		return
-	if(obj_flags & IN_USE)
+	if(in_use)
 		to_chat(user, "It's already in use - wait a bit.")
 		return
 	else
-		obj_flags |= IN_USE
+		in_use = TRUE
 		icon_state = icon_state_inuse
 		user.setDir(SOUTH)
-		user.Stun(80)
+		user.Stun(4)
 		user.forceMove(src.loc)
 		var/bragmessage = pick("pushing it to the limit","going into overdrive","burning with determination","rising up to the challenge", "getting strong now","getting ripped")
 		user.visible_message("<B>[user] is [bragmessage]!</B>")
 		AnimateMachine(user)
 
 		playsound(user, 'sound/machines/click.ogg', 60, 1)
-		obj_flags &= ~IN_USE
+		in_use = FALSE
 		user.pixel_y = 0
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
 		icon_state = initial(icon_state)
