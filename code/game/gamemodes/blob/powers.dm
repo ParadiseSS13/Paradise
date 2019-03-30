@@ -265,7 +265,7 @@
 /mob/camera/blob/verb/revert()
 	set category = "Blob"
 	set name = "Remove Blob"
-	set desc = "Removes a blob."
+	set desc = "Removes a blob. You will receive 30% cost refund for special Blob structures."
 
 	var/turf/T = get_turf(src)
 	remove_blob(T)
