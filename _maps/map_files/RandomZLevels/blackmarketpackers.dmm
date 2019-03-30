@@ -3423,7 +3423,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission)
 "iM" = (
-/turf/simulated/mineral/random/high_chance_clown,
+/turf/simulated/mineral/random/high_chance/clown,
 /area/awaymission)
 "iN" = (
 /obj/effect/decal/cleanable/blood,

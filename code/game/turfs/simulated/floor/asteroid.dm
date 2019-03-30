@@ -132,7 +132,7 @@
 	nitrogen = 0
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
-#define SPAWN_MEGAFAUNA "MEGAFAUNE"
+#define SPAWN_MEGAFAUNA "MEGAFAUNA"
 #define SPAWN_BUBBLEGUM 6
 
 /turf/simulated/floor/plating/asteroid/airless/cave
@@ -252,7 +252,7 @@
 	SpawnFlora(T)
 
 	SpawnMonster(T)
-	T.ChangeTurf(turf_type,FALSE,TRUE)
+	T.ChangeTurf(turf_type,FALSE,FALSE)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T)
 	if(prob(30))

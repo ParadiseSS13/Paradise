@@ -116,10 +116,15 @@
 	power_light = 0
 	ambientsounds = list('sound/ambience/ambilava.ogg')
 
-
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = 1
+
+/area/lavaland/surface/outdoors/unexplored //monsters and ruins spawn here
+	icon_state = "unexplored"
+
+/area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
+	icon_state = "danger"
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"

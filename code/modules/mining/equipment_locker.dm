@@ -658,25 +658,47 @@
 	origin_tech = "bluespace=2"
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
+	user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
+	activate(user, TRUE)
+
+/obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
+		return FALSE
+	return TRUE
+
+/obj/item/wormhole_jaunter/proc/get_destinations(mob/user)
+	var/list/destinations = list()
+
+	for(var/obj/item/radio/beacon/B in world)
+		var/turf/T = get_turf(B)
+		if(is_station_level(T.z))
+			destinations += B
+
+	return destinations
+
+/obj/item/wormhole_jaunter/proc/activate(mob/user, adjacent)
+	if(!turf_check(user))
 		return
-	else
-		user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
-		var/list/L = list()
-		for(var/obj/item/radio/beacon/B in world)
-			var/turf/T = get_turf(B)
-			if(is_station_level(T.z))
-				L += B
-		if(!L.len)
-			to_chat(user, "<span class='notice'>The [src.name] failed to create a wormhole.</span>")
-			return
-		var/chosen_beacon = pick(L)
-		var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon, lifespan=100)
+
+	var/list/L = get_destinations(user)
+	if(!L.len)
+		to_chat(user, "<span class='notice'>The [src.name] found no beacons in the world to anchor a wormhole to.</span>")
+		return
+	var/chosen_beacon = pick(L)
+	var/obj/effect/portal/wormhole/jaunt_tunnel/J = new (get_turf(src), src, 100, null, FALSE, get_turf(chosen_beacon))
+	if(adjacent)
 		try_move_adjacent(J)
-		playsound(src,'sound/effects/sparks4.ogg',50,1)
-		qdel(src)
+	playsound(src,'sound/effects/sparks4.ogg',50,1)
+	qdel(src)
+
+/obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
+	if(user.get_item_by_slot(SLOT_BELT) == src)
+		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
+		activate(user, FALSE)
+	else
+		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
 
 /obj/effect/portal/wormhole/jaunt_tunnel
 	name = "jaunt tunnel"

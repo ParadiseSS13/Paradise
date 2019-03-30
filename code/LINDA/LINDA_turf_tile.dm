@@ -437,16 +437,7 @@
 	turf_list.Cut()
 	SSair.excited_groups -= src
 
-
-
-
-
-
-
-
-
-
-turf/simulated/proc/super_conduct()
+/turf/simulated/proc/super_conduct()
 	var/conductivity_directions = 0
 	if(blocks_air)
 		//Does not participate in air exchange, so will conduct heat across all four borders at this time

@@ -307,7 +307,7 @@
 					config.log_admin = 1
 
 				if("log_debug")
-					config.log_debug = text2num(value)
+					config.log_debug = 1
 
 				if("log_game")
 					config.log_game = 1
