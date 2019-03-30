@@ -326,6 +326,7 @@
 /obj/item/storage/box/cyber_implants/bundle/New()
 	..()
 	var/implant
-	while(contents.len <= amount + 1) // +1 for the autoimplanter.
+	while(amount > 0)
 		implant = pick(boxed)
 		new implant(src)
+		amount--

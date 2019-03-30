@@ -52,6 +52,7 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
 	if(!emagged && detecting && temperature > T0C + 200)
 		alarm()			// added check of detector status here
 

@@ -129,6 +129,7 @@
 		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
 	if(jobban_isbanned(user, "Syndicate"))
+		to_chat(user, "<span class='warning'>You are banned from antagonists!</span>")
 		return
 	if(key)
 		return

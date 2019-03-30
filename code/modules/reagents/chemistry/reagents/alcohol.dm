@@ -1126,7 +1126,7 @@
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST && prob(20))
 		if(M.on_fire)
-			M.adjust_fire_stacks(3)
+			M.adjust_fire_stacks(6)
 
 /datum/reagent/consumable/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1148,7 +1148,7 @@
 	if(prob(2 * volume))
 		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
 		if(M.on_fire)
-			M.adjust_fire_stacks(5)
+			M.adjust_fire_stacks(20)
 		if(prob(50))
 			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
 			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")

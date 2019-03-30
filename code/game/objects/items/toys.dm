@@ -231,7 +231,7 @@
 /obj/item/toy/katana/suicide_act(mob/user)
 	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
 	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 
 /*
@@ -275,7 +275,8 @@
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
-/obj/item/toy/snappop/fire_act()
+/obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	pop_burst()
 
 /obj/item/toy/snappop/throw_impact(atom/hit_atom)
@@ -1186,7 +1187,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
 		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
-		playsound(user, 'sound/misc/hoot.ogg', 25, 1)
+		playsound(user, 'sound/creatures/hoot.ogg', 25, 1)
 		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1205,7 +1206,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
 		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
-		playsound(user, 'sound/misc/caw.ogg', 25, 1)
+		playsound(user, 'sound/creatures/caw.ogg', 25, 1)
 		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1376,7 +1377,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/toy/russian_revolver/New()
 	spin_cylinder()
@@ -1689,5 +1690,5 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/restraints/handcuffs/toy
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
-	breakouttime = 0 
+	breakouttime = 0
 	ignoresClumsy = TRUE

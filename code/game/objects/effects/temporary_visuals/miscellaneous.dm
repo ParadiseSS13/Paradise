@@ -211,3 +211,21 @@
 	pixel_x = rand(-4,4)
 	pixel_y = rand(-4,4)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = 25)
+
+/obj/effect/temp_visual/shockwave
+	name = "shockwave"
+	icon = 'icons/goonstation/effects/64x64.dmi'
+	icon_state = "shockwave"
+	randomdir = FALSE
+	pixel_y = -16
+	pixel_x = -16
+	duration = 20
+
+/obj/effect/temp_visual/implosion
+	name = "implosion"
+	icon = 'icons/goonstation/effects/64x64.dmi'
+	icon_state = "implosion"
+	randomdir = FALSE
+	pixel_y = -16
+	pixel_x = -16
+	duration = 20

@@ -2,6 +2,8 @@
 	var/server_name = null				// server name (for world name / status)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
+	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
+
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
 	var/log_ooc = 0						// log OOC channel
@@ -97,10 +99,6 @@
 	var/check_randomizer = 0
 
 	//game_options.txt configs
-
-	var/health_threshold_softcrit = 0
-	var/health_threshold_crit = 0
-	var/health_threshold_dead = -100
 
 	var/bones_can_break = 1
 
@@ -212,6 +210,9 @@
 
 	// Developer
 	var/developer_express_start = 0
+
+	// Automatic localhost admin disable
+	var/disable_localhost_admin = 0
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -378,6 +379,9 @@
 
 				if("serversuffix")
 					config.server_suffix = 1
+
+				if("minimum_client_build")
+					config.minimum_client_build = text2num(value)
 
 				if("nudge_script_path")
 					config.nudge_script_path = value
@@ -645,6 +649,8 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
+				if("disable_localhost_admin")
+					config.disable_localhost_admin = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -653,10 +659,6 @@
 			value = text2num(value)
 
 			switch(name)
-				if("health_threshold_crit")
-					config.health_threshold_crit = value
-				if("health_threshold_dead")
-					config.health_threshold_dead = value
 				if("revival_pod_plants")
 					config.revival_pod_plants = value
 				if("revival_cloning")

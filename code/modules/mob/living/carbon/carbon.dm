@@ -209,7 +209,7 @@
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-	if(health >= config.health_threshold_crit)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
 			visible_message( \
@@ -440,6 +440,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
 			if(!do_after(src, 45, target = src))
+				return
+
+			if(buckled)
+				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
 				return
 
 			if(!client)

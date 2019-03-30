@@ -205,6 +205,18 @@
 	taste_message = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C + 600)
+		var/turf/T = get_turf(holder.my_atom)
+		holder.my_atom.visible_message("<b>The oil burns!</b>")
+		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/effect_system/smoke_spread/bad/BS = new
+		BS.set_up(1, 0, T)
+		BS.start()
+		if(holder)
+			holder.add_reagent("ash", round(volume * 0.5))
+			holder.del_reagent(id)
+
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
 		new /obj/effect/decal/cleanable/blood/oil(T)

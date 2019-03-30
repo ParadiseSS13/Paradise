@@ -7,6 +7,7 @@
 	//language = "Clatter"
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
@@ -30,13 +31,13 @@
 		"shows their true colors, which happens to be the color of plasma!")
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
+		"heart" =    /obj/item/organ/internal/heart/plasmaman,
 		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"liver" =    /obj/item/organ/internal/liver/plasmaman,
+		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
+		"brain" =    /obj/item/organ/internal/brain/plasmaman,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
+		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
 		)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman

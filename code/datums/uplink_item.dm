@@ -351,6 +351,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	job = list("Research Director")
 
+//Roboticist
+/datum/uplink_item/jobspecific/syndiemmi
+	name = "Syndicate MMI"
+	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	reference = "SMMI"
+	item = /obj/item/mmi/syndie
+	cost = 2
+	job = list("Roboticist")
+	surplus = 0
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -642,6 +652,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/loaded
 	cost = 10 //bulk buyer's discount. Very useful if you're buying a mech and dont have TC left to buy people non-shotgun guns
 	gamemodes = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/ammo/bullslug
 	name = "Bulldog - 12g Slug Magazine"
@@ -1159,10 +1170,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Prototype Bone Repair Kit"
@@ -1461,10 +1472,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Cybernetic Implants"
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
+	var/cyber_bundle = FALSE
 
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
 	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
+		if(findtext(item, /obj/item/organ/internal/cyberimp) && !cyber_bundle)
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
 			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
@@ -1508,6 +1520,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
+	cyber_bundle = TRUE
+	cant_discount = TRUE
 
 // POINTLESS BADASSERY
 

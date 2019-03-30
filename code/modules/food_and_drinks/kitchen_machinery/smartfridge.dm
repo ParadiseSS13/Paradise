@@ -80,9 +80,11 @@
 	icon_on = "smartfridge_chem"
 
 /obj/machinery/smartfridge/medbay/accept_check(obj/item/O)
-	if(istype(O,/obj/item/reagent_containers/glass/))
+	if(istype(O,/obj/item/reagent_containers/glass))
 		return 1
-	if(istype(O,/obj/item/storage/pill_bottle/))
+	if(istype(O,/obj/item/reagent_containers/iv_bag))
+		return 1
+	if(istype(O,/obj/item/storage/pill_bottle))
 		return 1
 	if(ispill(O))
 		return 1
@@ -106,9 +108,11 @@
 	req_one_access_txt = "5;33"
 
 /obj/machinery/smartfridge/secure/medbay/accept_check(obj/item/O)
-	if(istype(O,/obj/item/reagent_containers/glass/))
+	if(istype(O,/obj/item/reagent_containers/glass))
 		return 1
-	if(istype(O,/obj/item/storage/pill_bottle/))
+	if(istype(O,/obj/item/reagent_containers/iv_bag))
+		return 1
+	if(istype(O,/obj/item/storage/pill_bottle))
 		return 1
 	if(ispill(O))
 		return 1

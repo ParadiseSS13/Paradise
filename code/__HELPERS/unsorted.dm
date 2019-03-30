@@ -216,6 +216,23 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			line+=locate(px,py,M.z)
 	return line
 
+//Same as the thing below just for density and without support for atoms.
+/proc/can_line(atom/source, atom/target, length = 5)
+	var/turf/current = get_turf(source)
+	var/turf/target_turf = get_turf(target)
+	var/steps = 0
+
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(!current)
+			return FALSE
+		if(current.density)
+			return FALSE
+		current = get_step_towards(current, target_turf)
+		steps++
+	return TRUE
+
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
@@ -1165,7 +1182,7 @@ var/global/list/common_tools = list(
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/O = W
 		if(O.isOn())
-			return 3800
+			return 2500
 		else
 			return 0
 	if(istype(W, /obj/item/lighter))
@@ -1207,7 +1224,7 @@ var/global/list/common_tools = list(
 		else
 			return 0
 	if(istype(W, /obj/item/assembly/igniter))
-		return 1000
+		return 20000
 	else
 		return 0
 
@@ -1487,10 +1504,11 @@ var/mob/dview/dview_mob = new
 /mob/dview
 	invisibility = 101
 	density = 0
-
+	move_force = 0
+	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-
+	canmove = FALSE
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox

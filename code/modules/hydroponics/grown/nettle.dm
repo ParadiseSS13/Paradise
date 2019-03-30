@@ -45,22 +45,22 @@
 
 /obj/item/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS|TOXLOSS)
+	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
 	..()
 	if(!ishuman(user))
-		return 0
+		return TRUE
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
-		return 0
+		return TRUE
 	var/organ = ((H.hand ? "l_":"r_") + "arm")
 	var/obj/item/organ/external/affecting = H.get_organ(organ)
 	if(affecting)
 		if(affecting.receive_damage(0, force))
 			H.UpdateDamageIcon()
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
-	return 1
+	return TRUE
 
 
 
@@ -95,8 +95,9 @@
 	force = round((5 + seed.potency / 2.5), 1)
 
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
-	if(..())
-		if(prob(50))
+	if(..() && ishuman(user)) // If the pickup succeeded and is humanoid
+		var/mob/living/carbon/human/H = user
+		if(!H.gloves && prob(50))
 			user.Paralyse(5)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 

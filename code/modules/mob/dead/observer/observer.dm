@@ -148,6 +148,8 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
 	if(key)
+		if(player_logged) //if they have disconnected we want to remove their SSD overlay
+			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
@@ -234,9 +236,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		A.Entered(src)
 
 	..()
-
-/mob/dead/observer/experience_pressure_difference()
-	return 0
 
 /mob/dead/observer/can_use_hands()	return 0
 

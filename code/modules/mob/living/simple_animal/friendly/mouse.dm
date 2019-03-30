@@ -10,16 +10,16 @@
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	var/squeak_sound = 'sound/effects/mousesqueek.ogg'
+	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "stamps on the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stamps on"
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -74,7 +74,6 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
-	playsound(src, squeak_sound, 40, 1)
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
@@ -102,6 +101,7 @@
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
+	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
@@ -126,7 +126,7 @@
 
 	switch(act)
 		if("squeak")
-			message = "<B>\The [src]</B> squeaks!"
+			message = "<B>\The [src]</B> [pick(emote_hear)]!"
 			m_type = 2 //audible
 			playsound(src, squeak_sound, 40, 1)
 		if("help")

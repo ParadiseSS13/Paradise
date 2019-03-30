@@ -16,6 +16,7 @@
 	var/block_chance_ranged = 90
 	var/stun_chance = 50
 	var/spam_flag = 0
+	var/frustration_number = 15
 	
 /mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Giftskee"
@@ -30,6 +31,8 @@
 	stun_chance = 0
 	bot_core_type = /obj/machinery/bot_core/toy
 	weapon = /obj/item/toy/sword
+	frustration_number = 5
+	locked = 0
 
 /obj/machinery/bot_core/toy
 	req_access = list(access_maint_tunnels, access_theatre, access_robotics)
@@ -54,6 +57,11 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/New()
 	..()
+	icon_state = "[base_icon][on]"
+	spawn(3)
+		var/datum/job/detective/J = new/datum/job/detective
+		access_card.access += J.get_access()
+		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/secbot/griefsky/Destroy()
 	QDEL_NULL(weapon)
@@ -107,8 +115,8 @@
 				mode = BOT_START_PATROL	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
 			icon_state = spin_icon
-			playsound(loc,'sound/effects/spinsabre.ogg',100,1,-1)
-			if(frustration >= 15) // general beepsky doesn't give up so easily, jedi scum
+			playsound(loc,'sound/effects/spinsabre.ogg',50,1,-1)
+			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
 				walk_to(src,0)
 				back_to_idle()
 				return
@@ -176,6 +184,10 @@
 	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	Sa.build_step = 1
+	Sa.overlays += "hs_hole"
+	Sa.created_name = name
 	if(prob(50))
 		new /obj/item/robot_parts/r_arm(Tsec)
 	if(prob(50)) //most of the time weapon will be destroyed
@@ -188,7 +200,7 @@
 		new weapon(Tsec)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
+	qdel(src)
 
 //this section is blocking attack
 

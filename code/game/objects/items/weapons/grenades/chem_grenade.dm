@@ -235,7 +235,7 @@
 		nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/pickup()
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
