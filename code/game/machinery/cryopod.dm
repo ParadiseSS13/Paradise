@@ -680,7 +680,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
-		time_till_despawn = (calculate_time()/ willing_time_divisor) //If there is a high population then we decrease the amount of time it takes to despawn. 
+		time_till_despawn = (calculate_time() / willing_time_divisor) //If there is a high population then we decrease the amount of time it takes to despawn. 
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"
