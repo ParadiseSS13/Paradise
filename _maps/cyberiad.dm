@@ -21,6 +21,7 @@ z7 = empty
 	#include "map_files\cyberiad\z6.dmm"
 	#include "map_files\generic\z7.dmm"
 
+	#define MINETYPE "lavaland"
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\

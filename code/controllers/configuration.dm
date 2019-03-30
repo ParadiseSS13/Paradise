@@ -218,6 +218,9 @@
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
 
+	// Lavaland
+	var/lavaland_budget = 60
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -725,6 +728,8 @@
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
+				if("lavaland_budget")
+					config.lavaland_budget = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

@@ -48,6 +48,15 @@
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
 
+/turf/simulated/floor/beach/coastline_t
+	name = "coastline"
+	desc = "Tide's high tonight. Charge your batons."
+	icon_state = "sandwater_t"
+
+/turf/simulated/floor/beach/coastline_b
+	name = "coastline"
+	icon_state = "sandwater_b"
+
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"

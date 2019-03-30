@@ -54,6 +54,9 @@
 	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/food/snacks/meat/monkey(src)
 
+/obj/structure/closet/secure_closet/freezer/meat/open
+	req_access = null
+	locked = FALSE
 
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"

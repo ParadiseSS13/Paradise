@@ -101,6 +101,7 @@
 
 //turf-only flags
 #define NOJAUNT		1
+#define NO_LAVA_GEN	2 //Blocks lava rivers being generated on the turf
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING 1

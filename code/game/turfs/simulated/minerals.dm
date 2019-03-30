@@ -41,6 +41,9 @@
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
 
+/turf/simulated/mineral/Spread(turf/T)
+	T.ChangeTurf(type)
+
 /turf/simulated/mineral/shuttleRotate(rotation)
 	setDir(angle2dir(rotation + dir2angle(dir)))
 	queue_smooth(src)
@@ -130,9 +133,6 @@
 				gets_drilled(null, 1)
 		if(1)
 			gets_drilled(null, 1)
-
-/turf/simulated/mineral/proc/Spread(var/turf/T)
-	T.ChangeTurf(type)
 
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList

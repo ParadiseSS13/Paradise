@@ -39,6 +39,7 @@ var/global/pipe_processing_killed = 0
 	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()
+	
 	// Create 6 extra space levels to put space ruins on
 	if(!config.disable_space_ruins)
 		var/timer = start_watch()
@@ -53,12 +54,16 @@ var/global/pipe_processing_killed = 0
 			var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
 			seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
 
+	var/mining_type = MINETYPE
+	if (mining_type == "lavaland")
+		seedRuins(list(5), config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
+		spawn_rivers()
+	else
+		make_mining_asteroid_secret()
+
 	space_manager.do_transition_setup()
 
 	setupfactions()
 	setup_economy()
-
-	for(var/i=0, i<max_secret_rooms, i++)
-		make_mining_asteroid_secret()
 
 	populate_spawn_points()

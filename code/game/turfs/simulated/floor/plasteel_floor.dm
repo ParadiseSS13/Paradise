@@ -39,3 +39,14 @@
 
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"
+
+/turf/simulated/floor/plasteel/stairs
+	icon_state = "stairs"
+/turf/simulated/floor/plasteel/stairs/left
+	icon_state = "stairs-l"
+/turf/simulated/floor/plasteel/stairs/medium
+	icon_state = "stairs-m"
+/turf/simulated/floor/plasteel/stairs/right
+	icon_state = "stairs-r"
+/turf/simulated/floor/plasteel/stairs/old
+	icon_state = "stairs-old"
