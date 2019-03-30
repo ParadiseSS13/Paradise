@@ -939,7 +939,7 @@
 					if(connected)
 						I.damage_coeff = connected.damage_coeff
 					src.injector_ready = 0
-					spawn(300)
+					spawn(30) // 3 seconds
 						src.injector_ready = 1
 			return 1
 
