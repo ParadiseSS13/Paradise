@@ -205,7 +205,7 @@
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
 	// 15 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 3000 // This is reduced by 90% if a player manually enters cryo
+	var/time_till_despawn  //This is set in take_occupant and move_inside
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/radio/intercom/announce
@@ -477,7 +477,6 @@
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G.affecting
-		time_till_despawn = initial(time_till_despawn)
 
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
@@ -559,7 +558,6 @@
 
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
-	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
 		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
@@ -593,7 +591,7 @@
 	if(!E)
 		return
 	E.forceMove(src)
-	time_till_despawn = initial(time_till_despawn) / willing_factor
+	time_till_despawn = (((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_factor) //Calculate population to see if we want a quicker despawn time
 	if(orient_right)
 		icon_state = "[occupied_icon_state]-r"
 	else
@@ -675,7 +673,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
-		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
+		time_till_despawn = ((length(GLOB.clients) >= 80) ? 3000 : 9000) / willing_time_divisor //If there is a high population then we decrease the amount of time it takes to despawn. 
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"
