@@ -4,6 +4,7 @@
 	icon_state = "blank_blob"
 	health = 200
 	fire_resist = 2
+	point_return = -1
 	var/mob/camera/blob/overmind = null // the blob core's overmind
 	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
 	var/resource_delay = 0
@@ -120,7 +121,8 @@
 				B.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
 			spawn(0)
 				if(is_offspring)
-					B.verbs -= /mob/camera/blob/verb/split_consciousness
+					B.is_offspring = TRUE
+		
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

@@ -104,7 +104,7 @@
 		M.adjustStaminaLoss(0.4*volume)
 		M.reagents.add_reagent("frostoil", 0.4*volume)
 
-/datum/reagent/blob/dark_matter
+/* /datum/reagent/blob/dark_matter
 	name = "Dark Matter"
 	description = "Deals High Brute damage and sucks everyone and everything closer, creating a vortex of death."
 	id = "dark_matter"
@@ -118,7 +118,7 @@
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
 
-
+*/
 /datum/reagent/blob/b_sorium
 	name = "Sorium"
 	description = "Deals High Brute damage, and sends people flying away."
