@@ -270,14 +270,14 @@
 		defib = mainunit
 		loc = defib
 		busy = 0
-		update_icon()
 		Adefib = new
+		update_icon()
 	return
 
 /obj/item/twohanded/shockpaddles/update_icon()
 	icon_state = "defibpaddles[wielded]"
 	item_state = "defibpaddles[wielded]"
-	if(cooldown)
+	if(Adefib.cooldown)
 		icon_state = "defibpaddles[wielded]_cooldown"
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
@@ -355,12 +355,12 @@
 		paddles.update_icon()
 		addtimer(CALLBACK(defib, cooldown_proc, user), 50)
 		return TRUE
+	
 	var/tobehealed
 	var/threshold = -HEALTH_THRESHOLD_DEAD
 	
 	user.visible_message("<span class='warning'>[user] begins to place [paddles] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [paddles] on [M.name]'s chest.</span>")
 	busy = TRUE
-	paddles.update_icon()
 	if(do_after(user, 30 * paddles.toolspeed, target = M)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		user.visible_message("<span class='notice'>[user] places [paddles] on [M.name]'s chest.</span>", "<span class='warning'>You place [paddles] on [M.name]'s chest.</span>")
 		playsound(get_turf(paddles), 'sound/machines/defib_charge.ogg', 50, 0)
@@ -383,14 +383,12 @@
 						user.visible_message("<span class='notice'>[defib] buzzes: Patient's chest is obscured. Operation aborted.</span>")
 						playsound(get_turf(paddles), 'sound/machines/defib_failed.ogg', 50, 0)
 						busy = FALSE
-						paddles.update_icon()
 						return FALSE
 			if(H.undergoing_cardiac_arrest())
 				if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 					user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 					playsound(get_turf(paddles), 'sound/machines/defib_failed.ogg', 50, 0)
 					busy = FALSE
-					paddles.update_icon()
 					return FALSE
 				else
 					var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
@@ -398,7 +396,6 @@
 						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
 						playsound(get_turf(paddles), 'sound/machines/defib_failed.ogg', 50, 0)
 						busy = FALSE
-						paddles.update_icon()
 						return FALSE
 					H.set_heartattack(FALSE)
 					H.shock_internal_organs(100)
@@ -452,8 +449,8 @@
 					else
 						user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
 					playsound(get_turf(paddles), 'sound/machines/defib_failed.ogg', 50, 0)
-				paddles.update_icon()
 				cooldown = TRUE
+				paddles.update_icon()
 				addtimer(CALLBACK(defib, cooldown_proc, user), 50)
 				busy = FALSE
 				return TRUE
@@ -461,8 +458,9 @@
 				user.visible_message("<span class='notice'>[defib] buzzes: Patient is not in a valid state. Operation aborted.</span>")
 				playsound(get_turf(paddles), 'sound/machines/defib_failed.ogg', 50, 0)
 				busy = FALSE
-				paddles.update_icon()
 				return FALSE
+	busy = FALSE
+	return FALSE
 
 /obj/item/borg_defib
 	name = "defibrillator paddles"
