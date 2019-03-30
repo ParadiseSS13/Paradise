@@ -18,9 +18,9 @@
 	return 0
 
 
-/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target for 10 seconds
+/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
 	name = "Glare"
-	desc = "Stuns and mutes a target for a decent duration."
+	desc = "Stuns and mutes a target for a decent duration. Duration depends on the proximity to the target."
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
