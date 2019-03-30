@@ -6,6 +6,10 @@
 
 /datum/event/grid_check/start()
 	power_failure(0)
+	for(var/mob/M in GLOB.player_list)
+		if(!M.client)
+			continue
+		SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
 
 /datum/event/grid_check/announce()
 	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
