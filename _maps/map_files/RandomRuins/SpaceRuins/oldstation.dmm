@@ -753,7 +753,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "cg" = (
-/obj/effect/decal/cleanable/deadcockroach,
+/obj/effect/decal/cleanable/insectguts,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -4428,7 +4428,7 @@
 /area/ruin/space/ancientstation)
 "ke" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/deadcockroach,
+/obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "kf" = (

@@ -5678,7 +5678,7 @@
 	},
 /area/maintenance/fsmaint)
 "amf" = (
-/obj/effect/decal/cleanable/deadcockroach,
+/obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -84105,7 +84105,7 @@
 /turf/simulated/floor/plating,
 /area/medical/medbay)
 "cTZ" = (
-/obj/machinery/smartfridge/chemistry,
+/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -89452,7 +89452,7 @@
 	},
 /area/hallway/primary/aft)
 "ddL" = (
-/obj/machinery/smartfridge/chemistry,
+/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

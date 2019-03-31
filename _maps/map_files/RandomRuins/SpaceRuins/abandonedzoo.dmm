@@ -414,7 +414,7 @@
 	},
 /area/ruin/unpowered)
 "aV" = (
-/obj/machinery/smartfridge/chemistry,
+/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
