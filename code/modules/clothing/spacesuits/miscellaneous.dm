@@ -279,3 +279,14 @@
 	species_fit = null
 	sprite_sheets = null
 	sprite_sheets_obj = null
+
+/obj/item/clothing/head/helmet/space/orange
+	name = "emergency space helmet"
+	icon_state = "syndicate-helm-orange"
+	item_state = "syndicate-helm-orange"
+
+/obj/item/clothing/suit/space/orange
+	name = "emergency space suit"
+	icon_state = "syndicate-orange"
+	item_state = "syndicate-orange"
+	slowdown = 3

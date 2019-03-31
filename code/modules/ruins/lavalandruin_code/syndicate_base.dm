@@ -32,6 +32,10 @@
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 
+/obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
+	new/obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
+	return ..()
+
 /datum/outfit/lavaland_syndicate
 	name = "Lavaland Syndicate Agent"
 	r_hand = /obj/item/gun/projectile/automatic/sniper_rifle

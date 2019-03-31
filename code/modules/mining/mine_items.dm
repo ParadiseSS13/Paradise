@@ -93,6 +93,10 @@
 /obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
 
+/obj/item/pickaxe/emergency
+	name = "emergency disembarkation tool"
+	desc = "For extracting yourself from rough landings."
+
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"

@@ -1083,6 +1083,22 @@
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
 
+/obj/item/storage/box/hug
+	name = "box of hugs"
+	desc = "A special box for sensitive people."
+	icon_state = "hugbox"
+	foldable = null
+
+/obj/item/storage/box/hug/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	return (BRUTELOSS)
+
+/obj/item/storage/box/hug/attack_self(mob/user)
+	..()
+	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(loc, "rustle", 50, 1, -5)
+	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

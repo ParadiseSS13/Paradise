@@ -1,0 +1,56 @@
+"a" = (/turf/simulated/mineral/volcanic/lava_land_surface,/area/lavaland/surface/outdoors)
+"b" = (/turf/simulated/mineral/volcanic/lava_land_surface,/area/ruin/powered)
+"c" = (/turf/simulated/wall/mineral/iron,/area/ruin/powered)
+"d" = (/obj/item/clothing/head/helmet/space/orange,/obj/item/clothing/mask/breath,/turf/simulated/floor/plating/asteroid/basalt,/area/ruin/powered)
+"e" = (/obj/item/clothing/suit/space/orange,/turf/simulated/floor/plating/asteroid/basalt,/area/ruin/powered)
+"f" = (/turf/simulated/floor/plating/asteroid/basalt,/area/ruin/powered)
+"g" = (/turf/simulated/floor/plating/asteroid{name = "dirt"},/area/ruin/powered)
+"h" = (/obj/item/shovel,/turf/simulated/floor/plating/asteroid{name = "dirt"},/area/ruin/powered)
+"i" = (/obj/item/reagent_containers/glass/bucket,/turf/simulated/floor/plating/asteroid{name = "dirt"},/area/ruin/powered)
+"j" = (/obj/structure/sink/puddle,/turf/simulated/floor/plating/asteroid{name = "dirt"},/area/ruin/powered)
+"k" = (/obj/structure/glowshroom/single,/turf/simulated/floor/plating/asteroid{name = "dirt"},/area/ruin/powered)
+"l" = (/obj/item/storage/toolbox/emergency,/turf/simulated/floor/plating/asteroid{name = "dirt"},/area/ruin/powered)
+"m" = (/obj/structure/rack,/obj/item/seeds/reishi,/obj/item/seeds/plump,/obj/item/seeds/plump,/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,/turf/simulated/floor/plating/asteroid/basalt,/area/ruin/powered)
+"n" = (/obj/machinery/hydroponics/soil,/turf/simulated/floor/plating,/area/ruin/powered)
+"o" = (/turf/simulated/floor/plating,/area/ruin/powered)
+"p" = (/obj/structure/rack,/obj/item/storage/bag/plants/portaseeder,/obj/item/storage/bag/ore,/obj/item/storage/firstaid/regular,/turf/simulated/floor/plating/asteroid/basalt,/area/ruin/powered)
+"q" = (/obj/structure/glowshroom/single,/turf/simulated/floor/plating,/area/ruin/powered)
+"r" = (/obj/structure/rack,/obj/item/pickaxe/emergency,/obj/item/tank/oxygen,/turf/simulated/floor/plating/asteroid/basalt,/area/ruin/powered)
+"s" = (/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"t" = (/turf/simulated/wall/mineral/titanium/survival/pod,/area/ruin/powered)
+"u" = (/obj/structure/bed/pod,/obj/item/bedsheet/black,/turf/simulated/floor/plating,/area/ruin/powered)
+"v" = (/obj/structure/fans,/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"w" = (/obj/machinery/smartfridge/survival_pod,/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"x" = (/obj/effect/mob_spawn/human/hermit,/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"y" = (/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"z" = (/obj/machinery/light/small{dir = 4},/obj/structure/tubes,/turf/simulated/floor/plating,/area/ruin/powered)
+"A" = (/obj/structure/table,/obj/item/kitchen/knife/combat/survival,/turf/simulated/floor/plating,/area/ruin/powered)
+"B" = (/obj/structure/table/survival_pod,/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"C" = (/obj/structure/tubes,/obj/item/crowbar,/obj/effect/decal/cleanable/blood/drip,/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"D" = (/obj/effect/decal/cleanable/blood/footprints{dir = 1},/obj/machinery/door/airlock/survival_pod/glass,/obj/structure/fans/tiny,/turf/simulated/floor/pod/dark,/area/ruin/powered)
+"E" = (/obj/structure/shuttle/engine/propulsion/burst{dir = 8},/turf/simulated/wall/mineral/titanium/interior,/area/ruin/powered)
+"F" = (/turf/simulated/wall/mineral/titanium,/area/ruin/powered)
+"G" = (/turf/simulated/wall/mineral/titanium/interior,/area/ruin/powered)
+"H" = (/obj/machinery/door/airlock/titanium{name = "Escape Pod Airlock"},/turf/simulated/floor/mineral/titanium/blue,/area/ruin/powered)
+"I" = (/obj/structure/chair{dir = 4},/turf/simulated/floor/mineral/titanium/blue,/area/ruin/powered)
+"J" = (/obj/effect/spawner/window/shuttle,/turf/simulated/floor/plating{oxygen = 14; nitrogen = 23; temperature = 300},/area/ruin/powered)
+"K" = (/obj/effect/baseturf_helper,/turf/simulated/floor/plating,/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaabbcbaaaa
+aaaaaaabbdebbaaa
+aaaaaaabfghfbaaa
+aaaaaabbijgkbaaa
+aaaaabbcgglfbaaa
+aaaabbmffgcbbaaa
+aaaacnooffpbaaaa
+aaaabnoqofrbaaaa
+saaatttKoucbaaaa
+saaatvwooocaaaaa
+sssatxyztAcaaaaa
+sssstByCtbbaaaaa
+ssssttDttaaaaaaa
+ssssssssssaEFFGa
+sssssssssssHIIJa
+sssssssssssEFFGa
+"}

@@ -36,3 +36,28 @@ datum/map_template/ruin/lavaland/ash_walker
 	suffix = "lavaland_surface_syndicate_base1.dmm"
 	cost = 20
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/animal_hospital
+	name = "Animal Hospital"
+	id = "animal-hospital"
+	description = "Rats with cancer do not live very long. And the ones that wake up from cryostasis seem to commit suicide out of boredom."
+	cost = 5
+	suffix = "lavaland_surface_animal_hospital.dmm"
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/seed_vault
+	name = "Seed Vault"
+	id = "seed-vault"
+	description = "The creators of these vaults were a highly advanced and benevolent race, and launched many into the stars, hoping to aid fledgling civilizations. \
+	However, all the inhabitants seem to do is grow drugs and guns."
+	suffix = "lavaland_surface_seed_vault.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/hermit
+	name = "Makeshift Shelter"
+	id = "hermitcave"
+	description = "A place of shelter for a lone hermit, scraping by to live another day."
+	suffix = "lavaland_surface_hermit.dmm"
+	allow_duplicates = FALSE
+	cost = 10
