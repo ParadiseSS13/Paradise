@@ -102,7 +102,18 @@
 				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
 				return
 
-
-
 /datum/species/unathi/handle_death(mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+
+/datum/species/unathi/ashwalker
+	name = "Ash Walker"
+	name_plural = "Ash Walkers"
+
+	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
+	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners." 
+
+	language = null
+	default_language = "Sinta'unathi"
+
+	slowdown = -0.80
+	species_traits = list(NO_BREATHE, NOGUNS)

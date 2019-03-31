@@ -87,6 +87,7 @@
 	var/insulated
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
+	unacidable = TRUE
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable

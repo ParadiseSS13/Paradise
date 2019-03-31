@@ -35,6 +35,10 @@
 	..()
 	name = "floor"
 
+/turf/simulated/floor/redgrid
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "rcircuit"
+
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'

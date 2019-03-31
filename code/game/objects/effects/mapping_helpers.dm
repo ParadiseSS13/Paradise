@@ -3,6 +3,10 @@
 	icon_state = ""
 	var/late = FALSE
 
+/obj/effect/mapping_helpers/Initialize()
+	..()
+	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
+
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
 

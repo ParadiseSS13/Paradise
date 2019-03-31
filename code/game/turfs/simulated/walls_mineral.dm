@@ -275,6 +275,12 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/turf/simulated/wall/mineral/plastitanium/explosive/dismantle_wall(devastated, explode)
+	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	if(devastated || explode)
+		bombcore.detonate()
+	..()
+
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
 	if(T.type != type)

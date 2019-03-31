@@ -1,5 +1,8 @@
 //Lavaland Ruins
 
+/area/ruin
+	ambientsounds = list('sound/ambience/ambimine.ogg')
+
 /area/ruin/powered/beach
 	icon_state = "dk_yellow"
 

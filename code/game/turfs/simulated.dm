@@ -10,6 +10,7 @@
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 	var/dirt = 0
 	var/dirtoverlay = null
+	var/unacidable = FALSE
 
 /turf/simulated/New()
 	..()

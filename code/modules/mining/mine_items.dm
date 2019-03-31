@@ -525,6 +525,12 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
+/obj/structure/fans/tiny/invisible
+	name = "air flow blocker"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	unacidable = TRUE
+	invisibility = INVISIBILITY_ABSTRACT	
+
 /obj/structure/fans/Initialize(loc)
 	..()
 	air_update_turf(1)
