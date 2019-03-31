@@ -209,6 +209,11 @@
 /obj/machinery/suit_storage_unit/telecoms/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/radsuit
+	name = "radiation suit storage unit"
+	suit_type = /obj/item/clothing/suit/radiation
+	helmet_type = /obj/item/clothing/head/radiation
+
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
 	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))

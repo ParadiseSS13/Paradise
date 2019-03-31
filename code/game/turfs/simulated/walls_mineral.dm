@@ -281,6 +281,16 @@
 		bombcore.detonate()
 	..()
 
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity, target)
+	switch(severity)
+		if(1)
+			dismantle_wall(1,1)
+		if(2)
+			dismantle_wall(1,1)
+		if(3)
+			if (prob(hardness))
+				dismantle_wall(0,1)
+
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
 	if(T.type != type)

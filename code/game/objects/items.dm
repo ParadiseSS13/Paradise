@@ -586,3 +586,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 					"<span class='userdanger'>You block the attack!</span>")
 		user.Stun(2)
 		return TRUE
+
+/obj/item/proc/update_slot_icon()
+	if(!ismob(loc))
+		return
+	var/mob/owner = loc
+	owner.regenerate_icons()

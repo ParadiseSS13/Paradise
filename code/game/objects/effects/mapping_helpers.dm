@@ -5,7 +5,7 @@
 
 /obj/effect/mapping_helpers/Initialize()
 	..()
-	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
+	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"

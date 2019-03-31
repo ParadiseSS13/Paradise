@@ -233,6 +233,7 @@
 	icon_state = "monkeycube"
 	bitesize = 12
 	filling_color = "#ADAC7F"
+	var/faction
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 
@@ -253,10 +254,15 @@
 		else
 			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
 		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
+		if(faction)
+			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden.Copy()
 		creature.set_species(monkey_type)
 		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/monkeycube/syndicate
+	faction = list("neutral", "syndicate")
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 	name = "farwa cube"

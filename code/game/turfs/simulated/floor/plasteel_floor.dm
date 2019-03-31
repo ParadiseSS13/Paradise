@@ -33,6 +33,10 @@
 //TODO: Make subtypes for all normal turf icons
 /turf/simulated/floor/plasteel/white
 	icon_state = "white"
+/turf/simulated/floor/plasteel/white/side
+	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/corner
+	icon_state = "whitecorner"
 
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
@@ -50,3 +54,6 @@
 	icon_state = "stairs-r"
 /turf/simulated/floor/plasteel/stairs/old
 	icon_state = "stairs-old"
+
+/turf/simulated/floor/plasteel/grimy
+	icon_state = "grimy"
