@@ -465,7 +465,7 @@ var/const/INGEST = 2
 							add_reagent(S, C.result_amount * C.secondary_results[S] * multiplier)
 
 					var/list/seen = viewers(4, get_turf(my_atom))
-					for(var/mob/M in seen)
+					for(var/mob/living/M in seen)
 						if(C.mix_message)
 							to_chat(M, "<span class='notice'>[bicon(my_atom)] [C.mix_message]</span>")
 
