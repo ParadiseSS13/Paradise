@@ -75,8 +75,7 @@
 	if(defib.paddles.loc != defib)
 		to_chat(user, "<span class='warning'>[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!</span>")
 		return
-	defib.paddles_on_defib = FALSE
-	user.put_in_hands(defib.paddles)
+	defib.toggle_paddles()
 
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/defibrillator))
