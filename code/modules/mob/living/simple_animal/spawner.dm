@@ -56,7 +56,7 @@
 
 /mob/living/simple_animal/hostile/spawner/mining
 	name = "monster den"
-	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining asteroids."
+	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining areas."
 	icon_state = "hole"
 	icon_living = "hole"
 	health = 200

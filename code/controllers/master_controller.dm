@@ -44,7 +44,7 @@ var/global/pipe_processing_killed = 0
 	if(!config.disable_space_ruins)
 		var/timer = start_watch()
 		log_startup_progress("Creating random space levels...")
-		seedRuins(level_name_to_num(EMPTY_AREA), rand(0, 3), /area/space, space_ruins_templates)
+		seedRuins(list(level_name_to_num(EMPTY_AREA)), rand(0, 3), /area/space, space_ruins_templates)
 		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
 
 		// load in extra levels of space ruins
@@ -52,11 +52,11 @@ var/global/pipe_processing_killed = 0
 		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
 		for(var/i = 1, i <= num_extra_space, i++)
 			var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
-			seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
+			seedRuins(list(zlev), rand(0, 3), /area/space, space_ruins_templates)
 
 	var/mining_type = MINETYPE
 	if (mining_type == "lavaland")
-		seedRuins(5, config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
+		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
 		spawn_rivers()
 	else
 		make_mining_asteroid_secret()

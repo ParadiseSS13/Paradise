@@ -90,7 +90,5 @@
 	temperature = 300
 	desc = "A floor with a square pattern. It's faintly cool to the touch."
 
-/turf/unsimulated/floor/hierophant/New()
-	..()
-	if(prob(50))
-		icon_state = "hierophant2"
+/turf/unsimulated/floor/hierophant/two
+	icon_state = "hierophant2"
