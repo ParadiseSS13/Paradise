@@ -1,17 +1,17 @@
 /datum/event/grid_check	//NOTE: Times are measured in master controller ticks!
 	announceWhen		= 5
-	var/power_loss_sound = sound('sound/effects/powerloss.ogg')
 	
 /datum/event/grid_check/setup()
 	endWhen = rand(30,120)
 
 /datum/event/grid_check/start()
 	power_failure(0)
+	var/sound/S = sound('sound/effects/powerloss.ogg')
 	for(var/mob/living/M in GLOB.player_list)
 		var/turf/T = get_turf(M)
 		if(!M.client || !is_station_level(T.z))
 			continue
-		SEND_SOUND(M, power_loss_sound)
+		SEND_SOUND(M, S)
 		
 /datum/event/grid_check/announce()
 	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
