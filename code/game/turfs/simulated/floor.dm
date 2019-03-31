@@ -56,26 +56,26 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		return
 	switch(severity)
 		if(1.0)
-			src.ChangeTurf(/turf/space)
+			ChangeTurf(baseturf)
 		if(2.0)
 			switch(pick(1,2;75,3))
 				if(1)
 					spawn(0)
-						src.ReplaceWithLattice()
+						ReplaceWithLattice()
 						if(prob(33)) new /obj/item/stack/sheet/metal(src)
 				if(2)
-					src.ChangeTurf(/turf/space)
+					ChangeTurf(baseturf)
 				if(3)
 					if(prob(80))
-						src.break_tile_to_plating()
+						break_tile_to_plating()
 					else
-						src.break_tile()
-					src.hotspot_expose(1000,CELL_VOLUME)
+						break_tile()
+					hotspot_expose(1000,CELL_VOLUME)
 					if(prob(33)) new /obj/item/stack/sheet/metal(src)
 		if(3.0)
 			if(prob(50))
-				src.break_tile()
-				src.hotspot_expose(1000,CELL_VOLUME)
+				break_tile()
+				hotspot_expose(1000,CELL_VOLUME)
 	return
 
 /turf/simulated/floor/burn_down()
@@ -134,7 +134,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		W.dir = old_dir
 	W.update_icon()
 	return W
-
 
 /turf/simulated/floor/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)

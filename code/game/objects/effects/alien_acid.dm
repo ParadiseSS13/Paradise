@@ -57,7 +57,7 @@
 
 		if(istype(target, /turf/simulated/floor))
 			var/turf/simulated/floor/F = target
-			F.ChangeTurf(/turf/space)
+			F.ChangeTurf(F.baseturf)
 
 		if(istype(target, /turf/simulated/wall))
 			var/turf/simulated/wall/W = target

@@ -30,7 +30,6 @@
 				gets_dug()
 		if(1.0)
 			gets_dug()
-	return
 
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/W, mob/user, params)
 	//note that this proc does not call ..()

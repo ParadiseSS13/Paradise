@@ -67,6 +67,7 @@
 "bo" = (/obj/machinery/shower{dir = 4},/obj/effect/turf_decal/sand,/turf/simulated/floor/pod/light,/area/ruin/powered/beach)
 "bp" = (/obj/machinery/light/small{light_power = 3; dir = 8},/obj/effect/turf_decal/sand,/turf/simulated/floor/pod,/area/ruin/powered/beach)
 "bq" = (/obj/effect/turf_decal/sand,/turf/simulated/floor/pod,/area/ruin/powered/beach)
+"br" = (/obj/effect/baseturf_helper/lava_land/surface,/turf/simulated/floor/beach/sand,/area/ruin/powered/beach)
 "bx" = (/obj/structure/flora/rock,/turf/simulated/floor/beach/sand,/area/ruin/powered/beach)
 "bz" = (/mob/living/simple_animal/crab,/turf/simulated/floor/beach/sand,/area/ruin/powered/beach)
 "bA" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/item/bikehorn/airhorn,/obj/structure/table/wood,/obj/item/storage/firstaid/regular,/obj/item/storage/firstaid/brute,/turf/simulated/floor/wood,/area/ruin/powered/beach)
@@ -125,7 +126,7 @@ aabWbEbEbEbEbEbEaKaGaGaYbabbaGajbgajajaGaGaKbEbEbEbEbEbEbWaa
 bWbWbWbWBlbEbEbEaKaGaGaGbeaGaGbfaGaGbfaGaGaKbEbzbEQSbWbWbWbW
 bWzwHCmhbEbEbEbEaKbhaGaGaGaGaGaGaGaGaGaGaGaKbEbEbEbEmhbibjbW
 bWXpVOmhbEbEaUbEaKaKaKaKaKaKaKaKaKaKaKaKaKaKbEbEbEbEmhVObkbW
-pIGcblmhbmbEaZbEbEbEbEbEbEbEbEbEbEbEbEbEbEbEbEbEbEbnmhGcGcpI
+pIGcblmhbmbEaZbEbEbEbEbEbEbEbrbEbEbEbEbEbEbEbEbEbEbnmhGcGcpI
 bWboblEcaKbEbEbEbEbEbEbEbxapbEbEbEaZbEbEbEbEbEbEbEaKEcblqTbW
 pIGcGcmhbmbEbEbEbEapbEapbEbEbEbEaUbEbEbEbEbEbEbEbEbnmhblblpI
 bWbpVOmhbEbzbEbEapbxbEbEbEbEbEbEbEbEbEbAbBbEbEaZbEbEmhbqqabW

@@ -808,7 +808,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 					if(turftoleave)
 						fromupdate += T.ChangeTurf(turftoleave)
 					else
-						T.ChangeTurf(/turf/space)
+						T.ChangeTurf(T.baseturf)
 
 					refined_src -= T
 					refined_trg -= B

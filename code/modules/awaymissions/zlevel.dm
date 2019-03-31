@@ -36,7 +36,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		var/turf/T = thing
 		for(var/otherthing in T)
 			qdel(otherthing)
-		T.ChangeTurf(/turf/space)
+		T.ChangeTurf(T.baseturf)
 
 /proc/createRandomZlevel()
 	if(awaydestinations.len)	//crude, but it saves another var!

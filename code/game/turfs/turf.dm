@@ -191,7 +191,11 @@
 	BeforeChange()
 	if(SSair)
 		SSair.remove_from_active(src)
+
+	var/old_baseturf = baseturf
 	var/turf/W = new path(src)
+	W.baseturf = old_baseturf
+	
 	if(!defer_change)
 		W.AfterChange(ignore_air)
 
@@ -272,8 +276,9 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	src.ChangeTurf(/turf/space)
-	new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+	ChangeTurf(baseturf)
+	if(istype(baseturf, /turf/space))
+		new /obj/structure/lattice( locate(src.x, src.y, src.z) )
 
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
@@ -405,7 +410,7 @@
 				continue
 			if(O.invisibility == 101)
 				O.singularity_act()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 	return(2)
 
 /turf/proc/visibilityChanged()

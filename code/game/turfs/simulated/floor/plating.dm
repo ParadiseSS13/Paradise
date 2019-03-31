@@ -129,7 +129,7 @@
 			if(prob(80))
 				ReplaceWithLattice()
 			else if(prob(50))
-				qdel(src)
+				ChangeTurf(baseturf)
 			else
 				if(builtin_tile)
 					builtin_tile.loc = src
@@ -323,7 +323,7 @@
 	smash()
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 
 /turf/simulated/floor/plating/abductor
 	name = "alien floor"

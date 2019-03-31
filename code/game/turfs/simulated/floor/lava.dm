@@ -54,7 +54,7 @@
 	if (AM)
 		thing_to_check = list(AM)
 	for(var/thing in thing_to_check)
-		if (istype(thing, /atom/movable/lighting_overlay))
+		if (istype(thing, /atom/movable/lighting_overlay) || istype(thing, /atom/movable/overlay))
 			continue
 		if(isobj(thing))
 			var/obj/O = thing
@@ -67,8 +67,6 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor["fire"] > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor["fire"] = 50
 			O.fire_act(10000, 1000)
 
 		else if (isliving(thing))
