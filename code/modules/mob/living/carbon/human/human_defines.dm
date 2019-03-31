@@ -64,6 +64,7 @@ var/global/default_martial_art = new/datum/martial_art
 	var/check_mutations=0 // Check mutations on next life tick
 
 	var/heartbeat = 0
+	var/receiving_cpr = FALSE
 
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"

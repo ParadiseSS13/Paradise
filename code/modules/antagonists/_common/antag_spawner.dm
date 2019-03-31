@@ -10,7 +10,6 @@
 /obj/item/antag_spawner/proc/equip_antag(mob/target)
 	return
 
-
 /obj/item/antag_spawner/borg_tele
 	name = "syndicate cyborg teleporter"
 	desc = "A single-use teleporter used to deploy a Syndicate Cyborg on the field."
@@ -149,7 +148,6 @@
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
 
-
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
 	desc = "A magically infused bottle of clown love, distilled from \
@@ -160,3 +158,59 @@
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and Tickle"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
+
+/obj/item/antag_spawner/morph
+	name = "vial of ooze"
+	desc = "A magically infused bottle of ooze, distilled by methods rather not be spoken of. Used to awaken an all-consuming monstrosity."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vialooze"
+	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
+		turning back now!</span>"
+	var/veil_msg = "<span class='warning'>The sludge is awake and seeps \
+		away...</span>"
+	var/objective_verb = "Eat"
+	var/mob/living/morph_type = /mob/living/simple_animal/hostile/morph
+
+/obj/item/antag_spawner/morph/attack_self(mob/user)
+	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a morph from the Den..
+		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		return
+
+	if(used)
+		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		return
+	used = TRUE
+	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
+
+	var/list/candidates = pollCandidates("Do you want to play as a morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
+
+	if(candidates.len > 0)
+		var/mob/C = pick(candidates)
+		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
+		to_chat(user, "[shatter_msg]")
+		to_chat(user, "[veil_msg]")
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+		qdel(src)
+	else
+		used = FALSE
+		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+
+/obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
+	var/mob/living/simple_animal/hostile/morph/M = new /mob/living/simple_animal/hostile/morph(pick(xeno_spawn))
+	M.key = C.key
+	M.mind.assigned_role = SPECIAL_ROLE_MORPH
+	M.mind.special_role = SPECIAL_ROLE_MORPH
+	to_chat(M, M.playstyle_string)
+	ticker.mode.traitors += M.mind
+	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+	KillDaWiz.owner = M.mind
+	KillDaWiz.target = user.mind
+	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	M.mind.objectives += KillDaWiz
+	var/datum/objective/KillDaCrew = new /datum/objective
+	KillDaCrew.owner = M.mind
+	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	M.mind.objectives += KillDaCrew
+	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
+	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	M << 'sound/magic/mutate.ogg'

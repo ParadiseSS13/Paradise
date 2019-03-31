@@ -15,7 +15,7 @@
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/stamp/qm
 	name = "Quartermaster's rubber stamp"

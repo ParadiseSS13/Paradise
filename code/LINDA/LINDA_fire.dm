@@ -48,12 +48,12 @@
 	anchored = 1
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	unacidable = 1//So you can't melt fire with acid.
-	icon = 'icons/effects/fire.dmi'
+	icon = 'icons/goonstation/effects/fire.dmi'
 	icon_state = "1"
-	layer = TURF_LAYER
-
+	layer = MASSIVE_OBJ_LAYER
+	alpha = 250
 	blend_mode = BLEND_ADD
-	light_range = 3
+	light_range = 2
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST

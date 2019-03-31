@@ -173,6 +173,7 @@
 	eyes = "blank_eyes"
 
 	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	dies_at_threshold = TRUE
 	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 

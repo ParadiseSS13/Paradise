@@ -19,7 +19,7 @@
 
 /obj/item/instrument/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/instrument/Initialize(mapload)
 	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded

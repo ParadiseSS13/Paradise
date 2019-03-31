@@ -5,6 +5,9 @@
 
 	var/turf/turf_source = get_turf(source)
 
+	if(!turf_source)
+		return
+
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || open_sound_channel()
 
@@ -16,7 +19,7 @@
 		listeners = listeners & hearers(maxdistance, turf_source)
 	for(var/P in listeners)
 		var/mob/M = P
-		if(!M || !M.client)
+		if(!M || !M.client || M.z != turf_source.z)
 			continue
 		var/distance = get_dist(M, turf_source)
 
