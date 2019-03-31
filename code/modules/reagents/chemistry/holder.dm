@@ -466,7 +466,7 @@ var/const/INGEST = 2
 
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/M in seen)
-						if(!C.no_message)
+						if(C.mix_message)
 							to_chat(M, "<span class='notice'>[bicon(my_atom)] [C.mix_message]</span>")
 
 					if(istype(my_atom, /obj/item/slime_extract))
@@ -478,7 +478,8 @@ var/const/INGEST = 2
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
-					playsound(get_turf(my_atom), C.mix_sound, 80, 1)
+					if(C.mix_sound)
+						playsound(get_turf(my_atom), C.mix_sound, 80, 1)
 
 					C.on_reaction(src, created_volume)
 					reaction_occured = 1
