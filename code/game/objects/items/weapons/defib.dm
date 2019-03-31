@@ -353,7 +353,10 @@
 		return
 
 	if(user.a_intent == INTENT_HELP)
-		do_help(M, user)
+		playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
+		user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
+		if(do_after_once(user, 20 * toolspeed, target = M))
+			do_help(M, user)
 	else
 		do_disarm(M, user)
 
@@ -379,15 +382,75 @@
 		recharge(100)
 
 /obj/item/twohanded/shockpaddles/proc/do_help(mob/living/carbon/human/H, mob/living/user)
-	for(var/obj/item/carried_item in H.contents)
-		if(istype(carried_item, /obj/item/clothing/suit/space))
-			if((!combat && !req_defib) || (req_defib && !defib.combat))
+	if((!combat && !req_defib) || (req_defib && !defib.combat))
+		for(var/obj/item/carried_item in H.contents)
+			if(istype(carried_item, /obj/item/clothing/suit/space))
 				user.audible_message("<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Patient's chest is obscured. Operation aborted.</span>")
 				playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 				update_icon()
 				return
-	if(H.health <= HEALTH_THRESHOLD_CRIT || H.undergoing_cardiac_arrest())
-		if((!H.get_int_organ(/obj/item/organ/internal/heart)) || H.stat == DEAD) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
+	
+	if(H.stat == DEAD)
+		var/mob/dead/observer/ghost = H.get_ghost()
+		if(ghost && !ghost.client)
+			// In case the ghost's not getting deleted for some reason
+			H.key = ghost.key
+			log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
+
+			QDEL_NULL(ghost)
+		
+		H.visible_message("<span class='warning'>[H]'s body convulses a bit.")
+		playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		var/tplus = world.time - H.timeofdeath
+		var/tlimit = DEFIB_TIME_LIMIT * 10 //past this much time the patient is unrecoverable (in deciseconds)
+		var/tloss = DEFIB_TIME_LOSS * 10 //brain damage starts setting in on the patient after some time left rotting
+		var/total_burn = 0
+		var/total_brute = 0
+		for(var/obj/item/organ/external/O in H.bodyparts)
+			total_brute	+= O.brute_dam
+			total_burn	+= O.burn_dam
+		if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.mind && H.mind.is_revivable()) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
+			var/tobehealed = min(H.health - HEALTH_THRESHOLD_DEAD, 0) // It's HILARIOUS without this min statement, let me tell you
+			tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
+			H.adjustOxyLoss(tobehealed)
+			H.adjustToxLoss(tobehealed)
+			H.adjustFireLoss(tobehealed)
+			H.adjustBruteLoss(tobehealed)
+			user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
+			playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+			H.update_revive(FALSE)
+			H.KnockOut(FALSE)
+			H.Paralyse(5)
+			H.emote("gasp")
+			if(tplus > tloss)
+				H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+			H.shock_internal_organs(100)
+			H.med_hud_set_health()
+			H.med_hud_set_status()
+			add_attack_logs(user, H, "Revived with [src]")
+		else
+			if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
+				user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
+			else if(total_burn >= 180 || total_brute >= 180)
+				user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+			else if(ghost)
+				user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
+				to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+				window_flash(ghost.client)
+				ghost << sound('sound/effects/genetics.ogg')
+			else
+				user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
+		if(req_defib)
+			defib.deductcharge(revivecost)
+			cooldown = TRUE
+		update_icon()
+		if(req_defib)
+			defib.cooldowncheck(user)
+		else
+			recharge(100)
+
+	else if(H.health <= HEALTH_THRESHOLD_CRIT || H.undergoing_cardiac_arrest())
+		if((!H.get_int_organ(/obj/item/organ/internal/heart))) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 			user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 			update_icon()
