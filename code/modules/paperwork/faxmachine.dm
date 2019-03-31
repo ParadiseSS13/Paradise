@@ -283,8 +283,7 @@ var/global/list/fax_blacklist = list()
 
 	use_power(200)
 
-	if((istype(copyitem, /obj/item/paper))||(istype(copyitem, /obj/item/photo))||(istype(copyitem, /obj/item/paper_bundle)))
-	else
+	if((!istype(copyitem, /obj/item/paper))&&(!istype(copyitem, /obj/item/photo))&&(!istype(copyitem, /obj/item/paper_bundle)))
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 		return
 
