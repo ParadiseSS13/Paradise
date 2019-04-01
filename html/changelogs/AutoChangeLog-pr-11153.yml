@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Spontaneous combustion now has a minimum stacksize of 1. No more getting wet from the fire virus"
