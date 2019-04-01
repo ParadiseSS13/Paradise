@@ -759,7 +759,7 @@
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who))
+			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
 				add_attack_logs(src, who, "Equipped [what]")
