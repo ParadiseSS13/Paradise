@@ -1,0 +1,6 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Antidrop give edge case fixed"
+  - bugfix: "Can't give items to resting people now"
+  - bugfix: "put_in_hands now checks if you actually have hands"
