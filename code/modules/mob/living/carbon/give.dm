@@ -29,12 +29,12 @@
 					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
 					return
 				if((I.flags & NODROP) || (I.flags & ABSTRACT))
-					to_chat(usr, "<span class='warning'>\the [I.name] stays stuck to your hand when you try to give it!</span>")
-					to_chat(target, "<span class='warning'>\the [I.name] stays stuck to [usr.name]'s hand when you try to take it!</span>")
+					to_chat(usr, "<span class='warning'>[I] stays stuck to your hand when you try to give it!</span>")
+					to_chat(target, "<span class='warning'>[I] stays stuck to [usr.name]'s hand when you try to take it!</span>")
 					return
 				if(I != get_active_hand())
 					to_chat(usr, "<span class='warning'> You need to keep the item in your active hand.</span>")
-					to_chat(target, "<span class='warning'> [usr.name] seem to have given up on giving \the [I.name] to you.</span>")
+					to_chat(target, "<span class='warning'> [usr.name] seem to have given up on giving [I] to you.</span>")
 					return
 				if(target.r_hand != null && target.l_hand != null)
 					to_chat(target, "<span class='warning'> Your hands are full.</span>")
@@ -43,9 +43,9 @@
 				usr.unEquip(I)
 				target.put_in_hands(I)
 				I.add_fingerprint(target)
-				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
+				target.visible_message("<span class='notice'> [usr.name] handed [I] to [target.name].</span>")
 				I.on_give(usr, target)
 			if("No")
-				target.visible_message("<span class='warning'> [usr.name] tried to hand [I.name] to [target.name] but [target.name] didn't want it.</span>")
+				target.visible_message("<span class='warning'> [usr.name] tried to hand [I] to [target.name] but [target.name] didn't want it.</span>")
 	else
 		to_chat(usr, "<span class='warning'> [target.name]'s hands are full.</span>")
