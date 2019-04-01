@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(safes)
 	GLOB.safes += src
 	tumbler_1_pos = rand(0, 71)
 	tumbler_1_open = rand(0, 71)
-
+	
 	tumbler_2_pos = rand(0, 71) // first value in the combination set first
 	tumbler_2_open = rand(0, 71)
 

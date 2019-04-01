@@ -5,6 +5,7 @@
 	desc = "Some blob creature thingy"
 	health = 75
 	fire_resist = 2
+	point_return = 4
 	var/maxHealth = 75
 
 /obj/structure/blob/shield/update_icon()
@@ -27,6 +28,7 @@
 	brute_resist = 0
 	health = 50
 	maxHealth = 50
+	point_return = 9
 	flags_2 = CHECK_RICOCHET_1
 	var/reflect_chance = 80 //80% chance to reflect
 
