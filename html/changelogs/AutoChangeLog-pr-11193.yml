@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes syndicate medborgs and regular medborgs not having handheld defibs"

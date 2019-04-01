@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes multi-tile airlocks breaking and not leaving behind an assembly"
