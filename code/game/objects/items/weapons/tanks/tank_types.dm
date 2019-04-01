@@ -120,6 +120,10 @@ obj/item/tank/oxygen/empty/New()
 			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of plasma!</span>"))
 			user << sound('sound/effects/alert.ogg')
 
+obj/item/tank/plasma/empty/New()
+	..()
+	air_contents.toxins = null
+
 /*
  * Emergency Oxygen
  */
