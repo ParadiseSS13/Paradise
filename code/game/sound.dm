@@ -22,7 +22,7 @@
 		if(!M || !M.client)
 			continue
 
-		var/turf/T = get_turf(M)
+		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
 		if(!T)
 			continue
 		if(T.z != turf_source.z)
