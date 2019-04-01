@@ -84,7 +84,6 @@
 		owner.adjustBruteLoss(-5)
 		owner.adjustFireLoss(-5)
 		owner.adjustToxLoss(-5)
-		egg_progress += 10
 
 	// Once at least one egg has hatched from you, you'll need help to reach medbay.
 	if(eggs_hatched >= 1)
