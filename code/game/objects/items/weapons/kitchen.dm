@@ -172,6 +172,14 @@
 	force = 15
 	throwforce = 15
 
+/obj/item/kitchen/knife/combat/survival/bone
+	name = "bone dagger"
+	item_state = "bone_dagger"
+	icon_state = "bone_dagger"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	desc = "A sharpened bone. The bare minimum in survival."
+
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
 	icon = 'icons/obj/items_cyborg.dmi'

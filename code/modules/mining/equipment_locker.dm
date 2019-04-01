@@ -441,6 +441,23 @@
 		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/card/mining_point_card,               			   500),
 		)
 
+/obj/machinery/mineral/equipment_vendor/lavaland //Purchasable lavaland items, for compatability with the other asteroid
+	name = "lavaland mining equipment vendor"
+
+/obj/machinery/mineral/equipment_vendor/lavaland/Initialize()
+	. = ..()
+	desc += "\nIt seems a few selections have been added."
+	prize_list += list(
+		new /datum/data/mining_equipment("Mining Conscription Kit",     	/obj/item/storage/backpack/duffel/mining_conscript, 				1000),
+		new /datum/data/mining_equipment("Shelter Capsule",					/obj/item/survivalcapsule,											400),
+		new /datum/data/mining_equipment("Luxury Shelter Capsule",			/obj/item/survivalcapsule/luxury,	    							3000),
+		new /datum/data/mining_equipment("Jump Boots",						/obj/item/clothing/shoes/bhop,        								2500),
+		new /datum/data/mining_equipment("1 Marker Beacon",					/obj/item/stack/marker_beacon,										10),
+		new /datum/data/mining_equipment("10 Marker Beacons",				/obj/item/stack/marker_beacon/ten,									100),
+		new /datum/data/mining_equipment("30 Marker Beacons",				/obj/item/stack/marker_beacon/thirty,								300),
+		new /datum/data/mining_equipment("Explorer\'s Webbing",				/obj/item/storage/belt/mining,										500)
+		)
+
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
 
@@ -642,6 +659,36 @@
 /obj/item/card/mining_point_card/examine(mob/user)
 	..(user)
 	to_chat(user, "There's [points] points on the card.")
+
+/**********************Conscription Kit**********************/
+
+/obj/item/card/id/mining_access_card
+	name = "mining access card"
+	desc = "A small card, that when used on any ID, will add mining access."
+	icon_state = "data_1"
+
+/obj/item/card/id/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
+	. = ..()
+	if(istype(AM, /obj/item/card/id) && proximity)
+		var/obj/item/card/id/I = AM
+		access=list(access_mining, access_mining_station, access_mineral_storeroom, access_cargo)
+		to_chat(user, "You upgrade [I] with mining access.")
+		qdel(src)
+
+/obj/item/storage/backpack/duffel/mining_conscript
+	name = "mining conscription kit"
+	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+
+/obj/item/storage/backpack/duffel/mining_conscript/New()
+	..()
+	new /obj/item/pickaxe(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/encryptionkey/headset_cargo(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/card/id/mining_access_card(src)
 
 /**********************Jaunter**********************/
 

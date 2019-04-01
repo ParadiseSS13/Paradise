@@ -382,8 +382,22 @@
 	name = "gold necklace"
 	desc = "Damn, it feels good to be a gangster."
 	icon_state = "bling"
+	item_state = "bling"
 	item_color = "bling"
-	item_color = "bling"
+
+/obj/item/clothing/accessory/necklace/skullcodpiece
+	name = "skull codpiece"
+	desc = "A skull shaped ornament, intended to protect the important things in life."
+	icon_state = "skull"
+	item_state = "skull"
+	item_color = "skull"
+
+/obj/item/clothing/accessory/necklace/talisman
+	name = "bone talisman"
+	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
+	icon_state = "talisman"
+	item_state = "talisman"
+	item_color = "talisman"
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
