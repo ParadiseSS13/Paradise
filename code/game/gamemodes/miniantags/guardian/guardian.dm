@@ -65,6 +65,12 @@
 			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
+			return
+		if(summoner.health <= -100 && loc != summoner) // Fucking invinsible holoparasites
+			to_chat(src, "<span class='danger'>Your summoner has become to weak to substain you manifested!</span>")
+			visible_message("<span class='danger'>The [src] slowly fades away!</span>")
+			Recall(TRUE)
+			return
 	snapback()
 	if(summoned && !summoner && !adminseal)
 		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
@@ -147,6 +153,8 @@
 	if(cooldown > world.time)
 		return
 	if(!summoner) return
+	if(summoner.health <= -100)
+		return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
 		src.client.eye = loc
