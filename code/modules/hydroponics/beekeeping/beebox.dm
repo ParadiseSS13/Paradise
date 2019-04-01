@@ -32,7 +32,7 @@
 
 /obj/structure/beebox
 	name = "apiary"
-	desc = "Dr Miles Manners is just your average Wasp themed super hero by day, but by night he becomes DR BEES!"
+	desc = "Dr. Miles Manners is just your average wasp-themed super hero by day, but by night he becomes DR. BEES!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "beebox"
 	anchored = TRUE
@@ -83,7 +83,7 @@
 		honey_frames += HF
 
 	for(var/i in 1 to get_max_bees())
-		var/mob/living/simple_animal/hostile/poison/bees/worker/B = new(src)
+		var/mob/living/simple_animal/hostile/poison/bees/B = new(src)
 		bees += B
 		B.beehome = src
 		B.assign_reagent(R)
@@ -109,7 +109,7 @@
 			if((bee_resources >= BEE_RESOURCE_NEW_BEE_COST && prob(BEE_PROB_NEW_BEE)) || freebee)
 				if(!freebee)
 					bee_resources = max(bee_resources - BEE_RESOURCE_NEW_BEE_COST, 0)
-				var/mob/living/simple_animal/hostile/poison/bees/worker/B = new(src)
+				var/mob/living/simple_animal/hostile/poison/bees/B = new(get_turf(src))
 				B.beehome = src
 				B.assign_reagent(queen_bee.beegent)
 				bees += B
@@ -186,7 +186,7 @@
 			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [user.p_their()] new home.</span>")
 			var/relocated = 0
 			for(var/b in bees)
-				var/mob/living/simple_animal/hostile/poison/bees/worker/B = b
+				var/mob/living/simple_animal/hostile/poison/bees/B = b
 				if(B.reagent_incompatible(queen_bee))
 					bees -= B
 					B.beehome = null
@@ -267,6 +267,9 @@
 		if(B.loc == src)
 			B.forceMove(drop_location())
 	for(var/obj/item/honey_frame/HF in honey_frames)
-		honey_frames -= HF
 		HF.forceMove(drop_location())
+		honey_frames -= HF
 	qdel(src)
+
+/obj/structure/beebox/unwrenched
+	anchored = FALSE
