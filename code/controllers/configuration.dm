@@ -355,6 +355,12 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
+					
+				if("vote_autotransfer_initial")
+					config.vote_autotransfer_initial = text2num(value)
+					
+				if("vote_autotransfer_interval")
+					config.vote_autotransfer_interval = text2num(value)
 
 				if("default_no_vote")
 					config.vote_no_default = 1
