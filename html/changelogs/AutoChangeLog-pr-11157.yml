@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Roundstart ChemMasters are now constructable/deconstructable"
-  - tweak: "Can upgrade ChemMasters. Larger beakers mean a larger reservoir"
