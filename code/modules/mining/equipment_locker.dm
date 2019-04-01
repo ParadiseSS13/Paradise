@@ -671,7 +671,7 @@
 	. = ..()
 	if(istype(AM, /obj/item/card/id) && proximity)
 		var/obj/item/card/id/I = AM
-		access=list(access_mining, access_mining_station, access_mineral_storeroom, access_cargo)
+		I.access |= list(access_mining, access_mining_station, access_mineral_storeroom, access_cargo)
 		to_chat(user, "You upgrade [I] with mining access.")
 		qdel(src)
 

@@ -773,6 +773,6 @@
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon)
 
-/obj/item/storage/belt/bluespace/sandbox/New()
+/obj/item/storage/belt/mining/New()
 	..()
 	new /obj/item/survivalcapsule(src)
