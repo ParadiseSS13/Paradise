@@ -52,10 +52,11 @@
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
 	var/egg_progress_per_hatch = 90 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
-	var/eggs_max = 3 // max possible spiderlings you can get from a single infection if its left to run for a very long time
 	var/awaymission_checked = FALSE
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
-	var/list/types_basic = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+	var/list/types_basic = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+	var/list/types_adv = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
 	// Safety first.
@@ -78,18 +79,11 @@
 			qdel(src)
 			return
 
-	// Detect dying hosts, and try to keep them alive (so spiderlings can hatch) at the cost of some growth progress.
-	if(owner.health < -25)
-		to_chat(owner,"<span class='notice'>You feel a strange, blissful senstation.</span>")
-		owner.adjustBruteLoss(-5)
-		owner.adjustFireLoss(-5)
-		owner.adjustToxLoss(-5)
-
 	// Once at least one egg has hatched from you, you'll need help to reach medbay.
 	if(eggs_hatched >= 1)
 		owner.Confused(2)
 
-	if(egg_progress > egg_progress_per_hatch && eggs_hatched < eggs_max)
+	if(egg_progress > egg_progress_per_hatch)
 		egg_progress -= egg_progress_per_hatch
 		hatch_egg()
 
@@ -106,15 +100,22 @@
 	return extra_progress
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
+	var/infection_completed = FALSE
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
-	if(eggs_hatched >= 2) // on the third egg...
-		S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/princess
-	else
-		S.grow_as = pick(types_basic)
+	switch(eggs_hatched)
+		if(0) // First spiderling
+			S.grow_as = pick(types_basic)
+		if(1) // Second
+			S.grow_as = pick(types_adv)
+		if(2) // Last
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/princess
+			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
 	owner.Paralyse(10)
+	if(infection_completed && !QDELETED(src))
+		qdel(src)
 
 /obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
