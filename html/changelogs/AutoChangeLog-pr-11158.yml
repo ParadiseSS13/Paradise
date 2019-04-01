@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Mobs that are gibbed with strange reagent and GBS have a bit more of a dramatic flare to them with violent convulsions before exploding into tiny bits"
