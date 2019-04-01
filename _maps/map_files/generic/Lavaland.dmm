@@ -112,7 +112,7 @@
 "ch" = (/turf/simulated/floor/plating,/area/mine/laborcamp)
 "ci" = (/obj/machinery/computer/prisoner{icon_state = "computer"; dir = 1},/turf/simulated/floor/plasteel,/area/mine/laborcamp/security)
 "cj" = (/obj/machinery/door/airlock/external{frequency = 1379; glass = 1; id_tag = "mining_inner"; locked = 1; name = "Mining External Airlock"; opacity = 0; req_access_txt = "54"},/turf/simulated/floor/plasteel,/area/mine/eva)
-"ck" = (/obj/effect/turf_decal/tile/brown{dir = 1},/turf/simulated/floor/plasteel,/area/mine/eva)
+"ck" = (/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/tile/brown{dir = 8},/turf/simulated/floor/plasteel,/area/mine/eva)
 "cl" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/turf/simulated/floor/plasteel,/area/mine/production)
 "cm" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/structure/cable{icon_state = "1-2"},/turf/simulated/floor/plasteel,/area/mine/production)
 "cn" = (/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/tile/brown{dir = 8},/turf/simulated/floor/plasteel,/area/mine/production)

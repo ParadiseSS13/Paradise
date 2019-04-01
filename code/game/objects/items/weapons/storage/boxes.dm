@@ -1073,7 +1073,6 @@
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
-	icon_state = "syndiebox"
 
 /obj/item/storage/box/stockparts/deluxe/New()
 	for(var/i in 1 to 3)
