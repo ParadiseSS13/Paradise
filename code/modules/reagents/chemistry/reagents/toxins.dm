@@ -1057,6 +1057,11 @@
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/pestkiller/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/effect/decal/ants))
+		O.visible_message("<span class='warning'>The ants die.</span>")
+		qdel(O)
+
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M

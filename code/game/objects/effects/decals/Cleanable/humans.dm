@@ -192,7 +192,7 @@ var/global/list/image/splatter_cache = list()
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
-	noclear = TRUE
+	no_clear = TRUE
 	var/fleshcolor = "#FFFFFF"
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
@@ -221,18 +221,11 @@ var/global/list/image/splatter_cache = list()
 
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
-
-/obj/effect/decal/cleanable/blood/gibs/Initialize()
-	. = ..()
-	reagents.add_reagent("liquidgibs", 5)
+	scoop_reagents = list("liquidgibs" = 5)
 
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
-
-/obj/effect/decal/cleanable/blood/gibs/cleangibs/Initialize() //no reagent!
-	. = ..()
-	reagents.remove_reagent("liquidgibs",5)
-
+	scoop_reagents = null
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
 	set waitfor = 0
