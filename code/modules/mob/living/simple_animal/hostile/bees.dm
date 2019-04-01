@@ -263,15 +263,12 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/reagent_containers/syringe))
+	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
-			if(S.reagents.has_reagent("royal_bee_jelly",5))
+			if(S.reagents.has_reagent("royal_bee_jelly", 5))
 				S.reagents.remove_reagent("royal_bee_jelly", 5)
-				if(!queen.beegent.can_synth)
-					to_chat(user, "<span class='warning'>You inject [src] with the royal bee jelly. It's ineffective! Maybe it's something to do with the [src] reagent.</span>")
-					return
-				var/obj/item/queen_bee/qb = new(get_turf(user))
+				var/obj/item/queen_bee/qb = new(user.drop_location())
 				qb.queen = new(qb)
 				if(queen && queen.beegent)
 					qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
@@ -282,16 +279,17 @@
 		else
 			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
 			if(R && S.reagents.has_reagent(R.id, 5))
-				S.reagents.remove_reagent(R.id,5)
+				S.reagents.remove_reagent(R.id, 5)
 				queen.assign_reagent(R)
-				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating it's DNA!</span>","<span class='warning'>You inject [src]'s genome with [R.name], mutating it's DNA!</span>")
+				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating its DNA!</span>", "<span class='warning'>You inject [src]'s genome with [R.name], mutating its DNA!</span>")
 				name = queen.name
 			else
 				to_chat(user, "<span class='warning'>You don't have enough units of that chemical to modify the bee's DNA!</span>")
-	..()
+	else
+		return ..()
 
-/obj/item/queen_bee/bought/New()
-	..()
+/obj/item/queen_bee/bought/Initialize(mapload)
+	. = ..()
 	queen = new(src)
 
 /obj/item/queen_bee/Destroy()
