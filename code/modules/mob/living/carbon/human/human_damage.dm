@@ -172,6 +172,7 @@
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
 	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
@@ -179,6 +180,7 @@
 
 /mob/living/carbon/human/setOxyLoss(amount)
 	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod

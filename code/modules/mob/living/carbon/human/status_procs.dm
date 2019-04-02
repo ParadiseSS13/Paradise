@@ -1,5 +1,6 @@
 /mob/living/carbon/human/SetLoseBreath(amount)
 	if(NO_BREATHE in dna.species.species_traits)
+		losebreath = 0
 		return FALSE
 	. = ..()
 
