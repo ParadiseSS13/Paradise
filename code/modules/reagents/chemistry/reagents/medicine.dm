@@ -685,8 +685,7 @@
 		if(method == INGEST)
 			if(M.stat == DEAD)
 				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
-					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
-					M.gib()
+					M.delayed_gib()
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)

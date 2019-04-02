@@ -32,4 +32,4 @@
 /mob/camera/blob/AltClickOn(atom/A) //Remove a blob
 	var/turf/T = get_turf(A)
 	if(T)
-		revert(T)
+		remove_blob(T)

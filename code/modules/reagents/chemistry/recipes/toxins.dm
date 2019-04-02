@@ -15,7 +15,7 @@
 	result_amount = 1
 	min_temp = T0C + 400
 	mix_sound = null
-	no_message = 1
+	mix_message = null
 
 /datum/chemical_reaction/cyanide
 	name = "Cyanide"
