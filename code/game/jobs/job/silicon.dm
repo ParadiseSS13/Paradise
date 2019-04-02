@@ -15,10 +15,11 @@
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)
 		return 0
+	var/mob/living/silicon/ai/AI = H
+	AI.apply_pref_name("ai", H.client)
 
 /datum/job/ai/is_position_available()
 	return (empty_playable_ai_cores.len != 0)
-
 
 /datum/job/cyborg
 	title = "Cyborg"
@@ -37,4 +38,7 @@
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)
 		return 0
+	var/mob/living/silicon/robot/R = H
+	R.apply_pref_name("cyborg", H.client)
 	return H.Robotize()
+

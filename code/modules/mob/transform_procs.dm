@@ -36,7 +36,7 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("AI",1)
+	O.apply_pref_name("AI", client)
 
 	spawn()
 		qdel(src)
@@ -98,7 +98,7 @@
 
 	O.update_pipe_vision()
 
-	O.Namepick()
+	O.apply_pref_name("cyborg", usr.client)
 
 	spawn(0)//To prevent the proc from returning null.
 		qdel(src)

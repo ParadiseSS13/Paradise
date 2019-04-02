@@ -253,6 +253,8 @@
 	if(!ismachine(H))
 		H.mutations.Add(COMIC)
 
+	H.apply_pref_name("clown", H.client)
+
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
 	name = "Toggle Clown Clumsy"
@@ -323,6 +325,8 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
 		H.mind.miming = 1
+	H.apply_pref_name("mime", H.client)
+
 
 
 

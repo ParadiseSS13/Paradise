@@ -171,9 +171,7 @@
 					if(open_for_latejoin)
 						empty_playable_ai_cores += D
 				else
-					var/mob/living/silicon/ai/A = new /mob/living/silicon/ai ( loc, laws, brain )
-					if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
-						A.rename_self("AI", 1)
+					new /mob/living/silicon/ai (loc, laws, brain)
 				feedback_inc("cyborg_ais_created",1)
 				qdel(src)
 

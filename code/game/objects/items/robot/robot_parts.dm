@@ -303,7 +303,7 @@
 				cell_component.wrapped = O.cell
 				cell_component.installed = 1
 			O.mmi = W
-			O.Namepick()
+			O.apply_pref_name("cyborg", O.client)
 
 			feedback_inc("cyborg_birth",1)
 			callHook("borgify", list(O))

@@ -126,18 +126,9 @@ var/list/ai_verbs_default = list(
 	announcement.announcer = name
 	announcement.newscast = 0
 
-	var/list/possibleNames = GLOB.ai_names
 
-	var/pickedName = null
-	while(!pickedName)
-		pickedName = pick(GLOB.ai_names)
-		for(var/mob/living/silicon/ai/A in GLOB.mob_list)
-			if(A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
-				possibleNames -= pickedName
-				pickedName = null
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
-	rename_character(null, pickedName)
 	anchored = 1
 	canmove = 0
 	density = 1
@@ -201,6 +192,8 @@ var/list/ai_verbs_default = list(
 		new /obj/machinery/ai_powersupply(src)
 
 	create_eye()
+	apply_pref_name("ai")
+
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name

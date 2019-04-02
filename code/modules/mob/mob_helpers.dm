@@ -559,37 +559,44 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
 	return 1
 
-/mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE)
-	spawn(0)
-		var/oldname = real_name
+/mob/proc/apply_pref_name(role, client/C)
+	if(!C)
+		C = client
+	var/oldname = real_name
+	var/newname
+	var/loop = 1
+	var/safety = 0
 
-		var/time_passed = world.time
-		var/newname
+	var/banned = jobban_isbanned(src, "appearance")
 
-		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
-			if(force)
-				newname = input(src, "Pick a new name.", "Name Change", oldname) as text
-			else
-				newname = input(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname) as text
-			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
-				return	//took too long
-			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
+	while(loop && safety < 5)
+		if(C && C.prefs.custom_names[role] && !safety && !banned)
+			newname = C.prefs.custom_names[role]
+		else
+			switch(role)
+				if("clown")
+					newname = pick(GLOB.clown_names)
+				if("mime")
+					newname = pick(GLOB.mime_names)
+				if("ai")
+					newname = pick(GLOB.ai_names)
+				else
+					return FALSE
 
-			for(var/mob/living/M in GLOB.player_list)
-				if(M == src)
-					continue
-				if(!newname || M.real_name == newname)
-					newname = null
-					break
-			if(newname)
-				break	//That's a suitable name!
-			to_chat(src, "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken.")
+		for(var/mob/living/M in GLOB.player_list)
+			if(M == src)
+				continue
+			if(!newname || M.real_name == newname)
+				newname = null
+				loop++ // name is already taken so we roll again
+				break
+		loop--
+		safety++
 
-		if(!newname)	//we'll stick with the oldname then
-			return
-
-		rename_character(oldname, newname)
+	if(newname)
+		rename_character(oldname,newname)
+		return TRUE
+	return FALSE
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)

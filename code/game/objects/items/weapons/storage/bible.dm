@@ -1,3 +1,13 @@
+
+//Pretty bible names
+var/global/list/biblenames =		list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
+
+//Bible iconstates
+var/global/list/biblestates =		list("bible", "koran", "scrapbook", "creeper", "white", "holylight", "athiest", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext")
+
+//Bible itemstates
+var/global/list/bibleitemstates =	list("bible", "koran", "scrapbook", "syringe_kit", "syringe_kit", "syringe_kit", "syringe_kit", "syringe_kit", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext" )
+
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
@@ -27,6 +37,68 @@
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
+
+
+/obj/item/storage/bible/attack_self(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(ticker && !ticker.Bible_icon_state && H.mind.assigned_role == "Chaplain")
+		//Open bible selection
+		var/dat = "<html><head><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"
+
+		var/i
+		for(i = 0, i < biblestates.len, i++)
+			var/icon/bibleicon = icon('icons/obj/storage.dmi', biblestates[i])
+			var/nicename = biblenames[i]
+			H << browse_rsc(bibleicon, nicename)
+			dat += {"<tr><td><img src="[nicename]"></td><td><a href="?src=\ref[src];seticon=[i]">[nicename]</a></td></tr>"}
+
+		dat += "</table></body></html>"
+
+		H << browse(dat, "window=editicon;can_close=0;can_minimize=0;size=250x650")
+
+/obj/item/storage/bible/proc/setupbiblespecifics(var/obj/item/storage/bible/B, var/mob/living/carbon/human/H)
+	switch(B.icon_state)
+		if("bible")
+			for(var/area/chapel/main/A in world)
+				for(var/turf/T in A.contents)
+					if(T.icon_state == "carpetsymbol")
+						T.dir = 2
+		if("koran")
+			for(var/area/chapel/main/A in world)
+				for(var/turf/T in A.contents)
+					if(T.icon_state == "carpetsymbol")
+						T.dir = 4
+		if("scientology")
+			for(var/area/chapel/main/A in world)
+				for(var/turf/T in A.contents)
+					if(T.icon_state == "carpetsymbol")
+						T.dir = 8
+		if("athiest")
+			for(var/area/chapel/main/A in world)
+				for(var/turf/T in A.contents)
+					if(T.icon_state == "carpetsymbol")
+						T.dir = 10
+
+/obj/item/storage/bible/Topic(href, href_list)
+	if(href_list["seticon"])
+		var/iconi = text2num(href_list["seticon"])
+
+		var/biblename = biblenames[iconi]
+		var/obj/item/storage/bible/B = locate(href_list["src"])
+
+		B.icon_state = biblestates[iconi]
+		B.item_state = bibleitemstates[iconi]
+
+		//Set biblespecific chapels
+		setupbiblespecifics(B, usr)
+
+		if(ticker)
+			ticker.Bible_icon_state = B.icon_state
+			ticker.Bible_item_state = B.item_state
+		feedback_set_details("religion_book","[biblename]")
+
+		usr << browse(null, "window=editicon") // Close window
 //BS12 EDIT
  // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M as mob)
