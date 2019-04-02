@@ -1,6 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - tweak: "Appropriate antagonist sound theme now plays when an antagonist is selected via Traitor Panel"
-  - tweak: "Cult sound theme now plays for a new cult converts"
-  - tweak: "Traitor/Malfunction sound theme now plays for newly autotraitored crew/AI"

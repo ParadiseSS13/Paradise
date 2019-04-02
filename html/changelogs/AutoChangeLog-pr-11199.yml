@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes bees not properly generating if they have a reagent in them"
-  - rscadd: "Can break bee boxes"
-  - bugfix: "Fixes bees breaking things they shouldn't"
-  - bugfix: "Fixes bees not properly injecting toxin if they lacked a reagent"
-  - tweak: "purchased bee boxes are no longer wrenched down by default"
