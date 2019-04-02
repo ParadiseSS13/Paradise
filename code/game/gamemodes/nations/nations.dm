@@ -16,9 +16,8 @@ datum/game_mode/nations
 		set_ai()
 		assign_leaders()
 //		remove_access()
-		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
-				M << sound('sound/effects/purge_siren.ogg')
+		set_security_level("epsilon")
+	
 
 	return ..()
 
