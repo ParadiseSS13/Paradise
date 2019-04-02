@@ -23,7 +23,6 @@ var/list/world_uplinks = list()
 	var/used_TC = 0
 
 	var/job = null
-	var/show_descriptions = 0
 	var/temp_category
 	var/uplink_type = "traitor"
 
@@ -231,7 +230,6 @@ var/list/world_uplinks = list()
 	data["welcome"] = welcome
 	data["crystals"] = uses
 	data["menu"] = nanoui_menu
-	data["descriptions"] = show_descriptions
 	if(!nanoui_items)
 		generate_items(user)
 	data["nano_items"] = nanoui_items
@@ -266,12 +264,6 @@ var/list/world_uplinks = list()
 		if(href_list["menu"])
 			nanoui_menu = text2num(href_list["menu"])
 			update_nano_data(href_list["id"])
-		if(href_list["menu"])
-			nanoui_menu = text2num(href_list["menu"])
-			update_nano_data(href_list["id"])
-		if(href_list["descriptions"])
-			show_descriptions = !show_descriptions
-			update_nano_data()
 		if(href_list["category"])
 			temp_category = href_list["category"]
 			update_nano_data()
