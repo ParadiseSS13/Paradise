@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Changed playtime requirements for command jobs. HoS/RD/CE/CMO/AI now require 5h played in their department to be playable. HoP/Captain now require 5h played as a member of the command staff."
