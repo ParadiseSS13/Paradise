@@ -299,7 +299,7 @@
 	if(req_defib)
 		defib.deductcharge(revivecost)
 	playsound(src, 'sound/machines/defib_zap.ogg', 50, 1, -1)
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/twohanded/shockpaddles/dropped(mob/user)
 	if(!req_defib)
