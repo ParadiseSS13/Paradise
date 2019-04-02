@@ -245,6 +245,7 @@
 
 	var/revivecost = 1000
 	var/cooldown = FALSE
+	var/busy = FALSE
 	var/obj/item/defibrillator/defib
 	var/req_defib = TRUE
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
@@ -345,20 +346,23 @@
 			to_chat(user, "<span class='warning'>[src] are recharging!</span>")
 		return
 
+	if(user.a_intent == INTENT_DISARM)
+		do_disarm(M, user)
+		return
 	if(!ishuman(M))
 		if(req_defib)
 			to_chat(user, "<span class='warning'>The instructions on [defib] don't mention how to defibrillate that...</span>")
 		else
 			to_chat(user, "<span class='warning'>You aren't sure how to defibrillate that...</span>")
 		return
-
-	if(user.a_intent == INTENT_HELP)
-		playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
-		user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
-		if(do_after_once(user, 20 * toolspeed, target = M))
+	if(!busy)
+		busy = TRUE
+		if(user.a_intent == INTENT_HARM)
+			do_harm(M, user)
+		else
 			do_help(M, user)
-	else
-		do_disarm(M, user)
+		busy = FALSE
+
 
 /obj/item/twohanded/shockpaddles/proc/do_disarm(mob/living/M, mob/living/user)
 	if(req_defib && defib.safety)
@@ -381,106 +385,156 @@
 	else
 		recharge(100)
 
-/obj/item/twohanded/shockpaddles/proc/do_help(mob/living/carbon/human/H, mob/living/user)
-	if((!combat && !req_defib) || (req_defib && !defib.combat))
-		for(var/obj/item/carried_item in H.contents)
-			if(istype(carried_item, /obj/item/clothing/suit/space))
-				user.audible_message("<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Patient's chest is obscured. Operation aborted.</span>")
-				playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
-				update_icon()
-				return
+/obj/item/twohanded/shockpaddles/proc/do_harm(mob/living/carbon/human/H, mob/living/user)
+	if(req_defib && defib.safety)
+		return
+	if(!req_defib && !combat)
+		return
+	user.visible_message("<span class='notice'>[user] begins to place [src] on [H]'s chest.</span>",
+		"<span class='warning'>You overcharge the paddles and begin to place them onto [H]'s chest...</span>")
 	
-	if(H.stat == DEAD)
-		var/mob/dead/observer/ghost = H.get_ghost()
-		if(ghost && !ghost.client)
-			// In case the ghost's not getting deleted for some reason
-			H.key = ghost.key
-			log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
-
-			QDEL_NULL(ghost)
-		
-		H.visible_message("<span class='warning'>[H]'s body convulses a bit.")
-		playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-		var/tplus = world.time - H.timeofdeath
-		var/tlimit = DEFIB_TIME_LIMIT * 10 //past this much time the patient is unrecoverable (in deciseconds)
-		var/tloss = DEFIB_TIME_LOSS * 10 //brain damage starts setting in on the patient after some time left rotting
-		var/total_burn = 0
-		var/total_brute = 0
-		for(var/obj/item/organ/external/O in H.bodyparts)
-			total_brute	+= O.brute_dam
-			total_burn	+= O.burn_dam
-		if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.mind && H.mind.is_revivable()) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
-			var/tobehealed = min(H.health - HEALTH_THRESHOLD_DEAD, 0) // It's HILARIOUS without this min statement, let me tell you
-			tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
-			H.adjustOxyLoss(tobehealed)
-			H.adjustToxLoss(tobehealed)
-			H.adjustFireLoss(tobehealed)
-			H.adjustBruteLoss(tobehealed)
-			user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
-			playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-			H.update_revive(FALSE)
-			H.KnockOut(FALSE)
-			H.Paralyse(5)
-			H.emote("gasp")
-			if(tplus > tloss)
-				H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
-			H.shock_internal_organs(100)
-			H.med_hud_set_health()
-			H.med_hud_set_status()
-			add_attack_logs(user, H, "Revived with [src]")
-		else
-			if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
-				user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
-			else if(total_burn >= 180 || total_brute >= 180)
-				user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
-			else if(ghost)
-				user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
-				to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-				window_flash(ghost.client)
-				ghost << sound('sound/effects/genetics.ogg')
-			else
-				user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
+	if(do_after_once(user, 30 * toolspeed, target = H))
+		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>",
+			"<span class='warning'>You place [src] on [H]'s chest and begin to charge them.</span>")
+		var/turf/T = get_turf(defib)
+		playsound(src, 'sound/machines/defib_charge.ogg', 75, 0) // Bit louder
 		if(req_defib)
-			defib.deductcharge(revivecost)
-			cooldown = TRUE
-		update_icon()
-		if(req_defib)
-			defib.cooldowncheck(user)
+			T.audible_message("<span class='warning'>\The [defib] lets out an urgent beep and lets out a steadily rising hum...</span>")
 		else
-			recharge(100)
-
-	else if(H.health <= HEALTH_THRESHOLD_CRIT || H.undergoing_cardiac_arrest())
-		if((!H.get_int_organ(/obj/item/organ/internal/heart))) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
-			user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
-			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
-			update_icon()
-			return
-		else
-			H.set_heartattack(FALSE)
-			if(prob(66) && H.health <= HEALTH_THRESHOLD_CRIT)
-				H.adjustOxyLoss(-50)
-				H.visible_message("<span class='warning'>[H] inhales deeply!</span>")
-			H.Paralyse(3)
-			H.Stun(5)
-			H.Weaken(5)
-			H.AdjustStuttering(10)
-			user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
-			H.visible_message("<span class='warning'>[H]'s body convulses a bit.")
-			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-			playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+			user.audible_message("<span class='warning'>[src] let out an urgent beep.</span>")
+		if(do_after_once(user, 30 * toolspeed, target = H)) //Takes longer due to overcharging
+			if(!H)
+				return
+			if(H.stat == DEAD)
+				to_chat(user, "<span class='warning'>[H] is dead.</span>")
+				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
+				return
+			user.visible_message("<span class='warning'><i>[user] shocks [H] with \the [src]!</span>", "<span class='warning'>You shock [H] with \the [src]!</span>")
+			playsound(src, 'sound/machines/defib_zap.ogg', 100, 1, -1)
+			playsound(src, 'sound/weapons/egloves.ogg', 100, 1, -1)
+			H.emote("scream")
+			if(H.can_heartattack() && !H.undergoing_cardiac_arrest())
+				if(!H.stat)
+					H.visible_message("<span class='warning'>[H] thrashes wildly, clutching at [H.p_their()] chest!</span>",
+						"<span class='userdanger'>You feel a horrible agony in your chest!</span>")
+				H.set_heartattack(TRUE)
+			H.apply_damage(50, BURN, "chest")
+			log_attack(user, H, "overloaded the heart of using [src]")
+			H.Paralyse(10)
+			H.Jitter(10)
 			if(req_defib)
 				defib.deductcharge(revivecost)
 				cooldown = TRUE
 			update_icon()
+			if(!req_defib)
+				recharge(100)
 			if(req_defib)
 				defib.cooldowncheck(user)
-			else
-				recharge(100)
-	else
-		user.visible_message("<span class='notice'>[defib] buzzes: Patient is not in a valid state. Operation aborted.</span>")
-		playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+				return
 
-	update_icon()
+/obj/item/twohanded/shockpaddles/proc/do_help(mob/living/carbon/human/H, mob/living/user)
+	
+	user.visible_message("<span class='notice'>[user] places [src] on [H.name]'s chest.</span>", "<span class='warning'>You place [src] on [H.name]'s chest.</span>")
+	if(do_after_once(user, 30 * toolspeed, target = H))
+		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>", "<span class='warning'>You place [src] on [H]'s chest.</span>")
+		playsound(src, 'sound/machines/defib_charge.ogg', 50, 0)
+		if(do_after_once(user, 20 * toolspeed, target = H)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+			
+			var/tplus = world.time - H.timeofdeath
+			if((!combat && !req_defib) || (req_defib && !defib.combat))
+				for(var/obj/item/carried_item in H.contents)
+					if(istype(carried_item, /obj/item/clothing/suit/space))
+						user.audible_message("<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Patient's chest is obscured. Operation aborted.</span>")
+						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+						return
+			
+			if(H.stat == DEAD)
+				var/mob/dead/observer/ghost = H.get_ghost()
+				if(ghost && !ghost.client)
+					// In case the ghost's not getting deleted for some reason
+					H.key = ghost.key
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
+
+					QDEL_NULL(ghost)
+				
+				H.visible_message("<span class='warning'>[H]'s body convulses a bit.")
+				playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+				var/tlimit = DEFIB_TIME_LIMIT * 10 //past this much time the patient is unrecoverable (in deciseconds)
+				var/tloss = DEFIB_TIME_LOSS * 10 //brain damage starts setting in on the patient after some time left rotting
+				var/total_burn = 0
+				var/total_brute = 0
+				for(var/obj/item/organ/external/O in H.bodyparts)
+					total_brute	+= O.brute_dam
+					total_burn	+= O.burn_dam
+				if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.mind && H.mind.is_revivable()) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
+					var/tobehealed = min(H.health - HEALTH_THRESHOLD_DEAD, 0) // It's HILARIOUS without this min statement, let me tell you
+					tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
+					H.adjustOxyLoss(tobehealed)
+					H.adjustToxLoss(tobehealed)
+					H.adjustFireLoss(tobehealed)
+					H.adjustBruteLoss(tobehealed)
+					user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
+					playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+					H.update_revive(FALSE)
+					H.KnockOut(FALSE)
+					H.Paralyse(5)
+					H.emote("gasp")
+					if(tplus > tloss)
+						H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+					H.shock_internal_organs(100)
+					H.med_hud_set_health()
+					H.med_hud_set_status()
+					add_attack_logs(user, H, "Revived with [src]")
+				else
+					if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
+						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
+					else if(total_burn >= 180 || total_brute >= 180)
+						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+					else if(ghost)
+						user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
+						to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+						window_flash(ghost.client)
+						ghost << sound('sound/effects/genetics.ogg')
+					else
+						user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
+				if(req_defib)
+					defib.deductcharge(revivecost)
+					cooldown = TRUE
+				update_icon()
+				if(req_defib)
+					defib.cooldowncheck(user)
+				else
+					recharge(100)
+
+			else if(H.health <= HEALTH_THRESHOLD_CRIT || H.undergoing_cardiac_arrest())
+				if((!H.get_int_organ(/obj/item/organ/internal/heart))) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
+					user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+					return
+				else
+					H.set_heartattack(FALSE)
+					if(prob(66) && H.health <= HEALTH_THRESHOLD_CRIT)
+						H.adjustOxyLoss(-50)
+						H.visible_message("<span class='warning'>[H] inhales deeply!</span>")
+					H.Paralyse(3)
+					H.Stun(5)
+					H.Weaken(5)
+					H.AdjustStuttering(10)
+					user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
+					H.visible_message("<span class='warning'>[H]'s body convulses a bit.")
+					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+					playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+					if(req_defib)
+						defib.deductcharge(revivecost)
+						cooldown = TRUE
+					update_icon()
+					if(req_defib)
+						defib.cooldowncheck(user)
+					else
+						recharge(100)
+			else
+				user.visible_message("<span class='notice'>[defib] buzzes: Patient is not in a valid state. Operation aborted.</span>")
+				playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 
 /obj/item/twohanded/shockpaddles/cyborg
 	name = "cyborg defibrillator paddles"
