@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes necromantic stone not working properly and other edge cases where you had O2 damage and could become O2 damage immune"

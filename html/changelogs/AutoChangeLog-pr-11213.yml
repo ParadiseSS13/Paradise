@@ -1,4 +1,0 @@
-author: "Alonefromhell & AffectedArc07"
-delete-after: True
-changes: 
-  - bugfix: "Fixed an edgecase compile error for spacehotel.dmm"
