@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "stabilizing agent gets used up in reactions that utilize it"
-  - tweak: "flashbangs spark when they initially go off"
-  - bugfix: "Fixes mech users being stunned by their own flashbangs"
