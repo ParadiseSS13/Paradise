@@ -56,11 +56,11 @@
 			var/loss = 10 - distance
 			var/duration = 10 - loss
 			if(loss <= 0)
-				to_chat(user, "<span class='danger'>Your glare had no effect over such long distance!</span>")
+				to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
 				return
 			target.slowed = duration
 			M.AdjustSilence(10)
-			to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted..</span>")
+			to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
 			sleep(duration*10)
 			target.Stun(loss)
 			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
