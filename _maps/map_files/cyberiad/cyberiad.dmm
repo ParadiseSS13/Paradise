@@ -61303,6 +61303,7 @@
 	},
 /area/shuttle/mining)
 "cgG" = (
+/obj/structure/closet/wardrobe/miner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -65238,7 +65239,7 @@
 /turf/simulated/wall,
 /area/toxins/test_area)
 "cnl" = (
-/obj/structure/closet/wardrobe/miner,
+/obj/structure/closet/wardrobe/miner/lavaland,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "brown"

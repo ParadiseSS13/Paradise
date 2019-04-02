@@ -115,6 +115,12 @@
 /obj/machinery/suit_storage_unit/mining/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/lavaland
+	name = "mining suit storage unit"
+	suit_type = /obj/item/clothing/suit/hooded/explorer
+	mask_type = /obj/item/clothing/mask/gas/explorer
+	req_access = list(access_mining_station)
+
 /obj/machinery/suit_storage_unit/cmo
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/medical
 	helmet_type  = /obj/item/clothing/head/helmet/space/hardsuit/medical
