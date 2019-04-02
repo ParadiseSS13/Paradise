@@ -95,7 +95,8 @@
 	force = round((5 + seed.potency / 2.5), 1)
 
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
-	if(..() && ishuman(user)) // If the pickup succeeded and is humanoid
+	. = ..()
+	if(. && ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && prob(50))
 			user.Paralyse(5)
