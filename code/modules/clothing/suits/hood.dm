@@ -5,13 +5,13 @@
 	var/obj/item/clothing/head/hooded/hood
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 
-/obj/item/clothing/suit/hooded/New()
+/obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
 	MakeHood()
 
 /obj/item/clothing/suit/hooded/Destroy()
-	. = ..()
 	QDEL_NULL(hood)
+	. = ..()
 
 /obj/item/clothing/suit/hooded/proc/MakeHood()
 	if(!hood)
@@ -59,7 +59,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood,slot_head,0,0,1))
+			else if(H.equip_to_slot_if_possible(hood, slot_head, 0, 0, 1))
 				hood.forceMove(H)
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
