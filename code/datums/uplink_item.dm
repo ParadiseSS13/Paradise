@@ -189,6 +189,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/russian_revolver/trick_revolver
 	cost = 1
 	job = list("Clown")
+	surplus = 0
 
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
