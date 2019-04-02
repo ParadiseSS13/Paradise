@@ -1,0 +1,4 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - tweak: "Cleaned up some outdated code left in uplinks.dm"
