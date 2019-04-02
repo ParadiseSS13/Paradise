@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Added Medical Beamgun to a Syndicate Medical Cyborg"
