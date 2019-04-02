@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Blob mobs can definitely no longer be spawned in xenobio."
