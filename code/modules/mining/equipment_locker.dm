@@ -452,6 +452,7 @@
 		new /datum/data/mining_equipment("Shelter Capsule",					/obj/item/survivalcapsule,											400),
 		new /datum/data/mining_equipment("Luxury Shelter Capsule",			/obj/item/survivalcapsule/luxury,	    							3000),
 		new /datum/data/mining_equipment("Jump Boots",						/obj/item/clothing/shoes/bhop,        								2500),
+		new /datum/data/mining_equipment("Mining Hardsuit",					/obj/item/storage/box/mininghardsuit,								2000),
 		new /datum/data/mining_equipment("1 Marker Beacon",					/obj/item/stack/marker_beacon,										10),
 		new /datum/data/mining_equipment("10 Marker Beacons",				/obj/item/stack/marker_beacon/ten,									100),
 		new /datum/data/mining_equipment("30 Marker Beacons",				/obj/item/stack/marker_beacon/thirty,								300),

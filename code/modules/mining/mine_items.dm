@@ -32,6 +32,21 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 
+/obj/structure/closet/wardrobe/miner/lavaland
+
+/obj/structure/closet/wardrobe/miner/lavaland/New()
+	..()
+	contents = list()
+	new /obj/item/storage/backpack/duffel(src)
+	new /obj/item/storage/backpack/explorer(src)
+	new /obj/item/storage/backpack/explorer(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "miningsec1"
@@ -50,6 +65,8 @@
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/survivalcapsule(src)
+	new /obj/item/stack/marker_beacon/ten
 
 /**********************Shuttle Computer**************************/
 

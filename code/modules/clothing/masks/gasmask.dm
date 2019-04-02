@@ -62,6 +62,24 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/mask/gas/explorer
+	name = "explorer gas mask"
+	desc = "A military-grade gas mask that can be connected to an air supply."
+	icon_state = "gas_mining"
+	actions_types = list(/datum/action/item_action/adjust)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+	adjustmask(user)
+
+/obj/item/clothing/mask/gas/explorer/adjustmask(user)
+	..()
+	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+	. = ..()
+	adjustmask()
+
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"

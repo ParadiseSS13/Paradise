@@ -31,6 +31,7 @@ Difficulty: Medium
 	armour_penetration = 50
 	melee_damage_lower = 25
 	melee_damage_upper = 25
+	wander = 0
 	speed = 2
 	ranged = 1
 	del_on_death = 1

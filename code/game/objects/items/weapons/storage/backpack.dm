@@ -157,6 +157,12 @@
 	item_state = "engiepack"
 	burn_state = FIRE_PROOF
 
+/obj/item/storage/backpack/explorer
+	name = "explorer bag"
+	desc = "A robust backpack for stashing your loot."
+	icon_state = "explorerpack"
+	item_state = "explorerpack"
+
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
 	desc = "It's a backpack made of all-natural fibers."
@@ -233,6 +239,12 @@
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
 	burn_state = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel/explorer
+	name = "explorer satchel"
+	desc = "A robust satchel for stashing your loot."
+	icon_state = "satchel-explorer"
+	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
