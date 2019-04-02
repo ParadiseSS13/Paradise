@@ -130,8 +130,10 @@
 				forge_traitor_objectives(newtraitor.mind)
 
 				if(istype(newtraitor, /mob/living/silicon))
+					SEND_SOUND(newtraitor, 'sound/ambience/antag/malf.ogg')
 					add_law_zero(newtraitor)
 				else
+					SEND_SOUND(newtraitor, 'sound/ambience/antag/tatoralert.ogg')
 					equip_traitor(newtraitor)
 
 				traitors += newtraitor.mind

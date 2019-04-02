@@ -759,7 +759,7 @@
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who))
+			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
 				add_attack_logs(src, who, "Equipped [what]")
@@ -786,11 +786,11 @@
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/proc/do_jitter_animation(jitteriness)
+/mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
 	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 

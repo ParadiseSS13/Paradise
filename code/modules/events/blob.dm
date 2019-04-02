@@ -9,7 +9,7 @@
 	var/turf/T = pick(blobstart)
 	if(!T)
 		return kill()
-	var/list/candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+	var/list/candidates = pollCandidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, 1)
 	if(!candidates.len)
 		return kill()
 	var/list/vents = list()

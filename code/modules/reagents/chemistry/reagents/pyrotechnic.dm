@@ -262,12 +262,6 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("sorium", 5)
 
-/datum/reagent/sorium_vortex
-	name = "sorium_vortex"
-	id = "sorium_vortex"
-	reagent_state = LIQUID
-	color = "#FFA500"
-
 /datum/reagent/liquid_dark_matter
 	name = "Liquid Dark Matter"
 	id = "liquid_dark_matter"
@@ -284,12 +278,6 @@
 	if(!T.reagents)
 		T.create_reagents(50)
 	T.reagents.add_reagent("liquid_dark_matter", 5)
-
-/datum/reagent/ldm_vortex
-	name = "LDM Vortex"
-	id = "ldm_vortex"
-	reagent_state = LIQUID
-	color = "#800080"
 
 /datum/reagent/blackpowder
 	name = "Black Powder"

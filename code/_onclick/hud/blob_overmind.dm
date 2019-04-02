@@ -57,6 +57,16 @@
 		var/mob/camera/blob/B = usr
 		B.create_blobbernaut()
 
+/obj/screen/blob/StorageBlob
+	icon_state = "ui_storage"
+	name = "Produce Storage Blob (40)"
+	desc = "Produces a storage blob for 40 resources.<br>Storage blobs will raise your max resource cap by 50."
+
+/obj/screen/blob/StorageBlob/Click()
+	if(isovermind(usr))
+		var/mob/camera/blob/B = usr
+		B.create_storage()
+
 /obj/screen/blob/ResourceBlob
 	icon_state = "ui_resource"
 	name = "Produce Resource Blob (40)"
@@ -113,6 +123,16 @@
 		var/mob/camera/blob/B = usr
 		B.relocate_core()
 
+/obj/screen/blob/Split
+	icon_state = "ui_split"
+	name = "Split consciousness (100)"
+	desc = "Creates another Blob Overmind at the nearest node. One use only.<br>Offsprings are be unable to use this ability."
+
+/obj/screen/blob/Split/Click()
+	if(isovermind(usr))
+		var/mob/camera/blob/B = usr
+		B.split_consciousness()
+
 /datum/hud/blob_overmind/New(mob/user)
 	..()
 	var/obj/screen/using
@@ -143,6 +163,10 @@
 	static_inventory += using
 
 	using = new /obj/screen/blob/Blobbernaut()
+	using.screen_loc = ui_id
+	static_inventory += using
+
+	using = new /obj/screen/blob/StorageBlob()
 	using.screen_loc = ui_belt
 	static_inventory += using
 
@@ -165,4 +189,8 @@
 
 	using = new /obj/screen/blob/RelocateCore()
 	using.screen_loc = ui_storage2
+	static_inventory += using
+
+	using = new /obj/screen/blob/Split()
+	using.screen_loc = ui_acti
 	static_inventory += using

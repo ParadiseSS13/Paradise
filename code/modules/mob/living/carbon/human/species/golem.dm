@@ -535,23 +535,26 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
+	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
 	var/tele_range = 6
 
 /datum/action/innate/unstable_teleport/IsAvailable()
 	if(..())
-		if(world.time > last_teleport + cooldown)
+		if(world.time > last_teleport + cooldown && !activated)
 			return 1
 		return 0
 
 /datum/action/innate/unstable_teleport/Activate()
+	activated = TRUE
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] starts vibrating!</span>", "<span class='danger'>You start charging your bluespace core...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
+	activated = FALSE
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
