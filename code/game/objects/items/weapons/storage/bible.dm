@@ -47,7 +47,7 @@ var/global/list/bibleitemstates =	list("bible", "koran", "scrapbook", "syringe_k
 		var/dat = "<html><head><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"
 
 		var/i
-		for(i = 0, i < biblestates.len, i++)
+		for(i = 1, i < biblestates.len, i++)
 			var/icon/bibleicon = icon('icons/obj/storage.dmi', biblestates[i])
 			var/nicename = biblenames[i]
 			H << browse_rsc(bibleicon, nicename)
