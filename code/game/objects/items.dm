@@ -340,6 +340,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
+	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
+		flags &= ~NODROP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
 // called just as an item is picked up (loc is not yet changed)
