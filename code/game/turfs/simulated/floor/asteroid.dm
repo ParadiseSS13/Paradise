@@ -132,7 +132,8 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
 #define SPAWN_MEGAFAUNA "MEGAFAUNA"
-#define SPAWN_BUBBLEGUM 6
+
+GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 6))
 
 /turf/simulated/floor/plating/asteroid/airless/cave
 	var/length = 100
@@ -165,11 +166,11 @@
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data //subtype for producing a tunnel with given data
 	has_data = TRUE
 
-/turf/simulated/floor/plating/asteroid/airless/cave/New(loc)
+/turf/simulated/floor/plating/asteroid/airless/cave/New()
 	if (!mob_spawn_list)
 		mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goldgrub = 1, /mob/living/simple_animal/hostile/asteroid/goliath = 5, /mob/living/simple_animal/hostile/asteroid/basilisk = 4, /mob/living/simple_animal/hostile/asteroid/hivelord = 3)
 	if (!megafauna_spawn_list)
-		megafauna_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = SPAWN_BUBBLEGUM)
+		megafauna_spawn_list = GLOB.megafauna_spawn_list
 	if (!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2)
 
@@ -263,7 +264,7 @@
 			if(megafauna_spawn_list[maybe_boss])
 				randumb = maybe_boss
 				if(ispath(maybe_boss, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
-					megafauna_spawn_list[maybe_boss] = 0
+					megafauna_spawn_list.Remove(maybe_boss)
 
 		for(var/mob/living/simple_animal/hostile/H in urange(12,T)) //prevents mob clumps
 			if((ispath(randumb, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(H)) && get_dist(src, H) <= 7)
