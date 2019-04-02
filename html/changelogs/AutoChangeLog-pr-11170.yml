@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds trick revolver to the syndicate uplink for the clown. Teach those pesky validhunters a lesson!"
+  - rscadd: "Adds the ability for admins to start a revolver only summon gun version; there's also a suicidal version that makes half the guns summoned real and the other half trick revolvers"
