@@ -1,0 +1,6 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "Adds Vox-fitted Tajaran veil sprites."
+  - rscdel: "Removed stray pixel from Vox-fitted gasmask sprites."
+  - tweak: "Adjusts the Vox-fitted blindfold sprite."
