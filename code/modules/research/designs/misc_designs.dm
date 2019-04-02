@@ -140,13 +140,3 @@
 	materials = list(MAT_METAL=3000, MAT_GLASS=500)
 	build_path = /obj/item/tank/plasma/empty
 	category = list("Miscellaneous")
-
-/datum/design/transfer_valve
-	name = "tank transfer valve"
-	desc = "Regulates the transfer of air between two tanks"
-	id = "transfervalve"
-	req_tech = list("toxins" = 5)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL=3500)
-	build_path = /obj/item/transfer_valve
-	category = list("Miscellaneous")
