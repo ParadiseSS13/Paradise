@@ -396,7 +396,7 @@
 		return
 
 	for(var/obj/machinery/clonepod/pod in pods)
-		if(pod.occupant && pod.occupant.ckey == null && pod.clonemind == subject.mind)
+		if(pod.occupant && pod.clonemind == subject.mind)
 			scantemp = "Subject already getting cloned."
 			SSnanoui.update_uis(src)
 			return
