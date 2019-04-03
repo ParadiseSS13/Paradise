@@ -134,7 +134,7 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 			if(current_armor["melee"] < 60)
 				current_armor["melee"] = min(current_armor["melee"] + 10, 60)
 				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-				qdel(src)
+				use(1)
 			else
 				to_chat(user, "<span class='info'>You can't improve [C] any further.</span>")
 				return
@@ -150,7 +150,7 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 				damage_absorption["fire"] = damage_absorption["fire"] - 0.05
 				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
 				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-				qdel(src)
+				use(1)
 				D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
 				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 				if(damage_absorption["brute"] == 0.3)
