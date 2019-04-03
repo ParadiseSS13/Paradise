@@ -45,7 +45,6 @@
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/is_zombie = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
@@ -135,9 +134,9 @@
 	..()
 
 	if(overmind && overmind.blob_reagent_datum)
-		adjustcolors(overmind.blob_reagent_datum.color)
+		adjustcolors(overmind.blob_reagent_datum.complementary_color)
 	else
-		adjustcolors(color) //to ensure zombie/other overlays update
+		adjustcolors(overmind.blob_reagent_datum.complementary_color) //to ensure zombie/other overlays update
 
 
 /mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
@@ -147,8 +146,8 @@
 		overlays.Cut()
 		overlays = human_overlays
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
-		I.color = color
-		color = initial(color)//looks better.
+		I.color = overmind.blob_reagent_datum.complementary_color
+		color = initial(overmind.blob_reagent_datum.complementary_color)//looks better.
 		overlays += I
 
 /////////////////
@@ -174,7 +173,6 @@
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 

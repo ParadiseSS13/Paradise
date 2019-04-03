@@ -4,6 +4,7 @@
 	icon_state = "blob_factory"
 	health = 100
 	fire_resist = 2
+	point_return = 18
 	var/list/spores = list()
 	var/max_spores = 3
 	var/spore_delay = 0
@@ -27,7 +28,7 @@
 		return 0
 	spore_delay = world.time + 100 // 10 seconds
 	var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore(src.loc, src)
-	BS.color = color
+	BS.color = overmind.blob_reagent_datum.complementary_color
 	BS.overmind = overmind
 	overmind.blob_mobs.Add(BS)
 	return 0

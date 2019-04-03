@@ -213,6 +213,9 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
+	
+	//Start now warning
+	var/start_now_confirmation = 0
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -355,6 +358,12 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
+					
+				if("vote_autotransfer_initial")
+					config.vote_autotransfer_initial = text2num(value)
+					
+				if("vote_autotransfer_interval")
+					config.vote_autotransfer_interval = text2num(value)
 
 				if("default_no_vote")
 					config.vote_no_default = 1
@@ -636,6 +645,9 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
+					
+				if("start_now_confirmation")
+					config.start_now_confirmation = 1
 
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)

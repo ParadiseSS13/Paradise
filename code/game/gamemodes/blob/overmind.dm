@@ -15,6 +15,9 @@
 	var/blob_points = 0
 	var/max_blob_points = 100
 	var/last_attack = 0
+	var/nodes_required = TRUE //if the blob needs nodes to place resource and factory blobs
+	var/split_used = FALSE
+	var/is_offspring = FALSE
 	var/datum/reagent/blob/blob_reagent_datum = new/datum/reagent/blob()
 	var/list/blob_mobs = list()
 	var/ghostimage = null

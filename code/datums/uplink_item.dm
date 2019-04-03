@@ -182,6 +182,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/trick_revolver
+	name = "Trick Revolver"
+	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
+	reference = "CTR"
+	item = /obj/item/toy/russian_revolver/trick_revolver
+	cost = 1
+	job = list("Clown")
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
