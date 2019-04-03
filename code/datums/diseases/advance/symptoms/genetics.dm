@@ -26,10 +26,11 @@ Bonus
 	severity = 3
 	var/list/possible_mutations
 	var/archived_dna = null
+	activation_delay = 7
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 5)) // 15% chance
+	. = ..()
+	if(.)
 		var/mob/living/carbon/M = A.affected_mob
 		if(!M.has_dna())
 			return
@@ -38,7 +39,6 @@ Bonus
 				to_chat(M, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
 				M.dna.remove_mutation_group(possible_mutations)
 				randmut(M, possible_mutations)
-	return
 
 // Archive their DNA before they were infected.
 /datum/symptom/genetic_mutation/Start(datum/disease/advance/A)

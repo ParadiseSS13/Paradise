@@ -26,8 +26,8 @@ Bonus
 	severity = 5
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(2,3)
@@ -35,7 +35,6 @@ Bonus
 			if(4,5)
 				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
 				Flesheat(M, A)
-	return
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
 	var/get_damage = ((sqrtor0(16-A.totalStealth()))*5)

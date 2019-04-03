@@ -23,10 +23,11 @@ Bonus
 	transmittable = -3
 	level = 5
 	severity = 0
+	activation_delay = 11
 
 /datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		var/datum/reagents/RD = M.reagents
 

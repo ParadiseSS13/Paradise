@@ -26,8 +26,8 @@ Bonus
 	severity = 4
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/carbon/M = A.affected_mob
 		var/obj/item/organ/internal/eyes/eyes = M.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) //NO EYES, NO PROBLEM! Rip out your eyes today to prevent future blindness!

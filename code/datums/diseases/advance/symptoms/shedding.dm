@@ -25,8 +25,8 @@ BONUS
 	severity = 1
 
 /datum/symptom/shedding/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
 		if(istype(M, /mob/living/carbon/human))
@@ -47,4 +47,3 @@ BONUS
 							head_organ.h_style = "Bald"
 							H.update_hair()
 							H.update_fhair()
-	return

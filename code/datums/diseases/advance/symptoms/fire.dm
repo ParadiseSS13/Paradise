@@ -26,8 +26,8 @@ Bonus
 	severity = 5
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3)
@@ -42,7 +42,6 @@ Bonus
 				M.IgniteMob()
 				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
 				M.emote("scream")
-	return
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = max((sqrtor0(20 + A.totalStageSpeed() * 2)) - (sqrtor0(16 + A.totalStealth())), 1)

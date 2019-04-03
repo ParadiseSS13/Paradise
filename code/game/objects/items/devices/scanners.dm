@@ -187,7 +187,7 @@ REAGENT SCANNER
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			user.show_message("<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+			user.show_message("<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.stage >= 3 ? D.name : "Unknown"].\nType: [D.stage >= 2 ? D.spread_text : "Unknown"].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.stage >= 4 ? D.cure_text : "Unknown"]</span>")
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !(heart.status & ORGAN_DEAD))

@@ -28,18 +28,17 @@ Bonus
 	transmittable = 1
 	level = 3
 	severity = 4
+	activation_delay = 67
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB / 2))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
 				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
 			else
 				Vomit(M)
-
-	return
 
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M)
 	M.vomit(20)

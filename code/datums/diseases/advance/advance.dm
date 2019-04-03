@@ -38,7 +38,7 @@ var/list/advance_cures = 	list(
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = 0
-
+	var/hatched = FALSE // If the virus can be used to create more virus cultures, will activate at 3th stage. If there are more than 5 symptoms it will require a host with a soul attached to it.
 /*
 
 	OLD PROCS
@@ -55,6 +55,7 @@ var/list/advance_cures = 	list(
 		if(!D || !D.symptoms || !D.symptoms.len)
 			symptoms = GenerateSymptoms(0, 2)
 		else
+			hatched = D.hatched
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
 
@@ -71,6 +72,9 @@ var/list/advance_cures = 	list(
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
 	..()
+	if(!hatched && stage >= 3)
+		hatched = LAZYLEN(symptoms) > 5 ? ishuman(affected_mob) && affected_mob.mind : TRUE // Ready for production
+
 	if(symptoms && symptoms.len)
 
 		if(!processing)

@@ -17,6 +17,7 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 	var/severity = 0
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
 	var/id = ""
+	var/activation_delay = 33 //How long it takes before the symptom activates again. Based on stage speed 100/SYMPTOM_ACTIVATION_PROB (3)
 
 /datum/symptom/New()
 	var/list/S = list_symptoms
@@ -35,5 +36,10 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 	return
 
 /datum/symptom/proc/Activate(datum/disease/advance/A)
-	return
+	activation_delay -= max(A.totalStageSpeed(), 1)
+	if(activation_delay <= 0)
+		activation_delay = initial(activation_delay)
+		activation_delay += rand(-0.5 * activation_delay, 0.5 * activation_delay) // Bit of randomness
+		return TRUE
+	return FALSE
 

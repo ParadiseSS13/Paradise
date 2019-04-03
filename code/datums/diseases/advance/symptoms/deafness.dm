@@ -26,8 +26,8 @@ Bonus
 	severity = 3
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3, 4)
@@ -40,4 +40,3 @@ Bonus
 						if(M)
 							to_chat(M, "<span class='warning'>The ringing in your ears fades...</span>")
 							M.CureDeaf()
-	return

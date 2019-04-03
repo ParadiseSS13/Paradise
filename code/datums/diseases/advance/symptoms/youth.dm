@@ -23,10 +23,11 @@ BONUS
 	stage_speed = 4
 	transmittable = -4
 	level = 5
+	activation_delay = 17
 
 /datum/symptom/youth/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 2))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -51,5 +52,3 @@ BONUS
 					if(H.age > 21)
 						H.age = 21
 						to_chat(H, "<span class='notice'>You feel like you can take on the world!</span>")
-
-	return

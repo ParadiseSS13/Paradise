@@ -26,8 +26,8 @@ Bonus
 	severity = 3
 
 /datum/symptom/weakness/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
@@ -41,4 +41,4 @@ Bonus
 				if(M.getStaminaLoss() > 60 && !M.stat)
 					M.visible_message("<span class='warning'>[M] faints!</span>", "<span class='userdanger'>You swoon and faint...</span>")
 					M.AdjustSleeping(5)
-	return
+

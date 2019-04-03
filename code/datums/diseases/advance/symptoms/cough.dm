@@ -26,8 +26,8 @@ BONUS
 	severity = 1
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
@@ -37,4 +37,3 @@ BONUS
 				var/obj/item/I = M.get_active_hand()
 				if(I && I.w_class == 1)
 					M.drop_item()
-	return

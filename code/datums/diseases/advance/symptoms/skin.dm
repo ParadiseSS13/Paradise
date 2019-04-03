@@ -25,8 +25,8 @@ BONUS
 	severity = 1
 
 /datum/symptom/vitiligo/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -38,9 +38,6 @@ BONUS
 					H.update_body(0)
 				else
 					H.visible_message("<span class='warning'>[H] looks a bit pale...</span>", "<span class='notice'>Your skin suddenly appears lighter...</span>")
-
-	return
-
 
 /*
 //////////////////////////////////////
@@ -69,8 +66,8 @@ BONUS
 	severity = 1
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -82,5 +79,3 @@ BONUS
 					H.update_body(0)
 				else
 					H.visible_message("<span class='warning'>[H] looks a bit dark...</span>", "<span class='notice'>Your skin suddenly appears darker...</span>")
-
-	return

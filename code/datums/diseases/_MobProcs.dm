@@ -18,7 +18,10 @@
 		return FALSE
 
 	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) > 0)
-		return FALSE
+		var/datum/disease/advance/A = D
+		for(var/datum/disease/advance/A_existing in viruses)
+			if(A_existing.HasSymptom(new /datum/symptom/heal/metabolism) || A_existing.totalResistance() > A.totalStageSpeed()) // Gotta beat that resistance by 1
+				return FALSE
 
 	if(!(type in D.viable_mobtypes))
 		return -1 //for stupid fucking monkies
@@ -33,6 +36,10 @@
 
 
 /mob/proc/AddDisease(datum/disease/D)
+	if(istype(D, /datum/disease/advance))
+		for(var/datum/disease/advance/A in viruses)
+			A.cure(FALSE) //Remove the old advanced virus, not immune
+	
 	var/datum/disease/DD = new D.type(1, D, 0)
 	viruses += DD
 	DD.affected_mob = src

@@ -26,8 +26,8 @@ Bonus
 	severity = 2
 
 /datum/symptom/dizzy/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
@@ -35,4 +35,3 @@ Bonus
 			else
 				to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
 				M.Dizzy(5)
-	return

@@ -104,8 +104,16 @@
 		return
 	else if(href_list["create_virus_culture"])
 		if(!wait)
+			var/i = text2num(href_list["create_virus_culture"])
+			var/datum/disease/D = GetVirusByIndex(i)
+			if(istype(D, /datum/disease/advance))
+				var/datum/disease/advance/A = D
+				if(!A.hatched)
+					temp_html = "The virus is not able to be copied yet. Let it grow in a test subject first."
+					updateUsrDialog()
+					return
 			var/type = GetVirusTypeByIndex(text2num(href_list["create_virus_culture"]))//the path is received as string - converting
-			var/datum/disease/D = null
+			D = null
 			if(!ispath(type))
 				D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
 				var/datum/disease/advance/A = archive_diseases[D.GetDiseaseID()]

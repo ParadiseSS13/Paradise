@@ -25,8 +25,8 @@ BONUS
 	severity = 1
 
 /datum/symptom/beard/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -47,4 +47,3 @@ BONUS
 					if(!(head_organ.f_style == "Dwarf Beard") && !(head_organ.f_style == "Very Long Beard"))
 						head_organ.f_style = pick("Dwarf Beard", "Very Long Beard")
 						H.update_fhair()
-	return

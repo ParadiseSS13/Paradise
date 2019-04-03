@@ -26,9 +26,8 @@ Bonus
 	severity = 2
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-
+	. = ..()
+	if(.)
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
@@ -37,8 +36,6 @@ Bonus
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
-
-	return
 
 /datum/symptom/voice_change/End(datum/disease/advance/A)
 	..()

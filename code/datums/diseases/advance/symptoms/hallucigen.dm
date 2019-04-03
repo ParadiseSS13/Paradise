@@ -26,8 +26,8 @@ Bonus
 	severity = 3
 
 /datum/symptom/hallucigen/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
@@ -37,5 +37,3 @@ Bonus
 			else
 				to_chat(M, "<span class='userdanger'>[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]</span>")
 				M.AdjustHallucinate(5)
-
-	return

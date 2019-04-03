@@ -27,8 +27,8 @@ Bonus
 	severity = 1
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
@@ -36,4 +36,3 @@ Bonus
 			else
 				M.emote("sneeze")
 				A.spread(5)
-	return

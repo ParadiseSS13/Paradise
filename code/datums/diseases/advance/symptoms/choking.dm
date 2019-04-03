@@ -26,8 +26,8 @@ Bonus
 	severity = 3
 
 /datum/symptom/choking/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
@@ -40,7 +40,6 @@ Bonus
 				to_chat(M, "<span class='userdanger'>[pick("You're choking!", "You can't breathe!")]</span>")
 				Choke(M, A)
 				M.emote("gasp")
-	return
 
 /datum/symptom/choking/proc/Choke_stage_3_4(mob/living/M, datum/disease/advance/A)
 	var/get_damage = sqrtor0(21+A.totalStageSpeed()*0.5)+sqrtor0(16+A.totalStealth())

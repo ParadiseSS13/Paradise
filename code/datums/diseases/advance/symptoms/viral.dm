@@ -22,8 +22,8 @@ BONUS
 	level = 3
 
 /datum/symptom/viraladaptation/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1)
@@ -55,8 +55,8 @@ BONUS
 	level = 3
 
 /datum/symptom/viraladaptation/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	. = ..()
+	if(.)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1)
