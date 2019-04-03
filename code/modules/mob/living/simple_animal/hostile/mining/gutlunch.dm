@@ -5,6 +5,7 @@
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
 	icon_dead = "gutlunch"
+	icon_aggro = "gutlunch"
 	speak_emote = list("warbles", "quavers")
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
@@ -63,11 +64,12 @@
 		..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_typecache(target, wanted_objects)) //we eats
+	if(is_type_in_list(target, wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
 		visible_message("<span class='notice'>[src] slurps up [target].</span>")
 		qdel(target)
+		return
 	..()
 
 /obj/item/udder/gutlunch

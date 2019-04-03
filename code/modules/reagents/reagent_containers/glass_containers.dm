@@ -66,7 +66,7 @@
 		if(istype(target, type))
 			return
 
-	if(ismob(target) && target.reagents && reagents.total_volume)
+	if(user.a_intent != INTENT_HELP && ismob(target) && target.reagents && reagents.total_volume)
 		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
 
 		var/mob/living/M = target

@@ -67,8 +67,8 @@
 	temperature = 300
 
 /turf/simulated/floor/indestructible/boss/air
-	oxygen = 0
-	nitrogen = 0
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
 /turf/simulated/floor/indestructible/hierophant

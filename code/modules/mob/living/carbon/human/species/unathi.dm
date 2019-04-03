@@ -112,7 +112,7 @@
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
 	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners." 
 
-	language = null
+	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"
 
 	slowdown = -0.80

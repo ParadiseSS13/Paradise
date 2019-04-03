@@ -524,6 +524,18 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
+/obj/structure/fans/Initialize(loc)
+	..()
+	air_update_turf(1)
+
+/obj/structure/fans/Destroy()
+	arbitraryatmosblockingvar = 0
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/fans/CanAtmosPass(turf/T)
+	return !arbitraryatmosblockingvar
+
 /obj/structure/fans/deconstruct()
 	if(buildstacktype)
 		new buildstacktype(loc, buildstackamount)
@@ -551,18 +563,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
 	unacidable = TRUE
 	invisibility = INVISIBILITY_ABSTRACT	
-
-/obj/structure/fans/Initialize(loc)
-	..()
-	air_update_turf(1)
-
-/obj/structure/fans/Destroy()
-	arbitraryatmosblockingvar = 0
-	air_update_turf(1)
-	return ..()
-
-/obj/structure/fans/CanAtmosPass(turf/T)
-	return !arbitraryatmosblockingvar
 
 //Signs
 /obj/structure/sign/mining
