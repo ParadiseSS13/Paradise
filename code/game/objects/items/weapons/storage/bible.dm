@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(biblenames, list("Bible", "Quran", "Scrapbook", "Creeper Bible", "White Bible", "Holy Light",  "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "Melted Bible", "Necronomicon", "Greentext"))
 // if your bible has no custom itemstate, use one of the existing ones
-GLOBAL_LIST_INIT(biblestates, list("bible", "koran", "scrapbook", "creeper", "white", "holylight", "atheist", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext"))
+GLOBAL_LIST_INIT(biblestates, list("bible", "koran", "scrapbook", "creeper", "white", "holylight", "athiest", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext"))
 GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook","creeper", "syringe_kit", "syringe_kit", "syringe_kit", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext"))
 
 
