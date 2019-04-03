@@ -1,5 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "Auto cloning now doesn't clone a person more than once."
-  - tweak: "A person in the cloning scanner won't be scanned if he's already being cloned"

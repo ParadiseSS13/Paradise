@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Blobspores will additionally zomify all players who have 200 damage or more"
-  - tweak: "Holoparasites will additionally die once their host has 200 damage or more"
-  - bugfix: "Fixes blob zombies who infect players who have no head being invisible"
