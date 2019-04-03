@@ -40,6 +40,9 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 	if(activation_delay <= 0)
 		activation_delay = initial(activation_delay)
 		activation_delay += rand(-0.5 * activation_delay, 0.5 * activation_delay) // Bit of randomness
+		DoEffect(A)
 		return TRUE
 	return FALSE
 
+/datum/symptom/proc/DoEffect(datum/disease/advance/A)
+	return

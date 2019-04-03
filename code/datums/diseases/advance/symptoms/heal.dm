@@ -25,13 +25,12 @@ Bonus
 	level = 6
 	activation_delay = 4
 
-/datum/symptom/heal/Activate(datum/disease/advance/A)
+/datum/symptom/heal/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(4, 5)
-				Heal(M, A)
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(4, 5)
+			Heal(M, A)
 
 /datum/symptom/heal/proc/Heal(mob/living/M, datum/disease/advance/A)
 	var/get_damage = (sqrtor0(20+A.totalStageSpeed())*(1+rand()))

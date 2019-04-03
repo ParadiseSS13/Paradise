@@ -25,23 +25,22 @@ Bonus
 	level = 6
 	severity = 5
 
-/datum/symptom/fire/Activate(datum/disease/advance/A)
+/datum/symptom/fire/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(3)
-				to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
-			if(4)
-				Firestacks_stage_4(M, A)
-				M.IgniteMob()
-				to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
-				M.emote("scream")
-			if(5)
-				Firestacks_stage_5(M, A)
-				M.IgniteMob()
-				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
-				M.emote("scream")
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(3)
+			to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
+		if(4)
+			Firestacks_stage_4(M, A)
+			M.IgniteMob()
+			to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
+			M.emote("scream")
+		if(5)
+			Firestacks_stage_5(M, A)
+			M.IgniteMob()
+			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+			M.emote("scream")
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = max((sqrtor0(20 + A.totalStageSpeed() * 2)) - (sqrtor0(16 + A.totalStealth())), 1)

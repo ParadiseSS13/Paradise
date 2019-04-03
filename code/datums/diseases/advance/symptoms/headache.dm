@@ -26,8 +26,7 @@ BONUS
 	level = 1
 	severity = 1
 
-/datum/symptom/headache/Activate(datum/disease/advance/A)
+/datum/symptom/headache/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your head starts pounding.")]</span>")
+	var/mob/living/M = A.affected_mob
+	to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your head starts pounding.")]</span>")

@@ -25,18 +25,17 @@ Bonus
 	level = 4
 	severity = 3
 
-/datum/symptom/deafness/Activate(datum/disease/advance/A)
+/datum/symptom/deafness/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(3, 4)
-				to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
-			if(5)
-				if(!(M.disabilities & DEAF))
-					to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
-					M.BecomeDeaf()
-					spawn(200)
-						if(M)
-							to_chat(M, "<span class='warning'>The ringing in your ears fades...</span>")
-							M.CureDeaf()
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(3, 4)
+			to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
+		if(5)
+			if(!(M.disabilities & DEAF))
+				to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
+				M.BecomeDeaf()
+				spawn(200)
+					if(M)
+						to_chat(M, "<span class='warning'>The ringing in your ears fades...</span>")
+						M.CureDeaf()

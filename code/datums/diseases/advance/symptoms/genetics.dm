@@ -28,17 +28,16 @@ Bonus
 	var/archived_dna = null
 	activation_delay = 7
 
-/datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
+/datum/symptom/genetic_mutation/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/carbon/M = A.affected_mob
-		if(!M.has_dna())
-			return
-		switch(A.stage)
-			if(4, 5)
-				to_chat(M, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
-				M.dna.remove_mutation_group(possible_mutations)
-				randmut(M, possible_mutations)
+	var/mob/living/carbon/M = A.affected_mob
+	if(!M.has_dna())
+		return
+	switch(A.stage)
+		if(4, 5)
+			to_chat(M, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
+			M.dna.remove_mutation_group(possible_mutations)
+			randmut(M, possible_mutations)
 
 // Archive their DNA before they were infected.
 /datum/symptom/genetic_mutation/Start(datum/disease/advance/A)

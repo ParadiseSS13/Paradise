@@ -25,13 +25,12 @@ Bonus
 	level = 4
 	activation_delay = 4
 
-/datum/symptom/damage_converter/Activate(datum/disease/advance/A)
+/datum/symptom/damage_converter/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(4, 5)
-				Convert(M)
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(4, 5)
+			Convert(M)
 
 /datum/symptom/damage_converter/proc/Convert(mob/living/M)
 

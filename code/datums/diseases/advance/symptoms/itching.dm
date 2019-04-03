@@ -26,8 +26,7 @@ BONUS
 	level = 1
 	severity = 1
 
-/datum/symptom/itching/Activate(datum/disease/advance/A)
+/datum/symptom/itching/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		to_chat(M, "<span class='warning'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
+	var/mob/living/M = A.affected_mob
+	to_chat(M, "<span class='warning'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")

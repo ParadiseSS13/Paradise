@@ -25,15 +25,14 @@ Bonus
 	level = 6
 	activation_delay = 6
 
-/datum/symptom/oxygen/Activate(datum/disease/advance/A)
+/datum/symptom/oxygen/DoEffect(datum/disease/advance/A)
 	. = ..()
-	if(.)
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(4, 5)
-				if(M.reagents.get_reagent_amount("salbutamol") < 20)
-					M.reagents.add_reagent("salbutamol", 20)
-			else
-				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]</span>")
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(4, 5)
+			if(M.reagents.get_reagent_amount("salbutamol") < 20)
+				M.reagents.add_reagent("salbutamol", 20)
+		else
+			if(prob(SYMPTOM_ACTIVATION_PROB * 5))
+				to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]</span>")
 	
