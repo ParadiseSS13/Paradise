@@ -392,7 +392,6 @@
 	item_state = "skull"
 	item_color = "skull"
 	slot = "skullcodpiece"
-	body_parts_covered = LOWER_TORSO
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
 
 /obj/item/clothing/accessory/necklace/talisman
