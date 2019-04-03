@@ -849,7 +849,7 @@
 	if(istype(user, /mob/living/carbon/human))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP		//curses!
+		magichead.flags |= NODROP | DROPDEL		//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))

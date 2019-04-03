@@ -19,3 +19,7 @@ Contents:
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
+
+/obj/item/clothing/mask/gas/voice/space_ninja/dropped()
+	. = ..()
+	flags &= ~NODROP

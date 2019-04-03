@@ -12,3 +12,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	transfer_prints = FALSE
+
+/obj/item/clothing/gloves/space_ninja/dropped()
+	. = ..()
+	flags &= ~NODROP
