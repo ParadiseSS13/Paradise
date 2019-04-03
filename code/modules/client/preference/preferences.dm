@@ -200,7 +200,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/list/gear = list()
 	var/gear_tab = "General"
 
-	var/list/custom_names = list("human", "clown", "mime", "ai", "cyborg", "religion", "deity")
+	var/list/custom_names = list()
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -209,10 +209,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	max_gear_slots = config.max_loadout_points
 	var/loaded_preferences_successfully = FALSE
 
-	custom_names["ai"] = pick(GLOB.ai_names)
-	custom_names["cyborg"] = pick(GLOB.ai_names)
-	custom_names["clown"] = pick(GLOB.clown_names)
-	custom_names["mime"] = pick(GLOB.mime_names)
+	for(var/custom_name_id in GLOB.preferences_custom_names)
+		custom_names[custom_name_id] = get_default_name(custom_name_id)
 
 	if(istype(C))
 		if(!IsGuestKey(C.key))
@@ -270,14 +268,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
 			dat += "<b>Special Names:</b><BR>"
-			dat += "<a href ='?_src_=prefs;preference=clown_name;task=input'><b>Clown:</b> [custom_names["clown"]]</a> "
-			dat += "<a href ='?_src_=prefs;preference=mime_name;task=input'><b>Mime:</b> [custom_names["mime"]]</a>"
-			dat += "<br>"
-			dat += "<a href ='?_src_=prefs;preference=ai_name;task=input'><b>AI:</b> [custom_names["ai"]]</a> "
-			dat += "<a href ='?_src_=prefs;preference=cyborg_name;task=input'><b>Cyborg:</b> [custom_names["cyborg"]]</a>"
-			dat += "<br>"
-			dat += "<a href ='?_src_=prefs;preference=religion_name;task=input'><b>Chaplain religion:</b> [custom_names["religion"]] </a>"
-			dat += "<a href ='?_src_=prefs;preference=deity_name;task=input'><b>Chaplain deity:</b> [custom_names["deity"]]</a><BR>"
+			var/old_group
+			for(var/custom_name_id in GLOB.preferences_custom_names)
+				var/namedata = GLOB.preferences_custom_names[custom_name_id]
+				if(!old_group)
+					old_group = namedata["group"]
+				else if(old_group != namedata["group"])
+					old_group = namedata["group"]
+					dat += "<br>"
+				dat += "<a href ='?_src_=prefs;preference=[custom_name_id];task=input'><b>[namedata["pref_name"]]:</b> [custom_names[custom_name_id]]</a> "
+			dat += "<br><br>"
 			dat += "Slot <b>[slot_name]</b> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a> - "
@@ -1276,6 +1276,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("all")
 					random_character()
 		if("input")
+
+			if(href_list["preference"] in GLOB.preferences_custom_names)
+				ask_for_custom_name(user,href_list["preference"])
+
+
 			switch(href_list["preference"])
 				if("name")
 					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
@@ -1288,53 +1293,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								N.new_player_panel_proc()
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-
-				if("clown_name")
-					var/new_clown_name = reject_bad_name( input(user, "Choose your character's clown name:", "Character Preference")  as text|null )
-					if(new_clown_name)
-						custom_names["clown"] = new_clown_name
-					else
-						to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-
-				if("mime_name")
-					var/new_mime_name = reject_bad_name( input(user, "Choose your character's mime name:", "Character Preference")  as text|null )
-					if(new_mime_name)
-						custom_names["mime"] = new_mime_name
-					else
-						to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-
-				if("ai_name")
-					var/new_ai_name = reject_bad_name( input(user, "Choose your character's AI name:", "Character Preference")  as text|null, 1 )
-					if(new_ai_name)
-						custom_names["ai"] = new_ai_name
-					else
-						to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
-
-				if("cyborg_name")
-					var/raw_name = input(user, "Choose your character's cyborg name (Leave empty to use default naming scheme):", "Character Preference")  as text|null
-					var/new_cyborg_name
-					if(!raw_name)
-						new_cyborg_name = "Cyborg"
-					else
-						new_cyborg_name = reject_bad_name(raw_name,1 )
-					if(new_cyborg_name)
-						custom_names["cyborg"] = new_cyborg_name
-					else
-						to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
-
-				if("religion_name")
-					var/new_religion_name = reject_bad_name( input(user, "Choose your character's religion:", "Character Preference")  as text|null )
-					if(new_religion_name)
-						custom_names["religion"] = new_religion_name
-					else
-						to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-
-				if("deity_name")
-					var/new_deity_name = reject_bad_name( input(user, "Choose your character's deity:", "Character Preference")  as text|null )
-					if(new_deity_name)
-						custom_names["deity"] = new_deity_name
-					else
-						to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
@@ -2353,3 +2311,41 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/close_load_dialog(mob/user)
 	user << browse(null, "window=saves")
+
+
+/datum/preferences/proc/get_default_name(name_id)
+	switch(name_id)
+		if("human")
+			return random_name(pick(MALE,FEMALE))
+		if("ai")
+			return pick(GLOB.ai_names)
+		if("cyborg")
+			return pick(GLOB.ai_names)
+		if("clown")
+			return pick(GLOB.clown_names)
+		if("mime")
+			return pick(GLOB.mime_names)
+		if("religion")
+			return "Christianity"
+		if("deity")
+			return "Christ"
+	return random_name(pick(MALE,FEMALE))
+
+/datum/preferences/proc/ask_for_custom_name(mob/user, name_id)
+	var/namedata = GLOB.preferences_custom_names[name_id]
+	if(!namedata)
+		return
+
+	var/raw_name = input(user, "Choose your character's [namedata["qdesc"]]:","Character Preference") as text|null
+	if(!raw_name)
+		if(namedata["allow_null"])
+			custom_names[name_id] = get_default_name(name_id)
+		else
+			return
+	else
+		var/sanitized_name = reject_bad_name(raw_name,namedata["allow_numbers"])
+		if(!sanitized_name)
+			to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z,[namedata["allow_numbers"] ? ",0-9," : ""] -, ' and .</font>")
+			return
+		else
+			custom_names[name_id] = sanitized_name

@@ -1,12 +1,9 @@
+GLOBAL_LIST_INIT(biblenames, list("Bible", "Quran", "Scrapbook", "Creeper Bible", "White Bible", "Holy Light",  "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "Melted Bible", "Necronomicon", "Greentext"))
+// if your bible has no custom itemstate, use one of the existing ones
+GLOBAL_LIST_INIT(biblestates, list("bible", "koran", "scrapbook", "creeper", "white", "holylight", "atheist", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext"))
+GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook","creeper", "syringe_kit", "syringe_kit", "syringe_kit", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext"))
 
-//Pretty bible names
-var/global/list/biblenames =		list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
 
-//Bible iconstates
-var/global/list/biblestates =		list("bible", "koran", "scrapbook", "creeper", "white", "holylight", "athiest", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext")
-
-//Bible itemstates
-var/global/list/bibleitemstates =	list("bible", "koran", "scrapbook", "syringe_kit", "syringe_kit", "syringe_kit", "syringe_kit", "syringe_kit", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext" )
 
 /obj/item/storage/bible
 	name = "bible"
@@ -44,17 +41,14 @@ var/global/list/bibleitemstates =	list("bible", "koran", "scrapbook", "syringe_k
 		return
 	if(ticker && !ticker.Bible_icon_state && H.mind.assigned_role == "Chaplain")
 		//Open bible selection
+
 		var/dat = "<html><head><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"
-
-		var/i
-		for(i = 1, i < biblestates.len, i++)
-			var/icon/bibleicon = icon('icons/obj/storage.dmi', biblestates[i])
-			var/nicename = biblenames[i]
+		for(var/i in 1 to GLOB.biblestates.len)
+			var/icon/bibleicon = icon('icons/obj/storage.dmi', GLOB.biblestates[i])
+			var/nicename = GLOB.biblenames[i]
 			H << browse_rsc(bibleicon, nicename)
-			dat += {"<tr><td><img src="[nicename]"></td><td><a href="?src=\ref[src];seticon=[i]">[nicename]</a></td></tr>"}
-
+			dat += {"<tr><td><img src="[nicename]"></td><td><a href="?src=[UID()];seticon=[i]">[nicename]</a></td></tr>"}
 		dat += "</table></body></html>"
-
 		H << browse(dat, "window=editicon;can_close=0;can_minimize=0;size=250x650")
 
 /obj/item/storage/bible/proc/setupbiblespecifics(var/obj/item/storage/bible/B, var/mob/living/carbon/human/H)
@@ -84,11 +78,11 @@ var/global/list/bibleitemstates =	list("bible", "koran", "scrapbook", "syringe_k
 	if(href_list["seticon"])
 		var/iconi = text2num(href_list["seticon"])
 
-		var/biblename = biblenames[iconi]
+		var/biblename = GLOB.biblenames[iconi]
 		var/obj/item/storage/bible/B = locate(href_list["src"])
 
-		B.icon_state = biblestates[iconi]
-		B.item_state = bibleitemstates[iconi]
+		B.icon_state = GLOB.biblestates[iconi]
+		B.item_state = GLOB.bibleitemstates[iconi]
 
 		//Set biblespecific chapels
 		setupbiblespecifics(B, usr)

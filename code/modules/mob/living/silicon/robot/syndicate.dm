@@ -11,8 +11,6 @@
 	ionpulse = 1
 	magpulse = 1
 	lawchannel = "State"
-	var/multinamepick = FALSE
-	var/namepicked = FALSE
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
@@ -58,7 +56,6 @@
 	icon_state = "syndi-engi"
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
-	multinamepick = TRUE
 	var/mail_destination = 0
 	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\
@@ -79,14 +76,11 @@
 	var/datum/action/A = new /datum/action/item_action/toggle(SR)
 	A.Grant(src)
 
-/mob/living/silicon/robot/syndicate/verb/modify_name()
+/mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
 	set category = "Saboteur"
 
-	if(namepicked && !multinamepick)
-		to_chat(usr, "<span class='warning'>Error:Only sabotuer modules can pick thier name more then once!</span>")
-		return
 	var/raw_name = input(usr, "Choose your cyborg name (Leave empty to use default naming scheme):", "Character Preference")  as text|null
 	var/new_synborg_name
 	if(!raw_name)
@@ -98,8 +92,6 @@
 		to_chat(usr, "<span class='notice'>Launching VPN...</span>")
 		to_chat(usr, "<span class='notice'>Hacking Systems..</span>")
 		to_chat(usr, "<span class='notice'>Name change complete, Welcome [new_synborg_name]</span>")
-		if(!namepicked)
-			namepicked = TRUE
 	else
 		to_chat(usr, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
 

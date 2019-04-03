@@ -231,8 +231,13 @@ var/list/robot_verbs_default = list(
 	if(!allow_rename)
 		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>");
 		return 0
-	to_chat(src, "<span class='notice'>Now resetting name from pesonality database. Stand-by.</span>");
-	apply_pref_name("cyborg", usr.client)
+	var/new_cyborg_name = input(usr, "Choose your cyborg name (Leave empty to use name from prefrencences):", "Character Preference")  as text|null
+	if(new_cyborg_name)
+		rename_character(name, new_cyborg_name)
+		to_chat(src, "<span class='notice'>Now resetting name from pesonality database. Stand-by.</span>");
+	else
+		apply_pref_name("cyborg", usr.client)
+
 
 /mob/living/silicon/robot/proc/sync()
 	if(lawupdate && connected_ai)
