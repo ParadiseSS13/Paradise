@@ -599,7 +599,7 @@ BLIND     // can't see anything
 		.=1
 	else
 		return 0
-	if(accessories.len && (A.slot in list("utility","armband")))
+	if(accessories.len && (A.slot in list("utility","armband","skullcodpiece","talisman")))
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if(AC.slot == A.slot)
 				return 0

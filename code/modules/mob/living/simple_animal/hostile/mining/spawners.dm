@@ -12,7 +12,7 @@
 	maxHealth = 250
 	max_mobs = 3
 	spawn_time = 300 //30 seconds default
-	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
 	spawn_text = "emerges from"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -82,4 +82,4 @@
 	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
 
 /mob/living/simple_animal/hostile/spawner/lavaland/legion
-	mob_type = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
+	mob_type = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
