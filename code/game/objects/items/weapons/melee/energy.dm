@@ -225,3 +225,8 @@
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
 	item_state = "lightblade"
+
+/obj/item/melee/energy/sword/IsReflect()
+	if(active)
+		return TRUE
+
