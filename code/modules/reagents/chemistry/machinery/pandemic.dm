@@ -11,11 +11,17 @@
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
+	var/spaceacillin_storage = 0
 	var/obj/item/reagent_containers/beaker = null
 
 /obj/machinery/computer/pandemic/New()
 	..()
 	update_icon()
+
+/obj/machinery/computer/pandemic/examine(mob/user)
+	..()
+	if(Adjacent(user))
+		to_chat(user, "<span class='notice'>[src] has [spaceacillin_storage] of Spaceacillin stored.</span>")
 
 /obj/machinery/computer/pandemic/set_broken()
 	icon_state = (beaker ? "mixer1_b" : "mixer0_b")
@@ -74,30 +80,34 @@
 
 	if(href_list["create_vaccine"])
 		if(!wait)
-			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
-			if(B)
-				B.pixel_x = rand(-3, 3)
-				B.pixel_y = rand(-3, 3)
-				var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
-				var/vaccine_type = path
-				var/vaccine_name = "Unknown"
+			if(spaceacillin_storage >= 15)
+				var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
+				if(B)
+					spaceacillin_storage -= 15
+					B.pixel_x = rand(-3, 3)
+					B.pixel_y = rand(-3, 3)
+					var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
+					var/vaccine_type = path
+					var/vaccine_name = "Unknown"
 
-				if(!ispath(vaccine_type))
-					if(archive_diseases[path])
-						var/datum/disease/D = archive_diseases[path]
+					if(!ispath(vaccine_type))
+						if(archive_diseases[path])
+							var/datum/disease/D = archive_diseases[path]
+							if(D)
+								vaccine_name = D.name
+								vaccine_type = path
+					else if(vaccine_type)
+						var/datum/disease/D = new vaccine_type(0, null)
 						if(D)
 							vaccine_name = D.name
-							vaccine_type = path
-				else if(vaccine_type)
-					var/datum/disease/D = new vaccine_type(0, null)
-					if(D)
-						vaccine_name = D.name
 
-				if(vaccine_type)
+					if(vaccine_type)
 
-					B.name = "[vaccine_name] vaccine bottle"
-					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
-					replicator_cooldown(200)
+						B.name = "[vaccine_name] vaccine bottle"
+						B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
+						replicator_cooldown(200)
+			else
+				temp_html = "Not enough Spaceacillin available. Requires 15, has [spaceacillin_storage]."
 		else
 			temp_html = "The replicator is not ready yet."
 		updateUsrDialog()
@@ -145,6 +155,13 @@
 		beaker.reagents.clear_reagents()
 		updateUsrDialog()
 		return
+	else if(href_list["transfer_sa"])
+		for(var/datum/reagent/medicine/spaceacillin/S in beaker.reagents.reagent_list)
+			if(S)
+				spaceacillin_storage += S.volume
+				beaker.reagents.remove_reagent("spaceacillin", S.volume, TRUE)
+				updateUsrDialog()
+				return
 	else if(href_list["eject"])
 		beaker:loc = loc
 		beaker = null
@@ -234,6 +251,11 @@
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Close</A>"
 	else
 		var/datum/reagents/R = beaker.reagents
+		for(var/datum/reagent/medicine/spaceacillin/S in R.reagent_list)
+			if(S)
+				dat += "[S.volume] Spaceacillin found<BR>"
+				dat += "<A href='?src=[UID()];transfer_sa=1'>Transfer spaceacillin</A><BR>"
+				break
 		var/datum/reagent/blood/Blood = null
 		for(var/datum/reagent/blood/B in R.reagent_list)
 			if(B)
