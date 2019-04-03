@@ -278,7 +278,6 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	return
 
 #undef SPAWN_MEGAFAUNA
-#undef SPAWN_BUBBLEGUM
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	if(prob(12))

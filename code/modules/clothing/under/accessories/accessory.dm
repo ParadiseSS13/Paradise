@@ -7,9 +7,10 @@
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
 	w_class = WEIGHT_CLASS_SMALL
-	var/slot = "decor"
+	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
+	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
 /obj/item/clothing/accessory/New()
 	..()
@@ -391,8 +392,8 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	slot = "skullcodpiece"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
 	name = "bone talisman"
@@ -400,8 +401,8 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	slot = "talisman"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
