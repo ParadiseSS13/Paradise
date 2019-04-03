@@ -23,7 +23,7 @@ Bonus
 	stage_speed = -3
 	transmittable = -4
 	level = 6
-	activation_delay = 6
+	activation_delay = 7
 
 /datum/symptom/oxygen/DoEffect(datum/disease/advance/A)
 	. = ..()
