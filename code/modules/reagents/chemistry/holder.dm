@@ -218,7 +218,7 @@ var/const/INGEST = 2
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		set_reagent_temp(M.bodytemperature)
+		temperature_reagents(M.bodytemperature - 30)
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
