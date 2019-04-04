@@ -1924,6 +1924,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\tree.dm"
 #include "code\modules\mob\living\simple_animal\hostile\venus_human_trap.dm"
 #include "code\modules\mob\living\simple_animal\hostile\winter_mobs.dm"
+#include "code\modules\mob\living\simple_animal\hostile\megafauna\blood_drunk_miner.dm"
 #include "code\modules\mob\living\simple_animal\hostile\megafauna\bubblegum.dm"
 #include "code\modules\mob\living\simple_animal\hostile\megafauna\colossus.dm"
 #include "code\modules\mob\living\simple_animal\hostile\megafauna\dragon.dm"

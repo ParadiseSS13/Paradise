@@ -2,6 +2,8 @@
 	var/active = 0
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
+	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
+	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on = "axe1"
@@ -12,6 +14,19 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+
+/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
+	var/nemesis_faction = FALSE
+	if(LAZYLEN(nemesis_factions))
+		for(var/F in target.faction)
+			if(F in nemesis_factions)
+				nemesis_faction = TRUE
+				force += faction_bonus_force
+				nemesis_effects(user, target)
+				break
+	. = ..()
+	if(nemesis_faction)
+		force -= faction_bonus_force
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
@@ -225,3 +240,125 @@
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
 	item_state = "lightblade"
+
+/obj/item/melee/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
+	return
+
+/obj/item/melee/energy/cleaving_saw
+	name = "cleaving saw"
+	desc = "This saw, effective at drawing the blood of beasts, transforms into a long cleaver that makes use of centrifugal force."
+	force = 12
+	force_on = 20 //force when active
+	throwforce = 20
+	throwforce_on = 20
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	icon_state = "cleaving_saw"
+	icon_state_on = "cleaving_saw_open"
+	slot_flags = SLOT_BELT
+	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = 1
+	faction_bonus_force = 30
+	nemesis_factions = list("mining", "boss")
+	var/transform_cooldown
+	var/swiping = FALSE
+
+/obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
+	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
+	if(!B)
+		if(!active) //This isn't in the above if-check so that the else doesn't care about active
+			target.apply_status_effect(STATUS_EFFECT_SAWBLEED)
+	else
+		B.add_bleed(B.bleed_buildup)
+
+/obj/item/melee/energy/cleaving_saw/attack_self(mob/living/carbon/user)
+	transform_weapon(user)
+
+/obj/item/melee/energy/cleaving_saw/proc/transform_weapon(mob/living/user, supress_message_text)
+	if(transform_cooldown > world.time)
+		return FALSE
+
+	transform_cooldown = world.time + (CLICK_CD_MELEE * 0.5)
+	user.changeNext_move(CLICK_CD_MELEE * 0.25)
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.disabilities & CLUMSY && prob(50))
+			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+			H.take_organ_damage(10,10)
+	active = !active
+	if(active)
+		force = force_on
+		throwforce = throwforce_on
+		hitsound = 'sound/weapons/bladeslice.ogg'
+		throw_speed = 4
+		if(attack_verb_on.len)
+			attack_verb = attack_verb_on
+		if(!item_color)
+			icon_state = icon_state_on
+			set_light(brightness_on)
+		else
+			icon_state = "sword[item_color]"
+			set_light(brightness_on, l_color=colormap[item_color])
+		w_class = w_class_on
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
+		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
+	else
+		force = initial(force)
+		throwforce = initial(throwforce)
+		hitsound = initial(hitsound)
+		throw_speed = initial(throw_speed)
+		if(attack_verb_on.len)
+			attack_verb = list()
+		icon_state = initial(icon_state)
+		w_class = initial(w_class)
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		set_light(0)
+		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+
+	add_fingerprint(user)
+
+/obj/item/melee/energy/cleaving_saw/examine(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
+	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.<br>\
+	Transforming it immediately after an attack causes the next attack to come out faster.</span>")
+
+/obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return BRUTELOSS
+
+/obj/item/melee/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
+	..()
+	if(!active)
+		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
+
+/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!active || swiping || !target.density || get_turf(target) == get_turf(user))
+		if(!active)
+			faction_bonus_force = 0
+		..()
+		if(!active)
+			faction_bonus_force = initial(faction_bonus_force)
+	else
+		var/turf/user_turf = get_turf(user)
+		var/dir_to_target = get_dir(user_turf, get_turf(target))
+		swiping = TRUE
+		var/static/list/cleaving_saw_cleave_angles = list(0, -45, 45) //so that the animation animates towards the target clicked and not towards a side target
+		for(var/i in cleaving_saw_cleave_angles)
+			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
+			for(var/mob/living/L in T)
+				if(user.Adjacent(L) && L.density)
+					melee_attack_chain(user, L)
+		swiping = FALSE
