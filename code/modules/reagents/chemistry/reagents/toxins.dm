@@ -606,13 +606,12 @@
 		if(method == TOUCH)
 			if(volume > 9)
 				if(!H.wear_mask && !H.head)
-					if(!H.unacidable)
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.disfigure()
-						H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-						H.emote("scream")
-						return
+					var/obj/item/organ/external/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.disfigure()
+					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
+					H.emote("scream")
+					return
 				else
 					var/melted_something = FALSE
 					if(H.wear_mask && !H.wear_mask.unacidable)
