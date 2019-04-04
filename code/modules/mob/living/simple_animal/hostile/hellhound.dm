@@ -37,7 +37,7 @@
 	var/datum/action/innate/demon/whisper/whisper_action
 
 // Heckhound
-/mob/living/simple_animal/hostile/hellhound/Heckhound
+/mob/living/simple_animal/hostile/hellhound/heckhound
 	name = "Lesser Hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it. This one seems to be a lesser variant."
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
