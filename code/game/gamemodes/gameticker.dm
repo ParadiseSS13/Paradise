@@ -28,7 +28,7 @@ var/round_start_time = 0
 	var/list/factions = list()			  // list of all factions
 	var/list/availablefactions = list()	  // list of factions with openings
 
-	var/tipped = 0		//Did we broadcast the tip of the day yet?
+	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
 	var/selected_tip	// What will be the tip of the day?
 
 	var/pregame_timeleft = 0
