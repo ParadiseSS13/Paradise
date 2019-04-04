@@ -68,3 +68,5 @@
 	var/list/status_effects //a list of all status effects the mob has
 	
 	var/deathgasp_on_death = FALSE
+
+	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
