@@ -100,6 +100,7 @@ As the IAA, try to negotiate with the Warden if sentences seem too high for the 
 As the IAA, you can try to convince the Captain and Head of Security to hold trials for prisoners in the courtroom.
 As the Head of Personnel, you are not higher ranking than other heads of staff, even though you are expected to take the Captain's place first should he go missing. If the situation seems too rough for you, consider allowing another head to become temporary Captain.
 As the Head of Personnel, you are just as large a target as the Captain because of the potential power your ID and computer can hand out.
+As the Head of Personnel, consider getting a laptop with an ID slot. It allows you to do your job even when out of your office.
 As the Mime, your invisible wall power blocks people as well as projectiles. You can use it in a pinch to delay your pursuer.
 As the Mime, your oath of silence is your source of power. Breaking it robs you of your powers and of your honor.
 As the Clown, if you lose your banana peel, you can still slip people with your PDA! Honk!
@@ -131,6 +132,7 @@ As a Traitor, you can manufacture and recycle revolver bullets at a hacked autol
 As a Traitor, you may sometimes be assigned to hunt other traitors, and in turn be hunted by others.
 As a Traitor, the syndicate encryption key is very useful for coordinating plans with your fellow traitors -- or, of course, betraying them.
 As a Traitor, plasma can be injected into many things to sabotage them. Power cells, light bulbs, welding tools, cigars and e-cigs will all explode when used.
+As a Traitor, if you can find another Traitor and pool your TC you can buy a mega surplus crate, which costs 40TC but contains a lot of random syndicate gear.
 As a Nuclear Operative, communication is key! Use ; to speak to your fellow operatives and coordinate an attack plan.
 As a Nuclear Operative, you should look into purchasing a syndicate cyborg, as they can provide heavy fire support, full access, are immune to conventional stuns, and can easily take down the AI.
 As a Nuclear Operative, stick together! While your equipment is robust, your fellow operatives are much better at saving your life: they can drag you away from danger while stunned and provide cover fire.
@@ -173,6 +175,7 @@ As a Revenant, your Defile ability removes holy water from tiles in a small radi
 As a Revenant, your Overload Lights ability will only shock humans with lights if the lights are still on after a brief delay.
 As a Revenant, your Malfunction ability in general damages machinery and mechanical objects, possibly even emagging some objects. Experiment!
 As a Revenant, the illness inflicted on humans by Blight can be easily cured by lying down or with holy water, making it best used on targets that have no time to lie down, such as humans in combat.
+As a Revenant, fastmos is your friend. Breaking windows to space can cause massive damage and mayhem.
 As a Swarmer, you can deconstruct more things than you think. Try deconstructing light switches, buttons, air alarms and more. Experiment!
 As a Swarmer, you can teleport fellow swarmers away if you think they are in danger.
 As a Ghost, you can double click on just about anything to follow it. Or just warp around!
@@ -181,7 +184,20 @@ As a Devil, as long as you control at least one other soul, you will automatical
 At which time a Devil's nameth is spake on the tongue of man, the Devil may appeareth. 
 As a Security Officer, remember that correlation does not equal causation. Someone may have just been at the wrong place at the wrong time!
 As a Security Officer, remember that you can attach a sec-lite to your taser or your helmet!
+As a Terror Spider, leave wrapping of corpses to green spiders unless absolutely necessary. They need it to lay eggs!
+As a Prince of Terror, you are powerful but usually on your own. Consider hit and run tactics to regenerate your health between engagements.
+As a Brown Terror Spider, focus on smashing welded vents. You are weak in direct combat, but you can enable your comrades to go almost anywhere.
+As a Terror Spider, protect the queen at all cost!
+As a Terror Spider, don't forget you can move your nest if the crew is pressuring you too badly.
+As a Terror Spider, try putting webs on white floor tiles, they are much harder to see there.
+As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure victory in melee combat.
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
+Sleeping in a bed can heal minor amounts of brute and burn damage.
+The Experimentor has a chance to spawn hostile mobs. Be ready to run for your life when using it.
+Space ruins can contain all kinds of interesting goodies, even a wand that can raise the dead!
+Having a mindshield, being a human and having an agent ID card all make officer Beepsky consider you less arrest-worthy. What a racist bot.
+You can make lasertag turrets, for the ultimate lasertag tournament.
+Blob structures take half damage from brute damage. Use lasers.
