@@ -95,10 +95,10 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/AttackingTarget()
+/mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
 	. = ..()
-	//if(ishuman(target) && (!client || a_intent == INTENT_HARM))
-		//special_aoe()
+	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
+		special_aoe()
 
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
 	. = ..()
