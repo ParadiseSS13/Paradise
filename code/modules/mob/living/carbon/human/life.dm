@@ -779,7 +779,6 @@
 		handle_organs()
 
 		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
-			visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 			death()
 			return
 
