@@ -1275,7 +1275,7 @@ var/list/static/global/wall_items = typecacheof(list(/obj/machinery/power/apc, /
 	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign))
+	/obj/structure/sign, /obj/structure/aed))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
