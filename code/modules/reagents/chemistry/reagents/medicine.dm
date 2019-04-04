@@ -669,7 +669,7 @@
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
@@ -682,25 +682,19 @@
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == INGEST)
+		if(method == INGEST || (method == TOUCH && prob(25)))
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				var/mob/dead/observer/ghost = M.get_ghost()
-				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>A Strange Reagent is infusing your body with life. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-					window_flash(ghost.client)
-					ghost << sound('sound/effects/genetics.ogg')
-					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0,15))
-					M.adjustToxLoss(rand(0,15))
-					M.adjustFireLoss(rand(0,15))
+					M.adjustBruteLoss(rand(0, 15))
+					M.adjustToxLoss(rand(0, 15))
+					M.adjustFireLoss(rand(0, 15))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
@@ -715,8 +709,8 @@
 									O.germ_level = INFECTION_LEVEL_THREE
 						H.update_body()
 
+					M.grab_ghost()
 					M.update_revive()
-					M.stat = UNCONSCIOUS
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
