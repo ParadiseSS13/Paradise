@@ -1073,7 +1073,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
                 return TRUE
         if((BREATHLESS in H.mutations) || (NO_BREATHE in H.dna.species.species_traits)
-	        return TRUE
+	        return FALSE
 	return FALSE
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
