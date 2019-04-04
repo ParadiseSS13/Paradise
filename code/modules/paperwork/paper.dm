@@ -106,6 +106,35 @@
 	add_fingerprint(usr)
 	return
 
+/obj/item/paper/verb/resize()
+	set name = "Resize paper"
+	set category = "Object"
+	set src in usr
+
+	var new_width = 400
+	var new_height = 400
+
+	new_width = input("Paper width", 400, new_width) as num|null
+	new_height = input("Paper height", 400, new_height) as num|null
+
+	new_width = limit_size(new_width)
+	new_height = limit_size(new_height)
+
+	paper_width = new_width
+	paper_height = new_height
+
+	return
+
+/obj/item/paper/proc/limit_size(num)
+	if(!isnum(num))
+		return 400
+	num = round(num)
+	if(num < 150)
+		num = 150
+	if(num > 600)
+		num = 600
+	return num
+
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
