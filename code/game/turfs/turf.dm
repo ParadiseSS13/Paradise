@@ -277,8 +277,7 @@
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf)
-	if(istype(baseturf, /turf/space))
-		new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.

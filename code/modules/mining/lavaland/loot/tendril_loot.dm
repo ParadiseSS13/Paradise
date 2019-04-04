@@ -126,6 +126,7 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	keytype = /obj/item/oar
 	burn_state = LAVA_PROOF | FIRE_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)

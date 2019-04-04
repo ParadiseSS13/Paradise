@@ -766,7 +766,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abB" = (
 /turf/simulated/wall/r_wall,
@@ -869,7 +869,7 @@
 "abL" = (
 /obj/structure/cable,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abM" = (
 /obj/structure/cable{
@@ -883,7 +883,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abN" = (
 /obj/structure/table,
@@ -959,7 +959,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abV" = (
 /obj/structure/cable{
@@ -967,11 +967,11 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abW" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abX" = (
 /obj/structure/cable{
@@ -979,7 +979,7 @@
 	d2 = 4
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abY" = (
 /obj/structure/cable{
@@ -998,7 +998,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "abZ" = (
 /obj/structure/cable{
@@ -1012,7 +1012,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "aca" = (
 /obj/structure/cable/yellow{
@@ -1056,7 +1056,7 @@
 "acf" = (
 /obj/item/stack/cable_coil,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "acg" = (
 /obj/effect/spawner/window/reinforced,
@@ -1270,7 +1270,7 @@
 	pixel_x = -1
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "acA" = (
 /turf/simulated/floor/plasteel,
@@ -1628,7 +1628,7 @@
 	d2 = 2
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "adj" = (
 /obj/structure/cable{
@@ -1637,7 +1637,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "adk" = (
 /obj/machinery/light/small{
@@ -1991,7 +1991,7 @@
 "adP" = (
 /obj/structure/cable,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "adQ" = (
 /obj/structure/table,
@@ -2118,10 +2118,10 @@
 /area/security/permabrig)
 "aee" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "aef" = (
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
 "aeg" = (
@@ -2136,7 +2136,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "aeh" = (
 /turf/simulated/shuttle/wall{
@@ -2420,7 +2420,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "aeB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -2894,7 +2894,7 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "afp" = (
 /obj/structure/chair/stool,
@@ -2919,7 +2919,7 @@
 	d2 = 4
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "afr" = (
 /obj/effect/spawner/window/reinforced,
@@ -3125,7 +3125,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "afH" = (
 /turf/simulated/shuttle/wall{
@@ -3386,7 +3386,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "agf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -3452,7 +3452,7 @@
 	d2 = 2
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "ago" = (
 /obj/structure/cable,
@@ -3655,7 +3655,7 @@
 "agH" = (
 /obj/item/stack/cable_coil,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "agI" = (
 /turf/space,
@@ -3700,7 +3700,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "agN" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -5106,7 +5106,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "aiR" = (
 /obj/structure/cable{
@@ -5115,7 +5115,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxport)
 "aiS" = (
 /obj/structure/closet/secure_closet/brig{
@@ -6297,7 +6297,7 @@
 	pixel_x = -1
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/auxstarboard)
 "akY" = (
 /obj/effect/spawner/window/reinforced,
@@ -11643,7 +11643,7 @@
 	d2 = 2
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/maintenance/auxsolarstarboard)
 "auw" = (
 /obj/structure/disposalpipe/segment,
@@ -27656,7 +27656,7 @@
 /area/maintenance/fore)
 "aWw" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "aWx" = (
 /obj/machinery/door/airlock/maintenance{
@@ -31845,7 +31845,7 @@
 "bdO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
@@ -43951,7 +43951,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "bxn" = (
 /obj/structure/transit_tube{
@@ -43972,7 +43972,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "bxo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -43985,7 +43985,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "bxp" = (
 /obj/structure/transit_tube/station{
@@ -44026,7 +44026,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "bxr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -65914,7 +65914,7 @@
 "ciB" = (
 /obj/structure/cable,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "ciC" = (
 /obj/effect/decal/warning_stripes/northeast,
@@ -66275,7 +66275,7 @@
 /area/atmos)
 "cjc" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cjd" = (
 /obj/effect/spawner/window/reinforced,
@@ -67037,7 +67037,7 @@
 	d2 = 2
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cks" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68472,7 +68472,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cmI" = (
 /obj/machinery/vending/wallmed1{
@@ -74383,7 +74383,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cvR" = (
 /obj/structure/chair/office/light,
@@ -76938,7 +76938,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cAg" = (
 /obj/structure/closet,
@@ -77557,7 +77557,7 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cBf" = (
 /obj/machinery/computer/security/telescreen{
@@ -77580,7 +77580,7 @@
 	d2 = 4
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cBh" = (
 /obj/item/storage/secure/safe{
@@ -78230,7 +78230,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cCg" = (
 /obj/item/reagent_containers/glass/beaker/large,
@@ -78313,7 +78313,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cCk" = (
 /obj/structure/table,
@@ -78464,7 +78464,7 @@
 "cCw" = (
 /obj/item/stack/cable_coil,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cCx" = (
 /obj/structure/cable/yellow{
@@ -78498,7 +78498,7 @@
 	icon_state = "0-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "cCA" = (
 /turf/simulated/floor/plasteel{
@@ -78815,7 +78815,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "cDa" = (
 /obj/machinery/door/airlock/maintenance{
@@ -82337,7 +82337,7 @@
 	},
 /obj/structure/cable,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/port)
 "cIO" = (
 /obj/item/flashlight/lamp,
@@ -86873,7 +86873,7 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "cPV" = (
 /obj/structure/closet/wardrobe/robotics_black{
@@ -91764,7 +91764,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cXO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -92030,7 +92030,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cYj" = (
 /obj/structure/chair,
@@ -92227,7 +92227,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cYB" = (
 /obj/machinery/light/small{
@@ -92484,11 +92484,11 @@
 "cYY" = (
 /obj/structure/cable,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cYZ" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cZa" = (
 /obj/machinery/light_switch{
@@ -92534,7 +92534,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cZd" = (
 /obj/structure/cable{
@@ -92553,7 +92553,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cZe" = (
 /turf/simulated/shuttle/wall{
@@ -92601,7 +92601,7 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cZk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -92809,7 +92809,7 @@
 "cZA" = (
 /obj/item/stack/cable_coil,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cZB" = (
 /turf/simulated/shuttle/floor,
@@ -93007,7 +93007,7 @@
 	d2 = 4
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "cZX" = (
 /obj/machinery/light{
@@ -94648,7 +94648,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "dcw" = (
 /obj/structure/window/reinforced,
@@ -94856,7 +94856,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "dcO" = (
 /obj/docking_port/stationary{
@@ -95133,7 +95133,7 @@
 	pixel_x = -1
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "ddx" = (
 /turf/simulated/shuttle/wall{
@@ -95205,7 +95205,7 @@
 	d2 = 2
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/solar/starboard)
 "ddE" = (
 /turf/simulated/shuttle/wall{

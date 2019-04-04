@@ -104,11 +104,7 @@
 		var/spawndir = pick_n_take(directions)
 		var/turf/T = get_step(src, spawndir)
 		if(T)
-			new /obj/effect/goliath_tentacle(T, new_spawner)
-
-	icon_state = "Goliath_tentacle_wiggle"
-	deltimer(timerid)
-	timerid = addtimer(CALLBACK(src, .proc/trip), 3, TIMER_STOPPABLE)
+			new /obj/effect/goliath_tentacle(T, spawner)
 
 /obj/effect/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"

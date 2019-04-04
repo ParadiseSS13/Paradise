@@ -93,7 +93,7 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/critical/heart_failure/has_cure()
-	if (affected_mob.has_status_effect(STATUS_EFFECT_EXERCISED))
+	if(affected_mob.has_status_effect(STATUS_EFFECT_EXERCISED))
 		return TRUE
 
 	return ..()

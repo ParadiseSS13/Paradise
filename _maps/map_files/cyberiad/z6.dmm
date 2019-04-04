@@ -16,7 +16,7 @@
 /area/djstation/solars)
 "ad" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space)
 "ae" = (
 /obj/structure/lattice,
@@ -77,7 +77,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "ao" = (
 /obj/structure/grille{
@@ -94,7 +94,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aq" = (
 /obj/structure/cable{
@@ -126,7 +126,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "at" = (
 /obj/structure/lattice,
@@ -313,7 +313,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "aR" = (
 /obj/structure/cable{
@@ -332,7 +332,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aS" = (
 /obj/structure/cable{
@@ -341,7 +341,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aT" = (
 /obj/structure/cable{
@@ -360,7 +360,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aU" = (
 /obj/item/storage/toolbox/mechanical{
@@ -387,7 +387,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "aW" = (
 /turf/simulated/floor/plasteel{
@@ -4603,7 +4603,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "jL" = (
 /obj/structure/table/wood,
@@ -6694,7 +6694,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "oT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -7752,7 +7752,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rn" = (
 /obj/structure/cable{
@@ -7766,7 +7766,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "ro" = (
 /obj/structure/window/reinforced,
@@ -7994,7 +7994,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rG" = (
 /obj/structure/closet/crate/secure/loot,
@@ -8030,7 +8030,7 @@
 /area/derelict/crew_quarters)
 "rJ" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rK" = (
 /obj/machinery/power/tracker,
@@ -8273,7 +8273,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "si" = (
 /obj/structure/cable{
@@ -9007,7 +9007,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "tF" = (
 /obj/structure/sign/greencross,
@@ -9041,7 +9041,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "tI" = (
 /obj/structure/cable{
@@ -9564,7 +9564,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "uJ" = (
 /turf/space,
@@ -9896,7 +9896,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "vn" = (
 /obj/item/shard{
@@ -10463,7 +10463,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wm" = (
 /obj/structure/cable{
@@ -10477,7 +10477,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wn" = (
 /obj/structure/closet/jcloset,
@@ -10503,7 +10503,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wp" = (
 /obj/structure/cable{
@@ -10522,7 +10522,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wq" = (
 /obj/structure/cable{
@@ -10541,7 +10541,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wr" = (
 /obj/docking_port/stationary{

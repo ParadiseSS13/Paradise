@@ -221,60 +221,6 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
-
-// CATWALKS
-// Space and plating, all in one buggy fucking turf!
-// These are *so* fucking bad it makes me want to kill myself
-/turf/simulated/floor/plating/airless/catwalk
-	icon = 'icons/turf/catwalks.dmi'
-	icon_state = "catwalk0"
-	name = "catwalk"
-	desc = "Cats really don't like these things."
-
-	temperature = TCMB
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 700000
-
-/turf/simulated/floor/plating/airless/catwalk/New()
-	..()
-	set_light(4) //starlight
-	name = "catwalk"
-	update_icon(1)
-
-/turf/simulated/floor/plating/airless/catwalk/update_icon(var/propogate=1)
-	underlays.Cut()
-	underlays += new /icon('icons/turf/space.dmi',SPACE_ICON_STATE)
-
-	var/dirs = 0
-	for(var/direction in cardinal)
-		var/turf/T = get_step(src,direction)
-		if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
-			var/turf/simulated/floor/plating/airless/catwalk/C=T
-			dirs |= direction
-			if(propogate)
-				C.update_icon(0)
-	icon_state="catwalk[dirs]"
-
-/turf/simulated/floor/plating/airless/catwalk/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/stack/rods))
-		return 1
-	else if(istype(C, /obj/item/stack/tile))
-		return 1
-
-	if(..())
-		return 1
-
-	if(!broken && isscrewdriver(C))
-		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")
-		new /obj/item/stack/rods(src, 1)
-		ReplaceWithLattice()
-		for(var/direction in cardinal)
-			var/turf/T = get_step(src,direction)
-			if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
-				var/turf/simulated/floor/plating/airless/catwalk/CW=T
-				CW.update_icon(0)
-		playsound(src, C.usesound, 80, 1)
-
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"

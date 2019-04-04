@@ -2368,9 +2368,7 @@
 /area/mine/living_quarters)
 "fq" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/turf/simulated/floor/plating/airless/catwalk{
-	layer = 2.2
-	},
+/obj/structure/lattice/catwalk,
 /area/lavaland/surface/outdoors)
 "fr" = (
 /obj/structure/table,
@@ -2480,9 +2478,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fB" = (
-/turf/simulated/floor/plating/airless/catwalk{
-	layer = 2.2
-	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fC" = (
@@ -3088,18 +3084,14 @@
 	name = "scrubber outlet"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/turf/simulated/floor/plating/airless/catwalk{
-	layer = 2.2
-	},
+/obj/structure/lattice/catwalk,
 /area/mine/living_quarters)
 "gK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/turf/simulated/floor/plating/airless/catwalk{
-	layer = 2.2
-	},
+/obj/structure/lattice/catwalk,
 /area/mine/living_quarters)
 "gL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,

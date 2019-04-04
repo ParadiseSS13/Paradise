@@ -62,20 +62,16 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/New()
 	..()
 
-
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
-
 	var/dash = findtext(icon_state, "-")
+	d1 = text2num(copytext(icon_state, 1, dash))
+	d2 = text2num(copytext(icon_state, dash+1 ))
 
-	d1 = text2num( copytext( icon_state, 1, dash ) )
+	var/turf/T = loc			// hide if turf is not intact
 
-	d2 = text2num( copytext( icon_state, dash+1 ) )
-
-	var/turf/T = src.loc			// hide if turf is not intact
-
-	if(level==1) hide(T.intact)
+	if(level == 1) 
+		hide(T.intact)
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
-
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)

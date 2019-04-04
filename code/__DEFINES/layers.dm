@@ -5,6 +5,7 @@
 
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
+#define FLOOR_PLANE -2
 
 #define GAME_PLANE 0
 

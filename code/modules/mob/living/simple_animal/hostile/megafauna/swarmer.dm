@@ -279,9 +279,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	else
 		return ..()
 
-
-
-
 //SWARMER CATWALKS
 //Used so they can survive lavaland better
 /obj/structure/lattice/catwalk/swarmer_catwalk

@@ -4,6 +4,7 @@
 	icon_state = "0"
 	dynamic_lighting = 0
 	luminosity = 1
+	intact = 0
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -58,12 +59,15 @@
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
+		if(W)
+			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
+			return
 		if(L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You begin constructing catwalk...</span>")
+				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				qdel(L)
-				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
+				new/obj/structure/lattice/catwalk(src)
 			else
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
 			return
@@ -220,6 +224,8 @@
 	return
 
 /turf/space/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk, src))
+		return 1
 	return 0
 
 /turf/space/proc/set_transition_north(dest_z)
