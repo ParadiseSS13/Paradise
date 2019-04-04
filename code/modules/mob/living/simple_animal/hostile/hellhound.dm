@@ -95,7 +95,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
+/mob/living/simple_animal/hostile/hellhound/AttackingTarget()
 	. = ..()
 	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
