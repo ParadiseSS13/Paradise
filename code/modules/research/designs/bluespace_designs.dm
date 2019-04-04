@@ -87,6 +87,6 @@
 	req_tech = list("bluespace" = 3, "toxins" = 6)
 	id = "brpd"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 30000, MAT_GLASS = 10000, MAT_SILVER = 6000, MAT_GOLD = 6000, MAT_PLASMA = 6000, MAT_TITANIUM = 6000)
+	materials = list(MAT_METAL = 32000, MAT_GLASS = 12000, MAT_SILVER = 10000, MAT_GOLD = 10000, MAT_PLASMA = 10000, MAT_TITANIUM = 10000)
 	build_path = /obj/item/rpd/bluespace
 	category = list("Bluespace")
