@@ -69,3 +69,19 @@ datum/map_template/ruin/lavaland/ash_walker
 	suffix = "lavaland_surface_swarmer_crash.dmm"
 	allow_duplicates = FALSE
 	cost = 20
+
+/datum/map_template/ruin/lavaland/blood_drunk_miner
+	name = "Blood-Drunk Miner"
+	id = "blooddrunk"
+	description = "A strange arrangement of stone tiles and an insane, beastly miner contemplating them."
+	suffix = "lavaland_surface_blooddrunk1.dmm"
+	cost = 0
+	allow_duplicates = FALSE //will only spawn one variant of the ruin
+
+/datum/map_template/ruin/lavaland/blood_drunk_miner/guidance
+	name = "Blood-Drunk Miner (Guidance)"
+	suffix = "lavaland_surface_blooddrunk2.dmm"
+
+/datum/map_template/ruin/lavaland/blood_drunk_miner/hunter
+	name = "Blood-Drunk Miner (Hunter)"
+	suffix = "lavaland_surface_blooddrunk3.dmm"
