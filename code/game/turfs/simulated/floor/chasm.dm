@@ -122,7 +122,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	light_range = 1.9 //slightly less range than lava
 	light_power = 0.65 //less bright, too

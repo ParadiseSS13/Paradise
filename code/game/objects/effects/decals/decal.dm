@@ -3,8 +3,8 @@
 	icon_state = "warningline"
 	layer = TURF_DECAL_LAYER
 
-/obj/effect/turf_decal/Initialize()
-	..()
+/obj/effect/turf_decal/Initialize(mapload)
+	. = ..()
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/effect/turf_decal/ComponentInitialize()
