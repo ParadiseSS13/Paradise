@@ -2364,42 +2364,42 @@
 /area/awaymission/spacehotel)
 "ev" = (
 /obj/machinery/door/unpowered/hotel_door{
-	icon = 'icons/obj/doors/Doorgold.dmi';
+	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 110
 	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "ew" = (
 /obj/machinery/door/unpowered/hotel_door{
-	icon = 'icons/obj/doors/Doorgold.dmi';
+	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 111
 	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "ex" = (
 /obj/machinery/door/unpowered/hotel_door{
-	icon = 'icons/obj/doors/Doorgold.dmi';
+	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 112
 	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "ey" = (
 /obj/machinery/door/unpowered/hotel_door{
-	icon = 'icons/obj/doors/Doorgold.dmi';
+	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 210
 	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "ez" = (
 /obj/machinery/door/unpowered/hotel_door{
-	icon = 'icons/obj/doors/Doorgold.dmi';
+	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 211
 	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "eA" = (
 /obj/machinery/door/unpowered/hotel_door{
-	icon = 'icons/obj/doors/Doorgold.dmi';
+	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 212
 	},
 /turf/unsimulated/floor/carpet,

@@ -403,3 +403,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Uncomment to disable automatic admin for localhost
 #DISABLE_LOCALHOST_ADMIN
+
+## Uncomment to give a confirmation before hitting start now
+#START_NOW_CONFIRMATION

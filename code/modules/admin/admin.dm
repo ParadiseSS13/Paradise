@@ -671,8 +671,9 @@ var/global/nologevent = 0
 		alert("Unable to start the game as it is not set up.")
 		return
 	if(ticker.current_state == GAME_STATE_PREGAME)
-		if(alert(usr, "Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
-			return
+		if(config.start_now_confirmation)
+			if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
+				return
 		ticker.current_state = GAME_STATE_SETTING_UP
 		log_admin("[key_name(usr)] has started the game.")
 		message_admins("[key_name_admin(usr)] has started the game.")

@@ -15,10 +15,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	anchored = TRUE
-
-/obj/effect/decal/cleanable/ash/Initialize()
-	. = ..()
-	reagents.add_reagent("ash", 10)
+	scoop_reagents = list("ash" = 10)
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
@@ -40,11 +37,8 @@
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
 	mouse_opacity = TRUE
-	noscoop = TRUE
-
-/obj/effect/decal/cleanable/dirt/blackpowder/Initialize()
-	. = ..()
-	reagents.add_reagent("blackpowder", 40) // size 2 explosion when activated
+	no_scoop = TRUE
+	scoop_reagents = list("blackpowder" = 40) // size 2 explosion when activated
 
 /obj/effect/decal/cleanable/flour
 	name = "flour"
@@ -127,22 +121,15 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
-	noclear = TRUE
-
-/obj/effect/decal/cleanable/vomit/Initialize()
-	. = ..()
-	reagents.add_reagent("vomit", 5)
+	no_clear = TRUE
+	scoop_reagents = list("vomit" = 5)
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"
 	desc = "It's all gummy. Ew."
 	icon_state = "gvomit_1"
 	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
-
-/obj/effect/decal/cleanable/vomit/green/Initialize()
-	. = ..()
-	reagents.remove_reagent("vomit", 5)
-	reagents.add_reagent("green_vomit", 5)
+	scoop_reagents = list("green_vomit" = 5)
 
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
@@ -189,10 +176,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"
-
-/obj/effect/decal/cleanable/fungus/Initialize()
-	. = ..()
-	reagents.add_reagent("fungus", 10)
+	scoop_reagents = list("fungus" = 10)
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"

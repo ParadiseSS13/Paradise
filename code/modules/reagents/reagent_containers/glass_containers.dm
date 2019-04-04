@@ -113,7 +113,7 @@
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
 
-	else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
+	else if(istype(target, /obj/effect/decal)) //stops splashing while scooping up fluids
 		return
 
 	else if(reagents.total_volume)

@@ -322,6 +322,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	processScheduler.stop()
+	Master.Shutdown()	//run SS shutdowns
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
 	for(var/client/C in GLOB.clients)

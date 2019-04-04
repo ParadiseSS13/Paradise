@@ -215,6 +215,9 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
+	
+	//Start now warning
+	var/start_now_confirmation = 0
 
 	// Lavaland
 	var/lavaland_budget = 60
@@ -647,6 +650,9 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
+					
+				if("start_now_confirmation")
+					config.start_now_confirmation = 1
 
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)

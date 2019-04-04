@@ -11,6 +11,7 @@
 	volume = 100
 	consume_sound = null
 	taste = FALSE
+	antable = FALSE
 
 /obj/item/reagent_containers/food/pill/New()
 	..()

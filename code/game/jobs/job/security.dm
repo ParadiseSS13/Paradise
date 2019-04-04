@@ -18,8 +18,8 @@
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
 	minimal_player_age = 21
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 300
+	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
 

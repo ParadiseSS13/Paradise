@@ -58,6 +58,7 @@
 	if(!targets_from)
 		targets_from = src
 	environment_target_typecache = typecacheof(environment_target_typecache)
+	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
