@@ -1,14 +1,14 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
-	name = "Hellhound"
+	name = "Lesser Hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
 	mutations = list(BREATHLESS)
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -36,11 +36,6 @@
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
 
-// Heckhound
-/mob/living/simple_animal/hostile/hellhound/heckhound
-	name = "Lesser Hellhound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it. This one seems to be a lesser variant."
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 /mob/living/simple_animal/hostile/hellhound/New()
 	. = ..()
 	whisper_action = new()
@@ -100,9 +95,9 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/AttackingTarget()
+/mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
 	. = ..()
-	if(ishuman(target) && (!client || a_intent == INTENT_HARM) && name != "Lesser Hellhound")
+	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
 
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
