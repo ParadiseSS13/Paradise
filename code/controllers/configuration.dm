@@ -63,6 +63,8 @@
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
+	var/medal_hub_address = null
+	var/medal_hub_password = null
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
@@ -629,10 +631,10 @@
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
 
 				if("medal_hub_address")
-					global.medal_hub = value
+					config.medal_hub_address = value
 
 				if("medal_hub_password")
-					global.medal_pass = value
+					config.medal_hub_password = value
 
 				if("disable_ooc_emoji")
 					config.disable_ooc_emoji = 1

@@ -1,0 +1,24 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/simulated/mineral/volcanic/lava_land_surface,/area/template_noop)
+"c" = (/turf/simulated/wall/mineral/plastitanium,/area/ruin/unpowered)
+"d" = (/turf/simulated/floor/mineral/plastitanium/red{oxygen = 14; nitrogen = 23; temperature = 300},/area/ruin/unpowered)
+"e" = (/obj/structure/shuttle/engine/propulsion{dir = 4},/turf/template_noop,/area/ruin/unpowered)
+"f" = (/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon,/turf/simulated/floor/mineral/plastitanium/red{oxygen = 14; nitrogen = 23; temperature = 300},/area/ruin/unpowered)
+"g" = (/obj/effect/baseturf_helper/lava_land/surface,/turf/simulated/floor/mineral/plastitanium/red{oxygen = 14; nitrogen = 23; temperature = 300},/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaabbaaaaaaaaa
+aaabbbbbaaaaaa
+aabbbbbbbbbaaa
+abbbbbbaaabbaa
+bbbbbbcccaaacc
+abbbbcddddddce
+acdaaadddddcea
+aaddaadgfddcea
+acddaddddddcea
+aacbbcdddddace
+abbbbacccccacc
+abbbbbbbbbbaaa
+aaaabbbbbbbaaa
+aaaaaaaabbaaaa
+"}

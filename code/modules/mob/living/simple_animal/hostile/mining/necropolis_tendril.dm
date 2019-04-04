@@ -33,7 +33,6 @@
 	qdel(gps)
 	. = ..()
 
-#define MEDAL_PREFIX "Tendril"
 /mob/living/simple_animal/hostile/spawner/lavaland/death()
 	var/last_tendril = TRUE
 	for(var/mob/living/simple_animal/hostile/spawner/lavaland/other in GLOB.mob_list)
@@ -41,18 +40,13 @@
 			last_tendril = FALSE
 			break
 	if(last_tendril && !admin_spawned)
-		if(global.medal_hub && global.medal_pass && global.medals_enabled)
+		if(SSmedals.hub_enabled)
 			for(var/mob/living/L in view(7,src))
-				if(L.stat)
+				if(L.stat || !L.client)
 					continue
-				if(L.client)
-					var/client/C = L.client
-					var/suffixm = ALL_KILL_MEDAL
-					var/prefix = MEDAL_PREFIX
-					UnlockMedal("[prefix] [suffixm]",C)
-					SetScore(TENDRIL_CLEAR_SCORE,C,1)
+				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
+				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
 	..()
-#undef MEDAL_PREFIX
 
 /obj/effect/collapse
 	name = "collapsing necropolis tendril"
