@@ -177,10 +177,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	to_chat(world, "<span class='boldannounce'>Initializing subsystems...</span>")
 
 	// Config disable subsystem
-	for(var/select=1, select <= subsystems.len, select++)
-		for(var/disable=1, disable <= config.developer_disable_subsystem.len, disable++)
-			if(subsystems[select].name == config.developer_disable_subsystem[disable])
-				subsystems -= subsystems[select]
+	if(config.developer_disable_subsystem)
+		for(var/select=1, select <= subsystems.len, select++)
+			for(var/disable=1, disable <= LAZYLEN(config.developer_disable_subsystem), disable++)
+				if(subsystems[select].name == config.developer_disable_subsystem[disable])
+					subsystems -= subsystems[select]
 
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, /proc/cmp_subsystem_init)
