@@ -210,10 +210,11 @@
 
 	// Developer
 	var/developer_express_start = 0
+	var/developer_disable_subsystem[]
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
-	
+
 	//Start now warning
 	var/start_now_confirmation = 0
 
@@ -358,10 +359,10 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
-					
+
 				if("vote_autotransfer_initial")
 					config.vote_autotransfer_initial = text2num(value)
-					
+
 				if("vote_autotransfer_interval")
 					config.vote_autotransfer_interval = text2num(value)
 
@@ -645,7 +646,7 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
-					
+
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
 
@@ -661,6 +662,8 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
+				if("developer_disable_subsystem")
+					config.developer_disable_subsystem = splittext(value, ",")
 				if("disable_localhost_admin")
 					config.disable_localhost_admin = 1
 				else
