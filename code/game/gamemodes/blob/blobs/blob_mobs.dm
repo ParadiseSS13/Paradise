@@ -67,15 +67,17 @@
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
 	if(!is_zombie && isturf(src.loc))
-		for(var/mob/living/carbon/human/H in oview(src,1)) //Only for corpse right next to/on same tile
-			if(H.stat == DEAD)
+		for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
+			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 				Zombify(H)
 				break
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(var/mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
+	if(!H.check_death_method())
+		H.death()
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	is_zombie = 1
+	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
 		if(A.armor && A.armor["melee"])
@@ -89,14 +91,15 @@
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	head_organ.h_style = null
+	if(head_organ)
+		head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays
 	update_icons()
-	H.loc = src
+	H.forceMove(src)
 	pressure_resistance = 20  //5 kPa difference required to push lowered
 	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
-	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// Only execute the below if we successfuly died
