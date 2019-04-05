@@ -35,6 +35,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		var/turf/current_location = get_turf(possible_target.current)
 		if(current_location && !is_level_reachable(current_location.z))
 			return TARGET_INVALID_UNREACHABLE
+	if(isgolem(possible_target.current))
+		return TARGET_INVALID_GOLEM
+	if(possible_target.offstation_role)
+		return TARGET_INVALID_EVENT
+
 
 /datum/objective/proc/find_target()
 	var/list/possible_targets = list()
@@ -175,8 +180,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and alive. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, and pets may be allowed to escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)

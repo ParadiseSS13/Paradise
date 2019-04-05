@@ -52,6 +52,16 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/handheld_defib
+	name = "Handheld Defibrillator"
+	desc = "A smaller defibrillator only capable of treating cardiac arrest."
+	id = "handheld_defib"
+	req_tech = list("biotech" = 2, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
+	build_path = /obj/item/handheld_defibrillator
+	category = list("Medical")
+
 /datum/design/defib
 	name = "Defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
@@ -62,6 +72,15 @@
 	build_path = /obj/item/defibrillator
 	category = list("Medical")
 
+/datum/design/defib_mount
+	name = "Defibrillator Wall Mount"
+	desc = "A wall mount for defibrillator units."
+	id = "defib_mount"
+	req_tech = list("magnets" = 3, "biotech" = 3, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	build_path = /obj/item/mounted/frame/defib_mount
+	category = list("Medical")
 
 /datum/design/sensor_device
 	name = "Handheld Crew Monitor"
@@ -520,6 +539,16 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/organ/internal/heart/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_heart_u
+	name = "Upgraded Cybernetic Heart"
+	desc = "An upgraded cybernetic heart."
+	id = "cybernetic_heart_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	build_path = /obj/item/organ/internal/heart/cybernetic/upgraded
 	category = list("Medical")
 
 /datum/design/cybernetic_lungs

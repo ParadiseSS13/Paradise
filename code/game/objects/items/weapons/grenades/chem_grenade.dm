@@ -11,7 +11,7 @@
 	var/payload_name = null // used for spawned grenades
 	w_class = WEIGHT_CLASS_SMALL
 	force = 2
-	var/prime_sound = 'sound/items/Screwdriver2.ogg'
+	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = EMPTY
 	var/list/beakers = list()
 	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle)
@@ -235,7 +235,7 @@
 		nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/pickup()
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
@@ -275,7 +275,7 @@
 		reactants += G.reagents
 
 	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))

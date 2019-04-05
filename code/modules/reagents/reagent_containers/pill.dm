@@ -8,9 +8,10 @@
 	icon_state = null
 	item_state = "pill"
 	possible_transfer_amounts = null
-	volume = 50
+	volume = 100
 	consume_sound = null
 	taste = FALSE
+	antable = FALSE
 
 /obj/item/reagent_containers/food/pill/New()
 	..()
@@ -103,7 +104,7 @@
 	name = "Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
-	list_reagents = list("charcoal" = 25)
+	list_reagents = list("charcoal" = 50)
 
 /obj/item/reagent_containers/food/pill/salicylic
 	name = "Salicylic Acid pill"
@@ -122,3 +123,21 @@
 	desc = "Used to treat extreme pain."
 	icon_state = "pill6"
 	list_reagents = list("hydrocodone" = 15)
+
+/obj/item/reagent_containers/food/pill/calomel
+	name = "calomel pill"
+	desc = "Can be used to purge impurities, but is highly toxic itself."
+	icon_state = "pill3"
+	list_reagents = list("calomel" = 15)
+
+/obj/item/reagent_containers/food/pill/mutadone
+	name = "mutadone pill"
+	desc = "Used to cure genetic abnormalities."
+	icon_state = "pill18"
+	list_reagents = list("mutadone" = 20)
+
+/obj/item/reagent_containers/food/pill/mannitol
+	name = "mannitol pill"
+	desc = "Used to treat cranial swelling."
+	icon_state = "pill19"
+	list_reagents = list("mannitol" = 20)

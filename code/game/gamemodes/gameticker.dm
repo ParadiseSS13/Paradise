@@ -41,11 +41,11 @@ var/round_start_time = 0
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
-	'sound/music/THUNDERDOME.ogg',\
+	'sound/music/thunderdome.ogg',\
 	'sound/music/space.ogg',\
-	'sound/music/Title1.ogg',\
-	'sound/music/Title2.ogg',\
-	'sound/music/Title3.ogg',)
+	'sound/music/title1.ogg',\
+	'sound/music/title2.ogg',\
+	'sound/music/title3.ogg',)
 	do
 		pregame_timeleft = config.pregame_timestart
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
@@ -219,7 +219,7 @@ var/round_start_time = 0
 
 	var/list/admins_number = staff_countup(R_BAN)
 	if(admins_number[1] == 0 && admins_number[3] == 0)
-		send2discord("message", config.discord_channel_admin_notify, "Round has started with no admins online.")
+		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
@@ -459,6 +459,16 @@ var/round_start_time = 0
 
 	if(dronecount)
 		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+
+	if(ticker.mode.eventmiscs.len)
+		var/emobtext = ""
+		for(var/datum/mind/eventmind in ticker.mode.eventmiscs)
+			emobtext += printeventplayer(eventmind)
+			emobtext += "<br>"
+			emobtext += printobjectives(eventmind)
+			emobtext += "<br>"
+		emobtext += "<br>"
+		to_chat(world, emobtext)
 
 	mode.declare_completion()//To declare normal completion.
 

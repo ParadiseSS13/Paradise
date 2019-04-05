@@ -2,6 +2,8 @@
 	var/server_name = null				// server name (for world name / status)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
+	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
+
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
 	var/log_ooc = 0						// log OOC channel
@@ -67,6 +69,9 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
+	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
+	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
+
 	var/traitor_objectives_amount = 2
 	var/shadowling_max_age = 0
 
@@ -94,10 +99,6 @@
 	var/check_randomizer = 0
 
 	//game_options.txt configs
-
-	var/health_threshold_softcrit = 0
-	var/health_threshold_crit = 0
-	var/health_threshold_dead = -100
 
 	var/bones_can_break = 1
 
@@ -139,12 +140,12 @@
 
 	var/comms_password = ""
 
-	var/use_discord_bot = FALSE
-	var/discord_host = ""
-	var/discord_channel_main = ""
-	var/discord_channel_admin = ""
-	var/discord_channel_admin_notify = ""
-	var/discord_channel_cidrandomizer = ""
+	var/use_irc_bot = 0
+	var/list/irc_bot_host = list()
+	var/main_irc = ""
+	var/admin_irc = ""
+	var/admin_notify_irc = ""
+	var/cidrandomizer_irc = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -209,7 +210,12 @@
 
 	// Developer
 	var/developer_express_start = 0
-	var/developer_disable_subsystem[]
+
+	// Automatic localhost admin disable
+	var/disable_localhost_admin = 0
+	
+	//Start now warning
+	var/start_now_confirmation = 0
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -277,6 +283,12 @@
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
+
+				if("prob_free_golems")
+					config.prob_free_golems = text2num(value)
+
+				if("unrestricted_free_golems")
+					config.unrestricted_free_golems = TRUE
 
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
@@ -346,6 +358,12 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
+					
+				if("vote_autotransfer_initial")
+					config.vote_autotransfer_initial = text2num(value)
+					
+				if("vote_autotransfer_interval")
+					config.vote_autotransfer_interval = text2num(value)
 
 				if("default_no_vote")
 					config.vote_no_default = 1
@@ -371,6 +389,9 @@
 				if("serversuffix")
 					config.server_suffix = 1
 
+				if("minimum_client_build")
+					config.minimum_client_build = text2num(value)
+
 				if("nudge_script_path")
 					config.nudge_script_path = value
 
@@ -394,10 +415,10 @@
 
 				if("githuburl")
 					config.githuburl = value
-				
+
 				if("discordurl")
 					config.discordurl = value
-				
+
 				if("donationsurl")
 					config.donationsurl = value
 
@@ -458,6 +479,9 @@
 				if("allow_holidays")
 					config.allow_holidays = 1
 
+				if("use_irc_bot")
+					use_irc_bot = 1
+
 				if("ticklag")
 					Ticklag = text2num(value)
 
@@ -501,23 +525,20 @@
 				if("comms_password")
 					config.comms_password = value
 
-				if("use_discord_bot")
-					use_discord_bot = TRUE
+				if("irc_bot_host")
+					config.irc_bot_host = splittext(value, ";")
 
-				if("discord_host")
-					config.discord_host = value
+				if("main_irc")
+					config.main_irc = value
 
-				if("discord_channel_main")
-					config.discord_channel_main = value
+				if("admin_irc")
+					config.admin_irc = value
 
-				if("discord_channel_admin")
-					config.discord_channel_admin = value
+				if("admin_notify_irc")
+					config.admin_notify_irc = value
 
-				if("discord_channel_admin_notify")
-					config.discord_channel_admin_notify = value
-
-				if("discord_channel_cidrandomizer")
-					config.discord_channel_cidrandomizer = value
+				if("cidrandomizer_irc")
+					config.cidrandomizer_irc = value
 
 				if("python_path")
 					if(value)
@@ -624,6 +645,9 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
+					
+				if("start_now_confirmation")
+					config.start_now_confirmation = 1
 
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)
@@ -637,8 +661,8 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
-				if("developer_disable_subsystem")
-					config.developer_disable_subsystem = splittext(value, ",")
+				if("disable_localhost_admin")
+					config.disable_localhost_admin = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -647,10 +671,6 @@
 			value = text2num(value)
 
 			switch(name)
-				if("health_threshold_crit")
-					config.health_threshold_crit = value
-				if("health_threshold_dead")
-					config.health_threshold_dead = value
 				if("revival_pod_plants")
 					config.revival_pod_plants = value
 				if("revival_cloning")

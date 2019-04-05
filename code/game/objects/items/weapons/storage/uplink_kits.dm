@@ -23,7 +23,7 @@
 				new /obj/item/storage/box/syndie_kit/safecracking(src)
 				return
 
-			if("bond")	// 29TC + Healing Cocktail
+			if("bond")	// 29TC + Healing Cocktail + armored suit jacket
 				new /obj/item/gun/projectile/automatic/pistol(src)
 				new /obj/item/suppressor(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
@@ -34,6 +34,8 @@
 				new /obj/item/dnascrambler(src)
 				new /obj/item/storage/box/syndie_kit/emp(src)
 				new /obj/item/CQC_manual(src)
+				new /obj/item/clothing/under/suit_jacket/really_black(src)
+				new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src)
 				return
 
 			if("sabotage")	// 31TC + RCD + Insuls
@@ -46,13 +48,15 @@
 				new /obj/item/storage/box/syndie_kit/space(src)
 				return
 
-			if("payday")	// 32TC
+			if("payday")	// 31TC + armored suit jacket
 				new /obj/item/gun/projectile/revolver(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/card/emag(src)
-				new /obj/item/grenade/plastic/x4(src)
+				new /obj/item/grenade/plastic/c4(src)
 				new /obj/item/card/id/syndicate(src)
+				new /obj/item/clothing/under/suit_jacket/really_black(src)
+				new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src)
 				new /obj/item/clothing/gloves/color/latex/nitrile(src)
 				new /obj/item/clothing/mask/gas/clown_hat(src)
 				new /obj/item/thermal_drill(src)
@@ -93,14 +97,15 @@
 				new /obj/item/multitool/ai_detect(src)
 				return
 
-			if("professional")	// 30TC
+			if("professional")	// 29TC + armored suit jacket + insulated combat gloves
 				new /obj/item/gun/projectile/automatic/sniper_rifle/soporific(src)	// Unique version that starts with soporific rounds loaded and cannot be suppressed
 				new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 				new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 				new /obj/item/pen/edagger(src)
-				new /obj/item/clothing/glasses/thermal/syndi(src)
-				new /obj/item/storage/toolbox/syndicate(src)
-				new /obj/item/clothing/under/suit_jacket(src)
+				new /obj/item/clothing/glasses/thermal/syndi/sunglasses(src)
+				new /obj/item/clothing/under/suit_jacket/really_black(src)
+				new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src)
+				new /obj/item/clothing/gloves/combat(src)
 				return
 
 /obj/item/storage/box/syndie_kit
@@ -184,6 +189,17 @@
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/implanter/emp/(src)
 
+/obj/item/storage/box/syndie_kit/c4
+	name = "Pack of C-4 Explosives"
+
+/obj/item/storage/box/syndie_kit/c4/New()
+	..()
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
 	can_hold = list(/obj/item/throwing_star, /obj/item/restraints/legcuffs/bola/tactical)
@@ -246,13 +262,24 @@
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
-/obj/item/storage/box/syndie_kit/atmosgasgrenades
-	name = "Atmos Grenades"
 
-/obj/item/storage/box/syndie_kit/atmosgasgrenades/New()
+/obj/item/storage/box/syndie_kit/atmosn2ogrenades
+	name = "Atmos N2O Grenades"
+
+/obj/item/storage/box/syndie_kit/atmosn2ogrenades/New()
+	..()
+	new /obj/item/grenade/clusterbuster/n2o(src)
+	new /obj/item/grenade/clusterbuster/n2o(src)
+
+
+/obj/item/storage/box/syndie_kit/atmosfiregrenades
+	name = "Plasma Fire Grenades"
+
+/obj/item/storage/box/syndie_kit/atmosfiregrenades/New()
 	..()
 	new /obj/item/grenade/clusterbuster/plasma(src)
-	new /obj/item/grenade/clusterbuster/n2o(src)
+	new /obj/item/grenade/clusterbuster/plasma(src)
+
 
 /obj/item/storage/box/syndie_kit/missionary_set
 	name = "Missionary Starter Kit"

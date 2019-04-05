@@ -12,6 +12,9 @@
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(is_hot(src) && A.reagents && !ismob(A))
+		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+		A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
@@ -50,12 +53,12 @@
 				else
 					return 1
 
-		if(isscrewdriver(src) && ismachine(M))
+		if(isscrewdriver(src) && ismachine(M) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
 				return 1
-		if(is_sharp(src))
+		if(is_sharp(src) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else

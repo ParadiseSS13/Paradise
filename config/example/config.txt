@@ -7,6 +7,9 @@ ADMIN_LEGACY_SYSTEM
 ## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
 BAN_LEGACY_SYSTEM
 
+## Add a # infront of this to unlimit the builds used to play. Advised is to keep it atleast 1421 due to the middle mouse button locking exploit
+MINIMUM_CLIENT_BUILD 1421
+
 ## Add a # here if you wish to use the setup where jobs have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one job. Also for servers where they don't want people to hide in their own departments.
 JOBS_HAVE_MINIMAL_ACCESS
 
@@ -96,6 +99,12 @@ PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
+
+## Probability in % for Free Golems to spawn at roundstart, set to 0 for no golems
+PROB_FREE_GOLEMS 75
+
+## Uncomment to allow free golems on all roundtypes. Otherwise, disabled on cult, wiz, raging mages, blob, and nuclear.
+#UNRESTRICTED_FREE_GOLEMS
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0
@@ -254,26 +263,26 @@ ALIEN_PLAYER_RATIO 0.2
 ##Remove the # to let ghosts spin chairs
 GHOST_INTERACTION
 
-## Password used for authorizing external tools.
+## Password used for authorizing ircbot and other external tools.
 #COMMS_PASSWORD
 
-## Uncomment to enable sending data to the Discord bot.
-#USE_DISCORD_BOT
+## Uncomment to enable sending data to the IRC bot.
+#USE_IRC_BOT
 
-## Host where the Discord bot is hosted.
-#DISCORD_HOST 127.0.0.1:5001
+## Host(s) where the IRC bot is hosted.  Seperate IP's by ;.  Port 45678 needs to be open.
+#IRC_BOT_HOST 127.0.0.1;localhost
 
-## Channel ID where the Bot should post its main notifications
-#DISCORD_CHANNEL_MAIN 0123456789
+## IRC channel to send information to.  Leave blank to disable.
+#MAIN_IRC #main
 
-## Channel ID where the Bot should post its admin messages
-#DISCORD_CHANNEL_ADMIN 0123456789
+## IRC channel to send adminhelps to.  Leave blank to disable adminhelps-to-irc.
+#ADMIN_IRC #admin
 
-## Channel ID where the Bot should post its admin notifications
-#DISCORD_CHANNEL_ADMIN_NOTIFY 0123456789
+## IRC channel to send direct messages to admins to. Leave blank to disable.
+#ADMIN_NOTIFY_IRC #paradiseStaff
 
-## Channel ID where the bot should post its cidrandomizer notifications
-#DISCORD_CHANNEL_CIDRANDOMIZER 0123456789
+## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
+#CIDRANDOMIZER_IRC #cidrandomizer
 
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
@@ -315,10 +324,10 @@ PLAYER_REROUTE_CAP 0
 #DISABLE_SPACE_RUINS
 
 ## Minimum number of space ruins levels to generate
-EXTRA_SPACE_RUINS_LEVELS_MIN 2
+EXTRA_SPACE_RUIN_LEVELS_MIN 2
 
 ## Maximum number of space ruins levels to generate
-EXTRA_SPACE_RUINS_LEVELS_MAX 4
+EXTRA_SPACE_RUIN_LEVELS_MAX 4
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC
@@ -389,7 +398,8 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 ##Uncomment to enable developer start. Auto starts the server after initialization
 ##DEVELOPER_EXPRESS_START
 
-##Disable subsystems by name comma delimited. Last verified 1-30-2019 list of subsystems
-## Garbage, Atoms, Machines, Timer, Fires, Mobs, Nanoui, NPC AI, NPC Pool, Space Drift, Sun, Throwing, Weather,
-## Atmospherics, Icon Smoothing, Overlay, Tickets, Shuttle, Night Shift, Nano-Mob Hunter GO Server
-DEVELOPER_DISABLE_SUBSYSTEM
+## Uncomment to disable automatic admin for localhost
+#DISABLE_LOCALHOST_ADMIN
+
+## Uncomment to give a confirmation before hitting start now
+#START_NOW_CONFIRMATION

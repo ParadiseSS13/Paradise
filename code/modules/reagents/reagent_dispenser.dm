@@ -22,6 +22,13 @@
 	reagents.add_reagent(reagent_id, tank_volume)
 	..()
 
+/obj/structure/reagent_dispensers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(reagents)
+		for(var/i in 1 to 8)
+			if(reagents)
+				reagents.temperature_reagents(exposed_temperature)
+
 /obj/structure/reagent_dispensers/proc/boom()
 	visible_message("<span class='danger'>[src] ruptures!</span>")
 	chem_splash(loc, 5, list(reagents))
@@ -68,6 +75,7 @@
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
 	reagent_id = "fuel"
+	tank_volume = 4000
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
@@ -84,12 +92,13 @@
 			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/boom(var/rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
-	if(rigtrigger == TRUE) // If the explosion is triggered by an assembly holder
-		message_admins("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
-		log_game("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]")
-		investigate_log("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]", INVESTIGATE_BOMB)
-	explosion(loc, 0, 1, 5, 7, 10, flame_range = 5)
+/obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
+	if(rigtrigger) // If the explosion is triggered by an assembly holder
+		message_admins("A fueltank, last rigged by [lastrigger], was triggered at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
+		log_game("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]")
+		investigate_log("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]", INVESTIGATE_BOMB)
+	if(reagents)
+		reagents.set_reagent_temp(1000) //uh-oh
 	qdel(src)
 
 /obj/structure/reagent_dispensers/fueltank/blob_act()
@@ -98,7 +107,8 @@
 /obj/structure/reagent_dispensers/fueltank/ex_act()
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/fire_act()
+/obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/tesla_act()
@@ -166,7 +176,7 @@
 			investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 	else
-		..()
+		return ..()
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()
@@ -294,3 +304,4 @@
 	anchored = 1
 	density = 0
 	accepts_rig = 0
+	tank_volume = 1000

@@ -1651,6 +1651,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+	if(H == src)
+		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
+		return
 	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
@@ -1662,25 +1665,29 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
-		return 0
+		return
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
 		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
-		return 0
-	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
-					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+		return
+	if(H.receiving_cpr) // To prevent spam stacking
+		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
+		return
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	H.receiving_cpr = TRUE
 	if(do_mob(src, H, 40))
-		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
-			var/suff = min(H.getOxyLoss(), 7)
-			H.adjustOxyLoss(-suff)
+		if(H.health <= HEALTH_THRESHOLD_CRIT)
+			H.adjustOxyLoss(-15)
+			H.SetLoseBreath(0)
+			H.AdjustParalysis(-1)
 			H.updatehealth("cpr")
-			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", \
-							  "<span class='notice'>You perform CPR on [H.name].</span>")
+			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
-			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
+			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
-			return 1
+			return TRUE
 	else
+		H.receiving_cpr = FALSE
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
@@ -1696,7 +1703,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return FALSE
 
 /mob/living/carbon/human/InCritical()
-	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+	return (health <= HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS)
 
 
 /mob/living/carbon/human/IsAdvancedToolUser()
@@ -1992,3 +1999,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		dna.SetSEState(block, FALSE, TRUE)
 		genemutcheck(src, block, null, MUTCHK_FORCED)
 	dna.UpdateSE()
+
+/mob/living/carbon/human/extinguish_light()
+	// Parent function handles stuff the human may be holding
+	..()
+
+	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
+	if(O && O.glowing)
+		O.toggle_biolum(TRUE)
+		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")

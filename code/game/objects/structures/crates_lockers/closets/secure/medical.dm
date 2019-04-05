@@ -13,6 +13,9 @@
 	..()
 	new /obj/item/storage/box/autoinjectors(src)
 	new /obj/item/storage/box/syringes(src)
+	new /obj/item/storage/box/pillbottles(src)
+	new /obj/item/storage/box/patch_packs(src)
+	new /obj/item/storage/box/iv_bags(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
@@ -67,6 +70,7 @@
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
@@ -181,6 +185,7 @@
 	new /obj/item/radio/headset/heads/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/defibrillator/compact/loaded(src)
+	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
@@ -216,6 +221,8 @@
 	..()
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/pillbottles(src)
+	new /obj/item/storage/box/patch_packs(src)
+	new /obj/item/storage/box/patch_packs(src)
 
 
 /obj/structure/closet/secure_closet/medical_wall

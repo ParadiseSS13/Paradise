@@ -10,7 +10,8 @@ emp_act
 
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-
+	if(!dna.species.bullet_act(P, src))
+		return FALSE
 	if(P.is_reflectable)
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
@@ -295,6 +296,8 @@ emp_act
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
+	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
+
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	var/obj/item/I
@@ -321,6 +324,8 @@ emp_act
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = 0
 					skipcatch = 1 //can't catch the now embedded item
+	if(!blocked)
+		dna.species.spec_hitby(AM, src)
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
@@ -473,7 +478,7 @@ emp_act
 					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 				if("fire")
 					update |= affecting.receive_damage(0, rand(M.force/2, M.force))
-					playsound(src, 'sound/items/Welder.ogg', 50, 1)
+					playsound(src, 'sound/items/welder.ogg', 50, 1)
 				if("tox")
 					M.mech_toxin_damage(src)
 				else
@@ -508,3 +513,12 @@ emp_act
 		return TRUE
 	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return TRUE
+
+/mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
+	if(wear_mask)
+		to_chat(src, "<span class='danger'>Your [wear_mask.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	if(head)
+		to_chat(src, "<span class='danger'>Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	return TRUE

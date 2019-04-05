@@ -290,6 +290,10 @@
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		return null
+	if(byond_build < config.minimum_client_build)
+		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
+		del(src)
+		return
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
@@ -310,6 +314,11 @@
 	GLOB.directory[ckey] = src
 
 	//Admin Authorisation
+	// Automatically makes localhost connection an admin
+	if(!config.disable_localhost_admin)
+		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+		if(!isnull(address) && address in localhost_addresses)
+			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
@@ -373,15 +382,14 @@
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			winset(src, "rpane.changelog", "background-color=#bb7700;font-color=#FFFFFF;font-style=bold")
+			update_changelog_button()
+
+	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+		if(establish_db_connection())
+			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 	else
 		if(establish_db_connection())
-			if(prefs.toggles & UI_DARKMODE)
-				winset(src, "rpane.changelog", "background-color=#bb7700;font-color=#FFFFFF;font-style=bold") // makes changelog dark if its been set
-			else
-				winset(src, "rpane.changelog", "background-color=#ffffff;font-color=#000000") // makes changelog normal if it hasnt been set
-		else
-			winset(src, "rpane.changelog", "background-color=#ffffff;font-color=#000000") // makes changelog normal if DB isnt connected
+			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	if(!void)
 		void = new()
@@ -483,7 +491,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2discord("message", config.discord_channel_admin, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
 	//Just the standard check to see if it's actually a number
@@ -582,7 +590,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				send2discord("message", config.discord_channel_cidrandomizer, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -595,7 +603,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				send2discord("message", config.discord_channel_cidrandomizer, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
@@ -672,13 +680,14 @@
 
 /client/proc/on_varedit()
 	var_edited = TRUE
-  
+
 /////////////////
 // DARKMODE UI //
 /////////////////
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
+	update_changelog_button()
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
@@ -708,39 +717,56 @@
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
 	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
-	// NOTIFY USER 
+	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
+	update_changelog_button()
 	/* Rpane */
-	winset(src, "rpane.textb", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.forumb", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=#ffffff;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=#ffffff;text-color=#000000")
+	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
+	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
+	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
 	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=#ffffff;text-color=#000000")
-	winset(src, "mainwindow.mebutton", "background-color=#ffffff;text-color=#000000")
-	winset(src, "mainwindow.hotkey_toggle", "background-color=#ffffff;text-color=#000000")
+	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	winset(src, "mainwindow.hotkey_toggle", "background-color=none;text-color=#000000")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#ffffff")
-	winset(src, "mainwindow.mainvsplit", "background-color=#ffffff")
-	winset(src, "mainwindow.tooltip", "background-color=#ffffff")
+	winset(src, "mainwindow", "background-color=none")
+	winset(src, "mainwindow.mainvsplit", "background-color=none")
+	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
-	winset(src, "outputwindow.outputwindow", "background-color=#ffffff")
-	winset(src, "outputwindow.browseroutput", "background-color=#ffffff")
+	winset(src, "outputwindow.outputwindow", "background-color=none")
+	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#ffffff")
-	winset(src, "rpane.rpane", "background-color=#ffffff")
-	winset(src, "rpane.rpanewindow", "background-color=#ffffff")
+	winset(src, "rpane", "background-color=none")
+	winset(src, "rpane.rpane", "background-color=none")
+	winset(src, "rpane.rpanewindow", "background-color=none")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#ffffff")
-	winset(src, "browserwindow.browser", "background-color=#ffffff")
+	winset(src, "browserwindow", "background-color=none")
+	winset(src, "browserwindow.browser", "background-color=none")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#ffffff;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=#ffffff;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=#ffffff")
+	winset(src, "infowindow", "background-color=none;text-color=#000000")
+	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
+
+// Better changelog button handling
+/client/proc/update_changelog_button()
+	if(establish_db_connection())
+		if(prefs.lastchangelog != changelog_hash)
+			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+		else
+			if(prefs.toggles & UI_DARKMODE)
+				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+			else
+				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+	else
+		if(prefs.toggles & UI_DARKMODE)
+			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+		else
+			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")

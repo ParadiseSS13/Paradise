@@ -5,7 +5,7 @@
 	icon_state = "doorctrl0"
 	power_channel = ENVIRON
 	var/id = null
-	var/range = 10
+	var/safety_z_check = 1
 	var/normaldoorcontrol = 0
 	var/desiredstate = 0 // Zero is closed, 1 is open.
 	var/specialfunctions = 1
@@ -81,7 +81,9 @@
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in range(range, src))
+		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+			if(safety_z_check && D.z != z)
+				continue
 			if(D.id_tag == id)
 				if(specialfunctions & OPEN)
 					if(D.density)
@@ -112,7 +114,9 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in range(range, src))
+		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
+			if(safety_z_check && M.z != z)
+				continue
 			if(M.id_tag == id)
 				if(M.density)
 					spawn( 0 )

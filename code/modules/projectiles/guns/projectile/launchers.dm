@@ -34,7 +34,7 @@
 	name = "gyrojet pistol"
 	desc = "A prototype pistol designed to fire self propelled rockets."
 	icon_state = "gyropistol"
-	fire_sound = 'sound/effects/Explosion1.ogg'
+	fire_sound = 'sound/effects/explosion1.ogg'
 	origin_tech = "combat=5"
 	mag_type = /obj/item/ammo_box/magazine/m75
 	burst_size = 1

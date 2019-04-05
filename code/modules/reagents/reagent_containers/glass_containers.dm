@@ -113,7 +113,7 @@
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
 
-	else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
+	else if(istype(target, /obj/effect/decal)) //stops splashing while scooping up fluids
 		return
 
 	else if(reagents.total_volume)
@@ -124,13 +124,6 @@
 
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
@@ -210,8 +203,7 @@
 
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)
-		reagents.chem_temp += 30
-		reagents.handle_reactions()
+		reagents.temperature_reagents(4000)
 
 /obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly_holder) && can_assembly)

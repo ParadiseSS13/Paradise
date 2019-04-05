@@ -305,8 +305,13 @@ obj/item/gun/proc/newshot()
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/gun/extinguish_light()
+	if(gun_light.on)
+		toggle_gunlight()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+
 /obj/item/gun/pickup(mob/user)
-	..()
+	. = ..()
 	if(azoom)
 		azoom.Grant(user)
 

@@ -80,7 +80,7 @@
 	smoke.set_up(5, 0, src.loc)
 	smoke.start()
 	visible_message("<span class='danger'>The [src] warps in!</span>")
-	playsound(src.loc, 'sound/effects/EMPulse.ogg', 25, 1)
+	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
 
 /mob/living/simple_animal/hostile/hivebot/tele/warpbots()
 	icon_state = "def_radar"

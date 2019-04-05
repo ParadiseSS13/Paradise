@@ -46,17 +46,17 @@
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
-					goto(line_jump)
-			if(P.id_tag == M.id && (P in range(M.range, M)) && P.id_tag && P.id_tag != "")
+					goto line_jump
+			if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
 				P.id_tag = null
 				to_chat(user, "[P] unlinked.")
-				goto(line_jump)
+				goto line_jump
 			if(!M.normaldoorcontrol)
 				if(link_lines.len && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
-					goto(line_jump)
+					goto line_jump
 				M.normaldoorcontrol = 1
 			if(P.id_tag && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
-				goto(line_jump)
+				goto line_jump
 			P.id_tag = M.id
 		if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/poddoor))
 			var/obj/machinery/door_control/M = link_obj
@@ -64,21 +64,21 @@
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
-					goto(line_jump)
+					goto line_jump
 			if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
 				P.id_tag = null
 				to_chat(user, "[P] unlinked.")
-				goto(line_jump)
+				goto line_jump
 			if(M.normaldoorcontrol)
 				if(link_lines.len && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
-					goto(line_jump)
+					goto line_jump
 				M.normaldoorcontrol = 0
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
-					goto(line_jump)
+					goto line_jump
 			if(P.id_tag && P.id_tag != 1 && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
-				goto(line_jump)
+				goto line_jump
 			P.id_tag = M.id
 
 	line_jump // For the goto
@@ -86,7 +86,7 @@
 
 	if(istype(link_obj, /obj/machinery/door_control))
 		var/obj/machinery/door_control/M = link_obj
-		for(var/obj/machinery/door/airlock/P in range(M.range,M))
+		for(var/obj/machinery/door/airlock/P in GLOB.airlocks)
 			if(P.id_tag == M.id)
 				form_connection(M, P, M.normaldoorcontrol)
 		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)

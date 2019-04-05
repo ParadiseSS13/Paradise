@@ -13,20 +13,14 @@
 	severity = MINOR
 	disease_flags = CURABLE
 	spread_flags = NON_CONTAGIOUS
-	var/remissive = 0
+	virus_heal_resistant = TRUE
 
 /datum/disease/food_poisoning/stage_act()
-	if(!remissive)
-		..()
+	..()
 	if(affected_mob.sleeping && prob(33))
 		to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-		remissive = 1
-	if(remissive)
-		if(prob(stage_prob))
-			stage--
-			if(stage == 0)
-				cure()
-				return
+		cure()
+		return
 	switch(stage)
 		if(1)
 			if(prob(5))

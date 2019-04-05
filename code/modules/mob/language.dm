@@ -246,8 +246,8 @@
 	syllables = list("hs","zt","kr","st","sh")
 
 /datum/language/diona/get_random_name()
-	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace of", "Dreams of", "Witnessing", "To Walk Beneath", "Approaching the", "Glimmer of", "The Ripple of", "Colors of", "The Still of", "Silence of", "Gentle Breeze of", "Glistening Waters under", "Child of", "Blessed Plant-ling of", "Grass-Walker of", "Element of", "Spawn of"))]"
-	new_name += " [pick(list("the Void", "the Sky", "Encroaching Night", "Planetsong", "Starsong", "the Wandering Star", "the Empty Day", "Daybreak", "Nightfall", "the Rain", "the Stars", "the Waves", "Dusk", "Night", "the Wind", "the Summer Wind", "the Blazing Sun", "the Scorching Sun", "Eternal Fields", "the Soothing Plains", "the Undying Fiona", "Mother Nature's Bousum"))]"
+	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of"))]"
+	new_name += " [pick(list("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum"))]"
 	return new_name
 
 /datum/language/trinary
@@ -414,7 +414,7 @@
 	exclaim_verb = "snarls"
 	colour = "gutter"
 	key = "3"
-	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
+	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 
 /datum/language/clown
 	name = "Clownish"
@@ -425,6 +425,26 @@
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
+
+/datum/language/com_srus
+	name = "Neo-Russkiya"
+	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
+	speech_verb = "articulates"
+	whisper_verb = "mutters"
+	exclaim_verb = "exaggerates"
+	colour = "com_srus"
+	key = "?"
+	space_chance = 65
+	english_names = 1
+	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
@@ -528,6 +548,13 @@
 		if(A.team == A2.team)
 			return TRUE
 	return FALSE
+
+/datum/language/abductor/golem
+	name = "Golem Mindlink"
+	desc = "Communicate with other alien alloy golems through a psychic link."
+
+/datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
+	return TRUE
 
 /datum/language/corticalborer
 	name = "Cortical Link"

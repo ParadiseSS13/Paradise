@@ -197,6 +197,22 @@
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
 	burn_state = FIRE_PROOF
+	var/strap_side_straight = FALSE
+
+/obj/item/storage/backpack/satchel/verb/switch_strap()
+	set name = "Switch Strap Side"
+	set category = "Object"
+	set src in usr
+
+	if(usr.incapacitated())
+		return
+	strap_side_straight = !strap_side_straight
+	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_back()
+
+
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -351,7 +367,6 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
-	new /obj/item/mmi/syndie(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
 	name = "surgery duffelbag"

@@ -23,8 +23,7 @@
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		// Put out fire
-		M.adjust_fire_stacks(-(volume / 10))
-		M.ExtinguishMob()
+		M.adjust_fire_stacks(-(volume * 0.2))
 		if(ishuman(M))
 
 			var/mob/living/carbon/human/H = M
@@ -116,7 +115,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
-	taste_message = "oil"
+	taste_message = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -194,11 +193,11 @@
 
 
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null)
+	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
-	color = "#C80000" // rgb: 200, 0, 0
+	color = "#770000" // rgb: 40, 0, 0
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
@@ -285,6 +284,7 @@
 	name = "Vaccine"
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
+	taste_message = "antibodies"
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(islist(data) && (method == INGEST))
@@ -440,7 +440,7 @@
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
-	taste_message = null
+	taste_message = "sulfur"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -507,6 +507,7 @@
 	description = "Can be used to dry things."
 	reagent_state = LIQUID
 	color = "#A70FFF"
+	taste_message = "dry mouth"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T) && T.wet)

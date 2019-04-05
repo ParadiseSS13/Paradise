@@ -784,7 +784,7 @@ var/global/list/multiverse = list()
 			GiveHint(target)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
-			target << 'sound/items/AirHorn.ogg'
+			target << 'sound/items/airhorn.ogg'
 			target.MinimumDeafTicks(3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
@@ -868,7 +868,7 @@ var/global/list/multiverse = list()
 		var/area/A = get_area(src)
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
-/obj/item/voodoo/fire_act()
+/obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(target)
 		target.adjust_fire_stacks(20)
 		target.IgniteMob()

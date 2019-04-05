@@ -237,8 +237,8 @@
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		mask = /obj/item/clothing/mask/gas/sexyclown
-		uniform = /obj/item/clothing/under/sexyclown
+		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
+		uniform = /obj/item/clothing/under/rank/clown/sexy
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -252,6 +252,27 @@
 	H.mutations.Add(CLUMSY)
 	if(!ismachine(H))
 		H.mutations.Add(COMIC)
+
+//action given to antag clowns
+/datum/action/innate/toggle_clumsy
+	name = "Toggle Clown Clumsy"
+	button_icon_state = "clown"
+
+/datum/action/innate/toggle_clumsy/Activate()
+	var/mob/living/carbon/human/H = owner
+	H.mutations.Add(CLUMSY)
+	active = TRUE
+	background_icon_state = "bg_spell"
+	UpdateButtonIcon()
+	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
+
+/datum/action/innate/toggle_clumsy/Deactivate()
+	var/mob/living/carbon/human/H = owner
+	H.mutations.Remove(CLUMSY)
+	active = FALSE
+	background_icon_state = "bg_default"
+	UpdateButtonIcon()
+	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
 	title = "Mime"

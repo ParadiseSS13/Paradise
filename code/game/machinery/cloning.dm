@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "hydrocodone")
+	var/list/brine_types = list("corazone", "salbutamol", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -424,6 +424,7 @@
 	if(H.mind in ticker.mode.cult)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
+		ticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
 	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(H.mind.vampire)
@@ -478,7 +479,6 @@
 	occupant.forceMove(get_turf(src))
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
-	occupant.shock_stage = 0 //Reset Shock
 	occupant.special_post_clone_handling()
 	occupant = null
 	update_icon()

@@ -13,10 +13,8 @@
 			message_admins("Admin logout: [key_name_admin(src)]")
 			var/list/admincounter = staff_countup(R_BAN)
 			if(admincounter[1] == 0) // No active admins
-				send2admindiscord("[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
+				send2irc(config.admin_notify_irc, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
 
 	..()
-
 	callHook("mob_logout", list("client" = client, "mob" = src))
-
 	return 1

@@ -98,7 +98,7 @@
 
 /obj/item/organ/internal/hivelord_core/on_life()
 	..()
-	if(owner.health < config.health_threshold_crit)
+	if(owner.health < HEALTH_THRESHOLD_CRIT)
 		ui_action_click()
 
 /obj/item/organ/internal/hivelord_core/afterattack(atom/target, mob/user, proximity_flag)

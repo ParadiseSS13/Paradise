@@ -1382,6 +1382,9 @@ var/list/robot_verbs_default = list(
 		if(2)
 			disable_component("comms", 60)
 
+/mob/living/silicon/robot/extinguish_light()
+	update_headlamp(1, 150)
+
 /mob/living/silicon/robot/rejuvenate()
 	..()
 	var/brute = 1000

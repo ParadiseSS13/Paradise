@@ -126,7 +126,7 @@
 		if(!current_state)
 			log_and_message_admins(message)
 			if(send_to_irc)
-				send2admindiscord(message)
+				send2adminirc(message)
 		return TRUE
 	else
 		return FALSE
@@ -470,5 +470,5 @@
         post_status("shuttle")
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
-	playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
+	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 10, max(1000,power * damage / explosion_point))

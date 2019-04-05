@@ -55,7 +55,7 @@
 
 	if(mob_to_track)
 		track = "<a href='byond://?src=[UID()];track=\ref[mob_to_track]'>[speaker_name] ([jobname])</a>"
-		track += "<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[O\]</a>"
+		track += "&nbsp;<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[Open\]</a>"
 
 	return track
 

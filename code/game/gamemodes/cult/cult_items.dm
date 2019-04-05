@@ -26,7 +26,7 @@
 	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
-	..()
+	. = ..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
@@ -34,7 +34,7 @@
 
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		user.unEquip(src, 1)
+		return FALSE
 
 /obj/item/melee/cultblade/dagger
 	name = "sacrificial dagger"
@@ -256,7 +256,7 @@
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
 		SSshuttle.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
-		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, 1)
 		curselimit++
 		qdel(src)
 		sleep(20)

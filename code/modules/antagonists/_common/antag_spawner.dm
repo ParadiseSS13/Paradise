@@ -10,7 +10,6 @@
 /obj/item/antag_spawner/proc/equip_antag(mob/target)
 	return
 
-
 /obj/item/antag_spawner/borg_tele
 	name = "syndicate cyborg teleporter"
 	desc = "A single-use teleporter used to deploy a Syndicate Cyborg on the field."
@@ -19,6 +18,7 @@
 	var/checking = FALSE
 	var/TC_cost = 0
 	var/borg_to_spawn
+	var/upload_mind
 	var/list/possible_types = list("Assault", "Medical", "Saboteur")
 
 /obj/item/antag_spawner/borg_tele/attack_self(mob/user)
@@ -34,20 +34,42 @@
 	borg_to_spawn = input("What type of borg would you like to teleport?", "Cyborg Type", type) as null|anything in possible_types
 	if(!borg_to_spawn || checking || used)
 		return
-	checking = TRUE
-	to_chat(user, "<span class='notice'>The device is now checking for possible borgs.</span>")
-	var/list/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", ROLE_OPERATIVE, 1)
-	if(borg_candidates.len > 0 && !used)
-		checking = FALSE
-		used = TRUE
-		var/mob/M = pick(borg_candidates)
-		var/client/C = M.client
-		spawn_antag(C, get_turf(src.loc), "syndieborg")
-		qdel(src)
-	else
-		checking = FALSE
-		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
+	upload_mind = input("Would you like to continue playing as an operative or take over the cyborg? (Another player will control your old self)", "Play as") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
+	if(!upload_mind || checking || used)
 		return
+	if(upload_mind == "Nuclear Operative")
+		checking = TRUE
+		to_chat(user, "<span class='notice'>The device is now checking for possible borgs.</span>")
+		var/list/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", ROLE_OPERATIVE, 1)
+		if(borg_candidates.len > 0 && !used)
+			checking = FALSE
+			used = TRUE
+			var/mob/M = pick(borg_candidates)
+			var/client/C = M.client
+			spawn_antag(C, get_turf(loc), "syndieborg")
+			qdel(src)
+		else
+			checking = FALSE
+			to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
+			return
+	else if(upload_mind == "Syndicate Cyborg")
+		checking = TRUE
+		to_chat(user, "<span class='notice'>You attempt to upload your consciousness into a new syndicate cyborg.</span>")
+		var/list/nuclear_candidates = pollCandidates("Do you want to play as the Syndicate Nuclear Operative [user.real_name]?", ROLE_OPERATIVE, 1)
+		if(nuclear_candidates.len > 0 && !used)
+			checking = FALSE
+			used = TRUE
+			var/mob/M = pick(nuclear_candidates)
+			var/client/nukeop_client = M.client
+			var/client/borg_client = user.client
+			spawn_antag(borg_client, get_turf(loc), "syndieborg")
+			user.key = nukeop_client.key
+			ticker.mode.greet_syndicate(user.mind)
+			qdel(src)
+		else
+			checking = FALSE
+			to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
+			return
 
 /obj/item/antag_spawner/borg_tele/spawn_antag(client/C, turf/T, type = "")
 	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
@@ -98,7 +120,7 @@
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
-		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
 		used = FALSE
@@ -126,7 +148,6 @@
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
 
-
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
 	desc = "A magically infused bottle of clown love, distilled from \
@@ -137,3 +158,59 @@
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and Tickle"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
+
+/obj/item/antag_spawner/morph
+	name = "vial of ooze"
+	desc = "A magically infused bottle of ooze, distilled by methods rather not be spoken of. Used to awaken an all-consuming monstrosity."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vialooze"
+	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
+		turning back now!</span>"
+	var/veil_msg = "<span class='warning'>The sludge is awake and seeps \
+		away...</span>"
+	var/objective_verb = "Eat"
+	var/mob/living/morph_type = /mob/living/simple_animal/hostile/morph
+
+/obj/item/antag_spawner/morph/attack_self(mob/user)
+	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a morph from the Den..
+		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		return
+
+	if(used)
+		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		return
+	used = TRUE
+	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
+
+	var/list/candidates = pollCandidates("Do you want to play as a morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
+
+	if(candidates.len > 0)
+		var/mob/C = pick(candidates)
+		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
+		to_chat(user, "[shatter_msg]")
+		to_chat(user, "[veil_msg]")
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+		qdel(src)
+	else
+		used = FALSE
+		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+
+/obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
+	var/mob/living/simple_animal/hostile/morph/M = new /mob/living/simple_animal/hostile/morph(pick(xeno_spawn))
+	M.key = C.key
+	M.mind.assigned_role = SPECIAL_ROLE_MORPH
+	M.mind.special_role = SPECIAL_ROLE_MORPH
+	to_chat(M, M.playstyle_string)
+	ticker.mode.traitors += M.mind
+	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+	KillDaWiz.owner = M.mind
+	KillDaWiz.target = user.mind
+	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	M.mind.objectives += KillDaWiz
+	var/datum/objective/KillDaCrew = new /datum/objective
+	KillDaCrew.owner = M.mind
+	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	M.mind.objectives += KillDaCrew
+	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
+	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	M << 'sound/magic/mutate.ogg'

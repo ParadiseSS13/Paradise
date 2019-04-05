@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
-			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
 	if(item)
@@ -180,6 +180,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CM"
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 3
+	job = list("Clown")
+
+/datum/uplink_item/jobspecific/trick_revolver
+	name = "Trick Revolver"
+	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
+	reference = "CTR"
+	item = /obj/item/toy/russian_revolver/trick_revolver
+	cost = 1
 	job = list("Clown")
 
 //mime
@@ -351,6 +359,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	job = list("Research Director")
 
+//Roboticist
+/datum/uplink_item/jobspecific/syndiemmi
+	name = "Syndicate MMI"
+	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	reference = "SMMI"
+	item = /obj/item/mmi/syndie
+	cost = 2
+	job = list("Roboticist")
+	surplus = 0
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -481,6 +499,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 16
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
+	name = "Compact Sniper Rifle"
+	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
+	reference = "CSR"
+	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
+	cost = 16
+	surplus = 0
+	cant_discount = TRUE
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
@@ -632,6 +660,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/loaded
 	cost = 10 //bulk buyer's discount. Very useful if you're buying a mech and dont have TC left to buy people non-shotgun guns
 	gamemodes = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/ammo/bullslug
 	name = "Bulldog - 12g Slug Magazine"
@@ -786,6 +815,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 9
 
+/datum/uplink_item/stealthy_weapons/cameraflash
+	name = "Camera Flash"
+	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\
+			 Due to its design, this flash cannot be overcharged like regular flashes can.\
+			 Useful for stunning borgs and individuals without eye protection or blinding a crowd for a get away."
+	reference = "CF"
+	item = /obj/item/flash/cameraflash
+	cost = 2
+
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
@@ -869,6 +907,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/plastic/c4
 	cost = 1
 
+/datum/uplink_item/explosives/plastic_explosives_pack
+	name = "Pack of 5 C-4 Explosives"
+	desc = "A package containing 5 C-4 Explosives at a discounted price. For when you need that little bit extra for your sabotaging needs."
+	reference = "C4P"
+	item = /obj/item/storage/box/syndie_kit/c4
+	cost = 4
+
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"
 	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
@@ -884,6 +929,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
+	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -905,7 +952,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PB"
 	item = /obj/item/pizza_bomb
 	cost = 5
-	surplus = 8
+	surplus = 80
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
@@ -933,13 +980,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
-/datum/uplink_item/explosives/atmosgrenades
-	name = "Atmos Grenades"
-	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
-	reference = "AGG"
-	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
-	cost = 11
+/datum/uplink_item/explosives/atmosn2ogrenades
+	name = "Knockout Gas Grenades"
+	desc = "A box of two (2) grenades that spread knockout gas over a large area. Equip internals before using one of these."
+	reference = "ANG"
+	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
+	cost = 8
+
+/datum/uplink_item/explosives/atmosfiregrenades
+	name = "Plasma Fire Grenades"
+	desc = "A box of two (2) grenades that cause large plasma fires. Can be used to deny access to a large area. Most useful if you have an atmospherics hardsuit."
+	reference = "APG"
+	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
+	hijack_only = TRUE
+	cost = 12
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -1133,10 +1189,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Prototype Bone Repair Kit"
@@ -1435,10 +1491,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Cybernetic Implants"
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
+	var/cyber_bundle = FALSE
 
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
 	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
+		if(findtext(item, /obj/item/organ/internal/cyberimp) && !cyber_bundle)
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
 			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
@@ -1482,6 +1539,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
+	cyber_bundle = TRUE
+	cant_discount = TRUE
 
 // POINTLESS BADASSERY
 
@@ -1581,6 +1640,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
 	cant_discount = TRUE // You fucking wish
+	var/crate_value = 50
+
+/datum/uplink_item/badass/surplus_crate/super
+	name = "Syndicate Super Surplus Crate"
+	desc = "A crate containing 125 telecrystals worth of random syndicate leftovers."
+	reference = "SYSS"
+	cost = 40
+	crate_value = 125
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
@@ -1588,16 +1655,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
+	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
 	U.uses -= cost
-	U.used_TC = 20
-	var/remaining_TC = 50
+	U.used_TC = cost
 
 	var/datum/uplink_item/I
 	while(remaining_TC)
 		I = pick(buyable_items)
-		if(!I.surplus)
+		if(!I.surplus || prob(100 - I.surplus))
 			continue
 		if(I.cost > remaining_TC)
 			continue

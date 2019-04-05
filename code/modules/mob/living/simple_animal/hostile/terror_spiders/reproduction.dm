@@ -13,10 +13,14 @@
 	var/stillborn = FALSE
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
-	var/use_vents = 1
+	var/spider_mymother = null
+	var/goto_mother = FALSE
+	var/ventcrawl_chance = 30 // 30% every process(), assuming 33% wander does not trigger
+	var/immediate_ventcrawl = TRUE
 	var/list/enemies = list()
-	var/immediate_ventcrawl = 0
 	var/spider_awaymission = FALSE
+	var/frustration = 0
+	var/debug_ai_choices = FALSE
 
 /obj/structure/spider/spiderling/terror_spiderling/New()
 	..()
@@ -35,6 +39,48 @@
 		qdel(src)
 	. = ..()
 
+
+/obj/structure/spider/spiderling/terror_spiderling/die()
+	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
+		S.immediate_ventcrawl = TRUE
+	. = ..()
+
+/obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
+	var/safety_score = 0
+	var/turf/T = get_turf(A)
+	for(var/mob/living/L in viewers(T))
+		if(isterrorspider(L))
+			if(L.stat == DEAD)
+				safety_score--
+			else
+				safety_score++
+				if(spider_mymother && L == spider_mymother)
+					safety_score++
+		else if(L.stat != DEAD)
+			safety_score--
+	if(debug_ai_choices)
+		debug_visual(T, safety_score, A)
+	return safety_score
+
+/obj/structure/spider/spiderling/terror_spiderling/proc/debug_visual(turf/T, score, atom/A)
+	// This proc exists to help debug why spiderlings are making the ventcrawl AI choices they do.
+	// It won't be called unless you set the spiderling's debug_ai_choices to true.
+	if(debug_ai_choices && istype(T))
+		if(A == src)
+			if(score > 0)
+				new /obj/effect/temp_visual/heart(T) // heart symbol, I am safe here, protected by a friendly spider
+			else if (score == 0)
+				new /obj/effect/temp_visual/heal(T) // white "+" symbol, I am neutral here
+			else
+				new /obj/effect/temp_visual/at_shield(T) // octagon symbol, I am unsafe here, I need to flee
+		else
+			if(score > 0)
+				new /obj/effect/temp_visual/telekinesis(T) // blue sparks, this is a safe area, I want to go here
+			else if (score == 0)
+				new /obj/effect/temp_visual/revenant(T) // purple sparks, this is a neutral area, an acceptable choice
+			else
+				new /obj/effect/temp_visual/cult/sparks(T) // red sparks, this is an unsafe area, I won't go here unless fleeing something worse
+
 /obj/structure/spider/spiderling/terror_spiderling/process()
 	if(travelling_in_vent)
 		if(isturf(loc))
@@ -42,6 +88,7 @@
 			entry_vent = null
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 1)
+			frustration = 0
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
@@ -49,8 +96,22 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			if(prob(50))
-				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			if(spider_mymother && (goto_mother || prob(10)))
+				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(5, spider_mymother))
+					if(!v.welded)
+						exit_vent = v
+				goto_mother = FALSE
+			if(!stillborn)
+				var/current_safety_score = score_surroundings(src)
+				var/new_safety_score = score_surroundings(exit_vent)
+				if(new_safety_score < current_safety_score)
+					// Try to find an alternative.
+					exit_vent = pick(vents)
+					new_safety_score = score_surroundings(exit_vent)
+					if(new_safety_score < current_safety_score)
+						// No alternative safe vent could be found. Abort.
+						entry_vent = null
+						return
 			var/original_location = loc
 			spawn(rand(20,60))
 				forceMove(exit_vent)
@@ -72,14 +133,24 @@
 						var/area/new_area = get_area(loc)
 						if(new_area)
 							new_area.Entered(src)
+		else
+			frustration++
+			walk_to(src, entry_vent, 1)
+			if(frustration > 2)
+				entry_vent = null
 	else if(prob(33))
 		var/list/nearby = oview(10, src)
 		if(nearby.len)
 			var/target_atom = pick(nearby)
 			if(!istype(get_turf(target_atom),/turf/space))
 				walk_to(src, target_atom)
-	else if(immediate_ventcrawl || (prob(10) && use_vents))
-		immediate_ventcrawl = 0
+	else if(immediate_ventcrawl || prob(ventcrawl_chance))
+		immediate_ventcrawl = FALSE
+		if(!stillborn && !goto_mother)
+			var/safety_score = score_surroundings(src)
+			if(safety_score > 0)
+				// This area seems safe (friendly spiders present). Do not leave this area.
+				return
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
@@ -91,29 +162,33 @@
 			if(spider_awaymission && !is_away_level(z))
 				stillborn = TRUE
 			if(stillborn)
-				die()
+				if(amount_grown >= 300)
+					// Fake spiderlings stick around for awhile, just to be spooky.
+					die()
 			else
 				if(!grow_as)
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
 				S.spider_myqueen = spider_myqueen
+				S.spider_mymother = spider_mymother
 				S.master_commander = master_commander
 				S.enemies = enemies
 				qdel(src)
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
 // --------------------------------------------------------------------------------
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number, lay_crawl)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number)
 	stop_automated_movement = 1
 	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src))
 	C.spiderling_type = lay_type
 	C.spiderling_number = lay_number
-	C.spiderling_ventcrawl = lay_crawl
 	C.faction = faction
 	C.spider_myqueen = spider_myqueen
+	C.spider_mymother = src
 	C.master_commander = master_commander
 	C.enemies = enemies
 	if(spider_growinstantly)
@@ -129,9 +204,9 @@
 	var/spider_growinstantly = 0
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
+	var/spider_mymother = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
-	var/spiderling_ventcrawl = 1
 	var/list/enemies = list()
 
 /obj/structure/spider/eggcluster/terror_eggcluster/New()
@@ -169,16 +244,11 @@
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			if(spiderling_type)
 				S.grow_as = spiderling_type
-			S.use_vents = spiderling_ventcrawl
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
+			S.spider_mymother = spider_mymother
 			S.master_commander = master_commander
 			S.enemies = enemies
 			if(spider_growinstantly)
 				S.amount_grown = 250
-		var/rnum = 5 - spiderling_number
-		for(var/i=0, i<rnum, i++)
-			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-			S.stillborn = TRUE
-			// every set of eggs always spawn 5 spiderlings, but most are decoys
 		qdel(src)

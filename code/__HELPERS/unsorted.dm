@@ -216,6 +216,23 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			line+=locate(px,py,M.z)
 	return line
 
+//Same as the thing below just for density and without support for atoms.
+/proc/can_line(atom/source, atom/target, length = 5)
+	var/turf/current = get_turf(source)
+	var/turf/target_turf = get_turf(target)
+	var/steps = 0
+
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(!current)
+			return FALSE
+		if(current.density)
+			return FALSE
+		current = get_step_towards(current, target_turf)
+		steps++
+	return TRUE
+
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
@@ -1165,7 +1182,7 @@ var/global/list/common_tools = list(
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/O = W
 		if(O.isOn())
-			return 3800
+			return 2500
 		else
 			return 0
 	if(istype(W, /obj/item/lighter))
@@ -1207,7 +1224,7 @@ var/global/list/common_tools = list(
 		else
 			return 0
 	if(istype(W, /obj/item/assembly/igniter))
-		return 1000
+		return 20000
 	else
 		return 0
 
@@ -1228,14 +1245,6 @@ var/global/list/common_tools = list(
 	istype(W, /obj/item/bonegel)			||	\
 	istype(W, /obj/item/bonesetter)
 	)
-
-//check if mob is lying down on something we can operate him on.
-/proc/can_operate(mob/living/carbon/M)
-	return (locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting)) || \
-	(locate(/obj/structure/bed/roller, M.loc) && 	\
-	(M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat)) && prob(75) || 	\
-	(locate(/obj/structure/table/, M.loc) && 	\
-	(M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat) && prob(66))
 
 /proc/reverse_direction(var/dir)
 	switch(dir)
@@ -1304,31 +1313,6 @@ proc/get_angle(atom/a, atom/b)
 proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
-
-proc/rotate_icon(file, state, step = 1, aa = FALSE)
-	var icon/base = icon(file, state)
-
-	var w, h, w2, h2
-
-	if(aa)
-		aa++
-		w = base.Width()
-		w2 = w * aa
-		h = base.Height()
-		h2 = h * aa
-
-	var icon{result = icon(base); temp}
-
-	for(var/angle in 0 to 360 step step)
-		if(angle == 0  ) continue
-		if(angle == 360)   continue
-		temp = icon(base)
-		if(aa) temp.Scale(w2, h2)
-		temp.Turn(angle)
-		if(aa) temp.Scale(w,   h)
-		result.Insert(temp, "[angle]")
-
-	return result
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
@@ -1495,10 +1479,11 @@ var/mob/dview/dview_mob = new
 /mob/dview
 	invisibility = 101
 	density = 0
-
+	move_force = 0
+	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-
+	canmove = FALSE
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
