@@ -228,5 +228,5 @@
 
 /obj/item/melee/energy/sword/IsReflect()
 	if(active)
-		return TRUE
+		return 0.05
 
