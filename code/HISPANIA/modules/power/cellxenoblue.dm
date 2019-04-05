@@ -1,5 +1,5 @@
 /obj/item/stock_parts/cell/bluespace/xenoblue
-	icon = 'code/HISPANIA/modules/power/xenobluecell.dmi'
+	icon = 'icons/HISPANIA/obj/xenobluecell.dmi'
 	icon_state = "xenobluecell"
 	item_state = "xenobluecell"
 	name = "Xenobluespace power cell"
@@ -12,11 +12,11 @@
 	chargerate = 600
 
 /obj/item/xenobluecellmaker
-	icon = 'code/HISPANIA/modules/power/xenobluecell.dmi'
+	icon = 'icons/HISPANIA/obj/xenobluecell.dmi'
 	icon_state = "xenobluecellmaker"
 	item_state = "xenobluecellmaker"
 	name = "Xenobluespace power cell Maker"
-	desc = "Cascara de alta tecnologia capaz de crear la una bateria que combina la tecnologia Bluespace y la Xenobiologia. Tiene inscrito -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y en Baldric Chapman, Maestro de la Robotica-"
+	desc = "Cascara de alta tecnologia capaz de crear la una bateria que combina la tecnologia Bluespace y la Xenobiologia. Tiene inscrito -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y a Baldric Chapman, Maestro de la Robotica-"
 	origin_tech = "powerstorage=6;biotech=4"
 	materials = list(MAT_GLASS = 1000)
 
@@ -39,6 +39,5 @@
 				/obj/item/xenobluecellmaker = 1,
 				/obj/item/stock_parts/cell/bluespace = 1,
 				/obj/item/stock_parts/micro_laser/quadultra  = 1)
-	tools = list(/obj/item/screwdriver)
-	time = 40
-	category = CAT_MISC
+	time = 30
+	category = CAT_ROBOT
