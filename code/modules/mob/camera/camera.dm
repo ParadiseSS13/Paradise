@@ -17,4 +17,3 @@
 
 /mob/camera/Login()
 	..()
-	update_interface()
