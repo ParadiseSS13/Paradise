@@ -1022,7 +1022,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/show_tip()
 	set category = "Admin"
-	set name = "Show Tip"
+	set name = "Show Custom Tip"
 	set desc = "Sends a tip (that you specify) to all players. After all \
 		you're the experienced player here."
 
@@ -1042,7 +1042,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(ticker.tipped)
 		ticker.send_tip_of_the_round()
 
-	message_admins("[key_name_admin(usr)] sent a tip of the round.")
+	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
 
 /client/proc/modify_goals()
