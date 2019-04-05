@@ -25,6 +25,7 @@
 	button.name = name
 	if(desc)
 		button.desc = desc
+
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
