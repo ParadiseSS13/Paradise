@@ -448,7 +448,7 @@
 /datum/reagent/consumable/egg/on_mob_life(mob/living/M)
 	if(prob(3))
 		M.reagents.add_reagent("cholesterol", rand(1,2))
-	..()
+	return ..()
 
 /datum/reagent/consumable/corn_starch
 	name = "Corn Starch"
@@ -642,9 +642,6 @@
 	reagent_state = LIQUID
 	color = "#684435"
 	taste_message = "burritos"
-
-/datum/reagent/consumable/beans/on_mob_life(mob/living/M)
-	return ..()
 
 /datum/reagent/consumable/bread
 	name = "Bread"
