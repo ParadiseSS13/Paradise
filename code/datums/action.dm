@@ -23,7 +23,8 @@
 	button = new
 	button.linked_action = src
 	button.name = name
-
+	if(desc)
+		button.desc = desc
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
@@ -82,6 +83,7 @@
 	if(button)
 		button.icon = button_icon
 		button.icon_state = background_icon_state
+		button.desc = desc
 
 		ApplyIcon(button)
 
@@ -434,6 +436,7 @@
 	var/obj/effect/proc_holder/spell/S = target
 	S.action = src
 	name = S.name
+	desc = S.desc
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state
