@@ -1,8 +1,10 @@
 /obj/item/stock_parts/cell/bluespace/xenoblue
+	icon = 'code/HISPANIA/modules/power/xenobluecell.dmi'
+	icon_state = "xenobluecell"
+	item_state = "xenobluecell"
 	name = "Xenobluespace power cell"
 	desc = "Creada mediante tecnologia xeno-bluespace, ideada por el renombrado RD Adam Wolf."
-	origin_tech = "powerstorage=6;biotech=4"
-	icon_state = "bscell"
+	origin_tech = "powerstorage=6;biotech=4;materials=5; engineering=5;bluespace =5"
 	maxcharge = 50000
 	materials = list(MAT_GLASS = 800)
 	rating = 7
@@ -10,10 +12,12 @@
 	chargerate = 600
 
 /obj/item/xenobluecellmaker
+	icon = 'code/HISPANIA/modules/power/xenobluecell.dmi'
+	icon_state = "xenobluecellmaker"
+	item_state = "xenobluecellmaker"
 	name = "Xenobluespace power cell Maker"
-	desc = "Tiene inscrito -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y en Baldric Champman, Maestro de la Robotica-"
+	desc = "Cascara de alta tecnologia capaz de crear la una bateria que combina la tecnologia Bluespace y la Xenobiologia. Tiene inscrito -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y en Baldric Chapman, Maestro de la Robotica-"
 	origin_tech = "powerstorage=6;biotech=4"
-	icon_state = "bscell"
 	materials = list(MAT_GLASS = 1000)
 
 /datum/design/xenobluecellmaker
