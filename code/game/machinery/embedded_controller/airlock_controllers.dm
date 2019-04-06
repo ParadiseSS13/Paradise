@@ -14,8 +14,7 @@
 
 /obj/machinery/embedded_controller/radio/airlock/Initialize()
 	..()
-	spawn(25) //Necessary as we initialize before we can use a timer. We need a bit of delay as otherwise the program may grab incorrect values
-		program = new/datum/computer/file/embedded_program/airlock(src)
+	program = new/datum/computer/file/embedded_program/airlock(src)
 
 //Advanced airlock controller for when you want a more versatile airlock controller - useful for turning simple access control rooms into airlocks
 /obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller
@@ -77,6 +76,21 @@
 	name = "Airlock Controller"
 	tag_secure = 1
 
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller/New(loc, given_id_tag, given_frequency, given_tag_exterior_door, given_tag_interior_door, given_tag_airpump, given_tag_chamber_sensor)
+	if(given_id_tag)
+		id_tag = given_id_tag
+	if(given_frequency)
+		set_frequency(given_frequency)
+	if(given_tag_exterior_door)
+		tag_exterior_door = given_tag_exterior_door
+	if(given_tag_interior_door)
+		tag_interior_door = given_tag_interior_door
+	if(given_tag_airpump)
+		tag_airpump = given_tag_airpump
+	if(given_tag_chamber_sensor)
+		tag_chamber_sensor = given_tag_chamber_sensor
+	..()
+
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -129,7 +143,6 @@
 
 	name = "Access Controller"
 	tag_secure = 1
-
 
 /obj/machinery/embedded_controller/radio/airlock/access_controller/update_icon()
 	if(on && program)
