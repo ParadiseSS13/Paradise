@@ -1156,12 +1156,16 @@
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
 	if(!M.dna)
 		return
+	var/did_mutation = FALSE
 	if(prob(15))
 		randmutb(M)
+		did_mutation = TRUE
 	if(prob(3))
 		randmutg(M)
-	domutcheck(M, null)
-	M.UpdateAppearance()
+		did_mutation = TRUE
+	if(did_mutation)
+		domutcheck(M, null)
+		M.UpdateAppearance()
 	return ..()
 
 /datum/reagent/ants

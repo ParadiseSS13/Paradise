@@ -31,7 +31,7 @@
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, 1, 0)
 		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
-	..()
+	return ..()
 
 //Berry Banned: This one is tasty and safe to drink, might have a low chance of healing a random damage type?
 /datum/reagent/consumable/drink/berry_banned
