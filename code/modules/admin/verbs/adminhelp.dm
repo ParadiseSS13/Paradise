@@ -106,6 +106,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/ticketNum // Holder for the ticket number
 	var/prunedmsg ="[src]: [msg]" // Message without links
 	var/datum/ticket/T
+	var/bare_msg = msg // Just the opening message on its own, will be used for DB logging
 	var/isMhelp = selected_type == "Mentorhelp"
 	var/span
 	if(isMhelp)
@@ -135,14 +136,12 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			to_chat(X, msg)
 	else //Ahelp
 		//Open a new adminticket and inform the user.
-		SStickets.newTicket(src, prunedmsg, msg)
+		SStickets.newTicket(src, prunedmsg, msg, bare_msg)
 		for(var/client/X in modholders + adminholders)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
 			window_flash(X)
 			to_chat(X, msg)
-
-			
 
 	//show it to the person adminhelping too
 	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")

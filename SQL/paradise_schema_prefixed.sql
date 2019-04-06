@@ -534,3 +534,24 @@ CREATE TABLE IF NOT EXISTS `SS13_discord` (
   PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tickets`
+--
+DROP TABLE IF EXISTS `SS13_tickets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `SS13_tickets` (
+  `db_ticket_id` int(11) NOT NULL AUTO_INCREMENT,
+  `roundstart_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `round_ticket_id` int(11) NOT NULL DEFAULT 0,
+  `opening_ckey` varchar(64) NOT NULL DEFAULT '0',
+  `closing_ckey` varchar(64) NOT NULL DEFAULT '0',
+  `initial_message` varchar(64) NOT NULL DEFAULT '0',
+  `opened_at` int(11) NOT NULL DEFAULT 0,
+  `closed_at` int(11) NOT NULL DEFAULT 0,
+  `open_duration` int(11) NOT NULL DEFAULT 0,
+  `close_state` varchar(64) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`db_ticket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;

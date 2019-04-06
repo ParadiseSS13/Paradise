@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(tickets)
 		resolveTicket(T.ticketNum)
 
 //Open a new ticket and populate details then add to the list of open tickets
-/datum/controller/subsystem/tickets/proc/newTicket(client/C, passedContent, title)
+/datum/controller/subsystem/tickets/proc/newTicket(client/C, passedContent, title, opening_message)
 	if(!C || !passedContent)
 		return
 
@@ -91,6 +91,7 @@ SUBSYSTEM_DEF(tickets)
 	T.clientName = C
 	T.locationSent = C.mob.loc.name
 	T.mobControlled = C.mob
+	T.initialMessage = opening_message // What was the message sent when ahelped
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "[span_text]You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
@@ -105,6 +106,8 @@ SUBSYSTEM_DEF(tickets)
 //Set ticket state with key N to resolved
 /datum/controller/subsystem/tickets/proc/resolveTicket(N)
 	var/datum/ticket/T = allTickets[N]
+	T.closedBy = usr.client
+	T.internalTimeClosed = world.time // For math
 	if(T.ticketState != TICKET_RESOLVED)
 		T.ticketState = TICKET_RESOLVED
 		return TRUE
@@ -112,6 +115,8 @@ SUBSYSTEM_DEF(tickets)
 //Set ticket state with key N to closed
 /datum/controller/subsystem/tickets/proc/closeTicket(N)
 	var/datum/ticket/T = allTickets[N]
+	T.closedBy = usr.client
+	T.internalTimeClosed = world.time // For math
 	if(T.ticketState != TICKET_CLOSED)
 		T.ticketState = TICKET_CLOSED
 		return TRUE
@@ -143,8 +148,39 @@ SUBSYSTEM_DEF(tickets)
 	T.assignStaff(C)
 	return TRUE
 
-//Single staff ticket
+// Dumps all admin tickets to the database
+/datum/controller/subsystem/tickets/proc/dumpTickets()
+	if(!config.sql_enabled)
+		return
+	var/watch = start_watch()
+	message_admins("Started DB Ticket Dump")
+	// All these vars exist just for SQL sanitsztion sake and not wanting to override the existing var, despite it being endround
+	for(var/datum/ticket/T in SStickets.allTickets)
+		// A fuck tonne of SQL sanitisation incoming. Half of these are probably not necassary but who cares. We need safety
+		// WELCOME BACK TO MY LABORATORY, WHERE SAFETY IS NUMBER ONE PRIORITY
+		var/sql_roundtime = sanitizeSQL(time2text(GLOB.init_time, "YYYY-MM-DD hh:mm:ss"))
+		var/sql_ticketnum = sanitizeSQL(T.ticketNum)
+		var/sql_opening_ckey = sanitizeSQL(T.clientName)
+		var/sql_closing_ckey = sanitizeSQL(T.closedBy)
+		var/sql_open_time = sanitizeSQL(T.internalTimeOpened)
+		var/sql_close_time // These must be defined before the if
+		var/sql_duration // These must be defined before the if
+		if(T.internalTimeClosed)
+			sql_close_time = sanitizeSQL(T.internalTimeClosed)
+			sql_duration = sanitizeSQL(T.internalTimeClosed - T.internalTimeOpened) // Calculates how long ticket was open for
+		else
+			sql_close_time = sanitizeSQL(0) // Did I really just sanitize this?
+			sql_duration = sanitizeSQL(0)
+		var/sql_initial_message = sanitizeSQL(T.initialMessage) // Probably the only one of these that actually matters
+		var/sql_end_state = sanitizeSQL(T.state2puretext(T.ticketState))
+		// Runs the query
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("tickets")] (roundstart_time, round_ticket_id, opening_ckey, closing_ckey, initial_message, opened_at, closed_at, open_duration, close_state) VALUES ('[sql_roundtime]', [sql_ticketnum], '[sql_opening_ckey]', '[sql_closing_ckey]', '[sql_initial_message]', [sql_open_time], [sql_close_time], [sql_duration], '[sql_end_state]')")
+		if(!query.Execute())
+			var/err = query.ErrorMsg()
+			log_game("SQL ERROR during ticket storing. Error: \[[err]\]\n")
+	message_admins("Finished DB Ticket Dump In [stop_watch(watch)]s.")
 
+//Single staff ticket
 /datum/ticket
 	var/ticketNum // Ticket number
 	var/clientName // Client which opened the ticket
@@ -159,12 +195,19 @@ SUBSYSTEM_DEF(tickets)
 	var/timeUntilStale // When the ticket goes stale
 	var/ticketCooldown // Cooldown before allowing the user to open another ticket.
 	var/staffAssigned // Staff member who has assigned themselves to this ticket
+	// The following vars assist DB logging
+	var/timeClosed // Time ticket was closed
+	var/initialMessage // Initial message (Without links)
+	var/closedBy // Which admin closed the ticket
+	var/internalTimeOpened // Time opened that you can math with
+	var/internalTimeClosed // Internal time closed that you can math with
 
 /datum/ticket/New(tit, cont, num)
 	title = tit
 	content = list()
 	content += cont
-	timeOpened = worldtime2text()
+	timeOpened = worldtime2text() // This is a readable version
+	internalTimeOpened = world.time // This is for calculations
 	timeUntilStale = world.time + TICKET_TIMEOUT
 	setCooldownPeriod()
 	ticketNum = num
@@ -190,6 +233,18 @@ SUBSYSTEM_DEF(tickets)
 			return "<font color='red'>CLOSED</font>"
 		if(TICKET_STALE)
 			return "<font color='orange'>STALE</font>"
+
+//Return the ticket state as a colour coded text string without HTML tags.
+/datum/ticket/proc/state2puretext()
+	switch(ticketState)
+		if(TICKET_OPEN)
+			return "OPEN"
+		if(TICKET_RESOLVED)
+			return "RESOLVED"
+		if(TICKET_CLOSED)
+			return "CLOSED"
+		if(TICKET_STALE)
+			return "STALE"
 
 //Assign the client passed to var/staffAsssigned
 /datum/ticket/proc/assignStaff(client/C)

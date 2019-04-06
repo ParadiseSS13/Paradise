@@ -325,6 +325,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	processScheduler.stop()
 	Master.Shutdown()	//run SS shutdowns
+	SStickets.dumpTickets() // Dumps tickets to the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
 	for(var/client/C in GLOB.clients)
