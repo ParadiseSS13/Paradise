@@ -74,7 +74,7 @@
 				L.Weaken(3)
 			else
 				if(P.unlimited_power)
-					L.electrocute_act(1000, P, 0) //Just kill them
+					L.electrocute_act(1000, P, 0, TRUE) //Just kill them
 				else
 					electrocute_mob(L, C, P)
 			break
