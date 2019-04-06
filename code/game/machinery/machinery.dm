@@ -407,7 +407,7 @@ Class Procs:
 	if(can_deconstruct)
 		on_deconstruction()
 		if(component_parts && component_parts.len)
-			spawn_frame()
+			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
 	qdel(src)
