@@ -129,6 +129,9 @@ GLOBAL_LIST_EMPTY(safes)
 			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-off", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
 
 /obj/structure/safe/attack_ghost(mob/user)
+	if(..() || drill)
+		return TRUE
+
 	ui_interact(user)
 
 /obj/structure/safe/attack_hand(mob/user)
@@ -186,7 +189,10 @@ GLOBAL_LIST_EMPTY(safes)
 
 	return data
 
-/obj/structure/safe/proc/notify_user(user, sounds, total_ticks, current_tick)
+/obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
+	if (!canhear)
+		return
+
 	if (current_tick == 2)
 		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
 	
@@ -205,7 +211,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
 	if(href_list["open"])
@@ -235,10 +241,10 @@ GLOBAL_LIST_EMPTY(safes)
 				current_tumbler_index = 1
 			
 			if(!invalid_turn && dial == tumblers[current_tumbler_index])
-				notify_user(user, list("tink", "krink", "plink"), ticks, i)
+				notify_user(user, canhear, list("tink", "krink", "plink"), ticks, i)
 				current_tumbler_index++
 			else
-				notify_user(user, list("clack", "scrape", "clank"), ticks, i)
+				notify_user(user, canhear, list("clack", "scrape", "clank"), ticks, i)
 
 			sleep(1)
 			check_unlocked(user, canhear)
@@ -263,10 +269,10 @@ GLOBAL_LIST_EMPTY(safes)
 				current_tumbler_index = 1
 
 			if(!invalid_turn && dial == tumblers[current_tumbler_index])
-				notify_user(user, list("tonk", "krunk", "plunk"), ticks, i)
+				notify_user(user, canhear, list("tonk", "krunk", "plunk"), ticks, i)
 				current_tumbler_index++
 			else
-				notify_user(user, list("click", "chink", "clink"), ticks, i)
+				notify_user(user, canhear, list("click", "chink", "clink"), ticks, i)
 
 			sleep(1)
 			check_unlocked(user, canhear)
