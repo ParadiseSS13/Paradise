@@ -185,6 +185,7 @@ var/global/list/all_cults = list()
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
+		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)

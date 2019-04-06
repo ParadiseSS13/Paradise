@@ -477,6 +477,9 @@
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
+		
+		if(ticker.mode.blob_overminds.len)
+			dat += check_role_table("Blob Overminds", ticker.mode.blob_overminds)
 
 		if(ticker.mode.changelings.len)
 			dat += check_role_table("Changelings", ticker.mode.changelings)

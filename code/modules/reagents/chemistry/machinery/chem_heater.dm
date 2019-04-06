@@ -88,6 +88,10 @@
 /obj/machinery/chem_heater/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/chem_heater/attack_ghost(mob/user)
+	if(user.can_admin_interact())
+		return attack_hand(user)
+
 /obj/machinery/chem_heater/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)

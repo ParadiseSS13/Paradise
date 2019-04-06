@@ -60,9 +60,9 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD)
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
+			visible_message("<span class='danger'>[src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
 	snapback()
@@ -102,7 +102,7 @@
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
-			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)

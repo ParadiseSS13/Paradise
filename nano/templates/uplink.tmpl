@@ -46,7 +46,7 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 					{{for value.items :itemValue:itemIndex}}
 						<tr>
 						<td><div class='floatLeft tooltipRight' data-tooltip='{{:tooltiptext(itemValue.Description)}}'>
-						{{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
+						{{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span> {{if itemValue.hijack_only}}(HIJACK AGENTS ONLY){{/if}}
 						</div></td>
 						</tr>
 					{{/for}}

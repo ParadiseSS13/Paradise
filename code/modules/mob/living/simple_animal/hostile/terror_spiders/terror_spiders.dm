@@ -316,12 +316,12 @@ var/global/list/ts_spiderling_list = list()
 			adjustToxLoss(rand(1,10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
-		if((bruteloss > 0) || (fireloss > 0))
+		if(getBruteLoss() || getFireLoss())
 			if(regen_points > regen_points_per_hp)
-				if(bruteloss > 0)
+				if(getBruteLoss())
 					adjustBruteLoss(-1)
 					regen_points -= regen_points_per_hp
-				else if(fireloss > 0)
+				else if(getFireLoss())
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
 		if(prob(5))

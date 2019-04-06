@@ -25,6 +25,10 @@
 
 	handle_diseases()
 
+	//Heart Attack, if applicable
+	if(stat != DEAD)
+		handle_heartattack()
+
 	//Handle temperature/pressure differences between body and environment
 	if(environment)
 		handle_environment(environment)
@@ -54,6 +58,9 @@
 	..()
 
 /mob/living/proc/handle_breathing(times_fired)
+	return
+
+/mob/living/proc/handle_heartattack()
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()

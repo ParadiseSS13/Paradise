@@ -15,7 +15,7 @@
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
-	return (BRUTELOSS|FIRELOSS)
+	return BRUTELOSS|FIRELOSS
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()

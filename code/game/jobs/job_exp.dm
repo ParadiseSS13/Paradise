@@ -100,6 +100,7 @@ var/global/list/role_playtime_requirements = list(
 // Procs
 
 /proc/role_available_in_playtime(client/C, role)
+	// "role" is a special role defined in role_playtime_requirements above. e.g: ROLE_ERT. This is *not* a job title.
 	if(!C)
 		return 0
 	if(!role)
@@ -120,6 +121,7 @@ var/global/list/role_playtime_requirements = list(
 	if(!isnum(my_exp))
 		return req_mins
 	return max(0, req_mins - my_exp)
+
 
 /datum/job/proc/available_in_playtime(client/C)
 	if(!C)

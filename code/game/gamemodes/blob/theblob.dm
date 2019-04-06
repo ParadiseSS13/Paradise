@@ -7,6 +7,7 @@
 	density = 0
 	opacity = 0
 	anchored = 1
+	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health = 30
 	var/health_timestamp = 0
 	var/brute_resist = 4
@@ -31,8 +32,10 @@
 
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)	return 1
-	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
+	if(height==0)
+		return 1
+	if(istype(mover) && mover.checkpass(PASSBLOB))
+		return 1
 	return 0
 
 /obj/structure/blob/CanAStarPass(ID, dir, caller)
