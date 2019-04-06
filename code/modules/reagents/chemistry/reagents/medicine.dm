@@ -5,6 +5,7 @@
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
 	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
+	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
@@ -526,6 +527,7 @@
 	taste_message = "a delightful numbing"
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -534,9 +536,9 @@
 		if(16 to 35)
 			M.Drowsy(20)
 		if(36 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
@@ -753,7 +755,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.update_mutations()
-	..()
+	return ..()
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
@@ -851,6 +853,7 @@
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
+	return ..()
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"
@@ -867,7 +870,7 @@
 		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	..()
+	return ..()
 
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
@@ -910,6 +913,7 @@
 	taste_message = "sleepiness"
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 30)
@@ -918,9 +922,9 @@
 		if(31 to 40)
 			M.Drowsy(20)
 		if(41 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"

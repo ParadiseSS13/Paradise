@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
+	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -341,7 +341,7 @@
 			check_brine()
 
 			//Also heal some oxyloss ourselves just in case!!
-			occupant.adjustOxyLoss(-4)
+			occupant.adjustOxyLoss(-10)
 
 			use_power(7500) //This might need tweaking.
 
@@ -480,6 +480,10 @@
 	for(var/i in missing_organs)
 		qdel(i)
 	missing_organs.Cut()
+	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
+	occupant.setOxyLoss(0)
+	for(var/datum/disease/critical/crit in occupant.viruses)
+		crit.cure()
 	occupant.forceMove(T)
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
