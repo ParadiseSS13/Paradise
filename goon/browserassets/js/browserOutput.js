@@ -969,7 +969,7 @@ $(function() {
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
-				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>Regex compatible.</div>' +
+				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>Regex compatible<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
