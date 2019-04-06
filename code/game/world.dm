@@ -119,22 +119,23 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["admins"] = admin_count
 		s["map_name"] = map_name ? map_name : "Unknown"
 
-		if(key_valid)
+		if(SSshuttle && SSshuttle.emergency)
+			// Shuttle status, see /__DEFINES/stat.dm
+			s["shuttle_mode"] = SSshuttle.emergency.mode
+			// Shuttle timer, in seconds
+			s["shuttle_timer"] = SSshuttle.emergency.timeLeft()
+
+		for(var/i in 1 to admins.len)
+			var/list/A = admins[i]
+			s["admin[i - 1]"] = A[1]
+			s["adminrank[i - 1]"] = A[2]
+
+		s["ticker_state"] = ticker.current_state // Pregame, ingame, postgame
+
+		if(key_valid) // Only show real mode and alert level if authorised
 			if(ticker && ticker.mode)
 				s["real_mode"] = ticker.mode.name
 				s["security_level"] = get_security_level()
-				s["ticker_state"] = ticker.current_state
-
-			if(SSshuttle && SSshuttle.emergency)
-				// Shuttle status, see /__DEFINES/stat.dm
-				s["shuttle_mode"] = SSshuttle.emergency.mode
-				// Shuttle timer, in seconds
-				s["shuttle_timer"] = SSshuttle.emergency.timeLeft()
-
-			for(var/i in 1 to admins.len)
-				var/list/A = admins[i]
-				s["admin[i - 1]"] = A[1]
-				s["adminrank[i - 1]"] = A[2]
 
 		return list2params(s)
 
