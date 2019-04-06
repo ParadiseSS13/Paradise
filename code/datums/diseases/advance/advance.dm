@@ -45,7 +45,7 @@ var/list/advance_cures = 	list(
 
  */
 
-/datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D)
+/datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D, new_virus = FALSE)
 	if(!istype(D))
 		D = null
 	// Generate symptoms if we weren't given any.
@@ -55,11 +55,11 @@ var/list/advance_cures = 	list(
 		if(!D || !D.symptoms || !D.symptoms.len)
 			symptoms = GenerateSymptoms(0, 2)
 		else
-			hatched = D.hatched
+			hatched = D.hatched && !new_virus // Don't copy if it's newly mixed
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
 
-	Refresh()
+	Refresh(FALSE, FALSE) // Don't reset hatchet
 	..(process, D)
 	return
 
@@ -108,7 +108,7 @@ var/list/advance_cures = 	list(
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy(process = 0)
-	return new /datum/disease/advance(process, src, 1)
+	return new /datum/disease/advance(process, src)
 
 /*
 
@@ -157,11 +157,12 @@ var/list/advance_cures = 	list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = 0)
+/datum/disease/advance/proc/Refresh(new_name = 0, changed = TRUE)
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties)
 	id = null
-
+	if(changed)
+		hatched = FALSE // Virus is changed. Rehatch is needed
 	if(!archive_diseases[GetDiseaseID()])
 		if(new_name)
 			AssignName()
@@ -266,7 +267,7 @@ var/list/advance_cures = 	list(
 	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
 	if(s)
 		AddSymptom(s)
-		Refresh(1)
+		Refresh(TRUE)
 	return
 
 // Randomly remove a symptom.
@@ -275,7 +276,7 @@ var/list/advance_cures = 	list(
 		var/s = safepick(symptoms)
 		if(s)
 			RemoveSymptom(s)
-			Refresh(1)
+			Refresh(TRUE)
 	return
 
 // Name the disease.
@@ -350,7 +351,7 @@ var/list/advance_cures = 	list(
 	 // Should be only 1 entry left, but if not let's only return a single entry
 //	to_chat(world, "END MIXING!!!!!")
 	var/datum/disease/advance/to_return = pick(diseases)
-	to_return.Refresh(1)
+	to_return.Refresh(TRUE)
 	return to_return
 
 /proc/SetViruses(datum/reagent/R, list/data)
@@ -399,7 +400,7 @@ var/list/advance_cures = 	list(
 		D.Refresh()
 
 		for(var/datum/disease/advance/AD in GLOB.active_diseases)
-			AD.Refresh()
+			AD.Refresh(FALSE, FALSE)
 
 		for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list))
 			if(!is_station_level(H.z))

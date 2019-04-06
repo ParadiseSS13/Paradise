@@ -119,7 +119,7 @@
 			if(istype(D, /datum/disease/advance))
 				var/datum/disease/advance/A = D
 				if(!A.hatched)
-					temp_html = "The virus is not able to be copied yet. Let it grow in a test subject first."
+					temp_html = "The virus is not able to be copied yet. Let it evolve in a test subject first."
 					updateUsrDialog()
 					return
 			var/type = GetVirusTypeByIndex(text2num(href_list["create_virus_culture"]))//the path is received as string - converting
@@ -183,7 +183,7 @@
 			var/datum/disease/advance/A = archive_diseases[id]
 			A.AssignName(new_name)
 			for(var/datum/disease/advance/AD in GLOB.active_diseases)
-				AD.Refresh()
+				AD.Refresh(FALSE, FALSE)
 		updateUsrDialog()
 	else if(href_list["print_form"])
 		var/datum/disease/D = GetVirusByIndex(text2num(href_list["print_form"]))
