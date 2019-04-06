@@ -14,6 +14,3 @@
 
 /mob/camera/experience_pressure_difference()
 	return
-
-/mob/camera/Login()
-	..()
