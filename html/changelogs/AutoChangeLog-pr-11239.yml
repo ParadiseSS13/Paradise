@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Sec huds work again. No longer does the perp need glasses to be set to arrest. Cool does not equal arrest now"
