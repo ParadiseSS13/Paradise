@@ -19,6 +19,9 @@
 	var/borg_to_spawn
 	var/checking = FALSE
 
+/obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
+	return
+
 /obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
@@ -35,7 +38,12 @@
 	if(!(check_usability(user)))
 		return
 
+	var/continue_proc = before_candidate_search(user)
+	if(!continue_proc)
+		return
+
 	checking = TRUE
+
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
 	var/list/nuke_candidates = pollCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg" : "operative"]?", ROLE_OPERATIVE, TRUE, 150)
 	if(LAZYLEN(nuke_candidates))
@@ -77,6 +85,7 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele
 	name = "syndicate cyborg teleporter"
 	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
+	var/switch_roles = FALSE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	name = "syndicate assault cyborg teleporter"
@@ -89,6 +98,18 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
+	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
+	if(!switch_roles_choice || !(check_usability(user)))
+		return FALSE
+
+	if(switch_roles_choice == "Syndicate Cyborg")
+		switch_roles = TRUE
+	else
+		switch_roles = FALSE
+
+	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
 	if(!(user in ticker.mode.syndicates))
@@ -116,7 +137,14 @@
 	R.mmi.brainmob.real_name = brainopsname
 	R.mmi.brainmob.name = brainopsname
 
-	set_syndicate_values(C, R)
+	if (!switch_roles)
+		set_syndicate_values(C, R)
+	else
+		var/mob/living/L = user.current
+		set_syndicate_values(user.current.client, R)
+
+		L.key = C.key
+		ticker.mode.greet_syndicate(L.mind)
 
 ///////////SLAUGHTER DEMON
 

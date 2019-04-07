@@ -12,10 +12,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
-			// if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
-			// 	continue
-			// if(I.excludefrom.len && ticker && (ticker.mode.type in I.excludefrom))
-			// 	continue
+			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
+				continue
+			if(I.excludefrom.len && ticker && (ticker.mode.type in I.excludefrom))
+				continue
 			if(I.last)
 				last += I
 				continue
@@ -945,6 +945,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/c4bag
 	name = "Bag of C-4 explosives"
 	desc = "Because sometimes quantity is quality. Contains 10 C-4 plastic explosives."
+	reference = "C4B"
 	item = /obj/item/storage/backpack/duffel/syndie/c4
 	cost = 8 //20% discount!
 	cant_discount = TRUE
@@ -963,6 +964,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Contains 3 X-4 shaped plastic explosives. Similar to C4, but with a stronger blast that is directional instead of circular. \
 			X-4 can be placed on a solid surface, such as a wall or window, and it will blast through the wall, injuring anything on the opposite side, while being safer to the user. \
 			For when you want a controlled explosion that leaves a wider, deeper, hole."
+	reference = "X4B"
 	item = /obj/item/storage/backpack/duffel/syndie/x4
 	cost = 4
 	cant_discount = TRUE
