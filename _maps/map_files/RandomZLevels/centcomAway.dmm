@@ -1052,7 +1052,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "cN" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1060,10 +1059,10 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/awaymission/centcomAway/maint)
 "cO" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -1083,6 +1082,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/awaymission/centcomAway/maint)
 "cP" = (
@@ -1538,7 +1538,6 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "dU" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -1552,6 +1551,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/awaymission/centcomAway/maint)
 "dV" = (
@@ -1639,7 +1639,6 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "eh" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1647,6 +1646,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/awaymission/centcomAway/maint)
 "ei" = (
@@ -1692,9 +1692,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
 "eo" = (
-/turf/space,
 /obj/structure/cable,
 /obj/machinery/power/tracker,
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/awaymission/centcomAway/maint)
 "ep" = (
@@ -4679,20 +4679,20 @@
 	},
 /area/awaymission/centcomAway/general)
 "ls" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "lt" = (
-/turf/simulated/floor/plating,
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
+/turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2

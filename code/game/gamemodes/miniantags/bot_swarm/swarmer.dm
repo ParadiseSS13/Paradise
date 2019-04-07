@@ -36,17 +36,22 @@
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
 
-	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_swarmer == "No")
-		return
-
 	if(jobban_isbanned(user, "Syndicate"))
 		to_chat(user, "<span class='warning'>You are banned from antagonists!</span>")
+		return
+
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
+
+	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
+	if(be_swarmer == "No")
 		return
 
 	if(crit_fail)//in case it depowers while ghost is looking at yes/no
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
+
 	if(QDELETED(src))
 		to_chat(user, "Swarmer has been occupied by someone else.")
 		return
@@ -96,10 +101,12 @@
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
+	a_intent = INTENT_HARM
+	can_change_intents = 0
 	faction = list("swarmer")
 	projectiletype = /obj/item/projectile/beam/disabler
 	pass_flags = PASSTABLE
-	mob_size = MOB_SIZE_TINY
+	mob_size = MOB_SIZE_SMALL
 	ventcrawler = 2
 	ranged = 1
 	light_color = LIGHT_COLOR_CYAN

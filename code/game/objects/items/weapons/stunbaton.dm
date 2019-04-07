@@ -18,7 +18,7 @@
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/melee/baton/New()
 	..()

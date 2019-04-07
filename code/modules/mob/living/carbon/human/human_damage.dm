@@ -15,7 +15,7 @@
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
 	//TODO: fix husking
-	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
+	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
@@ -171,11 +171,17 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
+	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
+		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
+	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
+		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()

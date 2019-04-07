@@ -215,9 +215,9 @@
 			item.temperature_expose(air, air.temperature, CELL_VOLUME)
 		temperature_expose(air, air.temperature, CELL_VOLUME)
 
-		if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
-			if(consider_superconductivity(starting = 1))
-				remove = 0
+	if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
+		if(consider_superconductivity(starting = 1))
+			remove = 0
 
 	if(air.temperature < T0C && air.return_pressure() > 10)
 		icy = 1
@@ -311,7 +311,9 @@
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	if(last_forced_movement >= SSair.times_fired)
 		return 0
-	else if(!anchored && !pulledby)
+	if(anchored || move_resist == INFINITY)
+		return 0
+	else if(!pulledby)
 		var/turf/target = get_turf(src)
 		var/datum/gas_mixture/target_air = target.return_air()
 		if(isspaceturf(target) || isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())

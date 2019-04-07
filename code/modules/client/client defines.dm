@@ -19,6 +19,8 @@
 	var/area			= null
 	var/time_died_as_mouse = null //when the client last died as a mouse
 
+	var/typing = FALSE // Prevents typing window stacking
+
 	var/adminhelped = 0
 
 	var/gc_destroyed //Time when this object was destroyed.

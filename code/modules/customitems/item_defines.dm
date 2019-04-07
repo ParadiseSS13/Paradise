@@ -154,7 +154,7 @@
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
@@ -1156,8 +1156,18 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat"
 	item_state = "shesicoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/shesi
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/head/hood/fluff/shesi //MrSynnester : Shesi Skaklas
+	name = "custom made winter hood"
+	desc = "A custom made winter coat hood. Looks comfy."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "shesicoat_hood2"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1683,6 +1693,14 @@
 	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
 
+/obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
+    name = "Old purple scarf"
+    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "rbscarf"
+    item_state = "rbscarf"
+    item_color = "rbscarf"
+
 /obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
 	name = "Rara's Somber Accordion"
 	desc = "A blue colored accordion with claw indentations on the keys made special for vulpkanins."
@@ -1735,3 +1753,24 @@
 	item_state = "kiamask"
 	item_color = "kiamask"
 	species_restricted = list("Vox")
+
+
+
+/obj/item/clothing/gloves/ring/fluff
+	name = "fluff ring"
+	desc = "Someone forgot to set this fluff item's description, notify a coder!"
+	icon = 'icons/obj/custom_items.dmi'
+	fluff_material = TRUE
+
+/obj/item/clothing/gloves/ring/fluff/update_icon()
+	return
+
+/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I as obj, mob/user as mob, params)
+	return
+
+
+
+/obj/item/clothing/gloves/ring/fluff/benjaminfallout	//Benjaminfallout: Pretzel Brassheart
+	name = "Pretzel's Ring"
+	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
+	icon_state = "benjaminfallout_ring"

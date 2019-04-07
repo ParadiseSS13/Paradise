@@ -586,6 +586,7 @@
 // called when on fire
 
 /obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		broken()
 

@@ -5,6 +5,7 @@
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
 	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
+	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
@@ -15,13 +16,6 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_message = "numbness"
-
-/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
-	return ..()
 
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
@@ -412,10 +406,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
 		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol
@@ -472,7 +462,7 @@
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
-	if(M.oxyloss > 75)
+	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
 	if(M.health < 0 || M.health > 0 && prob(33))
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -537,6 +527,7 @@
 	taste_message = "a delightful numbing"
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -545,13 +536,9 @@
 		if(16 to 35)
 			M.Drowsy(20)
 		if(36 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
@@ -600,7 +587,7 @@
 	if(prob(4))
 		M.emote("collapse")
 	M.AdjustLoseBreath(-5, bound_lower = 5)
-	if(M.oxyloss > 65)
+	if(M.getOxyLoss() > 65)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -25)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -636,7 +623,7 @@
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-1, bound_lower = 3)
-	if(M.oxyloss > 35)
+	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -700,8 +687,7 @@
 		if(method == INGEST)
 			if(M.stat == DEAD)
 				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
-					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
-					M.gib()
+					M.delayed_gib()
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
@@ -775,7 +761,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.update_mutations()
-	..()
+	return ..()
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
@@ -789,7 +775,7 @@
 	M.SetSlur(0)
 	M.AdjustDrunk(-4)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
-	if(M.toxloss <= 25)
+	if(M.getToxLoss() <= 25)
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags
 
@@ -873,6 +859,7 @@
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
+	return ..()
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"
@@ -889,7 +876,7 @@
 		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	..()
+	return ..()
 
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
@@ -932,6 +919,7 @@
 	taste_message = "sleepiness"
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 30)
@@ -940,9 +928,9 @@
 		if(31 to 40)
 			M.Drowsy(20)
 		if(41 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"

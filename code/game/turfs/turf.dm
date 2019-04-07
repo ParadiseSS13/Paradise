@@ -282,6 +282,9 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
+/turf/proc/burn_down()
+	return
+
 /////////////////////////////////////////////////////////////////////////
 // Navigation procs
 // Used for A-star pathfinding

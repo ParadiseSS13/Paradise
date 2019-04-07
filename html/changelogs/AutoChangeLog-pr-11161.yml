@@ -1,0 +1,9 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Empress of terror (admin-only mob) is no longer incorrectly prevented from laying brown spider eggs."
+  - tweak: "Admins are now able to spawn a queen of terror in a room without a vent. Previously, queens would not allow this. Now, this just results in an alert to admins (since its probably a mistake) and deactivates the mob AI (but leaves it available for player control)."
+  - rscadd: "If there are player controlled terror spiders, admins using check antags panel will now be able to see eggs/spiderlings currently growing on the station. These counters only count eggs/spiderlings on station, and ignore fake spiderlings."
+  - bugfix: "Empress of terror's 'erase brood' ability no longer incorrectly causes mothers of terror to spawn spiderlings on death.
+sprite: Empress of terror now has its own sprite."
+  - tweak: "White spider infections have been nerfed a bit. They no longer provide passive healing or increase infection progress while their host/victim is in crit. Also, the first spiderling to emerge from an infection can no longer be a green. Finally, the eggs now self-delete after the third spiderling emerges, so even in the event they aren't treated with surgery, the host isn't left with confused movement forever."

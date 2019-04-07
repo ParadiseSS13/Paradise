@@ -506,18 +506,10 @@
 			M.fakevomit()
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
+	if(volume > 40 && prob(4))
+		M.delayed_gib()
+		return
 	return ..() | update_flags
-
-/datum/reagent/venom/overdose_process(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(volume >= 40)
-		if(prob(4))
-			M.visible_message("<span class='danger'><B>[M]</B> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-			update_flags |= M.Weaken(15, FALSE)
-			M.AdjustJitter(1000)
-			spawn(rand(20, 100))
-				M.gib()
-	return list(0, update_flags)
 
 /datum/reagent/neurotoxin2
 	name = "Neurotoxin"
@@ -1057,6 +1049,11 @@
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/pestkiller/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/effect/decal/ants))
+		O.visible_message("<span class='warning'>The ants die.</span>")
+		qdel(O)
+
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -1159,12 +1156,16 @@
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
 	if(!M.dna)
 		return
+	var/did_mutation = FALSE
 	if(prob(15))
 		randmutb(M)
+		did_mutation = TRUE
 	if(prob(3))
 		randmutg(M)
-	domutcheck(M, null)
-	M.UpdateAppearance()
+		did_mutation = TRUE
+	if(did_mutation)
+		domutcheck(M, null)
+		M.UpdateAppearance()
 	return ..()
 
 /datum/reagent/ants

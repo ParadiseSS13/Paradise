@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(monkey_recyclers)
+
 /obj/machinery/monkey_recycler
 	name = "Monkey Recycler"
 	desc = "A machine used for recycling dead monkeys into monkey cubes."
@@ -14,6 +16,7 @@
 	var/cube_production = 1
 	var/cycle_through = 0
 	var/obj/item/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+	var/list/connected = list()
 
 /obj/machinery/monkey_recycler/New()
 	..()
@@ -21,7 +24,14 @@
 	component_parts += new /obj/item/circuitboard/monkey_recycler(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	GLOB.monkey_recyclers += src
 	RefreshParts()
+
+/obj/machinery/monkey_recycler/Destroy()
+	GLOB.monkey_recyclers -= src
+	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
+		console.connected_recycler = null
+	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
@@ -47,21 +57,25 @@
 	default_deconstruction_crowbar(O)
 
 	if(istype(O, /obj/item/multitool))
-		cycle_through++
-		switch(cycle_through)
-			if(1)
-				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
-			if(2)
-				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
-			if(3)
-				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
-			if(4)
-				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
-			if(5)
-				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
-				cycle_through = 0
-		to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
-
+		if(!panel_open)
+			cycle_through++
+			switch(cycle_through)
+				if(1)
+					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+				if(2)
+					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+				if(3)
+					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+				if(4)
+					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+				if(5)
+					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+					cycle_through = 0
+			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
+		else
+			var/obj/item/multitool/M = O
+			M.buffer = src
+			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
 	if(stat != 0) //NOPOWER etc
 		return
 	if(istype(O, /obj/item/grab))

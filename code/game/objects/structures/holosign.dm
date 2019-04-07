@@ -82,8 +82,8 @@
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
+	. = ..()
 	T.air_update_turf(TRUE)
-	return ..()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"

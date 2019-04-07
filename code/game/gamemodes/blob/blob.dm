@@ -3,6 +3,8 @@ var/list/blobs = list()
 var/list/blob_cores = list()
 var/list/blob_nodes = list()
 
+/datum/game_mode
+	var/list/blob_overminds = list()
 
 /datum/game_mode/blob
 	name = "blob"

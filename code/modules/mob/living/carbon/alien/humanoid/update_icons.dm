@@ -18,7 +18,7 @@
 
 	if(stat == DEAD)
 		//If we mostly took damage from fire
-		if(fireloss > 125)
+		if(getFireLoss() > 125)
 			icon_state = "alien[caste]_husked"
 			pixel_y = 0
 		else

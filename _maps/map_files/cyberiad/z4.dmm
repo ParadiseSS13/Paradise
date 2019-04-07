@@ -908,12 +908,12 @@
 	},
 /area/engiestation/solars)
 "cu" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk3";
 	icon_state = "catwalk3"
@@ -930,7 +930,6 @@
 	},
 /area/engiestation/solars)
 "cw" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -941,6 +940,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk3";
 	icon_state = "catwalk3"
@@ -972,7 +972,6 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
 "cA" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -983,13 +982,13 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk3";
 	icon_state = "catwalk3"
 	},
 /area/engiestation/solars)
 "cB" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1005,6 +1004,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk3";
 	icon_state = "catwalk3"
@@ -1093,7 +1093,6 @@
 	},
 /area/engiestation/solars)
 "cN" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1104,13 +1103,13 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk1";
 	icon_state = "catwalk1"
 	},
 /area/engiestation/solars)
 "cO" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1126,6 +1125,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk1";
 	icon_state = "catwalk1"
@@ -1332,7 +1332,6 @@
 	},
 /area/engiestation/solars)
 "dp" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -1343,13 +1342,13 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
 	},
 /area/engiestation/solars)
 "dq" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1366,13 +1365,13 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
 	},
 /area/engiestation/solars)
 "dr" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1389,6 +1388,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk8";
 	icon_state = "catwalk8"
@@ -1487,7 +1487,6 @@
 	},
 /area/engiestation)
 "dy" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -1504,13 +1503,13 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk4";
 	icon_state = "catwalk4"
 	},
 /area/engiestation/solars)
 "dz" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -1527,13 +1526,13 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
 	},
 /area/engiestation/solars)
 "dA" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -1544,6 +1543,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
@@ -1702,19 +1702,18 @@
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
 "dS" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
 	},
 /area/engiestation/solars)
 "dT" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1726,13 +1725,13 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
 	},
 /area/engiestation/solars)
 "dU" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1744,6 +1743,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk8";
 	icon_state = "catwalk8"
@@ -1792,7 +1792,6 @@
 	},
 /area/engiestation)
 "ea" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -1804,13 +1803,13 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk4";
 	icon_state = "catwalk4"
 	},
 /area/engiestation/solars)
 "eb" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -1822,18 +1821,19 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
 	},
 /area/engiestation/solars)
 "ec" = (
-/turf/simulated/floor/plating/airless,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk12";
 	icon_state = "catwalk12"
@@ -2642,8 +2642,8 @@
 	},
 /area/space)
 "fR" = (
-/turf/simulated/floor/plating/airless,
 /obj/item/lighter/zippo,
+/turf/simulated/floor/plating/airless,
 /turf/simulated/floor/plating/airless/catwalk{
 	tag = "icon-catwalk8";
 	icon_state = "catwalk8"

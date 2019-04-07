@@ -104,6 +104,7 @@
 			if(prob(addiction_removal_chance))
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
+				qdel(R)
 
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
@@ -148,7 +149,7 @@
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
-		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["minHealth"] = HEALTH_THRESHOLD_DEAD
 		occupantData["bruteLoss"] = occupant.getBruteLoss()
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()

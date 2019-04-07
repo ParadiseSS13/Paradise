@@ -16,6 +16,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_y_dimension = 32
 
 	can_be_hit = FALSE
+	suicidal_hands = TRUE
 
 	var/r_speed = 1.0
 	var/health = null
@@ -145,16 +146,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/blob_act()
 	qdel(src)
 
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
-	return
-
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
 	set category = null
@@ -255,11 +246,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	else
 		if(isliving(loc))
 			return 0
-
-	pickup(user)
-
 	add_fingerprint(user)
-	user.put_in_active_hand(src)
+	if(pickup(user)) // Pickup succeeded
+		user.put_in_active_hand(src)
+
 	return 1
 
 /obj/item/attack_alien(mob/user as mob)
@@ -355,6 +345,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	return TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)

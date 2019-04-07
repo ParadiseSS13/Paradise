@@ -461,9 +461,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		overlays += crack_overlay
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
-	..()
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0

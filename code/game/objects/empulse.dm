@@ -5,8 +5,8 @@
 		epicenter = get_turf(epicenter.loc)
 
 	if(log)
-		message_admins("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])": ] [ADMIN_COORDJMP(epicenter)]</a>")
-		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ] [COORD(epicenter)]")
+		message_admins("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])": ""] [ADMIN_COORDJMP(epicenter)]</a>")
+		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [COORD(epicenter)]")
 
 	if(heavy_range > 1)
 		new/obj/effect/temp_visual/emp/pulse(epicenter)
