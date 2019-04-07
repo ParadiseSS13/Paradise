@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - tweak: "upload consoles now tell you if you forgot to select an ai/borg before using an upload module."
