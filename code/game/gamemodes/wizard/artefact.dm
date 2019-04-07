@@ -633,6 +633,11 @@ var/global/list/multiverse = list()
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
+		
+	if(!M.mind || !M.client)
+		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
+		return
+
 	check_spooky()//clean out/refresh the list
 
 	if(spooky_scaries.len >= 3 && !unlimited)
@@ -645,6 +650,7 @@ var/global/list/multiverse = list()
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
+		M.verbs += /mob/living/proc/skeleton_reset
 		equip_skeleton(M)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
@@ -726,7 +732,7 @@ var/global/list/multiverse = list()
 	H.update_body()
 	H.grab_ghost()
 	H.revive()
-
+	H.verbs += /mob/living/proc/skeleton_reset
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
@@ -876,3 +882,20 @@ var/global/list/multiverse = list()
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+
+/mob/living/proc/skeleton_reset()
+	set name = "Offer skeleton to ghosts"
+	set category = "Skeleton"
+	set desc = "Give up your skeleton to ghosts so you can observe the round."
+	for(var/mob/living/carbon/human/G in GLOB.mob_list)
+		if(G == src)
+			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as Skeleton?", ROLE_WIZARD, 0, 100)
+			var/mob/dead/observer/new_stand = null
+			if(candidates.len)
+				new_stand = pick(candidates)
+				to_chat(src,"Your body has been given up and taken over by someone else.")
+				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
+				G.ghostize()
+				G.key = new_stand.key
+			else
+				to_chat(src, "There were no ghosts willing to take control. Looks like you're stuck as a skeleton for now.")
