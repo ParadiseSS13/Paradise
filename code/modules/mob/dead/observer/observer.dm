@@ -49,7 +49,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -139,11 +139,8 @@ Works together with spawning an observer, noted above.
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		//C.images += target.hud_list[NATIONS_HUD]
 	for(var/mob/living/silicon/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		//C.images += target.hud_list[NATIONS_HUD]
-
 	return 1
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
