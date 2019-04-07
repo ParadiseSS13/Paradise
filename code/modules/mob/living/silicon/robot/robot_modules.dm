@@ -441,9 +441,6 @@
 /obj/item/robot_module/syndicate_saboteur
 	name = "engineering robot module" //to disguise in examine
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal/cyborg = 50,

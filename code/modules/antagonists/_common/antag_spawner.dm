@@ -20,7 +20,7 @@
 	var/checking = FALSE
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
-	return
+	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
