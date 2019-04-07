@@ -188,6 +188,6 @@
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()
