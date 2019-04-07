@@ -1526,8 +1526,6 @@ window "mainwindow"
 		icon = 'icons\\paradise.png'
 		menu = "menu"
 		macro = "macro"
-		macro_hotkey_mode_inactive = "macro"
-		macro_hotkey_mode_active = "hotkeymode"
 		saved-params = "pos;size;is-minimized;is-maximized"
 	elem "asset_cache_browser"
 		type = BROWSER
@@ -1543,7 +1541,7 @@ window "mainwindow"
 		saved-params = ""
 		is-flat = false
 		text = "Hotkey Toggle"
-		command = ".winset \"mainwindow.macro != mainwindow.macro_hotkey_mode_inactive ? mainwindow.macro=mainwindow.macro_hotkey_mode_inactive hotkey_toggle.is-checked=false input.focus=true input.background-color=#d3b5b5 : mainwindow.macro=mainwindow.macro_hotkey_mode_active hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#f0f0f0\""
+		command = ".winset \"mainwindow.macro != macro ? mainwindow.macro=macro hotkey_toggle.is-checked=false input.focus=true input.background-color=#d3b5b5 : mainwindow.macro=hotkeymode hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#f0f0f0\""
 	elem "mainvsplit"
 		type = CHILD
 		pos = 3,0

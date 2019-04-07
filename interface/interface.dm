@@ -111,9 +111,9 @@
 		return
 
 	var/datum/hotkey_mode/chosen_mode = hotkey_modes[chosen_mode_name] 
-	var/datum/hotkey_mode/hotkey_mode = new chosen_mode()
+	var/datum/hotkey_mode/hotkey_mode = new chosen_mode(src)
 	
-	winset(mob, null, "mainwindow.macro_hotkey_mode_inactive=[hotkey_mode.macro_hotkeys_inactive] mainwindow.macro_hotkey_mode_active=[hotkey_mode.macro_hotkeys_active] mainwindow.macro=[hotkey_mode.macro_hotkeys_inactive] hotkey_toggle.is-checked=false input.focus=true input.background-color=#d3b5b5")
+	hotkey_mode.set_winset_values()
 	to_chat(usr, "<span class='info'>Your hotkey mode has been changed to [hotkey_mode.name].</span>")
 
 	qdel(hotkey_mode)
