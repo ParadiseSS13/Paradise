@@ -77,9 +77,9 @@
 	invocation = "RAAAAAAAAWR!"
 
 	shapeshift_type = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
-	list/current_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
-	list/current_casters = list()
-	list/possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
+	current_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
+	current_casters = list()
+	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/bats
 	name = "Bat Form"
@@ -89,9 +89,9 @@
 	action_icon_state = "vampire_bats"
 
 	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/batswarm
-	list/current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
-	list/current_casters = list()
-	list/possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	current_casters = list()
+	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
@@ -102,13 +102,13 @@
 	action_icon_state = "glare"
 
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
-	list/current_shapes = list(/mob/living/simple_animal/hostile/hellhound)
-	list/current_casters = list()
-	list/possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
+	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)
+	current_casters = list()
+	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound/greater
 	name = "Greater Hellhound Form"
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound/greater
-	list/current_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
-	list/current_casters = list()
-	list/possible_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
+	current_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
+	current_casters = list()
+	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)

@@ -112,9 +112,9 @@
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech") // "heat" removed due to lack of is_hot()
 	..()
 
-/obj/machinery/anomalous_crystal/hear_talk(mob/speaker, message)
+/obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
-	if(isliving(speaker) && message)
+	if(isliving(speaker) && LAZYLEN(message_pieces))
 		ActivationReaction(speaker, "speech")
 
 /obj/machinery/anomalous_crystal/attack_hand(mob/user)
@@ -377,7 +377,7 @@
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	activation_method = "touch"
 	cooldown_add = 50
-	activation_sound = 'sound/magic/TIMEPARADOX2.ogg'
+	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook)
 
 /obj/machinery/anomalous_crystal/refresher/New()

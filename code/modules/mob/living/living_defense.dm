@@ -73,7 +73,7 @@
 		return 0
 
 //this proc handles being hit by a thrown atom
-/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)//Standardization and logging -Sieve
+/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0, datum/thrownthing/throwingdatum)//Standardization and logging -Sieve
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
@@ -117,7 +117,7 @@
 				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 			if("fire")
 				take_overall_damage(0, rand(M.force/2, M.force))
-				playsound(src, 'sound/items/Welder.ogg', 50, 1)
+				playsound(src, 'sound/items/welder.ogg', 50, 1)
 			if("tox")
 				M.mech_toxin_damage(src)
 			else
@@ -179,7 +179,8 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
 
-/mob/living/fire_act()
+/mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	adjust_fire_stacks(3)
 	IgniteMob()
 
@@ -229,7 +230,7 @@
 
 // End BS12 momentum-transfer code.
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = 0)
+/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src || anchored)
 		return 0
 	if(!(status_flags & CANPUSH))

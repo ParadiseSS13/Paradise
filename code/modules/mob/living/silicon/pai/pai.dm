@@ -79,6 +79,7 @@
 	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
 	var/translator_on = 0 // keeps track of the translator module
+	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
@@ -517,12 +518,8 @@
 /mob/living/silicon/pai/Bumped()
 	return
 
-/mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
-	if(stat || sleeping || paralysis || weakened)
-		return
-	if(istype(AM,/obj/item))
-		to_chat(src, "<span class='warning'>You are far too small to pull anything!</span>")
-	return
+/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+	return FALSE
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
@@ -611,3 +608,8 @@
 	else //something went very wrong.
 		CRASH("pAI without card")
 	loc = card
+
+/mob/living/silicon/pai/extinguish_light()
+	flashlight_on = FALSE
+	set_light(0)
+	card.set_light(0)

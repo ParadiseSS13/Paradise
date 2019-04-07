@@ -43,6 +43,7 @@ var/list/airlock_overlays = list()
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
+	anchored = 1
 	max_integrity = 300
 	integrity_failure = 70
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -89,9 +90,9 @@ var/list/airlock_overlays = list()
 
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
-	var/doorDeni = 'sound/machines/DeniedBeep.ogg' // i'm thinkin' Deni's
-	var/boltUp = 'sound/machines/BoltsUp.ogg'
-	var/boltDown = 'sound/machines/BoltsDown.ogg'
+	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
+	var/boltUp = 'sound/machines/boltsup.ogg'
+	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = 0
 
 /obj/machinery/door/airlock/welded
@@ -1324,7 +1325,7 @@ About the new airlock wires panel:
 			else return FALSE
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
-			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 		note.forceMove(get_turf(user))
 		note = null
 		update_icon()

@@ -3,9 +3,9 @@
 	set background = BACKGROUND_ENABLED
 
 	if(notransform)
-		return
+		return 0
 	if(!loc)
-		return
+		return 0
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	if(stat != DEAD)
@@ -24,6 +24,10 @@
 		. = 1
 
 	handle_diseases()
+
+	//Heart Attack, if applicable
+	if(stat != DEAD)
+		handle_heartattack()
 
 	//Handle temperature/pressure differences between body and environment
 	if(environment)
@@ -54,6 +58,9 @@
 	..()
 
 /mob/living/proc/handle_breathing(times_fired)
+	return
+
+/mob/living/proc/handle_heartattack()
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()

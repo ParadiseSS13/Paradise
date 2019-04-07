@@ -28,6 +28,9 @@
 
 	attackby(obj/item/O as obj, mob/user as mob, params)
 		if(istype(O, /obj/item/aiModule))
+			if(!current)//no AI selected
+				to_chat(user, "<span class='danger'>No AI selected. Please chose a target before proceeding with upload.")
+				return
 			var/turf/T = get_turf(current)
 			if(!atoms_share_level(T, src))
 				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
@@ -73,6 +76,9 @@
 
 	attackby(obj/item/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/aiModule))
+			if(!current)//no borg selected
+				to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.")
+				return
 			var/turf/T = get_turf(current)
 			if(!atoms_share_level(T, src))
 				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")

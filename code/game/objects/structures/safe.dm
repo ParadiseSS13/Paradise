@@ -26,7 +26,6 @@ GLOBAL_LIST_EMPTY(safes)
 	var/dial = 0		//where is the dial pointing?
 	var/space = 0		//the combined w_class of everything in the safe
 	var/maxspace = 24	//the maximum combined w_class of stuff in the safe
-	var/combo_to_open	//so admins know the code
 	var/obj/item/thermal_drill/drill = null
 	var/drill_timer
 	var/time_to_drill
@@ -39,25 +38,11 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/New()
 	GLOB.safes += src
-	tumbler_2_pos = rand(0, 99) // first value in the combination set first
-	tumbler_2_open = rand(0, 99)
-
-	tumbler_1_pos = rand(0, 99)
-	do
-	tumbler_1_open = rand(0, 99)
-	while(tumbler_1_open > Wrap(tumbler_2_open +48, 0, 100) && tumbler_1_open < Wrap(tumbler_2_open + 53, 0, 100)) // prevents a combination that wont open
-	do
-		open_pos = rand(0,99)
-	while(open_pos > Wrap(tumbler_1_open - 2, 0, 100) && open_pos < Wrap(tumbler_1_open + 2, 0, 100)) // prevents a combination that wont open
-	var/num1 = tumbler_2_open + 54
-	if(num1 > 99)
-		num1 = num1 - 100
-	var/num2 = tumbler_1_open + 98
-	if(num2 > 99)
-		num2 = num2 - 100
-
-	combo_to_open = "[num1] - [num2]"
-
+	tumbler_1_pos = rand(0, 71)
+	tumbler_1_open = rand(0, 71)
+	
+	tumbler_2_pos = rand(0, 71) // first value in the combination set first
+	tumbler_2_open = rand(0, 71)
 
 /obj/structure/safe/Initialize()
 	..()
@@ -122,7 +107,7 @@ GLOBAL_LIST_EMPTY(safes)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
-					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill)
+					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
@@ -326,7 +311,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/examine(mob/user)
 	..()
 	if(open)
-		to_chat(user, "On the inside of the the door is <b>[combo_to_open]</b>")
+		to_chat(user, "On the inside of the the door is <b>[tumbler_1_open] - [tumbler_2_open]</b>")
 
 //FLOOR SAFES
 /obj/structure/safe/floor
@@ -364,6 +349,6 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.knownby)
-			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.combo_to_open]<br>"
+			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.tumbler_1_open] - [S.tumbler_2_open]]<br>"
 			info_links = info
 			update_icon()

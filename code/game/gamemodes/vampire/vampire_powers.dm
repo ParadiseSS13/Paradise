@@ -76,8 +76,8 @@
 	//Vampires who have reached their full potential can affect nearly everything
 	if(user.mind.vampire.get_ability(/datum/vampire_passive/full))
 		return 1
-	//Chaplains are resistant to vampire powers
-	if(target.mind && target.mind.assigned_role == "Chaplain")
+	//Holy characters are resistant to vampire powers
+	if(target.mind && target.mind.isholy)
 		return 0
 	return 1
 
@@ -550,7 +550,7 @@
 	range = 3
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
-	sound = 'sound/magic/WandODeath.ogg'
+	sound = 'sound/magic/wandodeath.ogg'
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)

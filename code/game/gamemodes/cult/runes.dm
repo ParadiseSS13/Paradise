@@ -353,7 +353,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !ismindshielded(M) && ishuman(M))
+		if(!iscultist(M) && !ismindshielded(M) && !isgolem(M) && ishuman(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
@@ -471,7 +471,7 @@ var/list/teleport_runes = list()
 			playsound(T, 'sound/effects/EMPulse.ogg', 100, 1)
 			T.dust() //To prevent the MMI from remaining
 		else
-			playsound(T, 'sound/magic/Disintegrate.ogg', 100, 1)
+			playsound(T, 'sound/magic/disintegrate.ogg', 100, 1)
 			T.gib()
 	rune_in_use = 0
 
@@ -728,7 +728,7 @@ var/list/teleport_runes = list()
 	visible_message("<span class='warning'>[src] glows blue for a moment before vanishing.</span>")
 	switch(invokers.len)
 		if(1 to 2)
-			playsound(E, 'sound/items/Welder2.ogg', 25, 1)
+			playsound(E, 'sound/items/welder2.ogg', 25, 1)
 			for(var/M in invokers)
 				to_chat(M, "<span class='warning'>You feel a minute vibration pass through you...</span>")
 		if(3 to 6)
@@ -979,7 +979,7 @@ var/list/teleport_runes = list()
 	..()
 	cultist_desc = "manifests a spirit as a servant of [ticker.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 
-	notify_ghosts("Manifest rune created in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
+	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound='sound/effects/ghost2.ogg', source = src)
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)
 	if(ghosts >= ghost_limit)

@@ -3,6 +3,9 @@
 #define TARGET_INVALID_NOT_HUMAN	2
 #define TARGET_INVALID_DEAD			3
 #define TARGET_INVALID_NOCKEY		4
+#define TARGET_INVALID_UNREACHABLE	5
+#define TARGET_INVALID_GOLEM		6
+#define TARGET_INVALID_EVENT		7
 
 //gamemode istype helpers
 #define GAMEMODE_IS_BLOB		(ticker && istype(ticker.mode, /datum/game_mode/blob))
@@ -11,6 +14,7 @@
 #define GAMEMODE_IS_NATIONS		(ticker && istype(ticker.mode, /datum/game_mode/nations))
 #define GAMEMODE_IS_NUCLEAR		(ticker && istype(ticker.mode, /datum/game_mode/nuclear))
 #define GAMEMODE_IS_REVOLUTION	(ticker && istype(ticker.mode, /datum/game_mode/revolution))
+#define GAMEMODE_IS_WIZARD		(ticker && istype(ticker.mode, /datum/game_mode/wizard))
 
 //special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
@@ -23,6 +27,7 @@
 #define SPECIAL_ROLE_CULTIST "Cultist"
 #define SPECIAL_ROLE_DEATHSQUAD "Death Commando"
 #define SPECIAL_ROLE_ERT "Response Team"
+#define SPECIAL_ROLE_FREE_GOLEM "Free Golem"
 #define SPECIAL_ROLE_GOLEM "Golem"
 #define SPECIAL_ROLE_HEAD_REV "Head Revolutionary"
 #define SPECIAL_ROLE_HONKSQUAD "Honksquad"
@@ -35,6 +40,7 @@
 #define SPECIAL_ROLE_SHADOWLING "Shadowling"
 #define SPECIAL_ROLE_SHADOWLING_THRALL "Shadowling Thrall"
 #define SPECIAL_ROLE_SLAUGHTER_DEMON "Slaughter Demon"
+#define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"
 #define SPECIAL_ROLE_VAMPIRE "Vampire"
@@ -47,3 +53,4 @@
 #define SPECIAL_ROLE_XENOMORPH_DRONE "Xenomorph Drone"
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
+#define SPECIAL_ROLE_EVENTMISC "Event Role"

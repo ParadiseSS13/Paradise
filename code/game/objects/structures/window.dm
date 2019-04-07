@@ -174,7 +174,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='notice'>Something knocks on [src].</span>")
 	add_fingerprint(user)
-	playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
+	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
 /obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(!can_be_reached(user))
@@ -218,7 +218,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 				playsound(src, WT.usesound, 40, 1)
 				if(do_after(user, 40*I.toolspeed, target = src))
 					obj_integrity = max_integrity
-					playsound(src, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(src, 'sound/items/welder2.ogg', 50, 1)
 					update_nearby_icons()
 					to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
@@ -292,7 +292,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			if(do_after(user, decon_speed*I.toolspeed, target = src, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
 				var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 				G.add_fingerprint(user)
-				playsound(src, 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You successfully disassemble [src].</span>")
 				qdel(src)
 			return
@@ -335,7 +335,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/window/deconstruct(disassembled = TRUE)
 	if(QDELETED(src))
@@ -461,9 +461,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		overlays += crack_overlay
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
-	..()
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0

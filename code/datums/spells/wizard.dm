@@ -26,11 +26,48 @@
 
 	action_icon_state = "magicm"
 
-	sound = 'sound/magic/MAGIC_MISSILE.ogg'
+	sound = 'sound/magic/magic_missile.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
-	sound = 'sound/magic/MM_Hit.ogg'
+	sound = 'sound/magic/mm_hit.ogg'
+
+
+/obj/effect/proc_holder/spell/targeted/projectile/honk_missile
+	name = "Honk Missile"
+	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
+
+	school = "evocation"
+	charge_max = 60
+	clothes_req = 0
+	invocation = "HONK GY AMA"
+	invocation_type = "shout"
+	range = 7
+	cooldown_min = 60 //35 deciseconds reduction per rank
+
+	max_targets = 0
+
+	proj_icon = 'icons/obj/items.dmi'
+	proj_icon_state = "bike_horn"
+	proj_name = "A bike horn"
+	proj_lingering = 1
+	proj_type = "/obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile"
+
+	proj_lifespan = 20
+	proj_step_delay = 5
+
+	proj_trail_icon = 'icons/obj/items.dmi'
+	proj_trail = 1
+	proj_trail_lifespan = 5
+	proj_trail_icon_state = "bike_horn"
+
+	action_icon_state = "magicm"
+
+	sound = 'sound/items/bikehorn.ogg'
+
+/obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile
+	amt_weakened = 3
+	sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
@@ -55,7 +92,7 @@
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
-	sound = 'sound/magic/Mutate.ogg'
+	sound = 'sound/magic/mutate.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -98,7 +135,7 @@
 	emp_heavy = 6
 	emp_light = 10
 
-	sound = 'sound/magic/Disable_Tech.ogg'
+	sound = 'sound/magic/disable_tech.ogg'
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -145,26 +182,44 @@
 
 	action_icon_state = "spell_teleport"
 
-	sound1 = 'sound/magic/Teleport_diss.ogg'
-	sound2 = 'sound/magic/Teleport_app.ogg'
+	sound1 = 'sound/magic/teleport_diss.ogg'
+	sound2 = 'sound/magic/teleport_app.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
-	name = "Forcewall"
-	desc = "This spell creates an unbreakable wall that lasts for 30 seconds and does not need wizard garb."
+/obj/effect/proc_holder/spell/targeted/forcewall
+	name = "Force Wall"
+	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
 	charge_max = 100
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
-	range = 0
-	cooldown_min = 50 //12 deciseconds reduction per rank
-
-	summon_type = list("/obj/effect/forcefield")
-	summon_lifespan = 300
-
+	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
-	cast_sound = 'sound/magic/ForceWall.ogg'
+	range = -1
+	include_user = TRUE
+	cooldown_min = 50 //12 deciseconds reduction per rank
+	var/wall_type = /obj/effect/forcefield/wizard
+	var/large = FALSE
+
+/obj/effect/proc_holder/spell/targeted/forcewall/cast(list/targets, mob/user = usr)
+	new wall_type(get_turf(user), user)
+	if(large) //Extra THICK
+		if(user.dir == SOUTH || user.dir == NORTH)
+			new wall_type(get_step(user, EAST), user)
+			new wall_type(get_step(user, WEST), user)
+		else
+			new wall_type(get_step(user, NORTH), user)
+			new wall_type(get_step(user, SOUTH), user)
+
+/obj/effect/proc_holder/spell/targeted/forcewall/greater
+	name = "Greater Force Wall"
+	desc = "Create a larger magical barrier that only you can pass through, but requires wizard garb. Lasts 30 seconds."
+
+	clothes_req = TRUE
+	invocation = "TARCOL GRANDI ZHERI"
+	invocation_type = "shout"
+	large = TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
@@ -193,7 +248,7 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
-	cast_sound = 'sound/magic/Summon_Karp.ogg'
+	cast_sound = 'sound/magic/summon_karp.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
@@ -209,7 +264,7 @@
 	summon_type = list(/obj/structure/constructshell)
 
 	action_icon_state = "artificer"
-	cast_sound = 'sound/magic/SummonItems_generic.ogg'
+	cast_sound = 'sound/magic/summonitems_generic.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
@@ -224,7 +279,7 @@
 	range = 3
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
-	cast_sound = 'sound/magic/SummonItems_generic.ogg'
+	cast_sound = 'sound/magic/summonitems_generic.ogg'
 
 /obj/effect/proc_holder/spell/targeted/trigger/blind
 	name = "Blind"
@@ -245,12 +300,12 @@
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
-	sound = 'sound/magic/Blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
 	disabilities = BLIND
 	duration = 300
-	sound = 'sound/magic/Blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
@@ -265,7 +320,7 @@
 	cooldown_min = 20 //10 deciseconds reduction per rank
 	var/fireball_type = /obj/item/projectile/magic/fireball
 	action_icon_state = "fireball0"
-	sound = 'sound/magic/Fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 	active = FALSE
 
@@ -336,7 +391,7 @@
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
-	sound = 'sound/magic/Repulse.ogg'
+	sound = 'sound/magic/repulse.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr)
 	var/list/thrownatoms = list()
@@ -381,7 +436,7 @@
 	include_user = 1
 	selection_type = "view"
 	action_icon_state = "sacredflame"
-	sound = 'sound/magic/Fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 /obj/effect/proc_holder/spell/targeted/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)

@@ -15,7 +15,7 @@
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/stamp/qm
 	name = "Quartermaster's rubber stamp"
@@ -76,7 +76,12 @@
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-rep"
 	item_color = "rep"
-	
+
+/obj/item/stamp/magistrate
+	name = "Magistrate's rubber stamp"
+	icon_state = "stamp-magistrate"
+	item_color = "rep"
+
 /obj/item/stamp/centcom
 	name = "Central Command rubber stamp"
 	icon_state = "stamp-cent"

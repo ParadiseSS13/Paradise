@@ -12,6 +12,7 @@
 	icon_dead = "magicOrange"
 	speed = 0
 	a_intent = INTENT_HARM
+	can_change_intents = 0
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -60,9 +61,9 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD)
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
+			visible_message("<span class='danger'>[src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
 	snapback()
@@ -85,6 +86,18 @@
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
 				new /obj/effect/temp_visual/guardian/phase(loc)
 
+/mob/living/simple_animal/hostile/guardian/proc/is_deployed()
+	return loc != summoner
+
+/mob/living/simple_animal/hostile/guardian/AttackingTarget()
+	if(!is_deployed() && a_intent == INTENT_HARM)
+		to_chat(src, "<span class='danger'>You must be manifested to attack!</span>")
+		return FALSE
+	else if(!is_deployed() && a_intent == INTENT_HELP)
+		return FALSE
+	else
+		return ..()
+
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
 	snapback()
@@ -102,7 +115,7 @@
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
-			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
@@ -161,8 +174,12 @@
 	buckled = null
 	cooldown = world.time + 30
 
-/mob/living/simple_animal/hostile/guardian/proc/Communicate()
-	var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+/mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
+	var/input
+	if(!message)
+		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+	else
+		input = message
 	if(!input) return
 
 	for(var/mob/M in GLOB.mob_list)
@@ -172,6 +189,13 @@
 		else if(M in GLOB.dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+
+//override set to true if message should be passed through instead of going to host communication
+/mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
+	if(adminseal || override)//if it's an admin-spawned guardian without a host it can still talk normally
+		return ..(message)
+	Communicate(message)
+
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
@@ -250,7 +274,7 @@
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
-	var/random = TRUE
+	var/random = FALSE
 	var/color_list = list("Pink" = "#FFC0CB",
 		"Red" = "#FF0000",
 		"Orange" = "#FFA500",
@@ -347,7 +371,7 @@
 	G.icon_state = "[theme][color]"
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.magic_fluff_string].")
-	
+
 /obj/item/guardiancreator/choose
 	random = FALSE
 
@@ -439,7 +463,7 @@
  <br>
  <b>Ranged</b>: Has two modes. Ranged: Extremely weak, highly spammable projectile attack. Scout: Can not attack, but can move through walls. Can lay surveillance snares in either mode.<br>
  <br>
- <b>Support</b>: Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movemen. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
+ <b>Support</b>: Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movement. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
  <br>
  <b>Explosive</b>: High damage resist and medium power attack. Can turn any object into a bomb, dealing explosive damage to the next person to touch it. The object will return to normal after the trap is triggered.<br>
  <br>

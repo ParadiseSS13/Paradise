@@ -3,6 +3,7 @@
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
+	can_hold = list(/obj/item/dice)
 
 /obj/item/storage/pill_bottle/dice/New()
 	..()

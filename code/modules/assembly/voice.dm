@@ -16,11 +16,11 @@
 	else
 		return "[src] is deactivated."
 
-/obj/item/assembly/voice/hear_talk(mob/living/M as mob, msg)
-	hear_input(M, msg, 0)
+/obj/item/assembly/voice/hear_talk(mob/living/M as mob, list/message_pieces)
+	hear_input(M, multilingual_to_message(message_pieces), 0)
 
 /obj/item/assembly/voice/hear_message(mob/living/M as mob, msg)
-		hear_input(M, msg, 1)
+	hear_input(M, msg, 1)
 
 /obj/item/assembly/voice/proc/hear_input(mob/living/M as mob, msg, type)
 	if(!istype(M,/mob/living))
@@ -56,7 +56,7 @@
 
 /obj/item/assembly/voice/noise
 	name = "noise sensor"
-	desc = "A simple noise sensor that triggers on vocalizations other then speech."
+	desc = "A simple noise sensor that triggers on vocalizations other than speech."
 	icon_state = "voice"
 	materials = list(MAT_METAL=100, MAT_GLASS=10)
 	origin_tech = "magnets=1;engineering=1"
@@ -68,7 +68,7 @@
 /obj/item/assembly/voice/noise/describe()
 	return "[src] does not appear to have any controls."
 
-/obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, msg)
+/obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, list/message_pieces)
 	return
 
 /obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)

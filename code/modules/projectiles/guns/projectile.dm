@@ -8,6 +8,7 @@
 
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	var/obj/item/ammo_box/magazine/magazine
+	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
 /obj/item/gun/projectile/New()
 	..()
@@ -32,7 +33,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-
+		playsound(src, chambered.drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -51,21 +52,41 @@
 		return 0
 	return 1
 
+/obj/item/gun/projectile/proc/can_reload()
+	return !magazine
+
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
+		user.remove_from_mob(AM)
+		magazine = AM
+		magazine.loc = src
+		playsound(src, magin_sound, 50, 1)
+		chamber_round()
+		AM.update_icon()
+		update_icon()
+		return
+
 /obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
-		if(!magazine && istype(AM, mag_type))
-			user.remove_from_mob(AM)
-			magazine = AM
-			magazine.loc = src
-			to_chat(user, "<span class='notice'>You load a new magazine into \the [src].</span>")
-			chamber_round()
-			A.update_icon()
-			update_icon()
-			return 1
-		else if(magazine)
-			to_chat(user, "<span class='notice'>There's already a magazine in \the [src].</span>")
+		if(istype(AM, mag_type))
+			if(can_reload())
+				reload(AM, user)
+				to_chat(user, "<span class='notice'>You load a new magazine into \the [src].</span>")
+				return TRUE
+			else if(!can_tactical)
+				to_chat(user, "<span class='notice'>There's already a magazine in \the [src].</span>")
+				return TRUE
+			else
+				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				magazine.loc = get_turf(loc)
+				magazine.update_icon()
+				magazine = null
+				reload(AM, user)
+				return TRUE
+		else
+			to_chat(user, "<span class='notice'>You can't put this type of ammo in \the [src].</span>")
+			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
 		if(can_suppress)
@@ -76,7 +97,7 @@
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
-				fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+				fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
 				A.loc = src
 				update_icon()
@@ -113,11 +134,13 @@
 		magazine.update_icon()
 		magazine = null
 		to_chat(user, "<span class='notice'>You pull the magazine out of \the [src]!</span>")
+		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
 		to_chat(user, "<span class='notice'>You unload the round from \the [src]'s chamber.</span>")
+		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
 		to_chat(user, "<span class='notice'>There's no magazine in \the [src].</span>")
 	update_icon()
@@ -142,14 +165,14 @@
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
-			return(BRUTELOSS)
+			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
-		return (OXYLOSS)
+		return OXYLOSS
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)

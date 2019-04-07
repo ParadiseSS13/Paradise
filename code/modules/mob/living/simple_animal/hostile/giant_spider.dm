@@ -4,22 +4,6 @@
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
 
-/mob/living/simple_animal/hostile/poison
-	var/poison_per_bite = 5
-	var/poison_type = "spidertoxin"
-
-/mob/living/simple_animal/hostile/poison/AttackingTarget()
-	..()
-	if(isliving(target))
-		var/mob/living/L = target
-		if(L.reagents)
-			L.reagents.add_reagent("spidertoxin", poison_per_bite)
-			if(prob(poison_per_bite))
-				to_chat(L, "<span class='danger'>You feel a tiny prick.</span>")
-				L.reagents.add_reagent(poison_type, poison_per_bite)
-
-
-
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
@@ -45,12 +29,22 @@
 	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	cold_damage_per_tick = 20	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	faction = list("spiders")
-	var/busy = 0
 	pass_flags = PASSTABLE
 	move_to_delay = 6
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
+	var/busy = 0
+
+/mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
+	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
+	..()
+	if(venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
+		var/mob/living/carbon/C = target
+		var/inject_target = pick("chest", "head")
+		if(C.can_inject(null, 0, inject_target, 0))
+			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -64,9 +58,8 @@
 	health = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	poison_per_bite = 10
+	venom_per_bite = 30
 	var/atom/cocoon_target
-	poison_type = "ether"
 	var/fed = 0
 
 //hunters have the most poison and move the fastest, so they can find prey
@@ -79,7 +72,7 @@
 	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	poison_per_bite = 5
+	venom_per_bite = 10
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()

@@ -580,6 +580,10 @@ var/list/slot_equipment_priority = list( \
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
+	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
+	if(client)
+		client.update_description_holders(A, is_antag)
+
 	face_atom(A)
 	A.examine(src)
 
@@ -1146,7 +1150,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 
 /mob/proc/assess_threat() //For sec bot threat assessment
-	return
+	return 5
 
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)
@@ -1334,3 +1338,6 @@ var/list/slot_equipment_priority = list( \
 				D = NORTH
 		setDir(D)
 		spintime -= speed
+
+/mob/proc/is_literate()
+	return FALSE

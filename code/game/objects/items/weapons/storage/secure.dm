@@ -158,7 +158,7 @@
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
 	return 0
 
-/obj/item/storage/secure/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/secure/hear_talk(mob/living/M as mob, list/message_pieces)
 	return
 
 /obj/item/storage/secure/hear_message(mob/living/M as mob, msg)

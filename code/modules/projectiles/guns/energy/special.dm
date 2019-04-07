@@ -1,9 +1,10 @@
+// Ion Rifles //
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
-	fire_sound = 'sound/weapons/IonRifle.ogg'
+	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
 	flags =  CONDUCT
@@ -29,6 +30,7 @@
 	flight_x_offset = 18
 	flight_y_offset = 11
 
+// Decloner //
 /obj/item/gun/energy/decloner
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
@@ -44,6 +46,7 @@
 	if(power_supply.charge > shot.e_cost)
 		overlays += "decloner_spin"
 
+// Flora Gun //
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
@@ -56,12 +59,14 @@
 	ammo_x_offset = 1
 	selfcharge = 1
 
+// Meteor Gun //
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
@@ -78,6 +83,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
+// Mind Flayer //
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
@@ -86,6 +92,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
+// Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists."
@@ -130,8 +137,9 @@
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 	shoot_live_shot()
-	return (OXYLOSS)
+	return OXYLOSS
 
+// Plasma Cutters //
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
@@ -141,7 +149,7 @@
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
-	usesound = 'sound/items/Welder.ogg'
+	usesound = 'sound/items/welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
@@ -180,6 +188,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 
+// Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
@@ -227,7 +236,6 @@
 		orange.target = get_turf(blue)
 
 /* 3d printer 'pseudo guns' for borgs */
-
 /obj/item/gun/energy/printer
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
@@ -247,6 +255,7 @@
 	..()
 	robocharge()
 
+// Instakill Lasers //
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
 	icon_state = "instagib"
@@ -271,6 +280,7 @@
 	item_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
+// HONK Rifle //
 /obj/item/gun/energy/clown
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."
@@ -291,6 +301,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
 
+// Energy Sniper //
 /obj/item/gun/energy/sniperrifle
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
@@ -303,6 +314,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
 
+// Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
 	icon = 'icons/obj/guns/gun_temperature.dmi'
@@ -486,6 +498,7 @@
 		if(100 to 202)			overlays += "100"
 		if(-INFINITY to 100)	overlays += "0"
 
+// Mimic Gun //
 /obj/item/gun/energy/mimicgun
 	name = "mimic gun"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"

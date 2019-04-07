@@ -11,7 +11,7 @@
 	list_reagents = list("nutriment" = 7, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/burrito
-	name = "Burrito"
+	name = "burrito"
 	desc = "Meat, beans, cheese, and rice wrapped up as an easy-to-hold meal."
 	icon_state = "burrito"
 	trash = /obj/item/trash/plate
@@ -19,7 +19,7 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/chimichanga
-	name = "Chimichanga"
+	name = "chimichanga"
 	desc = "Time to eat a chimi-f***ing-changa."
 	icon_state = "chimichanga"
 	trash = /obj/item/trash/plate
@@ -27,8 +27,8 @@
 	list_reagents = list("omnizine" = 4, "cheese" = 2) //Deadpool reference. Deal with it.
 
 /obj/item/reagent_containers/food/snacks/enchiladas
-	name = "Enchiladas"
-	desc = "Viva La Mexico!"
+	name = "enchiladas"
+	desc = "Viva la Mexico!"
 	icon_state = "enchiladas"
 	trash = /obj/item/trash/tray
 	filling_color = "#A36A1F"
@@ -57,7 +57,7 @@
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball
-	name = "Sweet & Sour Chicken Balls"
+	name = "sweet & sour chicken balls"
 	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
 	icon_state = "chickenball"
 	junkiness = 25
@@ -113,13 +113,13 @@
 /obj/item/reagent_containers/food/snacks/human/kabob
 	name = "-kabob"
 	icon_state = "kabob"
-	desc = "A human meat, on a stick."
+	desc = "Human meat, on a stick."
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
 
 /obj/item/reagent_containers/food/snacks/monkeykabob
-	name = "Meat-kabob"
+	name = "meat-kabob"
 	icon_state = "kabob"
 	desc = "Delicious meat, on a stick."
 	trash = /obj/item/stack/rods
@@ -127,7 +127,7 @@
 	list_reagents = list("nutriment" = 8)
 
 /obj/item/reagent_containers/food/snacks/tofukabob
-	name = "Tofu-kabob"
+	name = "tofu-kabob"
 	icon_state = "kabob"
 	desc = "Vegan meat, on a stick."
 	trash = /obj/item/stack/rods

@@ -59,9 +59,15 @@
 /proc/sanitize(var/t,var/list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+// Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
+
+// Less agressive, to allow discord features, such as <>, / and @
+/proc/not_as_paranoid_sanitize(t)
+	var/regex/alphanum_slashes_only = regex("\[^a-zA-Z0-9# ,.?!:;()/<>@]", "g")
+	return alphanum_slashes_only.Replace(t, "#")
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
@@ -102,6 +108,15 @@
 		return copytext(html_encode(name), 1, max_length)
 	else
 		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+
+// Uses client.typing to check if the popup should appear or not
+/proc/typing_input(mob/user, message = "", title = "", default = "")
+	if(user.client.checkTyping()) // Prevent double windows
+		return null
+	user.client.typing = TRUE
+	var/msg = input(user, message, title, default) as text|null
+	user.client.typing = FALSE
+	return msg
 
 //Filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)

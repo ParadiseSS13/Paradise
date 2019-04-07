@@ -86,7 +86,7 @@
 	if(opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-	
+
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -311,8 +311,9 @@
 /atom/proc/blob_act(obj/structure/blob/B)
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
-/atom/proc/fire_act()
-	return
+/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature)
 
 /atom/proc/emag_act()
 	return
@@ -324,7 +325,7 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
 
@@ -679,10 +680,10 @@ var/list/blood_splatter_icons = list()
 	return pass_flags&passflag
 
 /atom/proc/isinspace()
-	if(istype(get_turf(src), /turf/space))
-		return 1
+	if(isspaceturf(get_turf(src)))
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /atom/proc/handle_fall()
 	return

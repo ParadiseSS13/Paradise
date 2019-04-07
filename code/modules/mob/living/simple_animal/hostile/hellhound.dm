@@ -2,11 +2,11 @@
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 	name = "Lesser Hellhound"
-	desc = "A horrifying, black canine monster, with glowing red eyes and vicious-looking teeth."
-	icon_state = "blackdog"
-	icon_living = "blackdog"
-	icon_dead = "blackdog_dead"
-	icon_resting = "blackdog_rest"
+	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
+	icon_state = "hellhound"
+	icon_living = "hellhound"
+	icon_dead = "hellhound_dead"
+	icon_resting = "hellhound_rest"
 	mutations = list(BREATHLESS)
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -52,7 +52,7 @@
 			update_canmove()
 	else if(wants_to_rest())
 		custom_emote(1, "lays down, and starts to lick their wounds.")
-		icon_state = "[icon_living]_rest"
+		icon_state = "[icon_resting]"
 		resting = 1
 		update_canmove()
 
@@ -71,7 +71,7 @@
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is covered in wounds!</span>"
 		if(resting)
-			if(bruteloss > 0 || fireloss > 0)
+			if(getBruteLoss() || getFireLoss())
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
 				msgs += "<span class='notice'>It is currently resting.</span>"
@@ -79,7 +79,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
-	if(stat != DEAD && resting && (bruteloss > 0) || (fireloss > 0))
+	if(stat != DEAD && resting && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
 			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
@@ -91,14 +91,21 @@
 /mob/living/simple_animal/hostile/hellhound/proc/wants_to_rest()
 	if(target)
 		return FALSE
-	if(bruteloss > 0 || fireloss > 0)
+	if(getBruteLoss() || getFireLoss())
 		return TRUE
 	return FALSE
 
 /mob/living/simple_animal/hostile/hellhound/AttackingTarget()
 	. = ..()
-	if(ishuman(target))
+	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
+
+/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
+	. = ..()
+	if(target && isliving(target))
+		var/mob/living/L = target
+		if(L.stat != CONSCIOUS)
+			target = user
 
 /mob/living/simple_animal/hostile/hellhound/proc/special_aoe()
 	if(world.time < (smoke_lastuse + smoke_freq))
@@ -110,12 +117,16 @@
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "Greater Hellhound"
+	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
+	icon_state = "hellhoundgreater"
+	icon_living = "hellhoundgreater"
+	icon_resting = "hellhoundgreater_sit"
 	maxHealth = 400
 	health = 400
+	force_threshold = 5 // no punching
+	smoke_freq = 200
+	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
-	light_color = "#FF0000"
-	light_power = 6
-	light_range = 2

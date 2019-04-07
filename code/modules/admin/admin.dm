@@ -28,6 +28,11 @@ var/global/nologevent = 0
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
 				to_chat(C, msg)
 
+/proc/message_mentorTicket(var/msg)
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_MENTORTICKETLOGS))
+				to_chat(C, msg)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
 	if(!M || !M.ckey)
@@ -62,7 +67,7 @@ var/global/nologevent = 0
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
-		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_living() + "</a>\]"
+		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
@@ -316,7 +321,7 @@ var/global/nologevent = 0
 					if(CHANNEL.is_admin_channel)
 						dat+="<B><FONT style='BACKGROUND-COLOR: LightGreen'><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A></FONT></B><BR>"
 					else
-						dat+="<B><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR></B>"
+						dat+="<B><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR></B>"
 			dat+={"<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
 				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>
 			"}
@@ -400,7 +405,7 @@ var/global/nologevent = 0
 				dat+="<I>No feed channels found active...</I><BR>"
 			else
 				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
-					dat+="<A href='?src=[UID()];ac_pick_censor_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR>"
+					dat+="<A href='?src=[UID()];ac_pick_censor_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR>"
 			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A>"
 		if(11)
 			dat+={"
@@ -413,7 +418,7 @@ var/global/nologevent = 0
 				dat+="<I>No feed channels found active...</I><BR>"
 			else
 				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
-					dat+="<A href='?src=[UID()];ac_pick_d_notice=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR>"
+					dat+="<A href='?src=[UID()];ac_pick_d_notice=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR>"
 
 			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>"
 		if(12)
@@ -671,6 +676,9 @@ var/global/nologevent = 0
 		alert("Unable to start the game as it is not set up.")
 		return
 	if(ticker.current_state == GAME_STATE_PREGAME)
+		if(config.start_now_confirmation)
+			if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
+				return
 		ticker.current_state = GAME_STATE_SETTING_UP
 		log_admin("[key_name(usr)] has started the game.")
 		message_admins("[key_name_admin(usr)] has started the game.")
@@ -1067,3 +1075,28 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
+
+//Discord duplications
+/datum/admins/proc/discord_duplicates()
+	if(!usr.client.holder)
+		return
+	var/dat = "<html><head><title>Discord Duplicates</title></head>"
+	dat += "<body><p><i>Discord IDs with more than one ckey linked are shown below</i></i><table border=1 cellspacing=5><B><tr><th>Discord ID</th><th>CKEYs</th><th>Unlink</th></B>"
+	// If anyone reads this, I spent a whole 30 minutes writing just this fucking query. It is the messiest SQL statement I have ever written
+	// If anyone even thinks about touching this I will impale you on a railroad spike
+	// It hurts to wake up in the morning, -aa07
+	var/DBQuery/discord_ids = dbcon.NewQuery("SELECT a.* FROM [format_table_name("discord")] a JOIN (SELECT discord_id, ckey, COUNT(*) FROM [format_table_name("discord")] GROUP BY discord_id HAVING count(*) > 1 ) b ON a.discord_id = b.discord_id ORDER BY a.discord_id")
+	if(!discord_ids.Execute())
+		var/err = discord_ids.ErrorMsg()
+		log_game("SQL ERROR while selecting discord accounts. Error : \[[err]\]\n")
+		return
+	while(discord_ids.NextRow())
+		var/ckey = discord_ids.item[1]
+		var/id = discord_ids.item[2]
+		dat += "<tr><td><b>" + id + "</b></td>"
+		dat += "<td>" + ckey + "</td>"
+		dat += "<td><a href='?src=[UID()];force_discord_unlink=[ckey]'>Unlink</td></tr>"
+		
+	dat += "</table></body></html>"
+
+	usr << browse(dat, "window=duplicates;size=500x480")

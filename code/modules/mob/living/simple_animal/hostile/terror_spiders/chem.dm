@@ -2,7 +2,7 @@
 // Terror Spider, Black, Deadly Venom
 
 /datum/reagent/terror_black_toxin
-	name = "Black Widow venom"
+	name = "Black Terror venom"
 	id = "terror_black_toxin"
 	description = "An incredibly toxic venom injected by the Black Widow spider."
 	color = "#CF3600"

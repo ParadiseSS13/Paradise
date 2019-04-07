@@ -353,7 +353,7 @@ var/bomb_set
 	safety = 1
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
-	playsound(src,'sound/machines/Alarm.ogg',100,0,5)
+	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(ticker && ticker.mode)
 		ticker.mode.explosion_in_progress = 1
 	sleep(100)
@@ -402,18 +402,33 @@ var/bomb_set
 	icon_state = "nucleardisk"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
 
+/obj/item/disk/nuclear/unrestricted
+	desc = "Seems to have been stripped of its safeties, you better not lose it."
+
 /obj/item/disk/nuclear/New()
 	..()
 	processing_objects.Add(src)
 	GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
-	var/turf/disk_loc = get_turf(src)
-	if(!is_secure_level(disk_loc.z))
+	if(!check_disk_loc())
 		var/holder = get(src, /mob)
 		if(holder)
 			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
 		qdel(src)
+
+ //station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
+/obj/item/disk/nuclear/proc/check_disk_loc()
+	var/turf/T = get_turf(src)
+	var/area/A = get_area(src)
+	if(is_station_level(T.z))
+		return TRUE
+	if(A.nad_allowed)
+		return TRUE
+	return FALSE
+
+/obj/item/disk/nuclear/unrestricted/check_disk_loc()
+	return TRUE
 
 /obj/item/disk/nuclear/Destroy(force)
 	var/turf/diskturf = get_turf(src)

@@ -1,6 +1,0 @@
-author: "Eschess"
-delete-after: True
-changes: 
-  - bugfix: "hardsuit helmets now unlink from the hardsuits upon being detached"
-  - bugfix: "syndicate hardsuit helmet combat mode can no longer be toggled on hand"
-  - bugfix: "fixes non-syndicate hardsuit helmet attaching/detaching runtimes"

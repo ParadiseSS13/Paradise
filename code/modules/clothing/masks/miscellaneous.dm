@@ -80,12 +80,6 @@
 			to_chat(usr, "You lack the ability to manipulate the lock.")
 
 
-/obj/item/clothing/mask/muzzle/gag
-	name = "gag"
-	desc = "Stick this in their mouth to stop the noise."
-	icon_state = "gag"
-	w_class = WEIGHT_CLASS_TINY
-
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "MHPMHHH!"
@@ -104,14 +98,13 @@
 		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/carbon/human/user)
-	var/atom/movable/R = new /obj/item/trash/tapetrash
-	var/turf/T = get_turf(src)
-	R.loc = T
-	transfer_fingerprints_to(R)
-	playsound(src,'sound/items/poster_ripped.ogg',40,1)
+/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
+	var/obj/item/trash/tapetrash/TT = new(drop_location(src))
+	transfer_fingerprints_to(TT)
+	user.transfer_fingerprints_to(TT)
+	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
+	..()
 	user.emote("scream")
-	. = ..()
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
@@ -182,9 +175,9 @@
 		trigger.HasProximity(AM)
 
 
-/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, msg)
+/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, list/message_pieces)
 	if(trigger)
-		trigger.hear_talk(M, msg)
+		trigger.hear_talk(M, message_pieces)
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M as mob, msg)
 	if(trigger)
@@ -301,8 +294,10 @@
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""
-
-
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+	)
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
 	if(flags & NODROP)	//cursed masks only
@@ -496,5 +491,6 @@
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
 	spawn(10)
-		user.gib()
-	return BRUTELOSS
+		if(user)
+			user.gib()
+	return OBLITERATION

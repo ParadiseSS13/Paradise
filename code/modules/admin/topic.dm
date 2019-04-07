@@ -32,6 +32,12 @@
 		var/ticketID = text2num(href_list["openadminticket"])
 		SStickets.showDetailUI(usr, ticketID)
 
+	if(href_list["openmentorticket"])
+		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+			return
+		var/ticketID = text2num(href_list["openmentorticket"])
+		SSmentor_tickets.showDetailUI(usr, ticketID)
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -1546,22 +1552,13 @@
 		check_antagonists()
 
 	else if(href_list["take_question"])
-		var/mob/M = locateUID(href_list["take_question"])
-		var/is_mhelp = href_list["is_mhelp"]
-		if(ismob(M))
-			var/helptype = "ADMINHELP"
-			if(is_mhelp)
-				helptype = "MENTORHELP"
-			var/take_msg = "<span class='notice'><b>[helptype]</b>: <b>[key_name_hidden(usr.client)]</b> is attending to <b>[key_name(M)]'s</b> question.</span>"
-			for(var/client/X in GLOB.admins)
-				if(check_rights(R_ADMIN, 0, X.mob))
-					to_chat(X, take_msg)
-				else if(is_mhelp && check_rights(R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, take_msg)
-			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name_hidden(usr.client, null, 0)]. Thanks for your patience!</b></span>")
-		else
-			to_chat(usr, "<span class='warning'>Unable to locate mob.</span>")
-
+		var/index = text2num(href_list["take_question"])
+		
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.takeTicket(index)
+		else //Ahelp
+			SStickets.takeTicket(index)
+	
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
@@ -1812,16 +1809,17 @@
 				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
 				if(isnull(petchoice))
 					return
-				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
-				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 200, min_hours = 10)
+				var/list/mob/dead/observer/candidates = pollCandidates("Play as the special event pet [H]?", poll_time = 200, min_hours = 10)
 				var/mob/dead/observer/theghost = null
 				if(candidates.len)
+					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 					theghost = pick(candidates)
 					P.key = theghost.key
 					P.master_commander = H
 					P.universal_speak = 1
 					P.universal_understand = 1
 					P.can_collar = 1
+					P.faction = list("neutral")
 					var/obj/item/clothing/accessory/petcollar/C = new /obj/item/clothing/accessory/petcollar(P)
 					P.collar = C
 					C.equipped(P)
@@ -1833,15 +1831,15 @@
 						D.assignment = "Pet"
 						C.access_id = D
 					spawn(30)
-						var/newname = sanitize(copytext(input(P, "You are [P], pet of [H]. Would you like to change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+						var/newname = sanitize(copytext(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
 								P.mind.name = newname
+					logmsg = "pet ([P])."
 				else
-					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play [P].</span>")
-					qdel(P)
-				logmsg = "pet ([P])."
+					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>")
+					logmsg = "pet (no volunteers)."
 			if("Human Protector")
 				usr.client.create_eventmob_for(H, 0)
 				logmsg = "syndie protector."
@@ -1889,7 +1887,7 @@
 		switch(punishment)
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", safety=1)
-				playsound(get_turf(M), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -2842,11 +2840,19 @@
 			if("guns")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SG")
-				usr.rightandwrong(0)
+				usr.rightandwrong(FALSE)
 			if("magic")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SM")
-				usr.rightandwrong(1)
+				usr.rightandwrong(TRUE)
+			if("revolver")
+				feedback_inc("admin_secrets_fun_used", 1)
+				feedback_add_details("admin_secrets_fun_used", "SRD")
+				usr.rightandwrong(FALSE, revolver_fight = TRUE)
+			if("fakerevolver")
+				feedback_inc("admin_secrets_fun_used", 1)
+				feedback_add_details("admin_secrets_fun_used", "SFD")
+				usr.rightandwrong(FALSE, fake_revolver_fight = TRUE)
 			if("tdomereset")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
@@ -3347,6 +3353,20 @@
 
 		// Refresh the page
 		src.view_flagged_books()
+
+	// Force unlink a discord key
+	else if(href_list["force_discord_unlink"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/target_ckey = href_list["force_discord_unlink"]
+		var/DBQuery/admin_unlink_discord_id = dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
+		if(!admin_unlink_discord_id.Execute())
+			var/err = admin_unlink_discord_id.ErrorMsg()
+			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")
+			return
+		to_chat(src, "<span class='notice'>Successfully forcefully unlinked discord account from [target_ckey]</span>")
+		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
+		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

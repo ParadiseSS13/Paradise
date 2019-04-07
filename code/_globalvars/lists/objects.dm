@@ -13,7 +13,9 @@ GLOBAL_LIST_INIT(singularities, list())				//list of all singularities
 GLOBAL_LIST_INIT(janitorial_equipment, list())		//list of janitorial equipment
 GLOBAL_LIST_INIT(crafting_recipes, list()) //list of all crafting recipes
 GLOBAL_LIST_INIT(prisoncomputer_list, list())
+GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
 GLOBAL_LIST_INIT(cell_logs, list())
+GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(machines, list())
@@ -34,8 +36,8 @@ GLOBAL_LIST_INIT(beacons, list())
 GLOBAL_LIST_INIT(shuttle_caller_list, list())  		//list of all communication consoles, comms consoles circuit and AIs, for automatic shuttle calls when there are none.
 GLOBAL_LIST_INIT(tracked_implants, list())			//list of all current implants that are tracked to work out what sort of trek everyone is on. Sadly not on lavaworld not implemented...
 GLOBAL_LIST_INIT(pinpointer_list, list())			//list of all pinpointers. Used to change stuff they are pointing to all at once.
+GLOBAL_LIST_INIT(nuclear_uplink_list, list())			//list of all existing nuke ops uplinks
 GLOBAL_LIST_INIT(abductor_equipment, list())			//list of all abductor equipment
-
 GLOBAL_LIST_INIT(global_intercoms, list())			//list of all intercomms, across all z-levels
 GLOBAL_LIST_INIT(global_radios, list())				//list of all radios, across all z-levels
 

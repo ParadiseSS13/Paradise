@@ -64,7 +64,7 @@
 				var/mob/living/simple_animal/slaughter/SD = src
 				sound = SD.feast_sound
 			else
-				sound = 'sound/misc/Demon_consume.ogg'
+				sound = 'sound/misc/demon_consume.ogg'
 
 			for(var/i in 1 to 3)
 				playsound(get_turf(src), sound, 100, 1)
@@ -154,7 +154,6 @@
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	var/canmove = 1
 	density = 0
 	anchored = 1
 	invisibility = 60

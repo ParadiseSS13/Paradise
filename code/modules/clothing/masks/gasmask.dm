@@ -119,12 +119,20 @@
 		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
 		return 1
 
+/obj/item/clothing/mask/gas/clown_hat/sexy
+	name = "sexy-clown wig and mask"
+	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
+	icon_state = "sexyclown"
+	item_state = "sexyclown"
+
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = HIDEEARS | HIDEEYES
+	magical = TRUE
 
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
@@ -132,13 +140,6 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = NODROP
-
-/obj/item/clothing/mask/gas/sexyclown
-	name = "sexy-clown wig and mask"
-	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -187,7 +188,7 @@
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		playsound(src.loc, 'sound/misc/hoot.ogg', 50, 1)
+		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
 
 // ********************************************************************
@@ -203,7 +204,7 @@
 	var/safety = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/phrase_list = list(
-					
+
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
 								"compliance" 	        = "Compliance is in your best interest.",
@@ -272,11 +273,11 @@
 	else if(actiontype == /datum/action/item_action/selectphrase)
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
-		
+
 		if (!safety)
 			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
 			return
-		
+
 		switch(aggressiveness)
 			if(1)
 				phrase = (phrase < 6) ? (phrase + 1) : 1

@@ -7,6 +7,7 @@
 	//language = "Clatter"
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
@@ -30,14 +31,16 @@
 		"shows their true colors, which happens to be the color of plasma!")
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
+		"heart" =    /obj/item/organ/internal/heart/plasmaman,
 		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"liver" =    /obj/item/organ/internal/liver/plasmaman,
+		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
+		"brain" =    /obj/item/organ/internal/brain/plasmaman,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
+		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
 		)
+
+	speciesbox = /obj/item/storage/box/survival_plasmaman
 
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
@@ -89,7 +92,7 @@
 		if("Magistrate")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/magistrate
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate
-		if("Head of Security")
+		if("Head of Security", "Special Operations Officer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
 		if("Captain", "Blueshield")
@@ -98,7 +101,7 @@
 		if("Head of Personnel")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
-		if("Nanotrasen Representative")
+		if("Nanotrasen Representative", "Nanotrasen Navy Officer")
 			suit = /obj/item/clothing/suit/space/eva/plasmaman/nt_rep
 			helm = /obj/item/clothing/head/helmet/space/eva/plasmaman/nt_rep
 		if("Medical Doctor","Brig Physician","Virologist")
@@ -146,6 +149,9 @@
 		if("Mime")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
+		if("Syndicate Officer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/nuclear
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear
 
 	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
 		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
@@ -182,6 +188,6 @@
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()

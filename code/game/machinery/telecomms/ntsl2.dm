@@ -316,16 +316,20 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		signal.data["name"] = new_name
 		signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 
+	// This is hacky stuff for multilingual messages...
+	var/list/message_pieces = signal.data["message"]
+
 	// Makes heads of staff bold
 	if(toggle_command_bold)
 		var/job = signal.data["job"]
 		if((job in ert_jobs) || (job in heads))
-			signal.data["message"] = "<b>" + signal.data["message"] + "</b>"
+			for(var/datum/multilingual_say_piece/S in message_pieces)
+				S.message = "<b>[S.message]</b>"
 
 	// Hacks!
 	// Censor dat shit like nobody's business
 	if(toggle_gibberish)
-		signal.data["message"] = Gibberish(signal.data["message"], 80)
+		Gibberish_all(message_pieces, 80)
 
 	// Replace everything with HONK!
 	if(toggle_honk)
@@ -334,24 +338,26 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		var/new_message = ""
 		for(var/i in 1 to honklength)
 			new_message += pick("HoNK!", "HONK", "HOOOoONK", "HONKHONK!", "HoNnnkKK!!!", "HOOOOOOOOOOONK!!!!11!", "henk!") + " "
-		signal.data["message"] = new_message
+		signal.data["message"] = message_to_multilingual(new_message)
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
 		if(setting_language == "--DISABLE--")
 			setting_language = null
 		else
-			signal.data["language"] = GLOB.all_languages[setting_language]
+			for(var/datum/multilingual_say_piece/S in message_pieces)
+				if(S.speaking != GLOB.all_languages["Noise"]) // check if they are emoting, these do not need to be translated
+					S.speaking = GLOB.all_languages[setting_language]
 
 	// Regex replacements
 	if(islist(regex) && regex.len > 0)
-		var/original = signal.data["message"]
-		var/new_message = original
-		for(var/reg in regex)
-			var/replacePattern = pencode_to_html(regex[reg])
-			var/regex/start = regex("[reg]", "gi")
-			new_message = start.Replace(new_message, replacePattern)
-		signal.data["message"] = new_message
+		for(var/datum/multilingual_say_piece/S in message_pieces)
+			var/new_message = S.message
+			for(var/reg in regex)
+				var/replacePattern = pencode_to_html(regex[reg])
+				var/regex/start = regex("[reg]", "gi")
+				new_message = start.Replace(new_message, replacePattern)
+			S.message = new_message
 
 	// Make sure the message is valid after we tinkered with it, otherwise reject it
 	if(signal.data["message"] == "" || !signal.data["message"])

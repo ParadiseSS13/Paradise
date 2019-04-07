@@ -17,7 +17,6 @@
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
-	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -38,7 +37,6 @@
 
 
 /mob/living/silicon/robot/drone/New()
-
 	..()
 
 	remove_language("Robot Talk")
@@ -101,7 +99,7 @@
 
 /mob/living/silicon/robot/drone/update_icons()
 	overlays.Cut()
-	if(stat == 0)
+	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
@@ -126,7 +124,7 @@
 
 	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 
-		if(stat == 2)
+		if(stat == DEAD)
 
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
@@ -168,7 +166,7 @@
 	..()
 
 /mob/living/silicon/robot/drone/emag_act(user as mob)
-	if(!client || stat == 2)
+	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
 		return
 
@@ -225,12 +223,12 @@
 
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)
-	ghostize(can_reenter_corpse = 0)
+	adjustBruteLoss(health)
 
 
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()
-	if(stat != 2)
+	if(stat != DEAD)
 		if(emagged)
 			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
 		else
@@ -239,7 +237,7 @@
 			show_laws()
 
 /mob/living/silicon/robot/drone/proc/shut_down(force=FALSE)
-	if(stat == 2)
+	if(stat == DEAD)
 		return
 
 	if(emagged && !force)

@@ -5,6 +5,9 @@
 
 	var/turf/turf_source = get_turf(source)
 
+	if(!turf_source)
+		return
+
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || open_sound_channel()
 
@@ -18,13 +21,17 @@
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
+
+		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
+		if(!T)
+			continue
+		if(T.z != turf_source.z)
+			continue
+
 		var/distance = get_dist(M, turf_source)
 
 		if(distance <= maxdistance)
-			var/turf/T = get_turf(M)
-
-			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
+			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S)
 	if(!client || !can_hear())
@@ -113,9 +120,9 @@
 	if(istext(soundin))
 		switch(soundin)
 			if("shatter")
-				soundin = pick('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg')
+				soundin = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')
 			if("explosion")
-				soundin = pick('sound/effects/Explosion1.ogg','sound/effects/Explosion2.ogg')
+				soundin = pick('sound/effects/explosion1.ogg','sound/effects/explosion2.ogg')
 			if("sparks")
 				soundin = pick('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg')
 			if("rustle")
@@ -135,7 +142,9 @@
 			if("pageturn")
 				soundin = pick('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
 			if("gunshot")
-				soundin = pick('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
+				soundin = pick('sound/weapons/gunshots/gunshot.ogg', 'sound/weapons/gunshots/gunshot2.ogg','sound/weapons/gunshots/gunshot3.ogg','sound/weapons/gunshots/gunshot4.ogg')
+			if("casingdrop")
+				soundin = pick('sound/weapons/gun_interactions/casingfall1.ogg', 'sound/weapons/gun_interactions/casingfall2.ogg', 'sound/weapons/gun_interactions/casingfall3.ogg')
 			if("computer_ambience")
 				soundin = pick('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
 			if("ricochet")
@@ -149,4 +158,6 @@
 
 			if("bonebreak")
 				soundin = pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg', 'sound/effects/bone_break_3.ogg', 'sound/effects/bone_break_4.ogg', 'sound/effects/bone_break_5.ogg', 'sound/effects/bone_break_6.ogg')
+			if("honkbot_e")
+				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
 	return soundin

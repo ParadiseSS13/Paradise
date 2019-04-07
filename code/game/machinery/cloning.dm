@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "hydrocodone")
+	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -190,6 +190,11 @@
 	if(radio_announce)
 		Radio.autosay(message, name, "Medical", list(z))
 
+/obj/machinery/clonepod/proc/spooky_devil_flavor()
+	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
+	mess = 1
+	update_icon()
+	connected_message("<font face=\"REBUFFED\" color=#600A0A>If you keep trying to steal from me, you'll end up with me.</font>")
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
@@ -200,8 +205,13 @@
 		return 0
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
 		return 0
+	if(clonemind.damnation_type)
+		spooky_devil_flavor()
+		return 0
+	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
+		return 0
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != R.ckey)
+		if(ckey(clonemind.key) != R.ckey )
 			return 0
 		if(clonemind.suicided) // and stay out!
 			malfunction(go_easy = 0)
@@ -300,7 +310,7 @@
 			connected_message("Clone Ejected: Loss of power.")
 
 	else if((occupant) && (occupant.loc == src))
-		if((occupant.stat == DEAD) || (occupant.suiciding))  //Autoeject corpses and suiciding dudes.
+		if((occupant.stat == DEAD) || (occupant.suiciding) || (occupant.mind && !occupant.mind.is_revivable()))  //Autoeject corpses and suiciding dudes.
 			announce_radio_message("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.")
 			go_out()
 			connected_message("Clone Rejected: Deceased.")
@@ -331,7 +341,7 @@
 			check_brine()
 
 			//Also heal some oxyloss ourselves just in case!!
-			occupant.adjustOxyLoss(-4)
+			occupant.adjustOxyLoss(-10)
 
 			use_power(7500) //This might need tweaking.
 
@@ -414,6 +424,7 @@
 	if(H.mind in ticker.mode.cult)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
+		ticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
 	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(H.mind.vampire)
@@ -465,10 +476,13 @@
 	for(var/i in missing_organs)
 		qdel(i)
 	missing_organs.Cut()
+	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
+	occupant.setOxyLoss(0)
+	for(var/datum/disease/critical/crit in occupant.viruses)
+		crit.cure()
 	occupant.forceMove(get_turf(src))
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
-	occupant.shock_stage = 0 //Reset Shock
 	occupant.special_post_clone_handling()
 	occupant = null
 	update_icon()

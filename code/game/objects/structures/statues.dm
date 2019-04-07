@@ -169,6 +169,7 @@
 	icon_state = "xeno"
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -255,18 +256,18 @@
 /obj/structure/statue/diamond
 	hardness = 10
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
-	desc = "This is a very expensive diamond statue"
+	desc = "This is a very expensive diamond statue."
 
 /obj/structure/statue/diamond/captain
-	name = "statue of THE captain."
+	name = "statue of THE captain"
 	icon_state = "cap"
 
 /obj/structure/statue/diamond/ai1
-	name = "statue of the AI hologram."
+	name = "statue of the AI hologram"
 	icon_state = "ai1"
 
 /obj/structure/statue/diamond/ai2
-	name = "statue of the AI core."
+	name = "statue of the AI core"
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
@@ -313,17 +314,6 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
 
-/*
-/obj/structure/statue/snow
-	hardness = 0.5
-	material_drop_type = /obj/item/stack/sheet/mineral/snow
-
-/obj/structure/statue/snow/snowman
-	name = "snowman"
-	desc = "Several lumps of snow put together to form a snowman."
-	icon_state = "snowman"
-*/
-
 /obj/structure/statue/tranquillite
 	hardness = 0.5
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
@@ -349,8 +339,31 @@
 	desc = "Seems someone made a snowman here."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "snowman"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/snowman/built
+	desc = "Just like the ones you remember from childhood!"
+	max_integrity = 50
+
+/obj/structure/snowman/built/Destroy()
+	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())
+	new /obj/item/grown/log(drop_location())
+	new /obj/item/grown/log(drop_location())
+	return ..()
+
+/obj/structure/snowman/built/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
+		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		obj_integrity = max_integrity
+		qdel(I)
+	else
+		return ..()
+
+/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	qdel(src)
+
 
 /obj/structure/kidanstatue
 	name = "Obsidian Kidan warrior statue"

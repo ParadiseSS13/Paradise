@@ -88,6 +88,10 @@
 			emergencyresponseteamspawn += loc
 			qdel(src)
 
+		if("Syndicate Officer")
+			syndicateofficer += loc
+			qdel(src)
+
 	GLOB.landmarks_list += src
 	return 1
 
@@ -246,8 +250,8 @@
 	qdel(src)
 
 /obj/effect/landmark/costume/sexyclown/New()
-	new /obj/item/clothing/mask/gas/sexyclown(src.loc)
-	new /obj/item/clothing/under/sexyclown(src.loc)
+	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
+	new /obj/item/clothing/under/rank/clown/sexy(loc)
 	qdel(src)
 
 /obj/effect/landmark/costume/sexymime/New()
@@ -286,3 +290,10 @@
 	..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
+
+
+/obj/effect/landmark/battle_mob_point
+	name = "Nanomob Battle Avatar Spawn Point"
+
+/obj/effect/landmark/free_golem_spawn
+	name = "Free Golem Spawn Point"

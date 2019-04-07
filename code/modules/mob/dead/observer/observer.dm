@@ -13,7 +13,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	density = 0
 	canmove = 0
 	alpha = 127
-	anchored = 1	//  don't get pushed around
+	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
 	var/bootime = 0
@@ -25,7 +25,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
-	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
+	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -49,7 +49,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -148,6 +148,8 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
 	if(key)
+		if(player_logged) //if they have disconnected we want to remove their SSD overlay
+			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
@@ -177,37 +179,50 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
-		// If it's not too early, we'll skip straight to ghosting out without penalty
 	else if(suiciding && TOO_EARLY_TO_GHOST)
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
+		if(isAI(src))
+			warningmsg = "You are a living AI! You should probably use OOC -> Wipe Core instead."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
-	if(!warningmsg)
-		ghostize(1)
-	else
+	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
-			return	//didn't want to ghost after-all
-		StartResting()
-		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
-		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
+			return
+
+	if(stat == CONSCIOUS)
+		if(!is_admin_level(z))
+			player_ghosted = 1
+		if(mind && mind.special_role)
+			message_admins("[key_name_admin(src)] has ghosted while alive, with special_role: [mind.special_role]")
+
+	if(warningmsg)
+		// Not respawnable
+		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+	else
+		// Respawnable
+		ghostize(1)
+
+	// If mob in morgue tray, update tray
 	var/obj/structure/morgue/Morgue = locate() in M.loc
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
+
+	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
 		if(P.control_computer)
 			P.despawn_occupant()
 	return
-
 
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
@@ -234,9 +249,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		A.Entered(src)
 
 	..()
-
-/mob/dead/observer/experience_pressure_difference()
-	return 0
 
 /mob/dead/observer/can_use_hands()	return 0
 
@@ -297,30 +309,43 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]
 	H.add_hud_to(src)
-	data_hud_seen = hud_index
+
+/mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
+	var/datum/atom_hud/H = huds[hud_index]
+	H.remove_hud_from(src)
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle Medic/Sec/DiagHUD"
-	set desc = "Toggles the medical HUD."
+	set name = "Toggle Medic/Sec/Diag/All HUDs"
+	set desc = "Toggles the HUDs."
 	if(!client)
 		return
-	if(data_hud_seen) //remove old huds
-		var/datum/atom_hud/H = huds[data_hud_seen]
-		H.remove_hud_from(src)
 
 	switch(data_hud_seen) //give new huds
-		if(0)
+		if(FALSE)
+			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
 		if(DATA_HUD_SECURITY_ADVANCED)
+			data_hud_seen = DATA_HUD_MEDICAL_ADVANCED
+			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Medical HUD set.</span>")
 		if(DATA_HUD_MEDICAL_ADVANCED)
+			data_hud_seen = DATA_HUD_DIAGNOSTIC
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
 		if(DATA_HUD_DIAGNOSTIC)
-			data_hud_seen = 0
+			data_hud_seen = data_hud_seen + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
+			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
+		else
+			data_hud_seen = FALSE
+			remove_the_hud(DATA_HUD_DIAGNOSTIC)
+			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>HUDs disabled.</span>")
 
 
@@ -702,10 +727,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		new_char.key = key
 
+/mob/dead/observer/is_literate()
+	return TRUE
 /mob/dead/observer/proc/open_spawners_menu()
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"
 	set category = "Ghost"
-	
+
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)

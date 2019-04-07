@@ -97,9 +97,12 @@
 	name = "run/walk toggle"
 	icon_state = "running"
 
-
 /obj/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
+	screen_loc = ui_acti
+
+/obj/screen/act_intent/guardian
+	icon = 'icons/mob/guardian.dmi'
 	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()

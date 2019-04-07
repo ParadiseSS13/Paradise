@@ -27,8 +27,6 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
-		H.traumatic_shock = 0
-		H.shock_stage = 0
 		H.next_pain_time = 0
 		H.dna.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
@@ -51,10 +49,13 @@
 			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
+	for(var/datum/disease/critical/C in user.viruses)
+		C.cure()
 	user.status_flags &= ~(FAKEDEATH)
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()
+	user.mind.changeling.regenerating = FALSE
 
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")
 

@@ -10,10 +10,8 @@
 			update_mutations()
 			check_mutations=0
 
-		handle_shock()
 		handle_pain()
 		handle_heartbeat()
-		handle_heartattack()
 		handle_drunk()
 		dna.species.handle_life(src)
 
@@ -38,6 +36,17 @@
 		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
+
+	handle_ghosted()
+
+/mob/living/carbon/human/proc/handle_ghosted()
+	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
+		if(key)
+			player_ghosted = 0
+		else
+			player_ghosted++
+			if(player_ghosted % 150 == 0)
+				force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
@@ -71,7 +80,6 @@
 			drop_item()
 			emote("cough")
 	if(disabilities & TOURETTES)
-		speech_problem_flag = 1
 		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			switch(rand(1, 3))
@@ -86,12 +94,10 @@
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
 	if(disabilities & NERVOUS)
-		speech_problem_flag = 1
 		if(prob(10))
 			Stuttering(10)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
-		speech_problem_flag = 1
 		if(prob(3))
 			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							   "without oxigen blob don't evoluate?",
@@ -144,21 +150,11 @@
 				if(3)
 					emote("drool")
 
-	if(getBrainLoss() >= 100 && stat != DEAD) //you lapse into a coma and die without immediate aid; RIP. -Fox
-		Weaken(20)
-		AdjustLoseBreath(10)
-		AdjustSilence(2)
-
-	if(getBrainLoss() >= 120 && stat != DEAD) //they died from stupidity--literally. -Fox
-		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
-		death()
-
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			speech_problem_flag = 1
 			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
@@ -246,12 +242,10 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 
 	if(!L || L && (L.status & ORGAN_DEAD))
-		if(health >= config.health_threshold_crit)
+		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
 		else if(!(NOCRITDAMAGE in dna.species.species_traits))
-			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
-
-		failed_last_breath = TRUE
+			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
 		if(dna.species)
 			var/datum/species/S = dna.species
@@ -274,7 +268,7 @@
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
 	// Health is in deep shit and we're not already dead
-	return health <= 0 && stat != 2
+	return health <= HEALTH_THRESHOLD_CRIT && stat != DEAD
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
@@ -741,7 +735,6 @@
 			stat = UNCONSCIOUS
 
 		else if(sleeping)
-			speech_problem_flag = 1
 
 			stat = UNCONSCIOUS
 
@@ -796,6 +789,70 @@
 
 		handle_organs()
 
+		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
+			visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+			death()
+			return
+
+		if(getBrainLoss() >= 100) // braindeath
+			AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
+			Weaken(30)
+
+		if(!check_death_method())
+			if(health <= HEALTH_THRESHOLD_DEAD)
+				var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
+				if(prob(deathchance))
+					death()
+					return
+
+			if(health <= HEALTH_THRESHOLD_CRIT)
+				if(prob(5))
+					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+				AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
+				EyeBlurry(5)
+				if(prob(7))
+					AdjustConfused(2)
+				if(prob(5))
+					Paralyse(2)
+				switch(health)
+					if(-INFINITY to -100)
+						adjustOxyLoss(1)
+						if(prob(health * -0.1))
+							if(ishuman(src))
+								var/mob/living/carbon/human/H = src
+								H.set_heartattack(TRUE)
+						if(prob(health * -0.2))
+							var/datum/disease/D = new /datum/disease/critical/heart_failure
+							ForceContractDisease(D)
+						Paralyse(5)
+					if(-99 to -80)
+						adjustOxyLoss(1)
+						if(prob(4))
+							to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+							Paralyse(2)
+							var/datum/disease/D = new /datum/disease/critical/heart_failure
+							ForceContractDisease(D)
+					if(-79 to -50)
+						adjustOxyLoss(1)
+						if(prob(10))
+							var/datum/disease/D = new /datum/disease/critical/shock
+							ForceContractDisease(D)
+						if(prob(health * -0.08))
+							var/datum/disease/D = new /datum/disease/critical/heart_failure
+							ForceContractDisease(D)
+						if(prob(6))
+							to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+							Weaken(3)
+						if(prob(3))
+							Paralyse(2)
+					if(-49 to 0)
+						adjustOxyLoss(1)
+						if(prob(3))
+							var/datum/disease/D = new /datum/disease/critical/shock
+							ForceContractDisease(D)
+						if(prob(5))
+							to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+							Weaken(3)
 
 	else //dead
 		SetSilence(0)
@@ -967,7 +1024,7 @@
 			return
 
 		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
-			if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
+			if(isinspace())
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
 				//Divided by 2, otherwise it is too slow.
@@ -985,7 +1042,7 @@
 		if(pulse == PULSE_NONE)
 			return
 
-		if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
+		if(pulse >= PULSE_2FAST || isinspace())
 			//PULSE_THREADY - maximum value for pulse, currently it 5.
 			//High pulse value corresponds to a fast rate of heartbeat.
 			//Divided by 2, otherwise it is too slow.
@@ -1003,31 +1060,8 @@
 	This proc below is only called when those HUD elements need to change as determined by the mobs hud_updateflag.
 */
 
-
-/mob/living/carbon/human/handle_silent()
-	if(..())
-		speech_problem_flag = 1
-	return silent
-
-/mob/living/carbon/human/handle_slurring()
-	if(..())
-		speech_problem_flag = 1
-	return slurring
-
-/mob/living/carbon/human/handle_stunned()
-	if(..())
-		speech_problem_flag = 1
-	return stunned
-
-/mob/living/carbon/human/handle_stuttering()
-	if(..())
-		speech_problem_flag = 1
-	return stuttering
-
-
-
 /mob/living/carbon/human/proc/can_heartattack()
-	if(NO_BLOOD in dna.species.species_traits)
+	if((NO_BLOOD in dna.species.species_traits) && !dna.species.forced_heartattack)
 		return FALSE
 	if(NO_INTORGANS in dna.species.species_traits)
 		return FALSE
@@ -1054,13 +1088,16 @@
 
 	heart.beating = !status
 
-/mob/living/carbon/human/proc/handle_heartattack()
+/mob/living/carbon/human/handle_heartattack()
 	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))
 		return
-	AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
-	adjustOxyLoss(5)
-	Paralyse(4)
-	adjustBruteLoss(2)
+	if(getOxyLoss())
+		adjustBrainLoss(3)
+	else if(prob(10))
+		adjustBrainLoss(1)
+	Weaken(5)
+	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
+	adjustOxyLoss(20)
 
 
 

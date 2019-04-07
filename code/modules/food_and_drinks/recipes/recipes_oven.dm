@@ -163,13 +163,22 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/loadedbakedpotato
 
-/datum/recipe/oven/cookie
-	reagents = list("milk" = 5, "sugar" = 5)
+////cookies by Ume
+
+/datum/recipe/oven/cookies
 	items = list(
-		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/rawcookies/chocochips,
 	)
-	result = /obj/item/reagent_containers/food/snacks/cookie
+	result = /obj/item/storage/bag/tray/cookies_tray
+
+/datum/recipe/oven/sugarcookies
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawcookies,
+	)
+	result = /obj/item/storage/bag/tray/cookies_tray/sugarcookie
+
+
+////
 
 /datum/recipe/oven/fortunecookie
 	reagents = list("sugar" = 5)
@@ -355,6 +364,17 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/orangecake
 
+/datum/recipe/oven/bananacake
+	reagents = list("milk" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bananacake
+
 /datum/recipe/oven/limecake
 	reagents = list("milk" = 5)
 	items = list(
@@ -425,14 +445,6 @@
 		/obj/item/reagent_containers/food/snacks/doughslice
 	)
 	result = /obj/item/reagent_containers/food/snacks/cracker
-
-/datum/recipe/oven/sugarcookie
-	reagents = list("sugar" = 5)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/egg,
-	)
-	result = /obj/item/reagent_containers/food/snacks/sugarcookie
 
 /datum/recipe/oven/sugarcookie/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/sugarcookie/being_cooked = ..()

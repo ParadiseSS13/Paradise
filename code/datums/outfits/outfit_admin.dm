@@ -63,7 +63,7 @@
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
-
+	H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
@@ -83,12 +83,12 @@
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
 	shoes = /obj/item/clothing/shoes/magboots/syndie
+	r_pocket = /obj/item/radio/uplink/nuclear
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_hand = /obj/item/tank/jetpack/oxygen/harness
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/reagent_containers/food/pill/initropidril = 1,
+		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
@@ -117,42 +117,7 @@
 	name = "Syndicate Strike Team"
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_syndicate_commando()
-
-
-/datum/outfit/admin/syndicate/officer
-	name = "Syndicate Officer"
-
-	head = /obj/item/clothing/head/beret
-	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
-	l_ear = /obj/item/radio/headset/syndicate/alt
-	l_pocket = /obj/item/pinpointer/advpinpointer
-	r_pocket = null // stop them getting a radio uplink, they get an implant instead
-
-	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/flashlight = 1,
-		/obj/item/reagent_containers/food/pill/initropidril = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
-		/obj/item/ammo_box/magazine/m50 = 2,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
-		/obj/item/lighter/zippo/gonzofist = 1
-	)
-	implants = list(
-		/obj/item/implant/dust
-	)
-	id_icon = "commander"
-	id_access = "Syndicate Operative Leader"
-
-/datum/outfit/admin/syndicate/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/implant/uplink/U = new /obj/item/implant/uplink(H)
-	U.implant(H)
-	U.hidden_uplink.uses = 500
+	return H.equip_syndicate_commando(FALSE, TRUE)
 
 
 /datum/outfit/admin/syndicate/spy
@@ -732,6 +697,31 @@
 	)
 	is_tsf_lieutenant = TRUE
 
+/datum/outfit/admin/sol_trader
+	name = "Sol Trader"
+
+	uniform = /obj/item/clothing/under/rank/cargotech
+	back = /obj/item/storage/backpack/industrial
+	belt = /obj/item/melee/classic_baton
+	head = /obj/item/clothing/head/soft
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/radio/headset
+	glasses = /obj/item/clothing/glasses/sunglasses
+	id = /obj/item/card/id/supply
+	pda = /obj/item/pda
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/hand_labeler = 1
+	)
+
+/datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(access_trade_sol, access_maint_tunnels, access_external_airlocks), name)
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

@@ -11,7 +11,7 @@
 	var/payload_name = null // used for spawned grenades
 	w_class = WEIGHT_CLASS_SMALL
 	force = 2
-	var/prime_sound = 'sound/items/Screwdriver2.ogg'
+	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = EMPTY
 	var/list/beakers = list()
 	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle)
@@ -235,7 +235,7 @@
 		nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/pickup()
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
@@ -247,9 +247,9 @@
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/grenade/chem_grenade/hear_talk(mob/living/M, msg)
+/obj/item/grenade/chem_grenade/hear_talk(mob/living/M, list/message_pieces)
 	if(nadeassembly)
-		nadeassembly.hear_talk(M, msg)
+		nadeassembly.hear_talk(M, message_pieces)
 
 /obj/item/grenade/chem_grenade/hear_message(mob/living/M, msg)
 	if(nadeassembly)
@@ -275,7 +275,7 @@
 		reactants += G.reagents
 
 	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
@@ -526,20 +526,20 @@
 	update_icon()
 
 /obj/item/grenade/chem_grenade/facid
-	name = "acid grenade"
-	desc = "Used for melting armoured opponents."
+	payload_name = "acid smoke"
+	desc = "Use to chew up opponents from the inside out."
 	stage = READY
 
 /obj/item/grenade/chem_grenade/facid/New()
 	..()
-	var/obj/item/reagent_containers/glass/beaker/bluespace/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/bluespace/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("facid", 280)
+	B1.reagents.add_reagent("facid", 80)
 	B1.reagents.add_reagent("potassium", 20)
 	B2.reagents.add_reagent("phosphorus", 20)
 	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("facid", 260)
+	B2.reagents.add_reagent("facid", 60)
 
 	beakers += B1
 	beakers += B2

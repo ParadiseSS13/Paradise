@@ -61,6 +61,14 @@
 	caliber = "38"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
+	name = "finger gun cylinder"
+	desc = "Wait, what?"
+	ammo_type = /obj/item/ammo_casing/c38/invisible
+
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
+	ammo_type = /obj/item/ammo_casing/c38/invisible/fake
+
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
@@ -113,6 +121,9 @@
 	name = "improvised shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/cane
+	ammo_type = /obj/item/ammo_casing/shotgun/assassination
 
 /obj/item/ammo_box/magazine/internal/shot/riot
 	name = "riot shotgun internal magazine"
@@ -210,7 +221,7 @@
 	multiple_sprites = 1
 
 /obj/item/ammo_box/magazine/enforcer
-	name = "handgun magazine (9mm)"
+	name = "handgun magazine (9mm rubber)"
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
@@ -239,6 +250,7 @@
 	return 0
 
 /obj/item/ammo_box/magazine/enforcer/lethal
+	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
 
 /obj/item/ammo_box/magazine/wt550m9
@@ -478,3 +490,12 @@
 /obj/item/ammo_box/magazine/laser/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/20)*20]"
+
+/obj/item/ammo_box/magazine/toy/smgm45
+	name = "donksoft SMG magazine"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+	max_ammo = 20
+
+/obj/item/ammo_box/magazine/toy/smgm45/update_icon()
+	..()
+	icon_state = "c20r45-[round(ammo_count(),2)]"

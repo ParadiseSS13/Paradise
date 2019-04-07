@@ -12,6 +12,9 @@
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(is_hot(src) && A.reagents && !ismob(A))
+		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+		A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
@@ -48,12 +51,12 @@
 				else
 					return 1
 
-		if(isscrewdriver(src) && ismachine(M))
+		if(isscrewdriver(src) && ismachine(M) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
 				return 1
-		if(is_sharp(src))
+		if(is_sharp(src) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
@@ -61,14 +64,16 @@
 
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
-	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+	else
+		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
+		if(hitsound)
+			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 
 	user.lastattacked = M
 	M.lastattacker = user
 
 	user.do_attack_animation(M)
-	M.attacked_by(src, user, def_zone)
+	. = M.attacked_by(src, user, def_zone)
 
 	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 

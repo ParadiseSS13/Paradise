@@ -32,6 +32,12 @@
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null
+	if(islist(data))
+		data.Cut()
+	data = null
+
+/datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
+	return
 
 /datum/reagent/proc/reaction_mob(mob/living/M, method = TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  //for catching rare runtimes
@@ -155,3 +161,32 @@
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 	return update_flags
+
+/datum/reagent/proc/fakedeath(mob/living/M)
+	if(M.status_flags & FAKEDEATH)
+		return
+	if(!(M.status_flags & CANPARALYSE))
+		return
+	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
+		return
+	M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+	M.status_flags |= FAKEDEATH
+	M.update_stat("fakedeath reagent")
+	M.med_hud_set_health()
+	M.med_hud_set_status()
+
+/datum/reagent/proc/fakerevive(mob/living/M)
+	if(!(M.status_flags & FAKEDEATH))
+		return
+	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
+		return
+	if(M.resting)
+		M.StopResting()
+	M.status_flags &= ~(FAKEDEATH)
+	M.update_stat("fakedeath reagent end")
+	M.med_hud_set_status()
+	M.med_hud_set_health()
+	if(M.healthdoll)
+		M.healthdoll.cached_healthdoll_overlays.Cut()
+	if(M.dna.species)
+		M.dna.species.handle_hud_icons(M)

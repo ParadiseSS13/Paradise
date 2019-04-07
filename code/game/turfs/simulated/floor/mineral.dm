@@ -33,6 +33,7 @@
 	icons = list("plasma","plasma_dam")
 
 /turf/simulated/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
@@ -110,6 +111,7 @@
 
 /turf/simulated/floor/mineral/titanium/purple
 	icon_state = "shuttlefloor5"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/purple
 	icons = list("shuttlefloor5","shuttlefloor5_dam")
 
 /turf/simulated/floor/mineral/titanium/purple/airless

@@ -171,6 +171,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -332,6 +333,17 @@
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
 	req_access_txt = "150"
+
+/obj/machinery/door/airlock/hatch/syndicate/command
+	name = "Command Center"
+	req_access_txt = "153"
+	explosion_block = 2
+	normal_integrity = 1000
+	security_level = 6
+
+/obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
+	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	return
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
@@ -530,7 +542,7 @@
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	assemblytype = "obj/structure/door_assembly/multi_tile"
+	assemblytype = /obj/structure/door_assembly/multi_tile
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

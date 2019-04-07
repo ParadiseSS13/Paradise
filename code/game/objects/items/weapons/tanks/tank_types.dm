@@ -27,6 +27,9 @@
 			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
 			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
+obj/item/tank/oxygen/empty/New()
+	..()
+	air_contents.oxygen = null
 
 /obj/item/tank/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
@@ -142,10 +145,18 @@
 			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
 			user << sound('sound/effects/alert.ogg')
 
+obj/item/tank/emergency_oxygen/empty/New()
+	..()
+	air_contents.oxygen = null
+
 /obj/item/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
 	volume = 6
+
+obj/item/tank/emergency_oxygen/engi/empty/New()
+	..()
+	air_contents.oxygen = null
 
 /obj/item/tank/emergency_oxygen/syndi
 	name = "suspicious emergency oxygen tank"
@@ -157,6 +168,10 @@
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
 	volume = 10
+
+obj/item/tank/emergency_oxygen/double/empty/New()
+	..()
+	air_contents.oxygen = null
 
 /obj/item/tank/emergency_oxygen/double/full
 	name = "pressurized double emergency oxygen tank"

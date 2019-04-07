@@ -3,7 +3,7 @@
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
 
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 	var/icon_base
 	var/obj/displayed
@@ -297,10 +297,10 @@
 
 	toggle_tilt(usr)
 
-/obj/structure/sign/picture_frame/hear_talk(mob/living/M as mob, msg)
+/obj/structure/sign/picture_frame/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()
 	for(var/obj/O in contents)
-		O.hear_talk(M, msg)
+		O.hear_talk(M, message_pieces)
 
 /obj/structure/sign/picture_frame/hear_message(mob/living/M as mob, msg)
 	..()

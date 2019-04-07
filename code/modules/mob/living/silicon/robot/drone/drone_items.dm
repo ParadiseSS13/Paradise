@@ -38,15 +38,34 @@
 /obj/item/gripper/paperwork
 	name = "paperwork gripper"
 	desc = "A simple grasping tool for clerical work."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "gripper"
 
 	can_hold = list(
 		/obj/item/clipboard,
 		/obj/item/paper,
-//		/obj/item/paper_bundle,
 		/obj/item/card/id
 		)
+
+/obj/item/gripper/medical
+	name = "medical gripper"
+	desc = "A grasping tool used to help patients up once surgery is complete."
+	can_hold = list()
+
+/obj/item/gripper/medical/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)
+	var/mob/living/carbon/human/H
+	if(!wrapped && proximity && target && ishuman(target))
+		H = target
+		if(H.lying)
+			H.AdjustSleeping(-5)
+			if(H.sleeping == 0)
+				H.StopResting()
+			H.AdjustParalysis(-3)
+			H.AdjustStunned(-3)
+			H.AdjustWeakened(-3)
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			user.visible_message( \
+				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
+				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				)
 
 /obj/item/gripper/New()
 	..()

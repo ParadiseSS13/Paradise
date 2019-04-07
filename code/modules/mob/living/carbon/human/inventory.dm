@@ -321,7 +321,7 @@
 	if(put_in_active_hand(W))			return 1
 	else if(put_in_inactive_hand(W))	return 1
 	else
-		..()
+		. = ..()
 
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
@@ -434,11 +434,11 @@
 		if(slot_l_hand)
 			if(l_hand)
 				return 0
-			return 1
+			return !incapacitated()
 		if(slot_r_hand)
 			if(r_hand)
 				return 0
-			return 1
+			return !incapacitated()
 		if(slot_wear_mask)
 			if(wear_mask)
 				return 0

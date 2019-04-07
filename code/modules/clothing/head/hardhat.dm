@@ -5,18 +5,21 @@
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
 	var/brightness_on = 4 //luminosity when on
-	var/on = 0
+	var/on = FALSE
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
 	armor = list(melee = 15, bullet = 5, laser = 20, energy = 10, bomb = 20, bio = 10, rad = 20)
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	burn_state = FIRE_PROOF
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/user)
 	on = !on
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
-
 	if(on)
 		set_light(brightness_on)
 	else
@@ -26,6 +29,13 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/hardhat/extinguish_light()
+	if(on)
+		on = FALSE
+		set_light(0)
+		icon_state = "hardhat0_[item_color]"
+		item_state = "hardhat0_[item_color]"
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"

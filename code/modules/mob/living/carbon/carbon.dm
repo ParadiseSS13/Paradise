@@ -119,6 +119,9 @@
 	return 1
 
 /mob/living/carbon/gib()
+	. = death(1)
+	if(!.)
+		return
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
 			I.remove(src)
@@ -130,7 +133,6 @@
 			src.stomach_contents.Remove(M)
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
-	. = ..()
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
@@ -145,6 +147,7 @@
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
 	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
+	shock_internal_organs(shock_damage)
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -206,7 +209,7 @@
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-	if(health >= config.health_threshold_crit)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
 			visible_message( \
@@ -356,11 +359,15 @@
 
 			else
 				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
+		if(mind && has_bane(BANE_LIGHT))
+			mind.disrupt_spells(-500)
 		return 1
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
+			if(mind && has_bane(BANE_LIGHT))
+				mind.disrupt_spells(0)
 
 
 /mob/living/carbon/proc/tintcheck()
@@ -435,6 +442,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			if(!do_after(src, 45, target = src))
 				return
 
+			if(buckled)
+				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+				return
+
 			if(!client)
 				return
 
@@ -444,6 +455,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 					if(istype(I, /obj/item/implant))
 						continue
 					if(istype(I, /obj/item/organ))
+						continue
+					if(I.flags & ABSTRACT)
 						continue
 					else
 						failed++
@@ -574,7 +587,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
-		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
+		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
@@ -1108,3 +1121,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()
+
+/mob/living/carbon/proc/shock_internal_organs(intensity)
+	for(var/obj/item/organ/O in internal_organs)
+		O.shock_organ(intensity)

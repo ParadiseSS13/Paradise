@@ -53,6 +53,7 @@
 		updateinfolinks()
 
 /obj/item/paper/update_icon()
+	..()
 	if(icon_state == "paper_talisman")
 		return
 	if(info)
@@ -61,10 +62,13 @@
 	icon_state = "paper"
 
 /obj/item/paper/examine(mob/user)
-	if(in_range(user, src) || istype(user, /mob/dead/observer))
-		show_content(user)
+	if(user.is_literate())
+		if(in_range(user, src) || istype(user, /mob/dead/observer))
+			show_content(user)
+		else
+			to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
 	else
-		to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
+		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
 
 /obj/item/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -90,6 +94,9 @@
 
 	if((CLUMSY in usr.mutations) && prob(50))
 		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+		return
+	if(!usr.is_literate())
+		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
 		return
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
@@ -303,12 +310,6 @@
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
 
-	if(istype(P, /obj/item/stack/tape_roll))
-		var/obj/item/stack/tape_roll/tape = P
-		tape.stick(src, user)
-		tape.use(1)
-		return
-
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
@@ -358,13 +359,16 @@
 		B.update_icon()
 
 	else if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		var/obj/item/pen/multi/robopen/RP = P
-		if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
-			RP.RenamePaper(user,src)
+		if(user.is_literate())
+			var/obj/item/pen/multi/robopen/RP = P
+			if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
+				RP.RenamePaper(user,src)
+			else
+				show_content(user, infolinks = 1)
+			//openhelp(user)
+			return
 		else
-			show_content(user, infolinks = 1)
-		//openhelp(user)
-		return
+			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
 
 	else if(istype(P, /obj/item/stamp))
 		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
@@ -397,9 +401,10 @@
 
 	add_fingerprint(user)
 
-/obj/item/paper/fire_act()
+/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	info = "[stars(info)]"
+	if(burn_state >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
+		info = "[stars(info)]"
 
 /obj/item/paper/proc/stamp(var/obj/item/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
@@ -706,4 +711,16 @@
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
 			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
-	..()
+	. = ..()
+
+/obj/item/paper/researchnotes
+	name = "paper - 'Research Notes'"
+	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
+
+/obj/item/paper/researchnotes/New()
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/mytech = pick(possible_techs)
+	var/mylevel = rand(7, 9)
+	origin_tech = "[mytech]=[mylevel]"
+	name = "research notes - [mytech] [mylevel]"

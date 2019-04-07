@@ -522,8 +522,8 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 
 
-/obj/spacepod/hear_talk/hear_talk(mob/M, var/msg)
-	cargo_hold.hear_talk(M, msg)
+/obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
+	cargo_hold.hear_talk(M, message_pieces)
 	..()
 
 /obj/spacepod/hear_message(mob/M, var/msg)

@@ -38,7 +38,7 @@
 
 	. = src.emote_dead(message)
 
-/mob/dead/observer/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+/mob/dead/observer/handle_track(var/message, var/verb = "says", var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
 	return "[speaker_name] ([ghost_follow_link(follow_target, ghost=src)])"
 
 /mob/dead/observer/handle_speaker_name(var/mob/speaker = null, var/vname, var/hard_to_hear)

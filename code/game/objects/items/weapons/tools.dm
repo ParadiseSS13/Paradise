@@ -22,7 +22,7 @@
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
-	usesound = 'sound/items/Ratchet.ogg'
+	usesound = 'sound/items/ratchet.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
@@ -32,7 +32,7 @@
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
@@ -50,7 +50,7 @@
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wrench"
-	usesound = 'sound/effects/EMPulse.ogg'
+	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
@@ -76,7 +76,7 @@
 
 /obj/item/wrench/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/wrench/medical
 	name = "medical wrench"
@@ -113,7 +113,7 @@
 		return
 
 	user.dust()
-	return OXYLOSS
+	return OBLITERATION
 
 //Screwdriver
 /obj/item/screwdriver
@@ -131,7 +131,7 @@
 	materials = list(MAT_METAL=75)
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	usesound = 'sound/items/Screwdriver.ogg'
+	usesound = 'sound/items/screwdriver.ogg'
 	toolspeed = 1
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
@@ -143,7 +143,7 @@
 
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/screwdriver/New(loc, var/param_color = null)
 	..()
@@ -176,7 +176,7 @@
 	desc = "An ultrasonic screwdriver."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "screwdriver"
-	usesound = 'sound/items/PSHOOM.ogg'
+	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
 
@@ -199,7 +199,7 @@
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/screwdriver/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
@@ -229,8 +229,8 @@
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
-	hitsound = 'sound/items/Wirecutter.ogg'
-	usesound = 'sound/items/Wirecutter.ogg'
+	hitsound = 'sound/items/wirecutter.ogg'
+	usesound = 'sound/items/wirecutter.ogg'
 	sharp = 1
 	toolspeed = 1
 	var/random_color = TRUE
@@ -256,7 +256,7 @@
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
@@ -299,7 +299,7 @@
 		if(head)
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
 			playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
@@ -322,9 +322,9 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	usesound = 'sound/items/Welder.ogg'
-	var/acti_sound = 'sound/items/WelderActivate.ogg'
-	var/deac_sound = 'sound/items/WelderDeactivate.ogg'
+	usesound = 'sound/items/welder.ogg'
+	var/acti_sound = 'sound/items/welderactivate.ogg'
+	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -349,7 +349,7 @@
 
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/weldingtool/proc/update_torch()
 	overlays.Cut()
@@ -368,6 +368,7 @@
 		else
 			icon_state = "[initial(icon_state)][ratio]"
 	update_torch()
+	..()
 
 /obj/item/weldingtool/process()
 	switch(welding)
@@ -468,7 +469,6 @@
 /obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
 	if(!proximity)
 		return
-
 	if(welding)
 		remove_fuel(1)
 		var/turf/location = get_turf(user)
@@ -671,7 +671,7 @@ obj/item/weldingtool/experimental/process()
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	item_state = "crowbar"
-	usesound = 'sound/items/Crowbar.ogg'
+	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5
@@ -738,7 +738,7 @@ obj/item/weldingtool/experimental/process()
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)

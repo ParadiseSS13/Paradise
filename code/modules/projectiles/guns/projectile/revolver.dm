@@ -4,6 +4,7 @@
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
+	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
 
 /obj/item/gun/projectile/revolver/New()
 	..()
@@ -45,6 +46,7 @@
 			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
 			CB.update_icon()
+			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
 		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
@@ -142,6 +144,48 @@
 				desc = initial(desc)
 				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
 
+/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
+	name = "\improper finger gun"
+	desc = "Bang bang bang!"
+	icon_state = "fingergun"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
+	origin_tech = ""
+	flags = ABSTRACT | NODROP | DROPDEL
+	slot_flags = null
+	fire_sound = null
+	fire_sound_text = null
+	lefthand_file = null
+	righthand_file = null
+	clumsy_check = 0 //Stole your uplink! Honk!
+	needs_permit = 0 //go away beepsky
+
+/obj/item/gun/projectile/revolver/fingergun/fake
+	desc = "Pew pew pew!"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
+
+/obj/item/gun/projectile/revolver/fingergun/New()
+	..()
+	verbs -= /obj/item/gun/projectile/revolver/verb/spin
+
+/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
+	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
+	qdel(src)
+	return
+
+/obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
+	if(!user.mind.miming)
+		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first. Use your fingers if you wish to holster them.</span>")
+		return
+	..()
+
+/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
+	return
+
+/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
+	qdel(src)
+	return
+
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
@@ -209,6 +253,7 @@
 			chambered = null
 			CB.loc = get_turf(loc)
 			CB.update_icon()
+			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
 			to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
@@ -274,6 +319,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
 	unique_rename = 1
 	unique_reskin = 1
@@ -306,7 +352,9 @@
 		CB = magazine.get_round(0)
 		chambered = null
 		CB.loc = get_turf(loc)
+		CB.SpinAnimation(10, 1)
 		CB.update_icon()
+		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
@@ -327,6 +375,7 @@
 	force = 10
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = 0
 	unique_reskin = 0
@@ -375,10 +424,10 @@
 	can_unsuppress = 0
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
-	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
 

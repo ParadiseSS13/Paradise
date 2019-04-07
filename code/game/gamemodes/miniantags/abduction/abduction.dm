@@ -76,10 +76,12 @@
 
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
+	scientist.offstation_role = TRUE
 	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
+	agent.offstation_role = TRUE
 	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
 
 	abductors |= agent
@@ -123,8 +125,9 @@
 	S = H.dna.species
 	S.team = team_number
 	H.real_name = team_name + " Agent"
-	H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
+	H.flavor_text = null
 	H.equipOutfit(/datum/outfit/abductor/agent)
 	greet_agent(agent,team_number)
 	update_abductor_icons_added(agent)
@@ -139,8 +142,9 @@
 	S.scientist = TRUE
 	S.team = team_number
 	H.real_name = team_name + " Scientist"
-	H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
+	H.flavor_text = null
 	H.equipOutfit(/datum/outfit/abductor/scientist)
 	greet_scientist(scientist,team_number)
 	update_abductor_icons_added(scientist)

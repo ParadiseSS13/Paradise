@@ -29,9 +29,9 @@
 /datum/reagent/consumable/drink/apple_pocalypse/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, 0, 2, 1)
+		goonchem_vortex(T, 1, 0)
 		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
-	..()
+	return ..()
 
 //Berry Banned: This one is tasty and safe to drink, might have a low chance of healing a random damage type?
 /datum/reagent/consumable/drink/berry_banned
@@ -119,7 +119,7 @@
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, 1, 1, 2)
+		goonchem_vortex(T, 0, 0)
 		M.emote("burp")
 		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
 	else if(prob(25))

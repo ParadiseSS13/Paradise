@@ -3,6 +3,8 @@ var/list/blobs = list()
 var/list/blob_cores = list()
 var/list/blob_nodes = list()
 
+/datum/game_mode
+	var/list/blob_overminds = list()
 
 /datum/game_mode/blob
 	name = "blob"
@@ -12,6 +14,7 @@ var/list/blob_nodes = list()
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
+	free_golems_disabled = TRUE
 
 	var/declared = 0
 	var/burst = 0

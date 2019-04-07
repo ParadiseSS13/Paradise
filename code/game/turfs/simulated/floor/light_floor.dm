@@ -6,6 +6,10 @@
 #define LIGHTFLOOR_BLUE 6
 #define LIGHTFLOOR_PURPLE 7
 
+#define LIGHTFLOOR_GENERICCYCLE 8
+#define LIGHTFLOOR_CYCLEA 9
+#define LIGHTFLOOR_CYCLEB 10
+
 /turf/simulated/floor/light
 	name = "Light floor"
 	light_range = 5
@@ -14,6 +18,7 @@
 	broken_states = list("light_broken")
 	var/on = 1
 	var/state = LIGHTFLOOR_ON
+	var/can_modify_colour = TRUE
 
 /turf/simulated/floor/light/New()
 	..()
@@ -44,6 +49,15 @@
 			if(LIGHTFLOOR_PURPLE)
 				icon_state = "light_on-p"
 				set_light(5,null,LIGHT_COLOR_PURPLE)
+			if(LIGHTFLOOR_GENERICCYCLE)
+				icon_state = "light_on-cycle_all"
+				set_light(5,null,LIGHT_COLOR_WHITE)
+			if(LIGHTFLOOR_CYCLEA)
+				icon_state = "light_on-dancefloor_A"
+				set_light(5,null,LIGHT_COLOR_RED)
+			if(LIGHTFLOOR_CYCLEB)
+				icon_state = "light_on-dancefloor_B"
+				set_light(5,null,LIGHT_COLOR_DARKBLUE)
 			else
 				icon_state = "light_off"
 				set_light(0)
@@ -56,6 +70,8 @@
 	..()
 
 /turf/simulated/floor/light/attack_hand(mob/user)
+	if(!can_modify_colour)
+		return
 	on = !on
 	update_icon()
 
@@ -71,7 +87,9 @@
 				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 			else
 				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	if(istype(C,/obj/item/multitool))
+	if(ismultitool(C))
+		if(!can_modify_colour)
+			return
 		if(state != 0)
 			if(state < LIGHTFLOOR_PURPLE)
 				state++
@@ -81,3 +99,21 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>\The [src]'s light bulb appears to have burned out.</span>")
+
+
+//Cycles through all of the colours
+/turf/simulated/floor/light/colour_cycle
+	state = LIGHTFLOOR_GENERICCYCLE
+	can_modify_colour = FALSE
+
+//Two different "dancefloor" types so that you can have a checkered pattern
+// (also has a longer delay than colour_cycle between cycling colours)
+/turf/simulated/floor/light/colour_cycle/dancefloor_a
+	name = "dancefloor"
+	desc = "Funky floor."
+	state = LIGHTFLOOR_CYCLEA
+
+/turf/simulated/floor/light/colour_cycle/dancefloor_b
+	name = "dancefloor"
+	desc = "Funky floor."
+	state = LIGHTFLOOR_CYCLEB

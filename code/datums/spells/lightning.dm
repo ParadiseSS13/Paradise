@@ -10,6 +10,7 @@
 	cooldown_min = 30
 	selection_type = "view"
 	random_target = 1
+	special_availability_check = 1
 	var/start_time = 0
 	var/ready = 0
 	var/image/halo = null
@@ -95,7 +96,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 			current.Slowed(3)
 			spawn(20)
 				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
 		if(damaging)
 			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
@@ -106,7 +107,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 			current.Slowed(3)
 			spawn(20)
 				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
 			if(user == M || target == M && los_check(current,M)) // || origin == M ? Not sure double shockings is good or not

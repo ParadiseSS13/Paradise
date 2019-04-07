@@ -2,7 +2,8 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/toggleadminhelpsound, /*toggles whether we hear bwoinks*/
+	/client/proc/toggleadminhelpsound,
+	/client/proc/togglementorhelpsound,
 	/client/proc/cmd_mentor_check_new_players,
 	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	)
@@ -78,6 +79,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/list_ssds,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
+	/client/proc/show_discord_duplicates,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -203,6 +205,8 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/openMentorTicketUI,
+	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
@@ -217,10 +221,10 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/hide_snpc_verbs
 )
 var/list/admin_verbs_ticket = list(
-	/client/proc/openTicketUI,
+	/client/proc/openAdminTicketUI,
 	/client/proc/toggleticketlogs,
-	/client/proc/resolveAllTickets,
-	/client/proc/openUserUI
+	/client/proc/resolveAllAdminTickets,
+	/client/proc/resolveAllMentorTickets
 )
 
 /client/proc/on_holder_add()
@@ -938,6 +942,20 @@ var/list/admin_verbs_ticket = list(
 	else
 		to_chat(usr, "You now will get admin log messages.")
 
+/client/proc/toggleMentorTicketLogs()
+	set name = "Toggle Mentor Ticket Messgaes"
+	set category = "Preferences"
+
+	if(!check_rights(R_MENTOR))
+		return
+
+	prefs.toggles ^= CHAT_NO_MENTORTICKETLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_MENTORTICKETLOGS)
+		to_chat(usr, "You now won't get mentor ticket messages.")
+	else
+		to_chat(usr, "You now will get mentor ticket messages.")
+
 /client/proc/toggleticketlogs()
 	set name = "Toggle Admin Ticket Messgaes"
 	set category = "Preferences"
@@ -987,7 +1005,7 @@ var/list/admin_verbs_ticket = list(
 
 	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
 	to_chat(T, "<span class='notice'>Move on.</span>")
-	T << 'sound/voice/ManUp1.ogg'
+	T << 'sound/voice/manup1.ogg'
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
@@ -1005,7 +1023,7 @@ var/list/admin_verbs_ticket = list(
 	if(confirm == "Yes")
 		for(var/mob/T as mob in GLOB.mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
-			T << 'sound/voice/ManUp1.ogg'
+			T << 'sound/voice/manup1.ogg'
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")
@@ -1044,3 +1062,12 @@ var/list/admin_verbs_ticket = list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/show_discord_duplicates()
+	set name = "Show Duplicate Discord Links"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	holder.discord_duplicates()

@@ -36,3 +36,7 @@
 		return
 	if(DIZZY in M.mutations)
 		M.Dizzy(300)
+
+/datum/dna/gene/disability/dizzy/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	M.SetDizzy(0)
