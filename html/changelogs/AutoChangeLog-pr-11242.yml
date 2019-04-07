@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Changing your hotkey mode now happens instantaneously and no longer lags."

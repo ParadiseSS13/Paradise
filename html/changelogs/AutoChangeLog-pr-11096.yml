@@ -1,7 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - tweak: "Guardians can no longer change action intents on their own"
-  - bugfix: "Fixes #10900 - Guardians can no longer attack their host while inside them"
-  - rscadd: "Explosive and Support Guardians now get precise cooldown shown (instead of just static estimate) before their bomb and beacon abitilites are ready to be used again, respectively"
-  - tweak: "HARM action intent icon for Guardians updated"

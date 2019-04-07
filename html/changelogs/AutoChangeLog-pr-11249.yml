@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Power gloves electric shocks can target anything now (still only damages mobs)"
-  - rscadd: "Power gloves electric arcs will bounce around (if it happens to target a mob though, it'll ground out and not bounce any more)"
-  - tweak: "Power gloves cooldown lowered from 12 to 4"
-  - tweak: "Power gloves heat up the turf they target"
-  - tweak: "Using power gloves on disarm intent will weaken your target instead of dealing damage"
