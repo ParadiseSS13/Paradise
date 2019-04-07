@@ -1,0 +1,6 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Ghosting while alive, conscious, and a member of the crew will now result in your body being moved to cryo after 5 minutes, assuming your body isn't killed or restrained in any way in the meantime."
+  - rscadd: "An AI that ghosts while alive gets a dismissable hint that they might consider using OOC -> Wipe Core instead."
+  - rscadd: "Ghosting out of your body while you are alive, and an antag, will result in admins being informed, so that they may replace you as an antag if needed."
