@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Shadowling Glare ability reworked - The further Shadowling is from their glared target, the shorter stun their target gets. Stuns also have a delay before they kick in, based on the distance, however targets will be slowed and muted before stun takes effect. Targets on the tile just next to them are still stunned and muted for 10 seconds without any delay."
