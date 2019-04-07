@@ -1,0 +1,7 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - rscadd: "Adds a Mhelp ticket system"
+  - tweak: "Take in the m/a-helps now actually takes the question"
+  - bugfix: "a/m-help followup responses using a-mhelp verb now get added to the last ticket like it should"
+  - bugfix: "Normal players can now see their open tickets using the My Admin/Mentor tickets verb"
