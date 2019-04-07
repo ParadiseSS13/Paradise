@@ -618,6 +618,7 @@ var/global/list/multiverse = list()
 	var/list/spooky_scaries = list()
 	var/unlimited = 0
 	var/heresy = 0
+	var/ghost = FALSE
 
 /obj/item/necromantic_stone/unlimited
 	unlimited = 1
@@ -633,11 +634,12 @@ var/global/list/multiverse = list()
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
+	if(M.get_ghost() || M.get_ghost().client) // checks if the target is ghosted
+		ghost = TRUE
 
-	if(!M.mind || !M.client)
+	if((!M.client || !M.mind) && !ghost) // if there is no client connected to the ghost or mob
 		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
-
 	check_spooky()//clean out/refresh the list
 
 	if(spooky_scaries.len >= 3 && !unlimited)
@@ -648,6 +650,7 @@ var/global/list/multiverse = list()
 	else
 		M.set_species(/datum/species/skeleton)
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
+		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
 		equip_skeleton(M)
 	spooky_scaries |= M
