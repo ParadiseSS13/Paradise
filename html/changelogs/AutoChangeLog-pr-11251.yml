@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Vending items from vending machines will try to put the item in your hands after vending"
+  - tweak: "Vending machines with refill-canisters can be beaten apart and broken"
