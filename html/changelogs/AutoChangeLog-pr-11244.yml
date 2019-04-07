@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Descriptions now show with a mouse hover over action buttons"
