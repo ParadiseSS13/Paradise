@@ -1,0 +1,5 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - rscadd: "Gives you the option to disable text popup spam. Aka if enabled you won't get popups after you pressed T and had a lagspike and you typed a sentence containing a lot of T's. Default is off"
+  - tweak: "Now checks if OOC and LOOC are enabled before showing the popup"
