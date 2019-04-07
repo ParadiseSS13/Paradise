@@ -53,6 +53,7 @@ Made by Xhuis
 	var/objective_explanation
 	var/warning_threshold
 	var/victory_warning_announced = FALSE
+	var/thrall_ratio = 1
 
 /proc/is_thrall(var/mob/living/M)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadowling_thralls)
@@ -101,6 +102,7 @@ Made by Xhuis
 
 	var/thrall_scaling = round(num_players() / 3)
 	required_thralls = Clamp(thrall_scaling, 15, 25)
+	thrall_ratio = required_thralls / 15
 
 	warning_threshold = round(0.66 * required_thralls)
 

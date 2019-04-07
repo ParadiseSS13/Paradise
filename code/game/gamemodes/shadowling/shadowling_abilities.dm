@@ -359,23 +359,23 @@
 			to_chat(target, "<span class='warning'>Your concentration has been broken. The mental hooks you have sent out now retract into your mind.</span>")
 			return
 
-		if(thralls >= 3 && !screech_acquired)
+		if(thralls >= CEILING(3 * ticker.mode.thrall_ratio, 1) && !screech_acquired)
 			screech_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
-		if(thralls >= 5 && !blind_smoke_acquired)
+		if(thralls >= CEILING(5 * ticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
-		if(thralls >= 7 && !drainLifeAcquired)
+		if(thralls >= CEILING(7 * ticker.mode.thrall_ratio, 1) && !drainLifeAcquired)
 			drainLifeAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Life</b> ability. You can now drain the health of nearby humans to heal yourself.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife(null))
 
-		if(thralls >= 9 && !reviveThrallAcquired)
+		if(thralls >= CEILING(9 * ticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
