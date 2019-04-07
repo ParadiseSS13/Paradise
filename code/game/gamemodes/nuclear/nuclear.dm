@@ -15,8 +15,6 @@ proc/issyndicate(mob/living/M as mob)
 	free_golems_disabled = TRUE
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
-	var/const/agents_possible_highpop = 6 //The number of agents on high population.
-	var/const/highpop_trigger = 90 //The amount of players required on the server to trigger the higher number of operatives.
 
 	var/nukes_left = 1 //Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
