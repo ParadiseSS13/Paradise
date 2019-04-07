@@ -18,9 +18,9 @@
 	return 0
 
 
-/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target for 10 seconds
+/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
 	name = "Glare"
-	desc = "Stuns and mutes a target for a decent duration."
+	desc = "Stuns and mutes a target for a decent duration. Duration depends on the proximity to the target."
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
@@ -46,13 +46,25 @@
 			return
 		var/mob/living/carbon/human/M = target
 		user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
-		target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
-		if(in_range(target, user))
+		var/distance = get_dist(target, user)
+		if (distance <= 1) //Melee glare
+			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 			to_chat(target, "<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		else //Only alludes to the shadowling if the target is close by
+			target.Stun(10)
+			M.AdjustSilence(10)
+		else //Distant glare
+			var/loss = 10 - distance
+			var/duration = 10 - loss
+			if(loss <= 0)
+				to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
+				return
+			target.slowed = duration
+			M.AdjustSilence(10)
+			to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
+			sleep(duration*10)
+			target.Stun(loss)
+			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
-		target.Stun(10)
-		M.AdjustSilence(10)
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
