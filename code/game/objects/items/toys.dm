@@ -1395,7 +1395,12 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/russian_revolver/attack(mob/M, mob/living/user)
 	return
 
-/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, proximity)
+/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, flag, params)
+	if(flag)
+		if(target in user.contents)
+			return
+		if(!ismob(target))
+			return
 	shoot_gun(user)
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
