@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Trick Revolver"
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
 	reference = "CTR"
-	item = /obj/item/toy/russian_revolver/trick_revolver
+	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
 
