@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "An issue where the Hotkey Toggle button wasn't working has been fixed."
