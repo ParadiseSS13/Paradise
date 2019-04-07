@@ -3225,13 +3225,6 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
-"ir" = (
-/obj/structure/chair/stool,
-/turf/unsimulated/floor{
-	icon_state = "bar";
-	dir = 2
-	},
-/area/syndicate_mothership)
 "is" = (
 /mob/living/simple_animal/pet/fox/Syndifox,
 /turf/unsimulated/floor{
@@ -3526,6 +3519,9 @@
 /area/wizard_station)
 "jf" = (
 /obj/structure/chair/stool/bar,
+/obj/effect/landmark{
+	name = "Syndicate-Spawn"
+	},
 /turf/unsimulated/floor{
 	icon_state = "bar";
 	dir = 2
@@ -55027,7 +55023,7 @@ hQ
 hn
 hn
 en
-ir
+en
 iY
 jf
 jk
@@ -55798,7 +55794,7 @@ hn
 hn
 is
 en
-ir
+en
 hn
 iL
 jo

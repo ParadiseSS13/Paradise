@@ -15,8 +15,10 @@ proc/issyndicate(mob/living/M as mob)
 	free_golems_disabled = TRUE
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
+	var/const/agents_possible_highpop = 6 //The number of agents on high population.
+	var/const/highpop_trigger = 90 //The amount of players required on the server to trigger the higher number of operatives.
 
-	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
+	var/nukes_left = 1 //Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
 	var/syndies_didnt_escape = 0 //Used for tracking if the syndies got the shuttle off of the z-level
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
@@ -36,7 +38,10 @@ proc/issyndicate(mob/living/M as mob)
 	if(possible_syndicates.len < 1)
 		return 0
 
-	if(possible_syndicates.len > agents_possible)
+	var/enough_candidates = LAZYLEN(possible_syndicates) > agents_possible
+	if(enough_candidates && LAZYLEN(GLOB.clients) >= highpop_trigger)
+		agent_number = agents_possible_highpop
+	else if(enough_candidates)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
