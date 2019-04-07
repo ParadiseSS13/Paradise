@@ -618,7 +618,6 @@ var/global/list/multiverse = list()
 	var/list/spooky_scaries = list()
 	var/unlimited = 0
 	var/heresy = 0
-	var/ghost = FALSE
 
 /obj/item/necromantic_stone/unlimited
 	unlimited = 1
@@ -633,12 +632,6 @@ var/global/list/multiverse = list()
 
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
-		return
-	if(M.get_ghost() || M.get_ghost().client) // checks if the target is ghosted
-		ghost = TRUE
-
-	if((!M.client || !M.mind) && !ghost) // if there is no client connected to the ghost or mob
-		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
 	check_spooky()//clean out/refresh the list
 
@@ -731,7 +724,7 @@ var/global/list/multiverse = list()
 
 	H.update_dna()
 	H.update_body()
-
+	H.grab_ghost()
 	H.revive()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
