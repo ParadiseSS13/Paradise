@@ -632,23 +632,28 @@
 
 /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle
 	name = "Destroy Engines"
-	desc = "Extends the time of the emergency shuttle's arrival by fifteen minutes. This can only be used once."
+	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	panel = "Shadowling Abilities"
 	range = 1
 	clothes_req = 0
 	charge_max = 600
 	action_icon_state = "extend_shuttle"
+	var/global/extendlimit = 0
 
 /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
+	if(extendlimit == 1)
+		to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
 		charge_counter = charge_max
 		return
 	for(var/mob/living/carbon/human/target in targets)
 		if(target.stat)
 			charge_counter = charge_max
 			return
-		if(!is_thrall(target))
-			to_chat(user, "<span class='warning'>[target] must be a thrall.</span>")
+		if(is_shadow_or_thrall(target))
+			to_chat(user, "<span class='warning'>[target] must not be an ally.</span>")
 			charge_counter = charge_max
 			return
 		if(SSshuttle.emergency.mode != SHUTTLE_CALL)
@@ -660,7 +665,9 @@
 						  "<span class='notice'>You begin to draw [M]'s life force.</span>")
 		M.visible_message("<span class='warning'>[M]'s face falls slack, [M.p_their()] jaw slightly distending.</span>", \
 						  "<span class='boldannounce'>You are suddenly transported... far, far away...</span>")
-		if(!do_after(user, 50, target = M))
+		extendlimit = 1
+		if(!do_after(user, 150, target = M))
+			extendlimit = 0
 			to_chat(M, "<span class='warning'>You are snapped back to reality, your haze dissipating!</span>")
 			to_chat(user, "<span class='warning'>You have been interrupted. The draw has failed.</span>")
 			return
@@ -669,10 +676,9 @@
 						  "<span class='warning'><b>...speeding by... ...pretty blue glow... ...touch it... ...no glow now... ...no light... ...nothing at all...</span>")
 		M.death()
 		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-			var/more_minutes = 9000
-			var/timer = SSshuttle.emergency.timeLeft()
-			timer += more_minutes
-			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
+			var/more_minutes = 6000
+			var/timer = SSshuttle.emergency.timeLeft(1) + more_minutes
+			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
 			SSshuttle.emergency.setTimer(timer)
 			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!
