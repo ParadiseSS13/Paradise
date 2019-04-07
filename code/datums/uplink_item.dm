@@ -1330,13 +1330,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/device_tools/singularity_beacon/nuke
-	reference = "SNGBN"
-	hijack_only = FALSE // This inherited version exists so nukies can use it while keeping the original hijack only
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
