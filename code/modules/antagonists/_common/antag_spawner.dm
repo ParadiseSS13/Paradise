@@ -10,72 +10,91 @@
 /obj/item/antag_spawner/proc/equip_antag(mob/target)
 	return
 
-/obj/item/antag_spawner/borg_tele
-	name = "syndicate cyborg teleporter"
-	desc = "A single-use teleporter used to deploy a Syndicate Cyborg on the field."
+///////////BORGS AND OPERATIVES
+/obj/item/antag_spawner/nuke_ops
+	name = "syndicate operative teleporter"
+	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
-	var/checking = FALSE
-	var/TC_cost = 0
 	var/borg_to_spawn
-	var/upload_mind
-	var/list/possible_types = list("Assault", "Medical", "Saboteur")
+	var/checking = FALSE
 
-/obj/item/antag_spawner/borg_tele/attack_self(mob/user)
+/obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
-		return
+		return FALSE
 	if(!(user.mind in ticker.mode.syndicates))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return FALSE
 	if(checking)
-		to_chat(user, "<span class='warning'>[src] is already checking for possible borgs.</span>")
-		return
-	borg_to_spawn = input("What type of borg would you like to teleport?", "Cyborg Type", type) as null|anything in possible_types
-	if(!borg_to_spawn || checking || used)
-		return
-	upload_mind = input("Would you like to continue playing as an operative or take over the cyborg? (Another player will control your old self)", "Play as") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
-	if(!upload_mind || checking || used)
-		return
-	if(upload_mind == "Nuclear Operative")
-		checking = TRUE
-		to_chat(user, "<span class='notice'>The device is now checking for possible borgs.</span>")
-		var/list/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", ROLE_OPERATIVE, 1)
-		if(borg_candidates.len > 0 && !used)
-			checking = FALSE
-			used = TRUE
-			var/mob/M = pick(borg_candidates)
-			var/client/C = M.client
-			spawn_antag(C, get_turf(loc), "syndieborg")
-			qdel(src)
-		else
-			checking = FALSE
-			to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
-			return
-	else if(upload_mind == "Syndicate Cyborg")
-		checking = TRUE
-		to_chat(user, "<span class='notice'>You attempt to upload your consciousness into a new syndicate cyborg.</span>")
-		var/list/nuclear_candidates = pollCandidates("Do you want to play as the Syndicate Nuclear Operative [user.real_name]?", ROLE_OPERATIVE, 1)
-		if(nuclear_candidates.len > 0 && !used)
-			checking = FALSE
-			used = TRUE
-			var/mob/M = pick(nuclear_candidates)
-			var/client/nukeop_client = M.client
-			var/client/borg_client = user.client
-			spawn_antag(borg_client, get_turf(loc), "syndieborg")
-			user.key = nukeop_client.key
-			ticker.mode.greet_syndicate(user.mind)
-			qdel(src)
-		else
-			checking = FALSE
-			to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
-			return
+		to_chat(user, "<span class='danger'>The device is already connecting to Syndicate command. Please wait.</span>")
+		return FALSE	
+	return TRUE
 
-/obj/item/antag_spawner/borg_tele/spawn_antag(client/C, turf/T, type = "")
-	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
+/obj/item/antag_spawner/nuke_ops/attack_self(mob/user)
+	if(!(check_usability(user)))
+		return
+
+	checking = TRUE
+	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
+	var/list/nuke_candidates = pollCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg" : "operative"]?", ROLE_OPERATIVE, TRUE, 150)
+	if(LAZYLEN(nuke_candidates))
+		checking = FALSE
+		if(QDELETED(src) || !check_usability(user))
+			return
+		used = TRUE
+		var/mob/dead/observer/G = pick(nuke_candidates)
+		spawn_antag(G.client, get_turf(src), user.mind)
+		do_sparks(4, TRUE, src)
+		qdel(src)
+	else
+		checking = FALSE
+		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
+
+/obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
+	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
+	C.prefs.copy_to(M)
+
+	var/agent_number = LAZYLEN(ticker.mode.syndicates)
+	M.real_name = "[syndicate_name()] Operative #[agent_number]"
+
+	set_syndicate_values(C, M)
+
+/obj/item/antag_spawner/nuke_ops/proc/set_syndicate_values(client/C, mob/living/M)
+	M.key = C.key
+
+	ticker.mode.syndicates += M.mind
+	ticker.mode.update_synd_icons_added(M.mind)
+
+	M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
+	M.mind.special_role = SPECIAL_ROLE_NUKEOPS
+	M.mind.offstation_role = TRUE
+
+	M.faction = list("syndicate")
+	ticker.mode.greet_syndicate(M.mind)
+
+//////SYNDICATE BORG
+/obj/item/antag_spawner/nuke_ops/borg_tele
+	name = "syndicate cyborg teleporter"
+	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/assault
+	name = "syndicate assault cyborg teleporter"
+	borg_to_spawn = "Assault"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/medical
+	name = "syndicate medical teleporter"
+	borg_to_spawn = "Medical"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
+	name = "syndicate saboteur teleporter"
+	borg_to_spawn = "Saboteur"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
+	if(!(user in ticker.mode.syndicates))
 		used = FALSE
 		return
-	do_sparks(4, 1, src)
+
 	var/mob/living/silicon/robot/R
 	switch(borg_to_spawn)
 		if("Medical")
@@ -84,11 +103,22 @@
 			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
 		else
 			R = new /mob/living/silicon/robot/syndicate(T) //Assault borg by default
-	R.key = C.key
-	ticker.mode.syndicates += R.mind
-	ticker.mode.update_synd_icons_added(R.mind)
-	R.mind.special_role = SPECIAL_ROLE_NUKEOPS
-	R.faction = list("syndicate")
+
+	var/brainfirstname = pick(GLOB.first_names_male)
+	if(prob(50))
+		brainfirstname = pick(GLOB.first_names_female)
+	var/brainopslastname = pick(GLOB.last_names)
+	if(syndicate_name())  //the brain inside the syndiborg has the same last name as the other ops.
+		brainopslastname = syndicate_name()
+	var/brainopsname = "[brainfirstname] [brainopslastname]"
+
+	R.mmi.name = "[initial(R.mmi.name)]: [brainopsname]"
+	R.mmi.brainmob.real_name = brainopsname
+	R.mmi.brainmob.name = brainopsname
+
+	set_syndicate_values(C, R)
+
+///////////SLAUGHTER DEMON
 
 /obj/item/antag_spawner/slaughter_demon //Warning edgiest item in the game
 	name = "vial of blood"
@@ -158,6 +188,8 @@
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and Tickle"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
+
+///////////MORPH
 
 /obj/item/antag_spawner/morph
 	name = "vial of ooze"

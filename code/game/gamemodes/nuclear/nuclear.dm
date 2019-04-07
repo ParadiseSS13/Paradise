@@ -1,4 +1,4 @@
-#define NUKESCALINGMODIFIER 1
+#define NUKESCALINGMODIFIER 1.2
 
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
@@ -38,10 +38,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(possible_syndicates.len < 1)
 		return 0
 
-	var/enough_candidates = LAZYLEN(possible_syndicates) > agents_possible
-	if(enough_candidates && LAZYLEN(GLOB.clients) >= highpop_trigger)
-		agent_number = agents_possible_highpop
-	else if(enough_candidates)
+	if(LAZYLEN(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -128,12 +125,7 @@ proc/issyndicate(mob/living/M as mob)
 			leader_selected = 1
 		else
 			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
-
-			var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-			if(foundIDs.len)
-				for(var/obj/item/card/id/ID in foundIDs)
-					ID.name = "[syndicate_name()] Operative ID card"
-					ID.registered_name = synd_mind.current.real_name
+			update_syndicate_id(synd_mind, FALSE)
 
 			agent_number++
 		spawnpos++
@@ -206,15 +198,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
-	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-
-	if(foundIDs.len)
-		for(var/obj/item/card/id/ID in foundIDs)
-			ID.name = "[syndicate_name()] [leader_title] ID card"
-			ID.registered_name = synd_mind.current.real_name
-			ID.access += access_syndicate_leader
-	else
-		message_admins("Warning: Nuke Ops spawned without access to leave their spawn area!")
+	update_syndicate_id(synd_mind, leader_title, TRUE)
 
 	if(nuke_code)
 		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
@@ -236,8 +220,18 @@ proc/issyndicate(mob/living/M as mob)
 
 	else
 		nuke_code = "code will be provided later"
-	return
 
+/datum/game_mode/proc/update_syndicate_id(var/datum/mind/synd_mind, is_leader = FALSE)
+	var/list/found_ids = synd_mind.current.search_contents_for(/obj/item/card/id)
+
+	if(LAZYLEN(found_ids))
+		for(var/obj/item/card/id/ID in found_ids)
+			ID.name = "[synd_mind.current.real_name] ID card"
+			ID.registered_name = synd_mind.current.real_name
+			if(is_leader)
+				ID.access += access_syndicate_leader
+	else
+		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
 /datum/game_mode/proc/forge_syndicate_objectives(var/datum/mind/syndicate)
 	var/datum/objective/nuclear/syndobj = new

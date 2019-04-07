@@ -12005,8 +12005,8 @@
 /area/syndicate_mothership)
 "BE" = (
 /obj/structure/rack,
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded,
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /turf/unsimulated/floor{
