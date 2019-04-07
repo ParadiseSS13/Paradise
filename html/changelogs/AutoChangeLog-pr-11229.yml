@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "CLF3, Phlogiston, and Fluorosulfuric acid all require greater volumes to achieve their upper damage limits"
+  - tweak: "CLF3 and Phlogiston have lower minimum damage"
+  - bugfix: "Grey's treat water more closely to sulfuric acid (including passive damage while it's in them)"
+  - tweak: "Grey's don't instantly purge all sulfuric acid from their system; it depletes at the normal rate, but doens't cause damage"
+  - tweak: "Foam altered to be a bit more viable compared to smoke"
