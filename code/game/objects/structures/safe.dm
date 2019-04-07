@@ -59,6 +59,8 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/Destroy()
 	GLOB.safes -= src
 	drill?.soundloop?.stop()
+	drill?.forceMove(loc)
+	drill = null
 	return ..()
 
 /obj/structure/safe/process()
@@ -102,7 +104,7 @@ GLOBAL_LIST_EMPTY(safes)
 		looped++
 		combination += "[tumbler]"
 
-		if (looped < LAZYLEN(tumblers))
+		if(looped < LAZYLEN(tumblers))
 			combination += ", "
 
 	return combination
@@ -190,13 +192,13 @@ GLOBAL_LIST_EMPTY(safes)
 	return data
 
 /obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
-	if (!canhear)
+	if(!canhear)
 		return
 
-	if (current_tick == 2)
+	if(current_tick == 2)
 		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
 	
-	if (total_ticks == 1 || prob(10))
+	if(total_ticks == 1 || prob(10))
 		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
 
 /obj/structure/safe/Topic(href, href_list)
@@ -204,7 +206,7 @@ GLOBAL_LIST_EMPTY(safes)
 		return TRUE
 
 	var/mob/user = usr
-	if (!user.IsAdvancedToolUser() && !isobserver(user))
+	if(!user.IsAdvancedToolUser() && !isobserver(user))
 		to_chat(user, "<span class='warning'>You're not able to operate the safe.</span>")
 		return
 
