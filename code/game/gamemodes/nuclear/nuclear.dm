@@ -252,7 +252,7 @@ proc/issyndicate(mob/living/M as mob)
 	return 1337 // WHY??? -- Doohl
 
 
-/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob)
+/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 20)
 	var/radio_freq = SYND_FREQ
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
@@ -269,7 +269,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
-	U.hidden_uplink.uses = 20
+	U.hidden_uplink.uses = uplink_uses
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
 	if(synd_mob.dna.species)
@@ -306,7 +306,6 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
-
 
 /datum/game_mode/nuclear/check_win()
 	if(nukes_left == 0)
