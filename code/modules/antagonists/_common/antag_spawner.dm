@@ -61,14 +61,14 @@
 
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
-	ticker.mode.create_syndicate(user)
-	ticker.mode.equip_syndicate(M, 0)
 
 	var/agent_number = LAZYLEN(ticker.mode.syndicates)
 	M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
 	set_syndicate_values(C, M)
-	ticker.mode.update_syndicate_id(user, FALSE)
+	ticker.mode.create_syndicate(M.mind)
+	ticker.mode.equip_syndicate(M, 0)
+	ticker.mode.update_syndicate_id(M.mind, FALSE)
 
 /obj/item/antag_spawner/nuke_ops/proc/set_syndicate_values(client/C, mob/living/M)
 	M.key = C.key
