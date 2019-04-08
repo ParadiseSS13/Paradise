@@ -1,6 +1,6 @@
 /client/verb/randomtip()
 	set category = "OOC"
-	set name = "Random Tip"
+	set name = "Give Random Tip"
 	set desc = "Shows you a random tip"
 
 	var/m
@@ -13,4 +13,4 @@
 		m = pick(memetips)
 
 	if(m)
-		to_chat(src, "<span class='purple'><b>Random Tip: </b>[html_encode(m)]</span>")
+		to_chat(src, "<span class='purple'><b>Tip: </b>[html_encode(m)]</span>")
