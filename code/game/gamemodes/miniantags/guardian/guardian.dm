@@ -162,6 +162,7 @@
 	if(!summoner) return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
+		new /obj/effect/temp_visual/guardian/phase(loc)
 		src.client.eye = loc
 		cooldown = world.time + 30
 
