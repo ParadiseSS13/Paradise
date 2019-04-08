@@ -3,6 +3,7 @@
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
+	TgsNew()
 	SetupLogs()
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
@@ -48,6 +49,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		name = "[config.server_name]: [station_name()]"
 	else
 		name = station_name()
+	TgsInitializationComplete()
 
 
 #undef RECOMMENDED_VERSION
@@ -69,6 +71,7 @@ var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
+	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
@@ -279,6 +282,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
+	TgsReboot()
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
