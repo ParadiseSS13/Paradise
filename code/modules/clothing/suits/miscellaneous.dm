@@ -972,3 +972,29 @@
 	name = "ladies red victorian coat"
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
+
+//Mantles!
+/obj/item/clothing/suit/mantle
+	name = "mantle"
+	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
+	icon_state = "mantle"
+	item_state = "mantle"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/regal_mantle
+	name = "regal shawl"
+	desc = "A fancy shawl for nobility, made from high quality materials."
+	icon_state = "regal_mantle"
+	item_state = "regal_mantle"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/old_mantle
+	name = "old wrap"
+	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
+	icon_state = "old_mantle"
+	item_state = "old_mantle"
+	body_parts_covered = UPPER_TORSO|ARMS	

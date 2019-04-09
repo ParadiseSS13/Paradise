@@ -113,6 +113,7 @@
 	new /obj/item/clothing/suit/armor/hos/alt(src)
 	new /obj/item/clothing/head/HoS(src)
 	new /obj/item/clothing/head/HoS/beret(src)
+	new /obj/item/clothing/suit/hosmantle(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
