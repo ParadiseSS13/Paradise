@@ -1420,7 +1420,7 @@
 	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/glasses/sunglasses/fake=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
 	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
 	/obj/item/clothing/shoes/sandal=1, /obj/item/clothing/gloves/fingerless=2,
-	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1, /obj/item/clothing/suit/mantle = 2, /obj/item/clothing/suit/old_mantle = 1, /obj/item/clothing/suit/regal_mantle = 2)
+	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1, /obj/item/clothing/suit/mantle = 2, /obj/item/clothing/suit/mantle/old = 1, /obj/item/clothing/suit/mantle/regal = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool=1,/obj/item/clothing/mask/balaclava=1,/obj/item/clothing/head/ushanka=1,/obj/item/clothing/under/soviet=1,/obj/item/storage/belt/fannypack/black=1)
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered=1,/obj/item/clothing/head/mailman=1,/obj/item/clothing/under/rank/mailman=1,/obj/item/clothing/suit/jacket/leather=1,/obj/item/clothing/under/pants/mustangjeans=1)
 	refill_canister = /obj/item/vending_refill/clothing
