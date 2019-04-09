@@ -403,7 +403,7 @@
 	if(on_fire)
 		var/thermal_protection = get_thermal_protection()
 
-		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return
 		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
 			bodytemperature += 11
