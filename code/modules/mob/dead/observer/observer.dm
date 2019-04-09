@@ -26,6 +26,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
+	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -414,8 +415,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/follow(input in getmobs())
 	set category = "Ghost"
-	set name = "Follow" // "Haunt"
-	set desc = "Follow and haunt a mob."
+	set name = "Orbit" // "Haunt"
+	set desc = "Follow and orbit a mob."
 
 	var/target = getmobs()[input]
 	if(!target) return
@@ -432,22 +433,37 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(target != src)
 		if(following && following == target)
 			return
+
+		var/icon/I = icon(target.icon,target.icon_state,target.dir)
+
+		var/orbitsize = (I.Width()+I.Height())*0.5
+
+		if(orbitsize == 0)
+			orbitsize = 40
+
+		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+
+		var/rot_seg
+
+		switch(ghost_orbit)
+			if(GHOST_ORBIT_TRIANGLE)
+				rot_seg = 3
+			if(GHOST_ORBIT_SQUARE)
+				rot_seg = 4
+			if(GHOST_ORBIT_PENTAGON)
+				rot_seg = 5
+			if(GHOST_ORBIT_HEXAGON)
+				rot_seg = 6
+			else //Circular
+				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+
 		following = target
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		if(ismob(target))
-			forceMove(get_turf(target))
-			var/mob/M = target
-			M.following_mobs += src
-		else
-			spawn(0)
-				while(target && following == target && client)
-					var/turf/T = get_turf(target)
-					if(!T)
-						break
-					// To stop the ghost flickering.
-					if(loc != T)
-						forceMove(T)
-					sleep(15)
+		orbit(target,orbitsize, FALSE, 20, rot_seg)
+
+/mob/dead/observer/orbit()
+	setDir(2)//reset dir so the right directional sprites show up
+	return ..()
 
 /mob/proc/update_following()
 	. = get_turf(src)
