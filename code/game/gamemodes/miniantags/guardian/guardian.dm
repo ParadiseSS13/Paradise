@@ -162,11 +162,12 @@
 	if(!summoner) return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
+		new /obj/effect/temp_visual/guardian/phase(loc)
 		src.client.eye = loc
 		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-	if(cooldown > world.time && !forced)
+	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
 	if(!summoner) return
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
