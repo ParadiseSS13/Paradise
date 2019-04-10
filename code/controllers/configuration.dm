@@ -217,6 +217,9 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
+	
+	//Automatic cryodorm time
+	var/enable_auto_cryodorm_time = 0
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -640,6 +643,9 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
+
+				if("enable_auto_cryodorm_time")
+					config.enable_auto_cryodorm_time = 1
 
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)

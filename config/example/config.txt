@@ -400,3 +400,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Uncomment to disable automatic admin for localhost
 #DISABLE_LOCALHOST_ADMIN
+
+##Uncomment to enable quicker cryodorm despawns on high pop
+#ENABLE_AUTO_CRYODORM_TIME

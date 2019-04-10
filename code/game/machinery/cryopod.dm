@@ -309,7 +309,13 @@
 #define CRYO_PRESERVE 1
 #define CRYO_OBJECTIVE 2
 /obj/machinery/cryopod/proc/calculate_time()
-	var/calculated_time = (length(GLOB.clients) >= 80) ? 3000 : 9000  //calculated with a D
+	var/calculated_time //calculated with a D
+	
+	if(config.enable_auto_cryodorm_time)
+		calculated_time  = (length(GLOB.clients) >= 80) ? 3000 : 9000  
+	else
+		calculated_time = 9000
+
 	return calculated_time
 
 /obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
