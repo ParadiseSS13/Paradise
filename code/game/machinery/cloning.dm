@@ -449,10 +449,14 @@
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
-
+	var/turf/T = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
-		mess = 0
-		gibs(loc)
+		for(var/i in missing_organs)
+			var/obj/I = i
+			I.forceMove(T)
+		missing_organs.Cut()
+		mess = FALSE
+		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 		update_icon()
 		return
@@ -480,7 +484,7 @@
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.viruses)
 		crit.cure()
-	occupant.forceMove(get_turf(src))
+	occupant.forceMove(T)
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
 	occupant.special_post_clone_handling()
