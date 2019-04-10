@@ -32,6 +32,12 @@
 		var/ticketID = text2num(href_list["openadminticket"])
 		SStickets.showDetailUI(usr, ticketID)
 
+	if(href_list["openmentorticket"])
+		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+			return
+		var/ticketID = text2num(href_list["openmentorticket"])
+		SSmentor_tickets.showDetailUI(usr, ticketID)
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -1546,22 +1552,13 @@
 		check_antagonists()
 
 	else if(href_list["take_question"])
-		var/mob/M = locateUID(href_list["take_question"])
-		var/is_mhelp = href_list["is_mhelp"]
-		if(ismob(M))
-			var/helptype = "ADMINHELP"
-			if(is_mhelp)
-				helptype = "MENTORHELP"
-			var/take_msg = "<span class='notice'><b>[helptype]</b>: <b>[key_name_hidden(usr.client)]</b> is attending to <b>[key_name(M)]'s</b> question.</span>"
-			for(var/client/X in GLOB.admins)
-				if(check_rights(R_ADMIN, 0, X.mob))
-					to_chat(X, take_msg)
-				else if(is_mhelp && check_rights(R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, take_msg)
-			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name_hidden(usr.client, null, 0)]. Thanks for your patience!</b></span>")
-		else
-			to_chat(usr, "<span class='warning'>Unable to locate mob.</span>")
-
+		var/index = text2num(href_list["take_question"])
+		
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.takeTicket(index)
+		else //Ahelp
+			SStickets.takeTicket(index)
+	
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return

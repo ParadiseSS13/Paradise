@@ -65442,6 +65442,7 @@
 	name = "\improper Virology Lobby"
 	})
 "cnE" = (
+/obj/machinery/atmospherics/unary/passive_vent,
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "cnF" = (

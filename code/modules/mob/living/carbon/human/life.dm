@@ -37,6 +37,17 @@
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
+	handle_ghosted()
+
+/mob/living/carbon/human/proc/handle_ghosted()
+	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
+		if(key)
+			player_ghosted = 0
+		else
+			player_ghosted++
+			if(player_ghosted % 150 == 0)
+				force_cryo_human(src)
+
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
@@ -779,7 +790,6 @@
 		handle_organs()
 
 		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
-			visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 			death()
 			return
 

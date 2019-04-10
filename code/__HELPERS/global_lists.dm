@@ -28,7 +28,6 @@
 
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
-	init_datum_subtypes(/datum/nations, GLOB.all_nations, null, "default_name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
 	for(var/language_name in GLOB.all_languages)

@@ -580,13 +580,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
 
-/obj/item/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user) //handles block for CQC
-	if(target.check_block())
-		target.visible_message("<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>",
-					"<span class='userdanger'>You block the attack!</span>")
-		user.Stun(2)
-		return TRUE
-
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))
 		return

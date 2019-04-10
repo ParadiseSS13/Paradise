@@ -22,7 +22,7 @@
 	M.adjust_fire_stacks(mob_burning)
 	M.IgniteMob()
 	if(method == INGEST)
-		M.adjustFireLoss(min(max(15, volume * 3), 45))
+		M.adjustFireLoss(min(max(10, volume * 2), 45))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
 
@@ -242,7 +242,7 @@
 		M.adjust_fire_stacks(10)
 		M.IgniteMob()
 	if(method == INGEST)
-		M.adjustFireLoss(min(max(30, volume * 6), 90))
+		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
 

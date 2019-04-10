@@ -162,7 +162,7 @@
 		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
-	..()
+	return ..()
 
 /datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.

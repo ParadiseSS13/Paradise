@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Shield Blobs automatically spawned around Blob Cores now give no refund upon removing. No freebies."
