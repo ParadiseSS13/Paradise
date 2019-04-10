@@ -523,7 +523,9 @@
 	flags = RESTRICTED | HIVEMIND
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.special_role)
+	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
+		..(speaker,"<font size=3><b>[message]</b></font>", "<span class='shadowling'><font size=3>([speaker.mind.special_role]) [speaker]</font></span>")
+	else if(speaker.mind && speaker.mind.special_role)
 		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
 	else
 		..(speaker, message)
