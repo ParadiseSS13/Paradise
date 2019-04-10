@@ -158,3 +158,46 @@
 /datum/gear/suit/purplesuit
 	display_name = "suit jacket, purple"
 	path = /obj/item/clothing/suit/storage/lawyer/purpjacket
+
+//Mantles!
+/datum/gear/suit/mantle
+	display_name = "mantle"
+	path = /obj/item/clothing/suit/mantle
+
+/datum/gear/suit/old_scarf
+	display_name = "old scarf"
+	path = /obj/item/clothing/suit/mantle/old
+
+/datum/gear/suit/regal_shawl
+	display_name = "regal shawl"
+	path = /obj/item/clothing/suit/mantle/regal
+
+/datum/gear/suit/captain_cloak
+	display_name = "captain's cloak"
+	path = /obj/item/clothing/suit/mantle/armor/captain
+	allowed_roles = list("Captain")
+
+/datum/gear/suit/ce_mantle
+	display_name = "chief engineer's mantle"
+	path = /obj/item/clothing/suit/mantle/chief_engineer
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/suit/cmo_mantle
+	display_name = "chief medical officer's mantle"
+	path = /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/suit/armored_shawl
+	display_name = "armored shawl"
+	path = /obj/item/clothing/suit/mantle/armor
+	allowed_roles = list("Head of Security")
+
+/datum/gear/suit/hop_shawl
+	display_name = "head of personnel's shawl"
+	path = /obj/item/clothing/suit/mantle/armor/head_of_personnel
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/suit/rd_mantle
+	display_name = "research director's mantle"
+	path = /obj/item/clothing/suit/mantle/labcoat
+	allowed_roles = list("Research Director")

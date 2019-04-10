@@ -76,6 +76,7 @@
 	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
 	icon_state = "capmantle"
 	item_state = "capmantle"
+	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -159,12 +160,10 @@
 //Chief Engineer
 /obj/item/clothing/suit/mantle/chief_engineer
 	name = "chief engineer's mantle"
-	desc = "A sturdy, protective poncho designed for the Chief Engineer."
+	desc = "A slick, authoritative cloak designed for the Chief Engineer."
 	icon_state = "cemantle"
 	item_state = "cemantle"
-	armor = list(melee = 25, bullet = 20, laser = 25, energy = 10, bomb = 20, bio = 0, rad = 20)
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
-	burn_state = FIRE_PROOF
 
 //Chief Medical Officer
 /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
@@ -289,6 +288,8 @@
 	item_state = "hosmantle"
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
@@ -301,6 +302,7 @@
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 	item_state = "hopmantle"
+	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
