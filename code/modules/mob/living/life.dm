@@ -52,8 +52,6 @@
 	if(client)
 		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
 		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
-	if(get_nations_mode())
-		process_nations()
 
 	..()
 
@@ -228,9 +226,3 @@
 
 /mob/living/proc/handle_hud_icons_health()
 	return
-
-/mob/living/proc/process_nations()
-	if(client)
-		var/client/C = client
-		for(var/mob/living/carbon/human/H in view(src, world.view))
-			C.images += H.hud_list[NATIONS_HUD]

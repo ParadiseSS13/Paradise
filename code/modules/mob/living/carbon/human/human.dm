@@ -198,12 +198,6 @@
 				stat("Total Blood", "[mind.vampire.bloodtotal]")
 				stat("Usable Blood", "[mind.vampire.bloodusable]")
 
-			if(mind.nation)
-				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")
-				stat("Nation Leader", "[mind.nation.current_leader ? "[mind.nation.current_leader]" : "None"]")
-				stat("Nation Heir", "[mind.nation.heir ? "[mind.nation.heir]" : "None"]")
-
-
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")

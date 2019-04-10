@@ -3,7 +3,6 @@ GLOBAL_LIST_EMPTY(all_species)
 GLOBAL_LIST_EMPTY(all_languages)
 GLOBAL_LIST_EMPTY(language_keys)					// Table of say codes for all languages
 GLOBAL_LIST_EMPTY(all_superheroes)
-GLOBAL_LIST_EMPTY(all_nations)
 GLOBAL_LIST_INIT(whitelisted_species, list())
 
 GLOBAL_LIST_INIT(clients, list())							//list of all clients

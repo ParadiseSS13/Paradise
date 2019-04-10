@@ -133,9 +133,6 @@
 
 	process_queued_alarms()
 
-	if(get_nations_mode())
-		process_nations_ai()
-
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 100
@@ -155,12 +152,6 @@
 /mob/living/silicon/ai/rejuvenate()
 	..()
 	add_ai_verbs(src)
-
-/mob/living/silicon/ai/proc/process_nations_ai()
-	if(client)
-		var/client/C = client
-		for(var/mob/living/carbon/human/H in view(eyeobj, 14))
-			C.images += H.hud_list[NATIONS_HUD]
 
 /mob/living/silicon/ai/update_sight()
 	see_invisible = initial(see_invisible)
