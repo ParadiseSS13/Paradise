@@ -64,7 +64,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 	atmos_adjacent_turfs_amount = 0
 	for(var/direction in cardinal)
 		var/turf/T = get_step(src, direction)
-		if(!issimulatedturf(T))
+		if(!istype(T))
 			continue
 		var/counterdir = get_dir(T, src)
 		if(CanAtmosPass(T))
