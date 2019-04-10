@@ -32,7 +32,7 @@
 		return FALSE
 	return B.host.say_understands(other, speaking)
 
-/mob/living/captive_brain/emote(var/message)
+/mob/living/captive_brain/emote(act, m_type = 1, message = null, force)
 	return
 
 /mob/living/captive_brain/resist()
@@ -157,7 +157,7 @@
 		if(!istype(S.speaking, /datum/language/corticalborer) && loc == host && !talk_inside_host)
 			to_chat(src, "<span class='warning'>You've disabled audible speech while inside a host! Re-enable it under the borer tab, or stick to borer communications.</span>")
 			return
-	
+
 	. = ..()
 
 /mob/living/simple_animal/borer/verb/Communicate()
@@ -475,7 +475,7 @@
 	set category = "Borer"
 	set name = "Dominate Victim"
 	set desc = "Freeze the limbs of a potential host with supernatural fear."
-	
+
 	if(world.time - used_dominate < 150)
 		to_chat(src, "You cannot use that ability again so soon.")
 		return
@@ -487,22 +487,22 @@
 	if(stat)
 		to_chat(src, "You cannot do that in your current state.")
 		return
-		
+
 	if(attempting_to_dominate)
 		to_chat(src, "You're already targeting someone!")
 		return
-	
+
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in view(3,src))
 		if(C.stat != DEAD)
 			choices += C
-	
+
 	if(world.time - used_dominate < 300)
 		to_chat(src, "You cannot use that ability again so soon.")
 		return
-		
+
 	attempting_to_dominate = TRUE
-	
+
 	var/mob/living/carbon/M = input(src,"Who do you wish to dominate?") in null|choices
 
 	if(!M)
@@ -519,8 +519,8 @@
 
 	if(incapacitated())
 		attempting_to_dominate = FALSE
-		return 
-		
+		return
+
 	if(get_dist(src, M) > 7) //to avoid people remotely doing from across the map etc, 7 is the default view range
 		to_chat(src, "<span class='warning'>You're too far away!</span>")
 		attempting_to_dominate = FALSE
