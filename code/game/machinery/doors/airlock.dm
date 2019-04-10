@@ -51,6 +51,7 @@ var/list/airlock_overlays = list()
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	normalspeed = 1
+	siemens_strength = 1
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = FALSE //If TRUE, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -70,7 +71,7 @@ var/list/airlock_overlays = list()
 	var/lockdownbyai = 0
 	var/justzap = 0
 	var/obj/item/airlock_electronics/electronics
-	var/hasShocked = 0 //Prevents multiple shocks from happening
+	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
@@ -296,16 +297,14 @@ About the new airlock wires panel:
 // The preceding comment was borrowed from the grille's shock script
 /obj/machinery/door/airlock/shock(mob/user, prb)
 	if(!arePowerSystemsOn())
-		return 0
-	if(hasShocked)
-		return 0	//Already shocked someone recently?
+		return FALSE
+	if(shockCooldown > world.time)
+		return FALSE	//Already shocked someone recently?
 	if(..())
-		hasShocked = 1
-		sleep(10)
-		hasShocked = 0
-		return 1
+		shockCooldown = world.time + 10
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 //Checks if the user can get shocked and shocks him if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)

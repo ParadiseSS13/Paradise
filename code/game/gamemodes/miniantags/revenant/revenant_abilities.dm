@@ -219,7 +219,7 @@
 							if(M == user)
 								return
 							M.Beam(L,icon_state="purple_lightning",icon='icons/effects/effects.dmi',time=5)
-							M.electrocute_act(shock_damage, "[L.name]", safety=1)
+							M.electrocute_act(shock_damage, L, safety = TRUE)
 							do_sparks(4, 0, M)
 							playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
 

@@ -1553,12 +1553,12 @@
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
-		
+
 		if(href_list["is_mhelp"])
 			SSmentor_tickets.takeTicket(index)
 		else //Ahelp
 			SStickets.takeTicket(index)
-	
+
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
@@ -1886,7 +1886,7 @@
 		var/logmsg = null
 		switch(punishment)
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety=1)
+				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)

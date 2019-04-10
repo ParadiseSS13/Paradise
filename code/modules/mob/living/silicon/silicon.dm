@@ -71,6 +71,9 @@
 /mob/living/silicon/drop_item()
 	return
 
+/mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE //So borgs they don't die trying to fix wiring
+
 /mob/living/silicon/emp_act(severity)
 	switch(severity)
 		if(1)

@@ -119,6 +119,7 @@ Class Procs:
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/defer_process = 0
+	var/siemens_strength = 0.7 // how badly will it shock you?
 
 /obj/machinery/Initialize()
 	addAtProcessing()
@@ -575,16 +576,13 @@ Class Procs:
 
 /obj/machinery/proc/shock(mob/user, prb)
 	if(inoperable())
-		return 0
+		return FALSE
 	if(!prob(prb))
-		return 0
-	if((TK in user.mutations) && !Adjacent(user))
-		return 0
+		return FALSE
 	do_sparks(5, 1, src)
-	if(electrocute_mob(user, get_area(src), src, 0.7))
-		if(user.stunned)
-			return 1
-	return 0
+	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
+		return TRUE
+	return FALSE
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
