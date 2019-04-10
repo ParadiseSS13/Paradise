@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Strange Reagent will work 25% of the time with TOUCH based reactions"
+  - tweak: "Strange reagent will revive whether there's a ghost or not (can use SR on clientless mobs now, like monkies)"
+  - tweak: "SR puts the occupant back in their body automatically"
+  - tweak: "Cloners that eject their messes will now eject the unattached organs"
