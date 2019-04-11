@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Plasma fires should burn a bit faster now"
+  - tweak: "Bleeding will now stop at the temperature at which cryoxadone heals"
