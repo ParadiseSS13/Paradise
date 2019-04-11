@@ -1,5 +1,5 @@
     
-/datum/disease/tuberculosis
+/datum/disease/ThanosPhobia
 	form = "Disease"
 	name = "Infinity Disease"
 	max_stages = 5
