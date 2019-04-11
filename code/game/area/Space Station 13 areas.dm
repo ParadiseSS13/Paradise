@@ -1731,6 +1731,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
+/area/medical/surgery3
+	name = "\improper Surgery 3"
+	icon_state = "surgery"
+
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"
@@ -1953,6 +1957,10 @@ var/list/ghostteleportlocs = list()
 
 /area/security/vacantoffice2
 	name = "\improper Vacant Office"
+	icon_state = "security"
+
+/area/security/visitation
+	name = "\improper Visitation"
 	icon_state = "security"
 
 /area/security/sec_wash
