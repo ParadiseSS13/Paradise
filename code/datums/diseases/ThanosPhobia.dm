@@ -13,7 +13,7 @@
 	severity = DANGEROUS
 	bypasses_immunity = TRUE
 
-/datum/disease/tuberculosis/stage_act() // Time to meme
+/datum/disease/ThanosPhobia/stage_act() // Time to meme
 	..()
 	switch(stage)
 		if(2)
