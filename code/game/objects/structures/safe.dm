@@ -40,14 +40,16 @@ GLOBAL_LIST_EMPTY(safes)
 	var/drill_y_offset = -3
 	var/known_by = list()
 
-/obj/structure/safe/New()
-	GLOB.safes += src
-
-	for(var/i = 1 to number_of_tumblers)
-		tumblers.Add(rand(0, 99))
+	var/image/progress_bar
+	var/image/drill_overlay
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
+
+	GLOB.safes += src
+
+	for(var/i in 1 to number_of_tumblers)
+		tumblers.Add(rand(0, 99))
 
 	for(var/obj/item/I in loc)
 		if(space >= maxspace)
@@ -65,9 +67,9 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/process()
 	if(drill_timer)
-		overlays -= bar
-		bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
-		overlays += bar
+		cut_overlay(list(progress_bar))
+		progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+		add_overlay(progress_bar)
 		if(prob(15))
 			drill.spark_system.start()
 
@@ -121,14 +123,20 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			icon_state = initial(icon_state)
 
-	overlays.Cut()
+	var/list/overlays_to_cut = list(drill_overlay)
+	if(!drill_timer)
+		overlays_to_cut += progress_bar
+
+	cut_overlay(overlays_to_cut)
 
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		if(drill_timer)
-			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-on", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+			drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-on", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
 		else
-			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-off", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+			drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-off", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+
+		add_overlay(drill_overlay)
 
 /obj/structure/safe/attack_ghost(mob/user)
 	if(..() || drill)
@@ -363,6 +371,9 @@ GLOBAL_LIST_EMPTY(safes)
 	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/paper/safe_code/LateInitialize(mapload)
 	. = ..()
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
