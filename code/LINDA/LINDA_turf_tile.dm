@@ -523,7 +523,7 @@ turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 		if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
 
 			var/heat = thermal_conductivity*delta_temperature* \
-				(heat_capacity*700000/(heat_capacity+700000)) //700000 is the heat_capacity from a space turf, hardcoded here
+				(heat_capacity*HEAT_CAPACITY_VACUUM/(heat_capacity+HEAT_CAPACITY_VACUUM)) //700000 is the heat_capacity from a space turf, hardcoded here
 			temperature -= heat/heat_capacity
 
 /turf/proc/Initialize_Atmos(times_fired)

@@ -384,13 +384,13 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
 	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
 	C.color = "#000080"
-	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.burn_state = FIRE_PROOF
 	uses --
