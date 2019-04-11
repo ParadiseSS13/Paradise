@@ -63,11 +63,14 @@ GLOBAL_LIST_EMPTY(safes)
 	drill?.soundloop?.stop()
 	drill?.forceMove(loc)
 	drill = null
+
+	qdel(progress_bar)
+	qdel(drill_overlay)
 	return ..()
 
 /obj/structure/safe/process()
 	if(drill_timer)
-		cut_overlay(list(progress_bar))
+		cut_overlay(progress_bar)
 		progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 		add_overlay(progress_bar)
 		if(prob(15))
