@@ -69,6 +69,8 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
+	var/auto_cryo_ssd_mins = 0
+
 	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
 	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
 
@@ -213,7 +215,7 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
-	
+
 	//Start now warning
 	var/start_now_confirmation = 0
 
@@ -293,6 +295,9 @@
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
 
+				if("auto_cryo_ssd_mins")
+					config.auto_cryo_ssd_mins = text2num(value)
+
 				if("log_ooc")
 					config.log_ooc = 1
 
@@ -358,10 +363,10 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
-					
+
 				if("vote_autotransfer_initial")
 					config.vote_autotransfer_initial = text2num(value)
-					
+
 				if("vote_autotransfer_interval")
 					config.vote_autotransfer_interval = text2num(value)
 
@@ -645,7 +650,7 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
-					
+
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
 

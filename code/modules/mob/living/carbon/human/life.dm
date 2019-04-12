@@ -38,6 +38,7 @@
 			regenerate_icons() // Make sure the inventory updates
 
 	handle_ghosted()
+	handle_ssd()
 
 /mob/living/carbon/human/proc/handle_ghosted()
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
@@ -47,6 +48,12 @@
 			player_ghosted++
 			if(player_ghosted % 150 == 0)
 				force_cryo_human(src)
+
+/mob/living/carbon/human/proc/handle_ssd()
+	if(player_logged > 0 && config.auto_cryo_ssd_mins && stat != DEAD && job)
+		player_logged++
+		if((player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+			cryo_ssd(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
