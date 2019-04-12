@@ -643,8 +643,8 @@ var/list/blood_splatter_icons = list()
 
 
 /atom/proc/add_vomit_floor(toxvomit = 0, type = /obj/effect/decal/cleanable/vomit)
+	playsound(src, 'sound/effects/splat.ogg', 50, 1)
 	if(istype(src, /turf/simulated))
-		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 		if(locate(type) in get_turf(src))
 			return //Performance improvement
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
