@@ -146,6 +146,10 @@
 	var/admin_irc = ""
 	var/admin_notify_irc = ""
 	var/cidrandomizer_irc = ""
+	// Discord webhook defines
+	var/use_webhooks = 0
+	var/main_webhook = ""
+	var/admin_webhook = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -663,6 +667,13 @@
 					config.developer_express_start = 1
 				if("disable_localhost_admin")
 					config.disable_localhost_admin = 1
+				// Discord stuff
+				if("use_discord_webhooks")
+					config.use_webhooks = 1
+				if("main_discord_webhook")
+					config.main_webhook = value
+				if("admin_discord_webhook")
+					config.admin_webhook = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

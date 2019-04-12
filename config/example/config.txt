@@ -403,3 +403,12 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
+
+## Uncomment to enable sending data to Discord Webhooks.
+#USE_DISCORD_WEBHOOKS
+
+## Main Discord Webhook (For round end/start notifications)
+#MAIN_DISCORD_WEBHOOK https://example.com
+
+## Webhook where admin data should be sent (Watchlist, ahelps, cid randomizer, etc)
+#ADMIN_DISCORD_WEBHOOK https://example.com

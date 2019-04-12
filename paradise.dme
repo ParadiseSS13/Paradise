@@ -1384,6 +1384,7 @@
 #include "code\modules\detective_work\scanner.dm"
 #include "code\modules\discord\accountlink.dm"
 #include "code\modules\discord\notify.dm"
+#include "code\modules\discord\webhook.dm"
 #include "code\modules\economy\Accounts.dm"
 #include "code\modules\economy\Accounts_DB.dm"
 #include "code\modules\economy\ATM.dm"
