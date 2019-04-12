@@ -471,6 +471,7 @@ var/failed_old_db_connections = 0
 		while(pull_notify.NextRow())
 			people_to_ping += "<@" + pull_notify.item[1] + "> "
 	send2mainirc("Server starting up on [station_name()]. Connect to: <byond://[config.server? "[config.server]" : "[world.address]:[world.port]"]> "+people_to_ping, 7355608)
+	send2discord("main", "Server starting up on [station_name()]. Connect to: <byond://[config.server? "[config.server]" : "[world.address]:[world.port]"]> "+people_to_ping, 7355608)
 	// Set notify to 0 so people arent pinged round after round
 	var/DBQuery/reset_notify = dbcon.NewQuery("UPDATE [format_table_name("discord")] SET notify = 0 WHERE notify = 1")
 	if(!reset_notify.Execute())

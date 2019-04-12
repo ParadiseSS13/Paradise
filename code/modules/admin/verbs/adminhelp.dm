@@ -152,8 +152,10 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
+			send2discord("admin", "(ADMIN-PM) [selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
 		else
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
+			send2discord("admin", "(ADMIN-PM) [selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
 		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
