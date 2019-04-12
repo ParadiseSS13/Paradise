@@ -11,7 +11,7 @@ REVIVAL_POD_PLANTS 1
 REVIVAL_CLONING 1
 
 ## Amount of time (in hundredths of seconds) for which a brain retains the "spark of life" after the person's death (set to -1 for infinite)
-REVIVAL_BRAIN_LIFE -1
+REVIVAL_BRAIN_LIFE 60000
 
 ### AUTO TOGGLE OOC DURING ROUND ###
 #Uncomment this if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
@@ -27,7 +27,7 @@ WALK_SPEED 4
 
 ## The variables below affect the movement of specific mob types.
 HUMAN_DELAY 1.5
-ROBOT_DELAY 1.5
+ROBOT_DELAY 2.5
 MONKEY_DELAY 1.5
 ALIEN_DELAY 1.5
 SLIME_DELAY 1.5
@@ -39,7 +39,7 @@ REACTIONARY_EXPLOSIONS
 
 # The number of objectives traitors get.
 # Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
+TRAITOR_OBJECTIVES_AMOUNT 1
 
 ### Configure the bomb cap
 ## This caps all explosions to the specified range. Used for both balance reasons and to prevent overloading the server and lagging the game out.

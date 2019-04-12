@@ -1,14 +1,11 @@
-## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
-# SERVERNAME spacestation13
+## Server name: This identifies your server in the server list. It may also be used as the title of the game window.
+SERVERNAME Paracode TEST Server
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
 ADMIN_LEGACY_SYSTEM
 
 ## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
 BAN_LEGACY_SYSTEM
-
-## Add a # infront of this to unlimit the builds used to play. Advised is to keep it atleast 1421 due to the middle mouse button locking exploit
-MINIMUM_CLIENT_BUILD 1421
 
 ## Add a # here if you wish to use the setup where jobs have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one job. Also for servers where they don't want people to hide in their own departments.
 JOBS_HAVE_MINIMAL_ACCESS
@@ -40,9 +37,6 @@ LOG_SAY
 ## log admin actions
 LOG_ADMIN
 
-## log admin chat
-LOG_ADMINCHAT
-
 ## log client access (logon/logoff)
 LOG_ACCESS
 
@@ -71,43 +65,46 @@ LOG_RUNTIME
 LOG_WORLD_OUTPUT
 
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
-# LOG_HREFS
+LOG_HREFS
 
-## log admin warning messages
+## log admin warning messages - may result in some message duplication
 LOG_ADMINWARN
+
+## Log admin chat
+LOG_ADMINCHAT
 
 ## probablities for game modes chosen in "secret" and "random" modes
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
-PROBABILITY EXTEND-A-TRAITORMONGOUS 3
+PROBABILITY ABDUCTION 0
+PROBABILITY BLOB 1
+PROBABILITY CHANGELING 3
+PROBABILITY CULT 3
+PROBABILITY EXTEND-A-TRAITORMONGOUS 2
+PROBABILITY EXTENDED 3
+PROBABILITY HEIST 0
+PROBABILITY METEOR 0
+PROBABILITY NUCLEAR 2
+PROBABILITY RAGINMAGES 0
+PROBABILITY REVOLUTION 0
+PROBABILITY SHADOWLING 1
+PROBABILITY TRAITOR 2
 PROBABILITY TRAITORCHAN 3
 PROBABILITY TRAITORVAMP 3
-PROBABILITY REVOLUTION 0
-PROBABILITY SHADOWLING 2
-PROBABILITY CULT 4
-PROBABILITY CHANGELING 3
-PROBABILITY WIZARD 2
-PROBABILITY BLOB 1
-PROBABILITY RAGINMAGES 0
-PROBABILITY METEOR 0
-PROBABILITY HEIST 0
 PROBABILITY VAMPIRE 3
-PROBABILITY NATIONS 0
-PROBABILITY EXTENDED 2
-PROBABILITY NUCLEAR 3
-PROBABILITY ABDUCTION 0
+PROBABILITY WIZARD 2
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
 
 ## Probability in % for Free Golems to spawn at roundstart, set to 0 for no golems
-PROB_FREE_GOLEMS 75
+PROB_FREE_GOLEMS 25
 
 ## Uncomment to allow free golems on all roundtypes. Otherwise, disabled on cult, wiz, raging mages, blob, and nuclear.
 #UNRESTRICTED_FREE_GOLEMS
 
-## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
-SHADOWLING_MAX_AGE 0
+## MAXIMUM SECONDS SHADOWLINGS CAN REMAIN UNHATCHED BEFORE THEY TAKE DAMAGE
+SHADOWLING_MAX_AGE 900
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -177,7 +174,7 @@ GUEST_JOBBAN
 GUEST_BAN
 
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
-CHECK_RANDOMIZER
+#CHECK_RANDOMIZER
 
 ## the whitelist
 #USEWHITELIST
@@ -194,7 +191,7 @@ CHECK_RANDOMIZER
 ## Rules address
 # RULESURL http://example.org
 
-## GitHub address
+## Github address
 # GITHUBURL http://example.org
 
 ## Discord address
@@ -245,7 +242,7 @@ GATEWAY_DELAY 6000
 ASSISTANT_MAINT
 
 ## Remove the # to enable assistant limiting.
-ASSISTANT_LIMIT
+#ASSISTANT_LIMIT
 
 ## If you enabled assistant limiting set the ratio of assistants to security members default is 2 assistants to 1 officer
 ASSISTANT_RATIO 2
@@ -261,7 +258,7 @@ ASSISTANT_RATIO 2
 ALIEN_PLAYER_RATIO 0.2
 
 ##Remove the # to let ghosts spin chairs
-GHOST_INTERACTION
+#GHOST_INTERACTION
 
 ## Password used for authorizing ircbot and other external tools.
 #COMMS_PASSWORD
@@ -302,8 +299,8 @@ EVENT_DELAY_UPPER 15;45;70
 ## The delay until the first time an event of the given severity runs in minutes.
 ## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
 #EVENT_CUSTOM_START_MINOR 10;15
-#EVENT_CUSTOM_START_MODERATE 30;45
-EVENT_CUSTOM_START_MAJOR 80;100
+EVENT_CUSTOM_START_MODERATE 25;40
+EVENT_CUSTOM_START_MAJOR 55;75
 
 ## Strength of ambient star light. Set to 0 or less to turn off.
 STARLIGHT 2
@@ -363,10 +360,10 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 4
 #DISABLE_OOC_EMOJI
 
 ## Uncomment this to shut down the world any time it would normally reboot
-#SHUTDOWN_ON_REBOOT
+SHUTDOWN_ON_REBOOT
 ## A command to run prior to the world shutting down, only used if the above option is enabled
-## This default value will kill Dream Daemon on Windows machines
-#SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
+## This default value will kill Dream Daemon on Windows machines.
+SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
 #DISABLE_KARMA
@@ -396,10 +393,13 @@ HIGH_POP_MC_MODE_AMOUNT 65
 DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ##Uncomment to enable developer start. Auto starts the server after initialization
-##DEVELOPER_EXPRESS_START
+#DEVELOPER_EXPRESS_START
 
 ## Uncomment to disable automatic admin for localhost
 #DISABLE_LOCALHOST_ADMIN
+
+## Add a # infront of this to unlimit the builds used to play. Advised is to keep it atleast 1421 due to the middle mouse button locking exploit
+MINIMUM_CLIENT_BUILD 1421
 
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
