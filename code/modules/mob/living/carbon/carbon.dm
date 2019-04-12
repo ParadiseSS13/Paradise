@@ -109,7 +109,7 @@
 					adjustBruteLoss(3)
 			else
 				if(T)
-					T.add_vomit_floor(src)
+					T.add_vomit_floor()
 				nutrition -= lost_nutrition
 				if(stun)
 					adjustToxLoss(-3)
