@@ -1239,7 +1239,7 @@
 				var/list/shock_mobs = list()
 				for(var/C in view(get_turf(src), 5)) //We only want to shock a single random mob in range, not every one.
 					if(isliving(C))
-						shock_mobs +=C
+						shock_mobs += C
 				if(shock_mobs.len)
 					var/mob/living/L = pick(shock_mobs)
 					L.electrocute_act(rand(5, 25), "electrical arc")

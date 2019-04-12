@@ -174,10 +174,8 @@ About the new airlock wires panel:
 			else /*if(justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && !operating)
-			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
-			user.adjustStaminaLoss(50)
-			user.AdjustStunned(5)
-			return
+			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+				return
 	..(user)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user)

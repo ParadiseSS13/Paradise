@@ -135,6 +135,7 @@
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
 	if(NO_SHOCK in mutations) //shockproof
