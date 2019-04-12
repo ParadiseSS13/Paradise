@@ -762,6 +762,7 @@
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
+		new /mob/living/simple_animal/borer(T, B.generation + 1)
 
 	else
 		to_chat(src, "You need 100 chemicals to reproduce!")
