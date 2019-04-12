@@ -644,6 +644,7 @@ var/list/blood_splatter_icons = list()
 
 /atom/proc/add_vomit_floor(toxvomit = 0, type = /obj/effect/decal/cleanable/vomit)
 	if(istype(src, /turf/simulated))
+		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 		if(locate(type) in get_turf(src))
 			return //Performance improvement
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
@@ -651,7 +652,6 @@ var/list/blood_splatter_icons = list()
 		// Make toxins vomit look different
 		if(toxvomit)
 			this.icon_state = "vomittox_[pick(1,4)]"
-		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 
 /atom/proc/get_global_map_pos()
 	if(!islist(global_map) || isemptylist(global_map)) return
