@@ -78,6 +78,9 @@
 			C = M.client
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
+		else if(C.UID() != href_list["priv_msg"])
+			to_chat(src, "<span class='danger'>Error: Private-Message: Client not found.</span>")
+			return
 		cmd_admin_pm(C, null, href_list["type"])
 		return
 
