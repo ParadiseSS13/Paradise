@@ -416,3 +416,10 @@
 #define CLEAN_STRONG		4 // Industrial strength
 #define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
 #define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
+
+//Ghost orbit types:
+#define GHOST_ORBIT_CIRCLE		"circle"
+#define GHOST_ORBIT_TRIANGLE	"triangle"
+#define GHOST_ORBIT_HEXAGON		"hexagon"
+#define GHOST_ORBIT_SQUARE		"square"
+#define GHOST_ORBIT_PENTAGON	"pentagon"
