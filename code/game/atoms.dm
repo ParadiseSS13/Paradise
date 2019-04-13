@@ -644,9 +644,9 @@ var/list/blood_splatter_icons = list()
 
 /atom/proc/add_vomit_floor(toxvomit = 0, green = FALSE)
 	playsound(src, 'sound/effects/splat.ogg', 50, 1)
-	var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
-	var/vomit_reagent = green ? "green_vomit" : "vomit"
-	if(istype(src, /turf/simulated))
+	if(!isspaceturf(src))
+		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
+		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				if(V.scoop_reagents[vomit_reagent])
