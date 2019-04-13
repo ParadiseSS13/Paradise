@@ -11,7 +11,7 @@
 	var/MAX_EX_DEVESTATION_RANGE1 = MAX_EX_DEVESTATION_RANGE // estas tres variables terminadas en 1 seran el cap de bombas para z>3
 	var/MAX_EX_HEAVY_RANGE1 = MAX_EX_HEAVY_RANGE
 	var/MAX_EX_LIGHT_RANGE1 = MAX_EX_LIGHT_RANGE
-	var/newbombcap = 1.25 // este factor multiplica al cap de bombas de los admin. editar al gusto
+	var/newbombcap = 1.4 // este factor multiplica al cap de bombas de los admin. editar al gusto
 	var/limnewbombcap = 128/newbombcap  // esto determina cuando el nuevo cap de bombas tendra sentido o no
 
 	if (MAX_EX_LIGHT_RANGE <= limnewbombcap) // esto define al nuevo cap de bombas (si tiene sentido)
