@@ -52,8 +52,16 @@
 /mob/living/carbon/human/proc/handle_ssd()
 	if(player_logged > 0 && config.auto_cryo_ssd_mins && stat != DEAD && job)
 		player_logged++
+		if(istype(loc, /obj/machinery/cryopod))
+			return
 		if((player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+			var/turf/T = get_turf(src)
+			if(!is_station_level(T.z))
+				return
+			var/area/A = get_area(src)
 			cryo_ssd(src)
+			if(A.fast_despawn)
+				force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
