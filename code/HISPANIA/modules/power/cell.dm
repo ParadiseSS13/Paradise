@@ -3,7 +3,7 @@
 	icon_state = "xenobluecell"
 	item_state = "xenobluecell"
 	name = "Xenobluespace power cell"
-	desc = "Creada mediante tecnologia xeno-bluespace, ideada por el renombrado RD Adam Wolf."
+	desc = "Created using xeno-bluespace technology. Designed by the renowned research director Adam Wolf."
 	origin_tech = "powerstorage=6;biotech=4;materials=5; engineering=5;bluespace =5"
 	maxcharge = 50000
 	materials = list(MAT_GLASS = 800)
@@ -16,13 +16,13 @@
 	icon_state = "xenobluecellmaker"
 	item_state = "xenobluecellmaker"
 	name = "Xenobluespace power cell Maker"
-	desc = "Cascara de alta tecnologia capaz de crear la una bateria que combina la tecnologia Bluespace y la Xenobiologia. Tiene inscrito -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y a Baldric Chapman, Maestro de la Robotica-"
+	desc = "High-tech porwer cell shell capable of creating a porwer cell that combines Bluespace and xenobiology technology. has inscribed: -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y a Baldric Chapman, Maestro de la Robotica-"
 	origin_tech = "powerstorage=6;biotech=4"
 	materials = list(MAT_GLASS = 1000)
 
 /datum/design/xenobluecellmaker
 	name = "Xenobluespace power cell Maker"
-	desc = "Cascara de alta tecnologia capaz de crear la una bateria que combina la tecnologia Bluespace y la Xenobiologia"
+	desc = "High-tech porwer cell shell capable of creating a porwer cell that combines Bluespace and xenobiology technology."
 	id = "xenobluecell"
 	req_tech = list("powerstorage" = 7, "materials" = 6, "engineering" = 6, "bluespace" = 6)
 	build_type = PROTOLATHE | MECHFAB
