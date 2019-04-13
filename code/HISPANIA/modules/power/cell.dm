@@ -16,7 +16,7 @@
 	icon_state = "xenobluecellmaker"
 	item_state = "xenobluecellmaker"
 	name = "Xenobluespace power cell Maker"
-	desc = "High-tech porwer cell shell capable of creating a porwer cell that combines Bluespace and xenobiology technology. has inscribed: -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y a Baldric Chapman, Maestro de la Robotica-"
+	desc = "High-tech porwer cell shell capable of creating a porwer cell that combines Bluespace and Xenobiology technology. has inscribed: -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y a Baldric Chapman, Maestro de la Robotica-"
 	origin_tech = "powerstorage=6;biotech=4"
 	materials = list(MAT_GLASS = 1000)
 
