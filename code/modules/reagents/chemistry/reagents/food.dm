@@ -917,7 +917,7 @@
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		T.add_vomit_floor(FALSE, /obj/effect/decal/cleanable/vomit/green)
+		T.add_vomit_floor(FALSE, TRUE)
 
 ////Lavaland Flora Reagents////
 

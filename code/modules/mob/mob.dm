@@ -1176,7 +1176,7 @@ var/list/slot_equipment_priority = list( \
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			location.add_vomit_floor(FALSE, /obj/effect/decal/cleanable/vomit/green)
+			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
 				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
