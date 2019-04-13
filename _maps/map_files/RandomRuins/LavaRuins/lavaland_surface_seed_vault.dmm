@@ -7,7 +7,7 @@
 "g" = (/obj/structure/table/wood,/obj/machinery/smartfridge/disks{pixel_y = 2},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered/seedvault)
 "h" = (/turf/simulated/floor/plasteel/freezer,/area/ruin/powered/seedvault)
 "i" = (/obj/structure/closet/crate/hydroponics,/obj/structure/beebox,/obj/item/melee/flyswatter,/obj/item/honey_frame,/obj/item/honey_frame,/obj/item/honey_frame,/obj/item/queen_bee/bought,/obj/item/clothing/head/beekeeper_head,/obj/item/clothing/suit/beekeeper_suit,/turf/simulated/floor/plasteel/freezer,/area/ruin/powered/seedvault)
-"j" = (/obj/structure/shuttle/engine/propulsion{dir = 8},/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"j" = (/obj/structure/shuttle/engine/propulsion{dir = 4},/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
 "k" = (/obj/structure/closet/crate,/obj/effect/spawner/lootdrop/seed_vault,/turf/simulated/floor/plasteel/freezer,/area/ruin/powered/seedvault)
 "l" = (/obj/machinery/door/airlock,/turf/simulated/floor/plasteel/freezer,/area/ruin/powered/seedvault)
 "m" = (/obj/machinery/embedded_controller/radio/airlock/access_controller{frequency = 1385; id_tag = "seed_vault"; pixel_y = 25; tag_exterior_door = "seed_vault_outer"; tag_interior_door = "seed_vault_inner"},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered/seedvault)
