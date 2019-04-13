@@ -1,3 +1,7 @@
+/mob/dead/observer/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/ghost(src)
+
 /obj/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
 
@@ -21,7 +25,7 @@
 	G.follow()
 
 /obj/screen/ghost/reenter_corpse
-	name = "Reenter corpse"
+	name = "Re-enter corpse"
 	icon_state = "reenter_corpse"
 
 /obj/screen/ghost/reenter_corpse/Click()
@@ -36,14 +40,7 @@
 	var/mob/dead/observer/G = usr
 	G.dead_tele()
 
-/obj/screen/ghost/pai
-	name = "pAI Candidate"
-	icon_state = "pai"
-
-///obj/screen/ghost/pai/Click()
-//	var/mob/dead/observer/G = usr
-
-/datum/hud/ghost/New(mob/owner, var/ui_style = 'icons/mob/screen_white.dmi')
+/datum/hud/ghost/New(mob/owner)
 	..()
 	var/obj/screen/using
 
@@ -62,23 +59,3 @@
 	using = new /obj/screen/ghost/teleport()
 	using.screen_loc = ui_ghost_teleport
 	static_inventory += using
-
-	using = new /obj/screen/ghost/pai()
-	using.screen_loc = ui_ghost_pai
-	static_inventory += using
-
-	using = new /obj/screen/language_menu
-	using.icon = ui_style
-	static_inventory += using
-
-/datum/hud/ghost/show_hud(version = 0, mob/viewmob)
-	// don't show this HUD if observing; show the HUD of the observee
-	var/mob/dead/observer/O = mymob
-	if (istype(O))
-		return FALSE
-
-	. = ..()
-	if(!.)
-		return
-	var/mob/screenmob = viewmob || mymob
-	screenmob.client.screen += static_inventory
