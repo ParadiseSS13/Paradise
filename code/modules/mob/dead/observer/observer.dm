@@ -498,7 +498,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		dest += getpois(mobs_only=1) //Fill list, prompt user with list
 		target = input("Please, select a mob!", "Jump to Mob", null, null) as null|anything in dest
 
-		if (!target) //Make sure we actually have a target
+		if(!target) //Make sure we actually have a target
 			return
 		else
 			var/mob/M = dest[target] //Destination mob
