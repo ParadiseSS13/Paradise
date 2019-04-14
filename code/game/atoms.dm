@@ -649,10 +649,7 @@ var/list/blood_splatter_icons = list()
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
-				if(V.scoop_reagents[vomit_reagent])
-					V.scoop_reagents[vomit_reagent] += 5
-				else
-					V.scoop_reagents[vomit_reagent] = 5
+				V.scoop_reagents[vomit_reagent] += 5
 				return
 			
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
