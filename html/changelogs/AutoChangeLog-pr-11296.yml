@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "PM's now shouldn't go to the wrong client anymore when the target left."

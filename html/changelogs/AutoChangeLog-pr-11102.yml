@@ -1,0 +1,5 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - rscadd: "ssMapping"
+  - tweak: "Gateway and space ruins are now loaded with ssMapping"
