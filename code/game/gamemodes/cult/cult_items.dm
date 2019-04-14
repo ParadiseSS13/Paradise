@@ -201,7 +201,7 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 2
+	claw_damage_increase = 4
 
 /obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
