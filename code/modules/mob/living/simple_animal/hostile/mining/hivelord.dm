@@ -430,7 +430,7 @@
 			if(prob(10))
 				belt = pick(list(/obj/item/storage/belt/mining, /obj/item/storage/belt/utility/full))
 			if(prob(50))
-				neck = /obj/item/bedsheet/rd/royal_cape
+				back = /obj/item/bedsheet/rd/royal_cape
 			if(prob(10))
 				l_pocket = pick(list(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental))
 		if("YeOlde")
