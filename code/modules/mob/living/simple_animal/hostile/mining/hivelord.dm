@@ -312,7 +312,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
-	if(H.dna.GetSEState(DWARF)) //dwarf legions aren't just fluff!
+	if((DWARF in H.mutations)) //dwarf legions aren't just fluff!
 		L = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(H.loc)
 	else
 		L = new(H.loc)
@@ -371,7 +371,9 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
 	. = ..()
-	H.dna.SetSEState(DWARF, 1)
+	H.dna.SetSEState(SMALLSIZEBLOCK, 1, 1)
+	H.mutations.Add(DWARF)
+	genemutcheck(H, SMALLSIZEBLOCK, null, MUTCHK_FORCED)
 	H.update_mutations()
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize()
