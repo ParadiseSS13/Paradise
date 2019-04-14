@@ -244,7 +244,7 @@
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic","Disable")
+	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic","Combined","Disable")
 	remove_med_sec_hud()
 	switch(sensor_type)
 		if("Security")
@@ -256,6 +256,11 @@
 		if("Diagnostic")
 			add_diag_hud()
 			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+		if("Combined")
+			add_sec_hud()
+			add_med_hud()
+			add_diag_hud()
+			to_chat(src, "<span class='notice'>Combined overlay enabled.</span>")
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
