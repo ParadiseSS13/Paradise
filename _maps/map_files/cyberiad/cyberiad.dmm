@@ -14691,7 +14691,7 @@
 /obj/machinery/camera{
 	c_tag = "Prison South";
 	dir = 1;
-	network = list("SS13")
+	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -49566,11 +49566,9 @@
 	pixel_y = 0;
 	step_size = 0
 	},
-/obj/item/storage/box/pillbottles,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
@@ -65443,6 +65441,7 @@
 	name = "\improper Virology Lobby"
 	})
 "cnE" = (
+/obj/machinery/atmospherics/unary/passive_vent,
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "cnF" = (

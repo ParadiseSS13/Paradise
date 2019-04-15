@@ -311,8 +311,9 @@
 /atom/proc/blob_act(obj/structure/blob/B)
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
-/atom/proc/fire_act()
-	return
+/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature)
 
 /atom/proc/emag_act()
 	return
@@ -679,10 +680,10 @@ var/list/blood_splatter_icons = list()
 	return pass_flags&passflag
 
 /atom/proc/isinspace()
-	if(istype(get_turf(src), /turf/space))
-		return 1
+	if(isspaceturf(get_turf(src)))
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /atom/proc/handle_fall()
 	return

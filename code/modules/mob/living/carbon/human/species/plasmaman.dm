@@ -7,6 +7,7 @@
 	//language = "Clatter"
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
@@ -187,6 +188,6 @@
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()

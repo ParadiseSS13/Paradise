@@ -51,7 +51,6 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
-	var/datum/nations/nation			//nation holder
 	var/datum/abductor/abductor			//abductor holder
 	var/datum/devilinfo/devilinfo 		//devil holder
 
@@ -870,6 +869,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					ticker.mode.update_wiz_icons_added(src)
+					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
 					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -911,6 +911,7 @@
 					ticker.mode.grant_changeling_powers(current)
 					ticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
+					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -955,6 +956,7 @@
 					slaved.masters += src
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
+					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -1157,6 +1159,9 @@
 					if(isAI(current))
 						var/mob/living/silicon/ai/A = current
 						ticker.mode.add_law_zero(A)
+						SEND_SOUND(current, 'sound/ambience/antag/malf.ogg')
+					else
+						SEND_SOUND(current, 'sound/ambience/antag/tatoralert.ogg')
 					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
@@ -1441,6 +1446,11 @@
 		ticker.mode.forge_changeling_objectives(src)
 		ticker.mode.greet_changeling(src)
 		ticker.mode.update_change_icons_added(src)
+
+/datum/mind/proc/make_Overmind()
+	if(!(src in ticker.mode.blob_overminds))
+		ticker.mode.blob_overminds += src
+		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in ticker.mode.wizards))

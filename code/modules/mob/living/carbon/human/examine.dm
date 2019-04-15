@@ -355,7 +355,7 @@
 					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
-			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=[glasses]'>\[[criminal]\]</a>"
+			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 

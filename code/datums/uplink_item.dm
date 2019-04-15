@@ -88,9 +88,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 
-	if(hijack_only)
+	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
-			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
 	if(item)
@@ -180,6 +180,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CM"
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 3
+	job = list("Clown")
+
+/datum/uplink_item/jobspecific/trick_revolver
+	name = "Trick Revolver"
+	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
+	reference = "CTR"
+	item = /obj/item/storage/box/syndie_kit/fake_revolver
+	cost = 1
 	job = list("Clown")
 
 //mime
@@ -350,6 +358,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/energy/telegun
 	cost = 12
 	job = list("Research Director")
+
+//Roboticist
+/datum/uplink_item/jobspecific/syndiemmi
+	name = "Syndicate MMI"
+	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	reference = "SMMI"
+	item = /obj/item/mmi/syndie
+	cost = 2
+	job = list("Roboticist")
+	surplus = 0
 
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
@@ -795,7 +813,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	cost = 9
+	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 13
+	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -875,7 +895,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
-	cost = 3
+	cost = 2
 
 // GRENADES AND EXPLOSIVES
 
@@ -911,6 +931,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
+	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -960,13 +982,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
-/datum/uplink_item/explosives/atmosgrenades
-	name = "Atmos Grenades"
-	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
-	reference = "AGG"
-	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
-	cost = 11
+/datum/uplink_item/explosives/atmosn2ogrenades
+	name = "Knockout Gas Grenades"
+	desc = "A box of two (2) grenades that spread knockout gas over a large area. Equip internals before using one of these."
+	reference = "ANG"
+	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
+	cost = 8
+
+/datum/uplink_item/explosives/atmosfiregrenades
+	name = "Plasma Fire Grenades"
+	desc = "A box of two (2) grenades that cause large plasma fires. Can be used to deny access to a large area. Most useful if you have an atmospherics hardsuit."
+	reference = "APG"
+	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
+	hijack_only = TRUE
+	cost = 12
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -1160,10 +1191,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Prototype Bone Repair Kit"
@@ -1301,13 +1332,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/device_tools/singularity_beacon/nuke
-	reference = "SNGBN"
-	hijack_only = FALSE // This inherited version exists so nukies can use it while keeping the original hijack only
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"

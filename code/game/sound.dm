@@ -20,11 +20,26 @@
 		listeners = listeners & hearers(maxdistance, turf_source)
 	for(var/P in listeners)
 		var/mob/M = P
+<<<<<<< HEAD
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
 	for(var/P in SSmobs.dead_players_by_zlevel[z])
 		var/mob/M = P
 		if(get_dist(M, turf_source) <= maxdistance)
+=======
+		if(!M || !M.client)
+			continue
+
+		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
+		if(!T)
+			continue
+		if(T.z != turf_source.z)
+			continue
+
+		var/distance = get_dist(M, turf_source)
+
+		if(distance <= maxdistance)
+>>>>>>> master
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S)

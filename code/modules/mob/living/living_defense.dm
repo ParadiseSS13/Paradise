@@ -179,7 +179,8 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
 
-/mob/living/fire_act()
+/mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	adjust_fire_stacks(3)
 	IgniteMob()
 
@@ -337,7 +338,3 @@
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
-
-//defined here, overridden for humans in human_defense. By default, living mobs don't get to block anything
-/mob/living/proc/check_block()
-	return FALSE

@@ -171,6 +171,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -541,7 +542,7 @@
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	assemblytype = "obj/structure/door_assembly/multi_tile"
+	assemblytype = /obj/structure/door_assembly/multi_tile
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

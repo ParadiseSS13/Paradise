@@ -93,7 +93,7 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
@@ -288,10 +288,6 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules += "Combat"
-	if(ticker && ticker.mode && ticker.mode.name == "nations")
-		var/datum/game_mode/nations/N = ticker.mode
-		if(N.kickoff)
-			modules = list("Nations")
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -390,11 +386,6 @@ var/list/robot_verbs_default = list(
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
 
-		if("Nations")
-			module = new /obj/item/robot_module/nations(src)
-			module.channels = list()
-			icon_state = "droidpeace"
-
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
@@ -415,7 +406,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -891,7 +882,7 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 
-	var/combat = list("Combat","Nations")
+	var/combat = list("Combat")
 	if(modtype in combat)
 		if(base_icon == "")
 			base_icon = icon_state
@@ -1355,24 +1346,6 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert/gamma
 	crisis = 1
-
-/mob/living/silicon/robot/nations
-	base_icon = "droidpeace"
-	icon_state = "droidpeace"
-	modtype = "Nations"
-	designation = "Nations"
-
-/mob/living/silicon/robot/nations/init()
-	..()
-	module = new /obj/item/robot_module/nations(src)
-	//languages
-	module.add_languages(src)
-	//subsystems
-	module.add_subsystems_and_actions(src)
-
-	status_flags &= ~CANPUSH
-
-	notify_ai(2)
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()

@@ -72,6 +72,7 @@
 	update_client_colour(0)
 
 	callHook("mob_login", list("client" = client, "mob" = src))
+<<<<<<< HEAD
 
 // Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().
 // Calling it in the overriden Login, such as /mob/living/Login() doesn't cause this.
@@ -98,3 +99,5 @@
 		hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
 		client.hotkeyon = 0
 		winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5")
+=======
+>>>>>>> master
