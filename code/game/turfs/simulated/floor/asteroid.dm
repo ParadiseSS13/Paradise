@@ -106,11 +106,16 @@
 	oxygen = 0
 	nitrogen = 0
 
-/turf/simulated/floor/plating/asteroid/basalt/New()
-	..()
-	switch(icon_state)
-		if("basalt1", "basalt2", "basalt3") //5 and 9 are too dark to glow and make the amount of glows in tunnels too high
-			set_light(1, 1) //this is basically a 3.75% chance that a basalt floor glows
+/turf/simulated/floor/plating/asteroid/basalt/Initialize()
+	. = ..()
+	set_basalt_light(src)
+
+/proc/set_basalt_light(turf/simulated/floor/B)
+	switch(B.icon_state)
+		if("basalt1", "basalt2", "basalt3")
+			B.set_light(2, 0.6, LIGHT_COLOR_LAVA) //more light
+		if("basalt5", "basalt9")
+			B.set_light(1.4, 0.6, LIGHT_COLOR_LAVA) //barely anything!
 
 /turf/simulated/floor/plating/asteroid/basalt/gets_dug()
 	if(!dug)
