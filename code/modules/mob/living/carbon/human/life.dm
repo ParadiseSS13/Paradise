@@ -59,7 +59,9 @@
 			if(!is_station_level(T.z))
 				return
 			var/area/A = get_area(src)
-			cryo_ssd(src)
+			if(cryo_ssd(src))
+				var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 100)
+				P.name = "NT SSD Teleportation Portal"
 			if(A.fast_despawn)
 				force_cryo_human(src)
 
