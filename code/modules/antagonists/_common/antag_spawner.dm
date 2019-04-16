@@ -140,7 +140,7 @@
 	R.mmi.brainmob.real_name = brainopsname
 	R.mmi.brainmob.name = brainopsname
 
-	if (!switch_roles)
+	if(!switch_roles)
 		set_syndicate_values(C, R)
 	else
 		var/mob/living/L = user.current
