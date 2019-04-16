@@ -521,6 +521,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
+	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("chomp")
