@@ -1878,7 +1878,7 @@
 		var/logmsg = null
 		switch(punishment)
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety=1)
+				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)

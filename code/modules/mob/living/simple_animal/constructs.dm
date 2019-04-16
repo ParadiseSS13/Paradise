@@ -85,6 +85,9 @@
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
+/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE
+
 /////////////////Juggernaut///////////////
 
 
