@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Tesla can't zap cameras and other disposal structures anymore"
+  - rscadd: "Simple mobs can now be shocked"
+  - tweak: "Electrocution damage scales a bit more linearly up to its maximum potential instead of being heavily random"
+  - bugfix: "Fixes being able to shock yourself with TK, at range, on electrical equipment"
+  - rscadd: "simple mobs can now be shocked by the tesla and other sources"
