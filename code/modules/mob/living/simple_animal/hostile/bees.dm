@@ -187,28 +187,6 @@
 	. = ..()
 	if(!.)
 		return
-<<<<<<< HEAD
-	if(!isqueen)
-		if(loc == beehome)
-			idle = min(100, ++idle)
-			if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
-				toggle_ai(AI_ON)
-				forceMove(get_turf(beehome))
-		else
-			idle = max(0, --idle)
-			if(idle <= BEE_IDLE_GOHOME && prob(BEE_PROB_GOHOME))
-				if(!FindTarget())
-					wanted_objects += /obj/structure/beebox //so we don't attack beeboxes when not going home
-					target = beehome
-	if(!beehome) //add outselves to a beebox (of the same reagent) if we have no home
-		for(var/obj/structure/beebox/BB in view(vision_range, src))
-			if(reagent_incompatible(BB.queen_bee) || BB.bees.len >= BB.get_max_bees())
-				continue
-			BB.bees |= src
-			beehome = BB
-
-=======
->>>>>>> master
 
 	if(!bee_syndicate)
 		if(!isqueen)
@@ -305,17 +283,6 @@
 	QDEL_NULL(queen)
 	return ..()
 
-<<<<<<< HEAD
-/mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
-	if(beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets
-		idle = min(100, ++idle)
-		if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
-			toggle_ai(AI_ON)
-			forceMove(beehome.drop_location())
-	else  
-		..()
-=======
->>>>>>> master
 
 //Syndicate Bees
 /mob/living/simple_animal/hostile/poison/bees/syndi
@@ -364,9 +331,4 @@
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat)
-<<<<<<< HEAD
 			LoseTarget()
-	
-=======
-			LoseTarget()
->>>>>>> master
