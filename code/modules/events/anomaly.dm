@@ -1,33 +1,18 @@
 /datum/event/anomaly
-	var/obj/effect/anomaly/newAnomaly
-	announceWhen = 1
+	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
+	announceWhen	= 1
 
-/datum/event/anomaly/setup(loop=0)
-	var/safety_loop = loop + 1
-	if(safety_loop > 50)
-		kill()
-		end()
+/datum/event/anomaly/setup()
 	impact_area = findEventArea()
 	if(!impact_area)
-		setup(safety_loop)
+		CRASH("No valid areas for anomaly found.")
 	var/list/turf_test = get_area_turfs(impact_area)
 	if(!turf_test.len)
-		setup(safety_loop)
+		CRASH("Anomaly : No valid turfs found for [impact_area] - [impact_area.type]")
 
-/datum/event/anomaly/announce()
+/datum/event/anomaly/announce(fake)
 	event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")
 
 /datum/event/anomaly/start()
-	var/turf/T = pick(get_area_turfs(impact_area))
-	if(T)
-		newAnomaly = new /obj/effect/anomaly/flux(T.loc)
-
-/datum/event/anomaly/tick()
-	if(!newAnomaly)
-		kill()
-		return
-	newAnomaly.anomalyEffect()
-
-/datum/event/anomaly/end()
-	if(newAnomaly)//Kill the anomaly if it still exists at the end.
-		qdel(newAnomaly)
+	var/turf/T = safepick(get_area_turfs(impact_area))
+	new anomaly_path(T)

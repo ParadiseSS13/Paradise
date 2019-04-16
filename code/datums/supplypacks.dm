@@ -680,7 +680,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
-	contains = list(/obj/machinery/power/supermatter_shard)
+	contains = list(/obj/machinery/power/supermatter_crystal/shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
 	containertype = /obj/structure/closet/crate/secure
 	containername = "supermatter shard crate"

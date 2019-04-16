@@ -10,7 +10,7 @@
 	size = 5
 	var/last_status = SUPERMATTER_INACTIVE
 	var/list/supermatters
-	var/obj/machinery/power/supermatter_shard/active		// Currently selected supermatter crystal.
+	var/obj/machinery/power/supermatter_crystal/active		// Currently selected supermatter crystal.
 
 
 /datum/computer_file/program/supermatter_monitor/process_tick()
@@ -40,7 +40,7 @@
 	var/turf/T = get_turf(nano_host())
 	if(!T)
 		return
-	for(var/obj/machinery/power/supermatter_shard/S in SSair.atmos_machinery)
+	for(var/obj/machinery/power/supermatter_crystal/S in SSair.atmos_machinery)
 		// Delaminating, not within coverage, not on a tile.
 		if(!(is_station_level(S.z) || is_mining_level(S.z)  || atoms_share_level(S, T) || !istype(S.loc, /turf/simulated/)))
 			continue
@@ -51,7 +51,7 @@
 
 /datum/computer_file/program/supermatter_monitor/proc/get_status()
 	. = SUPERMATTER_INACTIVE
-	for(var/obj/machinery/power/supermatter_shard/S in supermatters)
+	for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 		. = max(., S.get_status())
 
 /datum/computer_file/program/supermatter_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -105,7 +105,7 @@
 			data["SM_gas_OTHER"] = 0
 	else
 		var/list/SMS = list()
-		for(var/obj/machinery/power/supermatter_shard/S in supermatters)
+		for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 			var/area/A = get_area(S)
 			if(!A)
 				continue
@@ -133,7 +133,7 @@
 		return TRUE
 	if(href_list["set"])
 		var/newuid = text2num(href_list["set"])
-		for(var/obj/machinery/power/supermatter_shard/S in supermatters)
+		for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 			if(S.uid == newuid)
 				active = S
 		return TRUE

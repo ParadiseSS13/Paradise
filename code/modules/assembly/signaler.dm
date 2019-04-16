@@ -166,10 +166,13 @@
 	icon_state = "anomaly core"
 	item_state = "electronic"
 	receiving = TRUE
+	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
+	var/anomaly_type = /obj/effect/anomaly
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	if(..())
-		for(var/obj/effect/anomaly/A in orange(0, src))
+		for(var/obj/effect/anomaly/A in get_turf(src))
 			A.anomalyNeutralize()
 
 /obj/item/assembly/signaler/anomaly/attack_self()
