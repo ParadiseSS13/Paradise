@@ -66,8 +66,6 @@
 
 		air.temperature = temperature
 
-		update_visuals()
-
 /turf/simulated/Destroy()
 	visibilityChanged()
 	QDEL_NULL(active_hotspot)
@@ -209,6 +207,8 @@
 
 	air.react()
 
+	update_visuals()
+
 	if(air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		hotspot_expose(air.temperature, CELL_VOLUME)
 		for(var/atom/movable/item in src)
@@ -218,13 +218,6 @@
 	if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
 		if(consider_superconductivity(starting = 1))
 			remove = 0
-
-	if(air.temperature < T0C && air.return_pressure() > 10)
-		icy = 1
-	else if(air.temperature > T0C)
-		icy = 0
-
-	update_visuals()
 
 	if(!excited_group && remove == 1)
 		SSair.remove_from_active(src)
@@ -237,27 +230,19 @@
 	archived_cycle = SSair.times_fired
 
 /turf/simulated/proc/update_visuals()
-	if(icy && !icyoverlay)
-		overlays |= icemaster
-		icyoverlay = icemaster
-	else if(icyoverlay && !icy)
-		icyoverlay = null
-		overlays -= icemaster
-
 	var/new_overlay_type = tile_graphic()
 	if(new_overlay_type == atmos_overlay_type)
 		return
 	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
 	if(atmos_overlay)
-		overlays -= atmos_overlay
-		mouse_opacity = MOUSE_OPACITY_ICON
+		vis_contents -= atmos_overlay
 
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if(atmos_overlay)
-		overlays += atmos_overlay
+		vis_contents += atmos_overlay
 		atmos_overlay_type = new_overlay_type
 
-/turf/simulated/proc/get_atmos_overlay_by_name(var/name)
+/turf/simulated/proc/get_atmos_overlay_by_name(name)
 	switch(name)
 		if("plasma")
 			return plmaster
@@ -266,13 +251,13 @@
 	return null
 
 /turf/simulated/proc/tile_graphic()
+	if(!air)
+		return
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return "plasma"
 
 	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
 	if(sleeping_agent && (sleeping_agent.moles > 1))
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return "sleeping_agent"
 	return null
 
