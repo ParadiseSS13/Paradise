@@ -4,7 +4,7 @@
 	item_state = "xenobluecell"
 	name = "Xenobluespace power cell"
 	desc = "Created using xeno-bluespace technology. Designed by the renowned research director Adam Wolf."
-	origin_tech = "powerstorage=6;biotech=4;materials=5; engineering=5;bluespace =5"
+	origin_tech = "powerstorage=7;biotech=4;materials=5; engineering=5;bluespace =5"
 	maxcharge = 50000
 	materials = list(MAT_GLASS = 800)
 	rating = 7
