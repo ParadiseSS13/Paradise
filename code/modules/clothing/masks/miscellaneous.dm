@@ -104,9 +104,8 @@
 	user.transfer_fingerprints_to(TT)
 	user.put_in_active_hand(TT)
 	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
-	..()
 	user.emote("scream")
-	qdel(src)
+	..()
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
