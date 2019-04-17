@@ -219,8 +219,17 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	icon_state = "toolbox_tiles_sensor"
 
 /obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
+	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
+								/obj/item/storage/toolbox/electrical,
+								/obj/item/storage/toolbox/mechanical,
+								/obj/item/storage/toolbox/green,
+								/obj/item/storage/toolbox/syndicate,
+								/obj/item/storage/toolbox/fakesyndi)
+
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
+		return
+	if(!is_type_in_list(src, allowed_toolbox))
 		return
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
@@ -237,7 +246,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 				B.toolbox_color = "y"
 			if(/obj/item/storage/toolbox/green)
 				B.toolbox_color = "g"
-			if(/obj/item/storage/toolbox/syndicate)
+			if(/obj/item/storage/toolbox/syndicate || /obj/item/storage/toolbox/fakesyndi)
 				B.toolbox_color = "s"
 		B.icon_state = "[B.toolbox_color]toolbox_tiles"
 		user.put_in_hands(B)
