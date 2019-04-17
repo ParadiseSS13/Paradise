@@ -67,8 +67,9 @@
 /obj/effect/anomaly/proc/anomalyNeutralize()
 	new /obj/effect/particle_effect/smoke/bad(loc)
 
-	for(var/atom/movable/O in src)
-		O.forceMove(drop_location())
+	if(aSignal)
+		aSignal.forceMove(drop_location())
+		aSignal = null
 
 	qdel(src)
 
