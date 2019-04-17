@@ -236,6 +236,8 @@
 
 /obj/item/tome/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)
+	if(isspaceturf(runeturf))
+		return
 	var/chosen_keyword
 	var/obj/effect/rune/rune_to_scribe
 	var/entered_rune_name
