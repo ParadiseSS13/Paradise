@@ -5,26 +5,26 @@
 		And maybe we'll come back\n\
 		To earth, who can tell?"
 
-	var/displayed_text
-	var/atom/attached_to
-	color = "#ff0000"
-	var/text_size = 4
-	var/started = FALSE
 	invisibility = INVISIBILITY_OBSERVER
 	anchored = TRUE
 	layer = GHOST_LAYER
+	color = "#ff0000" // text color
+	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.
+	var/started = FALSE
+	var/displayed_text
+	var/atom/attached_to
 
-/obj/effect/countdown/New(atom/A)
+/obj/effect/countdown/Initialize(mapload)
 	. = ..()
-	attach(A)
+	attach(loc)
 
 /obj/effect/countdown/examine(mob/user)
 	. = ..()
-	to_chat(user, "This countdown is displaying: [displayed_text]")
+	to_chat(user, "This countdown is displaying: [displayed_text].")
 
 /obj/effect/countdown/proc/attach(atom/A)
 	attached_to = A
-	loc = get_turf(A)
+	forceMove(get_turf(A))
 
 /obj/effect/countdown/proc/start()
 	if(!started)

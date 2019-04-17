@@ -15,4 +15,5 @@
 
 /datum/event/anomaly/start()
 	var/turf/T = safepick(get_area_turfs(impact_area))
-	new anomaly_path(T)
+	if(T)
+		new anomaly_path(T)

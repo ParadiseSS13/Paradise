@@ -1,5 +1,3 @@
-//Anomalies, used for events. Note that these DO NOT work by themselves; their procs are called by the event datum.
-
 /obj/effect/anomaly
 	name = "anomaly"
 	icon = 'icons/effects/effects.dmi'
@@ -51,12 +49,13 @@
 /obj/effect/anomaly/Destroy()
 	GLOB.poi_list.Remove(src)
 	processing_objects.Remove(src)
-	qdel(countdown)
+	QDEL_NULL(countdown)
+	QDEL_NULL(aSignal)
 	return ..()
 
 /obj/effect/anomaly/proc/anomalyEffect()
 	if(prob(movechance))
-		step(src,pick(alldirs))
+		step(src, pick(alldirs))
 
 /obj/effect/anomaly/proc/detonate()
 	return
@@ -75,7 +74,7 @@
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
-		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [aSignal.code]:[format_frequency(aSignal.frequency)].</span>")
+		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
 
 ///////////////////////
 
@@ -94,15 +93,15 @@
 	boing = 1
 	for(var/obj/O in orange(4, src))
 		if(!O.anchored)
-			step_towards(O,src)
+			step_towards(O, src)
 	for(var/mob/living/M in range(0, src))
 		gravShock(M)
 	for(var/mob/living/M in orange(4, src))
 		if(!M.mob_negates_gravity())
-			step_towards(M,src)
-	for(var/obj/O in range(0,src))
+			step_towards(M, src)
+	for(var/obj/O in range(0, src))
 		if(!O.anchored)
-			var/mob/living/target = locate() in view(4,src)
+			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
 
@@ -190,6 +189,8 @@
 		var/obj/item/radio/beacon/chosen
 		var/list/possible = list()
 		for(var/obj/item/radio/beacon/W in world)
+			if(!is_station_level(W.z))
+				continue
 			possible += W
 
 		if(possible.len > 0)
@@ -211,7 +212,7 @@
 
 			var/y_distance = TO.y - FROM.y
 			var/x_distance = TO.x - FROM.x
-			for(var/atom/movable/A in urange(12, FROM )) // iterate thru list of mobs in the area
+			for(var/atom/movable/A in urange(12, FROM)) // iterate thru list of mobs in the area
 				if(istype(A, /obj/item/radio/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(A.anchored)
@@ -292,11 +293,11 @@
 	grav(rand(0,3), rand(2, 3), 50, 25)
 
 	//Throwing stuff around!
-	for(var/obj/O in range(2,src))
+	for(var/obj/O in range(2, src))
 		if(O == src)
 			return //DON'T DELETE YOURSELF GOD DAMN
 		if(!O.anchored)
-			var/mob/living/target = locate() in view(4,src)
+			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 7, 5)
 		else
@@ -321,10 +322,10 @@
 			if(O.anchored)
 				O.ex_act(ex_act_force)
 			else
-				step_towards(O,src)
+				step_towards(O, src)
 		for(var/mob/living/M in T.contents)
-			step_towards(M,src)
+			step_towards(M, src)
 
 	//Damaging the turf
-	if( T && prob(turf_removal_chance) )
+	if(T && prob(turf_removal_chance))
 		T.ex_act(ex_act_force)
