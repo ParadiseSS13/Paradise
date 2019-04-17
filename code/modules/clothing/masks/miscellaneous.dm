@@ -99,12 +99,14 @@
 		)
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
-	var/obj/item/trash/tapetrash/TT = new(drop_location(src))
+	var/obj/item/trash/tapetrash/TT = new
 	transfer_fingerprints_to(TT)
 	user.transfer_fingerprints_to(TT)
+	user.put_in_active_hand(TT)
 	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
 	..()
 	user.emote("scream")
+	qdel(src)
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
