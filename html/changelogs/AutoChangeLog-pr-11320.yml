@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Shuttles no longer leave behind their propulsion."
