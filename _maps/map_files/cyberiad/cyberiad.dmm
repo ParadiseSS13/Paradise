@@ -1299,7 +1299,7 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ade" = (
-/obj/structure/closet/syndicate/suits,
+/obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1757,12 +1757,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "adS" = (
-/obj/structure/closet/syndicate/suits,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
