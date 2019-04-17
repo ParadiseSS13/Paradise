@@ -259,19 +259,19 @@
 
 /obj/item/projectile/plasma/on_hit(atom/target)
 	. = ..()
-	if(istype(target, /turf/simulated/mineral))
+	if(ismineralturf(target))
+		forcedodge = 1
 		var/turf/simulated/mineral/M = target
 		M.gets_drilled(firer)
-		Range()
-		if(range > 0)
-			return -1
+	else
+		forcedodge = 0
 
 /obj/item/projectile/plasma/adv
-	range = 5
+	range = 6
 
 /obj/item/projectile/plasma/adv/mech
 	damage = 10
-	range = 6
+	range = 9
 
 /obj/item/projectile/energy/teleport
 	name = "teleportation burst"
