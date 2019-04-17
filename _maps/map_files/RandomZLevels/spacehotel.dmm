@@ -3909,7 +3909,7 @@
 /turf/unsimulated/floor/plating,
 /area/awaymission/spacehotel)
 "iL" = (
-/obj/machinery/power/supermatter_shard,
+/obj/machinery/power/supermatter_crystal,
 /turf/unsimulated/floor/plating,
 /area/awaymission/spacehotel)
 "iM" = (

@@ -13838,7 +13838,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aBX" = (
-/obj/machinery/power/supermatter_shard{
+/obj/machinery/power/supermatter_crystal{
 	anchored = 1
 	},
 /turf/simulated/floor/engine,
