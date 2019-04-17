@@ -36,7 +36,7 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 	return
 
 /datum/symptom/proc/Activate(datum/disease/advance/A)
-	activation_delay -= max(A.totalStageSpeed(), 1)
+	activation_delay -= max(1 + 0.5 * A.totalStageSpeed(), 1)
 	if(activation_delay <= 0)
 		activation_delay = initial(activation_delay)
 		activation_delay += rand(-0.5 * activation_delay, 0.5 * activation_delay) // Bit of randomness
