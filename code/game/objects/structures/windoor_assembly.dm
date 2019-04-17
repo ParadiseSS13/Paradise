@@ -269,51 +269,37 @@ obj/structure/windoor_assembly/Destroy()
 
 						density = TRUE //Shouldn't matter but just incase
 						to_chat(user, "<span class='notice'>You finish the windoor.</span>")
-
+						var/obj/machinery/door/window/windoor
 						if(secure)
-							var/obj/machinery/door/window/brigdoor/windoor = new /obj/machinery/door/window/brigdoor(src.loc)
+							windoor = new /obj/machinery/door/window/brigdoor(src.loc)
 							if(facing == "l")
 								windoor.icon_state = "leftsecureopen"
 								windoor.base_state = "leftsecure"
 							else
 								windoor.icon_state = "rightsecureopen"
 								windoor.base_state = "rightsecure"
-							windoor.setDir(dir)
-							windoor.density = FALSE
-
-							if(electronics.one_access)
-								windoor.req_one_access = electronics.conf_access
-							else
-								windoor.req_access = electronics.conf_access
-							windoor.electronics = src.electronics
-							electronics.forceMove(windoor)
-							if(created_name)
-								windoor.name = created_name
-							qdel(src)
-							windoor.close()
-
-
 						else
-							var/obj/machinery/door/window/windoor = new /obj/machinery/door/window(loc)
+							windoor = new /obj/machinery/door/window(loc)
 							if(facing == "l")
 								windoor.icon_state = "leftopen"
 								windoor.base_state = "left"
 							else
 								windoor.icon_state = "rightopen"
 								windoor.base_state = "right"
-							windoor.setDir(dir)
-							windoor.density = FALSE
+						windoor.setDir(dir)
+						windoor.density = FALSE
 
-							if(electronics.one_access)
-								windoor.req_one_access = electronics.conf_access
-							else
-								windoor.req_access = electronics.conf_access
-							windoor.electronics = src.electronics
-							electronics.forceMove(windoor)
-							if(created_name)
-								windoor.name = created_name
-							qdel(src)
-							windoor.close()
+						if(electronics.one_access)
+							windoor.req_one_access = electronics.conf_access
+						else
+							windoor.req_access = electronics.conf_access
+						windoor.electronics = src.electronics
+						electronics.forceMove(windoor)
+						electronics = null
+						if(created_name)
+							windoor.name = created_name
+						qdel(src)
+						windoor.close()
 
 			else
 				return ..()
