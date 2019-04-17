@@ -159,7 +159,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "u" = (
 /turf/space,
@@ -177,18 +177,18 @@
 	tag = "icon-burst_l";
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "x" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "y" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-burst_r";
 	icon_state = "burst_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 
 (1,1,1) = {"

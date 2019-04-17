@@ -921,7 +921,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "abR" = (
 /obj/structure/computerframe,
@@ -1030,18 +1030,18 @@
 	tag = "icon-propulsion_l";
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "acc" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "acd" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion_r";
 	icon_state = "propulsion_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "ace" = (
 /obj/structure/cable,
@@ -5910,7 +5910,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "akr" = (
 /obj/machinery/door/firedoor,
@@ -6466,7 +6466,7 @@
 	tag = "icon-propulsion_l";
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "alm" = (
 /obj/structure/closet/l3closet/security,

@@ -3754,7 +3754,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/space/transit,
+/turf/simulated/shuttle/plating,
 /area/wizard_station)
 "kr" = (
 /obj/structure/flora/tree/pine,
@@ -3769,7 +3769,7 @@
 	icon_state = "heater";
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/wizard_station)
 "kt" = (
 /obj/structure/flora/grass/brown,
@@ -4627,14 +4627,14 @@
 	dir = 4;
 	icon_state = "propulsion"
 	},
-/turf/space/transit,
+/turf/simulated/shuttle/plating,
 /area/wizard_station)
 "mP" = (
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater";
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/wizard_station)
 "mQ" = (
 /obj/machinery/light{
@@ -5975,7 +5975,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/wizard_station)
 "tq" = (
 /obj/structure/rack,
@@ -6049,7 +6049,7 @@
 /area/centcom/holding)
 "tP" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "tQ" = (
 /turf/unsimulated/beach/coastline,
