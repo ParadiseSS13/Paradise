@@ -231,6 +231,8 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		return
 	if(!is_type_in_list(src, allowed_toolbox))
 		return
+	if(src.type == /obj/item/storage/toolbox/green/memetic)
+		return
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
 		return
@@ -240,13 +242,19 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		var/obj/item/toolbox_tiles/B = new /obj/item/toolbox_tiles
 		B.toolbox = type
 		switch(B.toolbox)
+			if(/obj/item/storage/toolbox/mechanical/old)
+				B.toolbox_color = "ob"
 			if(/obj/item/storage/toolbox/emergency)
 				B.toolbox_color = "r"
+			if(/obj/item/storage/toolbox/emergency/old)
+				B.toolbox_color = "or"
 			if(/obj/item/storage/toolbox/electrical)
 				B.toolbox_color = "y"
 			if(/obj/item/storage/toolbox/green)
 				B.toolbox_color = "g"
-			if(/obj/item/storage/toolbox/syndicate || /obj/item/storage/toolbox/fakesyndi)
+			if(/obj/item/storage/toolbox/syndicate)
+				B.toolbox_color = "s"
+			if(/obj/item/storage/toolbox/fakesyndi)
 				B.toolbox_color = "s"
 		B.icon_state = "[B.toolbox_color]toolbox_tiles"
 		user.put_in_hands(B)
