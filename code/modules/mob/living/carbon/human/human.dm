@@ -1317,11 +1317,13 @@
 
 	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
 	var/list/kept_items[0]
-
+	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
 			kept_items[I] = thing
+			item_flags[I] = I.flags
+			I.flags = 0 // Temporary set the flags to 0
 
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
@@ -1387,8 +1389,9 @@
 	else
 		dna.species.create_organs(src)
 
-	for(var/thing in kept_items)
+	for(var/obj/item/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
+		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
