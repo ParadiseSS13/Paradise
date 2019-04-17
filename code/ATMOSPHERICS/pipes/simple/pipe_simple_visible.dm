@@ -32,6 +32,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple
 	color = PIPE_COLOR_PURPLE
 
+/obj/machinery/atmospherics/pipe/simple/visible/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/simple/visible/blue
+	color = PIPE_COLOR_BLUE
+
 /obj/machinery/atmospherics/pipe/simple/visible/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"

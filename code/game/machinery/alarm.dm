@@ -124,6 +124,12 @@
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
 
+/obj/machinery/alarm/engine
+	name = "engine air alarm"
+	locked = FALSE
+	req_access = null
+	req_one_access = list(access_atmospherics, access_engine)
+
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
 
