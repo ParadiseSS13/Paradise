@@ -55,8 +55,22 @@
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
-/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0)
-	  return 0 //only carbon liveforms have this proc
+/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+	if(status_flags & GODMODE)	//godmode
+		return FALSE
+	if(NO_SHOCK in mutations) //shockproof
+		return FALSE
+	if(tesla_shock && tesla_ignore)
+		return FALSE
+	if(shock_damage > 0)
+		if(!illusion)
+			adjustFireLoss(shock_damage)
+		visible_message(
+			"<span class='danger'>[src] was shocked by \the [source]!</span>",
+			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
+			"<span class='italics'>You hear a heavy electrical crack.</span>")
+		return shock_damage
 
 /mob/living/emp_act(severity)
 	var/list/L = src.get_contents()

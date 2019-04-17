@@ -1020,6 +1020,31 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
 
+/client/proc/show_tip()
+	set category = "Admin"
+	set name = "Show Custom Tip"
+	set desc = "Sends a tip (that you specify) to all players. After all \
+		you're the experienced player here."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/input = input(usr, "Please specify your tip that you want to send to the players.", "Tip", "") as message|null
+	if(!input)
+		return
+
+	if(!ticker)
+		return
+
+	ticker.selected_tip = input
+
+	// If we've already tipped, then send it straight away.
+	if(ticker.tipped)
+		ticker.send_tip_of_the_round()
+
+	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
+	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
+
 /client/proc/modify_goals()
 	set category = "Event"
 	set name = "Modify Station Goals"

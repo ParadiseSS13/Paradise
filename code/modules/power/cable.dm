@@ -187,14 +187,14 @@ By design, d1 is the smallest direction and d2 is the highest
 	src.add_fingerprint(user)
 
 // shock the user with probability prb
-/obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
+/obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
 	if(!prob(prb))
-		return 0
+		return FALSE
 	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		do_sparks(5, 1, src)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 //explosion handling
 /obj/structure/cable/ex_act(severity)

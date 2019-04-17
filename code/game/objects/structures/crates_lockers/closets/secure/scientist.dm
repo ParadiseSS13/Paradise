@@ -13,6 +13,7 @@
 	new /obj/item/storage/backpack/science(src)
 	new /obj/item/storage/backpack/satchel_tox(src)
 	new /obj/item/clothing/under/rank/scientist(src)
+	new /obj/item/clothing/under/rank/scientist/skirt(src)
 	//new /obj/item/clothing/suit/labcoat/science(src)
 	new /obj/item/clothing/suit/storage/labcoat/science(src)
 	new /obj/item/clothing/shoes/white(src)

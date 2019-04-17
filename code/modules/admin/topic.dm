@@ -1005,15 +1005,7 @@
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
-				switch(alert(usr,"IP ban?",,"Yes","No","Cancel"))
-					if("Cancel")
-						return
-					if("Yes")
-						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
-					if("No")
-						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0)
+				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
 				to_chat(M, "<span class='warning'>This is a permanent ban.</span>")
 				if(config.banappeals)
@@ -1553,12 +1545,12 @@
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
-		
+
 		if(href_list["is_mhelp"])
 			SSmentor_tickets.takeTicket(index)
 		else //Ahelp
 			SStickets.takeTicket(index)
-	
+
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
@@ -1886,7 +1878,7 @@
 		var/logmsg = null
 		switch(punishment)
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety=1)
+				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)

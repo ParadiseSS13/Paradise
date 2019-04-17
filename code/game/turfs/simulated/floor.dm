@@ -90,8 +90,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return
 
 /turf/simulated/floor/proc/update_icon()
-	if(air)
-		update_visuals()
+	update_visuals()
 	overlays -= current_overlay
 	if(current_overlay)
 		overlays.Add(current_overlay)

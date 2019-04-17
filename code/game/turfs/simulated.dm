@@ -36,7 +36,10 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_floor_static")
 		else
-			wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
+			if(wet_setting >= TURF_WET_ICE)
+				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
+			else
+				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		overlays += wet_overlay
 
 	spawn(rand(790, 820)) // Purely so for visual effect
@@ -75,20 +78,26 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(!(prob(30) && M.slip("icy floor", 4, 2, tilesSlipped = 1, walkSafely = 1)))
+					if(M.slip("the icy floor", 4, 2, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
+						if(prob(5))
+							var/obj/item/organ/external/affected = M.get_organ("head")
+							if(affected)
+								M.apply_damage(5, BRUTE, "head")
+								M.visible_message("<span class='warning'><b>[M]</b> hits their head on the ice!</span>")
+								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("icy floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
 /turf/simulated/ChangeTurf(var/path)
 	. = ..()
