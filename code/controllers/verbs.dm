@@ -17,8 +17,7 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
-/client/proc/debug_controller(controller in list("Master",
-	"failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
+/client/proc/debug_controller(controller in list("failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
 	"Cameras","Garbage", "Transfer Controller","Event","Alarm","Nano","Vote","Fires",
 	"Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
 	set category = "Debug"
@@ -27,9 +26,6 @@
 
 	if(!holder)	return
 	switch(controller)
-		if("Master")
-			debug_variables(master_controller)
-			feedback_add_details("admin_verb","DMC")
 		if("failsafe")
 			debug_variables(Failsafe)
 			feedback_add_details("admin_verb", "dfailsafe")
@@ -46,7 +42,7 @@
 			debug_variables(SSair)
 			feedback_add_details("admin_verb","DAir")
 		if("Jobs")
-			debug_variables(job_master)
+			debug_variables(SSjobs)
 			feedback_add_details("admin_verb","DJobs")
 		if("Sun")
 			debug_variables(SSsun)

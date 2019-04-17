@@ -178,7 +178,7 @@ var/ert_request_answered = FALSE
 	ticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
-	job_master.CreateMoneyAccount(M, class, null)
+	SSjobs.CreateMoneyAccount(M, class, null)
 
 	active_team.equip_officer(class, M)
 
