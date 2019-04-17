@@ -312,7 +312,7 @@
 		target = null
 		return
 	anchored = TRUE
-	icon_state = "floorbot-c"
+	icon_state = "[toolbox_color]floorbot-c"
 	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
 		icon_state = "[toolbox_color]floorbot-c"
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
