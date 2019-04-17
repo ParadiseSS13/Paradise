@@ -7139,7 +7139,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rK" = (
 /turf/unsimulated/wall/splashscreen,
@@ -7150,7 +7150,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rM" = (
 /turf/simulated/shuttle/wall{
@@ -7165,7 +7165,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rO" = (
 /obj/docking_port/stationary{
@@ -7203,7 +7203,7 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rS" = (
 /turf/simulated/shuttle/wall{
