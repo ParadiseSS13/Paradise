@@ -8,6 +8,9 @@
 	point_return = 4
 	var/maxHealth = 75
 
+/obj/structure/blob/shield/core
+	point_return = 0
+
 /obj/structure/blob/shield/update_icon()
 	if(health <= 0)
 		qdel(src)

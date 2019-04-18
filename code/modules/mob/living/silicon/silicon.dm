@@ -25,7 +25,7 @@
 	var/next_alarm_notice
 	var/list/datum/alarm/queued_alarms = new()
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD,NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
@@ -70,6 +70,9 @@
 
 /mob/living/silicon/drop_item()
 	return
+
+/mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
 	switch(severity)

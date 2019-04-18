@@ -56,6 +56,9 @@
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")
-		H.reagents.del_reagent(R.id)
-		return 0
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return FALSE
+	if(R.id == "water")
+		H.adjustFireLoss(1)
+		return TRUE
 	return ..()

@@ -4,25 +4,21 @@ var/global/mentor_ooc_colour = "#0099cc"
 var/global/moderator_ooc_colour = "#184880"
 var/global/admin_ooc_colour = "#b82e00"
 
-/client/verb/ooc(msg as text)
+//Checks if the client already has a text input open
+/client/proc/checkTyping()
+	return (prefs.toggles & TYPING_ONCE && typing)
+
+/client/verb/ooc(msg = "" as text)
 	set name = "OOC"
 	set category = "OOC"
-
+	
 	if(!mob)
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
 		return
 
-	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
-	if(!msg)
-		return
-
-	if(!(prefs.toggles & CHAT_OOC))
-		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
-		return
-
-	if(!check_rights(R_ADMIN|R_MOD,0))
+	if(!check_rights(R_ADMIN|R_MOD, 0))
 		if(!config.ooc_allowed)
 			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
 			return
@@ -32,6 +28,19 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
+	
+	if(!msg)
+		msg = typing_input(src.mob, "", "ooc \"text\"")
+		
+	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	if(!msg)
+		return
+
+	if(!(prefs.toggles & CHAT_OOC))
+		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))
@@ -150,7 +159,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "ROC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/looc(msg as text)
+/client/verb/looc(msg = "" as text)
 	set name = "LOOC"
 	set desc = "Local OOC, seen only by those in view."
 	set category = "OOC"
@@ -159,14 +168,6 @@ var/global/admin_ooc_colour = "#b82e00"
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
-		return
-
-	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
-	if(!msg)
-		return
-
-	if(!(prefs.toggles & CHAT_LOOC))
-		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
@@ -179,6 +180,19 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
 			return
+
+	if(!msg)
+		msg = typing_input(src.mob, "Local OOC, seen only by those in view.", "looc \"text\"")
+
+	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	if(!msg)
+		return
+
+	if(!(prefs.toggles & CHAT_LOOC))
+		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))

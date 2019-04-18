@@ -182,23 +182,28 @@
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
-
-	if(type == "Mentorhelp")
-		return
+	
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
-	tickets = SStickets.checkForTicket(C)
+	if(type == "Mentorhelp")
+		tickets = SSmentor_tickets.checkForTicket(C)
+	else
+		tickets = SStickets.checkForTicket(C)
 	if(tickets)
-		for(var/datum/admin_ticket/i in tickets)
+		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg) // Add this response to their open tickets.
 		return
-
-	if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
-		tickets = SStickets.checkForTicket(src)
-		if(tickets)
-			for(var/datum/admin_ticket/i in tickets)
-				i.addResponse(src, msg)
-			return
+	if(type == "Mentorhelp")
+		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+			tickets = SSmentor_tickets.checkForTicket(src)
+	else // Ahelp 
+		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+			tickets = SStickets.checkForTicket(src)
+	
+	if(tickets)
+		for(var/datum/ticket/i in tickets)
+			i.addResponse(src, msg)
+		return
 
 
 /client/proc/cmd_admin_irc_pm()

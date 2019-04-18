@@ -78,6 +78,8 @@
 			C = M.client
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
+		else if(C.UID() != href_list["priv_msg"])
+			C = null // 404 client not found. Let cmd_admin_pm handle the error
 		cmd_admin_pm(C, null, href_list["type"])
 		return
 

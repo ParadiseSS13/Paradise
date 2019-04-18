@@ -82,7 +82,7 @@
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)
-			B.change_to(/obj/structure/blob/shield)
+			B.change_to(/obj/structure/blob/shield/core)
 			if(B && overmind)
 				B.color = overmind.blob_reagent_datum.color
 			else

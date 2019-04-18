@@ -49,12 +49,8 @@
 		tforce = O.throwforce
 	take_damage(tforce, BRUTE, "melee", 1, get_dir(src, AM))
 
-/obj/ex_act(severity, target)
+/obj/ex_act(severity)
 	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	if(target == src)
-		obj_integrity = 0
-		qdel(src)
 		return
 	switch(severity)
 		if(1)
@@ -69,7 +65,8 @@
 	. = ..()
 	playsound(src, P.hitsound, 50, 1)
 	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
-	take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
+	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
+		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
 /obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor

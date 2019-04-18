@@ -309,6 +309,9 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return
+
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
@@ -319,7 +322,7 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
@@ -348,7 +351,7 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
@@ -393,7 +396,7 @@
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
@@ -521,6 +524,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
+	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("chomp")

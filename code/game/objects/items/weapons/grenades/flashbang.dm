@@ -18,7 +18,7 @@
 
 	do_sparks(rand(5, 9), FALSE, src)
 	playsound(flashbang_turf, 'sound/effects/bang.ogg', 25, 1)
-	bang(flashbang_turf, range, src)
+	bang(flashbang_turf, src, range)
 
 	for(var/obj/structure/blob/B in hear(8, flashbang_turf))     		//Blob damage here
 		var/damage = round(30 / (get_dist(B, get_turf(src)) + 1))

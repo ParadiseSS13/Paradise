@@ -29,7 +29,7 @@
 
 		if(metal)
 			var/turf/T = get_turf(src)
-			if(istype(T, /turf/space))
+			if(istype(T, /turf/space) && !istype(T, /turf/space/transit))
 				T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 				var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
 				MF.metal = metal
@@ -76,10 +76,10 @@
 		F = new /obj/effect/particle_effect/foam(T, metal)
 		F.amount = amount
 		if(!metal)
-			F.create_reagents(15)
+			F.create_reagents(25)
 			if(reagents)
 				for(var/datum/reagent/R in reagents.reagent_list)
-					F.reagents.add_reagent(R.id, min(R.volume, 3), R.data, reagents.chem_temp)
+					F.reagents.add_reagent(R.id, min(R.volume, 5), R.data, reagents.chem_temp)
 				F.color = mix_color_from_reagents(reagents.reagent_list)
 
 // foam disolves when heated
@@ -149,14 +149,14 @@
 		F.amount = amount
 
 		if(!metal)			// don't carry other chemicals if a metal foam
-			F.create_reagents(15)
+			F.create_reagents(25)
 
 			if(carried_reagents)
 				for(var/id in carried_reagents)
 					if(banned_reagents.Find("[id]"))
 						continue
 					var/datum/reagent/reagent_volume = carried_reagents[id]
-					F.reagents.add_reagent(id, min(reagent_volume, 3), null, temperature)
+					F.reagents.add_reagent(id, min(reagent_volume, 5), null, temperature)
 				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 			else
 				F.reagents.add_reagent("cleaner", 1)

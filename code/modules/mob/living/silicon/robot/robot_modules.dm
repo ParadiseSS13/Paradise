@@ -497,22 +497,6 @@
 
 	fix_modules()
 
-/obj/item/robot_module/nations
-	name = "nations robot module"
-	module_type = "Malf"
-
-/obj/item/robot_module/nations/New()
-	..()
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/gun/energy/gun/cyborg(src)
-	modules += new /obj/item/pickaxe/drill/jackhammer(src)
-	modules += new /obj/item/borg/combat/shield(src)
-	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	emag = new /obj/item/gun/energy/lasercannon/cyborg(src)
-
-	fix_modules()
-
 /obj/item/robot_module/alien/hunter
 	name = "alien hunter module"
 	module_type = "Standard"

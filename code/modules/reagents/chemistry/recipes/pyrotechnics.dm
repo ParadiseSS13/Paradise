@@ -376,9 +376,9 @@
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/mob/living/carbon/C in view(min(8, round(created_volume * 2)), T))
-		C.Beam(T,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		C.electrocute_act(3.5, "electrical blast")
+	for(var/mob/living/L in view(min(8, round(created_volume * 2)), T))
+		L.Beam(T, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
+		L.electrocute_act(3.5, "electrical blast")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 

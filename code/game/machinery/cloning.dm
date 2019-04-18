@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
+	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -341,7 +341,7 @@
 			check_brine()
 
 			//Also heal some oxyloss ourselves just in case!!
-			occupant.adjustOxyLoss(-4)
+			occupant.adjustOxyLoss(-10)
 
 			use_power(7500) //This might need tweaking.
 
@@ -449,10 +449,14 @@
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
-
+	var/turf/T = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
-		mess = 0
-		gibs(loc)
+		for(var/i in missing_organs)
+			var/obj/I = i
+			I.forceMove(T)
+		missing_organs.Cut()
+		mess = FALSE
+		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 		update_icon()
 		return
@@ -476,7 +480,11 @@
 	for(var/i in missing_organs)
 		qdel(i)
 	missing_organs.Cut()
-	occupant.forceMove(get_turf(src))
+	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
+	occupant.setOxyLoss(0)
+	for(var/datum/disease/critical/crit in occupant.viruses)
+		crit.cure()
+	occupant.forceMove(T)
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
 	occupant.special_post_clone_handling()

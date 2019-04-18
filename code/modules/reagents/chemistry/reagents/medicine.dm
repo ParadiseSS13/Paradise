@@ -5,6 +5,7 @@
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
 	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
+	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
@@ -113,7 +114,7 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < 265)
+	if(M.bodytemperature < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -526,6 +527,7 @@
 	taste_message = "a delightful numbing"
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -534,9 +536,9 @@
 		if(16 to 35)
 			M.Drowsy(20)
 		if(36 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
@@ -669,7 +671,7 @@
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
@@ -682,25 +684,19 @@
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == INGEST)
+		if(method == INGEST || (method == TOUCH && prob(25)))
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				var/mob/dead/observer/ghost = M.get_ghost()
-				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>A Strange Reagent is infusing your body with life. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-					window_flash(ghost.client)
-					ghost << sound('sound/effects/genetics.ogg')
-					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0,15))
-					M.adjustToxLoss(rand(0,15))
-					M.adjustFireLoss(rand(0,15))
+					M.adjustBruteLoss(rand(0, 15))
+					M.adjustToxLoss(rand(0, 15))
+					M.adjustFireLoss(rand(0, 15))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
@@ -715,8 +711,8 @@
 									O.germ_level = INFECTION_LEVEL_THREE
 						H.update_body()
 
+					M.grab_ghost()
 					M.update_revive()
-					M.stat = UNCONSCIOUS
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
@@ -759,7 +755,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.update_mutations()
-	..()
+	return ..()
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
@@ -857,6 +853,7 @@
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
+	return ..()
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"
@@ -873,7 +870,7 @@
 		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	..()
+	return ..()
 
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
@@ -916,6 +913,7 @@
 	taste_message = "sleepiness"
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 30)
@@ -924,9 +922,9 @@
 		if(31 to 40)
 			M.Drowsy(20)
 		if(41 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"

@@ -51,7 +51,6 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
-	var/datum/nations/nation			//nation holder
 	var/datum/abductor/abductor			//abductor holder
 	var/datum/devilinfo/devilinfo 		//devil holder
 
@@ -1025,6 +1024,7 @@
 				if(!ticker.mode.equip_syndicate(current))
 					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
 					return
+				ticker.mode.update_syndicate_id(current.mind, ticker.mode.syndicates.len == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 

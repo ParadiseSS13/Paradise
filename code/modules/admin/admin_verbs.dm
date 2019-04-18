@@ -107,6 +107,7 @@ var/list/admin_verbs_event = list(
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_ert_calling,
+	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_custom_event_info,
 	/client/proc/cmd_view_custom_event_info,
@@ -205,6 +206,8 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/openMentorTicketUI,
+	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
@@ -219,10 +222,10 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/hide_snpc_verbs
 )
 var/list/admin_verbs_ticket = list(
-	/client/proc/openTicketUI,
+	/client/proc/openAdminTicketUI,
 	/client/proc/toggleticketlogs,
-	/client/proc/resolveAllTickets,
-	/client/proc/openUserUI
+	/client/proc/resolveAllAdminTickets,
+	/client/proc/resolveAllMentorTickets
 )
 
 /client/proc/on_holder_add()
@@ -938,6 +941,20 @@ var/list/admin_verbs_ticket = list(
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
+
+/client/proc/toggleMentorTicketLogs()
+	set name = "Toggle Mentor Ticket Messgaes"
+	set category = "Preferences"
+
+	if(!check_rights(R_MENTOR))
+		return
+
+	prefs.toggles ^= CHAT_NO_MENTORTICKETLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_MENTORTICKETLOGS)
+		to_chat(usr, "You now won't get mentor ticket messages.")
+	else
+		to_chat(usr, "You now will get mentor ticket messages.")
 
 /client/proc/toggleticketlogs()
 	set name = "Toggle Admin Ticket Messgaes"

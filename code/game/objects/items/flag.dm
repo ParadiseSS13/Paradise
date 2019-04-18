@@ -64,11 +64,6 @@
 	desc = "The banner of the glorious revolutionary forces fighting the oppressors on Clown Planet."
 	icon_state = "mimeflag"
 
-/obj/item/flag/pony
-	name = "Equestria flag"
-	desc = "The flag of the independent, sovereign nation of Equestria, whatever the fuck that is."
-	icon_state = "ponyflag"
-
 /obj/item/flag/ian
 	name = "Ian flag"
 	desc = "The banner of Ian, because SQUEEEEE."
@@ -170,8 +165,8 @@
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "Commandzikstan flag"
-	desc = "The flag of the independent, sovereign nation of Commandzikstan."
+	name = "Command flag"
+	desc = "The flag of the independent, sovereign nation of Command."
 	icon_state = "ntflag"
 
 //Antags

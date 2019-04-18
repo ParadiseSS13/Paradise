@@ -1,6 +1,5 @@
 var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
-var/global/obj/effect/overlay/icemaster = null
 
 // Event Manager, the manager for events.
 var/datum/event_manager/event_manager = new()
