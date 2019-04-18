@@ -195,18 +195,6 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
-/area/shuttle/large_pod_1
-	name = "\improper Large Escape Pod One"
-	music = "music/escape.ogg"
-	icon_state = "shuttle"
-	nad_allowed = TRUE
-
-/area/shuttle/large_pod_2
-	name = "\improper Large Escape Pod Two"
-	music = "music/escape.ogg"
-	icon_state = "shuttle"
-	nad_allowed = TRUE
-
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
 	music = "music/escape.ogg"
