@@ -503,8 +503,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/blob_act(obj/structure/blob/B)
 	if(B && !isspaceturf(loc)) //does nothing in space
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
-		damage += B.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
-		if(B.obj_integrity > 100)
+		damage += B.health * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
+		if(B.health > 100)
 			B.visible_message("<span class='danger'>[B] strikes at [src] and flinches away!</span>",\
 			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 			B.take_damage(100, BURN)
