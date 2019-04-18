@@ -298,34 +298,37 @@
 //power_source is a source of electricity, can be powercell, area, apc, cable, powernet or null
 //source is an object caused electrocuting (airlock, grille, etc)
 //No animations will be performed by this proc.
-/proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
+/proc/electrocute_mob(mob/living/M, power_source, obj/source, siemens_coeff = 1, dist_check = FALSE)
 	if(!istype(M))
-		return 0
+		return FALSE
 	if(istype(M.loc,/obj/mecha))
-		return 0	//feckin mechs are dumb
+		return FALSE	//feckin mechs are dumb
+	if(dist_check)
+		if(!in_range(source, M))
+			return FALSE
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
 			if(G.siemens_coefficient == 0)
-				return 0		//to avoid spamming with insulated glvoes on
+				return FALSE		//to avoid spamming with insulated glvoes on
 
 	var/area/source_area
-	if(istype(power_source,/area))
+	if(istype(power_source, /area))
 		source_area = power_source
 		power_source = source_area.get_apc()
-	if(istype(power_source,/obj/structure/cable))
+	if(istype(power_source, /obj/structure/cable))
 		var/obj/structure/cable/Cable = power_source
 		power_source = Cable.powernet
 
 	var/datum/powernet/PN
 	var/obj/item/stock_parts/cell/cell
 
-	if(istype(power_source,/datum/powernet))
+	if(istype(power_source, /datum/powernet))
 		PN = power_source
 	else if(istype(power_source,/obj/item/stock_parts/cell))
 		cell = power_source
-	else if(istype(power_source,/obj/machinery/power/apc))
+	else if(istype(power_source, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/apc = power_source
 		cell = apc.cell
 		if(apc.terminal)
@@ -344,7 +347,7 @@
 	if(cell)
 		cell_damage = cell.get_electrocute_damage()
 	var/shock_damage = 0
-	if(PN_damage>=cell_damage)
+	if(PN_damage >= cell_damage)
 		power_source = PN
 		shock_damage = PN_damage
 	else

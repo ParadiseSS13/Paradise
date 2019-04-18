@@ -26,6 +26,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
+	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -49,7 +50,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -139,11 +140,8 @@ Works together with spawning an observer, noted above.
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		//C.images += target.hud_list[NATIONS_HUD]
 	for(var/mob/living/silicon/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		//C.images += target.hud_list[NATIONS_HUD]
-
 	return 1
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
@@ -179,37 +177,50 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
-		// If it's not too early, we'll skip straight to ghosting out without penalty
 	else if(suiciding && TOO_EARLY_TO_GHOST)
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
+		if(isAI(src))
+			warningmsg = "You are a living AI! You should probably use OOC -> Wipe Core instead."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
-	if(!warningmsg)
-		ghostize(1)
-	else
+	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
-			return	//didn't want to ghost after-all
-		StartResting()
-		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
-		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
+			return
+
+	if(stat == CONSCIOUS)
+		if(!is_admin_level(z))
+			player_ghosted = 1
+		if(mind && mind.special_role)
+			message_admins("[key_name_admin(src)] has ghosted while alive, with special_role: [mind.special_role]")
+
+	if(warningmsg)
+		// Not respawnable
+		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+	else
+		// Respawnable
+		ghostize(1)
+
+	// If mob in morgue tray, update tray
 	var/obj/structure/morgue/Morgue = locate() in M.loc
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
+
+	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
 		if(P.control_computer)
 			P.despawn_occupant()
 	return
-
 
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
@@ -401,8 +412,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/follow(input in getmobs())
 	set category = "Ghost"
-	set name = "Follow" // "Haunt"
-	set desc = "Follow and haunt a mob."
+	set name = "Orbit" // "Haunt"
+	set desc = "Follow and orbit a mob."
 
 	var/target = getmobs()[input]
 	if(!target) return
@@ -419,22 +430,37 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(target != src)
 		if(following && following == target)
 			return
+
+		var/icon/I = icon(target.icon,target.icon_state,target.dir)
+
+		var/orbitsize = (I.Width()+I.Height())*0.5
+
+		if(orbitsize == 0)
+			orbitsize = 40
+
+		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+
+		var/rot_seg
+
+		switch(ghost_orbit)
+			if(GHOST_ORBIT_TRIANGLE)
+				rot_seg = 3
+			if(GHOST_ORBIT_SQUARE)
+				rot_seg = 4
+			if(GHOST_ORBIT_PENTAGON)
+				rot_seg = 5
+			if(GHOST_ORBIT_HEXAGON)
+				rot_seg = 6
+			else //Circular
+				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+
 		following = target
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		if(ismob(target))
-			forceMove(get_turf(target))
-			var/mob/M = target
-			M.following_mobs += src
-		else
-			spawn(0)
-				while(target && following == target && client)
-					var/turf/T = get_turf(target)
-					if(!T)
-						break
-					// To stop the ghost flickering.
-					if(loc != T)
-						forceMove(T)
-					sleep(15)
+		orbit(target,orbitsize, FALSE, 20, rot_seg)
+
+/mob/dead/observer/orbit()
+	setDir(2)//reset dir so the right directional sprites show up
+	return ..()
 
 /mob/proc/update_following()
 	. = get_turf(src)
