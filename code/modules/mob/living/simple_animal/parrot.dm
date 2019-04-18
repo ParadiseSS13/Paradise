@@ -683,17 +683,16 @@
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
 		"Poly wanna cracker!",
-		"Check the singlo, you chucklefucks!",
-		"Check the tesla, you shits!",
+		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
 		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE",
+		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
-		"OH GOD WHY WOULD YOU TURN ON THE PA BEFORE CONTAINMENT IS UP?",
+		"OH GOD WHY WOULD YOU PUT CARBON-DIOXIDE IN THE SM?",
 		"Remember to lock the emitters!",
 		"Stop goofing off and repair the goddam station!",
-		"The singularity is not your friend!",
+		"The supermatter is not your friend!",
 		"What were the wires again?",
 		"Goddam emaggers!"
 		)
