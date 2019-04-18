@@ -123,7 +123,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/config_hallucination_power = 0.1
 
 	var/obj/item/radio/radio
-	var/radio_announce = 0
 
 	//for logging
 	var/has_been_powered = FALSE
@@ -565,7 +564,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/attackby(obj/item/I, mob/living/user, params)
 	if(!istype(I) || (I.flags & ABSTRACT) || !istype(user))
 		return
-	if(default_unfasten_wrench(user, I, time = 20))
+	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
 	if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
