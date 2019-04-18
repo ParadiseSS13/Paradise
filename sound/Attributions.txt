@@ -1,5 +1,0 @@
-items/thermal_drill.ogg was sampled from Builders Drilling.wav under a Sampling Plus 1.0 license. It was uploaded by Koops on 2010-05-10. Source (http://soundbible.com/1420-Builders-Drilling.html)
-
-ambience/aurora_caelus.ogg is Music for Manatees by Kevin Macleod. It is under a CC-BY 3.0 license. It has been cropped and fades out.
-
-creatures/dog_yelp.ogg is DogYelp.wav. It is under a CC-BY 3.0 license. It has been cropped, EQ'd, and compressed to .ogg. Source (https://freesound.org/people/TobiasKosmos/sounds/163280/)

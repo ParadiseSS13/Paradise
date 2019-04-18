@@ -1,1 +1,0 @@
-var main = require("./js/main.js")
