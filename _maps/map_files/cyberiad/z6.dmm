@@ -5391,7 +5391,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "lu" = (
 /turf/space,
@@ -5414,7 +5414,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/space)
 "lx" = (
 /turf/space,
@@ -5839,7 +5839,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "mG" = (
 /obj/structure/shuttle/engine/heater{
@@ -5850,7 +5850,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/space)
 "mH" = (
 /turf/simulated/mineral,
@@ -6004,7 +6004,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "nf" = (
 /obj/effect/spawner/random_spawners/syndicate/trap/mine,
@@ -6092,7 +6092,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "nr" = (
 /obj/effect/decal/warning_stripes/red,

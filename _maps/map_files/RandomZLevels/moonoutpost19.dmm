@@ -8170,7 +8170,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/shuttle/plating,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -8233,9 +8233,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless{
-	name = "plating"
-	},
+/turf/simulated/shuttle/plating,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"
@@ -8467,7 +8465,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (WEST)"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/shuttle/plating,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "MO19 Arrivals"

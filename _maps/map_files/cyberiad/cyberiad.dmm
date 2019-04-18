@@ -84,7 +84,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aam" = (
 /turf/simulated/shuttle/wall{
@@ -129,7 +129,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aas" = (
 /obj/structure/shuttle/engine/heater{
@@ -140,7 +140,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aat" = (
 /turf/simulated/shuttle/floor{
@@ -270,7 +270,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aaM" = (
 /turf/simulated/shuttle/floor{
@@ -1299,7 +1299,7 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ade" = (
-/obj/structure/closet/syndicate/suits,
+/obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1757,12 +1757,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "adS" = (
-/obj/structure/closet/syndicate/suits,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -3970,7 +3970,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "ahz" = (
 /obj/structure/computerframe,
@@ -4125,18 +4125,18 @@
 	tag = "icon-propulsion_l";
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "ahO" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "ahP" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion_r";
 	icon_state = "propulsion_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "ahQ" = (
 /obj/machinery/alarm{
@@ -5582,7 +5582,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "ajZ" = (
 /obj/structure/rack,
@@ -5833,7 +5833,7 @@
 	tag = "icon-propulsion_l";
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "akq" = (
 /obj/structure/rack,
@@ -9292,7 +9292,7 @@
 	dir = 8;
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/trade/sol)
 "aqg" = (
 /obj/machinery/light/spot{
@@ -9825,7 +9825,7 @@
 	dir = 8;
 	icon_state = "propulsion"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/trade/sol)
 "are" = (
 /obj/machinery/door/poddoor{
@@ -10418,7 +10418,7 @@
 	dir = 8;
 	icon_state = "burst_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/trade/sol)
 "arW" = (
 /obj/structure/chair{
@@ -13480,7 +13480,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_elite)
 "awq" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -13488,7 +13488,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_elite)
 "awr" = (
 /turf/space,
@@ -13503,7 +13503,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_elite)
 "awt" = (
 /turf/space,
@@ -13518,7 +13518,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_sit)
 "awv" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -13526,7 +13526,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_sit)
 "aww" = (
 /turf/space,
@@ -13541,7 +13541,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_sit)
 "awy" = (
 /obj/machinery/mineral/labor_claim_console{
@@ -13937,7 +13937,7 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_elite)
 "axk" = (
 /turf/simulated/shuttle/wall{
@@ -13952,7 +13952,7 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_sit)
 "axm" = (
 /obj/structure/chair{
@@ -15266,7 +15266,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/siberia)
 "azl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
@@ -15845,7 +15845,7 @@
 /area/shuttle/siberia)
 "aAk" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/siberia)
 "aAl" = (
 /obj/machinery/door/airlock/external{
@@ -27276,7 +27276,7 @@
 	dir = 4;
 	icon_state = "burst_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/arrival/station)
 "aXo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -28162,7 +28162,7 @@
 	dir = 4;
 	icon_state = "propulsion"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/arrival/station)
 "aYU" = (
 /obj/structure/grille,
@@ -28177,7 +28177,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/arrival/station)
 "aYW" = (
 /obj/structure/cable{
@@ -31158,7 +31158,7 @@
 	dir = 4;
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/arrival/station)
 "bez" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -42691,7 +42691,7 @@
 	dir = 8;
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/specops)
 "bAR" = (
 /turf/simulated/shuttle/wall{
@@ -43235,7 +43235,7 @@
 	dir = 8;
 	icon_state = "propulsion"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/specops)
 "bCb" = (
 /turf/simulated/shuttle/floor{
@@ -45680,7 +45680,7 @@
 	dir = 8;
 	icon_state = "burst_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/specops)
 "bGQ" = (
 /obj/machinery/mineral/stacking_unit_console{
@@ -46512,7 +46512,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bIv" = (
 /obj/structure/table,
@@ -46552,7 +46552,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bIy" = (
 /obj/item/radio/intercom{
@@ -47566,7 +47566,7 @@
 /area/maintenance/asmaint2)
 "bKm" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bKn" = (
 /obj/machinery/shower{
@@ -55155,7 +55155,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "bWP" = (
 /obj/machinery/door/airlock/external{
@@ -56137,7 +56137,7 @@
 	icon_state = "propulsion_r";
 	tag = "icon-propulsion_r (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "bYv" = (
 /turf/space,
@@ -59551,7 +59551,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "cdv" = (
 /turf/space,
@@ -60302,21 +60302,21 @@
 /area/shuttle/administration)
 "ceU" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "ceV" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-burst_l";
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "ceW" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-burst_r";
 	icon_state = "burst_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "ceX" = (
 /turf/space,
@@ -65217,7 +65217,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/mining)
 "cnj" = (
 /obj/structure/ore_box,
@@ -66159,7 +66159,7 @@
 /area/blueshield)
 "coN" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/mining)
 "coO" = (
 /turf/space,
@@ -90900,12 +90900,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dgD" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-propulsion (EAST)";
-	icon_state = "propulsion";
-	dir = 4
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (EAST)"
 	},
+/turf/simulated/shuttle/plating,
 /area/shuttle/constructionsite)
 "dgE" = (
 /obj/machinery/power/grounding_rod{
