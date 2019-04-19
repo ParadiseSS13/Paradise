@@ -1299,6 +1299,7 @@ var/list/slot_equipment_priority = list( \
 	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
 
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
