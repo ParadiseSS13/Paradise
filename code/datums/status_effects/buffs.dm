@@ -47,9 +47,9 @@
 
 /datum/status_effect/exercised/on_creation(mob/living/new_owner, ...)
 	. = ..()
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSprocessing, src) //this lasts 20 minutes, so SSfastprocess isn't needed.
+	GLOB.fast_processing.Remove(src)
+	processing_objects.Add(src) //this lasts 20 minutes, so SSfastprocess isn't needed.
 
 /datum/status_effect/exercised/Destroy()
 	. = ..()
-	STOP_PROCESSING(SSprocessing, src)
+	processing_objects.Remove(src)
