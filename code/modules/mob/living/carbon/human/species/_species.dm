@@ -536,6 +536,13 @@
 	attack_verb = list("slash", "claw")
 	damage = 6
 
+/datum/unarmed_attack/zombie
+	attack_verb = list("bites", "slash")
+	damage = 6
+	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	animation_type = ATTACK_EFFECT_BITE
+
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return FALSE
 
