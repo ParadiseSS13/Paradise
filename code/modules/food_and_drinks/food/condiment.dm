@@ -26,9 +26,6 @@
 	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
-/obj/item/reagent_containers/food/condiment/attackby(obj/item/W, mob/user, params)
-	return
-
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
@@ -54,9 +51,6 @@
 	reagents.trans_to(M, 10)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
-
-/obj/item/reagent_containers/food/condiment/attackby(obj/item/I, mob/user, params)
-	return
 
 /obj/item/reagent_containers/food/condiment/afterattack(obj/target, mob/user , proximity)
 	if(!proximity)
@@ -137,7 +131,7 @@
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/reagent_containers/food/condiment/peppermill
 	name = "pepper mill"

@@ -1,4 +1,4 @@
-/mob/living/proc/handle_autohiss(message, datum/language/L)
+/mob/proc/handle_autohiss(message, datum/language/L)
 	return message // no autohiss at this level
 
 /mob/living/carbon/human/handle_autohiss(message, datum/language/L)
@@ -57,6 +57,16 @@
 			"s" = list("z", "zs", "zzz", "zzsz")
 		)
 	autohiss_exempt = list("Chittin")
+
+/datum/species/drask
+	autohiss_basic_map = list(
+			"o" = list ("oo", "ooo"),
+			"u" = list ("uu", "uuu")			
+		)
+	autohiss_extra_map = list(
+			"m" = list ("mm", "mmm")
+		)
+	autohiss_exempt = list("Orluum")
 
 
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)

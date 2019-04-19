@@ -172,7 +172,7 @@
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> [M ? "drones at [M]" : "rumbles"]."
-			playsound(loc, 'sound/voice/DraskTalk.ogg', 50, 0)
+			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 0)
 			m_type = 2
 
 		if("squish", "squishes")
@@ -238,7 +238,7 @@
 					start_tail_wagging(1)
 
 			else if(dna.species.bodyflags & TAIL_WAGGING)
-				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
+				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging(1)
 				else
@@ -680,6 +680,14 @@
 			message = "<B>[src]</B> trembles."
 			m_type = 1
 
+		if("shudder", "shudders")
+			message = "<B>[src]</B> shudders."
+			m_type = 1
+
+		if("bshake", "bshakes")
+			message = "<B>[src]</B> shakes."
+			m_type = 1
+
 		if("sneeze", "sneezes")
 			if(miming)
 				message = "<B>[src]</B> sneezes."
@@ -832,11 +840,7 @@
 				message = "<span class='danger'><b>[src]</b> snaps [p_their()] fingers right off!</span>"
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
-		// Needed for M_TOXIC_FART
 		if("fart", "farts")
-			if(reagents.has_reagent("simethicone"))
-				return
-//			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
 				var/image/cross = image('icons/obj/storage.dmi', "bible")
@@ -844,28 +848,9 @@
 				for(var/client/X in GLOB.admins)
 					if(check_rights(R_EVENT, 0, X.mob))
 						to_chat(X, adminbfmessage)
-			else if(TOXIC_FARTS in mutations)
-				message = "<b>[src]</b> unleashes a [pick("horrible", "terrible", "foul", "disgusting", "awful")] fart."
-			else if(SUPER_FART in mutations)
-				message = "<b>[src]</b> unleashes a [pick("loud", "deafening")] fart."
 			else
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
 			m_type = 2
-
-			var/turf/location = get_turf(src)
-
-			// Process toxic farts first.
-			if(TOXIC_FARTS in mutations)
-				for(var/mob/living/carbon/C in range(location, 2))
-					if(C.internal != null && C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
-						continue
-					if(C == src)
-						continue
-					C.reagents.add_reagent("jenkem", 1)
-
-			// Farting as a form of locomotion in space
-			if(SUPER_FART in mutations)
-				newtonian_move(dir)
 
 		if("hem")
 			message = "<b>[src]</b> hems."

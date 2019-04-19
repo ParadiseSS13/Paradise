@@ -61,3 +61,18 @@
 		if(prob(15))
 			L.Stun(1)
 			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
+
+
+/mob/living/simple_animal/hostile/scarybat/batswarm
+	name = "bat swarm"
+	desc = "A swarm of vicious, angry-looking space bats."
+	speed = 1
+	harm_intent_damage = 25
+	maxHealth = 300
+	melee_damage_lower = 10
+	melee_damage_upper = 30
+	a_intent = INTENT_HARM
+	pass_flags = PASSTABLE
+	universal_speak = 1
+	universal_understand = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //badmin only

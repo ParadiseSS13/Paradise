@@ -5,6 +5,24 @@
 	var/obj/item/clothing/head/hood
 	var/hoodtype = /obj/item/clothing/head/winterhood //so the chaplain hoodie or other hoodies can override this
 
+/obj/item/clothing/head/chaplain_hood
+	flags = NODROP
+
+/obj/item/clothing/head/nun_hood
+	flags = NODROP
+
+/obj/item/clothing/head/monk_hood
+	flags = NODROP
+
+/obj/item/clothing/head/culthood
+	flags = NODROP
+
+/obj/item/clothing/head/culthood/alt
+	flags = NODROP
+
+/obj/item/clothing/head/berserkerhood
+	flags = NODROP
+
 /obj/item/clothing/suit/hooded/New()
 	MakeHood()
 	..()

@@ -85,9 +85,9 @@
 	if(bombassembly)
 		bombassembly.on_found(finder)
 
-/obj/item/onetankbomb/hear_talk(mob/living/M, msg)
+/obj/item/onetankbomb/hear_talk(mob/living/M, list/message_pieces)
 	if(bombassembly)
-		bombassembly.hear_talk(M, msg)
+		bombassembly.hear_talk(M, message_pieces)
 
 /obj/item/onetankbomb/hear_message(mob/living/M, msg)
 	if(bombassembly)

@@ -7,6 +7,9 @@ ADMIN_LEGACY_SYSTEM
 ## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
 BAN_LEGACY_SYSTEM
 
+## Add a # infront of this to unlimit the builds used to play. Advised is to keep it atleast 1421 due to the middle mouse button locking exploit
+MINIMUM_CLIENT_BUILD 1421
+
 ## Add a # here if you wish to use the setup where jobs have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one job. Also for servers where they don't want people to hide in their own departments.
 JOBS_HAVE_MINIMAL_ACCESS
 
@@ -94,6 +97,14 @@ PROBABILITY NATIONS 0
 PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
+PROBABILITY DEVIL 0
+PROBABILITY DEVILAGENTS 0
+
+## Probability in % for Free Golems to spawn at roundstart, set to 0 for no golems
+PROB_FREE_GOLEMS 75
+
+## Uncomment to allow free golems on all roundtypes. Otherwise, disabled on cult, wiz, raging mages, blob, and nuclear.
+#UNRESTRICTED_FREE_GOLEMS
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0
@@ -313,10 +324,10 @@ PLAYER_REROUTE_CAP 0
 #DISABLE_SPACE_RUINS
 
 ## Minimum number of space ruins levels to generate
-EXTRA_SPACE_RUINS_LEVELS_MIN 2
+EXTRA_SPACE_RUIN_LEVELS_MIN 2
 
 ## Maximum number of space ruins levels to generate
-EXTRA_SPACE_RUINS_LEVELS_MAX 4
+EXTRA_SPACE_RUIN_LEVELS_MAX 4
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC
@@ -386,3 +397,9 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ##Uncomment to enable developer start. Auto starts the server after initialization
 ##DEVELOPER_EXPRESS_START
+
+## Uncomment to disable automatic admin for localhost
+#DISABLE_LOCALHOST_ADMIN
+
+## Uncomment to give a confirmation before hitting start now
+#START_NOW_CONFIRMATION

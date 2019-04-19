@@ -937,25 +937,20 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/reset_all_tcs()
 	set category = "Admin"
-	set name = "Reset Telecomms Scripts"
-	set desc = "Blanks all telecomms scripts from all telecomms servers"
+	set name = "Reset NTTC Configuration"
+	set desc = "Resets NTTC to the default configuration."
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")
+	var/confirm = alert(src, "You sure you want to reset NTTC?", "Confirm", "Yes", "No")
 	if(confirm != "Yes")
 		return
 
-	for(var/obj/machinery/telecomms/server/S in telecomms_list)
-		var/datum/TCS_Compiler/C = S.Compiler
-		S.rawcode = ""
-		C.Compile("")
-	for(var/obj/machinery/computer/telecomms/traffic/T in GLOB.machines)
-		T.storedcode = ""
-	log_admin("[key_name(usr)] blanked all telecomms scripts.")
-	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
-	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	GLOB.nttc_config.reset()
+	log_admin("[key_name(usr)] reset NTTC scripts.")
+	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
+	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/list_ssds()
 	set category = "Admin"
@@ -984,15 +979,22 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
+		var/obj_count = 0
+		var/obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
-		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string]</TD>"
+			for(var/datum/objective/O in all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string][obj_string]</TD>"
 		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD>In Cryo</TD>"
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
 		else
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"
@@ -1017,6 +1019,31 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
+
+/client/proc/show_tip()
+	set category = "Admin"
+	set name = "Show Custom Tip"
+	set desc = "Sends a tip (that you specify) to all players. After all \
+		you're the experienced player here."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/input = input(usr, "Please specify your tip that you want to send to the players.", "Tip", "") as message|null
+	if(!input)
+		return
+
+	if(!ticker)
+		return
+
+	ticker.selected_tip = input
+
+	// If we've already tipped, then send it straight away.
+	if(ticker.tipped)
+		ticker.send_tip_of_the_round()
+
+	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
+	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
 
 /client/proc/modify_goals()
 	set category = "Event"

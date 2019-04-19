@@ -198,6 +198,7 @@
 #define TURF_WET_WATER	1
 #define TURF_WET_LUBE	2
 #define TURF_WET_ICE	3
+#define TURF_WET_PERMAFROST 4
 
 #define APPEARANCE_UI_IGNORE_ALPHA			RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA
 
@@ -366,7 +367,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 4
+#define SQL_VERSION 5
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -394,3 +395,14 @@
 #define MOUSE_OPACITY_TRANSPARENT 0
 #define MOUSE_OPACITY_ICON 1
 #define MOUSE_OPACITY_OPAQUE 2
+
+// Defib stats
+#define DEFIB_TIME_LIMIT 120
+#define DEFIB_TIME_LOSS 60
+
+//Ghost orbit types:
+#define GHOST_ORBIT_CIRCLE		"circle"
+#define GHOST_ORBIT_TRIANGLE	"triangle"
+#define GHOST_ORBIT_HEXAGON		"hexagon"
+#define GHOST_ORBIT_SQUARE		"square"
+#define GHOST_ORBIT_PENTAGON	"pentagon"

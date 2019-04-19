@@ -54,8 +54,8 @@
 	feedback_add_details("gun_fired","[type]")
 
 /obj/item/gun/medbeam/process()
-	var/mob/living/carbon/human/H = loc
-	if(!istype(H))
+	var/source = loc
+	if(!ishuman(source) && !isrobot(source))
 		LoseTarget()
 		return
 
@@ -68,9 +68,9 @@
 
 	last_check = world.time
 
-	if(get_dist(H,current_target)>max_range || !los_check(H,current_target))
+	if(get_dist(source,current_target)>max_range || !los_check(source,current_target))
 		LoseTarget()
-		to_chat(H, "<span class='warning'>You lose control of the beam!</span>")
+		to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
 		return
 
 	if(current_target)

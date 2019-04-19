@@ -11,6 +11,8 @@ Mineral Sheets
 		- Tranqillite
 		- Enriched Uranium
 		- Platinum
+		- Alien Alloy
+		- Adamantine
 */
 
 var/global/list/datum/stack_recipe/sandstone_recipes = list ( \
@@ -102,6 +104,10 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	)
 
+var/global/list/datum/stack_recipe/adamantine_recipes = list(
+	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount = 1, res_amount = 1), \
+	)
+
 /obj/item/stack/sheet/mineral
 	force = 5
 	throwforce = 5
@@ -173,7 +179,8 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	else
 		return ..()
 
-/obj/item/stack/sheet/mineral/plasma/fire_act()
+/obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, amount*10)
 	qdel(src)
 
@@ -300,4 +307,17 @@ var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 
 /obj/item/stack/sheet/mineral/abductor/New(loc, amount=null)
 	recipes = abductor_recipes
+	..()
+
+/obj/item/stack/sheet/mineral/adamantine
+	name = "adamantine"
+	desc = "A strange mineral used in the construction of sentient golems."
+	icon_state = "sheet-adamantine"
+	singular_name = "adamantine sheet"
+	origin_tech = "materials=5"
+	merge_type = /obj/item/stack/sheet/mineral/adamantine
+	wall_allowed = FALSE
+
+/obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
+	recipes = adamantine_recipes
 	..()

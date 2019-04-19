@@ -28,7 +28,6 @@
 
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
-	init_datum_subtypes(/datum/nations, GLOB.all_nations, null, "default_name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
 	for(var/language_name in GLOB.all_languages)
@@ -47,7 +46,11 @@
 		if(IS_WHITELISTED in S.species_traits)
 			GLOB.whitelisted_species += S.name
 
-	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
+	for(var/D in subtypesof(/datum/crafting_recipe))
+		var/datum/crafting_recipe/R = D
+		if(!initial(R.roundstart_enabled))
+			continue
+		GLOB.crafting_recipes += new R
 
 	//Pipe list building
 	init_subtypes(/datum/pipes, GLOB.construction_pipe_list)

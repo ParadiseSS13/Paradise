@@ -74,6 +74,19 @@
 	//turfs += centerturf
 	return atoms
 
+/proc/ff_cansee(atom/A, atom/B)
+	var/AT = get_turf(A)
+	var/BT = get_turf(B)
+	if(AT == BT)
+		return 1
+	var/list/line = getline(A, B)
+	for(var/turf/T in line)
+		if(T == AT || T == BT)
+			break
+		if(T.density)
+			return FALSE
+	return TRUE
+
 /proc/get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
 	var/dx = Loc1.x - Loc2.x
 	var/dy = Loc1.y - Loc2.y
@@ -429,7 +442,7 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
+proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -449,7 +462,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
 				continue
 		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_living_num() < min_hours * 60)
+			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 				continue
 		if(check_antaghud && cannotPossess(G))
 			continue

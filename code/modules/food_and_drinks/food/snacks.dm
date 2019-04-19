@@ -79,7 +79,7 @@
 	if(istype(W,/obj/item/storage))
 		..() // -> item/attackby(, params)
 
-	if(istype(W,/obj/item/kitchen/utensil))
+	else if(istype(W,/obj/item/kitchen/utensil))
 
 		var/obj/item/kitchen/utensil/U = W
 
@@ -116,6 +116,8 @@
 				TrashItem.forceMove(loc)
 			qdel(src)
 		return TRUE
+	else
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
@@ -262,7 +264,7 @@
 
 
 /obj/item/reagent_containers/food/snacks/badrecipe
-	name = "Burned mess"
+	name = "burned mess"
 	desc = "Someone should be demoted from chef for this."
 	icon_state = "badrecipe"
 	filling_color = "#211F02"

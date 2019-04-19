@@ -28,7 +28,7 @@
 					post_status(href_list["statdisp"])
 
 /datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
+	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
 	if(!frequency)
 		return
 
@@ -316,10 +316,10 @@
 	if(SSshuttle.supply.mode == SHUTTLE_CALL)
 		supplyData["shuttle_moving"] = 1
 
-	if(!is_station_level(SSshuttle.supply.z))
-		supplyData["shuttle_loc"] = "station"
+	if(is_station_level(SSshuttle.supply.z))
+		supplyData["shuttle_loc"] = "Station"
 	else
-		supplyData["shuttle_loc"] = "centcom"
+		supplyData["shuttle_loc"] = "CentCom"
 
 	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] Mins)"
 

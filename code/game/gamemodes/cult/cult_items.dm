@@ -26,7 +26,7 @@
 	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
-	..()
+	. = ..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
@@ -34,7 +34,7 @@
 
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		user.unEquip(src, 1)
+		return FALSE
 
 /obj/item/melee/cultblade/dagger
 	name = "sacrificial dagger"
@@ -201,7 +201,7 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 2
+	claw_damage_increase = 4
 
 /obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
@@ -256,7 +256,8 @@
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
 		SSshuttle.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
-		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, 1)
+		curselimit++
 		qdel(src)
 		sleep(20)
 		var/global/list/curses
@@ -270,7 +271,6 @@
 			"Steve repeatedly touched a lightbulb until his hands fell off. The shuttle will be delayed by two minutes.")
 		var/message = pick(curses)
 		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
-		curselimit++
 
 /obj/item/cult_shift
 	name = "veil shifter"
@@ -367,8 +367,18 @@
 /obj/item/clothing/head/culthood/alt/ghost
 	flags = NODROP | DROPDEL
 
-/obj/item/clothing/suit/cultrobes/alt/ghost
+/obj/item/clothing/suit/cultrobesghost
+	name = "ghostly cult robes"
+	desc = "A set of ethreal armored robes worn by the undead followers of a cult."
+	icon_state = "cultrobesalt"
+	item_state = "cultrobesalt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
+	flags_inv = HIDEJUMPSUIT
+
 	flags = NODROP | DROPDEL
+
 
 /obj/item/clothing/shoes/cult/ghost
 	flags = NODROP | DROPDEL
@@ -377,7 +387,7 @@
 	name = "Cultist Ghost"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	suit = /obj/item/clothing/suit/cultrobesghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost

@@ -16,7 +16,7 @@
 	item_state = "bluetag"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/gun/energy/laser/bluetag)
+	allowed = list (/obj/item/gun/energy/laser/tag/blue)
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -30,7 +30,7 @@
 	item_state = "redtag"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/gun/energy/laser/redtag)
+	allowed = list (/obj/item/gun/energy/laser/tag/red)
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -875,7 +875,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
 	var/on = 0
@@ -972,3 +972,26 @@
 	name = "ladies red victorian coat"
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
+
+//Mantles!
+/obj/item/clothing/suit/mantle
+	name = "mantle"
+	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
+	icon_state = "mantle"
+	item_state = "mantle"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/mantle/regal
+	name = "regal shawl"
+	desc = "A fancy shawl for nobility, made from high quality materials."
+	icon_state = "regal_mantle"
+	item_state = "regal_mantle"
+
+/obj/item/clothing/suit/mantle/old
+	name = "old wrap"
+	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
+	icon_state = "old_mantle"
+	item_state = "old_mantle"
+

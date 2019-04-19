@@ -102,19 +102,24 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/eva/plasmaman/extinguish_light()
+	if(on)
+		toggle_light()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+
 // ENGINEERING
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric suit"
 	icon_state = "plasmamanAtmos_suit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric helmet"
 	icon_state = "plasmamanAtmos_helmet0"
 	base_state = "plasmamanAtmos_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	flash_protect = 2
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
@@ -132,14 +137,14 @@
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 	name = "plasmaman chief engineer suit"
 	icon_state = "plasmaman_CE"
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/ce
 	name = "plasmaman chief engineer helmet"
 	icon_state = "plasmaman_CE_helmet0"
 	base_state = "plasmaman_CE_helmet"
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	flash_protect = 2
 
 //SERVICE
@@ -403,8 +408,10 @@
 /obj/item/clothing/suit/space/eva/plasmaman/wizard
 	name = "robed plasmaman suit"
 	icon_state = "plasmamanWizardBlue_suit"
+	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard
 	name = "wizard hat"
 	icon_state = "plasmamanWizardBlue_helmet0"
 	base_state = "plasmamanWizardBlue_helmet"
+	magical = TRUE

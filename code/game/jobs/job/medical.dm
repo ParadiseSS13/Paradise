@@ -16,8 +16,8 @@
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 300
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
@@ -112,7 +112,7 @@
 	backpack_contents = list(
 					/obj/item/clothing/head/surgery/black = 1,
 					/obj/item/autopsy_scanner = 1,
-					/obj/item/mass_spectrometer = 1,
+					/obj/item/reagent_scanner = 1,
 					/obj/item/storage/box/bodybags = 1)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

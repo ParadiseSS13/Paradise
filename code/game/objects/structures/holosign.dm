@@ -82,8 +82,8 @@
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
+	. = ..()
 	T.air_update_turf(TRUE)
-	return ..()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
@@ -116,9 +116,9 @@
 	if(.)
 		return
 	if(!shockcd)
-		if(ismob(user))
+		if(isliving(user))
 			var/mob/living/M = user
-			M.electrocute_act(15,"Energy Barrier", safety=1)
+			M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 			shockcd = TRUE
 			addtimer(CALLBACK(src, .proc/cooldown), 5)
 
@@ -130,6 +130,6 @@
 		return
 
 	var/mob/living/M = AM
-	M.electrocute_act(15, "Energy Barrier", safety = 1)
+	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), 5)

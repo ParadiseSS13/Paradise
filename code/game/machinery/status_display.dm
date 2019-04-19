@@ -30,7 +30,7 @@
 	var/index1			// display index for scrolling messages or 0 if non-scrolling
 	var/index2
 
-	var/frequency = 1435		// radio frequency
+	var/frequency = DISPLAY_FREQ		// radio frequency
 
 	var/friendc = 0      // track if Friend Computer mode
 	var/ignore_friendc = 0

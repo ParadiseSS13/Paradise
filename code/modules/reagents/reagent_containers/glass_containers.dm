@@ -12,6 +12,7 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
 	container_type = OPENCONTAINER
+	has_lid = TRUE
 
 	var/label_text = ""
 	// the fucking asshole who designed this can go die in a fire - Iamgoofball
@@ -54,16 +55,6 @@
 		return
 	if(!is_open_container())
 		to_chat(user, "<span class='notice'>Airtight lid seals it completely.</span>")
-
-/obj/item/reagent_containers/glass/attack_self()
-	..()
-	if(is_open_container())
-		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-		container_type ^= REFILLABLE | DRAINABLE
-	else
-		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-		container_type |= REFILLABLE | DRAINABLE
-	update_icon()
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
@@ -122,7 +113,7 @@
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
 
-	else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
+	else if(istype(target, /obj/effect/decal)) //stops splashing while scooping up fluids
 		return
 
 	else if(reagents.total_volume)
@@ -133,13 +124,6 @@
 
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
@@ -148,8 +132,8 @@
 			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
 			label_text = tmp_label
 			update_name_label()
-	if(istype(I,/obj/item/storage/bag))
-		..()
+	else
+		return ..()
 
 /obj/item/reagent_containers/glass/proc/update_name_label()
 	if(label_text == "")
@@ -201,6 +185,7 @@
 		overlays += lid
 	if(assembly)
 		overlays += "assembly"
+	..()
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Remove Assembly"
@@ -218,8 +203,7 @@
 
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)
-		reagents.chem_temp += 30
-		reagents.handle_reactions()
+		reagents.temperature_reagents(4000)
 
 /obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly_holder) && can_assembly)
@@ -245,9 +229,9 @@
 	if(assembly)
 		assembly.on_found(finder)
 
-/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, msg)
+/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, list/message_pieces)
 	if(assembly)
-		assembly.hear_talk(M, msg)
+		assembly.hear_talk(M, message_pieces)
 
 /obj/item/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
 	if(assembly)

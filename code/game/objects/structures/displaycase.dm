@@ -107,6 +107,7 @@ var/global/list/captain_display_cases = list()
 	var/image/occupant_overlay = null
 	var/obj/item/airlock_electronics/circuit
 	var/start_showpiece_type = null //add type for items on display
+	var/alarm_needs_power = TRUE
 
 /obj/structure/displaycase/New()
 	. = ..()
@@ -121,6 +122,13 @@ var/global/list/captain_display_cases = list()
 	locked = 1
 	req_access = list(access_captain)
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
+
+/obj/structure/displaycase/stechkin
+	name = "officer's display case"
+	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
+	locked = 1
+	req_access = list(access_syndicate_command)
+	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 
 /obj/structure/displaycase/Destroy()
 	dump()
@@ -184,7 +192,12 @@ var/global/list/captain_display_cases = list()
 			playsound(get_turf(src), "shatter", 70, 1)
 			update_icon()
 			spawn(0)
-				burglar_alarm()
+				if(!alarm_needs_power)
+					burglar_alarm()
+				else
+					var/area/a = get_area(src)
+					if(isarea(a) && a.power_equip)
+						burglar_alarm()
 	else
 		playsound(get_turf(src), 'sound/effects/Glasshit.ogg', 75, 1)
 	return

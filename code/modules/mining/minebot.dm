@@ -34,7 +34,7 @@
 	ranged_message = "shoots"
 	ranged_cooldown_time = 30
 	projectiletype = /obj/item/projectile/kinetic
-	projectilesound = 'sound/weapons/Gunshot4.ogg'
+	projectilesound = 'sound/weapons/gunshots/gunshot4.ogg'
 	speak_emote = list("states")
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
@@ -79,11 +79,12 @@
 			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
-			if(maxHealth == health)
-				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-			else
-				adjustBruteLoss(-10)
-				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
+			if(do_after_once(user, 15, target = src))
+				if(maxHealth == health)
+					to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
+				else
+					adjustBruteLoss(-20)
+					to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
@@ -110,7 +111,7 @@
 	var/pressure = environment.return_pressure()
 	if(pressure > 50)
 		K.name = "weakened [K.name]"
-		
+
 		K.damage *= K.pressure_decrease
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)

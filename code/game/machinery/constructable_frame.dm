@@ -5,6 +5,7 @@
 	density = 1
 	anchored = 1
 	use_power = NO_POWER_USE
+	max_integrity = 100
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null
@@ -14,6 +15,19 @@
 	// For pods
 	var/list/connected_parts = list()
 	var/pattern_idx=0
+
+/obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(src.loc, 5)
+	if(state >= 3)
+		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
+		A.amount = 5
+	if(circuit)
+		circuit.forceMove(loc)
+		circuit = null
+	return ..()
+
+/obj/machinery/constructable_frame/obj_break(damage_flag)
+	deconstruct()
 
 // unfortunately, we have to instance the objects really quickly to get the names
 // fortunately, this is only called once when the board is added and the items are immediately GC'd
@@ -89,8 +103,7 @@
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
-				new /obj/item/stack/sheet/metal(src.loc, 5)
-				qdel(src)
+				deconstruct(TRUE)
 		if(2)
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
@@ -317,6 +330,16 @@ to destroy them and players will be able to make replacements.
 			name = "circuit board (Freezer)"
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 
+/obj/item/circuitboard/snow_machine
+	name = "circuit board (snow machine)"
+	build_path = /obj/machinery/snow_machine
+	board_type = "machine"
+	origin_tech = "programming=2;materials=2"
+	frame_desc = "Requires 1 Matter Bin and 1 Micro Laser."
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/micro_laser = 1)
+
 /obj/item/circuitboard/biogenerator
 	name = "circuit board (Biogenerator)"
 	build_path = /obj/machinery/biogenerator
@@ -518,27 +541,45 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/chem_dispenser
-	name = "circuit board (Portable Chem Dispenser)"
-	build_path = /obj/machinery/chem_dispenser/constructable
+	name = "circuit board (Chem Dispenser)"
+	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
 	frame_desc = "Requires 2 Matter Bins, 1 Capacitor, 1 Manipulator, 1 Console Screen, and 1 Power Cell."
-	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
+	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/chem_master
-	name = "circuit board (Chem Master 2999)"
-	build_path = /obj/machinery/chem_master/constructable
+	name = "circuit board (ChemMaster 3000)"
+	build_path = /obj/machinery/chem_master
 	board_type = "machine"
 	origin_tech = "materials=3;programming=2;biotech=3"
 	req_components = list(
 							/obj/item/reagent_containers/glass/beaker = 2,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/console_screen = 1)
+
+/obj/item/circuitboard/chem_master/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
+		var/new_name = "ChemMaster"
+		var/new_path = /obj/machinery/chem_master
+
+		if(build_path == /obj/machinery/chem_master)
+			new_name = "CondiMaster"
+			new_path = /obj/machinery/chem_master/condimaster
+
+		build_path = new_path
+		name = "circuit board ([new_name] 3000)"
+		to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+	else
+		return ..()
+
+/obj/item/circuitboard/chem_master/condi_master
+	name = "circuit board (CondiMaster 3000)"
+	build_path = /obj/machinery/chem_master/condimaster
 
 /obj/item/circuitboard/chem_heater
 	name = "circuit board (Chemical Heater)"
@@ -594,6 +635,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
 
+/obj/item/circuitboard/chem_dispenser/soda
+	name = "Circuit board (Soda Machine)"
+	build_path = /obj/machinery/chem_dispenser/soda
+
+/obj/item/circuitboard/chem_dispenser/beer
+	name = "Circuit board (Beer Machine)"
+	build_path = /obj/machinery/chem_dispenser/beer
 
 /obj/item/circuitboard/circuit_imprinter
 	name = "Circuit board (Circuit Imprinter)"
@@ -628,7 +676,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/port_gen/pacman/mrs
 	origin_tech = "programming=3;powerstorage=4;engineering=4;plasmatech=4"
 
-obj/item/circuitboard/rdserver
+/obj/item/circuitboard/rdserver
 	name = "Circuit Board (R&D Server)"
 	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
@@ -921,6 +969,10 @@ obj/item/circuitboard/rdserver
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/assembly/igniter = 1)
 
+/obj/item/circuitboard/ore_redemption/golem
+	name = "circuit board (Golem Ore Redemption)"
+	build_path = /obj/machinery/mineral/ore_redemption/golem
+
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor
@@ -929,6 +981,10 @@ obj/item/circuitboard/rdserver
 	req_components = list(
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/matter_bin = 3)
+
+/obj/item/circuitboard/mining_equipment_vendor/golem
+	name = "circuit board (Mining Equipment Vendor)"
+	build_path = /obj/machinery/mineral/equipment_vendor/golem
 
 /obj/item/circuitboard/clawgame
 	name = "circuit board (Claw Game)"

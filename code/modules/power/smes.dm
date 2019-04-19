@@ -183,7 +183,7 @@
 		playsound(src.loc, I.usesound, 50, 1)
 
 		if(do_after(user, 50 * I.toolspeed, target = src))
-			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
+			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 				do_sparks(5, 1, src)
 				return
 
@@ -320,7 +320,7 @@
 	if(do_after(user, 50, target = src))
 		var/turf/T = get_turf(user)
 		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
-		if(prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky
+		if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 			do_sparks(5, 1, src)
 			return
 

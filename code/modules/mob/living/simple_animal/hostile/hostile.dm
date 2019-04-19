@@ -18,7 +18,7 @@
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
 	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance
-	
+
 //These vars are related to how mobs locate and target
 	var/robust_searching = 0 //By default, mobs have a simple searching method, set this to 1 for the more scrutinous searching (stat_attack, stat_exclusive, etc), should be disabled on most mobs
 	var/vision_range = 9 //How big of an area to search for targets in, a vision of 9 attempts to find targets as soon as they walk into screen view
@@ -41,6 +41,8 @@
 	/obj/structure/grille,
 	/obj/structure/girder,
 	/obj/structure/rack,
+	/obj/structure/computerframe,
+	/obj/machinery/constructable_frame,
 	/obj/structure/barricade) //turned into a typecache in New()
 	var/atom/targets_from = null //all range/attack/etc. calculations should be done from this atom, defaults to the mob itself, useful for Vehicles and such
 	var/list/emote_taunt = list()
@@ -51,6 +53,7 @@
 	if(!targets_from)
 		targets_from = src
 	environment_target_typecache = typecacheof(environment_target_typecache)
+	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
@@ -203,7 +206,7 @@
 				return 0
 			return 1
 	if(isobj(the_target))
-		if(is_type_in_list(the_target, wanted_objects))
+		if(is_type_in_typecache(the_target, wanted_objects))
 			return 1
 	return 0
 

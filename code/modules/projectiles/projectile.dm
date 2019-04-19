@@ -30,8 +30,12 @@
 	var/spread = 0			//amount (in degrees) of projectile spread
 	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
-
+	
+	var/ignore_source_check = FALSE
+	
 	var/damage = 10
+	var/tile_dropoff = 0	//how much damage should be decremented as the bullet moves
+	var/tile_dropoff_s = 0	//same as above but for stamina
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
@@ -52,6 +56,9 @@
 	var/jitter = 0
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
+	var/ricochets = 0
+	var/ricochets_max = 2
+	var/ricochet_chance = 0
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
@@ -61,7 +68,13 @@
 
 /obj/item/projectile/proc/Range()
 	range--
+	if(damage && tile_dropoff)
+		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
+	if(stamina && tile_dropoff_s)
+		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
 	if(range <= 0 && loc)
+		on_range()
+	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
 		on_range()
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
@@ -149,6 +162,14 @@
 /obj/item/projectile/Bump(atom/A, yes)
 	if(!yes) //prevents double bumps.
 		return
+		
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
+		ricochets++
+	if(A.handle_ricochet(src))
+		on_ricochet(A)
+		ignore_source_check = TRUE
+		range = initial(range)
+		return TRUE
 	if(firer)
 		if(A == firer || (A == firer.loc && istype(A, /obj/mecha))) //cannot shoot yourself or your mech
 			loc = A.loc
@@ -272,3 +293,21 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 /obj/item/projectile/proc/dumbfire(var/dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
+	
+
+/obj/item/projectile/proc/on_ricochet(atom/A)
+	return
+
+/obj/item/projectile/proc/check_ricochet()
+	if(prob(ricochet_chance))
+		return TRUE
+	return FALSE
+
+/obj/item/projectile/proc/check_ricochet_flag(atom/A)
+	if(A.flags_2 & CHECK_RICOCHET_1)
+		return TRUE
+	return FALSE
+	
+/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+	Angle = new_angle
+	return TRUE

@@ -33,7 +33,7 @@
 /mob/living/proc/can_be_revived()
 	. = TRUE
 	// if(health <= min_health)
-	if(health <= config.health_threshold_dead)
+	if(health <= HEALTH_THRESHOLD_DEAD)
 		return FALSE
 
 // death() is used to make a mob die
@@ -64,4 +64,13 @@
 	for(var/s in sharedSoullinks)
 		var/datum/soullink/S = s
 		S.sharerRevives(src)
+
+	if(mind)
+		for(var/S in mind.spell_list)
+			var/obj/effect/proc_holder/spell/spell = S
+			spell.updateButtonIcon()
+
 	return 1
+
+/mob/living/proc/check_death_method()
+	return TRUE

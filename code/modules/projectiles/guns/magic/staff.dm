@@ -17,7 +17,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/animate
 	icon_state = "staffofanimation"
 	item_state = "staffofanimation"
-	fire_sound = 'sound/magic/Staff_animation.ogg'
+	fire_sound = 'sound/magic/staff_animation.ogg'
 
 /obj/item/gun/magic/staff/healing
 	name = "staff of healing"
@@ -25,7 +25,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	icon_state = "staffofhealing"
 	item_state = "staffofhealing"
-	fire_sound = 'sound/magic/Staff_Healing.ogg'
+	fire_sound = 'sound/magic/staff_healing.ogg'
 
 /obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
 	return
@@ -39,7 +39,7 @@
 	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
-	fire_sound = 'sound/magic/Staff_Chaos.ogg'
+	fire_sound = 'sound/magic/staff_chaos.ogg'
 
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
@@ -50,16 +50,21 @@
 	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
-	fire_sound = 'sound/magic/Staff_Door.ogg'
+	fire_sound = 'sound/magic/staff_door.ogg'
 
-/obj/item/gun/magic/staff/honk
+/obj/item/gun/magic/staff/slipping
+	name = "staff of slipping"
+	desc = "An artefact that spits... bananas?"
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "staffofslipping"
+	item_state = "staffofslipping"
+	max_charges = 10
+	recharge_rate = 2
+	fire_sound = 'sound/items/bikehorn.ogg'
+
+/obj/item/gun/magic/staff/slipping/honkmother
 	name = "staff of the honkmother"
-	desc = "Honk"
-	ammo_type = /obj/item/ammo_casing/magic/honk
-	icon_state = "honker"
-	item_state = "honker"
-	max_charges = 4
-	recharge_rate = 8
+	desc = "An ancient artefact, sought after by clowns everywhere."
 	fire_sound = 'sound/items/airhorn.ogg'
 
 /obj/item/gun/magic/staff/focus
@@ -73,7 +78,7 @@
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
 	desc = "A deadly combination of laziness and boodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
-	fire_sound = 'sound/magic/Fireball.ogg'
+	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/spellblade
 	icon_state = "spellblade"
 	item_state = "spellblade"

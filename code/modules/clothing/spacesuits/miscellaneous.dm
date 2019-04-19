@@ -44,7 +44,7 @@
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = 1
 	vision_flags = SEE_MOBS
 	helmet_goggles_invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
@@ -58,7 +58,7 @@
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
 
@@ -99,8 +99,22 @@
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
+	species_fit = list("Grey, Drask")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/Grey/head.dmi',
+		"Drask" = 'icons/mob/species/Drask/helmet.dmi'
+		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
+/obj/item/clothing/head/helmet/space/santahat/attack_self(mob/user as mob)
+	if(src.icon_state == "santahat")
+		src.icon_state = "santahat_beard"
+		src.item_state = "santahat_beard"
+		to_chat(user, "Santa's beard expands out from the hat!")
+	else
+		src.icon_state = "santahat"
+		src.item_state = "santahat"
+		to_chat(user, "The beard slinks back into the hat...")
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
@@ -165,10 +179,9 @@
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox", "Grey" , "Skrell" , "Tajaran" , "Drask" , "Unathi" , "Vulpkanin")
+	species_fit = list("Vox", "Skrell" , "Tajaran" , "Drask" , "Unathi" , "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi',
 		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',

@@ -1,191 +1,2092 @@
-"aa" = (/turf/space,/area/space)
-"ab" = (/obj/structure/lattice,/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/space,/area/space)
-"ac" = (/obj/structure/lattice,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/turf/space,/area/space)
-"ad" = (/obj/structure/lattice,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/space,/area/space)
-"ae" = (/obj/structure/lattice,/obj/item/stack/cable_coil/cut{amount = 2; dir = 2; icon_state = "coil_red2"},/turf/space,/area/space)
-"af" = (/obj/structure/lattice,/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/space,/area/space)
-"ag" = (/turf/simulated/wall,/area/ruin/onehalf/dorms_med)
-"ah" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/plating,/area/ruin/onehalf/dorms_med)
-"ai" = (/obj/structure/lattice,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/space,/area/space)
-"aj" = (/turf/unsimulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"ak" = (/turf/simulated/wall,/area/ruin/onehalf/hallway)
-"al" = (/obj/machinery/sleeper{dir = 4},/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"am" = (/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"an" = (/obj/structure/table,/obj/item/storage/firstaid/toxin{pixel_x = 3; pixel_y = 5},/obj/item/storage/firstaid/fire,/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"ao" = (/obj/structure/bed,/obj/item/bedsheet/brown,/turf/simulated/floor/plasteel,/area/ruin/onehalf/dorms_med)
-"ap" = (/turf/simulated/floor/plasteel,/area/ruin/onehalf/dorms_med)
-"aq" = (/obj/machinery/door/airlock/external,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"ar" = (/turf/simulated/wall,/area/ruin/onehalf/drone_bay)
-"as" = (/obj/machinery/door/poddoor{id_tag = "bayext1"; name = "mining drone bay blast door"},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"at" = (/obj/machinery/door/poddoor{id_tag = "bayext2"; name = "mining drone bay blast door"},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"au" = (/obj/machinery/door/poddoor/preopen{id_tag = "bayext3"; name = "mining drone bay blast door"},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"av" = (/obj/machinery/door/poddoor{id_tag = "bayext4"; name = "mining drone bay blast door"},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"aw" = (/obj/structure/lattice,/turf/space,/area/space)
-"ax" = (/obj/structure/lattice,/turf/space,/area/ruin/onehalf/hallway)
-"ay" = (/obj/structure/table_frame,/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"az" = (/obj/machinery/washing_machine,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"aA" = (/obj/structure/bed/roller,/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"aB" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/structure/table,/obj/item/storage/firstaid/brute{pixel_x = 3; pixel_y = 6},/obj/item/storage/firstaid,/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"aC" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/ruin/onehalf/dorms_med)
-"aD" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"aE" = (/obj/structure/disposalpipe/trunk,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"aF" = (/obj/structure/disposalpipe/trunk,/obj/item/stack/ore/diamond,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"aG" = (/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"aH" = (/obj/item/stack/rods,/turf/space,/area/ruin/onehalf/hallway)
-"aI" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"aJ" = (/obj/machinery/iv_drip,/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"aK" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"aL" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable,/obj/machinery/power/apc/noalarm{keep_preset_name = 1; name = "Hallway APC"; pixel_x = 0; pixel_y = -24},/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"aM" = (/obj/structure/disposalpipe/segment,/obj/structure/disposalpipe/segment,/obj/machinery/door/poddoor{id_tag = "bayint1"; name = "mining drone bay blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"aN" = (/obj/machinery/door_control{id = "bayint1"; name = "Pod Bay 1 Internal"; pixel_x = -5; pixel_y = -6},/obj/machinery/door_control{id = "bayext1"; name = "Pod Bay 1 External"; pixel_x = -5; pixel_y = 6},/obj/machinery/door_control{id = "bayint2"; name = "Pod Bay 2 Internal"; pixel_x = 7; pixel_y = -6},/obj/machinery/door_control{id = "bayext2"; name = "Pod Bay 2 External"; pixel_x = 7; pixel_y = 6},/turf/simulated/wall,/area/ruin/onehalf/drone_bay)
-"aO" = (/obj/structure/disposalpipe/segment,/obj/machinery/door/poddoor{id_tag = "bayint2"; name = "mining drone bay blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"aP" = (/obj/structure/disposalpipe/segment,/obj/machinery/door/poddoor{id_tag = "bayint3"; name = "mining drone bay blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"aQ" = (/obj/machinery/door_control{id = "bayint3"; name = "Pod Bay 3 Internal"; pixel_x = -5; pixel_y = -6},/obj/machinery/door_control{id = "bayext3"; name = "Pod Bay 3 External"; pixel_x = -5; pixel_y = 6},/obj/machinery/door_control{id = "bayint4"; name = "Pod Bay 4 Internal"; pixel_x = 7; pixel_y = -6},/obj/machinery/door_control{id = "bayext4"; name = "Pod Bay 4 External"; pixel_x = 7; pixel_y = 6},/turf/simulated/wall,/area/ruin/onehalf/drone_bay)
-"aR" = (/obj/structure/disposalpipe/segment,/obj/machinery/door/poddoor{id_tag = "bayint4"; name = "mining drone bay blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"aS" = (/obj/structure/disposalpipe/trunk,/obj/structure/disposaloutlet{dir = 1},/turf/simulated/floor/plating/airless,/area/ruin/onehalf/drone_bay)
-"aT" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"aU" = (/obj/item/stack/sheet/metal,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"aV" = (/obj/machinery/door/airlock/medical/glass{name = "airlock"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"aW" = (/obj/machinery/door/airlock,/turf/simulated/floor/plasteel,/area/ruin/onehalf/dorms_med)
-"aX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/effect/decal/warning_stripes/northwest,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"aY" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/structure/closet/crate/medical,/obj/item/clothing/accessory/stethoscope,/obj/item/healthanalyzer,/obj/item/reagent_containers/blood/OMinus,/obj/item/reagent_containers/blood/OMinus,/obj/machinery/power/apc/noalarm{dir = 4; keep_preset_name = 1; name = "Crew Quarters APC"; pixel_x = 27},/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
-"aZ" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc/noalarm{dir = 1; keep_preset_name = 1; name = "Mining Drone Bay APC"; pixel_y = 26},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"ba" = (/obj/structure/disposalpipe/segment,/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bb" = (/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bc" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/disposalpipe/segment,/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"bd" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"be" = (/obj/structure/disposalpipe/broken{tag = "icon-pipe-b (EAST)"; icon_state = "pipe-b"; dir = 4},/obj/item/stack/cable_coil/cut{amount = 2; dir = 2; icon_state = "coil_red2"},/turf/unsimulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"bf" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bg" = (/obj/structure/disposalpipe/junction{tag = "icon-pipe-j1 (EAST)"; icon_state = "pipe-j1"; dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bh" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bi" = (/obj/structure/disposalpipe/broken{tag = "icon-pipe-b (EAST)"; icon_state = "pipe-b"; dir = 4},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"bj" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bk" = (/obj/structure/disposalpipe/junction{icon_state = "pipe-j1"; dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bl" = (/obj/machinery/door/airlock/public/glass{name = "glass airlock"},/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bm" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bn" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bo" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bp" = (/obj/machinery/door/airlock/maintenance_hatch{name = "maintenance hatch"},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bq" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"br" = (/obj/structure/disposalpipe/junction{icon_state = "pipe-y"; dir = 1},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bs" = (/obj/structure/disposalpipe/trunk{dir = 8},/obj/machinery/disposal,/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"bt" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/plating,/area/ruin/onehalf/drone_bay)
-"bu" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"bv" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bw" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bx" = (/obj/structure/disposalpipe/segment,/obj/structure/disposalpipe/segment{dir = 4},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"by" = (/obj/structure/disposalpipe/segment,/obj/effect/decal/warning_stripes/northeast,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bz" = (/obj/structure/closet/emcloset,/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bA" = (/obj/structure/disposalpipe/segment,/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bB" = (/obj/machinery/door/airlock/public/glass{name = "glass airlock"},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bC" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bD" = (/obj/structure/disposalpipe/junction{dir = 8; icon_state = "pipe-j1"},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bE" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/light,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bF" = (/obj/structure/disposalpipe/segment{dir = 8; icon_state = "pipe-c"},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bG" = (/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bH" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bI" = (/obj/structure/chair{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
-"bJ" = (/obj/structure/girder,/turf/unsimulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"bK" = (/obj/machinery/vending/coffee{name = "\improper Solar's Best Hot Drinks"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bL" = (/obj/machinery/vending/snack,/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bM" = (/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"bN" = (/obj/structure/disposalpipe/trunk{dir = 1},/obj/machinery/disposal,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bO" = (/obj/structure/girder/reinforced,/obj/item/stack/sheet/plasteel,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"bP" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"bQ" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/machinery/power/apc/noalarm{dir = 1; keep_preset_name = 1; name = "Bridge APC"; pixel_y = 26},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"bR" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"bS" = (/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"bT" = (/turf/simulated/wall/r_wall,/area/ruin/onehalf/bridge)
-"bU" = (/obj/item/stack/sheet/metal,/turf/space,/area/space)
-"bV" = (/obj/structure/disposalpipe/segment,/obj/item/stack/rods,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"bW" = (/obj/structure/girder/reinforced,/turf/unsimulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"bX" = (/turf/simulated/wall/r_wall,/area/ruin/onehalf/hallway)
-"bY" = (/turf/simulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"bZ" = (/obj/structure/disposalpipe/junction{tag = "icon-pipe-j1 (NORTH)"; icon_state = "pipe-j1"; dir = 1},/obj/item/shard,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"ca" = (/obj/structure/disposalpipe/segment,/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
-"cb" = (/obj/structure/grille,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/hallway)
-"cc" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cd" = (/obj/structure/table,/obj/item/flashlight/lamp,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"ce" = (/obj/structure/table,/obj/item/paper,/obj/item/pen,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cf" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cg" = (/obj/machinery/light{dir = 1; on = 1},/obj/structure/computerframe,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"ch" = (/obj/structure/computerframe,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"ci" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/table,/obj/item/stack/spacecash/c1000,/obj/item/stack/spacecash/c500{pixel_y = 9},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cj" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"ck" = (/obj/structure/girder/reinforced,/turf/unsimulated/floor/plating/airless,/area/space)
-"cl" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/space)
-"cm" = (/obj/structure/lattice,/obj/structure/disposalpipe/segment{dir = 4},/obj/item/stack/rods,/turf/space,/area/ruin/onehalf/hallway)
-"cn" = (/obj/structure/lattice,/obj/structure/disposalpipe/segment{dir = 4},/obj/item/shard{tag = "icon-small"; icon_state = "small"},/turf/space,/area/space)
-"co" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cp" = (/obj/structure/disposalpipe/segment{dir = 2; icon_state = "pipe-c"},/obj/structure/table,/obj/item/paper_bin,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cq" = (/obj/structure/chair{tag = "icon-chair (WEST)"; icon_state = "chair"; dir = 8},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cr" = (/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cs" = (/obj/structure/chair{tag = "icon-chair (NORTH)"; icon_state = "chair"; dir = 1},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"ct" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/table,/obj/item/lighter/zippo,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cu" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/structure/cable{d2 = 2; icon_state = "0-2"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cv" = (/obj/item/stack/rods,/turf/space,/area/space)
-"cw" = (/turf/unsimulated/floor/plating/airless,/area/space)
-"cx" = (/obj/structure/lattice,/obj/item/stack/sheet/plasteel,/turf/space,/area/space)
-"cy" = (/obj/structure/lattice,/obj/item/shard{tag = "icon-medium"; icon_state = "medium"},/turf/space,/area/ruin/onehalf/hallway)
-"cz" = (/obj/structure/grille/broken,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"cA" = (/obj/structure/disposalpipe/trunk{dir = 1},/obj/machinery/disposal,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cB" = (/obj/item/stack/tile/plasteel{pixel_x = 7; pixel_y = 8},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cC" = (/obj/structure/cable,/obj/machinery/power/solar_control,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cD" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cE" = (/obj/item/stack/tile/wood,/turf/space,/area/space)
-"cF" = (/turf/space,/area/ruin/onehalf/hallway)
-"cG" = (/obj/structure/lattice,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/space,/area/ruin/onehalf/hallway)
-"cH" = (/obj/structure/lattice,/obj/structure/disposalpipe/broken{tag = "icon-pipe-b (NORTH)"; icon_state = "pipe-b"; dir = 1},/obj/structure/disposalpipe/broken{tag = "icon-pipe-b (WEST)"; icon_state = "pipe-b"; dir = 8},/turf/space,/area/ruin/onehalf/hallway)
-"cI" = (/obj/machinery/door/airlock/command/glass{name = "Bridge"},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cJ" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cK" = (/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/obj/machinery/door/airlock/command/glass{name = "Bridge"},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cL" = (/obj/item/crowbar,/obj/item/multitool,/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cM" = (/obj/structure/safe/floor,/obj/item/tank/oxygen/red,/obj/item/clothing/mask/gas/syndicate,/obj/item/clothing/suit/space/hardsuit/syndi,/obj/item/reagent_containers/food/drinks/bottle/rum,/obj/item/reagent_containers/food/drinks/bottle/rum,/obj/item/folder/syndicate/blue,/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cN" = (/obj/structure/chair/comfy/black{tag = "icon-comfychair (EAST)"; icon_state = "comfychair"; dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cO" = (/obj/structure/lattice,/obj/item/stack/cable_coil/cut{amount = 2; dir = 2; icon_state = "coil_red2"},/turf/space,/area/ruin/onehalf/hallway)
-"cQ" = (/obj/machinery/light{dir = 8},/obj/machinery/vending/sovietsoda,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cR" = (/obj/item/stack/sheet/plasteel,/turf/space,/area/space)
-"cS" = (/obj/structure/lattice,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/space,/area/ruin/onehalf/hallway)
-"cU" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"cV" = (/obj/structure/table,/obj/machinery/recharger,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cW" = (/obj/structure/chair,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cX" = (/obj/structure/table,/obj/machinery/door_control{id = "onehalf bridge"; name = "Bridge Lockdown"; pixel_x = 0; pixel_y = 5},/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"cY" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/structure/cable,/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"cZ" = (/obj/structure/lattice,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/space,/area/space)
-"db" = (/obj/structure/table,/obj/item/flashlight,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"dc" = (/obj/structure/table,/obj/item/stack/ore/bluespace_crystal,/obj/item/coin/plasma,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"dd" = (/obj/structure/closet/firecloset/full,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"de" = (/obj/machinery/light,/obj/structure/table,/obj/item/storage/firstaid,/turf/simulated/floor/plasteel,/area/ruin/onehalf/bridge)
-"df" = (/obj/structure/lattice,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/space,/area/space)
-"dg" = (/obj/structure/girder/reinforced,/obj/item/stack/sheet/plasteel,/turf/simulated/floor/plating/airless,/area/space)
-"dj" = (/obj/structure/grille,/obj/item/shard,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
-"dk" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d2 = 2; icon_state = "0-2"},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"dl" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"dm" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"dn" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d2 = 2; icon_state = "0-2"},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
-"do" = (/obj/structure/lattice,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/item/shard{tag = "icon-medium"; icon_state = "medium"},/turf/space,/area/space)
-"dp" = (/obj/structure/lattice,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/item/stack/rods,/turf/space,/area/space)
-"dq" = (/obj/structure/lattice,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/space,/area/space)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/space,
+/area/space)
+"ab" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/space,
+/area/space)
+"ac" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/space,
+/area/space)
+"ad" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space)
+"ae" = (
+/obj/structure/lattice,
+/obj/item/stack/cable_coil/cut{
+	amount = 2;
+	dir = 2;
+	icon_state = "coil_red2"
+	},
+/turf/space,
+/area/space)
+"af" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/turf/space,
+/area/space)
+"ag" = (
+/turf/simulated/wall,
+/area/ruin/onehalf/dorms_med)
+"ah" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/dorms_med)
+"ai" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space)
+"aj" = (
+/turf/unsimulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"ak" = (
+/turf/simulated/wall,
+/area/ruin/onehalf/hallway)
+"al" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"am" = (
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"an" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/fire,
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"ao" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/dorms_med)
+"ap" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/dorms_med)
+"aq" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"ar" = (
+/turf/simulated/wall,
+/area/ruin/onehalf/drone_bay)
+"as" = (
+/obj/machinery/door/poddoor{
+	id_tag = "bayext1";
+	name = "mining drone bay blast door"
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"at" = (
+/obj/machinery/door/poddoor{
+	id_tag = "bayext2";
+	name = "mining drone bay blast door"
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"au" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bayext3";
+	name = "mining drone bay blast door"
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"av" = (
+/obj/machinery/door/poddoor{
+	id_tag = "bayext4";
+	name = "mining drone bay blast door"
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"aw" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"ax" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/onehalf/hallway)
+"ay" = (
+/obj/structure/table_frame,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"az" = (
+/obj/machinery/washing_machine,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"aA" = (
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"aB" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/item/storage/firstaid,
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"aC" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/dorms_med)
+"aD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"aE" = (
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"aF" = (
+/obj/structure/disposalpipe/trunk,
+/obj/item/stack/ore/diamond,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"aG" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"aH" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/ruin/onehalf/hallway)
+"aI" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"aJ" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"aK" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"aL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/machinery/power/apc/noalarm{
+	keep_preset_name = 1;
+	name = "Hallway APC";
+	pixel_x = 0;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"aM" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor{
+	id_tag = "bayint1";
+	name = "mining drone bay blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"aN" = (
+/obj/machinery/door_control{
+	id = "bayint1";
+	name = "Pod Bay 1 Internal";
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/obj/machinery/door_control{
+	id = "bayext1";
+	name = "Pod Bay 1 External";
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/machinery/door_control{
+	id = "bayint2";
+	name = "Pod Bay 2 Internal";
+	pixel_x = 7;
+	pixel_y = -6
+	},
+/obj/machinery/door_control{
+	id = "bayext2";
+	name = "Pod Bay 2 External";
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/turf/simulated/wall,
+/area/ruin/onehalf/drone_bay)
+"aO" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor{
+	id_tag = "bayint2";
+	name = "mining drone bay blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"aP" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor{
+	id_tag = "bayint3";
+	name = "mining drone bay blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"aQ" = (
+/obj/machinery/door_control{
+	id = "bayint3";
+	name = "Pod Bay 3 Internal";
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/obj/machinery/door_control{
+	id = "bayext3";
+	name = "Pod Bay 3 External";
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/machinery/door_control{
+	id = "bayint4";
+	name = "Pod Bay 4 Internal";
+	pixel_x = 7;
+	pixel_y = -6
+	},
+/obj/machinery/door_control{
+	id = "bayext4";
+	name = "Pod Bay 4 External";
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/turf/simulated/wall,
+/area/ruin/onehalf/drone_bay)
+"aR" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor{
+	id_tag = "bayint4";
+	name = "mining drone bay blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"aS" = (
+/obj/structure/disposalpipe/trunk,
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/drone_bay)
+"aT" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"aU" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"aV" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "airlock"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"aW" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/dorms_med)
+"aX" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"aY" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/closet/crate/medical,
+/obj/item/clothing/accessory/stethoscope,
+/obj/item/healthanalyzer,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/machinery/power/apc/noalarm{
+	dir = 4;
+	keep_preset_name = 1;
+	name = "Crew Quarters APC";
+	pixel_x = 27
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-white";
+	icon_state = "white"
+	},
+/area/ruin/onehalf/dorms_med)
+"aZ" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	keep_preset_name = 1;
+	name = "Mining Drone Bay APC";
+	pixel_y = 26
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"ba" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bb" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bc" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"bd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"be" = (
+/obj/structure/disposalpipe/broken{
+	tag = "icon-pipe-b (EAST)";
+	icon_state = "pipe-b";
+	dir = 4
+	},
+/obj/item/stack/cable_coil/cut{
+	amount = 2;
+	dir = 2;
+	icon_state = "coil_red2"
+	},
+/turf/unsimulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"bf" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bg" = (
+/obj/structure/disposalpipe/junction{
+	tag = "icon-pipe-j1 (EAST)";
+	icon_state = "pipe-j1";
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bi" = (
+/obj/structure/disposalpipe/broken{
+	tag = "icon-pipe-b (EAST)";
+	icon_state = "pipe-b";
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"bj" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bk" = (
+/obj/structure/disposalpipe/junction{
+	icon_state = "pipe-j1";
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bl" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "glass airlock"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bo" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bp" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "maintenance hatch"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"br" = (
+/obj/structure/disposalpipe/junction{
+	icon_state = "pipe-y";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bs" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"bt" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/drone_bay)
+"bu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"bv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bx" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"by" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bz" = (
+/obj/structure/closet/emcloset,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bA" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bB" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "glass airlock"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bC" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bD" = (
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j1"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bG" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bH" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bI" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/drone_bay)
+"bJ" = (
+/obj/structure/girder,
+/turf/unsimulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"bK" = (
+/obj/machinery/vending/coffee{
+	name = "\improper Solar's Best Hot Drinks"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bL" = (
+/obj/machinery/vending/snack,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bM" = (
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"bN" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bO" = (
+/obj/structure/girder/reinforced,
+/obj/item/stack/sheet/plasteel,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"bP" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"bQ" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	keep_preset_name = 1;
+	name = "Bridge APC";
+	pixel_y = 26
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"bR" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"bS" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"bT" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/onehalf/bridge)
+"bU" = (
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/space)
+"bV" = (
+/obj/structure/disposalpipe/segment,
+/obj/item/stack/rods,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"bW" = (
+/obj/structure/girder/reinforced,
+/turf/unsimulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"bX" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/onehalf/hallway)
+"bY" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"bZ" = (
+/obj/structure/disposalpipe/junction{
+	tag = "icon-pipe-j1 (NORTH)";
+	icon_state = "pipe-j1";
+	dir = 1
+	},
+/obj/item/shard,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"ca" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/onehalf/hallway)
+"cb" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/ruin/onehalf/hallway)
+"cc" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cd" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"ce" = (
+/obj/structure/table,
+/obj/item/paper,
+/obj/item/pen,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cf" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cg" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"ch" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"ci" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/table,
+/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c500{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cj" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"ck" = (
+/obj/structure/girder/reinforced,
+/turf/unsimulated/floor/plating/airless,
+/area/space)
+"cl" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/space)
+"cm" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/stack/rods,
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cn" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/shard{
+	tag = "icon-small";
+	icon_state = "small"
+	},
+/turf/space,
+/area/space)
+"co" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/table,
+/obj/item/paper_bin,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cq" = (
+/obj/structure/chair{
+	tag = "icon-chair (WEST)";
+	icon_state = "chair";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cr" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cs" = (
+/obj/structure/chair{
+	tag = "icon-chair (NORTH)";
+	icon_state = "chair";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"ct" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/table,
+/obj/item/lighter/zippo,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cu" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cv" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"cw" = (
+/turf/unsimulated/floor/plating/airless,
+/area/space)
+"cx" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/plasteel,
+/turf/space,
+/area/space)
+"cy" = (
+/obj/structure/lattice,
+/obj/item/shard{
+	tag = "icon-medium";
+	icon_state = "medium"
+	},
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cz" = (
+/obj/structure/grille/broken,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"cA" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cB" = (
+/obj/item/stack/tile/plasteel{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cC" = (
+/obj/structure/cable,
+/obj/machinery/power/solar_control,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cD" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cE" = (
+/obj/item/stack/tile/wood,
+/turf/space,
+/area/space)
+"cF" = (
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cG" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cH" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/broken{
+	tag = "icon-pipe-b (NORTH)";
+	icon_state = "pipe-b";
+	dir = 1
+	},
+/obj/structure/disposalpipe/broken{
+	tag = "icon-pipe-b (WEST)";
+	icon_state = "pipe-b";
+	dir = 8
+	},
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cI" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cJ" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cK" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cL" = (
+/obj/item/crowbar,
+/obj/item/multitool,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cM" = (
+/obj/structure/safe/floor,
+/obj/item/tank/oxygen/red,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/suit/space/hardsuit/syndi,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/folder/syndicate/blue,
+/obj/item/clothing/head/helmet/space/hardsuit/syndi,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cN" = (
+/obj/structure/chair/comfy/black{
+	tag = "icon-comfychair (EAST)";
+	icon_state = "comfychair";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cO" = (
+/obj/structure/lattice,
+/obj/item/stack/cable_coil/cut{
+	amount = 2;
+	dir = 2;
+	icon_state = "coil_red2"
+	},
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cQ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/vending/sovietsoda,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cR" = (
+/obj/item/stack/sheet/plasteel,
+/turf/space,
+/area/space)
+"cS" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/ruin/onehalf/hallway)
+"cU" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"cV" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cW" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cX" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "onehalf bridge";
+	name = "Bridge Lockdown";
+	pixel_x = 0;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"cY" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"cZ" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space)
+"db" = (
+/obj/structure/table,
+/obj/item/flashlight,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"dc" = (
+/obj/structure/table,
+/obj/item/stack/ore/bluespace_crystal,
+/obj/item/coin/plasma,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"dd" = (
+/obj/structure/closet/firecloset/full,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"de" = (
+/obj/machinery/light,
+/obj/structure/table,
+/obj/item/storage/firstaid,
+/turf/simulated/floor/plasteel,
+/area/ruin/onehalf/bridge)
+"df" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space)
+"dg" = (
+/obj/structure/girder/reinforced,
+/obj/item/stack/sheet/plasteel,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"dj" = (
+/obj/structure/grille,
+/obj/item/shard,
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/hallway)
+"dk" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"dl" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"dm" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"dn" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "onehalf bridge";
+	name = "bridge blast door"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/onehalf/bridge)
+"do" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/item/shard{
+	tag = "icon-medium";
+	icon_state = "medium"
+	},
+/turf/space,
+/area/space)
+"dp" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"dq" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/turf/space,
+/area/space)
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaabacacacacacacacacacadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaeacafagagagagagagahagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaajakakakagalamanagaoapaoagaqarasaratarauaravaraaaaaaaaaaaa
-aaaaawaxaxayazagaAamaBagaCapaoagaDaraEaraFaraEaraEarawaraGaraaaa
-aaaaaaaHajaxaIagaJaKaYagaoapaoagaqaraMaNaOaraPaQaRaraaaraSaraaaa
-aaaaawajaxaTaIagagaVagagagaWagagaXaZbabbbabbbabbbyarararbcararaa
-aaaaawaUbebdbfbhbhbgbfbfbjbhbkblbmbnbobnbobnbobnbobnbpbqbrbsbtaa
-aaaaaabibubvbwbwbvbxbwbwaLbvbAbBbCbnbDbEbDbnbDbEbFbGarbHbGbIbtaa
-aaaaaabJajakbzbKbLbNbObPbXaIbSbTbTbTbTbTbTbTbTbTbTbTararbtararaa
-aaaaaaaabUbMbJakbWbXbYawbXbRbVcbaacccdcecfcgchbQcibTawaaaaaaaaaa
-aaaaaaaaaaaaaaaackaaaabUaxaxbZcmcncocpcqcrcscrcrctcuadaaaaaaaaaa
-aaaaaaaaaaaaaacvcwcxaaaabYcycabTbTbTcAcrcBcrcrcrcCcDaiaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaawcEaacFcGcHcIcJcKcrcBcLcMcrcNchcDaiaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaacvawbYcObRbTbTbTcQcrcrcrcrcrchcDaiaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaacRcEaxcSaIcUawcccVcqcrcWcrcrcXcYcZaaaaaaaaaa
-aaaaaaaaaaaaaaaaaacvaaaabXcjaIcUaaccdbdcddchchcrdebTdfaaaaaaaaaa
-aaaaaaaaaaaaaaaaaadgawclbPczdjbTbTbTbTdkdldmdldnbTbTaiaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaacxdodpacacacacacdqacacacdqacacafaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+aw
+aa
+aw
+aw
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+aa
+aa
+aa
+aj
+ax
+aH
+aj
+aU
+bi
+bJ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(5,1,1) = {"
+aa
+aa
+ae
+ak
+ax
+aj
+ax
+be
+bu
+aj
+bU
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(6,1,1) = {"
+aa
+aa
+ac
+ak
+ay
+ax
+aT
+bd
+bv
+ak
+bM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(7,1,1) = {"
+aa
+ab
+af
+ak
+az
+aI
+aI
+bf
+bw
+bz
+bJ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(8,1,1) = {"
+aa
+ac
+ag
+ag
+ag
+ag
+ag
+bh
+bw
+bK
+ak
+aa
+cv
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(9,1,1) = {"
+aa
+ac
+ag
+al
+aA
+aJ
+ag
+bh
+bv
+bL
+bW
+ck
+cw
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(10,1,1) = {"
+aa
+ac
+ag
+am
+am
+aK
+aV
+bg
+bx
+bN
+bX
+aa
+cx
+aw
+aa
+aa
+cv
+dg
+aa
+aa
+"}
+(11,1,1) = {"
+aa
+ac
+ag
+an
+aB
+aY
+ag
+bf
+bw
+bO
+bY
+aa
+aa
+cE
+cv
+cR
+aa
+aw
+aa
+aa
+"}
+(12,1,1) = {"
+aa
+ac
+ag
+ag
+ag
+ag
+ag
+bf
+bw
+bP
+aw
+bU
+aa
+aa
+aw
+cE
+aa
+cl
+cx
+aa
+"}
+(13,1,1) = {"
+aa
+ac
+ag
+ao
+aC
+ao
+ag
+bj
+aL
+bX
+bX
+ax
+bY
+cF
+bY
+ax
+bX
+bP
+do
+aa
+"}
+(14,1,1) = {"
+aa
+ac
+ah
+ap
+ap
+ap
+aW
+bh
+bv
+aI
+bR
+ax
+cy
+cG
+cO
+cS
+cj
+cz
+dp
+aa
+"}
+(15,1,1) = {"
+aa
+ac
+ag
+ao
+ao
+ao
+ag
+bk
+bA
+bS
+bV
+bZ
+ca
+cH
+bR
+aI
+aI
+dj
+ac
+aa
+"}
+(16,1,1) = {"
+aa
+ac
+ag
+ag
+ag
+ag
+ag
+bl
+bB
+bT
+cb
+cm
+bT
+cI
+bT
+cU
+cU
+bT
+ac
+aa
+"}
+(17,1,1) = {"
+aa
+ad
+ai
+aq
+aD
+aq
+aX
+bm
+bC
+bT
+aa
+cn
+bT
+cJ
+bT
+aw
+aa
+bT
+ac
+aa
+"}
+(18,1,1) = {"
+aa
+aa
+aa
+ar
+ar
+ar
+aZ
+bn
+bn
+bT
+cc
+co
+bT
+cK
+bT
+cc
+cc
+bT
+ac
+aa
+"}
+(19,1,1) = {"
+aa
+aa
+aa
+as
+aE
+aM
+ba
+bo
+bD
+bT
+cd
+cp
+cA
+cr
+cQ
+cV
+db
+bT
+ac
+aa
+"}
+(20,1,1) = {"
+aa
+aa
+aa
+ar
+ar
+aN
+bb
+bn
+bE
+bT
+ce
+cq
+cr
+cB
+cr
+cq
+dc
+dk
+dq
+aa
+"}
+(21,1,1) = {"
+aa
+aa
+aa
+at
+aF
+aO
+ba
+bo
+bD
+bT
+cf
+cr
+cB
+cL
+cr
+cr
+dd
+dl
+ac
+aa
+"}
+(22,1,1) = {"
+aa
+aa
+aa
+ar
+ar
+ar
+bb
+bn
+bn
+bT
+cg
+cs
+cr
+cM
+cr
+cW
+ch
+dm
+ac
+aa
+"}
+(23,1,1) = {"
+aa
+aa
+aa
+au
+aE
+aP
+ba
+bo
+bD
+bT
+ch
+cr
+cr
+cr
+cr
+cr
+ch
+dl
+ac
+aa
+"}
+(24,1,1) = {"
+aa
+aa
+aa
+ar
+ar
+aQ
+bb
+bn
+bE
+bT
+bQ
+cr
+cr
+cN
+cr
+cr
+cr
+dn
+dq
+aa
+"}
+(25,1,1) = {"
+aa
+aa
+aa
+av
+aE
+aR
+by
+bo
+bF
+bT
+ci
+ct
+cC
+ch
+ch
+cX
+de
+bT
+ac
+aa
+"}
+(26,1,1) = {"
+aa
+aa
+aa
+ar
+ar
+ar
+ar
+bn
+bG
+bT
+bT
+cu
+cD
+cD
+cD
+cY
+bT
+bT
+ac
+aa
+"}
+(27,1,1) = {"
+aa
+aa
+aa
+aa
+aw
+aa
+ar
+bp
+ar
+ar
+aw
+ad
+ai
+ai
+ai
+cZ
+df
+ai
+af
+aa
+"}
+(28,1,1) = {"
+aa
+aa
+aa
+aa
+ar
+ar
+ar
+bq
+bH
+ar
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(29,1,1) = {"
+aa
+aa
+aa
+aa
+aG
+aS
+bc
+br
+bG
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(30,1,1) = {"
+aa
+aa
+aa
+aa
+ar
+ar
+ar
+bs
+bI
+ar
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(31,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+ar
+bt
+bt
+ar
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(32,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}

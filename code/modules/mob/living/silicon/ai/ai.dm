@@ -36,9 +36,9 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai
 	name = "AI"
-	icon = 'icons/mob/AI.dmi'//
+	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
-	anchored = 1 // -- TLE
+	move_resist = MOVE_FORCE_NORMAL
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
@@ -143,7 +143,7 @@ var/list/ai_verbs_default = list(
 	density = 1
 	loc = loc
 
-	holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 
 	proc_holder_list = new()
 
@@ -172,6 +172,7 @@ var/list/ai_verbs_default = list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
+	add_language("Neo-Russkiya", 0)
 	add_language("Gutter", 0)
 	add_language("Sinta'unathi", 0)
 	add_language("Siik'tajr", 0)
@@ -379,7 +380,7 @@ var/list/ai_verbs_default = list(
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	icontype = input("Select an icon!", "AI", null, null) in display_choices
-	icon = 'icons/mob/AI.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
+	icon = 'icons/mob/ai.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
 	switch(icontype)
 		if("Custom")
 			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'	//set this here so we can use the custom_sprite
@@ -533,7 +534,10 @@ var/list/ai_verbs_default = list(
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
 
-	anchored = !anchored // Toggles the anchor
+	if(anchored)
+		anchored = FALSE
+	else
+		anchored = TRUE
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
@@ -656,7 +660,21 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["ai_take_control"]) //Mech domination
+
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
+
+		if(!M)
+			return
+
+		var/mech_has_controlbeacon = FALSE
+		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in M.trackers)
+			mech_has_controlbeacon = TRUE
+			break
+		if(!can_dominate_mechs && !mech_has_controlbeacon)
+			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			return
+
 		if(controlled_mech)
 			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
 			return
@@ -670,7 +688,7 @@ var/list/ai_verbs_default = list(
 			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
 			return
 		if(M)
-			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
+			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
 	else if(href_list["faketrack"])
 		var/mob/target = locate(href_list["track"]) in GLOB.mob_list
@@ -988,13 +1006,13 @@ var/list/ai_verbs_default = list(
 				qdel(holo_icon)
 				switch(input)
 					if("default")
-						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 					if("floating face")
-						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo2"))
 					if("xeno queen")
-						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
-						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
@@ -1003,7 +1021,7 @@ var/list/ai_verbs_default = list(
 						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
 							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 						else
-							holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 
 	return
 
@@ -1093,7 +1111,7 @@ var/list/ai_verbs_default = list(
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = 0
+			anchored = FALSE
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
@@ -1101,7 +1119,7 @@ var/list/ai_verbs_default = list(
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = 1
+			anchored = TRUE
 			return
 	else
 		return ..()
@@ -1184,19 +1202,11 @@ var/list/ai_verbs_default = list(
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
-/mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
-	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
-		if(speaking)
-			text = speaking.scramble(text)
-		else
-			text = stars(text)
+/mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
+	var/message = combine_message(message_pieces, verb, M)
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
-	var/rendered
-	if(speaking)
-		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [speaking.format_message(text, verb)]</span></i>"
-	else
-		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
+	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)

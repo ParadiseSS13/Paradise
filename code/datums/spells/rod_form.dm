@@ -10,6 +10,7 @@
 	invocation = "CLANG!"
 	invocation_type = "shout"
 	action_icon_state = "immrod"
+	centcom_cancast = 0
 
 	sound = 'sound/effects/whoosh.ogg'
 	var/rod_delay = 2

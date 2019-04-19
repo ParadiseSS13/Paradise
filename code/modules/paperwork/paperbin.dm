@@ -12,7 +12,7 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 
-/obj/item/paper_bin/fire_act()
+/obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!amount)
 		return
 	..()
@@ -29,6 +29,8 @@
 /obj/item/paper_bin/MouseDrop(atom/over_object)
 	var/mob/M = usr
 	if(M.restrained() || M.stat || !Adjacent(M))
+		return
+	if(!ishuman(M))
 		return
 
 	if(over_object == M)
@@ -87,14 +89,14 @@
 
 
 /obj/item/paper_bin/attackby(obj/item/paper/i as obj, mob/user as mob, params)
-	if(!istype(i))
-		return
-
-	user.drop_item()
-	i.loc = src
-	to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
-	papers.Add(i)
-	amount++
+	if(istype(i))
+		user.drop_item()
+		i.loc = src
+		to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
+		papers.Add(i)
+		amount++
+	else
+		return ..()
 
 
 /obj/item/paper_bin/examine(mob/user)
@@ -110,7 +112,7 @@
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin1"
-
+	..()
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"

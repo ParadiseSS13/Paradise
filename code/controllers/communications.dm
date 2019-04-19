@@ -61,63 +61,40 @@
 
 */
 
-/*
-Frequency range: 1200 to 1600
-Radiochat range: 1441 to 1489 (most devices refuse to be tune to other frequency, even during mapmaking)
+var/const/DISPLAY_FREQ = 1435 //status displays
+var/const/ATMOS_FIRE_FREQ = 1437 //air alarms
+var/const/ENGINE_FREQ = 1438 //engine components
+var/const/ATMOS_VENTSCRUB = 1439 //vents, scrubbers, atmos control
+var/const/ATMOS_DISTRO_FREQ = 1443 //distro loop
+var/const/ATMOS_TANKS_FREQ = 1441  //atmos supply tanks
+var/const/BOT_BEACON_FREQ = 1445 //bot navigation beacons
+var/const/AIRLOCK_FREQ = 1449 //airlock controls, electropack, magnets
 
-Radio:
-1459 - standard radio chat
-1351 - Science
-1353 - Command
-1355 - Medical
-1357 - Engineering
-1359 - Security
-1341 - Special Operations
-1443 - Confession Intercom
-1347 - Cargo
-1349 - Service
+var/const/RSD_FREQ = 1457 //radio signal device
+var/const/IMPL_FREQ = 1451 //tracking implant
 
-Devices:
-1451 - Tracking Implant
-1457 - RSD Default
-
-On the map:
-1311 for prison shuttle console (in fact, it is not used)
-1435 for status displays
-1437 for atmospherics/fire alerts
-1438 for engine components
-1439 for air pumps, air scrubbers, atmo control
-1441 for atmospherics - supply tanks
-1443 for atmospherics - distribution loop/mixed air tank
-1445 for bot nav beacons
-1447 for mulebot, secbot and ed209 control
-1449 for airlock controls, electropack, magnets
-1451 for toxin lab access
-1453 for engineering access
-1455 for AI access
-*/
-
-var/const/RADIO_LOW_FREQ	= 1200
-var/const/PUBLIC_LOW_FREQ	= 1441
-var/const/PUBLIC_HIGH_FREQ	= 1489
-var/const/RADIO_HIGH_FREQ	= 1600
+var/const/RADIO_LOW_FREQ	= 1200 //minimum radio freq
+var/const/PUBLIC_LOW_FREQ	= 1441 //minimum radio chat freq
+var/const/PUBLIC_HIGH_FREQ	= 1489 //maximum radio chat freq
+var/const/RADIO_HIGH_FREQ	= 1600 //maximum radio freq
 
 var/const/SYND_FREQ = 1213
 var/const/SYNDTEAM_FREQ = 1244
-var/const/DTH_FREQ = 1341
+var/const/DTH_FREQ = 1341 //Special Operations
 var/const/AI_FREQ	= 1343
 var/const/ERT_FREQ = 1345
-var/const/COMM_FREQ = 1353
-var/const/BOT_FREQ = 1447
+var/const/COMM_FREQ = 1353 //Command
+var/const/BOT_FREQ = 1447 //mulebot, secbot, ed209
+
 
 // department channels
-var/const/PUB_FREQ = 1459
-var/const/SEC_FREQ = 1359
-var/const/ENG_FREQ = 1357
-var/const/SCI_FREQ = 1351
-var/const/MED_FREQ = 1355
-var/const/SUP_FREQ = 1347
-var/const/SRV_FREQ = 1349
+var/const/PUB_FREQ = 1459 //standard radio chat
+var/const/SEC_FREQ = 1359 //security
+var/const/ENG_FREQ = 1357 //engineering
+var/const/SCI_FREQ = 1351 //science
+var/const/MED_FREQ = 1355 //medical
+var/const/SUP_FREQ = 1347 //cargo
+var/const/SRV_FREQ = 1349 //service
 
 // internal department channels
 var/const/MED_I_FREQ = 1485
@@ -199,6 +176,7 @@ var/const/RADIO_ATMOSIA = "radio_atmos"
 var/const/RADIO_NAVBEACONS = "radio_navbeacon"
 var/const/RADIO_AIRLOCK = "radio_airlock"
 var/const/RADIO_SECBOT = "radio_secbot"
+var/const/RADIO_HONKBOT = "radio_honkbot"
 var/const/RADIO_MULEBOT = "radio_mulebot"
 var/const/RADIO_CLEANBOT = "10"
 var/const/RADIO_FLOORBOT = "11"

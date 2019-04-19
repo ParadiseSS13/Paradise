@@ -119,6 +119,7 @@ Class Procs:
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/defer_process = 0
+	var/siemens_strength = 0.7 // how badly will it shock you?
 
 /obj/machinery/Initialize()
 	addAtProcessing()
@@ -222,11 +223,11 @@ Class Procs:
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
 		if(newid)
 			src:id_tag = newid
-			return MT_UPDATE|MT_REINIT
+			return TRUE
 	if("set_freq" in href_list)
 		if(!("frequency" in vars))
 			warning("set_freq: [type] has no frequency var.")
-			return 0
+			return FALSE
 		var/newfreq=src:frequency
 		if(href_list["set_freq"]!="-1")
 			newfreq=text2num(href_list["set_freq"])
@@ -235,90 +236,81 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			if(newfreq < 10000)
-				src:frequency = newfreq
-				return MT_UPDATE|MT_REINIT
-	return 0
+			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			return TRUE
+	return FALSE
 
 /obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
 	if(!allowed(user))//no, not even HREF exploits
-		return 0
+		return FALSE
 	var/obj/item/multitool/P = get_multitool(usr)
 	if(P && istype(P))
-		var/update_mt_menu=0
-		var/re_init=0
+		var/update_mt_menu = FALSE
 		if("set_tag" in href_list)
 			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
 				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-				return 1
+				return FALSE
 			if(!(href_list["set_tag"] in vars))
 				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
-				return 1
+				return FALSE
 			var/current_tag = vars[href_list["set_tag"]]
 			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
 			if(newid)
 				vars[href_list["set_tag"]] = newid
-				re_init=1
+				update_mt_menu = TRUE
 
 		if("unlink" in href_list)
 			var/idx = text2num(href_list["unlink"])
 			if(!idx)
-				return 1
+				return FALSE
 
 			var/obj/O = getLink(idx)
 			if(!O)
-				return 1
+				return FALSE
 			if(!canLink(O))
 				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
-				return 1
+				return FALSE
 
 			if(unlinkFrom(usr, O))
 				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was removed.</span>")
 			else
 				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
-			update_mt_menu=1
+			update_mt_menu = TRUE
 
 		if("link" in href_list)
 			var/obj/O = P.buffer
 			if(!O)
-				return 1
+				return FALSE
 			if(!canLink(O,href_list))
 				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
-				return 1
+				return FALSE
 			if(isLinkedWith(O))
 				to_chat(usr, "<span class='warning'>A red light flashes on \the [P]. The two devices are already linked.</span>")
-				return 1
+				return FALSE
 
 			if(linkWith(usr, O, href_list))
 				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was added.</span>")
 			else
 				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
-			update_mt_menu=1
+			update_mt_menu = TRUE
 
 		if("buffer" in href_list)
 			P.buffer = src
 			to_chat(usr, "<span class='notice'>A green light flashes, and the device appears in the multitool buffer.</span>")
-			update_mt_menu=1
+			update_mt_menu = TRUE
 
 		if("flush" in href_list)
 			to_chat(usr, "<span class='notice'>A green light flashes, and the device disappears from the multitool buffer.</span>")
 			P.buffer = null
-			update_mt_menu=1
+			update_mt_menu = TRUE
 
 		var/ret = multitool_topic(usr,href_list,P.buffer)
-		if(ret == MT_ERROR)
-			return 1
-		if(ret & MT_UPDATE)
-			update_mt_menu=1
-		if(ret & MT_REINIT)
-			re_init=1
+		if(ret)
+			update_mt_menu = TRUE
 
-		if(re_init)
-			Initialize()
 		if(update_mt_menu)
-			//usr.set_machine(src)
 			update_multitool_menu(usr)
-			return 1
+			return TRUE
 
 /obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	if(..(href, href_list, nowindow, state))
@@ -416,7 +408,7 @@ Class Procs:
 	if(can_deconstruct)
 		on_deconstruction()
 		if(component_parts && component_parts.len)
-			spawn_frame()
+			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
 	qdel(src)
@@ -584,16 +576,13 @@ Class Procs:
 
 /obj/machinery/proc/shock(mob/user, prb)
 	if(inoperable())
-		return 0
+		return FALSE
 	if(!prob(prb))
-		return 0
-	if((TK in user.mutations) && !Adjacent(user))
-		return 0
+		return FALSE
 	do_sparks(5, 1, src)
-	if(electrocute_mob(user, get_area(src), src, 0.7))
-		if(user.stunned)
-			return 1
-	return 0
+	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
+		return TRUE
+	return FALSE
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()

@@ -30,6 +30,7 @@
 
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
+	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -50,13 +51,22 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
-	var/datum/nations/nation			//nation holder
+	var/datum/abductor/abductor			//abductor holder
+	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/devilinfo/devilinfo //Information about the devil, if any.
+ 	var/damnation_type = 0
+ 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/hasSoul = TRUE
 
 	var/rev_cooldown = 0
+
+	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
+	var/isblessed = FALSE // is this person blessed by a chaplain?
+	var/num_blessed = 0 // for prayers
 
 	// the world.time since the mob has been brigged, or -1 if not at all
 	var/brigged_since = -1
@@ -70,6 +80,7 @@
 
 /datum/mind/New(new_key)
 	key = new_key
+	soulOwner = src
 
 /datum/mind/Destroy()
 	ticker.minds -= src
@@ -287,6 +298,29 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
+/datum/mind/proc/memory_edit_devil(mob/living/H)
+	. = _memory_edit_header("devil", list("devilagents"))
+	if(src in ticker.mode.devils)
+		if(!devilinfo)
+			. += "<b>No devilinfo found! Yell at a coder!</b>"
+		else if(!devilinfo.ascendable)
+			. += "<b>DEVIL</b>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|sintouched|<a href='?src=[UID()];devil=clear'>no</a>"
+		else
+			. += "<a href='?src=[UID()];devil=devil'>DEVIL</a>|<b>ASCENDABLE DEVIL</b>|sintouched|<a href='?src=[UID()];devil=clear'>no</a>"
+	else if(src in ticker.mode.sintouched)
+		. += "devil|Ascendable Devil|<b>SINTOUCHED</b>|<a href='?src=[UID()];devil=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];devil=devil'>devil</a>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_DEVIL)
+
+/datum/mind/proc/memory_edit_eventmisc(mob/living/H)
+	. = _memory_edit_header("event", list())
+	if(src in ticker.mode.eventmiscs)
+		. += "<b>YES</b>|<a href='?src=[UID()];eventmisc=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
+
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
 	if(src in ticker.mode.traitors)
@@ -370,14 +404,19 @@
 		sections["shadowling"] = memory_edit_shadowling(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+	/** DEVIL ***/
+	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
+	if(is_type_in_typecache(current, devils_typecache))
+		sections["devil"] = memory_edit_devil(H)
+	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
-	/* 
-		This prioritizes antags relevant to the current round to make them appear at the top of the panel. 
-		Traitorchan and traitorvamp are snowflaked in because they have multiple sections. 
+	/*
+		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
+		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
 	if(ticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
@@ -416,7 +455,7 @@
 		out += gen_objective_text(admin = TRUE)
 	out += "<a href='?src=[UID()];obj_add=1'>Add objective</a><br><br>"
 	out += "<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br><br>"
-	usr << browse(out, "window=edit_memory[src];size=400x500")
+	usr << browse(out, "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -830,6 +869,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					ticker.mode.update_wiz_icons_added(src)
+					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
 					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -871,6 +911,7 @@
 					ticker.mode.grant_changeling_powers(current)
 					ticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
+					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -915,6 +956,7 @@
 					slaved.masters += src
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
+					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -982,6 +1024,7 @@
 				if(!ticker.mode.equip_syndicate(current))
 					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
 					return
+				ticker.mode.update_syndicate_id(current.mind, ticker.mode.syndicates.len == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 
@@ -998,6 +1041,92 @@
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
+
+	else if(href_list["eventmisc"])
+		switch(href_list["eventmisc"])
+			if("clear")
+				if(src in ticker.mode.eventmiscs)
+					ticker.mode.eventmiscs -= src
+					ticker.mode.update_eventmisc_icons_removed(src)
+					special_role = null
+					message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
+					log_admin("[key_name(usr)] has de-eventantag'ed [current].")
+			if("eventmisc")
+				ticker.mode.eventmiscs += src
+				special_role = SPECIAL_ROLE_EVENTMISC
+				ticker.mode.update_eventmisc_icons_added(src)
+				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
+				log_admin("[key_name(usr)] has eventantag'ed [current].")
+	else if(href_list["devil"])
+		switch(href_list["devil"])
+			if("clear")
+				if(src in ticker.mode.devils)
+					if(istype(current,/mob/living/carbon/true_devil/))
+						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
+					else
+						ticker.mode.devils -= src
+						ticker.mode.update_devil_icons_removed(src)
+						special_role = null
+						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
+						RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
+						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
+						if(issilicon(current))
+							var/mob/living/silicon/S = current
+							S.laws.clear_sixsixsix_laws()
+						devilinfo = null
+						log_admin("[key_name(usr)] has de-devil'ed [current].")
+				else if(src in ticker.mode.sintouched)
+					ticker.mode.sintouched -= src
+					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
+					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+			if("devil")
+				if(devilinfo)
+					devilinfo.ascendable = FALSE
+					message_admins("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
+					log_admin("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
+					return
+				if(!ishuman(current) && !isrobot(current))
+					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
+					return
+				ticker.mode.devils += src
+				special_role = "devil"
+				ticker.mode.update_devil_icons_added(src)
+				ticker.mode.finalize_devil(src, FALSE)
+				ticker.mode.forge_devil_objectives(src, 2)
+				ticker.mode.greet_devil(src)
+				message_admins("[key_name_admin(usr)] has devil'ed [current].")
+				log_admin("[key_name(usr)] has devil'ed [current].")
+			if("ascendable_devil")
+				if(devilinfo)
+					devilinfo.ascendable = TRUE
+					message_admins("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
+					log_admin("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
+					return
+				if(!ishuman(current) && !isrobot(current))
+					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
+					return
+				ticker.mode.devils += src
+				special_role = "devil"
+				ticker.mode.update_devil_icons_added(src)
+				ticker.mode.finalize_devil(src, TRUE)
+				ticker.mode.forge_devil_objectives(src, 2)
+				ticker.mode.greet_devil(src)
+				message_admins("[key_name_admin(usr)] has devil'ed [current].  The devil has been marked as ascendable.")
+				log_admin("[key_name(usr)] has devil'ed [current]. The devil has been marked as ascendable.")
+			if("sintouched")
+				var/mob/living/carbon/human/H = current
+				H.influenceSin()
+				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
+				log_admin("[key_name(usr)] has sintouch'ed [current].")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1031,6 +1160,9 @@
 					if(isAI(current))
 						var/mob/living/silicon/ai/A = current
 						ticker.mode.add_law_zero(A)
+						SEND_SOUND(current, 'sound/ambience/antag/malf.ogg')
+					else
+						SEND_SOUND(current, 'sound/ambience/antag/tatoralert.ogg')
 					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
@@ -1316,6 +1448,11 @@
 		ticker.mode.greet_changeling(src)
 		ticker.mode.update_change_icons_added(src)
 
+/datum/mind/proc/make_Overmind()
+	if(!(src in ticker.mode.blob_overminds))
+		ticker.mode.blob_overminds += src
+		special_role = SPECIAL_ROLE_BLOB_OVERMIND
+
 /datum/mind/proc/make_Wizard()
 	if(!(src in ticker.mode.wizards))
 		ticker.mode.wizards += src
@@ -1451,6 +1588,17 @@
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
 
+/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
+	for(var/X in spell_list)
+		var/obj/effect/proc_holder/spell/S = X
+		for(var/type in exceptions)
+			if(istype(S, type))
+				continue
+		S.charge_counter = delay
+		spawn(0)
+			S.start_recharge()
+		S.updateButtonIcon()
+
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
 		if(G.mind == src)
@@ -1528,6 +1676,18 @@
 
 	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
 	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
+
+/datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
+	if(damnation_type)
+		return FALSE
+	return TRUE
+
+// returns a mob to message to produce something visible for the target mind
+/datum/mind/proc/messageable_mob()
+	if(!QDELETED(current) && current.client)
+		return current
+	else
+		return get_ghost(even_if_they_cant_reenter = TRUE)
 
 //Initialisation procs
 /mob/proc/mind_initialize()

@@ -29,3 +29,23 @@
 	heat_damage_per_tick = 15	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	cold_damage_per_tick = 10	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	unsuitable_atmos_damage = 10
+
+
+/mob/living/simple_animal/hostile/retaliate/clown/goblin
+	name = "clown goblin"
+	desc = "A tiny walking mask and clown shoes. You want to honk his nose!"
+	icon_state = "clowngoblin"
+	icon_living = "clowngoblin"
+	icon_dead = null
+	response_help = "honks the"
+	speak = list("Honk!")
+	speak_emote = list("sqeaks")
+	emote_see = list("honks")
+	maxHealth = 100
+	health = 100
+
+	speed = -1
+	turns_per_move = 1
+
+	del_on_death = TRUE
+	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/item/clothing/shoes/clown_shoes)

@@ -167,10 +167,19 @@
     display: none;
 }
 
+i.fancy {
+    display: none;
+}
+
 .titlebutton() {
     color: #E9C183;
+    // Since we're on some hilariously outdated libraries, the below is an issue
+    // https://github.com/FortAwesome/Font-Awesome/issues/1274
+    // Using the !important directive is necessary to override the FA styles
+    cursor: pointer !important; 
+    z-index: 102; // This is for the corners - makes sure the buttons render on top
 
-    &.hover {
+    &:hover {
         color: lighten(#98b0c3, 10%);
     }
 }
@@ -185,18 +194,4 @@
     position: absolute;
     top: 4px;
     right: 12px;
-}
-
-div.resize {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-
-    border-style: solid;
-    border-width: 0 0 30px 30px;
-    border-color: transparent transparent #363636 transparent;
-
-    transform: rotate(360deg);
 }

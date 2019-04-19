@@ -117,6 +117,10 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_message = "sub-par bling"
 
+/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_SILVER))
+		M.reagents.add_reagent("toxin", volume)
+	. = ..()
 
 /datum/reagent/aluminum
 	name = "Aluminum"
@@ -124,7 +128,7 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = null
+	taste_message = "metal"
 
 
 /datum/reagent/silicon
@@ -158,6 +162,11 @@
 		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
+	return ..()
+
+/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
+		M.reagents.add_reagent("toxin", volume)
 	..()
 
 //foam
@@ -167,7 +176,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
-	taste_message = null
+	taste_message = "extreme discomfort"
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -196,6 +205,18 @@
 	taste_message = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C + 600)
+		var/turf/T = get_turf(holder.my_atom)
+		holder.my_atom.visible_message("<b>The oil burns!</b>")
+		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/effect_system/smoke_spread/bad/BS = new
+		BS.set_up(1, 0, T)
+		BS.start()
+		if(holder)
+			holder.add_reagent("ash", round(volume * 0.5))
+			holder.del_reagent(id)
+
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
 		new /obj/effect/decal/cleanable/blood/oil(T)
@@ -206,7 +227,7 @@
 	description = "A purple gaseous element."
 	reagent_state = GAS
 	color = "#493062"
-	taste_message = null
+	taste_message = "chemtrail resistance"
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -252,7 +273,7 @@
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
-	taste_message = null
+	taste_message = "nail polish remover"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -265,7 +286,7 @@
 	description = "Volatile."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	taste_message = null
+	taste_message = "one third of an explosion"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -366,31 +387,6 @@
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
 
-/datum/reagent/fartonium
-	name = "Fartonium"
-	id = "fartonium"
-	description = "Oh god it never ends, IT NEVER STOPS!"
-	reagent_state = GAS
-	color = "#D06E27"
-	taste_message = "mexican cuisine"
-
-/datum/reagent/fartonium/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(66))
-		M.emote("fart")
-
-	if(holder.has_reagent("simethicone"))
-		if(prob(25))
-			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
-			update_flags |= M.adjustBruteLoss(1, FALSE)
-		if(prob(10))
-			M.custom_emote(1,"strains, but nothing happens.")
-			update_flags |= M.adjustBruteLoss(2, FALSE)
-		if(prob(5))
-			M.emote("scream")
-			update_flags |= M.adjustBruteLoss(4, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/hugs
 	name = "Pure hugs"
 	id = "hugs"
@@ -435,6 +431,70 @@
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
+/datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+	name = "Jestosterone"
+	id = "jestosterone"
+	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
+	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
+	taste_message = "a funny flavour"
+
+/datum/reagent/jestosterone/on_new()
+	..()
+	var/mob/living/carbon/C = holder.my_atom
+	if(!istype(C))
+		return
+	var/mind_type = FALSE
+	if(C.mind)
+		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+			mind_type = "Clown"
+			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+		else if(C.mind.assigned_role == "Mime")
+			mind_type = "Mime"
+			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			C.AdjustDizzy(volume)
+		else
+			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			C.AdjustDizzy(volume)
+	C.AddComponent(/datum/component/jestosterone, mind_type)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
+
+/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
+	if(!istype(M))
+		return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.emote("giggle")
+	GET_COMPONENT_FROM(jestosterone_component, /datum/component/jestosterone, M)
+	if(jestosterone_component.mind_type == "Clown")
+		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+	else
+		M.AdjustDizzy(10, 0, 500)
+		M.Druggy(15)
+		if(prob(10))
+			M.EyeBlurry(5)
+		if(prob(6))
+			var/list/clown_message = list("You feel light-headed.",
+			"You can't see straight.",
+			"You feel about as funny as the station clown.",
+			"Bright colours and rainbows cloud your vision.",
+			"Your funny bone aches.",
+			"What was that?!",
+			"You can hear bike horns in the distance.",
+			"You feel like <em>SHOUTING</em>!",
+			"Sinister laughter echoes in your ears.",
+			"Your legs feel like jelly.",
+			"You feel like telling a pun.")
+			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+		if(jestosterone_component.mind_type == "Mime")
+			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..() | update_flags
+
+/datum/reagent/jestosterone/on_mob_delete(mob/living/M)
+	..()
+	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
+	GET_COMPONENT_FROM(squeaking, /datum/component/squeak, M)
+	remove_fun.Destroy()
+	squeaking.Destroy()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
@@ -486,7 +546,7 @@
 	description = "Finely ground Coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	taste_message = "bitterness"
+	taste_message = "waste"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -494,7 +554,7 @@
 	description = "Finely shredded Tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
-	taste_message = "bitterness"
+	taste_message = "the future"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -518,6 +578,7 @@
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
+	taste_message = "obscurity and toil"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
@@ -525,6 +586,7 @@
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	tox_prob = 25
+	taste_message = "evolution"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
@@ -532,6 +594,7 @@
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
+	taste_message = "bountifulness"
 
 ///Alchemical Reagents
 

@@ -169,34 +169,28 @@
 	icon_state = "xeno"
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/obj/structure/statue/plasma/bullet_act(obj/item/projectile/Proj)
-	var/burn = FALSE
-	if(Proj.damage == 0)//lasertag guns and so on don't set off plasma anymore. can't use nodamage here because lasertag guns actually don't have it.
-		return
-	if(istype(Proj,/obj/item/projectile/beam))
-		PlasmaBurn(2500)
-		burn = TRUE
-	else if(istype(Proj,/obj/item/projectile/ion))
-		PlasmaBurn(500)
-		burn = TRUE
-	if(burn)
-		if(Proj.firer)
-			message_admins("Plasma statue ignited by [key_name_admin(Proj.firer)]([ADMIN_QUE(Proj.firer,"?")]) ([ADMIN_FLW(Proj.firer,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-			log_game("Plasma statue ignited by [key_name(Proj.firer)] in ([x],[y],[z])")
-			investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(Proj.firer)]","atmos")
-		else
-			message_admins("Plasma statue ignited by [Proj]. No known firer.([ADMIN_QUE(Proj.firer,"?")]) ([ADMIN_FLW(Proj.firer,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-			log_game("Plasma statue ignited by [Proj] in ([x],[y],[z]). No known firer.")
+/obj/structure/statue/plasma/bullet_act(obj/item/projectile/P)
+	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
+		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
+			if(P.firer)
+				message_admins("[key_name_admin(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
+				log_game("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
+				investigate_log("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]", "atmos")
+			else
+				message_admins("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
+				log_game("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
+			PlasmaBurn()
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma statue ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma statue ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
+		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
+		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
 		ignite(is_hot(W))
 		return
 	..()
@@ -262,18 +256,18 @@
 /obj/structure/statue/diamond
 	hardness = 10
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
-	desc = "This is a very expensive diamond statue"
+	desc = "This is a very expensive diamond statue."
 
 /obj/structure/statue/diamond/captain
-	name = "statue of THE captain."
+	name = "statue of THE captain"
 	icon_state = "cap"
 
 /obj/structure/statue/diamond/ai1
-	name = "statue of the AI hologram."
+	name = "statue of the AI hologram"
 	icon_state = "ai1"
 
 /obj/structure/statue/diamond/ai2
-	name = "statue of the AI core."
+	name = "statue of the AI core"
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
@@ -320,17 +314,6 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
 
-/*
-/obj/structure/statue/snow
-	hardness = 0.5
-	material_drop_type = /obj/item/stack/sheet/mineral/snow
-
-/obj/structure/statue/snow/snowman
-	name = "snowman"
-	desc = "Several lumps of snow put together to form a snowman."
-	icon_state = "snowman"
-*/
-
 /obj/structure/statue/tranquillite
 	hardness = 0.5
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
@@ -356,8 +339,31 @@
 	desc = "Seems someone made a snowman here."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "snowman"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/snowman/built
+	desc = "Just like the ones you remember from childhood!"
+	max_integrity = 50
+
+/obj/structure/snowman/built/Destroy()
+	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())
+	new /obj/item/grown/log(drop_location())
+	new /obj/item/grown/log(drop_location())
+	return ..()
+
+/obj/structure/snowman/built/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
+		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		obj_integrity = max_integrity
+		qdel(I)
+	else
+		return ..()
+
+/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	qdel(src)
+
 
 /obj/structure/kidanstatue
 	name = "Obsidian Kidan warrior statue"

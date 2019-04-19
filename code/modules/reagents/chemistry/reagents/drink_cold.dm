@@ -14,6 +14,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
+	taste_message = "bitterness"
 
 /datum/reagent/consumable/drink/cold/sodawater
 	name = "Soda Water"
@@ -25,6 +26,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Soda Water"
 	drink_desc = "Soda water. Why not make a scotch and soda?"
+	taste_message = "fizz"
 
 /datum/reagent/consumable/drink/cold/ice
 	name = "Ice"
@@ -36,10 +38,11 @@
 	drink_icon = "iceglass"
 	drink_name = "Glass of ice"
 	drink_desc = "Generally, you're supposed to put something else in there too..."
+	taste_message = "cold"
 
 /datum/reagent/consumable/drink/cold/ice/on_mob_life(mob/living/M)
 	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
-	..()
+	return ..()
 
 /datum/reagent/consumable/drink/cold/space_cola
 	name = "Cola"
@@ -62,7 +65,7 @@
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
-	taste_message = "cola"
+	taste_message = "radioactive cola"
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -71,11 +71,6 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 			<div class="line">
 				{{:helper.link('Restart Nano-Mob Hunter GO! Server','power-off',{'operation':'RestartNanoMob'})}}
 			</div>
-			{{if data.dock_request}}
-			<div class="line">
-				{{:helper.link('Accept Docking Request','signal',{'operation':'AcceptDocking'})}}
-				{{:helper.link('Deny Docking Request','signal',{'operation':'DenyDocking'})}}
-			{{/if}}
 			<div class="line">
 				{{if data.atcSquelched}}
 					{{:helper.link('Enable ATC Relay', 'signal', {'operation': 'ToggleATC'})}}

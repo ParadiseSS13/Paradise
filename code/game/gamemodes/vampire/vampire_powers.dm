@@ -76,8 +76,8 @@
 	//Vampires who have reached their full potential can affect nearly everything
 	if(user.mind.vampire.get_ability(/datum/vampire_passive/full))
 		return 1
-	//Chaplains are resistant to vampire powers
-	if(target.mind && target.mind.assigned_role == "Chaplain")
+	//Holy characters are resistant to vampire powers
+	if(target.mind && target.mind.isholy)
 		return 0
 	return 1
 
@@ -535,3 +535,73 @@
 
 /datum/vampire_passive/full
 	gain_desc = "You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
+
+
+/obj/effect/proc_holder/spell/targeted/raise_vampires
+	name = "Raise Vampires"
+	desc = "Summons deadly vampires from bluespace."
+	school = "transmutation"
+	charge_max = 100
+	clothes_req = 0
+	human_req = 1
+	invocation = "none"
+	invocation_type = "none"
+	max_targets = 0
+	range = 3
+	cooldown_min = 20
+	action_icon_state = "revive_thrall"
+	sound = 'sound/magic/wandodeath.ogg'
+
+/obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
+	new /obj/effect/temp_visual/cult/sparks(user.loc)
+	var/turf/T = get_turf(user)
+	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")
+	for(var/mob/living/carbon/human/H in targets)
+		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time=30, maxdistance=7, beam_type=/obj/effect/ebeam)
+		new /obj/effect/temp_visual/cult/sparks(H.loc)
+		H.raise_vampire(user)
+
+
+/mob/living/carbon/human/proc/raise_vampire(var/mob/M)
+	if(!istype(M))
+		log_debug("human/proc/raise_vampire called with invalid argument.")
+		return
+	if(!mind)
+		visible_message("[src] looks to be too stupid to understand what is going on.")
+		return
+	if(dna && (NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !blood_volume)
+		visible_message("[src] looks unfazed!")
+		return
+	if(mind.vampire || mind.special_role == SPECIAL_ROLE_VAMPIRE || mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
+		visible_message("<span class='notice'>[src] looks refreshed!</span>")
+		adjustBruteLoss(-60)
+		adjustFireLoss(-60)
+		for(var/obj/item/organ/external/E in bodyparts)
+			if(prob(25))
+				if(E.mend_fracture())
+					E.perma_injury = 0
+		return
+	if(stat != DEAD)
+		if(weakened)
+			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
+			adjustBrainLoss(60)
+		else
+			visible_message("<span class='warning'>[src] looks to be stunned by the energy!</span>")
+			Weaken(20)
+		return
+	for(var/obj/item/implant/mindshield/L in src)
+		if(L && L.implanted)
+			qdel(L)
+	for(var/obj/item/implant/traitor/T in src)
+		if(T && T.implanted)
+			qdel(T)
+	visible_message("<span class='warning'>[src] gets an eerie red glow in their eyes!</span>")
+	var/datum/objective/protect/protect_objective = new
+	protect_objective.owner = mind
+	protect_objective.target = M.mind
+	protect_objective.explanation_text = "Protect [M.real_name]."
+	mind.objectives += protect_objective
+	add_attack_logs(M, src, "Vampire-sired")
+	mind.make_Vampire()
+	revive()
+	Weaken(20)

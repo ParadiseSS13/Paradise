@@ -26,6 +26,23 @@
 	playsound(src.loc, "rustle", 50, 1, -5)
 	return ..()
 
+/obj/item/storage/backpack/examine(mob/user)
+	var/space_used = 0
+	if(!..(user, 1))
+		return
+	for(var/obj/item/I in contents)
+		space_used += I.w_class
+	if(!space_used)
+		to_chat(user, "<span class='notice'> [src] is empty.</span>")
+	else if(space_used <= max_combined_w_class*0.6)
+		to_chat(user, "<span class='notice'> [src] still has plenty of remaining space.</span>")
+	else if(space_used <= max_combined_w_class*0.8)
+		to_chat(user, "<span class='notice'> [src] is beginning to run out of space.</span>")
+	else if(space_used < max_combined_w_class)
+		to_chat(user, "<span class='notice'> [src] doesn't have much space left.</span>")
+	else
+		to_chat(user, "<span class='notice'> [src] is full.</span>")
+
 /*
  * Backpack Types
  */
@@ -47,7 +64,7 @@
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
+		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "No", "Yes")
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
@@ -98,6 +115,7 @@
 	new /obj/item/clothing/mask/gas/voice/clown(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
+	new /obj/item/storage/box/survival(src)
 	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
 	new /obj/item/stamp/clown(src)
 	new /obj/item/toy/crayon/rainbow(src)
@@ -179,6 +197,22 @@
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
 	burn_state = FIRE_PROOF
+	var/strap_side_straight = FALSE
+
+/obj/item/storage/backpack/satchel/verb/switch_strap()
+	set name = "Switch Strap Side"
+	set category = "Object"
+	set src in usr
+
+	if(usr.incapacitated())
+		return
+	strap_side_straight = !strap_side_straight
+	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_back()
+
+
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -281,7 +315,7 @@
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
 	desc = "A large duffelbag for holding extra tactical supplies."
-	icon_state = "duffel-syndi"
+	icon_state = "duffel-syndie"
 	item_state = "duffel-syndimed"
 	origin_tech = "syndicate=1"
 	silent = 1
@@ -299,20 +333,63 @@
 	icon_state = "duffel-syndiammo"
 	item_state = "duffel-syndiammo"
 
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
 
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded/New()
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun/New()
 	..()
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
+	for(var/i in 1 to 6)
+		new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
-	new /obj/item/ammo_box/magazine/m12g/stun(src)
+	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
+
+/obj/item/storage/backpack/duffel/syndie/ammo/smg
+	desc = "A large duffel bag, packed to the brim with C-20r magazines."
+
+/obj/item/storage/backpack/duffel/syndie/ammo/smg/New()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/smgm45(src)
+
+/obj/item/storage/backpack/duffel/syndie/c20rbundle
+	desc = "A large duffel bag containing a C-20r, some magazines, and a cheap looking suppressor."
+
+/obj/item/storage/backpack/duffel/syndie/c20rbundle/New()
+	..()
+	new /obj/item/ammo_box/magazine/smgm45(src)
+	new /obj/item/ammo_box/magazine/smgm45(src)
+	new /obj/item/gun/projectile/automatic/c20r(src)
+	new /obj/item/suppressor/specialoffer(src)
+
+/obj/item/storage/backpack/duffel/syndie/bulldogbundle
+	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."
+
+/obj/item/storage/backpack/duffel/syndie/bulldogbundle/New()
+	..()
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/clothing/glasses/thermal/syndi(src)
+
+/obj/item/storage/backpack/duffel/syndie/med/medicalbundle
+	desc = "A large duffel bag containing a tactical medkit, a Donksoft machine gun and a big jumbo box of riot darts."
+
+/obj/item/storage/backpack/duffel/syndie/med/medicalbundle/New()
+	..()
+	new /obj/item/storage/firstaid/tactical(src)
+	new /obj/item/gun/projectile/automatic/l6_saw/toy(src)
+	new /obj/item/ammo_box/foambox/riot(src)
+
+/obj/item/storage/backpack/duffel/syndie/c4/New()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/grenade/plastic/c4(src)
+
+/obj/item/storage/backpack/duffel/syndie/x4/New()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/grenade/plastic/x4(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery
 	name = "surgery duffelbag"
@@ -333,7 +410,6 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
-	new /obj/item/mmi/syndie(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
 	name = "surgery duffelbag"

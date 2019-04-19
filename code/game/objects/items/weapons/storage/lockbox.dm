@@ -24,6 +24,8 @@
 			if(locked)
 				icon_state = icon_locked
 				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
+				if(user.s_active)
+					user.s_active.close(user)
 				return
 			else
 				icon_state = icon_closed
@@ -67,7 +69,7 @@
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
 
-/obj/item/storage/lockbox/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/lockbox/hear_talk(mob/living/M as mob, list/message_pieces)
 
 /obj/item/storage/lockbox/hear_message(mob/living/M as mob, msg)
 
@@ -131,5 +133,5 @@
 
 /obj/item/storage/lockbox/t4/New()
 	..()
-	for(var/i = 0, i < 3, i++)
+	for(var/i in 0 to 2)
 		new /obj/item/grenade/plastic/x4/thermite(src)

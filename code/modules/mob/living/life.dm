@@ -3,9 +3,9 @@
 	set background = BACKGROUND_ENABLED
 
 	if(notransform)
-		return
+		return 0
 	if(!loc)
-		return
+		return 0
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	if(stat != DEAD)
@@ -24,6 +24,10 @@
 		. = 1
 
 	handle_diseases()
+
+	//Heart Attack, if applicable
+	if(stat != DEAD)
+		handle_heartattack()
 
 	//Handle temperature/pressure differences between body and environment
 	if(environment)
@@ -48,12 +52,13 @@
 	if(client)
 		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
 		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
-	if(get_nations_mode())
-		process_nations()
 
 	..()
 
 /mob/living/proc/handle_breathing(times_fired)
+	return
+
+/mob/living/proc/handle_heartattack()
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()
@@ -221,9 +226,3 @@
 
 /mob/living/proc/handle_hud_icons_health()
 	return
-
-/mob/living/proc/process_nations()
-	if(client)
-		var/client/C = client
-		for(var/mob/living/carbon/human/H in view(src, world.view))
-			C.images += H.hud_list[NATIONS_HUD]

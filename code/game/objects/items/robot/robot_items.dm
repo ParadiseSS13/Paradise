@@ -13,7 +13,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(0, "[M]'s [name]", src, MELEE_ATTACK))
-			playsound(M, 'sound/weapons/Genhit.ogg', 50, 1)
+			playsound(M, 'sound/weapons/genhit.ogg', 50, 1)
 			return 0
 
 	if(isrobot(user))
@@ -28,7 +28,7 @@
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
 
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	add_attack_logs(user, M, "Stunned with [src] (INTENT: [uppertext(user.a_intent)])")
 
 /obj/item/borg/overdrive

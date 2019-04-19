@@ -7,6 +7,7 @@
 	density = 0
 	opacity = 0
 	anchored = 1
+	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health = 30
 	var/health_timestamp = 0
 	var/brute_resist = 4
@@ -19,7 +20,7 @@
 	src.update_icon()
 	..(loc)
 	for(var/atom/A in loc)
-		A.blob_act()
+		A.blob_act(src)
 	return
 
 
@@ -31,8 +32,10 @@
 
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)	return 1
-	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
+	if(height==0)
+		return 1
+	if(istype(mover) && mover.checkpass(PASSBLOB))
+		return 1
 	return 0
 
 /obj/structure/blob/CanAStarPass(ID, dir, caller)
@@ -45,7 +48,7 @@
 	Life()
 	return
 
-/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	var/damage = Clamp(0.01 * exposed_temperature, 0, 4)
 	take_damage(damage, BURN)
@@ -126,7 +129,7 @@
 		qdel(B)
 
 	for(var/atom/A in T)//Hit everything in the turf
-		A.blob_act()
+		A.blob_act(src)
 	return 1
 
 /obj/structure/blob/ex_act(severity)
@@ -141,7 +144,7 @@
 
 /obj/structure/blob/Crossed(var/mob/living/L)
 	..()
-	L.blob_act()
+	L.blob_act(src)
 
 /obj/structure/blob/tesla_act(power)
 	..()
@@ -156,7 +159,7 @@
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
 	visible_message("<span class='danger'>[user] has attacked the [src.name] with \the [W]!</span>")
 	if(W.damtype == BURN)
-		playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
+		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 	take_damage(W.force, W.damtype)
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M as mob)

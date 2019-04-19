@@ -6,7 +6,7 @@
 
 /obj/machinery/sleeper
 	name = "Sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
 	density = 1
@@ -14,18 +14,14 @@
 	dir = WEST
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
-	var/possible_chems = list(list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine"),
-							  list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine"),
-							  list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "charcoal", "mutadone", "mannitol"),
-							  list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "charcoal", "mutadone", "mannitol", "pen_acid", "omnizine"))
-	var/emergency_chems = list("epinephrine") // Desnowflaking
+	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
+	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/filtering = 0
 	var/max_chem
 	var/initial_bin_rating = 1
 	var/min_health = -25
-	var/injection_chems = list()
 	var/controls_inside = FALSE
 	idle_power_usage = 1250
 	active_power_usage = 2500
@@ -68,13 +64,9 @@
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
-	var/I
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		E += B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		I += M.rating
 
-	injection_chems = possible_chems[I]
 	max_chem = E * 20
 	min_health = -E * 25
 
@@ -112,6 +104,7 @@
 			if(prob(addiction_removal_chance))
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
+				qdel(R)
 
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
@@ -156,7 +149,7 @@
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
-		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["minHealth"] = HEALTH_THRESHOLD_DEAD
 		occupantData["bruteLoss"] = occupant.getBruteLoss()
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
@@ -216,7 +209,7 @@
 			data["beakerFreeSpace"] = 0
 
 	var/chemicals[0]
-	for(var/re in injection_chems)
+	for(var/re in possible_chems)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			var/reagent_amount = 0
@@ -419,7 +412,7 @@
 		A.forceMove(loc)
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
-	if(!(chemical in injection_chems))
+	if(!(chemical in possible_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
 		return
 
@@ -559,6 +552,8 @@
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"
+	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
+	emergency_chems = list("epinephrine")
 	controls_inside = TRUE
 
 	light_color = LIGHT_COLOR_DARKRED

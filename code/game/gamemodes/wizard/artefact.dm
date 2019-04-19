@@ -68,7 +68,7 @@
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
 					if("healing")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
 						M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), slot_r_hand)
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
 					if("robeless")
@@ -784,7 +784,7 @@ var/global/list/multiverse = list()
 			GiveHint(target)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
-			target << 'sound/items/AirHorn.ogg'
+			target << 'sound/items/airhorn.ogg'
 			target.MinimumDeafTicks(3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
@@ -868,7 +868,7 @@ var/global/list/multiverse = list()
 		var/area/A = get_area(src)
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
-/obj/item/voodoo/fire_act()
+/obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(target)
 		target.adjust_fire_stacks(20)
 		target.IgniteMob()

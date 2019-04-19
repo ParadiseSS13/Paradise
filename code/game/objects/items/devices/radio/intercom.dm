@@ -18,7 +18,7 @@
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
-	frequency  = 1449
+	frequency  = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
@@ -135,6 +135,8 @@
 	return canhear_range
 
 /obj/item/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/stack/tape_roll)) //eww
+		return
 	switch(buildstage)
 		if(3)
 			if(iswirecutter(W) && b_stat && wires.IsAllCut())
@@ -236,7 +238,7 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
     var/locked_frequency

@@ -101,7 +101,9 @@
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
 			break
-		if(istype (M, /mob/dead/observer))
+		if(istype(M, /mob/dead/observer))
+			continue
+		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
 		if(M.buckled)
 			continue
@@ -276,8 +278,10 @@
 		if(src == user.loc)
 			to_chat(user, "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>")
 			return
-		if(!WT.remove_fuel(0,user))
+		if(!WT.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
+			return
+		if(!do_after_once(user, 15, target = src))
 			return
 		welded = !welded
 		update_icon()
@@ -423,3 +427,45 @@
 
 /obj/structure/closet/AllowDrop()
 	return TRUE
+
+/obj/structure/closet/bluespace
+	name = "bluespace closet"
+	desc = "A storage unit that moves and stores through the fourth dimension."
+	density = 0
+	icon_state = "bluespace"
+	icon_closed = "bluespace"
+	icon_opened = "bluespaceopen"
+	storage_capacity = 60
+	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+
+/obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
+	UpdateTransparency(AM, loc)
+	return TRUE
+
+/obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
+	var/transparent = FALSE
+	for(var/atom/A in location)
+		if(A.density && A != src && A != AM)
+			transparent = TRUE
+			break
+	icon_opened = transparent ? "bluespaceopentrans" : "bluespaceopen"
+	icon_closed = transparent ? "bluespacetrans" : "bluespace"
+	icon_state = opened ? icon_opened : icon_closed
+
+/obj/structure/closet/bluespace/Crossed(atom/movable/AM)
+	if(AM.density)
+		icon_state = opened ? "bluespaceopentrans" : "bluespacetrans"
+
+/obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
+	var/turf/T = get_turf(NewLoc)
+	if(T.density)
+		return
+	for(var/atom/A in T.contents)
+		if(A.density && istype(A, /obj/machinery/door))
+			return
+	UpdateTransparency(src, NewLoc)
+	forceMove(NewLoc)
+
+/obj/structure/closet/bluespace/close()
+	. = ..()
+	density = 0

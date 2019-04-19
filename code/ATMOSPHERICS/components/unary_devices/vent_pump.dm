@@ -37,7 +37,7 @@
 
 	var/welded = 0 // Added for aliens -- TLE
 
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
 	var/advcontrol = 0//does this device listen to the AAC
@@ -184,7 +184,7 @@
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = radio_controller.add_object(src, frequency,radio_filter_in)
-	if(frequency != 1439)
+	if(frequency != ATMOS_VENTSCRUB)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
 		name = "vent pump"
@@ -211,7 +211,7 @@
 		"timestamp" = world.time,
 		"sigtype" = "status"
 	)
-	if(frequency == 1439)//We're on the frequency the air alarms and stuff use
+	if(frequency == ATMOS_VENTSCRUB)
 		if(!initial_loc.air_vent_names[id_tag])
 			var/new_name = "[initial_loc.name] Vent Pump #[initial_loc.air_vent_names.len+1]"
 			initial_loc.air_vent_names[id_tag] = new_name
@@ -227,8 +227,8 @@
 	..()
 
 	//some vents work his own special way
-	radio_filter_in = frequency==1439?(RADIO_FROM_AIRALARM):null
-	radio_filter_out = frequency==1439?(RADIO_TO_AIRALARM):null
+	radio_filter_in = frequency==ATMOS_VENTSCRUB?(RADIO_FROM_AIRALARM):null
+	radio_filter_out = frequency==ATMOS_VENTSCRUB?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
 		src.broadcast_status()
@@ -404,7 +404,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag","set_id")]</li>
 		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 		</ul>
@@ -413,20 +413,20 @@
 /obj/machinery/atmospherics/unary/vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
 	if("toggleadvcontrol" in href_list)
 		advcontrol = !advcontrol
-		return MT_UPDATE
+		return TRUE
 
 	if("set_id" in href_list)
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src.id_tag) as null|text), 1, MAX_MESSAGE_LEN)
 		if(!newid)
 			return
-		if(frequency == 1439)
+		if(frequency == ATMOS_VENTSCRUB)
 			initial_loc.air_vent_info -= id_tag
 			initial_loc.air_vent_names -= id_tag
 
 		id_tag = newid
 		broadcast_status()
 
-		return MT_UPDATE
+		return TRUE
 
 	return ..()
 

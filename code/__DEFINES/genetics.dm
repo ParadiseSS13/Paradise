@@ -8,17 +8,17 @@
 // Used in preferences.
 #define DISABILITY_FLAG_NEARSIGHTED 1
 #define DISABILITY_FLAG_FAT         2
-#define DISABILITY_FLAG_EPILEPTIC   4
-#define DISABILITY_FLAG_DEAF        8
-#define DISABILITY_FLAG_BLIND       16
-#define DISABILITY_FLAG_MUTE        32
-#define DISABILITY_FLAG_COLOURBLIND 64
-#define DISABILITY_FLAG_TOURETTES   512
-#define DISABILITY_FLAG_NERVOUS     1024
-#define DISABILITY_FLAG_SWEDISH     2048
-#define DISABILITY_FLAG_SCRAMBLED   4096 // incoherent speech
-#define DISABILITY_FLAG_LISP        8192
-#define DISABILITY_FLAG_DIZZY       16384
+#define DISABILITY_FLAG_BLIND       4
+#define DISABILITY_FLAG_MUTE        8
+#define DISABILITY_FLAG_COLOURBLIND 16
+#define DISABILITY_FLAG_WINGDINGS   32
+#define DISABILITY_FLAG_NERVOUS     64
+#define DISABILITY_FLAG_SWEDISH     128
+#define DISABILITY_FLAG_LISP        256
+#define DISABILITY_FLAG_DIZZY       512
+#define DISABILITY_FLAG_CHAV        1024
+#define DISABILITY_FLAG_DEAF        2048
+
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
@@ -33,9 +33,11 @@
 #define HUSK			7
 #define NOCLONE			8
 
-
 // Extra powers:
 #define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+
+//species mutation
+#define WINGDINGS		10	// Ayy lmao
 
 //2spooky
 #define SKELETON 29
@@ -56,11 +58,11 @@
 
 // Goon muts
 #define OBESITY       	200		// Decreased metabolism
-#define TOXIC_FARTS   	201		// Duh
+// 201 undefined
 #define STRONG        	202		// (Nothing)
 #define SOBER         	203		// Increased alcohol metabolism
 #define PSY_RESIST    	204		// Block remoteview
-#define SUPER_FART    	205		// Duh
+// 205 undefined
 #define EMPATH			206		//Read minds
 #define COMIC			207		//Comic Sans
 
@@ -144,3 +146,4 @@
 #define RESISTHOT		16
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
+#define CAN_WINGDINGS	19

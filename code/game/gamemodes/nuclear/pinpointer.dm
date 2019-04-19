@@ -391,3 +391,12 @@
 
 /obj/item/pinpointer/crew/examine(mob/user)
 	..(user)
+
+/obj/item/pinpointer/crew/centcom
+	name = "centcom pinpointer"
+	desc = "A handheld tracking device that tracks crew based on remote centcom sensors."
+
+/obj/item/pinpointer/crew/centcom/trackable(mob/living/carbon/human/H)
+	var/turf/here = get_turf(src)
+	var/turf/there = get_turf(H)
+	return there && there.z == here.z

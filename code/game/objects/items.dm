@@ -16,6 +16,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_y_dimension = 32
 
 	can_be_hit = FALSE
+	suicidal_hands = TRUE
 
 	var/r_speed = 1.0
 	var/health = null
@@ -35,6 +36,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	var/list/actions = list() //list of /datum/action's that this item has.
 	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
+	var/list/action_icon = list() //list of icons-sheets for a given action to override the icon.
+	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
 
 	var/list/materials = list()
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
@@ -100,7 +103,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
-		new path(src)
+		new path(src, action_icon[path], action_icon_state[path])
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -142,16 +145,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/blob_act()
 	qdel(src)
-
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
-	return
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
@@ -206,6 +199,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		msg += "*--------*"
 		to_chat(user, msg)
 
+/obj/item/afterattack(atom/target, mob/user, proximity, params)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
+	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
@@ -250,10 +246,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	else
 		if(isliving(loc))
 			return 0
-
-	pickup(user)
 	add_fingerprint(user)
-	user.put_in_active_hand(src)
+	if(pickup(user)) // Pickup succeeded
+		user.put_in_active_hand(src)
+
 	return 1
 
 /obj/item/attack_alien(mob/user as mob)
@@ -306,10 +302,30 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
+	else if(istype(I, /obj/item/stack/tape_roll))
+		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
+			var/obj/item/storage/bag = src
+			if(bag.can_be_inserted(I))
+				return ..()
+		var/obj/item/stack/tape_roll/TR = I
+		var/list/clickparams = params2list(params)
+		var/x_offset = text2num(clickparams["icon-x"])
+		var/y_offset = text2num(clickparams["icon-y"])
+		if(GetComponent(/datum/component/ducttape))
+			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
+			return
+		if(TR.use(1))
+			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
+			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
+			anchored = TRUE
+			user.transfer_fingerprints_to(src)
+		else
+			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
 	else
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 		return 1
@@ -324,10 +340,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
-	return
+	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	return TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
@@ -351,6 +369,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(var/mob/user, var/slot)
+	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
@@ -498,15 +517,16 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/throw_impact(atom/A)
 	if(A && !QDELETED(A))
+		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
 		var/itempush = 1
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = 0 // too light to push anything
 		return A.hitby(src, 0, itempush)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback
@@ -548,6 +568,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return I == src
 
 /obj/item/Crossed(atom/movable/AM)
+	. = ..()
 	if(prob(trip_chance) && ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		on_trip(H)

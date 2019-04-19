@@ -132,6 +132,7 @@
 /obj/item/roller_holder/attack_self(mob/user as mob)
 	if(!held)
 		to_chat(user, "<span class='info'> The rack is empty.</span>")
+		return
 
 	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
 	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)

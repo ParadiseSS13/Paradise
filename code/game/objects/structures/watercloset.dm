@@ -507,10 +507,8 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
+	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
 	attack_verb = list("quacked", "squeaked")
-	honk_sound = 'sound/items/squeaktoy.ogg' //credit to DANMITCH3LL of freesound for this
-
-
 
 /obj/structure/sink
 	name = "sink"

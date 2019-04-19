@@ -39,11 +39,12 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
+	free_golems_disabled = TRUE
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
@@ -114,6 +115,7 @@ var/global/list/all_cults = list()
 				summon_spots += summon
 
 	for(var/datum/mind/cult_mind in cult)
+		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
@@ -155,7 +157,8 @@ var/global/list/all_cults = list()
 		if(mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
-
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(mob)
 	var/obj/item/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
@@ -182,6 +185,7 @@ var/global/list/all_cults = list()
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
+		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -213,11 +217,13 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, null)
 
+/datum/game_mode/proc/update_cult_comms_added(datum/mind/cult_mind)
+	var/datum/action/innate/cultcomm/C = new()
+	C.Grant(cult_mind.current)
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()

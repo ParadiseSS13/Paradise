@@ -96,6 +96,9 @@
 	if(radio_controller)
 		radio_controller.add_object(src, control_freq, filter = bot_filter)
 
+/obj/item/integrated_radio/honkbot
+	bot_filter = RADIO_HONKBOT
+	bot_type = HONK_BOT
 
 /obj/item/integrated_radio/beepsky
 	bot_filter = RADIO_SECBOT
@@ -162,7 +165,7 @@
 
 
 /obj/item/integrated_radio/signal
-	var/frequency = 1457
+	var/frequency = RSD_FREQ
 	var/code = 30.0
 	var/last_transmission
 	var/datum/radio_frequency/radio_connection

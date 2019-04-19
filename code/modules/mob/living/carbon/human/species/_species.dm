@@ -91,6 +91,8 @@
 
 	var/is_small
 	var/show_ssd = 1
+	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
+	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
@@ -156,6 +158,9 @@
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
 
+	// Species specific boxes
+	var/speciesbox
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -198,8 +203,9 @@
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
 		qdel(ears)
-	
-	ears = new mutantears(H)
+
+	if(mutantears)
+		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
@@ -251,8 +257,6 @@
 				. += (health_deficiency / 75)
 			else
 				. += (health_deficiency / 25)
-		if(H.shock_stage >= 10)
-			. += 3
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
@@ -294,11 +298,8 @@
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
-		H.setOxyLoss(0)
-		H.SetLoseBreath(0)
-
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
-		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	return
 
@@ -308,16 +309,22 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return
+
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block())
+		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
 		return TRUE
 	else
@@ -344,12 +351,19 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
+	if(target.check_block())
+		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
 		user.do_attack_animation(target, attack.animation_type)
+		if(attack.harmless)
+			playsound(target.loc, attack.attack_sound, 25, 1, -1)
+			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
 		if(!iscarbon(user))
@@ -371,7 +385,6 @@
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
@@ -380,8 +393,12 @@
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
+		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block())
+		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
 		return TRUE
 	else
@@ -496,6 +513,7 @@
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
+	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -506,6 +524,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
+	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("chomp")
@@ -521,7 +540,7 @@
 	return FALSE
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return 100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.getStaminaLoss()
+	return H.health - H.getStaminaLoss()
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)
@@ -696,8 +715,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		H.see_in_dark = max(H.see_in_dark, 8)
-		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
@@ -705,6 +722,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+
+/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
+	return TRUE
+
+/datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()
@@ -716,3 +740,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/picked_species = pick(random_species)
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
+
+/datum/species/proc/can_hear(mob/living/carbon/human/H)
+	. = FALSE
+	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
+	if(istype(ears) && !ears.deaf)
+		. = TRUE

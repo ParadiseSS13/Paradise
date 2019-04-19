@@ -52,6 +52,7 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
 	if(!emagged && detecting && temperature > T0C + 200)
 		alarm()			// added check of detector status here
 
@@ -268,7 +269,7 @@ Just a object used in constructing fire alarms
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/machinery/partyalarm
 	name = "\improper PARTY BUTTON"

@@ -29,12 +29,14 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/New()
 	..()
-	if(access_card)
-		access_card.access = list(access_syndicate, access_syndicate_leader)
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)
 
+/mob/living/simple_animal/bot/ed209/syndicate/setup_access()
+	if(access_card)
+		access_card.access = list(access_syndicate, access_syndicate_leader)
+		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/ed209/syndicate/update_icon()
 	icon_state = initial(icon_state)
@@ -160,7 +162,7 @@
 	P.fire()
 
 /mob/living/simple_animal/bot/ed209/syndicate/explode()
-	if (!QDELETED(src))
+	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		walk_to(src,0)

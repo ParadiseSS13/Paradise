@@ -78,6 +78,8 @@
 			C = M.client
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
+		else if(C.UID() != href_list["priv_msg"])
+			C = null // 404 client not found. Let cmd_admin_pm handle the error
 		cmd_admin_pm(C, null, href_list["type"])
 		return
 
@@ -290,6 +292,10 @@
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		return null
+	if(byond_build < config.minimum_client_build)
+		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
+		del(src)
+		return
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
@@ -310,6 +316,11 @@
 	GLOB.directory[ckey] = src
 
 	//Admin Authorisation
+	// Automatically makes localhost connection an admin
+	if(!config.disable_localhost_admin)
+		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+		if(!isnull(address) && address in localhost_addresses)
+			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
@@ -366,10 +377,21 @@
 
 	send_resources()
 
+	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
+		if(establish_db_connection())
+			activate_darkmode()
+
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
-			winset(src, "rpane.changelog", "background-color=#f4aa94;font-style=bold")
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
+			update_changelog_button()
+
+	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+		if(establish_db_connection())
+			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+	else
+		if(establish_db_connection())
+			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	if(!void)
 		void = new()
@@ -642,9 +664,9 @@
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
-	spawn (10)
+	spawn (10) //removing this spawn causes all clients to not get verbs.
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, asset_cache, register_asset = FALSE)
+		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
 
 //For debugging purposes
 /client/proc/list_all_languages()
@@ -660,3 +682,93 @@
 
 /client/proc/on_varedit()
 	var_edited = TRUE
+
+/////////////////
+// DARKMODE UI //
+/////////////////
+// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
+/client/proc/activate_darkmode()
+	///// BUTTONS /////
+	update_changelog_button()
+	/* Rpane */
+	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.wikib", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	/* Mainwindow */
+	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "mainwindow.hotkey_toggle", "background-color=#40628a;text-color=#FFFFFF")
+	///// UI ELEMENTS /////
+	/* Mainwindow */
+	winset(src, "mainwindow", "background-color=#272727")
+	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
+	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	/* Outputwindow */
+	winset(src, "outputwindow.outputwindow", "background-color=#272727")
+	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	/* Rpane */
+	winset(src, "rpane", "background-color=#272727")
+	winset(src, "rpane.rpane", "background-color=#272727")
+	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	/* Browserwindow */
+	winset(src, "browserwindow", "background-color=#272727")
+	winset(src, "browserwindow.browser", "background-color=#272727")
+	/* Infowindow */
+	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
+	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	// NOTIFY USER
+	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+
+/client/proc/deactivate_darkmode()
+	///// BUTTONS /////
+	update_changelog_button()
+	/* Rpane */
+	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
+	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
+	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
+	/* Mainwindow */
+	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	winset(src, "mainwindow.hotkey_toggle", "background-color=none;text-color=#000000")
+	///// UI ELEMENTS /////
+	/* Mainwindow */
+	winset(src, "mainwindow", "background-color=none")
+	winset(src, "mainwindow.mainvsplit", "background-color=none")
+	winset(src, "mainwindow.tooltip", "background-color=none")
+	/* Outputwindow */
+	winset(src, "outputwindow.outputwindow", "background-color=none")
+	winset(src, "outputwindow.browseroutput", "background-color=none")
+	/* Rpane */
+	winset(src, "rpane", "background-color=none")
+	winset(src, "rpane.rpane", "background-color=none")
+	winset(src, "rpane.rpanewindow", "background-color=none")
+	/* Browserwindow */
+	winset(src, "browserwindow", "background-color=none")
+	winset(src, "browserwindow.browser", "background-color=none")
+	/* Infowindow */
+	winset(src, "infowindow", "background-color=none;text-color=#000000")
+	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
+	///// NOTIFY USER /////
+	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
+
+// Better changelog button handling
+/client/proc/update_changelog_button()
+	if(establish_db_connection())
+		if(prefs.lastchangelog != changelog_hash)
+			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+		else
+			if(prefs.toggles & UI_DARKMODE)
+				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+			else
+				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+	else
+		if(prefs.toggles & UI_DARKMODE)
+			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+		else
+			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")

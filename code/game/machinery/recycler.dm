@@ -158,7 +158,7 @@ var/const/SAFETY_COOLDOWN = 100
 	L.loc = loc
 
 	if(issilicon(L))
-		playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+		playsound(loc, 'sound/items/welder.ogg', 50, 1)
 	else
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
@@ -176,7 +176,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items())
+		for(var/obj/item/I in L.get_equipped_items(TRUE))
 			if(L.unEquip(I))
 				eat(I, sound = 0)
 

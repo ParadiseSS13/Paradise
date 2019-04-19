@@ -1,6 +1,53 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+/mob/proc/combine_message(var/list/message_pieces, var/verb, var/mob/speaker, always_stars = FALSE)
+	var/iteration_count = 0
+	var/msg = "" // This is to make sure that the pieces have actually added something
+	. = "[verb], \""
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		iteration_count++
+		var/piece = SP.message
+		if(piece == "")
+			continue
+
+		if(SP.speaking && SP.speaking.flags & INNATE) // Fucking snowflake noise lang
+			return SP.speaking.format_message(piece)
+
+		if(iteration_count == 1)
+			piece = capitalize(piece)
+
+		if(SP.speaking)
+			if(!say_understands(speaker, SP.speaking))
+				if(isanimal(speaker))
+					var/mob/living/simple_animal/S = speaker
+					if(LAZYLEN(S.speak))
+						piece = pick(S.speak)
+					else
+						piece = stars(piece)
+				else
+					piece = SP.speaking.scramble(piece)
+			if(always_stars)
+				piece = stars(piece)
+			piece = SP.speaking.format_message(piece)
+		else
+			if(!say_understands(speaker, null))
+				piece = stars(piece)
+				if(isanimal(speaker))
+					var/mob/living/simple_animal/S = speaker
+					if(LAZYLEN(S.speak))
+						piece = pick(S.speak)
+				if(always_stars)
+					piece = stars(piece)
+			piece = "<span class='message'><span class='body'>[piece]</span></span>"
+		msg += (piece + " ")
+	if(msg == "")
+		// There is literally no content left in this message, we need to shut this shit down
+		. = "" // hear_say will suppress it
+	else
+		. = trim(. + trim(msg))
+		. += "\""
+
+/mob/proc/hear_say(var/list/message_pieces, var/verb = "says", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
 	if(!client)
 		return 0
 
@@ -23,34 +70,17 @@
 			sound_vol *= 0.5
 
 	if(sleeping || stat == UNCONSCIOUS)
-		hear_sleep(message)
+		hear_sleep(multilingual_to_message(message_pieces))
 		return 0
-
-	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
-	if(language && (language.flags & NONVERBAL))
-		if(!has_vision(information_only = TRUE)) //blind people can't see dumbass
-			message = stars(message)
-
-		if(!speaker || !(speaker in view(src)))
-			message = stars(message)
-
-	if(!say_understands(speaker, language))
-		if(isanimal(speaker))
-			var/mob/living/simple_animal/S = speaker
-			if(S.speak.len)
-				message = pick(S.speak)
-			else
-				message = stars(message)
-		else
-			if(language)
-				message = language.scramble(message)
-			else
-				message = stars(message)
 
 	var/speaker_name = speaker.name
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
+
+	var/message = combine_message(message_pieces, verb, speaker)
+	if(message == "")
+		return
 
 	if(italics)
 		message = "<i>[message]</i>"
@@ -66,74 +96,47 @@
 			message = "<b>[message]</b>"
 
 	if(!can_hear())
-		if(!language || !(language.flags & INNATE)) // INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
-			if(speaker == src)
-				to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
-			else
-				to_chat(src, "<span class='name'>[speaker_name]</span>[speaker.GetAltName()] talks but you cannot hear [speaker.p_them()].")
-	else
-		if(language)
-			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][language.format_message(message, verb)]</span>")
+		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
+		// if(!language || !(language.flags & INNATE))
+		if(speaker == src)
+			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>")
+			to_chat(src, "<span class='name'>[speaker_name]</span>[speaker.GetAltName()] talks but you cannot hear [speaker.p_them()].")
+	else
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][message]</span>")
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			src.playsound_local(source, speech_sound, sound_vol, 1)
 
 
-/mob/proc/hear_radio(var/message, var/verb = "says", var/datum/language/language = null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname = "", var/atom/follow_target)
+/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
 	if(!client)
 		return
 
 	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
-		hear_sleep(message)
+		hear_sleep(multilingual_to_message(message_pieces))
+		return
+
+	var/message = combine_message(message_pieces, verb, speaker, always_stars = hard_to_hear)
+	if(message == "")
 		return
 
 	var/track = null
 	if(!follow_target)
 		follow_target = speaker
 
-	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
-	if(language && (language.flags & NONVERBAL))
-		if(!has_vision(information_only=TRUE)) //blind people can't see dumbass
-			message = stars(message)
-
-		if(!speaker || !(speaker in view(src)))
-			message = stars(message)
-
-	if(!say_understands(speaker, language))
-		if(isanimal(speaker))
-			var/mob/living/simple_animal/S = speaker
-			if(S.speak && S.speak.len)
-				message = pick(S.speak)
-			else
-				return
-		else
-			if(language)
-				message = language.scramble(message)
-			else
-				message = stars(message)
-
-	if(hard_to_hear)
-		message = stars(message)
-
 	var/speaker_name = handle_speaker_name(speaker, vname, hard_to_hear)
-	track = handle_track(message, verb, language, speaker, speaker_name, follow_target, hard_to_hear)
+	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
 
-	var/formatted
-	if(language)
-		formatted = language.format_message_radio(message, verb)
-	else
-		formatted = "[verb], <span class=\"body\">\"[message]\"</span>"
 	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)
-		to_chat(src, "[part_a][track][part_b][formatted]</span></span>")
+		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 	else
-		to_chat(src, "[part_a][speaker_name][part_b][formatted]</span></span>")
+		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
-/mob/proc/handle_speaker_name(var/mob/speaker = null, var/vname, var/hard_to_hear)
+/mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
 	if(speaker)
 		speaker_name = speaker.name
@@ -146,40 +149,36 @@
 
 	return speaker_name
 
-/mob/proc/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+/mob/proc/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return
 
-/mob/proc/hear_signlang(var/message, var/verb = "gestures", var/datum/language/language, var/mob/speaker = null)
-	if(!client)
-		return
-
-	if(say_understands(speaker, language))
-		message = "<B>[src]</B> [verb], \"[message]\""
-	else
-		message = "<B>[src]</B> [verb]."
-
-	if(src.status_flags & PASSEMOTES)
-		for(var/obj/item/holder/H in src.contents)
-			H.show_message(message)
-		for(var/mob/living/M in src.contents)
-			M.show_message(message)
-	src.show_message(message)
-
-/mob/proc/hear_sleep(var/message)
+/mob/proc/hear_sleep(message)
 	var/heard = ""
 	if(prob(15))
 		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
-		var/R = rand(1, messages.len)
-		var/heardword = messages[R]
-		if(copytext(heardword,1, 1) in punctuation)
-			heardword = copytext(heardword,2)
-		if(copytext(heardword,-1) in punctuation)
-			heardword = copytext(heardword,1,lentext(heardword))
-		heard = "<span class = 'game_say'>...You hear something about...[heardword]</span>"
-
+		if(messages.len > 0)
+			var/R = rand(1, messages.len)
+			var/heardword = messages[R]
+			if(copytext(heardword,1, 1) in punctuation)
+				heardword = copytext(heardword,2)
+			if(copytext(heardword,-1) in punctuation)
+				heardword = copytext(heardword,1,lentext(heardword))
+			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
+		else
+			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
 	else
-		heard = "<span class = 'game_say'>...<i>You almost hear someone talking</i>...</span>"
+		heard = "<span class='game say'>...<i>You almost hear someone talking</i>...</span>"
 
 	to_chat(src, heard)
+
+/mob/proc/hear_holopad_talk(list/message_pieces, var/verb = "says", var/mob/speaker = null)
+	var/message = combine_message(message_pieces, verb, speaker)
+
+	var/name = speaker.name
+	if(!say_understands(speaker))
+		name = speaker.voice_name
+
+	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
+	to_chat(src, rendered)

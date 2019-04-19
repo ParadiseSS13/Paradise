@@ -228,7 +228,7 @@
 	var/injector_tag="inc_in"
 	var/output_tag="inc_out"
 	var/sensor_tag="inc_sensor"
-	frequency=1449
+	frequency=AIRLOCK_FREQ
 	var/temperature=1000
 
 /obj/machinery/computer/general_air_control/atmos_automation/burnchamber/New()
@@ -310,7 +310,7 @@
 	var/o2_injector_tag="air_o2_in"
 	var/output_tag="air_out"
 	var/sensor_tag="air_sensor"
-	frequency=1443
+	frequency=ATMOS_DISTRO_FREQ
 	var/temperature=1000
 
 /obj/machinery/computer/general_air_control/atmos_automation/air_mixing/New()

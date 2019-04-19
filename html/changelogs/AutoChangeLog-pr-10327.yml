@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "CQC has been updated; a few combos are more powerful"
+  - tweak: "cost increased to 13 TC"
+  - tweak: "CQC is now nuke ops only"
+  - tweak: "gloves of the north star restriction on CQC removed"
+  - tweak: "CQC disarms will now take the item from your opponent"
+  - tweak: "CQC blocks melee weapons and a couple of stun weapons and not everything now"

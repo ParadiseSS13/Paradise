@@ -5,19 +5,21 @@
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"
+	icon_resting = "mouse_gray_sleep"
 	speak = list("Squeek!","SQUEEK!","Squeek?")
-	speak_emote = list("squeeks","squeeks","squiks")
+	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "stamps on the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stamps on"
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -33,11 +35,14 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
+/mob/living/simple_animal/mouse/Initialize()
+	. = ..()
+
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
-			M << 'sound/effects/mousesqueek.ogg'
+			M << squeak_sound
 
 /mob/living/simple_animal/mouse/Life(seconds, times_fired)
 	. = ..()
@@ -65,6 +70,7 @@
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
+	icon_resting = "mouse_[mouse_color]_sleep"
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
@@ -81,49 +87,52 @@
 		get_scooped(M)
 	..()
 
-//make mice fit under tables etc? this was hacky, and not working
-/*
-/mob/living/simple_animal/mouse/Move(var/dir)
-
-	var/turf/target_turf = get_step(src,dir)
-	//CanReachThrough(src.loc, target_turf, src)
-	var/can_fit_under = 0
-	if(target_turf.ZCanPass(get_turf(src),1))
-		can_fit_under = 1
-
-	..(dir)
-	if(can_fit_under)
-		src.loc = target_turf
-	for(var/d in cardinal)
-		var/turf/O = get_step(T,d)
-		//Simple pass check.
-		if(O.ZCanPass(T, 1) && !(O in open) && !(O in closed) && O in possibles)
-			open += O
-			*/
-
-///mob/living/simple_animal/mouse/restrained() //Hotfix to stop mice from doing things with MouseDrop
-//	return 1
-
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
 	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
-	if( ishuman(AM) )
-		if(!stat)
+	if(ishuman(AM))
+		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-			M << 'sound/effects/mousesqueek.ogg'
+			SEND_SOUND(M, squeak_sound)
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
+	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
+
+/mob/living/simple_animal/mouse/emote(act, m_type=1, message = null)
+	if(stat != CONSCIOUS)
+		return
+
+	var/on_CD = 0
+	act = lowertext(act)
+	switch(act)
+		if("squeak")		//Mouse time
+			on_CD = handle_emote_CD()
+		else
+			on_CD = 0
+
+	if(on_CD == 1)
+		return
+
+	switch(act)
+		if("squeak")
+			message = "<B>\The [src]</B> [pick(emote_hear)]!"
+			m_type = 2 //audible
+			playsound(src, squeak_sound, 40, 1)
+		if("help")
+			to_chat(src, "scream, squeak")
+
+	..()
 
 /*
  * Mouse types
@@ -201,3 +210,15 @@
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+
+/mob/living/simple_animal/mouse/fluff/clockwork
+	name = "Chip"
+	real_name = "Chip"
+	mouse_color = "clockwork"
+	icon_state = "mouse_clockwork"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stamps on"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	can_collar = 0
+	butcher_results = list(/obj/item/stack/sheet/metal = 1)

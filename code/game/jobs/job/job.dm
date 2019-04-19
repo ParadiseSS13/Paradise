@@ -56,6 +56,7 @@
 
 	var/admin_only = 0
 	var/spawn_ert = 0
+	var/syndicate_command = 0
 
 	var/outfit = null
 
@@ -117,7 +118,7 @@
 		return 0
 	if(disabilities_allowed)
 		return 0
-	var/list/prohibited_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_BLIND, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_SCRAMBLED, DISABILITY_FLAG_EPILEPTIC, DISABILITY_FLAG_TOURETTES, DISABILITY_FLAG_DIZZY)
+	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	for(var/i = 1, i < prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
@@ -168,8 +169,11 @@
 				back = backpack //Department backpack
 
 	if(box)
-		backpack_contents.Insert(1, box) // Box always takes a first slot in backpack
-		backpack_contents[box] = 1
+		var/spawnbox = box
+		if(H.dna.species.speciesbox)
+			spawnbox = H.dna.species.speciesbox
+		backpack_contents.Insert(1, spawnbox) // Box always takes a first slot in backpack
+		backpack_contents[spawnbox] = 1
 
 	if(allow_loadout && H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
 		for(var/gear in H.client.prefs.gear)

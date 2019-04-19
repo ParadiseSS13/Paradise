@@ -159,6 +159,7 @@
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
 	name = "50pc trap pizza"
 	result = list(/obj/item/pizzabox/meat = 1,
+		/obj/item/pizzabox/hawaiian = 1,
 		/obj/item/pizza_bomb/autoarm = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
@@ -169,7 +170,7 @@
 /obj/effect/spawner/random_spawners/syndicate/trap/mine
 	name = "50pc trap landmine"
 	result = list(/datum/nothing = 1,
-		/obj/effect/mine/explosive = 1)
+		/obj/effect/mine/depot = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	name = "66pc trapped documents"
@@ -188,7 +189,6 @@
 	// Loot schema: costumes, toys, useless gimmick items, trapped items
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
-		/obj/item/storage/toolbox/syndicate/trapped = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/toy/cards/deck/syndicate = 1,
 		/obj/item/storage/secure/briefcase/syndie = 1,
@@ -279,7 +279,7 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/storage/box/syndie_kit/atmosgasgrenades = 1,
+		/obj/item/storage/box/syndie_kit/atmosn2ogrenades = 1,
 		/obj/item/grenade/plastic/x4 = 1)
 
 

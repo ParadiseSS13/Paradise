@@ -37,6 +37,18 @@
 	stamina = 60
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
+	name = "invisible bullet"
+	damage = 0
+	icon_state = null
+	hitsound_wall = null
+
+/obj/item/projectile/bullet/weakbullet2/invisible/fake
+	weaken = 0
+	stamina = 0
+	nodamage = 1
+	log_override = TRUE
+
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
 
@@ -69,17 +81,8 @@
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
-	var/tile_dropoff = 0.75
-	var/tile_dropoff_s = 1.25
-
-/obj/item/projectile/bullet/pellet/Range()
-	..()
-	if(damage > 0)
-		damage -= tile_dropoff
-	if(stamina > 0)
-		stamina -= tile_dropoff_s
-	if(damage < 0 && stamina < 0)
-		qdel(src)
+	tile_dropoff = 0.75
+	tile_dropoff_s = 1.25
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
@@ -105,6 +108,15 @@
 /obj/item/projectile/bullet/pellet/overload/New()
 	range = rand(1, 10)
 	..()
+
+/obj/item/projectile/bullet/pellet/assassination
+	damage = 12
+	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
+
+/obj/item/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.AdjustSilence(2)	// HELP MIME KILLING ME IN MAINT
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
@@ -196,23 +208,6 @@
 	damage = 10
 	weaken = 4
 	stun = 4
-
-/obj/item/projectile/bullet/honker
-	name = "banana"
-	damage = 0
-	weaken = 5
-	stun = 5
-	forcedodge = 1
-	nodamage = 1
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	hitsound = 'sound/items/bikehorn.ogg'
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "banana"
-	range = 200
-
-/obj/item/projectile/bullet/honker/New()
-	..()
-	SpinAnimation()
 
 /obj/item/projectile/bullet/mime
 	damage = 0

@@ -109,8 +109,12 @@
 		if(A.reagents.reagent_list.len > 0)
 			var/reagents_length = A.reagents.reagent_list.len
 			to_chat(user, "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
-			for(var/re in A.reagents.reagent_list)
-				to_chat(user, "<span class='notice'>\t [re]</span>")
+			for(var/datum/reagent/R in A.reagents.reagent_list)
+				if(R.id != "blood")
+					to_chat(user, "<span class='notice'>\t [R]</span>")
+				else
+					var/blood_type = R.data["blood_type"]
+					to_chat(user, "<span class='notice'>\t [R] [blood_type]</span>")
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
 	else

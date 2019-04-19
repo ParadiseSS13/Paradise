@@ -1,3 +1,5 @@
+#define NUKESCALINGMODIFIER 1.2
+
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
 
@@ -10,13 +12,14 @@ proc/issyndicate(mob/living/M as mob)
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
+	free_golems_disabled = TRUE
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
-	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
+	var/nukes_left = 1 //Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
 	var/syndies_didnt_escape = 0 //Used for tracking if the syndies got the shuttle off of the z-level
-
+	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
 /datum/game_mode/nuclear/announce()
 	to_chat(world, "<B>The current game mode is - Nuclear Emergency!</B>")
@@ -33,7 +36,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(possible_syndicates.len < 1)
 		return 0
 
-	if(possible_syndicates.len > agents_possible)
+	if(LAZYLEN(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -51,6 +54,7 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
+		synd_mind.offstation_role = TRUE
 	return 1
 
 
@@ -97,7 +101,6 @@ proc/issyndicate(mob/living/M as mob)
 			qdel(A)
 			continue
 
-	var/obj/effect/landmark/uplinklocker = locate("landmark*Syndicate-Uplink")	//i will be rewriting this shortly
 	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 
 	var/nuke_code = "[rand(10000, 99999)]"
@@ -120,26 +123,42 @@ proc/issyndicate(mob/living/M as mob)
 			leader_selected = 1
 		else
 			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
-
-			var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-			if(foundIDs.len)
-				for(var/obj/item/card/id/ID in foundIDs)
-					ID.name = "[syndicate_name()] Operative ID card"
-					ID.registered_name = synd_mind.current.real_name
+			update_syndicate_id(synd_mind, FALSE)
 
 			agent_number++
 		spawnpos++
 		update_synd_icons_added(synd_mind)
 
-	//update_all_synd_icons()
-
-	if(uplinklocker)
-		new /obj/structure/closet/syndicate/nuclear(uplinklocker.loc)
+	scale_telecrystals()
+	share_telecrystals()
 	if(nuke_spawn && synd_spawn.len > 0)
 		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
 	return ..()
+
+/datum/game_mode/nuclear/proc/scale_telecrystals()
+	var/danger
+	danger = GLOB.player_list.len
+	while(!IsMultiple(++danger, 10)) //Increments danger up to the nearest multiple of ten
+
+	total_tc += danger * NUKESCALINGMODIFIER
+
+/datum/game_mode/nuclear/proc/share_telecrystals()
+	var/player_tc
+	var/remainder
+
+	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
+	remainder = total_tc % GLOB.nuclear_uplink_list.len
+
+	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+		U.hidden_uplink.uses += player_tc
+	while(remainder > 0)
+		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+			if(remainder <= 0)
+				break
+			U.hidden_uplink.uses++
+			remainder--
 
 /datum/game_mode/proc/create_syndicate(datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
@@ -147,8 +166,9 @@ proc/issyndicate(mob/living/M as mob)
 	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 	M.dna.species.create_organs(M)
-	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
+	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
+	M.flavor_text = null
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
@@ -176,15 +196,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
-	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-
-	if(foundIDs.len)
-		for(var/obj/item/card/id/ID in foundIDs)
-			ID.name = "[syndicate_name()] [leader_title] ID card"
-			ID.registered_name = synd_mind.current.real_name
-			ID.access += access_syndicate_leader
-	else
-		message_admins("Warning: Nuke Ops spawned without access to leave their spawn area!")
+	update_syndicate_id(synd_mind, leader_title, TRUE)
 
 	if(nuke_code)
 		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
@@ -206,8 +218,18 @@ proc/issyndicate(mob/living/M as mob)
 
 	else
 		nuke_code = "code will be provided later"
-	return
 
+/datum/game_mode/proc/update_syndicate_id(var/datum/mind/synd_mind, is_leader = FALSE)
+	var/list/found_ids = synd_mind.current.search_contents_for(/obj/item/card/id)
+
+	if(LAZYLEN(found_ids))
+		for(var/obj/item/card/id/ID in found_ids)
+			ID.name = "[synd_mind.current.real_name] ID card"
+			ID.registered_name = synd_mind.current.real_name
+			if(is_leader)
+				ID.access += access_syndicate_leader
+	else
+		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
 /datum/game_mode/proc/forge_syndicate_objectives(var/datum/mind/syndicate)
 	var/datum/objective/nuclear/syndobj = new
@@ -216,6 +238,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
+	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
@@ -229,7 +252,7 @@ proc/issyndicate(mob/living/M as mob)
 	return 1337 // WHY??? -- Doohl
 
 
-/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob)
+/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 20)
 	var/radio_freq = SYND_FREQ
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
@@ -241,13 +264,12 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/initropidril(synd_mob), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/engineer(synd_mob.back), slot_in_backpack)
-
-	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(synd_mob)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
+	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
-	U.hidden_uplink.uses = 20
+	U.hidden_uplink.uses = uplink_uses
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
 	if(synd_mob.dna.species)
@@ -264,16 +286,26 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/nitrogen(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
+			if("Plasmaman")
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
+				synd_mob.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/nuclear(synd_mob), slot_wear_suit)
+				synd_mob.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear(synd_mob), slot_head)
+				synd_mob.equip_or_collect(new /obj/item/tank/plasma/plasmaman(synd_mob), slot_s_store)
+				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
+				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
+				synd_mob.update_action_buttons_icon()
+
+	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
-
 
 /datum/game_mode/nuclear/check_win()
 	if(nukes_left == 0)
@@ -383,7 +415,7 @@ proc/issyndicate(mob/living/M as mob)
 		text += "(Syndicates used [TC_uses] TC) [purchases]"
 
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
-			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
+			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
 
 		to_chat(world, text)
 	return 1
@@ -503,3 +535,5 @@ proc/issyndicate(mob/living/M as mob)
 	dat += "<hr>"
 
 	return dat
+
+#undef NUKESCALINGMODIFIER

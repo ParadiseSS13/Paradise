@@ -19,7 +19,6 @@
 	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
 	tox_mod = 0
 	clone_mod = 0
-	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
 	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NOTRANSSTING)
@@ -36,6 +35,7 @@
 
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
+	dies_at_threshold = TRUE
 	can_revive_by_healing = 1
 	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
@@ -55,6 +55,7 @@
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
+	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
 		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),

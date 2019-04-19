@@ -34,6 +34,31 @@
 	// diag_hud_set_health()
 	// update_health_hud()
 
+/mob/living/silicon/robot/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
+	. = STATUS_UPDATE_CANMOVE
+	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
+		. = STATUS_UPDATE_NONE
+
+	if(status_flags & CANSTUN || force)
+		stunned = max(amount, 0)
+		if(updating)
+			update_stat()
+	else
+		return STATUS_UPDATE_NONE
+
+/mob/living/silicon/robot/SetWeakened(amount, updating = 1, force = 0)
+	. = STATUS_UPDATE_CANMOVE
+	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
+		. = STATUS_UPDATE_NONE
+	if(status_flags & CANWEAKEN || force)
+		weakened = max(amount, 0)
+		if(updating)
+			update_stat()
+	else
+		return STATUS_UPDATE_NONE
+
 /mob/living/silicon/robot/update_revive(updating = TRUE)
 	. = ..(updating)
 	if(.)

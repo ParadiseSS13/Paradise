@@ -62,8 +62,6 @@
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
 	else
-		if(istype(W, /obj/item/stack/tape_roll))
-			return 0
 		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=[name]") //Closes the dialog
 		P = src[page]
@@ -133,7 +131,7 @@
 		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
 		+ "<body style='overflow:hidden'>" \
 		+ "<div> <img src='tmp_photo.png' width = '180'" \
-		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ]"\
+		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
 		+ "</body></html>", "window=[name]")
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
@@ -217,6 +215,7 @@
 
 
 /obj/item/paper_bundle/update_icon()
+	..()
 	if(contents.len)
 		var/obj/item/paper/P = src[1]
 		icon_state = P.icon_state

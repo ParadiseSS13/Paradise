@@ -11,10 +11,11 @@
 	var/reskinned = FALSE
 	var/reskin_selectable = TRUE			//set to FALSE if a subtype is meant to not normally be available as a reskin option (fluff ones will get re-added through their list)
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/nullrod
+	var/sanctify_force = 0
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
-	return (BRUTELOSS|FIRELOSS)
+	return BRUTELOSS|FIRELOSS
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
@@ -25,11 +26,28 @@
 					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
+/obj/item/nullrod/pickup(mob/living/user)
+	. = ..()
+	if(sanctify_force)
+		if(!user.mind || !user.mind.isholy)
+			user.adjustBruteLoss(force)
+			user.adjustFireLoss(sanctify_force)
+			user.Weaken(5)
+			user.unEquip(src, 1)
+			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
+			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
+			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+			throw_at(get_edge_target_turf(user, pick(alldirs)), rand(1, 3), 5)
+
+
 /obj/item/nullrod/attack_self(mob/user)
-	if(reskinned)
-		return
-	if(user.mind && (user.mind.assigned_role == "Chaplain" || user.mind.special_role == SPECIAL_ROLE_ERT))
+	if(user.mind && (user.mind.isholy) && !reskinned)
 		reskin_holy_weapon(user)
+
+/obj/item/nullrod/examine(mob/living/user)
+	. = ..()
+	if(sanctify_force)
+		to_chat(user, "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>")
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
 	var/list/holy_weapons_list = typesof(/obj/item/nullrod)
@@ -60,10 +78,26 @@
 		holy_weapon.reskinned = TRUE
 		M.unEquip(src)
 		M.put_in_active_hand(holy_weapon)
+		if(sanctify_force)
+			holy_weapon.sanctify_force = sanctify_force
+			holy_weapon.name = "sanctified " + holy_weapon.name
 		qdel(src)
 
-/obj/item/nullrod/fluff		//fluff subtype to be used for all donator nullrods
+/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
+	. = ..()
+	if(!sanctify_force)
+		return
+	if(isliving(AM))
+		var/mob/living/L = AM
+		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
+
+/obj/item/nullrod/fluff // fluff subtype to be used for all donator nullrods
 	reskin_selectable = FALSE
+
+/obj/item/nullrod/ert // ERT subtype, applies sanctified property to any derived rod
+	name = "inquisitor null rod"
+	reskin_selectable = FALSE
+	sanctify_force = 10
 
 /obj/item/nullrod/godhand
 	name = "god hand"
@@ -126,7 +160,7 @@
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
 /obj/item/nullrod/claymore/glowing
-	name = "force weapon"
+	name = "force blade"
 	icon_state = "swordon"
 	item_state = "swordon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
@@ -147,7 +181,7 @@
 	slot_flags = SLOT_BELT
 
 /obj/item/nullrod/claymore/saber
-	name = "light energy sword"
+	name = "light energy blade"
 	hitsound = 'sound/weapons/blade1.ogg'
 	icon_state = "swordblue"
 	item_state = "swordblue"
@@ -155,13 +189,13 @@
 	slot_flags = SLOT_BELT
 
 /obj/item/nullrod/claymore/saber/red
-	name = "dark energy sword"
+	name = "dark energy blade"
 	icon_state = "swordred"
 	item_state = "swordred"
 	desc = "Woefully ineffective when used on steep terrain."
 
 /obj/item/nullrod/claymore/saber/pirate
-	name = "nautical energy sword"
+	name = "nautical energy cutlass"
 	icon_state = "cutlass1"
 	item_state = "cutlass1"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
@@ -279,7 +313,7 @@
 
 /obj/item/nullrod/whip
 	name = "holy whip"
-	desc = "What a terrible night to be in spess"
+	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
@@ -298,11 +332,11 @@
 		if(is_shadow(H))
 			var/phrase = pick("Die monster! You don't belong in this world!!!", "You steal men's souls and make them your slaves!!!", "Your words are as empty as your soul!!!", "Mankind ill needs a savior such as you!!!")
 			user.say("[phrase]")
-			H.adjustBruteLoss(8) //Bonus damage
+			H.adjustBruteLoss(12) //Bonus damage
 
 /obj/item/nullrod/fedora
-	name = "athiest's fedora"
-	desc = "The brim of the hat is as sharp as your wit. Throwing it at someone would hurt almost as much as disproving the existence of God."
+	name = "binary fedora"
+	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
 	icon_state = "fedora"
 	item_state = "fedora"
 	slot_flags = SLOT_HEAD
@@ -310,7 +344,7 @@
 	force = 0
 	throw_speed = 4
 	throw_range = 7
-	throwforce = 20
+	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
@@ -335,7 +369,7 @@
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
+	if(user.mind && !user.mind.isholy)
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -400,24 +434,28 @@
 	..()
 	processing_objects.Add(src)
 
+/obj/item/nullrod/rosary/Destroy()
+	processing_objects.Remove(src)
+	return ..()
 
 /obj/item/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
 	if(praying)
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
+		return
 
 	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")
 
 	praying = 1
 	if(do_after(user, 150, target = M))
-		if(ishuman(M)) // This probably should not work on vulps. They're unholy abominations.
+		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
@@ -448,9 +486,8 @@
 /obj/item/nullrod/rosary/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
-
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
-			for(var/mob/living/carbon/human/H in range(5))
+			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
 					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
 					if(prob(10))
@@ -468,7 +505,7 @@
 
 /obj/item/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT ))
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -492,8 +529,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
 		//would like to make the holder mime if they have it in on thier person in general
-		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
-			for(var/mob/living/carbon/human/H in range(5))
+		if(src == holder.l_hand || src == holder.r_hand)
+			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind.assigned_role == "Clown")
 					H.Silence(10)
 					animate_fade_grayscale(H,20)

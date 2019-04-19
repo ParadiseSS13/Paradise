@@ -64,3 +64,16 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	stamina = 25
 	log_override = FALSE
+
+/obj/item/projectile/bullet/reusable/foam_dart/sniper
+	name = "foam sniper dart"
+	icon_state = "foamdartsniper"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
+	range = 30
+
+/obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
+	name = "riot sniper foam dart"
+	icon_state = "foamdartsniper_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	stamina = 100
+	log_override = FALSE

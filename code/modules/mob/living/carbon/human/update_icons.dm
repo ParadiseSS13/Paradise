@@ -147,7 +147,7 @@ var/global/list/damage_icon_parts = list()
 		E.update_icon()
 		if(E.damage_state == "00")
 			continue
-		
+
 		var/icon/DI
 		var/cache_index = "[E.damage_state]/[E.icon_name]/[dna.species.blood_color]/[dna.species.name]"
 
@@ -222,6 +222,10 @@ var/global/list/damage_icon_parts = list()
 				base_icon.Blend(temp, ICON_OVERLAY)
 
 		if(!skeleton)
+			if(isgolem(src))
+				var/datum/species/golem/G = src.dna.species
+				if(G.golem_colour)
+					base_icon.ColorTone(G.golem_colour)
 			if(husk)
 				base_icon.ColorTone(husk_color_mod)
 			else if(hulk)
@@ -239,6 +243,7 @@ var/global/list/damage_icon_parts = list()
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		human_icon_cache[icon_key] = new_base
 		standing += new_base
+
 		//END CACHED ICON GENERATION.
 
 	overlays_standing[LIMBS_LAYER] = standing
@@ -249,17 +254,20 @@ var/global/list/damage_icon_parts = list()
 	if(underwear && dna.species.clothing_flags & HAS_UNDERWEAR)
 		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
-			underwear_standing.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
+			var/u_icon = U.sprite_sheets && (dna.species.name in U.sprite_sheets) ? U.sprite_sheets[dna.species.name] : U.icon //Species-fit the undergarment.
+			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(undershirt && dna.species.clothing_flags & HAS_UNDERSHIRT)
 		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
 		if(U2)
-			underwear_standing.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
+			var/u2_icon = U2.sprite_sheets && (dna.species.name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.name] : U2.icon
+			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
 	if(socks && dna.species.clothing_flags & HAS_SOCKS)
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
-			underwear_standing.Blend(new /icon(U3.icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
+			var/u3_icon = U3.sprite_sheets && (dna.species.name in U3.sprite_sheets) ? U3.sprite_sheets[dna.species.name] : U3.icon
+			underwear_standing.Blend(new /icon(u3_icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
 
 	if(underwear_standing)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
@@ -437,7 +445,7 @@ var/global/list/damage_icon_parts = list()
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
-	
+
 
 /mob/living/carbon/human/update_mutations(var/update_icons=1)
 	remove_overlay(MUTATIONS_LAYER)
@@ -680,6 +688,8 @@ var/global/list/damage_icon_parts = list()
 		else
 			overlays_standing[GLASSES_LAYER] = new_glasses
 			apply_overlay(GLASSES_LAYER)
+
+	update_misc_effects()
 
 /mob/living/carbon/human/update_inv_ears(var/update_icons=1)
 	remove_overlay(EARS_LAYER)
@@ -1035,7 +1045,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/update_tail_layer(var/update_icons=1)
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
-							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails 
+							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
 							can still appear on the outside of uniforms and such.
 							Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
@@ -1082,7 +1092,7 @@ var/global/list/damage_icon_parts = list()
 				overlays_standing[TAIL_LAYER] = tail
 
 	else if(tail && dna.species.bodyflags & HAS_TAIL) //no tailless tajaran
-		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
+		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]_s")
 			if(dna.species.bodyflags & HAS_SKIN_COLOR)
 				tail_s.Blend(skin_colour, ICON_ADD)
@@ -1110,7 +1120,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
-							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails 
+							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
 							can still appear on the outside of uniforms and such.
 							Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 

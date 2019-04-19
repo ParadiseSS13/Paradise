@@ -219,25 +219,23 @@
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
+	if(!ishuman(M))
+		return
 
-	if(over_object == M)
+	if(over_object == M || istype(over_object, /obj/screen))
 		if(!remove_item_from_storage(M))
 			M.unEquip(src)
-		M.put_in_hands(src)
+		if(over_object != M)
+			switch(over_object.name)
+				if("r_hand")
+					M.put_in_r_hand(src)
+				if("l_hand")
+					M.put_in_l_hand(src)
+		else
+			M.put_in_hands(src)
 
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_l_hand(src)
-
-	add_fingerprint(M)
-	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+		add_fingerprint(M)
+		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
 	name = "Card Pack"
@@ -480,4 +478,5 @@
 		update_icon()
 
 /obj/item/cardhand/pickup(mob/user as mob)
+	. = ..()
 	update_icon()

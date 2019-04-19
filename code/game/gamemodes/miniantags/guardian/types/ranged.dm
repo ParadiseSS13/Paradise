@@ -6,7 +6,6 @@
 	armour_penetration = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
-	a_intent = INTENT_HELP
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10

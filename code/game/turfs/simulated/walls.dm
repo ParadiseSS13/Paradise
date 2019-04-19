@@ -127,7 +127,7 @@
 	if(devastated)
 		devastate_wall()
 	else
-		playsound(src, 'sound/items/Welder.ogg', 100, 1)
+		playsound(src, 'sound/items/welder.ogg', 100, 1)
 		var/newgirder = break_wall()
 		if(newgirder) //maybe we don't /want/ a girder!
 			transfer_fingerprints_to(newgirder)
@@ -170,12 +170,13 @@
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
-		playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-		user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
-		if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
-			return
+		if(!our_rpd.ranged)
+			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
+			user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
+			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
+				return
 		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
 		return
 	else
 		..()
@@ -199,6 +200,11 @@
 		var/number_rots = rand(2,3)
 		for(var/i=0, i<number_rots, i++)
 			new /obj/effect/overlay/wall_rot(src)
+
+/turf/simulated/wall/burn_down()
+	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
+		return
+	ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
 	var/wait = 100
@@ -268,7 +274,7 @@
 			return
 
 	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
 
@@ -279,9 +285,6 @@
 		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
 
 	if(rotting && try_rot(I, user, params))
-		return
-
-	if(thermite && try_thermite(I, user, params))
 		return
 
 	if(try_decon(I, user, params))
@@ -313,20 +316,6 @@
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
-	return FALSE
-
-/turf/simulated/wall/proc/try_thermite(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			thermitemelt(user)
-			return TRUE
-
-	else if(istype(I, /obj/item/gun/energy/plasmacutter))
-		thermitemelt(user)
-		return TRUE
-
-
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)

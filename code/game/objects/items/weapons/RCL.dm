@@ -85,6 +85,7 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
+	..()
 
 /obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = 1)
 	update_icon()

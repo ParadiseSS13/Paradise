@@ -78,6 +78,7 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
+	R.add_language("Neo-Russkiya", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -143,6 +144,7 @@
 	modules += new /obj/item/robotanalyzer(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo(src)
 	modules += new /obj/item/reagent_containers/glass/beaker/large(src)
@@ -153,15 +155,15 @@
 	modules += new /obj/item/stack/medical/ointment/advanced(src)
 	modules += new /obj/item/stack/medical/splint(src)
 	modules += new /obj/item/stack/nanopaste(src)
-	modules += new /obj/item/scalpel(src)
+	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
 	modules += new /obj/item/retractor(src)
-	modules += new /obj/item/cautery(src)
 	modules += new /obj/item/bonegel(src)
 	modules += new /obj/item/FixOVein(src)
 	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/circular_saw(src)
 	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/gripper/medical(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -330,6 +332,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
+	R.add_language("Neo-Russkiya", 1)
 
 
 /obj/item/robot_module/miner
@@ -408,7 +411,9 @@
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
+	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
 	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
 	modules += new /obj/item/extinguisher/mini(src)
@@ -416,19 +421,60 @@
 	modules += new /obj/item/stack/medical/ointment/advanced(src)
 	modules += new /obj/item/stack/medical/splint(src)
 	modules += new /obj/item/stack/nanopaste(src)
-	modules += new /obj/item/scalpel(src)
+	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
 	modules += new /obj/item/retractor(src)
-	modules += new /obj/item/cautery(src)
 	modules += new /obj/item/bonegel(src)
 	modules += new /obj/item/FixOVein(src)
 	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/gripper/medical(src)
+	modules += new /obj/item/gun/medbeam(src)
 	modules += new /obj/item/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
 	emag = null
+
+	fix_modules()
+
+/obj/item/robot_module/syndicate_saboteur
+	name = "engineering robot module" //to disguise in examine
+	module_type = "Malf"
+
+	stacktypes = list(
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/sheet/glass/cyborg = 50,
+		/obj/item/stack/sheet/rglass/cyborg = 50,
+		/obj/item/stack/cable_coil/cyborg = 50,
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20
+		)
+
+/obj/item/robot_module/syndicate_saboteur/New()
+	..()
+	modules += new /obj/item/rcd/borg/syndicate(src)
+	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/melee/energy/sword/cyborg(src)
+	modules += new /obj/item/card/emag(src)
+	modules += new /obj/item/borg_chameleon(src)
+	modules += new /obj/item/pinpointer/operative(src)
+	emag = null
+
+	for(var/T in stacktypes)
+		var/obj/item/stack/sheet/W = new T(src)
+		W.amount = stacktypes[T]
+		modules += W
 
 	fix_modules()
 
@@ -440,22 +486,6 @@
 	)
 
 /obj/item/robot_module/combat/New()
-	..()
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/gun/energy/gun/cyborg(src)
-	modules += new /obj/item/pickaxe/drill/jackhammer(src)
-	modules += new /obj/item/borg/combat/shield(src)
-	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	emag = new /obj/item/gun/energy/lasercannon/cyborg(src)
-
-	fix_modules()
-
-/obj/item/robot_module/nations
-	name = "nations robot module"
-	module_type = "Malf"
-
-/obj/item/robot_module/nations/New()
 	..()
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/gun/energy/gun/cyborg(src)

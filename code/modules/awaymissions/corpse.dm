@@ -33,6 +33,7 @@
 
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
+	var/mob/dead/observer/O = user
 	if(ticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
@@ -40,6 +41,12 @@
 		return
 	if(jobban_isbanned(user, banType))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return
+	if(cannotPossess(user))
+		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
+	if(!O.can_reenter_corpse)
+		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return
@@ -242,7 +249,7 @@
 
 
 /obj/effect/mob_spawn/human/alive
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
@@ -256,7 +263,7 @@
 	mob_type = 	/mob/living/simple_animal/mouse
 	death = FALSE
 	roundstart = FALSE
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Squeak!"
 
@@ -267,7 +274,7 @@
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
 
@@ -306,7 +313,7 @@
 	roundstart = FALSE
 	random = TRUE
 	name = "sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "<span class='big bold'>You are a space doctor!</span>"
 	assignedrole = "Space Doctor"
@@ -351,7 +358,7 @@
 
 /obj/effect/mob_spawn/human/clown/Initialize()
 	mob_name = pick(GLOB.clown_names)
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
 	name = "Clown Soldier"
@@ -359,7 +366,7 @@
 
 /obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
 	mob_name = "Officer [pick(GLOB.clown_names)]"
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownoff
 	name = "Clown Officer"
@@ -367,7 +374,7 @@
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
-	..()
+	return ..()
 
 
 /datum/outfit/clownsoldier
@@ -398,7 +405,7 @@
 
 /obj/effect/mob_spawn/human/mime/Initialize()
 	mob_name = pick(GLOB.mime_names)
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
@@ -437,7 +444,7 @@
 	roundstart = FALSE
 	random = TRUE
 	name = "bartender sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
 	assignedrole = "Space Bartender"
@@ -461,7 +468,7 @@
 	random = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "You are a beach bum!"
 	assignedrole = "Beach Bum"

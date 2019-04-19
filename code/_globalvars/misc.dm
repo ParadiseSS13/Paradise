@@ -1,6 +1,5 @@
 var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
-var/global/obj/effect/overlay/icemaster = null
 
 // Event Manager, the manager for events.
 var/datum/event_manager/event_manager = new()
@@ -79,3 +78,8 @@ GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the hos
 var/fileaccess_timer = 0
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
+
+//printers shutdown if too much shit printed
+var/copier_items_printed = 0
+var/copier_max_items = 300
+var/copier_items_printed_logged = FALSE

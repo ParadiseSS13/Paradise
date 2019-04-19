@@ -16,13 +16,13 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 
-	var/freq = 1449		// radio frequency
+	var/freq = AIRLOCK_FREQ		// radio frequency
 	var/electricity_level = 1 // intensity of the magnetic pull
 	var/magnetic_field = 1 // the range of magnetic attraction
 	var/code = 0 // frequency code, they should be different unless you have a group of magnets working together or something
 	var/turf/center // the center of magnetic attraction
 	var/on = 0
-	var/pulling = 0
+	var/magpulling = 0
 
 	// x, y modifiers to the center turf; (0, 0) is centered on the magnet, whereas (1, -1) is one tile right, one tile down
 	var/center_x = 0
@@ -154,10 +154,10 @@
 
 
 /obj/machinery/magnetic_module/proc/magnetic_process() // proc that actually does the pulling
-	if(pulling) return
+	if(magpulling) return
 	while(on)
 
-		pulling = 1
+		magpulling = 1
 		center = locate(x+center_x, y+center_y, z)
 		if(center)
 			for(var/obj/M in orange(magnetic_field, center))
@@ -171,7 +171,7 @@
 		use_power(electricity_level * 5)
 		sleep(13 - electricity_level)
 
-	pulling = 0
+	magpulling = 0
 
 /obj/machinery/magnetic_controller
 	name = "Magnetic Control Console"
@@ -181,7 +181,7 @@
 	anchored = 1.0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
-	var/frequency = 1449
+	var/frequency = AIRLOCK_FREQ
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"

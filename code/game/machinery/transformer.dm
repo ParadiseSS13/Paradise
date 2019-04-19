@@ -59,7 +59,7 @@
 		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		return
 
-	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 	H.emote("scream") // It is painful
 	H.adjustBruteLoss(max(0, 80 - H.getBruteLoss())) // Hurt the human, don't try to kill them though.
 
@@ -133,7 +133,7 @@
 		return
 
 	// Crossed didn't like people lying down.
-	if(isobject(AM))
+	if(isatom(AM))
 		AM.loc = src.loc
 		do_transform_mime(AM)
 	else
@@ -146,7 +146,7 @@
 	if(cooldown == 1)
 		return
 
-	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 	// Sleep for a couple of ticks to allow the human to see the pain
 	sleep(5)
 	use_power(5000) // Use a lot of power.
@@ -221,7 +221,7 @@
 			AM.loc = src.loc
 			irradiate(AM)
 
-	else if(isobject(AM))
+	else if(isatom(AM))
 		AM.loc = src.loc
 		scan(AM)
 

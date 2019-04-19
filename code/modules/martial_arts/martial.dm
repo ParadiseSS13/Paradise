@@ -6,6 +6,8 @@
 	var/temporary = 0
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
+	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
+	var/restraining = 0 //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
@@ -21,6 +23,9 @@
 
 /datum/martial_art/proc/help_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	return 0
+
+/datum/martial_art/proc/can_use(mob/living/carbon/human/H)
+	return TRUE
 
 /datum/martial_art/proc/add_to_streak(var/element,var/mob/living/carbon/human/D)
 	if(D != current_target)
@@ -143,6 +148,7 @@
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
+
 	if(!used)
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
@@ -162,6 +168,14 @@
 /obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
+	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
+		if(user.mind && user.mind.changeling) //Changelings
+			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
+			return
+		else //Vampires
+			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
+			return
+
 	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
 					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
 					However, you are also unable to use any ranged weaponry. \
@@ -172,6 +186,24 @@
 	theSleepingCarp.teach(user)
 	user.drop_item()
 	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
+/obj/item/CQC_manual
+	name = "old manual"
+	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "cqcmanual"
+
+/obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+
+	var/datum/martial_art/cqc/CQC = new(null)
+	CQC.teach(user)
+	user.drop_item()
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
@@ -235,7 +267,7 @@
 				H.Weaken(4)
 			if(H.staminaloss && !H.sleeping)
 				var/total_health = (H.health - H.staminaloss)
-				if(total_health <= config.health_threshold_crit && !H.stat)
+				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(30)
