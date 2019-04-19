@@ -681,24 +681,6 @@ var/list/admin_verbs_ticket = list(
 
 	feedback_add_details("admin_verb","OT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/kill_air() // -- TLE
-	set category = "Debug"
-	set name = "Kill Air"
-	set desc = "Toggle Air Processing"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(SSair.air_processing_killed)
-		SSair.air_processing_killed = 0
-		to_chat(usr, "<b>Enabled air processing.</b>")
-	else
-		SSair.air_processing_killed = 1
-		to_chat(usr, "<b>Disabled air processing.</b>")
-	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] used 'kill air'.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] used 'kill air'.</span>", 1)
-
 /client/proc/deadmin_self()
 	set name = "De-admin self"
 	set category = "Admin"
