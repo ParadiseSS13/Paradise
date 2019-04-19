@@ -635,7 +635,7 @@
 			var/datum/martial_art/M = i
 			artnames[initial(M.name)] = M
 
-		var/result = input(usr, "Choose the martial art to teach","JUDO CHOP") as null|anything in artnames
+		var/result = input(usr, "Choose the martial art to teach", "JUDO CHOP") as null|anything in artnames
 		if(!usr)
 			return
 		if(QDELETED(C))
