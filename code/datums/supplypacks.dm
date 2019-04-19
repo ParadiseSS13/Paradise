@@ -1102,7 +1102,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Cat Crate"
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(/obj/item/clothing/accessory/petcollar,
+					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
 /datum/supply_packs/organic/pug
@@ -1205,7 +1206,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/honey_frame,
 					/obj/item/queen_bee/bought,
 					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit)
+					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/melee/flyswatter)
 	cost = 15
 	containername = "beekeeping starter kit"
 

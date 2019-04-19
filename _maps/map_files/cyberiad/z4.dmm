@@ -846,38 +846,23 @@
 /area/constructionsite/hallway/center)
 "cl" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk6";
-	icon_state = "catwalk6"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "cm" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "cn" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk14";
-	icon_state = "catwalk14"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "co" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cp" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk10";
-	icon_state = "catwalk10"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "cq" = (
 /obj/structure/inflatable/door,
@@ -885,17 +870,11 @@
 /area/constructionsite/hallway/center)
 "cr" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "cs" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "ct" = (
 /obj/machinery/power/solar,
@@ -914,10 +893,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cv" = (
 /obj/machinery/power/tracker,
@@ -941,10 +917,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cx" = (
 /obj/machinery/power/solar,
@@ -983,10 +956,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cB" = (
 /obj/structure/cable{
@@ -1005,10 +975,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cC" = (
 /turf/simulated/wall/r_wall,
@@ -1080,17 +1047,11 @@
 /area/constructionsite/ai)
 "cL" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk6";
-	icon_state = "catwalk6"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cM" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk9";
-	icon_state = "catwalk9"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cN" = (
 /obj/structure/cable{
@@ -1104,10 +1065,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cO" = (
 /obj/structure/cable{
@@ -1126,24 +1084,15 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cP" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk5";
-	icon_state = "catwalk5"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cQ" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk10";
-	icon_state = "catwalk10"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cR" = (
 /obj/machinery/light_switch{
@@ -1160,10 +1109,7 @@
 /area/engiestation)
 "cT" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "cU" = (
 /obj/structure/lattice,
@@ -1326,10 +1272,7 @@
 /area/constructionsite/ai)
 "do" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk7";
-	icon_state = "catwalk7"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dp" = (
 /obj/structure/cable{
@@ -1343,10 +1286,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dq" = (
 /obj/structure/cable{
@@ -1366,10 +1306,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dr" = (
 /obj/structure/cable{
@@ -1389,10 +1326,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk8";
-	icon_state = "catwalk8"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "ds" = (
 /obj/effect/spawner/window/reinforced,
@@ -1504,10 +1438,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk4";
-	icon_state = "catwalk4"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dz" = (
 /obj/structure/cable{
@@ -1527,10 +1458,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dA" = (
 /obj/structure/cable{
@@ -1544,17 +1472,11 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dB" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk11";
-	icon_state = "catwalk11"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dC" = (
 /obj/machinery/recharge_station,
@@ -1708,10 +1630,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dT" = (
 /obj/structure/cable{
@@ -1726,10 +1645,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dU" = (
 /obj/structure/cable{
@@ -1744,10 +1660,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk8";
-	icon_state = "catwalk8"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dV" = (
 /obj/structure/cable{
@@ -1804,10 +1717,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk4";
-	icon_state = "catwalk4"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "eb" = (
 /obj/structure/cable{
@@ -1822,10 +1732,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "ec" = (
 /obj/structure/cable{
@@ -1834,10 +1741,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "ed" = (
 /obj/item/stack/sheet/metal{
@@ -1978,10 +1882,7 @@
 /area/engiestation)
 "em" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "en" = (
 /obj/machinery/vending/tool,
@@ -2020,10 +1921,7 @@
 /area/constructionsite/ai)
 "es" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk9";
-	icon_state = "catwalk9"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "et" = (
 /obj/machinery/door/airlock/maintenance{
@@ -2332,10 +2230,7 @@
 /area/engiestation)
 "fi" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk2";
-	icon_state = "catwalk2"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "fj" = (
 /obj/machinery/vending/cola,
@@ -2636,18 +2531,12 @@
 /area/engiestation)
 "fQ" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk5";
-	icon_state = "catwalk5"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "fR" = (
 /obj/item/lighter/zippo,
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk8";
-	icon_state = "catwalk8"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "fS" = (
 /obj/machinery/shower{
@@ -2742,10 +2631,7 @@
 /area/engiestation)
 "gc" = (
 /turf/simulated/floor/plating/airless,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk4";
-	icon_state = "catwalk4"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "gd" = (
 /obj/structure/lattice,

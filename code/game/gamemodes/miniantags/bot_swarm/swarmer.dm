@@ -29,7 +29,7 @@
 	3. Biological resources will be harvested at a later date; do not harm them.
 	"}
 
-/obj/effect/mob_spawn/swarmer/Initialize()
+/obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
@@ -49,7 +49,7 @@
 		new /obj/item/deactivated_swarmer(get_turf(src))
 		qdel(src)
 	else
-		..()
+		return ..()
 
 ////The Mob itself////
 

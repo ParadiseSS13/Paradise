@@ -184,12 +184,12 @@
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
-		/obj/item/mining_voucher = 1,
-		/obj/item/storage/bag/ore = 1,
-		/obj/item/survivalcapsule = 1,
-		/obj/item/stack/marker_beacon/ten = 1
+		/obj/item/storage/bag/ore=1,\
+		/obj/item/kitchen/knife/combat/survival=1,\
+		/obj/item/mining_voucher=1,\
+		/obj/item/stack/marker_beacon/ten=1
 	)
-
+	
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/explorer
 

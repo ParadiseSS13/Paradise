@@ -125,10 +125,23 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	var/static/list/can_strengthen_clothing
+
+/obj/item/stack/sheet/animalhide/goliath_hide/Initialize(mapload)
+	. = ..()
+	if(!can_strengthen_clothing)
+		can_strengthen_clothing = typecacheof(list(
+			/obj/item/clothing/suit/space/hardsuit/mining,
+			/obj/item/clothing/head/helmet/space/hardsuit/mining,
+			/obj/item/clothing/suit/space/eva/plasmaman/miner,
+			/obj/item/clothing/head/helmet/space/eva/plasmaman/miner,
+			/obj/item/clothing/suit/hooded/explorer,
+			/obj/item/clothing/head/hooded/explorer
+		))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag)
-		if(istype(target, /obj/item/clothing/suit/space/hardsuit/mining) || istype(target, /obj/item/clothing/head/helmet/space/hardsuit/mining) || istype(target, /obj/item/clothing/suit/space/eva/plasmaman/miner) || istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman/miner) || istype(target, /obj/item/clothing/suit/hooded/explorer) || istype(target, /obj/item/clothing/head/hooded/explorer))
+		if(is_type_in_typecache(target, can_strengthen_clothing))
 			var/obj/item/clothing/C = target
 			var/current_armor = C.armor
 			if(current_armor["melee"] < 60)

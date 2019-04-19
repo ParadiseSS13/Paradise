@@ -247,9 +247,9 @@
 		transform = size_matrix //scale the bleed overlay's size based on the target's icon size
 	var/matrix/M = transform
 	if(shrink)
-		M = size_matrix*0.1
+		M = size_matrix * 0.1
 	else
-		M = size_matrix*2
+		M = size_matrix * 2
 	animate(src, alpha = 20, transform = M, time = duration, flags = ANIMATION_PARALLEL)
 
 /obj/effect/temp_visual/bleed/explode

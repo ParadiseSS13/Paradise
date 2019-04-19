@@ -89664,10 +89664,7 @@
 	req_access_txt = "13"
 	},
 /turf/space,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk0";
-	icon_state = "catwalk0"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "ddY" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -95257,10 +95254,7 @@
 /area/crew_quarters/captain)
 "doE" = (
 /turf/space,
-/obj/structure/lattice/catwalk{
-	tag = "icon-catwalk0";
-	icon_state = "catwalk0"
-	},
+/obj/structure/lattice/catwalk,
 /area/space)
 "doF" = (
 /turf/simulated/floor/plating,

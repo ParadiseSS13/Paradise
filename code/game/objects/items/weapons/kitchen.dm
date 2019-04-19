@@ -179,6 +179,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
+	materials = list()
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"

@@ -388,7 +388,8 @@
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
-		/obj/item/holosign_creator
+		/obj/item/holosign_creator,
+		/obj/item/melee/flyswatter,
 		)
 
 /obj/item/storage/belt/janitor/full/New()
@@ -399,6 +400,7 @@
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
+	new /obj/item/melee/flyswatter(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus

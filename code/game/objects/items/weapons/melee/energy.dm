@@ -263,7 +263,7 @@
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
-	sharp = 1
+	sharp = TRUE
 	faction_bonus_force = 30
 	nemesis_factions = list("mining", "boss")
 	var/transform_cooldown
@@ -337,6 +337,8 @@
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	transform_cooldown = 0
+	transform_weapon(user, TRUE)
 	return BRUTELOSS
 
 /obj/item/melee/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
