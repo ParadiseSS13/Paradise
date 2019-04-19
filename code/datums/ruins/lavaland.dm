@@ -12,13 +12,14 @@
 	Comes with a rustic wooden bar and suicidal bartender."
 	suffix = "lavaland_biodome_beach.dmm"
 
-/datum/map_template/ruin/lavaland/hierophant
-	name = "Hierophant's Arena"
-	id = "hierophant"
-	description = "A strange, square chunk of metal of massive size. Inside awaits only death and many, many squares."
-	suffix = "lavaland_surface_hierophant.dmm"
+/datum/map_template/ruin/lavaland/seed_vault
+	name = "Seed Vault"
+	id = "seed-vault"
+	description = "The creators of these vaults were a highly advanced and benevolent race, and launched many into the stars, hoping to aid fledgling civilizations. \
+	However, all the inhabitants seem to do is grow drugs and guns."
+	suffix = "lavaland_surface_seed_vault.dmm"
+	cost = 10
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
@@ -45,30 +46,13 @@ datum/map_template/ruin/lavaland/ash_walker
 	suffix = "lavaland_surface_animal_hospital.dmm"
 	allow_duplicates = FALSE
 
-/datum/map_template/ruin/lavaland/seed_vault
-	name = "Seed Vault"
-	id = "seed-vault"
-	description = "The creators of these vaults were a highly advanced and benevolent race, and launched many into the stars, hoping to aid fledgling civilizations. \
-	However, all the inhabitants seem to do is grow drugs and guns."
-	suffix = "lavaland_surface_seed_vault.dmm"
-	cost = 10
+/datum/map_template/ruin/lavaland/hierophant
+	name = "Hierophant's Arena"
+	id = "hierophant"
+	description = "A strange, square chunk of metal of massive size. Inside awaits only death and many, many squares."
+	suffix = "lavaland_surface_hierophant.dmm"
 	allow_duplicates = FALSE
-
-/datum/map_template/ruin/lavaland/hermit
-	name = "Makeshift Shelter"
-	id = "hermitcave"
-	description = "A place of shelter for a lone hermit, scraping by to live another day."
-	suffix = "lavaland_surface_hermit.dmm"
-	allow_duplicates = FALSE
-	cost = 10
-
-/datum/map_template/ruin/lavaland/swarmer_boss
-	name = "Crashed Shuttle"
-	id = "swarmerboss"
-	description = "A Syndicate shuttle had an unfortunate stowaway..."
-	suffix = "lavaland_surface_swarmer_crash.dmm"
-	allow_duplicates = FALSE
-	cost = 20
+	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner
 	name = "Blood-Drunk Miner"
@@ -85,3 +69,19 @@ datum/map_template/ruin/lavaland/ash_walker
 /datum/map_template/ruin/lavaland/blood_drunk_miner/hunter
 	name = "Blood-Drunk Miner (Hunter)"
 	suffix = "lavaland_surface_blooddrunk3.dmm"
+
+/datum/map_template/ruin/lavaland/hermit
+	name = "Makeshift Shelter"
+	id = "hermitcave"
+	description = "A place of shelter for a lone hermit, scraping by to live another day."
+	suffix = "lavaland_surface_hermit.dmm"
+	allow_duplicates = FALSE
+	cost = 10
+
+/datum/map_template/ruin/lavaland/swarmer_boss
+	name = "Crashed Shuttle"
+	id = "swarmerboss"
+	description = "A Syndicate shuttle had an unfortunate stowaway..."
+	suffix = "lavaland_surface_swarmer_crash.dmm"
+	allow_duplicates = FALSE
+	cost = 20
