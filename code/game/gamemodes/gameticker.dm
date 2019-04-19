@@ -134,8 +134,6 @@ var/round_start_time = 0
 	else
 		src.mode.announce()
 
-	setupfactions()
-	setup_economy()
 	create_characters() //Create player characters and transfer them
 	populate_spawn_points()
 	collect_minds()
@@ -148,6 +146,7 @@ var/round_start_time = 0
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
+	setupfactions()
 
 	//shuttle_controller.setup_shuttle_docks()
 
