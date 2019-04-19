@@ -146,13 +146,12 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
 
-	if(H.mind)
+	if(H.mind)//would like this all on one line but it dosen't like me useing &&
 		if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
 			H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
 			H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard(H), slot_head)
-	else
-		H.equip_or_collect(new suit(H), slot_wear_suit)
-		H.equip_or_collect(new helm(H), slot_head)
+	H.equip_or_collect(new suit(H), slot_wear_suit)
+	H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new /obj/item/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
 	H.equip_or_collect(new /obj/item/plasmensuit_cartridge(H), slot_in_backpack)
 	H.equip_or_collect(new /obj/item/plasmensuit_cartridge(H), slot_in_backpack) //Two refill cartridges for their suit. Can fit in boxes.

@@ -799,9 +799,8 @@ The _flatIcons list is a cache for generated icon files.
 			. = cleaned
 		else
 			. = icon(flat, "", SOUTH)
-	else	//There's no overlays.
-		if(!noIcon)
-			SET_SELF(.)
+	else if(!noIcon)	//There's no overlays.
+		SET_SELF(.)
 
 	//Clear defines
 	#undef flatX1
