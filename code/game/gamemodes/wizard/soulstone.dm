@@ -39,7 +39,7 @@
 	optional = TRUE
 
 /obj/item/soulstone/pickup(mob/living/user)
-	..()
+	. = ..()
 	if(!can_use(user))
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up the soulstone. It would be wise to be rid of this quickly.</span>")
 		user.Dizzy(120)

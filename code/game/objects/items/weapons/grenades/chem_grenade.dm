@@ -235,7 +235,7 @@
 		nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/pickup()
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
@@ -445,6 +445,23 @@
 	beakers += B2
 	update_icon()
 
+
+/obj/item/grenade/chem_grenade/firefighting
+	payload_name = "fire fighting grenade"
+	desc = "Can help to put out dangerous fires from a distance."
+	stage = READY
+
+/obj/item/grenade/chem_grenade/firefighting/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+
+	B1.reagents.add_reagent("firefighting_foam", 30)
+	B2.reagents.add_reagent("firefighting_foam", 30)
+
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 /obj/item/grenade/chem_grenade/incendiary
 	payload_name = "incendiary"

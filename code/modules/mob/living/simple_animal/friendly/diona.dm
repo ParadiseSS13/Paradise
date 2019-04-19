@@ -32,7 +32,7 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/misc/nymphchirp.ogg' //used in emote
+	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
 	speed = 0
 	stop_automated_movement = 0
@@ -72,8 +72,8 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Steal blood"
-	icon_icon = 'icons/obj/bloodpack.dmi'
-	button_icon_state = "full"
+	icon_icon = 'icons/goonstation/objects/iv.dmi'
+	button_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -109,6 +109,8 @@
 			forceMove(M)
 		else
 			get_scooped(M)
+	else 
+		..()
 
 /mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)
@@ -278,5 +280,7 @@
 			message = "<B>\The [src]</B> chirps!"
 			m_type = 2 //audible
 			playsound(src, chirp_sound, 40, 1, 1)
+		if("help")
+			to_chat(src, "scream, chirp")
 
 	..(act, m_type, message)

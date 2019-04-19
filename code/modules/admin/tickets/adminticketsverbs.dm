@@ -1,8 +1,8 @@
 //Verbs
 
-/client/proc/openTicketUI()
+/client/proc/openAdminTicketUI()
 
-	set name = "Open Ticket Interface"
+	set name = "Open Admin Ticket Interface"
 	set category = "Admin"
 
 	if(!holder || !check_rights(R_ADMIN))
@@ -10,8 +10,8 @@
 
 	SStickets.showUI(usr)
 
-/client/proc/resolveAllTickets()
-	set name = "Resolve All Open Tickets"
+/client/proc/resolveAllAdminTickets()
+	set name = "Resolve All Open Admin Tickets"
 	set category = "Admin"
 
 	if(!holder || !check_rights(R_ADMIN))
@@ -22,12 +22,7 @@
 
 	SStickets.resolveAllOpenTickets()
 
-/client/proc/openUserUI()
-
-	set name = "My Tickets"
+/client/verb/openAdminUserUI()
+	set name = "My Admin Tickets"
 	set category = "Admin"
-
-	if(!holder || !check_rights(R_ADMIN))
-		return
-
 	SStickets.userDetailUI(usr)

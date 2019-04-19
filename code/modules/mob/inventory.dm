@@ -35,7 +35,7 @@
 /mob/proc/put_in_l_hand(var/obj/item/W)
 	if(!put_in_hand_check(W))
 		return 0
-	if(!l_hand)
+	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
 		W.layer = 20	//TODO: move to equipped?
@@ -51,7 +51,7 @@
 /mob/proc/put_in_r_hand(var/obj/item/W)
 	if(!put_in_hand_check(W))
 		return 0
-	if(!r_hand)
+	if(!r_hand && has_right_hand())
 		W.forceMove(src)
 		r_hand = W
 		W.layer = 20
@@ -153,26 +153,50 @@
 
 
 //Outdated but still in use apparently. This should at least be a human proc.
-/mob/proc/get_equipped_items()
-	var/list/items = new/list()
+//Daily reminder to murder this - Remie.
+/mob/proc/get_equipped_items(include_pockets = FALSE)
+	var/list/items = list()
+	if(back)
+		items += back
+	if(wear_mask)
+		items += wear_mask
+	return items
 
-	if(hasvar(src,"back")) if(src:back) items += src:back
-	if(hasvar(src,"belt")) if(src:belt) items += src:belt
-	if(hasvar(src,"l_ear")) if(src:l_ear) items += src:l_ear
-	if(hasvar(src,"r_ear")) if(src:r_ear) items += src:r_ear
-	if(hasvar(src,"glasses")) if(src:glasses) items += src:glasses
-	if(hasvar(src,"gloves")) if(src:gloves) items += src:gloves
-	if(hasvar(src,"head")) if(src:head) items += src:head
-	if(hasvar(src,"shoes")) if(src:shoes) items += src:shoes
-	if(hasvar(src,"wear_id")) if(src:wear_id) items += src:wear_id
-	if(hasvar(src,"wear_mask")) if(src:wear_mask) items += src:wear_mask
-	if(hasvar(src,"wear_suit")) if(src:wear_suit) items += src:wear_suit
-//	if(hasvar(src,"w_radio")) if(src:w_radio) items += src:w_radio  commenting this out since headsets go on your ears now PLEASE DON'T BE MAD KEELIN
-	if(hasvar(src,"w_uniform")) if(src:w_uniform) items += src:w_uniform
+/mob/living/carbon/get_equipped_items(include_pockets = FALSE)
+	var/list/items = ..()
+	if(wear_suit)
+		items += wear_suit
+	if(head)
+		items += head
+	return items
 
-	//if(hasvar(src,"l_hand")) if(src:l_hand) items += src:l_hand
-	//if(hasvar(src,"r_hand")) if(src:r_hand) items += src:r_hand
-
+/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)
+	var/list/items = ..()
+	if(belt)
+		items += belt
+	if(l_ear)
+		items += l_ear
+	if(r_ear)
+		items += r_ear
+	if(glasses)
+		items += glasses
+	if(gloves)
+		items += gloves
+	if(shoes)
+		items += shoes
+	if(wear_id)
+		items += wear_id
+	if(wear_pda)
+		items += wear_pda
+	if(w_uniform)
+		items += w_uniform
+	if(include_pockets)
+		if(l_store)
+			items += l_store
+		if(r_store)
+			items += r_store
+		if(s_store)
+			items += s_store
 	return items
 
 /obj/item/proc/equip_to_best_slot(mob/M)

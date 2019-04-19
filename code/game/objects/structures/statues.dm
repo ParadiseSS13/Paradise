@@ -169,6 +169,7 @@
 	icon_state = "xeno"
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -255,18 +256,18 @@
 /obj/structure/statue/diamond
 	hardness = 10
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
-	desc = "This is a very expensive diamond statue"
+	desc = "This is a very expensive diamond statue."
 
 /obj/structure/statue/diamond/captain
-	name = "statue of THE captain."
+	name = "statue of THE captain"
 	icon_state = "cap"
 
 /obj/structure/statue/diamond/ai1
-	name = "statue of the AI hologram."
+	name = "statue of the AI hologram"
 	icon_state = "ai1"
 
 /obj/structure/statue/diamond/ai2
-	name = "statue of the AI core."
+	name = "statue of the AI core"
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
@@ -359,7 +360,8 @@
 	else
 		return ..()
 
-/obj/structure/snowman/built/fire_act()
+/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	qdel(src)
 
 

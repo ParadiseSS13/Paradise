@@ -16,7 +16,7 @@
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
 						"<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
-	return (BRUTELOSS|FIRELOSS)
+	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
 	if(user.disabilities & CLUMSY && prob(50))
@@ -81,7 +81,7 @@
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS|FIRELOSS)
+	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/sword
 	name = "energy sword"

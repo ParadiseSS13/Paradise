@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Underwear no can no longer lock up the character creator."

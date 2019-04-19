@@ -28,6 +28,9 @@ var/round_start_time = 0
 	var/list/factions = list()			  // list of all factions
 	var/list/availablefactions = list()	  // list of factions with openings
 
+	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
+	var/selected_tip	// What will be the tip of the day?
+
 	var/pregame_timeleft = 0
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
 
@@ -63,6 +66,10 @@ var/round_start_time = 0
 			sleep(10)
 			if(going)
 				pregame_timeleft--
+
+			if(pregame_timeleft <= 60 && !tipped)
+				send_tip_of_the_round()
+				tipped = TRUE
 
 			if(pregame_timeleft <= 0)
 				current_state = GAME_STATE_SETTING_UP
@@ -385,6 +392,20 @@ var/round_start_time = 0
 			if(!istype(M,/mob/new_player))
 				to_chat(M, "Captainship not forced on anyone.")
 
+/datum/controller/gameticker/proc/send_tip_of_the_round()
+	var/m
+	if(selected_tip)
+		m = selected_tip
+	else
+		var/list/randomtips = file2list("strings/tips.txt")
+		var/list/memetips = file2list("strings/sillytips.txt")
+		if(randomtips.len && prob(95))
+			m = pick(randomtips)
+		else if(memetips.len)
+			m = pick(memetips)
+
+	if(m)
+		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
 /datum/controller/gameticker/proc/process()
 	if(current_state != GAME_STATE_PLAYING)
@@ -468,6 +489,16 @@ var/round_start_time = 0
 
 	if(dronecount)
 		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+
+	if(ticker.mode.eventmiscs.len)
+		var/emobtext = ""
+		for(var/datum/mind/eventmind in ticker.mode.eventmiscs)
+			emobtext += printeventplayer(eventmind)
+			emobtext += "<br>"
+			emobtext += printobjectives(eventmind)
+			emobtext += "<br>"
+		emobtext += "<br>"
+		to_chat(world, emobtext)
 
 	mode.declare_completion()//To declare normal completion.
 

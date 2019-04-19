@@ -8,10 +8,10 @@
 	butt_sprite = "grey"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/grey,
+		"lungs" =    /obj/item/organ/internal/lungs/grey,
 		"liver" =    /obj/item/organ/internal/liver/grey,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"kidneys" =  /obj/item/organ/internal/kidneys/grey,
 		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
@@ -56,6 +56,9 @@
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")
-		H.reagents.del_reagent(R.id)
-		return 0
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return FALSE
+	if(R.id == "water")
+		H.adjustFireLoss(1)
+		return TRUE
 	return ..()

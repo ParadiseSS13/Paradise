@@ -112,6 +112,7 @@
 	icon_state = "medicalbelt"
 	item_state = "medical"
 	use_item_overlays = 1
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
@@ -133,6 +134,7 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/handheld_defibrillator
 	)
 
 /obj/item/storage/belt/medical/surgery

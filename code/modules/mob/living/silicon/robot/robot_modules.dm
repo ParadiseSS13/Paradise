@@ -78,6 +78,7 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
+	R.add_language("Neo-Russkiya", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -143,6 +144,7 @@
 	modules += new /obj/item/robotanalyzer(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo(src)
 	modules += new /obj/item/reagent_containers/glass/beaker/large(src)
@@ -330,6 +332,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
+	R.add_language("Neo-Russkiya", 1)
 
 
 /obj/item/robot_module/miner
@@ -410,6 +413,7 @@
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
 	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
 	modules += new /obj/item/extinguisher/mini(src)
@@ -425,6 +429,7 @@
 	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/gripper/medical(src)
+	modules += new /obj/item/gun/medbeam(src)
 	modules += new /obj/item/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
@@ -481,22 +486,6 @@
 	)
 
 /obj/item/robot_module/combat/New()
-	..()
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/gun/energy/gun/cyborg(src)
-	modules += new /obj/item/pickaxe/drill/jackhammer(src)
-	modules += new /obj/item/borg/combat/shield(src)
-	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	emag = new /obj/item/gun/energy/lasercannon/cyborg(src)
-
-	fix_modules()
-
-/obj/item/robot_module/nations
-	name = "nations robot module"
-	module_type = "Malf"
-
-/obj/item/robot_module/nations/New()
 	..()
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/gun/energy/gun/cyborg(src)

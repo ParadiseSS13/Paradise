@@ -4,6 +4,7 @@
 	icon_state = "blank_blob"
 	health = 100
 	fire_resist = 2
+	point_return = 18
 	var/mob/camera/blob/overmind
 
 /obj/structure/blob/node/New(loc, var/h = 100)
@@ -20,7 +21,7 @@
 	var/image/C = new('icons/mob/blob.dmi', "blob_node_overlay")
 	src.overlays += C
 
-/obj/structure/blob/node/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/node/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/structure/blob/node/Destroy()

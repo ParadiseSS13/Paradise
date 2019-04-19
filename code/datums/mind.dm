@@ -51,7 +51,6 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
-	var/datum/nations/nation			//nation holder
 	var/datum/abductor/abductor			//abductor holder
 	var/datum/devilinfo/devilinfo 		//devil holder
 
@@ -315,6 +314,13 @@
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
+/datum/mind/proc/memory_edit_eventmisc(mob/living/H)
+	. = _memory_edit_header("event", list())
+	if(src in ticker.mode.eventmiscs)
+		. += "<b>YES</b>|<a href='?src=[UID()];eventmisc=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
+
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
 	if(src in ticker.mode.traitors)
@@ -402,6 +408,7 @@
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
 	if(is_type_in_typecache(current, devils_typecache))
 		sections["devil"] = memory_edit_devil(H)
+	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
 	/** SILICON ***/
@@ -448,7 +455,7 @@
 		out += gen_objective_text(admin = TRUE)
 	out += "<a href='?src=[UID()];obj_add=1'>Add objective</a><br><br>"
 	out += "<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br><br>"
-	usr << browse(out, "window=edit_memory[src];size=400x500")
+	usr << browse(out, "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -862,6 +869,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					ticker.mode.update_wiz_icons_added(src)
+					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
 					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -903,6 +911,7 @@
 					ticker.mode.grant_changeling_powers(current)
 					ticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
+					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -947,6 +956,7 @@
 					slaved.masters += src
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
+					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -1014,6 +1024,7 @@
 				if(!ticker.mode.equip_syndicate(current))
 					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
 					return
+				ticker.mode.update_syndicate_id(current.mind, ticker.mode.syndicates.len == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 
@@ -1031,6 +1042,21 @@
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
 
+	else if(href_list["eventmisc"])
+		switch(href_list["eventmisc"])
+			if("clear")
+				if(src in ticker.mode.eventmiscs)
+					ticker.mode.eventmiscs -= src
+					ticker.mode.update_eventmisc_icons_removed(src)
+					special_role = null
+					message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
+					log_admin("[key_name(usr)] has de-eventantag'ed [current].")
+			if("eventmisc")
+				ticker.mode.eventmiscs += src
+				special_role = SPECIAL_ROLE_EVENTMISC
+				ticker.mode.update_eventmisc_icons_added(src)
+				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
+				log_admin("[key_name(usr)] has eventantag'ed [current].")
 	else if(href_list["devil"])
 		switch(href_list["devil"])
 			if("clear")
@@ -1134,6 +1160,9 @@
 					if(isAI(current))
 						var/mob/living/silicon/ai/A = current
 						ticker.mode.add_law_zero(A)
+						SEND_SOUND(current, 'sound/ambience/antag/malf.ogg')
+					else
+						SEND_SOUND(current, 'sound/ambience/antag/tatoralert.ogg')
 					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
@@ -1418,6 +1447,11 @@
 		ticker.mode.forge_changeling_objectives(src)
 		ticker.mode.greet_changeling(src)
 		ticker.mode.update_change_icons_added(src)
+
+/datum/mind/proc/make_Overmind()
+	if(!(src in ticker.mode.blob_overminds))
+		ticker.mode.blob_overminds += src
+		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in ticker.mode.wizards))

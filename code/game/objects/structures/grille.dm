@@ -245,26 +245,26 @@
 
 /obj/structure/grille/proc/shock(mob/user, prb)
 	if(!anchored || broken)		// unanchored/broken grilles are never connected
-		return 0
+		return FALSE
 	if(!prob(prb))
-		return 0
+		return FALSE
 	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
-		return 0
+		return FALSE
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
-		if(electrocute_mob(user, C, src))
+		if(electrocute_mob(user, C, src, 1, TRUE))
 			do_sparks(3, 1, src)
-			return 1
+			return TRUE
 		else
-			return 0
-	return 0
+			return FALSE
+	return FALSE
 
 /obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(!broken)
 		if(exposed_temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
-	..()
 
 /obj/structure/grille/hitby(atom/movable/AM)
 	if(istype(AM, /obj))

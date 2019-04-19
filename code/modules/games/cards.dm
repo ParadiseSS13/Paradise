@@ -478,4 +478,5 @@
 		update_icon()
 
 /obj/item/cardhand/pickup(mob/user as mob)
+	. = ..()
 	update_icon()
