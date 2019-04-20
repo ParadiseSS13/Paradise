@@ -192,39 +192,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
-
-/datum/job/brigdoc
-	title = "Brig Physician"
-	flag = BRIGDOC
-	department_flag = KARMA
-	total_positions = 1
-	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
-	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
-	outfit = /datum/outfit/job/brigdoc
-
-/datum/outfit/job/brigdoc
-	name = "Brig Physician"
-	jobtype = /datum/job/brigdoc
-	uniform = /obj/item/clothing/under/rank/security/brigphys
-	suit = /obj/item/clothing/suit/storage/fr_jacket
-	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
-	id = /obj/item/card/id/security
-	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/adv
-	pda = /obj/item/pda/medical
-	implants = list(/obj/item/implant/mindshield)
-	backpack = /obj/item/storage/backpack/medic
-	satchel = /obj/item/storage/backpack/satchel_med
-	dufflebag = /obj/item/storage/backpack/duffel/medical
-
-
 /datum/job/pilot
 	title = "Security Pod Pilot"
 	flag = PILOT
