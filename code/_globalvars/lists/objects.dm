@@ -48,3 +48,5 @@ GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jam
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 
 GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
+
+GLOBAL_LIST_EMPTY(explosive_walls)

@@ -64,13 +64,10 @@
 	
 	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
 
-//needs to do its thing before spawn_rivers() is called
-INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
-
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
 
-/obj/effect/mapping_helpers/no_lava/Initialize(mapload)
-	. = ..()
+/obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN
+	. = ..()

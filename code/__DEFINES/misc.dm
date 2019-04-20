@@ -423,3 +423,6 @@
 #define GHOST_ORBIT_HEXAGON		"hexagon"
 #define GHOST_ORBIT_SQUARE		"square"
 #define GHOST_ORBIT_PENTAGON	"pentagon"
+
+//Explosive wall groups
+#define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"

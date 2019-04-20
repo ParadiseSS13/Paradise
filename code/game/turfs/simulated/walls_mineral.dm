@@ -275,21 +275,20 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
-/turf/simulated/wall/mineral/plastitanium/explosive/dismantle_wall(devastated, explode)
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
-	if(devastated || explode)
-		bombcore.detonate()
-	..()
+/turf/simulated/wall/mineral/plastitanium/explosive
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
 
-/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity, target)
-	switch(severity)
-		if(1)
-			dismantle_wall(1,1)
-		if(2)
-			dismantle_wall(1,1)
-		if(3)
-			if (prob(hardness))
-				dismantle_wall(0,1)
+/turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	GLOB.explosive_walls += src
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Destroy()
+	GLOB.explosive_walls -= src
+	return ..()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/proc/self_destruct()
+	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	bombcore.detonate()
 
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
