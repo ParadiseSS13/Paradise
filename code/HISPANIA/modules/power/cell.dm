@@ -1,5 +1,5 @@
 /obj/item/stock_parts/cell/xenoblue
-	icon = 'icons/HISPANIA/obj/xenobluecell.dmi'
+	icon = 'icons/HISPANIA/obj/power.dmi'
 	icon_state = "xenobluecell"
 	item_state = "xenobluecell"
 	name = "Xenobluespace power cell"
@@ -12,7 +12,7 @@
 	chargerate = 600
 
 /obj/item/xenobluecellmaker
-	icon = 'icons/HISPANIA/obj/xenobluecell.dmi'
+	icon = 'icons/HISPANIA/obj/power.dmi'
 	icon_state = "xenobluecellmaker"
 	item_state = "xenobluecellmaker"
 	name = "Xenobluespace power cell Maker"
