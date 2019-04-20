@@ -584,6 +584,10 @@
 	nutriment_factor = 2
 	taste_message = "broth"
 
+/datum/reagent/consumable/chicken_soup/on_mob_life(mob/living/M)
+	if(prob(15))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+
 /datum/reagent/consumable/cheese
 	name = "Cheese"
 	id = "cheese"
