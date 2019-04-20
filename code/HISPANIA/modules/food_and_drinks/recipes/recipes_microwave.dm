@@ -53,3 +53,10 @@
 	reagents = list("water" = 10, "sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/banana, /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/carrot, /obj/item/reagent_containers/food/snacks/monkeycube )
 	result = /obj/item/reagent_containers/food/snacks/macacosoup
+
+/datum/recipe/microwave/furamingosoup
+	reagents = list("water" = 10,"sugar" = 5,"milk" = 5,)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/shrimp
+	)
+	result = /obj/item/reagent_containers/food/snacks/furamingosoup
