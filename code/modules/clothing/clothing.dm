@@ -627,15 +627,6 @@ BLIND     // can't see anything
 
 	..()
 
-/obj/item/clothing/under/attack_hand(mob/user as mob)
-	//only forward to the attached accessory if the clothing is equipped (not in a storage)
-	if(accessories.len && src.loc == user)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attack_hand(user)
-		return
-
-	..()
-
 /obj/item/clothing/under/examine(mob/user)
 	..(user)
 	switch(src.sensor_mode)
