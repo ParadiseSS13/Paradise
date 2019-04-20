@@ -112,6 +112,8 @@
 		..()
 
 /obj/machinery/atmospherics/binary/circulator/update_icon()
+	..()
+	
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 	else if(last_pressure_delta > 0)

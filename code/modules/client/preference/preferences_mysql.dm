@@ -18,7 +18,8 @@
 					ghost_anonsay,
 					exp,
 					clientfps,
-					atklog
+					atklog,
+					ambientocclusion,
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -50,6 +51,7 @@
 		exp = query.item[16]
 		clientfps = text2num(query.item[17])
 		atklog = text2num(query.item[18])
+		ambientocclusion = text2num(query.item[19])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -69,6 +71,7 @@
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
+	ambientocclusion = sanitize_integer(ambientocclusion, 0, 1, initial(ambientocclusion))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -98,7 +101,8 @@
 					windowflashing='[windowflashing]',
 					ghost_anonsay='[ghost_anonsay]',
 					clientfps='[clientfps]',
-					atklog='[atklog]'
+					atklog='[atklog]',
+					ambientocclusion='[ambientocclusion]'
 					WHERE ckey='[C.ckey]'"}
 					)
 

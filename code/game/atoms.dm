@@ -1,5 +1,6 @@
 /atom
-	layer = 2
+	layer = TURF_LAYER
+	plane = GAME_PLANE
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE

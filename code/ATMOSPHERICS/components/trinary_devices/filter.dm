@@ -40,6 +40,8 @@ Filter types:
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/trinary/filter/update_icon()
+	..()
+	
 	if(flipped)
 		icon_state = "m"
 	else

@@ -333,6 +333,8 @@
 	if(!prefs)
 		prefs = new /datum/preferences(src)
 		preferences_datums[ckey] = prefs
+	else
+		prefs.parent = src
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
@@ -393,10 +395,8 @@
 		if(establish_db_connection())
 			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
-	if(!void)
-		void = new()
-
-	screen += void
+	generate_clickcatcher()
+	apply_clickcatcher()
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
@@ -772,3 +772,13 @@
 			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+
+/client/proc/generate_clickcatcher()
+	if(!void)
+		void = new()
+		screen += void
+
+/client/proc/apply_clickcatcher()
+	generate_clickcatcher()
+	var/list/actualview = getviewsize(view)
+	void.UpdateGreed(actualview[1],actualview[2])

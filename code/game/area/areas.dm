@@ -16,6 +16,7 @@
 	// area from any other instances already present (meaning you can have
 	// separate APCs, and so on)
 	var/there_can_be_many = 0
+	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 
 
 /area/New()
