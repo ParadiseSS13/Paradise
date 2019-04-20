@@ -15,7 +15,7 @@
 
 
 /obj/item/paper/contract/employment
-	icon_state = "paper_words"
+	icon_state = "good_contract"
 	signed = TRUE
 
 /obj/item/paper/contract/employment/New(atom/loc, mob/living/nOwner)
@@ -37,7 +37,6 @@
 	<BR>Further, SLAVE agrees to transfer ownership of his or her soul to the loyalty department of the omnipresent and helpful watcher of humanity.\
 	<BR>Should transfership of a soul not be possible, a lien shall be placed instead.<BR>Signed,<BR><i>[target]</i>"
 
-
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = 0
 	if(M.mind == target && target.soulOwner != target)
@@ -58,7 +57,7 @@
 	var/contractType = 0
 	burn_state = LAVA_PROOF
 	var/datum/mind/owner
-	icon_state = "paper_onfire"
+	icon_state = "evil_contract"
 
 /obj/item/paper/contract/infernal/power
 	name = "paper- contract for infernal power"
@@ -105,7 +104,7 @@
 		H.visible_message("<span class='suicide'>[H] holds up a contract claiming his soul, then immediately catches fire.  It looks like \he's trying to commit suicide!</span>")
 		H.adjust_fire_stacks(20)
 		H.IgniteMob()
-		return(FIRELOSS)
+		return FIRELOSS
 	else
 		..()
 
