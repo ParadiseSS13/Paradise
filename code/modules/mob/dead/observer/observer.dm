@@ -8,23 +8,23 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
-	layer = 4
+	layer = GHOST_LAYER
 	stat = DEAD
-	density = 0
-	canmove = 0
+	density = FALSE
+	canmove = FALSE
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
-	var/bootime = 0
+	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
-	universal_speak = 1
+	universal_speak = TRUE
 	var/atom/movable/following = null
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
-	var/ghostvision = 1 //is the ghost able to see things humans can't?
-	var/seedarkness = 1
+	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	var/seedarkness = TRUE
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
