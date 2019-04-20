@@ -71,7 +71,7 @@
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is covered in wounds!</span>"
 		if(resting)
-			if(bruteloss > 0 || fireloss > 0)
+			if(getBruteLoss() || getFireLoss())
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
 				msgs += "<span class='notice'>It is currently resting.</span>"
@@ -79,7 +79,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
-	if(stat != DEAD && resting && (bruteloss > 0) || (fireloss > 0))
+	if(stat != DEAD && resting && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
 			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
@@ -91,7 +91,7 @@
 /mob/living/simple_animal/hostile/hellhound/proc/wants_to_rest()
 	if(target)
 		return FALSE
-	if(bruteloss > 0 || fireloss > 0)
+	if(getBruteLoss() || getFireLoss())
 		return TRUE
 	return FALSE
 

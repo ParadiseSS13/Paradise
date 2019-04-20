@@ -1,7 +1,7 @@
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	use_power = IDLE_POWER_USE
@@ -9,28 +9,44 @@
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
-	var/condi = 0
+	var/condi = FALSE
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
 	var/bottlesprite = "bottle"
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
-	var/printing = null
+	var/printing = FALSE
 
 /obj/machinery/chem_master/New()
+	..()
 	create_reagents(100)
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_master(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	RefreshParts()
 	update_icon()
+
+/obj/machinery/chem_master/Destroy()
+	QDEL_NULL(beaker)
+	QDEL_NULL(loaded_pill_bottle)
+	return ..()
+
+/obj/machinery/chem_master/RefreshParts()
+	reagents.maximum_volume = 0
+	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
+		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-			return
-		if(2.0)
+		if(2)
 			if(prob(50))
 				qdel(src)
-				return
 
 /obj/machinery/chem_master/update_icon()
 	overlays.Cut()
@@ -50,43 +66,64 @@
 			stat |= NOPOWER
 	update_icon()
 
-/obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
-	if(default_unfasten_wrench(user, B))
+/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
+		if(beaker)
+			beaker.forceMove(get_turf(src))
+			beaker = null
+			reagents.clear_reagents()
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.forceMove(get_turf(src))
+			loaded_pill_bottle = null
+		return
+
+	if(exchange_parts(user, I))
+		return
+
+	if(panel_open)
+		if(iscrowbar(I))
+			default_deconstruction_crowbar(I)
+			return TRUE
+		else
+			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+			return TRUE
+
+	if(default_unfasten_wrench(user, I))
 		power_change()
 		return
 
-	if(istype(B, /obj/item/reagent_containers/glass) || istype(B, /obj/item/reagent_containers/food/drinks/drinkingglass))
-
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
+			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker = B
-		B.forceMove(src)
+		beaker = I
+		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		SSnanoui.update_uis(src)
 		update_icon()
 
-	else if(istype(B, /obj/item/storage/pill_bottle))
-
+	else if(istype(I, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
-			to_chat(user, "<span class='warning'>A pill bottle is already loaded into the machine.</span>")
+			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
 			return
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
+			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		loaded_pill_bottle = B
-		B.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the pill bottle into the dispenser slot!</span>")
+
+		loaded_pill_bottle = I
+		I.forceMove(src)
+		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")
 		SSnanoui.update_uis(src)
-	return
+	else
+		return ..()
 
 /obj/machinery/chem_master/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 
 	add_fingerprint(usr)
 	usr.set_machine(src)
@@ -103,8 +140,8 @@
 		return
 
 	if(href_list["print_p"])
-		if(!(printing))
-			printing = 1
+		if(!printing)
+			printing = TRUE
 			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -125,7 +162,7 @@
 				P.info += "<b>Description:</b> [href_list["desc"]]"
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Chemical Analysis - [href_list["name"]]"
-			printing = null
+			printing = FALSE
 
 	if(beaker)
 		var/datum/reagents/R = beaker.reagents
@@ -203,10 +240,13 @@
 					if(count == null)
 						return
 					count = isgoodnumber(count)
-				if(count > 20) count = 20	//Pevent people from creating huge stacks of pills easily. Maybe move the number to defines?
-				if(count <= 0) return
-				var/amount_per_pill = reagents.total_volume/count
-				if(amount_per_pill > 50) amount_per_pill = 50
+				if(count > 20)
+					count = 20	//Pevent people from creating huge stacks of pills easily. Maybe move the number to defines?
+				if(count <= 0)
+					return
+				var/amount_per_pill = reagents.total_volume / count
+				if(amount_per_pill > 100)
+					amount_per_pill = 100
 				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)") as text|null
 				if(!name)
 					return
@@ -216,18 +256,19 @@
 						to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
 						return
 					var/obj/item/reagent_containers/food/pill/P = new/obj/item/reagent_containers/food/pill(loc)
-					if(!name) name = reagents.get_master_reagent_name()
+					if(!name)
+						name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
 					P.pixel_x = rand(-7, 7) //random position
 					P.pixel_y = rand(-7, 7)
 					P.icon_state = "pill"+pillsprite
-					reagents.trans_to(P,amount_per_pill)
-					if(loaded_pill_bottle)
+					reagents.trans_to(P, amount_per_pill)
+					if(loaded_pill_bottle && loaded_pill_bottle.type == /obj/item/storage/pill_bottle)
 						if(loaded_pill_bottle.contents.len < loaded_pill_bottle.storage_slots)
 							P.forceMove(loaded_pill_bottle)
 							updateUsrDialog()
 			else
-				var/name = input(usr,"Name:","Name your bag!",reagents.get_master_reagent_name()) as text|null
+				var/name = input(usr, "Name:", "Name your bag!", reagents.get_master_reagent_name()) as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -236,7 +277,7 @@
 				P.originalname = name
 				P.name = "[name] pack"
 				P.desc = "A small condiment pack. The label says it contains [name]."
-				reagents.trans_to(P,10)
+				reagents.trans_to(P, 10)
 		else if(href_list["createpatch"] || href_list["createpatch_multiple"])
 			if(!condi)
 				var/count = 1
@@ -247,10 +288,12 @@
 					count = isgoodnumber(count)
 				if(!count || count <= 0)
 					return
-				if(count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
+				if(count > 20)
+					count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
-				if(amount_per_patch > 40) amount_per_patch = 40
-				var/name = input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch]u)") as text|null
+				if(amount_per_patch > 40)
+					amount_per_patch = 40
+				var/name = input(usr, "Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)") as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -263,24 +306,30 @@
 					P.pixel_y = rand(-7, 7)
 					reagents.trans_to(P,amount_per_patch)
 					if(is_medical_patch)
-						P.instant_application = 1
+						P.instant_application = TRUE
 						P.icon_state = "bandaid_med"
+					if(loaded_pill_bottle && loaded_pill_bottle.type == /obj/item/storage/pill_bottle/patch_pack)
+						if(loaded_pill_bottle.contents.len < loaded_pill_bottle.storage_slots)
+							P.forceMove(loaded_pill_bottle)
+							updateUsrDialog()
+
 		else if(href_list["createbottle"])
 			if(!condi)
-				var/name = input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()) as text|null
+				var/name = input(usr, "Name:", "Name your bottle!", reagents.get_master_reagent_name()) as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
-				var/obj/item/reagent_containers/glass/bottle/P = new/obj/item/reagent_containers/glass/bottle(loc)
-				if(!name) name = reagents.get_master_reagent_name()
+				var/obj/item/reagent_containers/glass/bottle/reagent/P = new/obj/item/reagent_containers/glass/bottle/reagent(loc)
+				if(!name)
+					name = reagents.get_master_reagent_name()
 				P.name = "[name] bottle"
 				P.pixel_x = rand(-7, 7) //random position
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = bottlesprite
-				reagents.trans_to(P,30)
+				reagents.trans_to(P, 50)
 			else
 				var/obj/item/reagent_containers/food/condiment/P = new/obj/item/reagent_containers/food/condiment(loc)
-				reagents.trans_to(P,50)
+				reagents.trans_to(P, 50)
 		else if(href_list["change_pill"])
 			#define MAX_PILL_SPRITE 20
 			var/dat = "<table>"
@@ -299,7 +348,7 @@
 		else if(href_list["change_bottle"])
 			var/dat = "<table>"
 			var/j = 0
-			for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
+			for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 				j++
 				if(j == 1)
 					dat += "<tr>"
@@ -318,21 +367,20 @@
 			usr << browse(null, "window=chem_master_iconsel")
 
 	SSnanoui.update_uis(src)
-	return
 
 /obj/machinery/chem_master/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/chem_master/attack_ghost(mob/user)
-	return attack_hand(user)
+	if(user.can_admin_interact())
+		return attack_hand(user)
 
 /obj/machinery/chem_master/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 	ui_interact(user)
-	return
 
-/obj/machinery/chem_master/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+/obj/machinery/chem_master/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = TRUE)
 	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
 	assets.send(user)
 
@@ -380,50 +428,22 @@
 		return 0
 
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
-	var/all_safe = 1
+	var/all_safe = TRUE
 	for(var/datum/reagent/A in R.reagent_list)
 		if(!GLOB.safe_chem_list.Find(A.id))
-			all_safe = 0
+			all_safe = FALSE
 	return all_safe
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
-	condi = 1
+	condi = TRUE
 
-/obj/machinery/chem_master/constructable
-	name = "ChemMaster 2999"
-	desc = "Used to seperate chemicals and distribute them in a variety of forms."
-
-/obj/machinery/chem_master/constructable/New()
+/obj/machinery/chem_master/condimaster/New()
 	..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_master(null)
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-
-/obj/machinery/chem_master/constructable/attackby(obj/item/B, mob/user, params)
-
-	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", B))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
-			beaker = null
-			reagents.clear_reagents()
-		if(loaded_pill_bottle)
-			loaded_pill_bottle.forceMove(get_turf(src))
-			loaded_pill_bottle = null
-		return
-
-	if(exchange_parts(user, B))
-		return
-
-	if(panel_open)
-		if(istype(B, /obj/item/crowbar))
-			default_deconstruction_crowbar(B)
-			return 1
-		else
-			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
-			return 1
-	else
-		..()
+	RefreshParts()

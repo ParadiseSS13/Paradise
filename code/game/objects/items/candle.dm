@@ -51,7 +51,8 @@
 			light("<span class='notice'>[user] tilts [C] and lights [src] with it.</span>")
 
 
-/obj/item/candle/fire_act()
+/obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	if(!lit)
 		light() //honk
 

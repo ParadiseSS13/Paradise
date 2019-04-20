@@ -153,7 +153,8 @@
 		Burn()
 		processing_objects.Add(src)
 
-/obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
+/obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	StartBurning()
 
 /obj/structure/bonfire/Crossed(atom/movable/AM)

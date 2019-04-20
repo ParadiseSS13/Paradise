@@ -125,6 +125,19 @@
 		M.ForceContractDisease(new /datum/disease/vampire(0))
 	return ..()
 
+/datum/reagent/bacon_grease
+	name = "pure bacon grease"
+	id = "bacon_grease"
+	description = "Hook me up to an IV of that sweet, sweet stuff!"
+	reagent_state = LIQUID
+	color = "#F7E6B1"
+	can_synth = FALSE
+
+/datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
+	if(volume > 4.5)
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+	return ..()
+
 /datum/reagent/heartworms
 	name = "Space heartworms"
 	id = "heartworms"

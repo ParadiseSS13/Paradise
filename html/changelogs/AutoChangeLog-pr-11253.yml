@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "You can no longer turn transit turfs into foamed metal flooring."
+  - bugfix: "Foamed metal floors have a sprite now."

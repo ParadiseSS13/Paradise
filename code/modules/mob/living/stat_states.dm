@@ -33,7 +33,7 @@
 /mob/living/proc/can_be_revived()
 	. = TRUE
 	// if(health <= min_health)
-	if(health <= config.health_threshold_dead)
+	if(health <= HEALTH_THRESHOLD_DEAD)
 		return FALSE
 
 // death() is used to make a mob die
@@ -71,3 +71,6 @@
 			spell.updateButtonIcon()
 
 	return 1
+
+/mob/living/proc/check_death_method()
+	return TRUE

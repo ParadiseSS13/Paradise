@@ -277,3 +277,70 @@
 	//                    ---
 
 	return
+
+//NANDA UMBRA SUCCUBUS ITEMS START HERE///
+
+/obj/item/clothing/head/hardhat/succubushorns
+	name = "Succubus Horns"
+	desc = "Horns of the Succubi."
+	icon_state = "horns"
+	item_state = "horns"
+	hispania_icon = TRUE
+
+/obj/item/melee/classic_baton/succubuswhip
+	name = "Succubus Whip"
+	desc = "To keep them properly behaved."
+	icon_state = "succubuswhip"
+	item_state = null
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	needs_permit = 0
+	force = 0
+	on = 1
+	hispania_icon = TRUE
+
+/obj/item/melee/classic_baton/succubuswhip/attack(mob/target as mob, mob/living/user as mob)
+	if(on)
+		add_fingerprint(user)
+		if((CLUMSY in user.mutations) && prob(50))
+			to_chat(user, "<span class ='danger'>Behave!.</span>")
+			user.Weaken(3 * force)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_damage(2*force, BRUTE, "head")
+			else
+				user.take_organ_damage(2*force)
+			return
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		if(user.a_intent == INTENT_HARM)
+			if(!..()) return
+			if(!isrobot(target)) return
+		else
+			if(cooldown <= 0)
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
+					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
+						return 0
+				playsound(get_turf(src), 'sound/effects/succubuswhip.ogg', 75)
+				target.Weaken(3)
+				add_attack_logs(user, target, "Stunned with [src]")
+				add_fingerprint(user)
+				target.visible_message("<span class ='danger'>[user] ha dominado a [target] !</span>", \
+					"<span class ='userdanger'>[user] ha dominado a [target] !</span>")
+				if(!iscarbon(user))
+					target.LAssailant = null
+				else
+					target.LAssailant = user
+				cooldown = 1
+				spawn(40)
+					cooldown = 0
+		return
+	else
+		return ..()
+
+///NANDA UMBRA SUCCUBUS ITEMS ENDS HERE///
+

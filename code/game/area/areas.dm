@@ -341,7 +341,7 @@
 			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE)
 			L.client.played = 1
 			spawn(600)			//ewww - this is very very bad
-				if(L.&& L.client)
+				if(L && L.client)
 					L.client.played = 0
 
 /area/proc/gravitychange(var/gravitystate = 0, var/area/A)
@@ -362,7 +362,7 @@
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN)).
+	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Stun(5)
 		M.Weaken(5)
 

@@ -9,9 +9,10 @@
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to trascend understanding of the universe!</b></span>")
-		return (user.dust())
+/obj/item/storage/bible/suicide_act(mob/user)
+	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to transcend understanding of the universe!</b></span>")
+	user.dust()
+	return OBLITERATION
 
 
 /obj/item/storage/bible/booze

@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Shadowlings now have a slightly bigger colored text when speaking in the Shadowling Hivemind"
