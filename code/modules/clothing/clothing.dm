@@ -634,30 +634,7 @@ BLIND     // can't see anything
 			A.attack_hand(user)
 		return
 
-	if(ishuman(usr) && src.loc == user)	//make it harder to accidentally undress yourself
-		return
-
 	..()
-
-/obj/item/clothing/under/MouseDrop(obj/over_object as obj)
-	if(ishuman(usr))
-		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
-		if(!(src.loc == usr))
-			return
-		if(!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
-			if(!usr.canUnEquip(src))
-				to_chat(usr, "[src] appears stuck on you!")
-				return
-			switch(over_object.name)
-				if("r_hand")
-					usr.unEquip(src)
-					usr.put_in_r_hand(src)
-				if("l_hand")
-					usr.unEquip(src)
-					usr.put_in_l_hand(src)
-			src.add_fingerprint(usr)
-			return
-	return
 
 /obj/item/clothing/under/examine(mob/user)
 	..(user)
