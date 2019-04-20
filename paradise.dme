@@ -1112,6 +1112,7 @@
 #include "code\game\verbs\who.dm"
 #include "code\HISPANIA\datums\diseases\virush.dm"
 #include "code\HISPANIA\game\hispania_items.dm"
+#include "code\HISPANIA\game\objects\items\miscellaneous\bell.dm"
 #include "code\HISPANIA\game\objects\items\weapons\manuals.dm"
 #include "code\HISPANIA\game\objects\structures\crates_lockers\closets\cardboardcham.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_suit.dm"
