@@ -66,8 +66,6 @@
 
 		air.temperature = temperature
 
-		update_visuals()
-
 /turf/simulated/Destroy()
 	visibilityChanged()
 	QDEL_NULL(active_hotspot)
@@ -209,22 +207,17 @@
 
 	air.react()
 
+	update_visuals()
+
 	if(air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		hotspot_expose(air.temperature, CELL_VOLUME)
 		for(var/atom/movable/item in src)
 			item.temperature_expose(air, air.temperature, CELL_VOLUME)
 		temperature_expose(air, air.temperature, CELL_VOLUME)
 
-		if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
-			if(consider_superconductivity(starting = 1))
-				remove = 0
-
-	if(air.temperature < T0C && air.return_pressure() > 10)
-		icy = 1
-	else if(air.temperature > T0C)
-		icy = 0
-
-	update_visuals()
+	if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
+		if(consider_superconductivity(starting = 1))
+			remove = 0
 
 	if(!excited_group && remove == 1)
 		SSair.remove_from_active(src)
@@ -237,27 +230,19 @@
 	archived_cycle = SSair.times_fired
 
 /turf/simulated/proc/update_visuals()
-	if(icy && !icyoverlay)
-		overlays |= icemaster
-		icyoverlay = icemaster
-	else if(icyoverlay && !icy)
-		icyoverlay = null
-		overlays -= icemaster
-
 	var/new_overlay_type = tile_graphic()
 	if(new_overlay_type == atmos_overlay_type)
 		return
 	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
 	if(atmos_overlay)
-		overlays -= atmos_overlay
-		mouse_opacity = MOUSE_OPACITY_ICON
+		vis_contents -= atmos_overlay
 
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if(atmos_overlay)
-		overlays += atmos_overlay
+		vis_contents += atmos_overlay
 		atmos_overlay_type = new_overlay_type
 
-/turf/simulated/proc/get_atmos_overlay_by_name(var/name)
+/turf/simulated/proc/get_atmos_overlay_by_name(name)
 	switch(name)
 		if("plasma")
 			return plmaster
@@ -266,13 +251,13 @@
 	return null
 
 /turf/simulated/proc/tile_graphic()
+	if(!air)
+		return
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return "plasma"
 
 	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
 	if(sleeping_agent && (sleeping_agent.moles > 1))
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return "sleeping_agent"
 	return null
 
@@ -311,7 +296,9 @@
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	if(last_forced_movement >= SSair.times_fired)
 		return 0
-	else if(!anchored && !pulledby)
+	if(anchored || move_resist == INFINITY)
+		return 0
+	else if(!pulledby)
 		var/turf/target = get_turf(src)
 		var/datum/gas_mixture/target_air = target.return_air()
 		if(isspaceturf(target) || isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
@@ -530,7 +517,7 @@ turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 		if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
 
 			var/heat = thermal_conductivity*delta_temperature* \
-				(heat_capacity*700000/(heat_capacity+700000)) //700000 is the heat_capacity from a space turf, hardcoded here
+				(heat_capacity*HEAT_CAPACITY_VACUUM/(heat_capacity+HEAT_CAPACITY_VACUUM)) //700000 is the heat_capacity from a space turf, hardcoded here
 			temperature -= heat/heat_capacity
 
 /turf/proc/Initialize_Atmos(times_fired)

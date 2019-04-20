@@ -180,7 +180,16 @@
 					continue
 				if(isanimal(player)) //Poly does not own the shuttle
 					continue
-
+				if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
+					var/mob/living/carbon/human/H = player
+					if(H.handcuffed) //cuffs
+						continue
+					if(H.wear_suit && H.wear_suit.breakouttime) //straight jacket
+						continue
+					if(istype(H.loc, /obj/structure/closet)) //locked/welded locker, all aboard the clown train honk honk
+						var/obj/structure/closet/C = H.loc
+						if(C.welded || C.locked)
+							continue
 				var/special_role = player.mind.special_role
 				if(special_role)
 					if(special_role == SPECIAL_ROLE_TRAITOR) // traitors can hijack the shuttle

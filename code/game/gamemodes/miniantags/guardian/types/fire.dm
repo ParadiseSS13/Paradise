@@ -1,5 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/fire
-	a_intent = INTENT_HELP
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attack_sound = 'sound/items/welder.ogg'

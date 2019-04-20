@@ -70,6 +70,10 @@
 	changeNext_click(1)
 
 	var/list/modifiers = params2list(params)
+	var/dragged = modifiers["drag"]
+	if(dragged && !modifiers[dragged])
+		return
+
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
 		return

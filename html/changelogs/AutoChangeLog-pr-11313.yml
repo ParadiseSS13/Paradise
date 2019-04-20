@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Ducttape gags can now be removed properly without spawning an invisible one in your hands"

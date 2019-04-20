@@ -205,9 +205,9 @@
 	qdel(src)
 
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
-	..()
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)

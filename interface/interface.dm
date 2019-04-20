@@ -52,7 +52,6 @@
 		src << link(config.forumurl)
 	else
 		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
-	return
 
 /client/verb/rules()
 	set name = "Rules"
@@ -64,7 +63,6 @@
 		src << link(config.rulesurl)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-	return
 
 /client/verb/github()
 	set name = "GitHub"
@@ -76,7 +74,6 @@
 		src << link(config.githuburl)
 	else
 		to_chat(src, "<span class='danger'>The GitHub URL is not set in the server configuration.</span>")
-	return
 
 /client/verb/discord()
 	set name = "Discord"
@@ -88,7 +85,6 @@
 		src << link(config.discordurl)
 	else
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
-	return
 	
 /client/verb/donate()
 	set name = "Donate"
@@ -100,8 +96,28 @@
 		src << link(config.donationsurl)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-	return
 
+/client/verb/hotkey_mode()
+	set name = "Set Hotkey Mode"
+	set category = "Preferences"
+
+	var/list/hotkey_modes = list()
+	for(var/hotkey_mode in subtypesof(/datum/hotkey_mode))
+		var/datum/hotkey_mode/H = hotkey_mode
+		hotkey_modes[initial(H.name)] = H
+
+	var/chosen_mode_name = input("Choose your preferred hotkey mode.", "Hotkey mode selection") as null|anything in hotkey_modes
+	if(!chosen_mode_name)
+		return
+
+	var/datum/hotkey_mode/chosen_mode = hotkey_modes[chosen_mode_name] 
+	var/datum/hotkey_mode/hotkey_mode = new chosen_mode(src)
+	
+	hotkey_mode.set_winset_values()
+	to_chat(usr, "<span class='info'>Your hotkey mode has been changed to [hotkey_mode.name].</span>")
+
+	qdel(hotkey_mode)
+	
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
 	set category = "OOC"
@@ -234,32 +250,3 @@ Any-Mode: (hotkey doesn't need to be on)
 
 	to_chat(src, hotkey_mode)
 	to_chat(src, other)
-
-//adv. hotkey mode verbs, vars located in /code/modules/client/client defines.dm
-/client/verb/hotkey_toggle()//toggles hotkey mode between on and off, respects selected type
-	set name = ".Toggle Hotkey Mode"
-
-	hotkeyon = !hotkeyon//toggle the var
-	to_chat(usr, (hotkeyon ? "Hotkey mode enabled." : "Hotkey mode disabled."))//feedback to the user
-
-	if(hotkeyon)//using an if statement because I don't want to clutter winset() with ? operators
-		winset(usr, "mainwindow.hotkey_toggle", "is-checked=true")//checks the button
-	else
-		winset(usr, "mainwindow.hotkey_toggle", "is-checked=false")//unchecks the button
-	if(mob)
-		mob.update_interface()
-
-/client/verb/hotkey_mode()//asks user for the hotkey type and changes the macro accordingly
-	set name = "Set Hotkey Mode"
-	set category = "Preferences"
-
-	var/hkt = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type
-	if(!hkt)
-		return
-	hotkeytype = hkt
-
-	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
-	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
-
-	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
-	to_chat(usr, "Hotkey mode changed to [hotkeytype].")

@@ -477,6 +477,9 @@
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
+		
+		if(ticker.mode.blob_overminds.len)
+			dat += check_role_table("Blob Overminds", ticker.mode.blob_overminds)
 
 		if(ticker.mode.changelings.len)
 			dat += check_role_table("Changelings", ticker.mode.changelings)
@@ -518,7 +521,7 @@
 
 		if(ticker.mode.vampire_enthralled.len)
 			dat += check_role_table("Vampire Thralls", ticker.mode.vampire_enthralled)
-		
+
 		if(ticker.mode.devils.len)
 			dat += check_role_table("Devils", ticker.mode.devils)
 
@@ -534,6 +537,9 @@
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
 
+		if(ticker.mode.eventmiscs.len)
+			dat += check_role_table("Event Roles", ticker.mode.eventmiscs)
+
 		if(ts_spiderlist.len)
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in ts_spiderlist)
@@ -541,6 +547,16 @@
 					spider_minds += S.mind
 			if(spider_minds.len)
 				dat += check_role_table("Terror Spiders", spider_minds)
+
+				var/count_eggs = 0
+				var/count_spiderlings = 0
+				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in ts_egg_list)
+					if(is_station_level(E.z))
+						count_eggs += E.spiderling_number
+				for(var/obj/structure/spider/spiderling/terror_spiderling/L in ts_spiderling_list)
+					if(!L.stillborn && is_station_level(L.z))
+						count_spiderlings += 1
+				dat += "<table cellspacing=5><TR><TD>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""]. </TD></TR></TABLE>"
 
 		if(ticker.mode.ert.len)
 			dat += check_role_table("ERT", ticker.mode.ert)

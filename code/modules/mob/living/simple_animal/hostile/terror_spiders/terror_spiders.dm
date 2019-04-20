@@ -33,7 +33,6 @@ var/global/list/ts_spiderling_list = list()
 	melee_damage_upper = 20
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	poison_type = "" // we do not use that silly system.
 	a_intent = INTENT_HARM
 
 	// Movement
@@ -71,6 +70,9 @@ var/global/list/ts_spiderling_list = list()
 	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
+
+	// Sentience Type
+	sentience_type = SENTIENCE_OTHER
 
 	// Languages are handled in terror_spider/New()
 
@@ -314,12 +316,12 @@ var/global/list/ts_spiderling_list = list()
 			adjustToxLoss(rand(1,10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
-		if((bruteloss > 0) || (fireloss > 0))
+		if(getBruteLoss() || getFireLoss())
 			if(regen_points > regen_points_per_hp)
-				if(bruteloss > 0)
+				if(getBruteLoss())
 					adjustBruteLoss(-1)
 					regen_points -= regen_points_per_hp
-				else if(fireloss > 0)
+				else if(getFireLoss())
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
 		if(prob(5))

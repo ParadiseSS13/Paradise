@@ -22,16 +22,18 @@
 
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
-
+	var/torn = /obj/item/inflatable/torn
+	var/intact = /obj/item/inflatable
 	var/health = 50.0
 
 /obj/structure/inflatable/Initialize(location)
 	..()
-	air_update_turf(1)
+	air_update_turf(TRUE)
 
 /obj/structure/inflatable/Destroy()
-	air_update_turf(1)
-	return ..()
+	var/turf/T = get_turf(src)
+	. = ..()
+	T.air_update_turf(TRUE)
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
 	return 0
@@ -122,13 +124,13 @@
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
 	if(violent)
 		visible_message("[src] rapidly deflates!")
-		var/obj/item/inflatable/torn/R = new /obj/item/inflatable/torn(loc)
+		var/obj/item/inflatable/torn/R = new torn(loc)
 		src.transfer_fingerprints_to(R)
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
 		spawn(50)
-			var/obj/item/inflatable/R = new /obj/item/inflatable(loc)
+			var/obj/item/inflatable/R = new intact(loc)
 			src.transfer_fingerprints_to(R)
 			qdel(src)
 
@@ -164,6 +166,8 @@
 
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
+	torn = /obj/item/inflatable/door/torn
+	intact = /obj/item/inflatable/door
 
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -237,21 +241,6 @@
 		icon_state = "door_open"
 	else
 		icon_state = "door_closed"
-
-/obj/structure/inflatable/door/deflate(var/violent=0)
-	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
-	if(violent)
-		visible_message("[src] rapidly deflates!")
-		var/obj/item/inflatable/door/torn/R = new /obj/item/inflatable/door/torn(loc)
-		src.transfer_fingerprints_to(R)
-		qdel(src)
-	else
-		visible_message("[src] slowly deflates.")
-		spawn(50)
-			var/obj/item/inflatable/door/R = new /obj/item/inflatable/door(loc)
-			src.transfer_fingerprints_to(R)
-			qdel(src)
-	air_update_turf(1)
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"

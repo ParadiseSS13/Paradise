@@ -19,6 +19,8 @@
 	var/area			= null
 	var/time_died_as_mouse = null //when the client last died as a mouse
 
+	var/typing = FALSE // Prevents typing window stacking
+
 	var/adminhelped = 0
 
 	var/gc_destroyed //Time when this object was destroyed.
@@ -64,25 +66,6 @@
 	// /vg/: MEDIAAAAAAAA
 	// Set on login.
 	var/datum/media_manager/media = null
-
-	/////////////////////////////////////////////////////////////////////
-	//adv. hotkey mode vars, code using them in /interface/interface.dm//
-	/////////////////////////////////////////////////////////////////////
-
-	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to make this save on SQL)
-	var/hotkeyon = 0 //is the hotkey on?
-
-	var/hotkeylist = list( //list defining hotkey types, look at lists in place for structure if adding any if the future
-		"QWERTY" = list(
-			"on" = "hotkeymode",
-			"off" = "macro"),
-		"AZERTY" = list(
-			"on" = "AZERTYon",
-			"off" = "AZERTYoff"),
-		"Cyborg" = list(
-			"on" = "borghotkeymode",
-			"off" = "borgmacro")
-	)
 
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
 

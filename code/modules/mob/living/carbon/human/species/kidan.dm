@@ -20,13 +20,13 @@
 	butt_sprite = "kidan"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/kidan,
+		"lungs" =    /obj/item/organ/internal/lungs/kidan,
 		"liver" =    /obj/item/organ/internal/liver/kidan,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/kidan,
+		"brain" =    /obj/item/organ/internal/brain/kidan,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 

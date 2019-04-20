@@ -142,9 +142,8 @@
 						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
 						path_to_vent = 1
 				else
-					visible_message("<span class='danger'>\The [src] looks around, searching for the vent that should be there, but isn't. A bluespace portal forms on her, and she is gone.</span>")
-					qdel(src)
-					new /obj/effect/portal(get_turf(loc))
+					neststep = -1
+					message_admins("Warning: [key_name_admin(src)] was spawned in an area without a vent! This is likely a mapping/spawn mistake. This mob's AI has been permanently deactivated.")
 			if(1)
 				// No nest, and we should create one. Start NestMode(), then advance to step 2.
 				if(world.time > (lastnestsetup + nestfrequency))
