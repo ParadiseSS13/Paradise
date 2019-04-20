@@ -2,7 +2,7 @@
 
 /datum/holiday/hispania
 	name = "Anniversary of Hispania"
-	begin_day = 20
+	begin_day = 29
 	begin_month = APRIL
 	var/anniversary
 
