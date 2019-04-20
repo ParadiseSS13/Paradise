@@ -73,7 +73,7 @@
 			s.set_up(12, 1, src)
 			S.electrocute_act(110, usr, 1)
 			s.start()
-	
+
 	add_fingerprint(user)
 	return
 
