@@ -162,6 +162,7 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
+	create_parallax()
 
 /datum/hud/human/show_hud(version = 0)
 	..()

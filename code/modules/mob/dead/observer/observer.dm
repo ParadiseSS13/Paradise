@@ -245,7 +245,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
 		S.Crossed(src)
-
+	update_parallax_contents()
 	var/area/A = get_area(src)
 	if(A)
 		A.Entered(src)
@@ -413,6 +413,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "<span class='warning'>No area available.</span>")
 
 	usr.forceMove(pick(L))
+	update_parallax_contents()
 	following = null
 
 /mob/dead/observer/verb/follow()
@@ -511,6 +512,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 			if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
 				A.forceMove(T)
+				M.update_parallax_contents()
+				following = null
 			else
 				to_chat(A, "This mob is not located in the game world.")
 

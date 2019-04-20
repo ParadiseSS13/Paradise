@@ -160,9 +160,13 @@
 		var/list/U = list()
 		if(fixed_underlay)
 			if(fixed_underlay["space"])
-				U += image('icons/turf/space.dmi', SPACE_ICON_STATE, layer=TURF_LAYER)
+				var/image/I = image('icons/turf/space.dmi', SPACE_ICON_STATE, layer=TURF_LAYER)
+				I.plane = PLANE_SPACE
+				U += I
 			else
-				U += image(fixed_underlay["icon"], fixed_underlay["icon_state"], layer=TURF_LAYER)
+				var/image/I = image('icons/turf/space.dmi', SPACE_ICON_STATE, layer=TURF_LAYER)
+				I.plane = PLANE_SPACE
+				U += I
 		else
 			var/turf/T = get_step(src, turn(adjacencies, 180))
 			if(T && (T.density || T.smooth))

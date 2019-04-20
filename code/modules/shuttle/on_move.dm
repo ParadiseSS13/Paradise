@@ -3,6 +3,8 @@
     if(rotation)
         shuttleRotate(rotation)
     forceMove(T1)
+    if (length(client_mobs_in_contents))
+        update_parallax_contents()
     return 1
 
 /atom/movable/lighting_overlay/onShuttleMove()

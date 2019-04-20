@@ -12,6 +12,7 @@
 	var/destination_z
 	var/destination_x
 	var/destination_y
+	plane = PLANE_SPACE
 
 /turf/space/New()
 	. = ..()

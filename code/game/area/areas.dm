@@ -16,6 +16,7 @@
 	// area from any other instances already present (meaning you can have
 	// separate APCs, and so on)
 	var/there_can_be_many = 0
+	var/parallax_movedir = 0
 
 
 /area/New()
