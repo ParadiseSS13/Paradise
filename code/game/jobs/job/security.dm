@@ -192,7 +192,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
-
+/*
+// Bye, bye
 /datum/job/brigdoc
 	title = "Brig Physician"
 	flag = BRIGDOC
@@ -223,6 +224,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+*/
 
 
 /datum/job/pilot
