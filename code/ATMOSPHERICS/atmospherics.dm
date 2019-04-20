@@ -68,8 +68,6 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	else
 		plane = FLOOR_PLANE	
 
-	return null
-
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
 	pipe_image.plane = HUD_PLANE
