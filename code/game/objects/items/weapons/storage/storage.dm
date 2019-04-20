@@ -247,12 +247,13 @@
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
-
-	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
-		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
-		return 0
-
+			
+	if(cant_hold.len) //Check for specific items which this container can't hold.
+		for(var/A in cant_hold)
+			if(W.GetTypeInAllContents(A))
+				if(!stop_messages)
+					to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+				return 0
 	if(W.w_class > max_w_class)
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
