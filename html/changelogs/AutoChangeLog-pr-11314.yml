@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Windoors now give the airlock assembly electronics once deconstructed"

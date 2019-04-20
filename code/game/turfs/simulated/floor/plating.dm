@@ -232,7 +232,7 @@
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 700000
+	heat_capacity = HEAT_CAPACITY_VACUUM
 
 /turf/simulated/floor/plating/airless/catwalk/New()
 	..()

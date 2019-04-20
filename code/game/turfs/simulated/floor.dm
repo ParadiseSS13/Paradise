@@ -79,6 +79,9 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				src.hotspot_expose(1000,CELL_VOLUME)
 	return
 
+/turf/simulated/floor/burn_down()
+	ex_act(2)
+
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
 		if(A.level == 3)
@@ -88,8 +91,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return
 
 /turf/simulated/floor/proc/update_icon()
-	if(air)
-		update_visuals()
+	update_visuals()
 	overlays -= current_overlay
 	if(current_overlay)
 		overlays.Add(current_overlay)

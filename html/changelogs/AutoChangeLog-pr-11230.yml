@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "the message for brain death will now properly and only occur when they have truly died from brain damage"
+  - bugfix: "Fixes being able to attain brain damage over 120"

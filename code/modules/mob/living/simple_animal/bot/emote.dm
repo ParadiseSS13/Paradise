@@ -1,4 +1,4 @@
-/mob/living/simple_animal/bot/emote(var/act, var/m_type=1, var/message = null)
+/mob/living/simple_animal/bot/emote(act, m_type=1, message = null)
 	var/param = null
 	if(findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
@@ -69,4 +69,6 @@
 			playsound(src.loc, 'sound/goonstation/voice/robot_scream.ogg', 80, 0)
 			m_type = 2
 
+		if("help")
+			to_chat(src, "scream(s), yes, no, beep, buzz, ping")
 	..(act, m_type, message)

@@ -11,7 +11,6 @@
 #define GAMEMODE_IS_BLOB		(ticker && istype(ticker.mode, /datum/game_mode/blob))
 #define GAMEMODE_IS_CULT		(ticker && istype(ticker.mode, /datum/game_mode/cult))
 #define GAMEMODE_IS_HEIST		(ticker && istype(ticker.mode, /datum/game_mode/heist))
-#define GAMEMODE_IS_NATIONS		(ticker && istype(ticker.mode, /datum/game_mode/nations))
 #define GAMEMODE_IS_NUCLEAR		(ticker && istype(ticker.mode, /datum/game_mode/nuclear))
 #define GAMEMODE_IS_REVOLUTION	(ticker && istype(ticker.mode, /datum/game_mode/revolution))
 #define GAMEMODE_IS_WIZARD		(ticker && istype(ticker.mode, /datum/game_mode/wizard))
@@ -53,3 +52,4 @@
 #define SPECIAL_ROLE_XENOMORPH_DRONE "Xenomorph Drone"
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
+#define SPECIAL_ROLE_EVENTMISC "Event Role"
