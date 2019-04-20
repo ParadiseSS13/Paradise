@@ -11,7 +11,7 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
-#include "_maps\cyberiad.dm"
+#include "_maps\hispania.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1620,6 +1620,7 @@
 #include "code\modules\logic\mono_input.dm"
 #include "code\modules\map_fluff\cyberiad.dm"
 #include "code\modules\map_fluff\delta.dm"
+#include "code\modules\map_fluff\hispania.dm"
 #include "code\modules\map_fluff\maps.dm"
 #include "code\modules\map_fluff\metastation.dm"
 #include "code\modules\martial_arts\adminfu.dm"
