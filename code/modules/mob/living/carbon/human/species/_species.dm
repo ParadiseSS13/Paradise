@@ -408,7 +408,7 @@
 			target.w_uniform.add_fingerprint(user)
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
 		var/randn = rand(1, 100)
-		if(randn <= 25)
+		if(randn <= 15)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
@@ -421,7 +421,7 @@
 
 		var/talked = 0	// BubbleWrap
 
-		if(randn <= 60)
+		if(randn <= 40)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
 				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
@@ -451,9 +451,29 @@
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		
+		if(randn <= 50)
+			if(target.a_intent == INTENT_HELP && !target.get_active_hand())
+				return
+			target.visible_message("<span class='danger'>[target] counters [user]!</span>")
+			target.get_active_hand().attack(user, target)
+			add_attack_logs(target, user, "Counter attacked", ATKLOG_ALL)
+			return
+		
+		if(randn <= 55)
+			user.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			user.visible_message("<span class='danger'>[user] fell over trying to push [target]!</span>")
+			add_attack_logs(target, user, "Counter pushed over", ATKLOG_ALL)
+			if(!iscarbon(user))
+				user.LAssailant = null
+			else
+				user.LAssailant = target
+			return
+		
+		target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
-	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
 	if(!istype(M))
