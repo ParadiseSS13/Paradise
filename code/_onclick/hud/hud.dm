@@ -172,6 +172,7 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
+	create_parallax()
 	plane_masters_update()
 
 /datum/hud/proc/plane_masters_update()
