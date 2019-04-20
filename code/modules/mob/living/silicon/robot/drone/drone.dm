@@ -43,6 +43,7 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
 	add_language("Drone", 1)
+	universal_understand = 0
 
 	// Disable the microphone wire on Drones
 	if(radio)
