@@ -21,14 +21,20 @@
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
+/turf/simulated/floor/plating/asteroid/MakeSlippery(wet_setting)
+	return
+
+/turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)
+	return
+
 /turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	switch(severity)
-		if(3.0)
+		if(3)
 			return
-		if(2.0)
+		if(2)
 			if(prob(20))
 				gets_dug()
-		if(1.0)
+		if(1)
 			gets_dug()
 
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/W, mob/user, params)
