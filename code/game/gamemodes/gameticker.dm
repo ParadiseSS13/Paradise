@@ -67,7 +67,7 @@ var/round_start_time = 0
 	else
 		timerbuffer = config.vote_autotransfer_interval
 	spawn(timerbuffer)
-		vote.autotransfer()
+		SSvote.autotransfer()
 		initialtpass = 1
 		votetimer()
 

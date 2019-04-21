@@ -76,7 +76,7 @@
 			debug_variables(SSnanoui)
 			feedback_add_details("admin_verb","DNano")
 		if("Vote")
-			debug_variables(vote)
+			debug_variables(SSvote)
 			feedback_add_details("admin_verb","DVote")
 		if("Fires")
 			debug_variables(SSfires)
