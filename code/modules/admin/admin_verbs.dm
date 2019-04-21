@@ -681,24 +681,6 @@ var/list/admin_verbs_ticket = list(
 
 	feedback_add_details("admin_verb","OT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/kill_air() // -- TLE
-	set category = "Debug"
-	set name = "Kill Air"
-	set desc = "Toggle Air Processing"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(air_processing_killed)
-		air_processing_killed = 0
-		to_chat(usr, "<b>Enabled air processing.</b>")
-	else
-		air_processing_killed = 1
-		to_chat(usr, "<b>Disabled air processing.</b>")
-	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] used 'kill air'.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] used 'kill air'.</span>", 1)
-
 /client/proc/deadmin_self()
 	set name = "De-admin self"
 	set category = "Admin"
@@ -888,7 +870,7 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	var/list/jobs = list()
-	for(var/datum/job/J in job_master.occupations)
+	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
 	if(!jobs.len)
@@ -896,7 +878,7 @@ var/list/admin_verbs_ticket = list(
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if(job)
-		job_master.FreeRole(job)
+		SSjobs.FreeRole(job)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
