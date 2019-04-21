@@ -128,7 +128,7 @@
 		// TODO: Integrate radio with the space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
-	if(freq in ANTAG_FREQS)
+	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 

@@ -52,7 +52,7 @@
 			debug_variables(SSsun)
 			feedback_add_details("admin_verb","DSun")
 		if("Radio")
-			debug_variables(radio_controller)
+			debug_variables(SSradio)
 			feedback_add_details("admin_verb","DRadio")
 		if("Configuration")
 			debug_variables(config)
