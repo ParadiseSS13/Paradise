@@ -1005,12 +1005,12 @@
 		if(prob(2))
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
-				return
+				continue
 			if(NO_BREATHE in H.dna.species.species_traits)
-				return //no puking if you can't smell!
+				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
-				return //too cool for puke
+				continue //too cool for puke
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 
