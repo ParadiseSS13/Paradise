@@ -20,13 +20,11 @@
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
-	on = !on
-	update_icon()
+	toggle()
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
-	on = !on
-	update_icon()
+	toggle()
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
@@ -37,18 +35,26 @@
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
-	target_pressure = MAX_OUTPUT_PRESSURE
-	update_icon()
+	set_max()
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AIAltClick()
-	target_pressure = MAX_OUTPUT_PRESSURE
-	update_icon()
+	set_max()
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
 	flipped = 1
+
+/obj/machinery/atmospherics/trinary/mixer/proc/toggle()
+	if(powered())
+		on = !on
+		update_icon()
+
+/obj/machinery/atmospherics/trinary/mixer/proc/set_max()
+	if(powered())
+		target_pressure = MAX_OUTPUT_PRESSURE
+		update_icon()
 
 /obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
 	if(flipped)
@@ -211,3 +217,15 @@
 
 	update_icon()
 	SSnanoui.update_uis(src)
+
+/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pen))
+		var/t = copytext(stripped_input(user, "Enter the name for the mixer.", "Rename", name), 1, MAX_NAME_LEN)
+		if(!t)
+			return
+		if(!in_range(src, usr) && loc != usr)
+			return
+		name = t
+		return
+	else
+		return ..()

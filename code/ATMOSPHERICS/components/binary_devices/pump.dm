@@ -36,13 +36,11 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
-	on = !on
-	update_icon()
+	toggle()
 	return ..()
 
 /obj/machinery/atmospherics/binary/pump/AICtrlClick()
-	on = !on
-	update_icon()
+	toggle()
 	return ..()
 
 /obj/machinery/atmospherics/binary/pump/AltClick(mob/living/user)
@@ -53,14 +51,22 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
-	target_pressure = MAX_OUTPUT_PRESSURE
-	update_icon()
+	set_max()
 	return ..()
 
 /obj/machinery/atmospherics/binary/pump/AIAltClick()
-	target_pressure = MAX_OUTPUT_PRESSURE
-	update_icon()
+	set_max()
 	return ..()
+
+/obj/machinery/atmospherics/binary/pump/proc/toggle()
+	if(powered())
+		on = !on
+		update_icon()
+
+/obj/machinery/atmospherics/binary/pump/proc/set_max()
+	if(powered())
+		target_pressure = MAX_OUTPUT_PRESSURE
+		update_icon()
 
 /obj/machinery/atmospherics/binary/pump/Destroy()
 	if(radio_controller)
@@ -237,7 +243,15 @@ Thus, the two variables affect pump operation are set in New():
 		update_icon()
 
 /obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/wrench))
+	if(istype(W, /obj/item/pen))
+		var/t = copytext(stripped_input(user, "Enter the name for the pump.", "Rename", name), 1, MAX_NAME_LEN)
+		if(!t)
+			return
+		if(!in_range(src, usr) && loc != usr)
+			return
+		name = t
+		return
+	else if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
