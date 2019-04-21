@@ -95,7 +95,7 @@
 
 	if (!needs_update)
 		needs_update = TRUE
-		lighting_update_corners += src
+		SSlighting.lighting_update_corners += src
 
 /datum/lighting_corner/proc/update_overlays()
 
@@ -118,7 +118,7 @@
 		if (T.lighting_overlay)
 			if (!T.lighting_overlay.needs_update)
 				T.lighting_overlay.needs_update = TRUE
-				lighting_update_overlays += T.lighting_overlay
+				SSlighting.lighting_update_overlays += T.lighting_overlay
 
 
 /datum/lighting_corner/dummy/New()
