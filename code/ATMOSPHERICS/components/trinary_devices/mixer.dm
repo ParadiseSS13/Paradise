@@ -12,6 +12,40 @@
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
+/obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user) && !issilicon(usr))
+		return
+	if(!ishuman(usr) && !issilicon(usr))
+		return
+	on = !on
+	update_icon()
+	return ..()
+
+/obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
+	on = !on
+	update_icon()
+	return ..()
+
+/obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user) && !issilicon(usr))
+		return
+	if(!ishuman(usr) && !issilicon(usr))
+		return
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	return ..()
+
+/obj/machinery/atmospherics/trinary/mixer/AIAltClick()
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	return ..()
+
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
 	flipped = 1

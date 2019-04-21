@@ -22,6 +22,39 @@ Filter types:
 	var/frequency = 0
 	var/datum/radio_frequency/radio_connection
 
+/obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user) && !issilicon(usr))
+		return
+	if(!ishuman(usr) && !issilicon(usr))
+		return
+	on = !on
+	update_icon()
+	return ..()
+
+/obj/machinery/atmospherics/trinary/filter/AICtrlClick()
+	on = !on
+	update_icon()
+	return ..()
+
+/obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user) && !issilicon(usr))
+		return
+	if(!ishuman(usr) && !issilicon(usr))
+		return
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	return ..()
+
+/obj/machinery/atmospherics/trinary/filter/AIAltClick()
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/Destroy()
 	if(radio_controller)
