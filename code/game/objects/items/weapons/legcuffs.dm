@@ -154,6 +154,11 @@
 	origin_tech = "engineering=3;combat=1"
 	var/weaken = 0
 
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+	playsound(src.loc,'sound/weapons/bolathrow.ogg', 75, TRUE)
+	if(!..())
+		return
+
 /obj/item/restraints/legcuffs/bola/throw_impact(atom/hit_atom)
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
 		return//abort
@@ -166,6 +171,7 @@
 		feedback_add_details("handcuffs","B")
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.Weaken(weaken)
+		playsound(src.loc, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
