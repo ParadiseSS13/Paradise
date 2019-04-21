@@ -453,7 +453,7 @@
 
 		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		
-		if(randn <= 50)
+		if(randn <= 45)
 			if(target.a_intent == INTENT_HELP && !target.get_active_hand())
 				return
 			target.visible_message("<span class='danger'>[target] counters [user]!</span>")
@@ -461,7 +461,7 @@
 			add_attack_logs(target, user, "Counter attacked", ATKLOG_ALL)
 			return
 		
-		if(randn <= 55)
+		if(randn <= 50)
 			user.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message("<span class='danger'>[user] fell over trying to push [target]!</span>")
