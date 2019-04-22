@@ -51,6 +51,9 @@
 	if(light_power && light_range)
 		update_light()
 
+	if (opacity)
+		has_opaque_atom = TRUE
+
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
 	log_startup_progress("Smoothing atoms...")
