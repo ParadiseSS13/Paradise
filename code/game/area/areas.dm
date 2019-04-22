@@ -1,9 +1,70 @@
-/area/New()
-	..()
+/area
+	var/fire = null
+	var/atmosalm = ATMOS_ALARM_NONE
+	var/poweralm = TRUE
+	var/party = null
+	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
+	level = null
+	name = "Space"
+	icon = 'icons/turf/areas.dmi'
+	icon_state = "unknown"
+	layer = AREA_LAYER
+	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
+	luminosity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	invisibility = INVISIBILITY_LIGHTING
+	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
+	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
+	var/lightswitch = TRUE
 
-	GLOB.all_areas += src
+	var/eject = null
+
+	var/debug = 0
+	var/requires_power = TRUE
+	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
+
+	var/power_equip = TRUE
+	var/power_light = TRUE
+	var/power_environ = TRUE
+	var/music = null
+	var/used_equip = FALSE
+	var/used_light = FALSE
+	var/used_environ = FALSE
+	var/static_equip
+	var/static_light = FALSE
+	var/static_environ
+
+	var/has_gravity = TRUE
+	var/list/apc = list()
+	var/no_air = null
+
+	var/air_doors_activated = FALSE
+
+	var/tele_proof = FALSE
+	var/no_teleportlocs = FALSE
+
+	var/outdoors = FALSE //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
+	var/nad_allowed = FALSE //is the station NAD allowed on this area?
+
+	// This var is used with the maploader (modules/awaymissions/maploader/reader.dm)
+	// if this is 1, when used in a map snippet, this will instantiate a unique
+	// area from any other instances already present (meaning you can have
+	// separate APCs, and so on)
+	var/there_can_be_many = FALSE
+
+	var/global/global_uid = 0
+	var/uid
+
+	var/list/ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg',\
+								'sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg',\
+								'sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg',\
+								'sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg',\
+								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
+								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
 /area/Initialize(mapload)
+	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid

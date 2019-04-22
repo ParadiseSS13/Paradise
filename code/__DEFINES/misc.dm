@@ -114,33 +114,6 @@
 #define CHRISTMAS				"Christmas"
 #define FRIDAY_13TH				"Friday the 13th"
 
-//Light color defs, for light-emitting things
-//Some defs may be pure color- this is for neatness, and configurability. Changing #define COLOR_ is a bad idea.
-#define LIGHT_COLOR_CYAN		"#7BF9FF"
-#define LIGHT_COLOR_PURE_CYAN	"#00FFFF"
-
-#define LIGHT_COLOR_RED			"#B40000"
-#define LIGHT_COLOR_ORANGE		"#FF9933"
-#define LIGHT_COLOR_DARKRED		"#A91515"
-#define LIGHT_COLOR_PURE_RED	"#FF0000"
-
-#define LIGHT_COLOR_GREEN		"#00CC00"
-#define LIGHT_COLOR_DARKGREEN	"#50AB00"
-#define LIGHT_COLOR_PURE_GREEN	"#00FF00"
-
-#define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
-#define LIGHT_COLOR_LIGHTBLUE	"#0099FF"
-#define LIGHT_COLOR_DARKBLUE	"#315AB4"
-#define LIGHT_COLOR_PURE_BLUE	"#0000FF"
-
-#define LIGHT_COLOR_FADEDPURPLE	"#A97FAA"
-#define LIGHT_COLOR_PURPLE		"#CD00CD"
-#define LIGHT_COLOR_PINK		"#FF33CC"
-
-#define LIGHT_COLOR_YELLOW     "#E1E17D" //Dimmed yellow, leaning kaki. rgb(225, 225, 125)
-
-#define LIGHT_COLOR_WHITE		"#FFFFFF"
-
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm

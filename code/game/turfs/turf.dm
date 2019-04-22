@@ -201,9 +201,6 @@
 
 	W.blueprint_data = old_blueprint_data
 
-	for(var/turf/space/S in range(W,1))
-		S.update_starlight()
-
 	recalc_atom_opacity()
 
 	if(SSlighting.initialized)
