@@ -123,6 +123,14 @@
 	var/slime_delay = 0
 	var/animal_delay = 0
 
+	//IP Intel vars
+	var/ipintel_email
+	var/ipintel_rating_bad = 1
+	var/ipintel_save_good = 12
+	var/ipintel_save_bad = 1
+	var/ipintel_domain = "check.getipintel.net"
+	var/ipintel_maxplaytime = 0
+
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
@@ -213,7 +221,7 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
-	
+
 	//Start now warning
 	var/start_now_confirmation = 0
 
@@ -293,6 +301,20 @@
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
 
+				if("ipintel_email")
+					if (value != "ch@nge.me")
+						config.ipintel_email = value
+				if("ipintel_rating_bad")
+					config.ipintel_rating_bad = text2num(value)
+				if("ipintel_domain")
+					config.ipintel_domain = value
+				if("ipintel_save_good")
+					config.ipintel_save_good = text2num(value)
+				if("ipintel_save_bad")
+					config.ipintel_save_bad = text2num(value)
+				if("ipintel_maxplaytime")
+					config.ipintel_maxplaytime = text2num(value)
+
 				if("log_ooc")
 					config.log_ooc = 1
 
@@ -358,10 +380,10 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
-					
+
 				if("vote_autotransfer_initial")
 					config.vote_autotransfer_initial = text2num(value)
-					
+
 				if("vote_autotransfer_interval")
 					config.vote_autotransfer_interval = text2num(value)
 
@@ -645,7 +667,7 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
-					
+
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
 

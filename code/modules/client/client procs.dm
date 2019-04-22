@@ -374,6 +374,7 @@
 			to_chat(src, message)
 		clientmessages.Remove(ckey)
 
+	check_ip_intel()
 
 	send_resources()
 
@@ -528,6 +529,19 @@
 	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
+/client/proc/check_ip_intel()
+	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
+	if (config.ipintel_email)
+		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
+			if(living_hours >= config.ipintel_maxplaytime)
+				message_admins("<span class='adminnotice'>Proxy Detection: [key_name_admin(src)] skips check due to [living_hours] playtime.</span>")
+				return
+
+		var/datum/ipintel/res = get_ip_intel(address)
+		if (res.intel >= config.ipintel_rating_bad)
+			message_admins("<span class='adminnotice'>Proxy Detection: [key_name_admin(src)] IP intel rated [res.intel*100]% likely to be a Proxy/VPN.</span>")
+		ip_intel = res.intel
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT
