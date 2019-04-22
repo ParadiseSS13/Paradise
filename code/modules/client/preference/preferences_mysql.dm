@@ -18,7 +18,7 @@
 					ghost_anonsay,
 					exp,
 					clientfps,
-					atklog
+					atklog,
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -55,7 +55,7 @@
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
-	toggles			= sanitize_integer(toggles, 0, 2097151, initial(toggles))
+	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))

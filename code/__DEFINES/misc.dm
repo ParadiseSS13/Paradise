@@ -402,3 +402,6 @@
 #define GHOST_ORBIT_HEXAGON		"hexagon"
 #define GHOST_ORBIT_SQUARE		"square"
 #define GHOST_ORBIT_PENTAGON	"pentagon"
+
+// Filters
+#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")

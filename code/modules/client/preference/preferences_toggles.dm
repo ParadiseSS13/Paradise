@@ -230,7 +230,6 @@
 		to_chat(usr, "<span class='notice'>You have disabled karma gains.")
 	else
 		to_chat(usr, "<span class='notice'>You have enabled karma gains.")
-	return
 
 /client/verb/toggle_popup_limiter()
 	set name = "Toggle Text Popup Limiter"
@@ -242,4 +241,4 @@
 		to_chat(usr, "<span class='notice'>You have enabled text popup limiting.")
 	else
 		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
-	return
+

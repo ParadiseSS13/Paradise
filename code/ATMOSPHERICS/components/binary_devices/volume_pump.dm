@@ -43,6 +43,8 @@ Thus, the two variables affect pump operation are set in New():
 	set_frequency(frequency)
 
 /obj/machinery/atmospherics/binary/volume_pump/update_icon()
+	..()
+	
 	if(!powered())
 		icon_state = "off"
 	else

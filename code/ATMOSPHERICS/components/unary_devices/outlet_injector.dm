@@ -38,6 +38,8 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
+	..()
+	
 	if(!powered())
 		icon_state = "off"
 	else

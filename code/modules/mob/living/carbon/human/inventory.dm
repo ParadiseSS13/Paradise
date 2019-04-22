@@ -202,8 +202,8 @@
 	W.screen_loc = null
 	W.loc = src
 	W.equipped(src, slot)
-	W.layer = 20
-	W.plane = HUD_PLANE
+	W.layer = ABOVE_HUD_LAYER
+	W.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(slot_back)
@@ -248,8 +248,8 @@
 				var/obj/item/clothing/ears/offear/O = new(W)
 				O.loc = src
 				r_ear = O
-				O.layer = 20
-				O.plane = HUD_PLANE
+				O.layer = ABOVE_HUD_LAYER
+				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_r_ear)
 			r_ear = W
@@ -257,8 +257,8 @@
 				var/obj/item/clothing/ears/offear/O = new(W)
 				O.loc = src
 				l_ear = O
-				O.layer = 20
-				O.plane = HUD_PLANE
+				O.layer = ABOVE_HUD_LAYER
+				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
 			glasses = W

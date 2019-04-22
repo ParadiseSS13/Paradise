@@ -534,8 +534,8 @@
 
 	W.forceMove(src)
 	W.equipped(src, slot)
-	W.layer = 20
-	W.plane = HUD_PLANE
+	W.layer = ABOVE_HUD_LAYER
+	W.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(slot_collar)

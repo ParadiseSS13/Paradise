@@ -28,6 +28,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/binary/passive_gate/update_icon()
+	..()
 	icon_state = "[on ? "on" : "off"]"
 
 /obj/machinery/atmospherics/binary/passive_gate/update_underlays()

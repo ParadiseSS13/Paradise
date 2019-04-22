@@ -18,6 +18,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/portables_connector/update_icon()
+	..()
 	icon_state = "connector"
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()
