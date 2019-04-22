@@ -55,11 +55,11 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Arrival Area"
 	icon_state = "start"
 
-/area/admin/
+/area/admin
 	name = "\improper Admin Room"
 	icon_state = "start"
 	requires_power = 0
-	dynamic_lighting = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 
 /area/adminconstruction
@@ -106,7 +106,6 @@ var/list/ghostteleportlocs = list()
 /area/shuttle
 	no_teleportlocs = TRUE
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	valid_territory = FALSE
 
 /area/shuttle/arrival
@@ -423,7 +422,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/trade
 	name = "Trade Shuttle"
 	icon_state = "shuttle"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
@@ -440,17 +439,16 @@ var/list/ghostteleportlocs = list()
 /area/start            // will be unused once kurper gets his login interface patch done
 	name = "start area"
 	icon_state = "start"
-	requires_power = 0
-	luminosity = 1
+	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = 1
+	has_gravity = TRUE
 
 // === end remove
 
 /area/alien
 	name = "\improper Alien base"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 // CENTCOM
 
@@ -458,7 +456,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Centcom"
 	icon_state = "centcom"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE
 
 /area/centcom/control
@@ -511,7 +509,6 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_mothership/control
 	name = "\improper Syndicate Control Room"
 	icon_state = "syndie-control"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/syndicate_mothership/elite_squad
 	name = "\improper Syndicate Elite Squad"
@@ -543,18 +540,16 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 
 /area/tdome/arena_source
 	name = "\improper Thunderdome Arena Template"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/tdome/arena
 	name = "\improper Thunderdome Arena"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/tdome/tdome1
 	name = "\improper Thunderdome (Team 1)"
@@ -630,13 +625,12 @@ var/list/ghostteleportlocs = list()
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = TRUE
-	dynamic_lighting = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/wizard_station
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
@@ -654,7 +648,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Vox Base"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	no_teleportlocs = TRUE
 
 /area/vox_station/transit
@@ -1237,7 +1231,7 @@ var/list/ghostteleportlocs = list()
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
-	dynamic_lighting = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -2306,26 +2300,22 @@ var/list/ghostteleportlocs = list()
 /area/turret_protected/AIsatextFP
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
-	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/turret_protected/AIsatextFS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
-	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/turret_protected/AIsatextAS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
-	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/turret_protected/AIsatextAP
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
-	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/turret_protected/NewAIMain
 	name = "\improper AI Main New"
@@ -2419,31 +2409,26 @@ var/list/ghostteleportlocs = list()
 /area/awaymission/wwmines
 	name = "\improper Wild West Mines"
 	icon_state = "away1"
-	luminosity = 1
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/wwgov
 	name = "\improper Wild West Mansion"
 	icon_state = "away2"
-	luminosity = 1
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/wwrefine
 	name = "\improper Wild West Refinery"
 	icon_state = "away3"
-	luminosity = 1
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/wwvault
 	name = "\improper Wild West Vault"
 	icon_state = "away3"
-	luminosity = 0
 
 /area/awaymission/wwvaultdoors
 	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
 	icon_state = "away2"
-	requires_power = 0
-	luminosity = 0
+	requires_power = FALSE
 
 /area/awaymission/desert
 	name = "Mars"
@@ -2496,7 +2481,6 @@ var/list/ghostteleportlocs = list()
 /area/awaymission/beach
 	name = "Beach"
 	icon_state = "beach"
-	luminosity = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
