@@ -38,6 +38,22 @@
 	set name = ".moveleft"
 	set instant = 1
 	DO_MOVE(WEST)
+/client/verb/moveupright()
+	set name = ".moveupright"
+	set instant = 1
+	DO_MOVE(NORTHEAST)
+/client/verb/movedownright()
+	set name = ".movedownright"
+	set instant = 1
+	DO_MOVE(SOUTHEAST)
+/client/verb/moveupleft()
+	set name = ".moveupleft"
+	set instant = 1
+	DO_MOVE(NORTHWEST)
+/client/verb/movedownleft()
+	set name = ".movedownleft"
+	set instant = 1
+	DO_MOVE(SOUTHWEST)			
 
 #undef DO_MOVE
 
@@ -226,7 +242,7 @@
 	moving = 1
 	var/delay = mob.movement_delay()
 	if(old_move_delay + (delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
-		move_delay = old_move_delay + delay
+		move_delay = old_move_delay
 	else
 		move_delay = delay + world.time
 	mob.last_movement = world.time
@@ -267,7 +283,6 @@
 		step(mob, pick(cardinal))
 	else
 		. = ..()
-
 	mob.setDir(direct)
 
 	for(var/obj/item/grab/G in mob)
@@ -276,7 +291,9 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
-
+	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
+		delay *= 2
+	move_delay += delay
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
