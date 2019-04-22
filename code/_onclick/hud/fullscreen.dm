@@ -17,7 +17,7 @@
 	screen.severity = severity
 
 	screens[category] = screen
-	if(client)
+	if(client && screen.should_show_to(src))
 		client.screen += screen
 	return screen
 
@@ -45,9 +45,15 @@
 		clear_fullscreen(category)
 
 /datum/hud/proc/reload_fullscreen()
-	var/list/screens = mymob.screens
-	for(var/category in screens)
-		mymob.client.screen |= screens[category]
+	if(mymob.client)
+		var/obj/screen/fullscreen/screen
+		var/list/screens = mymob.screens
+		for(var/category in screens)
+			screen = screens[category]
+			if(screen.should_show_to(src))
+				mymob.client.screen |= screen
+			else
+				mymob.client.screen -= screen
 
 /obj/screen/fullscreen
 	icon = 'icons/mob/screen_full.dmi'
@@ -57,6 +63,12 @@
 	plane = FULLSCREEN_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/severity = 0
+	var/show_when_dead = FALSE
+
+/obj/screen/fullscreen/proc/should_show_to(mob/mymob)
+	if(!show_when_dead && mymob.stat == DEAD)
+		return FALSE
+	return TRUE
 
 /obj/screen/fullscreen/Destroy()
 	severity = 0
@@ -100,6 +112,33 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
+
+/obj/screen/fullscreen/lighting_backdrop
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	transform = matrix(200, 0, 0, 0, 200, 0)
+	plane = LIGHTING_PLANE
+	blend_mode = BLEND_OVERLAY
+	show_when_dead = TRUE
+
+//Provides darkness to the back of the lighting plane
+/obj/screen/fullscreen/lighting_backdrop/lit
+	invisibility = INVISIBILITY_LIGHTING
+	layer = BACKGROUND_LAYER+21
+	color = "#000"
+	show_when_dead = TRUE
+
+//Provides whiteness in case you don't see lights so everything is still visible
+/obj/screen/fullscreen/lighting_backdrop/unlit
+	layer = BACKGROUND_LAYER+20
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/see_through_darkness
+	icon_state = "nightvision"
+	plane = LIGHTING_PLANE
+	layer = LIGHTING_LAYER
+	blend_mode = BLEND_ADD
+	show_when_dead = TRUE
 
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER

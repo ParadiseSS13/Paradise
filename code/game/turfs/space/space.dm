@@ -2,12 +2,15 @@
 	icon = 'icons/turf/space.dmi'
 	name = "\proper space"
 	icon_state = "0"
-	dynamic_lighting = 0
-	luminosity = 1
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = HEAT_CAPACITY_VACUUM
+
+	plane = PLANE_SPACE
+	layer = SPACE_LAYER
+	light_power = 0.25
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 	var/destination_z
 	var/destination_x
@@ -18,17 +21,22 @@
 
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
-	if(update_starlight() && is_station_level(z))
-	// before you ask: Yes, this is fucking stupid, but looping through turf/space in world is how you make the server freeze
-	// so I don't see a better way of doing this
-		LAZYADD(GLOB.station_level_space_turfs, src)
+
+/turf/space/Initialize(mapload)
+	var/area/A = loc
+	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
+		add_overlay(/obj/effect/fullbright)
+		
+	if (light_power && light_range)
+		update_light()
+
+	return INITIALIZE_HINT_NORMAL
 
 /turf/space/Destroy(force)
 	if(force)
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE
-
 
 /turf/space/BeforeChange()
 	..()
@@ -44,14 +52,14 @@
 	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
-	if(!config.starlight)
-		return FALSE
-	if(locate(/turf/simulated) in orange(src,1))
-		set_light(config.starlight)
-		return TRUE
-	else
+	if(config.starlight)
+		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+			if(isspaceturf(t))
+				//let's NOT update this that much pls
+				continue
+			set_light(config.starlight)
+			return
 		set_light(0)
-		return FALSE
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()

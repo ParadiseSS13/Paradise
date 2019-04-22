@@ -26,6 +26,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
+	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
@@ -128,6 +129,7 @@ var/list/ghostteleportlocs = list()
 	valid_territory = FALSE
 	outdoors = 1
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
+	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 
 /area/space/atmosalert()
 	return
@@ -1424,6 +1426,7 @@ var/list/ghostteleportlocs = list()
 	requires_power = 0
 	dynamic_lighting = 0
 	valid_territory = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 
 /area/solar/auxport
 	name = "\improper Fore Port Solar Array"

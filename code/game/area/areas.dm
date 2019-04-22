@@ -16,38 +16,50 @@
 	// area from any other instances already present (meaning you can have
 	// separate APCs, and so on)
 	var/there_can_be_many = 0
-	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
-
 
 /area/New()
-
 	..()
+
+	GLOB.all_areas += src
+
+/area/Initialize(mapload)
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
-	GLOB.all_areas += src
+
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
-		requires_power = 1
-		always_unpowered = 1
-		dynamic_lighting = 1
-		power_light = 0
-		power_equip = 0
-		power_environ = 0
-//		lighting_state = 4
-		//has_gravity = 0    // Space has gravity.  Because.. because.
+	if(requires_power)
+		luminosity = 0
+	else
+		power_light = TRUE
+		power_equip = TRUE
+		power_environ = TRUE
 
-	if(requires_power != 0)
-		power_light = 0			//rastaf0
-		power_equip = 0			//rastaf0
-		power_environ = 0		//rastaf0
+		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
+			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+			luminosity = 0
+		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
+			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
+		dynamic_lighting = config.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+
+	. = ..()
 
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
 
-/area/Initialize()
-	. = ..()
+	if(!IS_DYNAMIC_LIGHTING(src))
+		add_overlay(/obj/effect/fullbright)
 
+	reg_in_areas_in_z()
+
+	return INITIALIZE_HINT_LATELOAD
+
+/area/LateInitialize()
+	. = ..()
+	power_change()		// all machines set to current power level, also updates lighting icon
+
+/area/proc/reg_in_areas_in_z()
 	if(contents.len)
 		var/list/areas_in_z = space_manager.areas_in_z
 		var/z
@@ -63,12 +75,6 @@
 		if(!areas_in_z["[z]"])
 			areas_in_z["[z]"] = list()
 		areas_in_z["[z]"] += src
-
-	return INITIALIZE_HINT_LATELOAD
-
-/area/LateInitialize()
-	. = ..()
-	power_change()		// all machines set to current power level, also updates lighting icon
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
