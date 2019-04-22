@@ -18,9 +18,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area
 	var/fire = null
 	var/atmosalm = ATMOS_ALARM_NONE
-	var/poweralm = 1
+	var/poweralm = TRUE
 	var/party = null
-	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
+	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
@@ -32,37 +32,53 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	invisibility = INVISIBILITY_LIGHTING
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
-	var/lightswitch = 1
+	var/lightswitch = TRUE
 
 	var/eject = null
 
 	var/debug = 0
-	var/requires_power = 1
+	var/requires_power = TRUE
 	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
 
-	var/power_equip = 1
-	var/power_light = 1
-	var/power_environ = 1
+	var/power_equip = TRUE
+	var/power_light = TRUE
+	var/power_environ = TRUE
 	var/music = null
-	var/used_equip = 0
-	var/used_light = 0
-	var/used_environ = 0
+	var/used_equip = FALSE
+	var/used_light = FALSE
+	var/used_environ = FALSE
 	var/static_equip
-	var/static_light = 0
+	var/static_light = FALSE
 	var/static_environ
 
-	var/has_gravity = 1
+	var/has_gravity = TRUE
 	var/list/apc = list()
 	var/no_air = null
-//	var/list/lights				// list of all lights on this area
-	var/air_doors_activated = 0
 
-	var/tele_proof = 0
-	var/no_teleportlocs = 0
+	var/air_doors_activated = FALSE
 
-	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/tele_proof = FALSE
+	var/no_teleportlocs = FALSE
+
+	var/outdoors = FALSE //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
 	var/nad_allowed = FALSE //is the station NAD allowed on this area?
+
+	// This var is used with the maploader (modules/awaymissions/maploader/reader.dm)
+	// if this is 1, when used in a map snippet, this will instantiate a unique
+	// area from any other instances already present (meaning you can have
+	// separate APCs, and so on)
+	var/there_can_be_many = FALSE
+
+	var/global/global_uid = 0
+	var/uid
+
+	var/list/ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg',\
+								'sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg',\
+								'sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg',\
+								'sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg',\
+								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
+								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/

@@ -1,22 +1,3 @@
-// Areas.dm
-
-// ===
-/area
-	var/global/global_uid = 0
-	var/uid
-	var/list/ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg',\
-								'sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg',\
-								'sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg',\
-								'sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg',\
-								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
-								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
-
-	// This var is used with the maploader (modules/awaymissions/maploader/reader.dm)
-	// if this is 1, when used in a map snippet, this will instantiate a unique
-	// area from any other instances already present (meaning you can have
-	// separate APCs, and so on)
-	var/there_can_be_many = 0
-
 /area/New()
 	..()
 
@@ -206,7 +187,6 @@
 			icon_state = "party"
 		else
 			icon_state = "blue-red"
-		invisibility = INVISIBILITY_LIGHTING
 	else
 		var/weather_icon
 		for(var/V in SSweather.processing)
@@ -216,12 +196,9 @@
 				weather_icon = TRUE
 		if(!weather_icon)
 			icon_state = null
-			invisibility = INVISIBILITY_MAXIMUM
 
 /area/space/updateicon()
 	icon_state = null
-	invisibility = INVISIBILITY_MAXIMUM
-
 
 /*
 #define EQUIP 1

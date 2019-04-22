@@ -16,13 +16,10 @@
 	var/destination_x
 	var/destination_y
 
-/turf/space/New()
-	. = ..()
-
+/turf/space/Initialize(mapload)
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
 
-/turf/space/Initialize(mapload)
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
