@@ -13,6 +13,7 @@
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
+ 	..()
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -21,7 +22,7 @@
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	toggle()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
 	toggle()
@@ -36,7 +37,7 @@
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	set_max()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/trinary/mixer/AIAltClick()
 	set_max()

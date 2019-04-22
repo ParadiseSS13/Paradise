@@ -23,6 +23,7 @@ Filter types:
 	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
+ 	..()
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -31,7 +32,7 @@ Filter types:
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	toggle()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick()
 	toggle()
@@ -46,7 +47,7 @@ Filter types:
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	set_max()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick()
 	set_max()
