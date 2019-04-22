@@ -29,7 +29,6 @@ Thus, the two variables affect pump operation are set in New():
 	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
- 	..()
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -38,7 +37,7 @@ Thus, the two variables affect pump operation are set in New():
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	toggle()
-	return
+	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/AICtrlClick()
 	toggle()
