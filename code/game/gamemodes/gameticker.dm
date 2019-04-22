@@ -508,6 +508,12 @@ var/round_start_time = 0
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()
 
+	// Add AntagHUD to everyone, see who was really evil the whole time!
+	for(var/datum/atom_hud/antag/H in huds)
+		for(var/m in GLOB.player_list)
+			var/mob/M = m
+			H.add_hud_to(M)
+
 	return 1
 
 /datum/controller/gameticker/proc/HasRoundStarted()
