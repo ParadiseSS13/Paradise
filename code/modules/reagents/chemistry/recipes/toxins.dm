@@ -180,5 +180,5 @@
 	name = "Rotatium"
 	id = "Rotatium"
 	result = "rotatium"
-	required_reagents = list("lsd" = 1, "teslium" = 1, "meth" = 1)
+	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"
