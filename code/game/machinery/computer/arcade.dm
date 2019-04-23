@@ -470,7 +470,7 @@
 						M.nutrition -= 50 //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
-							location.add_vomit_floor(src, 1)
+							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
 						M.Weaken(3)

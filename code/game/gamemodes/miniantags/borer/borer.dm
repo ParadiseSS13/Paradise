@@ -760,10 +760,9 @@
 		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</span>")
 		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
 		B.chemicals -= 100
-
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-		new /mob/living/simple_animal/borer(get_turf(src),B.generation + 1)
+		var/turf/T = get_turf(src)
+		T.add_vomit_floor()
+		new /mob/living/simple_animal/borer(T, B.generation + 1)
 
 	else
 		to_chat(src, "You need 100 chemicals to reproduce!")
