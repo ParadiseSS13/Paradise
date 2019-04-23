@@ -56,7 +56,7 @@
 	implant_color = "#AEFF00"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	aug_message = "Suddenly, you realize how much of a mess the station really is..."
 
 /obj/item/organ/internal/cyberimp/eyes/xray

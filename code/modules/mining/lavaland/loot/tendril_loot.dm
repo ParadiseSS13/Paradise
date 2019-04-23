@@ -191,6 +191,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	item_state = "lantern"
+	light_range = 7
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -202,21 +203,25 @@
 		return
 
 	if(wisp.loc == src)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
 		wisp.orbit(user, 20)
+		set_light(0)
 
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
 
 		feedback_add_details("wisp_lantern","F") // freed
 	else
+		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
+		set_light(initial(light_range))
 
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 		user.update_sight()
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
 
