@@ -243,3 +243,11 @@
 	else
 		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
 	return
+/client/verb/togglehotkeys()
+	set name = "Toggle Hotkey Mode"
+	set category = "Preferences"
+	set desc = "Toggles Hotkey Mode"
+	prefs.toggles ^= HOTKEYS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles & HOTKEYS) ? "no longer" : "now"] use hotkey mode.")
+	feedback_add_details("admin_verb","HOTKEYS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

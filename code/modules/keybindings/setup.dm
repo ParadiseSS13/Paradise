@@ -46,5 +46,7 @@
 
 	if(prefs.toggles & HOTKEYS)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
+		to_chat(src, "Using default macro")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
+		to_chat(src, "GOD HECKING HECK HECK")
