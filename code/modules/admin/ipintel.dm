@@ -12,24 +12,24 @@
 
 /datum/ipintel/proc/is_valid()
 	. = FALSE
-	if (intel < 0)
+	if(intel < 0)
 		return
-	if (intel <= config.ipintel_rating_bad)
-		if (world.realtime < cacherealtime + (config.ipintel_save_good * 60 * 60 * 10))
+	if(intel <= config.ipintel_rating_bad)
+		if(world.realtime < cacherealtime + (config.ipintel_save_good * 60 * 60 * 10))
 			return TRUE
 	else
-		if (world.realtime < cacherealtime + (config.ipintel_save_bad * 60 * 60 * 10))
+		if(world.realtime < cacherealtime + (config.ipintel_save_bad * 60 * 60 * 10))
 			return TRUE
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
 	var/datum/ipintel/res = new()
 	res.ip = ip
 	. = res
-	if (!ip || !config.ipintel_email || !SSipintel.enabled)
+	if(!ip || !config.ipintel_email || !SSipintel.enabled)
 		return
-	if (!bypasscache)
+	if(!bypasscache)
 		var/datum/ipintel/cachedintel = SSipintel.cache[ip]
-		if (cachedintel && cachedintel.is_valid())
+		if(cachedintel && cachedintel.is_valid())
 			cachedintel.cache = TRUE
 			return cachedintel
 
@@ -53,7 +53,7 @@
 			if(!query_get_ip_intel.Execute())
 				qdel(query_get_ip_intel)
 				return
-			if (query_get_ip_intel.NextRow())
+			if(query_get_ip_intel.NextRow())
 				res.cache = TRUE
 				res.cachedate = query_get_ip_intel.item[1]
 				res.intel = text2num(query_get_ip_intel.item[2])
@@ -64,7 +64,7 @@
 				return
 			qdel(query_get_ip_intel)
 	res.intel = ip_intel_query(ip)
-	if (updatecache && res.intel >= 0)
+	if(updatecache && res.intel >= 0)
 		SSipintel.cache[ip] = res
 		if(dbcon.IsConnected())
 			var/DBQuery/query_add_ip_intel = dbcon.NewQuery("INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON('[ip]'), [res.intel]) ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()")
@@ -74,53 +74,53 @@
 
 /proc/ip_intel_query(ip, var/retryed=0)
 	. = -1 //default
-	if (!ip)
+	if(!ip)
 		return
-	if (SSipintel.throttle > world.timeofday)
+	if(SSipintel.throttle > world.timeofday)
 		return
-	if (!SSipintel.enabled)
+	if(!SSipintel.enabled)
 		return
 
 	var/list/http[] = world.Export("http://[config.ipintel_domain]/check.php?ip=[ip]&contact=[config.ipintel_email]&format=json&flags=f")
 
-	if (http)
+	if(http)
 		var/status = text2num(http["STATUS"])
 
-		if (status == 200)
+		if(status == 200)
 			var/response = json_decode(file2text(http["CONTENT"]))
-			if (response)
-				if (response["status"] == "success")
+			if(response)
+				if(response["status"] == "success")
 					var/intelnum = text2num(response["result"])
-					if (isnum(intelnum))
+					if(isnum(intelnum))
 						return text2num(response["result"])
 					else
 						ipintel_handle_error("Bad intel from server: [response["result"]].", ip, retryed)
-						if (!retryed)
+						if(!retryed)
 							sleep(25)
 							return .(ip, 1)
 				else
 					ipintel_handle_error("Bad response from server: [response["status"]].", ip, retryed)
-					if (!retryed)
+					if(!retryed)
 						sleep(25)
 						return .(ip, 1)
 
-		else if (status == 429)
+		else if(status == 429)
 			ipintel_handle_error("Error #429: We have exceeded the rate limit.", ip, 1)
 			return
 		else
 			ipintel_handle_error("Unknown status code: [status].", ip, retryed)
-			if (!retryed)
+			if(!retryed)
 				sleep(25)
 				return .(ip, 1)
 	else
 		ipintel_handle_error("Unable to connect to API.", ip, retryed)
-		if (!retryed)
+		if(!retryed)
 			sleep(25)
 			return .(ip, 1)
 
 
 /proc/ipintel_handle_error(error, ip, retryed)
-	if (retryed)
+	if(retryed)
 		SSipintel.errors++
 		error += " Could not check [ip]. Disabling IPINTEL for [SSipintel.errors] minute[( SSipintel.errors == 1 ? "" : "s" )]"
 		SSipintel.throttle = world.timeofday + (10 * 120 * SSipintel.errors)

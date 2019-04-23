@@ -302,7 +302,7 @@
 					config.shadowling_max_age = text2num(value)
 
 				if("ipintel_email")
-					if (value != "ch@nge.me")
+					if(value != "ch@nge.me")
 						config.ipintel_email = value
 				if("ipintel_rating_bad")
 					config.ipintel_rating_bad = text2num(value)

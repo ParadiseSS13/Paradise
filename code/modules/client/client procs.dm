@@ -531,7 +531,7 @@
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if (config.ipintel_email)
+	if(config.ipintel_email)
 		if(config.ipintel_maxplaytime && config.use_exp_tracking)
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 			if(living_hours >= config.ipintel_maxplaytime)
@@ -539,7 +539,7 @@
 				return
 
 		var/datum/ipintel/res = get_ip_intel(address)
-		if (res.intel >= config.ipintel_rating_bad)
+		if(res.intel >= config.ipintel_rating_bad)
 			message_admins("<span class='adminnotice'>Proxy Detection: [key_name_admin(src)] IP intel rated [res.intel*100]% likely to be a Proxy/VPN.</span>")
 		ip_intel = res.intel
 
