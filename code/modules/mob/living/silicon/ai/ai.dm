@@ -1291,3 +1291,28 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/ExtinguishMob()
 	return
+
+
+/mob/living/silicon/ai/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	lighting_alpha = initial(lighting_alpha)
+	sight = initial(sight)
+
+	if(aiRestorePowerRoutine)
+		sight = sight &~ SEE_TURFS
+		sight = sight &~ SEE_MOBS
+		sight = sight &~ SEE_OBJS
+		see_in_dark = 0
+
+	if(see_override)
+		see_invisible = see_override
+
+	sync_lighting_plane_alpha()

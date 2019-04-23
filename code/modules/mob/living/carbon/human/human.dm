@@ -545,6 +545,7 @@
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
+
 	if(stat == DEAD)
 		grant_death_vision()
 		return
@@ -1427,11 +1428,7 @@
 
 	dna.species.on_species_gain(src)
 
-	see_in_dark = dna.species.get_resultant_darksight(src)
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
+	update_sight()
 
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 

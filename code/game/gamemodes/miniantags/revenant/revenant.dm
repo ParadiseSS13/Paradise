@@ -18,7 +18,7 @@
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	universal_understand = 1
 	response_help   = "passes through"
 	response_disarm = "swings at"
@@ -51,7 +51,6 @@
 	var/draining = 0 //If the revenant is draining someone.
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
-	var/image/ghostimage = null //Visible to ghost with darkness off
 
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
@@ -91,13 +90,6 @@
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
-/mob/living/simple_animal/revenant/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
@@ -120,9 +112,6 @@
 /mob/living/simple_animal/revenant/New()
 	..()
 
-	ghostimage = image(src.icon,src,src.icon_state)
-	ghost_darkness_images |= ghostimage
-	updateallghostimages()
 	remove_from_all_data_huds()
 
 	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
@@ -196,8 +185,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	ghost_darkness_images -= ghostimage
-	updateallghostimages()
 
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
 	notransform = 1

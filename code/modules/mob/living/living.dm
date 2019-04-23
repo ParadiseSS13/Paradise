@@ -992,3 +992,37 @@
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			A.extinguish_light()
+
+/mob/living/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("stat")
+			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
+				GLOB.dead_mob_list -= src
+				GLOB.living_mob_list += src
+			if((stat < DEAD) && (var_value == DEAD))//Kill he
+				GLOB.living_mob_list -= src
+				GLOB.dead_mob_list += src
+	. = ..()
+	switch(var_name)
+		if("weakened")
+			SetWeakened(var_value)
+		if("stunned")
+			SetStunned(var_value)
+		if("paralysis")
+			SetParalysis(var_value)
+		if("sleeping")
+			SetSleeping(var_value)
+		if("maxHealth")
+			updatehealth()
+		if("resize")
+			update_transform()
+		if("lighting_alpha")
+			sync_lighting_plane_alpha()
+
+/mob/living/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return

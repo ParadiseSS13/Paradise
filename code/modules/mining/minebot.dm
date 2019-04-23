@@ -184,28 +184,6 @@
 			mode = MINEDRONE_COLLECT
 			SetCollectBehavior()
 
-
-/mob/living/simple_animal/hostile/mining_drone/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
-	if(mesons_active)
-		sight |= SEE_TURFS
-		see_invisible = SEE_INVISIBLE_MINIMUM
-	else
-		sight &= ~SEE_TURFS
-		see_invisible = SEE_INVISIBLE_LIVING
-
-	see_in_dark = initial(see_in_dark)
-
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
-			return
-
 //Actions for sentient minebots
 
 /datum/action/innate/minedrone
@@ -232,10 +210,16 @@
 
 /datum/action/innate/minedrone/toggle_meson_vision/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	user.mesons_active = !user.mesons_active
-	user.update_sight()
+	if(user.sight & SEE_TURFS)
+		user.sight &= ~SEE_TURFS
+		user.lighting_alpha = initial(user.lighting_alpha)
+	else
+		user.sight |= SEE_TURFS
+		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.mesons_active) ? "on" : "off"].</span>")
+	user.sync_lighting_plane_alpha()
+
+	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_mode
 	name = "Toggle Mode"

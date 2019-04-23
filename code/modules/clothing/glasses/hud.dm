@@ -51,7 +51,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/diagnostic
@@ -73,7 +73,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security
@@ -105,6 +105,7 @@
 	icon_state = "jensenshades"
 	item_state = "jensenshades"
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "\improper Night Vision Security HUD"
@@ -112,7 +113,7 @@
 	icon_state = "securityhudnight"
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security/sunglasses/read_only
@@ -154,7 +155,7 @@
 	icon_state = "hydroponichudnight"
 	item_state = "glasses"
 	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security/tajblind

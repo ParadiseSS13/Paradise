@@ -154,6 +154,7 @@
 	var/darkness_view = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
+	var/lighting_alpha
 
 	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
@@ -281,9 +282,11 @@ BLIND     // can't see anything
 	slot_flags = SLOT_HEAD
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
-	var/darkness_view = 0
-	var/helmet_goggles_invis_view = 0
+
 	var/vision_flags = 0
+	var/darkness_view = 0
+	var/lighting_alpha
+
 	var/can_toggle = null
 
 //Mask

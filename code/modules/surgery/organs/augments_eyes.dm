@@ -8,8 +8,10 @@
 	w_class = WEIGHT_CLASS_TINY
 
 	var/vision_flags = 0
-	var/dark_view = 0
+	var/see_in_dark = 0
 	var/see_invisible = 0
+	var/lighting_alpha
+	
 	var/eye_colour = "#000000"
 	var/old_eye_colour = "#000000"
 	var/flash_protect = 0
@@ -54,7 +56,7 @@
 	implant_color = "#AEFF00"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	aug_message = "Suddenly, you realize how much of a mess the station really is..."
 
 /obj/item/organ/internal/cyberimp/eyes/xray
@@ -63,8 +65,8 @@
 	implant_color = "#000000"
 	origin_tech = "materials=4;programming=4;biotech=6;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
-	dark_view = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/organ/internal/cyberimp/eyes/thermals
 	name = "Thermals implant"

@@ -146,7 +146,8 @@
 						H.mutations.Add(XRAY)
 						H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 						H.see_in_dark = 8
-						H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+						H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+						H.update_sight()
 						to_chat(H, "<span class='notice'>The walls suddenly disappear.</span>")
 				if("voodoo")
 					new /obj/item/voodoo(get_turf(H))

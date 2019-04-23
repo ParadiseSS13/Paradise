@@ -43,6 +43,7 @@
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud(src)
+		update_sight()
 
 /datum/hud/New(mob/owner)
 	mymob = owner

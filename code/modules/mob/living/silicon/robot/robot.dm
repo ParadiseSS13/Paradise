@@ -1385,3 +1385,43 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/check_ear_prot()
 	return ear_protection
+
+/mob/living/silicon/robot/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(sight_mode & BORGMESON)
+		sight |= SEE_TURFS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+		see_in_dark = 1
+
+	if(sight_mode & BORGXRAY)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_invisible = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		see_invisible = SEE_INVISIBLE_LIVING
+		see_in_dark = 8
+
+	if(sight_mode & BORGTHERM)
+		sight |= SEE_MOBS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
+		see_in_dark = 8
+
+	if(see_override)
+		see_invisible = see_override
+
+	sync_lighting_plane_alpha()

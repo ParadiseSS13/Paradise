@@ -1341,3 +1341,12 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/is_literate()
 	return FALSE
+
+/mob/proc/update_sight()
+	sync_lighting_plane_alpha()
+
+/mob/proc/sync_lighting_plane_alpha()
+	if(hud_used)
+		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		if (L)
+			L.alpha = lighting_alpha

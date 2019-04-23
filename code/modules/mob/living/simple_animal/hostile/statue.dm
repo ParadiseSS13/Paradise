@@ -40,7 +40,7 @@
 
 	search_objects = 1 // So that it can see through walls
 
-	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
@@ -189,13 +189,6 @@
 			L.EyeBlind(4)
 	return
 
-/mob/living/simple_animal/hostile/statue/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
 //Toggle Night Vision
 /obj/effect/proc_holder/spell/targeted/night_vision
 	name = "Toggle Nightvision"
@@ -207,15 +200,23 @@
 	message = "<span class='notice'>You toggle your night vision!</span>"
 	range = -1
 	include_user = 1
-	var/non_night_vision = SEE_INVISIBLE_LIVING
-	var/night_vision = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
 /obj/effect/proc_holder/spell/targeted/night_vision/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		if(target.see_invisible == non_night_vision)
-			target.see_invisible = night_vision
-		else
-			target.see_invisible = non_night_vision
+		switch(target.lighting_alpha)
+			if (LIGHTING_PLANE_ALPHA_VISIBLE)
+				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+				name = "Toggle Nightvision \[More]"
+			if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+				name = "Toggle Nightvision \[Full]"
+			if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
+				target.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+				name = "Toggle Nightvision \[OFF]"
+			else
+				target.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+				name = "Toggle Nightvision \[ON]"
+		target.update_sight()
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
