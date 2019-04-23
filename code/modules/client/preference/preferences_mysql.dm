@@ -18,7 +18,7 @@
 					ghost_anonsay,
 					exp,
 					clientfps,
-					atklog,
+					atklog
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
