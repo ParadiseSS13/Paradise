@@ -15,7 +15,7 @@
 	result_amount = 1
 	min_temp = T0C + 400
 	mix_sound = null
-	no_message = 1
+	mix_message = null
 
 /datum/chemical_reaction/cyanide
 	name = "Cyanide"
@@ -139,7 +139,7 @@
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
-	min_temp = T0C + 130
+	min_temp = T0C + 50
 	mix_sound = null
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)

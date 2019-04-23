@@ -4,6 +4,7 @@
 	icon_state = "blank_blob"
 	health = 200
 	fire_resist = 2
+	point_return = -1
 	var/mob/camera/blob/overmind = null // the blob core's overmind
 	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
 	var/resource_delay = 0
@@ -81,7 +82,7 @@
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)
-			B.change_to(/obj/structure/blob/shield)
+			B.change_to(/obj/structure/blob/shield/core)
 			if(B && overmind)
 				B.color = overmind.blob_reagent_datum.color
 			else
@@ -117,10 +118,11 @@
 			src.overmind = B
 			color = overmind.blob_reagent_datum.color
 			if(B.mind && !B.mind.special_role)
-				B.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+				B.mind.make_Overmind()
 			spawn(0)
 				if(is_offspring)
-					B.verbs -= /mob/camera/blob/verb/split_consciousness
+					B.is_offspring = TRUE
+		
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
@@ -129,7 +131,7 @@
 	if(overmind)
 		overmind.add_points(60)
 		if(overmind.mind)
-			overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+			overmind.mind.make_Overmind()
 		else
 			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
 	else

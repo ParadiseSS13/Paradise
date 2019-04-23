@@ -157,7 +157,7 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/check_block()
+/mob/living/carbon/human/proc/check_block()
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
@@ -219,6 +219,10 @@ emp_act
 		user.do_attack_animation(src)
 		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
 			return 0
+
+	if(check_block())
+		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+		return FALSE
 
 	if(istype(I,/obj/item/card/emag))
 		emag_act(user, affecting)

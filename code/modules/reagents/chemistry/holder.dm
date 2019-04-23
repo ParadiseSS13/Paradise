@@ -218,7 +218,7 @@ var/const/INGEST = 2
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		set_reagent_temp(M.bodytemperature)
+		temperature_reagents(M.bodytemperature - 30)
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
@@ -465,8 +465,8 @@ var/const/INGEST = 2
 							add_reagent(S, C.result_amount * C.secondary_results[S] * multiplier)
 
 					var/list/seen = viewers(4, get_turf(my_atom))
-					for(var/mob/M in seen)
-						if(!C.no_message)
+					for(var/mob/living/M in seen)
+						if(C.mix_message)
 							to_chat(M, "<span class='notice'>[bicon(my_atom)] [C.mix_message]</span>")
 
 					if(istype(my_atom, /obj/item/slime_extract))
@@ -478,7 +478,8 @@ var/const/INGEST = 2
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
-					playsound(get_turf(my_atom), C.mix_sound, 80, 1)
+					if(C.mix_sound)
+						playsound(get_turf(my_atom), C.mix_sound, 80, 1)
 
 					C.on_reaction(src, created_volume)
 					reaction_occured = 1

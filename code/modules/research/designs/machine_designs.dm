@@ -163,8 +163,8 @@
 	category = list("Medical Machinery")
 
 /datum/design/chem_dispenser
-	name = "Machine Board (Portable Chem Dispenser)"
-	desc = "The circuit board for a Portable Chem Dispenser."
+	name = "Machine Board (Chem Dispenser)"
+	desc = "The circuit board for a Chem Dispenser."
 	id = "chem_dispenser"
 	req_tech = list("programming" = 5, "biotech" = 3, "materials" = 4, "plasmatech" = 4)
 	build_type = IMPRINTER
@@ -173,8 +173,8 @@
 	category = list("Medical Machinery")
 
 /datum/design/chem_master
-	name = "Machine Design (Chem Master Board)"
-	desc = "The circuit board for a Chem Master 2999."
+	name = "Machine Design (ChemMaster Board)"
+	desc = "The circuit board for a ChemMaster 3000."
 	id = "chem_master"
 	req_tech = list("biotech" = 3, "materials" = 3, "programming" = 2)
 	build_type = IMPRINTER

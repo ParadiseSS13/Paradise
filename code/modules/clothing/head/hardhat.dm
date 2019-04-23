@@ -16,25 +16,39 @@
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/hardhat/attack_self(mob/user)
+/obj/item/clothing/head/hardhat/attack_self(mob/living/user)
+	toggle_helmet_light(user)
+
+/obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
 	on = !on
+	if(on)
+		turn_on(user)
+	else
+		turn_off(user)
+	update_icon()
+
+/obj/item/clothing/head/hardhat/update_icon()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
-	if(on)
-		set_light(brightness_on)
-	else
-		set_light(0)
-
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	..()
 
-/obj/item/clothing/head/hardhat/extinguish_light()
+/obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
+	set_light(brightness_on)
+
+/obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
+	set_light(0)
+
+/obj/item/clothing/head/hardhat/extinguish_light(mob/living/user)
 	if(on)
 		on = FALSE
-		set_light(0)
-		icon_state = "hardhat0_[item_color]"
-		item_state = "hardhat0_[item_color]"
+		turn_off(user)
+		update_icon()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
@@ -78,7 +92,7 @@
 	flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	species_fit = list("Grey")

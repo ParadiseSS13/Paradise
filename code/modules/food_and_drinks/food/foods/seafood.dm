@@ -97,6 +97,24 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 
+/obj/item/reagent_containers/food/snacks/shrimp_skewer
+	name = "shrimp skewer"
+	desc = "Four shrimp lightly grilled on a skewer. Yummy!"
+	trash = /obj/item/stack/rods
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "shrimpskewer"
+	bitesize = 3 
+	list_reagents = list("nutriment" = 8)
+
+/obj/item/reagent_containers/food/snacks/fish_skewer
+	name = "fish skewer"
+	desc = "A whole fish battered and grilled on a skewer. Hope you're hungry!"
+	trash = /obj/item/stack/rods
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "fishskewer"
+	bitesize = 3
+	list_reagents = list("protein" = 6, "vitamin" = 4)
+
 /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
 	name = "ebi makiroll"
 	desc = "A large unsliced roll of Ebi Sushi."

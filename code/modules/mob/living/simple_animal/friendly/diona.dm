@@ -109,6 +109,8 @@
 			forceMove(M)
 		else
 			get_scooped(M)
+	else 
+		..()
 
 /mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)

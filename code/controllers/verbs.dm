@@ -17,8 +17,7 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
-/client/proc/debug_controller(controller in list("Master",
-	"failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
+/client/proc/debug_controller(controller in list("failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
 	"Cameras","Garbage", "Transfer Controller","Event","Alarm","Nano","Vote","Fires",
 	"Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
 	set category = "Debug"
@@ -27,9 +26,6 @@
 
 	if(!holder)	return
 	switch(controller)
-		if("Master")
-			debug_variables(master_controller)
-			feedback_add_details("admin_verb","DMC")
 		if("failsafe")
 			debug_variables(Failsafe)
 			feedback_add_details("admin_verb", "dfailsafe")
@@ -46,13 +42,13 @@
 			debug_variables(SSair)
 			feedback_add_details("admin_verb","DAir")
 		if("Jobs")
-			debug_variables(job_master)
+			debug_variables(SSjobs)
 			feedback_add_details("admin_verb","DJobs")
 		if("Sun")
 			debug_variables(SSsun)
 			feedback_add_details("admin_verb","DSun")
 		if("Radio")
-			debug_variables(radio_controller)
+			debug_variables(SSradio)
 			feedback_add_details("admin_verb","DRadio")
 		if("Configuration")
 			debug_variables(config)
@@ -76,7 +72,7 @@
 			debug_variables(SSnanoui)
 			feedback_add_details("admin_verb","DNano")
 		if("Vote")
-			debug_variables(vote)
+			debug_variables(SSvote)
 			feedback_add_details("admin_verb","DVote")
 		if("Fires")
 			debug_variables(SSfires)

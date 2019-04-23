@@ -22,7 +22,7 @@
 	M.adjust_fire_stacks(mob_burning)
 	M.IgniteMob()
 	if(method == INGEST)
-		M.adjustFireLoss(min(max(15, volume * 3), 45))
+		M.adjustFireLoss(min(max(10, volume * 2), 45))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
 
@@ -242,7 +242,7 @@
 		M.adjust_fire_stacks(10)
 		M.IgniteMob()
 	if(method == INGEST)
-		M.adjustFireLoss(min(max(30, volume * 6), 90))
+		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
 
@@ -262,12 +262,6 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("sorium", 5)
 
-/datum/reagent/sorium_vortex
-	name = "sorium_vortex"
-	id = "sorium_vortex"
-	reagent_state = LIQUID
-	color = "#FFA500"
-
 /datum/reagent/liquid_dark_matter
 	name = "Liquid Dark Matter"
 	id = "liquid_dark_matter"
@@ -284,12 +278,6 @@
 	if(!T.reagents)
 		T.create_reagents(50)
 	T.reagents.add_reagent("liquid_dark_matter", 5)
-
-/datum/reagent/ldm_vortex
-	name = "LDM Vortex"
-	id = "ldm_vortex"
-	reagent_state = LIQUID
-	color = "#800080"
 
 /datum/reagent/blackpowder
 	name = "Black Powder"
@@ -354,7 +342,11 @@
 	if(method == TOUCH)
 		M.ExtinguishMob()
 
-/datum/reagent/cryostylane/reaction_turf(turf/T, volume)
+/datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
+	if(!istype(T))
+		return
+	if(volume >= 3)
+		T.MakeSlippery(TURF_WET_ICE)
 	if(volume >= 5)
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(15,30))

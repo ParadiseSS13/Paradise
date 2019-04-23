@@ -54,10 +54,10 @@
 
 	//Radio remote control
 /obj/machinery/power/emitter/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
-		radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 
 /obj/machinery/power/emitter/verb/rotate()
@@ -121,8 +121,8 @@
 		update_icon()
 
 /obj/machinery/power/emitter/Destroy()
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")

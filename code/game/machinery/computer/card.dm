@@ -69,7 +69,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/format_jobs(list/jobs)
 	var/list/formatted = list()
 	for(var/job in jobs)
-		if(job_in_department(job_master.GetJob(job)))
+		if(job_in_department(SSjobs.GetJob(job)))
 			formatted.Add(list(list(
 				"display_name" = replacetext(job, " ", "&nbsp;"),
 				"target_rank" = get_target_rank(),
@@ -79,7 +79,7 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/proc/format_job_slots()
 	var/list/formatted = list()
-	for(var/datum/job/job in job_master.occupations)
+	for(var/datum/job/job in SSjobs.occupations)
 		if(job_blacklisted_full(job))
 			continue
 		if(!job_in_department(job))
@@ -166,7 +166,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
-			if(job.total_positions > job.current_positions && !(job in job_master.prioritized_jobs))
+			if(job.total_positions > job.current_positions && !(job in SSjobs.prioritized_jobs))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
@@ -177,10 +177,10 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted_full(job) && job_in_department(job, FALSE))
-			if(job in job_master.prioritized_jobs)
+			if(job in SSjobs.prioritized_jobs)
 				return 2
 			else
-				if(job_master.prioritized_jobs.len >= 3)
+				if(SSjobs.prioritized_jobs.len >= 3)
 					return 0
 				if(job.total_positions <= job.current_positions)
 					return 0
@@ -205,7 +205,7 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/proc/get_subordinates(rank, addcivs)
 	var/list/jobs_returned = list()
-	for(var/datum/job/thisjob in job_master.occupations)
+	for(var/datum/job/thisjob in SSjobs.occupations)
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
 	if(addcivs)
@@ -364,10 +364,10 @@ var/time_last_changed_position = 0
 				if(target_dept && modify.assignment == "Unassigned")
 					visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
 					return 0
-				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
+				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
 					return 0
-				if(!job_in_department(job_master.GetJob(t1)))
+				if(!job_in_department(SSjobs.GetJob(t1)))
 					return 0
 				if(t1 == "Custom")
 					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
@@ -473,7 +473,7 @@ var/time_last_changed_position = 0
 				if(modify.assignment == "Unassigned")
 					visible_message("<span class='notice'>[src]: Unassigned crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
 					return 0
-				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
+				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
 					return 0
 
@@ -494,7 +494,7 @@ var/time_last_changed_position = 0
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
-				var/datum/job/j = job_master.GetJob(edit_job_target)
+				var/datum/job/j = SSjobs.GetJob(edit_job_target)
 				if(!job_in_department(j, FALSE))
 					return 0
 				if(!j)
@@ -513,7 +513,7 @@ var/time_last_changed_position = 0
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
-				var/datum/job/j = job_master.GetJob(edit_job_target)
+				var/datum/job/j = SSjobs.GetJob(edit_job_target)
 				if(!job_in_department(j, FALSE))
 					return 0
 				if(!j)
@@ -533,17 +533,17 @@ var/time_last_changed_position = 0
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
 			if(is_authenticated(usr) && !target_dept)
 				var/priority_target = href_list["job"]
-				var/datum/job/j = job_master.GetJob(priority_target)
+				var/datum/job/j = SSjobs.GetJob(priority_target)
 				if(!j)
 					return 0
 				if(!job_in_department(j))
 					return 0
 				var/priority = TRUE
-				if(j in job_master.prioritized_jobs)
-					job_master.prioritized_jobs -= j
+				if(j in SSjobs.prioritized_jobs)
+					SSjobs.prioritized_jobs -= j
 					priority = FALSE
-				else if(job_master.prioritized_jobs.len < 3)
-					job_master.prioritized_jobs += j
+				else if(SSjobs.prioritized_jobs.len < 3)
+					SSjobs.prioritized_jobs += j
 				else
 					return 0
 				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")

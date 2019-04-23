@@ -52,6 +52,16 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/handheld_defib
+	name = "Handheld Defibrillator"
+	desc = "A smaller defibrillator only capable of treating cardiac arrest."
+	id = "handheld_defib"
+	req_tech = list("biotech" = 2, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
+	build_path = /obj/item/handheld_defibrillator
+	category = list("Medical")
+
 /datum/design/defib
 	name = "Defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."

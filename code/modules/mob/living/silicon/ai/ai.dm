@@ -38,7 +38,7 @@ var/list/ai_verbs_default = list(
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
-	move_resist = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_NORMAL
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
@@ -534,14 +534,12 @@ var/list/ai_verbs_default = list(
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
 
-	var/is_anchored = FALSE
-	if(move_resist == MOVE_FORCE_VERY_STRONG)
-		move_resist = MOVE_FORCE_VERY_STRONG
+	if(anchored)
+		anchored = FALSE
 	else
-		is_anchored = TRUE
-		move_resist = MOVE_FORCE_NORMAL
+		anchored = TRUE
 
-	to_chat(src, "[is_anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
+	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
 /mob/living/silicon/ai/update_canmove()
 	return FALSE
@@ -1113,7 +1111,7 @@ var/list/ai_verbs_default = list(
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = 0
+			anchored = FALSE
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
@@ -1121,7 +1119,7 @@ var/list/ai_verbs_default = list(
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = 1
+			anchored = TRUE
 			return
 	else
 		return ..()

@@ -1,4 +1,4 @@
-#define NUKESCALINGMODIFIER 1
+#define NUKESCALINGMODIFIER 1.2
 
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
@@ -16,7 +16,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
-	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
+	var/nukes_left = 1 //Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
 	var/syndies_didnt_escape = 0 //Used for tracking if the syndies got the shuttle off of the z-level
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
@@ -36,7 +36,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(possible_syndicates.len < 1)
 		return 0
 
-	if(possible_syndicates.len > agents_possible)
+	if(LAZYLEN(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -123,12 +123,7 @@ proc/issyndicate(mob/living/M as mob)
 			leader_selected = 1
 		else
 			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
-
-			var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-			if(foundIDs.len)
-				for(var/obj/item/card/id/ID in foundIDs)
-					ID.name = "[syndicate_name()] Operative ID card"
-					ID.registered_name = synd_mind.current.real_name
+			update_syndicate_id(synd_mind, FALSE)
 
 			agent_number++
 		spawnpos++
@@ -201,15 +196,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
-	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
-
-	if(foundIDs.len)
-		for(var/obj/item/card/id/ID in foundIDs)
-			ID.name = "[syndicate_name()] [leader_title] ID card"
-			ID.registered_name = synd_mind.current.real_name
-			ID.access += access_syndicate_leader
-	else
-		message_admins("Warning: Nuke Ops spawned without access to leave their spawn area!")
+	update_syndicate_id(synd_mind, leader_title, TRUE)
 
 	if(nuke_code)
 		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
@@ -231,8 +218,18 @@ proc/issyndicate(mob/living/M as mob)
 
 	else
 		nuke_code = "code will be provided later"
-	return
 
+/datum/game_mode/proc/update_syndicate_id(var/datum/mind/synd_mind, is_leader = FALSE)
+	var/list/found_ids = synd_mind.current.search_contents_for(/obj/item/card/id)
+
+	if(LAZYLEN(found_ids))
+		for(var/obj/item/card/id/ID in found_ids)
+			ID.name = "[synd_mind.current.real_name] ID card"
+			ID.registered_name = synd_mind.current.real_name
+			if(is_leader)
+				ID.access += access_syndicate_leader
+	else
+		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
 /datum/game_mode/proc/forge_syndicate_objectives(var/datum/mind/syndicate)
 	var/datum/objective/nuclear/syndobj = new
@@ -255,7 +252,7 @@ proc/issyndicate(mob/living/M as mob)
 	return 1337 // WHY??? -- Doohl
 
 
-/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob)
+/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 20)
 	var/radio_freq = SYND_FREQ
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
@@ -272,7 +269,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
-	U.hidden_uplink.uses = 20
+	U.hidden_uplink.uses = uplink_uses
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
 	if(synd_mob.dna.species)
@@ -309,7 +306,6 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
-
 
 /datum/game_mode/nuclear/check_win()
 	if(nukes_left == 0)
