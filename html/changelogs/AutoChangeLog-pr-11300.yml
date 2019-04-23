@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Added Observer HUD buttons for Jump to Mob, Orbit, Re-enter corpse, and Teleport"
+  - imageadd: "Added custom icons for Observer HUD buttons"
