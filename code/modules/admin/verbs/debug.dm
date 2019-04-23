@@ -612,7 +612,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/datum/job/jobdatum
 	if(dresscode == "as job...")
 		var/jobname = input("Select job", "Robust quick dress shop") as null|anything in get_all_jobs()
-		jobdatum = job_master.GetJob(jobname)
+		jobdatum = SSjobs.GetJob(jobname)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1,  "SEQ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(dostrip)

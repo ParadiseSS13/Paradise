@@ -28410,7 +28410,7 @@
 /area/security/nuke_storage)
 "aZq" = (
 /obj/structure/safe{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/machinery/light_switch{
 	pixel_y = -23
@@ -53021,7 +53021,7 @@
 /area/engine/gravitygenerator)
 "bTj" = (
 /obj/structure/safe/floor{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/item/gun/projectile/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,

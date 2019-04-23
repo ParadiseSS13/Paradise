@@ -72,7 +72,7 @@
 
 /datum/computer_file/program/card_mod/proc/format_job_slots()
 	var/list/formatted = list()
-	for(var/datum/job/job in job_master.occupations)
+	for(var/datum/job/job in SSjobs.occupations)
 		if(job_blacklisted(job))
 			continue
 		formatted.Add(list(list(
@@ -127,10 +127,10 @@
 /datum/computer_file/program/card_mod/proc/can_prioritize_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted(job))
-			if(job in job_master.prioritized_jobs)
+			if(job in SSjobs.prioritized_jobs)
 				return 2
 			else
-				if(job_master.prioritized_jobs.len >= 3)
+				if(SSjobs.prioritized_jobs.len >= 3)
 					return 0
 				if(job.total_positions <= job.current_positions)
 					return 0
@@ -320,7 +320,7 @@
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
-				var/datum/job/j = job_master.GetJob(edit_job_target)
+				var/datum/job/j = SSjobs.GetJob(edit_job_target)
 				if(!j)
 					return 1
 				if(can_open_job(j) != 1)
@@ -335,7 +335,7 @@
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
-				var/datum/job/j = job_master.GetJob(edit_job_target)
+				var/datum/job/j = SSjobs.GetJob(edit_job_target)
 				if(!j)
 					return 1
 				if(can_close_job(j) != 1)
@@ -352,16 +352,16 @@
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
 			if(is_authenticated(usr))
 				var/priority_target = href_list["job"]
-				var/datum/job/j = job_master.GetJob(priority_target)
+				var/datum/job/j = SSjobs.GetJob(priority_target)
 				if(!j)
 					return 0
 				// Unlike the proper ID computer, this does not check job_in_department
 				var/priority = TRUE
-				if(j in job_master.prioritized_jobs)
-					job_master.prioritized_jobs -= j
+				if(j in SSjobs.prioritized_jobs)
+					SSjobs.prioritized_jobs -= j
 					priority = FALSE
-				else if(job_master.prioritized_jobs.len < 3)
-					job_master.prioritized_jobs += j
+				else if(SSjobs.prioritized_jobs.len < 3)
+					SSjobs.prioritized_jobs += j
 				else
 					return 0
 				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")

@@ -17,8 +17,7 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
-/client/proc/debug_controller(controller in list("Master",
-	"failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
+/client/proc/debug_controller(controller in list("failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
 	"Cameras","Garbage", "Transfer Controller","Event","Alarm","Nano","Vote","Fires",
 	"Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
 	set category = "Debug"
@@ -27,9 +26,6 @@
 
 	if(!holder)	return
 	switch(controller)
-		if("Master")
-			debug_variables(master_controller)
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "DMC")
 		if("failsafe")
 			debug_variables(Failsafe)
 			SSblackbox.record_feedback("tally", "admin_verb", 1,  "dfailsafe")
@@ -46,13 +42,13 @@
 			debug_variables(SSair)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DAir")
 		if("Jobs")
-			debug_variables(job_master)
+			debug_variables(SSjobs)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DJobs")
 		if("Sun")
 			debug_variables(SSsun)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DSun")
 		if("Radio")
-			debug_variables(radio_controller)
+			debug_variables(SSradio)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DRadio")
 		if("Configuration")
 			debug_variables(config)
@@ -64,10 +60,10 @@
 			debug_variables(cameranet)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DCameras")
 		if("Event")
-			debug_variables(event_manager)
+			debug_variables(SSevents)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DEvent")
 		if("Alarm")
-			debug_variables(alarm_manager)
+			debug_variables(SSalarms)
 			SSblackbox.record_feedback("tally", "admin_verb", 1,  "DAlarm")
 		if("Garbage")
 			debug_variables(SSgarbage)
@@ -76,7 +72,7 @@
 			debug_variables(SSnanoui)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DNano")
 		if("Vote")
-			debug_variables(vote)
+			debug_variables(SSvote)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DVote")
 		if("Fires")
 			debug_variables(SSfires)

@@ -701,8 +701,7 @@
 							H.nutrition -= 20
 							H.adjustToxLoss(-3)
 							var/turf/T = get_turf(H)
-							T.add_vomit_floor(H)
-							playsound(H, 'sound/effects/splat.ogg', 50, 1)
+							T.add_vomit_floor()
 		else
 			visible_message("<span class='warning'>[src] flickers and fails, due to bluespace interference!</span>")
 			qdel(src)

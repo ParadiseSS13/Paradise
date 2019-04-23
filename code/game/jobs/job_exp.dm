@@ -72,7 +72,7 @@ var/global/list/role_playtime_requirements = list(
 
 		jtext = "-"
 		if(C.mob.mind && C.mob.mind.assigned_role)
-			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
+			theirjob = SSjobs.GetJob(C.mob.mind.assigned_role)
 			if(theirjob)
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
@@ -180,7 +180,7 @@ var/global/list/role_playtime_requirements = list(
 	if(config.use_exp_restrictions)
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
-		for(var/datum/job/job in job_master.occupations)
+		for(var/datum/job/job in SSjobs.occupations)
 			if(job.exp_requirements && job.exp_type)
 				if(!job.available_in_playtime(mob.client))
 					jobs_unlocked += job.title

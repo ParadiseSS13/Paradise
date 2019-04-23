@@ -39,13 +39,15 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	Master.Initialize(10, FALSE)
 
 	processScheduler = new
-	master_controller = new /datum/controller/game_controller()
 	spawn(1)
 		processScheduler.deferSetupFor(/datum/controller/process/ticker)
 		processScheduler.setup()
 
-		master_controller.setup()
 
+	if(!syndicate_code_phrase)
+		syndicate_code_phrase = generate_code_phrase()
+	if(!syndicate_code_response)
+		syndicate_code_response	= generate_code_phrase()
 	if(using_map && using_map.name)
 		map_name = "[using_map.name]"
 	else

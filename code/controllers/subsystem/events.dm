@@ -1,19 +1,25 @@
-/datum/event_manager
+SUBSYSTEM_DEF(events)
+	name = "Events"
+	init_order = INIT_ORDER_EVENTS
+	runlevels = RUNLEVEL_GAME
+	// Report events at the end of the rouund
+	var/report_at_round_end = 0
+	
+    // UI vars
 	var/window_x = 700
 	var/window_y = 600
-	var/report_at_round_end = 0
 	var/table_options = " align='center'"
 	var/head_options = " style='font-weight:bold;'"
 	var/row_options1 = " width='85px'"
 	var/row_options2 = " width='260px'"
 	var/row_options3 = " width='150px'"
+	
+    // Event vars
 	var/datum/event_container/selected_event_container = null
-
-	var/list/datum/event/active_events = list()
-	var/list/datum/event/finished_events = list()
-
-	var/list/datum/event/allEvents
-	var/list/datum/event_container/event_containers = list(
+	var/list/active_events = list()
+	var/list/finished_events = list()
+	var/list/allEvents
+	var/list/event_containers = list(
 			EVENT_LEVEL_MUNDANE 	= new/datum/event_container/mundane,
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
 			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
@@ -21,18 +27,19 @@
 
 	var/datum/event_meta/new_event = new
 
-/datum/event_manager/New()
+/datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
+	..()
 
-/datum/event_manager/proc/process()
-	for(var/datum/event/E in event_manager.active_events)
+/datum/controller/subsystem/events/fire()
+	for(var/datum/event/E in active_events)
 		E.process()
 
 	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 		var/list/datum/event_container/EC = event_containers[i]
 		EC.process()
 
-/datum/event_manager/proc/event_complete(var/datum/event/E)
+/datum/controller/subsystem/events/proc/event_complete(var/datum/event/E)
 	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
 		log_debug("Event of '[E.type]' with missing meta-data has completed.")
 		return
@@ -57,11 +64,11 @@
 
 	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
-/datum/event_manager/proc/delay_events(var/severity, var/delay)
+/datum/controller/subsystem/events/proc/delay_events(var/severity, var/delay)
 	var/list/datum/event_container/EC = event_containers[severity]
 	EC.next_event_time += delay
 
-/datum/event_manager/proc/Interact(var/mob/living/user)
+/datum/controller/subsystem/events/proc/Interact(var/mob/living/user)
 
 	var/html = GetInteractWindow()
 
@@ -69,7 +76,7 @@
 	popup.set_content(html)
 	popup.open()
 
-/datum/event_manager/proc/RoundEnd()
+/datum/controller/subsystem/events/proc/RoundEnd()
 	if(!report_at_round_end)
 		return
 
@@ -89,7 +96,7 @@
 
 		to_chat(world, message)
 
-/datum/event_manager/proc/GetInteractWindow()
+/datum/controller/subsystem/events/proc/GetInteractWindow()
 	var/html = "<A align='right' href='?src=[UID()];refresh=1'>Refresh</A>"
 
 	if(selected_event_container)
@@ -197,7 +204,7 @@
 
 	return html
 
-/datum/event_manager/Topic(href, href_list)
+/datum/controller/subsystem/events/Topic(href, href_list)
 	if(..())
 		return
 
@@ -290,123 +297,3 @@
 			EC.next_event = null
 
 	Interact(usr)
-
-/client/proc/forceEvent(var/type in event_manager.allEvents)
-	set name = "Trigger Event (Debug Only)"
-	set category = "Debug"
-
-	if(!holder)
-		return
-
-	if(ispath(type))
-		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
-		message_admins("[key_name_admin(usr)] has triggered an event. ([type])", 1)
-
-/client/proc/event_manager_panel()
-	set name = "Event Manager Panel"
-	set category = "Event"
-	if(event_manager)
-		event_manager.Interact(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
-/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
-	var/area/candidate = null
-
-	var/list/safe_areas = list(
-	/area/turret_protected/ai,
-	/area/turret_protected/ai_upload,
-	/area/engine,
-	/area/solar,
-	/area/holodeck,
-	/area/shuttle/arrival,
-	/area/shuttle/escape,
-	/area/shuttle/escape_pod1/station,
-	/area/shuttle/escape_pod2/station,
-	/area/shuttle/escape_pod3/station,
-	/area/shuttle/escape_pod5/station,
-	/area/shuttle/specops/station,
-	/area/shuttle/prison/station,
-	/area/shuttle/administration/station
-	)
-
-	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
-	var/list/danger_areas = list(
-	/area/engine/break_room,
-	/area/engine/chiefs_office)
-
-	var/list/event_areas = list()
-
-	for(var/areapath in the_station_areas)
-		event_areas += typesof(areapath)
-	for(var/areapath in safe_areas)
-		event_areas -= typesof(areapath)
-	for(var/areapath in danger_areas)
-		event_areas += typesof(areapath)
-
-	while(event_areas.len > 0)
-		var/list/event_turfs = null
-		candidate = locate(pick_n_take(event_areas))
-		event_turfs = get_area_turfs(candidate)
-		if(event_turfs.len > 0)
-			break
-
-	return candidate
-
-/datum/event/proc/num_players()
-	var/players = 0
-	for(var/mob/living/carbon/human/P in GLOB.player_list)
-		if(P.client)
-			players++
-	return players
-
-// Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
-// with a specific role.
-// Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.
-/proc/number_active_with_role()
-	var/list/active_with_role = list()
-	active_with_role["Engineer"] = 0
-	active_with_role["Medical"] = 0
-	active_with_role["Security"] = 0
-	active_with_role["Scientist"] = 0
-	active_with_role["AI"] = 0
-	active_with_role["Cyborg"] = 0
-	active_with_role["Janitor"] = 0
-	active_with_role["Botanist"] = 0
-	active_with_role["Any"] = GLOB.player_list.len
-
-	for(var/mob/M in GLOB.player_list)
-		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
-			continue
-
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "engineering robot module")
-			active_with_role["Engineer"]++
-		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
-			active_with_role["Engineer"]++
-
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "medical robot module")
-			active_with_role["Medical"]++
-		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
-			active_with_role["Medical"]++
-
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "security robot module")
-			active_with_role["Security"]++
-		if(M.mind.assigned_role in security_positions)
-			active_with_role["Security"]++
-
-		if(M.mind.assigned_role in list("Research Director", "Scientist"))
-			active_with_role["Scientist"]++
-
-		if(M.mind.assigned_role == "AI")
-			active_with_role["AI"]++
-
-		if(M.mind.assigned_role == "Cyborg")
-			active_with_role["Cyborg"]++
-
-		if(M.mind.assigned_role == "Janitor")
-			active_with_role["Janitor"]++
-
-		if(M.mind.assigned_role == "Botanist")
-			active_with_role["Botanist"]++
-
-	return active_with_role

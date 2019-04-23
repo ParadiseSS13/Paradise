@@ -1,7 +1,8 @@
+SUBSYSTEM_DEF(jobs)
+	name = "Jobs"
+	init_order = INIT_ORDER_JOBS // 12
+	flags = SS_NO_FIRE
 
-var/global/datum/controller/occupations/job_master
-
-/datum/controller/occupations
 	//List of all jobs
 	var/list/occupations = list()
 	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
@@ -12,10 +13,14 @@ var/global/datum/controller/occupations/job_master
 	//Debug info
 	var/list/job_debug = list()
 
+/datum/controller/subsystem/jobs/Initialize(timeofday)
+	if(!occupations.len)
+		SetupOccupations()
+	LoadJobs("config/jobs.txt")
+	..()
 
-/datum/controller/occupations/proc/SetupOccupations(var/list/faction = list("Station"))
+/datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
-
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
@@ -34,27 +39,27 @@ var/global/datum/controller/occupations/job_master
 	return 1
 
 
-/datum/controller/occupations/proc/Debug(var/text)
+/datum/controller/subsystem/jobs/proc/Debug(var/text)
 	if(!Debug2)
 		return 0
 	job_debug.Add(text)
 	return 1
 
 
-/datum/controller/occupations/proc/GetJob(rank)
+/datum/controller/subsystem/jobs/proc/GetJob(rank)
 	if(!occupations.len)
 		SetupOccupations()
 	return name_occupations[rank]
 
-/datum/controller/occupations/proc/GetJobType(jobtype)
+/datum/controller/subsystem/jobs/proc/GetJobType(jobtype)
 	if(!occupations.len)
 		SetupOccupations()
 	return type_occupations[jobtype]
 
-/datum/controller/occupations/proc/GetPlayerAltTitle(mob/new_player/player, rank)
+/datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
 
-/datum/controller/occupations/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
+/datum/controller/subsystem/jobs/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -97,14 +102,14 @@ var/global/datum/controller/occupations/job_master
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/occupations/proc/FreeRole(var/rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(var/rank)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
 		return 1
 	return 0
 
-/datum/controller/occupations/proc/FindOccupationCandidates(datum/job/job, level, flag)
+/datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
@@ -132,7 +137,7 @@ var/global/datum/controller/occupations/job_master
 			candidates += player
 	return candidates
 
-/datum/controller/occupations/proc/GiveRandomJob(var/mob/new_player/player)
+/datum/controller/subsystem/jobs/proc/GiveRandomJob(var/mob/new_player/player)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
@@ -176,7 +181,7 @@ var/global/datum/controller/occupations/job_master
 			unassigned -= player
 			break
 
-/datum/controller/occupations/proc/ResetOccupations()
+/datum/controller/subsystem/jobs/proc/ResetOccupations()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
 			player.mind.assigned_role = null
@@ -187,7 +192,7 @@ var/global/datum/controller/occupations/job_master
 
 
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
-/datum/controller/occupations/proc/FillHeadPosition()
+/datum/controller/subsystem/jobs/proc/FillHeadPosition()
 	for(var/level = 1 to 3)
 		for(var/command_position in command_positions)
 			var/datum/job/job = GetJob(command_position)
@@ -216,7 +221,7 @@ var/global/datum/controller/occupations/job_master
 
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/occupations/proc/CheckHeadPositions(var/level)
+/datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
 	for(var/command_position in command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
@@ -228,7 +233,7 @@ var/global/datum/controller/occupations/job_master
 		AssignRole(candidate, command_position)
 
 
-/datum/controller/occupations/proc/FillAIPosition()
+/datum/controller/subsystem/jobs/proc/FillAIPosition()
 	if(config && !config.allow_ai)
 		return 0
 
@@ -257,7 +262,7 @@ var/global/datum/controller/occupations/job_master
 *  fills var "assigned_role" for all ready players.
 *  This proc must not have any side effect besides of modifying "assigned_role".
 **/
-/datum/controller/occupations/proc/DivideOccupations()
+/datum/controller/subsystem/jobs/proc/DivideOccupations()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
 	SetupOccupations()
@@ -390,7 +395,7 @@ var/global/datum/controller/occupations/job_master
 
 	return 1
 
-/datum/controller/occupations/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+/datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -428,7 +433,7 @@ var/global/datum/controller/occupations/job_master
 		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 	return H
-/datum/controller/occupations/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
+/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
 	if(!H)
 		return null
 
@@ -494,7 +499,7 @@ var/global/datum/controller/occupations/job_master
 
 
 
-/datum/controller/occupations/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
+/datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!config.load_jobs_from_txt)
 		return 0
 
@@ -529,7 +534,7 @@ var/global/datum/controller/occupations/job_master
 	return 1
 
 
-/datum/controller/occupations/proc/HandleFeedbackGathering()
+/datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
 		var/high = 0 //high
 		var/medium = 0 //medium
@@ -569,7 +574,7 @@ var/global/datum/controller/occupations/job_master
 		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 
 
-/datum/controller/occupations/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
+/datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
 	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 	var/remembered_info = ""
 

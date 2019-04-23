@@ -78,9 +78,9 @@
 
 /area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
 	if(danger_level == ATMOS_ALARM_NONE)
-		atmosphere_alarm.clearAlarm(src, alarm_source)
+		SSalarms.atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
-		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
+		SSalarms.atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
 	for(var/obj/machinery/alarm/AA in src)
@@ -158,9 +158,9 @@
 			if(A.density)
 				A.lock()
 
-	burglar_alarm.triggerAlarm(src, trigger)
+	SSalarms.burglar_alarm.triggerAlarm(src, trigger)
 	spawn(600)
-		burglar_alarm.clearAlarm(src, trigger)
+		SSalarms.burglar_alarm.clearAlarm(src, trigger)
 
 /area/proc/set_fire_alarm_effect()
 	fire = 1
