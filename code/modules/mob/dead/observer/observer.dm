@@ -236,6 +236,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
+	update_parallax_contents()
 	following = null
 	setDir(direct)
 	ghostimage.setDir(dir)
