@@ -519,7 +519,7 @@
 		return
 
 	var/next_in_line
-	if (mob.zone_selected == BODY_ZONE_R_ARM)
+	if(mob.zone_selected == BODY_ZONE_R_ARM)
 		next_in_line = BODY_ZONE_R_HAND
 	else
 		next_in_line = BODY_ZONE_R_ARM
@@ -545,7 +545,7 @@
 		return
 		
 	var/next_in_line
-	if (mob.zone_selected == BODY_ZONE_L_ARM)
+	if(mob.zone_selected == BODY_ZONE_L_ARM)
 		next_in_line = BODY_ZONE_L_HAND
 	else
 		next_in_line = BODY_ZONE_L_ARM
@@ -561,7 +561,7 @@
 		return
 		
 	var/next_in_line
-	if (mob.zone_selected == BODY_ZONE_R_LEG)
+	if(mob.zone_selected == BODY_ZONE_R_LEG)
 		next_in_line = BODY_ZONE_R_FOOT
 	else
 		next_in_line = BODY_ZONE_R_LEG
@@ -587,7 +587,7 @@
 		return
 		
 	var/next_in_line
-	if (mob.zone_selected == BODY_ZONE_L_LEG)
+	if(mob.zone_selected == BODY_ZONE_L_LEG)
 		next_in_line = BODY_ZONE_L_FOOT
 	else
 		next_in_line = BODY_ZONE_L_LEG

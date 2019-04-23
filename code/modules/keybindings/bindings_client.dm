@@ -46,7 +46,7 @@
 		mob.focus.key_up(_key, src)
 
 // Called every game tick
-/client/keyLoop()
+/client/proc/keyLoop()
 	if(holder)
 		holder.keyLoop(src)
 	if(mob.focus)
