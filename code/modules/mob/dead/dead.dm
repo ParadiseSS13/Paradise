@@ -20,3 +20,5 @@
 	for(var/datum/light_source/L in light_sources)
 		L.source_atom.update_light()
 	return 1
+/mob/dead/Initialize()
+	set_focus(src)
