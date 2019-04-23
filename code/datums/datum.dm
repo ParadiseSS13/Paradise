@@ -7,7 +7,6 @@
 	var/signal_enabled = FALSE
 	var/datum_flags = NONE
 	var/var_edited = FALSE //Warranty void if seal is broken
-	var/list/focusers //Only initialized when needed. Contains a list of mobs focusing on this.
 	var/tmp/unique_datum_id = null
 
 #ifdef TESTING
@@ -43,6 +42,12 @@
 			var/datum/component/C = all_components
 			qdel(C, FALSE, TRUE)
 		dc.Cut()
+
+	var/list/focusers = src.focusers
+	if(focusers)
+		for(var/i in 1 to focusers.len)
+			var/mob/M = focusers[i]
+			M.set_focus(M)
 
 	var/list/lookup = comp_lookup
 	if(lookup)
