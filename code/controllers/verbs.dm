@@ -63,7 +63,7 @@
 			debug_variables(event_manager)
 			feedback_add_details("admin_verb","DEvent")
 		if("Alarm")
-			debug_variables(alarm_manager)
+			debug_variables(SSalarms)
 			feedback_add_details("admin_verb", "DAlarm")
 		if("Garbage")
 			debug_variables(SSgarbage)
