@@ -3,7 +3,7 @@
 /client/verb/keyDown(_key as text)
 	set instant = TRUE
 	set hidden = TRUE
-	to_chat(src,"You pressed:", _key)
+	to_chat(src,"You pressed:" + _key)
 	keys_held[_key] = world.time
 	var/movement = SSinput.movement_keys[_key]
 	if(!(next_move_dir_sub & movement) && !keys_held["Ctrl"])
@@ -34,7 +34,7 @@
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
 	set hidden = TRUE
-	to_chat(src, "You released:", _key)
+	to_chat(src, "You released:" + _key)
 	keys_held -= _key
 	var/movement = SSinput.movement_keys[_key]
 	if(!(next_move_dir_add & movement))
@@ -46,7 +46,7 @@
 		mob.focus.key_up(_key, src)
 
 // Called every game tick
-/client/proc/keyLoop()
+/client/keyLoop()
 	if(holder)
 		holder.keyLoop(src)
 	if(mob.focus)

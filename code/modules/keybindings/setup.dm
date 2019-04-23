@@ -8,10 +8,10 @@
 // Set a client's focus to an object and override these procs on that object to let it handle keypresses
 
 /datum/proc/key_down(key, client/user) // Called when a key is pressed down initially
-	to_chat(src,"key pressed:", key)
+	to_chat(src,"key pressed:" + key)
 	return
 /datum/proc/key_up(key, client/user) // Called when a key is released
-	to_chat(src,"key released:", key)
+	to_chat(src,"key released:" + key)
 	return
 /datum/proc/keyLoop(client/user) // Called once every frame
 	set waitfor = FALSE
@@ -47,8 +47,8 @@
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 
 	if(prefs.toggles & HOTKEYS)
-		winset(src, null, "mapwindow.map.focus=true input.background-color=#e0e0e0")
+		winset(src, null, "mainwindow.macro=default hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#f0f0f0")
 		to_chat(src, "Using default macro")
 	else
-		winset(src, null, "input.focus=true input.background-color=#d3b5b5")
+		winset(src, null, "input.focus=true input.background-color=#d3b5b5") 
 		to_chat(src, "GOD HECKING HECK HECK")

@@ -294,14 +294,14 @@
 		return null
 	if(byond_build < config.minimum_client_build)
 		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
-		del(src)
+		qdel(src)
 		return
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
 	if(IsGuestKey(key))
 		alert(src,"This server doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
-		del(src)
+		qdel(src)
 		return
 
 	// Change the way they should download resources.
@@ -572,7 +572,7 @@
 			sleep(10) // Since browse is non-instant, and kinda async
 
 			to_chat(src, "<pre class=\"system system\">you're a huge nerd. wakka wakka doodle doop nobody's ever gonna see this, the chat system shouldn't be online by this point</pre>")
-			del(src)
+			qdel(src)
 			return TRUE
 	else
 		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
@@ -583,7 +583,7 @@
 			tokens[ckey] = cid_check_reconnect()
 
 			sleep(10) //browse is queued, we don't want them to disconnect before getting the browse() command.
-			del(src)
+			qdel(src)
 			return TRUE
 		// We DO have their cached CID handy - compare it, now
 		if(oldcid != computer_id)
@@ -601,7 +601,7 @@
 
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
 
-			del(src)
+			qdel(src)
 			return TRUE
 		else
 			// don't shoot, I'm innocent
