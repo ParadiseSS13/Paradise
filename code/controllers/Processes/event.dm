@@ -1,18 +1,3 @@
-/datum/controller/process/event/setup()
-	name = "event"
-	schedule_interval = 20 // every 2 seconds
-	if(!holiday_master)
-		holiday_master = new
-		holiday_master.Setup()
-
-/datum/controller/process/event/doWork()
-	event_manager.process()
-	holiday_master.process()
-
-/////////
-//Holiday controller
-/////////
-
 var/global/datum/controller/holiday/holiday_master //This has to be defined before world.
 
 /datum/controller/holiday
