@@ -20,24 +20,3 @@
 	origin_tech = "powerstorage=6;biotech=4"
 	materials = list(MAT_GLASS = 1000)
 
-/datum/design/xenobluecellmaker
-	name = "Xenobluespace power cell Maker"
-	desc = "High-tech porwer cell shell capable of creating a porwer cell that combines Bluespace and xenobiology technology."
-	id = "xenobluecell"
-	req_tech = list("powerstorage" = 7, "materials" = 6, "engineering" = 6, "bluespace" = 6)
-	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 1600, MAT_GOLD = 240, MAT_GLASS = 320, MAT_DIAMOND = 320, MAT_TITANIUM = 600, MAT_BLUESPACE = 200)
-	construction_time=50
-	build_path = /obj/item/xenobluecellmaker
-	category = list("Misc","Power")
-
-/datum/crafting_recipe/xenobluespacecell
-	name = "Xenobluespace power cell"
-	result = /obj/item/stock_parts/cell/xenoblue
-	reqs = list(/obj/item/stock_parts/cell/high/slime = 1,
-				/obj/item/stock_parts/capacitor/quadratic = 1,
-				/obj/item/xenobluecellmaker = 1,
-				/obj/item/stock_parts/cell/bluespace = 1,
-				/obj/item/stock_parts/micro_laser/quadultra  = 1)
-	time = 30
-	category = CAT_ROBOT
