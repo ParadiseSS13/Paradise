@@ -227,7 +227,7 @@ LOAD_JOBS_FROM_TXT
 ALLOW_HOLIDAYS
 
 ##Defines the ticklag for the world.  0.9 is the normal one, 0.5 is smoother.
-TICKLAG 0.5
+TICKLAG 0.9
 
 ## Whether the server will talk to other processes through socket_talk
 SOCKET_TALK 0
