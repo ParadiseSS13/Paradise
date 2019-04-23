@@ -1353,6 +1353,11 @@
 					L.broken(0, 1)
 					stoplag()
 
+/obj/machinery/power/apc/proc/null_charge()
+	for(var/obj/machinery/light/L in area)
+		L.broken(0, 1)
+		stoplag()
+
 /obj/machinery/power/apc/proc/setsubsystem(val)
 	if(cell && cell.charge > 0)
 		return (val==1) ? 0 : val
