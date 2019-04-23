@@ -641,9 +641,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_invisible = initial(H.see_invisible)
 		H.lighting_alpha = initial(H.lighting_alpha)
 
-	if(H.see_in_dark > 2) //Preliminary see_invisible handling as per set_species() in code\modules\mob\living\carbon\human\human.dm.
-		H.lighting_alpha = min(H.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-
 	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
 		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.

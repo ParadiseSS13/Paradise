@@ -1026,3 +1026,5 @@
 	if(stat == DEAD)
 		grant_death_vision()
 		return
+
+	. = ..()

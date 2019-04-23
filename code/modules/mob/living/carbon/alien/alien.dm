@@ -5,18 +5,21 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = 1
-	var/nightvision = 1
+	alien_talk_understand = TRUE
+
+	var/nightvision = FALSE
+	see_in_dark = 4
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
-	var/has_fine_manipulation = 0
-	var/move_delay_add = 0 // movement delay to add
+	var/has_fine_manipulation = FALSE
+	var/move_delay_add = FALSE // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
 
-	var/large = 0
+	var/large = FALSE
 	var/heat_protection = 0.5
-	var/leaping = 0
+	var/leaping = FALSE
 	ventcrawler = 2
 	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
@@ -153,7 +156,7 @@
 		nightvision = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
 	else if(nightvision)
-		see_in_dark = 4
+		see_in_dark = initial(see_in_dark)
 		lighting_alpha = initial(lighting_alpha)
 		nightvision = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
@@ -298,3 +301,6 @@ Des: Removes all infected images from the alien.
 
 	if(see_override)
 		see_invisible = see_override
+
+	sync_lighting_plane_alpha()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)

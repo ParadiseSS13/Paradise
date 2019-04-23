@@ -48,7 +48,7 @@
 		var/list/screens = mymob.screens
 		for(var/category in screens)
 			screen = screens[category]
-			if(screen.should_show_to(src))
+			if(screen.should_show_to(mymob))
 				screen.update_for_view(mymob.client.view)
 				mymob.client.screen |= screen
 			else

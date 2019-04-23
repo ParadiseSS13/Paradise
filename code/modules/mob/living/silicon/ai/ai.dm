@@ -1316,3 +1316,4 @@ var/list/ai_verbs_default = list(
 		see_invisible = see_override
 
 	sync_lighting_plane_alpha()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)

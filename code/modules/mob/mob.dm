@@ -1343,6 +1343,7 @@ var/list/slot_equipment_priority = list( \
 	return FALSE
 
 /mob/proc/update_sight()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
 /mob/proc/sync_lighting_plane_alpha()

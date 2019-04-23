@@ -1163,3 +1163,5 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(see_override)
 		see_invisible = see_override
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
