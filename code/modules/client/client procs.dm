@@ -225,6 +225,9 @@
 						vote_on_poll(pollid, optionid, 1)
 		src << browse(null, "window=playerpoll")
 		handle_player_polling()
+	if(href_list["ssdwarning"])
+		ssd_warning_acknowledged = TRUE
+		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 
 	switch(href_list["action"])
 		if("openLink")
@@ -770,3 +773,15 @@
 			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+
+
+/client/proc/send_ssd_warning(mob/M)
+	if(!config.ssd_warning)
+		return FALSE
+	if(ssd_warning_acknowledged)
+		return FALSE
+	if(M && M.player_logged < 30) // Give it ~60 seconds, just in case they drop SSD during combat.
+		return FALSE
+	to_chat(src, "Interacting with SSD players is against server rules unless you've ahelped first for permission. If you have, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</A> and proceed.")
+	return TRUE
+

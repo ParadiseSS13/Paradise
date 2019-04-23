@@ -70,6 +70,7 @@
 	var/assistantratio = 2 //how many assistants to security members
 
 	var/auto_cryo_ssd_mins = 0
+	var/ssd_warning = 0
 
 	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
 	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
@@ -297,6 +298,9 @@
 
 				if("auto_cryo_ssd_mins")
 					config.auto_cryo_ssd_mins = text2num(value)
+
+				if("ssd_warning")
+					config.ssd_warning = 1
 
 				if("log_ooc")
 					config.log_ooc = 1
