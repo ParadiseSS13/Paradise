@@ -227,6 +227,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 /mob/dead/observer/Move(NewLoc, direct)
+	update_parallax_contents()
 	following = null
 	dir = direct
 	ghostimage.dir = dir
@@ -245,7 +246,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
 		S.Crossed(src)
-	update_parallax_contents()
 	var/area/A = get_area(src)
 	if(A)
 		A.Entered(src)

@@ -223,7 +223,7 @@
 #include "code\controllers\subsystem\nanoui.dm"
 #include "code\controllers\subsystem\nightshift.dm"
 #include "code\controllers\subsystem\npcai.dm"
-#include "code\controllers\subsystem\npcpool.dm
+#include "code\controllers\subsystem\npcpool.dm"
 #include "code\controllers\subsystem\overlays.dm"
 #include "code\controllers\subsystem\radio.dm"
 #include "code\controllers\subsystem\parallax.dm"
