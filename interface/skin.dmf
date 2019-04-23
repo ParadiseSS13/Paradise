@@ -1522,8 +1522,8 @@ window "mainwindow"
 		size = 640x440
 		is-default = true
 		is-maximized = true
-		title = "[ES] - Hispania"
-		icon = 'icons\\hispania.png'
+		title = "Paradise Station 13"
+		icon = 'icons\\paradise.png'
 		menu = "menu"
 		macro = "macro"
 		saved-params = "pos;size;is-minimized;is-maximized"
