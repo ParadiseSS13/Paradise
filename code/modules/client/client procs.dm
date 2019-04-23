@@ -369,6 +369,9 @@
 
 	. = ..()	//calls mob.Login()
 
+	if(SSinput.initialized)
+		set_macros()
+
 	if(ckey in clientmessages)
 		for(var/message in clientmessages[ckey])
 			to_chat(src, message)

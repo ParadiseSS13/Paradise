@@ -17,8 +17,8 @@
 
 //The byond version of these verbs wait for the next tick before acting.
 //	instant verbs however can run mid tick or even during the time between ticks.
-#define DO_MOVE(this_dir) var/final_dir = turn(this_dir, -dir2angle(dir)); Move(get_step(mob, final_dir), final_dir);
-
+//#define DO_MOVE(this_dir) var/final_dir = turn(this_dir, -dir2angle(dir)); Move(get_step(mob, final_dir), final_dir);
+/* 
 /client/verb/moveup()
 	set name = ".moveup"
 	set instant = 1
@@ -54,9 +54,9 @@
 	set name = ".movedownleft"
 	set instant = 1
 	DO_MOVE(SOUTHWEST)			
-
-#undef DO_MOVE
-
+ */
+//#undef DO_MOVE
+/* 
 /client/Northeast()
 	swap_hand()
 	return
@@ -127,7 +127,7 @@
 		mob.mode()
 	return
 
-
+ */
 /client/verb/toggle_throw_mode()
 	set hidden = 1
 	if(iscarbon(mob))
@@ -144,7 +144,7 @@
 	return
 
 
-/client/Center()
+/* /client/Center()
 	/* No 3D movement in 2D spessman game. dir 16 is Z Up
 	if(isobj(mob.loc))
 		var/obj/O = mob.loc
@@ -152,7 +152,7 @@
 			return O.relaymove(mob, 16)
 	*/
 	return
-
+ */
 
 
 /client/proc/Move_object(direct)
@@ -171,6 +171,9 @@
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
+	else
+		next_move_dir_add = 0
+		next_move_dir_sub = 0
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
@@ -240,11 +243,11 @@
 
 	//We are now going to move
 	moving = 1
-	var/delay = mob.movement_delay()
-	if(old_move_delay + (delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+	var/add_delay = mob.movement_delay()
+	if(old_move_delay + (add_delay* MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
 		move_delay = old_move_delay
 	else
-		move_delay = delay + world.time
+		move_delay = world.time
 	mob.last_movement = world.time
 
 	if(locate(/obj/item/grab, mob))
@@ -280,10 +283,19 @@
 						return
 
 	else if(mob.confused)
-		step(mob, pick(cardinal))
-	else
-		. = ..()
-	mob.setDir(direct)
+		var/newdir = 0
+		if(mob.confused > 40)
+			newdir = pick(alldirs)
+		else if(prob(mob.confused * 1.5))
+			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
+		else if(prob(mob.confused * 3))
+			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
+		if(newdir)
+			direct = newdir
+			n = get_step(mob, direct)
+
+	. = ..()
+	// mob.setDir(direct)
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
@@ -292,8 +304,8 @@
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay *= 2
-	move_delay += delay
+		add_delay *= 2
+	move_delay += add_delay
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
@@ -478,3 +490,123 @@
 
 /mob/proc/update_gravity()
 	return
+/client/proc/check_has_body_select()
+	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
+
+/client/verb/body_toggle_head()
+	set name = "body-toggle-head"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/next_in_line
+	switch(mob.zone_selected)
+		if(BODY_ZONE_HEAD)
+			next_in_line = BODY_ZONE_PRECISE_EYES
+		if(BODY_ZONE_PRECISE_EYES)
+			next_in_line = BODY_ZONE_PRECISE_MOUTH
+		else
+			next_in_line = BODY_ZONE_HEAD
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(next_in_line, mob)
+
+/client/verb/body_r_arm()
+	set name = "body-r-arm"
+	set hidden = 1
+	if(!check_has_body_select())
+		return
+
+	var/next_in_line
+	if (mob.zone_selected == BODY_ZONE_R_ARM)
+		next_in_line = BODY_ZONE_R_HAND
+	else
+		next_in_line = BODY_ZONE_R_ARM
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(next_in_line, mob)
+
+/client/verb/body_chest()
+	set name = "body-chest"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(BODY_ZONE_CHEST, mob)
+
+/client/verb/body_l_arm()
+	set name = "body-l-arm"
+	set hidden = 1
+	
+	if(!check_has_body_select())
+		return
+		
+	var/next_in_line
+	if (mob.zone_selected == BODY_ZONE_L_ARM)
+		next_in_line = BODY_ZONE_L_HAND
+	else
+		next_in_line = BODY_ZONE_L_ARM
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(next_in_line, mob)
+
+/client/verb/body_r_leg()
+	set name = "body-r-leg"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+		
+	var/next_in_line
+	if (mob.zone_selected == BODY_ZONE_R_LEG)
+		next_in_line = BODY_ZONE_R_FOOT
+	else
+		next_in_line = BODY_ZONE_R_LEG
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(next_in_line, mob)
+
+/client/verb/body_groin()
+	set name = "body-groin"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN, mob)
+
+/client/verb/body_l_leg()
+	set name = "body-l-leg"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+		
+	var/next_in_line
+	if (mob.zone_selected == BODY_ZONE_L_LEG)
+		next_in_line = BODY_ZONE_L_FOOT
+	else
+		next_in_line = BODY_ZONE_L_LEG
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(next_in_line, mob)
+
+/client/verb/toggle_walk_run()
+	set name = "toggle-walk-run"
+	set hidden = TRUE
+	set instant = TRUE
+	if(mob)
+		mob.toggle_move_intent(usr)
+
+/mob/proc/toggle_move_intent(mob/user)
+	if(m_intent == MOVE_INTENT_RUN)
+		m_intent = MOVE_INTENT_WALK
+	else
+		m_intent = MOVE_INTENT_RUN
+	if(hud_used && hud_used.static_inventory)
+		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
+			selector.update_icon(src)

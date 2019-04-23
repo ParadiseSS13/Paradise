@@ -21,6 +21,7 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
+	var/zone_selected = null
 	var/obj/screen/zone_sel/zone_sel = null
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
