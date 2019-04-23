@@ -1,8 +1,6 @@
 var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
 
-// Event Manager, the manager for events.
-var/datum/event_manager/event_manager = new()
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
 var/global/obj/item/radio/intercom/global_announcer = create_global_announcer()
 var/global/obj/item/radio/intercom/command/command_announcer = create_command_announcer()

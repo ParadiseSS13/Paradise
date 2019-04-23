@@ -60,7 +60,7 @@
 			debug_variables(cameranet)
 			feedback_add_details("admin_verb","DCameras")
 		if("Event")
-			debug_variables(event_manager)
+			debug_variables(SSevents)
 			feedback_add_details("admin_verb","DEvent")
 		if("Alarm")
 			debug_variables(alarm_manager)
