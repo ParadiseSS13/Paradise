@@ -3,6 +3,8 @@
 
 var/list/image/ghost_darkness_images = list() //this is a list of images for things ghosts should still be able to see when they toggle darkness
 
+GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
@@ -29,6 +31,8 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
+	set_invisibility(GLOB.observer_default_invisibility)
+
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
@@ -742,6 +746,26 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/is_literate()
 	return TRUE
+
+/mob/dead/observer/proc/set_invisibility(value)
+	invisibility = value
+	if(!value)
+		set_light(1, 2)
+	else
+		set_light(0, 0)
+
+/mob/dead/observer/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(var_name == "invisibility")
+		set_invisibility(invisibility) // updates light
+
+/proc/set_observer_default_invisibility(amount, message=null)
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.set_invisibility(amount)
+		if(message)
+			to_chat(G, message)
+	GLOB.observer_default_invisibility = amount
+
 /mob/dead/observer/proc/open_spawners_menu()
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"
