@@ -235,7 +235,7 @@
 			if(M.pulling == mob)
 				if(!M.incapacitated() && mob.Adjacent(M))
 					to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
-					move_delay = world.time + 10
+					move_delay += 10
 					return 0
 				else
 					M.stop_pulling()
@@ -342,14 +342,14 @@
 						qdel(G)
 
 				if(GRAB_AGGRESSIVE)
-					move_delay = world.time + 10
+					move_delay += 10
 					if(!prob(25))
 						return 1
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
-					move_delay = world.time + 10
+					move_delay += 10
 					if(!prob(5))
 						return 1
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
@@ -550,7 +550,7 @@
 	else
 		next_in_line = BODY_ZONE_L_ARM
 
-	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	var/obj/screen/zone_sel/selector = mob.zone_sel
 	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_r_leg()

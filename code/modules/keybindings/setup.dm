@@ -8,10 +8,8 @@
 // Set a client's focus to an object and override these procs on that object to let it handle keypresses
 
 /datum/proc/key_down(key, client/user) // Called when a key is pressed down initially
-	to_chat(src,"key pressed:" + key)
 	return
 /datum/proc/key_up(key, client/user) // Called when a key is released
-	to_chat(src,"key released:" + key)
 	return
 /datum/proc/keyLoop(client/user) // Called once every frame
 	set waitfor = FALSE
@@ -33,7 +31,7 @@
 /client/proc/set_macros()
 	set waitfor = FALSE
 
-	erase_all_macros()
+	//erase_all_macros()
 
 	var/list/macro_sets = SSinput.macro_sets
 	for(var/i in 1 to macro_sets.len)

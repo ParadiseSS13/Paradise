@@ -124,11 +124,12 @@
 
 	var/adminhotkeys = {"<font color='purple'>
 Admin:
-\tF5 = Asay
-\tF6 = Admin Ghost
-\tF7 = Player Panel
-\tF8 = Admin PM
-\tF9 = Invisimin
+\tF3 = asay
+\tF5 = Aghost (admin-ghost)
+\tF6 = player-panel
+\tF7 = Buildmode
+\tF8 = Invisimin
+\tCtrl+F8 = Stealthmin
 
 Admin ghost:
 \tCtrl+Click = Player Panel
@@ -144,56 +145,62 @@ Admin ghost:
 /mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
 Hotkey-Mode: (hotkey-mode must be on)
-\tTAB = Toggle Hotkey Mode
-\ta = Move Left
-\ts = Move Down
-\td = Move Right
-\tw = Move Up
-\tq = Drop Item
-\te = Equip Item
-\tr = Throw Item
-\tm = Me
-\tt = Say
+\tTAB = toggle hotkey-mode
+\ta = left
+\ts = down
+\td = right
+\tw = up
+\tq = drop
+\te = equip
+\tr = throw
+\tm = me
+\tt = say
 \to = OOC
-\tb = Resist
-\tx = Swap Hands
-\tz = Activate Held Object (or y)
-\tf = Cycle Intents Left
-\tg = Cycle Intents Right
-\t1 = Help Intent
-\t2 = Disarm Intent
-\t3 = Grab Intent
-\t4 = Harm Intent
+\tb = resist
+\t<B></B>h = stop pulling
+\tx = swap-hand
+\tz = activate held object (or y)
+\tShift+e = Put held item into belt(or belt slot) or take out most recent item added.
+\tShift+b = Put held item into backpack(or back slot) or take out most recent item added.
+\tf = cycle-intents-left
+\tg = cycle-intents-right
+\t1 = help-intent
+\t2 = disarm-intent
+\t3 = grab-intent
+\t4 = harm-intent
+\tNumpad = Body target selection (Press 8 repeatedly for Head->Eyes->Mouth)
+\tAlt(HOLD) = Alter movement intent
 </font>"}
 
 	var/other = {"<font color='purple'>
 Any-Mode: (hotkey doesn't need to be on)
-\tCtrl+a = Move Left
-\tCtrl+s = Move Down
-\tCtrl+d = Move Right
-\tCtrl+w = Move Up
-\tCtrl+q = Drop Item
-\tCtrl+e = Equip Item
-\tCtrl+r = Throw Item
-\tCtrl+b = Resist
+\tCtrl+a = left
+\tCtrl+s = down
+\tCtrl+d = right
+\tCtrl+w = up
+\tCtrl+q = drop
+\tCtrl+e = equip
+\tCtrl+r = throw
+\tCtrl+b = resist
+\tCtrl+h = stop pulling
 \tCtrl+o = OOC
-\tCtrl+x = Swap Hands
-\tCtrl+z = Activate Held Object (or Ctrl+y)
-\tCtrl+f = Cycle Intents Left
-\tCtrl+g = Cycle Intents Right
-\tCtrl+1 = Help Intent
-\tCtrl+2 = Disarm Intent
-\tCtrl+3 = Grab Intent
-\tCtrl+4 = Harm Intent
-\tDEL = Pull
-\tINS = Cycle Intents Right
-\tHOME = Drop Item
-\tPGUP = Swap Hands
-\tPGDN = Activate Held Object
-\tEND = Throw Item
-\tF2 = OOC
-\tF3 = Say
-\tF4 = Me
+\tCtrl+x = swap-hand
+\tCtrl+z = activate held object (or Ctrl+y)
+\tCtrl+f = cycle-intents-left
+\tCtrl+g = cycle-intents-right
+\tCtrl+1 = help-intent
+\tCtrl+2 = disarm-intent
+\tCtrl+3 = grab-intent
+\tCtrl+4 = harm-intent
+\tCtrl+'+/-' OR
+\tShift+Mousewheel = Ghost zoom in/out
+\tDEL = stop pulling
+\tINS = cycle-intents-right
+\tHOME = drop
+\tPGUP = swap-hand
+\tPGDN = activate held object
+\tEND = throw
+\tCtrl+Numpad = Body target selection (Press 8 repeatedly for Head->Eyes->Mouth)
 </font>"}
 
 	to_chat(src, hotkey_mode)
