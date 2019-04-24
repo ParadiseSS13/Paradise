@@ -137,18 +137,17 @@
 				return 1
 	return -1
 
-/datum/computer_file/program/card_mod/proc/format_jobs(list/jobs)
+/datum/computer_file/program/card_mod/proc/format_jobs(list/jobs, targetrank, list/jobformats)
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	if(!card_slot || !card_slot.stored_card)
 		return null
-	var/obj/item/card/id/id_card = card_slot.stored_card
 	var/list/formatted = list()
 	for(var/job in jobs)
 		formatted.Add(list(list(
 			"display_name" = replacetext(job, "&nbsp", " "),
-			"target_rank" = id_card && id_card.assignment ? id_card.assignment : "Unassigned",
-			"job" = job)))
-
+			"target_rank" = targetrank,
+			"job" = job,
+			"jlinkformat" = jobformats[job] ? jobformats[job] : null)))
 	return formatted
 
 
@@ -248,6 +247,13 @@
 					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 					if(t1 == "Civilian")
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+
+					var/mob/living/carbon/human/H = modify.getPlayer()
+					if(istype(H))
+						if(jobban_isbanned(H, t1))
+							message_admins("[ADMIN_FULLMONTY(H)] has been assigned the job [t1], in possible violation of their job ban.")
+						if(H.mind)
+							H.mind.playtime_role = t1
 
 					modify.access = access
 					modify.assignment = t1
@@ -405,14 +411,17 @@
 	data["all_centcom_access"] = null
 	data["regions"] = null
 
-	data["engineering_jobs"] = format_jobs(engineering_positions)
-	data["medical_jobs"] = format_jobs(medical_positions)
-	data["science_jobs"] = format_jobs(science_positions)
-	data["security_jobs"] = format_jobs(security_positions)
-	data["support_jobs"] = format_jobs(support_positions)
-	data["civilian_jobs"] = format_jobs(civilian_positions)
-	data["special_jobs"] = format_jobs(whitelisted_positions)
-	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
+	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
+
+	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
+	data["engineering_jobs"] = format_jobs(engineering_positions, data["target_rank"], job_formats)
+	data["medical_jobs"] = format_jobs(medical_positions, data["target_rank"], job_formats)
+	data["science_jobs"] = format_jobs(science_positions, data["target_rank"], job_formats)
+	data["security_jobs"] = format_jobs(security_positions, data["target_rank"], job_formats)
+	data["support_jobs"] = format_jobs(support_positions, data["target_rank"], job_formats)
+	data["civilian_jobs"] = format_jobs(civilian_positions, data["target_rank"], job_formats)
+	data["special_jobs"] = format_jobs(whitelisted_positions, data["target_rank"], job_formats)
+	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs(), data["target_rank"], job_formats)
 	data["card_skins"] = format_card_skins(get_station_card_skins())
 
 	data["job_slots"] = format_job_slots()

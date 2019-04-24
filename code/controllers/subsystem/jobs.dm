@@ -601,3 +601,18 @@ SUBSYSTEM_DEF(jobs)
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
+
+/datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
+	var/list/jobs_to_formats = list()
+	if(tgtcard)
+		var/mob/M = tgtcard.getPlayer()
+		for(var/datum/job/job in occupations)
+			if(tgtcard.assignment && tgtcard.assignment == job.title)
+				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
+			else if(!job.would_accept_job_transfer_from_player(M))
+				jobs_to_formats[job.title] = "linkDiscourage" // karma jobs they don't have available are discouraged
+			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
+				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
+			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
+				jobs_to_formats[job.title] = "linkDiscourage" // jobs that are full (no free positions) are discouraged
+	return jobs_to_formats

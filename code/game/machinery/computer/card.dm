@@ -66,14 +66,15 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/get_target_rank()
 	return modify && modify.assignment ? modify.assignment : "Unassigned"
 
-/obj/machinery/computer/card/proc/format_jobs(list/jobs)
+/obj/machinery/computer/card/proc/format_jobs(list/jobs, targetrank, list/jobformats)
 	var/list/formatted = list()
 	for(var/job in jobs)
 		if(job_in_department(SSjobs.GetJob(job)))
 			formatted.Add(list(list(
 				"display_name" = replacetext(job, " ", "&nbsp;"),
-				"target_rank" = get_target_rank(),
-				"job" = job)))
+				"target_rank" = targetrank,
+				"job" = job,
+				"jlinkformat" = jobformats[job] ? jobformats[job] : null)))
 
 	return formatted
 
@@ -249,15 +250,19 @@ var/time_last_changed_position = 0
 	data["all_centcom_access"] = null
 	data["regions"] = null
 	data["target_dept"] = target_dept
+	data["card_is_owned"] = modify && modify.owner_ckey
 
-	data["engineering_jobs"] = format_jobs(engineering_positions)
-	data["medical_jobs"] = format_jobs(medical_positions)
-	data["science_jobs"] = format_jobs(science_positions)
-	data["security_jobs"] = format_jobs(security_positions)
-	data["support_jobs"] = format_jobs(support_positions)
-	data["civilian_jobs"] = format_jobs(civilian_positions)
-	data["special_jobs"] = format_jobs(whitelisted_positions)
-	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
+	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
+
+	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
+	data["engineering_jobs"] = format_jobs(engineering_positions, data["target_rank"], job_formats)
+	data["medical_jobs"] = format_jobs(medical_positions, data["target_rank"], job_formats)
+	data["science_jobs"] = format_jobs(science_positions, data["target_rank"], job_formats)
+	data["security_jobs"] = format_jobs(security_positions, data["target_rank"], job_formats)
+	data["support_jobs"] = format_jobs(support_positions, data["target_rank"], job_formats)
+	data["civilian_jobs"] = format_jobs(civilian_positions, data["target_rank"], job_formats)
+	data["special_jobs"] = format_jobs(whitelisted_positions, data["target_rank"], job_formats)
+	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs(), data["target_rank"], job_formats)
 	data["card_skins"] = format_card_skins(get_station_card_skins())
 
 	data["job_slots"] = format_job_slots()
@@ -361,7 +366,7 @@ var/time_last_changed_position = 0
 		if("assign")
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
-				if(target_dept && modify.assignment == "Unassigned")
+				if(target_dept && modify.assignment == "Demoted")
 					visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
 					return 0
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
@@ -396,6 +401,13 @@ var/time_last_changed_position = 0
 					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 					if(t1 == "Civilian")
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+
+					var/mob/living/carbon/human/H = modify.getPlayer()
+					if(istype(H))
+						if(jobban_isbanned(H, t1))
+							message_admins("[ADMIN_FULLMONTY(H)] has been assigned the job [t1], in possible violation of their job ban.")
+						if(H.mind)
+							H.mind.playtime_role = t1
 
 					modify.access = access
 					modify.rank = t1
@@ -470,8 +482,8 @@ var/time_last_changed_position = 0
 
 		if("demote")
 			if(is_authenticated(usr))
-				if(modify.assignment == "Unassigned")
-					visible_message("<span class='notice'>[src]: Unassigned crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+				if(modify.assignment == "Demoted")
+					visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
 					return 0
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
@@ -482,12 +494,12 @@ var/time_last_changed_position = 0
 				access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Unassigned)\".")
-				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Unassigned)\".")
+				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Demoted)\".")
+				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Demoted)\".")
 
 				modify.access = access
 				modify.rank = "Civilian"
-				modify.assignment = "Unassigned"
+				modify.assignment = "Demoted"
 				modify.icon_state = "id"
 
 		if("make_job_available")
