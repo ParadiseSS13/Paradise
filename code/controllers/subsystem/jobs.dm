@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!occupations.len)
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
-	..()
+	return ..()
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
