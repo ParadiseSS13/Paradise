@@ -28,7 +28,7 @@
 					post_status(href_list["statdisp"])
 
 /datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 	if(!frequency)
 		return
 

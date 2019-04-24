@@ -1,0 +1,5 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Admins can now use all mhelp related things again"
+  - spellcheck: "Fixed the toggle mentor ticket messages text"

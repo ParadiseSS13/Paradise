@@ -74,7 +74,7 @@ var/round_start_time = 0
 	else
 		timerbuffer = config.vote_autotransfer_interval
 	spawn(timerbuffer)
-		vote.autotransfer()
+		SSvote.autotransfer()
 		initialtpass = 1
 		votetimer()
 
@@ -172,10 +172,10 @@ var/round_start_time = 0
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
-		if(holiday_master.holidays)
+		if(SSholiday.holidays)
 			to_chat(world, "<font color='blue'>and...</font>")
-			for(var/holidayname in holiday_master.holidays)
-				var/datum/holiday/holiday = holiday_master.holidays[holidayname]
+			for(var/holidayname in SSholiday.holidays)
+				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 				to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	spawn(0) // Forking dynamic room selection
@@ -506,7 +506,7 @@ var/round_start_time = 0
 	mode.declare_station_goal_completion()
 
 	//Ask the event manager to print round end information
-	event_manager.RoundEnd()
+	SSevents.RoundEnd()
 
 	return 1
 

@@ -154,6 +154,12 @@
 #define ui_bot_radio "EAST-1:28,SOUTH:7"
 #define ui_bot_pull "EAST-2:26,SOUTH:7"
 
+//Ghosts
+#define ui_ghost_jumptomob "SOUTH:6,CENTER-2:24"
+#define ui_ghost_orbit "SOUTH:6,CENTER-1:24"
+#define ui_ghost_reenter_corpse "SOUTH:6,CENTER:24"
+#define ui_ghost_teleport "SOUTH:6,CENTER+1:24"
+
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1
 #define HUD_STYLE_REDUCED 2

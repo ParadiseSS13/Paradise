@@ -175,7 +175,7 @@
 			change_meteor_chance(0.5)
 
 /obj/machinery/satellite/meteor_shield/proc/change_meteor_chance(mod)
-	for(var/datum/event_container/container in event_manager.event_containers)
+	for(var/datum/event_container/container in SSevents.event_containers)
 		for(var/datum/event_meta/M in container.available_events)
 			if(M.event_type == /datum/event/meteor_wave)
 				M.weight *= mod
