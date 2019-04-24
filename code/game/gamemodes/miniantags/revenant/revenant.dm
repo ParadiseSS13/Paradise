@@ -182,7 +182,7 @@
 			objective2.owner = mind
 			mind.objectives += objective2
 			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
-			ticker.mode.traitors |= mind //Necessary for announcing
+			SSticker.mode.traitors |= mind //Necessary for announcing
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
@@ -429,7 +429,7 @@
 		player_mind.transfer_to(R)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
-		ticker.mode.traitors |= player_mind
+		SSticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
 		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")

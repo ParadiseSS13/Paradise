@@ -348,14 +348,14 @@
 
 /datum/game_mode/proc/remove_traitor(datum/mind/traitor_mind)
 	if(traitor_mind in traitors)
-		ticker.mode.traitors -= traitor_mind
+		SSticker.mode.traitors -= traitor_mind
 		traitor_mind.special_role = null
 		traitor_mind.current.create_attack_log("<span class='danger'>De-traitored</span>")
 		if(issilicon(traitor_mind.current))
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a traitor.</span>")
 		else
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a traitor.</span>")
-		ticker.mode.update_traitor_icons_removed(traitor_mind)
+		SSticker.mode.update_traitor_icons_removed(traitor_mind)
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]

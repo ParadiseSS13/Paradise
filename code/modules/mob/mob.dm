@@ -745,7 +745,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
-	if(stat != DEAD || !ticker)
+	if(stat != DEAD || !SSticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
@@ -1100,7 +1100,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!ticker || ticker.current_state < 3)
+	if(!SSticker || SSticker.current_state < 3)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 

@@ -1,55 +1,64 @@
-var/global/datum/controller/gameticker/ticker
-var/round_start_time = 0
+SUBSYSTEM_DEF(ticker)
+	name = "Ticker"
+	init_order = INIT_ORDER_TICKER
 
-/datum/controller/gameticker
+	priority = FIRE_PRIORITY_TICKER
+	flags = SS_KEEP_TIMING
+	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
+	// Time ticker related vars
+	var/lastTickerTimeDuration
+	var/lastTickerTime
+	// Game ticker related vars
+	var/round_start_time = 0
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
 	var/force_ending = 0
-
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
 	var/event_time = null
 	var/event = 0
-
 	var/login_music // music played in pregame lobby
-
 	var/list/datum/mind/minds = list()//The people in the game. Used for objective tracking.
-
 	var/Bible_icon_state	// icon_state the chaplain has chosen for his bible
 	var/Bible_item_state	// item_state the chaplain has chosen for his bible
 	var/Bible_name			// name of the bible
 	var/Bible_deity_name
-
 	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
-
 	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
-
 	var/list/syndicate_coalition = list() // list of traitor-compatible factions
 	var/list/factions = list()			  // list of all factions
 	var/list/availablefactions = list()	  // list of factions with openings
-
 	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
 	var/selected_tip	// What will be the tip of the day?
-
-	var/pregame_timeleft = 0
+	var/pregame_timeleft = "Initializing"
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
-
 	var/triai = 0//Global holder for Triumvirate
 	var/initialtpass = 0 //holder for inital autotransfer vote timer
-
 	var/obj/screen/cinematic = null			//used for station explosion cinematic
-
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.\
 
-
-/datum/controller/gameticker/proc/pregame()
+/datum/controller/subsystem/ticker/Initialize()
+	lastTickerTime = world.timeofday
 	login_music = pick(\
 	'sound/music/thunderdome.ogg',\
 	'sound/music/space.ogg',\
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
-	do
+	..()
+
+
+/datum/controller/subsystem/ticker/fire()
+	// This code is EXTREMELY important shit for checking midnight time rollover. Dont fuck with it
+	var/currentTime = world.timeofday
+	if(currentTime < lastTickerTime)
+		lastTickerTimeDuration = (currentTime - (lastTickerTime - TICKS_IN_DAY)) / TICKS_IN_SECOND
+	else
+		lastTickerTimeDuration = (currentTime - lastTickerTime) / TICKS_IN_SECOND
+	lastTickerTime = currentTime
+	
+	// Startup loop
+	if(current_state == GAME_STATE_PREGAME)
 		pregame_timeleft = config.pregame_timestart
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
 		to_chat(world, "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds")
@@ -63,11 +72,43 @@ var/round_start_time = 0
 				tipped = TRUE
 
 			if(pregame_timeleft <= 0)
-				current_state = GAME_STATE_SETTING_UP
-				Master.SetRunLevel(RUNLEVEL_SETUP)
-	while(!setup())
+				if(setup()) // Try to start the round
+					current_state = GAME_STATE_SETTING_UP
+					Master.SetRunLevel(RUNLEVEL_SETUP)
+				else // It didnt work, lets loop again
+					break
+	
+	// This makes sure the game keeps going
+	if(current_state != GAME_STATE_PLAYING)
+		return 0
 
-/datum/controller/gameticker/proc/votetimer()
+	mode.process()
+	mode.process_job_tasks()
+	var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
+	if(config.continuous_rounds)
+		mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
+	else
+		game_finished |= mode.check_finished()
+
+	if((!mode.explosion_in_progress && game_finished) || force_ending)
+		current_state = GAME_STATE_FINISHED
+		Master.SetRunLevel(RUNLEVEL_POSTGAME)
+		auto_toggle_ooc(1) // Turn it on
+		spawn
+			declare_completion()
+
+		spawn(50)
+			callHook("roundend")
+
+			if(mode.station_was_nuked)
+				world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+			else
+				world.Reboot("Round ended.", "end_proper", "proper completion")
+
+	return 1
+
+
+/datum/controller/subsystem/ticker/proc/votetimer()
 	var/timerbuffer = 0
 	if(initialtpass == 0)
 		timerbuffer = config.vote_autotransfer_initial
@@ -78,7 +119,8 @@ var/round_start_time = 0
 		initialtpass = 1
 		votetimer()
 
-/datum/controller/gameticker/proc/setup()
+
+/datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
 	//Create and announce mode
 	if(master_mode=="secret")
@@ -252,9 +294,7 @@ var/round_start_time = 0
 
 	return 1
 
-	//Plus it provides an easy way to make cinematics for other events. Just use this as a template :)
-//Plus it provides an easy way to make cinematics for other events. Just use this as a template
-/datum/controller/gameticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
@@ -350,7 +390,7 @@ var/round_start_time = 0
 
 
 
-/datum/controller/gameticker/proc/create_characters()
+/datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind)
 			if(player.mind.assigned_role == "AI")
@@ -364,13 +404,13 @@ var/round_start_time = 0
 				qdel(player)
 
 
-/datum/controller/gameticker/proc/collect_minds()
+/datum/controller/subsystem/ticker/proc/collect_minds()
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
-			ticker.minds += player.mind
+			SSticker.minds += player.mind
 
 
-/datum/controller/gameticker/proc/equip_characters()
+/datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless=1
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player && player.mind && player.mind.assigned_role)
@@ -385,7 +425,7 @@ var/round_start_time = 0
 			if(!istype(M,/mob/new_player))
 				to_chat(M, "Captainship not forced on anyone.")
 
-/datum/controller/gameticker/proc/send_tip_of_the_round()
+/datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m
 	if(selected_tip)
 		m = selected_tip
@@ -400,45 +440,13 @@ var/round_start_time = 0
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
-/datum/controller/gameticker/proc/process_decrepit()
-	if(current_state != GAME_STATE_PLAYING)
-		return 0
-
-	mode.process()
-	mode.process_job_tasks()
-
-	//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
-
-	var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-	if(config.continuous_rounds)
-		mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
-	else
-		game_finished |= mode.check_finished()
-
-	if((!mode.explosion_in_progress && game_finished) || force_ending)
-		current_state = GAME_STATE_FINISHED
-		Master.SetRunLevel(RUNLEVEL_POSTGAME)
-		auto_toggle_ooc(1) // Turn it on
-		spawn
-			declare_completion()
-
-		spawn(50)
-			callHook("roundend")
-
-			if(mode.station_was_nuked)
-				world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
-			else
-				world.Reboot("Round ended.", "end_proper", "proper completion")
-
-	return 1
-
-/datum/controller/gameticker/proc/getfactionbyname(var/name)
+/datum/controller/subsystem/ticker/proc/getfactionbyname(var/name)
 	for(var/datum/faction/F in factions)
 		if(F.name == name)
 			return F
 
 
-/datum/controller/gameticker/proc/declare_completion()
+/datum/controller/subsystem/ticker/proc/declare_completion()
 	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	//Round statistics report
 	var/datum/station_state/end_state = new /datum/station_state()
@@ -483,9 +491,9 @@ var/round_start_time = 0
 	if(dronecount)
 		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
 
-	if(ticker.mode.eventmiscs.len)
+	if(mode.eventmiscs.len)
 		var/emobtext = ""
-		for(var/datum/mind/eventmind in ticker.mode.eventmiscs)
+		for(var/datum/mind/eventmind in mode.eventmiscs)
 			emobtext += printeventplayer(eventmind)
 			emobtext += "<br>"
 			emobtext += printobjectives(eventmind)
@@ -516,5 +524,6 @@ var/round_start_time = 0
 
 	return 1
 
-/datum/controller/gameticker/proc/HasRoundStarted()
+/datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
+

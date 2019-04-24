@@ -179,9 +179,9 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.invisibility = 60 //This is pretty bad, but is also necessary for the shuttle call to function properly
 				H.loc = A
 				sleep(50)
-				if(!ticker.mode.shadowling_ascended)
+				if(!SSticker.mode.shadowling_ascended)
 					SSshuttle.emergency.request(null, 0.3)
 					SSshuttle.emergency.canRecall = FALSE
-				ticker.mode.shadowling_ascended = 1
+				SSticker.mode.shadowling_ascended = 1
 				A.mind.RemoveSpell(src)
 				qdel(H)

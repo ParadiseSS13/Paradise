@@ -309,7 +309,7 @@
 		slyness = 75
 
 /mob/living/carbon/human/interactive/proc/InteractiveProcess()
-	if(ticker.current_state == GAME_STATE_FINISHED)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
 		saveVoice()
 		voice_saved = TRUE
 	doProcess()
@@ -364,12 +364,12 @@
 	traitorScale = (slyness + smartness) + rand(-10,10)
 	traitorType = inPers
 
-	ticker.mode.traitors += mind
+	SSticker.mode.traitors += mind
 	mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/mindslaves/slaved = new()
 	slaved.masters += mind
 	mind.som = slaved
-	ticker.mode.update_traitor_icons_added(mind)
+	SSticker.mode.update_traitor_icons_added(mind)
 
 	switch(traitorType)
 		if(SNPC_BRUTE) // SMASH KILL RAAARGH

@@ -26,7 +26,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 		return FALSE
-	if(!(user.mind in ticker.mode.syndicates))
+	if(!(user.mind in SSticker.mode.syndicates))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return FALSE
 	if(checking)
@@ -62,27 +62,27 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	var/agent_number = LAZYLEN(ticker.mode.syndicates)
+	var/agent_number = LAZYLEN(SSticker.mode.syndicates)
 	M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
 	set_syndicate_values(C, M)
-	ticker.mode.create_syndicate(M.mind)
-	ticker.mode.equip_syndicate(M, 0)
-	ticker.mode.update_syndicate_id(M.mind, FALSE)
+	SSticker.mode.create_syndicate(M.mind)
+	SSticker.mode.equip_syndicate(M, 0)
+	SSticker.mode.update_syndicate_id(M.mind, FALSE)
 
 /obj/item/antag_spawner/nuke_ops/proc/set_syndicate_values(client/C, mob/living/M)
 	M.key = C.key
 
-	ticker.mode.syndicates += M.mind
-	ticker.mode.update_synd_icons_added(M.mind)
+	SSticker.mode.syndicates += M.mind
+	SSticker.mode.update_synd_icons_added(M.mind)
 
 	M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
 	M.mind.special_role = SPECIAL_ROLE_NUKEOPS
 	M.mind.offstation_role = TRUE
 
 	M.faction = list("syndicate")
-	ticker.mode.forge_syndicate_objectives(M.mind)
-	ticker.mode.greet_syndicate(M.mind)
+	SSticker.mode.forge_syndicate_objectives(M.mind)
+	SSticker.mode.greet_syndicate(M.mind)
 
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
@@ -115,7 +115,7 @@
 	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
-	if(!(user in ticker.mode.syndicates))
+	if(!(user in SSticker.mode.syndicates))
 		used = FALSE
 		return
 
@@ -147,7 +147,7 @@
 		set_syndicate_values(user.current.client, R)
 
 		L.key = C.key
-		ticker.mode.greet_syndicate(L.mind)
+		SSticker.mode.greet_syndicate(L.mind)
 
 ///////////SLAUGHTER DEMON
 
@@ -195,7 +195,7 @@
 	S.key = C.key
 	S.mind.assigned_role = S.name
 	S.mind.special_role = S.name
-	ticker.mode.traitors += S.mind
+	SSticker.mode.traitors += S.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = S.mind
 	KillDaWiz.target = user.mind
@@ -264,7 +264,7 @@
 	M.mind.assigned_role = SPECIAL_ROLE_MORPH
 	M.mind.special_role = SPECIAL_ROLE_MORPH
 	to_chat(M, M.playstyle_string)
-	ticker.mode.traitors += M.mind
+	SSticker.mode.traitors += M.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind

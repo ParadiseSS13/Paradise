@@ -1961,7 +1961,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(7) // Pride
 			log_game("[src] was influenced by the sin of pride.")
 			O = new /datum/objective/sintouched/pride
-	ticker.mode.sintouched += src.mind
+	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
 	var/obj_count = 1
 	to_chat(src, "<span class='notice> Your current objectives:")

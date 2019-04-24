@@ -12,9 +12,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
-			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
+			if(I.gamemodes.len && SSticker && !(SSticker.mode.type in I.gamemodes))
 				continue
-			if(I.excludefrom.len && ticker && (ticker.mode.type in I.excludefrom))
+			if(I.excludefrom.len && SSticker && (SSticker.mode.type in I.excludefrom))
 				continue
 			if(I.last)
 				last += I
