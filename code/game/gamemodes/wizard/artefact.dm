@@ -156,6 +156,10 @@
 	START_PROCESSING(SSobj, src)
 	//return
 
+/obj/effect/rend/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/effect/rend/process()
 	for(var/mob/M in loc)
 		return

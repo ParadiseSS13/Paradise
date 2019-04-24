@@ -645,6 +645,10 @@
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 
+/obj/item/storage/belt/bluespace/owlman/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/item/storage/belt/bluespace/owlman/process()
 	if(cooldown < world.time - 600)
 		smokecount = 0

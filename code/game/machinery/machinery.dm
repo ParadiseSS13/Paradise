@@ -126,16 +126,14 @@ Class Procs:
 	. = ..()
 	GLOB.machines += src
 
-	addAtProcessing()
-	power_change()
-
-/obj/machinery/proc/addAtProcessing()
 	if(use_power)
 		myArea = get_area(src)
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
 	else
 		START_PROCESSING(SSfastprocess, src)
+
+	power_change()
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
