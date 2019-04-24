@@ -2,7 +2,9 @@
 //"Ghosts" that are invisible and move like ghosts, cannot take damage while invsible
 //Don't hear deadchat and are NOT normal ghosts
 //Admin-spawn or random event
+
 #define INVISIBILITY_REVENANT 50
+#define REVENANT_NAME_FILE "revenant_names.json"
 
 /mob/living/simple_animal/revenant
 	name = "revenant"
@@ -124,9 +126,17 @@
 	ghost_darkness_images |= ghostimage
 	updateallghostimages()
 	remove_from_all_data_huds()
+	random_revenant_name()
 
 	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
+/mob/living/simple_animal/revenant/proc/random_revenant_name()
+	var/built_name = ""
+	built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
+	built_name += " of "
+	built_name += pick(strings(REVENANT_NAME_FILE, "adverb"))
+	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
+	name = built_name
 
 /mob/living/simple_animal/revenant/proc/firstSetupAttempt()
 	if(mind)
