@@ -400,6 +400,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	set category = "IC"
 
 	if(world.time < client.move_delay)
+		to_chat(src, world.time + " is less than " + client.move_delay + " why the hell is this happening?")
 		return
 
 	if(!resting)

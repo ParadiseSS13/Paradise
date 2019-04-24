@@ -97,16 +97,16 @@
 #define BODY_ZONE_CHEST		"chest"
 #define BODY_ZONE_L_ARM		"l_arm"
 #define BODY_ZONE_R_ARM		"r_arm"
-#define BODY_ZONE_L_HAND	"l_hand"
-#define BODY_ZONE_R_HAND	"r_hand"
 #define BODY_ZONE_L_LEG		"l_leg"
 #define BODY_ZONE_R_LEG		"r_leg"
-#define BODY_ZONE_L_FOOT	"l_foot"
-#define BODY_ZONE_R_FOOT	"r_foot"
 
 #define BODY_ZONE_PRECISE_EYES		"eyes"
 #define BODY_ZONE_PRECISE_MOUTH		"mouth"
 #define BODY_ZONE_PRECISE_GROIN		"groin"
+#define BODY_ZONE_PRECISE_L_HAND	"l_hand"
+#define BODY_ZONE_PRECISE_R_HAND	"r_hand"
+#define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
+#define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
 
 //Gun Stuff
 #define SAWN_INTACT  0
