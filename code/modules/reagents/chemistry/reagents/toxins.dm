@@ -245,7 +245,7 @@
 	id = "sacid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
 	reagent_state = LIQUID
-	color = "#00D72B"
+	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "<span class='userdanger'>ACID</span>"
 
@@ -254,58 +254,34 @@
 	update_flags |= M.adjustFireLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/sacid/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(isgrey(H))
-				return
-
+/datum/reagent/sacid/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(ishuman(M) && !isgrey(M))
+		var/mob/living/carbon/human/H = M
+		if(method == TOUCH)
 			if(volume > 25)
-
 				if(H.wear_mask)
-					to_chat(H, "<span class='danger'>Your mask protects you from the acid!</span>")
+					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
 					return
 
 				if(H.head)
-					to_chat(H, "<span class='danger'>Your helmet protects you from the acid!</span>")
+					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
 					return
 
-				if(!M.unacidable)
-					if(prob(75))
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.receive_damage(5, 10)
-							H.UpdateDamageIcon()
-							H.emote("scream")
-					else
-						M.take_organ_damage(5,10)
+				if(prob(75))
+					H.take_organ_damage(5, 10)
+					H.emote("scream")
+					var/obj/item/organ/external/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.disfigure()
+				else
+					H.take_organ_damage(5, 10)
 			else
-				M.take_organ_damage(5,10)
-
-	if(method == INGEST)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-
-			if(isgrey(H))
-				return
-
-			if(volume >=10 && volume <=25)
-				if(!H.unacidable)
-					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
-					M.emote("scream")
-
-
-			if(volume > 25)
-				if(!M.unacidable)
-					if(prob(75))
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.receive_damage(0, 20)
-							H.UpdateDamageIcon()
-							H.emote("scream")
-					else
-						M.take_organ_damage(0,20)
+				H.take_organ_damage(5, 10)
+		else
+			to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			if(volume >= 10)
+				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+				H.emote("scream")
 
 /datum/reagent/sacid/reaction_obj(obj/O, volume)
 	if((istype(O,/obj/item) || istype(O,/obj/structure/glowshroom)) && prob(40))
@@ -506,18 +482,10 @@
 			M.fakevomit()
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
+	if(volume > 40 && prob(4))
+		M.delayed_gib()
+		return
 	return ..() | update_flags
-
-/datum/reagent/venom/overdose_process(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(volume >= 40)
-		if(prob(4))
-			M.visible_message("<span class='danger'><B>[M]</B> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-			update_flags |= M.Weaken(15, FALSE)
-			M.AdjustJitter(1000)
-			spawn(rand(20, 100))
-				M.gib()
-	return list(0, update_flags)
 
 /datum/reagent/neurotoxin2
 	name = "Neurotoxin"
@@ -622,7 +590,7 @@
 	id = "facid"
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	reagent_state = LIQUID
-	color = "#4141D2"
+	color = "#5050FF"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "<span class='userdanger'>ACID</span>"
 
@@ -632,47 +600,38 @@
 	update_flags |= M.adjustFireLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/facid/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH || method == INGEST)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-
-			if(volume < 5)
-				to_chat(M, "<span class='danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
-
-			if(volume >=5 && volume <=10)
-				if(!H.unacidable)
-					M.take_organ_damage(0,max(volume-5,2)*4)
-					M.emote("scream")
-
-
-			if(volume > 10)
-
-				if(method == TOUCH)
-					if(H.wear_mask)
-						if(!H.wear_mask.unacidable)
-							qdel(H.wear_mask)
-							H.update_inv_wear_mask()
-							to_chat(H, "<span class='warning'>Your mask melts away but protects you from the acid!</span>")
-						else
-							to_chat(H, "<span class='warning'>Your mask protects you from the acid!</span>")
-						return
-
-					if(H.head)
-						if(!H.head.unacidable)
-							qdel(H.head)
-							H.update_inv_head()
-							to_chat(H, "<span class='warning'>Your helmet melts away but protects you from the acid</span>")
-						else
-							to_chat(H, "<span class='warning'>Your helmet protects you from the acid!</span>")
-						return
-
-				if(!H.unacidable)
-					var/obj/item/organ/external/head/affecting = H.get_organ("head")
+/datum/reagent/facid/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(method == TOUCH)
+			if(volume > 9)
+				if(!H.wear_mask && !H.head)
+					var/obj/item/organ/external/affecting = H.get_organ("head")
 					if(affecting)
-						affecting.receive_damage(0, 75)
-					H.UpdateDamageIcon()
+						affecting.disfigure()
+					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
 					H.emote("scream")
+					return
+				else
+					var/melted_something = FALSE
+					if(H.wear_mask && !H.wear_mask.unacidable)
+						qdel(H.wear_mask)
+						H.update_inv_wear_mask()
+						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
+						melted_something = TRUE
+
+					if(H.head && !H.head.unacidable)
+						qdel(H.head)
+						H.update_inv_head()
+						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
+						melted_something = TRUE
+					if(melted_something)
+						return
+
+		if(volume >= 5)
+			H.emote("scream")
+			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
+		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
 	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
@@ -1057,6 +1016,11 @@
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/pestkiller/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/effect/decal/ants))
+		O.visible_message("<span class='warning'>The ants die.</span>")
+		qdel(O)
+
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -1159,12 +1123,16 @@
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
 	if(!M.dna)
 		return
+	var/did_mutation = FALSE
 	if(prob(15))
 		randmutb(M)
+		did_mutation = TRUE
 	if(prob(3))
 		randmutg(M)
-	domutcheck(M, null)
-	M.UpdateAppearance()
+		did_mutation = TRUE
+	if(did_mutation)
+		domutcheck(M, null)
+		M.UpdateAppearance()
 	return ..()
 
 /datum/reagent/ants
@@ -1203,6 +1171,6 @@
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	return ..()

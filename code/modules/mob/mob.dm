@@ -580,6 +580,10 @@ var/list/slot_equipment_priority = list( \
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
+	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
+	if(client)
+		client.update_description_holders(A, is_antag)
+
 	face_atom(A)
 	A.examine(src)
 
@@ -1172,12 +1176,11 @@ var/list/slot_equipment_priority = list( \
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			new /obj/effect/decal/cleanable/vomit/green(location)
+			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
 				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
-			location.add_vomit_floor(src, 1)
-		playsound(location, 'sound/effects/splat.ogg', 50, 1)
+			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
@@ -1295,6 +1298,7 @@ var/list/slot_equipment_priority = list( \
 	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
 
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"

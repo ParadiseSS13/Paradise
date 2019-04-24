@@ -409,9 +409,19 @@
 	limit = 3
 	category = "Assistance"
 
+/datum/spellbook_entry/item/oozebottle
+	name = "Bottle of Ooze"
+	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with. Be careful though, as Morph diet includes Wizards."
+	item_path = /obj/item/antag_spawner/morph
+	cost = 1
+	log_name = "BO"
+	limit = 3
+	category = "Assistance"
+
 /datum/spellbook_entry/item/tarotdeck
 	name = "Tarot Deck"
-	desc = "A deck of tarot cards that can be used to summon a spirit companion for the wizard."
+	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
+	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/guardiancreator
 	log_name = "TD"
 	limit = 1
@@ -458,6 +468,24 @@
 	if(active)
 		dat += "<b>Already cast!</b><br>"
 	return dat
+
+/datum/spellbook_entry/summon/ghosts
+	name = "Summon Ghosts"
+	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
+	cost = 0
+
+/datum/spellbook_entry/summon/ghosts/IsAvailible()
+	if(!ticker.mode)
+		return FALSE
+	else
+		return TRUE
+
+/datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	new /datum/event/wizard/ghost()
+	active = TRUE
+	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
+	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
+	return TRUE
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"

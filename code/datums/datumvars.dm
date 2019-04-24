@@ -621,6 +621,33 @@
 		src.give_spell(M)
 		href_list["datumrefresh"] = href_list["give_spell"]
 
+	else if(href_list["givemartialart"])
+		if(!check_rights(R_SERVER|R_EVENT))	return
+
+		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
+		if(!istype(C))
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
+			return
+
+		var/list/artpaths = subtypesof(/datum/martial_art)
+		var/list/artnames = list()
+		for(var/i in artpaths)
+			var/datum/martial_art/M = i
+			artnames[initial(M.name)] = M
+
+		var/result = input(usr, "Choose the martial art to teach", "JUDO CHOP") as null|anything in artnames
+		if(!usr)
+			return
+		if(QDELETED(C))
+			to_chat(usr, "Mob doesn't exist anymore")
+			return
+
+		if(result)
+			var/chosenart = artnames[result]
+			var/datum/martial_art/MA = new chosenart
+			MA.teach(C)
+
+		href_list["datumrefresh"] = href_list["givemartialart"]
 
 	else if(href_list["give_disease"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -715,7 +742,7 @@
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
 		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100, min_hours = minhours)
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
 		var/mob/dead/observer/theghost = null
 
 		if(candidates.len)

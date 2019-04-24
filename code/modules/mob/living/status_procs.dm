@@ -297,6 +297,9 @@
 	SetLoseBreath(max(losebreath, amount))
 
 /mob/living/SetLoseBreath(amount)
+	if(BREATHLESS in mutations)
+		losebreath = 0
+		return FALSE
 	losebreath = max(amount, 0)
 
 /mob/living/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)

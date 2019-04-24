@@ -46,13 +46,13 @@
 	if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
 		SetSilence(0)
 	else				//ALIVE. LIGHTS ARE ON
-		if(health < config.health_threshold_dead || !get_int_organ(/obj/item/organ/internal/brain))
+		if(health < HEALTH_THRESHOLD_DEAD && check_death_method() || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			SetSilence(0)
 			return 1
 
 		//UNCONSCIOUS. NO-ONE IS HOME
-		if((getOxyLoss() > 50) || (config.health_threshold_crit >= health))
+		if((getOxyLoss() > 50) || (HEALTH_THRESHOLD_CRIT >= health && check_death_method()))
 			if(health <= 20 && prob(1))
 				emote("gasp")
 			if(!reagents.has_reagent("epinephrine"))

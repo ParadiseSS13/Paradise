@@ -1,5 +1,5 @@
 /obj/machinery/computer/prisoner
-	name = "prisoner management console"
+	name = "implant management console"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"

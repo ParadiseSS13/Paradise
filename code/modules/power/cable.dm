@@ -191,14 +191,14 @@ By design, d1 is the smallest direction and d2 is the highest
 	src.add_fingerprint(user)
 
 // shock the user with probability prb
-/obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
+/obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
 	if(!prob(prb))
-		return 0
+		return FALSE
 	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		do_sparks(5, 1, src)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 //explosion handling
 /obj/structure/cable/ex_act(severity)
@@ -504,7 +504,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return(OXYLOSS)
+	return OXYLOSS
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
 	..()

@@ -36,17 +36,22 @@
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
 
-	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_swarmer == "No")
-		return
-
 	if(jobban_isbanned(user, "Syndicate"))
 		to_chat(user, "<span class='warning'>You are banned from antagonists!</span>")
+		return
+
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
+
+	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
+	if(be_swarmer == "No")
 		return
 
 	if(crit_fail)//in case it depowers while ghost is looking at yes/no
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
+
 	if(QDELETED(src))
 		to_chat(user, "Swarmer has been occupied by someone else.")
 		return
@@ -96,10 +101,12 @@
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
+	a_intent = INTENT_HARM
+	can_change_intents = 0
 	faction = list("swarmer")
 	projectiletype = /obj/item/projectile/beam/disabler
 	pass_flags = PASSTABLE
-	mob_size = MOB_SIZE_TINY
+	mob_size = MOB_SIZE_SMALL
 	ventcrawler = 2
 	ranged = 1
 	light_color = LIGHT_COLOR_CYAN
@@ -386,6 +393,11 @@
 									break
 			return
 
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	if(!tesla_shock)
+		return FALSE
+	return ..()
+
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(var/obj/machinery/target)
 	do_attack_animation(target)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
@@ -506,7 +518,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, 1)
+			L.electrocute_act(0, src, 1, TRUE, TRUE)
 			if(isrobot(L) || L.isSynthetic())
 				L.Weaken(5)
 			qdel(src)

@@ -31,7 +31,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/syringe/pickup(mob/user)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/syringe/dropped(mob/user)
@@ -197,7 +197,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/ld50_syringe/pickup(mob/user)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/ld50_syringe/dropped(mob/user)
@@ -317,6 +317,11 @@
 	name = "Syringe (insulin)"
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
+
+/obj/item/reagent_containers/syringe/calomel
+	name = "Syringe (calomel)"
+	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
+	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"

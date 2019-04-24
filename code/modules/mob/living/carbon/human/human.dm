@@ -198,12 +198,6 @@
 				stat("Total Blood", "[mind.vampire.bloodtotal]")
 				stat("Usable Blood", "[mind.vampire.bloodusable]")
 
-			if(mind.nation)
-				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")
-				stat("Nation Leader", "[mind.nation.current_leader ? "[mind.nation.current_leader]" : "None"]")
-				stat("Nation Heir", "[mind.nation.heir ? "[mind.nation.heir]" : "None"]")
-
-
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
@@ -557,13 +551,8 @@
 
 	dna.species.update_sight(src)
 
-//Removed the horrible safety parameter. It was only being used by ninja code anyways.
-//Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0)
-	if(status_flags & GODMODE)	//godmode
-		return 0
-	if(NO_SHOCK in mutations) //shockproof
-		return 0
+//Added a safety check in case you want to shock a human mob directly through electrocute_act.
+/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	if(tesla_shock)
 		var/total_coeff = 1
 		if(gloves)
@@ -581,20 +570,18 @@
 			siemens_coeff = 0
 	else if(!safety)
 		var/gloves_siemens_coeff = 1
-		var/species_siemens_coeff = 1
 		if(gloves)
 			var/obj/item/clothing/gloves/G = gloves
 			gloves_siemens_coeff = G.siemens_coefficient
-		if(dna.species)
-			species_siemens_coeff = dna.species.siemens_coeff
-		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
-	if(undergoing_cardiac_arrest())
+		siemens_coeff = gloves_siemens_coeff
+	if(undergoing_cardiac_arrest() && !illusion)
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
 			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
-	. = ..()
 
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
+	. = ..(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
@@ -1651,6 +1638,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+	if(H == src)
+		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
+		return
 	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
@@ -1662,25 +1652,29 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
-		return 0
+		return
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
 		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
-		return 0
-	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
-					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+		return
+	if(H.receiving_cpr) // To prevent spam stacking
+		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
+		return
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	H.receiving_cpr = TRUE
 	if(do_mob(src, H, 40))
-		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
-			var/suff = min(H.getOxyLoss(), 7)
-			H.adjustOxyLoss(-suff)
+		if(H.health <= HEALTH_THRESHOLD_CRIT)
+			H.adjustOxyLoss(-15)
+			H.SetLoseBreath(0)
+			H.AdjustParalysis(-1)
 			H.updatehealth("cpr")
-			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", \
-							  "<span class='notice'>You perform CPR on [H.name].</span>")
+			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
-			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
+			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
-			return 1
+			return TRUE
 	else
+		H.receiving_cpr = FALSE
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
@@ -1696,7 +1690,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return FALSE
 
 /mob/living/carbon/human/InCritical()
-	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+	return (health <= HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS)
 
 
 /mob/living/carbon/human/IsAdvancedToolUser()

@@ -162,7 +162,7 @@
 		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
-	..()
+	return ..()
 
 /datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
@@ -204,6 +204,18 @@
 	color = "#3C3C3C"
 	taste_message = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C + 600)
+		var/turf/T = get_turf(holder.my_atom)
+		holder.my_atom.visible_message("<b>The oil burns!</b>")
+		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/effect_system/smoke_spread/bad/BS = new
+		BS.set_up(1, 0, T)
+		BS.start()
+		if(holder)
+			holder.add_reagent("ash", round(volume * 0.5))
+			holder.del_reagent(id)
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)

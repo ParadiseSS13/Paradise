@@ -166,7 +166,7 @@
 		return
 
 	var/list/jobs[0]
-	for(var/datum/job/j in job_master.occupations)
+	for(var/datum/job/j in SSjobs.occupations)
 		if(j.title != "AI" && j.title != "Cyborg")
 			jobs[j.title] = j
 	jobs = sortAssoc(jobs)

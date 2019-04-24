@@ -57,12 +57,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			usr << browse(null, "window=findPai")
 
 
-	if(candidate)
-		if(candidate.key && usr.key && candidate.key != usr.key)
-			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
-			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
-			return
-
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
 		if(!O)
@@ -75,6 +69,11 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		recruitWindow(O)
 		return
 
+	if(candidate)
+		if(candidate.key && usr.key && candidate.key != usr.key)
+			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
+			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
+			return
 
 	if(href_list["new"])
 		var/option = href_list["option"]

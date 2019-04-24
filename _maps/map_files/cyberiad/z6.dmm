@@ -61,7 +61,6 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "an" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -77,6 +76,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation/solars)
 "ao" = (
@@ -88,12 +88,12 @@
 /turf/space,
 /area/space)
 "ap" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation/solars)
 "aq" = (
@@ -120,12 +120,12 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "as" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation)
 "at" = (
@@ -297,7 +297,6 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "aQ" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -313,10 +312,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation)
 "aR" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -332,19 +331,19 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation/solars)
 "aS" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation/solars)
 "aT" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -360,6 +359,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation/solars)
 "aU" = (
@@ -371,7 +371,6 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "aV" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -387,6 +386,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/djstation)
 "aW" = (
@@ -4329,11 +4329,11 @@
 	name = "Derelict Annex"
 	})
 "jj" = (
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cautionfull"
 	},
-/obj/effect/landmark/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
@@ -4587,7 +4587,6 @@
 	name = "Derelict Annex"
 	})
 "jK" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4603,6 +4602,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "jL" = (
@@ -5391,7 +5391,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "lu" = (
 /turf/space,
@@ -5414,7 +5414,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/space)
 "lx" = (
 /turf/space,
@@ -5839,7 +5839,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "mG" = (
 /obj/structure/shuttle/engine/heater{
@@ -5850,7 +5850,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/space)
 "mH" = (
 /turf/simulated/mineral,
@@ -6004,7 +6004,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "nf" = (
 /obj/effect/spawner/random_spawners/syndicate/trap/mine,
@@ -6092,7 +6092,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "nr" = (
 /obj/effect/decal/warning_stripes/red,
@@ -6688,12 +6688,12 @@
 	},
 /area/syndicate_depot/core)
 "oS" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "oT" = (
@@ -7746,16 +7746,15 @@
 	},
 /area/derelict/crew_quarters)
 "rm" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "rn" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7766,6 +7765,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "ro" = (
@@ -7978,7 +7978,6 @@
 	},
 /area/derelict/crew_quarters)
 "rF" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -7994,6 +7993,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "rG" = (
@@ -8262,7 +8262,6 @@
 	},
 /area/derelict/crew_quarters)
 "sh" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -8273,6 +8272,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "si" = (
@@ -8996,7 +8996,6 @@
 	},
 /area/derelict/crew_quarters)
 "tE" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -9007,6 +9006,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "tF" = (
@@ -9025,7 +9025,6 @@
 	},
 /area/derelict/arrival)
 "tH" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -9041,6 +9040,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "tI" = (
@@ -9547,7 +9547,6 @@
 	name = "Derelict Annex"
 	})
 "uI" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -9564,6 +9563,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "uJ" = (
@@ -9704,12 +9704,12 @@
 	name = "Derelict Annex"
 	})
 "uV" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteredfull"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
@@ -9838,12 +9838,12 @@
 	name = "Derelict Annex"
 	})
 "vi" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteredfull"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
@@ -9880,7 +9880,6 @@
 /turf/space,
 /area/derelict/arrival)
 "vm" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -9896,6 +9895,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "vn" = (
@@ -10452,7 +10452,6 @@
 	name = "Derelict Annex"
 	})
 "wl" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -10463,10 +10462,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "wm" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -10477,6 +10476,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "wn" = (
@@ -10487,7 +10487,6 @@
 	},
 /area/derelict/crew_quarters)
 "wo" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -10503,10 +10502,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "wp" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -10522,10 +10521,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "wq" = (
-/turf/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -10541,6 +10540,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/derelict/solar_control)
 "wr" = (

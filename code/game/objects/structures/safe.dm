@@ -2,8 +2,8 @@
 CONTAINS:
 SAFES
 FLOOR SAFES
-Safe Codes
-Safe Internals
+SAFE INTERNALS
+SAFE CODES
 */
 
 GLOBAL_LIST_EMPTY(safes)
@@ -11,22 +11,26 @@ GLOBAL_LIST_EMPTY(safes)
 //SAFES
 /obj/structure/safe
 	name = "\improper Safe"
-	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms - 2 tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
+	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
-	anchored = 1
-	density = 1
-	var/open = FALSE	//is the safe open?
+	
+	anchored = TRUE
+	density = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	unacidable = TRUE
+
+	var/open = FALSE
 	var/locked = TRUE
-	var/tumbler_1_pos	//the tumbler position- from 0 to 72
-	var/tumbler_1_open	//the tumbler position to open at- 0 to 72
-	var/tumbler_2_pos
-	var/tumbler_2_open
-	var/open_pos
-	var/dial = 0		//where is the dial pointing?
-	var/space = 0		//the combined w_class of everything in the safe
-	var/maxspace = 24	//the maximum combined w_class of stuff in the safe
-	var/combo_to_open	//so admins know the code
+	var/dial = 0		// The position the dial is pointing to.
+
+	var/number_of_tumblers = 3 // The amount of tumblers that will be generated.
+	var/list/tumblers = list() // The list of tumbler dial positions that need to be hit.
+	var/list/current_tumbler_index = 1 // The index in the tumblers list of the tumbler dial position that needs to be hit.
+
+	var/space = 0		// The combined w_class of everything in the safe.
+	var/maxspace = 24	// The maximum combined w_class of stuff in the safe.
+
 	var/obj/item/thermal_drill/drill = null
 	var/drill_timer
 	var/time_to_drill
@@ -34,63 +38,81 @@ GLOBAL_LIST_EMPTY(safes)
 	var/drill_start_time
 	var/drill_x_offset = -13
 	var/drill_y_offset = -3
-	var/knownby = list()
+	var/known_by = list()
 
+	var/image/progress_bar
+	var/image/drill_overlay
 
-/obj/structure/safe/New()
+/obj/structure/safe/Initialize(mapload)
+	. = ..()
+
 	GLOB.safes += src
-	tumbler_2_pos = rand(0, 99) // first value in the combination set first
-	tumbler_2_open = rand(0, 99)
 
-	tumbler_1_pos = rand(0, 99)
-	do
-	tumbler_1_open = rand(0, 99)
-	while(tumbler_1_open > Wrap(tumbler_2_open +48, 0, 100) && tumbler_1_open < Wrap(tumbler_2_open + 53, 0, 100)) // prevents a combination that wont open
-	do
-		open_pos = rand(0,99)
-	while(open_pos > Wrap(tumbler_1_open - 2, 0, 100) && open_pos < Wrap(tumbler_1_open + 2, 0, 100)) // prevents a combination that wont open
-	var/num1 = tumbler_2_open + 54
-	if(num1 > 99)
-		num1 = num1 - 100
-	var/num2 = tumbler_1_open + 98
-	if(num2 > 99)
-		num2 = num2 - 100
+	for(var/i in 1 to number_of_tumblers)
+		tumblers.Add(rand(0, 99))
 
-	combo_to_open = "[num1] - [num2]"
-
-
-/obj/structure/safe/Initialize()
-	..()
 	for(var/obj/item/I in loc)
 		if(space >= maxspace)
 			return
 		if(I.w_class + space <= maxspace)
 			space += I.w_class
-			I.loc = src
+			I.forceMove(src)
 
+/obj/structure/safe/Destroy()
+	GLOB.safes -= src
+	drill?.soundloop?.stop()
+	drill?.forceMove(loc)
+	drill = null
+
+	qdel(progress_bar)
+	qdel(drill_overlay)
+	return ..()
+
+/obj/structure/safe/process()
+	if(drill_timer)
+		cut_overlay(progress_bar)
+		progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+		add_overlay(progress_bar)
+		if(prob(15))
+			drill.spark_system.start()
+
+/obj/structure/safe/examine(mob/user)
+	. = ..()
+
+	to_chat(user, "This model appears to have [number_of_tumblers] tumblers.")
+	if(open)
+		to_chat(user, "The inside of the the door has numbers written on it: <b>[get_combination()]</b>")
+
+/obj/structure/safe/blob_act()
+	return
+
+/obj/structure/safe/ex_act(severity)
+	return
+
+/obj/structure/safe/examine_status(mob/user)
+	return
 
 /obj/structure/safe/proc/check_unlocked()
-	if(tumbler_1_pos == tumbler_1_open && tumbler_2_pos == tumbler_2_open && dial == open_pos)
+	if(current_tumbler_index > number_of_tumblers)
 		locked = FALSE
+		visible_message("<span class='boldnotice'>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</span>")
 		return TRUE
+
 	locked = TRUE
 	return FALSE
 
-/obj/structure/safe/proc/make_noise(turns, turns_total, tum1 = 0, tum2 = 0, mob/user, canhear)
-	if(user && canhear)
-		if(turns == 2)
-			to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
-		if(tum1 && (turns_total == 1 || prob(10))) // So multi turns dont super spam the chat
-			to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
-		if(tum2 && (turns_total == 1 || prob(10))) // So multi turns dont super spam the chat
-			to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-		if(tumbler_1_pos == tumbler_1_open && turns_total == 1 && tum1) // You cant hear tumblers if you spin fast!
-			to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
-		if(tumbler_2_pos == tumbler_2_open && turns_total == 1 && tum2) // You cant hear tumblers if you spin fast!
-			to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
-	if(!locked)
-		if(user)
-			visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
+/obj/structure/safe/proc/get_combination()
+	var/combination = ""
+	var/looped = 0
+
+	for(var/tumbler in tumblers)
+		looped++
+		combination += "[tumbler]"
+
+		if(looped < LAZYLEN(tumblers))
+			combination += ", "
+
+	return combination
 
 /obj/structure/safe/update_icon()
 	if(open)
@@ -103,21 +125,32 @@ GLOBAL_LIST_EMPTY(safes)
 			icon_state = "[initial(icon_state)]-broken"
 		else
 			icon_state = initial(icon_state)
-	overlays.Cut()
-	if(istype(drill, /obj/item/thermal_drill/diamond_drill))
+
+	var/list/overlays_to_cut = list(drill_overlay)
+	if(!drill_timer)
+		overlays_to_cut += progress_bar
+
+	cut_overlay(overlays_to_cut)
+
+	if(istype(drill, /obj/item/thermal_drill))
+		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		if(drill_timer)
-			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_d-drill-on", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+			drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-on", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
 		else
-			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_d-drill-off", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
-	else if(istype(drill, /obj/item/thermal_drill))
-		if(drill_timer)
-			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_h-drill-on", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
-		else
-			overlays += image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_h-drill-off", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+			drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = "[initial(icon_state)]_[drill_icon]-drill-off", pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+
+		add_overlay(drill_overlay)
+
+/obj/structure/safe/attack_ghost(mob/user)
+	if(..() || drill)
+		return TRUE
+
+	ui_interact(user)
 
 /obj/structure/safe/attack_hand(mob/user)
 	if(..())
 		return TRUE
+
 	if(drill)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
@@ -145,7 +178,6 @@ GLOBAL_LIST_EMPTY(safes)
 				return
 	else
 		ui_interact(user)
-	return
 
 /obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -161,30 +193,39 @@ GLOBAL_LIST_EMPTY(safes)
 		for(var/obj/O in contents)
 			contents_names[++contents_names.len] = list("name" = O.name, "index" = contents.Find(O), "sprite" = O.icon_state)
 			user << browse_rsc(icon(O.icon, O.icon_state), "[O.icon_state].png")
-	else
-		contents_names = list(list("name" = "you're"), list("name" = "a"), list("name" = "cheater"))
 
 	data["dial"] = dial
 	data["open"] = open
 	data["locked"] = locked
-	data["rotation"] = "[-dial*3.6]deg"
+	data["rotation"] = "[-dial * 3.6]deg"
 	data["contents"] = contents_names
 
 	return data
 
+/obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
+	if(!canhear)
+		return
+
+	if(current_tick == 2)
+		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
+	
+	if(total_ticks == 1 || prob(10))
+		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
 
 /obj/structure/safe/Topic(href, href_list)
 	if(..())
 		return TRUE
 
-	var/canhear = 0
-	if(!ishuman(usr))
-		to_chat(usr, "You don't have hands to operate the safe!")
-		return FALSE
+	var/mob/user = usr
+	if(!user.IsAdvancedToolUser() && !isobserver(user))
+		to_chat(user, "<span class='warning'>You're not able to operate the safe.</span>")
+		return
 
-	var/mob/living/carbon/human/user = usr
-	if(istype(user.l_hand, /obj/item/clothing/accessory/stethoscope) || istype(user.r_hand, /obj/item/clothing/accessory/stethoscope))
-		canhear = 1
+	var/canhear = FALSE
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+			canhear = TRUE
 
 	if(href_list["open"])
 		if(check_unlocked() || open || broken)
@@ -192,52 +233,65 @@ GLOBAL_LIST_EMPTY(safes)
 			open = !open
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You can't open [src], the lock is engaged!</span>")
-		.= TRUE
-		SSnanoui.update_uis(src)
+			to_chat(user, "<span class='warning'>You can't open [src], as its lock is engaged!</span>")
 
-	if(href_list["decrement"])
-		var/ticks = text2num(href_list["decrement"])
+		. = TRUE
+
+	if(href_list["turnright"])
 		if(open)
 			return
+
 		if(broken)
-			to_chat(user, "The dial will not turn, the mechanism is destroyed.")
+			to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
 			return
-		for(var/i=1 to ticks)
-			if(!check_unlocked())
-				dial = Wrap(dial - 1, 0 ,100)
-				if(dial == tumbler_1_pos + 1 || dial == tumbler_1_pos - 99)
-					tumbler_1_pos = Wrap(tumbler_1_pos - 1, 0, 100)
-					make_noise(i, ticks, 1, 0, user, canhear)
-					if(tumbler_1_pos == tumbler_2_pos + 51 || tumbler_1_pos == tumbler_2_pos - 49)
-						tumbler_2_pos = Wrap(tumbler_2_pos - 1, 0, 100)
-						make_noise(0, ticks, 0, 1, user, canhear)
+
+		var/ticks = text2num(href_list["turnright"])
+		for(var/i = 1 to ticks)
+			dial = Wrap(dial - 1, 0, 100)
+
+			var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
+			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
+				current_tumbler_index = 1
+			
+			if(!invalid_turn && dial == tumblers[current_tumbler_index])
+				notify_user(user, canhear, list("tink", "krink", "plink"), ticks, i)
+				current_tumbler_index++
+			else
+				notify_user(user, canhear, list("clack", "scrape", "clank"), ticks, i)
+
 			sleep(1)
-			check_unlocked()
+			check_unlocked(user, canhear)
 			SSnanoui.update_uis(src)
-		make_noise(0, 0, 0, 0, user, canhear)
-		.= TRUE
 
-	if(href_list["increment"])
-		var/ticks = text2num(href_list["increment"])
+		. = TRUE
+
+	if(href_list["turnleft"])
 		if(open)
 			return
+
 		if(broken)
-			to_chat(user, "The dial will not turn, the mechanism is destroyed.")
+			to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
 			return
-		for(var/i=1 to ticks)
-			check_unlocked()
+
+		var/ticks = text2num(href_list["turnleft"])
+		for(var/i = 1 to ticks)
 			dial = Wrap(dial + 1, 0, 100)
-			if(dial == tumbler_1_pos - 1 || dial == tumbler_1_pos + 99)
-				tumbler_1_pos = Wrap(tumbler_1_pos + 1, 0, 100)
-				make_noise(i, ticks, 1, 0, user, canhear)
-				if(tumbler_1_pos == tumbler_2_pos - 51 || tumbler_1_pos == tumbler_2_pos + 49)
-					tumbler_2_pos = Wrap(tumbler_2_pos + 1, 0, 100)
-					make_noise(0, ticks, 0, 1, user, canhear)
+
+			var/invalid_turn = current_tumbler_index % 2 != 0 || current_tumbler_index > number_of_tumblers
+			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
+				current_tumbler_index = 1
+
+			if(!invalid_turn && dial == tumblers[current_tumbler_index])
+				notify_user(user, canhear, list("tonk", "krunk", "plunk"), ticks, i)
+				current_tumbler_index++
+			else
+				notify_user(user, canhear, list("click", "chink", "clink"), ticks, i)
+
 			sleep(1)
+			check_unlocked(user, canhear)
 			SSnanoui.update_uis(src)
-		make_noise(0, 0, 0, 0, user, canhear)
-		.= TRUE
+
+		. = TRUE
 
 	if(href_list["retrieve"])
 		var/index = text2num(href_list["retrieve"])
@@ -247,52 +301,7 @@ GLOBAL_LIST_EMPTY(safes)
 				if(P && in_range(src, user))
 					user.put_in_hands(P)
 					space -= P.w_class
-		SSnanoui.update_uis(src)
-		.= TRUE
-
-
-	updateUsrDialog()
-	return
-
-
-/obj/structure/safe/attackby(obj/item/I, mob/user, params)
-	if(open)
-		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
-			to_chat(user, "You replace the broken mechanism.")
-			qdel(I)
-			broken = !broken
-			update_icon()
-			return
-		else if(I.w_class + space <= maxspace)
-			space += I.w_class
-			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
-				return
-			I.loc = src
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-			updateUsrDialog()
-			return
-		else
-			to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
-			return
-	else
-		if(istype(I, /obj/item/clothing/accessory/stethoscope))
-			to_chat(user, "<span class='warning'>Hold [I] in one of your hands while you manipulate the dial!</span>")
-			return
-		else if(istype(I, /obj/item/thermal_drill))
-			if(drill)
-				to_chat(user, "There is already a drill attached!")
-			else if(do_after(user, 2 SECONDS, target = src))
-				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
-					return
-				I.loc = src
-				drill = I
-				time_to_drill = 300 SECONDS * drill.time_multiplier
-				update_icon()
-		else
-			to_chat(user, "<span class='warning'>You can't put [I] in into the safe while it is closed!</span>")
-			return
+		. = TRUE
 
 /obj/structure/safe/proc/drill_open()
 	broken = TRUE
@@ -301,50 +310,58 @@ GLOBAL_LIST_EMPTY(safes)
 	update_icon()
 	processing_objects.Remove(src)
 
-/obj/structure/safe/blob_act()
-	return
-
-/obj/structure/safe/ex_act(severity)
-	return
-
-/obj/structure/safe/examine_status(mob/user)
-	return
-
-/obj/structure/safe/Destroy()
-	GLOB.safes -= src
-	drill?.soundloop?.stop()
-	return ..()
-
-/obj/structure/safe/process()
-	if(drill_timer)
-		overlays -= bar
-		bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
-		overlays += bar
-		if(prob(15))
-			drill.spark_system.start()
-
-/obj/structure/safe/examine(mob/user)
-	..()
+/obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)
-		to_chat(user, "On the inside of the the door is <b>[combo_to_open]</b>")
+		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
+			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
+			qdel(I)
+			broken = !broken
+			update_icon()
+		else if(I.w_class + space <= maxspace)
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
+				return
+			space += I.w_class
+			I.forceMove(src)
+			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
+	else
+		if(istype(I, /obj/item/clothing/accessory/stethoscope))
+			to_chat(user, "<span class='warning'>Hold [I] in one of your hands while you manipulate the dial!</span>")
+			return
+		else if(istype(I, /obj/item/thermal_drill))
+			if(drill)
+				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
+			else if(do_after(user, 2 SECONDS, target = src))
+				if(!user.drop_item())
+					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
+					return
+				I.forceMove(src)
+				drill = I
+				time_to_drill = 300 SECONDS * drill.time_multiplier
+				update_icon()
+		else
+			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
+			return
 
 //FLOOR SAFES
 /obj/structure/safe/floor
 	name = "floor safe"
 	icon_state = "floorsafe"
-	density = 0
-	level = 1	//underfloor
-	layer = 2.5
+	density = FALSE
+	level = 1 //Under the floor
+	layer = LOW_OBJ_LAYER
 	drill_x_offset = -1
 	drill_y_offset = 20
 
 /obj/structure/safe/floor/Initialize()
-	..()
+	. = ..()
 	var/turf/T = loc
 	hide(T.intact)
 
-/obj/structure/safe/floor/hide(var/intact)
-	invisibility = intact ? 101 : 0
+/obj/structure/safe/floor/hide(intact)
+	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 
 /obj/item/safe_internals
 	name = "safe internals"
@@ -356,14 +373,14 @@ GLOBAL_LIST_EMPTY(safes)
 	var/owner
 	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
 
-/obj/item/paper/safe_code/New()
-	..()
-	addtimer(CALLBACK(src, .proc/populate_codes), 10)
+/obj/item/paper/safe_code/Initialize(mapload)
+	return INITIALIZE_HINT_LATELOAD
 
-/obj/item/paper/safe_code/proc/populate_codes()
+/obj/item/paper/safe_code/LateInitialize(mapload)
+	. = ..()
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
-		if(owner in S.knownby)
-			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.combo_to_open]<br>"
+		if(owner in S.known_by)
+			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.get_combination()]<br>"
 			info_links = info
 			update_icon()

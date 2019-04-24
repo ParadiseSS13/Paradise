@@ -284,7 +284,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(12)
 			var/list/jobs = list()
 			data["jobs"] = jobs
-			for(var/datum/job/job in job_master.occupations)
+			for(var/datum/job/job in SSjobs.occupations)
 				if(job_blacklisted(job))
 					continue
 				if(job.is_position_available())

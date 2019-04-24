@@ -187,7 +187,7 @@
 
 /obj/item/flashlight/flare/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/flashlight/flare/proc/turn_off()
 	on = 0

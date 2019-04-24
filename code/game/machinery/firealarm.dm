@@ -52,6 +52,7 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
 	if(!emagged && detecting && temperature > T0C + 200)
 		alarm()			// added check of detector status here
 
@@ -219,7 +220,7 @@ FIRE ALARM
 	var/area/A = get_area(src)
 	A.fire_reset()
 	for(var/obj/machinery/firealarm/FA in A)
-		fire_alarm.clearAlarm(loc, FA)
+		SSalarms.fire_alarm.clearAlarm(loc, FA)
 	return
 
 /obj/machinery/firealarm/proc/alarm(var/duration = 0)
@@ -227,7 +228,7 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	for(var/obj/machinery/firealarm/FA in A)
-		fire_alarm.triggerAlarm(loc, FA, duration)
+		SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
 	update_icon()
 	//playsound(loc, 'sound/ambience/signal.ogg', 75, 0)
 	return

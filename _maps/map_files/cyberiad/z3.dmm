@@ -425,14 +425,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/freegolem)
 "aW" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
+	dir = 4;
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/freegolem)
 "aX" = (
 /obj/machinery/light/small,
@@ -4063,6 +4063,16 @@
 /area/AIsattele)
 "jb" = (
 /obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/AIsattele)
+"we" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/AIsattele)
+"LU" = (
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
 
@@ -58481,8 +58491,8 @@ aa
 aT
 iF
 iF
-iK
-iT
+LU
+we
 iW
 iF
 iF

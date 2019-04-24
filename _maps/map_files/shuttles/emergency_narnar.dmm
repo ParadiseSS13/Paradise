@@ -296,12 +296,12 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aR" = (
+/obj/effect/spawner/window/reinforced{
+	color = "red"
+	},
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3";
 	dir = 2
-	},
-/obj/effect/spawner/window/reinforced{
-	color = "red"
 	},
 /turf/simulated/wall/cult,
 /area/shuttle/escape)
@@ -410,7 +410,7 @@
 	},
 /obj/structure/shuttle/engine/heater,
 /obj/structure/cult/forge,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/shuttle/engine/heater,
@@ -418,11 +418,11 @@
 	dir = 1
 	},
 /obj/structure/cult/forge,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bj" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
