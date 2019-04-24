@@ -9,7 +9,7 @@
 
 /obj/structure/blob/node/New(loc, var/h = 100)
 	blob_nodes += src
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	..(loc, h)
 
 /obj/structure/blob/node/adjustcolors(var/a_color)
@@ -26,7 +26,7 @@
 
 /obj/structure/blob/node/Destroy()
 	blob_nodes -= src
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/blob/node/Life(seconds, times_fired)

@@ -35,14 +35,14 @@
 /obj/item/melee/ghost_sword/New()
 	..()
 	spirits = list()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
 		G.invisibility = initial(G.invisibility)
 	spirits.Cut()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list -= src
 	. = ..()
 

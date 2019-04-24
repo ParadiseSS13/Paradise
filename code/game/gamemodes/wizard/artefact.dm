@@ -153,7 +153,7 @@
 	src.spawn_amt_left = spawn_amt
 	src.desc = desc
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	//return
 
 /obj/effect/rend/process()

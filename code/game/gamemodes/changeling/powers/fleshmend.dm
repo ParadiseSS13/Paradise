@@ -13,10 +13,10 @@
 
 /obj/effect/proc_holder/changeling/fleshmend/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/proc_holder/changeling/fleshmend/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/proc_holder/changeling/fleshmend/process()

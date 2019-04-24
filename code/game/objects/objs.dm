@@ -66,16 +66,13 @@
 	// Nada
 
 /obj/Destroy()
-	GLOB.machines -= src
-	processing_objects -= src
-	GLOB.fast_processing -= src
+	if(!ismachinery(src))
+		if(!speed_process)
+			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+		else
+			STOP_PROCESSING(SSfastprocess, src)
 	SSnanoui.close_uis(src)
 	return ..()
-
-/obj/proc/process()
-	set waitfor = 0
-	processing_objects.Remove(src)
-	return 0
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -300,15 +297,15 @@ a {
 	if(speed_process)
 		return
 	speed_process = TRUE
-	processing_objects.Remove(src)
-	GLOB.fast_processing.Add(src)
+	STOP_PROCESSING(SSobj, src)
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/proc/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = FALSE
-	processing_objects.Add(src)
-	GLOB.fast_processing.Remove(src)
+	START_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/vv_get_dropdown()
 	. = ..()

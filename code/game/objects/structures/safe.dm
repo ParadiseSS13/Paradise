@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(safes)
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
-	
+
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -159,14 +159,14 @@ GLOBAL_LIST_EMPTY(safes)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
-					processing_objects.Add(src)
+					START_PROCESSING(SSobj, src)
 			if("Turn Off")
 				if(do_after(user, 2 SECONDS, target = src))
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
 					update_icon()
-					processing_objects.Remove(src)
+					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
 				if(drill_timer)
 					to_chat(user, "<span class='warning'>You cant remove the drill while it's running!</span>")
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	if(current_tick == 2)
 		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
-	
+
 	if(total_ticks == 1 || prob(10))
 		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
 
@@ -252,7 +252,7 @@ GLOBAL_LIST_EMPTY(safes)
 			var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
 			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 				current_tumbler_index = 1
-			
+
 			if(!invalid_turn && dial == tumblers[current_tumbler_index])
 				notify_user(user, canhear, list("tink", "krink", "plink"), ticks, i)
 				current_tumbler_index++
@@ -308,7 +308,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_timer = null
 	drill.soundloop.stop()
 	update_icon()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)

@@ -642,7 +642,7 @@
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/restraints/legcuffs/bola(src)
 	new /obj/item/restraints/legcuffs/bola(src)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 
 /obj/item/storage/belt/bluespace/owlman/process()
