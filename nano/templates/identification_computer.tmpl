@@ -11,7 +11,8 @@
 	{{if !data.target_dept}}{{:helper.link('Job Management', 'gear', {'choice' : 'mode', 'mode_target' : 1}, data.mode == 1 ? 'disabled' : null)}}{{/if}}
 	{{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 2}, data.mode == 2 ? 'disabled' : null)}}
 	{{if !data.target_dept}}{{:helper.link('Print', 'print', {'choice' : 'print'}, (data.mode == 2 || data.has_modify && !data.mode) ? null : 'disabled')}}{{/if}}
-
+	{{:helper.link('Records', 'file', {'choice' : 'mode', 'mode_target' : 3}, (data.mode == 3) ? 'disabled' : null)}}
+	
 	{{if data.mode == 1 && !data.target_dept}}
 	<div class='item'>
 		<h2>Job Management</h2>
@@ -51,6 +52,29 @@
 		</div>
 		<div class='item'>
 			{{:data.manifest}}
+		</div>
+	{{else data.mode == 3}}
+		<div class='item'>
+		    <h2>Records</h2>
+        </div>
+        <div class='item'>
+		    <div class='itemLabel'>
+				Authorized Identity:
+		    </div>
+		    <div class='itemContent'>
+				{{:helper.link(data.scan_name, 'eject', {'choice' : 'scan'})}}
+		    </div>
+		</div>
+		<div class='item'>
+		    {{if data.authenticated}}
+				{{:data.id_change_html}}
+				{{:helper.link('Delete Records By: ' + data.scan_owner, null, {'choice' : 'wipe_my_logs'}, null, 'linkDanger')}}
+				{{if !data.target_dept}}
+					{{:helper.link('Delete ALL Records', null, {'choice' : 'wipe_all_logs'}, null, 'linkDanger')}}
+				{{/if}}
+		    {{else}}
+				<span class='exclamation-triangle'><i>Please insert an authorized ID into the terminal to proceed.</i></span><br>
+		    {{/if}}
 		</div>
 	{{else}}
     <div class='item'>

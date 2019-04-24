@@ -8,6 +8,8 @@ SUBSYSTEM_DEF(jobs)
 	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
+	var/list/id_change_records = list() // List of all job transfer records
+	var/list/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -616,3 +618,60 @@ SUBSYSTEM_DEF(jobs)
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "linkDiscourage" // jobs that are full (no free positions) are discouraged
 	return jobs_to_formats
+
+
+/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit)
+	id_change_records["[id_change_counter]"] = list("transferee" = transferee, "oldvalue" = oldvalue, "newvalue" = newvalue, "whodidit" = whodidit, "timestamp" = station_time_timestamp())
+	id_change_counter++
+
+/datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)
+	var/record_html = "<TABLE border=\"1\">"
+
+	var/table_headers = list("Crewman", "Old Rank", "New Rank", "Authorized By", "Time")
+	var/hidden_fields = list("deletedby")
+	if(centcom)
+		table_headers += "<span class='bad'>Deleted By</span>"
+	record_html += "<TR>"
+	for(var/thisheader in table_headers)
+		record_html += "<TD><B>[thisheader]</B></TD>"
+	record_html += "</TR>"
+
+	var/visible_record_count = 0
+	for(var/thisid in id_change_records)
+		var/thisrecord = id_change_records[thisid]
+
+		if(thisrecord["deletedby"] && !centcom)
+			continue
+
+		record_html += "<TR>"
+		for(var/lkey in thisrecord)
+			if(lkey in hidden_fields)
+				if(centcom)
+					record_html += "<TD><span class='bad'>[thisrecord[lkey]]<span></TD>"
+				else
+					continue
+			else
+				record_html += "<TD>[thisrecord[lkey]]</TD>"
+		record_html += "</TR>"
+		visible_record_count++
+
+	record_html += "</TABLE>"
+
+	if(!visible_record_count)
+		return "No records on file yet."
+	return record_html
+
+/datum/controller/subsystem/jobs/proc/delete_log_records(sourceuser, delete_all)
+	. = 0
+	if(!sourceuser)
+		return
+	var/list/new_id_change_records = list()
+	for(var/thisid in id_change_records)
+		var/thisrecord = id_change_records[thisid]
+		if(!thisrecord["deletedby"])
+			if(delete_all || thisrecord["whodidit"] == sourceuser)
+				thisrecord["deletedby"] = sourceuser
+				.++
+		new_id_change_records["[id_change_counter]"] = thisrecord
+		id_change_counter++
+	id_change_records = new_id_change_records

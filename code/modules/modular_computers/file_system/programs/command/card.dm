@@ -224,11 +224,12 @@
 					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
+						SSjobs.log_job_transfer(modify.registered_name, modify.getRankAndAssignment(), temp_t, scan.registered_name)
 						modify.assignment = temp_t
 						log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
 				else
 					var/list/access = list()
-					if(is_centcom)
+					if(is_centcom && islist(get_centcom_access(t1)))
 						access = get_centcom_access(t1)
 					else
 						var/datum/job/jobdatum
@@ -248,6 +249,7 @@
 					if(t1 == "Civilian")
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
+					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
 					var/mob/living/carbon/human/H = modify.getPlayer()
 					if(istype(H))
 						if(jobban_isbanned(H, t1))
@@ -276,6 +278,18 @@
 
 		if("PRG_mode")
 			mode = text2num(href_list["mode_target"])
+
+		if("PRG_wipe_my_logs")
+			if(is_authenticated(usr))
+				var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
+				if(delcount)
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+
+		if("PRG_wipe_all_logs")
+			if(is_authenticated(usr))
+				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
+				if(delcount)
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if("PRG_print")
 			if(!printing && computer)
@@ -318,6 +332,7 @@
 				var/jobnamedata = modify.getRankAndAssignment()
 				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
 				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
 				modify.assignment = "Terminated"
 				modify.access = list()
 				callHook("terminate_employee", list(modify))
@@ -404,6 +419,7 @@
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()
 	data["scan_name"] = scan ? scan.name : "-----"
+	data["scan_owner"] = scan && scan.registered_name ? scan.registered_name : null
 	data["authenticated"] = is_authenticated(user)
 	data["has_modify"] = !!modify
 	data["account_number"] = modify ? modify.associated_account_number : null
@@ -431,6 +447,9 @@
 	var/seconds = time_to_wait - (60*mins)
 	data["cooldown_mins"] = mins
 	data["cooldown_secs"] = (seconds < 10) ? "0[seconds]" : seconds
+
+	if(mode == 3 && is_authenticated(user))
+		data["id_change_html"] = SSjobs.fetch_transfer_record_html(is_centcom)
 
 	if(modify)
 		data["current_skin"] = modify.icon_state
