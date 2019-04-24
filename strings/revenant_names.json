@@ -6,10 +6,11 @@
         "Phantom",
         "Revenant",
         "Essence",
+        "Poltergeist",
         "Soul"
     ],
 
-    "adverb": [
+    "adjective": [
 	"",
         "abysmal ",
         "dark ",
@@ -26,6 +27,7 @@
 	"violent ",
 	"peaceful ",
 	"indifferent ",
+	"hilarious ",
 	"brutal "
     ],
 
