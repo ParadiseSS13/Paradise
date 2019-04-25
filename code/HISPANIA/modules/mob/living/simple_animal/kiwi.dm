@@ -4,7 +4,9 @@
 	desc = "It's a real kiwi... maybe?"
 	icon = 'icons/hispania/mob/animals.dmi'
 	icon_state = "kiwi"
+	icon_living = "kiwi"
 	icon_dead = "kiwi_dead"
+	icon_resting = "kiwi_sleep"
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
@@ -43,7 +45,7 @@
 			if(step)
 				if(locate(/obj/structure/spacevine) in step)
 					Move(step, get_dir(src, step))
-					sleep 10
+					sleep (10)
 
 /mob/living/simple_animal/kiwi/process_ai()
 	if(prob(10))
@@ -107,3 +109,8 @@
 			to_chat(src, emotelist)
 
 	..(act, m_type, message)
+
+
+
+/mob/living/simple_animal/kiwi/New()
+	name = "kiwi ([rand(100,999)])"
