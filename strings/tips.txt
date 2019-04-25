@@ -196,9 +196,9 @@ Las unidades que sirven para almacenar los trajes de EVA no solo quitan la sangr
 Dormir en una cama puede curate algunas cantidades de daño bruto y de quemaduras.
 El Experimentor de ciencias tiene una chance de spawnear mobs hostiles. Preparate para correr por tu vida si eso llega a pasar!.
 Las ruinas espaciales pueden tener cualquier cantidad de objetos valiosos. Incluso un Baculo para revivir muertos!
-Having a mindshield, or having an agent ID card will make officer Beepsky consider you less arrest-worthy.
 Tener un implante de mindshield o tener una carta de agente (Agent ID) va a hacer que beepsky no te arreste.
 Puedes hacer torretas de laseres de juguete, para un epico torneo de laser tags!
 El Blob tiene alta resistencia al daño bruto. Usa Laseres.
 Puedes esconder papeles en las ventilaciones. Pero debes usar un destornillador para abrirla primero.
 Si bien las reglas del SOP no son totalmente reglas estan alli por motivos profesionales y de seguridad para la estacion.
+Matar al Mago normalmente termina la ronda, a menos que sea un lich o que la Federación de Magos Espaciales esté MUY ENOJADA!
