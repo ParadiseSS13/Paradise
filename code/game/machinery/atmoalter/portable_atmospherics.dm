@@ -82,16 +82,47 @@
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if((istype(W, /obj/item/tank) && !( src.destroyed )))
-		if(src.holding)
-			return
-		var/obj/item/tank/T = W
-		user.drop_item()
-		T.loc = src
-		src.holding = T
-		update_icon()
+/obj/machinery/portable_atmospherics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(!in_range(src, user))
+		return
+	if(!ishuman(usr) && !issilicon(usr))
+		return
+	if(holding)
+		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+		replace_tank(user, TRUE)
+
+/obj/machinery/portable_atmospherics/examine(mob/user)
+	..()
+	if(holding)
+		to_chat(user, "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>")
+
+/obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(holding)
+		holding.forceMove(drop_location())
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(holding)
+	if(new_tank)
+		holding = new_tank
+	else
+		holding = null
+	update_icon()
+	return TRUE
+
+/obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/tank))
+		if(!(stat & BROKEN))
+			var/obj/item/tank/T = W
+			user.drop_item()
+			if(src.holding)
+				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+				replace_tank(user, FALSE)
+			T.loc = src
+			src.holding = T
+			update_icon()
+			return
 
 	else if(istype(W, /obj/item/wrench))
 		if(connected_port)
