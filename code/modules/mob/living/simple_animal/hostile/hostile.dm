@@ -53,6 +53,7 @@
 	if(!targets_from)
 		targets_from = src
 	environment_target_typecache = typecacheof(environment_target_typecache)
+	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
@@ -205,7 +206,7 @@
 				return 0
 			return 1
 	if(isobj(the_target))
-		if(is_type_in_list(the_target, wanted_objects))
+		if(is_type_in_typecache(the_target, wanted_objects))
 			return 1
 	return 0
 

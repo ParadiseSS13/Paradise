@@ -346,7 +346,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			setting_language = null
 		else
 			for(var/datum/multilingual_say_piece/S in message_pieces)
-				S.speaking = GLOB.all_languages[setting_language]
+				if(S.speaking != GLOB.all_languages["Noise"]) // check if they are emoting, these do not need to be translated
+					S.speaking = GLOB.all_languages[setting_language]
 
 	// Regex replacements
 	if(islist(regex) && regex.len > 0)

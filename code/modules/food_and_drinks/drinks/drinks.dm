@@ -11,6 +11,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
 	burn_state = FIRE_PROOF
+	antable = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -105,17 +106,6 @@
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
 
 	return FALSE
-
-/obj/item/reagent_containers/food/drinks/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return FALSE
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
-	else
-		return ..()
 
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
 	if(!..(user, 1))
@@ -226,7 +216,7 @@
 	desc = "Made in Space South America."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("hot_coco" = 30, "sugar" = 5)
+	list_reagents = list("hot_coco" = 30)
 
 /obj/item/reagent_containers/food/drinks/chocolate
 	name = "hot chocolate"

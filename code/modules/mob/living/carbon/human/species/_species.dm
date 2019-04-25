@@ -91,6 +91,8 @@
 
 	var/is_small
 	var/show_ssd = 1
+	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
+	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
@@ -255,8 +257,6 @@
 				. += (health_deficiency / 75)
 			else
 				. += (health_deficiency / 25)
-		if(H.shock_stage >= 10)
-			. += 3
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
@@ -298,11 +298,8 @@
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
-		H.setOxyLoss(0)
-		H.SetLoseBreath(0)
-
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
-		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	return
 
@@ -312,17 +309,20 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return
+
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit && !(target.status_flags & FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
@@ -351,17 +351,7 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	//ZOMBIE CODE
-	if(iszombie(user))
-		var/mob/living/L = target
-		var/poison_per_bite = 10
-		var/poison_type = "virush"
-		if(L.reagents)
-			L.reagents.add_reagent("virush", poison_per_bite)
-			to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
-			L.reagents.add_reagent(poison_type, poison_per_bite)
-		//END ZOMBIE CODE
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
@@ -406,7 +396,7 @@
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
@@ -534,6 +524,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
+	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("chomp")
@@ -552,12 +543,11 @@
 	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
 	animation_type = ATTACK_EFFECT_BITE
 
-
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return FALSE
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return 100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.getStaminaLoss()
+	return H.health - H.getStaminaLoss()
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)

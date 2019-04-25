@@ -59,7 +59,7 @@
 					score_richestjob = E.job
 					score_richestkey = E.key
 
-				dmg_score = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
+				dmg_score = E.getBruteLoss() + E.getFireLoss() + E.getToxLoss() + E.getOxyLoss()
 				if(dmg_score > score_dmgestdamage)
 					score_dmgestdamage = dmg_score
 					score_dmgestname = E.real_name

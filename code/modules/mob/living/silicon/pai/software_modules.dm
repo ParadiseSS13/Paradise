@@ -516,6 +516,7 @@
 		user.add_language("Orluum")
 		user.add_language("Clownish")
 		user.add_language("Yakar")
+		user.add_language("Neo-Russkiya")
 	else
 		user.remove_language("Sinta'unathi")
 		user.remove_language("Siik'tajr")
@@ -528,6 +529,7 @@
 		user.remove_language("Orluum")
 		user.remove_language("Clownish")
 		user.remove_language("Yakar")
+		user.remove_language("Neo-Russkiya")
 
 /datum/pai_software/translator/is_active(mob/living/silicon/pai/user)
 	return user.translator_on

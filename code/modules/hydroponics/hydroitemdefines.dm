@@ -34,7 +34,7 @@
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/reagent_containers/spray/pestspray // -- Skie
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
@@ -56,7 +56,7 @@
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/cultivator
 	name = "cultivator"
@@ -91,7 +91,7 @@
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/hatchet/unathiknife
 	name = "duelling knife"
@@ -126,7 +126,7 @@
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/scythe/pre_attackby(atom/A, mob/living/user, params)
 	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))

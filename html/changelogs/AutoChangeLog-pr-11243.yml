@@ -1,0 +1,4 @@
+author: "CornMyCob"
+delete-after: True
+changes: 
+  - tweak: "The plasma cutter now cuts through multiple rock tiles."

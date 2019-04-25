@@ -44,11 +44,6 @@
 			R.on_ex_act()
 	..()
 
-/obj/item/reagent_containers/fire_act()
-	reagents.chem_temp += 30
-	reagents.handle_reactions()
-	..()
-
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)
 		if(is_open_container())

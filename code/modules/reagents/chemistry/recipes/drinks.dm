@@ -229,7 +229,7 @@
 	id = "flamingmoe"
 	result = "flamingmoe"
 	required_reagents = list("vodka" = 1, "gin" = 1, "cognac" = 1, "tequila" = 1, "salglu_solution" = 1) //Close enough
-	min_temp = 374 //Fire makes it good!
+	min_temp = T0C + 100 //Fire makes it good!
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 	mix_message = "The concoction bursts into flame!"
@@ -701,7 +701,7 @@
 	id = "applejack"
 	result = "applejack"
 	required_reagents = list("cider" = 2)
-	max_temp = 270
+	max_temp = T0C
 	result_amount = 1
 	mix_message = "The drink darkens as the water freezes, leaving the concentrated cider behind."
 	mix_sound = null

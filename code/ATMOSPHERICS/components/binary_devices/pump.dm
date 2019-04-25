@@ -34,12 +34,6 @@ Thus, the two variables affect pump operation are set in New():
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/binary/pump/highcap
-	name = "High capacity gas pump"
-	desc = "A high capacity pump"
-
-	target_pressure = 15000000
-
 /obj/machinery/atmospherics/binary/pump/on
 	icon_state = "map_on"
 	on = 1

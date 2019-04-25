@@ -532,6 +532,10 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 	tint = 0
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/tajblind/eng
 	name = "industrial veil"

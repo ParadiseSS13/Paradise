@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Reagents will now adjust to the body temperature over time as opposed to all at once"

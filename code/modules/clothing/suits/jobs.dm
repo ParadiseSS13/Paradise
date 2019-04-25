@@ -59,7 +59,6 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-
 /obj/item/clothing/suit/captunic/capjacket
 	name = "captain's uniform jacket"
 	desc = "A less formal jacket for everyday captain use."
@@ -71,6 +70,13 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+
+/obj/item/clothing/suit/mantle/armor/captain
+	name = "captain's cloak"
+	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
+	icon_state = "capmantle"
+	item_state = "capmantle"
+	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -151,6 +157,21 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
 
+//Chief Engineer
+/obj/item/clothing/suit/mantle/chief_engineer
+	name = "chief engineer's mantle"
+	desc = "A slick, authoritative cloak designed for the Chief Engineer."
+	icon_state = "cemantle"
+	item_state = "cemantle"
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd)
+
+//Chief Medical Officer
+/obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
+	name = "chief medical officer's mantle"
+	desc = "An absorbent, clean cover found on the shoulders of the Chief Medical Officer."
+	icon_state = "cmomantle"
+	item_state = "cmomantle"
+
 //Detective
 /obj/item/clothing/suit/storage/det_suit
 	name = "coat"
@@ -159,7 +180,7 @@
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
+	allowed = list(/obj/item/tank/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
 	armor = list(melee = 25, bullet = 10, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -259,6 +280,29 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
+//Head of Security
+/obj/item/clothing/suit/mantle/armor
+	name = "armored shawl"
+	desc = "A reinforced shawl, worn by the Head of Security. Do you dare take up their mantle?"
+	icon_state = "hosmantle"
+	item_state = "hosmantle"
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	armor = list(melee = 30, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|ARMS
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	strip_delay = 60
+	put_on_delay = 40
+	burn_state = FIRE_PROOF
+
+//Head of Personnel
+/obj/item/clothing/suit/mantle/armor/head_of_personnel
+	name = "head of personnel's shawl"
+	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
+	icon_state = "hopmantle"
+	item_state = "hopmantle"
+	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
 	name = "\improper Internal Affairs jacket"
@@ -320,3 +364,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+
+//Research Director
+/obj/item/clothing/suit/mantle/labcoat
+	name = "research director's mantle"
+	desc = "A tweed mantle, worn by the Research Director. Smells like science."
+	icon_state = "rdmantle"
+	item_state = "rdmantle"
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/rad_laser)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 50, rad = 0)

@@ -31,7 +31,7 @@
 	eyes = "vox_eyes_s"
 
 	species_traits = list(NO_SCAN, IS_WHITELISTED, NOTRANSSTING)
-	clothing_flags = HAS_SOCKS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
 
@@ -62,13 +62,13 @@
 		)
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
+		"heart" =    /obj/item/organ/internal/heart/vox,
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
+		"brain" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
 		"stack" =    /obj/item/organ/internal/stack //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
@@ -172,9 +172,10 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN)
+	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
-	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
+	dies_at_threshold = TRUE
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"

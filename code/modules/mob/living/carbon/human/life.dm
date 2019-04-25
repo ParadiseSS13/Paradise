@@ -10,10 +10,8 @@
 			update_mutations()
 			check_mutations=0
 
-		handle_shock()
 		handle_pain()
 		handle_heartbeat()
-		handle_heartattack()
 		handle_drunk()
 		dna.species.handle_life(src)
 
@@ -38,6 +36,17 @@
 		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
+
+	handle_ghosted()
+
+/mob/living/carbon/human/proc/handle_ghosted()
+	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
+		if(key)
+			player_ghosted = 0
+		else
+			player_ghosted++
+			if(player_ghosted % 150 == 0)
+				force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
@@ -77,7 +86,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("MIERDA", "PUTA", "ZORRA", "COMUNISMO", "WHITELIST", "PIS", "GILIPOLLAS", "¡KE!", "PUTOS", "LIBERAL", "OOF", "IMBÉCIL")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -90,65 +99,58 @@
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
-			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
+			var/list/s1 = list("SOY UN [pick("PONY","LAGARTIJA","taJaran","Gatitu","Vulpakin","drASK","ParJariTo","voxxie","auto de carreras","meCH de COMBATE","naVE EssssssPecial")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo", "BWOINK")]!",
+							   "sin oxigeno blob no evolacion?",
+							   "CAPITAN CONDON",
+							   "[pick("", "ese traidor")] [pick("joerge", "george", "gorge", "gdoruge", "paYaso")] [pick("mellenes", "melones", "mwerlones")] me grifea AYUD;A!!!",
+							   "me dan [pick("telikesis","halk","eppilapsia")]?",
 							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT!",
-							   "HALPZ SITCULITY",
-							   "VOXES caN't LOVE",
-							   "my dad own this station",
-							   "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","yaya")]!",
-							   "the monkey have TASER ARMS!",
-							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
+							   "Bi is LO MEJOR DE DOS MUNDOS",
+							   "QUIERO ACARICIAr a los MOnos",
+							   "deja de girfiarme!!!!",
+							   "ALTO!",
+							   "AYUDA SIGURIDAD MAINT",
+							   "[src.name] llegar estación",
+							   "changling En maint!",
+							   "EL chEf pusto [pick("PROTEINA", "agua del INDORO", "Semen", "Einzymas","ARAÑAS","nuTrimentos","mUtaGeNO","TeSLium","sKrektonium", "amor")] en mi [pick("sopa","Bullito","ranburgeusa","sOilent GREEn","KoI Susish","yaya")]!",
+							   "el mono tiene BRAZOS TASER!",
+							   "qM uso MIS pUntos en [pick("escopetas","GuanTEs iNsULadoS","LOTS MASSHEEN!")]",
 							   "EI'NATH!",
-							   "WAKE UP SHEEPLES!",
-							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
+							   "COmuniDAd de RoL AlteRNATIva",
+							   "baMOS a kedar un dia todos y entramos de [pick("FURries", "voxx", "tojARAN", "vuplKNIn")] y entramos a [pick("shittear", "chuPARNOS los PANES", "revolusion")]",
+							   "fue [pick("ermano menor!!","PRomEtida","amiGO","orFANATO","interes romántico","esposa","esposo","ñiños pequeños","gato","accidentalmente")]!",
+							   "PAYSO ME GOLPPEEA MAINT")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fuckin tangerines!!!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
+							   "malditas mandarinas!!!",
+							   "curame",
+							   ">mi cara",
+							   "boop",
 							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "HAZ A SECURE DAY!!!!",
-							   "dem dwarfs man, dem dwarfs",
+							   "ke es eso",
+							   "PRO EL EMPREADOR",
+							   "TEN UN DIA SEGURO!!!!",
+							   "los enanos",
 							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture",
-							   "luv can bloooom",
+							   "kiiero comer krayones",
+							   "texstura realista",
+							   "el amor puedEEee florcer",
 							   "PACKETS!!!",
-							   "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]!",
+							   "[pick("donde mi","io nesesite","dame mi","inyeccioneme un poco de.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]!",
 							   "mALPRACTICEBAY",
-							   "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
-							   "h-h-HalP MaINT",
-							   "dey come, dey COME! DEY COME!!!",
-							   "THE END IS NIGH!",
-							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot")]",
-							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!")
+							   "tengo UNNN doc to ra do en Ejecusion de reecursos y plnaneasion",
+							   "a-a-a-ayu-da maint",
+							   "ellos viene, ellos VIENEN, ELLOS VIENEN!!!",
+							   "EL FINAL ESTA CERCA",
+							   "luche i mori por mis [pick("derechos","LIBERTADES","salario","puntoz de kargo","nivel de tech","perros","sirpe de maPLEE","amigoz felpudoss","loot de gatewyyy")]",
+							   "me mato [pick("shincurity","le payazoooo","un cluwne","mimo ASASAINO","bertender","kaopitan","changling","borrgk")]!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
 				if(2)
 					say(pick(s2))
 				if(3)
-					emote("drool")
-
-	if(getBrainLoss() >= 100 && stat != DEAD) //you lapse into a coma and die without immediate aid; RIP. -Fox
-		Weaken(20)
-		AdjustLoseBreath(10)
-		AdjustSilence(2)
-
-	if(getBrainLoss() >= 120 && stat != DEAD) //they died from stupidity--literally. -Fox
-		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
-		death()
+					emote("babea")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/datum/dna/gene/gene in dna_genes)
@@ -242,12 +244,10 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 
 	if(!L || L && (L.status & ORGAN_DEAD))
-		if(health >= config.health_threshold_crit)
+		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
 		else if(!(NOCRITDAMAGE in dna.species.species_traits))
-			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
-
-		failed_last_breath = TRUE
+			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
 		if(dna.species)
 			var/datum/species/S = dna.species
@@ -270,7 +270,7 @@
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
 	// Health is in deep shit and we're not already dead
-	return health <= 0 && stat != 2
+	return health <= HEALTH_THRESHOLD_CRIT && stat != DEAD
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
@@ -405,7 +405,7 @@
 	if(on_fire)
 		var/thermal_protection = get_thermal_protection()
 
-		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return
 		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
 			bodytemperature += 11
@@ -791,6 +791,69 @@
 
 		handle_organs()
 
+		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
+			death()
+			return
+
+		if(getBrainLoss() >= 100) // braindeath
+			AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
+			Weaken(30)
+
+		if(!check_death_method())
+			if(health <= HEALTH_THRESHOLD_DEAD)
+				var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
+				if(prob(deathchance))
+					death()
+					return
+
+			if(health <= HEALTH_THRESHOLD_CRIT)
+				if(prob(5))
+					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+				AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
+				EyeBlurry(5)
+				if(prob(7))
+					AdjustConfused(2)
+				if(prob(5))
+					Paralyse(2)
+				switch(health)
+					if(-INFINITY to -100)
+						adjustOxyLoss(1)
+						if(prob(health * -0.1))
+							if(ishuman(src))
+								var/mob/living/carbon/human/H = src
+								H.set_heartattack(TRUE)
+						if(prob(health * -0.2))
+							var/datum/disease/D = new /datum/disease/critical/heart_failure
+							ForceContractDisease(D)
+						Paralyse(5)
+					if(-99 to -80)
+						adjustOxyLoss(1)
+						if(prob(4))
+							to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+							Paralyse(2)
+							var/datum/disease/D = new /datum/disease/critical/heart_failure
+							ForceContractDisease(D)
+					if(-79 to -50)
+						adjustOxyLoss(1)
+						if(prob(10))
+							var/datum/disease/D = new /datum/disease/critical/shock
+							ForceContractDisease(D)
+						if(prob(health * -0.08))
+							var/datum/disease/D = new /datum/disease/critical/heart_failure
+							ForceContractDisease(D)
+						if(prob(6))
+							to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+							Weaken(3)
+						if(prob(3))
+							Paralyse(2)
+					if(-49 to 0)
+						adjustOxyLoss(1)
+						if(prob(3))
+							var/datum/disease/D = new /datum/disease/critical/shock
+							ForceContractDisease(D)
+						if(prob(5))
+							to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+							Weaken(3)
 
 	else //dead
 		SetSilence(0)
@@ -962,7 +1025,7 @@
 			return
 
 		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
-			if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
+			if(isinspace())
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
 				//Divided by 2, otherwise it is too slow.
@@ -980,7 +1043,7 @@
 		if(pulse == PULSE_NONE)
 			return
 
-		if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
+		if(pulse >= PULSE_2FAST || isinspace())
 			//PULSE_THREADY - maximum value for pulse, currently it 5.
 			//High pulse value corresponds to a fast rate of heartbeat.
 			//Divided by 2, otherwise it is too slow.
@@ -999,7 +1062,7 @@
 */
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(NO_BLOOD in dna.species.species_traits)
+	if((NO_BLOOD in dna.species.species_traits) && !dna.species.forced_heartattack)
 		return FALSE
 	if(NO_INTORGANS in dna.species.species_traits)
 		return FALSE
@@ -1026,13 +1089,16 @@
 
 	heart.beating = !status
 
-/mob/living/carbon/human/proc/handle_heartattack()
+/mob/living/carbon/human/handle_heartattack()
 	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))
 		return
-	AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
-	adjustOxyLoss(5)
-	Paralyse(4)
-	adjustBruteLoss(2)
+	if(getOxyLoss())
+		adjustBrainLoss(3)
+	else if(prob(10))
+		adjustBrainLoss(1)
+	Weaken(5)
+	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
+	adjustOxyLoss(20)
 
 
 
