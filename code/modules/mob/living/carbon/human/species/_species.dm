@@ -668,7 +668,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(H.glasses)
 		var/obj/item/clothing/glasses/G = H.glasses
 		H.sight |= G.vision_flags
-		H.see_in_dark = max(G.darkness_view, H.see_in_dark)
+		H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
 
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
@@ -683,7 +683,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(istype(H.head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = H.head
 			H.sight |= hat.vision_flags
-			H.see_in_dark = max(hat.darkness_view, H.see_in_dark)
+			H.see_in_dark = max(hat.see_in_dark, H.see_in_dark)
 
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
@@ -696,7 +696,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
 					if(istype(G))
 						H.sight |= G.vision_flags
-						H.see_in_dark = max(G.darkness_view, H.see_in_dark)
+						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
 						H.see_invisible = min(G.invis_view, H.see_invisible)
 
 						if(!isnull(G.lighting_alpha))
@@ -716,9 +716,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		H.see_in_dark = 8
 		H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-	if(H.see_override)	//Override all
-		H.see_invisible = H.see_override
 
 	H.sync_lighting_plane_alpha()
 

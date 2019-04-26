@@ -48,6 +48,7 @@
 	unacidable = 1
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	see_in_dark = 8
 	HUDType = MEDHUD
 	strip_delay = 130
 

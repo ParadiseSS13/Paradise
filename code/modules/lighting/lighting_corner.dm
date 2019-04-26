@@ -45,8 +45,8 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	// Diagonal one is easy.
 	T = get_step(new_turf, diagonal)
-	if (T) // In case we're on the map's border.
-		if (!T.corners)
+	if(T) // In case we're on the map's border.
+		if(!T.corners)
 			T.corners = list(null, null, null, null)
 
 		masters[T]   = diagonal
@@ -55,8 +55,8 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	// Now the horizontal one.
 	T = get_step(new_turf, horizontal)
-	if (T) // Ditto.
-		if (!T.corners)
+	if(T) // Ditto.
+		if(!T.corners)
 			T.corners = list(null, null, null, null)
 
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
@@ -65,8 +65,8 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	// And finally the vertical one.
 	T = get_step(new_turf, vertical)
-	if (T)
-		if (!T.corners)
+	if(T)
+		if(!T.corners)
 			T.corners = list(null, null, null, null)
 
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
@@ -81,20 +81,20 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 	var/thing
 	for (thing in masters)
 		T = thing
-		if (T.lighting_object)
+		if(T.lighting_object)
 			active = TRUE
 
 // God that was a mess, now to do the rest of the corner code! Hooray!
 /datum/lighting_corner/proc/update_lumcount(var/delta_r, var/delta_g, var/delta_b)
 
-	if ((abs(delta_r)+abs(delta_g)+abs(delta_b)) == 0)
+	if((abs(delta_r)+abs(delta_g)+abs(delta_b)) == 0)
 		return
 
 	lum_r += delta_r
 	lum_g += delta_g
 	lum_b += delta_b
 
-	if (!needs_update)
+	if(!needs_update)
 		needs_update = TRUE
 		GLOB.lighting_update_corners += src
 
@@ -105,11 +105,11 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 	var/lum_b = src.lum_b
 	var/mx = max(lum_r, lum_g, lum_b) // Scale it so one of them is the strongest lum, if it is above 1.
 	. = 1 // factor
-	if (mx > 1)
+	if(mx > 1)
 		. = 1 / mx
 
 	#if LIGHTING_SOFT_THRESHOLD != 0
-	else if (mx < LIGHTING_SOFT_THRESHOLD)
+	else if(mx < LIGHTING_SOFT_THRESHOLD)
 		. = 0 // 0 means soft lighting.
 
 	cache_r  = round(lum_r * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
@@ -124,8 +124,8 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	for (var/TT in masters)
 		var/turf/T = TT
-		if (T.lighting_object)
-			if (!T.lighting_object.needs_update)
+		if(T.lighting_object)
+			if(!T.lighting_object.needs_update)
 				T.lighting_object.needs_update = TRUE
 				GLOB.lighting_update_objects += T.lighting_object
 
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 
 /datum/lighting_corner/Destroy(var/force)
-	if (!force)
+	if(!force)
 		return QDEL_HINT_LETMELIVE
 
 	stack_trace("Attempted qdel of a lighting corner.")

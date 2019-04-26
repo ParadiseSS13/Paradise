@@ -83,7 +83,6 @@
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
 
 	var/seer = 0 //for cult//Carbon, probably Human
-	var/see_override = 0
 
 	var/datum/hud/hud_used = null
 

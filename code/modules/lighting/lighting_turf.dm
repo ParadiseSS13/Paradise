@@ -18,7 +18,7 @@
 		L.vis_update()
 
 /turf/proc/lighting_clear_overlay()
-	if (lighting_object)
+	if(lighting_object)
 		qdel(lighting_object, TRUE)
 
 	var/datum/lighting_corner/C
@@ -31,14 +31,14 @@
 
 // Builds a lighting object for us, but only if our area is dynamic.
 /turf/proc/lighting_build_overlay()
-	if (lighting_object)
+	if(lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
 	var/area/A = loc
-	if (!IS_DYNAMIC_LIGHTING(A) && !light_sources)
+	if(!IS_DYNAMIC_LIGHTING(A) && !light_sources)
 		return
 
-	if (!lighting_corners_initialised)
+	if(!lighting_corners_initialised)
 		generate_missing_corners()
 
 	new/atom/movable/lighting_object(src)
@@ -50,7 +50,7 @@
 		if(!thing)
 			continue
 		C = thing
-		if (!C.active) // We would activate the corner, calculate the lighting for it.
+		if(!C.active) // We would activate the corner, calculate the lighting for it.
 			for (thing in C.affecting)
 				S = thing
 				S.recalc_corner(C)
@@ -58,7 +58,7 @@
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
-	if (!lighting_object)
+	if(!lighting_object)
 		return 1
 
 	var/totallums = 0
@@ -81,7 +81,7 @@
 // itself as too dark to allow sight and see_in_dark becomes useful.
 // So basically if this returns true the tile is unlit black.
 /turf/proc/is_softly_lit()
-	if (!lighting_object)
+	if(!lighting_object)
 		return FALSE
 
 	return !lighting_object.luminosity
@@ -89,46 +89,46 @@
 // Can't think of a good name, this proc will recalculate the has_opaque_atom variable.
 /turf/proc/recalc_atom_opacity()
 	has_opaque_atom = opacity
-	if (!has_opaque_atom)
+	if(!has_opaque_atom)
 		for (var/atom/A in src.contents) // Loop through every movable atom on our tile PLUS ourselves (we matter too...)
-			if (A.opacity)
+			if(A.opacity)
 				has_opaque_atom = TRUE
 				break
 
 /turf/Exited(atom/movable/Obj, atom/newloc)
 	. = ..()
 
-	if (Obj && Obj.opacity)
+	if(Obj && Obj.opacity)
 		recalc_atom_opacity() // Make sure to do this before reconsider_lights(), incase we're on instant updates.
 		reconsider_lights()
 
 /turf/proc/change_area(var/area/old_area, var/area/new_area)
 	if(SSlighting.initialized)
-		if (new_area.dynamic_lighting != old_area.dynamic_lighting)
-			if (new_area.dynamic_lighting)
+		if(new_area.dynamic_lighting != old_area.dynamic_lighting)
+			if(new_area.dynamic_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
 
 /turf/proc/get_corners()
-	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
+	if(!IS_DYNAMIC_LIGHTING(src) && !light_sources)
 		return null
-	if (!lighting_corners_initialised)
+	if(!lighting_corners_initialised)
 		generate_missing_corners()
-	if (has_opaque_atom)
+	if(has_opaque_atom)
 		return null // Since this proc gets used in a for loop, null won't be looped though.
 
 	return corners
 
 /turf/proc/generate_missing_corners()
-	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
+	if(!IS_DYNAMIC_LIGHTING(src) && !light_sources)
 		return
 	lighting_corners_initialised = TRUE
-	if (!corners)
+	if(!corners)
 		corners = list(null, null, null, null)
 
 	for (var/i = 1 to 4)
-		if (corners[i]) // Already have a corner on this direction.
+		if(corners[i]) // Already have a corner on this direction.
 			continue
 
 		corners[i] = new/datum/lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i])

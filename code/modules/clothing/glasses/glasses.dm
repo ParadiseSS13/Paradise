@@ -52,7 +52,7 @@
 	icon_state = "nvgmeson"
 	item_state = "glasses"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
-	darkness_view = 8
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = 0
 
@@ -104,7 +104,7 @@
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
 	item_state = "glasses"
-	darkness_view = 8
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
@@ -123,7 +123,7 @@
 	icon_state = "night"
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
-	darkness_view = 8
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -224,7 +224,7 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = 1
+	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
@@ -238,7 +238,7 @@
 /obj/item/clothing/glasses/sunglasses/fake
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	name = "cheap sunglasses"
-	darkness_view = 0
+	see_in_dark = 0
 	flash_protect = 0
 	tint = 0
 
@@ -286,7 +286,7 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = 1
+	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
 	species_fit = list("Vox")
@@ -505,11 +505,11 @@
 	icon_state = "godeye"
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	darkness_view = 8
+	see_in_dark = 8
 	scan_reagents = 1
 	flags = NODROP
 	flags_cover = null
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)

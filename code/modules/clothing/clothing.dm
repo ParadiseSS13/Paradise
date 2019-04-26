@@ -151,7 +151,7 @@
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
-	var/darkness_view = 0 //Base human is 2
+	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
 	var/lighting_alpha
@@ -284,7 +284,7 @@ BLIND     // can't see anything
 	var/HUDType = null
 
 	var/vision_flags = 0
-	var/darkness_view = 0
+	var/see_in_dark = 0
 	var/lighting_alpha
 
 	var/can_toggle = null

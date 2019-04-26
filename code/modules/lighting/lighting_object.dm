@@ -19,7 +19,7 @@
 	verbs.Cut()
 
 	myturf = loc
-	if (myturf.lighting_object)
+	if(myturf.lighting_object)
 		qdel(myturf.lighting_object, force = TRUE)
 	myturf.lighting_object = src
 	myturf.luminosity = 0
@@ -31,13 +31,13 @@
 	GLOB.lighting_update_objects += src
 
 /atom/movable/lighting_object/Destroy(var/force)
-	if (force)
+	if(force)
 		GLOB.lighting_update_objects     -= src
-		if (loc != myturf)
+		if(loc != myturf)
 			var/turf/oldturf = get_turf(myturf)
 			var/turf/newturf = get_turf(loc)
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
-		if (isturf(myturf))
+		if(isturf(myturf))
 			myturf.lighting_object = null
 			myturf.luminosity = 1
 		myturf = null
@@ -48,8 +48,8 @@
 		return QDEL_HINT_LETMELIVE
 
 /atom/movable/lighting_object/proc/update()
-	if (loc != myturf)
-		if (loc)
+	if(loc != myturf)
+		if(loc)
 			var/turf/oldturf = get_turf(myturf)
 			var/turf/newturf = get_turf(loc)
 			warning("A lighting object realised it's loc had changed in update() ([myturf]\[[myturf ? myturf.type : "null"]]([COORD(oldturf)]) -> [loc]\[[ loc ? loc.type : "null"]]([COORD(newturf)]))!")
@@ -73,7 +73,7 @@
 	var/datum/lighting_corner/cg = dummy_lighting_corner
 	var/datum/lighting_corner/cb = dummy_lighting_corner
 	var/datum/lighting_corner/ca = dummy_lighting_corner
-	if (corners) //done this way for speed
+	if(corners) //done this way for speed
 		cr = corners[3] || dummy_lighting_corner
 		cg = corners[2] || dummy_lighting_corner
 		cb = corners[4] || dummy_lighting_corner

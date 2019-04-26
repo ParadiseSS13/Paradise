@@ -1312,8 +1312,5 @@ var/list/ai_verbs_default = list(
 		sight = sight &~ SEE_OBJS
 		see_in_dark = 0
 
-	if(see_override)
-		see_invisible = see_override
-
-	sync_lighting_plane_alpha()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

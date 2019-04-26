@@ -74,6 +74,7 @@
 	eye_colour = "#FFCC00"
 	implant_color = "#FFCC00"
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
 	aug_message = "You see prey everywhere you look..."

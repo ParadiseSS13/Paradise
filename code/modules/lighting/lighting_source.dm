@@ -33,7 +33,7 @@
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
 	top_atom = top
-	if (top_atom != source_atom)
+	if(top_atom != source_atom)
 		LAZYADD(top_atom.light_sources, src)
 
 	source_turf = top_atom
@@ -51,13 +51,13 @@
 
 /datum/light_source/Destroy(force)
 	remove_lum()
-	if (source_atom)
+	if(source_atom)
 		LAZYREMOVE(source_atom.light_sources, src)
 
-	if (top_atom)
+	if(top_atom)
 		LAZYREMOVE(top_atom.light_sources, src)
 
-	if (needs_update)
+	if(needs_update)
 		GLOB.lighting_update_lights -= src
 
 	. = ..()
@@ -66,22 +66,22 @@
 // If you want it to go switch everybody to elastic tab stops.
 // Actually that'd be great if you could!
 #define EFFECT_UPDATE(level)                \
-	if (needs_update == LIGHTING_NO_UPDATE) \
+	if(needs_update == LIGHTING_NO_UPDATE) \
 		GLOB.lighting_update_lights += src; \
-	if (needs_update < level)               \
+	if(needs_update < level)               \
 		needs_update            = level;    \
 
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
 /datum/light_source/proc/update(var/atom/new_top_atom)
 	// This top atom is different.
-	if (new_top_atom && new_top_atom != top_atom)
+	if(new_top_atom && new_top_atom != top_atom)
 		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
 			LAZYREMOVE(top_atom.light_sources, src)
 
 		top_atom = new_top_atom
 
-		if (top_atom != source_atom)
+		if(top_atom != source_atom)
 			LAZYADD(top_atom.light_sources, src) // Add ourselves to the light sources of our new top atom.
 
 	EFFECT_UPDATE(LIGHTING_CHECK_UPDATE)
@@ -96,7 +96,7 @@
 
 // Decompile the hexadecimal colour into lumcounts of each perspective.
 /datum/light_source/proc/parse_light_color()
-	if (light_color)
+	if(light_color)
 		lum_r = GetRedPart   (light_color) / 255
 		lum_g = GetGreenPart (light_color) / 255
 		lum_b = GetBluePart  (light_color) / 255
@@ -156,7 +156,7 @@
 
 /datum/light_source/proc/recalc_corner(var/datum/lighting_corner/C)
 	LAZYINITLIST(effect_str)
-	if (effect_str[C]) // Already have one.
+	if(effect_str[C]) // Already have one.
 		REMOVE_CORNER(C)
 		effect_str[C] = 0
 
@@ -167,61 +167,61 @@
 	var/update = FALSE
 	var/atom/source_atom = src.source_atom
 
-	if (QDELETED(source_atom))
+	if(QDELETED(source_atom))
 		qdel(src)
 		return
 
-	if (source_atom.light_power != light_power)
+	if(source_atom.light_power != light_power)
 		light_power = source_atom.light_power
 		update = TRUE
 
-	if (source_atom.light_range != light_range)
+	if(source_atom.light_range != light_range)
 		light_range = source_atom.light_range
 		update = TRUE
 
-	if (!top_atom)
+	if(!top_atom)
 		top_atom = source_atom
 		update = TRUE
 
-	if (!light_range || !light_power)
+	if(!light_range || !light_power)
 		qdel(src)
 		return
 
-	if (isturf(top_atom))
-		if (source_turf != top_atom)
+	if(isturf(top_atom))
+		if(source_turf != top_atom)
 			source_turf = top_atom
 			pixel_turf = source_turf
 			update = TRUE
-	else if (top_atom.loc != source_turf)
+	else if(top_atom.loc != source_turf)
 		source_turf = top_atom.loc
 		pixel_turf = get_turf_pixel(top_atom)
 		update = TRUE
 	else
 		var/P = get_turf_pixel(top_atom)
-		if (P != pixel_turf)
+		if(P != pixel_turf)
 			pixel_turf = P
 			update = TRUE
 
-	if (!isturf(source_turf))
-		if (applied)
+	if(!isturf(source_turf))
+		if(applied)
 			remove_lum()
 		return
 
-	if (light_range && light_power && !applied)
+	if(light_range && light_power && !applied)
 		update = TRUE
 
-	if (source_atom.light_color != light_color)
+	if(source_atom.light_color != light_color)
 		light_color = source_atom.light_color
 		parse_light_color()
 		update = TRUE
 
-	else if (applied_lum_r != lum_r || applied_lum_g != lum_g || applied_lum_b != lum_b)
+	else if(applied_lum_r != lum_r || applied_lum_g != lum_g || applied_lum_b != lum_b)
 		update = TRUE
 
-	if (update)
+	if(update)
 		needs_update = LIGHTING_CHECK_UPDATE
 		applied = TRUE
-	else if (needs_update == LIGHTING_CHECK_UPDATE)
+	else if(needs_update == LIGHTING_CHECK_UPDATE)
 		return //nothing's changed
 
 	var/list/datum/lighting_corner/corners = list()
@@ -229,7 +229,7 @@
 	var/thing
 	var/datum/lighting_corner/C
 	var/turf/T
-	if (source_turf)
+	if(source_turf)
 		var/oldlum = source_turf.luminosity
 		source_turf.luminosity = CEILING(light_range, 1)
 		for(T in view(CEILING(light_range, 1), source_turf))
@@ -253,11 +253,11 @@
 		LAZYREMOVE(T.affecting_lights, src)
 
 	LAZYINITLIST(effect_str)
-	if (needs_update == LIGHTING_VIS_UPDATE)
+	if(needs_update == LIGHTING_VIS_UPDATE)
 		for (thing in  corners - effect_str) // New corners
 			C = thing
 			LAZYADD(C.affecting, src)
-			if (!C.active)
+			if(!C.active)
 				effect_str[C] = 0
 				continue
 			APPLY_CORNER(C)
@@ -266,14 +266,14 @@
 		for (thing in L) // New corners
 			C = thing
 			LAZYADD(C.affecting, src)
-			if (!C.active)
+			if(!C.active)
 				effect_str[C] = 0
 				continue
 			APPLY_CORNER(C)
 
 		for (thing in corners - L) // Existing corners
 			C = thing
-			if (!C.active)
+			if(!C.active)
 				effect_str[C] = 0
 				continue
 			APPLY_CORNER(C)

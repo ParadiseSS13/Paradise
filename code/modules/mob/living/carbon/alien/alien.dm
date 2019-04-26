@@ -297,10 +297,7 @@ Des: Removes all infected images from the alien.
 		if(E.see_invisible)
 			see_invisible = min(see_invisible, E.see_invisible)
 		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)		
+			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
 
-	if(see_override)
-		see_invisible = see_override
-
-	sync_lighting_plane_alpha()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

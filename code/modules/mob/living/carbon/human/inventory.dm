@@ -115,7 +115,7 @@
 			update_tint()
 		if(G.prescription)
 			update_nearsighted_effects()
-		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
+		if(G.vision_flags || G.see_in_dark || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
 			update_sight()
 		update_inv_glasses()
 		update_client_colour()
@@ -128,7 +128,7 @@
 		// Bandanas and paper hats go on the head but are not head clothing
 		if(istype(I,/obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = I
-			if(hat.vision_flags || hat.darkness_view || !isnull(hat.lighting_alpha))
+			if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 				update_sight()
 		head_update(I)
 		update_inv_head()
@@ -267,7 +267,7 @@
 				update_tint()
 			if(G.prescription)
 				update_nearsighted_effects()
-			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
+			if(G.vision_flags || G.see_in_dark || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
 				update_sight()
 			update_inv_glasses(redraw_mob)
 			update_client_colour()
@@ -283,7 +283,7 @@
 			// paper + bandanas
 			if(istype(W, /obj/item/clothing/head))
 				var/obj/item/clothing/head/hat = W
-				if(hat.vision_flags || hat.darkness_view || !isnull(hat.lighting_alpha))
+				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
 			head_update(W)
 			update_inv_head(redraw_mob)

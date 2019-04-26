@@ -244,7 +244,6 @@
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
-	user.sync_lighting_plane_alpha()
 
 /obj/effect/wisp
 	name = "friendly wisp"
