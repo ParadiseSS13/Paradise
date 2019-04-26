@@ -245,9 +245,9 @@
 	moving = 1
 	var/delay = mob.movement_delay()
 	if(old_move_delay + (delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
-		move_delay = old_move_delay + delay
+		move_delay = old_move_delay
 	else
-		move_delay = delay + world.time
+		move_delay = world.time
 	mob.last_movement = world.time
 
 	if(locate(/obj/item/grab, mob))
@@ -295,17 +295,17 @@
 			n = get_step(mob, direct)
 
 	. = ..()
-	// mob.setDir(direct)
+	//mob.setDir(direct)
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
-			mob.setDir(reverse_dir[direct])
+			mob.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
 		G.adjust_position()
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
 		delay = mob.movement_delay() * 2
-		move_delay += delay
+	move_delay += delay
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)

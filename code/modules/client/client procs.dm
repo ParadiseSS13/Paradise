@@ -314,7 +314,6 @@
 
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
-
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
 	if(!config.disable_localhost_admin)
@@ -369,8 +368,6 @@
 
 	. = ..()	//calls mob.Login()
 
-	if(SSinput.initialized)
-		set_macros()
 
 	if(ckey in clientmessages)
 		for(var/message in clientmessages[ckey])
@@ -404,7 +401,9 @@
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
-
+	if(SSinput.initialized)
+		set_macros()
+	
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
