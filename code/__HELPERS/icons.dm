@@ -717,7 +717,7 @@ The _flatIcons list is a cache for generated icon files.
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
 		if(!noIcon)
-			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=base_icon_dir)
+			copy = image(icon = curicon, icon_state = curstate, layer = A.layer, dir = base_icon_dir)
 			copy.color = A.color
 			copy.alpha = A.alpha
 			copy.blend_mode = curblend
@@ -768,10 +768,10 @@ The _flatIcons list is a cache for generated icon files.
 				continue
 			// Find the new dimensions of the flat icon to fit the added overlay
 			add_size = list(
-				min(flatX1, I.pixel_x+1),
-				max(flatX2, I.pixel_x+add.Width()),
-				min(flatY1, I.pixel_y+1),
-				max(flatY2, I.pixel_y+add.Height())
+				min(flatX1, I.pixel_x + 1),
+				max(flatX2, I.pixel_x + add.Width()),
+				min(flatY1, I.pixel_y + 1),
+				max(flatY2, I.pixel_y + add.Height())
 			)
 
 			if(flat_size ~! add_size)
@@ -959,10 +959,10 @@ The _flatIcons list is a cache for generated icon files.
 		for(var/D in showDirs)
 			body.setDir(D)
 			var/icon/partial = getFlatIcon(body)
-			out_icon.Insert(partial,dir=D)
+			out_icon.Insert(partial, dir = D)
 
 		humanoid_icon_cache[icon_id] = out_icon
-		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
+		dummy_key ? unset_busy_human_dummy(dummy_key) : qdel(body)
 		return out_icon
 	else
 		return humanoid_icon_cache[icon_id]
