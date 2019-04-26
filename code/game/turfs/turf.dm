@@ -41,9 +41,6 @@
 	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
 		queue_smooth(src)
 
-/turf/proc/process()
-	return;
-
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
 	log_startup_progress("Smoothing atoms...")

@@ -166,10 +166,10 @@
 	name = "Automatic X-Ray 5000"
 	desc = "A large metalic machine with an entrance and an exit. A sign on the side reads, 'backpack go in, backpack come out', 'human go in, irradiated human come out'."
 
-/obj/machinery/transformer/xray/New()
+/obj/machinery/transformer/xray/Initialize(mapload)
+	. = ..()
 	// On us
 	new /obj/machinery/conveyor/auto(loc, EAST)
-	addAtProcessing()
 
 /obj/machinery/transformer/xray/conveyor/New()
 	..()

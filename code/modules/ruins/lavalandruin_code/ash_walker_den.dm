@@ -17,11 +17,11 @@
 
 /obj/structure/lavaland/ash_walker/Initialize()
 	. = ..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/Destroy()
 	. = ..()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
 	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(alldirs)))

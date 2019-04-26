@@ -19,7 +19,6 @@ GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(machines, list())
-GLOBAL_LIST_INIT(fast_processing, list())
 GLOBAL_LIST_INIT(processing_power_items, list()) //items that ask to be called every cycle
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
 

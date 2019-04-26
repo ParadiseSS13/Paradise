@@ -19,15 +19,15 @@
 
 /turf/simulated/floor/plating/lava/Entered(atom/movable/AM)
 	if(burn_stuff(AM))
-		processing_objects.Add(src)
+		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/hitby(atom/movable/AM)
 	if(burn_stuff(AM))
-		processing_objects.Add(src)
+		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/process()
 	if(!burn_stuff())
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/singularity_act()
 	return

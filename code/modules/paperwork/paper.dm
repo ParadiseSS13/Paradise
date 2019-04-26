@@ -621,11 +621,11 @@
 
 /obj/item/paper/evilfax/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/paper/evilfax/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
 		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))

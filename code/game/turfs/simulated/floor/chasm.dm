@@ -15,12 +15,12 @@
 
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSprocessing, src)
 	drop_stuff(AM)
 
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()

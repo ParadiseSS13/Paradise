@@ -193,10 +193,10 @@
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/organ/internal/shadowtumor/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/organ/internal/shadowtumor/process()

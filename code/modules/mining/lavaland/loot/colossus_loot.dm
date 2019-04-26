@@ -436,7 +436,7 @@
 	..()
 	if(isanimal(loc))
 		holder_animal = loc
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/stasis/Entered(atom/A)
 	if(isliving(A) && holder_animal)
@@ -450,7 +450,7 @@
 		holder_animal.verbs -= /mob/living/verb/pulled
 
 /obj/structure/closet/stasis/dump_contents(var/kill = 1)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		L.disabilities &= ~MUTE
 		L.status_flags &= ~GODMODE

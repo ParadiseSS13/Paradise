@@ -193,11 +193,11 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	return
 
 /obj/structure/cult/functional/pylon/New()
-	processing_objects |= src
+	START_PROCESSING(SSobj, src)
 	..()
 
 /obj/structure/cult/functional/pylon/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/cult/functional/pylon/process()

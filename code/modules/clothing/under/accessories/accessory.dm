@@ -600,7 +600,7 @@
 
 /obj/item/clothing/accessory/petcollar/Destroy()
 	QDEL_NULL(access_id)
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
@@ -643,10 +643,10 @@
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc
@@ -662,7 +662,7 @@
 	else
 		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
 	qdel(a)
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !U.accessories.len)
