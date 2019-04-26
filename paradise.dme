@@ -1125,6 +1125,7 @@
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\drinks.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\recipes\drinks.dm"
 #include "code\HISPANIA\modules\reagents\reagent_containers\bottle.dm"
+#include "code\HISPANIA\modules\research\designs\power_designs.dm"
 #include "code\HISPANIA\modules\surgery\organs\subtypes\zombie.dm"
 #include "code\js\byjax.dm"
 #include "code\js\menus.dm"
