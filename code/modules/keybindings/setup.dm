@@ -31,7 +31,7 @@
 /client/proc/set_macros()
 	set waitfor = FALSE
 
-	//erase_all_macros()
+	erase_all_macros()
 
 	var/list/macro_sets = SSinput.macro_sets
 	for(var/i in 1 to macro_sets.len)
