@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(input)
 
 	var/list/macro_sets
 	var/list/movement_keys
+	var/list/alt_movement_keys
 
 /datum/controller/subsystem/input/Initialize()
 	setup_default_macro_sets()
@@ -98,8 +99,12 @@ SUBSYSTEM_DEF(input)
 		"W" = NORTH, "A" = WEST, "S" = SOUTH, "D" = EAST,				// WASD
 		"North" = NORTH, "West" = WEST, "South" = SOUTH, "East" = EAST,	// Arrow keys & Numpad
 		)
-
+	var/static/list/azerty_movement_keys = list(
+		"Z" = NORTH, "Q" = WEST, "S" = SOUTH, "D" = EAST,				// WASD
+		"North" = NORTH, "West" = WEST, "South" = SOUTH, "East" = EAST,	// Arrow keys & Numpad
+	)
 	movement_keys = default_movement_keys.Copy()
+	alt_movement_keys = azerty_movement_keys.Copy()
 
 // Badmins just wanna have fun ♪
 /datum/controller/subsystem/input/proc/refresh_client_macro_sets()

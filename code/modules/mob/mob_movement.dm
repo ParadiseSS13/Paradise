@@ -304,7 +304,7 @@
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay *= 2
+		delay = mob.movement_delay() * 2
 		move_delay += delay
 	moving = 0
 	if(mob && .)
