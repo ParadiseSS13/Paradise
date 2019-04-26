@@ -201,6 +201,8 @@
 				var/mob/living/carbon/human/human = affected_mob
 				if(!isslimeperson(human))
 					human.set_species(/datum/species/slime)
+					human.hud_used = new /datum/hud/human(human, ui_style2icon(human.client.prefs.UI_style), human.client.prefs.UI_style_color, human.client.prefs.UI_style_alpha)
+					human.hud_used.show_hud(human.hud_used.hud_version)
 
 /datum/disease/transformation/corgi
 	name = "The Barkening"

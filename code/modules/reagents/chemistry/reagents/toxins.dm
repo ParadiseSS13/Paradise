@@ -70,6 +70,8 @@
 			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species(/datum/species/shadow)
+			human.hud_used = new /datum/hud/human(human, ui_style2icon(human.client.prefs.UI_style), human.client.prefs.UI_style_color, human.client.prefs.UI_style_alpha)
+			human.hud_used.show_hud(human.hud_used.hud_version)
 	return ..()
 
 /datum/reagent/aslimetoxin
