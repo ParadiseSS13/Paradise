@@ -170,3 +170,12 @@
 /obj/item/clothing/head/surgery/black
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers.  It is as dark than the coroner's humor."
 	icon_state = "surgcap_black"
+
+//Drill Instructor
+/obj/item/clothing/head/drillhat
+	name = "drill instructor hat"
+	icon_state = "drillhat"
+	desc = "A traditional drill hat, the most common headwear for Sec Instructors"
+	item_state = "drillhat"
+	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0) // I mean its a drill sergaents hat
+	strip_delay = 60

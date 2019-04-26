@@ -199,3 +199,20 @@
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"
+
+//Drill Instructor
+/obj/item/clothing/under/rank/security/instructor
+	name = "drill instructor's jumpsuit"
+	desc = "A buttoned red shirt tucked into black slacks, it bears the Security Patch on it's sleeves"
+	icon_state = "drillshirt"
+	item_state = "drillshirt"
+	item_color = "drillshirt"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/security/instructor/skirt
+	name = "drill instructor's jumpskirt"
+	desc = "A buttoned red shirt neatly lined up with a lower skirt, it bears the Security Patch on it's sleeves"
+	icon_state = "drillskirt"
+	item_state = "drillskirt"
+	item_color = "drillskirt"
+	flags_size = ONESIZEFITSALL

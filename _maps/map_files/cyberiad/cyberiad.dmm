@@ -96632,6 +96632,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"mAs" = (
+/obj/effect/landmark/start{
+	name = "Drill Instructor"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -129652,7 +129658,7 @@ anA
 akv
 alp
 alG
-aoJ
+mAs
 anQ
 aoI
 aoR

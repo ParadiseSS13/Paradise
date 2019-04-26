@@ -212,6 +212,7 @@ var/list/karma_spenders = list()
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=8'>Unlock Drill Instructor -- 45KP</a><br>
 			"}
 
 		if(1) // Species Unlocks

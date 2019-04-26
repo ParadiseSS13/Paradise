@@ -126,6 +126,8 @@
 							karma_purchase(karma,30,"job","Mechanic")
 						if("7")
 							karma_purchase(karma,45,"job","Magistrate")
+						if("8")
+							karma_purchase(karma,45,"job","Drill Instructor")
 						if("9")
 							karma_purchase(karma,30,"job","Security Pod Pilot")
 				if(href_list["KarmaBuy2"])
