@@ -407,7 +407,7 @@ var/bomb_set
 
 /obj/item/disk/nuclear/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
@@ -437,7 +437,7 @@ var/bomb_set
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
 		GLOB.poi_list.Remove(src)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return ..()
 
 	if(blobstart.len > 0)

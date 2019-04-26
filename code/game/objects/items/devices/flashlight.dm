@@ -183,10 +183,10 @@
 		turn_off()
 		if(!fuel)
 			src.icon_state = "[initial(icon_state)]-empty"
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/flashlight/flare/proc/turn_off()
@@ -222,7 +222,7 @@
 		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
 		src.force = on_damage
 		src.damtype = "fire"
-		processing_objects += src
+		START_PROCESSING(SSobj, src)
 
 // GLOWSTICKS
 
@@ -344,10 +344,10 @@
 
 /obj/item/flashlight/emp/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/emp/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/flashlight/emp/process()

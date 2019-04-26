@@ -108,7 +108,7 @@
 
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
-	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
+	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(spam_flag == 0)
 			spam_flag = 1
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
@@ -621,11 +621,11 @@
 
 /obj/item/paper/evilfax/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/paper/evilfax/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
 		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))

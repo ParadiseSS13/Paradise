@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "Players in the lobby no longer see cult speak."

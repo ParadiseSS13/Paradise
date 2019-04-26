@@ -56,7 +56,7 @@
 	var/announced = 0
 
 /obj/machinery/doomsday_device/Destroy()
-	GLOB.fast_processing -= src
+	STOP_PROCESSING(SSfastprocess, src)
 	SSshuttle.emergencyNoEscape = 0
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
@@ -67,7 +67,7 @@
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
 	timing = 1
-	GLOB.fast_processing += src
+	START_PROCESSING(SSfastprocess, src)
 	SSshuttle.emergencyNoEscape = 1
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
@@ -84,7 +84,7 @@
 			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
-		GLOB.fast_processing -= src
+		STOP_PROCESSING(SSfastprocess, src)
 		return
 	var/sec_left = seconds_remaining()
 	if(sec_left <= 0)

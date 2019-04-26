@@ -58,11 +58,11 @@
 	owner = o
 	if(args.len >= 3)
 		params = args.Copy(3)
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 	trigger()
 
 /obj/effect/portal_sensor/Destroy()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/portal_sensor/Crossed(A)
