@@ -535,7 +535,6 @@
 		if(config.ipintel_maxplaytime && config.use_exp_tracking)
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 			if(living_hours >= config.ipintel_maxplaytime)
-				message_admins("<span class='adminnotice'>Proxy Detection: [key_name_admin(src)] skips check due to [living_hours] playtime.</span>")
 				return
 
 		var/datum/ipintel/res = get_ip_intel(address)
