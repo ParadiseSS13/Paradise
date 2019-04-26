@@ -400,7 +400,7 @@ var/round_start_time = 0
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
-/datum/controller/gameticker/proc/process()
+/datum/controller/gameticker/proc/process_decrepit()
 	if(current_state != GAME_STATE_PLAYING)
 		return 0
 

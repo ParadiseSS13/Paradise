@@ -26,7 +26,7 @@
 	var/obj/structure/cable/attached		// the attached cable
 
 /obj/item/powersink/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.processing_power_items.Remove(src)
 	PN = null
 	attached = null
@@ -53,7 +53,7 @@
 				return
 		else
 			if(mode == 2)
-				processing_objects.Remove(src) // Now the power sink actually stops draining the station's power if you unhook it. --NeoFite
+				STOP_PROCESSING(SSobj, src) // Now the power sink actually stops draining the station's power if you unhook it. --NeoFite
 				GLOB.processing_power_items.Remove(src)
 			anchored = 0
 			mode = 0
@@ -76,14 +76,14 @@
 			src.visible_message("<span class='notice'>[user] activates [src]!</span>")
 			mode = 2
 			icon_state = "powersink1"
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 			GLOB.processing_power_items.Add(src)
 		if(2)  //This switch option wasn't originally included. It exists now. --NeoFite
 			src.visible_message("<span class='notice'>[user] deactivates [src]!</span>")
 			mode = 1
 			set_light(0)
 			icon_state = "powersink0"
-			processing_objects.Remove(src)
+			STOP_PROCESSING(SSobj, src)
 			GLOB.processing_power_items.Remove(src)
 
 /obj/item/powersink/pwr_drain()

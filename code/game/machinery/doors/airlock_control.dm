@@ -39,8 +39,7 @@
 	if(command_completed(cur_command))
 		cur_command = null
 	else
-		if(!isprocessing)
-			START_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/door/airlock/proc/do_command(command)
 	switch(command)

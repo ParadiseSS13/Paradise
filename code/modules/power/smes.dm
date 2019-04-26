@@ -13,7 +13,6 @@
 	icon_state = "smes"
 	density = 1
 	anchored = 1
-	defer_process = 1
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge

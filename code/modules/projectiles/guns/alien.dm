@@ -15,10 +15,10 @@
 
 /obj/item/gun/projectile/automatic/spikethrower/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/projectile/automatic/spikethrower/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/projectile/automatic/spikethrower/update_icon()

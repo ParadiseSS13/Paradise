@@ -32,11 +32,11 @@
 		var/obj/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
-	GLOB.fast_processing.Add(src)
+	START_PROCESSING(SSfastprocess, src)
 	return TRUE
 
 /datum/status_effect/Destroy()
-	GLOB.fast_processing.Remove(src)
+	STOP_PROCESSING(SSfastprocess, src)
 	if(owner)
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
@@ -44,7 +44,7 @@
 		owner = null
 	return ..()
 
-/datum/status_effect/proc/process()
+/datum/status_effect/process()
 	if(!owner)
 		qdel(src)
 		return
