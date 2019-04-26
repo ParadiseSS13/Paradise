@@ -90,22 +90,13 @@ var/ert_request_answered = FALSE
 		return 0
 
 	var/index = 1
-	var/ert_spawn_seconds = 120
-	spawn(ert_spawn_seconds * 10) // to account for spawn() using deciseconds
-		var/list/unspawnable_ert = list()
-		for(var/mob/M in response_team_members)
-			if(M)
-				unspawnable_ert |= M
-		if(unspawnable_ert.len)
-			message_admins("ERT SPAWN: The following ERT members could not be spawned within [ert_spawn_seconds] seconds:")
-			for(var/mob/M in unspawnable_ert)
-				message_admins("- Unspawned ERT: [ADMIN_FULLMONTY(M)]")
 	for(var/mob/M in response_team_members)
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
 
 		if(!M || !M.client)
 			continue
+		log_debug("Spawning as ERT: [M.ckey] ([M])")
 		var/client/C = M.client
 		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
 		if(!M || !new_commando)

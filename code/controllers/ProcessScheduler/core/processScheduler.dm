@@ -72,9 +72,9 @@ var/global/datum/controller/processScheduler/processScheduler
 	scheduler_sleep_interval = world.tick_lag
 	updateStartDelays()
 	spawn(0)
-		process()
+		process_decrepit()
 
-/datum/controller/processScheduler/proc/process()
+/datum/controller/processScheduler/proc/process_decrepit()
 	while(isRunning)
 		checkRunningProcesses()
 		queueProcesses()
@@ -154,7 +154,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/runProcess(var/datum/controller/process/process)
 	spawn(0)
-		process.process()
+		process.process_decrepit()
 
 /datum/controller/processScheduler/proc/processStarted(var/datum/controller/process/process)
 	setRunningProcessState(process)

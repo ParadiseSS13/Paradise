@@ -33,7 +33,7 @@
 
 
 /obj/item/organ/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	if(owner)
 		remove(owner, 1)
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
@@ -84,7 +84,7 @@
 /obj/item/organ/proc/necrotize(update_sprite = TRUE)
 	damage = max_damage
 	status |= ORGAN_DEAD
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	if(dead_icon && !is_robotic())
 		icon_state = dead_icon
 	if(owner && vital)
@@ -189,7 +189,7 @@
 	else
 		status = 0
 	if(!owner)
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
@@ -295,7 +295,7 @@
 	if(affected) affected.internal_organs -= src
 
 	loc = get_turf(owner)
-	processing_objects |= src
+	START_PROCESSING(SSobj, src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)

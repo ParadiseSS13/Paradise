@@ -18,7 +18,7 @@
 	return dat
 
 /obj/item/implant/death_alarm/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/implant/death_alarm/process()
@@ -61,12 +61,12 @@
 /obj/item/implant/death_alarm/implant(mob/target)
 	if(..())
 		mobname = target.real_name
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 		return 1
 	return 0
 
 /obj/item/implant/death_alarm/removed(mob/target)
 	if(..())
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return 1
 	return 0

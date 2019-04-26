@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixed an error message being inappropriately generated for admins when someone signs up as a pAI."

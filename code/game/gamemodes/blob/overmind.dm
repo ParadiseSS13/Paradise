@@ -98,7 +98,7 @@
 		if(isovermind(M) || isobserver(M))
 			M.show_message(rendered, 2)
 
-/mob/camera/blob/emote(var/act,var/m_type=1,var/message = null)
+/mob/camera/blob/emote(act, m_type = 1, message = null, force)
 	return
 
 /mob/camera/blob/blob_act()

@@ -138,7 +138,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	if(target.client)
 		target.client.images |= flood_images
 	next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/fake_flood/process()
 	if(next_expand <= world.time)
@@ -162,7 +162,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		target.client.images |= flood_images
 
 /obj/effect/hallucination/fake_flood/Destroy()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	flood_turfs.Cut()
 	if(target.client)
 		target.client.images.Remove(flood_images)

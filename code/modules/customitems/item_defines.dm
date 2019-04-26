@@ -760,10 +760,10 @@
 
 /obj/item/clothing/head/pirate/fluff/stumpy/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/head/pirate/fluff/stumpy/process()
