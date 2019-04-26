@@ -47,7 +47,7 @@
 // to know if the world changed on the remote side
 /obj/effect/portal_sensor
 	invisibility = 101
-	var/required_color = -1
+	var/light_hash = -1
 	var/triggered_this_tick = 0
 	var/datum/owner			// owner that receive signals
 	var/list/params[0]		// what to send to the main object to indicate which sensor
@@ -86,12 +86,18 @@
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
 		var/atom/movable/lighting_object/O = T.lighting_object
-		if(O.color != required_color)
-			required_color = O.color
+		var/hash = 0
+		
+		for(var/lighting_corner in O)
+			var/datum/lighting_corner/C = lighting_corner
+			hash = hash + C.lum_r + C.lum_g + C.lum_b
+			
+		if(hash != light_hash)
+			light_hash = hash
 			trigger()
 	else
-		if(required_color != -1)
-			required_color = -1
+		if(light_hash != -1)
+			light_hash = -1
 			trigger()
 
 // for second floor showing floor below
