@@ -44,9 +44,4 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 
-	if(prefs.toggles & HOTKEYS)
-		winset(src, null, "mainwindow.macro=default hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#f0f0f0")
-		to_chat(src, "Using default macro")
-	else
-		winset(src, null, "input.focus=true input.background-color=#d3b5b5") 
-		to_chat(src, "GOD HECKING HECK HECK")
+	winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")

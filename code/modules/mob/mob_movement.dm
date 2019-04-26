@@ -235,7 +235,7 @@
 			if(M.pulling == mob)
 				if(!M.incapacitated() && mob.Adjacent(M))
 					to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
-					move_delay += 10
+					move_delay = world.time + 10
 					return 0
 				else
 					M.stop_pulling()
@@ -305,7 +305,7 @@
 		G.adjust_position()
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
 		delay *= 2
-	move_delay += delay
+		move_delay += delay
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
