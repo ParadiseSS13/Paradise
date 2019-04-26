@@ -65,7 +65,7 @@
 	taste_message ="You feel like Luis Miguel"
 
 /datum/reagent/consumable/drink/matadora_beer
-	name= "matadora_beer"
+	name= "Matadora_beer"
 	id = "matadora_beer"
 	description = "Mix everything that was in the fridge."
 	color = "#F9800F"
