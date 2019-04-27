@@ -3,6 +3,8 @@
 
 var/list/image/ghost_darkness_images = list() //this is a list of images for things ghosts should still be able to see when they toggle darkness
 
+GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
@@ -29,6 +31,8 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
+	set_invisibility(GLOB.observer_default_invisibility)
+
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
@@ -384,7 +388,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "AntagHud Toggled OFF")
 		M.antagHUD = 0
 
-/mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
+/mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
 	set name = "Teleport"
 	set desc= "Teleport to a location"
@@ -397,6 +401,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	spawn(30)
 		usr.verbs += /mob/dead/observer/proc/dead_tele
 
+	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in ghostteleportlocs
 	var/area/thearea = ghostteleportlocs[A]
 	if(!thearea)	return
 
@@ -410,13 +415,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	usr.forceMove(pick(L))
 	following = null
 
-/mob/dead/observer/verb/follow(input in getmobs())
+/mob/dead/observer/verb/follow()
 	set category = "Ghost"
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	var/target = getmobs()[input]
-	if(!target) return
+	var/list/mobs = getpois(skip_mindless=1)
+	var/input = input("Please, select a mob!", "Haunt", null, null) as null|anything in mobs
+	var/mob/target = mobs[input]
 	ManualFollow(target)
 
 // This is the ghost's follow verb with an argument
@@ -484,24 +490,29 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_following()
 	return ..()
 
-/mob/dead/observer/verb/jumptomob(target in getmobs()) //Moves the ghost instead of just changing the ghosts's eye -Nodrak
+/mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
 	set name = "Jump to Mob"
 	set desc = "Teleport to a mob"
 
-	if(istype(usr, /mob/dead/observer)) //Make sure they're an observer!
+	if(isobserver(usr)) //Make sure they're an observer!
+		var/list/dest = list() //List of possible destinations (mobs)
+		var/target = null	   //Chosen target.
 
-		if(!target)//Make sure we actually have a target
+		dest += getpois(mobs_only=1) //Fill list, prompt user with list
+		target = input("Please, select a mob!", "Jump to Mob", null, null) as null|anything in dest
+
+		if(!target) //Make sure we actually have a target
 			return
 		else
-			var/mob/M = getmobs()[target] //Destination mob
+			var/mob/M = dest[target] //Destination mob
+			var/mob/A = src			 //Source mob
 			var/turf/T = get_turf(M) //Turf of the destination mob
 
 			if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-				forceMove(T)
-				following = null
+				A.forceMove(T)
 			else
-				to_chat(src, "This mob is not located in the game world.")
+				to_chat(A, "This mob is not located in the game world.")
 
 
 /* Now a spell.  See spells.dm
@@ -742,6 +753,26 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/is_literate()
 	return TRUE
+
+/mob/dead/observer/proc/set_invisibility(value)
+	invisibility = value
+	if(!value)
+		set_light(1, 2)
+	else
+		set_light(0, 0)
+
+/mob/dead/observer/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(var_name == "invisibility")
+		set_invisibility(invisibility) // updates light
+
+/proc/set_observer_default_invisibility(amount, message=null)
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.set_invisibility(amount)
+		if(message)
+			to_chat(G, message)
+	GLOB.observer_default_invisibility = amount
+
 /mob/dead/observer/proc/open_spawners_menu()
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"

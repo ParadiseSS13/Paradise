@@ -1,0 +1,6 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "Safes can now consist of more than two tumblers."
+  - tweak: "All safes now have three tumblers by default, instead of two."
+  - tweak: "The safe opening mechanism has changed slightly. This is described on the safe cracking UI."

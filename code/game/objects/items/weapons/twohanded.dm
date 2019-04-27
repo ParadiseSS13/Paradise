@@ -557,10 +557,10 @@
 
 /obj/item/twohanded/singularityhammer/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/singularityhammer/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
@@ -664,10 +664,10 @@
 
 /obj/item/twohanded/knighthammer/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/knighthammer/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/twohanded/knighthammer/process()

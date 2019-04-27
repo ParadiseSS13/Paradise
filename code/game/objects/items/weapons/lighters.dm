@@ -58,7 +58,7 @@
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], [user.p_they()] however burn[user.p_s()] [user.p_their()] finger in the process.</span>")
 
 			set_light(2)
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 		else
 			lit = 0
 			w_class = WEIGHT_CLASS_TINY
@@ -74,7 +74,7 @@
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
 			set_light(0)
-			processing_objects.Remove(src)
+			STOP_PROCESSING(SSobj, src)
 	else
 		return ..()
 	return
@@ -181,7 +181,7 @@
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 		update_icon()
 		return TRUE
 
@@ -196,7 +196,7 @@
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
 /obj/item/match/dropped(mob/user)

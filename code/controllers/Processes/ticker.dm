@@ -30,7 +30,7 @@ DECLARE_GLOBAL_CONTROLLER(ticker, tickerProcess)
 
 	lastTickerTime = currentTime
 
-	ticker.process()
+	ticker.process_decrepit()
 
 /datum/controller/process/ticker/proc/getLastTickerTimeDuration()
 	return lastTickerTimeDuration

@@ -35,7 +35,7 @@
 
 	src.energy = starting_energy
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
@@ -44,7 +44,7 @@
 			break
 
 /obj/singularity/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	GLOB.singularities -= src
 	target = null

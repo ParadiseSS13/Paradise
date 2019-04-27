@@ -27,7 +27,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "f" = (
 /obj/structure/window/reinforced{
@@ -38,7 +38,7 @@
 	icon_state = "heater";
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "g" = (
 /obj/structure/table/wood,
