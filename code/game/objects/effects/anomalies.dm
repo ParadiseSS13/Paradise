@@ -20,7 +20,7 @@
 /obj/effect/anomaly/Initialize(mapload, new_lifespan)
 	. = ..()
 	GLOB.poi_list |= src
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
 
 	aSignal = new(src)
@@ -48,7 +48,7 @@
 
 /obj/effect/anomaly/Destroy()
 	GLOB.poi_list.Remove(src)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(countdown)
 	QDEL_NULL(aSignal)
 	return ..()
