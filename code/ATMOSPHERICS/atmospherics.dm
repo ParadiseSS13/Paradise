@@ -243,7 +243,8 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 // Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
-	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
+	direction &= initialize_directions
+	if(!direction || !(direction in cardinal)) //cant go this way.
 		return
 
 	if(buckled_mob == user)
