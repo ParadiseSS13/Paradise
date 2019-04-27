@@ -23,18 +23,24 @@
 
 	var/frequency = 0
 	var/id_tag = null
+	var/projectile_type = /obj/item/projectile/beam/emitter
+	var/projectile_sound = 'sound/weapons/emitter.ogg'
 	var/datum/radio_frequency/radio_connection
 	var/datum/effect_system/spark_spread/sparks
 
-/obj/machinery/power/emitter/New()
-	..()
+/obj/machinery/power/emitter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/emitter(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
+	if(state == 2 && anchored)
+		connect_to_network()
 	sparks = new
 	sparks.set_up(5, 1, src)
+	if(frequency)
+		set_frequency(frequency)
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -78,13 +84,6 @@
 	if(!Adjacent(user))
 		return
 	rotate()
-
-/obj/machinery/power/emitter/Initialize()
-	..()
-	if(state == 2 && anchored)
-		connect_to_network()
-	if(frequency)
-		set_frequency(frequency)
 
 /obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
@@ -182,10 +181,9 @@
 		src.active = 0
 		update_icon()
 		return
-	if(((src.last_shot + src.fire_delay) <= world.time) && (src.active == 1))
-
-		var/actual_load = draw_power(active_power_usage)
-		if(actual_load >= active_power_usage) //does the laser have enough power to shoot?
+	if(active == TRUE)
+		if(!active_power_usage || surplus() >= active_power_usage)
+			add_load(active_power_usage)
 			if(!powered)
 				powered = 1
 				update_icon()
@@ -197,36 +195,57 @@
 				investigate_log("lost power and turned <font color='red'>off</font>","singulo")
 			return
 
-		src.last_shot = world.time
-		if(src.shot_number < 3)
-			src.fire_delay = 2
-			src.shot_number++
-		else
-			src.fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
-			src.shot_number = 0
+		if(!check_delay())
+			return FALSE
+		fire_beam()
 
-		var/obj/item/projectile/beam/emitter/A = new /obj/item/projectile/beam/emitter(src.loc)
+/obj/machinery/power/emitter/proc/check_delay()
+	if((last_shot + fire_delay) <= world.time)
+		return TRUE
+	return FALSE
 
-		A.dir = src.dir
-		playsound(get_turf(src), 'sound/weapons/emitter.ogg', 25, 1)
-		if(prob(35))
-			sparks.start()
+/obj/machinery/power/emitter/proc/fire_beam()
+	var/obj/item/projectile/P = new projectile_type(get_turf(src))
+	playsound(get_turf(src), projectile_sound, 50, TRUE)
+	if(prob(35))
+		sparks.start()
+	switch(dir)
+		if(NORTH)
+			P.yo = 20
+			P.xo = 0
+		if(NORTHEAST)
+			P.yo = 20
+			P.xo = 20
+		if(EAST)
+			P.yo = 0
+			P.xo = 20
+		if(SOUTHEAST)
+			P.yo = -20
+			P.xo = 20
+		if(WEST)
+			P.yo = 0
+			P.xo = -20
+		if(SOUTHWEST)
+			P.yo = -20
+			P.xo = -20
+		if(NORTHWEST)
+			P.yo = 20
+			P.xo = -20
+		else // Any other
+			P.yo = -20
+			P.xo = 0
 
-		switch(dir)
-			if(NORTH)
-				A.yo = 20
-				A.xo = 0
-			if(EAST)
-				A.yo = 0
-				A.xo = 20
-			if(WEST)
-				A.yo = 0
-				A.xo = -20
-			else // Any other
-				A.yo = -20
-				A.xo = 0
-		A.fire()	//TODO: Carn: check this out
-
+	last_shot = world.time
+	if(shot_number < 3)
+		fire_delay = 20
+		shot_number ++
+	else
+		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
+		shot_number = 0
+	P.setDir(dir)
+	P.starting = loc
+	P.fire()
+	return P
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))

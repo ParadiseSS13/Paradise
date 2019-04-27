@@ -25,18 +25,20 @@
 //////////////////////////////
 
 // common helper procs for all power machines
-/obj/machinery/power/proc/add_avail(var/amount)
+/obj/machinery/power/proc/add_avail(amount)
 	if(powernet)
 		powernet.newavail += amount
+		return TRUE
+	else
+		return FALSE
 
-/obj/machinery/power/proc/draw_power(var/amount)
+/obj/machinery/power/proc/add_load(amount)
 	if(powernet)
-		return powernet.draw_power(amount)
-	return 0
+		powernet.load += amount
 
 /obj/machinery/power/proc/surplus()
 	if(powernet)
-		return powernet.avail-powernet.load
+		return Clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -46,9 +48,19 @@
 	else
 		return 0
 
-/obj/machinery/power/proc/load()
+/obj/machinery/power/proc/add_delayedload(amount)
 	if(powernet)
-		return powernet.load
+		powernet.delayedload += amount
+
+/obj/machinery/power/proc/delayed_surplus()
+	if(powernet)
+		return Clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+	else
+		return 0
+
+/obj/machinery/power/proc/newavail()
+	if(powernet)
+		return powernet.newavail
 	else
 		return 0
 
@@ -58,15 +70,14 @@
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
 /obj/machinery/proc/powered(var/chan = -1) // defaults to power_channel
-
 	if(!loc)
-		return 0
+		return FALSE
 	if(!use_power)
-		return 1
+		return TRUE
 
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
-		return 0					// if not, then not powered
+		return FALSE					// if not, then not powered
 	if(chan == -1)
 		chan = power_channel
 	return A.powered(chan)	// return power status of the area
@@ -103,21 +114,21 @@
 /obj/machinery/power/proc/connect_to_network()
 	var/turf/T = src.loc
 	if(!T || !istype(T))
-		return 0
+		return FALSE
 
 	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
 	if(!C || !C.powernet)
-		return 0
+		return FALSE
 
 	C.powernet.add_machine(src)
-	return 1
+	return TRUE
 
 // remove and disconnect the machine from its current powernet
 /obj/machinery/power/proc/disconnect_from_network()
 	if(!powernet)
-		return 0
+		return FALSE
 	powernet.remove_machine(src)
-	return 1
+	return TRUE
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
@@ -159,7 +170,8 @@
 		cdir = get_dir(T,loc)
 
 		for(var/obj/structure/cable/C in T)
-			if(C.powernet)	continue
+			if(C.powernet)
+				continue
 			if(C.d1 == cdir || C.d2 == cdir)
 				. += C
 	return .
@@ -186,7 +198,8 @@
 /obj/machinery/power/proc/get_indirect_connections()
 	. = list()
 	for(var/obj/structure/cable/C in loc)
-		if(C.powernet)	continue
+		if(C.powernet)
+			continue
 		if(C.d1 == 0) // the cable is a node cable
 			. += C
 	return .
@@ -195,48 +208,35 @@
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
 
-
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
 // excluding source, that match the direction d
 // if unmarked==1, only return those with no powernet
-/proc/power_list(var/turf/T, var/source, var/d, var/unmarked=0, var/cable_only = 0)
+/proc/power_list(turf/T, source, d, unmarked=0, cable_only = 0)
 	. = list()
-	var/fdir = (!d)? 0 : turn(d, 180)			// the opposite direction to d (or 0 if d==0)
-///// Z-Level Stuff
-	var/Zdir
-	if(d==11)
-		Zdir = 11
-	else if(d==12)
-		Zdir = 12
-	else
-		Zdir = 999
-///// Z-Level Stuff
-	for(var/AM in T)
-		if(AM == source)	continue			//we don't want to return source
 
-		if(!cable_only && istype(AM,/obj/machinery/power))
+	for(var/AM in T)
+		if(AM == source)
+			continue			//we don't want to return source
+
+		if(!cable_only && istype(AM, /obj/machinery/power))
 			var/obj/machinery/power/P = AM
-			if(P.powernet == 0)	continue		// exclude APCs which have powernet=0
+			if(P.powernet == 0)
+				continue		// exclude APCs which have powernet=0
 
 			if(!unmarked || !P.powernet)		//if unmarked=1 we only return things with no powernet
 				if(d == 0)
 					. += P
 
-		else if(istype(AM,/obj/structure/cable))
+		else if(istype(AM, /obj/structure/cable))
 			var/obj/structure/cable/C = AM
 
 			if(!unmarked || !C.powernet)
-///// Z-Level Stuff
-				if(C.d1 == fdir || C.d2 == fdir || C.d1 == Zdir || C.d2 == Zdir)
-///// Z-Level Stuff
-					. += C
-				else if(C.d1 == d || C.d2 == d)
+				if(C.d1 == d || C.d2 == d)
 					. += C
 	return .
 
 //remove the old powernet and replace it with a new one throughout the network.
-/proc/propagate_network(var/obj/O, var/datum/powernet/PN)
-	//log_world("propagating new network")
+/proc/propagate_network(obj/O, datum/powernet/PN)
 	var/list/worklist = list()
 	var/list/found_machines = list()
 	var/index = 1
@@ -248,13 +248,13 @@
 		P = worklist[index] //get the next power object found
 		index++
 
-		if( istype(P,/obj/structure/cable))
+		if(istype(P, /obj/structure/cable))
 			var/obj/structure/cable/C = P
 			if(C.powernet != PN) //add it to the powernet, if it isn't already there
 				PN.add_cable(C)
 			worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
 
-		else if(P.anchored && istype(P,/obj/machinery/power))
+		else if(P.anchored && istype(P, /obj/machinery/power))
 			var/obj/machinery/power/M = P
 			found_machines |= M //we wait until the powernet is fully propagates to connect the machines
 
@@ -268,7 +268,7 @@
 
 
 //Merge two powernets, the bigger (in cable length term) absorbing the other
-/proc/merge_powernets(var/datum/powernet/net1, var/datum/powernet/net2)
+/proc/merge_powernets(datum/powernet/net1, datum/powernet/net2)
 	if(!net1 || !net2) //if one of the powernet doesn't exist, return
 		return
 
@@ -285,8 +285,6 @@
 	for(var/obj/structure/cable/Cable in net2.cables) //merge cables
 		net1.add_cable(Cable)
 
-	if(!net2) return net1
-
 	for(var/obj/machinery/power/Node in net2.nodes) //merge power machines
 		if(!Node.connect_to_network())
 			Node.disconnect_from_network() //if somehow we can't connect the machine to the new powernet, disconnect it from the old nonetheless
@@ -299,14 +297,12 @@
 //source is an object caused electrocuting (airlock, grille, etc)
 //No animations will be performed by this proc.
 /proc/electrocute_mob(mob/living/M, power_source, obj/source, siemens_coeff = 1, dist_check = FALSE)
-	if(!istype(M))
-		return FALSE
-	if(istype(M.loc,/obj/mecha))
+	if(!M || ismecha(M.loc))
 		return FALSE	//feckin mechs are dumb
 	if(dist_check)
 		if(!in_range(source, M))
 			return FALSE
-	if(istype(M,/mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
@@ -326,7 +322,7 @@
 
 	if(istype(power_source, /datum/powernet))
 		PN = power_source
-	else if(istype(power_source,/obj/item/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell = power_source
 	else if(istype(power_source, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/apc = power_source
@@ -357,10 +353,30 @@
 	var/drained_energy = drained_hp*20
 
 	if(source_area)
-		source_area.use_power(drained_energy/CELLRATE)
-	else if(istype(power_source,/datum/powernet))
-		var/drained_power = drained_energy/CELLRATE //convert from "joules" to "watts"
-		drained_power = PN.draw_power(drained_power)
-	else if(istype(power_source, /obj/item/stock_parts/cell))
+		source_area.use_power(drained_energy/GLOB.CELLRATE)
+	else if(istype(power_source, /datum/powernet))
+		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
+		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
+	else if (istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
+
+////////////////////////////////////////////////
+// Misc.
+///////////////////////////////////////////////
+
+
+// return a knot cable (O-X) if one is present in the turf
+// null if there's none
+/turf/proc/get_cable_node()
+	if(!can_have_cabling())
+		return null
+	for(var/obj/structure/cable/C in src)
+		if(C.d1 == 0)
+			return C
+	return null
+
+/area/proc/get_apc()
+	for(var/obj/machinery/power/apc/APC in GLOB.apcs)
+		if(APC.area == src)
+			return APC
