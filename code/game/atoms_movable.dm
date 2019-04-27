@@ -129,60 +129,45 @@
 	loc = T
 
 /atom/movable/Move(atom/newloc, direct = 0)
-	if(!loc || !newloc) return 0
-	var/atom/oldloc = loc
-
-	if(loc != newloc)
-		if(!(direct & (direct - 1))) //Cardinal move
-			. = ..()
-		else //Diagonal move, split it into cardinal moves
-			moving_diagonally = FIRST_DIAG_STEP
-			if(direct & 1)
-				if(direct & 4)
-					if(step(src, NORTH))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if(step(src, EAST))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
-				else if(direct & 8)
-					if(step(src, NORTH))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if(step(src, WEST))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
-			else if(direct & 2)
-				if(direct & 4)
-					if(step(src, SOUTH))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if(step(src, EAST))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
-				else if(direct & 8)
-					if(step(src, SOUTH))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if(step(src, WEST))
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
-			moving_diagonally = 0
-			return
-
-	if(!loc || (loc == oldloc && oldloc != newloc))
-		last_move = 0
+	. = FALSE
+	if(!newloc || newloc == loc)
 		return
 
-	if(.)
-		Moved(oldloc, direct)
+	if(!direct)
+		direct = get_dir(src, newloc)
+	setDir(direct)
 
-	last_move = direct
-	src.move_speed = world.time - src.l_move_time
-	src.l_move_time = world.time
+	if(!loc.Exit(src, newloc))
+		return
 
-	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
-		. = 0
+	if(!newloc.Enter(src, src.loc))
+		return
+
+	// Past this is the point of no return
+	var/atom/oldloc = loc
+	var/area/oldarea = get_area(oldloc)
+	var/area/newarea = get_area(newloc)
+	loc = newloc
+	. = TRUE
+	oldloc.Exited(src, newloc)
+	if(oldarea != newarea)
+		oldarea.Exited(src, newloc)
+
+	for(var/i in oldloc)
+		if(i == src) // Multi tile objects
+			continue
+		var/atom/movable/thing = i
+		thing.Uncrossed(src)
+
+	newloc.Entered(src, oldloc)
+	if(oldarea != newarea)
+		newarea.Entered(src, oldloc)
+
+	for(var/i in loc)
+		if(i == src) // Multi tile objects
+			continue
+		var/atom/movable/thing = i
+		thing.Crossed(src)
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir)
