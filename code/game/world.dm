@@ -374,26 +374,34 @@ var/world_topic_spam_protect_time = world.timeofday
 	// apply some settings from config..
 
 /world/proc/update_status()
+	status = get_status_text()
+
+/proc/get_world_status_text()
+	return world.get_status_text()
+
+/world/proc/get_status_text()
 	var/s = ""
 
 	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
+	s += "<b>[station_name()]</b> "
+	if(config && config.githuburl)
+		s+= "(<a href=\"[config.githuburl]\">[game_version]</a>)"
 
-	s += "<b>[station_name()]</b>";
-	s += " ("
-	s += "<a href=\"http://nanotrasen.se\">" //Change this to wherever you want the hub to link to.
-	s += "[game_version]"
-	s += "</a>"
-	s += ")"
-	s += "<br>The Perfect Mix of RP & Action<br>"
+	if(config && config.server_tag_line)
+		s += "<br>[config.server_tag_line]"
 
-
-
-
+	s += "<br>"
 	var/list/features = list()
 
+	var/n = GLOB.clients.len
+	if(n > 1)
+		features += "~[n] players"
+	else if(n > 0)
+		features += "~[n] player"
+
 	if(ticker)
-		if(master_mode)
+		if(master_mode && master_mode != "secret")
 			features += master_mode
 	else
 		features += "<b>STARTING</b>"
@@ -401,7 +409,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(!enter_allowed)
 		features += "closed"
 
-	features += abandon_allowed ? "respawn" : "no respawn"
+	if(config && config.server_extra_features)
+		features += config.server_extra_features
 
 	if(config && config.allow_vote_mode)
 		features += "vote"
@@ -409,31 +418,20 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(config && config.allow_ai)
 		features += "AI allowed"
 
-	var/n = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			n++
+	if(config && config.forumurl)
+		features += "<a href=\"[config.forumurl]\">Forum</a>"
+	if(config && config.discordurl)
+		features += "<a href=\"[config.discordurl]\">Discord</a>"
+	if(config && config.wikiurl)
+		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
 
-	if(n > 1)
-		features += "~[n] players"
-	else if(n > 0)
-		features += "~[n] player"
-
-	/*
-	is there a reason for this? the byond site shows 'hosted by X' when there is a proper host already.
-	if(host)
-		features += "hosted by <b>[host]</b>"
-	*/
-
-//	if(!host && config && config.hostedby)
-//		features += "hosted by <b>[config.hostedby]</b>"
+	if(abandon_allowed)
+		features += "respawn"
 
 	if(features)
-		s += ": [jointext(features, ", ")]"
+		s += "[jointext(features, ", ")]"
 
-	/* does this help? I do not know */
-	if(src.status != s)
-		src.status = s
+	return s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
 var/failed_db_connections = 0
