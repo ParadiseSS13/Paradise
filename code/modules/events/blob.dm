@@ -6,6 +6,7 @@
 	event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
 /datum/event/blob/start()
+	processing = 0 //so it won't fire again in next tick
 	var/turf/T = pick(blobstart)
 	if(!T)
 		return kill()
