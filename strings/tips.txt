@@ -60,7 +60,7 @@ Como la IA, puedes abrir y cerrar rápidamente las puertas manteniendo pulsada l
 Como la IA, puedes tomar fotos con tu cámara y subirlas a los noticieros.
 Como Cyborg, elige tu módulo con cuidado, ya que sólo cortar y reparar el cable de reinicio o usar un módulo de reinicio de cyborg te permitirá repasarlo. Si es posible, absténgase de elegir un módulo hasta que se produzca una situación que lo requiera.
 Como Cyborg, eres inmune a la mayoría de las formas de aturdimiento, y sobresales en casi todo mucho mejor que los humanos. Sin embargo, los flashes pueden aturdirte fácilmente. Ademas los cyborgs no pueden hacer ningún trabajo de precisión porque le faltan las manos.
-Como Cyborg, eres impermeable al fuego y al calor. Si eres rogue, puedes liberar fuegos de plasma por todas partes y caminar a través de ellos sin ningún cuidado en el mundo!
+Como Cyborg, eres resistente al fuego y al calor. Si eres rogue, puedes liberar fuegos de plasma por todas partes y caminar a través de ellos sin ningún cuidado en el mundo!
 Como Cyborg, eres extremadamente vulnerable a los EMPs, ya que los EMPs te aturden y te dañan. El rifle de iones en la armería o un traidor con un kit EMP puede matarte en segundos.
 Como Cyborg de ingeniería, puede fijar marcos de alarma de aire/alarma de incendio/APC a las paredes colocándolos en el suelo y usando un destornillador.
 Como Cyborg Médico, usted puede realizar una cirugía completa e incluso ponerles brazos roboticos.
@@ -88,7 +88,7 @@ Como Warden, si los crímenes de un prisionero son lo suficientemente atroces, p
 Como Warden, usted puede implantar a criminales que sospecha que podrían volver a delinquir con dispositivos que rastreen su ubicación y le permitan inyectarlos remotamente con productos químicos incapacitantes. 
 Como oficial de seguridad, comuníquese y coordine con sus compañeros utilizando el canal de seguridad (:s) para evitar confusiones.
 Como oficial de seguridad, sus sechuds o gafas de sol HUD no sólo pueden ver las asignaciones de trabajo y el estatus criminal de sus compañeros de tripulación, sino también si tienen un mindshield. Se puede ver por el contorno azul parpadeante alrededor de su icono de trabajo.
-Como oficial de seguridad, los implantes de mindshield sólo pueden evitar que alguien sea conviertido en cultista. No dejaran de ser cultos si los implantas y ya han sido convertidos previamente.
+Como oficial de seguridad, los implantes de mindshield sólo pueden evitar que alguien sea conviertido en cultista. No dejaran de serlo si ya fueron convertidos previamente.
 Como oficial de seguridad, examinar a alguien con sechuds o gafas de sol HUD le permitirá establecer su nivel de arresto, lo que hará que Beepsky y otros robots de seguridad los persigan.
 Como detective, tenga en cuenta que la gente deja huellas digitales en todas partes y en todo. Con la excepción del látex blanco, los guantes los esconderán. Sin embargo, no todo está perdido, ya que los guantes dejan fibras específicas de su tipo, como el negro o el nitrilo, que apuntan a un departamento general.
 Como detective, puedes usar tu escáner forense a distancia.
@@ -191,7 +191,7 @@ Como Terror Spider, recuerda poner telas de araña en los pisos blancos. Son muc
 Como Terror Spider aveces pullear a un enemigo a tu tela de araña puede garantizarte la victoria! Pruebalo!
 Puedes cambiar los floor tiles si tienes un crowbar en una mano y el stack de tiles en la otra.
 Cuando hackeas puertas, recuerda que cortar y reconectar un "Test light wire" Va volver la energia a la puerta.
-Cuando quieres crear un item recuerda que puedes combinar los elementos manualmente o usar el menu de crafteo. El mismo esta ala derecha, abajo de la pantalla con una letra T.
+Cuando quieres crear un item recuerda que puedes combinar los elementos manualmente o usar el menu de crafteo. El mismo se encuentra en la esquina derecha, inferior simbolizado con una letra T.
 Las unidades que sirven para almacenar los trajes de EVA no solo quitan la sangre y suciedad de los trajes. Tambien quitan la radiacion!
 Dormir en una cama puede curate algunas cantidades de daño bruto y de quemaduras.
 El Experimentor de ciencias tiene una chance de spawnear mobs hostiles. Preparate para correr por tu vida si eso llega a pasar!.
