@@ -181,6 +181,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 35, /turf/simulated/mineral/diamond/volcanic = 30, /turf/simulated/mineral/gold/volcanic = 45, /turf/simulated/mineral/titanium/volcanic = 45,
@@ -201,6 +202,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 	mineralChance = 10
@@ -223,6 +225,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 2, /turf/simulated/mineral/diamond/volcanic = 1, /turf/simulated/mineral/gold/volcanic = 3, /turf/simulated/mineral/titanium/volcanic = 4,
@@ -243,6 +246,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/uranium
@@ -258,6 +262,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/diamond
@@ -273,6 +278,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/gold
@@ -288,6 +294,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/silver
@@ -303,6 +310,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/titanium
@@ -318,6 +326,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/plasma
@@ -333,6 +342,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/clown
@@ -349,6 +359,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/mime
@@ -364,6 +375,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/bscrystal
@@ -380,6 +392,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/volcanic
@@ -389,6 +402,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/mineral/volcanic/lava_land_surface
 	environment_type = "basalt"
@@ -415,6 +429,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	defer_change = 1
 
 /turf/simulated/mineral/gibtonite/New()

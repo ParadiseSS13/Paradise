@@ -134,6 +134,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
@@ -173,6 +174,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data //subtype for producing a tunnel with given data
 	has_data = TRUE

@@ -46,6 +46,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/necropolis/Initialize()
 	. = ..()
@@ -65,6 +66,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
@@ -76,6 +78,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 	desc = "A floor with a square pattern. It's faintly cool to the touch."
 
 /turf/simulated/floor/indestructible/hierophant/two

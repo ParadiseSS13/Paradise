@@ -115,7 +115,8 @@
 	temperature = 300
 	oxygen = 14
 	nitrogen = 23
-	//baseturf = /turf/simulated/chasm/straight_down/lava_land_surface TODO: Uncomment
+	planetary_atmos = TRUE
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB

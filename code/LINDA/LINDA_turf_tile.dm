@@ -49,6 +49,7 @@
 	var/icy = 0
 	var/icyoverlay
 	var/obj/effect/hotspot/active_hotspot
+	var/planetary_atmos = FALSE //air will revert to its initial mix over time
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
 
@@ -138,12 +139,15 @@
 
 
 /turf/simulated/proc/process_cell()
-
 	if(archived_cycle < SSair.times_fired) //archive self if not already done
 		archive()
 	current_cycle = SSair.times_fired
 
 	var/remove = 1 //set by non simulated turfs who are sharing with this turf
+
+	var/planet_atmos = planetary_atmos
+	if (planet_atmos)
+		atmos_adjacent_turfs_amount++
 
 	for(var/direction in cardinal)
 		if(!(atmos_adjacent_turfs & direction))
@@ -204,6 +208,17 @@
 				remove = 0
 				if(excited_group)
 					last_share_check()
+
+	if(planet_atmos) //share our air with the "atmosphere" "above" the turf
+		var/datum/gas_mixture/G = new
+		G.copy_from_turf(src)
+		G.archive()
+		if(air.compare(G))
+			if(!excited_group)
+				var/datum/excited_group/EG = new
+				EG.add_turf(src)
+			air.share(G, atmos_adjacent_turfs_amount)
+			last_share_check()
 
 	air.react()
 
