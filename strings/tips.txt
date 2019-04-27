@@ -186,7 +186,7 @@ Jugando como terror spider deberias dejar el trabajo de envolver los cuerpos a l
 Como una Prince of Terror eres bastante fuerte pero usualmente estas sola. Considera tacticas como golpear y correr para aprovechar tu auto regeneracion.
 Como una Araña Del Terror marron concentrate en golpear los ductos soldados. Eres debil en combates pero puedes permitirle a tus compañeros usar los ductos.
 Como Terror spider debes cuidar a tu reina bajo cualquier costo!
-Como Terror Spider no olvides que puedes mudar tu nido si la tripulacion esta ejerciendo mucha presion en la zona.
+Como Terror Spider no olvides que puedes cambiar la ubicacion tu nido si la tripulacion esta avanzando y presionando la zona.
 Como Terror Spider, recuerda poner telas de araña en los pisos blancos. Son mucho mas dificiles de ver ahi.
 Como Terror Spider aveces pullear a un enemigo a tu tela de araña puede garantizarte la victoria! Pruebalo!
 Puedes cambiar los floor tiles si tienes un crowbar en una mano y el stack de tiles en la otra.
