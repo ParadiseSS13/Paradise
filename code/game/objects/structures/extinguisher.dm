@@ -28,6 +28,23 @@
 		else
 			has_extinguisher = new/obj/item/extinguisher
 
+/obj/structure/extinguisher_cabinet/examine(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>")
+
+/obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user))
+		return
+	if(!iscarbon(usr))
+		return
+	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
+	opened = !opened
+	update_icon()
+	return
+
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
 	return ..()
@@ -40,8 +57,11 @@
 			user.drop_item(O)
 			contents += O
 			has_extinguisher = O
+			update_icon()
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
+			return TRUE
 		else
+			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 			opened = !opened
 	else if(istype(O, /obj/item/weldingtool))
 		if(has_extinguisher)
@@ -65,6 +85,7 @@
 			new material_drop(T)
 			qdel(src)
 	else
+		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 	update_icon()
 
@@ -81,21 +102,27 @@
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return
 	if(has_extinguisher)
+		if(icon_state == "extinguisher_closed")
+			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		user.put_in_hands(has_extinguisher)
 		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
 		opened = 1
 	else
+		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 	update_icon()
 
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
+		if(icon_state == "extinguisher_closed")
+			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		has_extinguisher.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
 		opened = 1
 	else
+		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 	update_icon()
 
