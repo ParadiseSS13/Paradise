@@ -145,9 +145,12 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = 101
+	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
+
+	QDEL_NULL(light)
+
 	return ..()
 
 //Hook for running code when a dir change occurs
