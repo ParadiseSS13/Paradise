@@ -168,6 +168,22 @@
 			continue
 		var/atom/movable/thing = i
 		thing.Crossed(src)
+		
+	if(!loc || !newloc) return 0
+
+	if(!loc || (loc == oldloc && oldloc != newloc))
+		last_move = 0
+		return
+
+	if(.)
+		Moved(oldloc, direct)
+
+	last_move = direct
+	src.move_speed = world.time - src.l_move_time
+	src.l_move_time = world.time
+
+	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir)

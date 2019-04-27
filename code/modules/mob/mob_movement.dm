@@ -179,6 +179,9 @@
 	if(!mob || !mob.loc)
 		return 0
 
+	if(!n || !direct) // why did we never check this before?
+		return FALSE
+
 	if(mob.notransform)
 		return 0 //This is sota the goto stop mobs from moving var
 
