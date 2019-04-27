@@ -73,9 +73,7 @@
 	//Admin PM
 	if(href_list["priv_msg"])
 		var/client/C = locate(href_list["priv_msg"])
-		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
-			var/mob/M = C
-			C = M.client
+		
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
 		else if(C.UID() != href_list["priv_msg"])

@@ -78,7 +78,7 @@ var/global/nologevent = 0
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
 	if(M.client)
-		body += "<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a> - "
+		body += "<a href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
 		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"

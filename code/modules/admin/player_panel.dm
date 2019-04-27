@@ -300,7 +300,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]", "[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.client.UID()]", "[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -371,7 +371,7 @@
 
 		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
 		<td align=center><A HREF='?src=[UID()];adminplayeropts=[M.UID()]'>X</A></td>
-		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</A></td>
+		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>PM</A></td>
 		"}
 		switch(is_special_character(M))
 			if(0)
@@ -398,7 +398,7 @@
 		dname = M
 
 	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</A></td>[close ? "</tr>" : ""]"}
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
@@ -473,7 +473,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.ckey]'>PM</A></td>"
+					dat += "<td><A href='?priv_msg=[M.client.UID()]'>PM</A></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
