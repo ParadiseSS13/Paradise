@@ -43,7 +43,6 @@
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened
 	update_icon()
-	return
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
@@ -54,6 +53,8 @@
 		return
 	if(istype(O, /obj/item/extinguisher))
 		if(!has_extinguisher && opened)
+			if((O.flags & NODROP) || (flags & NODROP))
+				return
 			user.drop_item(O)
 			contents += O
 			has_extinguisher = O
