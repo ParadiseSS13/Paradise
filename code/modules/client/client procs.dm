@@ -326,8 +326,6 @@
 		GLOB.admins += src
 		holder.owner = src
 
-	donator_check()
-
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]
 	if(!prefs)
@@ -340,12 +338,6 @@
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
-
-	if(custom_event_msg && custom_event_msg != "")
-		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
-		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
-		to_chat(src, "<br>")
 
 	if( (world.address == address || !address) && !host )
 		host = key
@@ -374,6 +366,7 @@
 			to_chat(src, message)
 		clientmessages.Remove(ckey)
 
+	donator_check()
 
 	send_resources()
 
@@ -397,6 +390,12 @@
 		void = new()
 
 	screen += void
+
+	if(custom_event_msg && custom_event_msg != "")
+		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
+		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
+		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
@@ -429,13 +428,17 @@
 	if(!dbcon.IsConnected())
 		return
 
+	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+		donator_level = DONATOR_LEVEL_MAX
+		return
+
 	//Donator stuff.
 	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
 	query_donor_select.Execute()
 	while(query_donor_select.NextRow())
 		if(!text2num(query_donor_select.item[3]))
 			// Inactive donator.
-			donator_level = DONATOR_LEVEL_NONE
+			donator_level = 0
 			return
 		donator_level = text2num(query_donor_select.item[2])
 		break
