@@ -114,7 +114,7 @@
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		if(!(stat & BROKEN))
-			if((W.flags & NODROP) || (flags & NODROP))
+			if(!user.drop_item())
 				return
 			var/obj/item/tank/T = W
 			user.drop_item()
