@@ -695,6 +695,7 @@ var/list/blood_splatter_icons = list()
 //the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
 /atom/proc/update_remote_sight(mob/living/user)
 	user.sync_lighting_plane_alpha()
+	user.sync_nightvision_screen()
 	return
 
 /atom/proc/checkpass(passflag)
