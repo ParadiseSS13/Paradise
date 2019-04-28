@@ -714,8 +714,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		H.see_in_dark = 8
-		H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	H.sync_lighting_plane_alpha()
 
