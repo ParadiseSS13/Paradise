@@ -53,7 +53,7 @@
 		return
 	if(istype(O, /obj/item/extinguisher))
 		if(!has_extinguisher && opened)
-			if((O.flags & NODROP) || (flags & NODROP))
+			if(!user.drop_item())
 				return
 			user.drop_item(O)
 			contents += O
