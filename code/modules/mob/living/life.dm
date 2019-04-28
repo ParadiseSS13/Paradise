@@ -189,6 +189,7 @@
 	if(!client)	return 0
 
 	handle_vision()
+	handle_darksight()
 	handle_hud_icons()
 
 	return 1
@@ -205,6 +206,27 @@
 	else
 		if(!remote_view && !client.adminobs)
 			reset_perspective(null)
+
+/mob/living/proc/handle_darksight()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(!S)
+		return
+	var/darksightedness = min(see_in_dark / world.view, 1.0)	//A ratio of how good your darksight is, from 'nada' to 'really darn good'
+	var/current = S.alpha / 255						//Our current adjustedness
+
+	var/brightness = 0.0 //We'll assume it's superdark if we can't find something else.
+
+	if(isturf(loc))
+		var/turf/T = loc //Will be true 99% of the time, thus avoiding the whole elif chain
+		brightness = T.get_lumcount()
+
+	var/darkness = 1 - brightness					//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line
+	var/adjust_to = min(darkness, darksightedness)//Capped by how darksighted they are
+	var/distance = abs(current - adjust_to)		//Used for how long to animate for
+	if(distance < 0.01) return					//We're already all set
+
+	//world << "[src] in B:[round(brightness,0.1)] C:[round(current,0.1)] A2:[round(adjust_to,0.1)] D:[round(distance,0.01)] T:[round(distance*10 SECONDS,0.1)]"
+	animate(S, alpha = (adjust_to*255), time = (distance*10 SECONDS))
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
