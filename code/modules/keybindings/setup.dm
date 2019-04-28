@@ -42,5 +42,5 @@
 		for(var/k in 1 to macro_set.len)
 			var/key = macro_set[k]
 			var/command = macro_set[key]
-			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
+			winset(src, "[setname]-[UID(key)]", "parent=[setname];name=[key];command=[command]")
 	winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")

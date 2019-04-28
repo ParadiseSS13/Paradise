@@ -43,12 +43,6 @@
 			qdel(C, FALSE, TRUE)
 		dc.Cut()
 
-	var/list/focusers = src.focusers
-	if(focusers)
-		for(var/i in 1 to focusers.len)
-			var/mob/M = focusers[i]
-			M.set_focus(M)
-
 	var/list/lookup = comp_lookup
 	if(lookup)
 		for(var/sig in lookup)

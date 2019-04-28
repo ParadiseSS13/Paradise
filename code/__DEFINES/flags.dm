@@ -3,8 +3,6 @@
 
 // for /datum/var/datum_flags
 #define DF_USE_TAG		(1<<0)
-#define DF_VAR_EDITED	(1<<1)
-#define DF_ISPROCESSING (1<<2)
 
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
