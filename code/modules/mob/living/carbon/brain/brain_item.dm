@@ -107,7 +107,7 @@
 /obj/item/organ/internal/brain/necrotize(update_sprite = TRUE) //Brain also has special handling for when it necrotizes
 	damage = max_damage
 	status |= ORGAN_DEAD
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	if(dead_icon && !is_robotic())
 		icon_state = dead_icon
 	if(owner && vital)

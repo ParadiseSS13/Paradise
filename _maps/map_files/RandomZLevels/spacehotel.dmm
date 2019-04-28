@@ -4706,14 +4706,14 @@
 	icon_state = "heater";
 	dir = 4
 	},
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission)
 "kV" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "propulsion"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission)
 "kW" = (
 /turf/simulated/shuttle/wall{
@@ -4734,7 +4734,7 @@
 	dir = 4;
 	icon_state = "propulsion"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/space)
 "la" = (
 /obj/structure/chair{

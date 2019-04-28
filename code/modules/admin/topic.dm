@@ -491,8 +491,8 @@
 		if(!M.ckey)	//sanity
 			to_chat(usr, "This mob has no ckey")
 			return
-		if(!job_master)
-			to_chat(usr, "Job Master has not been setup!")
+		if(!SSjobs)
+			to_chat(usr, "SSjobs has not been setup!")
 			return
 
 		var/dat = ""
@@ -512,7 +512,7 @@
 		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(command_positions)]'><a href='?src=[UID()];jobban3=commanddept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Command Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in command_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -533,7 +533,7 @@
 		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(security_positions)]'><a href='?src=[UID()];jobban3=securitydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Security Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in security_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -554,7 +554,7 @@
 		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(engineering_positions)]'><a href='?src=[UID()];jobban3=engineeringdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Engineering Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in engineering_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -575,7 +575,7 @@
 		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(medical_positions)]'><a href='?src=[UID()];jobban3=medicaldept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Medical Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in medical_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -596,7 +596,7 @@
 		jobs += "<tr bgcolor='e79fff'><th colspan='[length(science_positions)]'><a href='?src=[UID()];jobban3=sciencedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Science Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in science_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -617,7 +617,7 @@
 		jobs += "<tr bgcolor='dddddd'><th colspan='[length(support_positions)]'><a href='?src=[UID()];jobban3=supportdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Support Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in support_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -638,7 +638,7 @@
 		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(nonhuman_positions)+1]'><a href='?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in nonhuman_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -707,7 +707,7 @@
 		jobs += "<tr bgcolor='dddddd'><th colspan='[length(whitelisted_positions)]'><a href='?src=[UID()];jobban3=whitelistdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Whitelisted Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in whitelisted_positions)
 			if(!jobPos)	continue
-			var/datum/job/job = job_master.GetJob(jobPos)
+			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
@@ -743,8 +743,8 @@
 
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
-		if(!job_master)
-			to_chat(usr, "Job Master has not been setup!")
+		if(!SSjobs)
+			to_chat(usr, "SSjobs has not been setup!")
 			return
 
 		//get jobs for department if specified, otherwise just returnt he one job in a list.
@@ -753,50 +753,50 @@
 			if("commanddept")
 				for(var/jobPos in command_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("securitydept")
 				for(var/jobPos in security_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("engineeringdept")
 				for(var/jobPos in engineering_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
 				for(var/jobPos in medical_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("sciencedept")
 				for(var/jobPos in science_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("supportdept")
 				for(var/jobPos in support_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("nonhumandept")
 				joblist += "pAI"
 				for(var/jobPos in nonhuman_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("whitelistdept")
 				for(var/jobPos in whitelisted_positions)
 					if(!jobPos)	continue
-					var/datum/job/temp = job_master.GetJob(jobPos)
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			else
@@ -1005,15 +1005,7 @@
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
-				switch(alert(usr,"IP ban?",,"Yes","No","Cancel"))
-					if("Cancel")
-						return
-					if("Yes")
-						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
-					if("No")
-						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0)
+				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
 				to_chat(M, "<span class='warning'>This is a permanent ban.</span>")
 				if(config.banappeals)
@@ -1553,12 +1545,12 @@
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
-		
+
 		if(href_list["is_mhelp"])
 			SSmentor_tickets.takeTicket(index)
 		else //Ahelp
 			SStickets.takeTicket(index)
-	
+
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
@@ -1886,7 +1878,7 @@
 		var/logmsg = null
 		switch(punishment)
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety=1)
+				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
@@ -2943,11 +2935,11 @@
 				usr << browse(dat, "window=lawchanges;size=800x500")
 			if("list_job_debug")
 				var/dat = "<B>Job Debug info.</B><HR>"
-				if(job_master)
-					for(var/line in job_master.job_debug)
+				if(SSjobs)
+					for(var/line in SSjobs.job_debug)
 						dat += "[line]<BR>"
 					dat+= "*******<BR><BR>"
-					for(var/datum/job/job in job_master.occupations)
+					for(var/datum/job/job in SSjobs.occupations)
 						if(!job)	continue
 						dat += "job: [job.title], current_positions: [job.current_positions], total_positions: [job.total_positions] <BR>"
 					usr << browse(dat, "window=jobdebug;size=600x500")
@@ -3037,7 +3029,7 @@
 						M.req_one_access = list(access_brig,access_engine)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
-				var/datum/job/J = job_master.GetJob("Security Officer")
+				var/datum/job/J = SSjobs.GetJob("Security Officer")
 				if(!J) return
 				J.total_positions = -1
 				J.spawn_positions = -1

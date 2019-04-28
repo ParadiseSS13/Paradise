@@ -1,0 +1,6 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Added new Shadowling Ability - Null Charge! This new ability allows Shadowling to completely drain an APC of it's power after a moderate delay. Shadowling must not be interrupted, or the whole process will fail."
+  - imageadd: "Added custom icon for the Null Charge ability"
+  - rscdel: "Shadowling Drain Life ability removed"

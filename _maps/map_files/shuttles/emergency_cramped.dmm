@@ -162,7 +162,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "A" = (
 /turf/simulated/shuttle/wall{
@@ -175,14 +175,14 @@
 	tag = "icon-burst_l";
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "C" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion_r";
 	icon_state = "propulsion_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "D" = (
 /turf/simulated/shuttle/wall{

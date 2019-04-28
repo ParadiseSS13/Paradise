@@ -368,7 +368,7 @@
 				name = "Definitely Not [real_name]"
 				desc = "That's Definitely Not [real_name]"
 				valid = 1
-			
+
 			if(/obj/item/clothing/head/beret/centcom/officer, /obj/item/clothing/head/beret/centcom/officer/navy)
 				name = "Blueshield [real_name]"
 				desc = "Will stand by you until the bitter end."
@@ -407,7 +407,7 @@
 	playsound(src, yelp_sound, 75, 1)
 	..()
 
-/mob/living/simple_animal/pet/corgi/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/pet/corgi/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -421,9 +421,9 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
-	
+
 	switch(act)
 		if("bark")
 			message = "<B>[src]</B> [pick(src.speak_emote)]!"

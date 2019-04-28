@@ -1,8 +1,9 @@
-var/datum/controller/vote/vote = new()
+SUBSYSTEM_DEF(vote)
+	name = "Vote"
+	wait = 10
+	flags = SS_KEEP_TIMING|SS_NO_INIT
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
-var/global/list/round_voters = list() //Keeps track of the individuals voting for a given round, for use in forcedrafting.
-
-/datum/controller/vote
 	var/initiator = null
 	var/started_time = null
 	var/time_remaining = 0
@@ -12,23 +13,10 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	var/list/voted = list()
 	var/list/voting = list()
 	var/list/current_votes = list()
+	var/list/round_voters = list()
 	var/auto_muted = 0
 
-/datum/controller/vote/New()
-	if(vote != src)
-		if(istype(vote))
-			qdel(vote)
-		vote = src
-	spawn(0)
-		while(!QDELETED(src))
-			try
-				while(!QDELETED(src))
-					sleep(10)
-					process()
-			catch(var/exception/e)
-				log_runtime(e, src, "Caught in vote controller")
-
-/datum/controller/vote/proc/process()
+/datum/controller/subsystem/vote/fire()
 	if(mode)
 		// No more change mode votes after the game has started.
 		if(mode == "gamemode" && ticker.current_state >= GAME_STATE_SETTING_UP)
@@ -51,10 +39,10 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 				update_panel(C)
 				CHECK_TICK
 
-/datum/controller/vote/proc/autotransfer()
+/datum/controller/subsystem/vote/proc/autotransfer()
 	initiate_vote("crew_transfer","the server")
 
-/datum/controller/vote/proc/reset()
+/datum/controller/subsystem/vote/proc/reset()
 	initiator = null
 	time_remaining = 0
 	mode = null
@@ -72,7 +60,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		message_admins("OOC has been toggled on automatically.")
 
 
-/datum/controller/vote/proc/get_result()
+/datum/controller/subsystem/vote/proc/get_result()
 	var/greatest_votes = 0
 	var/total_votes = 0
 	var/list/sorted_choices = list()
@@ -132,7 +120,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 				. += option
 	return .
 
-/datum/controller/vote/proc/announce_result()
+/datum/controller/subsystem/vote/proc/announce_result()
 	var/list/winners = get_result()
 	var/text
 	if(winners.len > 0)
@@ -167,7 +155,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	to_chat(world, "<font color='purple'>[text]</font>")
 	return .
 
-/datum/controller/vote/proc/result()
+/datum/controller/subsystem/vote/proc/result()
 	. = announce_result()
 	var/restart = 0
 	if(.)
@@ -195,7 +183,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 
 	return .
 
-/datum/controller/vote/proc/submit_vote(var/ckey, var/vote)
+/datum/controller/subsystem/vote/proc/submit_vote(var/ckey, var/vote)
 	if(mode)
 		if(config.vote_no_dead && usr.stat == DEAD && !usr.client.holder)
 			return 0
@@ -208,7 +196,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			return vote
 	return 0
 
-/datum/controller/vote/proc/initiate_vote(var/vote_type, var/initiator_key)
+/datum/controller/subsystem/vote/proc/initiate_vote(var/vote_type, var/initiator_key)
 	if(!mode)
 		if(started_time != null && !check_rights(R_ADMIN))
 			var/next_allowed_time = (started_time + config.vote_delay)
@@ -291,7 +279,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		return 1
 	return 0
 
-/datum/controller/vote/proc/browse_to(var/client/C)
+/datum/controller/subsystem/vote/proc/browse_to(var/client/C)
 	if(!C)
 		return
 	var/admin = check_rights(R_ADMIN, 0, user = C.mob)
@@ -341,10 +329,10 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	popup.set_content(dat)
 	popup.open()
 
-/datum/controller/vote/proc/update_panel(var/client/C)
+/datum/controller/subsystem/vote/proc/update_panel(var/client/C)
 	C << output(url_encode(vote_html(C)), "vote.browser:update_vote_div")
 
-/datum/controller/vote/proc/vote_html(var/client/C)
+/datum/controller/subsystem/vote/proc/vote_html(var/client/C)
 	. = ""
 	if(question)
 		. += "<h2>Vote: '[question]'</h2>"
@@ -363,7 +351,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	. += "</ul>"
 
 
-/datum/controller/vote/Topic(href,href_list[],hsrc)
+/datum/controller/subsystem/vote/Topic(href,href_list[],hsrc)
 	if(!usr || !usr.client)
 		return	//not necessary but meh...just in-case somebody does something stupid
 	var/admin = check_rights(R_ADMIN,0)
@@ -409,5 +397,5 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	set category = "OOC"
 	set name = "Vote"
 
-	if(vote)
-		vote.browse_to(client)
+	if(SSvote)
+		SSvote.browse_to(client)

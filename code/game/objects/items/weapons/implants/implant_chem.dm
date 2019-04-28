@@ -33,8 +33,8 @@
 
 
 
-/obj/item/implant/chem/trigger(emote, mob/source)
-	if(emote == "deathgasp")
+/obj/item/implant/chem/trigger(emote, mob/source, force)
+	if(force && emote == "deathgasp")
 		activate(reagents.total_volume)
 
 /obj/item/implant/chem/activate(cause)

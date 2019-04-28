@@ -59,9 +59,9 @@ var/global/list/default_medbay_channels = list(
 
 
 /obj/item/radio/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
 
 /obj/item/radio/New()
@@ -73,10 +73,10 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/radio/Destroy()
 	QDEL_NULL(wires)
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 		for(var/ch_name in channels)
-			radio_controller.remove_object(src, radiochannels[ch_name])
+			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 	radio_connection = null
 	GLOB.global_radios -= src
 	follow_target = null
@@ -90,7 +90,7 @@ var/global/list/default_medbay_channels = list(
 	set_frequency(frequency)
 
 	for(var/ch_name in channels)
-		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
+		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
@@ -147,7 +147,7 @@ var/global/list/default_medbay_channels = list(
 		var/chan_stat = channels[ch_name]
 		var/listening = !!(chan_stat & FREQ_LISTENING) != 0
 
-		dat.Add(list(list("chan" = ch_name, "display_name" = ch_name, "secure_channel" = 1, "sec_channel_listen" = !listening, "chan_span" = frequency_span_class(radiochannels[ch_name]))))
+		dat.Add(list(list("chan" = ch_name, "display_name" = ch_name, "secure_channel" = 1, "sec_channel_listen" = !listening, "chan_span" = SSradio.frequency_span_class(SSradio.radiochannels[ch_name]))))
 
 	return dat
 
@@ -155,7 +155,7 @@ var/global/list/default_medbay_channels = list(
 	var/dat[0]
 	for(var/internal_chan in internal_channels)
 		if(has_channel_access(user, internal_chan))
-			dat.Add(list(list("chan" = internal_chan, "display_name" = get_frequency_name(text2num(internal_chan)), "chan_span" = frequency_span_class(text2num(internal_chan)))))
+			dat.Add(list(list("chan" = internal_chan, "display_name" = get_frequency_name(text2num(internal_chan)), "chan_span" = SSradio.frequency_span_class(text2num(internal_chan)))))
 
 	return dat
 
@@ -555,7 +555,7 @@ var/global/list/default_medbay_channels = list(
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
 			return -1
-	if(freq in ANTAG_FREQS)
+	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
 	if(!freq) //recieved on main frequency
@@ -699,7 +699,7 @@ var/global/list/default_medbay_channels = list(
 
 
 			for(var/ch_name in channels)
-				radio_controller.remove_object(src, radiochannels[ch_name])
+				SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
 
 
@@ -752,13 +752,13 @@ var/global/list/default_medbay_channels = list(
 
 
 	for(var/ch_name in channels)
-		if(!radio_controller)
-			sleep(30) // Waiting for the radio_controller to be created.
-		if(!radio_controller)
+		if(!SSradio)
+			sleep(30) // Waiting for SSradio to be created.
+		if(!SSradio)
 			name = "broken radio"
 			return
 
-		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
+		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
 	return
 
@@ -829,14 +829,14 @@ var/global/list/default_medbay_channels = list(
 	return data
 
 /obj/item/radio/proc/config(op)
-	if(radio_controller)
+	if(SSradio)
 		for(var/ch_name in channels)
-			radio_controller.remove_object(src, radiochannels[ch_name])
+			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 	secure_radio_connections = new
 	channels = op
-	if(radio_controller)
+	if(SSradio)
 		for(var/ch_name in op)
-			secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
+			secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 	return
 
 /obj/item/radio/off

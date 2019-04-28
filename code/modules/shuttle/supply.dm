@@ -739,7 +739,7 @@
 	return 1
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 

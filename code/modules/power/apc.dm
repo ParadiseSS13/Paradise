@@ -49,6 +49,7 @@
 	anchored = 1
 	use_power = NO_POWER_USE
 	req_access = list(access_engine_equip)
+	siemens_strength = 1
 	var/spooky=0
 	var/area/area
 	var/areastring = null
@@ -535,7 +536,7 @@
 			if(C.amount >= 10 && !terminal && opened && has_electronics != 2)
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
-				if(prob(50) && electrocute_mob(usr, N, N))
+				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
 					do_sparks(5, 1, src)
 					return
 				C.use(10)
@@ -1172,14 +1173,14 @@
 				environ = autoset(environ, 1)
 				autoflag = 3
 				if(report_power_alarm)
-					power_alarm.clearAlarm(loc, src)
+					SSalarms.power_alarm.clearAlarm(loc, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				if(report_power_alarm)
-					power_alarm.triggerAlarm(loc, src)
+					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
 			if((autoflag > 1 && longtermpower < 0) || (autoflag > 1 && longtermpower >= 0))
@@ -1187,7 +1188,7 @@
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
 				if(report_power_alarm)
-					power_alarm.triggerAlarm(loc, src)
+					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
 			if(autoflag != 0)
@@ -1195,7 +1196,7 @@
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
 				if(report_power_alarm)
-					power_alarm.triggerAlarm(loc, src)
+					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 0
 
 		// now trickle-charge the cell
@@ -1237,13 +1238,13 @@
 			if(prob(5))
 				var/list/shock_mobs = list()
 				for(var/C in view(get_turf(src), 5)) //We only want to shock a single random mob in range, not every one.
-					if(iscarbon(C))
-						shock_mobs +=C
+					if(isliving(C))
+						shock_mobs += C
 				if(shock_mobs.len)
-					var/mob/living/carbon/S = pick(shock_mobs)
-					S.electrocute_act(rand(5,25), "electrical arc")
-					playsound(get_turf(S), 'sound/effects/eleczap.ogg', 75, 1)
-					Beam(S,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
+					var/mob/living/L = pick(shock_mobs)
+					L.electrocute_act(rand(5, 25), "electrical arc")
+					playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, 1)
+					Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
 	else // no cell, switch everything off
 
@@ -1253,7 +1254,7 @@
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
 		if(report_power_alarm)
-			power_alarm.triggerAlarm(loc, src)
+			SSalarms.power_alarm.triggerAlarm(loc, src)
 		autoflag = 0
 
 	// update icon & area power if anything changed
@@ -1351,6 +1352,11 @@
 				if(prob(chance))
 					L.broken(0, 1)
 					stoplag()
+
+/obj/machinery/power/apc/proc/null_charge()
+	for(var/obj/machinery/light/L in area)
+		L.broken(0, 1)
+		stoplag()
 
 /obj/machinery/power/apc/proc/setsubsystem(val)
 	if(cell && cell.charge > 0)

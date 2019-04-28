@@ -4,7 +4,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/medical/M)
@@ -13,19 +13,19 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach(obj/mecha/M)
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/medical/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/process()
 	if(!chassis)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return 1
 
 /obj/item/mecha_parts/mecha_equipment/medical/detach()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper
@@ -66,7 +66,7 @@
 			return
 		target.forceMove(src)
 		patient = target
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 		update_equip_info()
 		occupant_message("<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged.</span>")
 		chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
@@ -90,7 +90,7 @@
 	patient.forceMove(get_turf(src))
 	occupant_message("[patient] ejected. Life support functions disabled.")
 	log_message("[patient] ejected. Life support functions disabled.")
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	patient = null
 	update_equip_info()
 
@@ -98,7 +98,7 @@
 	if(patient)
 		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
 		return
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_equip_info()
@@ -221,7 +221,7 @@
 		set_ready_state(1)
 		log_message("Deactivated.")
 		occupant_message("[src] deactivated - no power.")
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return
 	var/mob/living/carbon/M = patient
 	if(!M)
@@ -263,11 +263,11 @@
 	processed_reagents = new
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/critfail()
@@ -374,7 +374,7 @@
 				m++
 		if(processed_reagents.len)
 			message += " added to production"
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 			occupant_message(message)
 			occupant_message("Reagent processing started.")
 			log_message("Reagent processing started.")
@@ -513,7 +513,7 @@
 	if(!processed_reagents.len || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
 		occupant_message("<span class=\"alert\">Reagent processing stopped.</a>")
 		log_message("Reagent processing stopped.")
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return
 	var/amount = synth_speed / processed_reagents.len
 	for(var/reagent in processed_reagents)

@@ -88,7 +88,7 @@
 
 ///process()
 ///Called by the gameticker
-/datum/game_mode/proc/process()
+/datum/game_mode/process()
 	return 0
 
 //Called by the gameticker
@@ -246,7 +246,7 @@
 
 	// If we don't have enough antags, draft people who voted for the round.
 	if(candidates.len < recommended_enemies)
-		for(var/key in round_voters)
+		for(var/key in SSvote.round_voters)
 			for(var/mob/new_player/player in players)
 				if(player.ckey == key)
 					player_draft_log += "[player.key] voted for this round, so we are drafting them."
@@ -357,7 +357,7 @@ proc/display_roundstart_logout_report()
 			if(L.stat)
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
-					job_master.FreeRole(L.job)
+					SSjobs.FreeRole(L.job)
 					message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
 				if(L.stat == UNCONSCIOUS)
@@ -383,7 +383,7 @@ proc/display_roundstart_logout_report()
 						continue //Lolwhat
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
-						job_master.FreeRole(L.job)
+						SSjobs.FreeRole(L.job)
 						message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
 

@@ -38,10 +38,10 @@
 	for(var/R in reagent_ids)
 		add_reagent(R)
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/borghypo/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg

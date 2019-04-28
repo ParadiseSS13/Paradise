@@ -46,11 +46,11 @@
 /area/ruin/powered)
 "j" = (
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "k" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "l" = (
 /turf/simulated/shuttle/wall{
@@ -75,7 +75,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "p" = (
 /turf/simulated/shuttle/wall{
@@ -124,7 +124,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_r"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 
 (1,1,1) = {"

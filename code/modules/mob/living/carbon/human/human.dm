@@ -551,13 +551,8 @@
 
 	dna.species.update_sight(src)
 
-//Removed the horrible safety parameter. It was only being used by ninja code anyways.
-//Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0)
-	if(status_flags & GODMODE)	//godmode
-		return 0
-	if(NO_SHOCK in mutations) //shockproof
-		return 0
+//Added a safety check in case you want to shock a human mob directly through electrocute_act.
+/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	if(tesla_shock)
 		var/total_coeff = 1
 		if(gloves)
@@ -575,20 +570,18 @@
 			siemens_coeff = 0
 	else if(!safety)
 		var/gloves_siemens_coeff = 1
-		var/species_siemens_coeff = 1
 		if(gloves)
 			var/obj/item/clothing/gloves/G = gloves
 			gloves_siemens_coeff = G.siemens_coefficient
-		if(dna.species)
-			species_siemens_coeff = dna.species.siemens_coeff
-		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
-	if(undergoing_cardiac_arrest())
+		siemens_coeff = gloves_siemens_coeff
+	if(undergoing_cardiac_arrest() && !illusion)
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
 			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
-	. = ..()
 
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
+	. = ..(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))

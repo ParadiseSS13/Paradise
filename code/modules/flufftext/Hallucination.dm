@@ -138,7 +138,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	if(target.client)
 		target.client.images |= flood_images
 	next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/fake_flood/process()
 	if(next_expand <= world.time)
@@ -162,7 +162,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		target.client.images |= flood_images
 
 /obj/effect/hallucination/fake_flood/Destroy()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	flood_turfs.Cut()
 	if(target.client)
 		target.client.images.Remove(flood_images)
@@ -738,7 +738,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 		for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 			humans += H
 		person = pick(humans)
-		target.hear_radio(message_to_multilingual(pick(radio_messages), pick(person.languages)), speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+		target.hear_radio(message_to_multilingual(pick(radio_messages), pick(person.languages)), speaker = person, part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message

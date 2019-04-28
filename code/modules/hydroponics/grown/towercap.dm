@@ -151,7 +151,7 @@
 		burning = 1
 		set_light(6, l_color = "#ED9200")
 		Burn()
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 /obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -186,7 +186,7 @@
 		icon_state = "bonfire"
 		burning = 0
 		set_light(0)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/structure/bonfire/buckle_mob(mob/living/M, force = 0)
 	if(..())

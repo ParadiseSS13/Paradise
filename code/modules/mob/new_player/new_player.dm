@@ -256,7 +256,7 @@
 		new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
-	var/datum/job/job = job_master.GetJob(rank)
+	var/datum/job/job = SSjobs.GetJob(rank)
 	if(!job)	return 0
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
@@ -269,9 +269,9 @@
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0
-			var/datum/job/officer = job_master.GetJob("Security Officer")
-			var/datum/job/warden = job_master.GetJob("Warden")
-			var/datum/job/hos = job_master.GetJob("Head of Security")
+			var/datum/job/officer = SSjobs.GetJob("Security Officer")
+			var/datum/job/warden = SSjobs.GetJob("Warden")
+			var/datum/job/hos = SSjobs.GetJob("Head of Security")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (config.assistantratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
@@ -280,21 +280,21 @@
 	return 1
 
 /mob/new_player/proc/IsAdminJob(rank)
-	var/datum/job/job = job_master.GetJob(rank)
+	var/datum/job/job = SSjobs.GetJob(rank)
 	if(job.admin_only)
 		return 1
 	else
 		return 0
 
 /mob/new_player/proc/IsERTSpawnJob(rank)
-	var/datum/job/job = job_master.GetJob(rank)
+	var/datum/job/job = SSjobs.GetJob(rank)
 	if(job.spawn_ert)
 		return 1
 	else
 		return 0
 
 /mob/new_player/proc/IsSyndicateCommand(rank)
-	var/datum/job/job = job_master.GetJob(rank)
+	var/datum/job/job = SSjobs.GetJob(rank)
 	if(job.syndicate_command)
 		return 1
 	else
@@ -312,15 +312,15 @@
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))
 		return 0
-	var/datum/job/thisjob = job_master.GetJob(rank)
+	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
 		return 0
 
-	job_master.AssignRole(src, rank, 1)
+	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-	character = job_master.AssignRank(character, rank, 1)					//equips the human
+	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
@@ -367,7 +367,7 @@
 		character.buckled.forceMove(character.loc)
 		character.buckled.dir = character.dir
 
-	character = job_master.EquipRank(character, rank, 1)					//equips the human
+	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
 
 	ticker.mode.latespawn(character)
@@ -384,8 +384,8 @@
 		callHook("latespawn", list(character))
 		AddEmploymentContract(character)
 
-	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
-		job_master.prioritized_jobs -= thisjob
+	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
+		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
 
 
@@ -452,11 +452,11 @@
 	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
-	if(length(job_master.prioritized_jobs))
+	if(length(SSjobs.prioritized_jobs))
 		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
-		var/amt = length(job_master.prioritized_jobs)
+		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
-		for(var/datum/job/a in job_master.prioritized_jobs)
+		for(var/datum/job/a in SSjobs.prioritized_jobs)
 			amt_count++
 			if(amt_count != amt)
 				dat += " [a.title], "
@@ -478,7 +478,7 @@
 		"Science" = list(jobs = list(), titles = science_positions, color = "#e6b3e6"),
 		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
 		)
-	for(var/datum/job/job in job_master.occupations)
+	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			activePlayers[job] = 0
 			var/categorized = 0
@@ -512,7 +512,7 @@
 		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			if(job in job_master.prioritized_jobs)
+			if(job in SSjobs.prioritized_jobs)
 				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
 			else
 				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"

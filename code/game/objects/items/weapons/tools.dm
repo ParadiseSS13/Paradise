@@ -377,7 +377,7 @@
 			damtype = "brute"
 			update_icon()
 			if(!can_off_process)
-				processing_objects.Remove(src)
+				STOP_PROCESSING(SSobj, src)
 			return
 	//Welders left on now use up fuel, but lets not have them run out quite that fast
 		if(1)
@@ -539,7 +539,7 @@
 			damtype = "fire"
 			hitsound = 'sound/items/welder.ogg'
 			update_icon()
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 		else
 			to_chat(user, "<span class='warning'>You need more fuel!</span>")
 			switched_off(user)
