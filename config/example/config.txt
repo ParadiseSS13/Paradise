@@ -412,3 +412,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Webhook where admin data should be sent (Watchlist, ahelps, cid randomizer, etc)
 #ADMIN_DISCORD_WEBHOOK https://example.com
+
+## Webhook where mentor data should be sent (Mhelps)
+#MENTOR_DISCORD_WEBHOOK https://example.com
