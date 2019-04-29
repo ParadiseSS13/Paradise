@@ -324,7 +324,7 @@
 		if(7 to 9)
 			dance5(M)
 
-/obj/machinery/jukebox/disco/proc/dance2(var/mob/living/M)
+/obj/machinery/jukebox/disco/proc/dance2(mob/living/M)
 	for(var/i = 1, i < 10, i++)
 		for(var/d in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 			M.setDir(d)
@@ -333,7 +333,7 @@
 			sleep(1)
 		sleep(20)
 
-/obj/machinery/jukebox/disco/proc/dance3(var/mob/living/M)
+/obj/machinery/jukebox/disco/proc/dance3(mob/living/M)
 	var/matrix/initial_matrix = matrix(M.transform)
 	for(var/i in 1 to 75)
 		if(!M)
