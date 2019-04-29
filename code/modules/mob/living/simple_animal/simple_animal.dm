@@ -81,7 +81,7 @@
 	var/death_sound = null //The sound played on death
 
 	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-
+	var/can_have_ai = TRUE //once we have become sentient, we can never go back
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
 	
@@ -101,7 +101,17 @@
 		collar.forceMove(loc)
 		collar = null
 	master_commander = null
-	GLOB.simple_animals[AIStatus] -= src
+	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
+		SSnpcpool.currentrun -= src
+
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+
+	var/turf/T = get_turf(src)
+	if (T && AIStatus == AI_Z_OFF)
+		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+
 	return ..()
 
 /mob/living/simple_animal/Login()
@@ -561,6 +571,7 @@
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)
+	can_have_ai = FALSE
 
 /mob/living/simple_animal/update_sight()
 	if(!client)
@@ -590,3 +601,20 @@
 	if(!ckey && !stat)//Not unconscious
 		if(AIStatus == AI_IDLE)
 			toggle_ai(AI_ON) 
+
+/mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(!can_have_ai && (togglestatus != AI_OFF))
+		return
+	if(AIStatus != togglestatus)
+		if(togglestatus > 0 && togglestatus < 5)
+			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
+				var/turf/T = get_turf(src)
+				if(AIStatus == AI_Z_OFF)
+					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+				else
+					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
+			GLOB.simple_animals[AIStatus] -= src
+			GLOB.simple_animals[togglestatus] += src
+			AIStatus = togglestatus
+		else
+			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")

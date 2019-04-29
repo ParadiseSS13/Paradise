@@ -65,9 +65,10 @@
 		return 0
 
 /mob/living/simple_animal/hostile/handle_automated_action()
-	if(AIStatus != AI_ON && AIStatus != AI_OFF)
+	if(AIStatus == AI_OFF)
 		return 0
 	var/list/possible_targets = ListTargets() //we look around for potential targets and make it a list for later use.
+
 	if(environment_smash)
 		EscapeConfinement()
 
@@ -256,7 +257,7 @@
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			search_objects = 0
 			target = null
-		if(AIStatus == AI_IDLE)
+		if(AIStatus != AI_ON && AIStatus != AI_OFF)
 			toggle_ai(AI_ON)
 			FindTarget()
 		else if(target != null && prob(40))//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
@@ -400,21 +401,6 @@
 /mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
 	return !FindTarget(possible_targets, 1)
 
-/mob/living/simple_animal/proc/toggle_ai(togglestatus)
-	if(AIStatus != togglestatus)
-		if(togglestatus >= AI_ON && togglestatus <= AI_Z_OFF)
-			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
-				var/turf/T = get_turf(src)
-				if(AIStatus == AI_Z_OFF)
-					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
-				else
-					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
-			GLOB.simple_animals[AIStatus] -= src
-			GLOB.simple_animals[togglestatus] += src
-			AIStatus = togglestatus
-		else
-			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
-
 /mob/living/simple_animal/hostile/consider_wakeup()
 	..()
 	var/list/tlist
@@ -427,7 +413,7 @@
 		toggle_ai(AI_Z_OFF)
 		return
 
-	var/cheap_search = isturf(T) && !(T.z == 1) // The original check for SSmapping's station z level trait, unfortunately it isn't here.
+	var/cheap_search = isturf(T)
 	if(cheap_search)
 		tlist = ListTargetsLazy(T.z)
 	else
@@ -439,7 +425,7 @@
 		toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
-	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
+	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod))
 	. = list()
 	for(var/I in SSmobs.clients_by_zlevel[_Z])
 		var/mob/M = I

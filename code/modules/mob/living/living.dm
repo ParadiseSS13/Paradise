@@ -973,6 +973,7 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z) 
+
 /mob/living/proc/owns_soul()
 	if(mind)
 		return mind.soulOwner == mind
