@@ -117,12 +117,14 @@ var/time_last_changed_position = 0
 		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(scan)
 		scan = null
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else if(modify)
 		to_chat(usr, "You remove \the [modify] from \the [src].")
 		modify.forceMove(get_turf(src))
 		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(modify)
 		modify = null
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
 
@@ -134,10 +136,12 @@ var/time_last_changed_position = 0
 		user.drop_item()
 		id_card.loc = src
 		scan = id_card
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else if(!modify)
 		user.drop_item()
 		id_card.loc = src
 		modify = id_card
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
 	SSnanoui.update_uis(src)
 	attack_hand(user)
@@ -315,15 +319,18 @@ var/time_last_changed_position = 0
 					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(modify)
 					modify = null
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 				else
 					modify.forceMove(get_turf(src))
 					modify = null
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					usr.drop_item()
 					I.forceMove(src)
 					modify = I
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
 		if("scan")
 			if(scan)
@@ -332,15 +339,18 @@ var/time_last_changed_position = 0
 					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(scan)
 					scan = null
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 				else
 					scan.forceMove(get_turf(src))
 					scan = null
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					usr.drop_item()
 					I.forceMove(src)
 					scan = I
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
 		if("access")
 			if(href_list["allowed"] && !target_dept)
