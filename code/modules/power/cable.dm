@@ -224,18 +224,14 @@ By design, d1 is the smallest direction and d2 is the highest
 //explosion handling
 /obj/structure/cable/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src) // qdel
-		if(2.0)
+		if(2)
 			if(prob(50))
-				new/obj/item/stack/cable_coil(get_turf(src), src.d1 ? 2 : 1, paramcolor = color)
-				qdel(src) // qdel
-
-		if(3.0)
+				deconstruct()
+		if(3)
 			if(prob(25))
-				new/obj/item/stack/cable_coil(get_turf(src), src.d1 ? 2 : 1, paramcolor = color)
-				qdel(src) // qdel
-	return
+				deconstruct()
 
 obj/structure/cable/proc/cable_color(var/colorC)
 	if(colorC)
@@ -459,7 +455,9 @@ obj/structure/cable/proc/cable_color(var/colorC)
 		loc = null
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
+	// queue it to rebuild
+	SSmachines.deferred_powernet_rebuilds += O
+//	addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable

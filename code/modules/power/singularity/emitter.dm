@@ -38,6 +38,7 @@
 	if(state == 2 && anchored)
 		connect_to_network()
 	sparks = new
+	sparks.attach(src)
 	sparks.set_up(5, 1, src)
 	if(frequency)
 		set_frequency(frequency)
