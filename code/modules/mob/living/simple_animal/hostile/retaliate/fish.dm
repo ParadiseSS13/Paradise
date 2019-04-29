@@ -28,7 +28,7 @@
 	var/carp_color = "carp" //holder for icon set
 	var/list/icon_sets = list("carp", "blue", "yellow", "grape", "rust", "teal", "purple")
 
-/mob/living/simple_animal/hostile/retaliate/carp/Initialize()
+/mob/living/simple_animal/hostile/retaliate/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify()
 	update_icons()
@@ -62,7 +62,7 @@
 
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
-/mob/living/simple_animal/hostile/retaliate/carp/koi/Initialize()
+/mob/living/simple_animal/hostile/retaliate/carp/koi/Initialize(mapload)
 	. = ..()
 	var/koinum = rand(1, 4)
 	icon_state = "koi[koinum]"

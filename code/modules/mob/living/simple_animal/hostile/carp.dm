@@ -33,7 +33,7 @@
 	var/carp_color = "carp" //holder for icon set
 	var/list/icon_sets = list("carp", "blue", "yellow", "grape", "rust", "teal", "purple")
 
-/mob/living/simple_animal/hostile/carp/Initialize()
+/mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify()
 	update_icons()
@@ -68,7 +68,7 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/carp/holocarp/Initialize()
+/mob/living/simple_animal/hostile/carp/holocarp/carp_randomify()
 	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
@@ -87,5 +87,5 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 
-/mob/living/simple_animal/hostile/carp/megacarp/Initialize()
+/mob/living/simple_animal/hostile/carp/megacarp/carp_randomify()
 	return
