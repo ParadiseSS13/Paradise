@@ -231,7 +231,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		return
 	if(!is_type_in_list(src, allowed_toolbox))
 		return
-	if(src.type == /obj/item/storage/toolbox/green/memetic)
+	if(type == /obj/item/storage/toolbox/green/memetic)
 		return
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
