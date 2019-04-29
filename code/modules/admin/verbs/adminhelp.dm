@@ -108,13 +108,17 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/datum/ticket/T
 	var/isMhelp = selected_type == "Mentorhelp"
 	var/span
-	if(isMhelp)
+	if(isMhelp) // Mhelp
 		span = "<span class='mentorhelp'>"
+		// Send it off
+		send2discord("mentor", "(MENTOR-PM) [key_name(src)]: [original_msg]")
 		if(SSmentor_tickets.checkForOpenTicket(src)) // If user already has an open ticket
 			T = SSmentor_tickets.checkForOpenTicket(src)
 		else
 			ticketNum = SSmentor_tickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
 	else //Ahelp
+		// Send it off
+		send2discord("admin", "(ADMIN-PM) [key_name(src)]: [original_msg]")
 		span = "<span class='adminhelp'>"
 		if(SStickets.checkForOpenTicket(src)) // If user already has an open ticket
 			T = SStickets.checkForOpenTicket(src) // Make T equal to the ticket they have open
@@ -156,8 +160,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		else
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 			send2discord("admin", "(ADMIN-PM) [selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
-	else
-		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 

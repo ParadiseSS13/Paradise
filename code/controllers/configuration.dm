@@ -150,6 +150,7 @@
 	var/use_webhooks = 0
 	var/main_webhook = ""
 	var/admin_webhook = ""
+	var/mentor_webhook = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -674,6 +675,8 @@
 					config.main_webhook = value
 				if("admin_discord_webhook")
 					config.admin_webhook = value
+				if("mentor_discord_webhook")
+					config.mentor_webhook = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

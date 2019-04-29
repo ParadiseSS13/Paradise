@@ -13,16 +13,19 @@
 					ext_python("discord_webhook.py", "[config.main_webhook] [msg]")
 				else
 					message_admins("An attempt was made to send a message to the main discord webhook, but it has not been configured")
-					log_world("fuck 1")
 			// Admin
 			if("admin")
 				if(config.admin_webhook)
 					ext_python("discord_webhook.py", "[config.admin_webhook] [msg]")
 				else
 					message_admins("An attempt was made to send a message to the main discord webhook, but it has not been configured")
-					log_world("fuck 2")
+			// Mentor
+			if("mentor")
+				if(config.mentor_webhook)
+					ext_python("discord_webhook.py", "[config.mentor_webhook] [msg]")
+				else
+					message_admins("An attempt was made to send a message to the mentor discord webhook, but it has not been configured")
             // None, so someone fucked up, most probably me
 			else
 				message_admins("An attempt was made to send a message a message to an undefined discord webhook. Please report this issue and or yell at affected")
-				log_world("fuck 3")
 	return
