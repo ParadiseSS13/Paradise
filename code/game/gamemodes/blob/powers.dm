@@ -475,26 +475,4 @@
 	to_chat(src, "<i>Node Blobs</i> are blobs which grow, like the core. Like the core it can activate resource and factory blobs.")
 	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
 	to_chat(src, "<b>Shortcuts:</b> Click = Expand Blob <b>|</b> CTRL Click = Create Shield Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Alt Click = Remove Blob")
-	to_chat(src, "Attempting to talk will send a message to all other blobs, allowing you to coordinate with them.")
-
-/datum/action/innate/blob/earlycomm
-	name = "Blob Telepathy"
-	desc = "Used to communicate with other Blobs."
-	button_icon_state = "blob_comm"
-
-/datum/action/innate/blob/earlycomm/Activate()
-	var/msg = stripped_input(owner, "What do you wish to tell your fellow Blobs", "Blob Telepathy", "")
-	if(!msg)
-		return
-	log_say("(BLOB) [msg]", src)
-
-	var/message = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
-	var/verb = "states,"
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[O.real_name]</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
-
-	var/datum/game_mode/blob/B = ticker.mode
-	B.show_message("[rendered]")
-
-	for(var/mob/M in GLOB.player_list)
-		if(M in GLOB.dead_mob_list)
-			M.show_message("<a href='?src=\ref[M];follow=\ref[O]'>(F)</a> [rendered]")
+	to_chat(src, "Attempting to talk will send a message to all other <b>overminds</>, allowing you to coordinate with them.")
