@@ -147,6 +147,8 @@ var/list/blob_nodes = list()
 
 	for(var/datum/mind/blob in infected_crew)
 		greet_blob(blob)
+		var/datum/action/innate/blob/earlycomm/C = new
+		C.Grant(blob.current)
 
 	if(SSshuttle)
 		SSshuttle.emergencyNoEscape = 1

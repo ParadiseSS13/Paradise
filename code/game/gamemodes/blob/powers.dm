@@ -331,17 +331,13 @@
 
 /mob/camera/blob/verb/rally_spores_power()
 	set category = "Blob"
-	set name = "Rally Spores (5)"
+	set name = "Rally Spores"
 	set desc = "Rally the spores to move to your location."
 
 	var/turf/T = get_turf(src)
 	rally_spores(T)
 
 /mob/camera/blob/proc/rally_spores(var/turf/T)
-
-	if(!can_buy(5))
-		return
-
 	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
@@ -373,12 +369,12 @@
 	if(!N)
 		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
 		return
-	
+
 	if(!can_buy(100))
 		return
 
 	split_used = TRUE
-	
+
 	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
 	qdel(N)
 
@@ -399,7 +395,8 @@
 	else
 		to_chat(usr, "You broadcast with your minions, <B>[speak_text]</B>")
 	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
-		blob_minion.say(speak_text)
+		if(blob_minion.stat == CONSCIOUS)
+			blob_minion.say(speak_text)
 	return
 
 /mob/camera/blob/verb/create_storage()
@@ -478,4 +475,26 @@
 	to_chat(src, "<i>Node Blobs</i> are blobs which grow, like the core. Like the core it can activate resource and factory blobs.")
 	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
 	to_chat(src, "<b>Shortcuts:</b> Click = Expand Blob <b>|</b> CTRL Click = Create Shield Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Alt Click = Remove Blob")
-	to_chat(src, "Attempting to talk will send a message to all other <b>overminds</b>, allowing you to coordinate with them.")
+	to_chat(src, "Attempting to talk will send a message to all other blobs, allowing you to coordinate with them.")
+
+/datum/action/innate/blob/earlycomm
+	name = "Blob Telepathy"
+	desc = "Used to communicate with other Blobs."
+	button_icon_state = "blob_comm"
+
+/datum/action/innate/blob/earlycomm/Activate()
+	var/msg = stripped_input(owner, "What do you wish to tell your fellow Blobs", "Blob Telepathy", "")
+	if(!msg)
+		return
+	log_say("(BLOB) [msg]", src)
+
+	var/message = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	var/verb = "states,"
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[O.real_name]</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
+
+	var/datum/game_mode/blob/B = ticker.mode
+	B.show_message("[rendered]")
+
+	for(var/mob/M in GLOB.player_list)
+		if(M in GLOB.dead_mob_list)
+			M.show_message("<a href='?src=\ref[M];follow=\ref[O]'>(F)</a> [rendered]")
