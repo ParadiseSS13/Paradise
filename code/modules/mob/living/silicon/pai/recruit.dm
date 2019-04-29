@@ -28,7 +28,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 	if(candidate)
 		if(!istype(candidate))
-			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate is not a pAI)")
+			message_admins("Warning: possible href exploit by [key_name_admin(usr)] (paiController/Topic, candidate is not a pAI)")
 			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate is not a pAI)")
 			return
 
@@ -70,9 +70,9 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		return
 
 	if(candidate)
-		if(candidate.key && usr.key && candidate.key != usr.key)
-			message_admins("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
-			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr are different mobs)")
+		if(candidate.key && usr.key && lowertext(candidate.key) != lowertext(usr.key))
+			message_admins("Warning: possible href exploit by [key_name_admin(usr)] (paiController/Topic, candidate and usr have different keys)")
+			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr have different keys)")
 			return
 
 	if(href_list["new"])
