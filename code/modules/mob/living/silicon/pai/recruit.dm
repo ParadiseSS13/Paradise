@@ -55,7 +55,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 			pai_candidates -= candidate
 			usr << browse(null, "window=findPai")
-
+		return
 
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
@@ -70,7 +70,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		return
 
 	if(candidate)
-		if(candidate.key && usr.key && lowertext(candidate.key) != lowertext(usr.key))
+		if(candidate.key && usr.key && candidate.key != usr.key)
 			message_admins("Warning: possible href exploit by [key_name_admin(usr)] (paiController/Topic, candidate and usr have different keys)")
 			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr have different keys)")
 			return
