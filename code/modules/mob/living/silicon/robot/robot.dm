@@ -665,7 +665,7 @@ var/list/robot_verbs_default = list(
 				I.loc = src.loc
 				var/was_installed = C.installed
 				C.installed = 0
-				if(was_installed)
+				if(was_installed == 1)
 					C.uninstall()
 
 		else
