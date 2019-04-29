@@ -1,11 +1,8 @@
-
-
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
+	icon = 'icons/mob/carp.dmi'
 	icon_state = "carp"
-	icon_living = "carp"
-	icon_dead = "carp_dead"
 	icon_gib = "carp_gib"
 	speak_chance = 0
 	turns_per_move = 5
@@ -16,7 +13,6 @@
 	speed = 0
 	maxHealth = 25
 	health = 25
-
 	harm_intent_damage = 8
 	obj_damage = 50
 	melee_damage_lower = 15
@@ -30,11 +26,26 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-
-
 	faction = list("carp")
 	flying = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+
+	var/carp_color = "carp" //holder for icon set
+	var/list/icon_sets = list("carp", "blue", "yellow", "grape", "rust", "teal", "purple")
+
+/mob/living/simple_animal/hostile/carp/Initialize()
+	. = ..()
+	carp_randomify()
+	update_icons()
+
+/mob/living/simple_animal/hostile/carp/proc/carp_randomify()
+	if(prob(1))
+		carp_color = pick("white", "black")
+	else
+		carp_color = pick(icon_sets)
+	icon_state = "[carp_color]"
+	icon_living = "[carp_color]"
+	icon_dead = "[carp_color]_dead"
 
 /mob/living/simple_animal/hostile/carp/Process_Spacemove(var/movement_dir = 0)
 	return 1	//No drifting in space for space carp!	//original comments do not steal
@@ -50,7 +61,6 @@
 		var/mob/living/carbon/human/H = target
 		H.adjustStaminaLoss(8)
 
-
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
@@ -58,6 +68,8 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	del_on_death = 1
 
+/mob/living/simple_animal/hostile/carp/holocarp/Initialize()
+	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'
@@ -74,3 +86,6 @@
 	obj_damage = 80
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+
+/mob/living/simple_animal/hostile/carp/megacarp/Initialize()
+	return
