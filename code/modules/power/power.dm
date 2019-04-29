@@ -9,7 +9,7 @@
 /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
-	anchored = 1.0
+	anchored = TRUE
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
@@ -25,6 +25,10 @@
 //////////////////////////////
 
 // common helper procs for all power machines
+// All power generation handled in add_avail()
+// Machines should use add_load(), surplus(), avail()
+// Non-machines should use add_delayedload(), delayed_surplus(), newavail()
+
 /obj/machinery/power/proc/add_avail(amount)
 	if(powernet)
 		powernet.newavail += amount
@@ -83,7 +87,7 @@
 	return A.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
-/obj/machinery/proc/use_power(var/amount, var/chan = -1) // defaults to power_channel
+/obj/machinery/proc/use_power(amount, chan = -1) // defaults to power_channel
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return
@@ -132,25 +136,18 @@
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
-/obj/machinery/power/attackby(obj/item/W, mob/user)
-
-	if(istype(W, /obj/item/stack/cable_coil))
-
-		var/obj/item/stack/cable_coil/coil = W
-
+/obj/machinery/power/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = I
 		var/turf/T = user.loc
-
-		if(T.intact || !istype(T, /turf/simulated/floor))
+		if(T.intact || !isfloorturf(T))
 			return
-
 		if(get_dist(src, user) > 1)
 			return
-
 		coil.place_turf(T, user)
-		return
 	else
-		..()
-	return
+		return ..()
+
 
 ///////////////////////////////////////////
 // Powernet handling helpers
@@ -207,6 +204,7 @@
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
+
 
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
 // excluding source, that match the direction d

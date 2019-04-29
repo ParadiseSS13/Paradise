@@ -12,8 +12,8 @@
 	var/last_zap = 0
 	var/datum/wires/tesla_coil/wires = null
 
-/obj/machinery/power/tesla_coil/New()
-	..()
+/obj/machinery/power/tesla_coil/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/tesla_coil(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -89,8 +89,8 @@
 	anchored = 0
 	density = 1
 
-/obj/machinery/power/grounding_rod/New()
-	..()
+/obj/machinery/power/grounding_rod/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/grounding_rod(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)

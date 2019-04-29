@@ -12,7 +12,6 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
-	anchored = TRUE
 	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
@@ -35,9 +34,7 @@
 	var/last_input_attempt	= 0
 	var/last_charge			= 0
 
-	var/open_hatch = 0
 	var/name_tag = null
-	var/building_terminal = 0 //Suggestions about how to avoid clickspam building several terminals accepted!
 	var/obj/machinery/power/terminal/terminal = null
 
 /obj/machinery/power/smes/Initialize(mapload)

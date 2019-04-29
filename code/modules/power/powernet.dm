@@ -61,7 +61,7 @@
 	nodes -=M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
-		qdel(src)///... delete it - qdel
+		qdel(src)///... delete it
 
 
 //add a power machine to the current powernet

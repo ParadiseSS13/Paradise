@@ -46,7 +46,6 @@
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
 	icon_state = "apc0"
-	anchored = 1
 	use_power = NO_POWER_USE
 	req_access = list(access_engine_equip)
 	siemens_strength = 1
@@ -55,7 +54,7 @@
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
-	var/cell_type = 2500
+	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
 	var/shorted = 0
 	var/lighting = 3
@@ -137,40 +136,35 @@
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.
 	//The terminal is what the power computer looks for anyway.
-	if(!terminal)
-		make_terminal()
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building = 0)
 	if(!armor)
 		armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
-	wires = new(src)
 
+	wires = new(src)
 	// offset 24 pixels in direction of dir
 	// this allows the APC to be embedded in a wall, yet still inside an area
 	if(building)
-		dir = ndir
-	src.tdir = dir		// to fix Vars bug
-	dir = SOUTH
+		setDir(ndir)
+	tdir = dir		// to fix Vars bug
+	setDir(SOUTH)
 
 	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
 	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
-	if(building==0)
-		init()
-	else
+	if(building)
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
 		operating = 0
 		name = "[area.name] APC"
 		stat |= MAINT
-		src.update_icon()
-		spawn(5)
-			src.update()
+		update_icon()
+		addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs -= src
@@ -193,14 +187,17 @@
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.dir = tdir
+	terminal.setDir(tdir)
 	terminal.master = src
 
-/obj/machinery/power/apc/proc/init()
+/obj/machinery/power/apc/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		return
 	has_electronics = 2 //installed and secured
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		src.cell = new/obj/item/stock_parts/cell(src)
+		cell = new/obj/item/stock_parts/cell(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
@@ -219,12 +216,12 @@
 		area = get_area_name(areastring)
 		name = "\improper [area.name] APC"
 	area.apc |= src
+
 	update_icon()
 
 	make_terminal()
 
-	spawn(5)
-		src.update()
+	addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
 	if(..(user, 1))
@@ -1287,9 +1284,13 @@
 	lighting = 0
 	equipment = 0
 	environ = 0
+	update_icon()
+	update()
 	spawn(600)
 		equipment = 3
 		environ = 3
+		update_icon()
+		update()
 	..()
 
 /obj/machinery/power/apc/ex_act(severity)

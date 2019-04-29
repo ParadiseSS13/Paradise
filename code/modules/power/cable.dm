@@ -65,14 +65,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
 
 	var/dash = findtext(icon_state, "-")
+	d1 = text2num(copytext( icon_state, 1, dash ))
+	d2 = text2num(copytext( icon_state, dash+1 ))
 
-	d1 = text2num( copytext( icon_state, 1, dash ) )
-
-	d2 = text2num( copytext( icon_state, dash+1 ) )
-
-	var/turf/T = src.loc			// hide if turf is not intact
-
-	if(level==1) hide(T.intact)
+	var/turf/T = get_turf(src)			// hide if turf is not intact
+	if(level == 1)
+		hide(T.intact)
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 
 
@@ -82,14 +80,23 @@ By design, d1 is the smallest direction and d2 is the highest
 	LAZYREMOVE(GLOB.cable_list, src)			//remove it from global cable list
 	return ..()									// then go ahead and delete the cable
 
+
+/obj/structure/cable/deconstruct(disassembled = TRUE)
+	var/turf/T = get_turf(src)
+	if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
+		new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+	else
+		new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+	qdel(src)
+
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
 
 //If underfloor, hide the cable
-/obj/structure/cable/hide(var/i)
+/obj/structure/cable/hide(i)
 
-	if(level == 1 && istype(loc, /turf))
+	if(level == 1 && isturf(loc))
 		invisibility = i ? 101 : 0
 	updateicon()
 
@@ -159,47 +166,19 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(T.intact)
 		return
 
-	if(istype(W, /obj/item/wirecutters))
-///// Z-Level Stuff
-		/* if(src.d1 == 12 || src.d2 == 12)
-			to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
-			return */
-///// Z-Level Stuff
-		/* if(breaker_box)
-			to_chat(user, "<span class='warning'>This cable is connected to nearby breaker box. Use breaker box to interact with it.</span>")
-			return */
-
+	if(iswirecutter(W))
 		if(shock(user, 50))
 			return
-
-		if(src.d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
-		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
-
-		for(var/mob/O in viewers(src, null))
-			O.show_message("<span class='warning'>[user] cuts the cable.</span>", 1)
-
-///// Z-Level Stuff
-		/*if(src.d1 == 11 || src.d2 == 11)
-			var/turf/controllerlocation = locate(1, 1, z)
-			for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
-				if(controller.down)
-					var/turf/below = locate(src.x, src.y, controller.down_target)
-					for(var/obj/structure/cable/c in below)
-						if(c.d1 == 12 || c.d2 == 12)
-							c.qdel()*/
-///// Z-Level Stuff
+		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
-
-		qdel(src) // qdel
+		deconstruct()
 		return
 
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 1)
-			to_chat(user, "Not enough cable")
+			to_chat(user, "<span class='warning'>Not enough cable!</span>")
 			return
 		coil.cable_join(src, user)
 
@@ -212,11 +191,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	else if(istype(W, /obj/item/multitool))
 
 		if(powernet && (powernet.avail > 0))		// is it powered?
-			to_chat(user, "<span class='warning'>[powernet.avail]W in power network.</span>")
-
+			to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
 		else
-			to_chat(user, "<span class='warning'>The cable is not powered.</span>")
-
+			to_chat(user, "<span class='danger'>The cable is not powered.</span>")
 		shock(user, 5, 0.2)
 
 	else if(istype(W, /obj/item/toy/crayon))
@@ -227,7 +204,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(W.flags & CONDUCT)
 			shock(user, 50, 0.7)
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 // shock the user with probability prb
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
@@ -238,6 +215,11 @@ By design, d1 is the smallest direction and d2 is the highest
 		return TRUE
 	else
 		return FALSE
+
+/obj/structure/cable/singularity_pull(S, current_size)
+	..()
+	if(current_size >= STAGE_FIVE)
+		deconstruct()
 
 //explosion handling
 /obj/structure/cable/ex_act(severity)
@@ -494,9 +476,7 @@ obj/structure/cable/proc/cable_color(var/colorC)
 // Definitions
 ////////////////////////////////
 
-var/global/list/datum/stack_recipe/cable_coil_recipes = list(
-	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/restraints/handcuffs/cable, 15),
-)
+GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15)))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
@@ -536,7 +516,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
-	recipes = cable_coil_recipes
+	recipes = GLOB.cable_coil_recipes
 	update_wclass()
 
 ///////////////////////////////////
@@ -679,7 +659,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
 		return
 
-	var/dirn = null
+	var/dirn
 	if(!dirnew) //If we weren't given a direction, come up with one! (Called as null from catwalk.dm and floor.dm)
 		if(user.loc == T)
 			dirn = user.dir //If laying on the tile we're on, lay in the direction we're facing
@@ -716,7 +696,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
 			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
-			qdel(C) // qdel
+			C.deconstruct()
 
 	return C
 
@@ -733,7 +713,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
-		to_chat(user, "You can't lay cable at a place that far away.")
+		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
 		return
 
 
@@ -746,13 +726,41 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
 		if(U.intact)						// can't place a cable if the floor is complete
-			to_chat(user, "You can't lay cable there unless the floor tiles are removed.")
+			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
 		else
 			// cable is pointing at us, we're standing on an open tile
 			// so create a stub pointing at the clicked cable on our tile
 
-			place_turf(U, user, turn(dirn, 180))
+			var/fdirn = turn(dirn, 180)		// the opposite direction
+
+			for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
+				if(LC.d1 == fdirn || LC.d2 == fdirn)
+					to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+					return
+
+			var/obj/structure/cable/NC = get_new_cable (U)
+
+			NC.d1 = 0
+			NC.d2 = fdirn
+			NC.add_fingerprint(user)
+			NC.update_icon()
+
+			//create a new powernet with the cable, if needed it will be merged later
+			var/datum/powernet/newPN = new()
+			newPN.add_cable(NC)
+
+			NC.mergeConnectedNetworks(NC.d2) //merge the powernet with adjacents powernets
+			NC.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
+
+			if(NC.d2 & (NC.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
+				NC.mergeDiagonalsNetworks(NC.d2)
+
+			use(1)
+
+			if(NC.shock(user, 50))
+				if(prob(50)) //fail
+					NC.deconstruct()
 			return
 
 	// exisiting cable doesn't point at our position, so see if it's a stub
@@ -771,7 +779,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 			if(LC == C)			// skip the cable we're interacting with
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) )	// make sure no cable matches either direction
-				to_chat(user, "There's already a cable at that position.")
+				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 				return
 
 
@@ -798,8 +806,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(C.shock(user, 50))
 			if(prob(50)) //fail
-				new/obj/item/stack/cable_coil(get_turf(C), 2, paramcolor = C.color)
-				qdel(C) // qdel
+				C.deconstruct()
 				return
 
 		C.denode()// this call may have disconnected some cables that terminated on the centre of the turf, if so split the powernets.
@@ -812,8 +819,8 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 /obj/item/stack/cable_coil/cut
 	item_state = "coil2"
 
-/obj/item/stack/cable_coil/cut/New(loc)
-	..()
+/obj/item/stack/cable_coil/cut/Initialize(mapload)
+	. = ..()
 	src.amount = rand(1,2)
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
