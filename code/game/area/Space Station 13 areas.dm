@@ -332,8 +332,8 @@ var/list/ghostteleportlocs = list()
 	name = "Steel Rain"
 	icon_state = "shuttle"
 
-/area/shuttle/admin
-	name = "\improper Admin Shuttle"
+/area/shuttle/administration
+	name = "\improper Nanotrasen vessel"
 	icon_state = "shuttle"
 	requires_power = 0
 
@@ -2667,13 +2667,13 @@ var/list/centcom_areas = list (
 	/area/shuttle/escape_pod3/centcom,
 	/area/shuttle/escape_pod5/centcom,
 	/area/shuttle/transport1,
-	/area/shuttle/admin,
+	/area/shuttle/administration,
 	/area/shuttle/specops/centcom,
 )
 
 //SPACE STATION 13
 var/list/the_station_areas = list (
-	/area/shuttle/admin,
+	/area/shuttle/administration,
 	/area/shuttle/arrival,
 	/area/shuttle/escape,
 	/area/shuttle/escape_pod1/station,

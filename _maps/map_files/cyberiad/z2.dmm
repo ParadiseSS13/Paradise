@@ -3225,13 +3225,6 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
-"ir" = (
-/obj/structure/chair/stool,
-/turf/unsimulated/floor{
-	icon_state = "bar";
-	dir = 2
-	},
-/area/syndicate_mothership)
 "is" = (
 /mob/living/simple_animal/pet/fox/Syndifox,
 /turf/unsimulated/floor{
@@ -3526,6 +3519,9 @@
 /area/wizard_station)
 "jf" = (
 /obj/structure/chair/stool/bar,
+/obj/effect/landmark{
+	name = "Syndicate-Spawn"
+	},
 /turf/unsimulated/floor{
 	icon_state = "bar";
 	dir = 2
@@ -6966,11 +6962,11 @@
 "rn" = (
 /obj/docking_port/stationary/transit{
 	dir = 2;
-	dwidth = 9;
-	height = 18;
+	dwidth = 8;
+	height = 15;
 	id = "admin_transit";
-	name = "ship in transit";
-	width = 19
+	name = "admin in transit";
+	width = 18
 	},
 /turf/space/transit/horizontal,
 /area/space)
@@ -7143,7 +7139,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rK" = (
 /turf/unsimulated/wall/splashscreen,
@@ -7154,7 +7150,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rM" = (
 /turf/simulated/shuttle/wall{
@@ -7169,7 +7165,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rO" = (
 /obj/docking_port/stationary{
@@ -7207,7 +7203,7 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rS" = (
 /turf/simulated/shuttle/wall{
@@ -8038,7 +8034,6 @@
 	height = 18;
 	id = "admin_away";
 	name = "centcom bay 1";
-	timid = 1;
 	width = 19
 	},
 /turf/space,
@@ -12010,8 +12005,6 @@
 /area/syndicate_mothership)
 "BE" = (
 /obj/structure/rack,
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded,
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /turf/unsimulated/floor{
@@ -55028,7 +55021,7 @@ hQ
 hn
 hn
 en
-ir
+en
 iY
 jf
 jk
@@ -55799,7 +55792,7 @@ hn
 hn
 is
 en
-ir
+en
 hn
 iL
 jo
