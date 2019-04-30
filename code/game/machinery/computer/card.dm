@@ -408,6 +408,7 @@ var/time_last_changed_position = 0
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
+					SSjobs.slot_job_transfer(modify.rank, t1)
 
 					var/mob/living/carbon/human/H = modify.getPlayer()
 					if(istype(H))
@@ -415,7 +416,6 @@ var/time_last_changed_position = 0
 							message_admins("[ADMIN_FULLMONTY(H)] has been assigned the job [t1], in possible violation of their job ban.")
 						if(H.mind)
 							H.mind.playtime_role = t1
-
 
 					modify.access = access
 					modify.rank = t1

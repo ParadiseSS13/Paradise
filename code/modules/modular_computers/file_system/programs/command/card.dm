@@ -250,6 +250,8 @@
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
+					SSjobs.slot_job_transfer(modify.rank, t1)
+
 					var/mob/living/carbon/human/H = modify.getPlayer()
 					if(istype(H))
 						if(jobban_isbanned(H, t1))

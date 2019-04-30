@@ -624,6 +624,15 @@ SUBSYSTEM_DEF(jobs)
 	id_change_records["[id_change_counter]"] = list("transferee" = transferee, "oldvalue" = oldvalue, "newvalue" = newvalue, "whodidit" = whodidit, "timestamp" = station_time_timestamp())
 	id_change_counter++
 
+/datum/controller/subsystem/jobs/proc/slot_job_transfer(oldtitle, newtitle)
+	var/datum/job/oldjobdatum = SSjobs.GetJob(oldtitle)
+	var/datum/job/newjobdatum = SSjobs.GetJob(newtitle)
+	if(istype(oldjobdatum) && oldjobdatum.current_positions > 0 && istype(newjobdatum))
+		if(!(oldjobdatum.title in command_positions) && !(newjobdatum.title in command_positions))
+			oldjobdatum.current_positions--
+			newjobdatum.current_positions++
+
+
 /datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)
 	var/record_html = "<TABLE border=\"1\">"
 
