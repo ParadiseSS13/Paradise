@@ -1,4 +1,4 @@
-.link, .linkOn, .linkOff, .selected, .disabled, .yellowButton, .redButton {
+.link, .linkOn, .linkOff, .selected, .disabled, .yellowButton, .redButton, .linkEncourage, .linkDiscourage {
     float: left;
     min-width: 15px;
     height: 16px;
@@ -80,6 +80,27 @@ a.icon img, .linkOn.icon img, .linkOff.icon img, .selected.icon img, .disabled.i
 
 .linkDanger.hover {
     background-color: #ff6666;
+}
+
+.linkEncourage, a.linkEncourage:link, a.linkEncourage:visited, a.linkEncourage:active {
+    color: #99ff33;
+    background-color: #40628a;
+    border-color: #161616;
+}
+
+.linkEncourage.hover {
+    background-color: #507aac;
+}
+
+.linkDiscourage, a.linkDiscourage:link, a.linkDiscourage:visited, a.linkDiscourage:active {
+    color: #8c8c8c;
+    background-color: #40628a;
+    border-color: #161616;
+}
+
+.linkDiscourage.hover {
+	color: #ff0000;
+    background-color: #507aac;
 }
 
 .inactive, a.inactive:link, a.inactive:visited, a.inactive:active, a.inactive.hover {

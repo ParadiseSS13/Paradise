@@ -48,8 +48,8 @@ field_generator power level display
 		overlays += "+p[power_level]"
 
 
-/obj/machinery/field/generator/New()
-	..()
+/obj/machinery/field/generator/Initialize(mapload)
+	. = ..()
 	fields = list()
 	connected_gens = list()
 
