@@ -1,5 +1,7 @@
 /datum/configuration
 	var/server_name = null				// server name (for world name / status)
+	var/server_tag_line = null			// server tagline (for showing on hub entry)
+	var/server_extra_features = null		// server-specific extra features (for hub entry)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
 	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
@@ -53,7 +55,6 @@
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
-	var/hostedby = null
 	var/respawn = 0
 	var/guest_jobban = 1
 	var/usewhitelist = 0
@@ -395,6 +396,12 @@
 				if("servername")
 					config.server_name = value
 
+				if("server_tag_line")
+					config.server_tag_line = value
+
+				if("server_extra_features")
+					config.server_extra_features = value
+
 				if("serversuffix")
 					config.server_suffix = 1
 
@@ -403,9 +410,6 @@
 
 				if("nudge_script_path")
 					config.nudge_script_path = value
-
-				if("hostedby")
-					config.hostedby = value
 
 				if("server")
 					config.server = value
