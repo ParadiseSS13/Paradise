@@ -68,7 +68,9 @@
 		<div class='item'>
 		    {{if data.authenticated}}
 				{{:data.id_change_html}}
-				{{:helper.link('Delete Records By: ' + data.scan_owner, null, {'choice' : 'wipe_my_logs'}, null, 'linkDanger')}}
+				{{if data.centcom_access}}
+					{{:helper.link('Delete Records By: ' + data.scan_owner, null, {'choice' : 'wipe_my_logs'}, null, 'linkDanger')}}
+				{{/if}}
 				{{if !data.target_dept}}
 					{{:helper.link('Delete ALL Records', null, {'choice' : 'wipe_all_logs'}, null, 'linkDanger')}}
 				{{/if}}

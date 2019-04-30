@@ -447,7 +447,7 @@ var/time_last_changed_position = 0
 			mode = text2num(href_list["mode_target"])
 
 		if("wipe_my_logs")
-			if(is_authenticated(usr))
+			if(is_authenticated(usr) && is_centcom())
 				var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
 				if(delcount)
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
