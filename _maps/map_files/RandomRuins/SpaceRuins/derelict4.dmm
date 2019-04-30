@@ -63,7 +63,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/unpowered)
 "m" = (
 /obj/item/shard,

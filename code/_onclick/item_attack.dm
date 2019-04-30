@@ -24,7 +24,7 @@
 	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || (can_be_hit && isitem(I) && I.attack_obj(src, user))
+	return ..() || (can_be_hit && I.attack_obj(src, user))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -36,8 +36,6 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
-		return 0
-	if(check_martial_counter(M, user))
 		return 0
 	if(can_operate(M))  //Checks if mob is lying down on table for surgery
 		if(istype(src,/obj/item/robot_parts))//popup override for direct attach

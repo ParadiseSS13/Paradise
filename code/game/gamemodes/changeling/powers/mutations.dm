@@ -220,7 +220,7 @@
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
@@ -433,7 +433,7 @@
 	..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))

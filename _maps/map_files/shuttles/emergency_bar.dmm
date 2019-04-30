@@ -642,7 +642,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bH" = (
 /turf/simulated/shuttle/wall{
@@ -661,7 +661,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bK" = (
 /turf/space,
@@ -672,7 +672,7 @@
 /area/shuttle/escape)
 "bL" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"

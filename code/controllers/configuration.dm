@@ -1,5 +1,7 @@
 /datum/configuration
 	var/server_name = null				// server name (for world name / status)
+	var/server_tag_line = null			// server tagline (for showing on hub entry)
+	var/server_extra_features = null		// server-specific extra features (for hub entry)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
 	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
@@ -53,7 +55,6 @@
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
-	var/hostedby = null
 	var/respawn = 0
 	var/guest_jobban = 1
 	var/usewhitelist = 0
@@ -68,6 +69,9 @@
 
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
+
+	var/auto_cryo_ssd_mins = 0
+	var/ssd_warning = 0
 
 	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
 	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
@@ -99,10 +103,6 @@
 	var/check_randomizer = 0
 
 	//game_options.txt configs
-
-	var/health_threshold_softcrit = 0
-	var/health_threshold_crit = 0
-	var/health_threshold_dead = -100
 
 	var/bones_can_break = 1
 
@@ -218,6 +218,9 @@
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
 
+	//Start now warning
+	var/start_now_confirmation = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -294,6 +297,12 @@
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
 
+				if("auto_cryo_ssd_mins")
+					config.auto_cryo_ssd_mins = text2num(value)
+
+				if("ssd_warning")
+					config.ssd_warning = 1
+
 				if("log_ooc")
 					config.log_ooc = 1
 
@@ -360,6 +369,12 @@
 				if("no_dead_vote")
 					config.vote_no_dead = 1
 
+				if("vote_autotransfer_initial")
+					config.vote_autotransfer_initial = text2num(value)
+
+				if("vote_autotransfer_interval")
+					config.vote_autotransfer_interval = text2num(value)
+
 				if("default_no_vote")
 					config.vote_no_default = 1
 
@@ -381,6 +396,12 @@
 				if("servername")
 					config.server_name = value
 
+				if("server_tag_line")
+					config.server_tag_line = value
+
+				if("server_extra_features")
+					config.server_extra_features = value
+
 				if("serversuffix")
 					config.server_suffix = 1
 
@@ -389,9 +410,6 @@
 
 				if("nudge_script_path")
 					config.nudge_script_path = value
-
-				if("hostedby")
-					config.hostedby = value
 
 				if("server")
 					config.server = value
@@ -641,6 +659,9 @@
 				if("disable_karma")
 					config.disable_karma = 1
 
+				if("start_now_confirmation")
+					config.start_now_confirmation = 1
+
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)
 				if("base_mc_tick_rate")
@@ -663,10 +684,6 @@
 			value = text2num(value)
 
 			switch(name)
-				if("health_threshold_crit")
-					config.health_threshold_crit = value
-				if("health_threshold_dead")
-					config.health_threshold_dead = value
 				if("revival_pod_plants")
 					config.revival_pod_plants = value
 				if("revival_cloning")

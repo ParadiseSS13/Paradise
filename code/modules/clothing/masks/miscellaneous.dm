@@ -99,12 +99,13 @@
 		)
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
-	var/obj/item/trash/tapetrash/TT = new(drop_location(src))
+	var/obj/item/trash/tapetrash/TT = new
 	transfer_fingerprints_to(TT)
 	user.transfer_fingerprints_to(TT)
+	user.put_in_active_hand(TT)
 	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
-	..()
 	user.emote("scream")
+	..()
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
@@ -491,5 +492,6 @@
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
 	spawn(10)
-		user.gib()
-	return BRUTELOSS
+		if(user)
+			user.gib()
+	return OBLITERATION

@@ -186,10 +186,10 @@
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/process()
@@ -875,7 +875,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
 	var/on = 0
@@ -883,7 +883,7 @@
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
 		on = 0
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
@@ -893,7 +893,7 @@
 	else
 		on = 1
 		to_chat(usr, "You turn the suit's special processes on.")
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 
 /obj/item/clothing/suit/advanced_protective_suit/IsReflect()
@@ -912,7 +912,7 @@
 			if(user.reagents.get_reagent_amount("syndicate_nanites") < 15)
 				user.reagents.add_reagent("syndicate_nanites", 15)
 	else
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
@@ -924,22 +924,22 @@
 	if(linked_staff)	//delink on destruction
 		linked_staff.robes = null
 		linked_staff = null
-	processing_objects -= src	//probably is cleared in a parent call already, but just in case we're gonna do it here
+	STOP_PROCESSING(SSobj, src)	//probably is cleared in a parent call already, but just in case we're gonna do it here
 	return ..()
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
 	if(!istype(H) || slot != slot_wear_suit)
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 		return
 	else
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/process()
 	if(!linked_staff)	//if we don't have a linked staff, the rest of this is useless
 		return
 
 	if(!ishuman(loc))		//if we somehow try to process while not on a human, remove ourselves from processing and return
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 		return
 
 	var/mob/living/carbon/human/H = loc
@@ -972,3 +972,26 @@
 	name = "ladies red victorian coat"
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
+
+//Mantles!
+/obj/item/clothing/suit/mantle
+	name = "mantle"
+	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
+	icon_state = "mantle"
+	item_state = "mantle"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/mantle/regal
+	name = "regal shawl"
+	desc = "A fancy shawl for nobility, made from high quality materials."
+	icon_state = "regal_mantle"
+	item_state = "regal_mantle"
+
+/obj/item/clothing/suit/mantle/old
+	name = "old wrap"
+	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
+	icon_state = "old_mantle"
+	item_state = "old_mantle"
+

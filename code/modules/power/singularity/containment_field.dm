@@ -78,7 +78,7 @@
 	if(isliving(user))
 		var/shock_damage = min(rand(30,40),rand(30,40))
 
-		if(iscarbon(user))
+		if(isliving(user) && !issilicon(user))
 			var/stun = min(shock_damage, 15)
 			user.Stun(stun)
 			user.Weaken(10)

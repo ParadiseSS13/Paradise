@@ -45,7 +45,7 @@
 
 /obj/item/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS|TOXLOSS)
+	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
 	..()
@@ -95,7 +95,8 @@
 	force = round((5 + seed.potency / 2.5), 1)
 
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
-	if(..() && ishuman(user)) // If the pickup succeeded and is humanoid
+	. = ..()
+	if(. && ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && prob(50))
 			user.Paralyse(5)

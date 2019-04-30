@@ -101,10 +101,12 @@
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
+	a_intent = INTENT_HARM
+	can_change_intents = 0
 	faction = list("swarmer")
 	projectiletype = /obj/item/projectile/beam/disabler
 	pass_flags = PASSTABLE
-	mob_size = MOB_SIZE_TINY
+	mob_size = MOB_SIZE_SMALL
 	ventcrawler = 2
 	ranged = 1
 	light_color = LIGHT_COLOR_CYAN
@@ -391,6 +393,11 @@
 									break
 			return
 
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	if(!tesla_shock)
+		return FALSE
+	return ..()
+
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(var/obj/machinery/target)
 	do_attack_animation(target)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
@@ -511,7 +518,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, 1)
+			L.electrocute_act(0, src, 1, TRUE, TRUE)
 			if(isrobot(L) || L.isSynthetic())
 				L.Weaken(5)
 			qdel(src)

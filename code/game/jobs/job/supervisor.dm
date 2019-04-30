@@ -13,8 +13,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
-	exp_requirements = 2400
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 300
+	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
 
@@ -68,8 +68,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 300
+	exp_type = EXP_TYPE_COMMAND
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_ai_upload, access_eva, access_heads,
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,

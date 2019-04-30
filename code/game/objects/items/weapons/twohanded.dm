@@ -557,10 +557,10 @@
 
 /obj/item/twohanded/singularityhammer/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/singularityhammer/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
@@ -664,10 +664,10 @@
 
 /obj/item/twohanded/knighthammer/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/knighthammer/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/twohanded/knighthammer/process()
@@ -797,7 +797,7 @@
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()

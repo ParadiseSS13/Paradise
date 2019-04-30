@@ -112,6 +112,7 @@
 	icon_state = "medicalbelt"
 	item_state = "medical"
 	use_item_overlays = 1
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
@@ -133,6 +134,7 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/handheld_defibrillator
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -640,8 +642,12 @@
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/restraints/legcuffs/bola(src)
 	new /obj/item/restraints/legcuffs/bola(src)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	cooldown = world.time
+
+/obj/item/storage/belt/bluespace/owlman/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/storage/belt/bluespace/owlman/process()
 	if(cooldown < world.time - 600)

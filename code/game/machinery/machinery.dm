@@ -118,24 +118,22 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
-	var/defer_process = 0
+	var/siemens_strength = 0.7 // how badly will it shock you?
 
-/obj/machinery/Initialize()
-	addAtProcessing()
+/obj/machinery/Initialize(mapload)
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 	. = ..()
-	power_change()
+	GLOB.machines += src
 
-/obj/machinery/proc/addAtProcessing()
 	if(use_power)
 		myArea = get_area(src)
 	if(!speed_process)
-		if(!defer_process)
-			START_PROCESSING(SSmachines, src)
-		else
-			START_DEFERRED_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSmachines, src)
 	else
-		GLOB.fast_processing += src
-		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
+		START_PROCESSING(SSfastprocess, src)
+
+	power_change()
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
@@ -143,7 +141,7 @@ Class Procs:
 		return
 	speed_process = TRUE
 	STOP_PROCESSING(SSmachines, src)
-	GLOB.fast_processing += src
+	START_PROCESSING(SSfastprocess, src)
 
 // gotta go slow
 /obj/machinery/makeNormalProcess()
@@ -151,20 +149,16 @@ Class Procs:
 		return
 	speed_process = FALSE
 	START_PROCESSING(SSmachines, src)
-	GLOB.fast_processing -= src
-
-/obj/machinery/New() //new
-	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
-	GLOB.machines += src
-	..()
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/Destroy()
 	if(myArea)
 		myArea = null
-	GLOB.fast_processing -= src
-	STOP_PROCESSING(SSmachines, src)
-	GLOB.machines -= src
+	GLOB.machines.Remove(src)
+	if(!speed_process)
+		STOP_PROCESSING(SSmachines, src)
+	else
+		STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -407,7 +401,7 @@ Class Procs:
 	if(can_deconstruct)
 		on_deconstruction()
 		if(component_parts && component_parts.len)
-			spawn_frame()
+			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
 	qdel(src)
@@ -575,16 +569,13 @@ Class Procs:
 
 /obj/machinery/proc/shock(mob/user, prb)
 	if(inoperable())
-		return 0
+		return FALSE
 	if(!prob(prb))
-		return 0
-	if((TK in user.mutations) && !Adjacent(user))
-		return 0
+		return FALSE
 	do_sparks(5, 1, src)
-	if(electrocute_mob(user, get_area(src), src, 0.7))
-		if(user.stunned)
-			return 1
-	return 0
+	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
+		return TRUE
+	return FALSE
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()

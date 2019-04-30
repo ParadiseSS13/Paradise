@@ -72,7 +72,7 @@ var/global/list/role_playtime_requirements = list(
 
 		jtext = "-"
 		if(C.mob.mind && C.mob.mind.assigned_role)
-			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
+			theirjob = SSjobs.GetJob(C.mob.mind.assigned_role)
 			if(theirjob)
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
@@ -100,6 +100,7 @@ var/global/list/role_playtime_requirements = list(
 // Procs
 
 /proc/role_available_in_playtime(client/C, role)
+	// "role" is a special role defined in role_playtime_requirements above. e.g: ROLE_ERT. This is *not* a job title.
 	if(!C)
 		return 0
 	if(!role)
@@ -120,6 +121,7 @@ var/global/list/role_playtime_requirements = list(
 	if(!isnum(my_exp))
 		return req_mins
 	return max(0, req_mins - my_exp)
+
 
 /datum/job/proc/available_in_playtime(client/C)
 	if(!C)
@@ -178,7 +180,7 @@ var/global/list/role_playtime_requirements = list(
 	if(config.use_exp_restrictions)
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
-		for(var/datum/job/job in job_master.occupations)
+		for(var/datum/job/job in SSjobs.occupations)
 			if(job.exp_requirements && job.exp_type)
 				if(!job.available_in_playtime(mob.client))
 					jobs_unlocked += job.title
@@ -255,13 +257,14 @@ var/global/list/role_playtime_requirements = list(
 			play_records[rtype] = text2num(read_records[rtype])
 		else
 			play_records[rtype] = 0
-	if(mob.stat == CONSCIOUS && mob.mind.assigned_role)
+	var/myrole = mob.mind.playtime_role ? mob.mind.playtime_role : mob.mind.assigned_role
+	if(mob.stat == CONSCIOUS && myrole)
 		play_records[EXP_TYPE_LIVING] += minutes
 		if(announce_changes)
 			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
 		for(var/category in exp_jobsmap)
 			if(exp_jobsmap[category]["titles"])
-				if(mob.mind.assigned_role in exp_jobsmap[category]["titles"])
+				if(myrole in exp_jobsmap[category]["titles"])
 					play_records[category] += minutes
 					if(announce_changes)
 						to_chat(mob,"<span class='notice'>You got: [minutes] [category] EXP!")

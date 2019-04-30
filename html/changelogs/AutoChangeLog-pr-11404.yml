@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "The typing limiter option should now work for all edge cases. Such as dying while talking and such"

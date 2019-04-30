@@ -32,7 +32,7 @@
 	power_supply.give(power_supply.maxcharge)
 	update_ammo_types()
 	if(selfcharge)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	update_icon()
 
 /obj/item/gun/energy/proc/update_ammo_types()
@@ -47,7 +47,7 @@
 
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/energy/process()
@@ -154,22 +154,22 @@
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			power_supply.use(shot.e_cost)
 			update_icon()
-			return(FIRELOSS)
+			return FIRELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
-		return (OXYLOSS)
+		return OXYLOSS
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("selfcharge")
 			if(var_value)
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects.Remove(src)
+				STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/gun/energy/proc/robocharge()

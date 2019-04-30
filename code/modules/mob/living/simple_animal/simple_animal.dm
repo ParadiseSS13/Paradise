@@ -258,7 +258,7 @@
 	adjustBruteLoss(20)
 	return
 
-/mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
+/mob/living/simple_animal/emote(act, m_type = 1, message = null, force)
 	if(stat)
 		return
 	act = lowertext(act)
@@ -269,7 +269,7 @@
 		if("help")
 			to_chat(src, "scream")
 
-	..(act, m_type, message)
+	..()
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)

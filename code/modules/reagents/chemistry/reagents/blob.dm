@@ -2,6 +2,7 @@
 // The 4 damage
 /datum/reagent/blob
 	description = ""
+	var/complementary_color = "#000000"
 	var/message = "The blob strikes you" //message sent to any mob hit by the blob
 	var/message_living = null //extension to first mob sent to only living mobs i.e. silicons have no skin to be burnt
 	can_synth = FALSE
@@ -11,8 +12,10 @@
 
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
 	name = "Ripping Tendrils"
+	description = "Deals High Brute damage, as well as Stamina damage."
 	id = "ripping_tendrils"
 	color = "#7F0000"
+	complementary_color = "#a15656"
 	message_living = ", and you feel your skin ripping and tearing off"
 
 /datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -25,8 +28,10 @@
 
 /datum/reagent/blob/boiling_oil //sets you on fire, does burn damage
 	name = "Boiling Oil"
+	description = "Deals High Burn damage, and sets the victim aflame."
 	id = "boiling_oil"
 	color = "#B68D00"
+	complementary_color = "#c0a856"
 	message = "The blob splashes you with burning oil"
 	message_living = ", and you feel your skin char and melt"
 
@@ -40,8 +45,10 @@
 
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
 	name = "Envenomed Filaments"
+	description = "Deals High Toxin damage, causes Hallucinations, and injects Spores into the bloodstream."
 	id = "envenomed_filaments"
 	color = "#9ACD32"
+	complementary_color = "#b0cd73"
 	message_living = ", and you feel sick and nauseated"
 
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -53,8 +60,10 @@
 
 /datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
 	name = "Lexorin Jelly"
+	description = "Deals Medium Brute damage, but massive amounts of Respiration Damage."
 	id = "lexorin_jelly"
 	color = "#00FFC5"
+	complementary_color = "#56ebc9"
 	message_living = ", and your lungs feel heavy and weak"
 
 /datum/reagent/blob/lexorin_jelly/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -67,8 +76,10 @@
 
 /datum/reagent/blob/kinetic //does semi-random brute damage
 	name = "Kinetic Gelatin"
+	description = "Deals Randomized damage, between 0.33 to 2.33 times the standard amount."
 	id = "kinetic"
 	color = "#FFA500"
+	complementary_color = "#ebb756"
 	message = "The blob pummels you"
 
 /datum/reagent/blob/kinetic/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -79,8 +90,10 @@
 
 /datum/reagent/blob/cryogenic_liquid //does low burn damage and stamina damage and cools targets down
 	name = "Cryogenic Liquid"
+	description = "Deals Medium Brute damage, Stamina Damage, and injects Frost Oil into its victims, freezing them to death."
 	id = "cryogenic_liquid"
 	color = "#8BA6E9"
+	complementary_color = "#a8b7df"
 	message = "The blob splashes you with an icy liquid"
 	message_living = ", and you feel cold and tired"
 
@@ -91,23 +104,12 @@
 		M.adjustStaminaLoss(0.4*volume)
 		M.reagents.add_reagent("frostoil", 0.4*volume)
 
-/datum/reagent/blob/dark_matter
-	name = "Dark Matter"
-	id = "dark_matter"
-	color = "#61407E"
-	message = "You feel a thrum as the blob strikes you, and everything flies at you"
-
-/datum/reagent/blob/dark_matter/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		reagent_vortex(M, 0, volume)
-		volume = ..()
-		M.apply_damage(0.6*volume, BRUTE)
-
-
 /datum/reagent/blob/b_sorium
 	name = "Sorium"
+	description = "Deals High Brute damage, and sends people flying away."
 	id = "b_sorium"
 	color = "#808000"
+	complementary_color = "#a2a256"
 	message = "The blob slams into you, and sends you flying"
 
 /datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=TOUCH, volume)

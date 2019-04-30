@@ -57,9 +57,9 @@
 	SetLoseBreath(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp")
+		emote("deathgasp", force = TRUE)
 
-	if(suiciding)
+	if(mind && suiciding)
 		mind.suicided = TRUE
 	clear_fullscreens()
 	update_sight()
@@ -96,3 +96,9 @@
 
 	// u no we dead
 	return TRUE
+
+/mob/living/proc/delayed_gib()
+	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
+	Weaken(15)
+	do_jitter_animation(1000, -1)
+	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))

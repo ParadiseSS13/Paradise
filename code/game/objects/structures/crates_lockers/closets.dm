@@ -278,8 +278,10 @@
 		if(src == user.loc)
 			to_chat(user, "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>")
 			return
-		if(!WT.remove_fuel(0,user))
+		if(!WT.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
+			return
+		if(!do_after_once(user, 15, target = src))
 			return
 		welded = !welded
 		update_icon()

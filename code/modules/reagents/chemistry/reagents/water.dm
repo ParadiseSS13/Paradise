@@ -24,61 +24,34 @@
 	if(method == TOUCH)
 		// Put out fire
 		M.adjust_fire_stacks(-(volume * 0.2))
-		if(ishuman(M))
 
-			var/mob/living/carbon/human/H = M
-
-			if(!isgrey(H)) //God this is so gross I hate it.
-				return
-
+	if(isgrey(M)) // You gosh darn snowflakes
+		var/mob/living/carbon/human/G = M
+		if(method == TOUCH)
 			if(volume > 25)
-
-				if(H.wear_mask)
-					to_chat(H, "<span class='danger'>Your mask protects you from the water!</span>")
+				if(G.wear_mask)
+					to_chat(G, "<span class='danger'>Your [G.wear_mask] protects you from the acid!</span>")
 					return
 
-				if(H.head)
-					to_chat(H, "<span class='danger'>Your helmet protects you from the water!</span>")
+				if(G.head)
+					to_chat(G, "<span class='danger'>Your [G.wear_mask] protects you from the acid!</span>")
 					return
 
-				if(!M.unacidable)
-					if(prob(75))
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.receive_damage(5, 10)
-							H.UpdateDamageIcon()
-							H.emote("scream")
-					else
-						M.take_organ_damage(5,10)
+				if(prob(75))
+					G.take_organ_damage(5, 10)
+					G.emote("scream")
+					var/obj/item/organ/external/affecting = G.get_organ("head")
+					if(affecting)
+						affecting.disfigure()
+				else
+					G.take_organ_damage(5, 10)
 			else
-				M.take_organ_damage(5,10)
-
-	if(method == INGEST)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-
-			if(!isgrey(H))
-				return
-
-			if(volume < 10)
-				to_chat(M, "<span class='danger'>The watery solvent substance stings you, but isn't concentrated enough to harm you!</span>")
-
-			if(volume >=10 && volume <=25)
-				if(!H.unacidable)
-					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
-					M.emote("scream")
-
-
-			if(volume > 25)
-				if(!M.unacidable)
-					if(prob(75))
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.receive_damage(0, 20)
-							H.UpdateDamageIcon()
-							H.emote("scream")
-					else
-						M.take_organ_damage(0,20)
+				G.take_organ_damage(5, 10)
+		else
+			to_chat(G, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			if(volume >= 10)
+				G.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+				G.emote("scream")
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))

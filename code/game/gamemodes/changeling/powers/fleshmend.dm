@@ -13,10 +13,10 @@
 
 /obj/effect/proc_holder/changeling/fleshmend/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/proc_holder/changeling/fleshmend/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/proc_holder/changeling/fleshmend/process()
@@ -40,9 +40,6 @@
 	// The healing itself - doesn't heal toxin damage
 	// (that's anatomic panacea) and the effectiveness decreases with
 	// each use in a short timespan
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.shock_stage = 0
 	for(var/i in 1 to healing_ticks)
 		if(user)
 			var/healpertick = -(total_healing / healing_ticks)

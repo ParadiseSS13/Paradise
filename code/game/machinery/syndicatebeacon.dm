@@ -188,11 +188,11 @@
 /obj/machinery/power/singularity_beacon/process()
 	if(!active)
 		return PROCESS_KILL
+
+	if(surplus() >= 1500)
+		add_load(1500)
 	else
-		if(surplus() > 1500)
-			draw_power(1500)
-		else
-			Deactivate()
+		Deactivate()
 
 /obj/machinery/power/singularity_beacon/syndicate
 	icontype = "beaconsynd"

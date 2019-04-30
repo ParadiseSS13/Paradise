@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Added cancel button to transfer amount from stack menu"
+  - tweak: "Alt-click is a new shortcut to take a custom amount from stack"
