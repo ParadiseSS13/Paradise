@@ -4,6 +4,7 @@
 /obj/item/storage/pill_bottle/happy
 	name = "Happy pills"
 	desc = "Highly illegal drug. When you want to see the rainbow."
+	wrapper_color = COLOR_PINK
 
 /obj/item/storage/pill_bottle/happy/New()
 	..()
@@ -18,6 +19,7 @@
 /obj/item/storage/pill_bottle/zoom
 	name = "Zoom pills"
 	desc = "Highly illegal drug. Trade brain for speed."
+	wrapper_color = COLOR_BLUE
 
 /obj/item/storage/pill_bottle/zoom/New()
 	..()
@@ -49,8 +51,6 @@
 		adulterants--
 		reagents.add_reagent(pick_list("chemistry_tools.json", "CYBERPUNK_drug_adulterants"), 3)
 
-
-
 /obj/item/storage/pill_bottle/random_drug_bottle
 	name = "pill bottle (???)"
 	desc = "Huh."
@@ -59,5 +59,3 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/random_drugs(src)
-
-
