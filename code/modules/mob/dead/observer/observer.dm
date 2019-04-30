@@ -95,6 +95,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		updateallghostimages()
 	return ..()
 
+/mob/dead/observer/examine(mob/user)
+	..()
+	if(!invisibility)
+		to_chat(user, "It seems extremely obvious.")
+
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
 // You might recognize these things as "fucking ridiculous to put in an appearance"

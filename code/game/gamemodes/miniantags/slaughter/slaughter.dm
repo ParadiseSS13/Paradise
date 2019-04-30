@@ -290,6 +290,10 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
+	maxHealth = 150
+	health = 150
+	melee_damage_lower = 20
+	melee_damage_upper = 20
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'
