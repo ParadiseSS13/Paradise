@@ -63,6 +63,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
 	var/nad_allowed = FALSE //is the station NAD allowed on this area?
 
+	var/fast_despawn = FALSE
+
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
@@ -855,10 +857,12 @@ var/list/ghostteleportlocs = list()
 /area/prison/solitary
 	name = "\improper Solitary Confinement"
 	icon_state = "brig"
+	fast_despawn = TRUE
 
 /area/prison/cell_block
 	name = "\improper Prison Cell Block"
 	icon_state = "brig"
+	fast_despawn = TRUE
 
 /area/prison/cell_block/A
 	name = "\improper Prison Cell Block A"
@@ -1676,6 +1680,7 @@ var/list/ghostteleportlocs = list()
 /area/security/permabrig
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison_perma"
+	fast_despawn = TRUE
 
 /area/security/prison
 	name = "\improper Prison Wing"

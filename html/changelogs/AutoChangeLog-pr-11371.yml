@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "You can shift-click any action button to reset it's position. Alt-click on Hide Buttons will reset all action buttons to their default positions."

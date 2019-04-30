@@ -18,7 +18,7 @@
 		light(show_message = 0)
 
 /obj/item/candle/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/candle/update_icon()
@@ -62,7 +62,7 @@
 		if(show_message)
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 		update_icon()
 
 

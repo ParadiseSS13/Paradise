@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - soundadd: "Added sound for throwing bolas"
+  - soundadd: "Added hitsound for all types of bolas"

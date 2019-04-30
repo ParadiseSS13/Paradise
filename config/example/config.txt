@@ -1,6 +1,12 @@
 ## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
 # SERVERNAME spacestation13
 
+## Server tagline: This appears on the hub entry.
+#SERVER_TAG_LINE The Perfect Mix of RP & Action
+
+## Server extra features: This appears in the feature list on the hub entry.
+#SERVER_EXTRA_FEATURES medium RP, varied species/jobs/modes
+
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
 ADMIN_LEGACY_SYSTEM
 
@@ -264,6 +270,12 @@ ASSISTANT_LIMIT
 
 ## If you enabled assistant limiting set the ratio of assistants to security members default is 2 assistants to 1 officer
 ASSISTANT_RATIO 2
+
+# Mins before SSD crew are cryoed.
+AUTO_CRYO_SSD_MINS 15
+
+# If enabled, prevents people interacting with SSD players unless they acknowledge they have read the server rules.
+SSD_WARNING
 
 ## Remove the # to make rounds which end instantly (Rev, Wizard, Malf) to continue until the shuttle is called or the station is nuked.
 ## Malf and Rev will let the shuttle be called when the antags/protags are dead.

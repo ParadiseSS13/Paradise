@@ -9787,6 +9787,7 @@
 	pixel_y = 2
 	},
 /obj/item/stamp/law,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";

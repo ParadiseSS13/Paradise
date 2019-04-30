@@ -371,7 +371,15 @@ update_flag
 
 	SSnanoui.update_uis(src) // Update all NanoUIs attached to src
 
-
+/obj/machinery/portable_atmospherics/canister/replace_tank(mob/living/user, close_valve)
+	. = ..()
+	if(.)
+		if(close_valve)
+			valve_open = FALSE
+			update_icon()
+			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", "atmos")
+		else if(valve_open && holding)
+			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user as mob)
 	src.add_hiddenprint(user)

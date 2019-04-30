@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Pipe dispensers (the big ones) now work again."
+  - tweak: "Cooldown on pipe dispensers reduced to 0.4 seconds, down from 1.5 seconds"

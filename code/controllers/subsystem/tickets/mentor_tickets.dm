@@ -9,7 +9,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	ticket_system_name = "Mentor Tickets"
 	ticket_name = "Mentor Ticket"
 	span_text = "<span class='mentorhelp'>"
-	close_rights = R_MENTOR
+	close_rights = R_MENTOR | R_ADMIN
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(var/msg)
 	message_mentorTicket(msg)

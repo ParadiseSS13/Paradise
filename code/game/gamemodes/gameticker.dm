@@ -172,10 +172,10 @@ var/round_start_time = 0
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
-		if(holiday_master.holidays)
+		if(SSholiday.holidays)
 			to_chat(world, "<font color='blue'>and...</font>")
-			for(var/holidayname in holiday_master.holidays)
-				var/datum/holiday/holiday = holiday_master.holidays[holidayname]
+			for(var/holidayname in SSholiday.holidays)
+				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 				to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	spawn(0) // Forking dynamic room selection
@@ -400,7 +400,7 @@ var/round_start_time = 0
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
-/datum/controller/gameticker/proc/process()
+/datum/controller/gameticker/proc/process_decrepit()
 	if(current_state != GAME_STATE_PLAYING)
 		return 0
 
@@ -506,7 +506,13 @@ var/round_start_time = 0
 	mode.declare_station_goal_completion()
 
 	//Ask the event manager to print round end information
-	event_manager.RoundEnd()
+	SSevents.RoundEnd()
+
+	// Add AntagHUD to everyone, see who was really evil the whole time!
+	for(var/datum/atom_hud/antag/H in huds)
+		for(var/m in GLOB.player_list)
+			var/mob/M = m
+			H.add_hud_to(M)
 
 	return 1
 

@@ -257,13 +257,14 @@ var/global/list/role_playtime_requirements = list(
 			play_records[rtype] = text2num(read_records[rtype])
 		else
 			play_records[rtype] = 0
-	if(mob.stat == CONSCIOUS && mob.mind.assigned_role)
+	var/myrole = mob.mind.playtime_role ? mob.mind.playtime_role : mob.mind.assigned_role
+	if(mob.stat == CONSCIOUS && myrole)
 		play_records[EXP_TYPE_LIVING] += minutes
 		if(announce_changes)
 			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
 		for(var/category in exp_jobsmap)
 			if(exp_jobsmap[category]["titles"])
-				if(mob.mind.assigned_role in exp_jobsmap[category]["titles"])
+				if(myrole in exp_jobsmap[category]["titles"])
 					play_records[category] += minutes
 					if(announce_changes)
 						to_chat(mob,"<span class='notice'>You got: [minutes] [category] EXP!")

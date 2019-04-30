@@ -642,14 +642,21 @@ var/list/blood_splatter_icons = list()
 	update_icons()	//apply the now updated overlays to the mob
 
 
-/atom/proc/add_vomit_floor(mob/living/carbon/M as mob, var/toxvomit = 0)
-	if( istype(src, /turf/simulated) )
-		var/obj/effect/decal/cleanable/vomit/this = new /obj/effect/decal/cleanable/vomit(src)
+/atom/proc/add_vomit_floor(toxvomit = 0, green = FALSE)
+	playsound(src, 'sound/effects/splat.ogg', 50, 1)
+	if(!isspaceturf(src))
+		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
+		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
+			if(V.type == type)
+				V.reagents.add_reagent(vomit_reagent, 5)
+				return
+			
+		var/obj/effect/decal/cleanable/vomit/this = new type(src)
 
 		// Make toxins vomit look different
 		if(toxvomit)
 			this.icon_state = "vomittox_[pick(1,4)]"
-
 
 /atom/proc/get_global_map_pos()
 	if(!islist(global_map) || isemptylist(global_map)) return

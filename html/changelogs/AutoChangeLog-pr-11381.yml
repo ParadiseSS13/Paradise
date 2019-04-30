@@ -1,0 +1,4 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - tweak: "Moves AI admin log to the all preference"
