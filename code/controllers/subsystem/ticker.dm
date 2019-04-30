@@ -11,7 +11,8 @@ SUBSYSTEM_DEF(ticker)
 	// Game ticker related vars
 	var/round_start_time = 0
 	var/const/restart_timeout = 600
-	var/current_state = GAME_STATE_PREGAME
+	var/current_state = GAME_STATE_STARTUP
+	var/force_start = 0 // Do we want to force-start as soon as we can
 	var/force_ending = 0
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
@@ -30,7 +31,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/availablefactions = list()	  // list of factions with openings
 	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
 	var/selected_tip	// What will be the tip of the day?
-	var/pregame_timeleft = "Initializing"
+	var/pregame_timeleft // This is used for calculations
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
 	var/triai = 0//Global holder for Triumvirate
 	var/initialtpass = 0 //holder for inital autotransfer vote timer
@@ -56,56 +57,55 @@ SUBSYSTEM_DEF(ticker)
 	else
 		lastTickerTimeDuration = (currentTime - lastTickerTime) / TICKS_IN_SECOND
 	lastTickerTime = currentTime
-	
-	// Startup loop
-	if(current_state == GAME_STATE_PREGAME)
-		pregame_timeleft = config.pregame_timestart
-		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
-		to_chat(world, "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds")
-		while(current_state == GAME_STATE_PREGAME)
-			sleep(10)
-			if(going)
-				pregame_timeleft--
-
-			if(pregame_timeleft <= 60 && !tipped)
+	// Main firing sequence
+	switch(current_state)
+		if(GAME_STATE_STARTUP)
+			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
+			round_start_time = world.time + (config.pregame_timestart * 10)
+			to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
+			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
+			current_state = GAME_STATE_PREGAME
+			fire() // TG says this is a good idea
+		if(GAME_STATE_PREGAME)
+			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
+			pregame_timeleft = max(0,round_start_time - world.time)
+			
+			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
 				tipped = TRUE
-
-			if(pregame_timeleft <= 0)
-				if(setup()) // Try to start the round
-					current_state = GAME_STATE_SETTING_UP
-					Master.SetRunLevel(RUNLEVEL_SETUP)
-				else // It didnt work, lets loop again
-					break
-	
-	// This makes sure the game keeps going
-	if(current_state != GAME_STATE_PLAYING)
-		return 0
-
-	mode.process()
-	mode.process_job_tasks()
-	var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-	if(config.continuous_rounds)
-		mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
-	else
-		game_finished |= mode.check_finished()
-
-	if((!mode.explosion_in_progress && game_finished) || force_ending)
-		current_state = GAME_STATE_FINISHED
-		Master.SetRunLevel(RUNLEVEL_POSTGAME)
-		auto_toggle_ooc(1) // Turn it on
-		spawn
-			declare_completion()
-
-		spawn(50)
-			callHook("roundend")
-
-			if(mode.station_was_nuked)
-				world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+			
+			if(pregame_timeleft <= 0 || force_start)
+				current_state = GAME_STATE_SETTING_UP
+				Master.SetRunLevel(RUNLEVEL_SETUP)
+		if(GAME_STATE_SETTING_UP)
+			if(!setup()) // Setup failed
+				current_state = GAME_STATE_STARTUP
+				Master.SetRunLevel(RUNLEVEL_LOBBY)
+		if(GAME_STATE_PLAYING)
+			mode.process()
+			mode.process_job_tasks()
+			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
+			if(config.continuous_rounds)
+				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
-				world.Reboot("Round ended.", "end_proper", "proper completion")
+				game_finished |= mode.check_finished()
+			if(game_finished)
+				current_state = GAME_STATE_FINISHED
+		if(GAME_STATE_FINISHED)
+			current_state = GAME_STATE_FINISHED
+			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
+			auto_toggle_ooc(1) // Turn it on
 
-	return 1
+			spawn(0)
+				declare_completion()
+
+			spawn(50)
+				callHook("roundend")
+
+				if(mode.station_was_nuked)
+					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+				else
+					world.Reboot("Round ended.", "end_proper", "proper completion")
 
 
 /datum/controller/subsystem/ticker/proc/votetimer()

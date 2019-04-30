@@ -116,7 +116,7 @@
 				stat("Game Mode: ", "Secret")
 
 		if((SSticker.current_state == GAME_STATE_PREGAME) && going)
-			stat("Time To Start:", SSticker.pregame_timeleft)
+			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
 		if((SSticker.current_state == GAME_STATE_PREGAME) && !going)
 			stat("Time To Start:", "DELAYED")
 

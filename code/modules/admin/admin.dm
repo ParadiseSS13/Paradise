@@ -675,18 +675,23 @@ var/global/nologevent = 0
 	if(!SSticker)
 		alert("Unable to start the game as it is not set up.")
 		return
-	if(SSticker.current_state == GAME_STATE_PREGAME)
-		if(config.start_now_confirmation)
-			if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
-				return
-		SSticker.current_state = GAME_STATE_SETTING_UP
-		log_admin("[key_name(usr)] has started the game.")
-		message_admins("[key_name_admin(usr)] has started the game.")
+
+	if(config.start_now_confirmation)
+		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
+			return
+
+	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
+		SSticker.force_start = TRUE
+		log_admin("[usr.key] has started the game.")
+		var/msg = ""
+		if(SSticker.current_state == GAME_STATE_STARTUP)
+			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
+		message_admins("<font color='blue'>[usr.key] has started the game.[msg]</font>")
 		feedback_add_details("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
-		return 0
+		return 
 
 /datum/admins/proc/toggleenter()
 	set category = "Server"
