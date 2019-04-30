@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Organs will now prompt a update_stat. Meaning that IRCs and the like now get revived when possible when you put their battery and brain in"

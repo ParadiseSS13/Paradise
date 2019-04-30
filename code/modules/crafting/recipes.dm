@@ -117,8 +117,8 @@
 /datum/crafting_recipe/floorbot
 	name = "Floorbot"
 	result = /mob/living/simple_animal/bot/floorbot
-	reqs = list(/obj/item/storage/toolbox/mechanical = 1,
-				/obj/item/stack/tile/plasteel = 1,
+	reqs = list(/obj/item/storage/toolbox = 1,
+				/obj/item/stack/tile/plasteel = 10,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	time = 40

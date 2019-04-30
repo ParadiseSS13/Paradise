@@ -98,6 +98,8 @@
 	//alt titles are handled a bit weirdly in order to unobtrusively integrate into existing ID system
 	var/assignment = null	//can be alt title or the actual job
 	var/rank = null			//actual job
+	var/owner_uid
+	var/owner_ckey
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
 	var/sex
@@ -194,6 +196,19 @@
 	if(rank != assignment)
 		jobnamedata += " (" + assignment + ")"
 	return jobnamedata
+
+/obj/item/card/id/proc/getPlayer()
+	if(owner_uid)
+		var/mob/living/carbon/human/H = locateUID(owner_uid)
+		if(istype(H) && H.ckey == owner_ckey)
+			return H
+		owner_uid = null
+	if(owner_ckey)
+		for(var/mob/M in GLOB.player_list)
+			if(M.ckey && M.ckey == owner_ckey)
+				owner_uid = M.UID()
+				return M
+		owner_ckey = null
 
 /obj/item/card/id/proc/is_untrackable()
 	return untrackable

@@ -45,7 +45,7 @@
 	if(isturf(T))
 		attached = locate() in T
 	if(attached)
-		return attached.get_powernet()
+		return attached.powernet
 
 /obj/machinery/computer/monitor/attack_ai(mob/user)
 	attack_hand(user)

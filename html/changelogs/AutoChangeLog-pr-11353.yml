@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Added AntagHUD to everyone at the round end"

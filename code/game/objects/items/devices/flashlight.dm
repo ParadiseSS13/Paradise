@@ -307,6 +307,9 @@
 	brightness_on = 7
 	icon_state = "torch"
 	item_state = "torch"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
 /obj/item/flashlight/slime
