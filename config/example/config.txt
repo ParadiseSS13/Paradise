@@ -2,10 +2,10 @@
 # SERVERNAME spacestation13
 
 ## Server tagline: This appears on the hub entry.
-# SERVER_EXTRA_FEATURES medium RP, varied species/jobs/modes
+#SERVER_TAG_LINE The Perfect Mix of RP & Action
 
 ## Server extra features: This appears in the feature list on the hub entry.
-# SERVER_EXTRA_FEATURES fun
+#SERVER_EXTRA_FEATURES medium RP, varied species/jobs/modes
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
 ADMIN_LEGACY_SYSTEM
