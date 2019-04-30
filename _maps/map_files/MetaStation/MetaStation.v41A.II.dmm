@@ -11703,7 +11703,7 @@
 	})
 "auD" = (
 /obj/machinery/light_construct/small,
-/obj/item/toolbox_tiles_sensor,
+/obj/item/toolbox_tiles/sensor,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -37724,7 +37724,7 @@
 /area/security/brig)
 "bnv" = (
 /obj/structure/safe{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/folder/documents,
@@ -44634,7 +44634,7 @@
 /area/crew_quarters/heads)
 "byk" = (
 /obj/structure/safe/floor{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/item/gun/projectile/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,

@@ -573,7 +573,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
-	if(!job_master)
+	if(!SSjobs)
 		return
 
 	//limit 	 - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
@@ -594,8 +594,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 	var/datum/job/lastJob
-	if(!job_master)		return
-	for(var/datum/job/job in job_master.occupations)
+	if(!SSjobs)
+		return
+	for(var/datum/job/job in SSjobs.occupations)
 
 		if(job.admin_only)
 			continue
@@ -799,7 +800,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 0
 
 /datum/preferences/proc/UpdateJobPreference(mob/user, role, desiredLvl)
-	var/datum/job/job = job_master.GetJob(role)
+	var/datum/job/job = SSjobs.GetJob(role)
 
 	if(!job)
 		user << browse(null, "window=mob_occupation")
@@ -905,7 +906,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		player_alt_titles[job.title] = new_title
 
 /datum/preferences/proc/SetJob(mob/user, role)
-	var/datum/job/job = job_master.GetJob(role)
+	var/datum/job/job = SSjobs.GetJob(role)
 	if(!job)
 		user << browse(null, "window=mob_occupation")
 		ShowChoices(user)

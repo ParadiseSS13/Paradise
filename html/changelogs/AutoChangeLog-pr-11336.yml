@@ -1,0 +1,4 @@
+author: "CthulhuOnIce"
+delete-after: True
+changes: 
+  - bugfix: "you can smell dead bodies, even if someone else shouldn't"

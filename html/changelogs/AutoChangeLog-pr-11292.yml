@@ -1,0 +1,5 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Makes puke less lag inducing"
+  - tweak: "Puke can now appear on all kinds of turfs except spess"

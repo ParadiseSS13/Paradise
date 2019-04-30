@@ -116,14 +116,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/attach(obj/mecha/M)
 	. = ..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	M.occupant_sight_flags |= SEE_TURFS
 	if(M.occupant)
 		M.occupant.update_sight()
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/detach()
 	chassis.occupant_sight_flags &= ~SEE_TURFS
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	if(chassis.occupant)
 		chassis.occupant.update_sight()
 	return ..()

@@ -109,7 +109,7 @@
 	if(client)
 		client.time_died_as_mouse = world.time
 
-/mob/living/simple_animal/mouse/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -121,7 +121,7 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
 
 	switch(act)

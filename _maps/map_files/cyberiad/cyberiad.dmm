@@ -9787,6 +9787,7 @@
 	pixel_y = 2
 	},
 /obj/item/stamp/law,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";
@@ -28410,7 +28411,7 @@
 /area/security/nuke_storage)
 "aZq" = (
 /obj/structure/safe{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/machinery/light_switch{
 	pixel_y = -23
@@ -53021,7 +53022,7 @@
 /area/engine/gravitygenerator)
 "bTj" = (
 /obj/structure/safe/floor{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/item/gun/projectile/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,

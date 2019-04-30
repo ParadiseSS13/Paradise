@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - soundadd: "Added sound when adding or removing IDs from ID modification computers"

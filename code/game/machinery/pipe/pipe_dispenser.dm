@@ -2,8 +2,8 @@
 	name = "Pipe Dispenser"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/unwrenched = 0
 	var/wait = 0
 
@@ -75,29 +75,25 @@
 
 /obj/machinery/pipedispenser/Topic(href, href_list)
 	if(..() || unwrenched)
-		return 1
+		return
 
 	usr.set_machine(src)
 	add_fingerprint(usr)
 
+	if(world.time < wait + 4)
+		return
+	wait = world.time
 	if(href_list["make"])
-		if(!wait)
-			var/p_type = text2num(href_list["make"])
-			var/p_dir = text2num(href_list["dir"])
-			var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
-			P.update()
-			P.add_fingerprint(usr)
-			wait = world.time + 10
+		var/p_type = text2num(href_list["make"])
+		var/p_dir = text2num(href_list["dir"])
+		var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
+		P.update()
+		P.add_fingerprint(usr)
 	if(href_list["makemeter"])
-		if(wait < world.time)
-			new /obj/item/pipe_meter(loc)
-			wait = world.time + 15
+		new /obj/item/pipe_meter(loc)
 	if(href_list["makegsensor"])
-		if(!wait)
-			new /obj/item/pipe_gsensor(loc)
-			wait = 1
-			spawn(15)
-				wait = 0
+		new /obj/item/pipe_gsensor(loc)
+	return TRUE
 
 /obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	add_fingerprint(usr)
@@ -140,8 +136,6 @@
 	name = "Disposal Pipe Dispenser"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
-	density = 1
-	anchored = 1.0
 
 //Allow you to drag-drop disposal pipes into it
 /obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
@@ -182,16 +176,10 @@
 	popup.open()
 
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
-	if(..() || unwrenched)
-		return 1
-
-	usr.set_machine(src)
-	add_fingerprint(usr)
-
-	if(wait < world.time)
+	if(!..())
+		return
+	if(href_list["dmake"])
 		var/p_type = text2num(href_list["dmake"])
 		var/obj/structure/disposalconstruct/C = new(loc, p_type)
 		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
 			C.density = TRUE
-		C.add_fingerprint(usr)
-		wait = world.time + 15

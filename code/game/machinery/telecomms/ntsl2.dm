@@ -10,109 +10,109 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
  */
 /datum/nttc_configuration
 	// ALL OF THE JOB CRAP
-	// Dict of all jobs and their colors
+	// Dict of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
-		"AI" = "#FF00FF",
-		"Android" = "#FF00FF",
-		"Cyborg" = "#FF00FF",
-		"Personal AI" = "#FF00FF",
-		"Robot" = "#FF00FF",
+		"AI" = "airadio",
+		"Android" = "airadio",
+		"Cyborg" = "airadio",
+		"Personal AI" = "airadio",
+		"Robot" = "airadio",
 		// Civilian + Varients
-		"Assistant" = "#408010",
-		"Businessman" = "#408010",
-		"Civilian" = "#408010",
-		"Tourist" = "#408010",
-		"Trader" = "#408010",
+		"Assistant" = "radio",
+		"Businessman" = "radio",
+		"Civilian" = "radio",
+		"Tourist" = "radio",
+		"Trader" = "radio",
 		// Command (Solo command, not department heads)
-		"Blueshield" = "#204090",
-		"Captain" = "#204090",
-		"Head of Personnel" = "#204090",
-		"Nanotrasen Representative" = "#204090",
+		"Blueshield" = "comradio",
+		"Captain" = "comradio",
+		"Head of Personnel" = "comradio",
+		"Nanotrasen Representative" = "comradio",
 		// Engineeering
-		"Atmospheric Technician" = "#A66300",
-		"Chief Engineer" = "#A66300",
-		"Electrician" = "#A66300",
-		"Engine Technician" = "#A66300",
-		"Life Support Specialist" = "#A66300",
-		"Maintenance Technician" = "#A66300",
-		"Mechanic" = "#A66300",
-		"Station Engineer" = "#A66300",
+		"Atmospheric Technician" = "engradio",
+		"Chief Engineer" = "engradio",
+		"Electrician" = "engradio",
+		"Engine Technician" = "engradio",
+		"Life Support Specialist" = "engradio",
+		"Maintenance Technician" = "engradio",
+		"Mechanic" = "engradio",
+		"Station Engineer" = "engradio",
 		// ERT
-		"Emergency Response Team Engineer" = "#5C5C7C",
-		"Emergency Response Team Leader" = "#5C5C7C",
-		"Emergency Response Team Medic" = "#5C5C7C",
-		"Emergency Response Team Member" = "#5C5C7C",
-		"Emergency Response Team Officer" = "#5C5C7C",
+		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
+		"Emergency Response Team Leader" = "dsquadradio",
+		"Emergency Response Team Medic" = "dsquadradio",
+		"Emergency Response Team Member" = "dsquadradio",
+		"Emergency Response Team Officer" = "dsquadradio",
 		// Medical
-		"Chemist" = "#009190",
-		"Chief Medical Officer" = "#009190",
-		"Coroner" = "#009190",
-		"Medical Doctor" = "#009190",
-		"Microbiologist" = "#009190",
-		"Nurse" = "#009190",
-		"Paramedic" = "#009190",
-		"Pharmacologist" = "#009190",
-		"Pharmacist" = "#009190",
-		"Psychiatrist" = "#009190",
-		"Psychologist" = "#009190",
-		"Surgeon" = "#009190",
-		"Therapist" = "#009190",
-		"Virologist" = "#009190",
+		"Chemist" = "medradio",
+		"Chief Medical Officer" = "medradio",
+		"Coroner" = "medradio",
+		"Medical Doctor" = "medradio",
+		"Microbiologist" = "medradio",
+		"Nurse" = "medradio",
+		"Paramedic" = "medradio",
+		"Pharmacologist" = "medradio",
+		"Pharmacist" = "medradio",
+		"Psychiatrist" = "medradio",
+		"Psychologist" = "medradio",
+		"Surgeon" = "medradio",
+		"Therapist" = "medradio",
+		"Virologist" = "medradio",
 		// Science
-		"Anomalist" = "#993399",
-		"Biomechanical Engineer" = "#993399",
-		"Chemical Researcher" = "#993399",
-		"Geneticist" = "#993399",
-		"Mechatronic Engineer" = "#993399",
-		"Plasma Researcher" = "#993399",
-		"Research Director" = "#993399",
-		"Roboticist" = "#993399",
-		"Scientist" = "#993399",
-		"Xenoarcheologist" = "#993399",
-		"Xenobiologist" = "#993399",
+		"Anomalist" = "sciradio",
+		"Biomechanical Engineer" = "sciradio",
+		"Chemical Researcher" = "sciradio",
+		"Geneticist" = "sciradio",
+		"Mechatronic Engineer" = "sciradio",
+		"Plasma Researcher" = "sciradio",
+		"Research Director" = "sciradio",
+		"Roboticist" = "sciradio",
+		"Scientist" = "sciradio",
+		"Xenoarcheologist" = "sciradio",
+		"Xenobiologist" = "sciradio",
 		// Security
-		"Brig Physician" = "#A30000",
-		"Detective" = "#A30000",
-		"Forensic Technician" = "#A30000",
-		"Head of Security" = "#A30000",
-		"Human Resources Agent" = "#A30000",
-		"Internal Affairs Agent" = "#A30000",
-		"Magistrate" = "#A30000",
-		"Security Officer" = "#A30000",
-		"Security Pod Pilot" = "#A30000",
-		"Warden" = "#A30000",
+		"Brig Physician" = "secradio",
+		"Detective" = "secradio",
+		"Forensic Technician" = "secradio",
+		"Head of Security" = "secradio",
+		"Human Resources Agent" = "secradio",
+		"Internal Affairs Agent" = "secradio",
+		"Magistrate" = "secradio",
+		"Security Officer" = "secradio",
+		"Security Pod Pilot" = "secradio",
+		"Warden" = "secradio",
 		// Supply
-		"Quartermaster" = "#7F6539",
-		"Cargo Technician" = "#7F6539",
-		"Shaft Miner" = "#7F6539",
-		"Spelunker" = "#7F6539",
+		"Quartermaster" = "supradio",
+		"Cargo Technician" = "supradio",
+		"Shaft Miner" = "supradio",
+		"Spelunker" = "supradio",
 		// Service
-		"Barber" = "#80A000",
-		"Bartender" = "#80A000",
-		"Beautician" = "#80A000",
-		"Botanical Researcher" = "#80A000",
-		"Botanist" = "#80A000",
-		"Butcher" = "#80A000",
-		"Chaplain" = "#80A000",
-		"Chef" = "#80A000",
-		"Clown" = "#80A000",
-		"Cook" = "#80A000",
-		"Culinary Artist" = "#80A000",
-		"Custodial Technician" = "#80A000",
-		"Hair Stylist" = "#80A000",
-		"Hydroponicist" = "#80A000",
-		"Janitor" = "#80A000",
-		"Journalist" = "#80A000",
-		"Librarian" = "#80A000",
-		"Mime" = "#80A000",
+		"Barber" = "srvradio",
+		"Bartender" = "srvradio",
+		"Beautician" = "srvradio",
+		"Botanical Researcher" = "srvradio",
+		"Botanist" = "srvradio",
+		"Butcher" = "srvradio",
+		"Chaplain" = "srvradio",
+		"Chef" = "srvradio",
+		"Clown" = "srvradio",
+		"Cook" = "srvradio",
+		"Culinary Artist" = "srvradio",
+		"Custodial Technician" = "srvradio",
+		"Hair Stylist" = "srvradio",
+		"Hydroponicist" = "srvradio",
+		"Janitor" = "srvradio",
+		"Journalist" = "srvradio",
+		"Librarian" = "srvradio",
+		"Mime" = "srvradio",
 	)
 	// Just command members
 	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security")
 	// Just ERT
 	var/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	// Defined so code compiles and incase someone has a non-standard job
-	var/job_color = "#000000"
+	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
 	/* Simple Toggles */
 	var/toggle_activated = TRUE
@@ -274,10 +274,10 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	// All job and coloring shit 
 	if(toggle_job_color || toggle_name_color)
 		var/job = signal.data["job"]
-		job_color = all_jobs[job]
+		job_class = all_jobs[job]
 		
 	if(toggle_name_color)
-		var/new_name = "<font color=\"[job_color]\">" + signal.data["name"] + "</font>"
+		var/new_name = "<span class=\"[job_class]\">" + signal.data["name"] + "</span>"
 		signal.data["name"] = new_name
 		signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 
@@ -289,13 +289,13 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		if(toggle_job_color)
 			switch(job_indicator_type)
 				if(JOB_STYLE_1)
-					new_name = signal.data["name"] + " <font color=\"[job_color]\">([job])</font> "
+					new_name = signal.data["name"] + " <span class=\"[job_class]\">([job])</span> "
 				if(JOB_STYLE_2)
-					new_name = signal.data["name"] + " - <font color=\"[job_color]\">[job]</font> "
+					new_name = signal.data["name"] + " - <span class=\"[job_class]\">[job]</span> "
 				if(JOB_STYLE_3)
-					new_name = "<font color=\"[job_color]\"><small>\[[job]\]</small></font> " + signal.data["name"] + " "
+					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> " + signal.data["name"] + " "
 				if(JOB_STYLE_4)
-					new_name = "<font color=[job_color]>([job])</font> " + signal.data["name"] + " "
+					new_name = "<span class=[job_class]>([job])</span> " + signal.data["name"] + " "
 		else
 			switch(job_indicator_type)
 				if(JOB_STYLE_1)
