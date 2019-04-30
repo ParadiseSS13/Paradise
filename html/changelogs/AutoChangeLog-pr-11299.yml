@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Added a config file option which allows SSD crew members to be moved to cryo after a defined amount of minutes."
+  - rscadd: "Added a config file option which causes most people trying to attack/loot/interact with a SSD character to need to confirm they've read the rules before being able to do so."

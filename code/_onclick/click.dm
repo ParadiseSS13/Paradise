@@ -122,6 +122,10 @@
 		throw_item(A)
 		return
 
+	if(isLivingSSD(A))
+		if(client && client.send_ssd_warning(A))
+			return
+
 	var/obj/item/W = get_active_hand()
 
 	if(W == A)

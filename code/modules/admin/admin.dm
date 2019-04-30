@@ -78,7 +78,7 @@ var/global/nologevent = 0
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
 	if(M.client)
-		body += "<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a> - "
+		body += "<a href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
 		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
@@ -950,9 +950,6 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
 		P.update_recharge_turf()
 
-	for(var/obj/machinery/power/apc/A in toArea)
-		A.init()
-
 	if(gamma_ship_location)
 		gamma_ship_location = 0
 	else
@@ -1096,7 +1093,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		dat += "<tr><td><b>" + id + "</b></td>"
 		dat += "<td>" + ckey + "</td>"
 		dat += "<td><a href='?src=[UID()];force_discord_unlink=[ckey]'>Unlink</td></tr>"
-		
+
 	dat += "</table></body></html>"
 
 	usr << browse(dat, "window=duplicates;size=500x480")

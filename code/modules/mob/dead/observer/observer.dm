@@ -397,13 +397,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 
-	usr.verbs -= /mob/dead/observer/proc/dead_tele
-	spawn(30)
-		usr.verbs += /mob/dead/observer/proc/dead_tele
-
 	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in ghostteleportlocs
 	var/area/thearea = ghostteleportlocs[A]
-	if(!thearea)	return
+	
+	if(!thearea)
+		return
 
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(thearea.type))
@@ -411,6 +409,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!L || !L.len)
 		to_chat(usr, "<span class='warning'>No area available.</span>")
+		return
 
 	usr.forceMove(pick(L))
 	following = null

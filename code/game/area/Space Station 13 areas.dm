@@ -809,10 +809,12 @@ var/list/ghostteleportlocs = list()
 /area/prison/solitary
 	name = "\improper Solitary Confinement"
 	icon_state = "brig"
+	fast_despawn = TRUE
 
 /area/prison/cell_block
 	name = "\improper Prison Cell Block"
 	icon_state = "brig"
+	fast_despawn = TRUE
 
 /area/prison/cell_block/A
 	name = "\improper Prison Cell Block A"
@@ -1631,6 +1633,7 @@ var/list/ghostteleportlocs = list()
 /area/security/permabrig
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison_perma"
+	fast_despawn = TRUE
 
 /area/security/prison
 	name = "\improper Prison Wing"

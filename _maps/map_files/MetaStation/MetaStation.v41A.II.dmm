@@ -11703,7 +11703,7 @@
 	})
 "auD" = (
 /obj/machinery/light_construct/small,
-/obj/item/toolbox_tiles_sensor,
+/obj/item/toolbox_tiles/sensor,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
