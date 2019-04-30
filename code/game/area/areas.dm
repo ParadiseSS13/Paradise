@@ -63,6 +63,8 @@
 								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
+	var/fast_despawn = TRUE
+
 /area/Initialize(mapload)
 	GLOB.all_areas += src
 	icon_state = ""
