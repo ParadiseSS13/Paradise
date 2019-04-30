@@ -5,10 +5,7 @@ SUBSYSTEM_DEF(ticker)
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
-	// Time ticker related vars
-	var/lastTickerTimeDuration
-	var/lastTickerTime
-	// Game ticker related vars
+
 	var/round_start_time = 0
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_STARTUP
@@ -39,25 +36,34 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.\
 
 /datum/controller/subsystem/ticker/Initialize()
-	lastTickerTime = world.timeofday
 	login_music = pick(\
 	'sound/music/thunderdome.ogg',\
 	'sound/music/space.ogg',\
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
-	..()
+	// Setup codephrase
+	if(!GLOB.syndicate_code_phrase)
+		GLOB.syndicate_code_phrase = generate_code_phrase()
+	if(!GLOB.syndicate_code_response)
+		GLOB.syndicate_code_response	= generate_code_phrase()
+
+	// Map name
+	if(using_map && using_map.name)
+		GLOB.map_name = "[using_map.name]"
+	else
+		GLOB.map_name = "Unknown"
+
+	// World name
+	if(config && config.server_name)
+		world.name = "[config.server_name]: [station_name()]"
+	else
+		world.name = station_name()
+		
+	return ..()
 
 
 /datum/controller/subsystem/ticker/fire()
-	// This code is EXTREMELY important shit for checking midnight time rollover. Dont fuck with it
-	var/currentTime = world.timeofday
-	if(currentTime < lastTickerTime)
-		lastTickerTimeDuration = (currentTime - (lastTickerTime - TICKS_IN_DAY)) / TICKS_IN_SECOND
-	else
-		lastTickerTimeDuration = (currentTime - lastTickerTime) / TICKS_IN_SECOND
-	lastTickerTime = currentTime
-	// Main firing sequence
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails

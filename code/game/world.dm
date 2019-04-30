@@ -35,22 +35,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		processScheduler.setup()
 
 
-	if(!syndicate_code_phrase)
-		syndicate_code_phrase = generate_code_phrase()
-	if(!syndicate_code_response)
-		syndicate_code_response	= generate_code_phrase()
-	if(using_map && using_map.name)
-		map_name = "[using_map.name]"
-	else
-		map_name = "Unknown"
-
-
-	if(config && config.server_name)
-		name = "[config.server_name]: [station_name()]"
-	else
-		name = station_name()
-
-
 #undef RECOMMENDED_VERSION
 
 	return
@@ -118,7 +102,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			player_count++
 		s["players"] = player_count
 		s["admins"] = admin_count
-		s["map_name"] = map_name ? map_name : "Unknown"
+		s["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
 
 		if(key_valid)
 			if(SSticker && SSticker.mode)
