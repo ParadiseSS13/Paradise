@@ -386,19 +386,13 @@ var/world_topic_spam_protect_time = world.timeofday
 		s += "<b>[config.server_name]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
 	if(config && config.githuburl)
-		s+= "(<a href=\"[config.githuburl]\">[game_version]</a>)"
+		s+= "([game_version])"
 
 	if(config && config.server_tag_line)
 		s += "<br>[config.server_tag_line]"
 
 	s += "<br>"
 	var/list/features = list()
-
-	var/n = GLOB.clients.len
-	if(n > 1)
-		features += "~[n] players"
-	else if(n > 0)
-		features += "~[n] player"
 
 	if(ticker)
 		if(master_mode && master_mode != "secret")
@@ -415,13 +409,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(config && config.allow_vote_mode)
 		features += "vote"
 
-	if(config && config.allow_ai)
-		features += "AI allowed"
-
-	if(config && config.forumurl)
-		features += "<a href=\"[config.forumurl]\">Forum</a>"
-	if(config && config.discordurl)
-		features += "<a href=\"[config.discordurl]\">Discord</a>"
 	if(config && config.wikiurl)
 		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
 

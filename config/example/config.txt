@@ -2,7 +2,7 @@
 # SERVERNAME spacestation13
 
 ## Server tagline: This appears on the hub entry.
-# SERVER_TAG_LINE The Perfect Mix of RP & Action
+# SERVER_EXTRA_FEATURES medium RP, varied species/jobs/modes
 
 ## Server extra features: This appears in the feature list on the hub entry.
 # SERVER_EXTRA_FEATURES fun
