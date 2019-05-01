@@ -30,6 +30,7 @@
 	msg += "<EM>[name]</EM>"
 
 	var/displayed_species = dna.species.name
+	var/examine_color = dna.species.flesh_color
 	for(var/obj/item/clothing/C in src)			//Disguise checks
 		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
 			if(C.species_disguise)
@@ -37,11 +38,11 @@
 	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a slime person!\n"
+		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
 	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
-		msg += ", a unathi!\n"
+		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"
 	else
-		msg += ", \a [lowertext(displayed_species)]!\n"
+		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.flags & ABSTRACT))
