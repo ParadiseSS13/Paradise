@@ -8,7 +8,7 @@
 	var/making_mage = FALSE
 	var/mages_made = 1
 	var/time_checked = 0
-	var/players_per_mage = 10 // If the admin wants to tweak things or something
+	var/players_per_mage = 15 // If the admin wants to tweak things or something
 	var/delay_per_mage = 4200 // Every 7 minutes by default
 	var/time_till_chaos = 18000 // Half-hour in
 
@@ -30,7 +30,7 @@
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
-	var/wizard_cap = FLOOR((num_players_started() / players_per_mage), 1)
+	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
 	max_mages = wizard_cap
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
