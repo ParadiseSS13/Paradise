@@ -1,0 +1,7 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Borgs health status now updates properly when removing and adding parts"
+  - bugfix: "You won't try to fix destroyed components in borgs anymore. Which resulted to lost materials and no healing"
+  - bugfix: "Borg analysers will now properly show missing components and won't show their damage if missing"
+  - tweak: "Self diagnostics for borgs now also shows missing parts and destroyed ones"
