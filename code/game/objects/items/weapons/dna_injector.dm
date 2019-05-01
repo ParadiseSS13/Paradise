@@ -679,7 +679,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/comic/Initialize()
-	block = COMIC
+	block = COMICBLOCK
 	..()
 
 /obj/item/dnainjector/anticomic
@@ -690,5 +690,5 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/anticomic/Initialize()
-	block = COMIC
+	block = COMICBLOCK
 	..()
