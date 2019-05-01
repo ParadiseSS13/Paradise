@@ -312,7 +312,9 @@
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
+	W.in_inventory = TRUE
 	update_icon()
+	W.in_inventory = TRUE
 	return 1
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
