@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/changeling/chameleon_skin
+/datum/action/changeling/chameleon_skin
 	name = "Chameleon Skin"
 	desc = "Our skin pigmentation rapidly changes to suit our current environment."
 	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off."
@@ -6,7 +6,7 @@
 	chemical_cost = 25
 	req_human = 1
 
-/obj/effect/proc_holder/changeling/chameleon_skin/sting_action(mob/user)
+/datum/action/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = 1
 	if(!istype(H)) // req_human could be done in can_sting stuff.
 		return
@@ -20,8 +20,9 @@
 	feedback_add_details("changeling_powers","CS")
 	return TRUE
 
-/obj/effect/proc_holder/changeling/chameleon_skin/on_refund(mob/user)
+/datum/action/changeling/chameleon_skin/Remove(mob/user)
 	var/mob/living/carbon/C = user
 	if(C.dna.GetSEState(CHAMELEONBLOCK))
 		C.dna.SetSEState(CHAMELEONBLOCK, 0)
 		genemutcheck(C, CHAMELEONBLOCK, null, MUTCHK_FORCED)
+	..()

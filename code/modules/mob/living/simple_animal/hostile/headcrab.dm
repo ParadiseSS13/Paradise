@@ -91,7 +91,7 @@
 		if(origin.changeling.can_absorb_dna(M, owner))
 			origin.changeling.absorb_dna(owner, M)
 
-		origin.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
+		origin.changeling.purchasedpowers += new /datum/action/changeling/humanform(null)
 		M.key = origin.key
 	owner.gib()
 

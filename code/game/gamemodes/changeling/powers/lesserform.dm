@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/changeling/lesserform
+/datum/action/changeling/lesserform
 	name = "Lesser form"
 	desc = "We debase ourselves and become lesser. We become a monkey."
 	chemical_cost = 5
@@ -7,7 +7,7 @@
 	req_human = 1
 
 //Transform into a monkey.
-/obj/effect/proc_holder/changeling/lesserform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/lesserform/sting_action(var/mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	if(!user)
 		return 0
@@ -25,6 +25,6 @@
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
-	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
+	changeling.purchasedpowers += new /datum/action/changeling/humanform(null)
 	feedback_add_details("changeling_powers","LF")
 	return 1

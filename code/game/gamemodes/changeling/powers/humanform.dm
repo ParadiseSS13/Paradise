@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/changeling/humanform
+/datum/action/changeling/humanform
 	name = "Human form"
 	desc = "We change into a human."
 	chemical_cost = 5
@@ -8,7 +8,7 @@
 
 
 //Transform into a human.
-/obj/effect/proc_holder/changeling/humanform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/humanform/sting_action(var/mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
 	for(var/datum/dna/DNA in (changeling.absorbed_dna+changeling.protected_dna))
@@ -38,7 +38,7 @@
 	user.UpdateAppearance()
 
 	changeling.purchasedpowers -= src
-	//O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/lesserform(null)
+	//O.mind.changeling.purchasedpowers += new /datum/action/changeling/lesserform(null)
 	feedback_add_details("changeling_powers","LFT")
 	return 1
 

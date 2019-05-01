@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/changeling/epinephrine
+/datum/action/changeling/epinephrine
 	name = "Epinephrine Overdose"
 	desc = "We evolve additional sacs of adrenaline throughout our body."
 	helptext = "Removes all stuns instantly and adds a short-term reduction in further stuns. Can be used while unconscious. Continued use poisons the body."
@@ -8,7 +8,7 @@
 	req_stat = UNCONSCIOUS
 
 //Recover from stuns.
-/obj/effect/proc_holder/changeling/epinephrine/sting_action(var/mob/living/user)
+/datum/action/changeling/epinephrine/sting_action(var/mob/living/user)
 
 	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")

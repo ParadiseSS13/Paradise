@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/changeling/swap_form
+/datum/action/changeling/swap_form
 	name = "Swap Forms"
 	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind."
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
@@ -6,7 +6,7 @@
 	dna_cost = 1
 	req_human = 1 //Monkeys can't grab
 
-/obj/effect/proc_holder/changeling/swap_form/can_sting(var/mob/living/carbon/user)
+/datum/action/changeling/swap_form/can_sting(var/mob/living/carbon/user)
 	if(!..())
 		return
 	var/obj/item/grab/G = user.get_active_hand()
@@ -23,7 +23,7 @@
 	return 1
 
 
-/obj/effect/proc_holder/changeling/swap_form/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
