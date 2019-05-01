@@ -1,0 +1,4 @@
+author: "dovydas12345"
+delete-after: True
+changes: 
+  - bugfix: "Fixes normal cameras spooking non-chaplains even when they don't capture any ghosts"
