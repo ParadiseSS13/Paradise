@@ -105,7 +105,7 @@
 			return
 
 		if("professional") // 32 TC + two 0TC
-			new /obj/item/gun/projectile/automatic/sniper_rifle(src) // 16TC
+			new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator(src) // 16TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
 			new /obj/item/clothing/glasses/thermal/syndi/sunglasses(src) // 6TC 

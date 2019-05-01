@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
-	desc = "the kind of gun that will leave you crying for mummy before you even realise your leg's missing"
+	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2
@@ -20,16 +20,26 @@
 	slot_flags = SLOT_BACK
 	actions_types = list()
 
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate
+	name = "syndicate sniper rifle"
+	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
+	origin_tech = "combat=7;syndicate=6"
+
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
+	name = "syndicate penetrator sniper rifle"
+
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
+	. = ..()
+	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
+
+	QDEL_NULL(magazine)
+	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
 		icon_state = "sniper"
-
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	name = "syndicate sniper rifle"
-	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
-	origin_tech = "combat=7;syndicate=6"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
