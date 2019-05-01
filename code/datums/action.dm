@@ -107,6 +107,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
@@ -405,6 +406,19 @@
 	..()
 	name = "Use [target.name]"
 	button.name = name
+
+/datum/action/item_action/voice_changer/toggle
+	name = "Toggle Voice Changer"
+
+/datum/action/item_action/voice_changer/voice
+	name = "Set Voice"
+
+/datum/action/item_action/voice_changer/voice/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/voice_changer/V = target
+	V.set_voice(usr)
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory

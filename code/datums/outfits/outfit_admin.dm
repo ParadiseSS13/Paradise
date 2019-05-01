@@ -123,7 +123,7 @@
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
-	shoes = /obj/item/clothing/shoes/syndigaloshes/black
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 40
 	id_access = "Syndicate Agent"
 
@@ -228,7 +228,7 @@
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/syndigaloshes/black
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id
 	pda = /obj/item/pda
@@ -990,7 +990,7 @@
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/syndigaloshes/black
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
 	l_hand = /obj/item/twohanded/dualsaber/red
@@ -1021,7 +1021,7 @@
 	suit = /obj/item/clothing/suit/draculacoat
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/syndigaloshes/black
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id
 	backpack_contents = list(

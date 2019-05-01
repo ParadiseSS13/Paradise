@@ -8543,7 +8543,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/mask/gas/cyborg,
-/obj/item/clothing/mask/gas/voice,
+/obj/item/clothing/mask/chameleon,
 /obj/item/clothing/mask/balaclava{
 	pixel_x = 3;
 	pixel_y = -3
@@ -8729,7 +8729,7 @@
 /area/admin)
 "uY" = (
 /obj/structure/rack,
-/obj/item/clothing/under/chameleon/all{
+/obj/item/clothing/mask/chameleon{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -9036,7 +9036,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/shoes/centcom,
-/obj/item/clothing/shoes/syndigaloshes{
+/obj/item/clothing/shoes/chameleon/noslip{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -12275,7 +12275,7 @@
 "Hv" = (
 /obj/structure/rack,
 /obj/item/katana/energy,
-/obj/item/clothing/mask/gas/voice/space_ninja,
+/obj/item/clothing/mask/gas/space_ninja,
 /turf/unsimulated/floor{
 	icon_state = "engine"
 	},

@@ -669,3 +669,26 @@
 /obj/item/dnainjector/m2h/Initialize()
 	block = MONKEYBLOCK
 	..()
+
+
+/obj/item/dnainjector/comic
+	name = "DNA-Injector (Comic)"
+	desc = "Honk!"
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/comic/Initialize()
+	block = COMIC
+	..()
+
+/obj/item/dnainjector/anticomic
+	name = "DNA-Injector (Ant-Comic)"
+	desc = "Honk...?"
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/anticomic/Initialize()
+	block = COMIC
+	..()
