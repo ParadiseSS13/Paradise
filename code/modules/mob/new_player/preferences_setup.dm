@@ -214,7 +214,7 @@
 	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high | job_karma_high
 
 	if(job_support_low & CIVILIAN)
-		return job_master.GetJob("Civilian")
+		return SSjobs.GetJob("Civilian")
 	else if(highRankFlag)
 		var/highDeptFlag
 		if(job_support_high)
@@ -226,7 +226,7 @@
 		else if(job_karma_high)
 			highDeptFlag = KARMA
 
-		for(var/datum/job/job in job_master.occupations)
+		for(var/datum/job/job in SSjobs.occupations)
 			if(job.flag & highRankFlag && job.department_flag == highDeptFlag)
 				return job
 

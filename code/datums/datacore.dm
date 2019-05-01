@@ -345,7 +345,7 @@ var/record_id_num = 1001
 	return
 
 /proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
-	var/datum/job/J = job_master.GetJob(H.mind.assigned_role)
+	var/datum/job/J = SSjobs.GetJob(H.mind.assigned_role)
 	var/datum/preferences/P
 	if(!C)
 		C = H.client
