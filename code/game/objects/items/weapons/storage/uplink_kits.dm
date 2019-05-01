@@ -17,14 +17,15 @@
 			new /obj/item/chameleon(src) // 8TC
 			return
 
-		if("thief")	// 44TC
+		if("thief")	// 40TC
 			new /obj/item/gun/energy/kinetic_accelerator/crossbow(src) // 12TC
-			new /obj/item/pen/sleepy(src) // 8TC
 			new /obj/item/chameleon(src) // 8TC
 			new /obj/item/clothing/glasses/thermal/syndi(src) // 6TC
 			new /obj/item/clothing/gloves/color/black/thief(src) // 6TC
 			new /obj/item/card/id/syndicate(src) // 2TC
 			new /obj/item/clothing/shoes/chameleon/noslip(src) // 2TC
+			new /obj/item/storage/backpack/satchel_flat(src) // 2TC
+			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
 		if("bond") // 33TC + three 0TC
@@ -42,7 +43,7 @@
 			new /obj/item/CQC_manual(src) // 13TC
 			return
 
-		if("sabotage") // 45TC + three 0TC
+		if("sabotage") // 47TC + three 0TC
 			new /obj/item/grenade/plastic/c4(src) // 1TC
 			new /obj/item/grenade/plastic/c4(src) // 1TC
 			new /obj/item/camera_bug(src) // 1TC
@@ -54,9 +55,10 @@
 			new /obj/item/grenade/syndieminibomb(src) // 6TC
 			new /obj/item/grenade/clusterbuster/n2o(src) // 0TC
 			new /obj/item/storage/box/syndie_kit/space(src) // 4TC
+			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("payday") // 31TC + four 0TC
+		if("payday") // 33TC + four 0TC
 			new /obj/item/gun/projectile/revolver(src) // 13TC
 			new /obj/item/ammo_box/a357(src) // 3TC
 			new /obj/item/ammo_box/a357(src) // 3TC
@@ -68,15 +70,17 @@
 			new /obj/item/clothing/gloves/color/latex/nitrile(src) //0 TC
 			new /obj/item/clothing/mask/gas/clown_hat(src) // 0TC
 			new /obj/item/thermal_drill(src) // 3TC
+			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("implant") // 37TC + ten free TC
+		if("implant") // 39TC + ten free TC
 			new /obj/item/implanter/freedom(src) // 5TC
 			new /obj/item/implanter/uplink(src) // 14TC (ten free TC)
 			new /obj/item/implanter/emp(src) // 0TC
 			new /obj/item/implanter/adrenalin(src) // 8TC
 			new /obj/item/implanter/explosive(src) // 2TC
 			new /obj/item/implanter/storage(src) // 8TC
+			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
 		if("hacker") // 30TC + one 0TC
@@ -97,16 +101,19 @@
 			new /obj/item/card/id/syndicate(src) // 2TC
 			new /obj/item/clothing/shoes/chameleon/noslip(src) // 2TC
 			new /obj/item/clothing/mask/chameleon(src) // 2TC
+			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("professional") // 29 TC + two 0TC
+		if("professional") // 32 TC + two 0TC
 			new /obj/item/gun/projectile/automatic/sniper_rifle(src) // 16TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
+			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
 			new /obj/item/clothing/glasses/thermal/syndi/sunglasses(src) // 6TC 
 			new /obj/item/clothing/gloves/combat(src) // 0 TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) // 0 TC
 			new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src) // 0TC
 			new /obj/item/pen/edagger(src) // 2TC
+			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
 /obj/item/storage/box/syndie_kit
