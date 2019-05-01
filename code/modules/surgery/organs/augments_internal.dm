@@ -264,6 +264,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened/Initialize(mapload)
+	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
