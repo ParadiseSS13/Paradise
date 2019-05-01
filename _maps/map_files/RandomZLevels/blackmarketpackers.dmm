@@ -1499,10 +1499,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	tag = "icon-engine";
-	icon_state = "engine"
-	},
+/turf/simulated/shuttle/plating,
 /area/awaymission/BMPship/Aft)
 "ec" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -1510,7 +1507,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/BMPship/Aft)
 "ed" = (
 /obj/item/multitool,

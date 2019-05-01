@@ -42,7 +42,7 @@
 	if(tamperproof)		//doing this during New so we don't have to worry about forgetting to set these vars during editting / defining
 		unacidable = 1
 	..()
-	if(radio_controller)
+	if(SSradio)
 		set_frequency(frequency)
 	component_parts = list()
 	var/obj/item/circuitboard/logic_gate/LG = new(null)
@@ -55,14 +55,14 @@
 	set_frequency(frequency)
 
 /obj/machinery/logic_gate/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_LOGIC)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
 	return
 
 /obj/machinery/logic_gate/Destroy()
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 

@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "AZERTY hotkey mode users can now switch between regular mode and hotkey mode properly using TAB again."

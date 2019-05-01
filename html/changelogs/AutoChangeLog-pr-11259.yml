@@ -1,0 +1,13 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "The hardsuit equipment lockers on the Syndicate Nuclear Operative shuttle have been replaced with suit storage units. Suit storage units now have a separate slot for magboots."
+  - rscadd: "Nuclear Operatives can now purchase reinforcements. These reinforcements cost 25 telecrystals each."
+  - rscadd: "A number of new ammunition and weapon bundles have been added for Nuclear Operatives."
+  - tweak: "For every ten players on the server, the Nuclear Operatives now receive 2 extra telecrystals."
+  - tweak: "The Syndicate borg spawners have been separated into three separate spawners, one for each type of Syndicate cyborg. Their prices have been modified."
+  - tweak: "Saboteur borgs now spawn with thermals."
+  - tweak: "The Syndicate borg and exosuits have been moved to a new category, \"Support and Mechanized Exosuits\"."
+  - tweak: "Existing bundles and telecrystal purchases have been moved to a new category, \"Bundles and Telecrystals\"."
+  - tweak: "There are now more spawn points for nuclear operatives on their base. The number of operatives spawning has not been changed."
+  - bugfix: "Spawning nuclear operatives through the traitor panel now causes their ID to be properly updated."

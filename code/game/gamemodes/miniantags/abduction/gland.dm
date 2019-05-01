@@ -373,11 +373,11 @@
 
 /obj/effect/cocoon/abductor/proc/Start()
 	hatch_time = world.time + 600
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/cocoon/abductor/process()
 	if(world.time > hatch_time)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		for(var/mob/M in contents)
 			src.visible_message("<span class='warning'>[src] hatches!</span>")
 			M.forceMove(get_turf(src))

@@ -494,7 +494,7 @@
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 

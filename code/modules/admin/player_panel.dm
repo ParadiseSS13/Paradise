@@ -61,7 +61,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,UID,eyeUID){
+				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,clientUID,eyeUID){
 
 					clearAll();
 
@@ -75,13 +75,13 @@
 
 					body += "</td><td align='center'>";
 
-					body += "<a href='?src=[UID()];adminplayeropts="+UID+"'>PP</a> - "
+					body += "<a href='?src=[UID()];adminplayeropts="+mobUID+"'>PP</a> - "
 					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
-					body += "<a href='?_src_=vars;Vars="+UID+"'>VV</a> - "
-					body += "<a href='?src=[UID()];traitor="+UID+"'>TP</a> - "
-					body += "<a href='?src=[usr.UID()];priv_msg="+UID+"'>PM</a> - "
-					body += "<a href='?src=[UID()];subtlemessage="+UID+"'>SM</a> - "
-					body += "<a href='?src=[UID()];adminplayerobservefollow="+UID+"'>FLW</a>"
+					body += "<a href='?_src_=vars;Vars="+mobUID+"'>VV</a> - "
+					body += "<a href='?src=[UID()];traitor="+mobUID+"'>TP</a> - "
+					body += "<a href='?src=[usr.UID()];priv_msg="+clientUID+"'>PM</a> - "
+					body += "<a href='?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
+					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a>"
 					if(eyeUID)
 						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
@@ -293,6 +293,7 @@
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
 					M_eyeUID = "[A.eyeobj.UID()]"
+			var/clientUID = M.client ? M.client.UID() : null
 			//output for each mob
 			dat += {"
 
@@ -300,7 +301,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]", "[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[clientUID]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -371,7 +372,7 @@
 
 		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
 		<td align=center><A HREF='?src=[UID()];adminplayeropts=[M.UID()]'>X</A></td>
-		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</A></td>
+		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>
 		"}
 		switch(is_special_character(M))
 			if(0)
@@ -398,7 +399,7 @@
 		dname = M
 
 	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</A></td>[close ? "</tr>" : ""]"}
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
@@ -473,7 +474,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.ckey]'>PM</A></td>"
+					dat += "<td><A href='?priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"

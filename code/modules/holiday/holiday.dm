@@ -345,9 +345,9 @@
 	if(!istype(H))	return
 
 	H.celebrate()
-	if(!holiday_master.holidays)
-		holiday_master.holidays = list()
-	holiday_master.holidays[H.name] = H
+	if(!SSholiday.holidays)
+		SSholiday.holidays = list()
+	SSholiday.holidays[H.name] = H
 
 	//update our hub status
 	world.update_status()

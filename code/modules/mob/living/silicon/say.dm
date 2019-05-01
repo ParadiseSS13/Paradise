@@ -103,7 +103,7 @@
 		return
 	return 1
 
-/mob/living/silicon/ai/emote(var/act, var/type, var/message)
+/mob/living/silicon/ai/emote(act, type, message, force)
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])//Is the AI using a holopad?
 		src.holopad_emote(message)

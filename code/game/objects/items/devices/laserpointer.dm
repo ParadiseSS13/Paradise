@@ -167,7 +167,7 @@
 	if(energy <= max_energy)
 		if(!recharging)
 			recharging = 1
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
 			recharge_locked = 1

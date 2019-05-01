@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Carps now spawn with a random color! There might even be some really rare ones.."
+  - imageadd: "Added carp color variants sprites"

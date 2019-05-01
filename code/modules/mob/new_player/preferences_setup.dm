@@ -385,19 +385,22 @@
 	if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
 		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
-			underwear_s = new/icon(U.icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
+			var/u_icon = U.sprite_sheets && (current_species.name in U.sprite_sheets) ? U.sprite_sheets[current_species.name] : U.icon //Species-fit the undergarment.
+			underwear_s = new/icon(u_icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
 		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
 		if(U2)
-			undershirt_s = new/icon(U2.icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
+			var/u2_icon = U2.sprite_sheets && (current_species.name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.name] : U2.icon
+			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
 
 	var/icon/socks_s = null
 	if(socks && (current_species.clothing_flags & HAS_SOCKS))
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
-			socks_s = new/icon(U3.icon, "sk_[U3.icon_state]_s", ICON_OVERLAY)
+			var/u3_icon = U3.sprite_sheets && (current_species.name in U3.sprite_sheets) ? U3.sprite_sheets[current_species.name] : U3.icon
+			socks_s = new/icon(u3_icon, "sk_[U3.icon_state]_s", ICON_OVERLAY)
 
 	var/icon/clothes_s = null
 	var/uniform_dmi='icons/mob/uniform.dmi'

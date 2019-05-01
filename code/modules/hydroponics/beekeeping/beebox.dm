@@ -47,11 +47,11 @@
 
 /obj/structure/beebox/Initialize(mapload)
 	. = ..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/structure/beebox/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
 		B.beehome = null
 	bees.Cut()

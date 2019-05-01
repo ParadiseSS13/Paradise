@@ -16,7 +16,7 @@ var/const/INGEST = 2
 /datum/reagents/New(maximum = 100)
 	maximum_volume = maximum
 	if(!(flags & REAGENT_NOREACT))
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
 	if(!GLOB.chemical_reagents_list)
 		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
@@ -333,9 +333,9 @@ var/const/INGEST = 2
 			od_chems.Add(R.id)
 	return od_chems
 
-/datum/reagents/proc/process()
+/datum/reagents/process()
 	if(flags & REAGENT_NOREACT)
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 		return
 
 	for(var/datum/reagent/R in reagent_list)
@@ -346,9 +346,9 @@ var/const/INGEST = 2
 		// Order is important, process() can remove from processing if
 		// the flag is present
 		flags &= ~(REAGENT_NOREACT)
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 	else
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 		flags |= REAGENT_NOREACT
 
 /*
@@ -819,7 +819,7 @@ var/const/INGEST = 2
 
 /datum/reagents/Destroy()
 	. = ..()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	QDEL_LIST(reagent_list)
 	reagent_list = null
 	QDEL_LIST(addiction_list)

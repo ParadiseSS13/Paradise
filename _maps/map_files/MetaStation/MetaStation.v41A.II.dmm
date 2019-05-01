@@ -921,7 +921,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "abR" = (
 /obj/structure/computerframe,
@@ -1030,18 +1030,18 @@
 	tag = "icon-propulsion_l";
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "acc" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "acd" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion_r";
 	icon_state = "propulsion_r"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/syndicate)
 "ace" = (
 /obj/structure/cable,
@@ -5910,7 +5910,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "akr" = (
 /obj/machinery/door/firedoor,
@@ -6466,7 +6466,7 @@
 	tag = "icon-propulsion_l";
 	icon_state = "propulsion_l"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "alm" = (
 /obj/structure/closet/l3closet/security,
@@ -11703,7 +11703,7 @@
 	})
 "auD" = (
 /obj/machinery/light_construct/small,
-/obj/item/toolbox_tiles_sensor,
+/obj/item/toolbox_tiles/sensor,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -37724,7 +37724,7 @@
 /area/security/brig)
 "bnv" = (
 /obj/structure/safe{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/folder/documents,
@@ -44634,7 +44634,7 @@
 /area/crew_quarters/heads)
 "byk" = (
 /obj/structure/safe/floor{
-	knownby = list("captain")
+	known_by = list("captain")
 	},
 /obj/item/gun/projectile/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
@@ -92414,7 +92414,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/binary/pump/highcap{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -92426,7 +92426,7 @@
 /obj/structure/sign/fire{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/binary/pump/highcap{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,

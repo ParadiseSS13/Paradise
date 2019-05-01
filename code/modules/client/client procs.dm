@@ -9,6 +9,7 @@
 #define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	511		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+#define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
 	/*
 	When somebody clicks a link in game, this Topic is called first.
@@ -73,11 +74,11 @@
 	//Admin PM
 	if(href_list["priv_msg"])
 		var/client/C = locate(href_list["priv_msg"])
-		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
-			var/mob/M = C
-			C = M.client
+		
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
+		else if(C.UID() != href_list["priv_msg"])
+			C = null // 404 client not found. Let cmd_admin_pm handle the error
 		cmd_admin_pm(C, null, href_list["type"])
 		return
 
@@ -225,6 +226,9 @@
 						vote_on_poll(pollid, optionid, 1)
 		src << browse(null, "window=playerpoll")
 		handle_player_polling()
+	if(href_list["ssdwarning"])
+		ssd_warning_acknowledged = TRUE
+		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 
 	switch(href_list["action"])
 		if("openLink")
@@ -773,3 +777,16 @@
 			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+
+
+/client/proc/send_ssd_warning(mob/M)
+	if(!config.ssd_warning)
+		return FALSE
+	if(ssd_warning_acknowledged)
+		return FALSE
+	if(M && M.player_logged < SSD_WARNING_TIMER)
+		return FALSE
+	to_chat(src, "Interacting with SSD players is against server rules unless you've ahelped first for permission. If you have, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</A> and proceed.")
+	return TRUE
+
+#undef SSD_WARNING_TIMER

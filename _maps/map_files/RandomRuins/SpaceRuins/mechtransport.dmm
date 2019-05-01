@@ -240,7 +240,7 @@
 /area/ruin/powered)
 "R" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 
 (1,1,1) = {"

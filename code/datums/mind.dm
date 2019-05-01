@@ -29,6 +29,7 @@
 	var/memory
 
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
+	var/playtime_role //if set, overrides your assigned_role for the purpose of playtime awards. Set by IDcomputer when your ID is changed.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
 	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
@@ -1024,6 +1025,7 @@
 				if(!ticker.mode.equip_syndicate(current))
 					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
 					return
+				ticker.mode.update_syndicate_id(current.mind, ticker.mode.syndicates.len == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 

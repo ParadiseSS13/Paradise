@@ -47,7 +47,7 @@
 	var/list/squad
 
 /obj/effect/spawner/snpc_squad/New()
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 	squad = squads[squad_type]
 	if(!squad)
@@ -57,7 +57,7 @@
 
 /obj/effect/spawner/snpc_squad/Destroy()
 	squad = null
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/spawner/snpc_squad/process()
