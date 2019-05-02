@@ -22,7 +22,6 @@
 
 	return 1
 
-
 /datum/action/changeling/augmented_eyesight/Remove(mob/user)
 	var/obj/item/organ/internal/cyberimp/eyes/O = user.get_organ_slot("eye_ling")
 	if(O)

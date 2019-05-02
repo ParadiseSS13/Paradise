@@ -31,7 +31,6 @@
 		addtimer(CALLBACK(src, .proc/dissolve_straightjacket, user, S), 30)
 		used = TRUE
 
-
 	if(istype(user.loc, /obj/structure/closet) && !used)
 		var/obj/structure/closet/C = user.loc
 		if(!istype(C))
