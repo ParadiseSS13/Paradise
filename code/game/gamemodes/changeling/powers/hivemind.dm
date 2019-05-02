@@ -15,6 +15,7 @@
 	var/datum/action/changeling/hivemind_upload/S1 = new
 	if(!changeling.has_sting(S1))
 		changeling.purchasedpowers+=S1
+		S1.Grant(user)
 	var/datum/action/changeling/hivemind_download/S2 = new
 	if(!changeling.has_sting(S2))
 		S2.Grant(user)
@@ -26,7 +27,8 @@ var/list/datum/dna/hivemind_bank = list()
 
 /datum/action/changeling/hivemind_upload
 	name = "Hive Channel DNA"
-	desc = "Allows us to channel DNA in the airwaves to allow other changelings to absorb it."
+	desc = "Allows us to channel DNA in the airwaves to allow other changelings to absorb it. Costs 10 chemicals."
+	button_icon_state = "hivemind_channel"
 	chemical_cost = 10
 	dna_cost = -1
 
@@ -56,7 +58,8 @@ var/list/datum/dna/hivemind_bank = list()
 
 /datum/action/changeling/hivemind_download
 	name = "Hive Absorb DNA"
-	desc = "Allows us to absorb DNA that has been channeled to the airwaves. Does not count towards absorb objectives."
+	desc = "Allows us to absorb DNA that has been channeled to the airwaves. Does not count towards absorb objectives. Costs 10 chemicals."
+	button_icon_state = "hive_absorb"
 	chemical_cost = 10
 	dna_cost = -1
 

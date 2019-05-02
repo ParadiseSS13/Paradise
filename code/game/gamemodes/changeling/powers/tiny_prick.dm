@@ -60,11 +60,11 @@
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return 1
 
-
 /datum/action/changeling/sting/transformation
 	name = "Transformation Sting"
-	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
+	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 50 chemicals."
 	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
+	button_icon_state = "sting_transform"
 	sting_icon = "sting_transform"
 	chemical_cost = 50
 	dna_cost = 3
@@ -116,8 +116,9 @@
 
 datum/action/changeling/sting/extract_dna
 	name = "Extract DNA Sting"
-	desc = "We stealthily sting a target and extract their DNA."
+	desc = "We stealthily sting a target and extract their DNA. Costs 25 chemicals."
 	helptext = "Will give you the DNA of your target, allowing you to transform into them."
+	button_icon_state = "sting_extract"
 	sting_icon = "sting_extract"
 	chemical_cost = 25
 	dna_cost = 0
@@ -135,8 +136,9 @@ datum/action/changeling/sting/extract_dna
 
 datum/action/changeling/sting/mute
 	name = "Mute Sting"
-	desc = "We silently sting a human, completely silencing them for a short time."
+	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals."
 	helptext = "Does not provide a warning to the victim that they have been stung, until they try to speak and cannot."
+	button_icon_state = "sting_mute"
 	sting_icon = "sting_mute"
 	chemical_cost = 20
 	dna_cost = 2
@@ -149,8 +151,9 @@ datum/action/changeling/sting/mute
 
 datum/action/changeling/sting/blind
 	name = "Blind Sting"
-	desc = "Temporarily blinds the target."
-	helptext = "This sting completely blinds a target for a short time."
+	desc = "We temporarily blind our victim. Costs 25 chemicals."
+	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
+	button_icon_state = "sting_blind"
 	sting_icon = "sting_blind"
 	chemical_cost = 25
 	dna_cost = 1
@@ -166,8 +169,9 @@ datum/action/changeling/sting/blind
 
 datum/action/changeling/sting/LSD
 	name = "Hallucination Sting"
-	desc = "Causes terror in the target."
+	desc = "We cause mass terror to our victim. Costs 10 chemicals."
 	helptext = "We evolve the ability to sting a target with a powerful hallucinogenic chemical. The target does not notice they have been stung, and the effect occurs after 30 to 60 seconds."
+	button_icon_state = "sting_lsd"
 	sting_icon = "sting_lsd"
 	chemical_cost = 10
 	dna_cost = 1
@@ -182,8 +186,9 @@ datum/action/changeling/sting/LSD
 
 datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"
-	desc = "We silently sting a human with a cocktail of chemicals that freeze them."
+	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
+	button_icon_state = "sting_cryo"
 	sting_icon = "sting_cryo"
 	chemical_cost = 15
 	dna_cost = 2

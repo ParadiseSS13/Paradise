@@ -1,6 +1,8 @@
 /datum/action/changeling/lesserform
 	name = "Lesser form"
-	desc = "We debase ourselves and become lesser. We become a monkey."
+	desc = "We debase ourselves and become lesser. We become a monkey. Costs 5 chemicals."
+	helptext = "The transformation greatly reduces our size, allowing us to slip out of cuffs and climb through vents."
+	button_icon_state = "lesser_form"
 	chemical_cost = 5
 	dna_cost = 1
 	genetic_damage = 3
@@ -25,6 +27,10 @@
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
-	changeling.purchasedpowers += new /datum/action/changeling/humanform(null)
+
+	var/datum/action/changeling/humanform/HF = new
+	changeling.purchasedpowers += HF
+	HF.Grant(user)
+
 	feedback_add_details("changeling_powers","LF")
 	return 1

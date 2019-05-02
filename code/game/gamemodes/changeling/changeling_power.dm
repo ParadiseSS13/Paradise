@@ -6,6 +6,7 @@
 /datum/action/changeling
 	name = "Prototype Sting"
 	desc = "" // Fluff
+	background_icon_state = "bg_changeling"
 	var/helptext = "" // Details
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase, -1 = cannot be purchased
@@ -29,7 +30,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		Grant(user)
 
 /datum/action/changeling/Trigger()
-	var/mob/user = usr
+	var/mob/user = owner
 	if(!user || !user.mind || !user.mind.changeling)
 		return
 	try_to_sting(user)

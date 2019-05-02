@@ -1,7 +1,8 @@
 /datum/action/changeling/swap_form
 	name = "Swap Forms"
-	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind."
+	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
+	button_icon_state = "mindswap"
 	chemical_cost = 40
 	dna_cost = 1
 	req_human = 1 //Monkeys can't grab
@@ -22,7 +23,6 @@
 		return
 	return 1
 
-
 /datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
@@ -38,6 +38,10 @@
 
 	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
 
+	var/lingpowers = list()
+	for(var/power in changeling.purchasedpowers)
+		lingpowers += power
+	
 	changeling.absorbed_dna -= changeling.find_dna(user.dna)
 	changeling.protected_dna -= changeling.find_dna(user.dna)
 	changeling.absorbedcount -= 1
@@ -55,6 +59,12 @@
 	user.Paralyse(2)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
+	user.regenerate_icons()
+
+	for(var/power in lingpowers)
+		var/datum/action/changeling/S = power
+		if(istype(S) && S.needs_button)
+			S.Grant(target)
 
 	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
 	return 1

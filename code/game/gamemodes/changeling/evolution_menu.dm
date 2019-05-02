@@ -4,6 +4,7 @@ var/list/sting_paths
 /datum/action/changeling/evolution_menu
 	name = "-Evolution Menu-" //Dashes are so it's listed before all the other abilities.
 	desc = "Choose our method of subjugation."
+	button_icon_state = "changelingsting"
 	dna_cost = 0
 
 /datum/action/changeling/evolution_menu/Trigger()

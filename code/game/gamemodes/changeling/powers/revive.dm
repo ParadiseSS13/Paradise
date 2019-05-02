@@ -1,6 +1,7 @@
 /datum/action/changeling/revive
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
+	button_icon_state = "revive"
 	req_stat = DEAD
 	always_keep = 1
 
