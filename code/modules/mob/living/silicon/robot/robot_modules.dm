@@ -246,6 +246,7 @@
 
 	module_sprites = list("Basic" = "Engineering", "Antique" = "engineerrobot", "Landmate" = "landmate", "Standard" = "Standard-Engi", "Noble-ENG" = "Noble-ENG", "Cricket" = "Cricket-ENGI")
 	channels = list("Engineering" = 1)
+	networks = list("Engineering")
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 
 	magpulse = TRUE
