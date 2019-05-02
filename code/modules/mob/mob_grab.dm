@@ -395,7 +395,7 @@
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
 
-			affecting.loc = user
+			affecting.forceMove(user)
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 
