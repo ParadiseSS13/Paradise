@@ -15,7 +15,7 @@
 
 	if(module_active && istype(module_active, /obj/item/borg/combat/mobility))
 		var/obj/item/borg/combat/mobility/C = module_active
-		. += C.speed
+		. += C.movement_delay
 
 	. += config.robot_delay
 
