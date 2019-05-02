@@ -328,7 +328,11 @@
 	/area/shuttle/specops/station,
 	/area/shuttle/prison/station,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	/area/shuttle/administration
+=======
+	/area/shuttle/administration/station
+>>>>>>> parent of c00d1e675e... Remove admin shuttle references, fix camera names
 =======
 	/area/shuttle/administration/station
 >>>>>>> parent of c00d1e675e... Remove admin shuttle references, fix camera names
