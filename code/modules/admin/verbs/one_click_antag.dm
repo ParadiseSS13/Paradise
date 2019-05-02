@@ -177,6 +177,11 @@ client/proc/one_click_antag()
 			H = pick(candidates)
 			ticker.mode.add_cultist(H.mind)
 			candidates.Remove(H)
+			if(!summon_spots.len)
+				while(summon_spots.len < SUMMON_POSSIBILITIES)
+					var/area/summon = pick(return_sorted_areas() - summon_spots)
+					if(summon && is_station_level(summon.z) && summon.valid_territory)
+						summon_spots += summon
 
 		return 1
 	return 0
