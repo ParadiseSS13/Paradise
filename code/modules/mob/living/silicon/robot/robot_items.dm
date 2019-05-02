@@ -96,3 +96,4 @@
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "shock"
 	powerneeded = 25
+	var/speed = -3

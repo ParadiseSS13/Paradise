@@ -17,6 +17,7 @@
 	var/channels = list()
 	var/list/custom_removals = list()
 
+	var/speed = 0
 
 /obj/item/robot_module/emp_act(severity)
 	if(modules)
@@ -231,12 +232,12 @@
 	name = "security robot module"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	speed = 1
 
 /obj/item/robot_module/security/New()
 	..()
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/melee/baton/loaded(src)
-	modules += new /obj/item/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)

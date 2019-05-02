@@ -11,12 +11,13 @@
 	var/installed = 0
 	var/require_module = 0
 	var/module_type = null
+	var/list/module_exclusions = list()
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
 		return 1
-	if(module_type && !istype(R.module, module_type))
+	if((module_type && !istype(R.module, module_type)) || is_type_in_typecache(R.module, module_exclusions))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
 		to_chat(usr, "There's no mounting point for the module!")
 		return 1
@@ -108,6 +109,10 @@
 	icon_state = "cyborg_upgrade2"
 	require_module = 1
 	origin_tech = "engineering=4;materials=5;programming=4"
+
+/obj/item/borg/upgrade/vtec/Initialize(mapload)
+	. = ..()
+	module_exclusions = typecacheof(list(/obj/item/robot_module/security))
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
