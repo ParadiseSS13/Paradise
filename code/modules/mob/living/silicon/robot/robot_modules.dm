@@ -232,7 +232,7 @@
 	name = "security robot module"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
-	speed = 1
+	speed = 2
 
 /obj/item/robot_module/security/New()
 	..()
