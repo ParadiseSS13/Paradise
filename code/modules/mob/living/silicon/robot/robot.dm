@@ -86,6 +86,7 @@ var/list/robot_verbs_default = list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
+	var/ignore_module_limits = FALSE
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
@@ -1245,6 +1246,7 @@ var/list/robot_verbs_default = list(
 
 	allow_rename = FALSE
 	weapons_unlock = TRUE
+	ignore_module_limits = TRUE
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override

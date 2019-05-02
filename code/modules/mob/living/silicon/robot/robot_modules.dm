@@ -43,7 +43,7 @@
 /obj/item/robot_module/proc/can_pick(mob/living/silicon/robot/R)
 	. = TRUE
 
-	if(!isnull(limit) && GLOB.robot_module_count[name] >= limit)
+	if(!isnull(limit) && GLOB.robot_module_count[name] >= limit && !R.ignore_module_limits)
 		. = FALSE
 		to_chat(R, "<span class='warning'>The number of units on station that can use this module has reached its limit.</span>")
 
