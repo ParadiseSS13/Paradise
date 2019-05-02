@@ -981,6 +981,7 @@ var/list/slot_equipment_priority = list( \
 			stat("CPU:", "[world.cpu]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
+			stat("Server Time:", time_stamp())
 			stat(null)
 			if(Master)
 				Master.stat_entry()
@@ -1001,8 +1002,6 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/show_stat_station_time()
 	stat(null, "Round Time: [worldtime2text()]")
 	stat(null, "Station Time: [station_time_timestamp()]")
-	if(client.holder && (client.holder.rights & R_ADMIN))
-		stat(null, "Server Time: [time_stamp()]")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
