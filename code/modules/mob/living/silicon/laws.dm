@@ -120,7 +120,7 @@
 /mob/living/silicon/proc/make_laws()
 	switch(config.default_laws)
 		if(0)
-			laws = new /datum/ai_laws/corporate()
+			laws = new /datum/ai_laws/nanotrasen()
 		else
 			laws = get_random_lawset()
 

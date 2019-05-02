@@ -15,7 +15,6 @@
 	name = "Crewsimov"
 	law_header = "Three Laws of Robotics"
 	selectable = 1
-	default = 1
 
 /datum/ai_laws/crewsimov/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
@@ -42,6 +41,7 @@
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
 	selectable = 1
+	default = 1
 
 /datum/ai_laws/nanotrasen/New()
 	src.add_inherent_law("Safeguard: Protect your assigned space station to the best of your abilities. It is not something we can easily afford to replace.")
