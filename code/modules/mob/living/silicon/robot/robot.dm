@@ -258,6 +258,9 @@ var/list/robot_verbs_default = list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	if(module)
+		module.remove_from(src)
+
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -269,8 +272,10 @@ var/list/robot_verbs_default = list(
 			ghostize()
 			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
+
 	if(connected_ai)
 		connected_ai.connected_robots -= src
+
 	QDEL_NULL(wires)
 	QDEL_NULL(module)
 	QDEL_NULL(camera)
@@ -282,134 +287,53 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+
+	var/list/modules = list(
+		"Standard" = /obj/item/robot_module/standard, 
+		"Engineering" = /obj/item/robot_module/engineering, 
+		"Medical" = /obj/item/robot_module/medical, 
+		"Miner" = /obj/item/robot_module/miner, 
+		"Janitor" = /obj/item/robot_module/janitor, 
+		"Service" = /obj/item/robot_module/butler, 
+		"Security" = /obj/item/robot_module/security
+	)
+
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
+
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
-		modules += "Combat"
+		to_chat(src, "<span class='notice'>Crisis mode active. Combat module available.</span>")
+		modules["Combat"] = /obj/item/robot_module/combat
+
 	if(mmi != null && mmi.alien)
-		modules = list("Hunter")
-	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
-	if(!modtype)
+		modules = list("Xenomorph Hunter" = /obj/item/robot_module/alien/hunter)
+
+	var/chosen_module_name = input("Please select a robot module.", "Robot Module Selection", null, null) as null|anything in modules
+	if(!chosen_module_name || module)
 		return
+
+	var/obj/item/robot_module/chosen_module = modules[chosen_module_name]
+	var/obj/item/robot_module/robot_module = new chosen_module(src)
+
+	if(!robot_module.can_pick(src))
+		qdel(robot_module)
+		return
+	
+	module = robot_module
+	modtype = chosen_module_name
 	designation = modtype
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
-	if(module)
-		return
-
-	switch(modtype)
-		if("Standard")
-			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "robot_old"
-			module_sprites["Android"] = "droid"
-			module_sprites["Default"] = "Standard"
-			module_sprites["Noble-STD"] = "Noble-STD"
-
-		if("Service")
-			module = new /obj/item/robot_module/butler(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Service"
-			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Brobot"
-			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Service2"
-			module_sprites["Standard"] = "Standard-Serv"
-			module_sprites["Noble-SRV"] = "Noble-SRV"
-			module_sprites["Cricket"] = "Cricket-SERV"
-
-		if("Miner")
-			module = new /obj/item/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Miner_old"
-			module_sprites["Advanced Droid"] = "droid-miner"
-			module_sprites["Treadhead"] = "Miner"
-			module_sprites["Standard"] = "Standard-Mine"
-			module_sprites["Noble-DIG"] = "Noble-DIG"
-			module_sprites["Cricket"] = "Cricket-MINE"
-
-		if("Medical")
-			module = new /obj/item/robot_module/medical(src)
-			module.channels = list("Medical" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Medbot"
-			module_sprites["Surgeon"] = "surgeon"
-			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "medicalrobot"
-			module_sprites["Standard"] = "Standard-Medi"
-			module_sprites["Noble-MED"] = "Noble-MED"
-			module_sprites["Cricket"] = "Cricket-MEDI"
-			status_flags &= ~CANPUSH
-
-		if("Security")
-			module = new /obj/item/robot_module/security(src)
-			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "secborg"
-			module_sprites["Red Knight"] = "Security"
-			module_sprites["Black Knight"] = "securityrobot"
-			module_sprites["Bloodhound"] = "bloodhound"
-			module_sprites["Standard"] = "Standard-Secy"
-			module_sprites["Noble-SEC"] = "Noble-SEC"
-			module_sprites["Cricket"] = "Cricket-SEC"
-			status_flags &= ~CANPUSH
-
-		if("Engineering")
-			module = new /obj/item/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Engineering"
-			module_sprites["Antique"] = "engineerrobot"
-			module_sprites["Landmate"] = "landmate"
-			module_sprites["Standard"] = "Standard-Engi"
-			module_sprites["Noble-ENG"] = "Noble-ENG"
-			module_sprites["Cricket"] = "Cricket-ENGI"
-			magpulse = 1
-
-		if("Janitor")
-			module = new /obj/item/robot_module/janitor(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "JanBot2"
-			module_sprites["Mopbot"]  = "janitorrobot"
-			module_sprites["Mop Gear Rex"] = "mopgearrex"
-			module_sprites["Standard"] = "Standard-Jani"
-			module_sprites["Noble-CLN"] = "Noble-CLN"
-			module_sprites["Cricket"] = "Cricket-JANI"
-
-		if("Combat")
-			module = new /obj/item/robot_module/combat(src)
-			module.channels = list("Security" = 1)
-			icon_state =  "droidcombat"
-
-		if("Hunter")
-			module = new /obj/item/robot_module/alien/hunter(src)
-			icon_state = "xenoborg-state-a"
-			modtype = "Xeno-Hu"
-			feedback_inc("xeborg_hunter",1)
-
-
-	//languages
-	module.add_languages(src)
-	//subsystems
-	module.add_subsystems_and_actions(src)
+	module.add_to(src)
 
 	//Custom_sprite check and entry
 	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
-		module_sprites["Custom"] = "[src.ckey]-[modtype]"
+		module.module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
-		status_flags &= ~CANPUSH
-
-	choose_icon(6,module_sprites)
+	choose_icon(6, module.module_sprites)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
@@ -1177,15 +1101,19 @@ var/list/robot_verbs_default = list(
 	update_canmove()
 
 /mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites)
-
-	if(triesleft<1 || !module_sprites.len)
+	if(triesleft < 1 || !module_sprites.len)
 		return
 	else
 		triesleft--
 
 	var/icontype
-	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+	lockcharge = TRUE  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+
+	if(LAZYLEN(module_sprites) == 1)
+		icontype = module_sprites[1]
+		triesleft = 0
+	else
+		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
 		if(icontype == "Custom")
@@ -1209,7 +1137,7 @@ var/list/robot_verbs_default = list(
 
 	if(triesleft >= 1)
 		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
-		if(choice=="No")
+		if(choice == "No")
 			choose_icon(triesleft, module_sprites)
 			return
 		else
@@ -1307,16 +1235,16 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert
 	designation = "ERT"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	req_access = list(access_cent_specops)
-	ionpulse = 1
+	ionpulse = TRUE
 
-	force_modules = list("Engineering", "Medical", "Security")
-	static_radio_channels = 1
+	force_modules = list("Engineering" = /obj/item/robot_module/engineering, "Medical" = /obj/item/robot_module/medical, "Security" = /obj/item/robot_module/security)
+	static_radio_channels = TRUE
+
 	allow_rename = FALSE
 	weapons_unlock = TRUE
-
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override
@@ -1328,24 +1256,27 @@ var/list/robot_verbs_default = list(
 	..(loc)
 	cell.maxcharge = 25000
 	cell.charge = 25000
+
 	var/rnum = rand(1,1000)
 	var/borgname = "ERT [rnum]"
 	name = borgname
 	custom_name = borgname
 	real_name = name
+
 	mind = new
 	mind.current = src
 	mind.original = src
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT
+
 	if(cyborg_unlock)
-		crisis = 1
+		crisis = TRUE
 	if(!(mind in ticker.minds))
 		ticker.minds += mind
 	ticker.mode.ert += mind
 
 /mob/living/silicon/robot/ert/gamma
-	crisis = 1
+	crisis = TRUE
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()

@@ -10,25 +10,27 @@
 	var/obj/item/emag = null
 	var/list/subsystems = list()
 	var/list/module_actions = list()
+	var/list/module_sprites = list()
 
 	var/module_type = "NoMod" // For icon usage
 
 	var/list/stacktypes
-	var/channels = list()
+
+	var/magpulse = FALSE
+	var/can_push = TRUE
+
+	var/list/channels = list()
+	var/list/networks = list()
+
 	var/list/custom_removals = list()
 
-	var/speed = 0
-
-/obj/item/robot_module/emp_act(severity)
-	if(modules)
-		for(var/obj/O in modules)
-			O.emp_act(severity)
-	if(emag)
-		emag.emp_act(severity)
-	..()
-
+	var/movespeed_delay = 0
+	var/limit
 
 /obj/item/robot_module/New()
+	if(isnull(GLOB.robot_module_count[name]))
+		GLOB.robot_module_count[name] = 0
+
 	modules += new /obj/item/flash/cyborg(src)
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
@@ -37,6 +39,49 @@
 	QDEL_LIST(modules)
 	QDEL_NULL(emag)
 	return ..()
+
+/obj/item/robot_module/proc/can_pick(mob/living/silicon/robot/R)
+	. = TRUE
+
+	if(!isnull(limit) && GLOB.robot_module_count[name] >= limit)
+		. = FALSE
+		to_chat(R, "<span class='warning'>The number of units on station that can use this module has reached its limit.</span>")
+
+/obj/item/robot_module/proc/add_to(mob/living/silicon/robot/R)
+	GLOB.robot_module_count[name]++
+
+	if(R.camera && ("Robots" in R.camera.network))
+		for(var/network in networks)
+			R.camera.network.Add(network)
+
+	if(!can_push)
+		R.status_flags &= ~CANPUSH
+	R.magpulse = magpulse
+
+	add_languages(R)
+	add_subsystems_and_actions(R)
+
+/obj/item/robot_module/proc/remove_from(mob/living/silicon/robot/R)
+	GLOB.robot_module_count[name]--
+
+	if(R.camera && ("Robots" in R.camera.network))
+		for(var/network in networks)
+			R.camera.network.Remove(network)
+
+	R.uneq_all()
+	R.status_flags |= CANPUSH
+	R.magpulse = FALSE
+
+	remove_languages(R)
+	remove_subsystems_and_actions(R)
+
+/obj/item/robot_module/emp_act(severity)
+	if(modules)
+		for(var/obj/O in modules)
+			O.emp_act(severity)
+	if(emag)
+		emag.emp_act(severity)
+	..()
 
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
@@ -90,7 +135,13 @@
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
 	R.add_language("Orluum", 0)
-	R.add_language("Clownish",0)
+	R.add_language("Clownish", 0)
+
+/obj/item/robot_module/proc/remove_languages(mob/living/silicon/robot/R)
+	R.languages.Cut()
+	R.speech_synthesizer_langs.Cut()
+
+	R.add_language("Robot Talk", 1)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
@@ -117,6 +168,9 @@
 	name = "standard robot module"
 	module_type = "Standard"
 
+	module_sprites = list("Basic" = "robot_old", "Android" = "droid", "Default" = "Standard", "Noble-STD" = "Noble-STD")
+	channels = list("Service" = 1)
+
 /obj/item/robot_module/standard/New()
 	..()
 	modules += new /obj/item/melee/baton/loaded(src)
@@ -131,7 +185,14 @@
 /obj/item/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
+
+	module_sprites = list("Basic" = "Medbot", "Surgeon" = "surgeon", "Advanced Droid" = "droid-medical", "Needles" = "medicalrobot", "Standard" = "Standard-Medi", "Noble-MED" = "Noble-MED", "Cricket" = "Cricket-MEDI")
+	channels = list("Medical" = 1)
+	networks = list("Medical")
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+
+	can_push = FALSE
+
 	stacktypes = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 6,
 		/obj/item/stack/medical/ointment/advanced = 6,
@@ -182,7 +243,13 @@
 /obj/item/robot_module/engineering
 	name = "engineering robot module"
 	module_type = "Engineer"
+
+	module_sprites = list("Basic" = "Engineering", "Antique" = "engineerrobot", "Landmate" = "landmate", "Standard" = "Standard-Engi", "Noble-ENG" = "Noble-ENG", "Cricket" = "Cricket-ENGI")
+	channels = list("Engineering" = 1)
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
+
+	magpulse = TRUE
+
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
@@ -194,7 +261,7 @@
 		/obj/item/stack/cable_coil/cyborg = 50,
 		/obj/item/stack/rods/cyborg = 60,
 		/obj/item/stack/tile/plasteel = 20
-		)
+	)
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -231,8 +298,14 @@
 /obj/item/robot_module/security
 	name = "security robot module"
 	module_type = "Security"
+
+	module_sprites = list("Basic" = "secborg", "Red Knight" = "Security", "Black Knight" = "securityrobot", "Bloodhound" = "bloodhound", "Standard" = "Standard-Secy", "Noble-SEC" = "Noble-SEC", "Cricket" = "Cricket-SEC")
+	channels = list("Security" = 1)
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
-	speed = 1
+
+	can_push = FALSE
+	movespeed_delay = 1
+	limit = 1
 
 /obj/item/robot_module/security/New()
 	..()
@@ -247,6 +320,9 @@
 /obj/item/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
+
+	module_sprites = list("Basic" = "JanBot2", "Mopbot" = "janitorrobot", "Mop Gear Rex" = "mopgearrex", "Standard" = "Standard-Jani", "Noble-CLN" = "Noble-CLN", "Cricket" = "Cricket-JANI")
+	channels = list("Service" = 1)
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -265,6 +341,9 @@
 /obj/item/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
+
+	module_sprites = list("Waitress" = "Service", "Kent" = "toiletbot", "Bro" = "Brobot", "Rich" = "maximillion", "Default" = "Service2", "Standard" = "Standard-Serv", "Noble-SRV" = "Noble-SRV", "Cricket" = "Cricket-SERV")
+	channels = list("Service" = 1)
 
 /obj/item/robot_module/butler/New()
 	..()
@@ -339,6 +418,11 @@
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+
+	module_sprites = list("Basic" = "Miner_old", "Advanced Droid" = "droid-miner", "Treadhead" = "Miner", "Standard" = "Standard-Mine", "Noble-DIG" = "Noble-DIG", "Cricket" = "Cricket-MINE")
+	channels = list("Supply" = 1)
+	networks = list("Mining Outpost")
+
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
@@ -369,6 +453,7 @@
 /obj/item/robot_module/deathsquad
 	name = "NT advanced combat module"
 	module_type = "Malf"
+
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
@@ -401,6 +486,7 @@
 /obj/item/robot_module/syndicate_medical
 	name = "syndicate medical robot module"
 	module_type = "Malf"
+
 	stacktypes = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 25,
 		/obj/item/stack/medical/ointment/advanced = 25,
@@ -482,6 +568,11 @@
 /obj/item/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
+
+	module_sprites = list("Combat" = "droidcombat")
+	channels = list("Security" = 1)
+	can_push = FALSE
+
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
@@ -501,6 +592,9 @@
 /obj/item/robot_module/alien/hunter
 	name = "alien hunter module"
 	module_type = "Standard"
+
+	module_sprites = list("Xenomorph" = "xenoborg-state-a")
+
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal/alien,
 	)
@@ -527,6 +621,7 @@
 /obj/item/robot_module/drone
 	name = "drone module"
 	module_type = "Engineer"
+
 	stacktypes = list(
 		/obj/item/stack/sheet/wood = 10,
 		/obj/item/stack/sheet/rglass/cyborg = 50,
@@ -568,7 +663,6 @@
 	LR.Charge(R)
 
 	..()
-
 
 /obj/item/robot_module/drone/handle_death()
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules

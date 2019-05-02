@@ -31,3 +31,5 @@ GLOBAL_LIST_INIT(sec_hud_users, list())
 GLOBAL_LIST_INIT(antag_hud_users, list())
 GLOBAL_LIST_INIT(surgeries_list, list())
 GLOBAL_LIST_INIT(hear_radio_list, list())			//Mobs that hear the radio even if there's no client
+
+GLOBAL_LIST_EMPTY(robot_module_count)

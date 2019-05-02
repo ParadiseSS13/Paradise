@@ -745,12 +745,14 @@
 
 	R.contents -= R.mmi
 	qdel(R.mmi)
+
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
 		qdel(I)
+
 	if(R.module)
-		R.module.remove_subsystems_and_actions(R)
+		R.module.remove_from(R)
 		qdel(R.module)
 
 	return ..()

@@ -1,5 +1,5 @@
 /datum/action/innate/robot_sight
-	var/sight_mode = null
+	var/sight_mode = 0
 	icon_icon = 'icons/obj/decals.dmi'
 	button_icon_state = "securearea"
 

@@ -11,7 +11,7 @@
 	. += speed
 
 	if(module)
-		. += module.speed
+		. += module.movespeed_delay
 
 	if(module_active && istype(module_active, /obj/item/borg/combat/mobility))
 		var/obj/item/borg/combat/mobility/C = module_active

@@ -34,27 +34,21 @@
 
 	R.notify_ai(2)
 
-	R.uneq_all()
-	R.sight_mode = null
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
-	R.module.remove_subsystems_and_actions(R)
+
+	// Remove upgrades
+	R.sight_mode = 0
+	R.speed = 0
+	R.ionpulse = FALSE
+
+	R.module.remove_from(R)
 	QDEL_NULL(R.module)
 
-	R.camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	R.rename_character(R.real_name, R.get_default_name("Default"))
-	R.languages = list()
-	R.speech_synthesizer_langs = list()
 
 	R.update_icons()
 	R.update_headlamp()
-
-	R.speed = 0 // Remove upgrades.
-	R.ionpulse = 0
-	R.magpulse = 0
-	R.add_language("Robot Talk", 1)
-
-	R.status_flags |= CANPUSH
 
 	return 1
 
