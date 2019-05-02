@@ -329,6 +329,7 @@
 	/area/shuttle/prison/station,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	/area/shuttle/administration
 =======
 	/area/shuttle/administration/station
@@ -336,6 +337,9 @@
 =======
 	/area/shuttle/administration/station
 >>>>>>> parent of c00d1e675e... Remove admin shuttle references, fix camera names
+=======
+	/area/shuttle/asclepius
+>>>>>>> parent of 85e5e6c50d... Adds admin and hospital ship to templates
 	)
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
