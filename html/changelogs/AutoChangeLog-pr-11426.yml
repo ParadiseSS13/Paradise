@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Full toolbelts now spawn with randomly a colored cable coil"
+  - imageadd: "Added inhand sprites for belts"
