@@ -256,8 +256,16 @@
 	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = "heartdrive"
 	var/revive_cost = 0
-	var/reviving = 0
+	var/reviving = FALSE
 	var/cooldown = 0
+
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened
+	name = "Hardened reviver implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
 	if(reviving)
@@ -320,7 +328,7 @@
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"
 	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,
-						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver)
+						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver/hardened)
 	var/amount = 5
 
 /obj/item/storage/box/cyber_implants/bundle/New()

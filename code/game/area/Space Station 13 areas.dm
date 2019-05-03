@@ -288,15 +288,15 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle"
 
 /area/shuttle/administration
-	name = "\improper Administration Shuttle"
+	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered"
 
 /area/shuttle/administration/centcom
-	name = "\improper Administration Shuttle Centcom"
+	name = "\improper Nanotrasen Vessel Centcom"
 	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "\improper Administration Shuttle"
+	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered2"
 
 /area/shuttle/thunderdome

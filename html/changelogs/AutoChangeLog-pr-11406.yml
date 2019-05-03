@@ -1,7 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - tweak: "Blob Rally Spores power is now free to use"
-  - bugfix: "Blob mobs can no longer speak while being dead via Blob Broadcast"
-  - bugfix: "Blob structures now properly show working animation"
-  - imageadd: "Added new sprites for variants of Blob resource, factory and storage structures"

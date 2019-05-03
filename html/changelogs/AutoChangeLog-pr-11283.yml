@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a few potential exploits with forcing chem, dust, and explosive implants  activating with the deathgasp emote, prior to death"

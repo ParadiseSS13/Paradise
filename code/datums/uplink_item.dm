@@ -1544,10 +1544,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
-	name = "Reviver Implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. Comes with an automated implanting tool."
+	name = "Hardened Reviver Implant"
+	desc = "This implant will attempt to revive you if you lose consciousness. It is invulnerable to EMPs. Comes with an automated implanting tool."
 	reference = "CIR"
-	item = /obj/item/organ/internal/cyberimp/chest/reviver
+	item = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	cost = 8
 
 // POINTLESS BADASSERY
