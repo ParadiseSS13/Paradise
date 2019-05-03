@@ -167,7 +167,7 @@
 		return
 	if(!requiresID())
 		user = null //so allowed(user) always succeeds
-	if(allowed(user) || user.can_advanced_admin_interact())
+	if(allowed(user) || (istype(user) && user.can_advanced_admin_interact()))
 		if(density)
 			open()
 		else
