@@ -599,7 +599,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/MouseEntered(location, control, params)
 	if(in_inventory)
-		var/timedelay = 5
+		var/timedelay = 8
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
 

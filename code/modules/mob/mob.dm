@@ -981,6 +981,7 @@ var/list/slot_equipment_priority = list( \
 			stat("CPU:", "[world.cpu]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
+			stat("Server Time:", time_stamp())
 			stat(null)
 			if(Master)
 				Master.stat_entry()

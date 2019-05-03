@@ -159,6 +159,7 @@
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
+	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	burn_state = FIRE_PROOF
@@ -173,6 +174,28 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
 BLIND     // can't see anything
 */
 
+/obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
+	set name = "Adjust Eyewear"
+	set category = "Object"
+	set desc = "Adjust your eyewear to be worn over or under a mask."
+	set src in usr
+
+	var/mob/living/carbon/human/user = usr
+	if(!istype(user))
+		return
+	if(user.incapacitated()) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
+		return
+
+	var/action_fluff = "You adjust \the [src]"
+	if(user.glasses == src)
+		if(!user.canUnEquip(src))
+			to_chat(usr, "[src] is stuck to you!")
+			return
+		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
+			action_fluff = "You remove \the [src] and adjust it"
+
+	over_mask = !over_mask
+	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
 //Gloves
 /obj/item/clothing/gloves

@@ -714,8 +714,6 @@
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
-/obj/machinery/computer/shuttle/Initialize(mapload)
-	. = ..()
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
@@ -868,11 +866,26 @@
 	possible_destinations = "science_home;science_away"
 
 /obj/machinery/computer/shuttle/admin
-	name = "Administration Shuttle Console"
-	desc = "Used to call and send the administration shuttle."
+	name = "admin shuttle console"
+	req_access = list(access_cent_general)
 	shuttleId = "admin"
-	possible_destinations = "admin_home;admin_away"
+	possible_destinations = "admin_home;admin_away;admin_custom"
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin
+	name = "Admin shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the admin shuttle."
+	icon_screen = "navigation"
+	icon_keyboard = "med_key"
+	shuttleId = "admin"
+	shuttlePortId = "admin_custom"
+	view_range = 14
+	x_offset = 0
+	y_offset = 0
+	resistance_flags = INDESTRUCTIBLE
+	access_tcomms = TRUE
+	access_construction = TRUE
+	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"

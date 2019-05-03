@@ -50861,7 +50861,7 @@
 	icon_state = "diagonalWall3"
 	},
 /area/shuttle/administration)
-"bPM" = (
+"bPN" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
@@ -50874,25 +50874,17 @@
 	id = "admin";
 	name = "administration shuttle";
 	roundstart_move = "admin_away";
+	timid = 1;
 	width = 18
 	},
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 8;
-	height = 15;
+	dwidth = 9;
+	height = 18;
 	id = "admin_home";
 	name = "port bay 1";
-	width = 18
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"bPN" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "106"
+	timid = 1;
+	width = 19
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -52065,21 +52057,6 @@
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "wall3"
-	},
-/area/shuttle/administration)
-"bRH" = (
-/obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "blast door control";
-	pixel_x = -30;
-	req_access_txt = "106"
-	},
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "bRI" = (
@@ -54159,28 +54136,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
-"bVk" = (
-/obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "blast door control";
-	pixel_x = -30;
-	req_access_txt = "106"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"bVl" = (
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "Workshop";
-	opacity = 1;
-	req_access_txt = "105"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "bVm" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
@@ -55149,14 +55104,6 @@
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
-/area/shuttle/administration)
-"bWO" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (EAST)"
-	},
-/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "bWP" = (
 /obj/machinery/door/airlock/external{
@@ -56131,14 +56078,6 @@
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
-/area/shuttle/administration)
-"bYu" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (EAST)"
-	},
-/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "bYv" = (
 /turf/space,
@@ -57422,17 +57361,6 @@
 "cam" = (
 /turf/simulated/wall,
 /area/quartermaster/miningdock)
-"can" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "cao" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel,
@@ -58231,23 +58159,6 @@
 "cbx" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"cby" = (
-/obj/machinery/computer/shuttle/admin,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"cbz" = (
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "Bridge";
-	opacity = 1;
-	req_access_txt = "106"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -59505,18 +59416,9 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"cdq" = (
-/obj/machinery/computer/card/centcom,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "cdr" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "adminshuttleshutters";
-	name = "remote shutter control";
-	req_access_txt = "106"
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Argos shuttle navigation computer"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -60290,17 +60192,6 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/crew_quarters/hor)
-"ceT" = (
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "Medbay";
-	opacity = 1;
-	req_access_txt = "103"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "ceU" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/shuttle/plating,
@@ -96567,6 +96458,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"gQL" = (
+/obj/machinery/computer/card,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "hsy" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96621,6 +96518,35 @@
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
+"jnJ" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (NORTH)";
+	icon_state = "tube1";
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "Blast door control";
+	pixel_x = -5;
+	pixel_y = 35;
+	req_access = list(101);
+	req_access_txt = "0"
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = 35;
+	req_access = list(101);
+	req_access_txt = "0"
+	},
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
@@ -96634,22 +96560,90 @@
 	},
 /turf/space,
 /area/space)
+"oZV" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Medbay";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"pwN" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
 /turf/space,
 /area/space)
+"qgG" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "101"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
 /area/space)
+"rEw" = (
+/obj/machinery/computer/shuttle/admin{
+	name = "NTV Argos shuttle console"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"rSv" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (EAST)"
+	},
+/turf/space,
+/area/shuttle/administration)
+"rYq" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Bridge";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /turf/space,
 /area/space)
+"uBM" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (EAST)"
+	},
+/turf/space,
+/area/shuttle/administration)
 "uDK" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (NORTHEAST)";
@@ -96680,6 +96674,32 @@
 	},
 /turf/space,
 /area/space)
+"yeP" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ylx" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Workshop";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 
 (1,1,1) = {"
 aaa
@@ -105044,15 +105064,15 @@ aaa
 aaa
 aaa
 aaa
+bPL
+rSv
+uBM
+cae
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+bPL
+rSv
+uBM
+cae
 aaa
 aaa
 aaa
@@ -105300,17 +105320,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
 bPL
-bWO
-bYu
+bPI
+bWG
+bWG
+bPI
+bPI
+bPI
+bWG
+bWG
+bPI
 cae
-aaa
-bPL
-bWO
-bYu
-cae
-aaa
 aaa
 aaa
 aaa
@@ -105556,19 +105576,19 @@ aaa
 aaa
 aaa
 aaa
-aaa
 bPL
 bPI
-bWG
-bWG
+bVe
+bRA
+bRA
+caf
 bPI
-bPI
-bPI
-bWG
-bWG
+cdl
+ceR
+ceR
+cig
 bPI
 cae
-aaa
 aaa
 aaa
 aaa
@@ -105808,25 +105828,25 @@ bCd
 bCd
 bCd
 bAR
-aaa
-aaa
+bjQ
 aaa
 aaa
 aaa
 bPL
-bPI
-bVe
+bRu
+bRA
+bVf
 bRA
 bRA
-caf
+cag
 bPI
-cdl
+cdm
 ceR
 ceR
-cig
+ceR
+ckd
 bPI
 cae
-aaa
 aaa
 aaa
 aaa
@@ -106065,25 +106085,25 @@ bCc
 bDG
 bEK
 bAR
-bjQ
+aLd
 aaa
 aaa
 aaa
-bPL
-bRu
-bRA
-bVf
-bRA
-bRA
-cag
 bPI
-cdm
-ceR
-ceR
-ceR
-ckd
+bRv
+bRA
+bVg
+cuH
+bRA
+cah
 bPI
-cae
+cdp
+ceR
+ceR
+ceR
+ceR
+clC
+bPI
 aaa
 aaa
 aaa
@@ -106322,24 +106342,24 @@ aAi
 bCb
 bCl
 bAR
-aLd
+aSd
 aaa
 aaa
 aaa
 bPI
-bRv
+bRw
 bRA
-bVg
+bVh
 cuH
 bRA
-cah
+cai
 bPI
-cdp
+cdl
 ceR
+cgw
+cih
 ceR
-ceR
-ceR
-clC
+clD
 bPI
 aaa
 aaa
@@ -106584,19 +106604,19 @@ aaa
 aaa
 aaa
 bPI
-bRw
-bRA
-bVh
+bRx
+bTl
+bVi
 cuH
 bRA
-cai
+bRA
 bPI
-cdl
+cdo
 ceR
-cgw
-cih
-ceR
-clD
+cgx
+cii
+ckf
+clE
 bPI
 aaa
 aaa
@@ -106837,23 +106857,23 @@ bCb
 bEL
 bAR
 aSd
-aaa
-aaa
-aaa
+aSd
+aSd
+aSd
 bPI
-bRx
-bTl
-bVi
-cuH
-bRA
-bRA
-bPI
-cdo
-ceR
-cgx
-cii
-ckf
-clE
+bRG
+bRG
+bRG
+bRG
+bYt
+bRG
+bRG
+bRG
+oZV
+bRG
+bRG
+bRG
+bRG
 bPI
 aaa
 aaa
@@ -107094,23 +107114,23 @@ bCb
 bEL
 bAR
 aSd
-aSd
-aSd
-aSd
-bPI
-bRG
-bRG
-bRG
-bRG
-bYt
-bRG
-bRG
-bRG
-ceT
-bRG
-bRG
-bRG
-bRG
+bGm
+bLY
+bKp
+qgG
+yeP
+bTn
+pwN
+bRA
+bRA
+bRA
+bTo
+bRA
+bRA
+bRA
+bRA
+bRA
+bRA
 bPI
 aaa
 aaa
@@ -107351,23 +107371,23 @@ bCb
 bEL
 bAR
 aSd
-bGm
-bLY
+bGl
+bLX
 bKp
 bPN
-bRH
+bRA
 bTn
-bVk
-bRA
-bRA
-bRA
-bTo
 bRA
 bRA
 bRA
 bRA
 bRA
 bRA
+bRA
+bRA
+bRA
+bRA
+clF
 bPI
 aaa
 aaa
@@ -107608,23 +107628,23 @@ bCb
 bEL
 bAR
 aSd
-bGl
-bLX
 bKp
-bPM
-bRA
-bTn
-bRA
-bRA
-bRA
-bRA
-bRA
-bRA
-bRA
-bRA
-bRA
-bRA
-clF
+bKp
+bOb
+bPI
+bRG
+bRG
+ylx
+bRG
+bRG
+bRG
+rYq
+bRG
+bRG
+bRG
+cik
+bRG
+bRG
 bPI
 aaa
 aaa
@@ -107865,23 +107885,23 @@ bCb
 bAR
 bER
 aSd
-bKp
-bKp
-bOb
+aMd
+bLZ
+aSd
 bPI
-bRG
-bRG
-bVl
-bRG
-bRG
-bRG
-cbz
-bRG
-bRG
-bRG
-cik
-bRG
-bRG
+bRB
+bTo
+bRA
+bWI
+bPI
+gQL
+bRA
+bRA
+bPI
+bRA
+bRA
+ckg
+clG
 bPI
 aaa
 aaa
@@ -108126,19 +108146,19 @@ aMd
 bLZ
 aSd
 bPI
-bRB
-bTo
+bRC
 bRA
-bWI
+bRA
+bWJ
+bPI
+jnJ
+cbx
+cbx
 bPI
 bRA
 bRA
 bRA
-bPI
-bRA
-bRA
-ckg
-clG
+clI
 bPI
 aaa
 aaa
@@ -108383,19 +108403,19 @@ aMd
 bLZ
 aSd
 bPI
-bRC
+bRD
 bRA
 bRA
-bWJ
+bWK
 bPI
-can
-cbx
+cak
+rEw
 cdr
 bPI
 bRA
 bRA
 bRA
-clI
+bRA
 bPI
 aaa
 aaa
@@ -108639,21 +108659,21 @@ aSd
 aMd
 bMa
 bjQ
+bPR
 bPI
-bRD
-bRA
-bRA
-bWK
-bPI
-cak
-cby
-cdq
-bPI
-bRA
-bRA
+bTp
 bRA
 bRA
 bPI
+car
+cbA
+cds
+bPI
+cgz
+cio
+ckj
+bPI
+bYv
 aaa
 aaa
 aaa
@@ -108896,21 +108916,21 @@ bLs
 bmS
 bMb
 aLd
-bPR
+aaa
 bPI
-bTp
+bWL
+bRA
+bWM
+bPI
+aaa
+aaa
+aaa
+bPI
 bRA
 bRA
+ckh
 bPI
-car
-cbA
-cds
-bPI
-cgz
-cio
-ckj
-bPI
-bYv
+aaa
 aaa
 aaa
 aaa
@@ -109154,19 +109174,19 @@ aSf
 bLZ
 aSd
 aaa
+bPR
 bPI
-bWL
-bRA
-bWM
+bTl
+bWN
 bPI
 aaa
 aaa
 aaa
 bPI
-bRA
-bRA
-ckh
+cgA
+cil
 bPI
+bYv
 aaa
 aaa
 aaa
@@ -109411,19 +109431,19 @@ aSf
 bMc
 aSd
 aaa
+aaa
 bPR
-bPI
-bTl
-bWN
-bPI
-aaa
-aaa
-aaa
-bPI
-cgA
-cil
-bPI
+bRG
+bRG
 bYv
+aaa
+aaa
+aaa
+bPR
+bRG
+bRG
+bYv
+aaa
 aaa
 aaa
 aaa
@@ -109669,17 +109689,17 @@ bCf
 bCf
 aaa
 aaa
-bPR
-bRG
-bRG
-bYv
 aaa
 aaa
 aaa
-bPR
-bRG
-bRG
-bYv
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa

@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Patch Pack is now craftable with a cardboard, costs 2 cardboard sheets."
