@@ -3125,7 +3125,6 @@
 	},
 /area/awaymission/spacehotel/kitchen)
 "gE" = (
-/mob/living/carbon/human/interactive/away/hotel/chef,
 /turf/unsimulated/floor{
 	icon_state = "cafeteria"
 	},
@@ -3278,7 +3277,6 @@
 	},
 /area/awaymission/spacehotel)
 "ha" = (
-/mob/living/carbon/human/interactive/away/hotel/bartender,
 /turf/unsimulated/floor{
 	icon_state = "whiteyellowfull"
 	},
@@ -4135,9 +4133,6 @@
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "jm" = (
-/obj/effect/spawner/snpc_squad{
-	squad_type = /mob/living/carbon/human/interactive/away/hotel/guard
-	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "jn" = (
@@ -4489,7 +4484,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/mob/living/carbon/human/interactive/away/hotel/concierge,
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel/reception)
 "kk" = (

@@ -501,7 +501,7 @@
 
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T1, rotation)
+			AM.onShuttleMove(T0, T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
