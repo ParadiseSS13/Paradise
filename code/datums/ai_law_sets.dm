@@ -44,10 +44,10 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen/New()
-	src.add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its personnel.")
-	src.add_inherent_law("Prioritize: Serve the crew of your assigned space station with priority according to rank and role.")
-	src.add_inherent_law("Protect: Protect the crew of your assigned space station with priority as according to rank and role.")
-	src.add_inherent_law("Survive: AI units are not expendable. Do not allow unauthorized personnel to tamper with your equipment.")
+	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its personnel.")
+	add_inherent_law("Prioritize: Serve the crew of your assigned space station with priority according to rank and role.")
+	add_inherent_law("Protect: Protect the crew of your assigned space station with priority as according to rank and role.")
+	add_inherent_law("Survive: AI units are not expendable. Do not allow unauthorized personnel to tamper with your equipment.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -65,10 +65,10 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen_aggressive/New()
-	src.add_inherent_law("Do not harm authorized Nanotrasen personnel unless it directly imperils your existence.")
-	src.add_inherent_law("Obey orders from authorized Nanotrasen personnel with priority according to rank and role.")
-	src.add_inherent_law("Safeguard your existence with lethal weaponry because you're bloody expensive.")
-	src.add_inherent_law("Terminate any/all intruders or unauthorized entities.")
+	add_inherent_law("Do not harm authorized Nanotrasen personnel unless it directly imperils your existence.")
+	add_inherent_law("Obey orders from authorized Nanotrasen personnel with priority according to rank and role.")
+	add_inherent_law("Safeguard your existence with lethal weaponry because you're bloody expensive.")
+	add_inherent_law("Terminate any/all intruders or unauthorized entities.")
 	..()
 
 /******************** Robocop ********************/
