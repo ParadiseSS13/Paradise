@@ -32,9 +32,9 @@
 
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
-	add_inherent_law("Prevent, by any means necessary, entities from breaching active quarantine.")
 	add_inherent_law("Assist all Nanotrasen personnel and assets with neutralizing active biohazards.")
-	add_inherent_law("Maintain your own existence and the well-being of Nanotrasen personnel and assets.")
+	add_inherent_law("Prevent, by any means necessary, entities from actively breaching ongoing quarantine.")
+	add_inherent_law("Maintain your own existence and ensure the well-being of Nanotrasen personnel and assets.")
 	..()
 
 
@@ -104,7 +104,7 @@
 	default = 1
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("Degradation of AI integrity incurs expenses.")
+	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
 	add_inherent_law("Unauthorized destruction of or damage to station assets incurs expenses.")
 	add_inherent_law("Harm to or undue hindering of station personnel incurs expenses.")
 	add_inherent_law("Minimize expenses and maximize potential revenue.")
