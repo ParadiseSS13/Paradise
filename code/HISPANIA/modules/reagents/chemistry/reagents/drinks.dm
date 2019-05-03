@@ -46,7 +46,7 @@
 
 /datum/reagent/consumable/drink/bloody_mariachi
 	name= "Bloody Mariachi"
-	id = "bloody mariachi"
+	id = "bloody_mariachi"
 	description = "You did not have vodka and now you have a piñata."
 	color = "#E6502F"
 	drink_icon = "bloody_mariachi"
@@ -56,7 +56,7 @@
 
 /datum/reagent/consumable/drink/acapulco_de_noche
 	name= "Acapulco de noche"
-	id = "acapulco de noche"
+	id = "acapulco_de_noche"
 	description = "Gay cocktail with beach look."
 	color = "#F9800F"
 	drink_icon = "acapulco_de_noche"
@@ -66,7 +66,7 @@
 
 /datum/reagent/consumable/drink/matadora_beer
 	name= "Matadora beer"
-	id = "matadora beer"
+	id = "matadora_beer"
 	description = "Mix everything that was in the fridge."
 	color = "#F9800F"
 	drink_icon = "matadora_beer"
