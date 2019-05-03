@@ -54,9 +54,8 @@
 		else if(prob(5))
 			emote("snuffles")
 
-/mob/living/simple_animal/mouse/process_ai()
+/mob/living/simple_animal/mouse/Life()
 	..()
-
 	if(prob(0.5))
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
