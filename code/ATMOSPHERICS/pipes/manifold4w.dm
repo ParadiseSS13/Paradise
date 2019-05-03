@@ -15,7 +15,6 @@
 	var/obj/machinery/atmospherics/node4
 
 	level = 1
-	layer = 2.4 //under wires with their 2.44
 
 /obj/machinery/atmospherics/pipe/manifold4w/New()
 	..()

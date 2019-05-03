@@ -15,8 +15,6 @@
 
 	var/obj/machinery/power/generator/generator
 
-	layer = 2.45 // Just above wires
-
 	anchored = 1
 	density = 1
 

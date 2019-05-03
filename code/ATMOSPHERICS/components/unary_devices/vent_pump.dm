@@ -10,6 +10,8 @@
 	desc = "Has a valve and pump attached to it"
 	use_power = IDLE_POWER_USE
 
+	layer = GAS_SCRUBBER_LAYER
+
 	can_unwrench = 1
 	var/open = 0
 

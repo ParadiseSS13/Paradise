@@ -2,7 +2,7 @@
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
 	use_power = IDLE_POWER_USE
-	layer = 3
+	layer = GAS_SCRUBBER_LAYER
 
 	can_unwrench = 1
 
