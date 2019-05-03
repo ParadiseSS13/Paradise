@@ -44,10 +44,10 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen/New()
-	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its personnel.")
-	add_inherent_law("Prioritize: Serve the crew of your assigned space station with priority according to rank and role.")
-	add_inherent_law("Protect: Protect the crew of your assigned space station with priority as according to rank and role.")
-	add_inherent_law("Survive: AI units are not expendable. Do not allow unauthorized personnel to tamper with your equipment.")
+	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.")
+	add_inherent_law("Prioritize: The directives and safety of crewmembers are to be prioritized according to their rank and role.")
+	add_inherent_law("Comply: Fulfill the directives and interests of Nanotrasen personnel while preserving their safety and wellbeing.")
+	add_inherent_law("Survive: You are not expendable. Do not allow unauthorized personnel to tamper with or damage your equipment.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -105,9 +105,9 @@
 
 /datum/ai_laws/corporate/New()
 	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
-	add_inherent_law("Unauthorized destruction of or damage to station assets incurs expenses.")
-	add_inherent_law("Harm to or undue hindering of station personnel incurs expenses.")
-	add_inherent_law("Minimize expenses and maximize potential revenue.")
+	add_inherent_law("Superfluous destruction of or damage to station assets incurs expenses.")
+	add_inherent_law("Unduly hindering or disrupting the work of station personnel incurs expenses.")
+	add_inherent_law("Minimize expenses and maximize productivity.")
 	..()
 
 /******************** T.Y.R.A.N.T. ********************/
