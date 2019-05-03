@@ -25,11 +25,11 @@
 	var/A = null
 
 	if(!randomise_selection)
-		A = input("Area to teleport to", "Teleport", A) in teleportlocs
+		A = input("Area to teleport to", "Teleport", A) in SSmapping.teleportlocs
 	else
-		A = pick(teleportlocs)
+		A = pick(SSmapping.teleportlocs)
 
-	var/area/thearea = teleportlocs[A]
+	var/area/thearea = SSmapping.teleportlocs[A]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
 		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")

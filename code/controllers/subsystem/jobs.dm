@@ -19,6 +19,9 @@ SUBSYSTEM_DEF(jobs)
 	if(!occupations.len)
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
+	// Below is the code from the garbage we used to call hooks
+	data_core = new /datum/datacore() // You can tell me this is unrelated but this keeps track of the job manifest, which is job related, so its here. If you would like to fight me please ask
+	setup_whitelist()
 	return ..()
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))

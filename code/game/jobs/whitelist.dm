@@ -1,15 +1,20 @@
 #define WHITELISTFILE "data/whitelist.txt"
-
+	
 var/list/whitelist = list()
+var/list/alien_whitelist = list()
 
-/hook/startup/proc/loadWhitelist()
+// /proc/load_popularity_contest_unlockables()
+/proc/setup_whitelist()
 	if(config.usewhitelist)
-		load_whitelist()
-	return 1
-
-/proc/load_whitelist()
-	whitelist = file2list(WHITELISTFILE)
-	if(!whitelist.len)	whitelist = null
+		whitelist = file2list(WHITELISTFILE)
+		if(!whitelist.len)	whitelist = null
+	
+	if(config.usealienwhitelist)
+		var/text = file2text("config/alienwhitelist.txt")
+		if(!text)
+			log_config("Failed to load config/alienwhitelist.txt\n")
+		else
+			alien_whitelist = splittext(text, "\n")
 /*
 /proc/check_whitelist(mob/M, var/rank)
 	if(!whitelist)
@@ -42,23 +47,6 @@ var/list/whitelist = list()
 			return 0
 	else
 		return 1
-
-
-
-
-/var/list/alien_whitelist = list()
-
-/hook/startup/proc/loadAlienWhitelist()
-	if(config.usealienwhitelist)
-		load_alienwhitelist()
-	return 1
-
-/proc/load_alienwhitelist()
-	var/text = file2text("config/alienwhitelist.txt")
-	if(!text)
-		log_config("Failed to load config/alienwhitelist.txt\n")
-	else
-		alien_whitelist = splittext(text, "\n")
 
 //todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, var/species)

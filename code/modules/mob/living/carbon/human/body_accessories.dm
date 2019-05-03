@@ -1,7 +1,7 @@
 
 var/global/list/body_accessory_by_name = list("None" = null)
 
-/hook/startup/proc/initalize_body_accessories()
+/proc/initalize_body_accessories()
 
 	__init_body_accessory(/datum/body_accessory/body)
 	__init_body_accessory(/datum/body_accessory/tail)

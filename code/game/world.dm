@@ -6,7 +6,12 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	SetupLogs()
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
-
+	// This is pretty fucking important
+	if(!setup_database_connection())
+		log_world("Your server failed to establish a connection with the feedback database.")
+	else
+		log_world("Feedback database connection established.")
+	
 	if(byond_version < RECOMMENDED_VERSION)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
@@ -17,7 +22,24 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
 	makeDatumRefLists()
-	callHook("startup")
+	// Begin STUFF_THAT_BELONGS_IN_A_SUBSYSTEM_BUT_FUCK IT
+	// Its here becuase this is where the callhook used to be
+	// No really this should be in shit like SSmisc but fuck it
+	// If I get told to I will, but for now this can stay as a mess -affected
+	load_mode()
+	load_motd()
+	investigate_reset()
+	load_admins()
+	jobban_loadbanfile()
+	LoadBans()
+	populate_gear_list()
+	ircNotify()
+	setup_title_screen()
+	library_catalog.initialize()
+	initalize_body_accessories()
+	paiController = new /datum/paiController()
+	populate_pai_software_list()
+	// End
 
 	src.update_status()
 
@@ -341,10 +363,6 @@ var/world_topic_spam_protect_time = world.timeofday
 		..(0)
 
 
-/hook/startup/proc/loadMode()
-	world.load_mode()
-	return 1
-
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
@@ -356,10 +374,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
-
-/hook/startup/proc/loadMOTD()
-	world.load_motd()
-	return 1
 
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
@@ -440,13 +454,6 @@ var/failed_old_db_connections = 0
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
 
-
-/hook/startup/proc/connectDB()
-	if(!setup_database_connection())
-		log_world("Your server failed to establish a connection with the feedback database.")
-	else
-		log_world("Feedback database connection established.")
-	return 1
 
 /proc/setup_database_connection()
 

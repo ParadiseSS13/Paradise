@@ -2,6 +2,9 @@ SUBSYSTEM_DEF(mapping)
    	name = "Mapping"
    	init_order = INIT_ORDER_MAPPING // 9
    	flags = SS_NO_FIRE
+   	var/list/teleportlocs = list()
+   	var/list/ghostteleportlocs = list()
+
 
 /datum/controller/subsystem/mapping/Initialize(timeofday)
 	// Load all Z level templates
@@ -28,6 +31,24 @@ SUBSYSTEM_DEF(mapping)
 	// Populate mining Z-level hidden rooms
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
+	// This is all stuff from garbage that used to be known as hooks
+	for(var/area/AR in world)
+		if(AR.no_teleportlocs) continue
+		if(teleportlocs.Find(AR.name)) continue
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			teleportlocs += AR.name
+			teleportlocs[AR.name] = AR
+	teleportlocs = sortAssoc(teleportlocs)
+
+	for(var/area/AR in world)
+		if(ghostteleportlocs.Find(AR.name)) continue
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			ghostteleportlocs += AR.name
+			ghostteleportlocs[AR.name] = AR
+	ghostteleportlocs = sortAssoc(ghostteleportlocs)
+	
 	return ..()
 
 /datum/controller/subsystem/mapping/Recover()

@@ -28,5 +28,15 @@ SUBSYSTEM_DEF(icon_smooth)
 			continue
 		smooth_icon(A)
 		CHECK_TICK
-
+	// Is this even needed, I dont know, lets do it anyway
+	for(var/turf/T in world)
+		if(T.smooth)
+			queue_smooth(T)
+		for(var/A in T)
+			var/atom/AA = A
+			if(AA.smooth)
+				queue_smooth(AA)
+	// Smooth those asteroids
+	for(var/turf/simulated/mineral/M in GLOB.mineral_turfs)
+		M.add_edges()
 	return ..()

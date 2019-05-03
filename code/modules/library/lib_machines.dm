@@ -3,11 +3,6 @@
 var/global/datum/library_catalog/library_catalog = new()
 var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
 
-
-/hook/startup/proc/load_manuals()
-	library_catalog.initialize()
-	return 1
-
 /*
  * Borrowbook datum
  */

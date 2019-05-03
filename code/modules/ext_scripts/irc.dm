@@ -20,7 +20,7 @@
 		send2irc(config.admin_irc, msg)
 	return
 
-/hook/startup/proc/ircNotify()
+/proc/ircNotify()
 	var/people_to_ping = ""
 	var/DBQuery/pull_notify = dbcon.NewQuery("SELECT discord_id FROM [format_table_name("discord")] WHERE notify = 1")
 	if(!pull_notify.Execute())
@@ -35,4 +35,3 @@
 	if(!reset_notify.Execute())
 		var/err = reset_notify.ErrorMsg()
 		log_game("SQL ERROR while resetting notify status. Error : \[[err]\]\n")
-	return 1

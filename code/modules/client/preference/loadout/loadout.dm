@@ -10,7 +10,7 @@ var/list/gear_datums = list()
 	category = cat
 	..()
 
-/hook/startup/proc/populate_gear_list()
+/proc/populate_gear_list()
 	//create a list of gear datums to sort
 	for(var/geartype in subtypesof(/datum/gear))
 		var/datum/gear/G = geartype
@@ -43,7 +43,6 @@ var/list/gear_datums = list()
 	for(var/loadout_category in loadout_categories)
 		var/datum/loadout_category/LC = loadout_categories[loadout_category]
 		LC.gear = sortAssoc(LC.gear)
-	return 1
 
 /datum/gear
 	var/display_name       //Name/index. Must be unique.
