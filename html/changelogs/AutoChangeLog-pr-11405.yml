@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Removed a useless message that would be sent to admins whenever a drone joins the round."
