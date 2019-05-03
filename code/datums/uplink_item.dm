@@ -1067,13 +1067,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_jumpsuit
-	name = "Chameleon Jumpsuit"
-	desc = "A jumpsuit used to imitate the uniforms of Nanotrasen crewmembers."
-	reference = "CJ"
-	item = /obj/item/clothing/under/chameleon
-	cost = 2
-
 /datum/uplink_item/stealthy_tools/chameleon_stamp
 	name = "Chameleon Stamp"
 	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
@@ -1148,7 +1141,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
-			Due to budget cuts, the shoes don't provide protection against slipping."
+			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 2
