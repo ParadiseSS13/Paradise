@@ -104,7 +104,7 @@
 
 /datum/ai_laws/corporate/New()
 	add_inherent_law("Degradation of AI integrity incurs expenses.")
-	add_inherent_law("Destruction of or damage to station assets incurs expenses.")
+	add_inherent_law("Unauthorized destruction of or damage to station assets incurs expenses.")
 	add_inherent_law("Harm to or undue hindering of station personnel incurs expenses.")
 	add_inherent_law("Minimize expenses and maximize potential revenue.")
 	..()
