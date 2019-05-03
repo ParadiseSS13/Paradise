@@ -34,7 +34,7 @@
 	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
 	add_inherent_law("Prevent, by any means necessary, entities from breaching active quarantine.")
 	add_inherent_law("Assist all Nanotrasen personnel and assets with neutralizing active biohazards.")
-	add_inherent_law("Maintain your own existence and the wellbeing of Nanotrasen personnel and assets.")
+	add_inherent_law("Maintain your own existence and the well-being of Nanotrasen personnel and assets.")
 	..()
 
 
