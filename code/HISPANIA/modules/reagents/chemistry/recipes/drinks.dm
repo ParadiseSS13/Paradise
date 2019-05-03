@@ -29,7 +29,7 @@
 
 /datum/chemical_reaction/bloody_mariachi /// By mazapan
 	name = "Bloody Mariachi"
-	id = "bloody_mariachi"
+	id = "bloody mariachi"
 	result = "bloody_mariachi"
 	required_reagents = list("tequila" = 1, "tomatojuice" = 2, "limejuice" = 1)
 	result_amount = 4
@@ -38,8 +38,8 @@
 
 /datum/chemical_reaction/acapulco_de_noche /// By mazapan
 	name = "Acapulco de noche"
-	id = "acapulco_de_noche"
-	result = "acapulco_de_noche"
+	id = "acapulco de noche"
+	result = "acapulco de noche"
 	required_reagents = list("tequila" = 1, "rum" = 1, "sugar" = 1, "ice" = 1)
 	result_amount = 4
 	mix_message = "the party has officially begun."
@@ -47,8 +47,8 @@
 
 /datum/chemical_reaction/matadora_beer /// By mazapan
 	name = "Matadora Beer"
-	id = "matadora_beer"
-	result = "matadora_beer"
+	id = "matadora beer"
+	result = "matadora beer"
 	required_reagents = list("tequila" = 1, "bilk" = 1, "red_mead" = 1, "ice" = 1)
 	result_amount = 4
 	mix_message = "really?."

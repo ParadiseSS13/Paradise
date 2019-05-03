@@ -46,30 +46,30 @@
 
 /datum/reagent/consumable/drink/bloody_mariachi
 	name= "Bloody Mariachi"
-	id = "bloody_mariachi"
+	id = "bloody mariachi"
 	description = "You did not have vodka and now you have a piñata."
 	color = "#E6502F"
 	drink_icon = "bloody_mariachi"
-	drink_name = "bloody_mariachi"
+	drink_name = "bloody mariachi"
 	drink_desc = "PIRIPÍ PIRIPÍ PIRIPIPÍ."
 	taste_message ="you need some beans right now"
 
 /datum/reagent/consumable/drink/acapulco_de_noche
 	name= "Acapulco de noche"
-	id = "acapulco_de_noche"
+	id = "acapulco de noche"
 	description = "Gay cocktail with beach look."
 	color = "#F9800F"
 	drink_icon = "acapulco_de_noche"
-	drink_name = "acapulco_de_noche"
+	drink_name = "acapulco de noche"
 	drink_desc = "Ice cold and refreshing drink, smells like medicine."
 	taste_message ="You feel like Luis Miguel"
 
 /datum/reagent/consumable/drink/matadora_beer
-	name= "Matadora_beer"
-	id = "matadora_beer"
+	name= "Matadora beer"
+	id = "matadora beer"
 	description = "Mix everything that was in the fridge."
 	color = "#F9800F"
 	drink_icon = "matadora_beer"
-	drink_name = "matadora_beer"
+	drink_name = "matadora beer"
 	drink_desc = "It smells strangely good despite its appearance taken out of the garbage."
 	taste_message ="Tastes urine with strawberry soda and medicinal alcohol"
