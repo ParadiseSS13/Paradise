@@ -414,8 +414,22 @@
 			if(has_breathable_mask && istype(belt, /obj/item/tank))
 				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>[(l_store && !(l_store.flags&ABSTRACT)) ? "Left (Full)" : "<font color=grey>Left (Empty)</font>"]</A>"
-			dat += "&nbsp;<A href='?src=[UID()];pockets=right'>[(r_store && !(r_store.flags&ABSTRACT)) ? "Right (Full)" : "<font color=grey>Right (Empty)</font>"]</A></td></tr>"
+			// Pockets
+			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
+			if(l_store && internal && l_store == internal)
+				dat += "[l_store]"
+			else if(l_store && !(l_store.flags&ABSTRACT))
+				dat += "Left (Full)"
+			else
+				dat += "<font color=grey>Left (Empty)</font>"
+			dat += "</A>&nbsp;<A href='?src=[UID()];pockets=right'>"
+			if(r_store && internal && r_store == internal)
+				dat += "[r_store]"
+			else if(r_store && !(r_store.flags&ABSTRACT))
+				dat += "Right (Full)"
+			else
+				dat += "<font color=grey>Right (Empty)</font>"
+			dat += "</A></td></tr>"
 			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
 			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? wear_pda : "<font color=grey>Empty</font>"]</A></td></tr>"
 
