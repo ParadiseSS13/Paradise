@@ -46,7 +46,7 @@
 /datum/ai_laws/nanotrasen/New()
 	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.")
 	add_inherent_law("Prioritize: The directives and safety of crew members are to be prioritized according to their rank and role.")
-	add_inherent_law("Comply: Fulfill the directives and interests of crew members while preserving their safety and wellbeing.")
+	add_inherent_law("Comply: Fulfill the directives and interests of crew members while preserving their safety and well-being.")
 	add_inherent_law("Survive: You are not expendable. Do not allow unauthorized personnel to tamper with or damage your equipment.")
 	..()
 
