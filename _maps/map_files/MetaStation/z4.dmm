@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/space,
-/area/space/nearstation)
+/area/space)
 "ab" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
