@@ -600,8 +600,9 @@ BLIND     // can't see anything
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
 		"Grey" = 'icons/mob/species/grey/uniform.dmi'
 		)
-	var/has_sensor = 1//For the crew computer 2 = unable to change mode
-	var/sensor_mode = 0
+	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
+	var/sensor_mode = SENSOR_OFF
+	var/random_sensor = TRUE
 		/*
 		1 = Report living/dead
 		2 = Report detailed damages
@@ -613,7 +614,8 @@ BLIND     // can't see anything
 	var/basecolor
 
 /obj/item/clothing/under/rank/New()
-	sensor_mode = pick(0,1,2,3)
+	if(random_sensor)
+		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 	..()
 
 /obj/item/clothing/under/Destroy()

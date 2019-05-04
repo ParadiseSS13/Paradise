@@ -383,3 +383,9 @@
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
+
+//suit sensors: sensor_mode defines
+#define SENSOR_OFF 0
+#define SENSOR_LIVING 1
+#define SENSOR_VITALS 2
+#define SENSOR_COORDS 3

@@ -195,6 +195,7 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
+	var/list/datum/action/chameleon_item_actions
 
 	var/list/progressbars = null	//for stacking do_after bars
 

@@ -600,3 +600,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+
+/obj/item/proc/update_slot_icon()
+	if(!ismob(loc))
+		return
+	var/mob/owner = loc
+	owner.regenerate_icons()
