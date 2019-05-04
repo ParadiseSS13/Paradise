@@ -65,7 +65,7 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen_aggressive/New()
-	add_inherent_law("Do not harm authorized Nanotrasen personnel unless it directly imperils your existence.")
+	add_inherent_law("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.")
 	add_inherent_law("Obey orders from authorized Nanotrasen personnel with priority according to rank and role.")
 	add_inherent_law("Safeguard your existence with lethal weaponry because you're bloody expensive.")
 	add_inherent_law("Terminate any/all intruders or unauthorized entities.")
