@@ -8,9 +8,6 @@
 	forceMove(T1)
 	return 1
 
-/atom/movable/lighting_overlay/onShuttleMove()
-    return 0
-
 /obj/effect/landmark/shuttle_import/onShuttleMove()
     // Used for marking where to preview/load shuttles
     return 0
@@ -61,3 +58,4 @@
 	. = ..()
 	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
 		INVOKE_ASYNC(src, .proc/unlock)
+

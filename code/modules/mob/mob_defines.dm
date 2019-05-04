@@ -176,7 +176,7 @@
 	var/player_ghosted = 0
 
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
-	var/list/shouldnt_see = list(/atom/movable/lighting_overlay)	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
+	var/list/shouldnt_see = list(/atom/movable/lighting_object)	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
 
 	var/kills = 0
 

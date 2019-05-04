@@ -930,7 +930,7 @@ var/list/slot_equipment_priority = list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+	if(!istype(A, /area/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 

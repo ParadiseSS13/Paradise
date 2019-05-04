@@ -382,8 +382,9 @@
 	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
 
 	//remove area surrounding docking port
+	var/area/A0
 	if(areaInstance.contents.len)
-		var/area/A0 = locate("[area_type]")
+		A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
 		for(var/turf/T0 in L0)
@@ -393,6 +394,8 @@
 		var/turf/T0 = i
 		if(!T0)
 			continue
+		if(A0)
+			T0.change_area(T0.loc, A0)
 		T0.empty(turf_type)
 
 	qdel(src, force=TRUE)

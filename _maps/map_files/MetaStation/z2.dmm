@@ -12,7 +12,7 @@
 /area/space)
 "ad" = (
 /turf/space/transit,
-/area/syndicate_station/transit)
+/area/space)
 "ae" = (
 /turf/unsimulated/wall{
 	tag = "icon-iron6";
@@ -1284,7 +1284,7 @@
 	width = 18
 	},
 /turf/space/transit,
-/area/syndicate_station/transit)
+/area/space)
 "dy" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;

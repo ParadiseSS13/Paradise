@@ -104,7 +104,7 @@
 	icon_state = "pwall";
 	dir = 1
 	},
-/area/space)
+/area/mine/abandoned)
 "ar" = (
 /turf/simulated/floor/plating/airless,
 /turf/simulated/shuttle/wall{
@@ -143,7 +143,7 @@
 	tag = "icon-floor2";
 	icon_state = "floor2"
 	},
-/area/space)
+/area/mine/abandoned)
 "aw" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -156,7 +156,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/mine/abandoned)
 "ax" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/shuttle/floor{
@@ -172,7 +172,7 @@
 	tag = "icon-floor2";
 	icon_state = "floor2"
 	},
-/area/space)
+/area/mine/abandoned)
 "az" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -223,7 +223,7 @@
 	icon_state = "pwall";
 	dir = 5
 	},
-/area/space)
+/area/mine/abandoned)
 "aH" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless{
@@ -252,7 +252,7 @@
 	icon_state = "pwall";
 	dir = 6
 	},
-/area/space)
+/area/mine/abandoned)
 "aL" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -260,7 +260,7 @@
 	icon_state = "pwall";
 	dir = 9
 	},
-/area/space)
+/area/mine/abandoned)
 "aM" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -4315,12 +4315,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
-"kh" = (
-/turf/simulated/floor/plating/airless{
-	icon_state = "asteroidwarning";
-	dir = 5
-	},
-/area/space)
 "ki" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating/airless/asteroid,
@@ -4598,7 +4592,7 @@
 	icon_state = "asteroidwarning";
 	dir = 4
 	},
-/area/space)
+/area/mine/dangerous/explored)
 "kR" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -5368,12 +5362,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
-"mx" = (
-/turf/simulated/floor/plating/airless{
-	icon_state = "asteroidwarning";
-	dir = 6
-	},
-/area/space)
 "my" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -52246,11 +52234,11 @@ bV
 bV
 bV
 bV
-ll
-kh
+bV
+dP
 kQ
-mx
-ll
+dK
+bV
 mQ
 nj
 nj
@@ -52503,11 +52491,11 @@ bV
 bV
 bV
 bV
-ll
-ll
-ll
-ll
-ll
+bV
+bV
+bV
+bV
+bV
 bV
 bV
 bV
