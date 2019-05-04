@@ -186,6 +186,7 @@
 		return
 	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
+
 	set_light(0)
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
@@ -209,13 +210,14 @@
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
 		lighting_object = old_lighting_object
+
 		affecting_lights = old_affecting_lights
 		corners = old_corners
-		if (old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
+		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
 			reconsider_lights()
 
-		if (dynamic_lighting != old_dynamic_lighting)
-			if (IS_DYNAMIC_LIGHTING(src))
+		if(dynamic_lighting != old_dynamic_lighting)
+			if(IS_DYNAMIC_LIGHTING(src))
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
@@ -484,6 +486,8 @@
 		if(istype(A, /obj/effect/landmark))
 			continue
 		if(istype(A, /obj/docking_port))
+			continue
+		if(istype(A, /atom/movable/lighting_object))
 			continue
 		if(!A.simulated)
 			continue
