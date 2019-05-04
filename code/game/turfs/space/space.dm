@@ -57,7 +57,7 @@
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
 				continue
-			set_light(config.starlight)
+			set_light(2)
 			return
 		set_light(0)
 

@@ -97,7 +97,7 @@ var/list/ghostteleportlocs = list()
 	no_teleportlocs = TRUE
 	requires_power = FALSE
 	valid_territory = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
