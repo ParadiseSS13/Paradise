@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes a few instances generating log spam relating to z-level tracking"
