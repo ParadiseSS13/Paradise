@@ -1067,13 +1067,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_jumpsuit
-	name = "Chameleon Jumpsuit"
-	desc = "A jumpsuit used to imitate the uniforms of Nanotrasen crewmembers."
-	reference = "CJ"
-	item = /obj/item/clothing/under/chameleon
-	cost = 2
-
 /datum/uplink_item/stealthy_tools/chameleon_stamp
 	name = "Chameleon Stamp"
 	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
@@ -1092,20 +1085,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "No-Slip Syndicate Shoes"
-	desc = "These allow you to run on wet floors. They do not work on lubricated surfaces."
+	name = "No-Slip Chameleon Shoes"
+	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
+			They do not work on heavily lubricated surfaces."
 	reference = "NSSS"
-	item = /obj/item/clothing/shoes/syndigaloshes
+	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	name = "Tactical No-Slip Brown Shoes"
-	desc = "These allow you to run on wet floors. They do not work on lubricated surfaces, and the maker swears they're better than normal ones, somehow."
-	reference = "NNSSS"
+	reference = "TNSSS"
 	cost = 4 //but they aren't
-	gamemodes = list(/datum/game_mode/nuclear)
 	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chamsechud
 	name = "Chameleon Security HUD"
@@ -1146,12 +1138,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/card/id/syndicate
 	cost = 2
 
-/datum/uplink_item/stealthy_tools/voice_changer
-	name = "Voice Changer"
-	desc = "A conspicuous gas mask that mimics the voice named on your identification card. When no identification is worn, the mask will render your voice unrecognisable."
-	reference = "VC"
-	item = /obj/item/clothing/mask/gas/voice
-	cost = 3
+/datum/uplink_item/stealthy_tools/chameleon
+	name = "Chameleon Kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
+			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
+	reference = "CHAM"
+	item = /obj/item/storage/box/syndie_kit/chameleon
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
@@ -1210,7 +1203,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/clownkit
 	name = "Honk Brand Infiltration Kit"
-	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
+	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
 	reference = "HBIK"
 	item = /obj/item/storage/backpack/clown/syndie
 	cost = 6

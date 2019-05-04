@@ -451,7 +451,7 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/pet/corgi/Ian/process_ai()
+/mob/living/simple_animal/pet/corgi/Ian/Life()
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
@@ -578,7 +578,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/pet/corgi/Lisa/process_ai()
+/mob/living/simple_animal/pet/corgi/Lisa/Life()
 	..()
 
 	make_babies()

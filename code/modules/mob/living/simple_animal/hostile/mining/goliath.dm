@@ -35,7 +35,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide{layer = 4.1})
 
-/mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
+/mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	..()
 	handle_preattack()
 

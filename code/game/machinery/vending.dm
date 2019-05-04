@@ -741,6 +741,8 @@
 	throw_item.throw_at(target, 16, 3, src)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 
+/obj/machinery/vending/onTransitZ()
+	return
 /*
  * Vending machine types
  */

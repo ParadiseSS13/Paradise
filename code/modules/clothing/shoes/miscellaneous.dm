@@ -1,21 +1,3 @@
-/obj/item/clothing/shoes/syndigaloshes
-	desc = "A pair of brown shoes. They seem to have extra grip."
-	name = "brown shoes"
-	icon_state = "brown"
-	item_state = "brown"
-	permeability_coefficient = 0.05
-	flags = NOSLIP
-	origin_tech = "syndicate=2"
-	burn_state = FIRE_PROOF
-	var/list/clothing_choices = list()
-	silence_steps = 1
-
-/obj/item/clothing/shoes/syndigaloshes/black
-	name = "black shoes"
-	icon_state = "black"
-	item_color = "black"
-	desc = "A pair of black shoes. They seem to have extra grip."
-
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
 	icon_state = "mime"

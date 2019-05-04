@@ -1,0 +1,12 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Simple animals actually use the new subsystem now"
+  - tweak: "What was NPCAI is now renamed to NPCPool - Its the functional equivalent of what it is in tg"
+  - tweak: "Simple animals actually run on subsystem instead of a process now."
+  - rscadd: "idleNPCpool has been added reducing performance impact of hostile simple animals"
+  - rscdel: "NPCAI Process (That run both SNPC and SimpleAnimals) that was somehow left out by me"
+  - rscdel: "SNPC & assocaited NPCAI Subsystem"
+  - rscdel: "Some of space hotel's functions."
+  - rscdel: "Bodysnatch gland."
+  - tweak: "process_ai has been deprecated"
