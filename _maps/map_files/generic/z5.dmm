@@ -39,7 +39,7 @@
 "ag" = (
 /obj/spacepod/random,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ah" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -57,7 +57,7 @@
 "aj" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ak" = (
 /turf/simulated/mineral/random/high_chance,
 /area/mine/dangerous/unexplored)
@@ -236,7 +236,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aJ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -305,7 +305,7 @@
 /obj/item/stack/rods,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aS" = (
 /obj/item/shard,
 /obj/item/stack/rods,
@@ -411,7 +411,7 @@
 /obj/item/shard,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bj" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -1564,13 +1564,13 @@
 /area/mine/abandoned)
 "eg" = (
 /turf/simulated/mineral/random/labormineral,
-/area/space)
+/area/space/nearstation)
 "eh" = (
 /turf/simulated/wall/r_wall,
 /area/mine/dangerous/explored)
 "ei" = (
 /turf/simulated/mineral/random,
-/area/space)
+/area/space/nearstation)
 "ej" = (
 /obj/structure/girder/displaced,
 /turf/simulated/floor/plating/airless{
@@ -2494,7 +2494,7 @@
 	d2 = 4
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "gb" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -2526,7 +2526,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "ge" = (
 /obj/machinery/computer/shuttle/labor/one_way,
 /obj/structure/cable{
@@ -3099,10 +3099,10 @@
 /area/mine/west_outpost)
 "hu" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hv" = (
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "hw" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/structure/window/reinforced{
@@ -4768,7 +4768,7 @@
 /area/mine/living_quarters)
 "ll" = (
 /turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/area/space/nearstation)
 "lm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
@@ -6690,7 +6690,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "pj" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,

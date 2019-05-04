@@ -1,11 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ab" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ac" = (
 /obj/machinery/power/solar/fake,
 /turf/simulated/floor/plating/airless{
@@ -18,7 +18,7 @@
 "ae" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "af" = (
 /turf/simulated/wall,
 /area/djstation)
@@ -350,7 +350,7 @@
 "aY" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "aZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -460,7 +460,7 @@
 	},
 /obj/structure/disposaloutlet,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bl" = (
 /turf/simulated/floor/plating/airless{
 	tag = "icon-platingdmg2";
@@ -646,7 +646,7 @@
 /area/derelict/bridge/ai_upload)
 "bE" = (
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "bF" = (
 /turf/simulated/floor/plasteel,
 /area/derelict/solar_control)
@@ -843,7 +843,7 @@
 /area/derelict/solar_control)
 "ce" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "cf" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel,
@@ -877,7 +877,7 @@
 "cj" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ck" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
@@ -908,7 +908,7 @@
 "co" = (
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cp" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
@@ -1019,7 +1019,7 @@
 "cH" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cI" = (
 /turf/simulated/floor/plating/airless{
 	icon_state = "damaged4"
@@ -1115,7 +1115,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "damaged4"
 	},
-/area/space)
+/area/space/nearstation)
 "cZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1167,7 +1167,7 @@
 /area/derelict/bridge/ai_upload)
 "df" = (
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "dg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1197,7 +1197,7 @@
 /obj/item/stack/ore/iron,
 /obj/item/stack/ore/iron,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dl" = (
 /turf/simulated/floor/plating/airless{
 	icon_state = "damaged2"
@@ -1309,7 +1309,7 @@
 "dE" = (
 /obj/item/stack/ore/slag,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1490,7 +1490,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "eb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1536,7 +1536,7 @@
 "ef" = (
 /obj/item/stack/cable_coil/cut,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "eg" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1893,7 +1893,7 @@
 "fk" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "fl" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -2088,7 +2088,7 @@
 "fK" = (
 /obj/item/stack/rods,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "fL" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2283,7 +2283,7 @@
 /area/derelict/bridge/access)
 "gp" = (
 /turf/simulated/wall/mineral/bananium,
-/area/space)
+/area/space/nearstation)
 "gq" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2460,7 +2460,7 @@
 "gO" = (
 /obj/machinery/door/airlock/bananium,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "gP" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2513,28 +2513,28 @@
 "gX" = (
 /obj/item/flag/clown,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "gY" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "gZ" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ha" = (
 /obj/effect/mob_spawn/human/corpse/clownmili{
 	name = "Clown Pilot"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hb" = (
 /obj/effect/mob_spawn/human/corpse/clownmili,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hc" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hd" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2627,7 +2627,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "floorscorched2"
 	},
-/area/space)
+/area/space/nearstation)
 "hp" = (
 /obj/structure/computerframe,
 /obj/effect/landmark/damageturf,
@@ -2648,7 +2648,7 @@
 	name = "Clown Pilot"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hs" = (
 /obj/structure/closet,
 /obj/structure/window/reinforced{
@@ -2707,7 +2707,7 @@
 "hB" = (
 /obj/item/shard,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "hC" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -2738,7 +2738,7 @@
 	dir = 5
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "hG" = (
 /turf/simulated/wall/r_wall,
 /area/derelict/arrival)
@@ -2769,7 +2769,7 @@
 /obj/structure/lattice,
 /obj/structure/window/basic,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "hN" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -2901,7 +2901,7 @@
 	name = "External Engineering"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "il" = (
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -2970,7 +2970,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "iv" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -2996,7 +2996,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "iz" = (
 /obj/structure/lattice,
 /obj/structure/lattice,
@@ -3004,7 +3004,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "iA" = (
 /turf/simulated/floor/plating,
 /area/derelict/arrival)
@@ -3014,7 +3014,7 @@
 	},
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "iC" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3106,7 +3106,7 @@
 "iN" = (
 /obj/item/stack/cable_coil/cut,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iO" = (
 /obj/structure/table,
 /obj/structure/window/reinforced{
@@ -3204,7 +3204,7 @@
 "jb" = (
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jc" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3212,7 +3212,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jd" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3283,13 +3283,13 @@
 "jl" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jm" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless{
 	icon_state = "white"
 	},
-/area/space)
+/area/space/nearstation)
 "jn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3337,7 +3337,7 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3380,13 +3380,13 @@
 "jw" = (
 /obj/structure/closet/l3closet,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jx" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jy" = (
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
@@ -3396,7 +3396,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jA" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3406,7 +3406,7 @@
 	},
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jB" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3453,7 +3453,7 @@
 "jG" = (
 /obj/item/cigbutt,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jH" = (
 /obj/structure/table,
 /obj/item/stock_parts/cell,
@@ -3496,7 +3496,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "white"
 	},
-/area/space)
+/area/space/nearstation)
 "jN" = (
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -3554,7 +3554,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jT" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3562,7 +3562,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jU" = (
 /obj/structure/closet/wardrobe/genetics_white,
 /turf/simulated/floor/plating/airless{
@@ -3577,7 +3577,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jW" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3593,12 +3593,12 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "jY" = (
 /turf/simulated/floor/plating/airless{
 	icon_state = "white"
 	},
-/area/space)
+/area/space/nearstation)
 "jZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3606,7 +3606,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ka" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3615,7 +3615,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "kb" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3629,7 +3629,7 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "kd" = (
 /obj/structure/window/basic{
 	dir = 1
@@ -3640,7 +3640,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ke" = (
 /obj/machinery/door/window{
 	dir = 8
@@ -3652,7 +3652,7 @@
 	icon_state = "small"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kg" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -3667,7 +3667,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ki" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3728,13 +3728,13 @@
 "kp" = (
 /obj/structure/window/basic,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kq" = (
 /obj/structure/window/basic{
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3827,12 +3827,12 @@
 	},
 /obj/structure/window/basic,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kE" = (
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kF" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrivals Docking Bay 1"
@@ -3972,7 +3972,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "kV" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Access";
@@ -4017,7 +4017,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ld" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	tag = "icon-manifold-b-f (EAST)";
@@ -4038,26 +4038,26 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lg" = (
 /obj/structure/window/basic{
 	dir = 5
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lh" = (
 /obj/structure/grille,
 /obj/structure/window/basic{
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "li" = (
 /obj/structure/window/basic{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Access";
@@ -4114,7 +4114,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "lt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4130,14 +4130,14 @@
 "lv" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lw" = (
 /obj/structure/lattice,
 /obj/structure/window/basic{
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lx" = (
 /obj/structure/girder,
 /obj/structure/window/basic,
@@ -4191,13 +4191,13 @@
 "lD" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lE" = (
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/area/space/nearstation)
 "lF" = (
 /obj/structure/window/basic{
 	dir = 1
@@ -4223,7 +4223,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/area/space/nearstation)
 "lJ" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plating/airless,
@@ -4235,24 +4235,24 @@
 "lL" = (
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lM" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lN" = (
 /obj/item/paper{
 	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lO" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/cut,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lP" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -4273,13 +4273,13 @@
 "lS" = (
 /obj/structure/closet/wardrobe/orange,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "lT" = (
 /obj/structure/window/basic{
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lU" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -4328,7 +4328,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "me" = (
 /turf/simulated/wall/r_wall,
 /area/derelict/atmospherics)
@@ -4343,7 +4343,7 @@
 "mg" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mh" = (
 /obj/structure/grille,
 /obj/structure/grille,
@@ -4354,11 +4354,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mi" = (
 /obj/structure/bed,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mj" = (
 /turf/simulated/floor/plating/airless{
 	icon_state = "floorgrime"
@@ -4403,7 +4403,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mr" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/plasteel,
@@ -4411,7 +4411,7 @@
 "ms" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mt" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -4458,7 +4458,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "my" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -4515,7 +4515,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mH" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4601,7 +4601,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mP" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -4782,7 +4782,7 @@
 	icon_state = "right"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "nl" = (
 /obj/machinery/door/window{
 	base_state = "right";
@@ -5039,7 +5039,7 @@
 /obj/item/stack/cable_coil/cut,
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "nM" = (
 /turf/simulated/floor/plating/airless{
 	icon_state = "derelict1"
@@ -5173,7 +5173,7 @@
 "oi" = (
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "oj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5238,7 +5238,7 @@
 	req_access_txt = "46"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "os" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal{
@@ -5264,7 +5264,7 @@
 	opened = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ou" = (
 /obj/structure/shuttle/engine/propulsion{
 	color = "#FFFF00";
@@ -5272,7 +5272,7 @@
 	icon_state = "propulsion_l"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ov" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
@@ -5292,7 +5292,7 @@
 /turf/simulated/floor/plating/airless{
 	color = "#FFFF00"
 	},
-/area/space)
+/area/space/nearstation)
 "ox" = (
 /turf/simulated/floor/plating/airless,
 /area/derelict/se_solar)
@@ -5314,7 +5314,7 @@
 /turf/simulated/floor/plating/airless{
 	color = "#FFFF00"
 	},
-/area/space)
+/area/space/nearstation)
 "oB" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -5373,10 +5373,10 @@
 /area/derelict/teleporter)
 "pr" = (
 /turf/simulated/mineral/random,
-/area/space)
+/area/space/nearstation)
 "ps" = (
 /turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/area/space/nearstation)
 
 (1,1,1) = {"
 aa
