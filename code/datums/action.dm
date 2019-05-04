@@ -23,6 +23,8 @@
 	button = new
 	button.linked_action = src
 	button.name = name
+	if(desc)
+		button.desc = desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -82,6 +84,7 @@
 	if(button)
 		button.icon = button_icon
 		button.icon_state = background_icon_state
+		button.desc = desc
 
 		ApplyIcon(button)
 
@@ -104,6 +107,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
@@ -403,6 +407,19 @@
 	name = "Use [target.name]"
 	button.name = name
 
+/datum/action/item_action/voice_changer/toggle
+	name = "Toggle Voice Changer"
+
+/datum/action/item_action/voice_changer/voice
+	name = "Set Voice"
+
+/datum/action/item_action/voice_changer/voice/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/voice_changer/V = target
+	V.set_voice(usr)
+
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
@@ -434,6 +451,7 @@
 	var/obj/effect/proc_holder/spell/S = target
 	S.action = src
 	name = S.name
+	desc = S.desc
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state

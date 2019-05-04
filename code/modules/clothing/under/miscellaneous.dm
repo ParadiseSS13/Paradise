@@ -204,7 +204,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
 	burn_state = LAVA_PROOF
@@ -802,6 +802,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
 
 /obj/item/clothing/under/victdress

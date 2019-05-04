@@ -38,9 +38,11 @@
 	if(state_change)
 		SSnanoui.update_uis(src)
 
-/obj/machinery/chem_heater/proc/eject_beaker()
+/obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(beaker)
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
@@ -88,6 +90,10 @@
 /obj/machinery/chem_heater/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/chem_heater/attack_ghost(mob/user)
+	if(user.can_admin_interact())
+		return attack_hand(user)
+
 /obj/machinery/chem_heater/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
@@ -114,7 +120,7 @@
 		. = 1
 
 	if(href_list["eject_beaker"])
-		eject_beaker()
+		eject_beaker(usr)
 		. = 0 //updated in eject_beaker() already
 
 /obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null)

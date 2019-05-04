@@ -15,7 +15,7 @@
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
-	return (BRUTELOSS|FIRELOSS)
+	return BRUTELOSS|FIRELOSS
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
@@ -402,10 +402,10 @@
 
 /obj/item/nullrod/tribal_knife/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/tribal_knife/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/nullrod/tribal_knife/process()
@@ -432,10 +432,10 @@
 
 /obj/item/nullrod/rosary/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/rosary/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)

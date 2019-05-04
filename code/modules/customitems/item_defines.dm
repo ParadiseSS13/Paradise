@@ -154,7 +154,7 @@
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
@@ -760,10 +760,10 @@
 
 /obj/item/clothing/head/pirate/fluff/stumpy/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/head/pirate/fluff/stumpy/process()
@@ -1774,3 +1774,15 @@
 	name = "Pretzel's Ring"
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
+
+/obj/item/clothing/under/fluff/voxbodysuit //Gangelwaefre: Kikeri
+	name = "Vox Bodysuit"
+	desc = "A shimmering bodysuit custom-fit to a vox. Has shorts sewn in."
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "voxbodysuit"
+	item_state = "voxbodysuit"
+	item_color = "voxbodysuit"
+	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	species_fit = list("Vox")

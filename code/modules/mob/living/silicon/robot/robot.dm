@@ -93,7 +93,7 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
@@ -157,6 +157,7 @@ var/list/robot_verbs_default = list(
 		var/datum/robot_component/cell_component = components["power cell"]
 		cell_component.wrapped = cell
 		cell_component.installed = 1
+		cell_component.install()
 
 	diag_hud_set_borgcell()
 	scanner = new(src)
@@ -288,10 +289,6 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules += "Combat"
-	if(ticker && ticker.mode && ticker.mode.name == "nations")
-		var/datum/game_mode/nations/N = ticker.mode
-		if(N.kickoff)
-			modules = list("Nations")
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -390,11 +387,6 @@ var/list/robot_verbs_default = list(
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
 
-		if("Nations")
-			module = new /obj/item/robot_module/nations(src)
-			module.channels = list()
-			icon_state = "droidpeace"
-
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
@@ -415,7 +407,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -447,8 +439,10 @@ var/list/robot_verbs_default = list(
 	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		dat += "<b>[C.name]</b><br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-
+		if(C.installed == 0)
+			dat += "<b>[C.name]</b><br>MISSING<br>"
+		else
+			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
 	return dat
 
 /mob/living/silicon/robot/verb/self_diagnosis_verb()
@@ -600,6 +594,9 @@ var/list/robot_verbs_default = list(
 		if(!getBruteLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
+		else if(!getBruteLoss(TRUE))
+			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+			return
 		var/obj/item/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
@@ -612,10 +609,13 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+		else if(!getFireLoss(TRUE))
+			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
@@ -663,10 +663,10 @@ var/list/robot_verbs_default = list(
 					I.burn = C.electronics_damage
 
 				I.loc = src.loc
-
-				if(C.installed == 1)
-					C.uninstall()
+				var/was_installed = C.installed
 				C.installed = 0
+				if(was_installed == 1)
+					C.uninstall()
 
 		else
 			if(locked)
@@ -891,7 +891,7 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 
-	var/combat = list("Combat","Nations")
+	var/combat = list("Combat")
 	if(modtype in combat)
 		if(base_icon == "")
 			base_icon = icon_state
@@ -1356,24 +1356,6 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/ert/gamma
 	crisis = 1
 
-/mob/living/silicon/robot/nations
-	base_icon = "droidpeace"
-	icon_state = "droidpeace"
-	modtype = "Nations"
-	designation = "Nations"
-
-/mob/living/silicon/robot/nations/init()
-	..()
-	module = new /obj/item/robot_module/nations(src)
-	//languages
-	module.add_languages(src)
-	//subsystems
-	module.add_subsystems_and_actions(src)
-
-	status_flags &= ~CANPUSH
-
-	notify_ai(2)
-
 /mob/living/silicon/robot/emp_act(severity)
 	..()
 	switch(severity)
@@ -1389,7 +1371,7 @@ var/list/robot_verbs_default = list(
 	..()
 	var/brute = 1000
 	var/burn = 1000
-	var/list/datum/robot_component/borked_parts = get_damaged_components(brute,burn,1)
+	var/list/datum/robot_component/borked_parts = get_damaged_components(TRUE, TRUE, TRUE, TRUE)
 	for(var/datum/robot_component/borked_part in borked_parts)
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage

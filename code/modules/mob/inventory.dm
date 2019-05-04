@@ -35,7 +35,7 @@
 /mob/proc/put_in_l_hand(var/obj/item/W)
 	if(!put_in_hand_check(W))
 		return 0
-	if(!l_hand)
+	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
 		W.layer = 20	//TODO: move to equipped?
@@ -51,7 +51,7 @@
 /mob/proc/put_in_r_hand(var/obj/item/W)
 	if(!put_in_hand_check(W))
 		return 0
-	if(!r_hand)
+	if(!r_hand && has_right_hand())
 		W.forceMove(src)
 		r_hand = W
 		W.layer = 20

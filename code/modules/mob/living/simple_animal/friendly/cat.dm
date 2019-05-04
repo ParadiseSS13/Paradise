@@ -147,7 +147,7 @@
 				stop_automated_movement = 1
 				walk_to(src,movement_target,0,3)
 
-/mob/living/simple_animal/pet/cat/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -163,9 +163,9 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
-	
+
 	switch(act)
 		if("meow")
 			message = "<B>[src]</B> [pick(emote_hear)]!"
@@ -225,9 +225,9 @@
 	maxHealth = 50
 	harm_intent_damage = 10
 	butcher_results = list(
-		/obj/item/organ/internal/brain = 1, 
-		/obj/item/organ/internal/heart = 1, 
-		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,  
+		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/internal/heart = 1,
+		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,
 		/obj/item/reagent_containers/food/snacks/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"

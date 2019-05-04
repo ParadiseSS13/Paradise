@@ -542,7 +542,7 @@
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	assemblytype = "obj/structure/door_assembly/multi_tile"
+	assemblytype = /obj/structure/door_assembly/multi_tile
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

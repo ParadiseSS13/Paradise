@@ -26,6 +26,7 @@
 #define TOXLOSS 4
 #define OXYLOSS 8
 #define SHAME 16
+#define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN		1
@@ -40,6 +41,9 @@
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
 
+//Health Defines
+#define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_DEAD -100
 
 //Grab levels
 #define GRAB_PASSIVE  1
@@ -47,12 +51,6 @@
 #define GRAB_NECK    3
 #define GRAB_UPGRADING  4
 #define GRAB_KILL    5
-
-
-//Hostile Mob AI Status
-#define AI_ON		1
-#define AI_IDLE		2
-#define AI_OFF		3
 
 //Attack types for checking shields/hit reactions
 

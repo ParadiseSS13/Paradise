@@ -16,6 +16,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_y_dimension = 32
 
 	can_be_hit = FALSE
+	suicidal_hands = TRUE
 
 	var/r_speed = 1.0
 	var/health = null
@@ -99,6 +100,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/trip_walksafe = TRUE
 	var/trip_tiles = 0
 
+	//Tooltip vars
+	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
+	var/tip_timer = 0
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -144,16 +149,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/blob_act()
 	qdel(src)
-
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
-	return
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
@@ -258,7 +253,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	add_fingerprint(user)
 	if(pickup(user)) // Pickup succeeded
 		user.put_in_active_hand(src)
-	
+
 	return 1
 
 /obj/item/attack_alien(mob/user as mob)
@@ -349,11 +344,13 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
+	in_inventory = FALSE
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	in_inventory = TRUE
 	return TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
@@ -383,6 +380,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+	in_inventory = TRUE
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	return 1
@@ -541,6 +539,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(callback) //call the original callback
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
+	in_inventory = FALSE
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
@@ -589,9 +588,21 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
 
-/obj/item/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user) //handles block for CQC
-	if(target.check_block())
-		target.visible_message("<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>",
-					"<span class='userdanger'>You block the attack!</span>")
-		user.Stun(2)
-		return TRUE
+/obj/item/proc/openTip(location, control, params, user)
+	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
+
+/obj/item/MouseEntered(location, control, params)
+	if(in_inventory)
+		var/timedelay = 8
+		var/user = usr
+		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+
+/obj/item/MouseExited()
+	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
+	closeToolTip(usr)
+
+/obj/item/proc/update_slot_icon()
+	if(!ismob(loc))
+		return
+	var/mob/owner = loc
+	owner.regenerate_icons()

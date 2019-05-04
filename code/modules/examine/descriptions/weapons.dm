@@ -55,6 +55,11 @@
 	then click where you want to fire.  After firing, you will need to pump the gun, by clicking on the gun in your hand.  To reload, load more shotgun \
 	shells into the gun."
 
+/obj/item/toy/russian_revolver/trick_revolver //oh no
+	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
+	then click where you want to fire.  To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
+	will tell you what caliber you need."
+
 //*******
 //*Melee*
 //*******

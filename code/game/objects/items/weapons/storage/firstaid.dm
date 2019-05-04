@@ -295,11 +295,11 @@
 				for(var/obj/item/reagent_containers/food/pill/P in contents)
 					P.attack(C, C)
 				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
-		return
+			return
 
 	return ..()
 
-/obj/item/storage/pill_bottle/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)

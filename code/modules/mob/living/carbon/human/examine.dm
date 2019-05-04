@@ -315,15 +315,7 @@
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
-			if(istype(src, /mob/living/carbon/human/interactive))
-				var/mob/living/carbon/human/interactive/auto = src
-				if(auto.showexaminetext)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] appears to be some sort of sick automaton, [p_their()] eyes are glazed over and [p_their()] mouth is slightly agape.</span>\n"
-				if(auto.debugexamine)
-					var/dodebug = auto.doing2string(auto.doing)
-					var/interestdebug = auto.interest2string(auto.interest)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] appears to be [interestdebug] and [dodebug].</span>\n"
-			else if(dna.species.show_ssd)
+			if(dna.species.show_ssd)
 				if(!key)
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
 				else if(!client)
@@ -363,7 +355,7 @@
 					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
-			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=[glasses]'>\[[criminal]\]</a>"
+			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 

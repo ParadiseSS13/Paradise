@@ -18,9 +18,9 @@
 	return 0
 
 
-/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target for 10 seconds
+/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
 	name = "Glare"
-	desc = "Stuns and mutes a target for a decent duration."
+	desc = "Stuns and mutes a target for a decent duration. Duration depends on the proximity to the target."
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
@@ -46,13 +46,25 @@
 			return
 		var/mob/living/carbon/human/M = target
 		user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
-		target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
-		if(in_range(target, user))
+		var/distance = get_dist(target, user)
+		if (distance <= 1) //Melee glare
+			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 			to_chat(target, "<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		else //Only alludes to the shadowling if the target is close by
+			target.Stun(10)
+			M.AdjustSilence(10)
+		else //Distant glare
+			var/loss = 10 - distance
+			var/duration = 10 - loss
+			if(loss <= 0)
+				to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
+				return
+			target.slowed = duration
+			M.AdjustSilence(10)
+			to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
+			sleep(duration*10)
+			target.Stun(loss)
+			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
-		target.Stun(10)
-		M.AdjustSilence(10)
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
@@ -323,7 +335,7 @@
 	include_user = 1
 	var/blind_smoke_acquired
 	var/screech_acquired
-	var/drainLifeAcquired
+	var/nullChargeAcquired
 	var/reviveThrallAcquired
 	action_icon_state = "collective_mind"
 
@@ -347,23 +359,24 @@
 			to_chat(target, "<span class='warning'>Your concentration has been broken. The mental hooks you have sent out now retract into your mind.</span>")
 			return
 
-		if(thralls >= 3 && !screech_acquired)
+		if(thralls >= CEILING(3 * ticker.mode.thrall_ratio, 1) && !screech_acquired)
 			screech_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
-		if(thralls >= 5 && !blind_smoke_acquired)
+		if(thralls >= CEILING(5 * ticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
-		if(thralls >= 7 && !drainLifeAcquired)
-			drainLifeAcquired = 1
-			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Life</b> ability. You can now drain the health of nearby humans to heal yourself.</i></span>")
-			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife(null))
+		if(thralls >= CEILING(7 * ticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
+			nullChargeAcquired = 1
+			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging \
+			or sending power until repaired.</i></span>")
+			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/null_charge(null))
 
-		if(thralls >= 9 && !reviveThrallAcquired)
+		if(thralls >= CEILING(9 * ticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
@@ -479,45 +492,57 @@
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))
 
-/obj/effect/proc_holder/spell/aoe_turf/drainLife
-	name = "Drain Life"
-	desc = "Damages nearby humans, draining their life and healing your own wounds."
+/obj/effect/proc_holder/spell/aoe_turf/null_charge
+	name = "Null Charge"
+	desc = "Empties an APC, preventing it from recharging until fixed."
 	panel = "Shadowling Abilities"
-	range = 3
-	charge_max = 100
-	clothes_req = 0
-	var/targetsDrained
-	var/list/nearbyTargets
-	action_icon_state = "drain_life"
+	charge_max = 600
+	clothes_req = FALSE
+	action_icon_state = "null_charge"
 
-/obj/effect/proc_holder/spell/aoe_turf/drainLife/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/null_charge/cast(mob/user = usr)
 	if(!shadowling_check(user))
 		charge_counter = charge_max
 		return
-	var/mob/living/carbon/human/U = usr
-	targetsDrained = 0
-	nearbyTargets = list()
-	for(var/turf/T in targets)
-		for(var/mob/living/carbon/M in T.contents)
-			if(M == src)
-				continue
-			targetsDrained++
-			nearbyTargets.Add(M)
-	if(!targetsDrained)
+
+	var/list/local_objs = view(1, user)
+	var/obj/machinery/power/apc/target_apc
+	for(var/object in local_objs)
+		if(istype(object, /obj/machinery/power/apc))
+			target_apc = object
+			break
+
+	if(!target_apc)
+		to_chat(user, "<span class='warning'>You must stand next to an APC to drain it!</span>")
 		charge_counter = charge_max
-		to_chat(U, "<span class='warning'>There were no nearby humans for you to drain.</span>")
 		return
-	for(var/mob/living/carbon/M in nearbyTargets)
-		U.heal_organ_damage(10, 10)
-		U.adjustToxLoss(-10)
-		U.adjustOxyLoss(-10)
-		U.adjustStaminaLoss(-20)
-		U.AdjustWeakened(-1)
-		U.AdjustStunned(-1)
-		M.adjustOxyLoss(20)
-		M.adjustStaminaLoss(20)
-		to_chat(M, "<span class='boldannounce'>You feel a wave of exhaustion and a curious draining sensation directed towards [U]!</span>")
-	to_chat(U, "<span class='shadowling'>You draw life from those around you to heal your wounds.</span>")
+	
+	if(target_apc.cell?.charge == 0)
+		to_chat(user, "<span class='warning'>APC must have a power to drain!</span>")
+		charge_counter = charge_max
+		return
+
+	target_apc.operating = 0
+	target_apc.update()
+	target_apc.update_icon()
+	target_apc.visible_message("<span class='warning'>The [target_apc] flickers and begins to grow dark.</span>")
+
+	to_chat(user, "<span class='shadowling'>You dim the APC's screen and carefully begin siphoning its power into the void.</span>")
+	if(!do_after(user, 200, target=target_apc))
+		//Whoops!  The APC's powers back on
+		to_chat(user, "<span class='shadowling'>Your concentration breaks and the APC suddenly repowers!</span>")
+		target_apc.operating = 1
+		target_apc.update()
+		target_apc.update_icon()
+		target_apc.visible_message("<span class='warning'>The [target_apc] begins glowing brightly!</span>")
+	else
+		//We did it!
+		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")
+		target_apc.cell?.charge = 0	//Sent to the shadow realm
+		target_apc.chargemode = 0 //Won't recharge either until an someone hits the button
+		target_apc.charging = 0
+		target_apc.null_charge()
+		target_apc.update_icon()
 
 
 
@@ -620,23 +645,28 @@
 
 /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle
 	name = "Destroy Engines"
-	desc = "Extends the time of the emergency shuttle's arrival by fifteen minutes. This can only be used once."
+	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	panel = "Shadowling Abilities"
 	range = 1
 	clothes_req = 0
 	charge_max = 600
 	action_icon_state = "extend_shuttle"
+	var/global/extendlimit = 0
 
 /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
+	if(extendlimit == 1)
+		to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
 		charge_counter = charge_max
 		return
 	for(var/mob/living/carbon/human/target in targets)
 		if(target.stat)
 			charge_counter = charge_max
 			return
-		if(!is_thrall(target))
-			to_chat(user, "<span class='warning'>[target] must be a thrall.</span>")
+		if(is_shadow_or_thrall(target))
+			to_chat(user, "<span class='warning'>[target] must not be an ally.</span>")
 			charge_counter = charge_max
 			return
 		if(SSshuttle.emergency.mode != SHUTTLE_CALL)
@@ -648,7 +678,9 @@
 						  "<span class='notice'>You begin to draw [M]'s life force.</span>")
 		M.visible_message("<span class='warning'>[M]'s face falls slack, [M.p_their()] jaw slightly distending.</span>", \
 						  "<span class='boldannounce'>You are suddenly transported... far, far away...</span>")
-		if(!do_after(user, 50, target = M))
+		extendlimit = 1
+		if(!do_after(user, 150, target = M))
+			extendlimit = 0
 			to_chat(M, "<span class='warning'>You are snapped back to reality, your haze dissipating!</span>")
 			to_chat(user, "<span class='warning'>You have been interrupted. The draw has failed.</span>")
 			return
@@ -657,10 +689,9 @@
 						  "<span class='warning'><b>...speeding by... ...pretty blue glow... ...touch it... ...no glow now... ...no light... ...nothing at all...</span>")
 		M.death()
 		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-			var/more_minutes = 9000
-			var/timer = SSshuttle.emergency.timeLeft()
-			timer += more_minutes
-			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
+			var/more_minutes = 6000
+			var/timer = SSshuttle.emergency.timeLeft(1) + more_minutes
+			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
 			SSshuttle.emergency.setTimer(timer)
 			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!

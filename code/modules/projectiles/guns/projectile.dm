@@ -55,7 +55,7 @@
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
-/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)	
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
 		user.remove_from_mob(AM)
 		magazine = AM
 		magazine.loc = src
@@ -81,7 +81,7 @@
 				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
-				magazine = null		
+				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
@@ -165,14 +165,14 @@
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
-			return(BRUTELOSS)
+			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
-		return (OXYLOSS)
+		return OXYLOSS
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)

@@ -72,7 +72,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
-	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
@@ -107,6 +106,7 @@ var/list/admin_verbs_event = list(
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_ert_calling,
+	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_custom_event_info,
 	/client/proc/cmd_view_custom_event_info,
@@ -205,6 +205,8 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/openMentorTicketUI,
+	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
@@ -213,16 +215,13 @@ var/list/admin_verbs_proccall = list(
 	/client/proc/callproc_datum,
 	/client/proc/SDQL2_query
 )
-var/list/admin_verbs_snpc = list(
-	/client/proc/resetSNPC,
-	/client/proc/customiseSNPC,
-	/client/proc/hide_snpc_verbs
-)
 var/list/admin_verbs_ticket = list(
-	/client/proc/openTicketUI,
+	/client/proc/openAdminTicketUI,
 	/client/proc/toggleticketlogs,
-	/client/proc/resolveAllTickets,
-	/client/proc/openUserUI
+	/client/proc/openMentorTicketUI,
+	/client/proc/toggleMentorTicketLogs,
+	/client/proc/resolveAllAdminTickets,
+	/client/proc/resolveAllMentorTickets
 )
 
 /client/proc/on_holder_add()
@@ -286,8 +285,6 @@ var/list/admin_verbs_ticket = list(
 		admin_verbs_proccall,
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		admin_verbs_snpc,
-		/client/proc/hide_snpc_verbs,
 		admin_verbs_ticket
 	)
 
@@ -678,24 +675,6 @@ var/list/admin_verbs_ticket = list(
 
 	feedback_add_details("admin_verb","OT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/kill_air() // -- TLE
-	set category = "Debug"
-	set name = "Kill Air"
-	set desc = "Toggle Air Processing"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(air_processing_killed)
-		air_processing_killed = 0
-		to_chat(usr, "<b>Enabled air processing.</b>")
-	else
-		air_processing_killed = 1
-		to_chat(usr, "<b>Disabled air processing.</b>")
-	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] used 'kill air'.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] used 'kill air'.</span>", 1)
-
 /client/proc/deadmin_self()
 	set name = "De-admin self"
 	set category = "Admin"
@@ -885,7 +864,7 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	var/list/jobs = list()
-	for(var/datum/job/J in job_master.occupations)
+	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
 	if(!jobs.len)
@@ -893,7 +872,7 @@ var/list/admin_verbs_ticket = list(
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if(job)
-		job_master.FreeRole(job)
+		SSjobs.FreeRole(job)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
@@ -939,6 +918,20 @@ var/list/admin_verbs_ticket = list(
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
+
+/client/proc/toggleMentorTicketLogs()
+	set name = "Toggle Mentor Ticket Messages"
+	set category = "Preferences"
+
+	if(!check_rights(R_MENTOR|R_ADMIN))
+		return
+
+	prefs.toggles ^= CHAT_NO_MENTORTICKETLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_MENTORTICKETLOGS)
+		to_chat(usr, "You now won't get mentor ticket messages.")
+	else
+		to_chat(usr, "You now will get mentor ticket messages.")
 
 /client/proc/toggleticketlogs()
 	set name = "Toggle Admin Ticket Messgaes"
@@ -1011,28 +1004,6 @@ var/list/admin_verbs_ticket = list(
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")
-
-/client/proc/show_snpc_verbs()
-	set name = "Show SNPC Verbs"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	verbs += admin_verbs_snpc
-	verbs -= /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs have been toggled on.</span>")
-
-/client/proc/hide_snpc_verbs()
-	set name = "Hide SNPC Verbs"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	verbs -= admin_verbs_snpc
-	verbs += /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
 
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"

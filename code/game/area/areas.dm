@@ -78,9 +78,9 @@
 
 /area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
 	if(danger_level == ATMOS_ALARM_NONE)
-		atmosphere_alarm.clearAlarm(src, alarm_source)
+		SSalarms.atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
-		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
+		SSalarms.atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
 	for(var/obj/machinery/alarm/AA in src)
@@ -158,9 +158,9 @@
 			if(A.density)
 				A.lock()
 
-	burglar_alarm.triggerAlarm(src, trigger)
+	SSalarms.burglar_alarm.triggerAlarm(src, trigger)
 	spawn(600)
-		burglar_alarm.clearAlarm(src, trigger)
+		SSalarms.burglar_alarm.clearAlarm(src, trigger)
 
 /area/proc/set_fire_alarm_effect()
 	fire = 1
@@ -341,7 +341,7 @@
 			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE)
 			L.client.played = 1
 			spawn(600)			//ewww - this is very very bad
-				if(L.&& L.client)
+				if(L && L.client)
 					L.client.played = 0
 
 /area/proc/gravitychange(var/gravitystate = 0, var/area/A)
@@ -362,7 +362,7 @@
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN)).
+	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Stun(5)
 		M.Weaken(5)
 

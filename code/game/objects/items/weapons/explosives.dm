@@ -116,6 +116,7 @@
 	sleep(10)
 	prime()
 	user.gib()
+	return OBLITERATION
 
 /obj/item/grenade/plastic/update_icon()
 	if(nadeassembly)

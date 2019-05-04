@@ -38,6 +38,8 @@
 	layer = 2.9
 	anchored = 1
 	density = 1
+	max_integrity = 300
+	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/icon_vend //Icon_state when vending
 	var/icon_deny //Icon_state when denying access
@@ -96,30 +98,27 @@
 	var/item_slot = FALSE
 	var/obj/item/inserted_item = null
 
-/obj/machinery/vending/New()
-	..()
+/obj/machinery/vending/Initialize(mapload)
+	. = ..()
 	wires = new(src)
-	spawn(50)
-		if(product_slogans)
-			slogan_list += splittext(product_slogans, ";")
+	if(product_slogans)
+		slogan_list += splittext(product_slogans, ";")
 
-			// So not all machines speak at the exact same time.
-			// The first time this machine says something will be at slogantime + this random value,
-			// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
-			last_slogan = world.time + rand(0, slogan_delay)
+		// So not all machines speak at the exact same time.
+		// The first time this machine says something will be at slogantime + this random value,
+		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
+		last_slogan = world.time + rand(0, slogan_delay)
 
-		if(product_ads)
-			ads_list += splittext(product_ads, ";")
+	if(product_ads)
+		ads_list += splittext(product_ads, ";")
 
-		build_inventory()
-		power_change()
-
-		return
-
-	return
+	build_inventory()
+	power_change()
 
 /obj/machinery/vending/Destroy()
-	eject_item()
+	QDEL_NULL(wires)
+	QDEL_NULL(coin)
+	QDEL_NULL(inserted_item)
 	return ..()
 
 /**
@@ -148,34 +147,31 @@
 
 			product_records.Add(product)
 
-/obj/machinery/vending/Destroy()
-	QDEL_NULL(wires)
-	QDEL_NULL(coin)
-	return ..()
-
-/obj/machinery/vending/ex_act(severity)
+/obj/machinery/vending/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
 	switch(severity)
-		if(1.0)
+		if(1)
+			obj_integrity = 0
 			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				malfunction()
+		if(2)
+			take_damage(rand(100, 250), BRUTE, "bomb", 0)
+		if(3)
+			take_damage(rand(10, 90), BRUTE, "bomb", 0)
 
 /obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
 	if(component_parts)
 		for(var/obj/item/vending_refill/VR in component_parts)
 			refill_inventory(VR, product_records, usr)
 
-/obj/machinery/vending/blob_act()
-	if(prob(75))
-		malfunction()
-	else
+/obj/machinery/vending/deconstruct(disassembled = TRUE)
+	eject_item()
+	if(!refill_canister) //the non constructable vendors drop metal instead of a machine frame.
+		new /obj/item/stack/sheet/metal(loc, 3)
 		qdel(src)
+	else
+		..()
+
+/obj/machinery/vending/blob_act(obj/structure/blob/B) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
+	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
 /obj/machinery/vending/proc/refill_inventory(obj/item/vending_refill/refill, list/machine, mob/user)
 	var/total = 0
@@ -236,7 +232,7 @@
 	if(default_unfasten_wrench(user, I, time = 60))
 		return
 
-	if(istype(I, /obj/item/screwdriver) && anchored)
+	if(isscrewdriver(I) && anchored)
 		playsound(loc, I.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
@@ -247,9 +243,9 @@
 		return
 
 	if(panel_open)
-		if(istype(I, /obj/item/multitool)||istype(I, /obj/item/wirecutters))
+		if(ismultitool(I) || iswirecutter(I))
 			return attack_hand(user)
-		if(component_parts && istype(I, /obj/item/crowbar))
+		if(component_parts && iscrowbar(I))
 			var/datum/data/vending_product/machine = product_records
 			for(var/datum/data/vending_product/machine_content in machine)
 				while(machine_content.amount !=0)
@@ -259,15 +255,17 @@
 						if(!machine_content.amount)
 							break
 			default_deconstruction_crowbar(I)
-	if(istype(I, /obj/item/coin) && premium.len > 0)
-		user.drop_item()
-		I.loc = src
+			return
+	if(istype(I, /obj/item/coin) && premium.len)
+		if(!user.drop_item())
+			return
+		I.forceMove(src)
 		coin = I
 		categories |= CAT_COIN
 		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
 		SSnanoui.update_uis(src)
 		return
-	else if(istype(I, refill_canister) && refill_canister != null)
+	if(istype(I, refill_canister) && refill_canister != null)
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>It does nothing.</span>")
 		else if(panel_open)
@@ -281,20 +279,17 @@
 					to_chat(user, "<span class='notice'>You loaded [transfered] items in \the [name].</span>")
 				else
 					to_chat(user, "<span class='notice'>The [name] is fully stocked.</span>")
-			return;
 		else
 			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
-	else if(item_slot_check(user, I))
+		return
+	if(item_slot_check(user, I))
 		insert_item(user, I)
 		return
-	else
-		return ..()
+	return ..()
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
 	if(!item_slot)
-		return FALSE
-	if(alert(user, "Do you want to attempt to insert [I]?", "","Yes", "No") == "No")
 		return FALSE
 	if(inserted_item)
 		to_chat(user, "<span class='warning'>There is something already inserted!</span>")
@@ -314,28 +309,32 @@
 /obj/machinery/vending/proc/insert_item(mob/user, obj/item/I)
 	if(!item_slot || inserted_item)
 		return
-	if(!user.canUnEquip(I))
+	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
 		return
 
-	user.unEquip(I)
 	inserted_item = I
 	I.forceMove(src)
 
 	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 	SSnanoui.update_uis(src)
 
-/obj/machinery/vending/proc/eject_item()
+/obj/machinery/vending/proc/eject_item(mob/user)
 	if(!item_slot || !inserted_item)
 		return
-	inserted_item.forceMove(get_turf(src))
+	var/put_on_turf = TRUE
+	if(user && iscarbon(user) && user.Adjacent(src))
+		if(user.put_in_hands(inserted_item))
+			put_on_turf = FALSE
+	if(put_on_turf)
+		var/turf/T = get_turf(src)
+		inserted_item.forceMove(T)
 	inserted_item = null
 	SSnanoui.update_uis(src)
 
 /obj/machinery/vending/emag_act(user as mob)
-	emagged = 1
+	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
-	return
 
 /**
  *  Receive payment with cashmoney.
@@ -511,7 +510,7 @@
 		categories &= ~CAT_COIN
 
 	if(href_list["remove_item"])
-		eject_item()
+		eject_item(usr)
 
 	if(href_list["pay"])
 		if(currently_vending && vendor_account && !vendor_account.suspended)
@@ -593,7 +592,7 @@
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				to_chat(user, "<span class='notice'>You successfully pull the coin out before the [src] could swallow it.</span>")
+				to_chat(user, "<span class='notice'>You successfully pull the coin out before [src] could swallow it.</span>")
 			else
 				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
 				QDEL_NULL(coin)
@@ -605,25 +604,33 @@
 	R.amount--
 
 	if(((last_reply + (vend_delay + 200)) <= world.time) && vend_reply)
-		spawn(0)
-			speak(src.vend_reply)
-			last_reply = world.time
+		speak(src.vend_reply)
+		last_reply = world.time
 
 	use_power(vend_power_usage)	//actuators and stuff
 	if(icon_vend) //Show the vending animation if needed
-		flick(icon_vend,src)
-	spawn(vend_delay)
-		do_vend(R)
-		status_message = ""
-		status_error = 0
-		vend_ready = 1
-		currently_vending = null
-		SSnanoui.update_uis(src)
+		flick(icon_vend, src)
+	addtimer(CALLBACK(src, .proc/delayed_vend, R, user), vend_delay)
+
+/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
+	do_vend(R, user)
+	status_message = ""
+	status_error = 0
+	vend_ready = 1
+	currently_vending = null
+	SSnanoui.update_uis(src)
 
 //override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
-/obj/machinery/vending/proc/do_vend(datum/data/vending_product/R)
+/obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
 	if(!item_slot || !inserted_item)
-		new R.product_path(get_turf(src))
+		var/put_on_turf = TRUE
+		var/obj/vended = new R.product_path()
+		if(user && iscarbon(user) && user.Adjacent(src))
+			if(user.put_in_hands(vended))
+				put_on_turf = FALSE
+		if(put_on_turf)
+			var/turf/T = get_turf(src)
+			vended.forceMove(T)
 		return TRUE
 	return FALSE
 
@@ -638,7 +645,7 @@
 	qdel(vended)
 */
 
-/obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
+/obj/machinery/vending/proc/stock(datum/data/vending_product/R, mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='notice'>You stock the [src] with \a [R.product_name]</span>")
 		R.amount++
@@ -664,8 +671,6 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
-	return
-
 /obj/machinery/vending/proc/speak(message)
 	if(stat & NOPOWER)
 		return
@@ -686,28 +691,38 @@
 				icon_state = "[initial(icon_state)]-off"
 				stat |= NOPOWER
 
-//Oh no we're malfunctioning!  Dump out some product and break.
-/obj/machinery/vending/proc/malfunction()
-	for(var/datum/data/vending_product/R in product_records)
-		if(R.amount <= 0) //Try to use a record that actually has something to dump.
-			continue
-		var/dump_path = R.product_path
-		if(!dump_path)
-			continue
+/obj/machinery/vending/obj_break(damage_flag)
+	if(!(stat & BROKEN))
+		stat |= BROKEN
+		icon_state = "[initial(icon_state)]-broken"
 
-		while(R.amount>0)
-			new dump_path(loc)
-			R.amount--
-		break
+		var/dump_amount = 0
+		var/found_anything = TRUE
+		while (found_anything)
+			found_anything = FALSE
+			for(var/record in shuffle(product_records))
+				var/datum/data/vending_product/R = record
+				if(R.amount <= 0) //Try to use a record that actually has something to dump.
+					continue
+				var/dump_path = R.product_path
+				if(!dump_path)
+					continue
+				R.amount--
+				// busting open a vendor will destroy some of the contents
+				if(found_anything && prob(80))
+					continue
 
-	stat |= BROKEN
-	icon_state = "[initial(icon_state)]-broken"
-	return
+				var/obj/O = new dump_path(loc)
+				step(O, pick(alldirs))
+				found_anything = TRUE
+				dump_amount++
+				if(dump_amount >= 16)
+					return
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
-	var/mob/living/target = locate() in view(7,src)
+	var/mob/living/target = locate() in view(7, src)
 	if(!target)
 		return 0
 
@@ -722,12 +737,12 @@
 		throw_item = new dump_path(loc)
 		break
 	if(!throw_item)
-		return 0
-	spawn(0)
-		throw_item.throw_at(target, 16, 3, src)
+		return
+	throw_item.throw_at(target, 16, 3, src)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
-	return 1
 
+/obj/machinery/vending/onTransitZ()
+	return
 /*
  * Vending machine types
  */
@@ -840,28 +855,39 @@
 	component_parts += new /obj/item/vending_refill/coffee(0)
 
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
+	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
+		return FALSE
 	if(!..())
 		return FALSE
-	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
-		to_chat(user, "<span class='warning'>[I] is not compatible with this machine.</span>")
-		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning'>You need to open [I] before you insert it.</span>")
+		to_chat(user, "<span class='warning'>You need to open [I] before inserting it.</span>")
 		return FALSE
 	return TRUE
 
-/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/R)
+/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/R, mob/user)
 	if(..())
 		return
 	var/obj/item/reagent_containers/food/drinks/vended = new R.product_path()
 
 	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
-		vended.forceMove(get_turf(src))
+		var/put_on_turf = TRUE
+		if(user && iscarbon(user) && user.Adjacent(src))
+			if(user.put_in_hands(vended))
+				put_on_turf = FALSE
+		if(put_on_turf)
+			var/turf/T = get_turf(src)
+			vended.forceMove(T)
 		return
 
 	vended.reagents.trans_to(inserted_item, vended.reagents.total_volume)
 	if(vended.reagents.total_volume)
-		vended.forceMove(get_turf(src))
+		var/put_on_turf = TRUE
+		if(user && iscarbon(user) && user.Adjacent(src))
+			if(user.put_in_hands(vended))
+				put_on_turf = FALSE
+		if(put_on_turf)
+			var/turf/T = get_turf(src)
+			vended.forceMove(T)
 	else
 		qdel(vended)
 
@@ -1015,23 +1041,25 @@
 	icon_deny = "med-deny"
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
 	req_access_txt = "5"
-	products = list(/obj/item/reagent_containers/glass/bottle/charcoal = 4,/obj/item/reagent_containers/glass/bottle/morphine = 4,/obj/item/reagent_containers/glass/bottle/ether = 4,/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
-					/obj/item/reagent_containers/glass/bottle/toxin = 4,/obj/item/reagent_containers/syringe/antiviral = 6,/obj/item/reagent_containers/syringe/insulin = 4,
-					/obj/item/reagent_containers/syringe = 12,/obj/item/healthanalyzer = 5,/obj/item/healthupgrade = 5,/obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/hypospray/safety = 2,
-					/obj/item/reagent_containers/dropper = 2,/obj/item/stack/medical/bruise_pack/advanced = 3, /obj/item/stack/medical/ointment/advanced = 3,
-					/obj/item/stack/medical/bruise_pack = 3,/obj/item/stack/medical/splint = 4, /obj/item/sensor_device = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4,
-					/obj/item/pinpointer/crew = 2)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/pancuronium = 1,/obj/item/reagent_containers/glass/bottle/sulfonal = 1)
+	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 10, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 10,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
+					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide =3, /obj/item/reagent_containers/glass/bottle/saline = 5,
+					/obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4, /obj/item/reagent_containers/glass/bottle/atropine = 3,
+					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/syringe/antiviral = 6,
+					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
+					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
+					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
+					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
+	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
 //This one's from bay12
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
-	products = list(/obj/item/clothing/under/rank/scientist = 6,/obj/item/clothing/suit/bio_suit = 6,/obj/item/clothing/head/bio_hood = 6,
-					/obj/item/transfer_valve = 6,/obj/item/assembly/timer = 6,/obj/item/assembly/signaler = 6,
-					/obj/item/assembly/prox_sensor = 6,/obj/item/assembly/igniter = 6)
-	contraband = list(/obj/item/assembly/health = 3)
+	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
+					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
+	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
 
 /obj/machinery/vending/wallmed1
 	name = "\improper NanoMed"
@@ -1041,7 +1069,7 @@
 	icon_deny = "wallmed-deny"
 	req_access_txt = "5"
 	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
+	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
@@ -1393,7 +1421,7 @@
 	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/glasses/sunglasses/fake=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
 	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
 	/obj/item/clothing/shoes/sandal=1, /obj/item/clothing/gloves/fingerless=2,
-	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1)
+	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1, /obj/item/clothing/suit/mantle = 2, /obj/item/clothing/suit/mantle/old = 1, /obj/item/clothing/suit/mantle/regal = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool=1,/obj/item/clothing/mask/balaclava=1,/obj/item/clothing/head/ushanka=1,/obj/item/clothing/under/soviet=1,/obj/item/storage/belt/fannypack/black=1)
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered=1,/obj/item/clothing/head/mailman=1,/obj/item/clothing/under/rank/mailman=1,/obj/item/clothing/suit/jacket/leather=1,/obj/item/clothing/under/pants/mustangjeans=1)
 	refill_canister = /obj/item/vending_refill/clothing

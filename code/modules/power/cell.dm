@@ -21,23 +21,23 @@
 
 /obj/item/stock_parts/cell/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()
 
 /obj/item/stock_parts/cell/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("self_recharge")
 			if(var_value)
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects.Remove(src)
+				STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/stock_parts/cell/process()
@@ -90,7 +90,7 @@
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/syringe))
@@ -162,23 +162,10 @@
 	ex_act(EXPLODE_DEVASTATE)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
-	switch(charge)
-		if(5000000 to INFINITY)
-			return min(rand(200, 300),rand(200, 300))
-		if(4000000 to 5000000 - 1)
-			return min(rand(80, 180),rand(80, 180))
-		if(1000000 to 4000000 - 1)
-			return min(rand(50, 160),rand(50, 160))
-		if(200000 to 1000000 - 1)
-			return min(rand(25, 80),rand(25, 80))
-		if(100000 to 200000 - 1)//Ave powernet
-			return min(rand(20, 60),rand(20, 60))
-		if(50000 to 100000 - 1)
-			return min(rand(15, 40),rand(15, 40))
-		if(1000 to 50000 - 1)
-			return min(rand(10, 20),rand(10, 20))
-		else
-			return 0
+	if(charge >= 1000)
+		return Clamp(20 + round(charge / 25000), 20, 195) + rand(-5, 5)
+	else
+		return 0
 
 // Cell variants
 /obj/item/stock_parts/cell/empty/New()

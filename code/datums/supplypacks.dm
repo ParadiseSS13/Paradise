@@ -1060,8 +1060,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/organic/bar
 	name = "Bar Starter Kit"
 	contains = list(/obj/item/storage/box/drinkingglasses,
-					/obj/item/circuitboard/soda,
-					/obj/item/circuitboard/beer)
+					/obj/item/circuitboard/chem_dispenser/soda,
+					/obj/item/circuitboard/chem_dispenser/beer)
 	cost = 20
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
@@ -1072,6 +1072,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containertype = /obj/structure/closet/critter/cow
 	containername = "cow crate"
+
+/datum/supply_packs/organic/pig
+	name = "Pig Crate"
+	cost = 25
+	containertype = /obj/structure/closet/critter/pig
+	containername = "pig crate"
 
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
@@ -1199,7 +1205,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
 	name = "Beekeeping Starter Kit"
-	contains = list(/obj/structure/beebox,
+	contains = list(/obj/structure/beebox/unwrenched,
 					/obj/item/honey_frame,
 					/obj/item/honey_frame,
 					/obj/item/honey_frame,

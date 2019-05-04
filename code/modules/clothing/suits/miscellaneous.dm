@@ -186,10 +186,10 @@
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/process()
@@ -345,7 +345,7 @@
 	name = "winter coat"
 	desc = "A heavy jacket made from 'synthetic' animal furs."
 	icon_state = "wintercoat"
-	item_state = "labcoat"
+	item_state = "coatwinter"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -369,6 +369,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "wintercoat_captain"
+	item_state = "coatcaptain"
 	armor = list(melee = 25, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/winterhood/captain
@@ -379,6 +380,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/security
 	name = "security winter coat"
 	icon_state = "wintercoat_sec"
+	item_state = "coatsecurity"
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 5, bomb = 15, bio = 0, rad = 0)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/winterhood/security
@@ -389,6 +391,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
 	icon_state = "wintercoat_med"
+	item_state = "coatmedical"
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 50, rad = 0)
 	hoodtype = /obj/item/clothing/head/winterhood/medical
@@ -399,6 +402,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
 	icon_state = "wintercoat_sci"
+	item_state = "coatscience"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	hoodtype = /obj/item/clothing/head/winterhood/science
@@ -409,6 +413,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering
 	name = "engineering winter coat"
 	icon_state = "wintercoat_engi"
+	item_state = "coatengineer"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 20)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd)
 	hoodtype = /obj/item/clothing/head/winterhood/engineering
@@ -419,6 +424,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
 	name = "atmospherics winter coat"
 	icon_state = "wintercoat_atmos"
+	item_state = "coatatmos"
 	hoodtype = /obj/item/clothing/head/winterhood/engineering/atmos
 
 /obj/item/clothing/head/winterhood/engineering/atmos
@@ -427,6 +433,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
 	icon_state = "wintercoat_hydro"
+	item_state = "coathydro"
 	allowed = list(/obj/item/reagent_containers/spray, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/hatchet, /obj/item/storage/bag/plants)
 	hoodtype = /obj/item/clothing/head/winterhood/hydro
 
@@ -436,6 +443,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "cargo winter coat"
 	icon_state = "wintercoat_cargo"
+	item_state = "coatcargo"
 	hoodtype = /obj/item/clothing/head/winterhood/cargo
 
 /obj/item/clothing/head/winterhood/cargo
@@ -444,6 +452,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/miner
 	name = "mining winter coat"
 	icon_state = "wintercoat_miner"
+	item_state = "coatminer"
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	hoodtype = /obj/item/clothing/head/winterhood/miner
@@ -875,7 +884,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
 	var/on = 0
@@ -883,7 +892,7 @@
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
 		on = 0
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
@@ -893,7 +902,7 @@
 	else
 		on = 1
 		to_chat(usr, "You turn the suit's special processes on.")
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 
 /obj/item/clothing/suit/advanced_protective_suit/IsReflect()
@@ -912,7 +921,7 @@
 			if(user.reagents.get_reagent_amount("syndicate_nanites") < 15)
 				user.reagents.add_reagent("syndicate_nanites", 15)
 	else
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
@@ -924,22 +933,22 @@
 	if(linked_staff)	//delink on destruction
 		linked_staff.robes = null
 		linked_staff = null
-	processing_objects -= src	//probably is cleared in a parent call already, but just in case we're gonna do it here
+	STOP_PROCESSING(SSobj, src)	//probably is cleared in a parent call already, but just in case we're gonna do it here
 	return ..()
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
 	if(!istype(H) || slot != slot_wear_suit)
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 		return
 	else
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/process()
 	if(!linked_staff)	//if we don't have a linked staff, the rest of this is useless
 		return
 
 	if(!ishuman(loc))		//if we somehow try to process while not on a human, remove ourselves from processing and return
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 		return
 
 	var/mob/living/carbon/human/H = loc
@@ -972,3 +981,26 @@
 	name = "ladies red victorian coat"
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
+
+//Mantles!
+/obj/item/clothing/suit/mantle
+	name = "mantle"
+	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
+	icon_state = "mantle"
+	item_state = "mantle"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/mantle/regal
+	name = "regal shawl"
+	desc = "A fancy shawl for nobility, made from high quality materials."
+	icon_state = "regal_mantle"
+	item_state = "regal_mantle"
+
+/obj/item/clothing/suit/mantle/old
+	name = "old wrap"
+	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
+	icon_state = "old_mantle"
+	item_state = "old_mantle"
+

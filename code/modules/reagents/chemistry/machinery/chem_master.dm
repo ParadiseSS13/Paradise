@@ -21,7 +21,24 @@
 /obj/machinery/chem_master/New()
 	..()
 	create_reagents(100)
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_master(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	RefreshParts()
 	update_icon()
+
+/obj/machinery/chem_master/Destroy()
+	QDEL_NULL(beaker)
+	QDEL_NULL(loaded_pill_bottle)
+	return ..()
+
+/obj/machinery/chem_master/RefreshParts()
+	reagents.maximum_volume = 0
+	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
+		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
@@ -50,6 +67,27 @@
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
+		if(beaker)
+			beaker.forceMove(get_turf(src))
+			beaker = null
+			reagents.clear_reagents()
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.forceMove(get_turf(src))
+			loaded_pill_bottle = null
+		return
+
+	if(exchange_parts(user, I))
+		return
+
+	if(panel_open)
+		if(iscrowbar(I))
+			default_deconstruction_crowbar(I)
+			return TRUE
+		else
+			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+			return TRUE
+
 	if(default_unfasten_wrench(user, I))
 		power_change()
 		return
@@ -191,6 +229,8 @@
 		else if(href_list["eject"])
 			if(beaker)
 				beaker.forceMove(get_turf(src))
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(beaker)
 				beaker = null
 				reagents.clear_reagents()
 				update_icon()
@@ -334,7 +374,8 @@
 	return attack_hand(user)
 
 /obj/machinery/chem_master/attack_ghost(mob/user)
-	return attack_hand(user)
+	if(user.can_admin_interact())
+		return attack_hand(user)
 
 /obj/machinery/chem_master/attack_hand(mob/user)
 	if(..())
@@ -399,40 +440,12 @@
 	name = "\improper CondiMaster 3000"
 	condi = TRUE
 
-/obj/machinery/chem_master/constructable
-	name = "ChemMaster 2999"
-	desc = "Used to seperate chemicals and distribute them in a variety of forms."
-
-/obj/machinery/chem_master/constructable/New()
+/obj/machinery/chem_master/condimaster/New()
 	..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_master(null)
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-
-/obj/machinery/chem_master/constructable/attackby(obj/item/I, mob/user, params)
-
-	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
-			beaker = null
-			reagents.clear_reagents()
-		if(loaded_pill_bottle)
-			loaded_pill_bottle.forceMove(get_turf(src))
-			loaded_pill_bottle = null
-		return
-
-	if(exchange_parts(user, I))
-		return
-
-	if(panel_open)
-		if(iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return TRUE
-		else
-			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
-			return TRUE
-	else
-		return ..()
+	RefreshParts()

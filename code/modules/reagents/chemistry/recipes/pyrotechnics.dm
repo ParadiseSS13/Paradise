@@ -89,55 +89,59 @@
 	name = "Sorium"
 	id = "sorium"
 	result = "sorium"
-	required_reagents = list("mercury" = 1, "oxygen" = 1, "nitrogen" = 1, "carbon" = 1)
+	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1, "stabilizing_agent" = 1)
 	result_amount = 4
+	mix_message = "The mixture pops and crackles before settling down."
 
-/datum/chemical_reaction/sorium/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.has_reagent("stabilizing_agent"))
+/datum/chemical_reaction/sorium_explosion
+	name = "Sorium Explosion"
+	id = "sorium_explosion"
+	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1)
+	result_amount = 1
+	mix_message = "The mixture explodes with a big bang."
+
+/datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
+	var/turf/T = get_turf(holder.my_atom)
+	if(!T)
 		return
-	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 0, created_volume)
-	holder.remove_reagent("sorium", created_volume)
 
-/datum/chemical_reaction/sorium_vortex
+/datum/chemical_reaction/sorium_explosion/sorium
 	name = "sorium_vortex"
 	id = "sorium_vortex"
-	result = "sorium_vortex"
 	required_reagents = list("sorium" = 1)
-	result_amount = 1
 	min_temp = T0C + 200
-
-/datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, created_volume)
-	holder.remove_reagent("sorium_vortex", created_volume)
+	mix_sound = null
+	mix_message = null
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
 	id = "liquid_dark_matter"
 	result = "liquid_dark_matter"
+	required_reagents = list("plasma" = 1, "radium" = 1, "carbon" = 1, "stabilizing_agent" = 1)
+	result_amount = 4
+	mix_message = "The mixture begins to glow in a dark purple."
+
+/datum/chemical_reaction/ldm_implosion
+	name = "Implosion"
+	id = "implosion"
 	required_reagents = list("plasma" = 1, "radium" = 1, "carbon" = 1)
-	result_amount = 3
+	result_amount = 1
+	mix_message = "The mixture implodes suddenly."
 
-/datum/chemical_reaction/liquid_dark_matter/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.has_reagent("stabilizing_agent"))
-		return
+/datum/chemical_reaction/ldm_implosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
+	if(!T)
+		return
 	goonchem_vortex(T, 1, created_volume)
-	holder.remove_reagent("liquid_dark_matter", created_volume)
 
-/datum/chemical_reaction/ldm_vortex
+/datum/chemical_reaction/ldm_implosion/liquid_dark_matter
 	name = "LDM Vortex"
 	id = "ldm_vortex"
-	result = "ldm_vortex"
 	required_reagents = list("liquid_dark_matter" = 1)
-	result_amount = 1
 	min_temp = T0C + 200
-
-/datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, created_volume)
-	holder.remove_reagent("ldm_vortex", created_volume)
+	mix_sound = null
+	mix_message = null
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
@@ -154,7 +158,7 @@
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
 	min_temp = T0C + 200
-	no_message = 1
+	mix_message = null
 	mix_sound = null
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
@@ -175,42 +179,35 @@
 		spawn(0)
 			qdel(holder.my_atom)
 
-datum/chemical_reaction/flash_powder
+/datum/chemical_reaction/flash_powder
 	name = "Flash powder"
 	id = "flash_powder"
 	result = "flash_powder"
-	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1, "chlorine" = 1)
-	result_amount = 3
+	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1, "chlorine" = 1, "stabilizing_agent" = 1)
+	result_amount = 5
+	mix_message = "The chemicals hiss and fizz briefly before falling still."
 
-/datum/chemical_reaction/flash_powder/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.has_reagent("stabilizing_agent"))
-		return
-	var/location = get_turf(holder.my_atom)
-	do_sparks(2, 1, location)
-	for(var/mob/living/carbon/C in viewers(5, location))
-		if(C.flash_eyes())
-			if(get_dist(C, location) < 4)
-				C.Weaken(5)
-				continue
-			C.Stun(5)
-	holder.remove_reagent("flash_powder", created_volume)
-
-/datum/chemical_reaction/flash_powder_flash
-	name = "Flash powder activation"
-	id = "flash_powder_flash"
+/datum/chemical_reaction/flash
+	name = "Flash"
+	id = "flash"
 	result = null
+	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1, "chlorine" = 1)
+	mix_message = "The chemicals catch fire, burning brightly and violently!"
+	mix_sound = 'sound/effects/bang.ogg'
+
+/datum/chemical_reaction/flash/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	if(!location)
+		return
+	do_sparks(2, 1, location)
+	bang(location, holder.my_atom, 5, flash = TRUE, bang = FALSE)
+
+/datum/chemical_reaction/flash/flash_powder
+	name = "flash_powder_flash"
+	id = "flash_powder_flash"
 	required_reagents = list("flash_powder" = 1)
 	min_temp = T0C + 100
-
-/datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	do_sparks(2, 1, location)
-	for(var/mob/living/carbon/C in viewers(5, location))
-		if(C.flash_eyes())
-			if(get_dist(C, location) < 4)
-				C.Weaken(5)
-				continue
-			C.Stun(5)
+	mix_message = null
 
 /datum/chemical_reaction/phlogiston
 	name = "Phlogiston"
@@ -250,7 +247,7 @@ datum/chemical_reaction/flash_powder
 	name = "smoke_powder"
 	id = "smoke_powder"
 	result = "smoke_powder"
-	required_reagents = list("stabilizing_agent" = 1, "potassium" = 1, "sugar" = 1, "phosphorus" = 1)
+	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1, "stabilizing_agent" = 1)
 	result_amount = 3
 	mix_message = "The mixture sets into a greyish powder!"
 
@@ -279,15 +276,12 @@ datum/chemical_reaction/flash_powder
 			S.start(3)
 		if(created_volume >=15)
 			S.start(4)
-	if(holder && holder.my_atom)
-		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
-	secondary = 1
 	result_amount = 1
 	forbidden_reagents = list("stimulants")
 	mix_sound = null
@@ -296,78 +290,30 @@ datum/chemical_reaction/flash_powder
 	name = "sonic_powder"
 	id = "sonic_powder"
 	result = "sonic_powder"
+	required_reagents = list("oxygen" = 1, "cola" = 1, "phosphorus" = 1, "stabilizing_agent" = 1)
+	result_amount = 2
+	mix_message = "The mixture begins to bubble slighly!"
+
+/datum/chemical_reaction/sonic_deafen
+	name = "sonic_deafen"
+	id = "sonic_deafen"
+	result = null
 	required_reagents = list("oxygen" = 1, "cola" = 1, "phosphorus" = 1)
-	result_amount = 3
+	mix_message = "The mixture begins to bubble furiously!"
+	mix_sound = 'sound/effects/bang.ogg'
 
-/datum/chemical_reaction/sonic_powder/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.has_reagent("stabilizing_agent"))
-		return
+/datum/chemical_reaction/sonic_deafen/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	playsound(location, 'sound/effects/bang.ogg', 25, 1)
-	for(var/mob/living/M in hearers(5, location))
-		var/ear_safety = 0
-		var/distance = max(1,get_dist(src,T))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(ishuman(C))
-				var/mob/living/carbon/human/H = C
-				if((H.r_ear && (H.r_ear.flags & EARBANGPROTECT)) || (H.l_ear && (H.l_ear.flags & EARBANGPROTECT)) || (H.head && (H.head.flags & HEADBANGPROTECT)))
-					ear_safety++
-			to_chat(C, "<span class='warning'>BANG</span>")
-		if(!ear_safety)
-			M.Stun(max(10/distance, 3))
-			M.Weaken(max(10/distance, 3))
-			M.AdjustEarDamage(rand(0, 5), 15)
-			if(iscarbon(M))
-				var/mob/living/carbon/C = M
-				var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-				if(istype(ears))
-					if(ears.ear_damage >= 15)
-						to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-						if(prob(ears.ear_damage - 5))
-							to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-							M.BecomeDeaf()
-					else
-						if(ears.ear_damage >= 5)
-							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
-	holder.remove_reagent("sonic_powder", created_volume)
+	if(!location)
+		return
+	bang(location, holder.my_atom, 5, flash = FALSE, bang = TRUE)
 
-/datum/chemical_reaction/sonic_powder_deafen
+/datum/chemical_reaction/sonic_deafen/sonic_powder
 	name = "sonic_powder_deafen"
 	id = "sonic_powder_deafen"
-	result = null
 	required_reagents = list("sonic_powder" = 1)
 	min_temp = T0C + 100
-
-/datum/chemical_reaction/sonic_powder_deafen/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	playsound(location, 'sound/effects/bang.ogg', 25, 1)
-	for(var/mob/living/M in hearers(5, location))
-		var/ear_safety = 0
-		var/distance = max(1,get_dist(src,T))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(ishuman(C))
-				var/mob/living/carbon/human/H = C
-				if((H.r_ear && (H.r_ear.flags & EARBANGPROTECT)) || (H.l_ear && (H.l_ear.flags & EARBANGPROTECT)) || (H.head && (H.head.flags & HEADBANGPROTECT)))
-					ear_safety++
-		to_chat(M, "<span class='warning'>BANG</span>")
-		if(!ear_safety)
-			M.Stun(max(10/distance, 3))
-			M.Weaken(max(10/distance, 3))
-			M.AdjustEarDamage(rand(0, 5), 15)
-			if(iscarbon(M))
-				var/mob/living/carbon/C = M
-				var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-				if(istype(ears))
-					if(ears.ear_damage >= 15)
-						to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-						if(prob(ears.ear_damage - 5))
-							to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-							M.BecomeDeaf()
-					else
-						if(ears.ear_damage >= 5)
-							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+	mix_message = null
 
 /datum/chemical_reaction/cryostylane
 	name = "cryostylane"
@@ -430,9 +376,9 @@ datum/chemical_reaction/flash_powder
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/mob/living/carbon/C in view(min(8, round(created_volume * 2)), T))
-		C.Beam(T,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		C.electrocute_act(3.5, "electrical blast")
+	for(var/mob/living/L in view(min(8, round(created_volume * 2)), T))
+		L.Beam(T, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
+		L.electrocute_act(3.5, "electrical blast")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 

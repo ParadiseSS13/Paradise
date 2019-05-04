@@ -1,0 +1,5 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "Syndicate operatives may now purchase a chameleon bundles (2TC), which allows them to disguise not just their jumpsuit, but all of their equipment. They can change individual clothing as well as the outfit as a whole."
+  - tweak: "When using a voice changer, NTTC will no longer default to an \"Unknown\" job: it'll still use the assignment on your card to prevent meta-gaming. Always combine a voice changer and a Syndicate ID."

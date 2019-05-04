@@ -234,14 +234,14 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
-		C.electrocute_act(round(power), G, 1, 1)
+		C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(iscarbon(target))
+	if(isliving(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			C.electrocute_act(round(power), G, 1, 1)
+			C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -411,8 +411,6 @@
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.set_up(G.reagents, splat_location)
 	S.start(smoke_amount)
-	if(G && G.reagents)
-		G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

@@ -8,7 +8,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -23,7 +23,7 @@
 	icon_state = "rwindow";
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -218,7 +218,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})

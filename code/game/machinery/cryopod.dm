@@ -397,7 +397,7 @@
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
 
-		job_master.FreeRole(job)
+		SSjobs.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
 			occupant.mind.objectives.Cut()
@@ -769,3 +769,12 @@
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1
 	return 0
+
+/proc/force_cryo_human(var/mob/living/carbon/person_to_cryo)
+	if(!istype(person_to_cryo))
+		return
+	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))
+		cryo_ssd(person_to_cryo)
+	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
+		var/obj/machinery/cryopod/P = person_to_cryo.loc
+		P.despawn_occupant()
