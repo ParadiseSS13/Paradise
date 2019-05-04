@@ -66,3 +66,6 @@ RANDOMIZE_SHIFT_TIME
 
 ## Enable Nightshift - Causes the station to go into "night mode" from 19:30 to 07:30. Best used with RANDOMIZED_SHIFT_TIME.
 ENABLE_NIGHT_SHIFTS
+
+## Security borg module, Uncomment to enable
+#ALLOW_SECBORG

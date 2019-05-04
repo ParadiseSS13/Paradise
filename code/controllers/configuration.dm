@@ -221,6 +221,9 @@
 	//Start now warning
 	var/start_now_confirmation = 0
 
+	// Disable picking of secborgs
+	var/allow_secborg = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -736,6 +739,8 @@
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
+				if("allow_secborg")
+					config.allow_secborg = TRUE
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
