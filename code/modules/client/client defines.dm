@@ -50,7 +50,7 @@
 	var/received_irc_pm = -99999
 	var/irc_admin			//IRC admin that spoke with them last.
 	var/mute_irc = 0
-
+	var/ssd_warning_acknowledged = FALSE
 
 		////////////////////////////////////
 		//things that require the database//

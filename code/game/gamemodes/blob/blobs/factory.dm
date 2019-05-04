@@ -23,13 +23,12 @@
 
 /obj/structure/blob/factory/run_action()
 	if(spores.len >= max_spores)
-		return 0
+		return
 	if(spore_delay > world.time)
-		return 0
+		return
+	flick("blob_factory_glow", src)
 	spore_delay = world.time + 100 // 10 seconds
 	var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore(src.loc, src)
 	BS.color = overmind.blob_reagent_datum.complementary_color
 	BS.overmind = overmind
 	overmind.blob_mobs.Add(BS)
-	return 0
-

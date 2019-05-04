@@ -52,12 +52,6 @@
 #define GRAB_UPGRADING  4
 #define GRAB_KILL    5
 
-
-//Hostile Mob AI Status
-#define AI_ON		1
-#define AI_IDLE		2
-#define AI_OFF		3
-
 //Attack types for checking shields/hit reactions
 
 #define MELEE_ATTACK 1

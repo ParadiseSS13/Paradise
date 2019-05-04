@@ -1,6 +1,0 @@
-author: "AffectedArc07"
-delete-after: True
-changes: 
-  - rscadd: "SSevents"
-  - rscadd: "SSholiday"
-  - tweak: "We no longer check if its Christmas every tick. Dont ask."

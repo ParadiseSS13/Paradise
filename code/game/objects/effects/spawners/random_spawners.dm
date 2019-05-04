@@ -214,7 +214,7 @@
 		/obj/item/storage/pill_bottle/zoom = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 2,
 		/obj/item/storage/backpack/duffel/syndie/surgery = 1,
-		/obj/item/clothing/shoes/syndigaloshes = 1,
+		/obj/item/clothing/shoes/chameleon/noslip = 1,
 		/obj/item/storage/belt/military = 1,
 		/obj/item/clothing/under/chameleon = 1,
 		/obj/item/storage/backpack/satchel_flat = 1,

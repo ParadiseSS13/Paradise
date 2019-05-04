@@ -903,13 +903,18 @@ var/list/slot_equipment_priority = list( \
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
-	if(isliving(M)) // Ewww
+	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
 			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip) return
-	if(usr == src) return
-	if(!Adjacent(usr)) return
+	if(!M.can_strip)
+		return
+	if(usr == src)
+		return
+	if(!Adjacent(usr))
+		return
+	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
+		return
 	show_inv(usr)
 
 /mob/proc/can_use_hands()
@@ -978,6 +983,7 @@ var/list/slot_equipment_priority = list( \
 			stat("CPU:", "[world.cpu]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
+			stat("Server Time:", time_stamp())
 			stat(null)
 			if(Master)
 				Master.stat_entry()
