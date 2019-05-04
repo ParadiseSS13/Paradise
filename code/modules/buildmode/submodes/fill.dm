@@ -39,7 +39,7 @@
 
 	if(left_click) //rectangular
 		if(alt_click)
-			empty_region(block(cornerA,cornerB))
+			SSmapping.empty_region(block(cornerA,cornerB))
 		else
 			for(var/turf/T in block(cornerA,cornerB))
 				if(ispath(objholder,/turf))

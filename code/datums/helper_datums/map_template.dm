@@ -59,7 +59,7 @@
 		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
 
 	space_manager.remove_dirt(placement.z)
-	late_setup_level(
+	SSmapping.late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
 
@@ -120,10 +120,10 @@
 	// Still supporting bans by filename
 	var/list/banned
 	if(fexists("config/spaceRuinBlacklist.txt"))
-		banned = generateMapList("config/spaceRuinBlacklist.txt")
+		banned = SSmapping.generateMapList("config/spaceRuinBlacklist.txt")
 	else
-		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
-	//banned += generateMapList("config/lavaRuinBlacklist.txt")
+		banned = SSmapping.generateMapList("config/example/spaceRuinBlacklist.txt")
+	//banned += SSmapping.generateMapList("config/lavaRuinBlacklist.txt")
 
 	for(var/item in subtypesof(/datum/map_template/ruin))
 		var/datum/map_template/ruin/ruin_type = item
