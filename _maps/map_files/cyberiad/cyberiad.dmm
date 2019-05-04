@@ -87861,6 +87861,7 @@
 	pixel_x = 27
 	},
 /obj/machinery/suit_storage_unit/engine,
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "daL" = (
@@ -94847,6 +94848,12 @@
 /obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"duq" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 1
+	},
+/turf/space,
+/area/space)
 "dBQ" = (
 /obj/machinery/status_display{
 	density = 0;
@@ -95195,6 +95202,24 @@
 /area/turret_protected/aisat_interior{
 	name = "\improper MiniSat Central Foyer"
 	})
+"gMZ" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 6
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/toxins/mixing)
 "gQu" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -95217,6 +95242,12 @@
 /area/tcommsat/computer{
 	name = "\improper Telecoms Control Room"
 	})
+"gQL" = (
+/obj/machinery/computer/card,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "gYU" = (
 /obj/machinery/telecomms/server/presets/security,
 /turf/simulated/floor/bluegrid{
@@ -95273,6 +95304,27 @@
 	},
 /turf/space,
 /area/space)
+"hsy" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/toxins/mixing)
 "hvQ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -95495,6 +95547,12 @@
 /area/turret_protected/tcomeast{
 	name = "\improper MiniSat East Wing"
 	})
+"izn" = (
+/obj/machinery/atmospherics/unary/passive_vent{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/space)
 "iAX" = (
 /obj/structure/transit_tube{
 	tag = "icon-N-SW";
@@ -95502,6 +95560,33 @@
 	},
 /turf/space,
 /area/space)
+"iJf" = (
+/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/toxins/mixing)
+"iNz" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/toxins/launch{
+	name = "Toxins Launch Room"
+	})
 "iNJ" = (
 /obj/machinery/power/apc{
 	cell_type = 5000;
@@ -95522,6 +95607,35 @@
 /area/tcommsat/computer{
 	name = "\improper Telecoms Control Room"
 	})
+"jnJ" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (NORTH)";
+	icon_state = "tube1";
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "Blast door control";
+	pixel_x = -5;
+	pixel_y = 35;
+	req_access = list(101);
+	req_access_txt = "0"
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = 35;
+	req_access = list(101);
+	req_access_txt = "0"
+	},
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "jor" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -95765,6 +95879,13 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
+"kOE" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "lmy" = (
 /obj/machinery/ai_slipper{
 	icon_state = "motion0"
@@ -96146,6 +96267,12 @@
 /area/turret_protected/tcomfoyer{
 	name = "\improper MiniSat Teleporter Foyer"
 	})
+"nMi" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/turf/space,
+/area/space)
 "nQJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96332,6 +96459,17 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
+"oZV" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Medbay";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "pbW" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -96413,6 +96551,17 @@
 	temperature = 80
 	},
 /area/tcommsat/server)
+"pwN" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "pFN" = (
 /obj/machinery/telecomms/server/presets/common,
 /turf/simulated/floor/bluegrid{
@@ -96464,6 +96613,12 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
+"pZO" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/turf/space,
+/area/space)
 "qbZ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -96509,6 +96664,17 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
+"qgG" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "101"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "qjJ" = (
 /obj/machinery/telecomms/broadcaster/preset_left,
 /turf/simulated/floor/bluegrid{
@@ -96609,6 +96775,10 @@
 /area/turret_protected/tcomeast{
 	name = "\improper MiniSat East Wing"
 	})
+"qUv" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/turf/space,
+/area/space)
 "qWH" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/tcomfoyer)
@@ -96688,6 +96858,14 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/space)
+"rEw" = (
+/obj/machinery/computer/shuttle/admin{
+	name = "NTV Argos shuttle console"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "rHY" = (
 /obj/machinery/camera/motion{
 	c_tag = "Mini Satellite AI Chamber";
@@ -96754,6 +96932,14 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
+"rSv" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (EAST)"
+	},
+/turf/space,
+/area/shuttle/administration)
 "rSN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -96822,6 +97008,17 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
+"rYq" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Bridge";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "rYZ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -97115,10 +97312,32 @@
 	},
 /turf/space,
 /area/space)
+"uxy" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/space,
+/area/space)
+"uBM" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (EAST)"
+	},
+/turf/space,
+/area/shuttle/administration)
 "uCL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
+"uDK" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	tag = "icon-intact (NORTHEAST)";
+	icon_state = "intact";
+	dir = 5
+	},
+/turf/space,
+/area/space)
 "uJe" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -97243,6 +97462,13 @@
 /area/tcommsat/computer{
 	name = "\improper Telecoms Control Room"
 	})
+"vup" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "vva" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -97623,6 +97849,13 @@
 /area/tcommsat/computer{
 	name = "\improper Telecoms Control Room"
 	})
+"xAw" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "xBI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -97694,247 +97927,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
-"yjs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/west,
-/obj/machinery/suit_storage_unit/engine,
-/turf/simulated/floor/plating,
-/area/storage/secure)
-"duq" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 1
-	},
-/turf/space,
-/area/space)
-"gMZ" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 6
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/toxins/mixing)
-"gQL" = (
-/obj/machinery/computer/card,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"hsy" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 4
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/toxins/mixing)
-"izn" = (
-/obj/machinery/atmospherics/unary/passive_vent{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
-"iJf" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/toxins/mixing)
-"iNz" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/toxins/launch{
-	name = "Toxins Launch Room"
-	})
-"jnJ" = (
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
-	},
-/obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "Blast door control";
-	pixel_x = -5;
-	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
-	},
-/obj/machinery/door_control{
-	id = "adminshuttleshutters";
-	name = "Shutter control";
-	pixel_x = 5;
-	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
-	},
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"kOE" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"nMi" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9
-	},
-/turf/space,
-/area/space)
-"oZV" = (
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "Medbay";
-	opacity = 1;
-	req_access_txt = "101"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"pwN" = (
-/obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "blast door control";
-	pixel_x = -30;
-	req_access_txt = "101"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"pZO" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
-	},
-/turf/space,
-/area/space)
-"qgG" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "101"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"qUv" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/space,
-/area/space)
-"rEw" = (
-/obj/machinery/computer/shuttle/admin{
-	name = "NTV Argos shuttle console"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"rSv" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (EAST)"
-	},
-/turf/space,
-/area/shuttle/administration)
-"rYq" = (
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "Bridge";
-	opacity = 1;
-	req_access_txt = "101"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"uxy" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/turf/space,
-/area/space)
-"uBM" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (EAST)"
-	},
-/turf/space,
-/area/shuttle/administration)
-"uDK" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	tag = "icon-intact (NORTHEAST)";
-	icon_state = "intact";
-	dir = 5
-	},
-/turf/space,
-/area/space)
-"vup" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 10
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"xAw" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "xWg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (SOUTHEAST)";
@@ -132379,7 +132371,7 @@ maO
 rvV
 sZs
 rUE
-yjs
+maO
 maO
 maO
 ohE
