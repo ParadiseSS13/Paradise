@@ -473,10 +473,10 @@ SUBSYSTEM_DEF(jobs)
 			T = S.loc
 
 		if(T)
-			H.loc = T
+			H.forceMove(T)
 			// Moving wheelchair if they have one
 			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
-				H.buckled.loc = H.loc
+				H.buckled.forceMove(H.loc)
 				H.buckled.dir = H.dir
 
 	if(job)

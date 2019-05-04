@@ -196,9 +196,11 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
+	var/list/datum/action/chameleon_item_actions
 
 	var/list/progressbars = null	//for stacking do_after bars
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/registered_z

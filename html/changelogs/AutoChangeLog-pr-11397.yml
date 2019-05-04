@@ -1,7 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Alt-click now opens and closes fire extinguisher cabinet"
-  - bugfix: "Fire extinguisher cabinet now properly updates it's sprite correctly when putting fire extinquisher inside the cabinet"
-  - bugfix: "Fire extinguisher no longer sprays when put into fire extinguisher cabinet with a safety off"
-  - soundadd: "Added sound for opening and closing fire extinguisher cabinet"

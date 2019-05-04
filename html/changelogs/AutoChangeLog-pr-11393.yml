@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Powersinks drain rate increased, but they also explode a bit sooner"
-  - rscadd: "Multitools display total power, load, and free power"
-  - bugfix: "Fix emitter sparks sparking at the location of emitters where biult as opposed to emitter current location"

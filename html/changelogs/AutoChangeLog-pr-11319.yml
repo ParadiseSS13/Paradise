@@ -1,6 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Added Floorbot color variants. Different toolboxes will result in a differently colored Floorbots. One even might be a little stronger than others.."
-  - imageadd: "Added sprites of Floorbot color variants"
-  - bugfix: "Fixed incorrect amount of required floortiles for the Floorbot in the crafting tab"

@@ -390,10 +390,7 @@
 
 /datum/admins/proc/check_antagonists_line(mob/M, caption = "", close = 1)
 	var/logout_status
-	if(istype(M, /mob/living/carbon/human/interactive))
-		logout_status = " <i>(snpc)</i>"
-	else
-		logout_status = M.client ? "" : " <i>(logged out)</i>"
+	logout_status = M.client ? "" : " <i>(logged out)</i>"
 	var/dname = M.real_name
 	if(!dname)
 		dname = M
