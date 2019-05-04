@@ -249,7 +249,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "aD" = (
 /obj/structure/shuttle/engine/heater{
@@ -261,9 +261,7 @@
 	color = "#FF0000";
 	dir = 4
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "aE" = (
 /obj/structure/chair/stool/bar,
@@ -309,7 +307,7 @@
 	icon_state = "propulsion_r";
 	tag = "icon-propulsion_r (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "aL" = (
 /obj/machinery/door/airlock/public/glass,
