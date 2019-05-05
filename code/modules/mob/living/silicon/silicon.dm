@@ -199,8 +199,8 @@
 /mob/living/silicon/proc/show_station_manifest()
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	if(SSdatacore)
-		dat += SSdatacore.get_manifest(1) // make it monochrome
+	if(SSrecords)
+		dat += SSrecords.get_manifest(1) // make it monochrome
 	dat += "<br>"
 	src << browse(dat, "window=airoster")
 	onclose(src, "airoster")

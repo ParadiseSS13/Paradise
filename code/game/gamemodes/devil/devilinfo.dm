@@ -556,4 +556,4 @@ var/global/list/lawlorify = list (
 	W.age = H.age
 	W.sex = capitalize(H.gender)
 	W.access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
-	W.photo = SSdatacore.get_id_photo(H)
+	W.photo = SSrecords.get_id_photo(H)

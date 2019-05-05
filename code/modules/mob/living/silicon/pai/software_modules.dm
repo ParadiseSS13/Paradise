@@ -132,8 +132,8 @@
 /datum/pai_software/crew_manifest/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
-	SSdatacore.get_manifest_json()
-	data["manifest"] = SSdatacore.PDA_Manifest
+	SSrecords.get_manifest_json()
+	data["manifest"] = SSrecords.PDA_Manifest
 
 	return data
 
@@ -241,7 +241,7 @@
 	var/data[0]
 
 	var/records[0]
-	for(var/datum/data/record/general in sortRecord(SSdatacore.general))
+	for(var/datum/data/record/general in sortRecord(SSrecords.general))
 		var/record[0]
 		record["name"] = general.fields["name"]
 		record["ref"] = "\ref[general]"
@@ -266,11 +266,11 @@
 		if(record)
 			var/datum/data/record/R = record
 			var/datum/data/record/M = null
-			if(!( SSdatacore.general.Find(R) ))
+			if(!( SSrecords.general.Find(R) ))
 				P.medical_cannotfind = 1
 			else
 				P.medical_cannotfind = 0
-				for(var/datum/data/record/E in SSdatacore.medical)
+				for(var/datum/data/record/E in SSrecords.medical)
 					if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						M = E
 				P.medicalActive1 = R
@@ -294,7 +294,7 @@
 	var/data[0]
 
 	var/records[0]
-	for(var/datum/data/record/general in sortRecord(SSdatacore.general))
+	for(var/datum/data/record/general in sortRecord(SSrecords.general))
 		var/record[0]
 		record["name"] = general.fields["name"]
 		record["ref"] = "\ref[general]"
@@ -319,13 +319,13 @@
 		if(record)
 			var/datum/data/record/R = record
 			var/datum/data/record/S = null
-			if(!( SSdatacore.general.Find(R) ))
+			if(!( SSrecords.general.Find(R) ))
 				P.securityActive1 = null
 				P.securityActive2 = null
 				P.security_cannotfind = 1
 			else
 				P.security_cannotfind = 0
-				for(var/datum/data/record/E in SSdatacore.security)
+				for(var/datum/data/record/E in SSrecords.security)
 					if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						S = E
 				P.securityActive1 = R

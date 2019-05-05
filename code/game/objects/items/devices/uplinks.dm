@@ -277,14 +277,14 @@ var/list/world_uplinks = list()
 /obj/item/uplink/hidden/proc/update_nano_data(var/id)
 	if(nanoui_menu == 1)
 		var/permanentData[0]
-		for(var/datum/data/record/L in sortRecord(SSdatacore.general))
+		for(var/datum/data/record/L in sortRecord(SSrecords.general))
 			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
 		nanoui_data["exploit_records"] = permanentData
 
 	if(nanoui_menu == 11)
 		nanoui_data["exploit_exists"] = 0
 
-		for(var/datum/data/record/L in SSdatacore.general)
+		for(var/datum/data/record/L in SSrecords.general)
 			if(L.fields["id"] == id)
 				nanoui_data["exploit"] = list()  // Setting this to equal L.fields passes it's variables that are lists as reference instead of value.
 				nanoui_data["exploit"]["name"] =  html_encode(L.fields["name"])

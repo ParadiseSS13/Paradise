@@ -71,8 +71,8 @@
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/manifest/update_ui(mob/user as mob, list/data)
-	SSdatacore.get_manifest_json()
-	data["manifest"] = SSdatacore.PDA_Manifest
+	SSrecords.get_manifest_json()
+	data["manifest"] = SSrecords.PDA_Manifest
 
 /datum/data/pda/app/manifest/Topic(href, list/href_list)
 

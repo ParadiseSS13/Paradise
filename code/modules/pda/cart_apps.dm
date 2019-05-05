@@ -127,12 +127,12 @@
 /datum/data/pda/app/crew_records/update_ui(mob/user as mob, list/data)
 	var/list/records[0]
 
-	if(general_records && (general_records in SSdatacore.general))
+	if(general_records && (general_records in SSrecords.general))
 		data["records"] = records
 		records["general"] = general_records.fields
 		return records
 	else
-		for(var/A in sortRecord(SSdatacore.general))
+		for(var/A in sortRecord(SSrecords.general))
 			var/datum/data/record/R = A
 			if(R)
 				records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
@@ -143,7 +143,7 @@
 	switch(href_list["choice"])
 		if("Records")
 			var/datum/data/record/R = locate(href_list["target"])
-			if(R && (R in SSdatacore.general))
+			if(R && (R in SSrecords.general))
 				load_records(R)
 		if("Back")
 			general_records = null
@@ -166,14 +166,14 @@
 	if(!records)
 		return
 
-	if(medical_records && (medical_records in SSdatacore.medical))
+	if(medical_records && (medical_records in SSrecords.medical))
 		records["medical"] = medical_records.fields
 
 	return records
 
 /datum/data/pda/app/crew_records/medical/load_records(datum/data/record/R)
 	..(R)
-	for(var/A in SSdatacore.medical)
+	for(var/A in SSrecords.medical)
 		var/datum/data/record/E = A
 		if(E && (E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 			medical_records = E
@@ -192,14 +192,14 @@
 	if(!records)
 		return
 
-	if(security_records && (security_records in SSdatacore.security))
+	if(security_records && (security_records in SSrecords.security))
 		records["security"] = security_records.fields
 
 	return records
 
 /datum/data/pda/app/crew_records/security/load_records(datum/data/record/R)
 	..(R)
-	for(var/A in SSdatacore.security)
+	for(var/A in SSrecords.security)
 		var/datum/data/record/E = A
 		if(E && (E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 			security_records = E

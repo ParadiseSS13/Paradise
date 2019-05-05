@@ -19,7 +19,7 @@
 	I.sex = capitalize(H.gender)
 	I.age = H.age
 	I.name = "[I.registered_name]'s ID Card ([I.assignment])"
-	I.photo = SSdatacore.get_id_photo(H)
+	I.photo = SSrecords.get_id_photo(H)
 
 	if(special_icon)
 		I.icon_state = special_icon

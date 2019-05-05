@@ -11,7 +11,7 @@
 	W.registered_name = H.real_name
 	W.name = "[H.real_name]'s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
-	W.photo = SSdatacore.get_id_photo(H)
+	W.photo = SSrecords.get_id_photo(H)
 	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
 		W.associated_account_number = H.mind.initial_account.account_number
 

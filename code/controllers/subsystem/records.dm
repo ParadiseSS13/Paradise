@@ -1,5 +1,5 @@
-SUBSYSTEM_DEF(datacore)
-	name = "Datacore"
+SUBSYSTEM_DEF(records)
+	name = "Records"
 	flags = SS_NO_FIRE
 	var/list/medical = list()
 	var/list/general = list()
@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(datacore)
 	var/list/locked = list()
 	var/list/PDA_Manifest = list()
 
-/datum/controller/subsystem/datacore/proc/get_manifest(monochrome, OOC)
+/datum/controller/subsystem/records/proc/get_manifest(monochrome, OOC)
 	var/list/heads = new()
 	var/list/sec = new()
 	var/list/eng = new()
@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(datacore)
 	"}
 	var/even = 0
 	// sort mobs
-	for(var/datum/data/record/t in SSdatacore.general)
+	for(var/datum/data/record/t in general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
 		var/real_rank = t.fields["real_rank"]
@@ -129,10 +129,10 @@ SUBSYSTEM_DEF(datacore)
 We can't just insert in HTML into the nanoUI so we need the raw data to play with.
 Instead of creating this list over and over when someone leaves their PDA open to the page
 we'll only update it when it changes.  The PDA_Manifest global list is zeroed out upon any change
-using /datum/datacore/proc/manifest_inject(), or manifest_insert()
+using /datum/records/proc/manifest_inject(), or manifest_insert()
 */
 
-/datum/controller/subsystem/datacore/proc/get_manifest_json()
+/datum/controller/subsystem/records/proc/get_manifest_json()
 	if(PDA_Manifest.len)
 		return
 	var/heads[0]
@@ -144,7 +144,7 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 	var/sup[0]
 	var/bot[0]
 	var/misc[0]
-	for(var/datum/data/record/t in SSdatacore.general)
+	for(var/datum/data/record/t in general)
 		var/name = sanitize(t.fields["name"])
 		var/rank = sanitize(t.fields["rank"])
 		var/real_rank = t.fields["real_rank"]
@@ -218,17 +218,17 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 
 
 
-/datum/controller/subsystem/datacore/proc/manifest()
+/datum/controller/subsystem/records/proc/manifest()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		manifest_inject(H)
 
-/datum/controller/subsystem/datacore/proc/manifest_modify(name, assignment)
+/datum/controller/subsystem/records/proc/manifest_modify(name, assignment)
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
 	var/real_title = assignment
 
-	for(var/datum/data/record/t in SSdatacore.general)
+	for(var/datum/data/record/t in general)
 		if(t)
 			if(t.fields["name"] == name)
 				foundrecord = t
@@ -248,7 +248,7 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 		foundrecord.fields["real_rank"] = real_title
 
 var/record_id_num = 1001
-/datum/controller/subsystem/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+/datum/controller/subsystem/records/proc/manifest_inject(mob/living/carbon/human/H)
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
 
@@ -340,7 +340,7 @@ var/record_id_num = 1001
 		locked += L
 	return
 
-/datum/controller/subsystem/datacore/proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
+/datum/controller/subsystem/records/proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
 	var/icon/preview_icon = null
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)

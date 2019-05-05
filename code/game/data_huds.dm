@@ -220,7 +220,7 @@
 	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!ticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
-		var/datum/data/record/R = find_record("name", perpname, SSdatacore.security)
+		var/datum/data/record/R = find_record("name", perpname, SSrecords.security)
 		if(R)
 			switch(R.fields["criminal"])
 				if("*Execute*")

@@ -22,14 +22,14 @@
 	var/list/fields = list(  )
 
 /datum/data/record/Destroy()
-	if(src in SSdatacore.medical)
-		SSdatacore.medical -= src
-	if(src in SSdatacore.security)
-		SSdatacore.security -= src
-	if(src in SSdatacore.general)
-		SSdatacore.general -= src
-	if(src in SSdatacore.locked)
-		SSdatacore.locked -= src
+	if(src in SSrecords.medical)
+		SSrecords.medical -= src
+	if(src in SSrecords.security)
+		SSrecords.security -= src
+	if(src in SSrecords.general)
+		SSrecords.general -= src
+	if(src in SSrecords.locked)
+		SSrecords.locked -= src
 	return ..()
 
 /datum/data/text

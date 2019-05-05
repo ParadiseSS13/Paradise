@@ -679,7 +679,7 @@
 				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 			else if(myeffect == "Demote with Bot")
 				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
-				for(var/datum/data/record/R in sortRecord(SSdatacore.security))
+				for(var/datum/data/record/R in sortRecord(SSrecords.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = "*Arrest*"
 				update_all_mob_security_hud()

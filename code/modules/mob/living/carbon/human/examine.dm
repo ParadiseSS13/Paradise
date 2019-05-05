@@ -350,9 +350,9 @@
 			perpname = name
 
 		if(perpname)
-			for(var/datum/data/record/E in SSdatacore.general)
+			for(var/datum/data/record/E in SSrecords.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in SSdatacore.security)
+					for(var/datum/data/record/R in SSrecords.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
@@ -372,9 +372,9 @@
 		else
 			perpname = src.name
 
-		for(var/datum/data/record/E in SSdatacore.general)
+		for(var/datum/data/record/E in SSrecords.general)
 			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in SSdatacore.general)
+				for(var/datum/data/record/R in SSrecords.general)
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 

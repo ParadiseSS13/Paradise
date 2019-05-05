@@ -378,7 +378,7 @@
 	else if(IsAdminJob(rank))
 		callHook("latespawn", list(character))
 	else
-		SSdatacore.manifest_inject(character)
+		SSrecords.manifest_inject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
@@ -584,7 +584,7 @@
 /mob/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
 	dat += "<h4>Crew Manifest</h4>"
-	dat += SSdatacore.get_manifest(OOC = 1)
+	dat += SSrecords.get_manifest(OOC = 1)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
