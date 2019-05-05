@@ -139,18 +139,30 @@
 	UpdateButtonIcon()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
-	target.name = initial(picked_item.name)
-	target.desc = initial(picked_item.desc)
-	target.icon_state = initial(picked_item.icon_state)
+	// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
+	var/obj/item/P = new picked_item(null)
+
+	target.name = P.name
+	target.desc = P.desc
+	target.icon_state = P.icon_state
+
 	if(isitem(target))
 		var/obj/item/I = target
-		I.item_state = initial(picked_item.item_state)
-		I.item_color = initial(picked_item.item_color)
-		if(istype(I, /obj/item/clothing) && istype(initial(picked_item), /obj/item/clothing))
+
+		I.item_state = P.item_state
+		I.item_color = P.item_color
+
+		I.icon_override = P.icon_override
+		I.species_fit = P.species_fit
+		I.sprite_sheets = P.sprite_sheets
+
+		if(istype(I, /obj/item/clothing) && istype(P, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
-			var/obj/item/clothing/PCL = picked_item
-			CL.flags_cover = initial(PCL.flags_cover)
-	target.icon = initial(picked_item.icon)
+			var/obj/item/clothing/PCL = P
+			CL.flags_cover = PCL.flags_cover
+
+	target.icon = P.icon
+	qdel(P)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
@@ -174,7 +186,6 @@
 	random_look(owner)
 
 /obj/item/clothing/under/chameleon
-//starts off as black
 	name = "black jumpsuit"
 	icon_state = "black"
 	item_state = "bl_suit"
@@ -212,6 +223,11 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+	)
+
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/suit/chameleon/Initialize()
@@ -237,6 +253,13 @@
 	item_state = "meson"
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -292,6 +315,11 @@
 	resistance_flags = NONE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+	)
+
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/head/chameleon/Initialize()
@@ -322,6 +350,16 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+	)
 
 	var/obj/item/voice_changer/voice_changer
 
@@ -386,6 +424,12 @@
 
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
+
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/back.dmi'
+	)
+
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/backpack/chameleon/Initialize()
