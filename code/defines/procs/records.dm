@@ -1,8 +1,8 @@
 /proc/CreateGeneralRecord()
 	var/mob/living/carbon/human/dummy = new()
 	dummy.mind = new()
-	var/icon/front = new(get_id_photo(dummy), dir = SOUTH)
-	var/icon/side = new(get_id_photo(dummy), dir = WEST)
+	var/icon/front = new(SSdatacore.get_id_photo(dummy), dir = SOUTH)
+	var/icon/side = new(SSdatacore.get_id_photo(dummy), dir = WEST)
 	var/datum/data/record/G = new /datum/data/record()
 	G.fields["name"] = "New Record"
 	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7)), 6))
@@ -20,7 +20,7 @@
 	G.fields["religion"]	= "Unknown"
 	G.fields["photo_front"]	= front
 	G.fields["photo_side"]	= side
-	data_core.general += G
+	SSdatacore.general += G
 
 	qdel(dummy)
 	return G
@@ -36,11 +36,11 @@
 	R.fields["ma_crim"] = "None"
 	R.fields["ma_crim_d"] = "No major crime convictions."
 	R.fields["notes"] = "No notes."
-	data_core.security += R
+	SSdatacore.security += R
 	return R
 
 /proc/find_security_record(field, value)
-	return find_record(field, value, data_core.security)
+	return find_record(field, value, SSdatacore.security)
 
 /proc/find_record(field, value, list/L)
 	for(var/datum/data/record/R in L)

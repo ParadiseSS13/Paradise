@@ -389,7 +389,7 @@
 						var/job_clothes = null
 						if(assignment)
 							job_clothes = assignment
-						var/icon/newphoto = get_id_photo(user, job_clothes)
+						var/icon/newphoto = SSdatacore.get_id_photo(user, job_clothes)
 						if(!newphoto)
 							return
 						photo = newphoto

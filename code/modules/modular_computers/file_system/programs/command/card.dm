@@ -180,7 +180,7 @@
 	switch(href_list["action"])
 		if("PRG_modify")
 			if(modify)
-				data_core.manifest_modify(modify.registered_name, modify.assignment)
+				SSdatacore.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 				card_slot.try_eject(1, user)
 			else
@@ -304,7 +304,7 @@
 					var/content
 					if(mode == 2)
 						title = "crew manifest ([station_time_timestamp()])"
-						content = "<h4>Crew Manifest</h4><br>[data_core ? data_core.get_manifest(0) : ""]"
+						content = "<h4>Crew Manifest</h4><br>[SSdatacore ? SSdatacore.get_manifest(0) : ""]"
 					else if(modify && !mode)
 						title = "access report"
 						content = {"<h4>Access Report</h4>
@@ -416,7 +416,7 @@
 	data["mode"] = mode
 	data["printing"] = printing
 	data["printer"] = printer ? TRUE : FALSE
-	data["manifest"] = data_core ? data_core.get_manifest(0) : null
+	data["manifest"] = SSdatacore ? SSdatacore.get_manifest(0) : null
 	data["target_name"] = modify ? modify.name : "-----"
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()

@@ -915,7 +915,7 @@ var/list/ai_verbs_default = list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
+			for(var/datum/data/record/t in SSdatacore.locked)//Look in data core locked.
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
 			if(personnel_list.len)

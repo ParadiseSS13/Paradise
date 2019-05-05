@@ -410,15 +410,15 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(PDA_Manifest.len)
-		PDA_Manifest.Cut()
-	for(var/datum/data/record/R in data_core.medical)
+	if(SSdatacore.PDA_Manifest.len)
+		SSdatacore.PDA_Manifest.Cut()
+	for(var/datum/data/record/R in SSdatacore.medical)
 		if((R.fields["name"] == occupant.real_name))
 			qdel(R)
-	for(var/datum/data/record/T in data_core.security)
+	for(var/datum/data/record/T in SSdatacore.security)
 		if((T.fields["name"] == occupant.real_name))
 			qdel(T)
-	for(var/datum/data/record/G in data_core.general)
+	for(var/datum/data/record/G in SSdatacore.general)
 		if((G.fields["name"] == occupant.real_name))
 			announce_rank = G.fields["rank"]
 			qdel(G)

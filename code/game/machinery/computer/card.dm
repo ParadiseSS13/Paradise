@@ -242,7 +242,7 @@ var/time_last_changed_position = 0
 	data["station_name"] = station_name()
 	data["mode"] = mode
 	data["printing"] = printing
-	data["manifest"] = data_core ? data_core.get_manifest(0) : null
+	data["manifest"] = SSdatacore ? SSdatacore.get_manifest(0) : null
 	data["target_name"] = modify ? modify.name : "-----"
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()
@@ -321,7 +321,7 @@ var/time_last_changed_position = 0
 	switch(href_list["choice"])
 		if("modify")
 			if(modify)
-				data_core.manifest_modify(modify.registered_name, modify.assignment)
+				SSdatacore.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
@@ -483,7 +483,7 @@ var/time_last_changed_position = 0
 						P.name = "crew manifest ([station_time_timestamp()])"
 						P.info = {"<h4>Crew Manifest</h4>
 							<br>
-							[data_core ? data_core.get_manifest(0) : ""]
+							[SSdatacore ? SSdatacore.get_manifest(0) : ""]
 						"}
 					else if(modify && !mode)
 						P.name = "access report"

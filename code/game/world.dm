@@ -154,7 +154,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			"bot" = nonhuman_positions
 		)
 
-		for(var/datum/data/record/t in data_core.general)
+		for(var/datum/data/record/t in SSdatacore.general)
 			var/name = t.fields["name"]
 			var/rank = t.fields["rank"]
 			var/real_rank = t.fields["real_rank"]

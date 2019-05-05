@@ -252,7 +252,7 @@
 		C.sex = capitalize(H.gender)
 		C.age = H.age
 		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
-		C.photo = get_id_photo(H)
+		C.photo = SSdatacore.get_id_photo(H)
 
 		if(H.mind && H.mind.initial_account)
 			C.associated_account_number = H.mind.initial_account.account_number

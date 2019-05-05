@@ -349,7 +349,7 @@ var/list/holopads = list()
 		if(isAI(user))
 			hologram.icon = AI.holo_icon
 		else	//make it like real life
-			hologram.icon = getHologramIcon(get_id_photo(user))
+			hologram.icon = getHologramIcon(SSdatacore.get_id_photo(user))
 			hologram.icon_state = user.icon_state
 			hologram.alpha = 100
 			hologram.Impersonation = user

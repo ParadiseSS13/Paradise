@@ -721,9 +721,9 @@
 				perpname = name
 
 			if(perpname)
-				for(var/datum/data/record/E in data_core.general)
+				for(var/datum/data/record/E in SSdatacore.general)
 					if(E.fields["name"] == perpname)
-						for(var/datum/data/record/R in data_core.security)
+						for(var/datum/data/record/R in SSdatacore.security)
 							if(R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
@@ -768,9 +768,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in SSdatacore.security)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]")
@@ -800,9 +800,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in SSdatacore.security)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
@@ -829,9 +829,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in SSdatacore.security)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = copytext(trim(sanitize(input("Add Comment:", "Sec. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
@@ -863,9 +863,9 @@
 			else
 				perpname = src.name
 
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.general)
+					for(var/datum/data/record/R in SSdatacore.general)
 						if(R.fields["id"] == E.fields["id"])
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
@@ -873,8 +873,8 @@
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
-									if(PDA_Manifest.len)
-										PDA_Manifest.Cut()
+									if(SSdatacore.PDA_Manifest.len)
+										SSdatacore.PDA_Manifest.Cut()
 
 									spawn()
 										sec_hud_set_security_status()
@@ -897,9 +897,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.medical)
+					for(var/datum/data/record/R in SSdatacore.medical)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
@@ -930,9 +930,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.medical)
+					for(var/datum/data/record/R in SSdatacore.medical)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
@@ -959,9 +959,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in SSdatacore.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.medical)
+					for(var/datum/data/record/R in SSdatacore.medical)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = copytext(trim(sanitize(input("Add Comment:", "Med. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
@@ -1601,7 +1601,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	//Check for arrest warrant
 	if(judgebot.check_records)
 		var/perpname = get_face_name(get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, data_core.security)
+		var/datum/data/record/R = find_record("name", perpname, SSdatacore.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
 				if("*Execute*")

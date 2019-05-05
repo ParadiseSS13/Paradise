@@ -138,7 +138,7 @@ var/round_start_time = 0
 	populate_spawn_points()
 	collect_minds()
 	equip_characters()
-	data_core.manifest()
+	SSdatacore.manifest()
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
