@@ -190,7 +190,7 @@ Como Terror Spider no olvides que puedes cambiar la ubicacion tu nido si la trip
 Como Terror Spider, recuerda poner telas de araña en los pisos blancos. Son mucho mas dificiles de ver ahi.
 Como Terror Spider aveces pullear a un enemigo a tu tela de araña puede garantizarte la victoria! Pruebalo!
 Puedes cambiar los floor tiles si tienes un crowbar en una mano y el stack de tiles en la otra.
-Cuando hackeas puertas, recuerda que cortar y reconectar uno de los"Test light wire" Va volver la energia a la puerta.
+Cuando hackeas puertas, recuerda que cortar y reconectar uno de los "Test light wire" hará regresar la energia a la puerta.
 Cuando quieres crear un item recuerda que puedes combinar los elementos manualmente o usar el menu de crafteo. El mismo se encuentra en la esquina derecha, inferior simbolizado con una letra T.
 Las unidades que sirven para almacenar los trajes de EVA no solo quitan la sangre y suciedad de los trajes. Tambien quitan la radiacion!
 Dormir en una cama puede curate algunas cantidades de daño bruto y de quemaduras.
