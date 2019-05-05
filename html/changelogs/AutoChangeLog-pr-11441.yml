@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - tweak: "Admins with advanced admin interaction toggled on can now interact with the small airlock buttons."

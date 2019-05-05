@@ -403,3 +403,10 @@
 #define GHOST_ORBIT_HEXAGON		"hexagon"
 #define GHOST_ORBIT_SQUARE		"square"
 #define GHOST_ORBIT_PENTAGON	"pentagon"
+
+//suit sensors: sensor_mode defines
+
+#define SENSOR_OFF 0
+#define SENSOR_LIVING 1
+#define SENSOR_VITALS 2
+#define SENSOR_COORDS 3

@@ -374,14 +374,10 @@
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
-		callHook("latespawn", list(character))
-	else if(IsAdminJob(rank))
-		callHook("latespawn", list(character))
 	else
 		data_core.manifest_inject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		AnnounceArrival(character, rank, join_message)
-		callHook("latespawn", list(character))
 		AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
@@ -464,8 +460,7 @@
 				dat += " [a.title]. </font><br>"
 
 
-	dat += "Choose from the following open positions:<br><br>"
-
+	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
 		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
@@ -480,6 +475,7 @@
 		)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
@@ -502,23 +498,27 @@
 			if(!categorized)
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
-	dat += "<table><tr><td valign='top'>"
-	for(var/jobcat in categorizedJobs)
-		if(categorizedJobs[jobcat]["colBreak"])
-			dat += "</td><td valign='top'>"
-		if(length(categorizedJobs[jobcat]["jobs"]) < 1)
-			continue
-		var/color = categorizedJobs[jobcat]["color"]
-		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
-		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
-		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			if(job in SSjobs.prioritized_jobs)
-				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
-			else
-				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
-		dat += "</fieldset><br>"
+	if(num_jobs_available)
+		dat += "Choose from the following open positions:<br><br>"
+		dat += "<table><tr><td valign='top'>"
+		for(var/jobcat in categorizedJobs)
+			if(categorizedJobs[jobcat]["colBreak"])
+				dat += "</td><td valign='top'>"
+			if(length(categorizedJobs[jobcat]["jobs"]) < 1)
+				continue
+			var/color = categorizedJobs[jobcat]["color"]
+			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
+			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
+				if(job in SSjobs.prioritized_jobs)
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+				else
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			dat += "</fieldset><br>"
 
-	dat += "</td></tr></table></center>"
+		dat += "</td></tr></table></center>"
+	else
+		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<BR>Wait a few minutes, then try again.<BR>Or, try observing the round.</center>"
 	// Removing the old window method but leaving it here for reference
 //		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
 	// Added the new browser window method
