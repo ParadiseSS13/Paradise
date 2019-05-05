@@ -24,8 +24,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	makeDatumRefLists()
 	// Begin STUFF_THAT_BELONGS_IN_A_SUBSYSTEM_BUT_FUCK IT
 	// Its here becuase this is where the callhook used to be
-	// No really this should be in shit like SSmisc but fuck it
-	// If I get told to I will, but for now this can stay as a mess -affected
+	// Also this wouldnt work in an SS because this has to be loaded before the master so......
 	load_mode()
 	load_motd()
 	investigate_reset()
