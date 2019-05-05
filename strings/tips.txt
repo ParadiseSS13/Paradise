@@ -19,7 +19,7 @@ Hay muchos lugares alrededor de la estación para esconder contrabando. Algunos 
 Si tienes dudas sobre cuestiones técnicas, limpia el caché de Byond (lanzador de byond > rueda dentada > preferencias > preferencias del juego), actualiza tu BYOND y vuelve a iniciar sesión.
 La mayoría de las cosas tienen interacciones especiales con el botón central del ratón, alt, shift y control de clic. ¡Experimenta!
 Si te encuentras en una pelea a puñetazos con otro jugador, huir y pedir ayuda es una opción perfectamente viable.
-Diferentes armas tienen diferentes fuerzas. Algunas armas, como las lanzas, los azulejos del suelo y las estrellas lanzadoras, causan más daño cuando son lanzadas que cuando son atacadas normalmente.
+Diferentes armas tienen diferentes fuerzas. Algunas armas, como las lanzas, los azulejos del suelo y las estrellas ninjas, causan más daño cuando son lanzadas que cuando son atacadas normalmente.
 Un vaso de agua tirado puede hacer un azulejo resbaladizo, permitiéndole reducir la velocidad de sus perseguidores en un abrir y cerrar de ojos.
 Cuando se trata de seguridad, a menudo se puede reducir el tiempo de la sentencia por completo a través de la cooperación y quien sabe, tambien a traves del engaño.
 La función de chat P2P que se encuentra en las computadoras tablet permite una forma sigilosa de comunicarse con la gente.
@@ -119,7 +119,7 @@ Como conserje, si alguien te roba el carrito de la limpieza, puedes usar tu spra
 Como Conserje, las ratoneras pueden ser usadas para crear bombas o contenedores de trampas explosivas.
 Como bibliotecario, asegúrese de mantener los estantes abastecidos y la biblioteca limpia para el personal.
 Como cargo technician, puedes hackear MULEbots para hacerlos más rápidos, atropellar a la gente en su camino, ¡e incluso dejar que los montes!
-Como Cargo tech, usted puede ordenar artículos de contrabando desde la consola de la lanzadera de suministros, deconstruyéndola y usando una multitool en el tablero de circuitos, para volver a ensamblarla.
+Como Cargo tech, usted puede ordenar artículos de contrabando desde la consola de la shuttle de suministros, deconstruyéndola y usando una multitool en el tablero de circuitos, para volver a ensamblarla.
 Como cargo tech, usted puede ganar más puntos de carga enviando cajas de mantenimiento, contenedores de líquidos, láminas de plasma, semillas raras de la hidroponía, y más!
 Como minero, el lado oeste del asteroide tiene muchos más minerales raros que en el este, pero es mucho más peligroso.
 Como minero, siempre lleva un GPS encima, para que otro minero o un Cyborg puedan venir a salvarlo si muere.
