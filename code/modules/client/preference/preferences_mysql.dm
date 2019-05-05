@@ -171,7 +171,14 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss
+					autohiss,
+					clown_name,
+					mime_name,
+					ai_name,
+					cyborg_name,
+					diety_name,
+					religion_name,
+					human_name
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -250,6 +257,13 @@
 		body_accessory = query.item[50]
 		gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
+		custom_names["clown"] = text2num(query.item[53])
+		custom_names["mime"] = text2num(query.item[54])
+		custom_names["ai"] = text2num(query.item[55])
+		custom_names["cyborg"] = text2num(query.item[56])
+		custom_names["diety"] = text2num(query.item[57])
+		custom_names["religion"] = text2num(query.item[58])
+		custom_names["human"] = text2num(query.item[59])
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -302,6 +316,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	custom_names["clown"] = reject_bad_name(custom_names["clown"], 1)
+	custom_names["mime"]		= reject_bad_name(custom_names["mime"], 1)
+	custom_names["ai"]			= reject_bad_name(custom_names["ai"], 1)
+	custom_names["cyborg"] 		= reject_bad_name(custom_names["cyborg"] , 1)
+	custom_names["diety"] 		= reject_bad_name(custom_names["diety"] , 1)
+	custom_names["religion"]	= reject_bad_name(custom_names["religion"], 1)
+	custom_names["human"]		= reject_bad_name(custom_names["human"], 1)
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -383,7 +404,14 @@
 												socks='[socks]',
 												body_accessory='[body_accessory]',
 												gear='[gearlist]',
-												autohiss='[autohiss_mode]'
+												autohiss='[autohiss_mode]',
+												clown_name='[sanitizeSQL(custom_names["clown"])]',
+												mime_name='[sanitizeSQL(custom_names["mime"])]',
+												ai_name='[sanitizeSQL(custom_names["ai"])]',
+												cyborg_name='[sanitizeSQL(custom_names["cyborg"])]',
+												diety_name='[sanitizeSQL(custom_names["diety"])]',
+												religion_name='[sanitizeSQL(custom_names["religion"])]',
+												human_name='[sanitizeSQL(custom_names["human"])]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
