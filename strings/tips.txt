@@ -46,19 +46,19 @@ Como genetista, puedes expulsar a alguien de la clonación antes de tiempo al de
 Como genetista, convertirse en un hulk te hace capaz de infligir mucho daño físico, aturdir a la gente y atravesar paredes. Sin embargo, usted no puede disparar armas. Tambien perderá su estado de Hulk si entra en estado crítico. Ser no te permite romper las reglas del servidor y volverte loco por no ser antagonista.
 Como virólogo, sus virus pueden variar desde poderes curativos tan grandes que usted puede curarse de un estado crítico, hasta enfermedades tan peligrosas que pueden matar a toda la tripulación con combustión espontánea en el aire. ¡Experimenta!
 Como RD, puedes sacar a las IAs de sus núcleos cargándolas en una tarjeta intelliCard, que te permite ver sus leyes, incluso las de iones/sindicación. A continuación, se puede colocar en un equipo de restauración de la integridad del sistema de IA para reactivarla y/o repararla.
-Como RD, puedes encerrar a los ciborgs en lugar de hacerlos explotar. Entonces usted puede hacer que sus leyes se reajusten o, si eso no funciona, desmantelarlos de manera segura.
+Como RD, puedes encerrar a los Cyborgs en lugar de hacerlos explotar. Entonces usted puede hacer que sus leyes se reajusten o, si eso no funciona, desmantelarlos de manera segura.
 Como RD, puedes espiar e incluso falsificar las comunicaciones PDA con la consola del monitor de mensajes. La llave está en tu oficina.
 Como científico, usted puede maximizar el número de usos que obtiene de un slime al alimentarlo con esteroides de slime, creados a partir de slime púrpura, mientras está vivo. A continuación, puede aplicar un potenciador de extracto, creado a partir de limos cerúleos, en cada extracto.
 Como científico, puede desactivar las anomalías escaneándolas con un analizador, luego enviar una señal en la frecuencia que le da con un dispositivo de señalización remota, o si se investiga, golpear la anomalía con un analizador de anomalías. Esto dejará un núcleo de anomalía, que puede ser usado para construir un Phazon mech o armaduras reactivas!
 Como científico, las piezas de stock investigables pueden mejorar seriamente la eficiencia y la velocidad de las máquinas alrededor de la estación. En algunos casos, incluso puede desbloquear nuevas funciones.
 Como robótico, esté atento a los anuncios de anomalías. Si tienes en tus manos un núcleo de anomalía, puedes construir un Phazon mech!
-Como robótico, puedes reparar tus cyborgs con una herramienta de soldadura. Si han sufrido daños por quemaduras, puede quitarles la batería, exponer el cableado con un destornillador y reemplazar sus cables con una bobina de cable.
-Como Roboticista, puede restablecer un módulo de un cyborg cortando y remendando el cable de restablecimiento con un cortaalambres o usando un módulo de restablecimiento de cyborg.
+Como robótico, puedes reparar tus Cyborgs con una herramienta de soldadura. Si han sufrido daños por quemaduras, puede quitarles la batería, exponer el cableado con un destornillador y reemplazar sus cables con una bobina de cable.
+Como Roboticista, puede restablecer un módulo de un Cyborg cortando y remendando el cable de restablecimiento con un cortaalambres o usando un módulo de restablecimiento de Cyborg.
 Como robótico, puedes colocarle a las personas miembros cibernéticos. Los miembros aumentados se pueden reparar fácilmente con cables y soldadores.
 Como la IA, puedes hacer clic en los nombres de las personas para verlos. Esto sólo funciona si hay cámaras que pueden verlos, si no llevan identificación de agente o si no usan camuflaje digital como mutantes.
 Como la IA, puedes abrir y cerrar rápidamente las puertas manteniendo pulsada la tecla Shift mientras hace clic en ellas, cerrarlas con cerrojo cuando mantiene pulsada la tecla Ctrl, e incluso electrificarlas mientras mantienes pulsada la tecla Alt.
 Como la IA, puedes tomar fotos con tu cámara y subirlas a los noticieros.
-Como Cyborg, elige tu módulo con cuidado, ya que sólo cortar y reparar el cable de reinicio o usar un módulo de reinicio de cyborg te permitirá repasarlo. Si es posible, absténgase de elegir un módulo hasta que se produzca una situación que lo requiera.
+Como Cyborg, elige tu módulo con cuidado, ya que sólo cortar y reparar el cable de reinicio o usar un módulo de reinicio de Cyborg te permitirá repasarlo. Si es posible, absténgase de elegir un módulo hasta que se produzca una situación que lo requiera.
 Como Cyborg, eres inmune a la mayoría de las formas de aturdimiento, y sobresales en casi todo mucho mejor que los humanos. Sin embargo, los flashes pueden aturdirte fácilmente. Ademas los cyborgs no pueden hacer ningún trabajo de precisión porque le faltan las manos.
 Como Cyborg, eres resistente al fuego y al calor. Si eres rogue, puedes liberar fuegos de plasma por todas partes y caminar a través de ellos sin ningún cuidado en el mundo!
 Como Cyborg, eres extremadamente vulnerable a los EMPs, ya que los EMPs te aturden y te dañan. El rifle de iones en la armería o un traidor con un kit EMP puede matarte en segundos.
@@ -122,8 +122,8 @@ Como cargo technician, puedes hackear MULEbots para hacerlos más rápidos, atro
 Como Cargo tech, usted puede ordenar artículos de contrabando desde la consola de la lanzadera de suministros, deconstruyéndola y usando una multitool en el tablero de circuitos, para volver a ensamblarla.
 Como cargo tech, usted puede ganar más puntos de carga enviando cajas de mantenimiento, contenedores de líquidos, láminas de plasma, semillas raras de la hidroponía, y más!
 Como minero, el lado oeste del asteroide tiene muchos más minerales raros que en el este, pero es mucho más peligroso.
-Como minero, siempre lleva un GPS encima, para que otro minero o un ciborg puedan venir a salvarlo si muere.
-Como traidor, el secuenciador criptográfico (emag) no sólo puede abrir puertas, sino también armarios, cajas, APCs y más. Puede hackear cyborgs, e incluso hacer que los robots se vuelvan locos. Úsalo en las máquinas adecuadas, e incluso puedes pedir más equipos de traidores o contactar con el Sindicato. ¡Experimenta!
+Como minero, siempre lleva un GPS encima, para que otro minero o un Cyborg puedan venir a salvarlo si muere.
+Como traidor, el secuenciador criptográfico (emag) no sólo puede abrir puertas, sino también armarios, cajas, APCs y más. Puede hackear Cyborgs, e incluso hacer que los robots se vuelvan locos. Úsalo en las máquinas adecuadas, e incluso puedes pedir más equipos de traidores o contactar con el Sindicato. ¡Experimenta!
 Como traidor, subvertir a la IA puede convertirla en un aliado extremadamente poderoso. Sin embargo, ten cuidado con la redacción de las leyes , ya que puede usar sus leyes mal escritas en tu contra!
 Como traidor, el capitán y el jefe de seguridad son dos de los objetivos más difíciles de matar en la estación. Si alguno de los dos es su objetivo, planifique cuidadosamente.
 Como traidor, puedes fabricar y reciclar balas de revólver en un autolathe hackeado, lo que hace del revólver una herramienta extremadamente poderosa.
@@ -132,12 +132,12 @@ Como traidor, la clave de encriptación del sindicato es muy útil para coordina
 Como traidor, el plasma puede ser inyectado en muchas cosas para sabotearlas. Las células eléctricas, las bombillas, las herramientas de soldadura, los cigarros y los e-cigs explotarán cuando se utilicen.
 Como Traidor, si puedes encontrar a otro Traidor y comparten sus tele cristales, puedes comprar una mega caja de excedentes, que cuesta 40TC pero contiene un montón de equipo aleatorio del sindicato increible.
 Como operativo nuclear, la comunicación es la clave! Utilice ; para hablar con sus compañeros de trabajo y coordinar un plan de ataque.
-Como un operativo nuclear, Deberias considerar la compra de un cyborg del sindicato, ya que pueden proporcionar apoyo de fuego pesado, acceso completo, son inmunes a los aturdimientos convencionales, y puede fácilmente derribar la IA.
+Como un operativo nuclear, Deberias considerar la compra de un Cyborg del sindicato, ya que pueden proporcionar apoyo de fuego pesado, acceso completo, son inmunes a los aturdimientos convencionales, y puede fácilmente derribar la IA.
 Como un operativo nuclear, ¡mantenerse juntos es la clave! Si bien su equipo es potente, sus compañeros son mucho mejores para salvarle la vida: pueden arrastrarle lejos del peligro mientras estás aturdido y proporcionarle fuego de cobertura.
 Como operativo nuclear, es posible que termines en una situación en la que la IA te haya encerrado en una habitación. Tener un poco de C4 de repuesto en el bolsillo puede salvarte la vida.
 Como mono, todavía puedes usar algunos objetos humanos, como mochilas, máscaras de gas y sombreros, y aún así tener las dos manos libres.
 Como una IA malfuncionando, puedes dirigirte a un APC si la situación se pone mala. Esto desactiva tu dispositivo 'doomsday' si está activo.
-Como  una IA malfuncionando, deberías ordenar a tus cyborgs que desmonten la consola robótica o volarla tú mismo para protegerlos.
+Como  una IA malfuncionando, deberías ordenar a tus Cyborgs que desmonten la consola robótica o volarla tú mismo para protegerlos.
 Como Alien, tu destreza en el combate cuerpo a cuerpo es inigualable, pero tus habilidades a distancia son muy deficientes. Haz uso de las esquinas para forzar una confrontación cuerpo a cuerpo!
 Como Alien, recibirás el doble de daño por todos los ataques de quemaduras, tales como láseres, herramientas de soldadura e incendios. Además, el fuego puede destruir la resina y los huevos. Exponga las áreas al espacio para eliminar cualquier incendio antes de que puedan hacer daño!
 Como Alien, los pisos de resina no sólo regeneran tu suministro de plasma, sino que también lo curan de manera continua. Lucha encima de los suelos de resina para obtener ventaja de combate.
