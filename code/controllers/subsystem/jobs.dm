@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS // 12
-	wait = 30000 // 5 minutes (Deciseconds)
+	wait = 3000 // 5 minutes (Deciseconds)
 	runlevels = RUNLEVEL_GAME
 
 	//List of all jobs
