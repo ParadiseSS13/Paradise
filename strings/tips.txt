@@ -29,7 +29,7 @@ La mayoría de las prendas de vestir exóticas relacionadas con el trabajo puede
 Si hay algo que necesite de otro departamento, ¡intenta pedirlo! Este juego no es para un solo jugador y te sorprendería lo que puedes conseguir cooperando entre todos!
 Perderás rápidamente tu interés en el juego si juegas para ganar y matar. Si te encuentras haciendo esto, da un paso atrás y habla con la gente - ¡es una experiencia mucho mejor!
 No tengas miedo de pedir ayuda, ya sea a sus compañeros IC o a los admins con admin help (F1)
-Como Capitán, eres es uno de los objetivos prioritarios de la estación. Todo, desde los operativos nucleares hasta los traidores que necesitan robar tu Lasergun  o tu vida, son cosas de las que preocuparse.
+Como Capitán, eres es uno de los objetivos prioritarios de la estación. Tanto los operativos Nucleares , los traidores  o cualquier antagonista van a querer a toda costa llevarse tu lasergun, tu ID  o incluso tu vida!.
 Como Capitán, siempre toma el disco nuclear y el pin pointer cada turno. Es una buena idea darle uno de estos a otra head o Blueshield en el que puedas confiar para mantenerlo seguro.
 Como Capitán, usted tiene acceso y control absoluto sobre la estación, pero esto no significa que ser una persona horrible no resulte en un motín y una prohibición.
 Como Director Médico, su hipospray es como una jeringa de inyección instantánea recargable que puede contener 30 unidades y, a diferencia del hipospray estándar, el suyo puede llenarse con reactivos e inyecciones dañinas sin decirle a nadie con qué le ha inyectado exactamente a la persona.
@@ -190,7 +190,7 @@ Como Terror Spider no olvides que puedes cambiar la ubicacion tu nido si la trip
 Como Terror Spider, recuerda poner telas de araña en los pisos blancos. Son mucho mas dificiles de ver ahi.
 Como Terror Spider aveces pullear a un enemigo a tu tela de araña puede garantizarte la victoria! Pruebalo!
 Puedes cambiar los floor tiles si tienes un crowbar en una mano y el stack de tiles en la otra.
-Cuando hackeas puertas, recuerda que cortar y reconectar un "Test light wire" Va volver la energia a la puerta.
+Cuando hackeas puertas, recuerda que cortar y reconectar uno de los"Test light wire" Va volver la energia a la puerta.
 Cuando quieres crear un item recuerda que puedes combinar los elementos manualmente o usar el menu de crafteo. El mismo se encuentra en la esquina derecha, inferior simbolizado con una letra T.
 Las unidades que sirven para almacenar los trajes de EVA no solo quitan la sangre y suciedad de los trajes. Tambien quitan la radiacion!
 Dormir en una cama puede curate algunas cantidades de daño bruto y de quemaduras.
