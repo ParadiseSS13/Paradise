@@ -74,7 +74,7 @@
 	//Admin PM
 	if(href_list["priv_msg"])
 		var/client/C = locate(href_list["priv_msg"])
-		
+
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
 		else if(C.UID() != href_list["priv_msg"])
@@ -320,8 +320,7 @@
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
 	if(!config.disable_localhost_admin)
-		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-		if(!isnull(address) && address in localhost_addresses)
+		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
@@ -410,6 +409,12 @@
 		tooltips = new /datum/tooltip(src)
 
 	Master.UpdateTickRate()
+
+/client/proc/is_connecting_from_localhost()
+	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+	if(!isnull(address) && address in localhost_addresses)
+		return TRUE
+	return FALSE
 
 //////////////
 //DISCONNECT//
@@ -538,6 +543,10 @@
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 			if(living_hours >= config.ipintel_maxplaytime)
 				return
+
+		if(is_connecting_from_localhost())
+			log_debug("IPIntel: skip check for player [key_name_admin(src)] connecting from localhost.")
+			return
 
 		var/datum/ipintel/res = get_ip_intel(address)
 		if(res.intel >= config.ipintel_rating_bad)
