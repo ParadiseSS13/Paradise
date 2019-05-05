@@ -4,15 +4,13 @@
 // List and hook used to set up the captain's print on their display case
 var/global/list/captain_display_cases = list()
 
-/hook/captain_spawned/proc/displaycase(mob/living/carbon/human/captain)
+/proc/updateDisplaycase(mob/living/carbon/human/captain)
 	if(!captain_display_cases.len)
-		return 1
+		return 
 	var/fingerprint = captain.get_full_print()
 	for(var/obj/structure/displaycase/D in captain_display_cases)
 		if(istype(D))
 			D.ue = fingerprint
-
-	return 1
 
 /obj/structure/displaycase_frame
 	name = "display case frame"
@@ -122,6 +120,10 @@ var/global/list/captain_display_cases = list()
 	locked = 1
 	req_access = list(access_captain)
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
+
+/obj/structure/displaycase/captains_laser/New()
+	captain_display_cases += src
+	return ..()
 
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
