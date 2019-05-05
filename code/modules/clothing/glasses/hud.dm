@@ -31,7 +31,7 @@
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -60,7 +60,7 @@
 	icon_state = "diagnostichud"
 	origin_tech = "magnets=2;engineering=2"
 	HUDType = DATA_HUD_DIAGNOSTIC
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -84,7 +84,7 @@
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	var/read_only = FALSE
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -127,7 +127,7 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -142,7 +142,7 @@
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
 	HUDType = DATA_HUD_HYDROPONIC
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -165,7 +165,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
@@ -181,7 +181,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)

@@ -89,7 +89,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/list/sprite_sheets = null
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/list/species_fit = null //This object has a different appearance when worn by these species
 
 	var/trip_verb = TV_TRIP
 	var/trip_chance = 0

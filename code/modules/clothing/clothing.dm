@@ -189,7 +189,7 @@ BLIND     // can't see anything
 	var/clipped = 0
 	strip_delay = 20
 	put_on_delay = 40
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
@@ -378,7 +378,7 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
 		)
@@ -568,12 +568,13 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	species_fit = list("Vox", "Drask", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
 		"Grey" = 'icons/mob/species/grey/uniform.dmi'
 		)
+
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
 	var/sensor_mode = SENSOR_OFF
 	var/random_sensor = TRUE
