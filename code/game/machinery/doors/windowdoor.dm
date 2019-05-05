@@ -87,10 +87,7 @@
 	if(operating || !density)
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
-
-	if(allowed(user))
+	if(!requiresID() || allowed(user))
 		open_and_close()
 	else
 		do_animate("deny")
@@ -217,7 +214,7 @@
 		return attack_hand(user)
 
 /obj/machinery/door/window/attack_hand(mob/user)
-	return attackby(user, user)
+	return bumpopen(user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)

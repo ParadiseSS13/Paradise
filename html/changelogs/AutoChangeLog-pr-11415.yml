@@ -1,0 +1,4 @@
+author: "Twinmold93"
+delete-after: True
+changes: 
+  - rscadd: "Adds Server Time to the Status Tab for Admins."

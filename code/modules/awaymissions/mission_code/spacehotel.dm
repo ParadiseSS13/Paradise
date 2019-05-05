@@ -152,14 +152,6 @@
 /obj/machinery/door/unpowered/hotel_door/autoclose()
 	if(!density && !operating && autoclose)
 		close()
-
-/obj/machinery/door/unpowered/hotel_door/emag_act(mob/user)
-	if(isliving(user) && density)
-		var/obj/effect/hotel_controller/H
-		if(H.controller)
-			H.controller.deploy_sec(user)
-	..()
-
 /obj/item/card/hotel_card
 	name = "Key Card"
 	icon_state = "guest"
@@ -283,20 +275,4 @@
 	spawn(300)
 		if(D.occupant == deadbeat)
 			// they still haven't checked out...
-			deploy_sec(deadbeat)
 			checkout(roomid)
-
-/obj/effect/hotel_controller/proc/deploy_sec(mob/living/target)
-	if(!istype(target) || !istype(get_area(target), /area/awaymission/spacehotel))
-		return
-
-	var/list/secs[0]
-	for(var/mob/living/carbon/human/interactive/away/hotel/guard/M in get_area(src))
-		if(!M.retal)
-			secs += M
-	var/mob/living/carbon/human/interactive/away/hotel/guard/S = safepick(secs)
-	if(!S)
-		return
-
-	S.retal_target = target
-	S.retal = 1

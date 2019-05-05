@@ -42,7 +42,7 @@
 	..()
 
 /obj/machinery/computer/shuttle/sst
-	name = "Syndicate Strike Time Shuttle Console"
+	name = "Syndicate Strike Team Shuttle Console"
 	desc = "Used to call and send the SST shuttle."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
