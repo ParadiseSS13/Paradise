@@ -27,7 +27,7 @@
 		loc = pick(watch_locations)
 */
 
-	callHook("mob_login", list("client" = client, "mob" = src))
+	update_morgue() // Why is this called for new players that dont even have a morgue
 
 	new_player_panel()
 
