@@ -1,7 +1,7 @@
 #define GHOST_CAN_REENTER 1
 #define GHOST_IS_OBSERVER 2
 
-var/list/image/ghost_darkness_images = list() //this is a list of images for things ghosts should still be able to see when they toggle darkness
+var/list/image/ghost_images = list()
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
@@ -74,7 +74,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	ghostimage.appearance_flags |= KEEP_TOGETHER
 	ghostimage.alpha = alpha
 	appearance_flags |= KEEP_TOGETHER
-	ghost_darkness_images |= ghostimage
+	ghost_images |= ghostimage
 	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		M.following_mobs -= src
 	following = null
 	if(ghostimage)
-		ghost_darkness_images -= ghostimage
+		ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
@@ -720,11 +720,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/updateghostimages()
 	if(!client)
 		return
-	if(seedarkness || !ghostvision)
-		client.images -= ghost_darkness_images
+	if(!ghostvision)
+		client.images -= ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now
-		client.images |= ghost_darkness_images
+		client.images |= ghost_images
 		if(ghostimage)
 			client.images -= ghostimage //remove ourself
 
