@@ -188,9 +188,19 @@
 	..()
 	block=REMOTETALKBLOCK
 
+/datum/dna/gene/basic/grant_spell/remotetalk/activate(var/mob/user)
+	..()
+	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
+
+/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(var/mob/user)
+	..()
+	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
+		if(istype(S, /obj/effect/proc_holder/spell/targeted/mindscan))
+			user.RemoveSpell(S)
+
 /obj/effect/proc_holder/spell/targeted/remotetalk
 	name = "Project Mind"
-	desc = "Make people understand your thoughts at any range!"
+	desc = "Make people understand your thoughts!"
 	charge_max = 0
 
 	clothes_req = 0
@@ -241,6 +251,83 @@
 		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
+
+/obj/effect/proc_holder/spell/targeted/mindscan
+	name = "Scan Mind"
+	desc = "Offer people a chance to share their thoughts!"
+	charge_max = 0
+	clothes_req = 0
+	stat_allowed = 0
+	invocation_type = "none"
+	range = -2
+	selection_type = "range"
+	action_icon_state = "genetic_mindscan"
+	var/list/available_targets = list()
+
+/obj/effect/proc_holder/spell/targeted/mindscan/choose_targets(mob/user = usr)
+	var/list/targets = new /list()
+	var/list/validtargets = new /list()
+	var/turf/T = get_turf(user)
+	for(var/mob/living/M in range(14, T))
+		if(M && M.mind)
+			if(M == user)
+				continue
+			validtargets += M
+
+	if(!validtargets.len)
+		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
+		start_recharge()
+		return
+
+	targets += input("Choose the target to listen to.", "Targeting") as null|mob in validtargets
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
+
+	perform(targets, user = user)
+
+/obj/effect/proc_holder/spell/targeted/mindscan/cast(list/targets, mob/user = usr)
+	if(!ishuman(user))	return
+	for(var/mob/living/target in targets)
+		var/message = "You feel your mind expand briefly... (Click to send a message.)"
+		if(REMOTE_TALK in target.mutations)
+			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
+		user.show_message("<span class='abductor'>You offer your mind to [target.name].</span>")
+		target.show_message("<span class='abductor'><A href='?src=[UID()];target=\ref[target];user=\ref[user]'>[message]</a></span>")
+		available_targets += target
+		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
+
+/obj/effect/proc_holder/spell/targeted/mindscan/proc/removeAvailability(var/mob/living/target)
+	if(target in available_targets)
+		available_targets -= target
+	return
+
+/obj/effect/proc_holder/spell/targeted/mindscan/Topic(href, href_list)
+	var/mob/living/user
+	if(href_list["user"])
+		user = locate(href_list["user"])
+	if(href_list["target"])
+		if(!user)
+			return
+		var/mob/living/target = locate(href_list["target"])
+		if(!(target in available_targets))
+			return
+		available_targets -= target
+		var/say = input("What do you wish to say") as text|null
+		if(!say)
+			return
+		say = strip_html(say)
+		say = pencode_to_html(say, target, format = 0, fields = 0)
+
+		log_say("(TPATH to [key_name(target)]) [say]", user)
+		if(REMOTE_TALK in target.mutations)
+			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
+		else
+			target.show_message("<span class='abductor'>You fill the space in your thoughts: [say]</span>")
+		user.show_message("<span class='abductor'>You hear [target.name]'s voice: [say]</span>")
+		for(var/mob/dead/observer/G in GLOB.player_list)
+			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
