@@ -130,6 +130,9 @@
 
 	var/recieve_message = ""
 
+	pm_tracker.add_message(C, src, msg, mob)
+	C.pm_tracker.add_message(src, src, msg, C.mob)
+
 	if(holder && !C.holder)
 		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
@@ -233,3 +236,72 @@
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
 			to_chat(X, "<B><font color='blue'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")
+
+/client/verb/open_pms_ui()
+	set name = "My PMs"
+	set category = "OOC"
+	pm_tracker.show_ui(usr)
+
+/datum/pm_tracker
+	var/list/pms = list()
+	var/current_title = ""
+	var/open = FALSE
+	var/window_id = "pms_window"
+
+/datum/pm_tracker/proc/add_message(var/client/title, var/client/sender, var/message, mob/user)
+	if(!pms[title.key])
+		pms[title.key] = list()
+	pms[title.key].Add("[sender]: [message]")
+
+	if(!open)
+		// The next time the window's opened, it'll be open to the most recent message
+		current_title = title.key
+		return
+
+	// If it's already opened, it'll refresh
+	show_ui(user)
+
+/datum/pm_tracker/proc/show_ui(mob/user)
+	var/dat = ""
+
+	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<br>"
+	for(var/title in pms)
+		var/label = "[title]"
+		if(title == current_title)
+			label = "<b>[label]</b>"
+		dat += "<a href='?src=[UID()];newtitle=[title]'>[label]</a>"
+
+	dat += "<h2>[current_title]</h2>"
+
+	dat += "<table style='width:950px; border: 3px solid;'>"
+
+	for(var/message in pms[current_title])
+		dat += "<tr><td>[message]</td></tr>"
+
+	dat += "</table><br><br>"
+	dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
+
+	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
+	popup.set_content(dat)
+	popup.open()
+	open = TRUE
+
+/datum/pm_tracker/Topic(href, href_list)
+	if(href_list["refresh"])
+		show_ui(usr)
+		return
+
+	if(href_list["newtitle"])
+		current_title = href_list["newtitle"]
+		show_ui(usr)
+		return
+
+	if(href_list["reply"])
+		usr.client.cmd_admin_pm(ckey(href_list["reply"]), null)
+		show_ui(usr)
+		return
+
+	if(href_list["close"])
+		open = FALSE
+		return
