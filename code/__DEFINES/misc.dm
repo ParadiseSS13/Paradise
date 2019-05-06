@@ -319,10 +319,8 @@
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
-// Client donator levels
-#define DONATOR_LEVEL_NONE 0
-#define DONATOR_LEVEL_ONE 1
-#define DONATOR_LEVEL_TWO 2
+// Maximum donation level
+#define DONATOR_LEVEL_MAX 4
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
