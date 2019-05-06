@@ -5,6 +5,7 @@
 	chemical_cost = 40
 	dna_cost = 1
 	req_human = 1 //Monkeys can't grab
+	nullified = 1
 
 /obj/effect/proc_holder/changeling/swap_form/can_sting(var/mob/living/carbon/user)
 	if(!..())

@@ -5,6 +5,7 @@
 	chemical_cost = 20
 	dna_cost = 1
 	req_human = 1
+	nullified = 1
 
 /obj/effect/proc_holder/changeling/headcrab/try_to_sting(mob/user, mob/target)
     if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")

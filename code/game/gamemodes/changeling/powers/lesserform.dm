@@ -5,6 +5,7 @@
 	dna_cost = 1
 	genetic_damage = 3
 	req_human = 1
+	nullified = 1
 
 //Transform into a monkey.
 /obj/effect/proc_holder/changeling/lesserform/sting_action(var/mob/living/carbon/human/user)

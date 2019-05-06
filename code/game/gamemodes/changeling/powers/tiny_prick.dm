@@ -2,6 +2,7 @@
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
 	var/sting_icon = null
+	nullified = 1
 
 /obj/effect/proc_holder/changeling/sting/Click()
 	var/mob/user = usr

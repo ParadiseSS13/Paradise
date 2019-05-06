@@ -3,6 +3,7 @@
  *		Fire protection
  *		Bomb protection
  *		Radiation protection
+ *		Changeling Null Suit
  */
 
 /*
@@ -156,3 +157,113 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+
+/obj/item/clothing/suit/null_suit
+	name = "Changeling Containment Suit"
+	desc = "A bulky suit with the inside lined with rare chemicals that are able to nullify most of the abilities of changelings."
+	icon_state = "null_suit"
+	item_state = "null_suit"
+	w_class = WEIGHT_CLASS_BULKY
+	flags = THICKMATERIAL
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/tank/emergency_oxygen)
+	slowdown = 1.5
+	flags_inv = HIDEJUMPSUIT|HIDETAIL
+	strip_delay = 60
+	put_on_delay = 60
+	species_fit = list("Unathi", "Vox", "Tajaran", "Vulpkanin", "Grey", "Drask", "Vox", "Skrell")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Skrell" = 'icons/mob/species/skrell/suit.dmi'
+		)
+
+/obj/item/clothing/head/null_suit
+	name = "Changeling Containment Helmet"
+	icon_state = "null_helmet_off"
+	item_state = "null_helmet_off"
+	desc = "A helmet lined with rare chemicals that are able to nullify most of the abilities of changelings, it is able to lock into it's relevant suit."
+	flags = BLOCKHAIR|THICKMATERIAL
+	flags_cover = HEADCOVERSMOUTH
+	strip_delay = 30
+	put_on_delay = 30
+	var/security_lock = FALSE
+	var/locked = FALSE
+	species_fit = list("Unathi", "Vox", "Tajaran", "Vulpkanin", "Grey", "Drask", "Vox", "Skrell")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Skrell" = 'icons/mob/species/skrell/helmet.dmi'
+		)
+
+/obj/item/clothing/head/null_suit/attack_hand(mob/user as mob)
+	if(user:head == src && !user.IsAdvancedToolUser())
+		return 0
+	else if(security_lock && locked)
+		if(do_unlock(user))
+			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
+								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
+	..()
+	return 1
+
+/obj/item/clothing/head/null_suit/proc/do_break()
+	if(security_lock)
+		security_lock = FALSE
+		locked = FALSE
+		flags &= ~NODROP
+		desc += " This one appears to be broken."
+		return TRUE
+	else
+		return FALSE
+
+/obj/item/clothing/head/null_suit/proc/do_unlock(mob/living/carbon/human/user)
+	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
+		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
+		do_break()
+		return TRUE
+	else if(access_brig in user.get_access())
+		to_chat(user, "<span class='warning'>The helmet unlocks with a click.</span>")
+		locked = FALSE
+		flags &= ~NODROP
+		return TRUE
+
+	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
+	return FALSE
+
+/obj/item/clothing/head/null_suit/proc/do_lock(mob/living/carbon/human/user)
+	if(security_lock)
+		locked = TRUE
+		flags |= NODROP
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/head/null_suit/Topic(href, href_list)
+	..()
+	if(href_list["Hlocked"])
+		var/mob/living/carbon/wearer = locate(href_list["Hlocked"])
+		var/success = 0
+		if(ishuman(usr))
+			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
+							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
+			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
+				if(locked)
+					success = do_unlock(usr)
+					icon_state = "null_helmet_off"
+				else
+					success = do_lock(usr)
+					icon_state = "null_helmet_on"
+			if(success)
+				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
+								"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
+				if(usr.machine == wearer && in_range(src, usr))
+					wearer.show_inv(usr)
+		else
+			to_chat(usr, "You lack the ability to manipulate the lock.")

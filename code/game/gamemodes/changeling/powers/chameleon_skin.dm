@@ -5,6 +5,7 @@
 	dna_cost = 2
 	chemical_cost = 25
 	req_human = 1
+	nullified = 1
 
 /obj/effect/proc_holder/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = 1

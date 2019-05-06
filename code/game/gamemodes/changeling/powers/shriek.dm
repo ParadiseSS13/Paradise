@@ -5,6 +5,7 @@
 	chemical_cost = 30
 	dna_cost = 1
 	req_human = 1
+	nullified = 1
 
 //A flashy ability, good for crowd control and sewing chaos.
 /obj/effect/proc_holder/changeling/resonant_shriek/sting_action(var/mob/user)
@@ -33,6 +34,7 @@
 	desc = "We shift our vocal cords to release a high-frequency sound that overloads nearby electronics."
 	chemical_cost = 30
 	dna_cost = 1
+	nullified = 1
 
 //A flashy ability, good for crowd control and sewing chaos.
 /obj/effect/proc_holder/changeling/dissonant_shriek/sting_action(var/mob/user)

@@ -5,6 +5,7 @@
 	dna_cost = 0
 	req_human = 1
 	max_genetic_damage = 100
+	nullified = 1
 
 /obj/effect/proc_holder/changeling/absorbDNA/can_sting(var/mob/living/carbon/user)
 	if(!..())

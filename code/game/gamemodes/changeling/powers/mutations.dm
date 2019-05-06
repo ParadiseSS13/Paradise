@@ -16,6 +16,7 @@
 	chemical_cost = 1000
 	dna_cost = -1
 	genetic_damage = 1000
+	nullified = 1
 
 	var/silent = FALSE
 	var/weapon_type
@@ -52,6 +53,7 @@
 	chemical_cost = 1000
 	dna_cost = -1
 	genetic_damage = 1000
+	nullified = 1
 
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
@@ -191,6 +193,7 @@
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
+	nullified = 1
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"

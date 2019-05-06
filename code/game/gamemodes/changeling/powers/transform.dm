@@ -6,6 +6,7 @@
 	req_dna = 1
 	req_human = 1
 	max_genetic_damage = 3
+	nullified = 1
 
 //Change our DNA to that of somebody we've absorbed.
 /obj/effect/proc_holder/changeling/transform/sting_action(var/mob/living/carbon/human/user)

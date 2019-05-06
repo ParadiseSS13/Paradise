@@ -5,7 +5,7 @@
 	genetic_damage = 3
 	req_dna = 1
 	max_genetic_damage = 3
-
+	nullified = 1
 
 //Transform into a human.
 /obj/effect/proc_holder/changeling/humanform/sting_action(var/mob/living/carbon/human/user)

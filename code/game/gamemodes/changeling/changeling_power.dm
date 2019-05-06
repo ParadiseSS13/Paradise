@@ -16,6 +16,7 @@
 	var/genetic_damage = 0 // genetic damage caused by using the sting. Nothing to do with cloneloss.
 	var/max_genetic_damage = 100 // hard counter for spamming abilities. Not used/balanced much yet.
 	var/always_keep = 0 // important for abilities like regenerate that screw you if you lose them.
+	var/nullified = 0 //Powers that will not work when wearing the changeling null suit
 
 /obj/effect/proc_holder/changeling/proc/on_purchase(var/mob/user)
 	return
@@ -51,6 +52,12 @@
 
 //Fairly important to remember to return 1 on success >.<
 /obj/effect/proc_holder/changeling/proc/can_sting(var/mob/user, var/mob/target)
+
+	if(nullified == 1) //If the power can be nullified by the containment suit, checks if the user is wearing the suit and helmet
+		if(istype(user:wear_suit, /obj/item/clothing/suit/null_suit) && istype(user:head, /obj/item/clothing/head/null_suit))
+			to_chat(user, "<span class='warning'>The suit and helmet prevents us from using this ability!</span>")
+			return 0
+
 	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && (!ishuman(user) || issmall(user)))
@@ -86,7 +93,7 @@
 /obj/effect/proc_holder/changeling/proc/transform_dna(var/mob/living/carbon/human/H, var/datum/dna/D)
 	if(!D)
 		return
-	
+
 	H.set_species(D.species.type, retain_damage = TRUE)
 	H.dna = D.Clone()
 	H.real_name = D.real_name

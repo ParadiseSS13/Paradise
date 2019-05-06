@@ -5,6 +5,7 @@
 	chemical_cost = 45
 	dna_cost = 1
 	req_dna = 5
+	nullified = 1
 
 //Makes some spiderlings. Good for setting traps and causing general trouble.
 /obj/effect/proc_holder/changeling/spiders/sting_action(var/mob/user)
