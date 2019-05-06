@@ -156,6 +156,7 @@
 	user.SetWeakened(0)
 	user.SetStunned(0)
 	user.SetParalysis(0)
+	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
 	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
