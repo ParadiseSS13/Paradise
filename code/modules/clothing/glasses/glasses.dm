@@ -177,6 +177,15 @@
 	flags = NODROP
 	flags_cover = null
 
+/obj/item/clothing/glasses/material/lighting
+	name = "Neutron Goggles"
+	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
+	origin_tech = null
+	vision_flags = 0
+
+	flags = NODROP
+	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
 	desc = "Made by Nerd. Co."
