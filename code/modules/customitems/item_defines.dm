@@ -1786,3 +1786,17 @@
 	item_color = "voxbodysuit"
 	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	species_fit = list("Vox")
+
+/obj/item/clothing/glasses/night/fluff/reyblood //Reyblood: All characters
+	name = "Custom Night Vision Goggles"
+	desc = "These customized night vision goggles completely remove all darkness."
+	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+
+	var/limited_to_ckey = "reyblood"
+
+/obj/item/clothing/glasses/night/fluff/reyblood/mob_can_equip(mob/user, slot)
+	. = ..()
+
+	if(. && user.ckey != limited_to_ckey)
+		to_chat(user, "<span class='warning'>These glasses can only be used by [limited_to_ckey], as they are not able to play the game with lighting enabled due to hardware limitations.")
+		. = FALSE
