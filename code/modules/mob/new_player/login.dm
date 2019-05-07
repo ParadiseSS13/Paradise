@@ -27,8 +27,6 @@
 		loc = pick(watch_locations)
 */
 
-	update_morgue() // Why is this called for new players that dont even have a morgue
-
 	new_player_panel()
 
 	spawn(30)
