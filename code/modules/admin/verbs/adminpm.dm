@@ -243,15 +243,25 @@
 	pm_tracker.show_ui(usr)
 
 /datum/pm_tracker
-	var/list/pms = list()
 	var/current_title = ""
 	var/open = FALSE
+	var/list/pms = list()
+	var/show_archived = FALSE
 	var/window_id = "pms_window"
+
+/datum/pm_convo
+	var/list/messages = list()
+	var/archived = FALSE
+	var/client/client
+
+/datum/pm_convo/New(var/client/C)
+	client = C
 
 /datum/pm_tracker/proc/add_message(var/client/title, var/client/sender, var/message, mob/user)
 	if(!pms[title.key])
-		pms[title.key] = list()
-	pms[title.key].Add("[sender]: [message]")
+		pms[title.key] = new /datum/pm_convo(title)
+	pms[title.key].messages.Add("[sender]: [message]")
+	pms[title.key].archived = FALSE
 
 	if(!open)
 		// The next time the window's opened, it'll be open to the most recent message
@@ -265,31 +275,47 @@
 	var/dat = ""
 
 	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
 	for(var/title in pms)
+		if(pms[title].archived && !show_archived)
+			continue
 		var/label = "[title]"
 		if(title == current_title)
 			label = "<b>[label]</b>"
 		dat += "<a href='?src=[UID()];newtitle=[title]'>[label]</a>"
 
-	dat += "<h2>[current_title]</h2>"
-	dat += "<h4>"
-	dat += "<table style='width:950px; border: 3px solid;'>"
+	if(pms[current_title])
+		dat += "<h2>[check_rights(R_ADMIN, FALSE, user) ? fancy_title(current_title) : current_title]</h2>"
+		dat += "<h4>"
+		dat += "<table style='width:950px; border: 3px solid;'>"
 
-	for(var/message in pms[current_title])
-		dat += "<tr><td>[message]</td></tr>"
+		for(var/message in pms[current_title].messages)
+			dat += "<tr><td>[message]</td></tr>"
 
-	dat += "</table>"
-	dat += "<br>"
-	dat += "</h4>"
-	dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
+		dat += "</table>"
+		dat += "<br>"
+		dat += "</h4>"
+		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
+		dat += "<a href='?src=[UID()];archive=[current_title]'>[pms[current_title].archived ? "Unarchive" : "Archive"]</a>"
 
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
 	popup.set_content(dat)
 	popup.open()
 	open = TRUE
 
+/datum/pm_tracker/proc/fancy_title(var/title)
+	var/client/C = pms[title].client
+	if(!C)
+		return "[title] (Disconnected)"
+	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>)"
+
 /datum/pm_tracker/Topic(href, href_list)
+	if(href_list["archive"])
+		pms[href_list["archive"]].archived = !pms[href_list["archive"]].archived
+		show_ui(usr)
+		return
+
 	if(href_list["refresh"])
 		show_ui(usr)
 		return
@@ -301,6 +327,11 @@
 
 	if(href_list["reply"])
 		usr.client.cmd_admin_pm(ckey(href_list["reply"]), null)
+		show_ui(usr)
+		return
+
+	if(href_list["showarchived"])
+		show_archived = !show_archived
 		show_ui(usr)
 		return
 
