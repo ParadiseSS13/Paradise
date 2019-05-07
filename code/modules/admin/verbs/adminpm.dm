@@ -286,11 +286,13 @@
 		if(pms[title].archived && !show_archived)
 			continue
 		var/label = "[title]"
+		var/class = ""
 		if(title == current_title)
 			label = "<b>[label]</b>"
+			class = "linkOn"
 		else if(!pms[title].read)
 			label = "<i>*[label]</i>"
-		dat += "<a href='?src=[UID()];newtitle=[title]'>[label]</a>"
+		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	if(pms[current_title])
 		pms[current_title].read = TRUE
