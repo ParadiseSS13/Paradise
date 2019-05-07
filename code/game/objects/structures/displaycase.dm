@@ -8,8 +8,9 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	if(!GLOB.captain_display_cases.len)
 		return 
 	var/fingerprint = captain.get_full_print()
-	for(var/obj/structure/displaycase/D in GLOB.captain_display_cases)
-		D.ue = fingerprint
+	for(var/item in GLOB.captain_display_cases)
+		var/obj/structure/displaycase/CASE = item
+		CASE.ue = fingerprint
 
 /obj/structure/displaycase_frame
 	name = "display case frame"
