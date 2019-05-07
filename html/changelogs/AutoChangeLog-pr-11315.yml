@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Transforming into another species will now retain the items correctly. Example clings will keep their armblades and they won't get stuck with a non existing armblade they can't put back"
