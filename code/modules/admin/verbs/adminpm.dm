@@ -273,13 +273,15 @@
 		dat += "<a href='?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	dat += "<h2>[current_title]</h2>"
-
+	dat += "<h4>"
 	dat += "<table style='width:950px; border: 3px solid;'>"
 
 	for(var/message in pms[current_title])
 		dat += "<tr><td>[message]</td></tr>"
 
-	dat += "</table><br><br>"
+	dat += "</table>"
+	dat += "<br>"
+	dat += "</h4>"
 	dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
 
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
