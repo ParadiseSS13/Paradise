@@ -253,15 +253,20 @@
 	var/list/messages = list()
 	var/archived = FALSE
 	var/client/client
+	var/read = FALSE
 
 /datum/pm_convo/New(var/client/C)
 	client = C
 
+/datum/pm_convo/proc/add(var/client/sender, var/message)
+	messages.Add("[sender]: [message]")
+	archived = FALSE
+	read = FALSE
+
 /datum/pm_tracker/proc/add_message(var/client/title, var/client/sender, var/message, mob/user)
 	if(!pms[title.key])
 		pms[title.key] = new /datum/pm_convo(title)
-	pms[title.key].messages.Add("[sender]: [message]")
-	pms[title.key].archived = FALSE
+	pms[title.key].add(sender, message)
 
 	if(!open)
 		// The next time the window's opened, it'll be open to the most recent message
@@ -283,9 +288,12 @@
 		var/label = "[title]"
 		if(title == current_title)
 			label = "<b>[label]</b>"
+		else if(!pms[title].read)
+			label = "<i>*[label]</i>"
 		dat += "<a href='?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	if(pms[current_title])
+		pms[current_title].read = TRUE
 		dat += "<h2>[check_rights(R_ADMIN, FALSE, user) ? fancy_title(current_title) : current_title]</h2>"
 		dat += "<h4>"
 		dat += "<table style='width:950px; border: 3px solid;'>"
