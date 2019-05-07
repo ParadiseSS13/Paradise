@@ -54,8 +54,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/turf/turf_exterior = get_airlock_location(exterior_direction)
 	handle_door_creation(turf_interior, TRUE, one_door_interior)
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
+	handle_pipes_creation(turf_interior)
 	handle_control_placement()
-	handle_pipes_n_shit(turf_interior)
 	qdel(src)
 
 /obj/effect/spawner/airlock/proc/get_airlock_location(desired_direction) //Finds a turf to place an airlock and returns it, this turf will be in the middle of the relevant wall
@@ -143,13 +143,10 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		AS.pixel_x += 25
 		AS.pixel_y -= 9
 
-/obj/effect/spawner/airlock/proc/handle_pipes_n_shit(turf/T) //This places all required piping down, then properly initializes it. T is the turf that the interior airlock occupies
-	var/list/initialize_these_pipes = list() //All the pipes and stuff that needs to be initialized properly. We'll use a list for neater code
+/obj/effect/spawner/airlock/proc/handle_pipes_creation(turf/T) //This places all required piping down, then properly initializes it. T is the turf that the interior airlock occupies
 	var/turf/below_T = get_step(T, opposite_interior_direction)
-	var/obj/machinery/atmospherics/pipe/manifold/visible/M
-	var/obj/machinery/atmospherics/pipe/manifold4w/visible/M4W
-	var/obj/machinery/atmospherics/unary/vent_pump/high_volume/VP
 
+	var/two_way_pipe = interior_direction | opposite_interior_direction
 	var/chamber_shape //This determines the layout of the chamber and therefore how many vents should be present
 	if(tiles_in_x_direction == 2 && tiles_in_y_direction == 2)
 		chamber_shape = CHAMBER_SQUARE
@@ -157,54 +154,50 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		chamber_shape = CHAMBER_BIGGER
 	else
 		chamber_shape = CHAMBER_LONG
-
+	pipe_creation_helper(/obj/machinery/atmospherics/pipe/simple/visible, T, interior_direction, two_way_pipe)
 	switch(chamber_shape)
 		if(CHAMBER_LONG) //Easy enough, place a single vent
-			VP = new(below_T)
-			VP.dir = interior_direction
-			initialize_these_pipes.Add(VP)
+			pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+				below_T,
+				interior_direction)
 		if(CHAMBER_SQUARE) //We need a T-manifold and two vents for this
-			M = new(below_T)
-			initialize_these_pipes.Add(M)
-			VP = new(get_step(below_T, opposite_interior_direction))
-			VP.dir = interior_direction
-			initialize_these_pipes.Add(VP)
-			VP = new(north_or_south_interior ? EAST_OF_TURF(below_T) : NORTH_OF_TURF(below_T))
-			VP.dir = turn(interior_direction, interior_direction == SOUTH || interior_direction == EAST ? -90 : 90)
-			initialize_these_pipes.Add(VP)
+			pipe_creation_helper(/obj/machinery/atmospherics/pipe/manifold/visible,
+				below_T,
+				north_or_south_interior ? WEST : SOUTH,
+				NORTH | EAST | (north_or_south_interior ? SOUTH : WEST))
+			pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+				get_step(below_T, opposite_interior_direction),
+				interior_direction)
+			pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+				north_or_south_interior ? EAST_OF_TURF(below_T) : NORTH_OF_TURF(below_T),
+				turn(interior_direction, interior_direction == SOUTH || interior_direction == EAST ? -90 : 90))
 		if(CHAMBER_BIGGER) //We need a central column of manifolds and a vent either side of each manifold
 			var/depth = north_or_south_interior ? tiles_in_y_direction : tiles_in_x_direction
 			var/turf/put_thing_here = below_T
 			for(var/i in 1 to depth)
 				if(i != depth)//We're placing more pipe later, so we need a 4-way manifold
-					M4W = new(put_thing_here)
-					initialize_these_pipes.Add(M4W)
+					pipe_creation_helper(/obj/machinery/atmospherics/pipe/manifold4w/visible, put_thing_here, interior_direction, NORTH | EAST | SOUTH | WEST)
 				else //We stop here, so place a T-manifold down
-					M = new(put_thing_here)
-					M.on_construction(opposite_interior_direction, interior_direction_cw | interior_direction | interior_direction_ccw, null)
-				VP = new(get_step(put_thing_here, interior_direction_cw))
-				VP.dir = interior_direction_ccw
-				initialize_these_pipes.Add(VP)
-				VP = new(get_step(put_thing_here, interior_direction_ccw))
-				VP.dir = interior_direction_cw
-				initialize_these_pipes.Add(VP)
+					pipe_creation_helper(/obj/machinery/atmospherics/pipe/manifold/visible,
+						put_thing_here,
+						opposite_interior_direction,
+						interior_direction_cw | interior_direction | interior_direction_ccw)
+				pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+					get_step(put_thing_here, interior_direction_cw),
+					interior_direction_ccw)
+				pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+					get_step(put_thing_here, interior_direction_ccw),
+					interior_direction_cw)
 				put_thing_here = get_step(put_thing_here, opposite_interior_direction) //Now move the turf we're generating stuff from 1 forward
 
-	var/obj/machinery/atmospherics/pipe/simple/visible/P = new(T)
-	initialize_these_pipes.Add(P)
-
-	var/two_way_pipe = interior_direction | opposite_interior_direction
-
-	for(var/obj/machinery/atmospherics/pipe/simple/visible/HS in initialize_these_pipes)
-		HS.on_construction(interior_direction, two_way_pipe, null)
-	for(var/obj/machinery/atmospherics/pipe/manifold4w/visible/HM4W in initialize_these_pipes)
-		HM4W.on_construction(interior_direction, NORTH | SOUTH | EAST | WEST, null)
-	for(var/obj/machinery/atmospherics/pipe/manifold/visible/HM in initialize_these_pipes)
-		HM.on_construction(north_or_south_interior ? WEST : SOUTH, NORTH | EAST | (north_or_south_interior ? SOUTH : WEST), null)
-	for(var/obj/machinery/atmospherics/unary/vent_pump/high_volume/HVP in initialize_these_pipes)
-		HVP.on_construction(HVP.dir, HVP.dir, null)
-		HVP.id_tag = AIRPUMP_TAG
-		HVP.set_frequency(radio_frequency)
+/obj/effect/spawner/airlock/proc/pipe_creation_helper(path, location, direction, initialization_directions) //Create some kind of atmospherics machinery and initialize it properly
+	var/obj/machinery/atmospherics/A = new path(location)
+	A.dir = direction
+	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
+	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
+		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
+		created_pump.id_tag = AIRPUMP_TAG
+		created_pump.set_frequency(radio_frequency)
 
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
