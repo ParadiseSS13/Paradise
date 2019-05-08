@@ -3,7 +3,7 @@
 /area/awaymission/challenge
 	name = "Challenge"
 	icon_state = "away"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/challenge/start
 	name = "Where Am I?"
@@ -12,12 +12,14 @@
 /area/awaymission/challenge/main
 	name = "\improper Danger Room"
 	icon_state = "away1"
-	requires_power = 0
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/awaymission/challenge/end
 	name = "Administration"
 	icon_state = "away2"
-	requires_power = 0
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 
 /obj/machinery/power/emitter/energycannon

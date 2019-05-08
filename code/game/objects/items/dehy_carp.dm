@@ -37,7 +37,7 @@
 	visible_message("<span class='notice'>[src] swells up!</span>")
 
 	// Animation
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)
 	// Wait for animation to end
 	sleep(6)

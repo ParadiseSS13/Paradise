@@ -1,4 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Circuit Boards now show their required components on examine"

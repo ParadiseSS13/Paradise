@@ -15,5 +15,3 @@ TO MAKE A CHANGELOG .YML ENTRRY
 5. When commiting make sure your .yml file is included in the commit (it will usually be unticked as an unversioned file)
 
 #######################################################
-
-If you have trouble ask for help in #codertrain on the Paradise Station IRC.

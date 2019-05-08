@@ -183,7 +183,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = TAB_CHAR
 
-		// OOC Metadata:
+	// OOC Metadata:
 	var/metadata = ""
 	var/slot_name = ""
 
@@ -211,7 +211,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
-			if(C.donator_level >= DONATOR_LEVEL_ONE)
+			if(C.donator_level > 0)
 				max_gear_slots += 5
 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
@@ -448,10 +448,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += "<b>Deadchat Anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[ghost_anonsay ? "Anonymous" : "Not Anonymous"]</b></a><br>"
-			if(user.client.donator_level >= DONATOR_LEVEL_ONE)
+			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
@@ -508,10 +509,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			var/firstcat = 1
 			for(var/category in loadout_categories)
-				var/datum/loadout_category/LC = loadout_categories[category]
-				if(LC.donor_only)
-					if(user.client.donator_level < DONATOR_LEVEL_TWO) // level two donators get the donator loadout, so don't show it to anyone with less than that
-						continue
 				if(firstcat)
 					firstcat = 0
 				else
@@ -529,7 +526,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/ticked = (G.display_name in gear)
-				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+				if(G.donator_tier > user.client.donator_level)
+					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
+				else
+					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
@@ -1147,10 +1147,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
-				if(TG.donor_only)
-					if(user.client.donator_level < DONATOR_LEVEL_TWO) // donator items are locked to > tier 2
-						//they normally can't even get this far- but just in case of href exploits, we check them here
-						return
+				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
+					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
+					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
@@ -1921,22 +1920,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
 							parent.fps = clientfps
 
-/*
-				if("skin_style")
-					var/skin_style_name = input(user, "Select a new skin style") as null|anything in list("default1", "default2", "default3")
-					if(!skin_style_name) return
-*/
-
-/*					if("spawnpoint")
-					var/list/spawnkeys = list()
-					for(var/S in spawntypes)
-						spawnkeys += S
-					var/choice = input(user, "Where would you like to spawn when latejoining?") as null|anything in spawnkeys
-					if(!choice || !spawntypes[choice])
-						spawnpoint = "Arrivals Shuttle"
-						return
-					spawnpoint = choice */
-
 		else
 			switch(href_list["preference"])
 				if("publicity")
@@ -1944,7 +1927,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						toggles ^= MEMBER_PUBLIC
 
 				if("donor_public")
-					if(user.client.donator_level >= DONATOR_LEVEL_ONE)
+					if(user.client.donator_level > 0)
 						toggles ^= DONATOR_PUBLIC
 
 				if("gender")
@@ -2080,6 +2063,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
+
+				if("ambientocclusion")
+					toggles ^= AMBIENT_OCCLUSION
+					if(parent && parent.screen && parent.screen.len)
+						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						PM.filters -= FILTER_AMBIENT_OCCLUSION
+						if(toggles & AMBIENT_OCCLUSION)
+							PM.filters += FILTER_AMBIENT_OCCLUSION
 
 	ShowChoices(user)
 	return 1

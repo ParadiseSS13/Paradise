@@ -62,7 +62,7 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	var/agent_number = LAZYLEN(ticker.mode.syndicates)
+	var/agent_number = LAZYLEN(ticker.mode.syndicates) - 1
 	M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
 	set_syndicate_values(C, M)
