@@ -331,7 +331,7 @@
 
 /obj/effect/proc_holder/spell/targeted/mindscan/Destroy()
 	available_targets.Cut()
-	..()
+	return ..()
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
