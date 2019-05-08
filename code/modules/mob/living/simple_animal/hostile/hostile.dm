@@ -30,8 +30,6 @@
 	var/stat_exclusive = 0 //Mobs with this set to 1 will exclusively attack things defined by stat_attack, stat_attack 2 means they will only attack corpses
 	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction, or 2, to only ever attack our own faction
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-
 	//typecache of things this mob will attack in DestroySurroundings() if it has environment_smash
 	var/list/environment_target_typecache = list(
 	/obj/machinery/door/window,
@@ -66,12 +64,6 @@
 		walk(src, 0)
 		return 0
 
-/mob/living/simple_animal/hostile/process_ai()
-	..()
-	if(!AICanContinue())
-		return 0
-	return 1
-
 /mob/living/simple_animal/hostile/handle_automated_action()
 	if(AIStatus == AI_OFF)
 		return 0
@@ -83,7 +75,7 @@
 		DestroySurroundings()
 		if(!MoveToTarget(possible_targets))     //if we lose our target
 			if(AIShouldSleep(possible_targets))	// we try to acquire a new one
-				AIStatus = AI_IDLE				// otherwise we go idle
+				toggle_ai(AI_IDLE)				// otherwise we go idle
 	return 1
 
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
@@ -264,8 +256,8 @@
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			search_objects = 0
 			target = null
-		if(AIStatus == AI_IDLE)
-			AIStatus = AI_ON
+		if(AIStatus != AI_ON && AIStatus != AI_OFF)
+			toggle_ai(AI_ON)
 			FindTarget()
 		else if(target != null && prob(40))//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
 			FindTarget()
@@ -401,9 +393,43 @@
 		if(AI_IDLE)
 			if(FindTarget(possible_targets, 1))
 				. = 1
-				AIStatus = AI_ON //Wake up for more than one Life() cycle.
+				toggle_ai(AI_ON) //Wake up for more than one Life() cycle.
 			else
 				. = 0
 
 /mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
 	return !FindTarget(possible_targets, 1)
+
+/mob/living/simple_animal/hostile/consider_wakeup()
+	..()
+	var/list/tlist
+	var/turf/T = get_turf(src)
+
+	if(!T)
+		return
+
+	if(!length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
+		toggle_ai(AI_Z_OFF)
+		return
+
+	var/cheap_search = isturf(T) && !is_station_level(T.z)
+	if(cheap_search)
+		tlist = ListTargetsLazy(T.z)
+	else
+		tlist = ListTargets()
+
+	if(AIStatus == AI_IDLE && FindTarget(tlist, 1))
+		if(cheap_search) //Try again with full effort
+			FindTarget()
+		toggle_ai(AI_ON)
+
+/mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
+	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod))
+	. = list()
+	for(var/I in SSmobs.clients_by_zlevel[_Z])
+		var/mob/M = I
+		if(get_dist(M, src) < vision_range)
+			if(isturf(M.loc))
+				. += M
+			else if(M.loc.type in hostile_machines)
+				. += M.loc

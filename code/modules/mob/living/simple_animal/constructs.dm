@@ -168,7 +168,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
-	see_in_dark = 7
+	see_in_dark = 8
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	const_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)

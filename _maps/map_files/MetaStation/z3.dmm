@@ -145,7 +145,7 @@
 "ay" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "az" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless{
@@ -156,31 +156,31 @@
 "be" = (
 /obj/item/trash/cheesie,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bj" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bk" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bl" = (
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bm" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bn" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "bo" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bp" = (
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
@@ -198,7 +198,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bt" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -258,7 +258,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -285,7 +285,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bI" = (
 /turf/simulated/floor/plating/airless,
 /area/tcommsat/chamber)
@@ -355,7 +355,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bV" = (
 /obj/item/folder/yellow,
 /turf/simulated/floor/plating/airless,
@@ -372,7 +372,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bY" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -383,7 +383,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bZ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -399,18 +399,18 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cb" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cc" = (
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cd" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -520,20 +520,20 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "cv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cx" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -542,7 +542,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cy" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -562,20 +562,20 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cA" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cB" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cC" = (
 /obj/structure/table,
 /obj/item/radio/off,
@@ -606,14 +606,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "cI" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cJ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -679,7 +679,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cQ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -846,19 +846,19 @@
 	},
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "du" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dz" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dA" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -886,7 +886,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dJ" = (
 /obj/structure/lattice,
 /obj/item/stack/rods,
@@ -894,7 +894,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dK" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -906,7 +906,7 @@
 "dM" = (
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dO" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel,
@@ -943,7 +943,7 @@
 "ed" = (
 /obj/item/crowbar,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ej" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,

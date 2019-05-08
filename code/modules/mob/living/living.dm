@@ -953,6 +953,27 @@
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
 
+/mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
+	if(registered_z != new_z)
+		if(registered_z)
+			SSmobs.clients_by_zlevel[registered_z] -= src
+		if(client)
+			if(new_z)
+				SSmobs.clients_by_zlevel[new_z] += src
+				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
+					if (SA)
+						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
+					else
+						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+			registered_z = new_z
+		else
+			registered_z = null
+
+/mob/living/onTransitZ(old_z,new_z)
+	..()
+	update_z(new_z) 
+
 /mob/living/proc/owns_soul()
 	if(mind)
 		return mind.soulOwner == mind
@@ -992,3 +1013,39 @@
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			A.extinguish_light()
+
+/mob/living/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("stat")
+			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
+				GLOB.dead_mob_list -= src
+				GLOB.living_mob_list += src
+			if((stat < DEAD) && (var_value == DEAD))//Kill he
+				GLOB.living_mob_list -= src
+				GLOB.dead_mob_list += src
+	. = ..()
+	switch(var_name)
+		if("weakened")
+			SetWeakened(var_value)
+		if("stunned")
+			SetStunned(var_value)
+		if("paralysis")
+			SetParalysis(var_value)
+		if("sleeping")
+			SetSleeping(var_value)
+		if("maxHealth")
+			updatehealth()
+		if("resize")
+			update_transform()
+		if("lighting_alpha")
+			sync_lighting_plane_alpha()
+
+/mob/living/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	. = ..()

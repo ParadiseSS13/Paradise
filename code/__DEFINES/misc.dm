@@ -114,33 +114,6 @@
 #define CHRISTMAS				"Christmas"
 #define FRIDAY_13TH				"Friday the 13th"
 
-//Light color defs, for light-emitting things
-//Some defs may be pure color- this is for neatness, and configurability. Changing #define COLOR_ is a bad idea.
-#define LIGHT_COLOR_CYAN		"#7BF9FF"
-#define LIGHT_COLOR_PURE_CYAN	"#00FFFF"
-
-#define LIGHT_COLOR_RED			"#B40000"
-#define LIGHT_COLOR_ORANGE		"#FF9933"
-#define LIGHT_COLOR_DARKRED		"#A91515"
-#define LIGHT_COLOR_PURE_RED	"#FF0000"
-
-#define LIGHT_COLOR_GREEN		"#00CC00"
-#define LIGHT_COLOR_DARKGREEN	"#50AB00"
-#define LIGHT_COLOR_PURE_GREEN	"#00FF00"
-
-#define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
-#define LIGHT_COLOR_LIGHTBLUE	"#0099FF"
-#define LIGHT_COLOR_DARKBLUE	"#315AB4"
-#define LIGHT_COLOR_PURE_BLUE	"#0000FF"
-
-#define LIGHT_COLOR_FADEDPURPLE	"#A97FAA"
-#define LIGHT_COLOR_PURPLE		"#CD00CD"
-#define LIGHT_COLOR_PINK		"#FF33CC"
-
-#define LIGHT_COLOR_YELLOW     "#E1E17D" //Dimmed yellow, leaning kaki. rgb(225, 225, 125)
-
-#define LIGHT_COLOR_WHITE		"#FFFFFF"
-
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm
@@ -208,33 +181,34 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				37
-#define MUTANTRACE_LAYER		36
-#define TAIL_UNDERLIMBS_LAYER	35	//Tail split-rendering.
-#define LIMBS_LAYER				34
-#define INTORGAN_LAYER			33
-#define MARKINGS_LAYER			32
-#define UNDERWEAR_LAYER			31
-#define MUTATIONS_LAYER			30
-#define H_DAMAGE_LAYER			29
-#define UNIFORM_LAYER			28
-#define ID_LAYER				27
-#define SHOES_LAYER				26
-#define GLOVES_LAYER			25
-#define EARS_LAYER				24
-#define SUIT_LAYER				23
-#define BELT_LAYER				22	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		21
-#define BACK_LAYER				20
-#define HEAD_ACCESSORY_LAYER	19
-#define FHAIR_LAYER				18
-#define GLASSES_LAYER			17
-#define HAIR_LAYER				16	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		15	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		14	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		13	//Select-layer rendering.
-#define TAIL_LAYER				12	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			11
+#define BODY_LAYER				38
+#define MUTANTRACE_LAYER		37
+#define TAIL_UNDERLIMBS_LAYER	36	//Tail split-rendering.
+#define LIMBS_LAYER				35
+#define INTORGAN_LAYER			34
+#define MARKINGS_LAYER			33
+#define UNDERWEAR_LAYER			32
+#define MUTATIONS_LAYER			31
+#define H_DAMAGE_LAYER			30
+#define UNIFORM_LAYER			29
+#define ID_LAYER				28
+#define SHOES_LAYER				27
+#define GLOVES_LAYER			26
+#define EARS_LAYER				25
+#define SUIT_LAYER				24
+#define BELT_LAYER				23	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		22
+#define BACK_LAYER				21
+#define HEAD_ACCESSORY_LAYER	20
+#define FHAIR_LAYER				19
+#define GLASSES_LAYER			18
+#define HAIR_LAYER				17	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		16	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		15	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		14	//Select-layer rendering.
+#define TAIL_LAYER				13	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			12
+#define OVER_MASK_LAYER			11	//Select-layer rendering.
 #define HEAD_LAYER				10
 #define COLLAR_LAYER			9
 #define HANDCUFF_LAYER			8
@@ -245,7 +219,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			37
+#define TOTAL_LAYERS			38
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -318,10 +292,8 @@
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
-// Client donator levels
-#define DONATOR_LEVEL_NONE 0
-#define DONATOR_LEVEL_ONE 1
-#define DONATOR_LEVEL_TWO 2
+// Maximum donation level
+#define DONATOR_LEVEL_MAX 4
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
@@ -406,3 +378,16 @@
 #define GHOST_ORBIT_HEXAGON		"hexagon"
 #define GHOST_ORBIT_SQUARE		"square"
 #define GHOST_ORBIT_PENTAGON	"pentagon"
+
+// Filters
+#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+
+//Fullscreen overlay resolution in tiles.
+#define FULLSCREEN_OVERLAY_RESOLUTION_X 15
+#define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
+
+//suit sensors: sensor_mode defines
+#define SENSOR_OFF 0
+#define SENSOR_LIVING 1
+#define SENSOR_VITALS 2
+#define SENSOR_COORDS 3

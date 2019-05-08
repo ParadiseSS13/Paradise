@@ -25,6 +25,7 @@
 	var/list/implants = null
 	var/list/cybernetic_implants = null
 
+	var/list/chameleon_extras //extra types for chameleon outfit changes, mostly guns
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
@@ -152,3 +153,9 @@
 	if(H.wear_pda)
 		H.wear_pda.add_fingerprint(H, 1)
 	return 1
+
+/datum/outfit/proc/get_chameleon_disguise_info()
+	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
+	types += chameleon_extras
+	listclearnulls(types)
+	return types

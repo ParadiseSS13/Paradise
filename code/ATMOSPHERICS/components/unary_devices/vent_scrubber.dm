@@ -6,6 +6,7 @@
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"
+	layer = GAS_SCRUBBER_LAYER
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -91,6 +92,10 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
+	..()
+	
+	plane = FLOOR_PLANE
+
 	if(!check_icon_cache())
 		return
 

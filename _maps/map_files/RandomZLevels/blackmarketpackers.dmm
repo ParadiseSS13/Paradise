@@ -16,7 +16,7 @@
 /obj/item/circular_saw,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "af" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall12";
@@ -46,7 +46,7 @@
 "aj" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ak" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall12";
@@ -97,7 +97,7 @@
 "as" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "at" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -2626,14 +2626,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Aft)
-"gy" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/space)
 "gz" = (
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
@@ -3273,7 +3265,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ip" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall13";
@@ -3522,12 +3514,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission)
-"jf" = (
-/turf/space,
-/area/crew_quarters/bar)
-"jg" = (
-/turf/space,
-/area/exploration/methlab)
 "jh" = (
 /obj/machinery/door_control{
 	id = "packerMed";
@@ -9820,7 +9806,7 @@ eW
 fF
 ee
 aW
-gy
+gg
 aa
 aa
 gP
@@ -13998,7 +13984,7 @@ aa
 aa
 aa
 aa
-jf
+aa
 aa
 aa
 aa
@@ -14389,11 +14375,11 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14518,12 +14504,12 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14648,13 +14634,13 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14779,9 +14765,9 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14908,8 +14894,8 @@ aa
 aa
 aa
 aa
-jg
-jg
+aa
+aa
 aa
 aa
 aa
@@ -15038,12 +15024,12 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15168,12 +15154,12 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15300,7 +15286,7 @@ aa
 aa
 aa
 aa
-jg
+aa
 aa
 aa
 aa

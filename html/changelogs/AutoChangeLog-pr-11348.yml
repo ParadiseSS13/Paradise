@@ -1,5 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Added shortcuts for handling pumps, volume pumps, filters, and mixers. Ctrl-click these devices to turn them on/off and Alt-click them to set their output to maximum."
-  - rscadd: "Added ability to rename pumps, volume pumps, filters and mixers with a pen."
