@@ -308,6 +308,8 @@
 		dat += "</h4>"
 		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
 		dat += "<a href='?src=[UID()];archive=[current_title]'>[pms[current_title].archived ? "Unarchive" : "Archive"]</a>"
+		if(check_rights(R_ADMIN, FALSE, user))
+			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
 
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
 	popup.set_content(dat)
@@ -332,6 +334,16 @@
 
 	if(href_list["newtitle"])
 		current_title = href_list["newtitle"]
+		show_ui(usr)
+		return
+
+	if(href_list["ping"])
+		var/client/C = pms[href_list["ping"]].client
+		if(C)
+			C.pm_tracker.current_title = usr.key
+			window_flash(C)
+			C.pm_tracker.show_ui(C.mob)
+			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
 		show_ui(usr)
 		return
 
