@@ -559,11 +559,14 @@
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
+
 	if(stat == DEAD)
 		grant_death_vision()
 		return
 
 	dna.species.update_sight(src)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
 
 //Added a safety check in case you want to shock a human mob directly through electrocute_act.
 /mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
@@ -1444,11 +1447,7 @@
 
 	dna.species.on_species_gain(src)
 
-	see_in_dark = dna.species.get_resultant_darksight(src)
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
+	update_sight()
 
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 

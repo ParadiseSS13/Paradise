@@ -1,5 +1,6 @@
 /atom
-	layer = 2
+	layer = TURF_LAYER
+	plane = GAME_PLANE
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -144,9 +145,12 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = 101
+	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
+
+	QDEL_NULL(light)
+
 	return ..()
 
 //Hook for running code when a dir change occurs
@@ -681,6 +685,7 @@ var/list/blood_splatter_icons = list()
 
 //the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
 /atom/proc/update_remote_sight(mob/living/user)
+	user.sync_lighting_plane_alpha()
 	return
 
 /atom/proc/checkpass(passflag)

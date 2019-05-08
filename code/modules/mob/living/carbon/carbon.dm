@@ -323,8 +323,8 @@
 			return
 
 		var/extra_darkview = 0
-		if(E.dark_view)
-			extra_darkview = max(E.dark_view - 2, 0)
+		if(E.see_in_dark)
+			extra_darkview = max(E.see_in_dark - 2, 0)
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
@@ -1130,3 +1130,36 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/shock_internal_organs(intensity)
 	for(var/obj/item/organ/O in internal_organs)
 		O.shock_organ(intensity)
+
+/mob/living/carbon/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+	
+	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
+		sight |= E.vision_flags
+		if(E.see_in_dark)
+			see_in_dark = max(see_in_dark, E.see_in_dark)
+		if(E.see_invisible)
+			see_invisible = min(see_invisible, E.see_invisible)
+		if(!isnull(E.lighting_alpha))
+			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(XRAY in mutations)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

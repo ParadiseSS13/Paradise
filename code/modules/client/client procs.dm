@@ -333,6 +333,8 @@
 	if(!prefs)
 		prefs = new /datum/preferences(src)
 		preferences_datums[ckey] = prefs
+	else
+		prefs.parent = src
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
@@ -388,10 +390,8 @@
 		if(establish_db_connection())
 			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
-	if(!void)
-		void = new()
-
-	screen += void
+	generate_clickcatcher()
+	apply_clickcatcher()
 
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
@@ -778,6 +778,15 @@
 		else
 			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
 
+/client/proc/generate_clickcatcher()
+	if(!void)
+		void = new()
+		screen += void
+
+/client/proc/apply_clickcatcher()
+	generate_clickcatcher()
+	var/list/actualview = getviewsize(view)
+	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/send_ssd_warning(mob/M)
 	if(!config.ssd_warning)
