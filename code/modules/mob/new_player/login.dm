@@ -14,6 +14,8 @@
 		loc = locate(1,1,1)
 	lastarea = loc
 
+	client.screen = list() // Remove HUD items just in case.
+	client.images = list()
 	if(!hud_used)
 		create_mob_hud()
 	if(hud_used)
