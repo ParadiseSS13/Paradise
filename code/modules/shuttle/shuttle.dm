@@ -484,18 +484,17 @@
 		if(!T1)
 			continue
 
-		if(T0.type != T0.baseturf) //So if there is a hole in the shuttle we don't drag along the space/asteroid/etc to wherever we are going next
-			T0.copyTurf(T1)
-			areaInstance.contents += T1
+		T0.copyTurf(T1)
+		areaInstance.contents += T1
 
-			//copy over air
-			if(istype(T1, /turf/simulated))
-				var/turf/simulated/Ts1 = T1
-				Ts1.copy_air_with_tile(T0)
+		//copy over air
+		if(istype(T1, /turf/simulated))
+			var/turf/simulated/Ts1 = T1
+			Ts1.copy_air_with_tile(T0)
 
-			//move mobile to new location
-			for(var/atom/movable/AM in T0)
-				AM.onShuttleMove(T1, rotation)
+		//move mobile to new location
+		for(var/atom/movable/AM in T0)
+			AM.onShuttleMove(T0, T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)

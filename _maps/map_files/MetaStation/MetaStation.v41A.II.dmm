@@ -43987,7 +43987,7 @@
 /turf/space,
 /obj/structure/lattice/catwalk,
 /area/space/nearstation)
-/obj/structure/transit_tube_pod,
+"bxp" = (/obj/structure/transit_tube_pod,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
