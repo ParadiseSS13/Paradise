@@ -717,7 +717,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
 	H.sync_lighting_plane_alpha()
-	H.sync_nightvision_screen()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
