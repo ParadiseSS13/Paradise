@@ -629,6 +629,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return has_organ[organ_slot]
 
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
+	H.sight = initial(H.sight)
+
 	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		H.sight |= eyes.vision_flags
@@ -636,7 +638,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_invisible = eyes.see_invisible
 		H.lighting_alpha = eyes.lighting_alpha
 	else
-		H.sight = initial(H.sight)
 		H.see_in_dark = initial(H.see_in_dark)
 		H.see_invisible = initial(H.see_invisible)
 		H.lighting_alpha = initial(H.lighting_alpha)
