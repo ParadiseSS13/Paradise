@@ -188,7 +188,7 @@
 	..()
 	block=REMOTETALKBLOCK
 
-/datum/dna/gene/basic/grant_spell/remotetalk/activate(var/mob/user)
+/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/user)
 	..()
 	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
 
@@ -288,7 +288,8 @@
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/mindscan/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))	return
+	if(!ishuman(user))
+		return
 	for(var/mob/living/target in targets)
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
 		if(REMOTE_TALK in target.mutations)
@@ -301,7 +302,6 @@
 /obj/effect/proc_holder/spell/targeted/mindscan/proc/removeAvailability(var/mob/living/target)
 	if(target in available_targets)
 		available_targets -= target
-	return
 
 /obj/effect/proc_holder/spell/targeted/mindscan/Topic(href, href_list)
 	var/mob/living/user
@@ -328,6 +328,10 @@
 		user.show_message("<span class='abductor'>You hear [target.name]'s voice: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
+
+/obj/effect/proc_holder/spell/targeted/mindscan/Destroy()
+	available_targets.Cut()
+	..()
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
