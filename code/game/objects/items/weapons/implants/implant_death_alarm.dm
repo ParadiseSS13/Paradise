@@ -3,7 +3,7 @@
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	var/mobname = "Will Robinson"
 	activated = 0
-	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_station, /area/syndicate_mothership, /area/shuttle/syndicate_elite))
+	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
 
 /obj/item/implant/death_alarm/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>

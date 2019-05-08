@@ -1,7 +1,8 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS // 12
-	flags = SS_NO_FIRE
+	wait = 3000 // 5 minutes (Deciseconds)
+	runlevels = RUNLEVEL_GAME
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -24,6 +25,12 @@ SUBSYSTEM_DEF(jobs)
 	setup_whitelist()
 	return ..()
 
+// Only fires every 5 minutes
+/datum/controller/subsystem/jobs/fire()
+	if(!config.sql_enabled || !config.use_exp_tracking)
+		return 
+	update_exp(5,0)
+	
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)

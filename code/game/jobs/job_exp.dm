@@ -292,12 +292,3 @@ var/global/list/role_playtime_requirements = list(
 		log_game("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
 		return
-
-/hook/roundstart/proc/exptimer()
-	if(!config.sql_enabled || !config.use_exp_tracking)
-		return 1
-	spawn(0)
-		while(TRUE)
-			sleep(5 MINUTES)
-			update_exp(5,0)
-	return 1
