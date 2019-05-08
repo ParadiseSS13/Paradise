@@ -88,7 +88,9 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
+		set_typing(C, TRUE)
 		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
+		set_typing(C, FALSE)
 
 		if(!msg)
 			return
@@ -242,6 +244,16 @@
 	set category = "OOC"
 	pm_tracker.show_ui(usr)
 
+/client/proc/set_typing(client/target, var/value)
+	if(!target)
+		return
+	var/datum/pm_convo/convo = target.pm_tracker.pms[key]
+	if(!convo)
+		return
+	convo.typing = value
+	if(target.pm_tracker.open && target.pm_tracker.current_title == key)
+		target.pm_tracker.show_ui(target.mob)
+
 /datum/pm_tracker
 	var/current_title = ""
 	var/open = FALSE
@@ -254,16 +266,17 @@
 	var/archived = FALSE
 	var/client/client
 	var/read = FALSE
+	var/typing = FALSE
 
 /datum/pm_convo/New(var/client/C)
 	client = C
 
-/datum/pm_convo/proc/add(var/client/sender, var/message)
+/datum/pm_convo/proc/add(client/sender, var/message)
 	messages.Add("[sender]: [message]")
 	archived = FALSE
 	read = FALSE
 
-/datum/pm_tracker/proc/add_message(var/client/title, var/client/sender, var/message, mob/user)
+/datum/pm_tracker/proc/add_message(client/title, client/sender, var/message, mob/user)
 	if(!pms[title.key])
 		pms[title.key] = new /datum/pm_convo(title)
 	pms[title.key].add(sender, message)
@@ -294,20 +307,23 @@
 			label = "<i>*[label]</i>"
 		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
 
-	if(pms[current_title])
-		pms[current_title].read = TRUE
+	var/datum/pm_convo/convo = pms[current_title]
+	if(convo)
+		convo.read = TRUE
 		dat += "<h2>[check_rights(R_ADMIN, FALSE, user) ? fancy_title(current_title) : current_title]</h2>"
 		dat += "<h4>"
 		dat += "<table style='width:950px; border: 3px solid;'>"
 
-		for(var/message in pms[current_title].messages)
+		for(var/message in convo.messages)
 			dat += "<tr><td>[message]</td></tr>"
 
 		dat += "</table>"
+		if(convo.typing)
+			dat += "<i>[current_title] is typing...</i>"
 		dat += "<br>"
 		dat += "</h4>"
 		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
-		dat += "<a href='?src=[UID()];archive=[current_title]'>[pms[current_title].archived ? "Unarchive" : "Archive"]</a>"
+		dat += "<a href='?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
 		if(check_rights(R_ADMIN, FALSE, user))
 			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
 
