@@ -68,7 +68,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
 		appearance = MA
 
-	updateownghostimage()
+	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
+	ghostimage.overlays = overlays
+	ghostimage.dir = dir
+	ghostimage.appearance_flags |= KEEP_TOGETHER
+	ghostimage.alpha = alpha
+	appearance_flags |= KEEP_TOGETHER
+	ghost_images |= ghostimage
+
 	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
@@ -89,14 +96,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		updateallghostimages()
 	return ..()
 
-/mob/dead/observer/proc/updateownghostimage()
-	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
-	ghostimage.overlays = overlays
-	ghostimage.dir = dir
-	ghostimage.appearance_flags |= KEEP_TOGETHER
-	ghostimage.alpha = alpha
-	appearance_flags |= KEEP_TOGETHER
-	ghost_images |= ghostimage
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -136,7 +135,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	mannequin.equipOutfit(/datum/outfit/admin/tourist, visualsOnly = TRUE)
 	COMPILE_OVERLAYS(mannequin)
 	appearance = copy_appearance(mannequin)
-	updateownghostimage()
 	updateallghostimages()
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
 
@@ -414,7 +412,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in ghostteleportlocs
 	var/area/thearea = ghostteleportlocs[A]
-	
+
 	if(!thearea)
 		return
 
