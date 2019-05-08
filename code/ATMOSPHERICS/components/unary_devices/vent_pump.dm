@@ -10,6 +10,8 @@
 	desc = "Has a valve and pump attached to it"
 	use_power = IDLE_POWER_USE
 
+	layer = GAS_SCRUBBER_LAYER
+
 	can_unwrench = 1
 	var/open = 0
 
@@ -77,6 +79,10 @@
 	air_contents.volume = 1000
 
 /obj/machinery/atmospherics/unary/vent_pump/update_icon(var/safety = 0)
+	..()
+	
+	plane = FLOOR_PLANE
+
 	if(!check_icon_cache())
 		return
 

@@ -57,6 +57,8 @@
 		update_icon()
 
 /obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
+	..()
+	
 	if(flipped)
 		icon_state = "m"
 	else

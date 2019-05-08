@@ -38,14 +38,22 @@
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
 
+	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud(src)
+		update_sight()
 
 /datum/hud/New(mob/owner)
 	mymob = owner
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(mymob)
+
+	for(var/mytype in subtypesof(/obj/screen/plane_master))
+		var/obj/screen/plane_master/instance = new mytype()
+		plane_masters["[instance.plane]"] = instance
+		instance.backdrop(mymob)
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -83,14 +91,16 @@
 	nightvisionicon = null
 	devilsouldisplay = null
 
+	QDEL_LIST_ASSOC_VAL(plane_masters)
+
 	mymob = null
 	return ..()
 
 /datum/hud/proc/show_hud(version = 0)
 	if(!ismob(mymob))
-		return 0
+		return FALSE
 	if(!mymob.client)
-		return 0
+		return FALSE
 
 	mymob.client.screen = list()
 
@@ -162,13 +172,25 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
+	plane_masters_update()
+
+/datum/hud/proc/plane_masters_update()
+	// Plane masters are always shown to OUR mob, never to observers
+	for(var/thing in plane_masters)
+		var/obj/screen/plane_master/PM = plane_masters[thing]
+		PM.backdrop(mymob)
+		mymob.client.screen += PM
 
 /datum/hud/human/show_hud(version = 0)
-	..()
+	. = ..()
+	if(!.)
+		return
 	hidden_inventory_update()
 
 /datum/hud/robot/show_hud(version = 0)
-	..()
+	. = ..()
+	if(!.)
+		return
 	update_robot_modules_display()
 
 /datum/hud/proc/hidden_inventory_update()

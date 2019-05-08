@@ -178,7 +178,8 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
-
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return

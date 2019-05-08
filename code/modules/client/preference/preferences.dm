@@ -183,7 +183,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = TAB_CHAR
 
-		// OOC Metadata:
+	// OOC Metadata:
 	var/metadata = ""
 	var/slot_name = ""
 
@@ -452,6 +452,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
@@ -1919,22 +1920,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
 							parent.fps = clientfps
 
-/*
-				if("skin_style")
-					var/skin_style_name = input(user, "Select a new skin style") as null|anything in list("default1", "default2", "default3")
-					if(!skin_style_name) return
-*/
-
-/*					if("spawnpoint")
-					var/list/spawnkeys = list()
-					for(var/S in spawntypes)
-						spawnkeys += S
-					var/choice = input(user, "Where would you like to spawn when latejoining?") as null|anything in spawnkeys
-					if(!choice || !spawntypes[choice])
-						spawnpoint = "Arrivals Shuttle"
-						return
-					spawnpoint = choice */
-
 		else
 			switch(href_list["preference"])
 				if("publicity")
@@ -2078,6 +2063,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
+
+				if("ambientocclusion")
+					toggles ^= AMBIENT_OCCLUSION
+					if(parent && parent.screen && parent.screen.len)
+						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						PM.filters -= FILTER_AMBIENT_OCCLUSION
+						if(toggles & AMBIENT_OCCLUSION)
+							PM.filters += FILTER_AMBIENT_OCCLUSION
 
 	ShowChoices(user)
 	return 1

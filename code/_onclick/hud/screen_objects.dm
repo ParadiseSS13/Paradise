@@ -10,7 +10,7 @@
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = HUD_LAYER_SCREEN
-	plane = HUD_PLANE
+	plane = ABOVE_HUD_PLANE
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
@@ -47,7 +47,8 @@
 /obj/screen/drop
 	name = "drop"
 	icon_state = "act_drop"
-	layer = 19
+	layer = HUD_LAYER
+	plane = HUD_PLANE
 
 /obj/screen/drop/Click()
 	usr.drop_item_v()
@@ -143,8 +144,9 @@
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_resist"
-	layer = 19
-
+	layer = HUD_LAYER
+	plane = HUD_PLANE
+	
 /obj/screen/resist/Click()
 	if(isliving(usr))
 		var/mob/living/L = usr
@@ -327,7 +329,8 @@
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	var/list/object_overlays = list()
-	layer = 19
+	layer = HUD_LAYER
+	plane = HUD_PLANE
 
 /obj/screen/inventory/MouseEntered()
 	..()
@@ -417,7 +420,8 @@
 	return 1
 
 /obj/screen/swap_hand
-	layer = 19
+	layer = HUD_LAYER
+	plane = HUD_PLANE
 	name = "swap hand"
 
 /obj/screen/swap_hand/Click()

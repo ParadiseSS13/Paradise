@@ -7,7 +7,7 @@
 /obj/item/organ/internal/eyes/unathi
 	name = "unathi eyeballs"
 	icon = 'icons/obj/species_organs/unathi.dmi'
-	dark_view = 3
+	see_in_dark = 3
 
 /obj/item/organ/internal/heart/unathi
 	name = "unathi heart"
