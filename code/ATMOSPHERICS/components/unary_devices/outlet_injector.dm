@@ -2,7 +2,7 @@
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
 	use_power = IDLE_POWER_USE
-	layer = 3
+	layer = GAS_SCRUBBER_LAYER
 
 	can_unwrench = 1
 
@@ -38,6 +38,8 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
+	..()
+	
 	if(!powered())
 		icon_state = "off"
 	else

@@ -483,7 +483,7 @@
 "bm" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -1264,7 +1264,7 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/awaymission/centcomAway/maint)
 "dl" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swallc1";
@@ -1887,12 +1887,6 @@
 	icon_state = "floor"
 	},
 /area/awaymission/centcomAway/general)
-"eP" = (
-/turf/space,
-/area/awaycontent/a2{
-	has_gravity = 1;
-	name = "MO19 Research"
-	})
 "eQ" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall2";
@@ -3595,20 +3589,6 @@
 	dir = 4
 	},
 /area/awaymission/centcomAway/general)
-"iZ" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "ja" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -5805,8 +5785,8 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
-/area/space)
+/turf/simulated/shuttle/plating,
+/area/awaymission/centcomAway/thunderdome)
 "nV" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -5818,15 +5798,15 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
-/area/space)
+/turf/simulated/shuttle/plating,
+/area/awaymission/centcomAway/thunderdome)
 "nX" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
-/area/space)
+/turf/simulated/shuttle/plating,
+/area/awaymission/centcomAway/thunderdome)
 "nY" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
@@ -16520,7 +16500,7 @@ eO
 oa
 lb
 eF
-iZ
+fg
 eF
 lV
 mc
@@ -20660,7 +20640,7 @@ cc
 aa
 aa
 aa
-eP
+aa
 aa
 aa
 aa
@@ -20790,7 +20770,7 @@ cc
 aa
 aa
 aa
-eP
+aa
 aa
 aa
 aa

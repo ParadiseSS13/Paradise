@@ -5,7 +5,7 @@
 "ab" = (
 /obj/item/trash/cheesie,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ac" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -412,7 +412,7 @@
 "aT" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aU" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plating,
@@ -457,28 +457,28 @@
 	icon_state = "swall_s6";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bb" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall14";
 	icon_state = "swall14";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bc" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall12";
 	icon_state = "swall12";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bd" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_s10";
 	icon_state = "swall_s10";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "be" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall14";
@@ -503,7 +503,7 @@
 	icon_state = "swall7";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bj" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -513,12 +513,12 @@
 	icon_state = "swall_f9";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bk" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
-/area/space)
+/area/space/nearstation)
 "bl" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -528,14 +528,14 @@
 	icon_state = "swall_f5";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bm" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall11";
 	icon_state = "swall11";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bn" = (
 /obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -549,7 +549,7 @@
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
-/area/space)
+/area/space/nearstation)
 "bq" = (
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
@@ -572,7 +572,7 @@
 	icon_state = "swall_f10";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bt" = (
 /obj/machinery/light{
 	dir = 1;
@@ -589,7 +589,7 @@
 	icon_state = "swall_f6";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bv" = (
 /obj/machinery/light{
 	dir = 1;
@@ -608,21 +608,21 @@
 	icon_state = "swall_s5";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "by" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall13";
 	icon_state = "swall13";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bz" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_s9";
 	icon_state = "swall_s9";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "bA" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -793,7 +793,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bX" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -803,7 +803,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "bY" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -817,7 +817,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bZ" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -827,7 +827,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "ca" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -846,12 +846,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cb" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cc" = (
 /obj/machinery/camera{
 	c_tag = "Telecomms North Solars";
@@ -859,7 +859,7 @@
 	network = list("Telecomms")
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cd" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -868,7 +868,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ce" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -878,7 +878,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cf" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -892,7 +892,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -901,7 +901,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ch" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -909,7 +909,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ci" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -919,7 +919,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cj" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -931,7 +931,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ck" = (
 /obj/structure/grille,
 /obj/structure/cable{
@@ -954,7 +954,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cl" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -965,7 +965,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cm" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -976,10 +976,10 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cn" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "co" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -990,7 +990,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cp" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/tcomsat)
@@ -1006,7 +1006,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cs" = (
 /obj/structure/lattice,
 /turf/space,
@@ -1619,7 +1619,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "dP" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -1631,13 +1631,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dR" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -1646,7 +1646,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dS" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1704,7 +1704,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "dY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1720,7 +1720,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "ea" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -2043,7 +2043,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "eE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2064,7 +2064,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "eF" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2073,7 +2073,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "eG" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2151,7 +2151,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "eO" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2173,7 +2173,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "eP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2188,7 +2188,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "eQ" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/brute,
@@ -2334,7 +2334,7 @@
 	network = list("Telecomms")
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "fd" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2450,7 +2450,7 @@
 	network = list("Telecomms")
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "fo" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2464,7 +2464,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "fp" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/adv,
@@ -2491,7 +2491,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "fr" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2717,7 +2717,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "fJ" = (
 /obj/machinery/telecomms/bus/preset_one,
 /turf/simulated/floor/plasteel{
@@ -3481,7 +3481,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3790,7 +3790,7 @@
 /area/tcommsat/entrance)
 "ii" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "ij" = (
 /obj/structure/cable,
 /obj/machinery/power/terminal{
@@ -3845,7 +3845,7 @@
 	},
 /obj/machinery/power/tracker,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3860,7 +3860,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3871,7 +3871,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iw" = (
 /obj/machinery/computer/teleporter,
 /turf/simulated/floor/plating,
@@ -3895,7 +3895,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iA" = (
 /obj/structure/grille,
 /obj/structure/cable{
@@ -3917,7 +3917,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3932,7 +3932,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3952,7 +3952,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "iD" = (
 /obj/machinery/camera{
 	c_tag = "Telecomms South Solars";
@@ -3960,7 +3960,7 @@
 	network = list("Telecomms")
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "iF" = (
 /turf/simulated/wall/r_wall,
 /area/AIsattele)

@@ -930,7 +930,7 @@ var/list/slot_equipment_priority = list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+	if(!istype(A, /area/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -1362,11 +1362,21 @@ var/list/slot_equipment_priority = list( \
 /proc/faction_check(list/faction_A, list/faction_B, exact_match)
 	var/list/match_list
 	if(exact_match)
-		match_list = faction_A&faction_B //only items in both lists
+		match_list = faction_A & faction_B //only items in both lists
 		var/length = LAZYLEN(match_list)
 		if(length)
 			return (length == LAZYLEN(faction_A)) //if they're not the same len(gth) or we don't have a len, then this isn't an exact match.
 	else
-		match_list = faction_A&faction_B
+		match_list = faction_A & faction_B
 		return LAZYLEN(match_list)
 	return FALSE
+
+/mob/proc/update_sight()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+
+/mob/proc/sync_lighting_plane_alpha()
+	if(hud_used)
+		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		if (L)
+			L.alpha = lighting_alpha

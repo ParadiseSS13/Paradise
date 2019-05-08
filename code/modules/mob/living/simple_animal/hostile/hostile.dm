@@ -431,7 +431,7 @@
 		toggle_ai(AI_Z_OFF)
 		return
 
-	var/cheap_search = isturf(T) && !(T.z == 1) // The original check for SSmapping's station z level trait, unfortunately it isn't here.
+	var/cheap_search = isturf(T) && !is_station_level(T.z)
 	if(cheap_search)
 		tlist = ListTargetsLazy(T.z)
 	else

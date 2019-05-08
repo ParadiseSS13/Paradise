@@ -320,8 +320,9 @@ EVENT_DELAY_UPPER 15;45;70
 #EVENT_CUSTOM_START_MODERATE 30;45
 EVENT_CUSTOM_START_MAJOR 80;100
 
-## Strength of ambient star light. Set to 0 or less to turn off.
-STARLIGHT 2
+## Starlight for exterior walls and breaches. Uncomment for starlight!
+## This is disabled by default to make testing quicker, should be enabled on production servers or testing servers messing with lighting
+#STARLIGHT
 
 ## Player rerouting stuff
 ## If not 0, players can be rerouted to an overflow server after a certain cap is reached

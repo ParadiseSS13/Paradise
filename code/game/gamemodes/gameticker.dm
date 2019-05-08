@@ -423,7 +423,6 @@ var/round_start_time = 0
 			declare_completion()
 
 		spawn(50)
-			callHook("roundend")
 
 			if(mode.station_was_nuked)
 				world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")

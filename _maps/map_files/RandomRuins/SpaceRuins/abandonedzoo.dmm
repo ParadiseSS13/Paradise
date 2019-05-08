@@ -315,7 +315,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -356,7 +356,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aR" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -754,7 +754,7 @@
 "bK" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "bL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -781,7 +781,7 @@
 "bP" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bQ" = (
 /obj/machinery/shieldwallgen{
 	active = 2;
@@ -803,7 +803,7 @@
 	},
 /obj/structure/disposaloutlet,
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "bS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -828,11 +828,11 @@
 "bV" = (
 /obj/machinery/shieldwallgen,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bW" = (
 /obj/item/shard,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 
 (1,1,1) = {"
 aa

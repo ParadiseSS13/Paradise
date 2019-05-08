@@ -4,10 +4,10 @@
 /area/space)
 "ab" = (
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "ac" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/space/nearstation)
 "ad" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,

@@ -56,7 +56,7 @@
 	if (AM)
 		thing_to_check = list(AM)
 	for(var/thing in thing_to_check)
-		if (istype(thing, /atom/movable/lighting_overlay) || istype(thing, /atom/movable/overlay))
+		if(istype(thing, /atom/movable/lighting_object) || istype(thing, /atom/movable/overlay))
 			continue
 		if(isobj(thing))
 			var/obj/O = thing

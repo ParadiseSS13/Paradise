@@ -13,12 +13,6 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"ab" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
-/area/space)
 "ac" = (
 /turf/simulated/mineral/random/labormineral,
 /area/awaycontent/a7{
@@ -6998,7 +6992,10 @@
 	dir = 9;
 	icon_state = "warnwhite"
 	},
-/area/space)
+/area/awaycontent/a5{
+	has_gravity = 1;
+	name = "UO45 Research"
+	})
 "lc" = (
 /obj/structure/sink{
 	pixel_y = 25
@@ -27794,10 +27791,10 @@ aa
 aa
 "}
 (72,1,1) = {"
-ab
-ab
-ab
-ab
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -27944,10 +27941,10 @@ aa
 aa
 "}
 (73,1,1) = {"
-ab
-ab
-ab
-ab
+aa
+aa
+aa
+aa
 aa
 aa
 aa

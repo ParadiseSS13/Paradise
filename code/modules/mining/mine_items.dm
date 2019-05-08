@@ -286,8 +286,9 @@
 /area/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
-	requires_power = 0
-	has_gravity = 1
+	requires_power = FALSE
+	has_gravity = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"

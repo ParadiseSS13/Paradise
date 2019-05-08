@@ -41,7 +41,7 @@
 "ak" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "al" = (
 /obj/machinery/door/window/westright,
 /turf/simulated/floor/plasteel/airless,
@@ -256,10 +256,10 @@
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
 	},
-/area/space)
+/area/space/nearstation)
 "ba" = (
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "bb" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/plasteel/airless,

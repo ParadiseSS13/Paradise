@@ -387,15 +387,24 @@
 	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
 		if(checkvalid(user, affecting)) //wut
 			var/mob/living/carbon/attacker = user
+			
+			if(affecting.buckled)
+				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
+				return
+
 			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
 
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
+
+			if(affecting.buckled)
+				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
+				return
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
 
-			affecting.loc = user
+			affecting.forceMove(user)
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 

@@ -7,6 +7,7 @@
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	layer = LATTICE_LAYER //under pipes
+	plane = FLOOR_PLANE
 	var/number_of_rods = 1
 	canSmoothWith = list(/obj/structure/lattice,
 						/turf/simulated/floor,
