@@ -130,7 +130,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/job_indicator_type = null
 
 	/* Tables */
-	var/list/regex = list()
+	// var/list/regex = list()
 
 	/* Arrays */
 	var/list/firewall = list()
@@ -144,7 +144,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	)
 
 	// This is used to sanitize topic data
-	var/list/tables = list("regex")
+	// var/list/tables = list("regex")
 	var/list/arrays = list("firewall")
 
 	// This tells the datum what is safe to serialize and what's not. It also applies to deserialization.
@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"toggle_gibberish" = "bool",
 		"toggle_honk" = "bool",
 		"setting_language" = "string",
-		"regex" = "table",
+		// "regex" = "table",
 		"firewall" = "array"
 	)
 
@@ -203,7 +203,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	job_indicator_type = initial(job_indicator_type)
 
 	/* Tables */
-	regex = list()
+	// regex = list()
 
 	/* Arrays */ 
 	firewall = list()
@@ -245,7 +245,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	switch(sanitize_method)
 		if("bool")
 			return variable ? TRUE : FALSE
-		if("table", "array")
+		// if("table", "array")
+		if("array")
 			if(!islist(variable))
 				return list()
 			// Insert html filtering for the regexes here if you're boring
@@ -350,14 +351,14 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 					S.speaking = GLOB.all_languages[setting_language]
 
 	// Regex replacements
-	if(islist(regex) && regex.len > 0)
-		for(var/datum/multilingual_say_piece/S in message_pieces)
-			var/new_message = S.message
-			for(var/reg in regex)
-				var/replacePattern = pencode_to_html(regex[reg])
-				var/regex/start = regex("[reg]", "gi")
-				new_message = start.Replace(new_message, replacePattern)
-			S.message = new_message
+	// if(islist(regex) && regex.len > 0)
+	// 	for(var/datum/multilingual_say_piece/S in message_pieces)
+	// 		var/new_message = S.message
+	// 		for(var/reg in regex)
+	// 			var/replacePattern = pencode_to_html(regex[reg])
+	// 			var/regex/start = regex("[reg]", "gi")
+	// 			new_message = start.Replace(new_message, replacePattern)
+	// 		S.message = new_message
 
 	// Make sure the message is valid after we tinkered with it, otherwise reject it
 	if(signal.data["message"] == "" || !signal.data["message"])
@@ -398,29 +399,29 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		log_action(user, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 
 	// Tables
-	if(href_list["create_row"])
-		if(href_list["table"] && href_list["table"] in tables)
-			if(requires_unlock[href_list["table"]] && !source.unlocked)
-				return
-			var/new_key = input(user, "Provide a key for the new row.", "New Row") as text|null
-			if(!new_key)
-				return
-			var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
-			if(new_value == null)
-				return
-			var/list/table = vars[href_list["table"]]
-			table[new_key] = new_value
-			to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
-			log_action(user, "updated [href_list["table"]] - new row [new_key] -> [new_value]")
+	// if(href_list["create_row"])
+	// 	if(href_list["table"] && href_list["table"] in tables)
+	// 		if(requires_unlock[href_list["table"]] && !source.unlocked)
+	// 			return
+	// 		var/new_key = input(user, "Provide a key for the new row.", "New Row") as text|null
+	// 		if(!new_key)
+	// 			return
+	// 		var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
+	// 		if(new_value == null)
+	// 			return
+	// 		var/list/table = vars[href_list["table"]]
+	// 		table[new_key] = new_value
+	// 		to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
+	// 		log_action(user, "updated [href_list["table"]] - new row [new_key] -> [new_value]")
 
-	if(href_list["delete_row"])
-		if(href_list["table"] && href_list["table"] in tables)
-			if(requires_unlock[href_list["table"]] && !source.unlocked)
-				return
-			var/list/table = vars[href_list["table"]]
-			table.Remove(href_list["delete_row"])
-			to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
-			log_action(user, "updated [href_list["table"]] - removed row [href_list["delete_row"]]")
+	// if(href_list["delete_row"])
+	// 	if(href_list["table"] && href_list["table"] in tables)
+	// 		if(requires_unlock[href_list["table"]] && !source.unlocked)
+	// 			return
+	// 		var/list/table = vars[href_list["table"]]
+	// 		table.Remove(href_list["delete_row"])
+	// 		to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
+	// 		log_action(user, "updated [href_list["table"]] - removed row [href_list["delete_row"]]")
 
 	// Arrays
 	if(href_list["create_item"])
@@ -470,7 +471,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"tab_hack.html" = 'html/nttc/dist/tab_hack.html',
 		"tab_filtering.html" = 'html/nttc/dist/tab_filtering.html',
 		"tab_firewall.html" = 'html/nttc/dist/tab_firewall.html',
-		"tab_regex.html" = 'html/nttc/dist/tab_regex.html',
+		// "tab_regex.html" = 'html/nttc/dist/tab_regex.html',
 		"uiTitleFluff.png" = 'html/nttc/dist/uiTitleFluff.png'
 	)
 
