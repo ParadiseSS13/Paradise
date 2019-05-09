@@ -485,13 +485,3 @@
 			morgue = get(C.loc, /obj/structure/morgue)
 			if(morgue)
 				morgue.update()
-
-/hook/mob_login/proc/update_morgue(var/client/client, var/mob/mob)
-	//Update morgues on login
-	mob.update_morgue()
-	return 1
-
-/hook/mob_logout/proc/update_morgue(var/client/client, var/mob/mob)
-	//Update morgues on logout
-	mob.update_morgue()
-	return 1

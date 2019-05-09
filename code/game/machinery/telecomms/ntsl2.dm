@@ -9,6 +9,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
  * as well as allowing users to save and load configurations.
  */
 /datum/nttc_configuration
+	var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
 	// ALL OF THE JOB CRAP
 	// Dict of all jobs and their department color classes
 	var/all_jobs = list(
@@ -225,7 +226,11 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
-/datum/nttc_configuration/proc/nttc_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
+/datum/nttc_configuration/proc/nttc_deserialize(text, obj/machinery/computer/telecomms/traffic/source, var/ckey)
+	if(word_blacklist.Find(text)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: [ckey] attempted to upload an NTTC configuration containing JS abusable tags")
+		return FALSE
 	var/list/var_list = json_decode(text)
 	for(var/variable in var_list)
 		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
@@ -236,6 +241,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			variable_value = nttc_sanitize(variable_value, sanitize_method)
 			if(variable_value != null)
 				vars[variable] = variable_value
+	return TRUE
 
 // Sanitizing user input. Don't blindly trust the JSON.
 /datum/nttc_configuration/proc/nttc_sanitize(variable, sanitize_method)
@@ -409,6 +415,11 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	// 		var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
 	// 		if(new_value == null)
 	// 			return
+	// 		if(word_blacklist.Find(new_value)) //uh oh, they tried to be naughty
+	// 			message_admins("<span class='danger'>EXPLOIT WARNING: </span> [user.ckey] attempted to add a NTTC regex row containing JS abusable tags!")
+	// 			log_admin("EXPLOIT WARNING: [user.ckey] attempted to add a NTTC regex row containing JS abusable tags")
+	// 			to_chat(user, "<span class='biggerdanger'>ERROR: Regex contained bad strings. Upload cancelled.</span>")
+	// 			return
 	// 		var/list/table = vars[href_list["table"]]
 	// 		table[new_key] = new_value
 	// 		to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
@@ -451,8 +462,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	if(href_list["load_config"])
 		var/json = input(user, "Provide configuration JSON below.", "Load Config", nttc_serialize()) as message
-		nttc_deserialize(json, source)
-		log_action(user, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)
+		if(nttc_deserialize(json, source, user.ckey))
+			log_action(user, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)
 
 	user << output(list2params(list(nttc_serialize())), "[window_id].browser:updateConfig")
 

@@ -6,7 +6,7 @@
 	desc = "For connecting portables devices related to atmospherics control."
 
 	can_unwrench = 1
-	layer = 2.4
+	layer = GAS_FILTER_LAYER
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
@@ -18,6 +18,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/portables_connector/update_icon()
+	..()
 	icon_state = "connector"
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()

@@ -438,9 +438,6 @@
 		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
-		if(get_area(mobloc) == /area/security/armoury/gamma)
-			to_chat(user, "A strange energy repels you!")
-			mobloc = originalloc
 		animation.loc = mobloc
 		steam.location = mobloc
 		steam.start()
