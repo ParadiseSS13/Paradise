@@ -402,3 +402,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
+
+## Stickyban all brazilian and portugues
+#BR_OPERATION
