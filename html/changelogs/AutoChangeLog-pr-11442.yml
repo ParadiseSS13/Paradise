@@ -1,0 +1,6 @@
+author: "EvadableMoxie"
+delete-after: True
+changes: 
+  - rscadd: "Added the Nanotrasen Hospital Vessel Asclepius, able to be deployed by admins."
+  - tweak: "Admin shuttle now requires ERT clearance instead of admin clearance."
+  - tweak: "Admin shuttle now has a navigation computer and tiny fans at the airlock."

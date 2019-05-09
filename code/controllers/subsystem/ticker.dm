@@ -106,8 +106,6 @@ SUBSYSTEM_DEF(ticker)
 				declare_completion()
 
 			spawn(50)
-				callHook("roundend")
-
 				if(mode.station_was_nuked)
 					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else

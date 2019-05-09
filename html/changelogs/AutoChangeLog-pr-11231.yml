@@ -1,6 +1,0 @@
-author: "Arkatos and Paradise community:"
-delete-after: True
-changes: 
-  - rscadd: "Added Tip of the round to a pre-game lobby"
-  - rscadd: "Added Show Custom Tip admin verb"
-  - rscadd: "Added Give Random Tip OOC verb"

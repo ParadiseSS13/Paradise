@@ -13,12 +13,12 @@
 	burn_state = LAVA_PROOF
 
 /obj/machinery/atmospherics/unary/heat_exchanger/update_icon()
+	..()
+
 	if(node)
 		icon_state = "intact"
 	else
 		icon_state = "exposed"
-
-	return
 
 /obj/machinery/atmospherics/unary/heat_exchanger/atmos_init()
 	if(!partner)

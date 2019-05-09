@@ -39,7 +39,7 @@
 "ag" = (
 /obj/spacepod/random,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ah" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -57,7 +57,7 @@
 "aj" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ak" = (
 /turf/simulated/mineral/random/high_chance,
 /area/mine/dangerous/unexplored)
@@ -104,7 +104,7 @@
 	icon_state = "pwall";
 	dir = 1
 	},
-/area/space)
+/area/mine/abandoned)
 "ar" = (
 /turf/simulated/floor/plating/airless,
 /turf/simulated/shuttle/wall{
@@ -143,7 +143,7 @@
 	tag = "icon-floor2";
 	icon_state = "floor2"
 	},
-/area/space)
+/area/mine/abandoned)
 "aw" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -156,7 +156,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/mine/abandoned)
 "ax" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/shuttle/floor{
@@ -172,7 +172,7 @@
 	tag = "icon-floor2";
 	icon_state = "floor2"
 	},
-/area/space)
+/area/mine/abandoned)
 "az" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -223,7 +223,7 @@
 	icon_state = "pwall";
 	dir = 5
 	},
-/area/space)
+/area/mine/abandoned)
 "aH" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless{
@@ -236,7 +236,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aJ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -252,7 +252,7 @@
 	icon_state = "pwall";
 	dir = 6
 	},
-/area/space)
+/area/mine/abandoned)
 "aL" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -260,7 +260,7 @@
 	icon_state = "pwall";
 	dir = 9
 	},
-/area/space)
+/area/mine/abandoned)
 "aM" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -305,7 +305,7 @@
 /obj/item/stack/rods,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aS" = (
 /obj/item/shard,
 /obj/item/stack/rods,
@@ -411,7 +411,7 @@
 /obj/item/shard,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bj" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -1564,13 +1564,13 @@
 /area/mine/abandoned)
 "eg" = (
 /turf/simulated/mineral/random/labormineral,
-/area/space)
+/area/space/nearstation)
 "eh" = (
 /turf/simulated/wall/r_wall,
 /area/mine/dangerous/explored)
 "ei" = (
 /turf/simulated/mineral/random,
-/area/space)
+/area/space/nearstation)
 "ej" = (
 /obj/structure/girder/displaced,
 /turf/simulated/floor/plating/airless{
@@ -2494,7 +2494,7 @@
 	d2 = 4
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "gb" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -2526,7 +2526,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "ge" = (
 /obj/machinery/computer/shuttle/labor/one_way,
 /obj/structure/cable{
@@ -3099,10 +3099,10 @@
 /area/mine/west_outpost)
 "hu" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hv" = (
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "hw" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/structure/window/reinforced{
@@ -4315,12 +4315,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
-"kh" = (
-/turf/simulated/floor/plating/airless{
-	icon_state = "asteroidwarning";
-	dir = 5
-	},
-/area/space)
 "ki" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating/airless/asteroid,
@@ -4598,7 +4592,7 @@
 	icon_state = "asteroidwarning";
 	dir = 4
 	},
-/area/space)
+/area/mine/dangerous/explored)
 "kR" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -4774,7 +4768,7 @@
 /area/mine/living_quarters)
 "ll" = (
 /turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/area/space/nearstation)
 "lm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
@@ -5368,12 +5362,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
-"mx" = (
-/turf/simulated/floor/plating/airless{
-	icon_state = "asteroidwarning";
-	dir = 6
-	},
-/area/space)
 "my" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -6702,7 +6690,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "pj" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -52246,11 +52234,11 @@ bV
 bV
 bV
 bV
-ll
-kh
+bV
+dP
 kQ
-mx
-ll
+dK
+bV
 mQ
 nj
 nj
@@ -52503,11 +52491,11 @@ bV
 bV
 bV
 bV
-ll
-ll
-ll
-ll
-ll
+bV
+bV
+bV
+bV
+bV
 bV
 bV
 bV

@@ -33,7 +33,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/boost = 0
 	bloodcrawl = BLOODCRAWL_EAT
 

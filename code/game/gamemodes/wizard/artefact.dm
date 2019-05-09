@@ -637,9 +637,9 @@ var/global/list/multiverse = list()
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
-
-	if(!M.mind || !M.client)
-		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
+		
+	if((!M.mind || !M.client) && !M.grab_ghost())
+		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
 	check_spooky()//clean out/refresh the list
@@ -652,6 +652,7 @@ var/global/list/multiverse = list()
 	else
 		M.set_species(/datum/species/skeleton)
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
+		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
 		equip_skeleton(M)
 	spooky_scaries |= M
@@ -732,9 +733,8 @@ var/global/list/multiverse = list()
 
 	H.update_dna()
 	H.update_body()
-
+	H.grab_ghost()
 	H.revive()
-
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)

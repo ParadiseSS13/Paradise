@@ -306,7 +306,6 @@
 			O.Namepick()
 
 			feedback_inc("cyborg_birth",1)
-			callHook("borgify", list(O))
 
 			forceMove(O)
 			O.robot_suit = src
