@@ -5,7 +5,7 @@
 "aab" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aac" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall12";
@@ -696,7 +696,7 @@
 "abM" = (
 /obj/structure/lattice,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "abN" = (
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
@@ -714,7 +714,7 @@
 	},
 /obj/structure/lattice,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "abQ" = (
 /turf/simulated/shuttle/wall{
 	dir = 4;
@@ -2670,7 +2670,7 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "afn" = (
 /obj/structure/chair{
 	dir = 8
@@ -2937,7 +2937,7 @@
 /area/security/podbay)
 "afO" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "afP" = (
 /obj/machinery/door/window{
 	dir = 4;
@@ -3037,7 +3037,7 @@
 "afX" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "afY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -6541,11 +6541,11 @@
 /obj/structure/grille,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "alw" = (
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "alx" = (
 /obj/item/broken_bottle,
 /turf/simulated/shuttle/floor4/vox,
@@ -6955,7 +6955,7 @@
 /obj/structure/grille/broken,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ami" = (
 /obj/structure/chair{
 	dir = 4
@@ -7402,7 +7402,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "amX" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
@@ -8851,7 +8851,7 @@
 "apo" = (
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "app" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -9371,7 +9371,7 @@
 	icon_state = "brokengrille"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aqq" = (
 /obj/item/soap,
 /turf/simulated/floor/plating,
@@ -13088,7 +13088,7 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "avN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -13973,7 +13973,7 @@
 /obj/structure/lattice,
 /obj/item/stack/cable_coil,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "axo" = (
 /obj/structure/chair{
 	dir = 4
@@ -14544,7 +14544,7 @@
 /obj/structure/lattice,
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ayj" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -15172,7 +15172,7 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "azc" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -15296,7 +15296,7 @@
 "azo" = (
 /obj/item/clothing/mask/gas/clown_hat,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "azp" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom";
@@ -16451,7 +16451,7 @@
 "aBm" = (
 /obj/item/stack/rods,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aBn" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -16538,11 +16538,11 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "aBy" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "aBz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -16741,7 +16741,7 @@
 /obj/item/paper/crumpled,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "aBU" = (
 /obj/machinery/light_construct/small{
 	dir = 8
@@ -16788,7 +16788,7 @@
 "aBZ" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "aCa" = (
 /obj/machinery/ai_status_display{
 	pixel_x = 32
@@ -18256,7 +18256,7 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "aEN" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -21774,7 +21774,7 @@
 /area/maintenance/electrical)
 "aMr" = (
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "aMs" = (
 /turf/simulated/wall,
 /area/hallway/secondary/entry)
@@ -22951,7 +22951,7 @@
 /obj/structure/lattice,
 /obj/structure/closet,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aOY" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -29941,7 +29941,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bco" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/wood,
@@ -31590,6 +31590,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
+"bfm" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "bfn" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -31690,6 +31696,18 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar)
+"bfu" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	icon_state = "door_locked";
+	id_tag = "ai_outer";
+	locked = 1;
+	name = "MiniSat External Access";
+	req_access = null;
+	req_access_txt = "75;13"
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "bfv" = (
 /obj/machinery/computer/mob_battle_terminal/blue,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -32656,7 +32674,7 @@
 	amount = 10
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bho" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -32764,6 +32782,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/library)
+"bhy" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	icon_state = "door_locked";
+	id_tag = "ai_inner";
+	locked = 1;
+	name = "MiniSat External Access";
+	req_access = null;
+	req_access_txt = "75;13"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "bhz" = (
 /obj/machinery/photocopier{
 	toner = 0
@@ -33673,6 +33706,31 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar)
+"bjb" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1379;
+	id_tag = "ai_pump"
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1379;
+	id_tag = "ai_sensor";
+	pixel_x = 12;
+	pixel_y = 25
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1379;
+	id_tag = "ai_airlock";
+	pixel_x = 0;
+	pixel_y = 25;
+	req_access_txt = "0";
+	tag_airpump = "ai_pump";
+	tag_chamber_sensor = "ai_sensor";
+	tag_exterior_door = "ai_outer";
+	tag_interior_door = "ai_inner"
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "bjc" = (
 /obj/machinery/alarm{
 	pixel_y = 23
@@ -34525,7 +34583,23 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
+"bkJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9;
+	icon_state = "intact"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "ai_airlock";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25;
+	req_access_txt = "0"
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "bkK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -58148,7 +58222,7 @@
 	pixel_y = 32
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cbH" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -68259,7 +68333,7 @@
 "csj" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "csk" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -71734,7 +71808,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cxZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/cobweb,
@@ -72641,7 +72715,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "czF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74131,7 +74205,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cCt" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
@@ -80402,7 +80476,7 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "cNF" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -81408,7 +81482,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "cPx" = (
 /obj/structure/cable,
 /turf/space,
@@ -81834,7 +81908,7 @@
 	level = 2
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cQq" = (
 /obj/structure/cable{
 	icon_state = "0-2";
@@ -83289,7 +83363,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cSF" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -83297,7 +83371,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cSG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine{
@@ -83328,7 +83402,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cSJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83357,7 +83431,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cSN" = (
 /obj/structure/chair/stool,
 /obj/structure/cable/yellow{
@@ -83780,7 +83854,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cTy" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -83851,7 +83925,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cTE" = (
 /obj/machinery/power/tesla_coil{
 	anchored = 1
@@ -83862,7 +83936,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cTF" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -83875,7 +83949,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cTG" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Shuttle";
@@ -84026,7 +84100,7 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "cTS" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
@@ -84295,7 +84369,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cUm" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/cable{
@@ -84586,7 +84660,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cUN" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4;
@@ -84611,7 +84685,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cUP" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -84640,7 +84714,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cUR" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -84679,7 +84753,7 @@
 	level = 2
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cUW" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
@@ -85986,6 +86060,14 @@
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"cXm" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/turbine)
 "cXn" = (
 /obj/machinery/camera{
 	c_tag = "Departure Lounge West";
@@ -86476,6 +86558,14 @@
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
+"cYg" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8;
+	name = "Mix to MiniSat"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/turbine)
 "cYh" = (
 /obj/structure/chair{
 	dir = 4
@@ -86654,11 +86744,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "cYy" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/machinery/meter,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cYz" = (
@@ -86669,7 +86757,7 @@
 	},
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "cYA" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -87045,7 +87133,7 @@
 	level = 2
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cZi" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
@@ -87536,7 +87624,7 @@
 	dir = 10
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dae" = (
 /obj/structure/door_assembly/door_assembly_mai,
 /turf/simulated/floor/plating,
@@ -87861,7 +87949,6 @@
 	pixel_x = 27
 	},
 /obj/machinery/suit_storage_unit/engine,
-/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "daL" = (
@@ -88000,7 +88087,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dbb" = (
 /turf/simulated/floor/engine{
 	carbon_dioxide = 0;
@@ -88347,7 +88434,7 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dbJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -88422,7 +88509,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dbQ" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -88467,7 +88554,7 @@
 /obj/structure/grille,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dbU" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/fire/firefighter,
@@ -88501,7 +88588,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dbY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -88524,13 +88611,13 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dca" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dcb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
@@ -88580,7 +88667,7 @@
 	d2 = 2
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dcg" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -88920,7 +89007,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dcT" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
@@ -89249,11 +89336,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"ddC" = (
+/obj/structure/transit_tube{
+	icon_state = "E-W-Pass"
+	},
+/turf/space,
+/turf/simulated/floor/plating/airless/catwalk,
+/area/space/nearstation)
 "ddD" = (
 /obj/item/wrench,
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "ddE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -89270,7 +89364,7 @@
 	pixel_y = 32
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ddG" = (
 /obj/machinery/field/generator,
 /turf/simulated/floor/plating,
@@ -89315,11 +89409,32 @@
 	},
 /turf/space,
 /area/space)
+"ddM" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ai_airlock";
+	name = "exterior access button";
+	pixel_x = 25;
+	pixel_y = 25;
+	req_access_txt = "75;13"
+	},
+/turf/space,
+/turf/simulated/floor/plating/airless/catwalk,
+/area/space/nearstation)
 "ddN" = (
 /obj/structure/cable,
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
 /area/solar/starboard)
+"ddO" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 6;
+	level = 2
+	},
+/turf/space,
+/turf/simulated/floor/plating/airless/catwalk,
+/area/space/nearstation)
 "ddP" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -89444,7 +89559,7 @@
 	tag = "icon-catwalk0";
 	icon_state = "catwalk0"
 	},
-/area/space)
+/area/space/nearstation)
 "ddY" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -89590,7 +89705,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dem" = (
 /turf/simulated/floor/engine{
 	carbon_dioxide = 50000;
@@ -90688,7 +90803,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dgF" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall1";
@@ -90733,7 +90848,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dgK" = (
 /obj/effect/spawner/lootdrop/trade_sol/sec,
 /obj/structure/closet,
@@ -90877,7 +90992,7 @@
 /obj/structure/lattice,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dhd" = (
 /obj/machinery/computer/shuttle/engineering,
 /turf/simulated/shuttle/floor{
@@ -90930,6 +91045,17 @@
 /obj/effect/spawner/lootdrop/trade_sol/largeitem,
 /turf/simulated/shuttle/floor,
 /area/shuttle/trade/sol)
+"dhj" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 2;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dhk" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -91095,6 +91221,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"dhz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dhA" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	frequency = 1441;
@@ -91332,6 +91465,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"dhZ" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dia" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -91393,6 +91532,15 @@
 	dir = 1
 	},
 /area/maintenance/fsmaint2)
+"dii" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dij" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -91486,6 +91634,12 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/asmaint)
+"dis" = (
+/obj/machinery/portable_atmospherics/scrubber,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dit" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -91500,6 +91654,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/atmos)
+"diu" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 6;
+	level = 2
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "div" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -91553,6 +91715,19 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
+"diz" = (
+/obj/machinery/light/small,
+/obj/machinery/camera/motion{
+	c_tag = "Mini Satellite Antechamber North";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "diA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -91569,70 +91744,111 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"diB" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Foyer";
+	req_access_txt = "75"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "diC" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/turret_protected/aisat_interior)
 "diD" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"diE" = (
-/obj/structure/chair{
+/obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/rack,
+/obj/item/screwdriver,
+/obj/item/radio,
+/obj/machinery/light_switch{
+	pixel_y = 27
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"diE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
 "diF" = (
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/turret_protected/aisat_interior)
+"diG" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "diH" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "diI" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
+"diJ" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/door_control{
+	desc = "A remote control-switch for the engineering security doors.";
+	id = "teledoor";
+	name = "AI Satellite Teleport Shutters Control";
+	pixel_x = 0;
+	pixel_y = 25;
+	req_access_txt = "17;75"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 2;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"diJ" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/space,
-/area/space)
+/area/turret_protected/aisat_interior)
 "diK" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -91641,34 +91857,86 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "diL" = (
-/obj/structure/window/reinforced{
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "teledoor";
+	name = "AI Satellite Teleport Access"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"diM" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/machinery/hologram/holopad,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
+"diN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/turret_protected/aisat_interior)
 "diO" = (
-/obj/structure/window/reinforced,
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior North";
-	dir = 1;
-	network = list("SS13","MiniSat")
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "grimy"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/turret_protected/aisat_interior)
 "diP" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
+"diQ" = (
+/obj/machinery/bluespace_beacon,
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "diR" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
@@ -91693,21 +91961,21 @@
 	level = 2
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "diV" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	level = 2
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "diW" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "diX" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -91717,14 +91985,14 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "diY" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "diZ" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -91734,7 +92002,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dja" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -91744,21 +92012,26 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "djb" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "djc" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
+"djd" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "dje" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -91873,13 +92146,31 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"djp" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Teleporter Room";
+	req_access_txt = "17;75"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "djq" = (
 /obj/machinery/field/generator{
 	anchored = 1;
 	state = 2
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "djr" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -91946,7 +92237,7 @@
 /obj/structure/lattice,
 /obj/item/wirecutters,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "djz" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -91987,15 +92278,33 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"djE" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+"djD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
+"djE" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/space/nearstation)
 "djF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -92014,13 +92323,73 @@
 	icon_state = "hydrofloor"
 	},
 /area/hydroponics)
+"djG" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/chair,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "djH" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
+"djI" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"djJ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "djK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92059,6 +92428,26 @@
 "djQ" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
+"djR" = (
+/obj/machinery/light/small,
+/obj/machinery/turretid/stun{
+	control_area = "\improper AI Satellite Antechamber";
+	name = "AI Antechamber Turret Control";
+	pixel_x = 0;
+	pixel_y = -24;
+	req_access_txt = "75"
+	},
+/obj/machinery/camera/motion{
+	c_tag = "Mini Satellite Antechamber Center";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "djS" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -92074,7 +92463,7 @@
 /obj/structure/lattice,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -92135,6 +92524,32 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/central/nw)
+"dka" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Antechamber";
+	req_access_txt = "75"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"dkb" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluecorners"
+	},
+/area/turret_protected/aisat_interior)
 "dkc" = (
 /obj/machinery/power/emitter,
 /obj/machinery/camera{
@@ -92145,14 +92560,84 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "dkd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5;
+/obj/machinery/light_switch{
+	pixel_y = 27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluecorners"
+	},
+/area/turret_protected/aisat_interior)
+"dke" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/item/radio/intercom{
+	dir = 4;
+	name = "station intercom (General)";
+	pixel_x = 28
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluecorners"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dkf" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4;
+	initialize_directions = 11;
 	level = 1
 	},
-/turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"dkg" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Antechamber South";
+	dir = 4
+	},
+/obj/machinery/turretid/stun{
+	control_area = "\improper AI Satellite Atmospherics";
+	name = "AI Satellite Atmospherics Turret Control";
+	pixel_x = -28;
+	pixel_y = 0;
+	req_access_txt = "75"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluecorners"
+	},
+/area/turret_protected/aisat_interior)
 "dkh" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
@@ -92358,19 +92843,19 @@
 "dkz" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dkA" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dkB" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dkC" = (
 /obj/item/crowbar,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dkD" = (
 /obj/machinery/newscaster{
 	pixel_y = 32
@@ -92398,17 +92883,76 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dkH" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
 	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/turretid/stun{
+	control_area = "\improper AI Satellite Service";
+	name = "AI Satellite Service Bay Turret Control";
+	pixel_x = 24;
+	pixel_y = 0;
+	req_access_txt = "75"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/ai)
+/area/turret_protected/aisat_interior)
+"dkI" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dkJ" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/landmark{
+	name = "JoinLateCyborg"
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	name = "station intercom (General)";
+	pixel_x = -28
+	},
+/obj/machinery/computer/cryopod/robot{
+	pixel_x = -30;
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluecorners"
+	},
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dkK" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dkL" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -92425,6 +92969,31 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar)
+"dkM" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkN" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -92480,6 +93049,34 @@
 	oxygen = 100000
 	},
 /area/atmos)
+"dkU" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkV" = (
 /turf/simulated/floor/engine{
 	name = "air floor";
@@ -92488,33 +93085,82 @@
 	},
 /area/atmos)
 "dkW" = (
-/obj/machinery/porta_turret{
-	dir = 8
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Atmospherics";
+	req_access_txt = "75"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/ai)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dkX" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkY" = (
-/obj/machinery/camera{
-	c_tag = "Mini Satellite AI Chamber North";
-	dir = 2;
-	network = list("SS13","MiniSat")
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 2;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 20
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/ai)
+/area/turret_protected/aisat_interior)
 "dkZ" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -92531,53 +93177,103 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dlb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/ai)
+/area/turret_protected/aisat_interior)
 "dlc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 2;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 20
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Service Bay";
+	req_access_txt = "75"
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/ai)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dld" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dle" = (
 /obj/machinery/the_singularitygen{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dlf" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dlg" = (
 /obj/machinery/the_singularitygen/tesla{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dlh" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1450;
@@ -92608,13 +93304,27 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlk" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/ai)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dll" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -92627,6 +93337,30 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/turbine)
+"dlo" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dlp" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -92634,6 +93368,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"dlq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dlr" = (
 /obj/structure/disposalpipe/junction{
 	icon_state = "pipe-y"
@@ -92641,12 +93385,50 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"dlu" = (
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
+"dls" = (
+/mob/living/simple_animal/bot/floorbot{
+	on = 0
 	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dlt" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/turretid/stun{
+	control_area = "\improper AI Satellite Hallway";
+	name = "AI Chamber Hallway Turret Control";
+	pixel_x = 24;
+	pixel_y = -24;
+	req_access_txt = "75"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"dlu" = (
+/obj/machinery/porta_turret{
+	dir = 1
+	},
+/obj/structure/sign/securearea{
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/turret_protected/aisat_interior)
 "dlv" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine{
@@ -92722,19 +93504,19 @@
 "dlE" = (
 /obj/item/weldingtool,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dlF" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dlG" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dlH" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dlI" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/binary/pump/on,
@@ -92745,17 +93527,21 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlK" = (
-/obj/machinery/status_display{
-	dir = 4;
-	layer = 4;
-	pixel_x = 32
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dlL" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
@@ -92791,22 +93577,52 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dlR" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
+/mob/living/simple_animal/bot/cleanbot{
+	on = 0
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluecorners"
 	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dlS" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "MiniSat Maintenance";
+	req_access_txt = "75"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dlT" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"dlU" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Chamber Hallway";
+	req_access_txt = "75"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dlV" = (
 /obj/machinery/atmospherics/binary/pump{
 	on = 1
@@ -92860,7 +93676,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dlZ" = (
 /obj/structure/chair{
 	dir = 8
@@ -92887,39 +93703,56 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dmd" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
-	},
-/area/turret_protected/ai)
-"dmf" = (
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "AI Core Door";
-	req_access = null;
-	req_access_txt = "16"
-	},
-/obj/machinery/turretid/lethal{
-	check_synth = 1;
-	name = "AI Chamber Turret Control";
-	pixel_x = -5;
-	pixel_y = -24;
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "MiniSat Maintenance";
 	req_access_txt = "75"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 6
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/area/turret_protected/ai)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dme" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmf" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmg" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/area/turret_protected/ai)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -92950,6 +93783,16 @@
 /obj/item/radio,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
+"dmk" = (
+/obj/structure/sign/securearea{
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dml" = (
 /obj/structure/disposalpipe/junction{
 	tag = "icon-pipe-j2 (EAST)";
@@ -92978,7 +93821,7 @@
 "dmo" = (
 /turf/space,
 /turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/area/space/nearstation)
 "dmp" = (
 /obj/structure/table,
 /obj/item/weldingtool,
@@ -93001,16 +93844,25 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dms" = (
-/obj/machinery/alarm{
-	pixel_y = 24
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/obj/machinery/camera{
-	c_tag = "Mini Satellite AI Chamber South";
-	dir = 2;
-	network = list("SS13","MiniSat")
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmt" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -93037,20 +93889,13 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "dmw" = (
-/obj/machinery/power/apc{
-	aidisabled = 0;
-	cell_type = 5000;
-	dir = 1;
-	name = "AI Core APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 2;
-	icon_state = "0-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmx" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -93104,9 +93949,18 @@
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
+"dmB" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dmC" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dmD" = (
 /turf/simulated/wall/r_wall/coated,
-/area/space)
+/area/space/nearstation)
 "dmE" = (
 /obj/machinery/door/poddoor{
 	id_tag = "auxiliaryturbinevent";
@@ -93118,34 +93972,78 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dmG" = (
-/obj/machinery/porta_turret{
-	dir = 8
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = 21
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmH" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+/obj/structure/sign/securearea{
+	pixel_x = -32;
+	pixel_y = 0
 	},
-/area/turret_protected/ai)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmJ" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 10
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmK" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "MiniSat Maintenance";
+	req_access_txt = "75"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmL" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/ai)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmM" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/table/glass,
@@ -93156,7 +94054,7 @@
 "dmN" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dmO" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -93170,160 +94068,209 @@
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "dmP" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"dmQ" = (
-/obj/structure/table/reinforced,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/cigbutt/cigarbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"dmR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"dmS" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/blue{
-	pixel_x = 5
-	},
-/obj/item/pen/multi,
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"dmU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/ai_status_display{
-	pixel_y = -32
-	},
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"dmV" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"dmW" = (
-/obj/structure/transit_tube{
-	tag = "icon-W-SE";
-	icon_state = "W-SE"
-	},
-/turf/space,
-/area/space)
-"dmY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"dnc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmQ" = (
+/obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "1-8";
+	tag = ""
 	},
-/mob/living/simple_animal/bot/secbot/pingsky,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9;
+	pixel_y = 0
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
 	})
+"dmR" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "MiniSat Maintenance";
+	req_access_txt = "75"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmS" = (
+/obj/machinery/alarm{
+	dir = 4;
+	icon_state = "alarm0";
+	pixel_x = -22;
+	pixel_y = 0
+	},
+/obj/machinery/camera/motion{
+	c_tag = "AI Satellite Hallway";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmT" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmU" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmV" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/item/radio/intercom/locked/ai_private{
+	broadcasting = 1;
+	listening = 0;
+	pixel_x = -29;
+	pixel_y = -29
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dmW" = (
+/obj/structure/transit_tube,
+/turf/space,
+/area/space/nearstation)
+"dmX" = (
+/obj/structure/transit_tube{
+	icon_state = "E-W-Pass"
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"dmY" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "MiniSat Chamber Observation";
+	req_access_txt = "75"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"dmZ" = (
+/obj/structure/transit_tube,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dna" = (
+/obj/structure/transit_tube,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dnb" = (
+/obj/structure/transit_tube/station,
+/obj/structure/transit_tube_pod{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dnc" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/r_wall,
+/area/turret_protected/ai)
 "dnd" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dne" = (
 /obj/structure/cable,
 /obj/machinery/power/turbine,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "dnf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11;
 	level = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6;
-	level = 1
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "darkbluecorners"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/ai)
 "dng" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
@@ -93331,41 +94278,55 @@
 /turf/simulated/floor/plating/airless,
 /area/maintenance/asmaint)
 "dnh" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/firealarm{
 	dir = 4;
-	level = 1
+	pixel_x = 24
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "darkbluecorners"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/ai)
 "dni" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"dnj" = (
+/obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "1-2";
+	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
+	initialize_directions = 11;
 	level = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"dnj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/ai)
 "dnk" = (
 /obj/machinery/atm{
 	pixel_x = 32;
@@ -93374,27 +94335,35 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "dnl" = (
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"dnm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 2;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 20
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/turret_protected/ai)
+"dnm" = (
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "AI Core";
+	req_access_txt = "16"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
 "dnn" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -93402,36 +94371,53 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"dno" = (
+/obj/structure/transit_tube{
+	dir = 8;
+	icon_state = "Block"
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dnp" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/structure/disposaloutlet,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "dnq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/turret_protected/ai)
 "dnr" = (
-/obj/machinery/computer/message_monitor,
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -23
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/turret_protected/ai)
 "dns" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
@@ -93443,63 +94429,121 @@
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "dnt" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9;
+	pixel_y = 0
 	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
 "dnu" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
 /area/crew_quarters/kitchen)
+"dnv" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dnw" = (
-/obj/structure/chair/office/dark{
-	dir = 8
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/turret_protected/ai)
 "dnx" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/turbine)
 "dny" = (
-/obj/machinery/microwave{
-	pixel_y = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
-/obj/structure/table/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/turret_protected/ai)
+"dnz" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"dnA" = (
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
 "dnB" = (
-/obj/machinery/light/small{
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Fore-Port";
-	dir = 2;
-	network = list("SS13","tcomm")
-	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/plasteel{
+	dir = 5;
 	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/server)
+/area/turret_protected/ai)
 "dnC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -93531,6 +94575,20 @@
 	},
 /turf/simulated/floor/grass,
 /area/hydroponics)
+"dnF" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
 "dnG" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -93697,6 +94755,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"dnT" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dnU" = (
 /obj/machinery/light{
 	dir = 4;
@@ -93707,6 +94773,26 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
+"dnV" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/securearea{
+	pixel_x = 0;
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dnW" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dnX" = (
 /obj/machinery/airlock_sensor{
 	frequency = 1450;
@@ -93751,15 +94837,51 @@
 	},
 /area/toxins/xenobiology)
 "dnZ" = (
-/obj/structure/window/reinforced,
-/turf/space,
-/area/space)
+/turf/simulated/wall,
+/area/turret_protected/aisat_interior)
 "doa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/toxins/xenobiology)
+"dob" = (
+/obj/machinery/light/small,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"doc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/turret_protected/aisat_interior)
+"dod" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/turret_protected/aisat_interior)
+"doe" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/securearea{
+	pixel_x = 0;
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9;
+	tag = "icon-intact-y (NORTHWEST)"
+	},
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "dof" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -93838,6 +94960,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
+"dol" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 8;
+	frequency = 1441;
+	id = "co2_in";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/turret_protected/aisat_interior)
 "dom" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1450;
@@ -93967,19 +95098,22 @@
 	},
 /area/shuttle/syndicate)
 "doy" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/machinery/light/small{
+	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/structure/table,
+/obj/item/folder,
+/obj/item/phone{
+	pixel_x = -3;
+	pixel_y = 3
 	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/turret_protected/aisat_interior)
 "doz" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -94018,7 +95152,7 @@
 	tag = "icon-catwalk0";
 	icon_state = "catwalk0"
 	},
-/area/space)
+/area/space/nearstation)
 "doF" = (
 /turf/simulated/floor/plating,
 /area/toxins/launch{
@@ -94034,6 +95168,10 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/starboard)
+"doH" = (
+/obj/machinery/teleport/hub,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
 "doI" = (
 /obj/structure/chair{
 	dir = 4
@@ -94078,12 +95216,18 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doN" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/machinery/computer/station_alert,
+/obj/machinery/alarm{
+	dir = 4;
+	icon_state = "alarm0";
+	pixel_x = -22
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "doV" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -94091,89 +95235,724 @@
 	dir = 2
 	},
 /area/shuttle/pod_4)
-"doY" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+"doW" = (
+/obj/structure/cable{
+	icon_state = "0-4";
+	d2 = 4
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"dpd" = (
-/obj/structure/window/reinforced{
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"doY" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
+"dpb" = (
+/obj/machinery/computer/teleporter,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dpd" = (
+/turf/simulated/wall/r_wall,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
 	})
 "dpe" = (
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/meter,
+/turf/simulated/wall/r_wall,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
 	})
 "dpf" = (
 /turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
+/area/turret_protected/aisat_interior)
+"dpg" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/machinery/teleport/station,
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat_interior)
+"dph" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"dpl" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/rack,
+/obj/item/crowbar/red,
+/obj/item/wrench,
+/obj/item/clothing/head/welding,
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpm" = (
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpp" = (
+/turf/simulated/wall/r_wall,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dpq" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dpu" = (
+/obj/structure/rack,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 0;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/turret_protected/aisat_interior)
+"dpw" = (
+/obj/machinery/light/small,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"dpx" = (
+/obj/structure/table,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 0;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
+"dpA" = (
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dpC" = (
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpD" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 2;
+	name = "Air Out"
+	},
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpE" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 2;
+	name = "Mix to MiniSat"
+	},
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpF" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpK" = (
+/obj/machinery/cryopod/robot,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dpL" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/clothing/head/welding,
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
 	})
 "dpM" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	icon_state = "alarm0";
+	pixel_x = -22
+	},
+/obj/machinery/space_heater,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpN" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpO" = (
+/obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dpV" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/machinery/alarm{
+	dir = 8;
+	icon_state = "alarm0";
+	pixel_x = 24
+	},
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/multitool,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dpZ" = (
+/obj/structure/cable{
+	icon_state = "0-4";
+	d2 = 4
+	},
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24;
+	shock_proof = 0
+	},
+/turf/simulated/floor/plating,
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dqk" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/port_gen/pacman,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plating,
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dqm" = (
+/turf/simulated/wall/r_wall,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqn" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqp" = (
+/turf/simulated/wall,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqq" = (
+/obj/machinery/porta_turret{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
+"dqv" = (
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqw" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqx" = (
+/obj/machinery/porta_turret{
+	dir = 1
+	},
+/obj/item/radio/intercom/locked/ai_private{
+	broadcasting = 1;
+	listening = 0;
+	pixel_y = -29
+	},
+/obj/structure/sign/securearea{
+	pixel_x = -32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluecorners"
+	},
+/area/turret_protected/aisat_interior)
+"dqA" = (
+/obj/structure/rack,
+/obj/item/crowbar/red,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqD" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqE" = (
+/obj/machinery/porta_turret{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
+"dqL" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/space,
+/area/aisat)
+"dqM" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/obj/machinery/porta_turret{
+	dir = 4;
+	installation = /obj/item/gun/energy/gun;
+	name = "hallway turret"
+	},
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqO" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/obj/machinery/porta_turret{
+	dir = 8;
+	installation = /obj/item/gun/energy/gun;
+	name = "hallway turret"
+	},
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqQ" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/space,
+/area/aisat)
+"dqT" = (
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dqX" = (
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"drf" = (
+/turf/simulated/wall/r_wall,
+/area/turret_protected/ai)
+"drg" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/r_wall,
+/area/turret_protected/ai)
+"drh" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/bluegrid,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"dro" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/multi,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"drq" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"drt" = (
+/obj/structure/table/reinforced,
+/obj/item/folder,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"dru" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
+"drv" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/turret_protected/ai)
+"dry" = (
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drA" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27;
+	pixel_y = 0
+	},
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"drB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"drE" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"drG" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_x = -32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drI" = (
+/obj/machinery/porta_turret{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"drM" = (
+/obj/machinery/porta_turret{
+	dir = 8
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drN" = (
+/turf/simulated/wall,
+/area/turret_protected/ai)
+"drO" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drP" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/obj/machinery/door/window/southright{
+	dir = 1;
+	name = "AI Core Door";
+	req_access = null;
+	req_access_txt = "16"
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drQ" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/lattice,
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"dpO" = (
-/obj/structure/lattice,
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"dpY" = (
-/obj/structure/window/reinforced,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"dqm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
+/obj/machinery/turretid/lethal{
+	check_synth = 1;
+	name = "AI Chamber Turret Control";
+	pixel_x = 5;
+	pixel_y = -24;
+	req_access_txt = "75"
+	},
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_x = -8;
+	pixel_y = -24
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drR" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/area/turret_protected/ai)
-"dqp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/camera/motion{
+	c_tag = "AI Core";
+	dir = 1;
+	network = list("SS13","MiniSat");
+	start_active = 1
+	},
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 2;
+	name = "south bump Important Area";
+	pixel_y = -24
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"dqv" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 1
+"drS" = (
+/obj/item/radio/intercom/custom{
+	pixel_y = 25
 	},
-/area/turret_protected/ai)
-"dqw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
+/obj/item/radio/intercom/private{
+	pixel_y = -28
 	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"dqx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"dqA" = (
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /obj/effect/landmark{
 	name = "tripai"
 	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drT" = (
+/obj/item/radio/intercom/custom{
+	pixel_x = -28;
+	pixel_y = -10
+	},
+/obj/item/radio/intercom/private{
+	pixel_x = 28;
+	pixel_y = -10
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/obj/machinery/requests_console{
+	department = "AI";
+	departmentType = 5;
+	name = "AI Requests Console";
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/obj/effect/landmark/start{
+	name = "AI"
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"drV" = (
 /obj/item/radio/intercom/custom{
 	pixel_y = 25
 	},
@@ -94183,299 +95962,111 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
+/obj/effect/landmark{
+	name = "tripai"
+	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"dqX" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/blue{
-	pixel_x = 5
-	},
-/obj/item/pen/multi,
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"drf" = (
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai)
-"drg" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hatch{
-	name = "MiniSat Antechamber";
-	req_access_txt = "75"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"drh" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"dro" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/tcomfoyer)
-"drq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -25
-	},
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
-	},
-/mob/living/simple_animal/bot/cleanbot{
-	on = 0
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"drv" = (
-/obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/radio/off{
-	pixel_y = 4
-	},
-/obj/item/screwdriver{
-	pixel_y = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"dry" = (
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"drB" = (
-/obj/structure/filingcabinet{
-	pixel_x = 3
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drE" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecoms Control Room"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"drG" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"drI" = (
-/obj/machinery/telecomms/bus/preset_one,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"drK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drM" = (
-/obj/machinery/light/small,
-/obj/item/folder,
-/obj/item/folder,
+"drX" = (
+/obj/structure/lattice,
 /obj/machinery/camera{
-	c_tag = "Telecoms - Control Room";
-	dir = 1;
-	network = list("SS13","tcomm")
-	},
-/obj/structure/table/wood,
-/obj/item/pen/multi,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drN" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecoms Server Room"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tcommsat/server)
-"drO" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+	c_tag = "AI Satellite Exterior South West";
 	dir = 8;
-	on = 1;
-	scrub_N2O = 0;
-	scrub_Toxins = 0
+	network = list("SS13","MiniSat")
 	},
-/obj/structure/cable/yellow{
+/turf/space,
+/area/turret_protected/ai)
+"dsa" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/space,
+/area/turret_protected/ai)
+"dsb" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"dsc" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"dsd" = (
+/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
 	},
-/obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drP" = (
-/obj/item/twohanded/required/kirbyplants{
-	tag = "icon-plant-21";
-	icon_state = "plant-21"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drQ" = (
-/obj/machinery/light/small,
-/obj/item/storage/box/donkpockets,
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drR" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"drT" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/tcommsat/server)
-"drV" = (
-/obj/machinery/light/small{
+/turf/simulated/wall,
+/area/turret_protected/ai)
+"dse" = (
+/obj/machinery/power/terminal{
+	icon_state = "term";
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Fore-Starboard";
+/obj/machinery/ai_slipper{
+	icon_state = "motion0"
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"dsg" = (
+/obj/machinery/camera/motion{
+	c_tag = "AI Core South";
 	dir = 2;
-	network = list("SS13","tcomm")
+	network = list("SS13","MiniSat")
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
+"dsh" = (
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 5;
 	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
+	tag = "icon-vault (NORTHEAST)"
 	},
-/area/tcommsat/server)
-"dsb" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"dsd" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
+/area/turret_protected/ai)
 "dsi" = (
-/obj/machinery/telecomms/processor/preset_two,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
 	},
-/area/tcommsat/server)
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/ai)
+"dsj" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	dir = 2;
+	network = list("SS13","MiniSat")
+	},
+/turf/space,
+/area/turret_protected/ai)
 "dsl" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
@@ -94853,355 +96444,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
-"dBQ" = (
-/obj/machinery/status_display{
-	density = 0;
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/machinery/teleport/station,
-/turf/simulated/floor/plasteel{
-	tag = "icon-vault (EAST)";
-	icon_state = "vault";
-	dir = 4
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"dEa" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space)
-"dEb" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"dGW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 4;
-	icon_state = "left";
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"dSl" = (
-/obj/machinery/status_display{
-	density = 0;
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"eaZ" = (
-/obj/item/folder,
-/obj/item/folder,
-/obj/structure/table/glass,
-/obj/item/pen/multi,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"ebS" = (
-/obj/machinery/computer/telecomms/traffic,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"eeP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"eij" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ems" = (
-/obj/machinery/telecomms/server/presets/medical,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"eqZ" = (
-/obj/machinery/telecomms/server/presets/science,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"exq" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"exE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"eBX" = (
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	name = "Telecoms Camera Monitor";
-	network = list("tcomm");
-	pixel_x = 26
-	},
-/obj/machinery/computer/telecomms/monitor{
-	network = "tcommsat"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"fdQ" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"ffx" = (
-/obj/machinery/telecomms/receiver/preset_left,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"foP" = (
-/obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/machinery/light/small,
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 8;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_x = 9;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"fEQ" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "AI Satellite Antechamber APC";
-	pixel_x = 25
-	},
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1;
-	initialize_directions = 11
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"fSi" = (
-/obj/machinery/hologram/holopad,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"fTt" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hatch{
-	name = "MiniSat Teleporter Room";
-	req_access_txt = "17;75"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"ghQ" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plating/airless,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"gtU" = (
-/obj/structure/table/wood,
-/obj/machinery/ai_status_display{
-	pixel_y = 31
-	},
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"gHK" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"gJn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"gKx" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
-	},
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 2;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 20
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/space/nearstation)
 "gMZ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -95220,90 +96463,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
-"gQu" = (
-/obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
 "gQL" = (
 /obj/machinery/computer/card,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"gYU" = (
-/obj/machinery/telecomms/server/presets/security,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"hct" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/bluespace_beacon,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"hdR" = (
-/obj/machinery/telecomms/processor/preset_one,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"hii" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"hlg" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"hng" = (
-/obj/structure/transit_tube{
-	tag = "icon-D-SE";
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space)
 "hsy" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -95325,241 +96490,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
-"hvQ" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"hyz" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
-/turf/simulated/wall/r_wall,
-/area/space)
-"hBT" = (
-/obj/machinery/door/airlock/external{
-	name = "MiniSat External Access";
-	req_access = null;
-	req_access_txt = "75;13"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"hZf" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"hZE" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
-	pixel_x = 29
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"ifz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"igi" = (
-/obj/machinery/alarm/server{
-	dir = 4;
-	pixel_x = -22
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Aft-Port";
-	dir = 4;
-	network = list("SS13","tcomm")
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"igX" = (
-/obj/structure/transit_tube{
-	tag = "icon-S-NE";
-	icon_state = "S-NE"
-	},
-/turf/space,
-/area/space)
-"iiI" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"ijW" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior South East";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ilk" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ilI" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"iod" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"iox" = (
-/obj/machinery/light,
-/obj/machinery/computer/station_alert,
-/obj/machinery/computer/security/telescreen{
-	dir = 1;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"iuq" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "MiniSat Maintenance";
-	req_access_txt = "75"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
-"iAX" = (
-/obj/structure/transit_tube{
-	tag = "icon-N-SW";
-	icon_state = "N-SW"
-	},
-/turf/space,
-/area/space)
+/area/space/nearstation)
 "iJf" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/door/poddoor{
@@ -95586,26 +96522,6 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/launch{
 	name = "Toxins Launch Room"
-	})
-"iNJ" = (
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "Telecoms Control Room APC";
-	pixel_x = 26
-	},
-/obj/machinery/computer/telecomms/server{
-	network = "tcommsat"
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
 	})
 "jnJ" = (
 /obj/machinery/light/spot{
@@ -95636,829 +96552,19 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"jor" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "MiniSat Maintenance";
-	req_access_txt = "75"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"jpZ" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 2;
-	name = "MiniSat Maintenance APC";
-	pixel_y = -24
-	},
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"jvg" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
-	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior West";
-	dir = 8;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"jAc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Cyborg"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"jEY" = (
-/obj/machinery/ai_status_display{
-	pixel_y = -32
-	},
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"jFs" = (
-/obj/structure/transit_tube{
-	tag = "icon-D-SW";
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space)
-"jVZ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"kbV" = (
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
-/turf/space,
-/area/space)
-"kfF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
-	dir = 1;
-	network = list("SS13","MiniSat")
-	},
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	frequency = 1459;
-	name = "Station Intercom (General)";
-	pixel_x = 5;
-	pixel_y = -26
-	},
-/obj/effect/landmark{
-	name = "JoinLateCyborg"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"ksE" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"ktk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"kxT" = (
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
-/obj/machinery/atmospherics/unary/tank/air,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"kCx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -25
-	},
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 4;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_x = -9;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"kIE" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/space)
-"kKs" = (
-/turf/simulated/wall/r_wall,
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"kNr" = (
-/obj/machinery/telecomms/bus/preset_two,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"kNY" = (
-/obj/effect/landmark{
-	name = "tripai"
-	},
-/obj/item/radio/intercom/custom{
-	pixel_y = 25
-	},
-/obj/item/radio/intercom/private{
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
-"lmy" = (
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"lqR" = (
-/obj/machinery/telecomms/receiver/preset_right,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"ltS" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"lyw" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
-/obj/machinery/camera{
-	c_tag = "Mini Satellite Entrance";
-	dir = 2;
-	network = list("SS13","MiniSat")
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"lBI" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"lCo" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"lCz" = (
-/obj/machinery/telecomms/hub/preset,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"lDy" = (
-/obj/structure/transit_tube{
-	icon_state = "S-NW"
-	},
-/turf/space,
-/area/space)
-"lNc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/r_wall,
-/area/tcommsat/server)
-"lXF" = (
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer"
-	},
-/obj/item/radio/intercom{
-	frequency = 1459;
-	name = "Station Intercom (General)";
-	pixel_x = 5;
-	pixel_y = -26
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"maO" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"mcb" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9;
-	icon_state = "intact"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"mmv" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"mzP" = (
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/machinery/status_display{
-	density = 0;
-	layer = 4;
-	pixel_y = 31
-	},
-/obj/item/folder/blue,
-/obj/item/pen/multi,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"mEY" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"mLL" = (
-/obj/structure/window/reinforced,
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "AI Satellite Exterior APC";
-	pixel_y = -24
-	},
-/obj/machinery/light/small,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"mNz" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"mPa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5;
-	level = 1
-	},
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen{
-	dir = 4;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
-	pixel_x = -29
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"mQA" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"mRX" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"mVs" = (
-/obj/machinery/telecomms/server/presets/supply,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"nhG" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	on = 1
-	},
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"nrF" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"nEQ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"nHu" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/light_switch{
-	pixel_x = -23
-	},
-/obj/machinery/computer/cryopod/robot{
-	pixel_y = -28
-	},
-/obj/machinery/cryopod/robot,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"nIX" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"nJR" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"nLs" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1;
-	initialize_directions = 11;
-	level = 1
-	},
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
-	name = "AI Antechamber Turret Control";
-	pixel_x = 24;
-	req_access_txt = "75"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
+/area/space/nearstation)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
 /turf/space,
-/area/space)
-"nQJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"nVP" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"obM" = (
-/obj/machinery/light_switch{
-	pixel_x = -23
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 1
-	},
-/area/turret_protected/ai)
-"oej" = (
-/obj/machinery/telecomms/server/presets/engineering,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"ohE" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"oio" = (
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "Telecoms Server Room APC";
-	pixel_x = 25
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Aft-Starboard";
-	dir = 8;
-	network = list("SS13","tcomm")
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"oni" = (
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_x = 24;
-	pixel_y = -24
-	},
-/obj/machinery/requests_console{
-	department = "AI";
-	departmentType = 5;
-	name = "AI Requests Console";
-	pixel_x = 32;
-	pixel_y = 32
-	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -32;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/turret_protected/ai)
-"opq" = (
-/turf/simulated/wall/r_wall,
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"opR" = (
-/obj/machinery/status_display{
-	dir = 4;
-	layer = 4;
-	pixel_x = -32
-	},
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"orM" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 2;
-	frequency = 1443;
-	icon_state = "on";
-	id = "air_in";
-	on = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"oBg" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"oDq" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"oIz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"oTd" = (
-/obj/structure/transit_tube{
-	icon_state = "S-NW"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/space/nearstation)
 "oZV" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -96470,87 +96576,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"pbW" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/structure/transit_tube{
-	icon_state = "Block";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"pbZ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior South East 2";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"pcV" = (
-/turf/simulated/wall/r_wall,
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"pmM" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ptu" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ptD" = (
-/obj/machinery/telecomms/server/presets/command,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "pwN" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -96562,108 +96587,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"pFN" = (
-/obj/machinery/telecomms/server/presets/common,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"pRG" = (
-/obj/machinery/telecomms/processor/preset_four,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"pWF" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior North-West";
-	dir = 8;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"pXm" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
 /turf/space,
-/area/space)
-"qbZ" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"qfq" = (
-/obj/machinery/hologram/holopad,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"qfL" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"qgD" = (
-/obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/space/nearstation)
 "qgG" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -96675,189 +96604,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"qjJ" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"qjZ" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"qnb" = (
-/obj/machinery/telecomms/bus/preset_four,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"qun" = (
-/obj/item/radio/intercom{
-	broadcasting = 0;
-	listening = 1;
-	name = "Station Intercom (General)";
-	pixel_y = 20
-	},
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 2;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 20
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"quq" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"qHC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"qKI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 0
-	},
-/obj/item/multitool,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
-/area/space)
-"qWH" = (
-/turf/simulated/wall/r_wall,
-/area/turret_protected/tcomfoyer)
-"qZM" = (
-/obj/structure/transit_tube{
-	tag = "icon-D-NE";
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space)
-"reo" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"rjH" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"rtW" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"rvV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ryn" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"rAU" = (
-/obj/structure/transit_tube{
-	tag = "icon-D-SW";
-	icon_state = "D-SW"
-	},
-/obj/structure/window/reinforced,
-/turf/space,
-/area/space)
-"rCF" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/turf/space,
-/area/space)
+/area/space/nearstation)
 "rEw" = (
 /obj/machinery/computer/shuttle/admin{
 	name = "NTV Argos shuttle console"
@@ -96866,72 +96616,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"rHY" = (
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite AI Chamber";
-	dir = 2;
-	network = list("SS13","MiniSat");
-	start_active = 1
-	},
-/obj/machinery/door/window/southright{
-	dir = 4;
-	name = "AI Core Door";
-	req_access = null;
-	req_access_txt = "16"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
-	},
-/area/turret_protected/ai)
-"rJq" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/machinery/computer/teleporter,
-/turf/simulated/floor/plasteel{
-	tag = "icon-vault (EAST)";
-	icon_state = "vault";
-	dir = 4
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"rND" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/turf/space,
-/area/space)
-"rQw" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
-	},
-/obj/machinery/camera/motion{
-	c_tag = "AI Satellite Exterior South East 2";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
 "rSv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -96940,74 +96624,6 @@
 	},
 /turf/space,
 /area/shuttle/administration)
-"rSN" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"rTw" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"rUE" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"rWG" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/light_switch{
-	pixel_x = 23
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 8;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_x = 9;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
 "rYq" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -97019,305 +96635,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"rYZ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"sch" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/space)
-"sfe" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"sqo" = (
-/obj/structure/window/reinforced,
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"sDJ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tcommsat/server)
-"sJe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "AI Satellite Teleporter APC";
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"sPo" = (
-/turf/simulated/wall/r_wall,
-/area/tcommsat/server)
-"sVe" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"sWP" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"sZs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/hologram/holopad,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"tdM" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"tkk" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/space,
-/area/space)
-"tBU" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"tCe" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	external_pressure_bound = 101;
-	on = 1;
-	pressure_checks = 1
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"tEs" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
-	},
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
-	},
-/obj/machinery/camera/motion{
-	c_tag = "AI Satellite Exterior South West";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"tGK" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"tKO" = (
-/obj/machinery/teleport/hub,
-/turf/simulated/floor/plasteel{
-	tag = "icon-vault (EAST)";
-	icon_state = "vault";
-	dir = 4
-	},
-/area/turret_protected/tcomfoyer{
-	name = "\improper MiniSat Teleporter Foyer"
-	})
-"tMM" = (
-/obj/machinery/telecomms/bus/preset_three,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"tOf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5;
-	level = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"tUD" = (
-/obj/machinery/power/terminal{
-	icon_state = "term";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"ueu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/hologram/holopad,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"ueO" = (
-/obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ukD" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
-/turf/space,
-/area/space)
-"ulX" = (
-/obj/structure/transit_tube{
-	tag = "icon-D-NW";
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space)
-"uml" = (
-/obj/structure/transit_tube/station{
-	icon_state = "closed";
-	dir = 4
-	},
-/obj/structure/transit_tube_pod,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"ums" = (
-/obj/structure/window/reinforced,
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"uwr" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "uBM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -97326,10 +96649,6 @@
 	},
 /turf/space,
 /area/shuttle/administration)
-"uCL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai)
 "uDK" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (NORTHEAST)";
@@ -97337,596 +96656,21 @@
 	dir = 5
 	},
 /turf/space,
-/area/space)
-"uJe" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"uJv" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"uKN" = (
-/obj/machinery/door/window/eastright{
-	dir = 4;
-	name = "MiniSat Walkway Access";
-	req_access_txt = "13;75"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"veA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"vqi" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"vqj" = (
-/obj/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"vra" = (
-/obj/structure/transit_tube{
-	tag = "icon-N-SE";
-	icon_state = "N-SE"
-	},
-/turf/space,
-/area/space)
-"vrK" = (
-/obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/turf/simulated/floor/plating/airless,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"vrX" = (
-/obj/machinery/light_switch{
-	pixel_y = 28
-	},
-/obj/structure/showcase{
-	density = 0;
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	dir = 2;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 20
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/space/nearstation)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
-"vva" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"vvx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"vvY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"vHn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"vIB" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"vID" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S-Pass"
-	},
-/turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
-/area/space)
-"vJT" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	external_pressure_bound = 101.325;
-	on = 1;
-	pressure_checks = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"vJW" = (
-/obj/machinery/door_control{
-	id = "AI Chamber Entrance Shutters";
-	name = "AI Chamber Entrance Shutters Control";
-	pixel_x = -23;
-	pixel_y = -23
-	},
-/obj/machinery/door_control{
-	id = "AI Core Shutters";
-	name = "AI Core Shutters Control";
-	pixel_x = 23;
-	pixel_y = -23
-	},
-/obj/item/radio/intercom/custom{
-	pixel_x = -28;
-	pixel_y = -10
-	},
-/obj/item/radio/intercom/private{
-	pixel_x = 28;
-	pixel_y = -10
-	},
-/obj/item/radio/intercom{
-	pixel_y = -25
-	},
-/obj/effect/landmark/start{
-	name = "AI"
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"vQl" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Maintenance";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
-/obj/machinery/light_switch{
-	pixel_x = -23
-	},
-/obj/machinery/ai_slipper{
-	icon_state = "motion0"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/tcomeast{
-	name = "\improper MiniSat East Wing"
-	})
-"vSj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"wee" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"wvt" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Telecoms Admin";
-	departmentType = 5;
-	name = "Telecoms RC";
-	pixel_y = -30
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 6
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"wBs" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "AI Core Shutters";
-	name = "AI Chamber Entrance Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/turret_protected/ai)
-"wBS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"wCI" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"wHP" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S-Pass"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"wNk" = (
-/obj/machinery/light/small,
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Aft";
-	dir = 1;
-	network = list("SS13","tcomm")
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/ntnet_relay,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"wSl" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"wUb" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "AI Chamber Entrance Shutters";
-	name = "AI Chamber Entrance Shutters";
-	opacity = 0
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_x = -25
-	},
-/obj/machinery/door/airlock/highsecurity{
-	icon_state = "door_locked";
-	locked = 1;
-	name = "AI Chamber";
-	req_access_txt = "16"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
-"xam" = (
-/obj/structure/transit_tube{
-	tag = "icon-D-NE";
-	icon_state = "D-NE"
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space)
-"xrb" = (
-/obj/machinery/telecomms/server/presets/service,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"xsH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	tag = "icon-bulb1 (WEST)";
-	icon_state = "bulb1";
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	pixel_x = -23
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Antechamber";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
-"xvk" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"xwv" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior East";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"xyW" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (Telecoms)";
-	pixel_y = 30
-	},
-/obj/structure/table/wood,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/cigbutt/cigarbutt{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
+/area/space/nearstation)
 "xAw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
-"xBI" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/camera/motion{
-	c_tag = "AI Satellite Exterior South";
-	network = list("SS13","RD","AIUpload")
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"xGS" = (
-/obj/machinery/telecomms/processor/preset_three,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"xHj" = (
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
-	},
-/turf/space,
-/area/space)
-"xLw" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior North-East";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
-"xMh" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/space)
-"xPV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai)
+/area/space/nearstation)
 "xWg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (SOUTHEAST)";
@@ -97934,7 +96678,7 @@
 	dir = 6
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yeP" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -130822,8 +129566,8 @@ aaa
 aaa
 aaa
 aaa
-dmo
-dmo
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -131069,20 +129813,20 @@ doz
 doV
 dcq
 aaa
-hng
-igX
-ukD
-ukD
-wHP
-ukD
-wHP
-ukD
-ukD
-ukD
-vID
-vID
-vra
-qZM
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -131325,24 +130069,24 @@ aaa
 aaa
 aaa
 aaa
-hng
-kbV
-ulX
-aaa
-aaa
-aab
-aaa
-aab
 aaa
 aaa
 aaa
-dmo
-dmo
-jFs
-xHj
-xam
-uwr
-uwr
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -131581,26 +130325,26 @@ aaa
 aaa
 aaa
 aaa
-hng
-kbV
-ulX
 aaa
 aaa
 aaa
-aab
-aaa
-aab
 aaa
 aaa
-dnZ
-hBT
-hBT
-kIE
-rAU
-oTd
-uml
-pbW
-kIE
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -131831,38 +130575,38 @@ dmo
 aab
 aaa
 dmW
-qZM
-aaa
-aaa
-aaa
-aaa
-aaa
-hng
-kbV
-ulX
-aaa
-aaa
-aaa
 aaa
 aab
 aaa
-aab
-alw
-alw
-hyz
-tCe
-qbZ
-hyz
-aMr
-lyw
-sfe
-mLL
-aMr
-alw
-alw
-alw
-alw
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -132087,39 +130831,39 @@ cQZ
 dmo
 aab
 aaa
-jFs
-lDy
-ukD
-ukD
-ukD
-ukD
-ukD
-iAX
-ulX
+dmW
 aaa
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
+aab
 aaa
-doN
-dGW
-uKN
-dEa
-doN
-wSl
-quq
-vqj
-dEa
-uwr
-uwr
-mQA
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -132343,54 +131087,54 @@ dkT
 cQZ
 dmo
 aab
+aab
+dmX
+aab
+aab
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-alw
-alw
-alw
-alw
-alw
-alw
 aaa
-mQA
-uwr
-uwr
-uwr
-uwr
-uwr
-rCF
-wBS
-oBg
-nEQ
-maO
-maO
-rvV
-sZs
-rUE
-maO
-maO
-maO
-ohE
-fdQ
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -132601,53 +131345,53 @@ cQZ
 dmo
 aab
 aaa
+dmW
+aaa
+aab
 aaa
 aaa
 aaa
 aaa
 aaa
-alw
 aaa
-uwr
-uwr
-uwr
-uwr
-rCF
-wee
-rSN
-ilI
-ilI
-ilI
-ilI
-ilI
-jvg
-nVP
-dpd
-dpd
-xvk
-vqi
-ifz
-ueO
-pmM
-dpd
-tGK
-ptu
-sch
-uwr
-uwr
-uwr
-mQA
-uwr
-uwr
-uwr
-uwr
-mQA
-uwr
-uwr
-uwr
-mQA
+aab
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -132858,53 +131602,53 @@ cQZ
 dmo
 aab
 aaa
+dmW
+aaa
+aab
 aaa
 aaa
 aaa
 aaa
 aaa
-alw
-dnZ
-wee
-ilI
-ilI
-ilI
-ilI
-pWF
-nVP
+aab
+aab
 dpd
 dpd
 dpd
 dpd
 dpd
-dpM
-dpe
-orM
-ghQ
-vrK
-rWG
-lmy
-foP
-tBU
-dpe
-ums
-tEs
-ilI
-ilI
-ilI
-ilI
-ilI
-ilI
-rQw
-ilI
-ilI
-ilI
-ilI
-ilI
-ilI
-eij
-fdQ
-alw
+aab
+aaa
+aab
+dqL
+aab
+aaa
+aaa
+aab
+aab
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aab
+drX
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -133115,53 +131859,53 @@ cQZ
 dmo
 aab
 aaa
+dmW
+aaa
+aab
 aaa
 aaa
 aaa
 aaa
 aaa
-alw
-dnZ
-qjZ
-lBI
+aab
 dpd
 dpd
-dpd
+dpC
 dpM
-dpe
-dpe
-dpe
-dpe
-dpe
-dpe
-dpO
-dpe
-dpe
-dpf
-dpf
-vHn
-fTt
-vvY
-dpf
-dpe
-dpe
-dpM
+dpZ
 dpd
-dpd
-dpd
-dpd
-dpd
-dpd
-dpM
-dpd
-dpd
-dpd
-dpd
-dpd
-tGK
-dEb
-kIE
-alw
+dqm
+dqm
+dqm
+dqm
+aab
+aab
+aab
+aab
+dqm
+dqm
+dqm
+dqm
+dqm
+dqm
+dqm
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -133371,54 +132115,54 @@ dkV
 cQZ
 dmo
 dmo
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-alw
-dnZ
-qjZ
+dmo
+ddC
+dmo
+ddM
+ddO
+cPw
+djd
+djd
+djd
 djE
 dpe
-dpe
-dpe
+dpl
+dpE
 dpO
-dpe
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-rJq
-kCx
-nJR
-nHu
-dpf
-dpf
-dpe
-dpO
-dpe
-dpe
-dpe
-dpe
-dpe
-dpe
-dpO
-dpe
-dpe
-dpe
-dpe
-dpe
-ums
-dEb
-kIE
-alw
+dkU
+dqq
+dqp
+dis
+dqn
+dqm
+dqm
+dqm
+dqm
+dqm
+dqm
+dqX
+dqX
+dqX
+dqX
+dru
+dru
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -133629,53 +132373,53 @@ cQZ
 dmo
 aab
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-alw
+dmW
+dmB
+bfu
+dnT
 dnZ
-qjZ
-djE
-dpe
-dpe
-dpe
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dBQ
-hct
-qfq
-kfF
-kKs
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpe
-dpe
-dpe
-ums
-dEb
-kIE
-alw
+aaa
+aaa
+aaa
+aab
+dpd
+dpm
+dpD
+dpN
+dkM
+dlq
+dlS
+dme
+dme
+dme
+dmk
+dmI
+dqX
+dqX
+dqX
+dqX
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drS
+drf
+drf
+drf
+drf
+drf
+drf
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -133886,55 +132630,55 @@ aab
 dmo
 aab
 aaa
-aaa
-aaa
-aaa
-alw
-alw
-alw
-dpY
-qjZ
-djE
-dpe
-dpe
+dmW
+dmB
+bjb
+dnW
+dnZ
+dnZ
+dnZ
+dnZ
+dnZ
 dpf
-dpf
+dpd
+dpF
+dke
+dkX
+dls
+dqp
+dqp
+dqp
+dqp
+dqp
+dmK
+dqp
+dqp
+dqp
+dqp
 drf
 drf
 drf
-kNY
 drf
-drf
-drf
-drf
-drf
-dpf
-tKO
-nLs
-gJn
-sJe
-kKs
-pcV
-pcV
-pcV
-pcV
-sPo
-hdR
+dry
+drG
+drI
+dry
+drE
 drI
 drG
-sPo
-sPo
-sPo
-sPo
-dpf
-dpe
-dpe
-ums
-dEb
-fdQ
-alw
-alw
-alw
+dry
+drf
+drf
+drf
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -134142,56 +132886,56 @@ dmo
 dmo
 dmo
 aab
-aaa
-aaa
-aaa
-aaa
-alw
-aaa
-uwr
+dmB
+dmZ
+dmB
+bhy
+dnV
+dnZ
+dnZ
 doN
-qjZ
-djE
-dpe
-dpe
+doW
+dph
+dpu
 dpf
-drf
+dpf
+dpf
 dkW
-opR
+dpf
 dqm
 dqv
-obM
-opR
-dkW
+dqv
+dqM
+dqT
 dmJ
 dmS
-drf
-qWH
-qWH
+dqM
+dqv
+dqv
 drg
 dro
-qWH
+drt
 drv
-ebS
+dry
 dnr
 dny
-sPo
+dnz
 dnB
 dsb
-dsb
-kNr
-pFN
-igi
-qjJ
-dpf
-dpe
-dpe
-ums
-dEb
-sch
-uwr
+drE
+drE
+drf
+drf
+drf
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -134399,56 +133143,56 @@ aaa
 aaa
 aab
 aab
-aaa
-aaa
-aaa
-aaa
-alw
+dmB
+dna
+bfm
+bkJ
+dob
 dnZ
 doy
 diF
 doY
-djE
-dpe
+diI
+dpw
 dpf
-dpf
-drf
+dkb
+dkg
 dlb
 dqx
-dqx
+dqm
 dqw
-dqx
-dqx
-dqx
-eeP
+dqw
+dqw
+dqw
+dqw
 dmU
-uCL
-mPa
-xsH
-mmv
+dqw
+dqw
+dqw
+drf
 drq
 dnl
-mzP
-nhG
+drv
+drE
 dnw
 drQ
-sPo
-ffx
+drN
+drN
 dsd
-dsb
+dsg
 dsi
-oej
-dsb
-ptD
-sPo
-dpf
-dpe
-ums
-mEY
-diF
-eij
-kIE
-alw
+drf
+drf
+drf
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -134656,31 +133400,31 @@ alw
 ayi
 aab
 aab
-aaa
-aaa
-aaa
-aaa
-alw
-dnZ
+dmB
+dnb
+dhj
+dhz
+dii
+diB
 diC
 diE
-doY
-djE
-dpe
-dpf
-dpf
-drf
+diM
+djD
+djJ
+dka
+djJ
+dkf
 dkY
-dry
-drf
+dlt
+dlU
 dmf
-drf
-drf
+dmf
+dmf
 dms
-dry
-dlb
-uCL
-gKx
+dmL
+dmT
+dmf
+dmf
 dmV
 dmY
 dnf
@@ -134690,22 +133434,22 @@ dnq
 dnt
 drP
 drT
-drT
-drT
-dsb
-dsb
-dsb
-dsb
-gYU
-sPo
-dpf
-dpe
-ums
-mEY
-qgD
-doY
-kIE
-alw
+drN
+dsc
+dse
+dsh
+drf
+drf
+drf
+dsj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -134913,56 +133657,56 @@ aaa
 aaa
 aab
 aab
-aaa
-aaa
-aaa
-aaa
-alw
-dnZ
+dmB
+dno
+dnv
+dhZ
+diz
+doc
 diD
 diI
 diO
 djH
-djH
-ktk
+djR
+dpf
 dkd
 dkH
-tUD
+dlb
 dlu
-wBs
-oni
-vJW
-drf
+dqm
+dqw
+dqw
+dqw
 dmG
-oIz
-ueu
-wUb
-vva
-jAc
+dqw
+dqw
+dqw
+dqw
+dqw
 dnc
 dni
 drE
-exE
-nrF
-gQu
+drv
+drE
+dni
 drR
 drN
-sDJ
 drN
-fSi
-eaZ
-lCz
-vSj
-wNk
-lNc
-ktk
-djH
-djH
-xBI
-ltS
-sqo
-kIE
-alw
+drN
+dry
+drE
+drf
+drf
+drf
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -135161,65 +133905,65 @@ cQZ
 cQZ
 dmo
 aaa
-aab
-aab
-aab
-aab
-aab
-aab
-aab
-aab
-aab
-aaa
-aaa
-aaa
-aaa
-alw
-dnZ
-diC
-diE
-doY
+diu
+djd
 djE
-dpe
+djE
+djd
+djd
+djd
+djE
+djE
+dmC
+dmC
+dmC
+dmC
+doe
+doc
+dnZ
+diG
+diN
+djG
+dpx
 dpf
-iod
-xPV
+dpf
+dpf
 dlc
-tOf
-drf
-rHY
-drf
-drf
+dpf
+dqm
+dqv
+dqv
+dqO
 dmw
 dmP
 drh
-drf
-qun
-hii
-qfL
+dqO
+dqv
+dqv
+drg
 dnh
-dnl
-vrX
-sVe
+drA
+drv
+dry
 drK
 drB
-drT
-drT
-drT
-iiI
-exq
-exq
-nIX
-xrb
-sPo
-dpf
-dpe
-ums
-mEY
-qgD
-doY
-kIE
-alw
+dnA
+dnF
+drE
+drE
+drE
+drf
+drf
+drf
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -135418,7 +134162,7 @@ cPw
 cPw
 cPw
 dhM
-dgS
+dhL
 dgS
 dgS
 dkj
@@ -135431,52 +134175,52 @@ aaa
 aaa
 aaa
 aaa
-alw
+aaa
+dod
 dnZ
-wCI
 diL
-doY
-djE
-dpe
+djp
+dnZ
 dpf
-dpf
-drf
+dpp
+dpK
+dkJ
 dlk
 dlR
 dqp
-vvx
+dqp
 dqp
 dqp
 dqp
 dmR
-jEY
+dqp
+dqp
+dqp
+dqp
 drf
-hZE
-fEQ
-sWP
-veA
-dnl
-gtU
-rjH
+drf
+drf
+drf
+dry
 drO
 drM
-sPo
-lqR
-dsd
-dsb
-pRG
-eqZ
-hvQ
-mVs
-sPo
-dpf
-dpe
-ums
-mEY
-diL
-rYZ
-kIE
-alw
+dry
+drE
+drM
+drO
+dry
+drf
+drf
+drf
+aab
+abp
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -135675,7 +134419,7 @@ cBP
 cBP
 dgS
 dhL
-ddg
+cXm
 dcy
 dcV
 ddf
@@ -135688,52 +134432,52 @@ aaa
 aaa
 aaa
 aaa
-alw
 aaa
-tkk
+dol
+dnZ
 diJ
-qjZ
-djE
-dpe
-dpe
+diQ
+djI
 dpf
-drf
-dkW
+dpq
+dpA
+dkI
+dld
 dlK
 dmd
 dmg
-dmd
-dlK
-dkW
+dmg
+dmg
+dmH
 dmQ
 dqX
+dqX
+dqX
+dqX
 drf
-opq
-nQJ
-iuq
-qHC
-opq
-xyW
-eBX
-iNJ
-wvt
-sPo
+drf
+drf
+drf
+drf
+drf
+drf
+drf
 drV
-dsb
-dsb
-qnb
-ems
-oio
-rTw
-dpf
-dpe
-dpe
-ums
-dEb
-tkk
-tkk
+drf
+drf
+drf
+drf
+drf
+drf
+aab
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -135932,7 +134676,7 @@ csL
 cTB
 dgT
 cTV
-ddg
+cYg
 dcz
 dcz
 ddg
@@ -135945,52 +134689,52 @@ aab
 aab
 aab
 aaa
-alw
-alw
-alw
-dpY
-qjZ
-djE
-dpe
-dpe
-dpf
-dpf
-drf
-drf
-drf
-dqA
-drf
-drf
-drf
-drf
-drf
-dpf
-qKI
-vQl
-lCo
-jpZ
-opq
-pcV
-pcV
-pcV
-pcV
-sPo
-xGS
-tMM
-jVZ
-sPo
-sPo
-sPo
-sPo
-dpf
-dpe
-dpe
-ums
-dEb
+aaa
 aab
-alw
-alw
-alw
+dnZ
+doH
+dpg
+dpb
+dpf
+dpq
+dpA
+dkK
+dlo
+dqE
+dqp
+dqA
+dqD
+dqm
+dqm
+dqm
+dqm
+dqm
+dqm
+dqX
+dqX
+dqX
+dqX
+dru
+dru
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+drf
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -136202,18 +134946,33 @@ dlY
 dnd
 aab
 aab
-aaa
-aaa
-alw
+aab
+aab
 dnZ
-qjZ
-djE
-dpe
-dpe
-dpe
+dnZ
+dnZ
+dnZ
 dpf
-dpf
-dpf
+dpp
+dpL
+dpV
+dqk
+dpp
+dqm
+dqm
+dqm
+dqm
+aab
+aab
+aab
+aab
+dqm
+dqm
+dqm
+dqm
+dqm
+dqm
+dqm
 drf
 drf
 drf
@@ -136221,31 +134980,16 @@ drf
 drf
 drf
 drf
-dpf
-dSl
-ksE
-vJT
-iox
-opq
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpe
-dpe
-dpe
-ums
-dEb
+drf
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -136459,50 +135203,50 @@ dmD
 dmo
 dmo
 dmo
+dmo
+aab
+aab
+aab
+aab
+aab
+aab
+dpp
+dpp
+dpp
+dpp
+dpp
+aab
+aaa
+aab
+dqQ
+aab
 aaa
 aaa
-alw
-dnZ
-qjZ
-djE
-dpe
-dpe
-dpe
-dpO
-dpe
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-dpf
-kxT
-mcb
-hlg
-lXF
-dpf
-dpf
-dpe
-dpO
-dpe
-dpe
-dpe
-dpe
-dpe
-dpe
-dpO
-dpe
-dpe
-dpe
-dpe
-dpe
-ums
-dEb
+aab
+aab
+aab
+aab
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aab
+dsa
+aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -136715,51 +135459,51 @@ dmy
 dlm
 dlm
 dnx
+aaa
 dmo
 aaa
 aaa
-alw
-dnZ
-qjZ
-ilk
-ryn
-ryn
-ryn
-oDq
-dpe
-dpe
-dpe
-dpe
-dpe
-dpe
-dpO
-dpe
-dpe
-dpf
-dpf
-dpf
-jor
-dpf
-dpf
-dpe
-dpe
-oDq
-ryn
-ryn
-ryn
-ryn
-ryn
-ryn
-oDq
-ryn
-ryn
-ryn
-ryn
-ryn
-mRX
-dEb
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -136972,51 +135716,51 @@ dmA
 dmO
 dne
 dnI
+aaa
 dmo
 aaa
 aaa
-alw
-dnZ
-wCI
-ilI
-ilI
-ilI
-ilI
-xLw
-gHK
-ryn
-ryn
-ryn
-ryn
-ryn
-oDq
-dpe
-dpe
-dpe
-dpe
-ums
-hZf
-tBU
-dpe
-dpe
-ums
-ijW
-ilI
-ilI
-ilI
-ilI
-ilI
-ilI
-pbZ
-ilI
-ilI
-ilI
-ilI
-ilI
-ilI
-rYZ
-aab
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -137229,51 +135973,51 @@ dmz
 dlm
 dlm
 dnx
+aaa
 dmo
 aaa
 aaa
-alw
 aaa
-tkk
-tkk
-tkk
-tkk
-rND
-rtW
-rSN
-ilI
-ilI
-ilI
-ilI
-ilI
-xwv
-gHK
-ryn
-ryn
-ryn
-mRX
-uJv
-vIB
-ryn
-ryn
-reo
-dEb
-xMh
-tkk
-tkk
-tkk
-tkk
-tkk
-uJe
-tkk
-tkk
-tkk
-tkk
-tkk
-tkk
-uJe
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -137487,53 +136231,53 @@ dlm
 ddD
 dmo
 dmo
-aaa
-aaa
-alw
-alw
-alw
-alw
-alw
-alw
-aaa
-uJe
-tkk
-tkk
-tkk
-tkk
-tkk
-rND
-tdM
-pXm
-pXm
-ilI
-ilI
-ilI
-mNz
-ilI
-ilI
-ilI
-ilI
-rYZ
-fdQ
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
+dmo
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+abp
 aaa
 aaa
 aaa
@@ -137751,29 +136495,29 @@ aaa
 aaa
 aaa
 aaa
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
 aaa
-uJe
-tkk
-tkk
-tkk
-tkk
-tkk
-uJe
-tkk
-tkk
-tkk
-tkk
-uJe
 aaa
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -138015,22 +136759,22 @@ aaa
 aaa
 aaa
 aaa
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
-alw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -142370,7 +141114,7 @@ aaa
 aaa
 aab
 aab
-aaa
+aab
 aaa
 aaa
 aaa

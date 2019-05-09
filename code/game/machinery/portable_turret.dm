@@ -977,6 +977,7 @@ var/list/turret_icons
 
 /atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
+	anchored = TRUE
 
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate

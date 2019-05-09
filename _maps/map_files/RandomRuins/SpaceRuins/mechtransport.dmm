@@ -171,7 +171,7 @@
 "D" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "E" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/airless,
@@ -205,7 +205,7 @@
 "K" = (
 /obj/item/stack/sheet/metal,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "L" = (
 /obj/effect/decal/mecha_wreckage/gygax,
 /turf/simulated/shuttle/floor{
@@ -215,7 +215,7 @@
 /area/ruin/powered)
 "M" = (
 /turf/unsimulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "N" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall14";
@@ -231,7 +231,7 @@
 "P" = (
 /obj/item/stack/rods,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Q" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall15";

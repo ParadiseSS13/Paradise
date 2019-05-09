@@ -444,11 +444,6 @@
 		if(canMove())
 			return -1
 
-
-//		//rotate transit docking ports, so we don't need zillions of variants
-//		if(istype(S1, /obj/docking_port/stationary/transit))
-//			S1.dir = turn(NORTH, -travelDir)
-
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space
@@ -468,8 +463,6 @@
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
 	rotation = SimplifyDegrees(rotation)
-
-
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)
@@ -508,10 +501,12 @@
 		if(rotation)
 			T1.shuttleRotate(rotation)
 
-		//lighting stuff
+		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		SSair.add_to_active(T1,1)
+		
+		T1.lighting_build_overlay()
 
 		T0.ChangeTurf(turf_type)
 
