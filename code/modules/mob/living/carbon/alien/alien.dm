@@ -277,6 +277,7 @@ Des: Removes all infected images from the alien.
 		grant_death_vision()
 		return
 
+	see_invisible = initial(see_invisible)
 	sight = SEE_MOBS
 	if(nightvision)
 		see_in_dark = 8
