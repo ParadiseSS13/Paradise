@@ -9,7 +9,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
  * as well as allowing users to save and load configurations.
  */
 /datum/nttc_configuration
-	var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
+	// var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
 	// ALL OF THE JOB CRAP
 	// Dict of all jobs and their department color classes
 	var/all_jobs = list(
@@ -160,7 +160,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"toggle_gibberish",
 		"toggle_honk",
 		"setting_language",
-		"regex",
+		// "regex",
 		"firewall"
 	)
 
