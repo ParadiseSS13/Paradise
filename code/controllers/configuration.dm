@@ -1,6 +1,7 @@
 /datum/configuration
 	// Hispania Configs
 	var/ryzorbot = "http://example.org"
+	var/br_operation = 0
 
 
 	var/server_name = null				// server name (for world name / status)
@@ -217,7 +218,7 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
-	
+
 	//Start now warning
 	var/start_now_confirmation = 0
 
@@ -362,10 +363,10 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
-					
+
 				if("vote_autotransfer_initial")
 					config.vote_autotransfer_initial = text2num(value)
-					
+
 				if("vote_autotransfer_interval")
 					config.vote_autotransfer_interval = text2num(value)
 
@@ -428,6 +429,9 @@
 
 				if("ryzorbot")
 					config.ryzorbot = value
+
+				if("br_operation")
+					config.br_operation = 1
 
 				if("repositoryurl")
 					config.repositoryurl = value
@@ -652,7 +656,7 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
-					
+
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
 
