@@ -74,7 +74,7 @@
 	//Admin PM
 	if(href_list["priv_msg"])
 		var/client/C = locate(href_list["priv_msg"])
-		
+
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
 		else if(C.UID() != href_list["priv_msg"])
@@ -432,6 +432,7 @@
 
 	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
 		donator_level = DONATOR_LEVEL_MAX
+		donor_loadout_points()
 		return
 
 	//Donator stuff.
@@ -443,7 +444,12 @@
 			donator_level = 0
 			return
 		donator_level = text2num(query_donor_select.item[2])
+		donor_loadout_points()
 		break
+
+/client/proc/donor_loadout_points()
+	if(donator_level > 0 && prefs)
+		prefs.max_gear_slots = config.max_loadout_points + 5
 
 /client/proc/log_client_to_db(connectiontopic)
 	if(IsGuestKey(key))
