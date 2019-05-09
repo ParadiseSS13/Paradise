@@ -192,7 +192,7 @@
 	..()
 	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
 
-/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(var/mob/user)
+/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/user)
 	..()
 	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
 		if(istype(S, /obj/effect/proc_holder/spell/targeted/mindscan))
@@ -295,22 +295,22 @@
 		if(REMOTE_TALK in target.mutations)
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [target.name].</span>")
-		target.show_message("<span class='abductor'><A href='?src=[UID()];target=\ref[target];user=\ref[user]'>[message]</a></span>")
+		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
 		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
 
-/obj/effect/proc_holder/spell/targeted/mindscan/proc/removeAvailability(var/mob/living/target)
+/obj/effect/proc_holder/spell/targeted/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
 		available_targets -= target
 
 /obj/effect/proc_holder/spell/targeted/mindscan/Topic(href, href_list)
 	var/mob/living/user
 	if(href_list["user"])
-		user = locate(href_list["user"])
+		user = locateUID(href_list["user"])
 	if(href_list["target"])
 		if(!user)
 			return
-		var/mob/living/target = locate(href_list["target"])
+		var/mob/living/target = locateUID(href_list["target"])
 		if(!(target in available_targets))
 			return
 		available_targets -= target
