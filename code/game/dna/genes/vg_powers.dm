@@ -302,6 +302,8 @@
 /obj/effect/proc_holder/spell/targeted/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
 		available_targets -= target
+		if(!(target in available_targets))
+			target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
 
 /obj/effect/proc_holder/spell/targeted/mindscan/Topic(href, href_list)
 	var/mob/living/user
