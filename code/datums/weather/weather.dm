@@ -28,6 +28,7 @@
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
 	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
+	var/overlay_plane = BLACKNESS_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
