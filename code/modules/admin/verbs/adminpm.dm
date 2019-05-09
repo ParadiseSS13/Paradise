@@ -244,7 +244,7 @@
 	set category = "OOC"
 	pm_tracker.show_ui(usr)
 
-/client/proc/set_typing(client/target, var/value)
+/client/proc/set_typing(client/target, value)
 	if(!target)
 		return
 	var/datum/pm_convo/convo = target.pm_tracker.pms[key]
@@ -268,15 +268,15 @@
 	var/read = FALSE
 	var/typing = FALSE
 
-/datum/pm_convo/New(var/client/C)
+/datum/pm_convo/New(client/C)
 	client = C
 
-/datum/pm_convo/proc/add(client/sender, var/message)
+/datum/pm_convo/proc/add(client/sender, message)
 	messages.Add("[sender]: [message]")
 	archived = FALSE
 	read = FALSE
 
-/datum/pm_tracker/proc/add_message(client/title, client/sender, var/message, mob/user)
+/datum/pm_tracker/proc/add_message(client/title, client/sender, message, mob/user)
 	if(!pms[title.key])
 		pms[title.key] = new /datum/pm_convo(title)
 	pms[title.key].add(sender, message)
@@ -332,7 +332,7 @@
 	popup.open()
 	open = TRUE
 
-/datum/pm_tracker/proc/fancy_title(var/title)
+/datum/pm_tracker/proc/fancy_title(title)
 	var/client/C = pms[title].client
 	if(!C)
 		return "[title] (Disconnected)"
