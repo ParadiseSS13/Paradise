@@ -122,6 +122,7 @@
 	for(var/V in impacted_areas)
 		var/area/N = V
 		N.layer = overlay_layer
+		N.plane = overlay_plane
 		N.icon = 'icons/effects/weather_effects.dmi'
 		N.invisibility = 0
 		N.color = weather_color
