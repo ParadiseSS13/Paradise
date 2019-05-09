@@ -519,7 +519,6 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
-		SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED)
 		handle_footstep(loc)
 		step_count++
 
@@ -972,7 +971,7 @@
 
 /mob/living/onTransitZ(old_z,new_z)
 	..()
-	update_z(new_z) 
+	update_z(new_z)
 
 /mob/living/proc/owns_soul()
 	if(mind)

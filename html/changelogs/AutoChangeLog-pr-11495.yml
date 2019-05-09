@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - bugfix: "opening turret covers now stay on top of their turret."
