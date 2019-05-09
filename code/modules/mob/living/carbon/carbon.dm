@@ -1139,6 +1139,8 @@ so that different stomachs can handle things in different ways VB*/
 		grant_death_vision()
 		return
 
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
