@@ -597,7 +597,7 @@ var/global/list/damage_icon_parts = list()
 					client.screen -= thing														// WHAT THE FUCKING FUCK BAY GODDAMNIT
 																								// **I FUCKING HATE YOU AAAAAAAAAA**
 				if(thing)																		//
-					thing.loc = loc																//
+					thing.forceMove(drop_location())											//
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
