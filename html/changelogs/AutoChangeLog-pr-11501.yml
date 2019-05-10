@@ -1,0 +1,5 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Simple mobs no longer retain their X-Ray upon being revived."
+  - bugfix: "Applying brute/fire damage through the View Variables menu for non-humans has been fixed."

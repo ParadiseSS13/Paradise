@@ -263,8 +263,6 @@
 					modify.assignment = t1
 					modify.rank = t1
 
-				callHook("reassign_employee", list(modify))
-
 		if("PRG_reg")
 			if(is_authenticated(usr))
 				var/temp_name = reject_bad_name(href_list["reg"])
@@ -337,7 +335,6 @@
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
 				modify.assignment = "Terminated"
 				modify.access = list()
-				callHook("terminate_employee", list(modify))
 
 		if("PRG_make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS

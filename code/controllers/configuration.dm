@@ -629,8 +629,7 @@
 					config.event_delay_upper[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
 
 				if("starlight")
-					var/vvalue = text2num(value)
-					config.starlight = vvalue >= 0 ? vvalue : 0
+					config.starlight = 1
 
 				if("player_reroute_cap")
 					var/vvalue = text2num(value)

@@ -383,14 +383,10 @@
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
-		callHook("latespawn", list(character))
-	else if(IsAdminJob(rank))
-		callHook("latespawn", list(character))
 	else
 		data_core.manifest_inject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		AnnounceArrival(character, rank, join_message)
-		callHook("latespawn", list(character))
 		AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)

@@ -84,7 +84,7 @@
 	var/datum/chatOutput/chatOutput
 
 	// Donator stuff.
-	var/donator_level = DONATOR_LEVEL_NONE
+	var/donator_level = 0
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
