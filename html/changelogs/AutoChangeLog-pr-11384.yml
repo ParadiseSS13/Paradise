@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Trying to latejoin a round with no open job slots now results in an informative error message, rather than broken-looking blank window."
