@@ -935,23 +935,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
 	feedback_add_details("admin_verb","TRE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/reset_all_tcs()
-	set category = "Admin"
-	set name = "Reset NTTC Configuration"
-	set desc = "Resets NTTC to the default configuration."
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/confirm = alert(src, "You sure you want to reset NTTC?", "Confirm", "Yes", "No")
-	if(confirm != "Yes")
-		return
-
-	GLOB.nttc_config.reset()
-	log_admin("[key_name(usr)] reset NTTC scripts.")
-	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
-	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/proc/list_ssds()
 	set category = "Admin"
 	set name = "List SSDs"

@@ -48893,14 +48893,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bFh" = (
-/obj/machinery/computer/telecomms/traffic,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
 "bFi" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -151610,7 +151602,7 @@ bxA
 bBo
 bri
 bDb
-bFh
+bFl
 bHi
 bJl
 bKl

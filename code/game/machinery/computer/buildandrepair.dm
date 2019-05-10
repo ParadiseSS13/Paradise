@@ -300,10 +300,6 @@
 	name = "Circuit board (Telecommunications Server Monitor)"
 	build_path = /obj/machinery/computer/telecomms/server
 	origin_tech = "programming=3;magnets=3;bluespace=2"
-/obj/item/circuitboard/comm_traffic
-	name = "Circuitboard (Telecommunications Traffic Control)"
-	build_path = /obj/machinery/computer/telecomms/traffic
-	origin_tech = "programming=3;magnets=3;bluespace=2"
 
 
 /obj/item/circuitboard/shuttle

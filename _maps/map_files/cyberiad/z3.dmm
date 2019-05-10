@@ -1376,7 +1376,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/computer/telecomms/traffic,
 /turf/simulated/floor/plasteel,
 /area/tcommsat/computer)
 "do" = (
