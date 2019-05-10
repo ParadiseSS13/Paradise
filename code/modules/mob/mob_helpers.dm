@@ -565,9 +565,9 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = input(src, "Pick a new name.", "Name Change", oldname) as text
+				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
 			else
-				newname = input(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname) as text
+				newname = input("You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, src)
 			if(((world.time - time_passed) > 1800) && !force)
 				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long

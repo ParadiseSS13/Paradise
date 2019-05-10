@@ -28,6 +28,11 @@
 /*
  * Text sanitization
  */
+// Can be used almost the same way as normal input for text
+/proc/clean_input(Message, Title, Default, mob/user=usr)
+	var/txt = input(user, Message, Title, Default) as text | null
+	if(txt)
+		return html_encode(txt)
 
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
