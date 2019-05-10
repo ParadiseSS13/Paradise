@@ -14,7 +14,6 @@ var/global/list/image/splatter_cache = list()
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
-	appearance_flags = NO_CLIENT_COLOR
 	blood_DNA = list()
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
@@ -155,7 +154,6 @@ var/global/list/image/splatter_cache = list()
 	layer = TURF_LAYER
 	random_icon_states = null
 	blood_DNA = list()
-	appearance_flags = NO_CLIENT_COLOR
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()

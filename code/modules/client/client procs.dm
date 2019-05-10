@@ -679,8 +679,8 @@
 			message += " (RESTRICTED)"
 		to_chat(world, "[message]")
 
-/client/proc/colour_transition(var/list/colour_to = null, var/time = 10) //Call this with no parameters to reset to default.
-	animate(src, color=colour_to, time=time, easing=SINE_EASING)
+/client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
+	animate(src, color = colour_to, time = time, easing = SINE_EASING)
 
 /client/proc/on_varedit()
 	var_edited = TRUE
