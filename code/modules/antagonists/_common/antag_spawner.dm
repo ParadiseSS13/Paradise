@@ -113,7 +113,7 @@
 		rolename = initial(rolename)
 	else
 		switch_roles = FALSE
-		rolename = "Syndicate [borg_to_spawn]"
+		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
