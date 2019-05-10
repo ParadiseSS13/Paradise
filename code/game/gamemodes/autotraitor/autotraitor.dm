@@ -96,7 +96,7 @@
 			for(var/obj/item/implant/mindshield/I in H.contents)
 				if(I && I.implanted)
 					possible_traitors -= player
-			if(isgolem(H))
+			if(!H.job) //Golems, special events stuff, etc.
 				possible_traitors -= player
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
