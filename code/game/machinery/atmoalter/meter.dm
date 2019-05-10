@@ -3,6 +3,9 @@
 	desc = "It measures something."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
+
+	layer = GAS_PUMP_LAYER
+
 	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
@@ -65,7 +68,7 @@
 		icon_state = "meter4"
 
 	if(frequency)
-		var/datum/radio_frequency/radio_connection = radio_controller.return_frequency(frequency)
+		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
 
 		if(!radio_connection) return
 

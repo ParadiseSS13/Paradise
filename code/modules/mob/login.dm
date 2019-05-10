@@ -19,10 +19,10 @@
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
-						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.UID()]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.UID()]'>[key_name_admin(M)]</A>.</font>", 1)
+						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.client.UID()]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>[key_name_admin(M)]</A>.</font>", 1)
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
 					else
-						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.UID()]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>", 1)
+						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.client.UID()]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>", 1)
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/proc/ryzorcop()
@@ -87,5 +87,4 @@
 			AA.display_to(list(src))
 
 	update_client_colour(0)
-
-	callHook("mob_login", list("client" = client, "mob" = src))
+	update_morgue()

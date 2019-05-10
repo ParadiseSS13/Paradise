@@ -5,8 +5,8 @@
 	icon_state = "marker"
 
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
 	invisibility = INVISIBILITY_OBSERVER
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	pass_flags = PASSBLOB
 	faction = list("blob")
@@ -20,7 +20,6 @@
 	var/is_offspring = FALSE
 	var/datum/reagent/blob/blob_reagent_datum = new/datum/reagent/blob()
 	var/list/blob_mobs = list()
-	var/ghostimage = null
 
 /mob/camera/blob/New()
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
@@ -35,22 +34,12 @@
 		blob_core.adjustcolors(blob_reagent_datum.color)
 
 	color = blob_reagent_datum.complementary_color
-	ghostimage = image(src.icon,src,src.icon_state)
-	ghost_darkness_images |= ghostimage //so ghosts can see the blob cursor when they disable darkness
-	updateallghostimages()
 	..()
 
 /mob/camera/blob/Life(seconds, times_fired)
 	if(!blob_core)
 		qdel(src)
 	..()
-
-/mob/camera/blob/Destroy()
-	if(ghostimage)
-		ghost_darkness_images -= ghostimage
-		QDEL_NULL(ghostimage)
-		updateallghostimages()
-	return ..()
 
 /mob/camera/blob/Login()
 	..()
@@ -98,7 +87,7 @@
 		if(isovermind(M) || isobserver(M))
 			M.show_message(rendered, 2)
 
-/mob/camera/blob/emote(var/act,var/m_type=1,var/message = null)
+/mob/camera/blob/emote(act, m_type = 1, message = null, force)
 	return
 
 /mob/camera/blob/blob_act()

@@ -307,6 +307,7 @@
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ruin/space/ancientstation/space
 	name = "Exposed To Space"

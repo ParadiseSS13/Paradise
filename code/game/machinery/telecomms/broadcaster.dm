@@ -140,7 +140,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 		var/datum/radio_frequency/connection = signal.data["connection"]
 
-		if(connection.frequency in ANTAG_FREQS) // if antag broadcast, just
+		if(connection.frequency in SSradio.ANTAG_FREQS) // if antag broadcast, just
 			Broadcast_Message(signal.data["connection"], signal.data["mob"],
 							  signal.data["vmask"], signal.data["vmessage"],
 							  signal.data["radio"], signal.data["message"],
@@ -162,13 +162,13 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 /proc/Is_Bad_Connection(old_freq, new_freq) //Makes sure players cant read radios of a higher level than they are
 	var/old_type = CREW_RADIO_TYPE
 	var/new_type = CREW_RADIO_TYPE
-	for(var/antag_freq in ANTAG_FREQS)
+	for(var/antag_freq in SSradio.ANTAG_FREQS)
 		if(old_freq == antag_freq)
 			old_type = SYNDICATE_RADIO_TYPE
 		if(new_freq == antag_freq)
 			new_type = SYNDICATE_RADIO_TYPE
 
-	for(var/cent_freq in CENT_FREQS)
+	for(var/cent_freq in SSradio.CENT_FREQS)
 		if(old_freq == cent_freq)
 			old_type = CENTCOMM_RADIO_TYPE
 		if(new_freq == cent_freq)
@@ -249,7 +249,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	if(connection.frequency != display_freq)
 		bad_connection = Is_Bad_Connection(connection.frequency, display_freq)
-		new_connection = radio_controller.return_frequency(display_freq)
+		new_connection = SSradio.return_frequency(display_freq)
 
 	var/list/obj/item/radio/radios = list()
 
@@ -276,8 +276,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	// --- Broadcast to antag radios! ---
 
 	else if(data == 3)
-		for(var/antag_freq in ANTAG_FREQS)
-			var/datum/radio_frequency/antag_connection = radio_controller.return_frequency(antag_freq)
+		for(var/antag_freq in SSradio.ANTAG_FREQS)
+			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
 			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
 				if(R.receive_range(antag_freq, level) > -1)
 					radios += R
@@ -356,7 +356,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		var/part_b_extra = ""
 		if(data == 3) // intercepted radio message
 			part_b_extra = " <i>(Intercepted)</i>"
-		var/part_a = "<span class='[frequency_span_class(display_freq)]'><b>\[[freq_text]\][part_b_extra]</b> <span class='name'>" // goes in the actual output
+		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\][part_b_extra]</b> <span class='name'>" // goes in the actual output
 
 		// --- Some more pre-message formatting ---
 		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
@@ -452,7 +452,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		H = new
 		M = H
 
-	var/datum/radio_frequency/connection = radio_controller.return_frequency(frequency)
+	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
 
 	var/display_freq = connection.frequency
 
@@ -485,8 +485,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	// --- Broadcast to antag radios! ---
 
 	else if(data == 3)
-		for(var/freq in ANTAG_FREQS)
-			var/datum/radio_frequency/antag_connection = radio_controller.return_frequency(freq)
+		for(var/freq in SSradio.ANTAG_FREQS)
+			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(freq)
 			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
 				var/turf/position = get_turf(R)
 				// TODO: Make the radio system cooperate with the space manager
@@ -545,7 +545,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	if(length(heard_normal) || length(heard_garbled) || length(heard_gibberish))
 
 	  /* --- Some miscellaneous variables to format the string output --- */
-		var/part_a = "<span class='[frequency_span_class(display_freq)]'><span class='name'>" // goes in the actual output
+		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><span class='name'>" // goes in the actual output
 		var/freq_text = get_frequency_name(display_freq)
 
 		// --- Some more pre-message formatting ---

@@ -171,7 +171,7 @@
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return
-	M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+	M.emote("deathgasp")
 	M.status_flags |= FAKEDEATH
 	M.update_stat("fakedeath reagent")
 	M.med_hud_set_health()

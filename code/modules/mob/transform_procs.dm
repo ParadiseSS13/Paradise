@@ -94,8 +94,6 @@
 
 		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
 
-	callHook("borgify", list(O))
-
 	O.update_pipe_vision()
 
 	O.Namepick()

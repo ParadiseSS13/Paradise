@@ -151,14 +151,16 @@
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
-	var/darkness_view = 0 //Base human is 2
+	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
+	var/lighting_alpha
 
 	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
+	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	burn_state = FIRE_PROOF
@@ -178,6 +180,28 @@ BLIND     // can't see anything
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/glasses.dmi' : icon)
 	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
 	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
+/obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
+	set name = "Adjust Eyewear"
+	set category = "Object"
+	set desc = "Adjust your eyewear to be worn over or under a mask."
+	set src in usr
+
+	var/mob/living/carbon/human/user = usr
+	if(!istype(user))
+		return
+	if(user.incapacitated()) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
+		return
+
+	var/action_fluff = "You adjust \the [src]"
+	if(user.glasses == src)
+		if(!user.canUnEquip(src))
+			to_chat(usr, "[src] is stuck to you!")
+			return
+		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
+			action_fluff = "You remove \the [src] and adjust it"
+
+	over_mask = !over_mask
+	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
 //Gloves
 /obj/item/clothing/gloves
@@ -293,9 +317,11 @@ BLIND     // can't see anything
 	slot_flags = SLOT_HEAD
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
-	var/darkness_view = 0
-	var/helmet_goggles_invis_view = 0
+
 	var/vision_flags = 0
+	var/see_in_dark = 0
+	var/lighting_alpha
+
 	var/can_toggle = null
 
 /obj/item/clothing/head/New()
@@ -615,8 +641,9 @@ BLIND     // can't see anything
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
 		"Grey" = 'icons/mob/species/grey/uniform.dmi'
 		)
-	var/has_sensor = 1//For the crew computer 2 = unable to change mode
-	var/sensor_mode = 0
+	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
+	var/sensor_mode = SENSOR_OFF
+	var/random_sensor = TRUE
 		/*
 		1 = Report living/dead
 		2 = Report detailed damages
@@ -635,7 +662,8 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/under/rank/New()
-	sensor_mode = pick(0,1,2,3)
+	if(random_sensor)
+		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 	..()
 
 /obj/item/clothing/under/Destroy()
@@ -674,38 +702,6 @@ BLIND     // can't see anything
 		return
 
 	..()
-
-/obj/item/clothing/under/attack_hand(mob/user as mob)
-	//only forward to the attached accessory if the clothing is equipped (not in a storage)
-	if(accessories.len && src.loc == user)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attack_hand(user)
-		return
-
-	if(ishuman(usr) && src.loc == user)	//make it harder to accidentally undress yourself
-		return
-
-	..()
-
-/obj/item/clothing/under/MouseDrop(obj/over_object as obj)
-	if(ishuman(usr))
-		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
-		if(!(src.loc == usr))
-			return
-		if(!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
-			if(!usr.canUnEquip(src))
-				to_chat(usr, "[src] appears stuck on you!")
-				return
-			switch(over_object.name)
-				if("r_hand")
-					usr.unEquip(src)
-					usr.put_in_r_hand(src)
-				if("l_hand")
-					usr.unEquip(src)
-					usr.put_in_l_hand(src)
-			src.add_fingerprint(usr)
-			return
-	return
 
 /obj/item/clothing/under/examine(mob/user)
 	..(user)

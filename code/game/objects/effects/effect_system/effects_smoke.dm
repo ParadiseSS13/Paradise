@@ -30,15 +30,15 @@
 
 /obj/effect/particle_effect/smoke/New()
 	..()
-	processing_objects |= src
+	START_PROCESSING(SSobj, src)
 	lifetime += rand(-1,1)
 
 /obj/effect/particle_effect/smoke/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	INVOKE_ASYNC(src, .proc/fade_out)
 	QDEL_IN(src, 10)
 

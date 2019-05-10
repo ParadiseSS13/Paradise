@@ -1,4 +1,4 @@
-/mob/living/carbon/brain/emote(var/act,var/m_type=1,var/message = null)
+/mob/living/carbon/brain/emote(act,m_type = 1, message = null, force)
 	if(!(container && istype(container, /obj/item/mmi)))//No MMI, no emotes
 		return
 
@@ -48,4 +48,4 @@
 			to_chat(src, "alarm, alert, notice, flash,blink, whistle, beep, boop")
 
 	if(message && !stat)
-		..(act, m_type, message)
+		..()

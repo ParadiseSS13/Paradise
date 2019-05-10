@@ -8,7 +8,7 @@
 	drink_desc = "Vitamins! Yay!"
 	taste_message = "oranges"
 
-/datum/reagent/consumable/drink/orangejuicde/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/orangejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -89,7 +89,7 @@
 	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 	taste_message = "healthy dietary choices"
 
-/datum/reagent/consumable/drink/doctors_delight/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/doctor_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
 		update_flags |= M.adjustToxLoss(-1, FALSE)

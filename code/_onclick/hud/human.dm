@@ -83,6 +83,7 @@
 
 /datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
 	..()
+	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box

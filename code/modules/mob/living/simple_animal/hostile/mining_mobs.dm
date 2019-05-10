@@ -16,7 +16,7 @@
 	var/throw_message = "bounces off of"
 	var/icon_aggro = null // for swapping to when we get aggressive
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
@@ -142,7 +142,7 @@
 	var/pre_attack = 0
 	loot = list(/obj/item/asteroid/goliath_hide{layer = 4.1})
 
-/mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
+/mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	..()
 	handle_preattack()
 

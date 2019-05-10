@@ -113,7 +113,15 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
 	build_path = /obj/item/stack/sheet/cloth
-	category = list("initial","Leather and Cloth")
+	category = list("initial", "Organic Materials")
+
+/datum/design/cardboard
+	name = "Sheet of cardboard"
+	id = "cardboard"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 25)
+	build_path = /obj/item/stack/sheet/cardboard
+	category = list("initial", "Organic Materials")
 
 /datum/design/wallet
 	name = "Wallet"

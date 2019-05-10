@@ -21,23 +21,23 @@
 
 /obj/item/stock_parts/cell/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()
 
 /obj/item/stock_parts/cell/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("self_recharge")
 			if(var_value)
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects.Remove(src)
+				STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/stock_parts/cell/process()

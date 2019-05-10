@@ -93,9 +93,9 @@
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
-			layer = MOB_LAYER - 0.2
+			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	else
-		if(layer == MOB_LAYER - 0.2)
+		if(layer == LYING_MOB_LAYER)
 			layer = initial(layer)
 
 	update_transform()

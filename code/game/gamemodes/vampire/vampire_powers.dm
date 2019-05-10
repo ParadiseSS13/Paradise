@@ -226,6 +226,7 @@
 		target.Weaken(5)
 		target.stuttering = 20
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
+		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -437,9 +438,6 @@
 		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
-		if(get_area(mobloc) == /area/security/armoury/gamma)
-			to_chat(user, "A strange energy repels you!")
-			mobloc = originalloc
 		animation.loc = mobloc
 		steam.location = mobloc
 		steam.start()
