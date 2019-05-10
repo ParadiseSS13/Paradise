@@ -528,6 +528,18 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Thunderdome Arena Template"
 	icon_state = "thunder"
 
+/area/tdome/arena_source2
+	name = "\improper Thunderdome Arena Template 2"
+	icon_state = "thunder"
+
+/area/tdome/arena_source3
+	name = "\improper Thunderdome Arena Template 3"
+	icon_state = "thunder"
+
+/area/tdome/arena_source4
+	name = "\improper Thunderdome Arena Template 4"
+	icon_state = "thunder"
+
 /area/tdome/arena
 	name = "\improper Thunderdome Arena"
 	icon_state = "thunder"
