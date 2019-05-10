@@ -549,3 +549,15 @@ CREATE TABLE  `ipintel` (
 PRIMARY KEY (  `ip` )
 ) ENGINE = INNODB;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vpn_whitelist`
+--
+DROP TABLE IF EXISTS `vpn_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vpn_whitelist` (
+  `ckey` VARCHAR(32) NOT NULL,
+  `reason` text
+  PRIMARY KEY (`ckey`)
+) ENGINE=INNODB;

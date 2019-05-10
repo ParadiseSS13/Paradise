@@ -132,7 +132,52 @@
 	log_game("IPINTEL: [text]")
 	log_debug("IPINTEL: [text]")
 
+/proc/vpn_whitelist_check(target_ckey)
+	var/target_sql_ckey = ckey(target_ckey)
+	var/DBQuery/query_whitelist_check = dbcon.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
+	if(!query_whitelist_check.Execute())
+		var/err = query_whitelist_check.ErrorMsg()
+		log_debug("SQL ERROR on proc/vpn_whitelist_check for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
+		return FALSE
+	if(query_whitelist_check.NextRow())
+		return TRUE // At least one row in the whitelist names their ckey. That means they are whitelisted.
+	return FALSE
 
+/proc/vpn_whitelist_add(target_ckey)
+	var/target_sql_ckey = ckey(target_ckey)
+	var/reason_string = input(usr, "Enter link to the URL of their whitelist request on the forum.","Reason required") as message|null
+	if(!reason_string)
+		return FALSE
+	reason_string = sanitizeSQL(reason_string)
+	var/DBQuery/query_whitelist_add = dbcon.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES ('[target_sql_ckey]','[reason_string]')")
+	if(!query_whitelist_add.Execute())
+		var/err = query_whitelist_add.ErrorMsg()
+		log_debug("SQL ERROR on proc/vpn_whitelist_add for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
+		return FALSE
+	return TRUE
 
+/proc/vpn_whitelist_remove(target_ckey)
+	var/target_sql_ckey = ckey(target_ckey)
+	var/DBQuery/query_whitelist_remove = dbcon.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
+	if(!query_whitelist_remove.Execute())
+		var/err = query_whitelist_remove.ErrorMsg()
+		log_debug("SQL ERROR on proc/vpn_whitelist_remove for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
+		return FALSE
+	return TRUE
 
-
+/proc/vpn_whitelist_panel(var/target_ckey as text)
+	if(!check_rights(R_ADMIN))
+		return
+	if(!target_ckey)
+		return
+	var/is_already_whitelisted = vpn_whitelist_check(target_ckey)
+	if(is_already_whitelisted)
+		if(vpn_whitelist_remove(target_ckey))
+			to_chat(usr, "[target_ckey] was removed from the VPN whitelist.")
+		else
+			to_chat(usr, "VPN whitelist unchanged.")
+	else
+		if(vpn_whitelist_add(target_ckey))
+			to_chat(usr, "[target_ckey] was added to the VPN whitelist.")
+		else
+			to_chat(usr, "VPN whitelist unchanged.")

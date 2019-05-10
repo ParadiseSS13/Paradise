@@ -545,13 +545,24 @@
 				return
 
 		if(is_connecting_from_localhost())
-			log_debug("IPIntel: skip check for player [key_name_admin(src)] connecting from localhost.")
+			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
 		var/datum/ipintel/res = get_ip_intel(address)
-		if(res.intel >= config.ipintel_rating_bad)
-			message_admins("<span class='adminnotice'>Proxy Detection: [key_name_admin(src)] IP intel rated [res.intel*100]% likely to be a Proxy/VPN.</span>")
 		ip_intel = res.intel
+		if(ip_intel >= config.ipintel_rating_bad)
+			if(config.ipintel_whitelist)
+				if(vpn_whitelist_check(ckey))
+					log_debug("IPIntel: Player [ckey] IP [address] rated [ip_intel*100]% passes check due to whitelisted status.")
+				else
+					message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] IP [address] was restricted due to likely proxy/VPN.</span>")
+					iprestricted = TRUE
+					vpn_warning()
+			else
+				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] IP [address] rated [ip_intel*100]% likely to be a Proxy/VPN.</span>")
+
+/client/proc/vpn_warning()
+	to_chat(src, "<span class='userdanger'>You are using a proxy/VPN. That is not allowed. Either turn it off, or request whitelisting here: [config.banappeals]</span>")
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT

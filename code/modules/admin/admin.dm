@@ -273,6 +273,15 @@ var/global/nologevent = 0
 
 	show_note(key)
 
+/datum/admins/proc/vpn_whitelist()
+	set category = "Admin"
+	set name = "VPN Ckey Whitelist"
+	if(!check_rights(R_ADMIN))
+		return
+	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
+	if(key)
+		vpn_whitelist_panel(key)
+
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Event"
 	set name = "Access Newscaster Network"

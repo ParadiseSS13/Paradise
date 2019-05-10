@@ -72,6 +72,7 @@
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"
+	var/iprestricted = FALSE
 
 	var/datum/click_intercept/click_intercept = null
 

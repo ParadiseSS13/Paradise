@@ -134,6 +134,7 @@
 	var/ipintel_save_bad = 1
 	var/ipintel_domain = "check.getipintel.net"
 	var/ipintel_maxplaytime = 0
+	var/ipintel_whitelist = 0
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -323,6 +324,8 @@
 					config.ipintel_save_bad = text2num(value)
 				if("ipintel_maxplaytime")
 					config.ipintel_maxplaytime = text2num(value)
+				if("ipintel_whitelist")
+					config.ipintel_whitelist = 1
 
 				if("log_ooc")
 					config.log_ooc = 1
