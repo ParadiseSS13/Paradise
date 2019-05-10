@@ -1,5 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - tweak: "necromantic stone now forces the ghost back into the body as a skeleton"
-  - rscadd: "allow skeletons to give up their bodies and offer control to ghosts"
