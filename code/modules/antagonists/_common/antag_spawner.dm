@@ -32,7 +32,7 @@
 		return FALSE
 	if(checking)
 		to_chat(user, "<span class='danger'>The device is already connecting to Syndicate command. Please wait.</span>")
-		return FALSE	
+		return FALSE
 	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/attack_self(mob/user)
@@ -110,10 +110,10 @@
 
 	if(switch_roles_choice == "Syndicate Cyborg")
 		switch_roles = TRUE
-		rolename = "Syndicate [borg_to_spawn]"
+		rolename = initial(rolename)
 	else
 		switch_roles = FALSE
-		rolename = initial(rolename)
+		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
