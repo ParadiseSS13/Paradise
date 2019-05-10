@@ -218,7 +218,7 @@
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	darkness_view = 8
+	see_in_dark = 8
 	flash_protect = 1
 
 /obj/item/clothing/glasses/night/cultblind/equipped(mob/user, slot)

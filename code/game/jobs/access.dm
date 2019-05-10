@@ -126,7 +126,7 @@ var/const/access_free_golems = 300
 
 	var/acc = M.get_access() //see mob.dm
 
-	if(acc == IGNORE_ACCESS)
+	if(acc == IGNORE_ACCESS || M.can_admin_interact())
 		return 1 //Mob ignores access
 
 	else

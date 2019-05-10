@@ -151,8 +151,8 @@
 	src.boxes.screen_loc = "[tx]:,[ty] to [mx],[my]"
 	for(var/obj/O in src.contents)
 		O.screen_loc = "[cx],[cy]"
-		O.layer = 20
-		O.plane = HUD_PLANE
+		O.layer = ABOVE_HUD_LAYER
+		O.plane = ABOVE_HUD_PLANE
 		cx++
 		if(cx > mx)
 			cx = tx
@@ -171,8 +171,8 @@
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
-			ND.sample_object.layer = 20
-			ND.sample_object.plane = HUD_PLANE
+			ND.sample_object.layer = ABOVE_HUD_LAYER
+			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx > (4+cols))
 				cx = 4
@@ -182,8 +182,8 @@
 			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
-			O.layer = 20
-			O.plane = HUD_PLANE
+			O.layer = ABOVE_HUD_LAYER
+			O.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx > (4+cols))
 				cx = 4
@@ -333,8 +333,8 @@
 		if(ismob(loc))
 			W.dropped(usr)
 		if(ismob(new_location))
-			W.layer = 20
-			W.plane = HUD_PLANE
+			W.layer = ABOVE_HUD_LAYER
+			W.plane = ABOVE_HUD_PLANE
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
@@ -448,17 +448,18 @@
 	else
 		verbs -= /obj/item/storage/verb/toggle_gathering_mode
 
-	src.boxes = new /obj/screen/storage(  )
-	src.boxes.name = "storage"
-	src.boxes.master = src
-	src.boxes.icon_state = "block"
-	src.boxes.screen_loc = "7,7 to 10,8"
-	src.boxes.layer = 19
-	src.closer = new /obj/screen/close(  )
-	src.closer.master = src
-	src.closer.icon_state = "x"
-	src.closer.layer = 20
-	src.closer.plane = HUD_PLANE
+	boxes = new /obj/screen/storage(  )
+	boxes.name = "storage"
+	boxes.master = src
+	boxes.icon_state = "block"
+	boxes.screen_loc = "7,7 to 10,8"
+	boxes.layer = HUD_LAYER
+	boxes.plane = HUD_PLANE
+	closer = new /obj/screen/close(  )
+	closer.master = src
+	closer.icon_state = "x"
+	closer.layer = ABOVE_HUD_LAYER
+	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
 
 /obj/item/storage/Destroy()
@@ -470,7 +471,7 @@
 	return ..()
 
 /obj/item/storage/emp_act(severity)
-	if(!istype(src.loc, /mob/living))
+	if(!istype(loc, /mob/living))
 		for(var/obj/O in contents)
 			O.emp_act(severity)
 	..()
