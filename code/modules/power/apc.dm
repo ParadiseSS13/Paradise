@@ -50,7 +50,6 @@
 	use_power = NO_POWER_USE
 	req_access = list(access_engine_equip)
 	siemens_strength = 1
-	var/spooky=0
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
@@ -251,9 +250,9 @@
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
-/obj/machinery/power/apc/update_icon()
+/obj/machinery/power/apc/update_icon(force_update = FALSE)
 
-	if(!status_overlays)
+	if(!status_overlays || force_update)
 		status_overlays = 1
 		status_overlays_lock = new
 		status_overlays_charging = new
@@ -294,10 +293,10 @@
 	var/update = check_updates() 		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
-	if(!update)
+	if(!update && !force_update)
 		return
 
-	if(update & 1) // Updating the icon state
+	if(force_update || update & 1) // Updating the icon state
 		if(update_state & UPSTATE_ALLGOOD)
 			icon_state = "apc0"
 		else if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
@@ -325,7 +324,7 @@
 
 
 
-	if(update & 2)
+	if(force_update || update & 2)
 
 		if(overlays.len)
 			overlays.len = 0
@@ -415,13 +414,14 @@
 			update_icon()
 			updating_icon = 0
 
-/obj/machinery/power/apc/proc/spookify()
-	if(spooky) return // Fuck you we're already spooky
-	spooky=1
-	update_icon()
-	spawn(10)
-		spooky=0
-		update_icon()
+/obj/machinery/power/apc/get_spooked()
+	if(opened || wiresexposed)
+		return
+	if(stat & (NOPOWER | BROKEN))
+		return
+	addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
+	overlays.Cut()
+	flick("apcemag", src)
 
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface

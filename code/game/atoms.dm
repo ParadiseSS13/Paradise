@@ -333,6 +333,9 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+/atom/proc/get_spooked()
+	return
+
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return
 	if(isnull(M.key)) return
@@ -651,7 +654,7 @@ var/list/blood_splatter_icons = list()
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)
 				return
-			
+
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
 
 		// Make toxins vomit look different

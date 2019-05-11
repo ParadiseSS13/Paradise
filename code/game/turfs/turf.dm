@@ -282,6 +282,10 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
+/turf/get_spooked()
+	for(var/atom/movable/AM in contents)
+		AM.get_spooked()
+
 /turf/proc/burn_down()
 	return
 

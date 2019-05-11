@@ -1987,6 +1987,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		genemutcheck(src, block, null, MUTCHK_FORCED)
 	dna.UpdateSE()
 
+/mob/living/carbon/human/get_spooked()
+	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
+
 /mob/living/carbon/human/extinguish_light()
 	// Parent function handles stuff the human may be holding
 	..()
