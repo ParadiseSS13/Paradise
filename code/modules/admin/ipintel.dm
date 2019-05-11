@@ -172,7 +172,11 @@
 		return
 	var/is_already_whitelisted = vpn_whitelist_check(target_ckey)
 	if(is_already_whitelisted)
-		if(vpn_whitelist_remove(target_ckey))
+		var/confirm = alert("[target_ckey] is already whitelisted. Remove them?", "Confirm Removal", "No", "Yes")
+		if(!confirm || confirm != "Yes")
+			to_chat(usr, "VPN whitelist alteration cancelled.")
+			return
+		else if(vpn_whitelist_remove(target_ckey))
 			to_chat(usr, "[target_ckey] was removed from the VPN whitelist.")
 		else
 			to_chat(usr, "VPN whitelist unchanged.")
