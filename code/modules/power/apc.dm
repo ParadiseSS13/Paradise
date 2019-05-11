@@ -414,15 +414,17 @@
 			update_icon()
 			updating_icon = 0
 
-/obj/machinery/power/apc/get_spooked()
+/obj/machinery/power/apc/get_spooked(second_pass = FALSE)
 	if(opened || wiresexposed)
 		return
 	if(stat & (NOPOWER | BROKEN))
 		return
-	addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
-	overlays.Cut()
-	flick("apcemag", src)
-
+	if(!second_pass) //The first time, we just cut overlays
+		addtimer(CALLBACK(src, .get_spooked, TRUE), 1)
+		cut_overlays()
+	else
+		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
+		addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
