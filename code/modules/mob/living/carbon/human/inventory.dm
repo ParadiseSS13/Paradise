@@ -44,9 +44,9 @@
 			return has_organ("chest")
 		if(slot_wear_id)
 			// the only relevant check for this is the uniform check
-			return 1
+			return TRUE
 		if(slot_wear_pda)
-			return 1
+			return TRUE
 		if(slot_l_ear)
 			return has_organ("head")
 		if(slot_r_ear)
@@ -70,9 +70,9 @@
 		if(slot_s_store)
 			return has_organ("chest")
 		if(slot_in_backpack)
-			return 1
+			return TRUE
 		if(slot_tie)
-			return 1
+			return TRUE
 
 // The actual dropping happens at the mob level - checks to prevent drops should
 // come here
@@ -419,56 +419,34 @@
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = 0)
 	switch(dna.species.handle_can_equip(I, slot, disable_warning, src))
-		if(1)	return 1
-		if(2)	return 0 //if it returns 2, it wants no normal handling
-
+		if(1)	return TRUE
+		if(2)	return FALSE //if it returns 2, it wants no normal handling
+	if(!has_organ_for_slot(slot))
+		return FALSE
+	
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
 			//testing("[M] TOO FAT TO WEAR [src]!")
 			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")
-				return 0
+				return FALSE
 
 	switch(slot)
 		if(slot_l_hand)
-			if(l_hand)
-				return 0
-			return !incapacitated()
+			return !l_hand && !incapacitated()
 		if(slot_r_hand)
-			if(r_hand)
-				return 0
-			return !incapacitated()
+			return !r_hand && !incapacitated()
 		if(slot_wear_mask)
-			if(wear_mask)
-				return 0
-			if(!(I.slot_flags & SLOT_MASK))
-				return 0
-			return 1
+			return !wear_mask && (I.slot_flags & SLOT_MASK)
 		if(slot_back)
-			if(back)
-				return 0
-			if(!(I.slot_flags & SLOT_BACK))
-				return 0
-			return 1
+			return !back && (I.slot_flags & SLOT_BACK)
 		if(slot_wear_suit)
-			if(wear_suit)
-				return 0
-			if(!(I.slot_flags & SLOT_OCLOTHING))
-				return 0
-			return 1
+			return !wear_suit && (I.slot_flags & SLOT_OCLOTHING)
 		if(slot_gloves)
-			if(gloves)
-				return 0
-			if(!(I.slot_flags & SLOT_GLOVES))
-				return 0
-			return 1
+			return !gloves && (I.slot_flags & SLOT_GLOVES)
 		if(slot_shoes)
-			if(shoes)
-				return 0
-			if(!(I.slot_flags & SLOT_FEET))
-				return 0
-			return 1
+			return !shoes && (I.slot_flags & SLOT_FEET)
 		if(slot_belt)
 			if(belt)
 				return 0
@@ -480,39 +458,15 @@
 				return
 			return 1
 		if(slot_glasses)
-			if(glasses)
-				return 0
-			if(!(I.slot_flags & SLOT_EYES))
-				return 0
-			return 1
+			return !glasses && (I.slot_flags & SLOT_EYES)
 		if(slot_head)
-			if(head)
-				return 0
-			if(!(I.slot_flags & SLOT_HEAD))
-				return 0
-			return 1
+			return !head && (I.slot_flags & SLOT_HEAD)
 		if(slot_l_ear)
-			if(l_ear)
-				return 0
-			if(!(I.slot_flags & SLOT_EARS))
-				return 0
-			if((I.slot_flags & SLOT_TWOEARS) && r_ear )
-				return 0
-			return 1
+			return !l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && r_ear)
 		if(slot_r_ear)
-			if(r_ear)
-				return 0
-			if(!(I.slot_flags & SLOT_EARS))
-				return 0
-			if((I.slot_flags & SLOT_TWOEARS) && l_ear)
-				return 0
-			return 1
+			return !r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && l_ear)
 		if(slot_w_uniform)
-			if(w_uniform)
-				return 0
-			if(!(I.slot_flags & SLOT_ICLOTHING))
-				return 0
-			return 1
+			return !w_uniform && (I.slot_flags & SLOT_ICLOTHING)
 		if(slot_wear_id)
 			if(wear_id)
 				return 0
@@ -581,17 +535,9 @@
 				return 1
 			return 0
 		if(slot_handcuffed)
-			if(handcuffed)
-				return 0
-			if(!istype(I, /obj/item/restraints/handcuffs))
-				return 0
-			return 1
+			return !handcuffed && istype(I, /obj/item/restraints/handcuffs)
 		if(slot_legcuffed)
-			if(legcuffed)
-				return 0
-			if(!istype(I, /obj/item/restraints/legcuffs))
-				return 0
-			return 1
+			return !legcuffed && istype(I, /obj/item/restraints/legcuffs)
 		if(slot_in_backpack)
 			if(back && istype(back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = back
