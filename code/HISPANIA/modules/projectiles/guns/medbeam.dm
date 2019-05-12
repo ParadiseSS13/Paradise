@@ -9,10 +9,13 @@
 	var/mob/living/current_target
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
-	var/max_range = 6
+	var/max_range = 7
 	var/active = 0
 	var/datum/beam/current_beam = null
 	var/mounted = 0 //Denotes if this is a handheld or mounted version
+	var/tick = 0
+	var/tick_max = 10
+
 
 	weapon_weight = WEAPON_MEDIUM
 
@@ -114,10 +117,11 @@
 /obj/item/gun/medbeamtg/proc/on_beam_tick(var/mob/living/target)
 	if(target.health != target.maxHealth)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-	target.adjustBruteLoss(-3)
-	target.adjustFireLoss(-3)
-	target.adjustToxLoss(-0.5)
-	target.adjustOxyLoss(-0.5)
+	tick = tick + 1
+	target.adjustBruteLoss(-3.5)
+	target.adjustFireLoss(-3.5)
+	target.adjustToxLoss(-0.8)
+	target.adjustOxyLoss(-0.8)
 	return
 
 /obj/item/gun/medbeamtg/proc/on_beam_release(var/mob/living/target)
