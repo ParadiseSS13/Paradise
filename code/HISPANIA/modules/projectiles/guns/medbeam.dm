@@ -133,3 +133,7 @@
 /obj/item/gun/medbeamtg/mech/Initialize()
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
+//agregado por eva, intenta adaptar las 3 lineas anteriores al code de paradise.
+/obj/item/gun/medbeamtg/mech/New()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
