@@ -4,12 +4,13 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
+	origin_tech = "materials=6;biotech=6;magnets=5;engineering=5"
 	w_class = WEIGHT_CLASS_NORMAL
 
 	var/mob/living/current_target
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
-	var/max_range = 6
+	var/max_range = 8
 	var/active = 0
 	var/datum/beam/current_beam = null
 	var/mounted = 0 //Denotes if this is a handheld or mounted version.
@@ -139,7 +140,7 @@
 //////////////////////////////Mech Version///////////////////////////////
 /obj/item/gun/medbeamtg/mech
 	mounted = 1
-
+	max_range = 6
 /obj/item/gun/medbeamtg/mech/Initialize()
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
