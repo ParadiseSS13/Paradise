@@ -116,8 +116,8 @@
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 	target.adjustBruteLoss(-3)
 	target.adjustFireLoss(-3)
-	target.adjustToxLoss(-1)
-	target.adjustOxyLoss(-1)
+	target.adjustToxLoss(-0.5)
+	target.adjustOxyLoss(-0.5)
 	return
 
 /obj/item/gun/medbeamtg/proc/on_beam_release(var/mob/living/target)
