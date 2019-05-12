@@ -1,7 +1,6 @@
-/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/detach()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
+/obj/item/mecha_parts/mecha_equipment/medical/Initialize()
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
 	name = "exosuit medical beamgun"
