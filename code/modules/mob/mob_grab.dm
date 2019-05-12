@@ -214,12 +214,12 @@
 			shift = -10
 			adir = assailant.dir
 			affecting.setDir(assailant.dir)
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.setDir(SOUTH)//face up
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 
 	switch(adir)
 		if(NORTH)
@@ -387,7 +387,7 @@
 	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
 		if(checkvalid(user, affecting)) //wut
 			var/mob/living/carbon/attacker = user
-			
+
 			if(affecting.buckled)
 				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
 				return

@@ -209,8 +209,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
-			if(C.donator_level > 0)
-				max_gear_slots += 5
 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)

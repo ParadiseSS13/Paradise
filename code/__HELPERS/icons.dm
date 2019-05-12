@@ -640,8 +640,19 @@ The _flatIcons list is a cache for generated icon files.
 	var/static/icon/flat_template = icon('icons/effects/effects.dmi', "nothing")
 
 	#define BLANK icon(flat_template)
-	#define SET_SELF(SETVAR) var/icon/SELF_ICON=icon(icon(curicon, curstate, base_icon_dir),"",SOUTH,no_anim?1:null);if(A.alpha<255)SELF_ICON.Blend(rgb(255,255,255,A.alpha),ICON_MULTIPLY);if(A.color)SELF_ICON.Blend(A.color,ICON_MULTIPLY);;##SETVAR=SELF_ICON;
-
+	#define SET_SELF(SETVAR) do { \
+		var/icon/SELF_ICON=icon(icon(curicon, curstate, base_icon_dir),"",SOUTH,no_anim?1:null); \
+		if(A.alpha<255) { \
+			SELF_ICON.Blend(rgb(255,255,255,A.alpha),ICON_MULTIPLY);\
+		} \
+		if(A.color) { \
+			if(islist(A.color)){ \
+				SELF_ICON.MapColors(arglist(A.color))} \
+			else{ \
+				SELF_ICON.Blend(A.color,ICON_MULTIPLY)} \
+		} \
+		##SETVAR=SELF_ICON;\
+		} while (0)
 	#define INDEX_X_LOW 1
 	#define INDEX_X_HIGH 2
 	#define INDEX_Y_LOW 3
@@ -717,7 +728,7 @@ The _flatIcons list is a cache for generated icon files.
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
 		if(!noIcon)
-			copy = image(icon = curicon, icon_state = curstate, layer = A.layer, dir = base_icon_dir)
+			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=base_icon_dir)
 			copy.color = A.color
 			copy.alpha = A.alpha
 			copy.blend_mode = curblend
@@ -768,10 +779,10 @@ The _flatIcons list is a cache for generated icon files.
 				continue
 			// Find the new dimensions of the flat icon to fit the added overlay
 			add_size = list(
-				min(flatX1, I.pixel_x + 1),
-				max(flatX2, I.pixel_x + add.Width()),
-				min(flatY1, I.pixel_y + 1),
-				max(flatY2, I.pixel_y + add.Height())
+				min(flatX1, I.pixel_x+1),
+				max(flatX2, I.pixel_x+add.Width()),
+				min(flatY1, I.pixel_y+1),
+				max(flatY2, I.pixel_y+add.Height())
 			)
 
 			if(flat_size ~! add_size)
@@ -788,7 +799,11 @@ The _flatIcons list is a cache for generated icon files.
 			flat.Blend(add, blendMode2iconMode(curblend), I.pixel_x + 2 - flatX1, I.pixel_y + 2 - flatY1)
 
 		if(A.color)
-			flat.Blend(A.color, ICON_MULTIPLY)
+			if(islist(A.color))
+				flat.MapColors(arglist(A.color))
+			else
+				flat.Blend(A.color, ICON_MULTIPLY)
+
 		if(A.alpha < 255)
 			flat.Blend(rgb(255, 255, 255, A.alpha), ICON_MULTIPLY)
 
@@ -799,8 +814,9 @@ The _flatIcons list is a cache for generated icon files.
 			. = cleaned
 		else
 			. = icon(flat, "", SOUTH)
-	else if(!noIcon)	//There's no overlays.
-		SET_SELF(.)
+	else	//There's no overlays.
+		if(!noIcon)
+			SET_SELF(.)
 
 	//Clear defines
 	#undef flatX1
@@ -822,9 +838,11 @@ The _flatIcons list is a cache for generated icon files.
 
 /proc/getIconMask(atom/A)//By yours truly. Creates a dynamic mask for a mob/whatever. /N
 	var/icon/alpha_mask = new(A.icon,A.icon_state)//So we want the default icon and icon state of A.
-	for(var/I in A.overlays)//For every image in overlays. var/image/I will not work, don't try it.
-		if(I:layer>A.layer)	continue//If layer is greater than what we need, skip it.
-		var/icon/image_overlay = new(I:icon,I:icon_state)//Blend only works with icon objects.
+	for(var/V in A.overlays)//For every image in overlays. var/image/I will not work, don't try it.
+		var/image/I = V
+		if(I.layer>A.layer)
+			continue//If layer is greater than what we need, skip it.
+		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
 		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
 		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
 	return alpha_mask//And now return the mask.

@@ -18,6 +18,7 @@
 	icon_state = "locator"
 	var/borg_to_spawn
 	var/checking = FALSE
+	var/rolename = "Syndicate Operative"
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -31,7 +32,7 @@
 		return FALSE
 	if(checking)
 		to_chat(user, "<span class='danger'>The device is already connecting to Syndicate command. Please wait.</span>")
-		return FALSE	
+		return FALSE
 	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/attack_self(mob/user)
@@ -45,7 +46,7 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/nuke_candidates = pollCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg" : "operative"]?", ROLE_OPERATIVE, TRUE, 150)
+	var/list/nuke_candidates = pollCandidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 150)
 	if(LAZYLEN(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -109,8 +110,10 @@
 
 	if(switch_roles_choice == "Syndicate Cyborg")
 		switch_roles = TRUE
+		rolename = initial(rolename)
 	else
 		switch_roles = FALSE
+		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
