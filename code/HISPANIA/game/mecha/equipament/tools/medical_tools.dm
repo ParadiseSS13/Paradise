@@ -7,10 +7,10 @@
 	desc = "Equipment for medical exosuits. Generates a focused beam of medical nanites."
 	icon = 'icons/hispania/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_medigun"
-	energy_drain = 10
+	energy_drain = 100
 	range = MELEE|RANGED
 	equip_cooldown = 0
-	var/obj/item/gun/medbeam/mech/medigun
+	var/obj/item/gun/medbeamtg/mech/medigun
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Initialize()
