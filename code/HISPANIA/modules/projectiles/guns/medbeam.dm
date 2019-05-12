@@ -12,9 +12,9 @@
 	var/max_range = 6
 	var/active = 0
 	var/datum/beam/current_beam = null
-	var/mounted = 0 //Denotes if this is a handheld or mounted version
-	var/tick = 0
-	var/tick_max = 10
+	var/mounted = 0 //Denotes if this is a handheld or mounted version.
+	var/tick = 0    //variable agregada por evan par inicializar los ticks de curacion.
+	var/tick_max = 10 // esto delimita el numero de ticks maximos de curacion.
 
 
 	weapon_weight = WEAPON_MEDIUM
@@ -119,15 +119,15 @@
 	if(target.health != target.maxHealth)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 	tick = tick + 1
-	target.adjustBruteLoss(-3.5)
-	target.adjustFireLoss(-3.5)
-	target.adjustToxLoss(-0.8)
-	target.adjustOxyLoss(-0.8)
-	//agregado por evan a ver si funciona 4
+	target.adjustBruteLoss(-4)
+	target.adjustFireLoss(-4)
+	target.adjustToxLoss(-0.1)
+	target.adjustOxyLoss(-0.1)
+	//agregado por evan para que cure solo 10 ticks por disparo.
 	if(tick >= tick_max)
 		LoseTarget()
 		return
-	// fin 4
+	//fin
 	return
 
 /obj/item/gun/medbeamtg/proc/on_beam_release(var/mob/living/target)
@@ -143,7 +143,8 @@
 /obj/item/gun/medbeamtg/mech/Initialize()
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
-//agregado por eva, intenta adaptar las 3 lineas anteriores al code de paradise.
+//agregado por evan, intenta adaptar las 3 lineas anteriores al code de paradise.
 /obj/item/gun/medbeamtg/mech/New()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
+//fin
