@@ -72,11 +72,6 @@
 		LoseTarget()
 		return
 
-	//agregado por evan a ver si funciona 4
-	if(tick >=tick_max)
-	 	LoseTarget()
-		return
-	// fin 4
 	if(world.time <= last_check+check_delay)
 		return
 
@@ -128,6 +123,11 @@
 	target.adjustFireLoss(-3.5)
 	target.adjustToxLoss(-0.8)
 	target.adjustOxyLoss(-0.8)
+	//agregado por evan a ver si funciona 4
+	if(tick >= tick_max)
+		LoseTarget()
+		return
+	// fin 4
 	return
 
 /obj/item/gun/medbeamtg/proc/on_beam_release(var/mob/living/target)
