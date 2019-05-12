@@ -105,7 +105,7 @@
 
 	spawn()
 		if(!new_overmind)
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
 			if(candidates.len)
 				C = pick(candidates)
 		else
