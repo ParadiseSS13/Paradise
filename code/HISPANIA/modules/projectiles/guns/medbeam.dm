@@ -13,7 +13,7 @@
 	var/active = 0
 	var/datum/beam/current_beam = null
 	var/mounted = 0 //Denotes if this is a handheld or mounted version.
-	var/tick = 0    //variable agregada por evan par inicializar los ticks de curacion.
+	var/tick = 0    //variable agregado por evan par inicializar los ticks de curacion.
 	var/tick_max = 10 // esto delimita el numero de ticks maximos de curacion.
 
 
