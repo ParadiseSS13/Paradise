@@ -41,6 +41,7 @@
 		qdel(current_beam)
 		current_beam = null
 		active = 0
+		tick = 0 //agregado
 		on_beam_release(current_target)
 	current_target = null
 
@@ -71,6 +72,11 @@
 		LoseTarget()
 		return
 
+	//agregado por evan a ver si funciona 4
+	if(tick >=tick_max)
+	 	LoseTarget()
+		return
+	// fin 4
 	if(world.time <= last_check+check_delay)
 		return
 
