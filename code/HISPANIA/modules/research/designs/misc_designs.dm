@@ -1,7 +1,3 @@
-obj/item/tank/plasma/empty/New()
-	..()
-	air_contents.toxins = null
-
 /datum/design/plasma_tank
 	name = "Empty plasma tank"
 	desc = "un tanque de plasma vacio"
