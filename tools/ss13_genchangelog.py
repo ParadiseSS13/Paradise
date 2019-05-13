@@ -1,8 +1,15 @@
 '''
+ss13_genchangelog.py - Generate changelog from YAML.
+
 Usage:
     $ python ss13_genchangelog.py [--dry-run] html/changelog.html html/changelogs/
 
-ss13_genchangelog.py - Generate changelog from YAML.
+	Example (first use):
+		- Install python 2.7
+		- run cmd.exe
+		- pip install pyyaml
+		- cd paradise github directory
+		- python tools/ss13_genchangelog.py html/changelog.html html/changelogs/
 
 Copyright 2013 Rob "N3X15" Nelson <nexis@7chan.org>
 

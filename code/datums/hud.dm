@@ -93,8 +93,8 @@ var/datum/atom_hud/huds = list( \
 	//		gang_huds += G.ganghud
 
 	var/serv_huds = list()//mindslaves and/or vampire thralls
-	if(ticker.mode)
-		for(var/datum/mindslaves/serv in (ticker.mode.vampires | ticker.mode.traitors))
+	if(SSticker.mode)
+		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
 
 

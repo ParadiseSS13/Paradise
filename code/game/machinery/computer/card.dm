@@ -431,9 +431,6 @@ var/time_last_changed_position = 0
 					modify.rank = t1
 					modify.assignment = t1
 
-
-				callHook("reassign_employee", list(modify))
-
 		if("reg")
 			if(is_authenticated(usr) && !target_dept)
 				var/t2 = modify
@@ -511,7 +508,6 @@ var/time_last_changed_position = 0
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
 				modify.assignment = "Terminated"
 				modify.access = list()
-				callHook("terminate_employee", list(modify))
 
 		if("demote")
 			if(is_authenticated(usr))
