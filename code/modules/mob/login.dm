@@ -70,5 +70,4 @@
 			AA.display_to(list(src))
 
 	update_client_colour(0)
-
-	callHook("mob_login", list("client" = client, "mob" = src))
+	update_morgue()

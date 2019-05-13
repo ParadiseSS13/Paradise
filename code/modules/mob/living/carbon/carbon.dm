@@ -72,7 +72,7 @@
 
 			if(prob(src.getBruteLoss() - 50))
 				for(var/atom/movable/A in stomach_contents)
-					A.loc = loc
+					A.forceMove(drop_location())
 					stomach_contents.Remove(A)
 				src.gib()
 
@@ -833,7 +833,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.loc = loc
+				handcuffed.forceMove(drop_location())
 				handcuffed.dropped(src)
 				handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
@@ -841,7 +841,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				update_handcuffed()
 				return
 			if(I == legcuffed)
-				legcuffed.loc = loc
+				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
 				update_inv_legcuffed()
@@ -935,7 +935,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(client)
 			client.screen -= W
 		if(W)
-			W.loc = loc
+			W.forceMove(drop_location())
 			W.dropped(src)
 			if(W)
 				W.layer = initial(W.layer)
@@ -947,7 +947,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(client)
 			client.screen -= W
 		if(W)
-			W.loc = loc
+			W.forceMove(drop_location())
 			W.dropped(src)
 			if(W)
 				W.layer = initial(W.layer)
@@ -1139,9 +1139,11 @@ so that different stomachs can handle things in different ways VB*/
 		grant_death_vision()
 		return
 
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
-	
+
 	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
 		sight |= E.vision_flags
 		if(E.see_in_dark)
@@ -1160,6 +1162,6 @@ so that different stomachs can handle things in different ways VB*/
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		
+
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

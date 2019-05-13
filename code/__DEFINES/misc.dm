@@ -277,7 +277,7 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)
+#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
 #define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))

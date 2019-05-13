@@ -1351,9 +1351,9 @@ var/list/robot_verbs_default = list(
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(cyborg_unlock)
 		crisis = 1
-	if(!(mind in ticker.minds))
-		ticker.minds += mind
-	ticker.mode.ert += mind
+	if(!(mind in SSticker.minds))
+		SSticker.minds += mind
+	SSticker.mode.ert += mind
 
 /mob/living/silicon/robot/ert/gamma
 	crisis = 1

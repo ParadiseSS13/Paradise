@@ -793,7 +793,7 @@
 		config.sql_enabled = 0
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
-			if(ticker.current_state == GAME_STATE_PREGAME)
+			if(SSticker.current_state == GAME_STATE_PREGAME)
 				going = 0
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")

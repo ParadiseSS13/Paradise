@@ -437,11 +437,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("traitor")
 			SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
 			SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)
-			ticker.mode.equip_traitor(new_character)
+			SSticker.mode.equip_traitor(new_character)
 		if("Wizard")
 			new_character.loc = pick(wizardstart)
 			//ticker.mode.learn_basic_spells(new_character)
-			ticker.mode.equip_wizard(new_character)
+			SSticker.mode.equip_wizard(new_character)
 		if("Syndicate")
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
@@ -858,7 +858,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
 
-	if(!ticker)
+	if(!SSticker)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -891,12 +891,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(ticker && ticker.mode)
+	if(SSticker && SSticker.mode)
 		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!")
 		return
 
-	if(ticker.random_players)
-		ticker.random_players = 0
+	if(SSticker.random_players)
+		SSticker.random_players = 0
 		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.", 1)
 		to_chat(usr, "Disabled.")
 		return
@@ -914,7 +914,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.")
 
-	ticker.random_players = 1
+	SSticker.random_players = 1
 	feedback_add_details("admin_verb","MER") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_random_events()
@@ -1009,13 +1009,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_EVENT))
 		return
 
-	if(ticker.mode.ert_disabled)
-		ticker.mode.ert_disabled = 0
+	if(SSticker.mode.ert_disabled)
+		SSticker.mode.ert_disabled = 0
 		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
-		ticker.mode.ert_disabled = 1
+		SSticker.mode.ert_disabled = 1
 		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
@@ -1033,14 +1033,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		return
 
-	ticker.selected_tip = input
+	SSticker.selected_tip = input
 
 	// If we've already tipped, then send it straight away.
-	if(ticker.tipped)
-		ticker.send_tip_of_the_round()
+	if(SSticker.tipped)
+		SSticker.send_tip_of_the_round()
 
 	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
@@ -1055,12 +1055,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
-	if(!ticker || !ticker.mode)
+	if(!SSticker || !SSticker.mode)
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 
 	var/dat = ""
-	for(var/datum/station_goal/S in ticker.mode.station_goals)
+	for(var/datum/station_goal/S in SSticker.mode.station_goals)
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	usr << browse(dat, "window=goals;size=400x400")

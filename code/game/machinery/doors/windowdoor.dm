@@ -77,7 +77,7 @@
 			else
 				do_animate("deny")
 		return
-	if(!ticker)
+	if(!SSticker)
 		return
 	var/mob/living/M = AM
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
@@ -214,7 +214,7 @@
 		return attack_hand(user)
 
 /obj/machinery/door/window/attack_hand(mob/user)
-	return bumpopen(user)
+	return try_to_activate_door(user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
@@ -228,7 +228,6 @@
 		return 1
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
-
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		return

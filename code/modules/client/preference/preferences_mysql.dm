@@ -87,7 +87,7 @@
 					UI_style_alpha='[UI_style_alpha]',
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
-					toggles='[toggles]',
+					toggles='[num2text(toggles, 7)]',
 					atklog='[atklog]',
 					sound='[sound]',
 					randomslot='[randomslot]',
