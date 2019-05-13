@@ -257,7 +257,12 @@ var/global/list/role_playtime_requirements = list(
 			play_records[rtype] = text2num(read_records[rtype])
 		else
 			play_records[rtype] = 0
-	var/myrole = mob.mind.playtime_role ? mob.mind.playtime_role : mob.mind.assigned_role
+	var/myrole
+	if(mob.mind)
+		if(mob.mind.playtime_role)
+			myrole = mob.mind.playtime_role
+		else if(mob.mind.assigned_role)
+			myrole = mob.mind.assigned_role
 	if(mob.stat == CONSCIOUS && myrole)
 		play_records[EXP_TYPE_LIVING] += minutes
 		if(announce_changes)
@@ -287,12 +292,3 @@ var/global/list/role_playtime_requirements = list(
 		log_game("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
 		return
-
-/hook/roundstart/proc/exptimer()
-	if(!config.sql_enabled || !config.use_exp_tracking)
-		return 1
-	spawn(0)
-		while(TRUE)
-			sleep(5 MINUTES)
-			update_exp(5,0)
-	return 1

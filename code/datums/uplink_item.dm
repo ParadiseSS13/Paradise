@@ -12,9 +12,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
-			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
+			if(I.gamemodes.len && SSticker && !(SSticker.mode.type in I.gamemodes))
 				continue
-			if(I.excludefrom.len && ticker && (ticker.mode.type in I.excludefrom))
+			if(I.excludefrom.len && SSticker && (SSticker.mode.type in I.excludefrom))
 				continue
 			if(I.last)
 				last += I
@@ -1537,10 +1537,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
-	name = "Reviver Implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. Comes with an automated implanting tool."
+	name = "Hardened Reviver Implant"
+	desc = "This implant will attempt to revive you if you lose consciousness. It is invulnerable to EMPs. Comes with an automated implanting tool."
 	reference = "CIR"
-	item = /obj/item/organ/internal/cyberimp/chest/reviver
+	item = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	cost = 8
 
 // POINTLESS BADASSERY

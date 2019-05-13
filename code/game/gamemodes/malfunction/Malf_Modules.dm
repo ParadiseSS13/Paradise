@@ -111,7 +111,7 @@
 		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
 		L.dust()
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	ticker.force_ending = 1
+	SSticker.force_ending = 1
 
 
 /datum/AI_Module/large/upgrade_turrets
@@ -496,22 +496,22 @@
 		return
 
 	var/upgradedcams = 0
-	see_override = SEE_INVISIBLE_MINIMUM //Night-vision, without which X-ray would be very limited in power.
+	RegisterSignal(src, COMSIG_MOB_UPDATE_SIGHT, .proc/update_upgraded_cameras_sight) //Makes sure the AI has night vision, without which X-ray would be very limited in power.
 	update_sight()
 
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		if(C.assembly)
-			var/upgraded = 0
+			var/upgraded = FALSE
 
 			if(!C.isXRay())
 				C.upgradeXRay()
 				//Update what it can see.
 				cameranet.updateVisibility(C, 0)
-				upgraded = 1
+				upgraded = TRUE
 
 			if(!C.isEmpProof())
 				C.upgradeEmpProof()
-				upgraded = 1
+				upgraded = TRUE
 
 			if(upgraded)
 				upgradedcams++
@@ -519,6 +519,8 @@
 	to_chat(src, "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: [upgradedcams]. Light amplification system online.</span>")
 	verbs -= /mob/living/silicon/ai/proc/upgrade_cameras
 
+/mob/living/silicon/ai/proc/update_upgraded_cameras_sight()
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /datum/AI_Module/large/eavesdrop
 	module_name = "Enhanced Surveillance"

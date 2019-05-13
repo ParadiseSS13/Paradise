@@ -502,7 +502,7 @@
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/space/nearstation)
 "bI" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plasma,
