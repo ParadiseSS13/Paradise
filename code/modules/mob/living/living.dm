@@ -1038,13 +1038,3 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
-
-/mob/living/update_sight()
-	if(!client)
-		return
-
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
-	. = ..()
