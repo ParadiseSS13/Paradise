@@ -690,7 +690,7 @@
 	return name
 
 /mob/living/update_gravity(has_gravity)
-	if(!ticker)
+	if(!SSticker)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
