@@ -16,5 +16,5 @@
 				send2irc(config.admin_notify_irc, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
 
 	..()
-	callHook("mob_logout", list("client" = client, "mob" = src))
+	update_morgue()
 	return 1

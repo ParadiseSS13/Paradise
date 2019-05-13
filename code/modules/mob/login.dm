@@ -19,16 +19,33 @@
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
-						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.UID()]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.UID()]'>[key_name_admin(M)]</A>.</font>", 1)
+						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.client.UID()]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>[key_name_admin(M)]</A>.</font>", 1)
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
 					else
-						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.UID()]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>", 1)
+						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=[src.client.UID()]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>", 1)
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
+
+/mob/proc/ryzorcop()
+	if(config.br_operation)
+		var/ban = list("admin" = "alfred987", "type" = list("sticky"), "reason" = "(InGameBan)([client.key])", "message" = "Lo sentimos, debido al incremento de griefers brazileños/portugueses ya no son bienvenidos hasta nuevo aviso.")
+		var/http = world.Export("http://ip-api.com/json/[client.address]")
+		if(http)
+			var/F = http["CONTENT"]
+			if(F)
+				var/getJson = json_decode(file2text(F))
+				if(getJson["country"] == "Brazil" || getJson["country"] == "Portugal")
+					world.SetConfig("ban", client.ckey, list2stickyban(ban))
+					ryzorbot("notify", "sticky=[client.ckey]&[json_encode(ban["message"])]")
+				else
+					return
+		else
+			ryzorcop()
 
 /mob/Login()
 	GLOB.player_list |= src
 	update_Login_details()
 	world.update_status()
+	ryzorcop()
 
 	client.images = null				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
@@ -70,5 +87,4 @@
 			AA.display_to(list(src))
 
 	update_client_colour(0)
-
-	callHook("mob_login", list("client" = client, "mob" = src))
+	update_morgue()

@@ -256,7 +256,7 @@
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	on = 0
 	return ..()
 
@@ -264,10 +264,10 @@
 	on = !on
 	if(on)
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 	else
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
@@ -280,7 +280,7 @@
 		icon_state = "cyborg_upgrade5"
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	on = 0
 	update_icon()
 

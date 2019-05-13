@@ -152,7 +152,13 @@
 	breakouttime = 35//easy to apply, easy to break out of
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
+	hitsound = 'sound/effects/snap.ogg'
 	var/weaken = 0
+
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
+	if(!..())
+		return
 
 /obj/item/restraints/legcuffs/bola/throw_impact(atom/hit_atom)
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
@@ -166,6 +172,7 @@
 		feedback_add_details("handcuffs","B")
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.Weaken(weaken)
+		playsound(loc, hitsound, 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"

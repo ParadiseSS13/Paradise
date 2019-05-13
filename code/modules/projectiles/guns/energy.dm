@@ -32,7 +32,7 @@
 	power_supply.give(power_supply.maxcharge)
 	update_ammo_types()
 	if(selfcharge)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	update_icon()
 
 /obj/item/gun/energy/proc/update_ammo_types()
@@ -47,7 +47,7 @@
 
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/energy/process()
@@ -167,9 +167,9 @@
 	switch(var_name)
 		if("selfcharge")
 			if(var_value)
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects.Remove(src)
+				STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/gun/energy/proc/robocharge()

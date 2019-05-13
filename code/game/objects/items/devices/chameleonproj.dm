@@ -227,7 +227,7 @@
 		return PROCESS_KILL
 
 /obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	S = user
 	user.base_icon = disguise
 	user.icon_state = disguise
@@ -236,7 +236,7 @@
 	user.update_icons()
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	S = user
 	user.base_icon = initial(user.base_icon)
 	user.icon_state = initial(user.icon_state)

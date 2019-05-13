@@ -47,7 +47,7 @@
 					Move(step, get_dir(src, step))
 					sleep (10)
 
-/mob/living/simple_animal/kiwi/process_ai()
+/mob/living/simple_animal/kiwi/Life()
 	if(prob(10))
 		src.visible_message("<span class='notice'>[src] thinks about flying through the sky...</span>")
 		icon_state = "kiwi_fly"

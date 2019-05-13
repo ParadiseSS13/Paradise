@@ -113,6 +113,7 @@
 	anchored = TRUE
 	density = FALSE
 	layer = TURF_LAYER
+	plane = FLOOR_PLANE
 	icon_state = "weeds"
 	max_integrity = 15
 	var/obj/structure/alien/weeds/node/linked_node = null

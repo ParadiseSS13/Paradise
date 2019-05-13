@@ -41,6 +41,8 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(M)
+	if(vital)
+		M.update_stat("Vital organ inserted")
 
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
@@ -193,10 +195,10 @@
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/organ/internal/shadowtumor/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/organ/internal/shadowtumor/process()

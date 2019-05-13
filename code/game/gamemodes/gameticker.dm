@@ -83,7 +83,7 @@ var/round_start_time = 0
 	else
 		timerbuffer = config.vote_autotransfer_interval
 	spawn(timerbuffer)
-		vote.autotransfer()
+		SSvote.autotransfer()
 		initialtpass = 1
 		votetimer()
 
@@ -104,7 +104,7 @@ var/round_start_time = 0
 			var/datum/game_mode/M = config.pick_mode(secret_force_mode)
 			if(M.can_start())
 				src.mode = config.pick_mode(secret_force_mode)
-		job_master.ResetOccupations()
+		SSjobs.ResetOccupations()
 		if(!src.mode)
 			src.mode = pickweight(runnable_modes)
 		if(src.mode)
@@ -116,7 +116,7 @@ var/round_start_time = 0
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
-		job_master.ResetOccupations()
+		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
 
@@ -124,12 +124,12 @@ var/round_start_time = 0
 	src.mode.pre_pre_setup()
 	var/can_continue
 	can_continue = src.mode.pre_setup()//Setup special modes
-	job_master.DivideOccupations() //Distribute jobs
+	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
 		qdel(mode)
 		current_state = GAME_STATE_PREGAME
 		to_chat(world, "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby.")
-		job_master.ResetOccupations()
+		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
 
@@ -144,6 +144,7 @@ var/round_start_time = 0
 		src.mode.announce()
 
 	create_characters() //Create player characters and transfer them
+	populate_spawn_points()
 	collect_minds()
 	equip_characters()
 	data_core.manifest()
@@ -154,6 +155,7 @@ var/round_start_time = 0
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
+	setupfactions()
 
 	//shuttle_controller.setup_shuttle_docks()
 
@@ -179,10 +181,10 @@ var/round_start_time = 0
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
-		if(holiday_master.holidays)
+		if(SSholiday.holidays)
 			to_chat(world, "<font color='blue'>and...</font>")
-			for(var/holidayname in holiday_master.holidays)
-				var/datum/holiday/holiday = holiday_master.holidays[holidayname]
+			for(var/holidayname in SSholiday.holidays)
+				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 				to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	spawn(0) // Forking dynamic room selection
@@ -384,8 +386,8 @@ var/round_start_time = 0
 			if(player.mind.assigned_role == "Captain")
 				captainless=0
 			if(player.mind.assigned_role != player.mind.special_role)
-				job_master.AssignRank(player, player.mind.assigned_role, 0)
-				job_master.EquipRank(player, player.mind.assigned_role, 0)
+				SSjobs.AssignRank(player, player.mind.assigned_role, 0)
+				SSjobs.EquipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
@@ -407,7 +409,7 @@ var/round_start_time = 0
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
-/datum/controller/gameticker/proc/process()
+/datum/controller/gameticker/proc/process_decrepit()
 	if(current_state != GAME_STATE_PLAYING)
 		return 0
 
@@ -430,7 +432,6 @@ var/round_start_time = 0
 			declare_completion()
 
 		spawn(50)
-			callHook("roundend")
 
 			if(mode.station_was_nuked)
 				world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
@@ -513,7 +514,13 @@ var/round_start_time = 0
 	mode.declare_station_goal_completion()
 
 	//Ask the event manager to print round end information
-	event_manager.RoundEnd()
+	SSevents.RoundEnd()
+
+	// Add AntagHUD to everyone, see who was really evil the whole time!
+	for(var/datum/atom_hud/antag/H in huds)
+		for(var/m in GLOB.player_list)
+			var/mob/M = m
+			H.add_hud_to(M)
 
 	return 1
 

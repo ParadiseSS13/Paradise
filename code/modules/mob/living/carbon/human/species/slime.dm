@@ -32,6 +32,7 @@
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
+	flesh_color = "#5fe8b1"
 	blood_color = "#0064C8"
 	exotic_blood = "water"
 	blood_damage_type = TOX

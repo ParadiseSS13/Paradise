@@ -56,7 +56,7 @@
 	var/announced = 0
 
 /obj/machinery/doomsday_device/Destroy()
-	GLOB.fast_processing -= src
+	STOP_PROCESSING(SSfastprocess, src)
 	SSshuttle.emergencyNoEscape = 0
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
@@ -67,7 +67,7 @@
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
 	timing = 1
-	GLOB.fast_processing += src
+	START_PROCESSING(SSfastprocess, src)
 	SSshuttle.emergencyNoEscape = 1
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
@@ -84,7 +84,7 @@
 			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
-		GLOB.fast_processing -= src
+		STOP_PROCESSING(SSfastprocess, src)
 		return
 	var/sec_left = seconds_remaining()
 	if(sec_left <= 0)
@@ -496,22 +496,22 @@
 		return
 
 	var/upgradedcams = 0
-	see_override = SEE_INVISIBLE_MINIMUM //Night-vision, without which X-ray would be very limited in power.
+	RegisterSignal(src, COMSIG_MOB_UPDATE_SIGHT, .proc/update_upgraded_cameras_sight) //Makes sure the AI has night vision, without which X-ray would be very limited in power.
 	update_sight()
 
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		if(C.assembly)
-			var/upgraded = 0
+			var/upgraded = FALSE
 
 			if(!C.isXRay())
 				C.upgradeXRay()
 				//Update what it can see.
 				cameranet.updateVisibility(C, 0)
-				upgraded = 1
+				upgraded = TRUE
 
 			if(!C.isEmpProof())
 				C.upgradeEmpProof()
-				upgraded = 1
+				upgraded = TRUE
 
 			if(upgraded)
 				upgradedcams++
@@ -519,6 +519,8 @@
 	to_chat(src, "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: [upgradedcams]. Light amplification system online.</span>")
 	verbs -= /mob/living/silicon/ai/proc/upgrade_cameras
 
+/mob/living/silicon/ai/proc/update_upgraded_cameras_sight()
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /datum/AI_Module/large/eavesdrop
 	module_name = "Enhanced Surveillance"

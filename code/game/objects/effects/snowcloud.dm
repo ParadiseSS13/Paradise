@@ -9,12 +9,12 @@
 
 /obj/effect/snowcloud/New(turf, obj/machinery/snow_machine/SM)
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	if(SM && istype(SM))
 		parent_machine = SM
 
 /obj/effect/snowcloud/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/snowcloud/process()
@@ -73,12 +73,12 @@
 	anchored = TRUE
 
 /obj/effect/snow/New()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	icon_state = "snow[rand(1,6)]"
 	..()
 
 /obj/effect/snow/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/snow/process()

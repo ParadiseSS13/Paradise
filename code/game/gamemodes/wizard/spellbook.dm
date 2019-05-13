@@ -333,7 +333,7 @@
 			user.mutations.Add(XRAY)
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
-			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
 	return 1
 
@@ -468,6 +468,24 @@
 	if(active)
 		dat += "<b>Already cast!</b><br>"
 	return dat
+
+/datum/spellbook_entry/summon/ghosts
+	name = "Summon Ghosts"
+	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
+	cost = 0
+
+/datum/spellbook_entry/summon/ghosts/IsAvailible()
+	if(!ticker.mode)
+		return FALSE
+	else
+		return TRUE
+
+/datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	new /datum/event/wizard/ghost()
+	active = TRUE
+	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
+	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
+	return TRUE
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"

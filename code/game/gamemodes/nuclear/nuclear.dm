@@ -457,7 +457,7 @@ proc/issyndicate(mob/living/M as mob)
 		var/turf/T = get_turf(nuke)
 		var/area/A = T.loc
 
-		var/list/thousand_penalty = list(/area/syndicate_station, /area/wizard_station, /area/solar, /area)
+		var/list/thousand_penalty = list(/area/wizard_station, /area/solar, /area)
 		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
 
 		if(is_type_in_list(A, thousand_penalty))
