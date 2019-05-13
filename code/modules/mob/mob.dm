@@ -968,13 +968,6 @@ var/list/slot_equipment_priority = list( \
 
 
 	if(is_admin(src))
-		if(statpanel("DI"))	//not looking at that panel
-			stat("Loc", "([x], [y], [z]) [loc]")
-			stat("CPU", "[world.cpu]")
-			stat("Instances", "[world.contents.len]")
-
-			if(processScheduler)
-				processScheduler.statProcesses()
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
