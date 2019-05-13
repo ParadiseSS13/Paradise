@@ -255,10 +255,15 @@
 		return
 	..()
 
+/obj/machinery/access_button/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
+
 /obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(usr)
-	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied</span>")
+
+	if(!allowed(user) && !user.can_advanced_admin_interact())
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else if(radio_connection)
 		var/datum/signal/signal = new

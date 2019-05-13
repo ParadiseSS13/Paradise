@@ -671,8 +671,8 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 	/obj/item/gun/energy/kinetic_accelerator/crossbow,\
 	/obj/item/storage/box/syndicate, /obj/item/storage/box/emps,\
 	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
-	/obj/item/clothing/shoes/syndigaloshes, /obj/item/card/id/syndicate,\
-	/obj/item/clothing/mask/gas/voice, /obj/item/clothing/glasses/thermal,\
+	/obj/item/clothing/shoes/chameleon/noslip, /obj/item/card/id/syndicate,\
+	/obj/item/clothing/mask/chameleon, /obj/item/clothing/glasses/thermal,\
 	/obj/item/chameleon, /obj/item/card/emag,\
 	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
 	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\

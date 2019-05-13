@@ -1,7 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "The ID computer now color-codes potential job transfer options, highlighting good choices for a job transfer in green, and bad ones in gray."
-  - bugfix: "Taking a job transfer now gives you playtime based on your new job, instead of incorrectly still giving you playtime based on your old job."
-  - tweak: "Job transfers to karma jobs are now possible - if you have the job unlocked."
-  - rscadd: "Attempting to bypass a job ban via a job transfer now generates a warning to all online admins."

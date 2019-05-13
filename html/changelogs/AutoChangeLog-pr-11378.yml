@@ -1,4 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Added examine toolptips. Hover over any equipped or hold item for a little while and it will display the item description as a tooltip."

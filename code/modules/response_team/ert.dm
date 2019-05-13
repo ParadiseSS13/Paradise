@@ -21,11 +21,11 @@ var/ert_request_answered = FALSE
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
-	if(ticker.current_state == GAME_STATE_PREGAME)
+	if(SSticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
@@ -164,9 +164,9 @@ var/ert_request_answered = FALSE
 	M.mind.original = M
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
-	if(!(M.mind in ticker.minds))
-		ticker.minds += M.mind //Adds them to regular mind list.
-	ticker.mode.ert += M.mind
+	if(!(M.mind in SSticker.minds))
+		SSticker.minds += M.mind //Adds them to regular mind list.
+	SSticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
 	SSjobs.CreateMoneyAccount(M, class, null)
