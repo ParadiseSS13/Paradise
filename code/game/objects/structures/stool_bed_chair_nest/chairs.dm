@@ -83,7 +83,7 @@
 
 /obj/structure/chair/proc/handle_layer()
 	if(buckled_mob && dir == NORTH)
-		layer = FLY_LAYER
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 

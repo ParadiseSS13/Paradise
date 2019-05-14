@@ -334,15 +334,15 @@
 			else if(h_user.l_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
-				B.layer = 20
-				B.plane = HUD_PLANE
+				B.layer = ABOVE_HUD_LAYER
+				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
-				B.layer = 20
-				B.plane = HUD_PLANE
+				B.layer = ABOVE_HUD_LAYER
+				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)

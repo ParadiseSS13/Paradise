@@ -9,6 +9,7 @@
 	obj_integrity = 50
 	max_integrity = 50
 	layer = 2.3 //under pipes
+	plane = FLOOR_PLANE
 	//	flags = CONDUCT
 
 /obj/structure/lattice/New()

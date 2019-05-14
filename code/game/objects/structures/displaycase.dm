@@ -2,17 +2,15 @@
 #define DISPLAYCASE_FRAME_SCREWDRIVER 1
 
 // List and hook used to set up the captain's print on their display case
-var/global/list/captain_display_cases = list()
+GLOBAL_LIST_INIT(captain_display_cases, list())
 
-/hook/captain_spawned/proc/displaycase(mob/living/carbon/human/captain)
-	if(!captain_display_cases.len)
-		return 1
+/proc/updateDisplaycase(mob/living/carbon/human/captain)
+	if(!GLOB.captain_display_cases.len)
+		return 
 	var/fingerprint = captain.get_full_print()
-	for(var/obj/structure/displaycase/D in captain_display_cases)
-		if(istype(D))
-			D.ue = fingerprint
-
-	return 1
+	for(var/item in GLOB.captain_display_cases)
+		var/obj/structure/displaycase/CASE = item
+		CASE.ue = fingerprint
 
 /obj/structure/displaycase_frame
 	name = "display case frame"
@@ -127,6 +125,10 @@ var/global/list/captain_display_cases = list()
 	req_access = list(access_captain)
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 
+/obj/structure/displaycase/captains_laser/Initialize(mapload)
+	. = ..()
+	GLOB.captain_display_cases += src
+
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
@@ -140,7 +142,7 @@ var/global/list/captain_display_cases = list()
 	return ..()
 
 /obj/structure/displaycase/captains_laser/Destroy()
-	captain_display_cases -= src
+	GLOB.captain_display_cases -= src
 	return ..()
 
 /obj/structure/displaycase/examine(mob/user)

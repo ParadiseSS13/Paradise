@@ -4,7 +4,7 @@ var/const/honksquad_possible = 6 //if more Commandos are needed in the future
 var/global/sent_honksquad = 0
 
 /client/proc/honksquad()
-	if(!ticker)
+	if(!SSticker)
 		to_chat(usr, "<font color='red'>The game hasn't started yet!</font>")
 		return
 	if(world.time < 6000)
@@ -95,7 +95,7 @@ var/global/sent_honksquad = 0
 	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
 	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language("Clownish")
-	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected)
 	return new_honksquad
 

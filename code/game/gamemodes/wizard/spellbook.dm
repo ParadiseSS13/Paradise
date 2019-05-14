@@ -333,7 +333,7 @@
 			user.mutations.Add(XRAY)
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
-			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
 	return 1
 
@@ -475,7 +475,7 @@
 	cost = 0
 
 /datum/spellbook_entry/summon/ghosts/IsAvailible()
-	if(!ticker.mode)
+	if(!SSticker.mode)
 		return FALSE
 	else
 		return TRUE
@@ -495,9 +495,9 @@
 	log_name = "SG"
 
 /datum/spellbook_entry/summon/guns/IsAvailible()
-	if(!ticker.mode) // In case spellbook is placed on map
+	if(!SSticker.mode) // In case spellbook is placed on map
 		return 0
-	if(ticker.mode.name == "ragin' mages")
+	if(SSticker.mode.name == "ragin' mages")
 		return 0
 	else
 		return 1
@@ -518,9 +518,9 @@
 	log_name = "SU"
 
 /datum/spellbook_entry/summon/magic/IsAvailible()
-	if(!ticker.mode) // In case spellbook is placed on map
+	if(!SSticker.mode) // In case spellbook is placed on map
 		return 0
-	if(ticker.mode.name == "ragin' mages")
+	if(SSticker.mode.name == "ragin' mages")
 		return 0
 	else
 		return 1

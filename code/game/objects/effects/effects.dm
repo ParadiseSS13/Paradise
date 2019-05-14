@@ -41,6 +41,7 @@
 	return 0
 	
 /obj/effect/decal
+	plane = FLOOR_PLANE
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up
 	var/no_clear = FALSE    //if it has this, don't delete it when its' scooped up
 	var/list/scoop_reagents = null

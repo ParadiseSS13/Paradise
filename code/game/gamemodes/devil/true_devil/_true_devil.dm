@@ -30,22 +30,6 @@
 	E.insert()
 	..()
 
-
-/mob/living/carbon/true_devil/update_sight()
-	if(stat == DEAD)
-		sight |= SEE_TURFS
-		sight |= SEE_MOBS
-		sight |= SEE_OBJS
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		sight = (SEE_TURFS | SEE_OBJS)
-		see_in_dark = 2
-		see_invisible = SEE_INVISIBLE_LIVING
-
-		if(see_override)
-			see_invisible = see_override
-
 // inventory system could use some love
 /mob/living/carbon/true_devil/put_in_hands(obj/item/W)
 	if(!W)

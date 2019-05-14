@@ -9,7 +9,7 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
-	layer = HUD_LAYER_SCREEN
+	layer = HUD_LAYER
 	plane = HUD_PLANE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
@@ -36,6 +36,8 @@
 
 /obj/screen/close
 	name = "close"
+	layer = ABOVE_HUD_LAYER
+	plane = ABOVE_HUD_PLANE
 
 /obj/screen/close/Click()
 	if(master)
@@ -47,7 +49,6 @@
 /obj/screen/drop
 	name = "drop"
 	icon_state = "act_drop"
-	layer = 19
 
 /obj/screen/drop/Click()
 	usr.drop_item_v()
@@ -143,7 +144,6 @@
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_resist"
-	layer = 19
 
 /obj/screen/resist/Click()
 	if(isliving(usr))
@@ -327,7 +327,6 @@
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	var/list/object_overlays = list()
-	layer = 19
 
 /obj/screen/inventory/MouseEntered()
 	..()
@@ -417,7 +416,6 @@
 	return 1
 
 /obj/screen/swap_hand
-	layer = 19
 	name = "swap hand"
 
 /obj/screen/swap_hand/Click()

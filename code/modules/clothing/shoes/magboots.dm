@@ -83,7 +83,7 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
 	if(user)
-		if(user.mind in ticker.mode.wizards)
+		if(user.mind in SSticker.mode.wizards)
 			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
 				set_light(0)
 			else

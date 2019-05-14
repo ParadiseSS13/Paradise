@@ -4,7 +4,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/proc/color_windows(obj/W)
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security,/area/prison,/area/shuttle/gamma)
+	var/list/wcBrigAreas = list(/area/security, /area/shuttle/gamma)
 
 	var/newcolor
 	var/turf/T = get_turf(W)

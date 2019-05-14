@@ -1386,6 +1386,8 @@
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
+	..()
+
 /obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
 	if(!no_effect)
 		if(selected)

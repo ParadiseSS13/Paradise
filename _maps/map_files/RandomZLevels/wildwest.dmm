@@ -204,7 +204,7 @@
 /area/awaymission/wwvaultdoors)
 "aG" = (
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "aH" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -268,7 +268,7 @@
 	name = "Blocker"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aQ" = (
 /obj/effect/forcefield{
 	desc = "You can't get in. Heh.";
@@ -276,7 +276,7 @@
 	name = "Blocker"
 	},
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "aR" = (
 /obj/effect/forcefield{
 	desc = "You can't get in. Heh.";
@@ -349,7 +349,7 @@
 /area/awaymission/wwmines)
 "be" = (
 /turf/simulated/wall/mineral/sandstone,
-/area/space)
+/area/space/nearstation)
 "bf" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plating,
@@ -393,7 +393,7 @@
 "bp" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bq" = (
 /obj/effect/mine/dnascramble,
 /obj/item/ammo_box/c10mm,
@@ -431,14 +431,14 @@
 	icon_state = "fwindow"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bx" = (
 /obj/structure/window/reinforced{
 	tag = "icon-fwindow";
 	icon_state = "fwindow"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "by" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
@@ -605,7 +605,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bV" = (
 /obj/structure/window/reinforced{
 	tag = "icon-fwindow (NORTH)";
@@ -668,7 +668,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cb" = (
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (WEST)";
@@ -736,7 +736,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ck" = (
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
@@ -810,7 +810,7 @@
 /obj/structure/lattice,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cs" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/carpet,
@@ -981,7 +981,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cT" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -1075,7 +1075,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dg" = (
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (WEST)";
@@ -1701,7 +1701,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "eM" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -1710,7 +1710,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "eN" = (
 /obj/structure/window/reinforced{
 	tag = "icon-fwindow (EAST)";
@@ -1739,7 +1739,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "eP" = (
 /obj/structure/window/reinforced{
 	tag = "icon-fwindow (NORTH)";
@@ -1752,7 +1752,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "eQ" = (
 /obj/structure/window/reinforced{
 	tag = "icon-fwindow (EAST)";
@@ -2080,7 +2080,7 @@
 /area/awaymission/wwrefine)
 "fI" = (
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/space/nearstation)
 "fJ" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/chair/office/dark{
@@ -2329,7 +2329,7 @@
 	icon_state = "fwindow"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gp" = (
 /obj/structure/window/reinforced{
 	tag = "icon-fwindow (WEST)";
@@ -2341,7 +2341,7 @@
 	icon_state = "fwindow"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gq" = (
 /obj/item/paper{
 	info = "The syndicate have invaded.  Their ships appeared out of nowhere and now they likely intend to kill us all and take everything.  On the off-chance that the Vault may grant us sanctuary, many of us have decided to force our way inside and bolt the door, taking as many provisions with us as we can carry.  In case you find this, send for help immediately and open the Vault. Find us inside.";
@@ -2422,7 +2422,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gC" = (
 /obj/item/gun/projectile/shotgun,
 /turf/simulated/floor/wood,
@@ -2473,7 +2473,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/space/nearstation)
 "gK" = (
 /obj/item/gun/projectile/revolver/russian,
 /turf/simulated/floor/wood,

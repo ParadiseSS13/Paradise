@@ -139,8 +139,8 @@
 					return
 
 				if(P:brainmob.mind)
-					ticker.mode.remove_cultist(P:brainmob.mind, 1)
-					ticker.mode.remove_revolutionary(P:brainmob.mind, 1)
+					SSticker.mode.remove_cultist(P:brainmob.mind, 1)
+					SSticker.mode.remove_revolutionary(P:brainmob.mind, 1)
 
 				user.drop_item()
 				P.loc = src
