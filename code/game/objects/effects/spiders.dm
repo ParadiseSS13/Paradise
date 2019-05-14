@@ -5,74 +5,33 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	density = FALSE
-	var/health = 15
+	obj_integrity = 15
+	resistance_flags = FLAMMABLE
 	var/mob/living/carbon/human/master_commander = null
 
 /obj/structure/spider/Destroy()
 	master_commander = null
 	return ..()
 
-//similar to weeds, but only barfed out by nurses manually
-/obj/structure/spider/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(5))
-				qdel(src)
+/obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
+		playsound(loc, 'sound/items/Welder.ogg', 100, 1)
 
-/obj/structure/spider/attackby(obj/item/W, mob/user, params)
-	if(W.attack_verb.len)
-		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] [src] with [W]!</span>")
-	else
-		visible_message("<span class='danger'>[user] has attacked [src] with [W]!</span>")
-	var/damage = W.force / 4
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			damage = 15
-			playsound(loc, WT.usesound, 100, 1)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	health -= damage
-	healthcheck()
 
-/obj/structure/spider/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0)
-		return
-	var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
-	health -= damage
-	healthcheck()
+/obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee")
+		switch(damage_type)
+			if(BURN)
+				damage_amount *= 2
+			if(BRUTE)
+				damage_amount *= 0.25
+	. = ..()
 
-/obj/structure/spider/attack_alien(mob/living/carbon/alien/humanoid/M)
-	playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-	visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	var/damage = rand(10, 20)
-	health -= damage
-	healthcheck()
 
-/obj/structure/spider/bullet_act(obj/item/projectile/Proj)
-	..()
-	health -= Proj.damage
-	healthcheck()
-
-/obj/structure/spider/proc/healthcheck()
-	if(health <= 0)
-		qdel(src)
-
-/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/spider/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
-		health -= 5
-		healthcheck()
+		obj_integrity -= 5
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
@@ -127,7 +86,7 @@
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75
-	health = 3
+	obj_integrity = 3
 	var/amount_grown = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
@@ -158,8 +117,8 @@
 	new /obj/effect/decal/cleanable/spiderling_remains(loc)
 	qdel(src)
 
-/obj/structure/spider/spiderling/healthcheck()
-	if(health <= 0)
+/obj/structure/spider/spiderling/proc/healthcheck()
+	if(obj_integrity <= 0)
 		die()
 
 /obj/structure/spider/spiderling/process()
@@ -251,7 +210,7 @@
 	name = "cocoon"
 	desc = "Something wrapped in silky spider web"
 	icon_state = "cocoon1"
-	health = 60
+	obj_integrity = 60
 
 /obj/structure/spider/cocoon/New()
 	..()

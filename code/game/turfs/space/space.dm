@@ -13,6 +13,9 @@
 	var/destination_x
 	var/destination_y
 
+/turf/space/acid_act(acidpwr, acid_volume)
+	return 0
+
 /turf/space/New()
 	. = ..()
 

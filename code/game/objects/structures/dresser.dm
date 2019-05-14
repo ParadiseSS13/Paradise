@@ -5,7 +5,7 @@
 	icon_state = "dresser"
 	density = 1
 	anchored = 1
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 25
 
 /obj/structure/dresser/attack_hand(mob/user as mob)

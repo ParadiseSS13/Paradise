@@ -1130,3 +1130,11 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/shock_internal_organs(intensity)
 	for(var/obj/item/organ/O in internal_organs)
 		O.shock_organ(intensity)
+
+/mob/living/carbon/ExtinguishMob()
+	for(var/X in get_equipped_items())
+		var/obj/item/I = X
+		I.acid_level = 0 //washes off the acid on our clothes
+		I.extinguish() //extinguishes our clothes
+	..()
+

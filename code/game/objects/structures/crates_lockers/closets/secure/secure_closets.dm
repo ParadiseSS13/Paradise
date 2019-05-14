@@ -15,7 +15,14 @@
 	var/icon_broken = "securebroken"
 	var/icon_off = "secureoff"
 	wall_mounted = 0 //never solid (You can always pass over it)
-	health = 200
+	obj_integrity = 250
+	max_integrity = 250
+	armor = list(melee = 30, bullet = 50, laser = 50, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
+
+/obj/structure/closet/secure_closet/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 20)
+		return 0
+	. = ..() 
 
 /obj/structure/closet/secure_closet/can_open()
 	if(!..())
@@ -86,8 +93,10 @@
 		emag_act(user)
 	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weldingtool))
 		return ..(W,user)
-	else
+	else if (user.a_intent == INTENT_HELP)
 		togglelock(user)
+	else
+		..()
 
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)

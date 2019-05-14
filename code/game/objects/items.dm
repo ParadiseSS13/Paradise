@@ -103,6 +103,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
+	obj_integrity = 150
+	max_integrity = 150
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+	var/damaged_item = 0 //similar to machine's BROKEN stat and structure's broken var
 
 /obj/item/New()
 	..()
@@ -130,25 +134,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		return 0
 	else
 		return 1
-
-/obj/item/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				qdel(src)
-				return
-		else
-	return
-
-/obj/item/blob_act()
-	qdel(src)
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
@@ -221,20 +206,30 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if(burn_state == ON_FIRE && !pickupfireoverride)
-		var/mob/living/carbon/human/H = user
-		if(istype(H))
-			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
+	if(resistance_flags & ON_FIRE)
+		var/mob/living/carbon/human/C = user
+		if(istype(C))
+			if(C.gloves && (C.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				to_chat(user, "<span class='notice'>You put out the fire on [src].</span>")
+				user << "<span class='notice'>You put out the fire on [src].</span>"
 			else
 				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
-				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				var/obj/item/organ/external/affecting = C.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
-					H.UpdateDamageIcon()
+					C.UpdateDamageIcon()
 				return
 		else
 			extinguish()
+
+	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
+		var/mob/living/carbon/human/C = user
+		if(istype(C))
+			if(!C.gloves || (!(C.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
+				to_chat(user,"<span class='warning'>The acid on [src] burns your hand!</span>")
+				var/obj/item/organ/external/affecting = C.get_organ("[user.hand ? "l" : "r" ]_arm")
+				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+					C.UpdateDamageIcon()
+
 
 	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
@@ -606,3 +601,32 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		return
 	var/mob/owner = loc
 	owner.regenerate_icons()
+
+/obj/item/hitby(atom/movable/AM)
+	return
+
+/obj/item/attack_hulk(mob/living/carbon/human/user)
+	return 0
+
+/obj/item/attack_animal(mob/living/simple_animal/M)
+	return 0
+
+/obj/item/mech_melee_attack(obj/mecha/M)
+	return 0
+
+/obj/item/burn()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/ash/A = new()
+		A.desc = "Looks like this used to be a [name] some time ago."
+		A.forceMove(T) //so the ash decal is deleted if on top of lava.
+		..()
+
+/obj/item/acid_melt()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/molten_object/MO = new (T)
+		MO.pixel_x = rand(-16,16)
+		MO.pixel_y = rand(-16,16)
+		MO.desc = "Looks like this was \an [src] some time ago."
+		..()

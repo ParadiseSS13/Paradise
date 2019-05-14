@@ -17,7 +17,9 @@
 	icon_state = "morgue1"
 	density = 1
 	dir = EAST
-	var/obj/structure/m_tray/connected = null
+	obj_integrity = 400
+	max_integrity = 400
+	var/obj/structure/tray/m_tray/connected = null
 	var/list/status_descriptors = list(
 	"The tray is currently extended.",
 	"The tray is currently empty.",
@@ -33,6 +35,14 @@
 	. = ..()
 	update()
 
+/obj/structure/bodycontainer/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal (loc, 5)
+	qdel(src)
+
+/obj/structure/tray/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal (loc, 2)
+	qdel(src)
+	
 /obj/structure/morgue/proc/update()
 	if(connected)
 		icon_state = "morgue0"
@@ -101,7 +111,7 @@
 		QDEL_NULL(connected)
 	else
 		playsound(loc, open_sound, 50, 1)
-		connected = new /obj/structure/m_tray( loc )
+		connected = new /obj/structure/tray/m_tray( loc )
 		step(connected, dir)
 		connected.layer = OBJ_LAYER
 		var/turf/T = get_step(src, dir)
@@ -138,7 +148,7 @@
 /obj/structure/morgue/relaymove(mob/user as mob)
 	if(user.stat)
 		return
-	connected = new /obj/structure/m_tray( loc )
+	connected = new /obj/structure/tray/m_tray( loc )
 	step(connected, dir)
 	connected.layer = OBJ_LAYER
 	var/turf/T = get_step(src, dir)
@@ -174,7 +184,7 @@
 /*
  * Morgue tray
  */
-/obj/structure/m_tray
+/obj/structure/tray/m_tray
 	name = "morgue tray"
 	desc = "Apply corpse before closing. May float away in no-gravity."
 	icon = 'icons/obj/stationobjs.dmi'
@@ -184,9 +194,11 @@
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
 	pass_flags = LETPASSTHROW
+	obj_integrity = 350
+	max_integrity = 350
 
 
-/obj/structure/m_tray/attack_hand(mob/user as mob)
+/obj/structure/tray/m_tray/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A as mob|obj in loc)
 			if(!( A.anchored ))
@@ -198,7 +210,7 @@
 		return
 	return
 
-/obj/structure/m_tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/structure/tray/m_tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
 		return
 	if(!ismob(O) && !istype(O, /obj/structure/closet/body_bag))
@@ -210,7 +222,7 @@
 		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
 	return
 
-/obj/structure/m_tray/Destroy()
+/obj/structure/tray/m_tray/Destroy()
 	if(connected && connected.connected == src)
 		connected.connected = null
 	connected = null
@@ -379,9 +391,10 @@
 		new /obj/effect/decal/cleanable/ash(src)
 		sleep(30)
 		cremating = 0
-		locked = 0
-		update()
-		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		if(!QDELETED(src))
+			locked = 0
+			update_icon()
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //you horrible people
 	return
 
 /obj/structure/crematorium/Destroy()

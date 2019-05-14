@@ -9,7 +9,7 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
-	if(!isShotFlammable() && burn_state == ON_FIRE)
+	if(!isShotFlammable() && resistance_flags & ON_FIRE)
 		extinguish()
 	update_icon()
 
@@ -29,14 +29,14 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
-		if(burn_state == ON_FIRE)
+		if(resistance_flags & ON_FIRE)
 			overlays += "shotglass_fire"
 			name = "flaming [name]"
 	else
 		name = "shot glass"
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
-	if(burn_state != ON_FIRE)
+	if(resistance_flags & !ON_FIRE)
 		return
 	user.visible_message("<span class = 'warning'>[user] pours [src] all over [user.p_them()]self!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
 	extinguish(TRUE)
@@ -52,7 +52,7 @@
 			return TRUE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
-	if(!isShotFlammable() || burn_state == ON_FIRE) //You can't light a shot that's not flammable!
+	if(!isShotFlammable() || resistance_flags & ON_FIRE) //You can't light a shot that's not flammable!
 		return
 	..()
 	set_light(light_intensity, null, light_color)
@@ -70,7 +70,7 @@
 	return
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50) && burn_state == ON_FIRE)
+	if((CLUMSY in user.mutations) && prob(50) && resistance_flags & ON_FIRE)
 		clumsilyDrink(user)
 	else
 		..()
@@ -85,7 +85,7 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_self(mob/living/carbon/human/user)
 	..()
-	if(burn_state != ON_FIRE)
+	if(resistance_flags & !ON_FIRE)
 		return
 	if((CLUMSY in user.mutations) && prob(50))
 		clumsilyDrink(user)
@@ -96,7 +96,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)
 	if(!ishuman(user))
 		return
-	if((CLUMSY in user.mutations) && prob(50) && burn_state == ON_FIRE)
+	if((CLUMSY in user.mutations) && prob(50))
 		clumsilyDrink(user)
 	else
 		..()

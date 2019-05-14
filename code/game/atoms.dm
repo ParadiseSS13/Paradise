@@ -156,10 +156,9 @@
 
 /atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
-	if(does_attack_animation)
-		user.changeNext_move(CLICK_CD_MELEE)
-		add_attack_logs(user, src, "Punched with hulk powers")
-		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
+	user.changeNext_move(CLICK_CD_MELEE)
+	add_attack_logs(user, src, "punched", "hulk powers")
+	user.do_attack_animation(src)
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -311,9 +310,12 @@
 /atom/proc/blob_act(obj/structure/blob/B)
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
-/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/atom/proc/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
+
+/atom/proc/acid_act(acidpwr, acid_volume)
+	return
 
 /atom/proc/emag_act()
 	return
@@ -759,3 +761,8 @@ var/list/blood_splatter_icons = list()
 
 /atom/Exited(atom/movable/AM, atom/newLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+
+/atom/proc/mech_melee_attack(obj/mecha/M)
+	return
+/atom/proc/contents_explosion(severity, target)
+	return //For handling the effects of explosions on contents that would not normally be effected

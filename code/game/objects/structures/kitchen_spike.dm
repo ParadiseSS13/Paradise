@@ -8,6 +8,8 @@
 	desc = "The frame of a meat spike."
 	density = 1
 	anchored = 0
+	obj_integrity = 200
+	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -37,7 +39,8 @@
 	anchored = 1
 	buckle_lying = 0
 	can_buckle = 1
-
+	obj_integrity = 250
+	max_integrity = 250
 
 
 /obj/structure/kitchenspike/attackby(obj/item/grab/G as obj, mob/user as mob)
@@ -46,10 +49,7 @@
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				new /obj/item/stack/rods(loc, 4)
-				new /obj/structure/kitchenspike_frame(loc)
-				add_fingerprint(user)
-				qdel(src)
+				deconstruct(TRUE)
 		else
 			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
@@ -68,6 +68,15 @@
 		to_chat(user, "<span class='danger'>You can't use that on the spike!</span>")
 		return
 
+/obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
+	if(disassembled)
+		var/obj/F = new /obj/structure/kitchenspike_frame(src.loc,)
+		transfer_fingerprints_to(F)
+	else
+		new /obj/item/stack/sheet/metal(src.loc, 4)
+	new /obj/item/stack/rods(loc, 4)
+	qdel(src) 
+	
 /obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
 
 	if(!istype(victim))

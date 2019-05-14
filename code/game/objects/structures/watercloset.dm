@@ -390,6 +390,7 @@
 
 	if(istype(O, /obj/item))
 		var/obj/item/I = O
+		I.acid_level = 0
 		I.extinguish()
 
 	O.water_act(100, convertHeat(), src)
@@ -483,6 +484,10 @@
 		if(prob(33))
 			wash(C)	//re-applies water and re-cleans mob while they remain under the shower, 33% chance per process to avoid message spam/quick death
 		check_heat(C)
+
+/obj/machinery/shower/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal (loc, 3)
+	qdel(src)
 
 /obj/machinery/shower/proc/check_heat(mob/M as mob)
 	if(!on || watertemp == "normal")
@@ -634,6 +639,7 @@
 	busy = 0
 	if(wateract)
 		O.water_act(20,310.15,src)
+		O.acid_level = 0
 
 /obj/structure/sink/update_icon()
 	..()
@@ -659,6 +665,9 @@
 				pixel_x = (dir == EAST) ? 12 : -12
 				pixel_y = 0
 
+/obj/structure/sink/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal (loc, 3)
+	qdel(src)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"

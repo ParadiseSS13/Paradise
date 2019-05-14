@@ -11,17 +11,13 @@
 	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
-	var/list/armor
-	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = INFINITY
-	var/integrity_failure = 0 //0 if we have no special broken behavior
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
-	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
+	var/ // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
 	var/burntime = 10 //How long it takes to burn to ashes, in seconds
 	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
@@ -30,6 +26,11 @@
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
+	var/acid_level = 0 //how much acid is on that obj
+	var/list/armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+	var/max_integrity = 500
+	var/obj_integrity = 500	
+	var/integrity_failure = 0 //0 if we have no special broken behavior
 
 /obj/New()
 	..()
@@ -283,12 +284,6 @@ a {
 
 /obj/proc/CanAStarPass()
 	. = !density
-
-/obj/proc/empty_object_contents(burn = 0, new_loc = loc)
-	for(var/obj/item/Item in contents) //Empty out the contents
-		Item.forceMove(new_loc)
-		if(burn)
-			Item.fire_act() //Set them on fire, too
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return

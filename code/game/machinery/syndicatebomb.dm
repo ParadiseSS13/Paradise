@@ -286,7 +286,7 @@
 	item_state = "eshield0"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "syndicate=5;combat=6"
-	burn_state = FLAMMABLE //Burnable (but the casing isn't)
+	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
 	var/range_heavy = 3
 	var/range_medium = 9

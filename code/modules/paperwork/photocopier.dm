@@ -13,6 +13,9 @@
 	power_channel = EQUIP
 	var/emag_cooldown
 	atom_say_verb = "bleeps"
+	obj_integrity = 300
+	max_integrity = 300
+	integrity_failure = 100
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
 	var/toner = 60 //how much toner is left! woooooo~
@@ -182,32 +185,11 @@
 		updateUsrDialog()
 	return
 
-/obj/machinery/photocopier/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-			else
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-		else
-			if(prob(50))
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-	return
-
-/obj/machinery/photocopier/blob_act()
-	if(prob(50))
-		qdel(src)
-	else
+/obj/machinery/photocopier/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
 		if(toner > 0)
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
-	return
 
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)

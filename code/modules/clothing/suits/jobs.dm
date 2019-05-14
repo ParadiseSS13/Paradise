@@ -235,7 +235,7 @@
 	item_state = "hazard"
 	blood_overlay_type = "armor"
 	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen)
-	burn_state = FIRE_PROOF
+	
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -293,7 +293,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
-	burn_state = FIRE_PROOF
+	
 
 //Head of Personnel
 /obj/item/clothing/suit/mantle/armor/head_of_personnel

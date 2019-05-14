@@ -17,7 +17,7 @@
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, , rand(30,70),rand(5,2)) //spawn a controller at turf
+		var/obj/effect/spacevine_controller/SC = new /obj/effect/spacevine_controller(T, , rand(30,70),rand(5,2)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(SC.vines.len)
@@ -415,7 +415,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
 	var/energy = 0
-	var/obj/structure/spacevine_controller/master = null
+	var/obj/effect/spacevine_controller/master = null
 	var/list/mutations = list()
 
 /obj/structure/spacevine/New()
@@ -527,7 +527,7 @@
 /obj/structure/spacevine/attack_alien(mob/living/user)
 	eat(user)
 
-/obj/structure/spacevine_controller
+/obj/effect/spacevine_controller
 	invisibility = 101
 	var/list/obj/structure/spacevine/vines = list()
 	var/list/growth_queue = list()
@@ -536,7 +536,7 @@
 	var/list/mutations_list = list()
 	var/mutativeness = 1
 
-/obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
+/obj/effect/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
 	spawn_spacevine_piece(loc, , muts)
 	START_PROCESSING(SSobj, src)
@@ -557,20 +557,20 @@
 	..()
 
 
-/obj/structure/spacevine_controller/ex_act() //only killing all vines will end this suffering
+/obj/effect/spacevine_controller/ex_act() //only killing all vines will end this suffering
 	return
 
-/obj/structure/spacevine_controller/singularity_act()
+/obj/effect/spacevine_controller/singularity_act()
 	return
 
-/obj/structure/spacevine_controller/singularity_pull()
+/obj/effect/spacevine_controller/singularity_pull()
 	return
 
-/obj/structure/spacevine_controller/Destroy()
+/obj/effect/spacevine_controller/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/spacevine_controller/proc/spawn_spacevine_piece(turf/location, obj/structure/spacevine/parent, list/muts)
+/obj/effect/spacevine_controller/proc/spawn_spacevine_piece(turf/location, obj/structure/spacevine/parent, list/muts)
 	var/obj/structure/spacevine/SV = new(location)
 	growth_queue += SV
 	vines += SV
@@ -591,7 +591,7 @@
 	for(var/datum/spacevine_mutation/SM in SV.mutations)
 		SM.on_birth(SV)
 
-/obj/structure/spacevine_controller/process()
+/obj/effect/spacevine_controller/process()
 	if(!vines || !vines.len)
 		qdel(src) //space vines exterminated. Remove the controller
 		return

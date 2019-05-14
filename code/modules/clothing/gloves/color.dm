@@ -6,7 +6,7 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color="yellow"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/gloves/color/yellow/power
 	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
@@ -58,7 +58,7 @@
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/gloves/color/fyellow/New()
 	..()
@@ -82,7 +82,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	burn_state = FIRE_PROOF
+	
 	var/can_be_cut = 1
 
 
@@ -131,7 +131,7 @@
 	desc = "These gloves will protect the wearer from electric shock."
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
@@ -202,7 +202,7 @@
 	permeability_coefficient = 0.01
 	item_color="white"
 	transfer_prints = TRUE
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"

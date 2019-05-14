@@ -5,7 +5,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 

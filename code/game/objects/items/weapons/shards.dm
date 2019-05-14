@@ -9,11 +9,14 @@
 	w_class = WEIGHT_CLASS_TINY
 	force = 5
 	throwforce = 10
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	max_integrity = 40
+	obj_integrity = 40
 	item_state = "shard-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0)
 
 /obj/item/shard/suicide_act(mob/user)
 		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -87,6 +90,9 @@
 				if(affecting.receive_damage(5, 0))
 					H.UpdateDamageIcon()
 	..()
+
+/obj/item/shard/blob_act(obj/structure/blob/B)
+	qdel(src)
 
 /obj/item/shard/plasma
 	name = "plasma shard"

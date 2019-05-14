@@ -16,7 +16,9 @@
 	icon_state = "tube-construct-stage1"
 	anchored = 1
 	layer = 5
-	armor = list(melee = 50, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 50, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 50)
 	var/stage = 1
 	var/fixture_type = "tube"
 	var/sheets_refunded = 2
@@ -112,6 +114,11 @@
 			return
 	..()
 
+/obj/machinery/light_construct/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
+	qdel(src)
+
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
@@ -136,6 +143,8 @@
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
+	obj_integrity = 100
+	max_integrity = 100
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = 0
@@ -160,6 +169,73 @@
 	var/nightshift_light_color = "#FFDDCC"
 
 // the smaller bulb light fixture
+
+/obj/machinery/light/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		var/obj/machinery/light_construct/newlight = null
+		var/cur_stage = 2
+		if(!disassembled)
+			cur_stage = 1
+		switch(fitting)
+			if("tube")
+				newlight = new /obj/machinery/light_construct(src.loc)
+				newlight.icon_state = "tube-construct-stage[cur_stage]"
+
+			if("bulb")
+				newlight = new /obj/machinery/light_construct/small(src.loc)
+				newlight.icon_state = "bulb-construct-stage[cur_stage]"
+		newlight.setDir(src.dir)
+		newlight.stage = cur_stage
+		if(!disassembled)
+			newlight.obj_integrity = newlight.max_integrity * 0.5
+			if(status != LIGHT_BROKEN)
+				broken()
+			if(status != LIGHT_EMPTY)
+				drop_light_tube()
+			new /obj/item/stack/cable_coil(loc, 1, "red")
+		transfer_fingerprints_to(newlight)
+	qdel(src)
+
+/obj/machinery/light/proc/drop_light_tube(mob/user)
+	var/obj/item/light/L = new light_type()
+	L.status = status
+	L.rigged = rigged
+	L.brightness_range = brightness_range
+	L.brightness_power = brightness_power
+	L.brightness_color = brightness_color
+
+	// light item inherits the switchcount, then zero it
+	L.switchcount = switchcount
+	switchcount = 0
+
+	L.update()
+	L.forceMove(loc)
+
+	if(user) //puts it in our active hand
+		L.add_fingerprint(user)
+		user.put_in_active_hand(L)
+
+	status = LIGHT_EMPTY
+	update()
+
+/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	. = ..()
+	if(. && !QDELETED(src))
+		if(prob(damage_amount * 5))
+			broken()
+
+/obj/machinery/light/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			switch(status)
+				if(LIGHT_EMPTY)
+					playsound(loc, 'sound/weapons/smash.ogg', 50, 1)
+				if(LIGHT_BROKEN)
+					playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 90, 1)
+				else
+					playsound(loc, 'sound/effects/Glasshit.ogg', 90, 1)
+		if(BURN)
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 
 /obj/machinery/light/small
 	icon_state = "bulb1"
@@ -552,27 +628,6 @@
 	if(explosive)
 		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
 	qdel(src)
-
-// explosion effect
-// destroy the whole light fixture or just shatter it
-
-/obj/machinery/light/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			broken()
-		if(3.0)
-			broken()
-	return
-
-//blob effect
-
-/obj/machinery/light/blob_act()
-	if(prob(75))
-		qdel(src)
-
 
 // timed process
 // use power

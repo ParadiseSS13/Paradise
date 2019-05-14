@@ -8,8 +8,10 @@
 	explosion_block = 3
 	heat_proof = TRUE
 	safe = FALSE
-	armor = list(melee = 50, bullet = 100, laser = 100, energy = 100, bomb = 50, bio = 100, rad = 100)
-	burn_state = FIRE_PROOF
+	obj_integrity = 600
+	max_integrity = 600
+	armor = list(melee = 50, bullet = 100, laser = 100, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	var/id_tag = 1.0
 	var/protected = 1
@@ -40,6 +42,11 @@
 		return
 	..()
 
+/obj/machinery/door/poddoor/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 70) //any melee attack below 70 dmg does nothing
+		return 0
+	. = ..()
+	
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
 		if("opening")

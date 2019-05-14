@@ -15,7 +15,9 @@
 	anchored = 1
 	density = 1
 	on_blueprints = TRUE
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
+	obj_integrity = 200
+	max_integrity = 200
 	var/datum/gas_mixture/air_contents	// internal reservoir
 	var/mode = 1	// item mode 0=off 1=charging 2=charged
 	var/flush = 0	// true if flush handle is pulled
@@ -24,9 +26,20 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
+	var/obj/structure/disposalconstruct/stored
 	active_power_usage = 600
 	idle_power_usage = 100
 
+/obj/machinery/disposal/deconstruct()
+	if(!(flags & NODECONSTRUCT))
+		if(stored)
+			var/turf/T = loc
+			stored.loc = T
+			src.transfer_fingerprints_to(stored)
+			stored.anchored = 0
+			stored.density = 1
+			stored.update_icon()
+	..()
 // create a new disposal
 // find the attached trunk (if present)
 /obj/machinery/disposal/New()
@@ -508,6 +521,7 @@
 	var/datum/gas_mixture/gas = null	// gas used to flush, will appear at exit point
 	var/active = 0	// true if the holder is moving, otherwise inactive
 	dir = 0
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/has_fat_guy = 0	// true if contains a fat person
 	var/destinationTag = 0 // changes if contains a delivery container
@@ -673,7 +687,9 @@
 	desc = "An underfloor disposal pipe."
 	anchored = 1
 	density = 0
-
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
 	on_blueprints = TRUE
 	level = 1			// underfloor only
 	var/dpdir = 0		// bitmask of pipe directions
@@ -682,6 +698,7 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100)
 	layer = 2.3			// slightly lower than wires and other pipes
 	var/base_icon_state	// initial icon state on map
+	var/obj/structure/disposalconstruct/stored
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/New()
@@ -859,29 +876,25 @@
 
 
 // pipe affected by explosion
-/obj/structure/disposalpipe/ex_act(severity)
+/obj/structure/disposalpipe/ex_act(severity, target)
 
-	switch(severity)
-		if(1.0)
-			broken(0)
-			return
-		if(2.0)
-			health -= rand(5,15)
-			healthcheck()
-			return
-		if(3.0)
-			health -= rand(0,15)
-			healthcheck()
-			return
+	//pass on ex_act to our contents before calling it on ourself
+	var/obj/structure/disposalholder/H = locate() in src
+	if(H)
+		H.contents_explosion(severity, target)
+	..()
 
 
-// test health for brokenness
-/obj/structure/disposalpipe/proc/healthcheck()
-	if(health < -2)
-		broken(0)
-	else if(health<1)
-		broken(1)
-	return
+/obj/structure/disposalpipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 10)
+		return 0
+	. = ..()
+
+/obj/structure/disposalpipe/fire_act(exposed_temperature, exposed_volume)
+	var/turf/T = src.loc
+	if(T && T.intact) //protected from fire when hidden behind a floor.
+		return
+	..()
 
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
@@ -900,38 +913,29 @@
 			playsound(loc, W.usesound, 100, 1)
 			if(do_after(user, 30 * W.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You finish slicing \the [src].</span>")
-				welded()
+				deconstruct()
 		else
 			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 
 // called when pipe is cut with welder
-/obj/structure/disposalpipe/proc/welded()
-
-	var/obj/structure/disposalconstruct/C = new (src.loc)
-	switch(base_icon_state)
-		if("pipe-s")
-			C.ptype = PIPE_DISPOSALS_STRAIGHT
-		if("pipe-c")
-			C.ptype = PIPE_DISPOSALS_BENT
-		if("pipe-j1")
-			C.ptype = PIPE_DISPOSALS_JUNCTION_RIGHT
-		if("pipe-j2")
-			C.ptype = PIPE_DISPOSALS_JUNCTION_LEFT
-		if("pipe-y")
-			C.ptype = PIPE_DISPOSALS_Y_JUNCTION
-		if("pipe-t")
-			C.ptype = PIPE_DISPOSALS_TRUNK
-		if("pipe-j1s")
-			C.ptype = PIPE_DISPOSALS_SORT_RIGHT
-		if("pipe-j2s")
-			C.ptype = PIPE_DISPOSALS_SORT_LEFT
-	src.transfer_fingerprints_to(C)
-	C.dir = dir
-	C.density = 0
-	C.anchored = 1
-	C.update()
-
+/obj/structure/disposalpipe/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			if(stored)
+				var/turf/T = loc
+				stored.loc = T
+				transfer_fingerprints_to(stored)
+				stored.setDir(dir)
+				stored.density = 0
+				stored.anchored = 1
+				stored.update_icon()
+		else
+			for(var/D in cardinal)
+				if(D & dpdir)
+					var/obj/structure/disposalpipe/broken/P = new(src.loc)
+					P.setDir(D)
 	qdel(src)
+
 
 // *** TEST verb
 //client/verb/dispstop()
@@ -1218,7 +1222,7 @@
 			if(do_after(user, 30 * W.toolspeed, target = src))
 				if(!W.isOn())
 					return
-				welded()
+				deconstruct()
 		else
 			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 			return
@@ -1268,7 +1272,7 @@
 	update()
 	return
 
-/obj/structure/disposalpipe/broken/welded()
+/obj/structure/disposalpipe/broken/deconstruct()
 	qdel(src)
 
 // the disposal outlet machine

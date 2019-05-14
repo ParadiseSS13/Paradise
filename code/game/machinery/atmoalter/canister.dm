@@ -48,10 +48,11 @@ var/datum/canister_icons/canister_icon_container = new()
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
 	density = 1
-	var/health = 100.0
 	flags = CONDUCT
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 10, bio = 100, rad = 100)
-
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 10, bio = 100, rad = 100, fire = 80, acid = 50)
+	obj_integrity = 250
+	max_integrity = 250
+	integrity_failure = 100
 	var/menu = 0
 	//used by nanoui: 0 = main menu, 1 = relabel
 
@@ -179,7 +180,7 @@ update_flag
 (note: colors and decals has to be applied every icon update)
 */
 
-	if(src.destroyed)
+	if(stat & BROKEN)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
@@ -244,32 +245,19 @@ update_flag
 	return 0
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	..()
 	if(exposed_temperature > temperature_resistance)
-		health -= 5
-		healthcheck()
+		take_damage(5, BURN, 0)
 
-/obj/machinery/portable_atmospherics/canister/proc/healthcheck()
-	if(destroyed)
-		return 1
 
-	if(src.health <= 10)
-		var/atom/location = src.loc
-		location.assume_air(air_contents)
-		air_update_turf()
-
-		src.destroyed = 1
-		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
-		src.density = 0
-		update_icon()
-
-		if(src.holding)
-			src.holding.loc = src.loc
-			src.holding = null
-
-		return 1
-	else
-		return 1
+/obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			canister_break()
+		if(disassembled)
+			new /obj/item/stack/sheet/metal (loc, 10)
+		else
+			new /obj/item/stack/sheet/metal (loc, 5)
+	qdel(src)
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	if(destroyed)
@@ -311,6 +299,28 @@ update_flag
 	src.updateDialog()
 	return
 
+/obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
+	if((stat & BROKEN) || (flags & NODECONSTRUCT))
+		return
+	canister_break()
+
+/obj/machinery/portable_atmospherics/canister/proc/canister_break()
+	disconnect()
+	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
+	var/turf/T = get_turf(src)
+	T.assume_air(expelled_gas)
+	air_update_turf()
+
+	stat |= BROKEN
+	density = 0
+	playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
+	update_icon()
+	investigate_log("was destroyed.", "atmos")
+
+	if(holding)
+		holding.forceMove(T)
+		holding = null
+
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
 
@@ -326,33 +336,13 @@ update_flag
 		return GM.return_pressure()
 	return 0
 
-/obj/machinery/portable_atmospherics/canister/blob_act()
-	src.health -= 200
-	healthcheck()
-	return
-
-/obj/machinery/portable_atmospherics/canister/bullet_act(var/obj/item/projectile/Proj)
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		if(Proj.damage)
-			src.health -= round(Proj.damage / 2)
-			healthcheck()
-	..()
-
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(iswelder(W) && src.destroyed)
+	if(iswelder(W) && stat & BROKEN)
 		if(weld(W, user))
 			to_chat(user, "<span class='notice'>You salvage whats left of \the [src]</span>")
-			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
-			M.amount = 3
-			qdel(src)
+			deconstruct(TRUE)
 		return
-
-	if(!istype(W, /obj/item/wrench) && !istype(W, /obj/item/tank) && !istype(W, /obj/item/analyzer) && !istype(W, /obj/item/pda))
-		visible_message("<span class='warning'>[user] hits the [src] with a [W]!</span>")
-		src.health -= W.force
-		src.add_fingerprint(user)
-		healthcheck()
 
 	if(istype(user, /mob/living/silicon/robot) && istype(W, /obj/item/tank/jetpack))
 		var/datum/gas_mixture/thejetpack = W:air_contents
@@ -385,9 +375,6 @@ update_flag
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
-	return
-
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
 	return src.ui_interact(user)
 
@@ -395,7 +382,7 @@ update_flag
 	return src.ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = physical_state)
-	if(src.destroyed)
+	if(stat & BROKEN)
 		return
 
 	// update the ui if it exists, returns null if no ui is passed/found

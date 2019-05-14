@@ -380,3 +380,20 @@
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+//for each body zone, gives the corresponding body_parts_covered bitfield
+/proc/body_zone2body_parts_covered(b_zone)
+	b_zone = check_zone(b_zone)
+	switch(b_zone)
+		if("chest")
+			return UPPER_TORSO | LOWER_TORSO
+		if("head")
+			return HEAD
+		if("r_arm")
+			return ARM_RIGHT
+		if("l_arm")
+			return ARM_LEFT
+		if("r_leg")
+			return LEG_RIGHT
+		if("l_leg")
+			return LEG_LEFT

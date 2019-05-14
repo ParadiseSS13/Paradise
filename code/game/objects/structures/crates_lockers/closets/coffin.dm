@@ -4,7 +4,7 @@
 	icon_state = "coffin"
 	icon_closed = "coffin"
 	icon_opened = "coffin_open"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 20
 	material_drop = /obj/item/stack/sheet/wood
 

@@ -10,8 +10,9 @@
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
-	burn_state = FIRE_PROOF
+	
 	antable = FALSE
+	isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -20,6 +21,26 @@
 	bitesize = amount_per_transfer_from_this
 	if(bitesize < 5)
 		bitesize = 5
+
+/obj/item/reagent_containers/food/drinks/throw_impact(atom/target, mob/thrower)
+	. = ..()
+	if(!.) //if the bottle wasn't caught
+		smash(target, thrower, TRUE)
+
+/obj/item/reagent_containers/food/drinks/smash(atom/target, mob/thrower, ranged = FALSE)
+	if(!isGlass)
+		return
+	var/obj/item/broken_bottle/B = new (loc)
+	B.icon_state = icon_state
+	var/icon/I = new('icons/obj/drinks.dmi', src.icon_state)
+	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
+	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
+	B.icon = I
+	if(prob(33))
+		new/obj/item/shard(drop_location())
+	playsound(src, "shatter", 70, 1)
+	transfer_fingerprints_to(B)
+	qdel(src)
 
 /obj/item/reagent_containers/food/drinks/attack_self(mob/user)
 	return
@@ -185,12 +206,14 @@
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list("coffee" = 30)
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/tea
 	name = "Duke Purple tea"
@@ -230,6 +253,7 @@
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
@@ -237,6 +261,7 @@
 	icon_state = "ramen"
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/dry_ramen/New()
 	..()
@@ -257,6 +282,7 @@
 	item_state = "coffee"
 	possible_transfer_amounts = list()
 	volume = 10
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
 	if(reagents.total_volume)
@@ -276,6 +302,7 @@
 	materials = list(MAT_METAL=1500)
 	amount_per_transfer_from_this = 10
 	volume = 100
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"
@@ -283,6 +310,7 @@
 	icon_state = "flask"
 	materials = list(MAT_METAL=250)
 	volume = 60
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/flask/barflask
 	name = "flask"
@@ -347,6 +375,7 @@
 	desc = "Normally put in wine boxes, or down pants at stadium events."
 	icon_state = "goonbag"
 	volume = 70
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/bag/goonbag
 	name = "goon from a Blue Toolbox special edition"
@@ -362,6 +391,7 @@
 	item_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
+	isGlass = FALSE
 	volume = 50
 	amount_per_transfer_from_this = 10
 
@@ -385,6 +415,7 @@
 	icon = 'icons/goonstation/objects/oil.dmi'
 	icon_state = "oilcan"
 	volume = 100
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/oilcan/full
 	list_reagents = list("oil" = 100)

@@ -18,7 +18,11 @@ var/global/list/captain_display_cases = list()
 	name = "display case frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_glass"
-	armor = list(melee = 30, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
+	resistance_flags = ACID_PROOF
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 70, acid = 100)
+	obj_integrity = 200
+	max_integrity = 200
+	integrity_failure = 50
 	var/obj/item/airlock_electronics/circuit = null
 	var/obj/item/assembly/prox_sensor/sensor = null
 	var/state = DISPLAYCASE_FRAME_CIRCUIT
@@ -153,54 +157,29 @@ var/global/list/captain_display_cases = list()
 		occupant = null
 	occupant_overlay = null
 
-/obj/structure/displaycase/ex_act(severity)
-	switch(severity)
-		if(1)
-			new /obj/item/shard(loc)
-			if(occupant)
-				dump()
-			qdel(src)
-		if(2)
-			if(prob(50))
-				src.health -= 15
-				src.healthcheck()
-		if(3)
-			if(prob(50))
-				src.health -= 5
-				src.healthcheck()
+/obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+		if(BURN)
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 
-/obj/structure/displaycase/bullet_act(var/obj/item/projectile/Proj)
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		health -= Proj.damage
-	..()
-	src.healthcheck()
-	return
+/obj/structure/displaycase/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		dump()
+		if(!disassembled)
+			new /obj/item/shard( src.loc )
+			burglar_alarm()
+	qdel(src)
 
-/obj/structure/displaycase/blob_act()
-	if(prob(75))
-		new /obj/item/shard(loc)
-		if(occupant) dump()
-		qdel(src)
-
-/obj/structure/displaycase/proc/healthcheck()
-	if(src.health <= 0)
-		health = 0
-		if(!( src.destroyed ))
-			src.density = 0
-			src.destroyed = 1
-			new /obj/item/shard(loc)
-			playsound(get_turf(src), "shatter", 70, 1)
-			update_icon()
-			spawn(0)
-				if(!alarm_needs_power)
-					burglar_alarm()
-				else
-					var/area/a = get_area(src)
-					if(isarea(a) && a.power_equip)
-						burglar_alarm()
-	else
-		playsound(get_turf(src), 'sound/effects/Glasshit.ogg', 75, 1)
-	return
+/obj/structure/displaycase/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		density = 0
+		broken = 1
+		new /obj/item/shard( src.loc )
+		playsound(src, "shatter", 70, 1)
+		update_icon()
+		burglar_alarm()
 
 /obj/structure/displaycase/proc/burglar_alarm()
 	if(burglar_alarm)
@@ -213,7 +192,7 @@ var/global/list/captain_display_cases = list()
 			sleep(74) // 7.4 seconds long
 
 /obj/structure/displaycase/update_icon()
-	if(src.destroyed)
+	if(src.broken)
 		src.icon_state = "glassbox2b"
 	else
 		src.icon_state = "glassbox2[locked]"
@@ -242,7 +221,7 @@ var/global/list/captain_display_cases = list()
 			to_chat(user, "[bicon(src)]  <span class='notice'>You close \the [src] and swipe your card, locking it.</span>")
 		update_icon()
 		return
-	if(istype(W,/obj/item/crowbar) && (!locked || destroyed))
+	if(istype(W,/obj/item/crowbar) && (!locked || broken))
 		user.visible_message("[user.name] pries \the [src] apart.", \
 			"You pry \the [src] apart.", \
 			"You hear something pop.")
@@ -258,7 +237,7 @@ var/global/list/captain_display_cases = list()
 		else
 			C.conf_access = req_one_access
 
-		if(!destroyed)
+		if(!broken)
 			var/obj/structure/displaycase_frame/F = new(T)
 			F.state = DISPLAYCASE_FRAME_SCREWDRIVER
 			F.circuit = C
@@ -276,9 +255,8 @@ var/global/list/captain_display_cases = list()
 		to_chat(user, "<span class='danger'>You can't put this into the case.</span>")
 		return
 	if(user.a_intent == INTENT_HARM)
-		if(locked && !destroyed)
-			src.health -= W.force
-			src.healthcheck()
+		if(locked && !broken)
+			src.obj_integrity -= W.force
 			..()
 		else if(!locked)
 			dump()
@@ -299,7 +277,7 @@ var/global/list/captain_display_cases = list()
 			update_icon()
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
-	if(destroyed || (!locked && user.a_intent == INTENT_HARM))
+	if(broken || (!locked && user.a_intent == INTENT_HARM))
 		if(occupant)
 			dump()
 			to_chat(user, "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>")
@@ -312,8 +290,7 @@ var/global/list/captain_display_cases = list()
 			user.visible_message("<span class='danger'>[user.name] kicks \the [src]!</span>", \
 				"<span class='danger'>You kick \the [src]!</span>", \
 				"You hear glass crack.")
-			src.health -= 2
-			healthcheck()
+			src.obj_integrity -= 2
 		else if(!locked)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user

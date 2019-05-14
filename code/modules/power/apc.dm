@@ -49,6 +49,10 @@
 	use_power = NO_POWER_USE
 	req_access = list(access_engine_equip)
 	siemens_strength = 1
+	obj_integrity = 200
+	max_integrity = 200
+	integrity_failure = 50
+	armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100, fire = 90, acid = 50)
 	var/spooky=0
 	var/area/area
 	var/areastring = null
@@ -117,6 +121,23 @@
 	lighting = 0
 	operating = 0
 
+/obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 15 && (!(stat & BROKEN) || malfai))
+		return 0
+	. = ..()
+
+/obj/machinery/power/apc/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
+		set_broken()
+
+/obj/machinery/power/apc/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			set_broken()
+		if(opened != 2)
+			opened = 2
+			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
+			update_icon()
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
@@ -690,31 +711,10 @@
 	src.interact(user)
 
 /obj/machinery/power/apc/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(!user)
+	if(malfhack)
 		return
-	if(!istype(user,/mob/living/carbon/alien/humanoid))
-		return
-	if(indestructible)
-		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	user.visible_message("<span class='warning'>[user.name] slashes at the [src.name]!", "<span class='notice'>You slash at the [src.name]!</span></span>")
-	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	..()
 
-	var/allcut = wires.IsAllCut()
-
-	if(beenhit >= pick(3, 4) && wiresexposed != 1)
-		wiresexposed = 1
-		src.update_icon()
-		src.visible_message("<span class='warning'>The [src.name]'s cover flies open, exposing the wires!</span>")
-
-	else if(wiresexposed == 1 && allcut == 0)
-		wires.CutAll()
-		src.update_icon()
-		src.visible_message("<span class='warning'>The [src.name]'s wires are shredded!</span>")
-	else
-		beenhit += 1
-	return
 
 /obj/machinery/power/apc/attack_ghost(mob/user)
 	if(wiresexposed)
@@ -1292,34 +1292,6 @@
 		update_icon()
 		update()
 	..()
-
-/obj/machinery/power/apc/ex_act(severity)
-
-	switch(severity)
-		if(1.0)
-			//set_broken() //now Destroy() do what we need
-			if(cell)
-				cell.ex_act(1.0) // more lags woohoo
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				set_broken()
-				if(cell && prob(50))
-					cell.ex_act(2.0)
-		if(3.0)
-			if(prob(25))
-				set_broken()
-				if(cell && prob(25))
-					cell.ex_act(3.0)
-	return
-
-/obj/machinery/power/apc/blob_act()
-	if(prob(75))
-		set_broken()
-		if(cell && prob(5))
-			cell.blob_act()
-
 
 /obj/machinery/power/apc/disconnect_terminal()
 	if(terminal)

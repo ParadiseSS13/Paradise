@@ -80,7 +80,7 @@ Doesn't work on other aliens/AI.*/
 			// OBJ CHECK
 			if(isobj(O))
 				var/obj/I = O
-				if(I.unacidable)	//So the aliens don't destroy energy fields/singularies/other aliens/etc with their acid.
+				if(I.resistance_flags & ACID_PROOF)	//So the aliens don't destroy energy fields/singularies/other aliens/etc with their acid.
 					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 					return
 			// TURF CHECK
@@ -96,10 +96,11 @@ Doesn't work on other aliens/AI.*/
 					return
 			else// Not a type we can acid.
 				return
-
+			var/obj/L = O
 			adjustPlasma(-200)
-			new /obj/effect/acid(get_turf(O), O)
-			visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+			if(L.acid_act(200, 100))
+				src.visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [L]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+				return 1
 		else
 			to_chat(src, "<span class='noticealien'>Target is too far away.</span>")
 	return

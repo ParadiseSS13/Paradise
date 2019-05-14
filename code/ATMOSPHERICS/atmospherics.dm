@@ -18,7 +18,10 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	on_blueprints = TRUE
 	var/nodealert = 0
 	var/can_unwrench = 0
-
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
+	obj_integrity = 200
+	max_integrity = 200
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	var/connected_to = 1 //same as above, currently not used for anything
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
@@ -29,6 +32,12 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	var/obj/item/pipe/stored
 	var/image/pipe_image
 
+/obj/machinery/atmospherics/fire_act(exposed_temperature, exposed_volume)
+	var/turf/T = src.loc
+	if(T && T.intact && level == 1) //protected from fire when hidden behind a floor.
+		return
+	..()
+	
 /obj/machinery/atmospherics/New()
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)

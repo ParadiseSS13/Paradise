@@ -80,7 +80,11 @@
 	active_power_usage = 8
 	power_channel = ENVIRON
 	req_one_access = list(access_atmospherics, access_engine_equip)
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	obj_integrity = 250
+	max_integrity = 250
+	integrity_failure = 80
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
+	resistance_flags = 0
 	siemens_strength = 1
 	var/alarm_id = null
 	var/frequency = ATMOS_VENTSCRUB
@@ -1094,3 +1098,16 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/machinery/airalarm/obj_break(damage_flag)
+	..()
+	update_icon()
+
+/obj/machinery/airalarm/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
+		if(!disassembled)
+			I.obj_integrity = I.max_integrity * 0.5
+		new /obj/item/stack/cable_coil(loc, 3)
+	qdel(src) 

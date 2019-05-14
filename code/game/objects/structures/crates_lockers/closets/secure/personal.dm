@@ -33,7 +33,7 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 20
 
 /obj/structure/closet/secure_closet/personal/cabinet/update_icon()

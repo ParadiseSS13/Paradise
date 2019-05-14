@@ -8,6 +8,7 @@
 	var/hardness = 1
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
+	obj_integrity = 100
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
@@ -46,7 +47,7 @@
 				return
 			user.visible_message("[user] slices apart the [name].", \
 								 "<span class='notice'>You slice apart the [name].</span>")
-			Dismantle(TRUE)
+			deconstruct(TRUE)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		var/obj/item/pickaxe/drill/jackhammer/D = W
@@ -69,12 +70,17 @@
 				playsound(loc, W.usesound, 50, 1)
 				user.visible_message("[user] slices apart the [name].", \
 									 "<span class='notice'>You slice apart the [name]!</span>")
-				Dismantle(TRUE)
+				deconstruct(TRUE)
 	else
-		hardness -= W.force/100
-		..()
-		CheckHardness()
 		return ..()
+
+
+/obj/structure/statue/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			var/ore = material_drop_type
+			for(var/i = 1, i <= oreAmount, i++)
+				new ore(get_turf(src))
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -85,42 +91,11 @@
 /obj/structure/statue/CanAtmosPass()
 	return !density
 
-/obj/structure/statue/bullet_act(obj/item/projectile/Proj)
-	hardness -= Proj.damage
-	..()
-	CheckHardness()
-
-/obj/structure/statue/proc/CheckHardness()
-	if(hardness <= 0)
-		Dismantle(TRUE)
-
-/obj/structure/statue/proc/Dismantle(disassembled = TRUE)
-	if(material_drop_type)
-		var/drop_amt = oreAmount
-		if(!disassembled)
-			drop_amt -= 2
-		if(drop_amt > 0)
-			new material_drop_type(get_turf(src), drop_amt)
-	qdel(src)
-
-/obj/structure/statue/ex_act(severity = 1)
-	switch(severity)
-		if(1)
-			Dismantle(TRUE)
-		if(2)
-			if(prob(20))
-				Dismantle(TRUE)
-			else
-				hardness--
-				CheckHardness()
-		if(3)
-			hardness -= 0.1
-			CheckHardness()
-
 /obj/structure/statue/uranium
 	hardness = 3
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
+	obj_integrity = 300
 	var/last_event = 0
 	var/active = null
 
@@ -156,7 +131,7 @@
 			active = null
 
 /obj/structure/statue/plasma
-	hardness = 2
+	obj_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
 
@@ -197,14 +172,15 @@
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 160)
-	Dismantle(FALSE)
+	deconstruct(FALSE)
+
 
 /obj/structure/statue/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
 /obj/structure/statue/gold
-	hardness = 3
+	obj_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/gold
 	desc = "This is a highly valuable statue made from gold."
 
@@ -229,7 +205,7 @@
 	icon_state = "rd"
 
 /obj/structure/statue/silver
-	hardness = 3
+	obj_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
 	desc = "This is a valuable statue made from silver."
 
@@ -254,7 +230,7 @@
 	icon_state = "medborg"
 
 /obj/structure/statue/diamond
-	hardness = 10
+	obj_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
 	desc = "This is a very expensive diamond statue."
 
@@ -271,7 +247,7 @@
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
-	hardness = 3
+	obj_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
 	var/spam_flag = 0
@@ -300,7 +276,7 @@
 			spam_flag = 0
 
 /obj/structure/statue/sandstone
-	hardness = 0.5
+	obj_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
 
 /obj/structure/statue/sandstone/assistant
@@ -341,6 +317,7 @@
 	icon_state = "snowman"
 	anchored = TRUE
 	density = TRUE
+	obj_integrity = 50
 
 /obj/structure/snowman/built
 	desc = "Just like the ones you remember from childhood!"
@@ -360,7 +337,7 @@
 	else
 		return ..()
 
-/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/snowman/built/fire_act(exposed_temperature,exposed_volume)
 	..()
 	qdel(src)
 

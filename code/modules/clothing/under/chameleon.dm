@@ -183,8 +183,8 @@
 	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/under/chameleon/Initialize()
@@ -210,8 +210,8 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/suit/chameleon/Initialize()
@@ -236,8 +236,8 @@
 	icon_state = "meson"
 	item_state = "meson"
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize()
@@ -263,8 +263,8 @@
 	item_state = "ygloves"
 
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/gloves/chameleon/Initialize()
@@ -290,8 +290,7 @@
 	item_color = "grey"
 
 	resistance_flags = NONE
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/head/chameleon/Initialize()
@@ -322,7 +321,8 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/obj/item/voice_changer/voice_changer
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -357,8 +357,8 @@
 	desc = "A pair of black shoes."
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/shoes/chameleon/Initialize()
@@ -379,6 +379,8 @@
 	item_color = "black"
 	desc = "A pair of black shoes."
 	flags = NOSLIP
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize()
 	. = ..()
@@ -387,6 +389,8 @@
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
 	var/datum/action/item_action/chameleon/change/chameleon_action
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/storage/backpack/chameleon/Initialize()
 	. = ..()
@@ -407,6 +411,8 @@
 	name = "toolbelt"
 	desc = "Holds tools."
 	var/datum/action/item_action/chameleon/change/chameleon_action
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/storage/belt/chameleon/Initialize()
 	. = ..()
@@ -427,6 +433,8 @@
 /obj/item/radio/headset/chameleon
 	name = "radio headset"
 	var/datum/action/item_action/chameleon/change/chameleon_action
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/radio/headset/chameleon/Initialize()
 	. = ..()
@@ -446,6 +454,8 @@
 /obj/item/pda/chameleon
 	name = "PDA"
 	var/datum/action/item_action/chameleon/change/chameleon_action
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/pda/chameleon/Initialize()
 	. = ..()
@@ -465,7 +475,9 @@
 
 /obj/item/stamp/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
+	resistance_flags = 0
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
+	
 /obj/item/stamp/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)

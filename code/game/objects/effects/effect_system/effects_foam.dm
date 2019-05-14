@@ -37,7 +37,7 @@
 
 			var/obj/structure/foamedmetal/M = new(src.loc)
 			M.metal = metal
-			M.updateicon()
+			M.update_icon()
 
 		flick("[icon_state]-disolve", src)
 		sleep(5)
@@ -84,7 +84,7 @@
 
 // foam disolves when heated
 // except metal foams
-/obj/effect/particle_effect/foam/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE) //Don't heat the reagents inside
+/obj/effect/particle_effect/foam/fire_act(exposed_temperature,exposed_volume) //Don't heat the reagents inside
 	return
 
 /obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume) // overriden to prevent weird behaviors with heating reagents inside
@@ -173,6 +173,7 @@
 	density = TRUE
 	opacity = TRUE	// changed in New()
 	anchored = TRUE
+	obj_integrity = 20
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
 
@@ -192,16 +193,6 @@
 
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
-
-/obj/structure/foamedmetal/proc/updateicon()
-	if(metal == MFOAM_ALUMINUM)
-		icon_state = "metalfoam"
-		max_integrity = 20
-		obj_integrity = max_integrity
-	else
-		icon_state = "ironfoam"
-		max_integrity = 50
-		obj_integrity = max_integrity
 
 /obj/structure/foamedmetal/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)

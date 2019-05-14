@@ -161,6 +161,11 @@
 	held_brain.forceMove(dropspot)
 	held_brain = null
 
+/obj/item/mmi/deconstruct(disassembled = TRUE)
+	if(held_brain)
+		dropbrain()
+	qdel(src)
+
 /obj/item/mmi/proc/become_occupied(var/new_icon)
 	icon_state = new_icon
 	if(radio)

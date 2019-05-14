@@ -8,7 +8,7 @@
 	throw_speed = 1
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 5
 	no_spin = TRUE
 

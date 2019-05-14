@@ -9,7 +9,7 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list(melee = 30, bullet = 30, laser = 20, energy = 20, bomb = 10, bio = 100, rad = 100)
+	armor = list(melee = 30, bullet = 30, laser = 20, energy = 20, bomb = 10, bio = 100, rad = 100, fire = 80, acid = 70)
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	var/operating = FALSE
@@ -28,7 +28,6 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE
-
 	//Multi-tile doors
 	var/width = 1
 
@@ -376,33 +375,6 @@
 /obj/machinery/door/proc/disable_lockdown()
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
-
-/obj/machinery/door/blob_act(obj/structure/blob/B)
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
-			return
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
-
-/obj/machinery/door/ex_act(severity, target)
-	if(severity)
-		severity = max(1, severity - 1)
-	else
-		severity = 0
-	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	if(target == src)
-		obj_integrity = 0
-		qdel(src)
-		return
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0

@@ -17,7 +17,8 @@
 	var/opening = 0
 	density = 1
 	opacity = 1
-
+	obj_integrity = 100
+	max_integrity = 100
 	canSmoothWith = list(
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
@@ -124,19 +125,23 @@
 
 /obj/structure/falsewall/proc/dismantle(mob/user)
 	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
-	new /obj/structure/girder/displaced(loc)
-	if(mineral == "metal")
-		if(istype(src, /obj/structure/falsewall/reinforced))
-			new /obj/item/stack/sheet/plasteel(loc, 2)
+	deconstruct(TRUE)
+
+/obj/structure/falsewall/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/structure/girder/displaced(loc)
+		if(mineral == "metal")
+			if(istype(src, /obj/structure/falsewall/reinforced))
+				new /obj/item/stack/sheet/plasteel(loc, 2)
+			else
+				new /obj/item/stack/sheet/metal(loc, 2)
+		else if(mineral == "wood")
+			new/obj/item/stack/sheet/wood(loc, 2)
 		else
-			new /obj/item/stack/sheet/metal(loc, 2)
-	else if(mineral == "wood")
-		new/obj/item/stack/sheet/wood(loc, 2)
-	else
-		var/P = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-		new P(loc)
-		new P(loc)
-	playsound(src, 'sound/items/welder.ogg', 100, 1)
+			var/P = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			new P(loc)
+			new P(loc)
+		playsound(src, 'sound/items/welder.ogg', 100, 1)
 	qdel(src)
 
 /*
@@ -221,6 +226,8 @@
 	icon_state = "diamond"
 	mineral = "diamond"
 	walltype = "diamond"
+	obj_integrity = 800
+	max_integrity = 800
 	canSmoothWith = list(/obj/structure/falsewall/diamond, /turf/simulated/wall/mineral/diamond)
 
 

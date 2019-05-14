@@ -240,56 +240,38 @@
 	return ..() | update_flags
 
 
-/datum/reagent/sacid
+/datum/reagent/acid
 	name = "Sulphuric acid"
 	id = "sacid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
 	reagent_state = LIQUID
 	color = "#00FF32"
+	var/acidpwr = 10 //the amount of protection removed from the armour
+	var/toxpwr
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "<span class='userdanger'>ACID</span>"
 
-/datum/reagent/sacid/on_mob_life(mob/living/M)
+/datum/reagent/acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustFireLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/sacid/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/acid/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(ishuman(M) && !isgrey(M))
-		var/mob/living/carbon/human/H = M
+		volume = round(volume,0.1)
+		if(method == INGEST)
+			M.adjustBruteLoss(min(6*toxpwr, volume * toxpwr))
+			return
 		if(method == TOUCH)
-			if(volume > 25)
-				if(H.wear_mask)
-					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-					return
+			M.adjustBruteLoss(1.5 * min(6*toxpwr, volume * toxpwr))
+			return
+		M.acid_act(acidpwr, volume)
 
-				if(H.head)
-					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-					return
-
-				if(prob(75))
-					H.take_organ_damage(5, 10)
-					H.emote("scream")
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(affecting)
-						affecting.disfigure()
-				else
-					H.take_organ_damage(5, 10)
-			else
-				H.take_organ_damage(5, 10)
-		else
-			to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-			if(volume >= 10)
-				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
-				H.emote("scream")
-
-/datum/reagent/sacid/reaction_obj(obj/O, volume)
-	if((istype(O,/obj/item) || istype(O,/obj/structure/glowshroom)) && prob(40))
-		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
-			I.desc = "Looks like this was \an [O] some time ago."
-			O.visible_message("<span class='warning'>[O] melts.</span>")
-			qdel(O)
+/datum/reagent/acid/reaction_obj(obj/O, volume)
+	if(ismob(O.loc)) //handled in human acid_act()
+		return
+	volume = round(volume,0.1)
+	O.acid_act(acidpwr, volume)
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
@@ -585,7 +567,13 @@
 		M.emote("scream")
 	return ..() | update_flags
 
-/datum/reagent/facid
+/datum/reagent/acid/reaction_turf(turf/T, volume)
+	if (!istype(T))
+		return
+	volume = round(volume,0.1)
+	T.acid_act(acidpwr, volume)
+
+/datum/reagent/acid/facid
 	name = "Fluorosulfuric Acid"
 	id = "facid"
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
@@ -593,14 +581,15 @@
 	color = "#5050FF"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "<span class='userdanger'>ACID</span>"
+	acidpwr = 42.0
 
-/datum/reagent/facid/on_mob_life(mob/living/M)
+/datum/reagent/acid/facid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/facid/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/acid/facid/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(method == TOUCH)
@@ -632,14 +621,6 @@
 			H.emote("scream")
 			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
 		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-
-/datum/reagent/facid/reaction_obj(obj/O, volume)
-	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
-		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
-			I.desc = "Looks like this was \an [O] some time ago."
-			O.visible_message("<span class='warning'>[O] melts.</span>")
-			qdel(O)
 
 /datum/reagent/initropidril
 	name = "Initropidril"

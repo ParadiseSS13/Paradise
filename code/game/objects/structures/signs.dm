@@ -42,7 +42,7 @@
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction

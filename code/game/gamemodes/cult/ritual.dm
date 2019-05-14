@@ -284,11 +284,11 @@
 			command_announcement.Announce("Figments from an eldritch god are being summoned somewhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
 				var/turf/T = B
-				var/obj/machinery/shield/N = new(T)
+				var/obj/structure/emergency_shield/N = new(T)
 				N.name = "Rune-Scriber's Shield"
 				N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
 				N.icon_state = "shield-cult"
-				N.health = 60
+				N.obj_integrity = 60
 				shields |= N
 		else
 			return//don't do shit
@@ -300,7 +300,7 @@
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
-			var/obj/machinery/shield/S = V
+			var/obj/structure/emergency_shield/S = V
 			if(S && !QDELETED(S))
 				qdel(S)
 		return
@@ -310,7 +310,7 @@
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>", \
 						 "<span class='cult'>You finish drawing the arcane markings of [ticker.cultdat.entity_title3].</span>")
 	for(var/V in shields)
-		var/obj/machinery/shield/S = V
+		var/obj/structure/emergency_shield/S = V
 		if(S && !QDELETED(S))
 			qdel(S)
 	var/obj/effect/rune/R = new rune_to_scribe(runeturf, chosen_keyword)

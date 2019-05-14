@@ -563,6 +563,7 @@
 	icon_state = "hardsuit0-atmos"
 	item_state = "atmos_helm"
 	item_color = "atmos"
+	resistance_flags = FIRE_PROOF
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -572,6 +573,7 @@
 	icon_state = "hardsuit-atmos"
 	name = "atmos hardsuit"
 	item_state = "atmos_hardsuit"
+	resistance_flags = FIRE_PROOF
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

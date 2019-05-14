@@ -11,6 +11,10 @@
 #define MECHAMOVE_TURN 2
 #define MECHAMOVE_STEP 4
 
+#define FRONT_ARMOUR 1
+#define SIDE_ARMOUR 2
+#define BACK_ARMOUR 3
+
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
@@ -22,7 +26,7 @@
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	var/mob/living/carbon/occupant = null
@@ -30,8 +34,10 @@
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10
 	var/step_energy_drain = 10
+	var/melee_energy_drain = 15
 	var/overload_step_energy_drain_min = 100
-	var/health = 300 //health is health
+	obj_integrity = 300 //obj_integrity is health
+	max_integrity = 300
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	//the values in this list show how much damage will pass through, not how much will be absorbed.
 	var/list/damage_absorption = list("brute"=0.8,"fire"=1.2,"bullet"=0.9,"laser"=1,"energy"=1,"bomb"=1)
@@ -167,7 +173,7 @@
 
 /obj/mecha/examine(mob/user)
 	..(user)
-	var/integrity = health/initial(health)*100
+	var/integrity = obj_integrity/initial(obj_integrity)*100
 	switch(integrity)
 		if(85 to 100)
 			to_chat(user, "It's fully intact.")
@@ -227,19 +233,6 @@
 		melee_can_hit = 0
 		spawn(melee_cooldown)
 			melee_can_hit = 1
-
-/obj/mecha/proc/mech_toxin_damage(mob/living/target)
-	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
-	if(target.reagents)
-		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
-			target.reagents.add_reagent("atropine", force/2)
-		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
-			target.reagents.add_reagent("toxin", force/2.5)
-
-
-
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(M.damtype =="brute")
@@ -347,7 +340,7 @@
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
 		take_damage(1)
-		if(health < initial(health) - initial(health) / 3)
+		if(obj_integrity < initial(obj_integrity) - initial(obj_integrity) / 3)
 			leg_overload_mode = FALSE
 			step_in = initial(step_in)
 			step_energy_drain = initial(step_energy_drain)
@@ -457,7 +450,7 @@
 /obj/mecha/proc/check_for_internal_damage(var/list/possible_int_damage,var/ignore_threshold=null)
 	if(!islist(possible_int_damage) || isemptylist(possible_int_damage)) return
 	if(prob(20))
-		if(ignore_threshold || health*100/initial(health)<internal_damage_threshold)
+		if(ignore_threshold || obj_integrity*100/initial(obj_integrity)<internal_damage_threshold)
 			for(var/T in possible_int_damage)
 				if(internal_damage & T)
 					possible_int_damage -= T
@@ -465,7 +458,7 @@
 			if(int_dam_flag)
 				setInternalDamage(int_dam_flag)
 	if(prob(5))
-		if(ignore_threshold || health*100/initial(health)<internal_damage_threshold)
+		if(ignore_threshold || obj_integrity*100/initial(obj_integrity)<internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/destr = safepick(equipment)
 			if(destr)
 				qdel(destr)
@@ -497,81 +490,13 @@
 ////////  Health related procs  ////////
 ////////////////////////////////////////
 
-/obj/mecha/take_damage(amount, type="brute")
-	if(amount)
-		var/damage = absorbDamage(amount,type)
-		health -= damage
-		update_health()
-		log_append_to_last("Took [damage] points of damage. Damage type: \"[type]\".",1)
-	return
-
-/obj/mecha/proc/absorbDamage(damage,damage_type)
-	return call((proc_res["dynabsorbdamage"]||src), "dynabsorbdamage")(damage,damage_type)
-
-/obj/mecha/proc/dynabsorbdamage(damage,damage_type)
-	return damage*(listgetindex(damage_absorption,damage_type) || 1)
-
-
 /obj/mecha/proc/update_health()
-	if(health > 0)
+	if(obj_integrity > 0)
 		spark_system.start()
 		diag_hud_set_mechhealth()
 	else
 		qdel(src)
 	return
-
-/obj/mecha/attack_hand(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	log_message("Attack by hand/paw. Attacker - [user].",1)
-	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>", "<span class='danger'>You hit [name] with no visible effect.</span>")
-	log_append_to_last("Armor saved.")
-
-
-/obj/mecha/attack_alien(mob/living/user)
-	log_message("Attack by alien. Attacker - [user].",1)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(!prob(deflect_chance))
-		take_damage(15)
-		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-		playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		to_chat(user, "<span class='warning'>You slash at the armored suit!</span>")
-		visible_message("<span class='warning'>The [user] slashes at [name]'s armor!</span>")
-	else
-		log_append_to_last("Armor saved.")
-		playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		to_chat(user, "<span class=notice'>Your claws had no effect!</span>")
-		occupant_message("<span class='notice'>The [user]'s claws are stopped by the armor.</span>")
-		visible_message("<span class='notice'>The [user] rebounds off [name]'s armor!</span>")
-	return
-
-
-/obj/mecha/attack_animal(mob/living/simple_animal/user)
-	log_message("Attack by simple animal. Attacker - [user].",1)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
-		user.custom_emote(1, "[user.friendly] [src].")
-	else
-		user.do_attack_animation(src)
-		if(!prob(deflect_chance))
-			var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-			take_damage(damage)
-			check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-			visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-			user.create_attack_log("<font color='red'>attacked [name]</font>")
-		else
-			log_append_to_last("Armor saved.")
-			playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-			occupant_message("<span class='notice'>The [user]'s attack is stopped by the armor.</span>")
-			visible_message("<span class='notice'>The [user] rebounds off [name]'s armor!</span>")
-			user.create_attack_log("<font color='red'>attacked [name]</font>")
-	return
-
-/obj/mecha/hulk_damage()
-	return 15
 
 /obj/mecha/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
@@ -579,63 +504,6 @@
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL, MECHA_INT_TANK_BREACH, MECHA_INT_CONTROL_LOST))
 		log_message("Attack by hulk. Attacker - [user].", 1)
 		add_attack_logs(user, src, "Punched with hulk powers")
-
-/obj/mecha/hitby(atom/movable/A) //wrapper
-	..()
-	log_message("Hit by [A].",1)
-
-	var/def_coeff = 1
-	var/dam_coeff = 1
-	var/counter_tracking = 0
-	for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
-		if(B.projectile_react())
-			def_coeff = B.deflect_coeff
-			dam_coeff = B.damage_coeff
-			counter_tracking = 1
-			break
-
-	if(istype(A, /obj/item/mecha_parts/mecha_tracking))
-		if(!counter_tracking)
-			A.forceMove(src)
-			visible_message("The [A] fastens firmly to [src].")
-			return
-
-	if(prob(deflect_chance * def_coeff) || ismob(A))
-		occupant_message("<span class='danger'>[A] bounces off the armor.</span>")
-		visible_message("<span class='danger'>[A] bounces off the [src]\s armor!</span>")
-		log_append_to_last("Armor saved.")
-		if(isliving(A))
-			var/mob/living/M = A
-			M.take_organ_damage(10)
-
-	if(isobj(A))
-		var/obj/O = A
-		if(O.throwforce)
-			take_damage(O.throwforce * dam_coeff)
-			check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-
-
-/obj/mecha/bullet_act(var/obj/item/projectile/Proj) //wrapper
-	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).",1)
-
-	var/deflection = 1
-	var/dam_coeff = 1
-	for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
-		if(B.projectile_react())
-			deflection = B.deflect_coeff
-			dam_coeff = B.damage_coeff
-			break
-
-	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		visible_message("<span class='danger'>[src]'s armour is undamaged by [Proj]!</span>")
-	else if(prob(deflect_chance * deflection))
-		visible_message("<span class='danger'>[src]'s armour deflects [Proj]!</span>")
-	else
-		visible_message("<span class='danger'>[src] is hit by [Proj].</span>")
-		take_damage(Proj.damage * dam_coeff, Proj.flag)
-		check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-	Proj.on_hit(src)
-
 
 /obj/mecha/Destroy()
 	go_out()
@@ -699,13 +567,13 @@
 			if(prob(30))
 				qdel(src)
 			else
-				take_damage(initial(health)/2)
+				take_damage(initial(obj_integrity)/2)
 				check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_TANK_BREACH, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 		if(3)
 			if(prob(5))
 				qdel(src)
 			else
-				take_damage(initial(health) / 5)
+				take_damage(initial(obj_integrity) / 5)
 				check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_TANK_BREACH, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
 //TODO
@@ -833,7 +701,7 @@
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = W
-		if(health < initial(health))
+		if(obj_integrity < initial(obj_integrity))
 			if(WT.remove_fuel(0, user))
 				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
 				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
@@ -842,7 +710,7 @@
 						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
 					else
 						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
-						health += min(20, initial(health) - health)
+						obj_integrity += min(20, initial(obj_integrity) - obj_integrity)
 			else
 				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
 		else
@@ -1149,7 +1017,7 @@
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
 	if(do_after(user, 40, target = src))
-		if(health <= 0)
+		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
 			to_chat(user, "<span class='danger'>[occupant] was faster! Try better next time, loser.</span>")

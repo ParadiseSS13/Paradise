@@ -440,6 +440,10 @@
 /obj/machinery/smartfridge/drying_rack/exchange_parts()
 	return
 
+/obj/machinery/smartfridge/drying_rack/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/wood (loc, 10)
+	qdel(src)
+
 /obj/machinery/smartfridge/drying_rack/spawn_frame()
 	return
 

@@ -10,9 +10,9 @@
 	throwforce = 15
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
-	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
+	isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
-/obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = 0)
+/obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/living/user, ranged = 0)
 
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
 	var/new_location = get_turf(loc)
@@ -113,12 +113,6 @@
 
 	//Finally, smash the bottle. This kills (del) the bottle.
 	smash(target, user)
-
-/obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
-	if(reagents && reagents.total_volume)
-		M.visible_message("<span class='danger'>The contents of \the [src] splashes all over [M]!</span>")
-		reagents.reaction(M, TOUCH)
-		reagents.clear_reagents()
 
 //Keeping this here for now, I'll ask if I should keep it here.
 /obj/item/broken_bottle

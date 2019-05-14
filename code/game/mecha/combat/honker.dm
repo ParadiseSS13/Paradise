@@ -4,7 +4,7 @@
 	icon_state = "honker"
 	initial_icon = "honker"
 	step_in = 3
-	health = 140
+	obj_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
 	damage_absorption = list("brute"=1.2,"fire"=1.5,"bullet"=1,"laser"=1,"energy"=1,"bomb"=1)
@@ -28,7 +28,7 @@
 	ME.attach(src)
 
 /obj/mecha/combat/honker/get_stats_part()
-	var/integrity = health/initial(health)*100
+	var/integrity = obj_integrity/initial(obj_integrity)*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"

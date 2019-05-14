@@ -6,7 +6,7 @@
 	icon_state = "necrocrate"
 	icon_opened = "necrocrateopen"
 	icon_closed = "necrocrate"
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	unacidable = 1
 	
 /obj/structure/closet/crate/necropolis/tendril

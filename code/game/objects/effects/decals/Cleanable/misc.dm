@@ -82,11 +82,7 @@
 	layer = OBJ_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
-	burntime = 1
-
-/obj/effect/decal/cleanable/cobweb/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	qdel(src)
+	resistance_flags = FLAMMABLE
 
 /obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"
@@ -103,12 +99,6 @@
 	icon_state = "big_molten"
 
 /obj/effect/decal/cleanable/cobweb2
-	name = "cobweb"
-	desc = "Somebody should remove that."
-	density = FALSE
-	anchored = TRUE
-	layer = OBJ_LAYER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb2"
 
 /obj/effect/decal/cleanable/vomit
@@ -186,3 +176,18 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	anchored = TRUE
+
+/obj/effect/decal/cleanable/shreds
+	name = "shreds"
+	desc = "The shredded remains of what appears to be clothing."
+	icon_state = "shreds"
+	gender = PLURAL
+
+/obj/effect/decal/cleanable/shreds/ex_act(severity, target)
+	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.
+		qdel(src)
+
+/obj/effect/decal/cleanable/shreds/New()
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+	..()

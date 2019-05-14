@@ -8,7 +8,9 @@
 	opacity = 0
 	anchored = 1
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
-	var/health = 30
+	obj_integrity = 30
+	max_integrity = 30
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 70)
 	var/health_timestamp = 0
 	var/brute_resist = 4
 	var/fire_resist = 1
@@ -18,11 +20,18 @@
 	blobs += src
 	src.dir = pick(1, 2, 4, 8)
 	src.update_icon()
-	..(loc)
-	for(var/atom/A in loc)
-		A.blob_act(src)
+	..()
+	ConsumeTile()
 	return
 
+/obj/structure/blob/proc/ConsumeTile()
+	for(var/atom/A in loc)
+		A.blob_act(src)
+	if(iswallturf(loc))
+		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
+
+/obj/structure/blob/blob_act()
+	return
 
 /obj/structure/blob/Destroy()
 	blobs -= src
@@ -48,11 +57,6 @@
 	Life()
 	return
 
-/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	var/damage = Clamp(0.01 * exposed_temperature, 0, 4)
-	take_damage(damage, BURN)
-
 /obj/structure/blob/blob_act()
 	return
 
@@ -63,8 +67,8 @@
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
 		return 0
-	if(health < initial(health))
-		health++
+	if(obj_integrity < initial(obj_integrity))
+		obj_integrity++
 		update_icon()
 		health_timestamp = world.time + 10 // 1 seconds
 
@@ -104,43 +108,47 @@
 	return 0
 
 
-/obj/structure/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
-	if(prob && !prob(health))	return
-	if(istype(T, /turf/space) && prob(75)) 	return
+/obj/structure/blob/proc/expand(turf/T = null, controller = null, expand_reaction = 1)
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
 		for(var/i = 1 to 4)
 			var/dirn = pick(dirs)
 			dirs.Remove(dirn)
 			T = get_step(src, dirn)
-			if(!(locate(/obj/structure/blob) in T))	break
-			else	T = null
+			if(!(locate(/obj/structure/blob) in T))
+				break
+			else
+				T = null
+	if(!T)
+		return 0
+	var/make_blob = TRUE //can we make a blob?
 
-	if(!T)	return 0
-	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(src.health, 30))
-	B.color = a_color
-	B.density = 1
-	if(T.Enter(B,src))//Attempt to move into the tile
-		B.density = initial(B.density)
-		B.loc = T
-	else
-		T.blob_act()//If we cant move in hit the turf
-		B.loc = null //So we don't play the splat sound, see Destroy()
-		qdel(B)
+	if(isspaceturf(T) && !(locate(/obj/structure/lattice) in T) && prob(80))
+		make_blob = FALSE
+		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1) //Let's give some feedback that we DID try to spawn in space, since players are used to it
 
-	for(var/atom/A in T)//Hit everything in the turf
-		A.blob_act(src)
-	return 1
+	ConsumeTile() //hit the tile we're in, making sure there are no border objects blocking us
+	if(!T.CanPass(src, T, 5)) //is the target turf impassable
+		make_blob = FALSE
+		T.blob_act(src) //hit the turf if it is
+	for(var/atom/A in T)
+		if(!A.CanPass(src, T, 5)) //is anything in the turf impassable
+			make_blob = FALSE
+		A.blob_act(src) //also hit everything in the turf
 
-/obj/structure/blob/ex_act(severity)
-	..()
-	var/damage = 150 - 20 * severity
-	take_damage(damage, BRUTE)
-
-/obj/structure/blob/bullet_act(var/obj/item/projectile/Proj)
-	..()
-	take_damage(Proj.damage, Proj.damage_type)
-	return 0
+	if(make_blob) //well, can we?
+		var/obj/structure/blob/B = new /obj/structure/blob/normal(src.loc)
+		B.density = 1
+		if(T.Enter(B,src)) //NOW we can attempt to move into the tile
+			B.density = initial(B.density)
+			B.loc = T
+			B.update_icon()
+			return B
+		else
+			T.blob_act(src) //if we can't move in hit the turf again
+			qdel(B) //we should never get to this point, since we checked before moving in. destroy the blob so we don't have two blobs on one tile
+			return null
+	return null
 
 /obj/structure/blob/Crossed(var/mob/living/L)
 	..()
@@ -150,46 +158,42 @@
 	..()
 	take_damage(power/400, BURN)
 
-/obj/structure/blob/hulk_damage()
-	return 15
-
-/obj/structure/blob/attackby(var/obj/item/W, var/mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-	visible_message("<span class='danger'>[user] has attacked the [src.name] with \the [W]!</span>")
-	if(W.damtype == BURN)
-		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
-	take_damage(W.force, W.damtype)
-
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M as mob)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-	visible_message("<span class='danger'>\The [M] has attacked the [src.name]!</span>")
-	var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-	take_damage(damage, BRUTE)
-	return
-
-/obj/structure/blob/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-	visible_message("<span class='danger'>[M] has slashed the [src.name]!</span>")
-	var/damage = rand(15, 30)
-	take_damage(damage, BRUTE)
-	return
-
-/obj/structure/blob/take_damage(damage, damage_type)
-	if(!damage || damage_type == STAMINA) // Avoid divide by zero errors
+	if ("blob" in M.faction)
 		return
+
+/obj/structure/blob/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			damage /= max(brute_resist, 1)
+			if(damage_amount)
+				playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
+			else
+				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
-			damage /= max(fire_resist, 1)
-	health -= damage
-	update_icon()
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
+
+/obj/structure/blob/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	switch(damage_type)
+		if(BRUTE)
+			damage_amount *= brute_resist
+		if(BURN)
+			damage_amount *= fire_resist
+		if(CLONE)
+		else
+			return 0
+	var/armor_protection = 0
+	if(damage_flag)
+		armor_protection = armor[damage_flag]
+	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
+	return damage_amount
+
+/obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	if(. && obj_integrity > 0)
+		update_icon()
+
+/obj/structure/blob/obj_destruction(damage_flag)
+	..()
 
 /obj/structure/blob/proc/change_to(var/type)
 	if(!ispath(type))
@@ -220,12 +224,14 @@
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0
-	health = 21
+	obj_integrity = 30
+	max_integrity = 30
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 70)
 
 /obj/structure/blob/normal/update_icon()
-	if(health <= 0)
+	if(obj_integrity <= 0)
 		qdel(src)
-	else if(health <= 15)
+	else if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
 	else
 		icon_state = "blob"

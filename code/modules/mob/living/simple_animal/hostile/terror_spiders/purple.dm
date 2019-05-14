@@ -94,4 +94,4 @@
 	name = "thick web"
 	desc = "This web is so thick, most cannot see beyond it."
 	opacity = 1
-	health = 40
+	obj_integrity = 40

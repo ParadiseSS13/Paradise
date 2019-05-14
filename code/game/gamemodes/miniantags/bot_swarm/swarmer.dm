@@ -434,10 +434,11 @@
 	icon_state = "ui_light"
 	layer = MOB_LAYER
 	anchored = 1
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	obj_integrity = 30
+	max_integrity = 30
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_ICON
-	var/health = 30
 	light_color = LIGHT_COLOR_CYAN
 	var/lon_range = 1
 
@@ -467,42 +468,15 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/take_damage(damage)
-	health -= damage
-	if(health <= 0)
-		qdel(src)
-
-/obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
-	if(Proj.damage)
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			take_damage(Proj.damage)
-	..()
-
-/obj/structure/swarmer/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item))
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
-		take_damage(I.force)
-	return
-
-/obj/structure/swarmer/ex_act()
-	qdel(src)
-	return
-
-/obj/structure/swarmer/blob_act()
-	qdel(src)
-	return
+/obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(loc, 'sound/weapons/Egloves.ogg', 80, 1)
+		if(BURN)
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 
 /obj/structure/swarmer/emp_act()
 	qdel(src)
-	return
-/obj/structure/swarmer/attack_animal(mob/living/user)
-	if(isanimal(user))
-		var/mob/living/simple_animal/S = user
-		S.do_attack_animation(src)
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(S.melee_damage_type == BRUTE || S.melee_damage_type == BURN)
-			take_damage(rand(S.melee_damage_lower, S.melee_damage_upper))
 	return
 
 /obj/structure/swarmer/trap
@@ -511,7 +485,7 @@
 	icon_state = "trap"
 	light_range = 1
 	light_color = LIGHT_COLOR_CYAN
-	health = 10
+	obj_integrity = 10
 
 /obj/structure/swarmer/trap/Crossed(var/atom/movable/AM)
 	if(isliving(AM))
@@ -552,9 +526,8 @@
 	icon_state = "barricade"
 	light_range = 1
 	light_color = LIGHT_COLOR_CYAN
-	health = 50
-	density = 1
-	anchored = 1
+	obj_integrity = 50
+	max_integrity = 50
 
 /obj/structure/swarmer/blockade/CanPass(atom/movable/O)
 	if(isswarmer(O))

@@ -179,7 +179,7 @@
 	icon_state = "bronze"
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/accessory/medal/conduct
 	name = "distinguished conduct medal"

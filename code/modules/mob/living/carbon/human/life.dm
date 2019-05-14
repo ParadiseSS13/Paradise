@@ -418,6 +418,67 @@
 	if(HEATRES in mutations)
 		return
 	if(on_fire)
+	
+		//the fire tries to damage the exposed clothes and items
+		var/list/burning_items = list()
+		//HEAD//
+		var/obj/item/clothing/head_clothes = null
+		if(glasses)
+			head_clothes = glasses
+		if(wear_mask)
+			head_clothes = wear_mask
+		if(head)
+			head_clothes = head
+		if(head_clothes)
+			burning_items += head_clothes
+
+		//CHEST//
+		var/obj/item/clothing/chest_clothes = null
+		if(w_uniform)
+			chest_clothes = w_uniform
+		if(wear_suit)
+			chest_clothes = wear_suit
+		else
+			if(r_store)
+				burning_items += r_store
+			if(l_store)
+				burning_items += l_store
+			if(s_store)
+				burning_items += s_store
+		if(chest_clothes)
+			burning_items += chest_clothes
+
+		//ARMS & HANDS//
+		var/obj/item/clothing/arm_clothes = null
+		if(gloves)
+			arm_clothes = gloves
+		if(w_uniform && ((w_uniform.body_parts_covered & HANDS) || (w_uniform.body_parts_covered & ARMS)))
+			arm_clothes = w_uniform
+		if(wear_suit && ((wear_suit.body_parts_covered & HANDS) || (wear_suit.body_parts_covered & ARMS)))
+			arm_clothes = wear_suit
+		if(arm_clothes)
+			burning_items += arm_clothes
+
+		//LEGS & FEET//
+		var/obj/item/clothing/leg_clothes = null
+		if(shoes)
+			leg_clothes = shoes
+		if(w_uniform && ((w_uniform.body_parts_covered & FEET) || (w_uniform.body_parts_covered & LEGS)))
+			leg_clothes = w_uniform
+		if(wear_suit && ((wear_suit.body_parts_covered & FEET) || (wear_suit.body_parts_covered & LEGS)))
+			leg_clothes = wear_suit
+		if(leg_clothes)
+			burning_items += leg_clothes
+
+		if(back)
+			burning_items += back
+		if(belt)
+			burning_items += belt
+
+		for(var/X in burning_items)
+			var/obj/item/I = X
+			I.fire_act((fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
+
 		var/thermal_protection = get_thermal_protection()
 
 		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)

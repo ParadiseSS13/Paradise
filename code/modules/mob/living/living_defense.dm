@@ -43,6 +43,13 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
+/mob/living/proc/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
+	return
+
+/mob/living/acid_act(acidpwr, acid_volume)
+	apply_damage(acidpwr * min(1, acid_volume * 0.1))
+	return 1
+
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
@@ -193,7 +200,7 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
 
-/mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/mob/living/fire_act(exposed_temperature, exposed_volume)
 	..()
 	adjust_fire_stacks(3)
 	IgniteMob()

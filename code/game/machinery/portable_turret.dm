@@ -13,10 +13,12 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0)
+	obj_integrity = 160			//the turret's health
+	max_integrity = 160
+	integrity_failure = 80
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = 0			//if the turret cover is "open" and the turret is raised
 	var/raising= 0			//if the turret is currently opening or closing its cover
-	var/health = 80			//the turret's health
 	var/locked = 1			//if the turret's behaviour control access is locked
 	var/controllock = 0		//if the turret responds to control panels
 
@@ -76,7 +78,7 @@
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "Pulse Turret"
-	health = 200
+	obj_integrity = 200
 	enabled = 1
 	lethal = 1
 	req_access = list(access_cent_commander)
@@ -452,18 +454,6 @@ var/list/turret_icons
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
-/obj/machinery/porta_turret/take_damage(force)
-	if(!raised && !raising)
-		force = force / 8
-		if(force < 5)
-			return
-
-	health -= force
-	if(force > 5 && prob(45) && spark_system)
-		spark_system.start()
-	if(health <= 0)
-		die()	//the death process :(
-
 /obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type == STAMINA)
 		return
@@ -475,9 +465,6 @@ var/list/turret_icons
 				attacked = 0
 
 	..()
-
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
 	if(enabled && emp_vulnerable)
@@ -498,24 +485,25 @@ var/list/turret_icons
 
 	..()
 
-/obj/machinery/porta_turret/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(25))
-				qdel(src)
-			else
-				take_damage(initial(health) * 8) //should instakill most turrets
-		if(3)
-			take_damage(initial(health) * 8 / 3)
+/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	. = ..()
+	if(.) //damage received
+		if(prob(30))
+			spark_system.start()
+		if(enabled && !attacked && !emagged)
+			attacked = 1
+			spawn(60)
+				attacked = 0
 
-/obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
-	health = 0
-	stat |= BROKEN	//enables the BROKEN bit
-	if(spark_system)
-		spark_system.start()	//creates some sparks because they look cool
-	update_icon()
+/obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
+	qdel(src)
+
+/obj/machinery/porta_turret/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT) && !(stat & BROKEN))
+		stat |= BROKEN	//enables the BROKEN bit
+		if(spark_system)
+			spark_system.start()	//creates some sparks because they look cool
+		update_icon()
 
 /obj/machinery/porta_turret/process()
 	//the main machinery process
@@ -1015,7 +1003,7 @@ var/list/turret_icons
 	ailock = 1
 	var/area/syndicate_depot/core/depotarea
 
-/obj/machinery/porta_turret/syndicate/die()
+/obj/machinery/porta_turret/syndicate/Destroy()
 	. = ..()
 	if(istype(depotarea))
 		depotarea.turret_died()
@@ -1048,7 +1036,7 @@ var/list/turret_icons
 	return 10 //Syndicate turrets shoot everything not in their faction
 
 /obj/machinery/porta_turret/syndicate/pod
-	health = 40
+	obj_integrity = 40
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 
@@ -1073,6 +1061,6 @@ var/list/turret_icons
 /obj/machinery/porta_turret/syndicate/assault_pod
 	name = "machine gun turret (4.6x30mm)"
 	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
-	health = 100
+	obj_integrity = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3

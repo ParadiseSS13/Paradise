@@ -78,7 +78,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
+	obj_integrity = 200
+	max_integrity = 200
+	integrity_failure = 50
 	var/screen = NEWSCASTER_MAIN
 	var/paper_remaining = 15
 	var/securityCaster = 0
@@ -159,23 +162,37 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	..()
 	update_icon()
 
-/obj/machinery/newscaster/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-			return
-		if(2)
-			stat |= BROKEN
-			if(prob(50))
-				qdel(src)
-			else
-				update_icon() //can't place it above the return and outside the if-else. or we might get runtimes of null.update_icon() if(prob(50)) goes in.
-		else
-			if(prob(50))
-				stat |= BROKEN
-			update_icon()
+/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	update_icon()
 
+/obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(stat & BROKEN)
+				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
+			else
+				playsound(loc, 'sound/effects/Glasshit.ogg', 90, 1)
+		if(BURN)
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
+
+
+/obj/machinery/newscaster/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		new /obj/item/shard(loc)
+		new /obj/item/shard(loc)
+	qdel(src)
+
+/obj/machinery/newscaster/obj_break()
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		stat |= BROKEN
+		playsound(loc, 'sound/effects/Glassbr3.ogg', 100, 1)
+		update_icon()
 /obj/machinery/newscaster/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/newscaster/attack_ai(mob/user)
 	ui_interact(user)
 
 /obj/machinery/newscaster/attack_hand(mob/user)

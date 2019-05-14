@@ -7,9 +7,9 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
-
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/datum/wires/camera/wires = null // Wires datum
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 90, acid = 50)
+	obj_integrity = 100
 	max_integrity = 100
 	integrity_failure = 50
 	var/list/network = list("SS13")
@@ -108,10 +108,21 @@
 	..()
 	qdel(src)//to prevent bomb testing camera from exploding over and over forever
 
-/obj/machinery/camera/ex_act(severity)
-	if(invuln)
-		return
-	..()
+/obj/machinery/camera/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			if(!assembly)
+				assembly = new()
+			assembly.loc = src.loc
+			assembly.state = 1
+			assembly.setDir(dir)
+			assembly = null
+		else
+			var/obj/item/I = new /obj/item/camera_assembly (loc)
+			I.obj_integrity = I.max_integrity * 0.5
+			new /obj/item/stack/cable_coil(loc, 2)
+	qdel(src)
+
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
@@ -233,10 +244,9 @@
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status)
+	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
-		toggle_cam(null, FALSE)
-		wires.CutAll()
+		toggle_cam(null, 0)
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(disassembled)

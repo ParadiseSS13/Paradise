@@ -82,6 +82,7 @@
 #define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//Coefficient of multiplication for the damage the item does when removed without a surgery (this*item.w_class)
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
 
+#define DAMAGE_PRECISION 0.1
 //Gun Stuff
 #define SAWN_INTACT  0
 #define SAWN_OFF     1

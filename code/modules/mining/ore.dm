@@ -52,7 +52,7 @@
 		F.attackby(OB, AM)
 	return ..()
 
-/obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/stack/ore/fire_act(exposed_temperature,exposed_volume)
 	..()
 	if(isnull(refined_type))
 		return

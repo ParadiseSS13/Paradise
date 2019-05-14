@@ -5,7 +5,7 @@
 	initial_icon = "durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
-	health = 400
+	obj_integrity = 400
 	deflect_chance = 20
 	damage_absorption = list("brute"=0.5,"fire"=1.1,"bullet"=0.65,"laser"=0.85,"energy"=0.9,"bomb"=0.8)
 	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, rad = 0)
@@ -36,7 +36,7 @@
 	initial_icon = "old_durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
-	health = 400
+	obj_integrity = 400
 	deflect_chance = 20
 	damage_absorption = list("brute"=0.5,"fire"=1.1,"bullet"=0.65,"laser"=0.85,"energy"=0.9,"bomb"=0.8)
 	max_temperature = 30000

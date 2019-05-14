@@ -123,6 +123,8 @@
 	mutatelist = list()
 	reagents_add = list("plantmatter" = 0.1, "sugar" = 0.1, "blackpowder" = 0.7)
 	rarity = 60 //See above
+	obj_integrity = 40
+	max_integrity = 40
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb
 	name = "cherry bombs"
@@ -141,9 +143,11 @@
 	log_game("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x],[user.y],[user.z]).")
 	prime()
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/burn()
-	prime()
-	..()
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		prime()
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs

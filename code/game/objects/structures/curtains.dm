@@ -96,5 +96,15 @@
 /obj/structure/curtain/open/shower/centcom
 	color = "#000066"
 
+/obj/structure/curtain/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/weapons/slash.ogg', 80, 1)
+			else
+				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 80, 1) 
+
 #undef SHOWER_OPEN_LAYER
 #undef SHOWER_CLOSED_LAYER

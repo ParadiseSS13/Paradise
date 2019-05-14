@@ -134,7 +134,7 @@
 	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
-			turret.health += 30
+			turret.obj_integrity += 30
 			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	to_chat(src, "<span class='notice'>Turrets upgraded.</span>")

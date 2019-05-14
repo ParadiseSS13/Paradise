@@ -12,7 +12,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 20
 
 /obj/item/storage/briefcase/sniperbundle

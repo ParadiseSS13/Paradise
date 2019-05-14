@@ -83,15 +83,6 @@ GLOBAL_LIST_EMPTY(safes)
 	if(open)
 		to_chat(user, "The inside of the the door has numbers written on it: <b>[get_combination()]</b>")
 
-/obj/structure/safe/blob_act()
-	return
-
-/obj/structure/safe/ex_act(severity)
-	return
-
-/obj/structure/safe/examine_status(mob/user)
-	return
-
 /obj/structure/safe/proc/check_unlocked()
 	if(current_tumbler_index > number_of_tumblers)
 		locked = FALSE

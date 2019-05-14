@@ -60,6 +60,10 @@
 
 	var/splinted_count = 0 //Time when this organ was last splinted
 
+/obj/item/organ/external/deconstruct(disassembled = TRUE)
+	drop_organs()
+	qdel(src)
+
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return

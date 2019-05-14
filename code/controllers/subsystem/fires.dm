@@ -27,11 +27,12 @@ SUBSYSTEM_DEF(fires)
 				return
 			continue
 
-		if(O.burn_state == ON_FIRE)
-			if(O.burn_world_time < world.time)
-				O.burn()
-		else
-			processing -= O
+		if(O.resistance_flags & ON_FIRE) //in case an object is extinguished while still in currentrun
+			if(!(O.resistance_flags & FIRE_PROOF))
+				O.take_damage(20, BURN, "fire", 0)
+			else
+				O.extinguish()
+				O.cut_overlay(fire_overlay, TRUE)
 
 		if(MC_TICK_CHECK)
 			return

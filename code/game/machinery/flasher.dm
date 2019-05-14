@@ -12,6 +12,9 @@
 	var/strength = 5 //How weakened targets are when flashed.
 	var/base_state = "mflash"
 	anchored = 1
+	obj_integrity = 250
+	max_integrity = 250
+	integrity_failure = 100
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
@@ -27,6 +30,7 @@
 	sleep(4)					//<--- What the fuck are you doing? D=
 	sd_set_light(2)
 */
+
 /obj/machinery/flasher/power_change()
 	if( powered() )
 		stat &= ~NOPOWER
@@ -79,6 +83,16 @@
 			if(L.weakeyes)
 				L.Weaken(strength * 1.5)
 				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
+
+/obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 10) //any melee attack below 10 dmg does nothing
+		return 0
+	. = ..()
+	
+/obj/machinery/flasher/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			stat |= BROKEN
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

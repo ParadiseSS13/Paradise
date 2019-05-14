@@ -69,9 +69,13 @@
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
+	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
+	if(A)
+		A.acid_level = max(A.acid_level - volume*50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.extinguish()
+	O.acid_level = 0
 
 	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O

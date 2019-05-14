@@ -22,6 +22,7 @@
 	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
 	climbable = TRUE
+	obj_integrity = 100
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_TRUE
@@ -362,8 +363,10 @@
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
 	icon_state = "glass_table"
 	buildstack = /obj/item/stack/sheet/glass
+	obj_integrity = 70
 	max_integrity = 70
-	unacidable = 1
+	resistance_flags = ACID_PROOF
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 100)
 	canSmoothWith = null
 	var/list/debris = list()
 
@@ -444,9 +447,11 @@
 	frame = /obj/structure/table_frame/wood
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
+	resistance_flags = FLAMMABLE
+	obj_integrity = 70
 	max_integrity = 70
 	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 20
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
@@ -500,9 +505,10 @@
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
 	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
+	obj_integrity = 200
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(melee = 10, bullet = 30, laser = 30, energy = 100, bomb = 20, bio = 0, rad = 0)
+	armor = list(melee = 10, bullet = 30, laser = 30, energy = 100, bomb = 20, bio = 0, rad = 0, fire = 80, acid = 70)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
@@ -543,7 +549,7 @@
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
 	icon_state = "brass_table"
-	burn_state = FIRE_PROOF
+	
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass

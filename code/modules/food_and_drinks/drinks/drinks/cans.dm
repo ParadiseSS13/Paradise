@@ -1,6 +1,6 @@
 /obj/item/reagent_containers/food/drinks/cans
 	var/canopened = 0
-	var/is_glass = 0
+	isGlass = 0
 	var/is_plastic = 0
 
 /obj/item/reagent_containers/food/drinks/cans/New()
@@ -18,9 +18,9 @@
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
 	crushed_can.icon_state = icon_state
 	//inherit material vars for recycling purposes
-	crushed_can.is_glass = is_glass
+	isGlass = isGlass
 	crushed_can.is_plastic = is_plastic
-	if(is_glass)
+	if(isGlass)
 		playsound(user.loc, 'sound/effects/glassbr3.ogg', rand(10, 50), 1)
 		crushed_can.name = "broken bottle"
 	else
@@ -68,28 +68,28 @@
 	name = "space beer"
 	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
-	is_glass = 1
+	isGlass = 1
 	list_reagents = list("beer" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
 	icon_state = "adminbooze"
-	is_glass = 1
+	isGlass = 1
 	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
 
 /obj/item/reagent_containers/food/drinks/cans/madminmalt
 	name = "madmin malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
 	icon_state = "madminmalt"
-	is_glass = 1
+	isGlass = 1
 	list_reagents = list("hell_water" = 20, "neurotoxin" = 15, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/badminbrew
 	name = "badmin brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
-	is_glass = 1
+	isGlass = 1
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
@@ -97,7 +97,7 @@
 	desc = "A true dorf's drink of choice."
 	icon_state = "alebottle"
 	item_state = "beer"
-	is_glass = 1
+	isGlass = 1
 	list_reagents = list("ale" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind
@@ -202,7 +202,7 @@
 	name = "glass bottle"
 	desc = "A glass bottle suitable for beverages."
 	icon_state = "glass_bottle"
-	is_glass = 1
+	isGlass = 1
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
 	name = "plastic bottle"

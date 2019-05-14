@@ -290,6 +290,13 @@
 	else if(occupant)
 		add_overlay("human")
 
+/obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		open_machine()
+		dump_contents()
+		new /obj/item/stack/sheet/metal (loc, 2)
+	qdel(src)
+	
 /obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(shocked)
 		if(shock(user, 100))

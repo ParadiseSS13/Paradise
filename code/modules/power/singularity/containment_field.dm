@@ -5,7 +5,7 @@
 	icon_state = "Contain_F"
 	anchored = 1
 	density = 0
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	use_power = NO_POWER_USE
 	light_range = 4
 	layer = OBJ_LAYER + 0.1
@@ -24,6 +24,16 @@
 		shock_field(user)
 		return 1
 
+/obj/machinery/field/containment/attackby(obj/item/W, mob/user, params)
+	shock(user)
+	return 1
+
+/obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BURN)
+			playsound(loc, 'sound/effects/EMPulse.ogg', 75, 1)
+		if(BRUTE)
+			playsound(loc, 'sound/effects/EMPulse.ogg', 75, 1)
 
 /obj/machinery/field/containment/blob_act()
 	return 0

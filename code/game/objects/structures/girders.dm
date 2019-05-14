@@ -6,7 +6,8 @@
 	layer = BELOW_OBJ_LAYER
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
-	var/health = 200
+	obj_integrity = 200
+	max_integrity = 200
 	var/can_displace = TRUE //If the girder can be moved around by crowbarring it
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
 
@@ -28,24 +29,6 @@
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
 		new /obj/item/stack/sheet/metal(get_turf(src))
-
-/obj/structure/girder/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if((M.environment_smash & ENVIRONMENT_SMASH_STRUCTURES) || (M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
-			ex_act(2)
-			M.visible_message("<span class='warning'>[M] smashes through \the [src].</span>", "<span class='warning'>You smash through \the [src].</span>")
-		else
-			M.visible_message("<span class='warning'>[M] smashes against \the [src].</span>", "<span class='warning'>You smash against \the [src].</span>")
-			take_damage(rand(25, 75))
-			return
-
-/obj/structure/girder/take_damage(amount)
-	health -= amount
-	if(health <= 0)
-		new /obj/item/stack/sheet/metal(get_turf(src))
-		qdel(src)
 
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
@@ -378,47 +361,16 @@
 		. = . || mover.checkpass(PASSGRILLE)
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
 		new remains(loc)
 	qdel(src)
 
-/obj/structure/girder/blob_act()
-	if(prob(40))
-		qdel(src)
 
 /obj/structure/girder/narsie_act()
 	if(prob(25))
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
-
-/obj/structure/girder/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam/pulse))
-		ex_act(2)
-	else
-		take_damage(Proj.damage)
-	..()
-	return 0
-
-/obj/structure/girder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-			return
-		if(2)
-			if(prob(75))
-				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
-				new remains(loc)
-				qdel(src)
-			return
-		if(3)
-			if(prob(40))
-				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
-				new remains(loc)
-				qdel(src)
-			return
-		else
-	return
 
 /obj/structure/girder/displaced
 	name = "displaced girder"
@@ -426,14 +378,16 @@
 	anchored = 0
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
-	health = 120
+	obj_integrity = 120
+	max_integrity = 120
 
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
 	icon_state = "reinforced"
 	state = GIRDER_REINF
 	girderpasschance = 0
-	health = 350
+	obj_integrity = 350
+	max_integrity = 350
 
 /obj/structure/girder/cult
 	name = "runed girder"
@@ -502,16 +456,10 @@
 			T.ChangeTurf(/turf/simulated/wall/cult)
 			qdel(src)
 
-/obj/structure/girder/cult/take_damage(amount)
-	health -= amount
-	if(health <= 0)
-		new /obj/item/stack/sheet/runed_metal(get_turf(src))
-		qdel(src)
-
 /obj/structure/girder/cult/narsie_act()
 	return
 
 /obj/structure/girder/cult/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		new/obj/item/stack/sheet/runed_metal/(get_turf(src), 1)
 	qdel(src)

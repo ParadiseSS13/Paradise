@@ -14,6 +14,7 @@
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
+	resistance_flags = FLAMMABLE
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == "melee")
@@ -74,6 +75,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "wall0"	//same as resin, but consistency ho!
 	resintype = "wall"
+	resistance_flags = NONE // walls should not be as flammable as the rest of the structures
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
@@ -291,11 +293,16 @@
 							child.Attach(M)
 							break
 
-/obj/structure/alien/egg/obj_break(damage_flag)
-	if(status != BURST)
-		Burst(kill = TRUE)
+/obj/structure/alien/egg/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(status != BURST && status != BURSTING)
+			Burst()
+		else if(status == BURST)
+			qdel(src)	//Remove the egg after it has been hit after bursting.
+	else
+		qdel(src)
 
-/obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/egg/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)

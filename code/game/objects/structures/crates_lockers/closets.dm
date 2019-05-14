@@ -4,7 +4,10 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
-	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0)
+	obj_integrity = 200
+	max_integrity = 200
+	integrity_failure = 50
+	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 70, acid = 60)
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = FALSE
@@ -124,48 +127,14 @@
 	if(!(opened ? close() : open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
-/obj/structure/closet/ex_act(severity)
-	switch(severity)
-		if(1)
-			for(var/atom/movable/A in src)//pulls everything out of the locker and hits it with an explosion
-				A.ex_act(severity++)
-			dump_contents()
-			qdel(src)
-		if(2)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.ex_act(severity++)
-				dump_contents()
-				new /obj/item/stack/sheet/metal(loc)
-				qdel(src)
-		if(3)
-			if(prob(5))
-				for(var/atom/movable/A in src)
-					A.ex_act(severity++)
-				dump_contents()
-				new /obj/item/stack/sheet/metal(loc)
-				qdel(src)
+/obj/structure/closet/deconstruct(disassembled = TRUE)
+	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
+		new material_drop(loc, material_drop_amount)
+	qdel(src)
 
-/obj/structure/closet/bullet_act(var/obj/item/projectile/Proj)
-	..()
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		health -= Proj.damage
-		if(health <= 0)
-			dump_contents()
-			qdel(src)
-
-/obj/structure/closet/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='warning'>[user] destroys the [src].</span>")
-		dump_contents()
-		qdel(src)
-
-// this should probably use dump_contents()
-/obj/structure/closet/blob_act()
-	if(prob(75))
-		dump_contents()
-		qdel(src)
+/obj/structure/closet/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		bust_open()
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
@@ -260,9 +229,7 @@
 					visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
 									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
 									"<span class='italics'>You hear welding.</span>")
-					var/turf/T = get_turf(src)
-					new material_drop(T, material_drop_amount)
-					qdel(src)
+					deconstruct(TRUE)
 				return
 		if(isrobot(user))
 			return
@@ -288,7 +255,7 @@
 		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>[src] has been [welded?"welded shut":"unwelded"] by [user.name].</span>", 3, "You hear welding.", 2)
 	else
-		attack_hand(user)
+		return ..()
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/user)
 	..()
@@ -414,12 +381,13 @@
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
-			open()
+			bust_open()
 
-/obj/structure/closet/tesla_act(var/power)
-	..()
-	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
-	qdel(src)
+/obj/structure/closet/proc/bust_open()
+	welded = 0 //applies to all lockers lockers
+	locked = 0 //applies to critter crates and secure lockers only
+	broken = 1 //applies to secure lockers only
+	open()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

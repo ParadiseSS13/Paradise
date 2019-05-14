@@ -17,7 +17,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/gun/energy/laser/tag/blue)
-	burn_state = FIRE_PROOF
+	
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -31,7 +31,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/gun/energy/laser/tag/red)
-	burn_state = FIRE_PROOF
+	
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -138,7 +138,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	burn_state = FIRE_PROOF
+	
 
 
 /obj/item/clothing/suit/hastur
@@ -580,7 +580,7 @@
 	desc = "A long, thick black leather coat."
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/suit/browncoat
 	name = "brown leather coat"
@@ -789,7 +789,7 @@
 	ignore_suitadjust = 1
 	actions_types = list()
 	adjust_flavour = null
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/clothing/suit/jacket/leather/overcoat
 	name = "leather overcoat"

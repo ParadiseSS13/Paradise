@@ -19,6 +19,11 @@
 	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/shuttle/wall) || istype(get_turf(src), /turf/unsimulated/wall))
 		level = 1
 
+/obj/machinery/atmospherics/pipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 12)
+		return 0
+	. = ..() 
+
 /obj/machinery/atmospherics/pipe/Destroy()
 	releaseAirToTurf()
 	QDEL_NULL(air_temporary)

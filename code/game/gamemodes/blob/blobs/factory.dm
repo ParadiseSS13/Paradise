@@ -2,7 +2,8 @@
 	name = "factory blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
-	health = 100
+	obj_integrity = 100
+	max_integrity = 100
 	fire_resist = 2
 	point_return = 18
 	var/list/spores = list()
@@ -11,7 +12,7 @@
 	var/mob/camera/blob/overmind
 
 /obj/structure/blob/factory/update_icon()
-	if(health <= 0)
+	if(obj_integrity <= 0)
 		qdel(src)
 
 /obj/structure/blob/factory/Destroy()

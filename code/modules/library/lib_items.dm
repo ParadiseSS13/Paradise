@@ -18,7 +18,7 @@
 	anchored = 1
 	density = 1
 	opacity = 1
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 30
 	var/health = 50
 	var/tmp/busy = 0
@@ -170,7 +170,7 @@
 	force = 2
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 	var/dat			 // Actual page content
 	var/due_date = 0 // Game time in 1/10th seconds

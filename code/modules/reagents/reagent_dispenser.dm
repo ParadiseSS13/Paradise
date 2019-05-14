@@ -30,25 +30,16 @@
 				reagents.temperature_reagents(exposed_temperature)
 
 /obj/structure/reagent_dispensers/proc/boom()
-	visible_message("<span class='danger'>[src] ruptures!</span>")
+	visible_message("<span class='danger'>\The [src] ruptures!</span>")
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
-/obj/structure/reagent_dispensers/ex_act(severity)
-	switch(severity)
-		if(1)
+/obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!disassembled)
 			boom()
-		if(2)
-			if(prob(50))
-				boom()
-		if(3)
-			if(prob(5))
-				boom()
-
-/obj/structure/reagent_dispensers/blob_act()
-	if(prob(50))
-		boom()
-
+	else
+		qdel(src)
 
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
@@ -107,7 +98,7 @@
 /obj/structure/reagent_dispensers/fueltank/ex_act()
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/reagent_dispensers/fueltank/fire_act(exposed_temperature,exposed_volume)
 	..()
 	boom()
 

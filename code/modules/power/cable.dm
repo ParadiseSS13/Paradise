@@ -82,12 +82,18 @@ By design, d1 is the smallest direction and d2 is the highest
 
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
-	var/turf/T = get_turf(src)
-	if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-		new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
-	else
-		new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+	if(!(flags & NODECONSTRUCT))	
+		var/turf/T = get_turf(src)
+		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
+			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+		else
+			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
 	qdel(src)
+
+/obj/structure/cable/fire_act(exposed_temperature, exposed_volume)
+	var/turf/T = src.loc
+	if(T && T.intact) //protected from fire when hidden behind a floor.
+		return
 
 ///////////////////////////////////
 // General procedures
@@ -220,18 +226,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
-//explosion handling
-/obj/structure/cable/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src) // qdel
-		if(2)
-			if(prob(50))
-				deconstruct()
-		if(3)
-			if(prob(25))
-				deconstruct()
 
 obj/structure/cable/proc/cable_color(var/colorC)
 	if(colorC)

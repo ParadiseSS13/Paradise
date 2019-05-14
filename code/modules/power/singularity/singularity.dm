@@ -8,7 +8,7 @@
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
 	appearance_flags = 0
-	unacidable = 1 //Don't comment this out.
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/current_size = 1
 	var/allowed_size = 1
 	var/contained = 1 //Are we going to move around?
@@ -27,7 +27,7 @@
 	var/last_warning
 	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
 	allow_spin = 0
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.

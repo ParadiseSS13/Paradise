@@ -372,6 +372,7 @@ emp_act
 		var/message = "[user] has [hulk_verb]ed [src]!"
 		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
 		adjustBruteLoss(15)
+		damage_clothes(15, BRUTE, "melee")
 		return TRUE
 
 /mob/living/carbon/human/attack_hand(mob/user)
@@ -448,6 +449,7 @@ emp_act
 		if(affected)
 			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
+		damage_clothes(damage, BRUTE, "melee", affecting)
 		updatehealth("animal attack")
 
 /mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M)
@@ -464,7 +466,7 @@ emp_act
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	var/armor_block = run_armor_check(affecting, "melee")
 	apply_damage(damage, BRUTE, affecting, armor_block)
-
+	damage_clothes(damage, BRUTE, "melee", affecting)
 	return
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
@@ -479,9 +481,11 @@ emp_act
 					if(M.force > 20)
 						Paralyse(1)
 					update |= affecting.receive_damage(rand(M.force/2, M.force), 0)
+					damage_clothes(rand(M.force/2, M.force), BRUTE, "melee", affecting)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 				if("fire")
 					update |= affecting.receive_damage(0, rand(M.force/2, M.force))
+					damage_clothes(rand(M.force/2, M.force), BURN, "melee", affecting)
 					playsound(src, 'sound/items/welder.ogg', 50, 1)
 				if("tox")
 					M.mech_toxin_damage(src)
@@ -498,6 +502,140 @@ emp_act
 		..()
 
 	return
+
+/mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit)
+	var/list/damaged = list()
+	var/list/inventory_items_to_kill = list()
+	var/acidity = acidpwr * min(acid_volume*0.005, 0.1)
+	//HEAD//
+	if(!bodyzone_hit || bodyzone_hit == "head") //only if we didn't specify a zone or if that zone is the head.
+		var/obj/item/clothing/head_clothes = null
+		if(glasses)
+			head_clothes = glasses
+		if(wear_mask)
+			head_clothes = wear_mask
+		if(head)
+			head_clothes = head
+		if(head_clothes)
+			if(!(head_clothes.resistance_flags & UNACIDABLE))
+				head_clothes.acid_act(acidpwr, acid_volume)
+				update_inv_glasses()
+				update_inv_wear_mask()
+				update_inv_head()
+			else
+				src << "<span class='notice'>Your [head_clothes.name] protects your head and face from the acid!</span>"
+		else
+			. = get_organ("head")
+			if(.)
+				damaged += .
+
+	//CHEST//
+	if(!bodyzone_hit || bodyzone_hit == "chest")
+		var/obj/item/clothing/chest_clothes = null
+		if(w_uniform)
+			chest_clothes = w_uniform
+		if(wear_suit)
+			chest_clothes = wear_suit
+		if(chest_clothes)
+			if(!(chest_clothes.resistance_flags & UNACIDABLE))
+				chest_clothes.acid_act(acidpwr, acid_volume)
+				update_inv_w_uniform()
+				update_inv_wear_suit()
+			else
+				src << "<span class='notice'>Your [chest_clothes.name] protects your body from the acid!</span>"
+		else
+			. = get_organ("chest")
+			if(.)
+				damaged += .
+			if(wear_id)
+				inventory_items_to_kill += wear_id
+			if(r_store)
+				inventory_items_to_kill += r_store
+			if(l_store)
+				inventory_items_to_kill += l_store
+			if(s_store)
+				inventory_items_to_kill += s_store
+
+
+	//ARMS & HANDS//
+	if(!bodyzone_hit || bodyzone_hit == "l_arm" || bodyzone_hit == "r_arm")
+		var/obj/item/clothing/arm_clothes = null
+		if(gloves)
+			arm_clothes = gloves
+		if(w_uniform && ((w_uniform.body_parts_covered & HANDS) || (w_uniform.body_parts_covered & ARMS)))
+			arm_clothes = w_uniform
+		if(wear_suit && ((wear_suit.body_parts_covered & HANDS) || (wear_suit.body_parts_covered & ARMS)))
+			arm_clothes = wear_suit
+
+		if(arm_clothes)
+			if(!(arm_clothes.resistance_flags & UNACIDABLE))
+				arm_clothes.acid_act(acidpwr, acid_volume)
+				update_inv_gloves()
+				update_inv_w_uniform()
+				update_inv_wear_suit()
+			else
+				src << "<span class='notice'>Your [arm_clothes.name] protects your arms and hands from the acid!</span>"
+		else
+			. = get_organ("r_arm")
+			if(.)
+				damaged += .
+			. = get_organ("l_arm")
+			if(.)
+				damaged += .
+
+
+	//LEGS & FEET//
+	if(!bodyzone_hit || bodyzone_hit == "l_leg" || bodyzone_hit == "r_leg" || bodyzone_hit == "feet")
+		var/obj/item/clothing/leg_clothes = null
+		if(shoes)
+			leg_clothes = shoes
+		if(w_uniform && ((w_uniform.body_parts_covered & FEET) || (bodyzone_hit != "feet" && (w_uniform.body_parts_covered & LEGS))))
+			leg_clothes = w_uniform
+		if(wear_suit && ((wear_suit.body_parts_covered & FEET) || (bodyzone_hit != "feet" && (wear_suit.body_parts_covered & LEGS))))
+			leg_clothes = wear_suit
+		if(leg_clothes)
+			if(!(leg_clothes.resistance_flags & UNACIDABLE))
+				leg_clothes.acid_act(acidpwr, acid_volume)
+				update_inv_shoes()
+				update_inv_w_uniform()
+				update_inv_wear_suit()
+			else
+				src << "<span class='notice'>Your [leg_clothes.name] protects your legs and feet from the acid!</span>"
+		else
+			. = get_organ("r_leg")
+			if(.)
+				damaged += .
+			. = get_organ("l_leg")
+			if(.)
+				damaged += .
+
+
+	//DAMAGE//
+	for(var/obj/item/organ/external/affecting in damaged)
+		affecting.receive_damage(acidity, 2*acidity)
+
+		if(affecting.name == "head")
+			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
+				affecting.receive_damage(acidity, 2*acidity)
+				emote("scream")
+				affecting.disfigure()
+
+		update_stat()
+
+	//MELTING INVENTORY ITEMS//
+	//these items are all outside of armour visually, so melt regardless.
+	if(!bodyzone_hit)
+		if(back)
+			inventory_items_to_kill += back
+		if(belt)
+			inventory_items_to_kill += belt
+
+		inventory_items_to_kill += r_hand
+		inventory_items_to_kill += l_hand
+
+	for(var/obj/item/I in inventory_items_to_kill)
+		I.acid_act(acidpwr, acid_volume)
+	return 1
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, 1)

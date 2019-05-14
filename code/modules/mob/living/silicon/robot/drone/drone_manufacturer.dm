@@ -4,6 +4,9 @@
 
 	density = 1
 	anchored = 1
+	obj_integrity = 250
+	max_integrity = 250
+	integrity_failure = 80
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
@@ -11,7 +14,8 @@
 	var/drone_progress = 0
 	var/produce_drones = 1
 	var/time_last_drone = 500
-
+	var/break_message = "lets out a tiny alarm before falling dark."
+	var/break_sound = 'sound/machines/warning-buzzer.ogg'
 	icon = 'icons/obj/machines/drone_fab.dmi'
 	icon_state = "drone_fab_idle"
 
@@ -155,3 +159,19 @@
 			return
 
 	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+
+/obj/machinery/drone_fabricator/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			if(break_message)
+				audible_message("<span class='warning'>[src] \
+					[break_message]</span>")
+			if(break_sound)
+				playsound(src, break_sound, 50, 1)
+			stat |= BROKEN
+			update_icon()
+
+/obj/machinery/drone_fabricator/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 5)
+	qdel(src)

@@ -17,6 +17,12 @@
 	density = 1
 	anchored = 1
 
+/obj/structure/filingcabinet/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		for(var/obj/item/I in src)
+			I.forceMove(loc)
+	qdel(src)
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
@@ -51,7 +57,7 @@
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else
-		to_chat(user, "<span class='notice'>You can't put [P] in [src]!</span>")
+		..()
 
 
 /obj/structure/filingcabinet/attack_hand(mob/user as mob)

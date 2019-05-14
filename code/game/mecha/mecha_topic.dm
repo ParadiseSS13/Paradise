@@ -69,7 +69,7 @@
 
 
 /obj/mecha/proc/get_stats_part()
-	var/integrity = health/initial(health)*100
+	var/integrity = obj_integrity/initial(obj_integrity)*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"

@@ -7,7 +7,6 @@
 
 	var/damage = 0
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
-
 	var/damage_overlay
 	var/global/damage_overlays[8]
 
@@ -40,6 +39,18 @@
 	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
+/turf/simulated/wall/attack_hulk(mob/user, does_attack_animation = 0)
+	..(user, 1)
+	if(prob(hardness))
+		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+		user << text("<span class='notice'>You smash through the wall.</span>")
+		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+		dismantle_wall(1)
+
+	else
+		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		user << text("<span class='notice'>You punch the wall.</span>")
+
 /turf/simulated/wall/New()
 	..()
 	builtin_sheet = new sheet_type
@@ -53,18 +64,6 @@
 //Appearance
 /turf/simulated/wall/examine(mob/user)
 	. = ..(user)
-
-	if(!damage)
-		to_chat(user, "<span class='notice'>It looks fully intact.</span>")
-	else
-		var/dam = damage / damage_cap
-		if(dam <= 0.3)
-			to_chat(user, "<span class='warning'>It looks slightly damaged.</span>")
-		else if(dam <= 0.6)
-			to_chat(user, "<span class='warning'>It looks moderately damaged.</span>")
-		else
-			to_chat(user, "<span class='danger'>It looks heavily damaged.</span>")
-
 	if(rotting)
 		to_chat(user, "<span class='warning'>There is fungus growing on [src].</span>")
 
@@ -319,7 +318,7 @@
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
-	if(iswelder(I))
+	if(iswelder(I) && user.a_intent == INTENT_HELP)
 		var/obj/item/weldingtool/WT = I
 		if(!WT.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
@@ -381,6 +380,14 @@
 			return TRUE
 
 	return FALSE
+
+/turf/simulated/wall/acid_act(acidpwr, acid_volume)
+	if(explosion_block >= 2)
+		acidpwr = min(acidpwr, 50) //we reduce the power so strong walls never get melted.
+	. = ..()
+
+/turf/simulated/wall/acid_melt()
+	dismantle_wall(1)
 
 /turf/simulated/wall/proc/try_wallmount(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mounted))

@@ -1026,11 +1026,11 @@ var/list/teleport_runes = list()
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, 1)
 	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a man.</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
-	var/obj/machinery/shield/N = new(get_turf(src))
+	var/obj/structure/emergency_shield/N = new(get_turf(src))
 	N.name = "Invoker's Shield"
 	N.desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals"
 	N.color = "red"
-	N.health = 20
+	N.obj_integrity = 20
 	N.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)

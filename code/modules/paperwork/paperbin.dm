@@ -8,11 +8,11 @@
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 
-/obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper_bin/fire_act(exposed_temperature,exposed_volume)
 	if(!amount)
 		return
 	..()

@@ -58,62 +58,29 @@ for reference:
 /obj/structure/barricade
 	anchored = 1.0
 	density = 1.0
-	var/health = 100.0
-	var/maxhealth = 100.0
+	obj_integrity = 100
+	max_integrity = 100
 	var/stacktype = /obj/item/stack/sheet/metal
 
-/obj/structure/barricade/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, stacktype))
-		if(src.health < src.maxhealth)
-			visible_message("<span class='warning'>[user] begins to repair the [src]!</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				src.health = src.maxhealth
-				W:use(1)
-				visible_message("<span class='warning'>[user] repairs the [src]!</span>")
-				return
-		else
-			return
-		return
-	else if(istype(W, /obj/item/crowbar))
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
-		playsound(src, W.usesound, 200, 1)
+/obj/structure/barricade/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		make_debris()
+	qdel(src)
 
-		if(do_after(user, 300 * W.toolspeed, target = src) && !QDELETED(src))
-			user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
-			dismantle()
-		return
-	else
-		switch(W.damtype)
-			if("fire")
-				src.health -= W.force * 1
-			if("brute")
-				src.health -= W.force * 0.75
-			else
-		if(src.health <= 0)
-			visible_message("<span class='danger'>\The [src] is smashed apart!</span>")
-			dismantle()
-		..()
-
-/obj/structure/barricade/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			visible_message("<span class='danger'>\The [src] is blown apart!</span>")
-			qdel(src)
-			return
-		if(2.0)
-			src.health -= 25
-			if(src.health <= 0)
-				visible_message("<span class='danger'>\The [src] is blown apart!</span>")
-				dismantle()
-			return
-
-/obj/structure/barricade/blob_act()
-	src.health -= 25
-	if(src.health <= 0)
-		visible_message("<span class='danger'>The blob eats through \the [src]!</span>")
-		qdel(src)
+/obj/structure/barricade/proc/make_debris()
 	return
+
+/obj/structure/barricade/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weldingtool) && user.a_intent != "harm")
+		var/obj/item/weldingtool/WT = I
+		if(obj_integrity < max_integrity)
+			if(WT.remove_fuel(0,user))
+				user << "<span class='notice'>You begin repairing [src]...</span>"
+				playsound(loc, 'sound/items/Welder.ogg', 40, 1)
+				if(do_after(user, 40/I.toolspeed, target = src))
+					obj_integrity = Clamp(obj_integrity + 20, 0, max_integrity)
+	else
+		return ..()
 
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target, height=0)//So bullets will fly over and stuff.
 	if(height==0)
@@ -136,7 +103,7 @@ for reference:
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "woodenbarricade"
 	stacktype = /obj/item/stack/sheet/wood
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 25
 
 /obj/structure/barricade/mime
@@ -164,8 +131,8 @@ for reference:
 	anchored = 0.0
 	density = 1.0
 	icon_state = "barrier0"
-	var/health = 100.0
-	var/maxhealth = 100.0
+	obj_integrity = 100
+	max_integrity = 100
 	var/locked = 0.0
 //	req_access = list(access_maint_tunnels)
 
@@ -193,8 +160,8 @@ for reference:
 				return
 		return
 	else if(istype(W, /obj/item/wrench))
-		if(src.health < src.maxhealth)
-			src.health = src.maxhealth
+		if(src.obj_integrity < src.max_integrity)
+			src.obj_integrity = src.max_integrity
 			src.emagged = 0
 			src.req_access = list(access_security)
 			visible_message("<span class='warning'>[user] repairs the [src]!</span>")
@@ -208,11 +175,11 @@ for reference:
 	else
 		switch(W.damtype)
 			if("fire")
-				src.health -= W.force * 0.75
+				src.obj_integrity -= W.force * 0.75
 			if("brute")
-				src.health -= W.force * 0.5
+				src.obj_integrity -= W.force * 0.5
 			else
-		if(src.health <= 0)
+		if(src.obj_integrity <= 0)
 			src.explode()
 		..()
 
@@ -229,16 +196,6 @@ for reference:
 		do_sparks(2, 1, src)
 		visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 
-/obj/machinery/deployable/barrier/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			src.explode()
-			return
-		if(2.0)
-			src.health -= 25
-			if(src.health <= 0)
-				src.explode()
-			return
 
 /obj/machinery/deployable/barrier/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -247,12 +204,6 @@ for reference:
 		locked = !locked
 		anchored = !anchored
 		icon_state = "barrier[src.locked]"
-
-/obj/machinery/deployable/barrier/blob_act()
-	src.health -= 25
-	if(src.health <= 0)
-		src.explode()
-	return
 
 /obj/machinery/deployable/barrier/CanPass(atom/movable/mover, turf/target, height=0)//So bullets will fly over and stuff.
 	if(height==0)

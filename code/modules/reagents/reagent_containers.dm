@@ -11,6 +11,7 @@
 	var/spawned_disease = null
 	var/disease_amount = 20
 	var/has_lid = FALSE // Used for containers where we want to put lids on and off
+	var/isGlass = TRUE
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -62,6 +63,62 @@
 /obj/item/reagent_containers/attackby(obj/item/I as obj, mob/user as mob, params)
 	return
 */
+
+/obj/item/reagent_containers/ex_act()
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			R.on_ex_act()
+	if(!QDELETED(src))
+		..()
+
+/obj/item/reagent_containers/fire_act(exposed_temperature, exposed_volume)
+	reagents.temperature_reagents(exposed_temperature)
+	..()
+
+/obj/item/reagent_containers/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	SplashReagents(hit_atom, TRUE)
+	smash(hit_atom,TRUE)
+
+/obj/item/reagent_containers/proc/smash(atom/target, mob/thrower, ranged = FALSE)
+	if(!isGlass)
+		return
+	var/obj/item/shard/B = new/obj/item/shard(drop_location())
+	playsound(src, "shatter", 70, 1)
+	transfer_fingerprints_to(B)
+	qdel(src)
+
+/obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)
+	if(!reagents || !reagents.total_volume)
+		return
+
+	if(ismob(target) && target.reagents)
+		if(thrown)
+			reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target
+		var/mob/M = target
+		var/R
+		target.visible_message("<span class='danger'>[M] has been splashed with something!</span>", \
+						"<span class='userdanger'>[M] has been splashed with something!</span>")
+		for(var/datum/reagent/A in reagents.reagent_list)
+			R += A.id + " ("
+			R += num2text(A.volume) + "),"
+
+		if(thrownby)
+			add_attack_logs(thrownby, M, "splashed", R)
+		reagents.reaction(target, TOUCH)
+
+	else
+		if(isturf(target) && reagents.reagent_list.len && thrownby)
+			add_attack_logs(thrownby, target, "splashed (thrown) [english_list(reagents.reagent_list)]", "in [AREACOORD(target)]")
+			log_game("[key_name(thrownby)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
+			message_admins("[ADMIN_LOOKUPFLW(thrownby)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
+		visible_message("<span class='notice'>[src] spills its contents all over [target].</span>")
+		reagents.reaction(target, TOUCH)
+		if(QDELETED(src))
+			return
+
+	reagents.clear_reagents()
+
 /obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
 	return
 

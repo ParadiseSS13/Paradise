@@ -9,8 +9,9 @@
 	throw_range = 20
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
+	obj_integrity = 40
+	max_integrity = 40
 	var/active = 0
 	var/det_time = 50
 	var/display_timer = 1
@@ -81,6 +82,11 @@
 		var/mob/M = loc
 		M.unEquip(src)
 
+/obj/item/grenade/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		prime()
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/grenade/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/screwdriver))

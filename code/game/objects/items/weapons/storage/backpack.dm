@@ -15,7 +15,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 20
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -54,7 +54,7 @@
 	icon_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
-	burn_state = FIRE_PROOF
+	
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack/holding)
 
@@ -149,14 +149,14 @@
 	desc = "It's a special backpack made exclusively for Nanotrasen officers."
 	icon_state = "captainpack"
 	item_state = "captainpack"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/industrial
 	name = "industrial backpack"
 	desc = "It's a tough backpack for the daily grind of station life."
 	icon_state = "engiepack"
 	item_state = "engiepack"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
@@ -181,7 +181,7 @@
 	desc = "A specially designed backpack. It's fire resistant and smells vaguely of plasma."
 	icon_state = "toxpack"
 	item_state = "toxpack"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/virology
 	name = "virology backpack"
@@ -197,7 +197,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
-	burn_state = FIRE_PROOF
+	
 	var/strap_side_straight = FALSE
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
@@ -233,7 +233,7 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
@@ -259,7 +259,7 @@
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/satchel_sec
 	name = "security satchel"
@@ -275,7 +275,7 @@
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -436,7 +436,7 @@
 	desc = "A duffelbag designed to hold large quantities of condoms."
 	icon_state = "duffel-captain"
 	item_state = "duffel-captain"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/duffel/security
 	name = "security duffelbag"
@@ -479,14 +479,14 @@
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-eng"
 	item_state = "duffel-eng"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/duffel/atmos
 	name = "atmospherics duffelbag"
 	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
 	icon_state = "duffel-atmos"
 	item_state = "duffel-atmos"
-	burn_state = FIRE_PROOF
+	
 
 /obj/item/storage/backpack/duffel/hydro
 	name = "hydroponics duffelbag"

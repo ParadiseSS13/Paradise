@@ -2,14 +2,15 @@
 	name = "resource blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
-	health = 30
+	obj_integrity = 30
+	max_integrity = 30
 	fire_resist = 2
 	point_return = 12
 	var/mob/camera/blob/overmind = null
 	var/resource_delay = 0
 
 /obj/structure/blob/resource/update_icon()
-	if(health <= 0)
+	if(obj_integrity <= 0)
 		qdel(src)
 
 /obj/structure/blob/resource/run_action()

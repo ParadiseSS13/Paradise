@@ -148,7 +148,7 @@
 			max_define = MAX_METAL
 	else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
 		var/obj/item/reagent_containers/food/drinks/cans/C = O
-		if(C.is_glass)
+		if(C.isGlass)
 			con_type = "glass bottle"
 			max_define = MAX_GLASS
 		else if(C.is_plastic)

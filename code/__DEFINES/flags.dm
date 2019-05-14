@@ -9,7 +9,8 @@
 #define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
 #define CONDUCT					32		// conducts electricity (metal etc.)
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				128		// item has priority to check when entering or leaving
+#define NODECONSTRUCT  	        128		// For machines and structures that should not break into parts, eg, holodeck stuff
+#define ON_BORDER				256		// item has priority to check when entering or leaving
 
 #define EARBANGPROTECT			1024
 
@@ -125,11 +126,14 @@
 #define AFFECT_ORGANIC_ORGAN	2
 #define AFFECT_ALL_ORGANS		3
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
+//Fire and Acid stuff, for resistance_flags
+#define LAVA_PROOF 1
+#define FIRE_PROOF 2 //100% immune to fire damage (but not necessarily to lava or heat)
+#define FLAMMABLE 4
+#define ON_FIRE 8
+#define UNACIDABLE 16 //acid can't even appear on it, let alone melt it.
+#define ACID_PROOF 32 //acid stuck on it doesn't melt it.
+#define INDESTRUCTIBLE 64 //doesn't take damage
 
 //resistance_flags
 #define INDESTRUCTIBLE 64 //doesn't take damage

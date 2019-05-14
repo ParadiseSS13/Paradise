@@ -31,7 +31,6 @@
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
 
-
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)

@@ -17,7 +17,7 @@
 	pressure_resistance = 0
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 5
 	attack_verb = list("bapped")
 
@@ -303,7 +303,7 @@
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
 	..()
 
-	if(burn_state == ON_FIRE)
+	if(resistance_flags & ON_FIRE)
 		return
 
 	var/clown = 0
@@ -401,9 +401,9 @@
 
 	add_fingerprint(user)
 
-/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper/fire_act(exposed_temperature,exposed_volume)
 	..()
-	if(burn_state >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
+	if(resistance_flags >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
 		info = "[stars(info)]"
 
 /obj/item/paper/proc/stamp(var/obj/item/stamp/S)

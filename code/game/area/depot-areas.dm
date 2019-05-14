@@ -343,7 +343,7 @@
 		return
 	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "syndi_depot_shield")
-			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
+			var/obj/structure/shieldwall/syndicate/S = new /obj/structure/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()
 	for(var/obj/structure/closet/secure_closet/syndicate/depot/armory/L in src)
 		if(L.opened)
@@ -363,7 +363,7 @@
 
 /area/syndicate_depot/core/proc/shields_down()
 	for(var/shuid in shield_list)
-		var/obj/machinery/shieldwall/syndicate/S = locateUID(shuid)
+		var/obj/structure/shieldwall/syndicate/S = locateUID(shuid)
 		if(S)
 			qdel(S)
 	shield_list = list()
@@ -464,13 +464,13 @@
 	if(shield_list.len)
 		return
 	for(var/turf/T in src)
-		var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(T)
+		var/obj/structure/shieldwall/syndicate/S = new /obj/structure/shieldwall/syndicate(T)
 		S.alpha = 0
 		shield_list += S.UID()
 
 /area/syndicate_depot/perimeter/proc/perimeter_shields_down()
 	for(var/shuid in shield_list)
-		var/obj/machinery/shieldwall/syndicate/S = locateUID(shuid)
+		var/obj/structure/shieldwall/syndicate/S = locateUID(shuid)
 		if(S)
 			qdel(S)
 	shield_list = list()

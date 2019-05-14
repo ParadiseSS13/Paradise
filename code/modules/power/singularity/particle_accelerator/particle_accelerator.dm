@@ -62,7 +62,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "none"
 	anchored = 0
 	density = 1
-	armor = list(melee = 30, bullet = 20, laser = 20, energy = 0, bomb = 0, bio = 0, rad = 0)
+	obj_integrity = 500
+	max_integrity = 500
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 90, acid = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null
@@ -75,6 +77,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(master)
 		master.part_scan()
 	return ..()
+
+/obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal (loc, 5)
+	qdel(src)
 
 /obj/structure/particle_accelerator/end_cap
 	name = "Alpha Particle Generation Array"
@@ -165,13 +172,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				return
 		else
 	return
-
-
-/obj/structure/particle_accelerator/blob_act()
-	if(prob(50))
-		qdel(src)
-	return
-
 
 /obj/structure/particle_accelerator/update_icon()
 	switch(construction_state)

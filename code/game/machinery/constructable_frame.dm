@@ -5,7 +5,8 @@
 	density = 1
 	anchored = 1
 	use_power = NO_POWER_USE
-	max_integrity = 100
+	obj_integrity = 250
+	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null
@@ -17,14 +18,13 @@
 	var/pattern_idx=0
 
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(src.loc, 5)
-	if(state >= 3)
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
-		A.amount = 5
-	if(circuit)
-		circuit.forceMove(loc)
-		circuit = null
-	return ..()
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 5)
+		if(circuit)
+			circuit.forceMove(loc)
+			circuit = null
+	qdel(src)
+
 
 /obj/machinery/constructable_frame/obj_break(damage_flag)
 	deconstruct()
@@ -218,6 +218,18 @@
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
+	if(user.a_intent == "harm")
+		return ..()
+
+
+/obj/machinery/constructable_frame/machine_frame/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(state >= 2)
+			new /obj/item/stack/cable_coil(loc , 5)
+		for(var/X in components)
+			var/obj/item/I = X
+			I.forceMove(loc)
+	..()
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,

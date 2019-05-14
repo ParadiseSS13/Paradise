@@ -8,6 +8,9 @@ var/global/list/rad_collectors = list()
 	anchored = 0
 	density = 1
 	req_access = list(access_engine_equip)
+	obj_integrity = 350
+	max_integrity = 350
+	integrity_failure = 80
 //	use_power = NO_POWER_USE
 	var/obj/item/tank/plasma/P = null
 	var/last_power = 0
@@ -97,12 +100,10 @@ var/global/list/rad_collectors = list()
 		return 1
 
 
-/obj/machinery/power/rad_collector/ex_act(severity)
-	switch(severity)
-		if(2, 3)
-			eject()
-	return ..()
-
+/obj/machinery/power/rad_collector/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		eject()
+		stat |= BROKEN
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = 0

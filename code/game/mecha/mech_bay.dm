@@ -175,7 +175,7 @@
 	if(recharge_port && !QDELETED(recharge_port))
 		data["recharge_port"] = list("mech" = null)
 		if(recharge_port.recharging_mecha && !QDELETED(recharge_port.recharging_mecha))
-			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.health, "maxhealth" = initial(recharge_port.recharging_mecha.health), "cell" = null)
+			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.obj_integrity, "maxhealth" = initial(recharge_port.recharging_mecha.obj_integrity), "cell" = null)
 			if(recharge_port.recharging_mecha.cell && !QDELETED(recharge_port.recharging_mecha.cell))
 				data["has_mech"] = 1
 				data["mecha_name"] = recharge_port.recharging_mecha || "None"

@@ -16,7 +16,7 @@
 	icon_state = "film"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_TINY
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 
 /********
@@ -28,7 +28,7 @@
 	icon_state = "photo"
 	item_state = "paper"
 	w_class = WEIGHT_CLASS_SMALL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 5
 	var/blueprints = 0 // Does this have the blueprints?
 	var/icon/img	//Big photo image
@@ -111,7 +111,7 @@
 	icon_state = "album"
 	item_state = "briefcase"
 	can_hold = list(/obj/item/photo)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 

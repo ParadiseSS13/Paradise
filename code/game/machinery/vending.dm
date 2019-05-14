@@ -38,9 +38,10 @@
 	layer = 2.9
 	anchored = 1
 	density = 1
+	obj_integrity = 300
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	var/icon_vend //Icon_state when vending
 	var/icon_deny //Icon_state when denying access
 
@@ -147,15 +148,33 @@
 
 			product_records.Add(product)
 
-/obj/machinery/vending/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
+/obj/machinery/vending/deconstruct(disassembled = TRUE)
+	if(!refill_canister) //the non constructable vendors drop metal instead of a machine frame.
+		if(!(flags & NODECONSTRUCT))
+			new /obj/item/stack/sheet/metal(loc, 3)
+		qdel(src)
+	else
+		..()
+
+/obj/machinery/vending/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		var/dump_amount = 0
+		for(var/datum/data/vending_product/R in product_records)
+			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+				continue
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+
+			while(R.amount>0)
+				var/obj/O = new dump_path(loc)
+				step(O, pick(alldirs)) 	//we only drop 20% of the total of each products and spread it
+				R.amount -= 5  			//around to not fill the turf with too many objects.
+				dump_amount++
+			if(dump_amount > 15) //so we don't drop too many items (e.g. ClothesMate)
+				break
+		stat |= BROKEN
+		icon_state = "[initial(icon_state)]-broken"
 
 /obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
 	if(component_parts)
@@ -811,7 +830,8 @@
 						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
 	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/boozeomat/New()
 	..()
@@ -987,7 +1007,7 @@
 	prices = list(/obj/item/pda =300,/obj/item/cartridge/mob_hunt_game = 50,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
 					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
 					/obj/item/cartridge/signal = 75)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 
 /obj/machinery/vending/cart/free
 	prices = list()
@@ -1006,7 +1026,8 @@
 					/obj/item/gun/projectile/shotgun = 2,/obj/item/gun/projectile/automatic/ar = 2)
 	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2,/obj/item/ammo_box/magazine/m50 = 4,/obj/item/ammo_box/magazine/m45 = 2,/obj/item/ammo_box/magazine/m75 = 2)
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
@@ -1051,7 +1072,8 @@
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
 					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 //This one's from bay12
 /obj/machinery/vending/plasmaresearch
@@ -1071,7 +1093,8 @@
 	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/wallmed2
 	name = "\improper NanoMed"
@@ -1083,7 +1106,8 @@
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5,/obj/item/reagent_containers/syringe/charcoal = 3,/obj/item/stack/medical/bruise_pack = 3,
 					/obj/item/stack/medical/ointment =3,/obj/item/healthanalyzer = 3)
 	contraband = list(/obj/item/reagent_containers/food/pill/tox = 3)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/wallmed1/syndicate
 	name = "\improper SyndiMed Plus"
@@ -1106,7 +1130,8 @@
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
@@ -1118,7 +1143,8 @@
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 30,/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 20,/obj/item/reagent_containers/glass/bottle/nutrient/rh = 10,/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,/obj/item/storage/bag/plants = 5,/obj/item/cultivator = 3,/obj/item/shovel/spade = 3,/obj/item/plant_analyzer = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 ///obj/item/beezeez = 45,
 
@@ -1139,7 +1165,8 @@
 	contraband = list(/obj/item/seeds/amanita = 2, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2,
 						/obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/cannabis = 3, /obj/item/seeds/starthistle = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /**
  *  Populate hydroseeds product_records
@@ -1187,7 +1214,8 @@
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
 					/obj/item/twohanded/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -1232,6 +1260,8 @@
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/autodrobe/New()
 	..()
@@ -1263,7 +1293,8 @@
 					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
 					/obj/item/kitchen/cutter = 2)
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/sovietsoda
 	name = "\improper BODA"
@@ -1272,7 +1303,8 @@
 	product_ads = "For Tsar and Country.;Have you fulfilled your nutrition quota today?;Very nice!;We are simple people, for this is all we eat.;If there is a person, there is a problem. If there is no person, then there is no problem."
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/tool
 	name = "\improper YouTool"
@@ -1284,7 +1316,8 @@
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
@@ -1295,7 +1328,8 @@
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 //This one's from bay12
 /obj/machinery/vending/engineering
@@ -1313,7 +1347,8 @@
 	// There was an incorrect entry (cablecoil/power).  I improvised to cablecoil/heavyduty.
 	// Another invalid entry, /obj/item/circuitry.  I don't even know what that would translate to, removed it.
 	// The original products list wasn't finished.  The ones without given quantities became quantity 5.  -Sayu
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 //This one's from bay12
 /obj/machinery/vending/robotics
@@ -1327,7 +1362,8 @@
 					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
 	//everything after the power cell had no amounts, I improvised.  -Sayu
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
@@ -1339,7 +1375,8 @@
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
 	contraband = list(/obj/item/kitchen/knife = 6)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"

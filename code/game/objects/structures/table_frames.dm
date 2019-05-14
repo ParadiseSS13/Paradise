@@ -100,7 +100,7 @@
 	icon_state = "wood_frame"
 	framestack = /obj/item/stack/sheet/wood
 	framestackamount = 2
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/wood))
@@ -127,7 +127,7 @@
 	name = "brass table frame"
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
-	burn_state = FIRE_PROOF
+	
 	unacidable = 1
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1

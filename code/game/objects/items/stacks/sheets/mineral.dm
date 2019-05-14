@@ -163,7 +163,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	burntime = 5
 
 /obj/item/stack/sheet/mineral/plasma/New()
@@ -179,7 +179,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	else
 		return ..()
 
-/obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/stack/sheet/mineral/plasma/fire_act(exposed_temperature,exposed_volume)
 	..()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, amount*10)
 	qdel(src)

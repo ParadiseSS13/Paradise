@@ -9,7 +9,8 @@
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75
-	health = 3
+	obj_integrity = 3
+	resistance_flags = FLAMMABLE
 	var/stillborn = FALSE
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
