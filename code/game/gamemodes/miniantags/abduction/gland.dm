@@ -320,69 +320,6 @@
 	for(var/mob/living/carbon/human/H in oview(3,owner)) //Blood decals for simple animals would be neat. aka Carp with blood on it.
 		H.add_mob_blood(owner)
 
-/obj/item/organ/internal/heart/gland/bodysnatch
-	cooldown_low = 600
-	cooldown_high = 600
-	human_only = 1
-	uses = 1
-
-/obj/item/organ/internal/heart/gland/bodysnatch/activate()
-	to_chat(owner, "<span class='warning'>You feel something moving around inside you...</span>")
-	//spawn cocoon with clone greytide snpc inside
-	if(ishuman(owner))
-		var/obj/effect/cocoon/abductor/C = new (get_turf(owner))
-		C.Copy(owner)
-		C.Start()
-	owner.adjustBruteLoss(40)
-	owner.add_splatter_floor()
-
-/obj/effect/cocoon/abductor
-	name = "slimy cocoon"
-	desc = "Something is moving inside."
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "cocoon_large3"
-	color = rgb(10,120,10)
-	density = 1
-	var/hatch_time = 0
-
-/obj/effect/cocoon/abductor/proc/Copy(mob/living/carbon/human/H)
-	var/mob/living/carbon/human/interactive/greytide/clone = new(src)
-	var/datum/dna/owner_dna = H.dna
-	clone.rename_character(clone.name, owner_dna.real_name)
-	clone.set_species(owner_dna.species.type)
-	clone.dna = owner_dna.Clone()
-	clone.body_accessory = H.body_accessory
-	domutcheck(clone)
-
-	for(var/obj/item/I in clone)
-		if(istype(I, /obj/item/implant))
-			continue
-		if(istype(I, /obj/item/organ))
-			continue
-		qdel(I)
-
-	//There's no define for this / get all items ?
-	var/list/slots = list(slot_back,slot_w_uniform,slot_wear_suit,\
-	slot_wear_mask,slot_head,slot_shoes,slot_gloves,slot_l_ear,slot_r_ear,\
-	slot_glasses,slot_belt,slot_s_store,slot_l_store,slot_r_store,slot_wear_id,slot_wear_pda)
-
-	for(var/slot in slots)
-		var/obj/item/I = H.get_item_by_slot(slot)
-		if(I)
-			clone.equip_to_slot_or_del(new I.type(clone), slot)
-
-/obj/effect/cocoon/abductor/proc/Start()
-	hatch_time = world.time + 600
-	START_PROCESSING(SSobj, src)
-
-/obj/effect/cocoon/abductor/process()
-	if(world.time > hatch_time)
-		STOP_PROCESSING(SSobj, src)
-		for(var/mob/M in contents)
-			src.visible_message("<span class='warning'>[src] hatches!</span>")
-			M.forceMove(get_turf(src))
-		qdel(src)
-
 
 /obj/item/organ/internal/heart/gland/plasma
 	cooldown_low = 1200

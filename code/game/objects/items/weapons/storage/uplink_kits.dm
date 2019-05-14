@@ -5,7 +5,7 @@
 			if("bloodyspai")	// 28TC
 				new /obj/item/twohanded/garrote(src)
 				new /obj/item/pinpointer/advpinpointer(src)
-				new /obj/item/clothing/mask/gas/voice(src)
+				new /obj/item/clothing/mask/chameleon(src)
 				new /obj/item/clothing/under/chameleon(src)
 				new /obj/item/card/id/syndicate(src)
 				new /obj/item/flashlight/emp(src)
@@ -19,7 +19,7 @@
 				new /obj/item/chameleon(src)
 				new /obj/item/clothing/gloves/color/black/thief(src)
 				new /obj/item/card/id/syndicate(src)
-				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/clothing/shoes/chameleon/noslip(src)
 				new /obj/item/storage/box/syndie_kit/safecracking(src)
 				return
 
@@ -83,14 +83,14 @@
 				new /obj/item/dnainjector/telemut/darkbundle(src)
 				new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 				new /obj/item/card/id/syndicate(src)
-				new /obj/item/clothing/shoes/syndigaloshes(src)
-				new /obj/item/clothing/mask/gas/voice(src)
+				new /obj/item/clothing/shoes/chameleon/noslip(src)
+				new /obj/item/clothing/mask/chameleon(src)
 				return
 
 			if("gadgets")	// 30TC
 				new /obj/item/clothing/gloves/color/yellow/power(src)
 				new /obj/item/pen/sleepy(src)
-				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/clothing/shoes/chameleon/noslip(src)
 				new /obj/item/clothing/glasses/thermal/syndi(src)
 				new /obj/item/flashlight/emp(src)
 				new /obj/item/stamp/chameleon(src)
@@ -341,3 +341,20 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/accessory/stethoscope(src)
 	new /obj/item/book/manual/engineering_hacking(src)
+
+/obj/item/storage/box/syndie_kit/chameleon
+	name = "chameleon kit"
+
+/obj/item/storage/box/syndie_kit/chameleon/New()
+	..()
+	new /obj/item/clothing/under/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pda/chameleon(src)

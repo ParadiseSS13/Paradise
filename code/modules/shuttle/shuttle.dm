@@ -442,11 +442,6 @@
 		if(canMove())
 			return -1
 
-
-//		//rotate transit docking ports, so we don't need zillions of variants
-//		if(istype(S1, /obj/docking_port/stationary/transit))
-//			S1.dir = turn(NORTH, -travelDir)
-
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space
@@ -466,8 +461,6 @@
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
 	rotation = SimplifyDegrees(rotation)
-
-
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)
@@ -501,15 +494,17 @@
 
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T1, rotation)
+			AM.onShuttleMove(T0, T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
 
-		//lighting stuff
+		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		SSair.add_to_active(T1,1)
+		
+		T1.lighting_build_overlay()
 
 		T0.ChangeTurf(turf_type)
 
@@ -868,11 +863,26 @@
 	possible_destinations = "science_home;science_away"
 
 /obj/machinery/computer/shuttle/admin
-	name = "Administration Shuttle Console"
-	desc = "Used to call and send the administration shuttle."
+	name = "admin shuttle console"
+	req_access = list(access_cent_general)
 	shuttleId = "admin"
-	possible_destinations = "admin_home;admin_away"
+	possible_destinations = "admin_home;admin_away;admin_custom"
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin
+	name = "Admin shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the admin shuttle."
+	icon_screen = "navigation"
+	icon_keyboard = "med_key"
+	shuttleId = "admin"
+	shuttlePortId = "admin_custom"
+	view_range = 14
+	x_offset = 0
+	y_offset = 0
+	resistance_flags = INDESTRUCTIBLE
+	access_tcomms = TRUE
+	access_construction = TRUE
+	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"

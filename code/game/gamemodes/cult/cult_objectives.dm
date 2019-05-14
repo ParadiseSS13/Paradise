@@ -19,10 +19,10 @@
 
 	switch(new_objective)
 		if("convert")
-			explanation = "We must increase our influence before we can summon [ticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
+			explanation = "We must increase our influence before we can summon [SSticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 		if("bloodspill")
 			spilltarget = 100 + rand(0,GLOB.player_list.len * 3)
-			explanation = "We must prepare this place for [ticker.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
+			explanation = "We must prepare this place for [SSticker.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 		if("sacrifice")
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
@@ -59,8 +59,8 @@
 			message_admins("The Cult has already completed [prenarsie_objectives] objectives! Nar-Sie objective unlocked.")
 			log_admin("The Cult has already completed [prenarsie_objectives] objectives! Nar-Sie objective unlocked.")
 	else
-		message_admins("There are less than 4 cultists! [ticker.cultdat.entity_name] objective unlocked.")
-		log_admin("There are less than 4 cultists! [ticker.cultdat.entity_name] objective unlocked.")
+		message_admins("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
+		log_admin("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
 		gtfo_phase()
 
 	if(!sacrificed.len && (new_objective != "sacrifice"))
@@ -76,10 +76,10 @@
 
 		switch(new_objective)
 			if("convert")
-				explanation = "We must increase our influence before we can summon [ticker.cultdat.entity_name]. Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
+				explanation = "We must increase our influence before we can summon [SSticker.cultdat.entity_name]. Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 			if("bloodspill")
 				spilltarget = 100 + rand(0,GLOB.player_list.len * 3)
-				explanation = "We must prepare this place for [ticker.cultdat.entity_title1]'s coming. Spread blood and gibs over [spilltarget] of the Station's floor tiles."
+				explanation = "We must prepare this place for [SSticker.cultdat.entity_title1]'s coming. Spread blood and gibs over [spilltarget] of the Station's floor tiles."
 			if("sacrifice")
 				explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
@@ -111,7 +111,7 @@
 
 	if(prob(40))//split the chance of this
 		objectives += "eldergod"
-		explanation = "Summon [ticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
 		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
@@ -135,11 +135,11 @@
 
 	switch(last_objective)
 		if("harvest")
-			explanation = "[ticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
+			explanation = "[SSticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
 		if("hijack")
-			explanation = "[ticker.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
+			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
 		if("massacre")
-			explanation = "[ticker.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
+			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
