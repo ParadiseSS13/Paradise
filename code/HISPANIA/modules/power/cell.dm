@@ -17,6 +17,8 @@
 	icon = 'icons/HISPANIA/obj/power.dmi'
 	icon_state = "xenobluecellmaker"
 	item_state = "xenobluecellmaker"
+	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
 	name = "Xenobluespace power cell Maker"
 	desc = "High-tech power cell shell capable of creating a power cell that combines Bluespace and Xenobiology technology. has inscribed: -en Honor a Blob Bob, Maestro de la Teleciencia, Sticky Gum, Maestra de la Xenobiologia y a Baldric Chapman, Maestro de la Robotica-"
 	origin_tech = "powerstorage=6;biotech=4"
