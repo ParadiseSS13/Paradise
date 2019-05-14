@@ -75,8 +75,8 @@
 		display_roundstart_logout_report()
 
 	feedback_set_details("round_start","[time2text(world.realtime)]")
-	if(ticker && ticker.mode)
-		feedback_set_details("game_mode","[ticker.mode]")
+	if(SSticker && SSticker.mode)
+		feedback_set_details("game_mode","[SSticker.mode]")
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
@@ -88,7 +88,7 @@
 
 ///process()
 ///Called by the gameticker
-/datum/game_mode/proc/process()
+/datum/game_mode/process()
 	return 0
 
 //Called by the gameticker

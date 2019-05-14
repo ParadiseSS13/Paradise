@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(events)
 	runlevels = RUNLEVEL_GAME
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
-	
+
     // UI vars
 	var/window_x = 700
 	var/window_y = 600
@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(events)
 	var/row_options1 = " width='85px'"
 	var/row_options2 = " width='260px'"
 	var/row_options3 = " width='150px'"
-	
+
     // Event vars
 	var/datum/event_container/selected_event_container = null
 	var/list/active_events = list()
@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(events)
 
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
-	..()
+	return ..()
 
 /datum/controller/subsystem/events/fire()
 	for(var/datum/event/E in active_events)

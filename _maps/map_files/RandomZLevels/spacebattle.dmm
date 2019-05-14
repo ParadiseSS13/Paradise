@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/simulated/mineral/random,
-/area/space)
+/area/space/nearstation)
 "ab" = (
 /turf/space,
 /area/space)
@@ -2617,23 +2617,23 @@
 "iq" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ir" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "is" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
 	},
-/area/space)
+/area/space/nearstation)
 "it" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
 	},
-/area/space)
+/area/space/nearstation)
 "iu" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel/airless{
@@ -2641,14 +2641,14 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iv" = (
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-floor4 (SOUTHWEST)";
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iw" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/plasteel/airless{
@@ -2656,7 +2656,7 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "ix" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel/airless{
@@ -2664,7 +2664,7 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iy" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel/airless{
@@ -2672,7 +2672,7 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iz" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -2695,7 +2695,7 @@
 "iC" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "iD" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -2712,14 +2712,14 @@
 /turf/simulated/shuttle/wall{
 	icon_state = "diagonalWall3"
 	},
-/area/space)
+/area/space/nearstation)
 "iG" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "diagonalWall3"
 	},
-/area/space)
+/area/space/nearstation)
 "iH" = (
 /obj/machinery/sleeper,
 /turf/simulated/shuttle/floor{
@@ -2741,11 +2741,11 @@
 	dir = 1
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "iK" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "iL" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/shuttle/floor{
@@ -2853,7 +2853,7 @@
 /area/awaymission/spacebattle/syndicate6)
 "jc" = (
 /turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/area/space/nearstation)
 "jd" = (
 /turf/simulated/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
@@ -2898,7 +2898,7 @@
 	tag = "icon-propulsion_l (WEST)"
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "Jj" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion_l (NORTH)";

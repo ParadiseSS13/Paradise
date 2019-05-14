@@ -56,7 +56,8 @@
 		volume = ..()
 		M.apply_damage(0.6*volume, TOX)
 		M.hallucination += 0.6*volume
-		M.reagents.add_reagent("spore", 0.4*volume)
+		if(M.reagents)
+			M.reagents.add_reagent("spore", 0.4*volume)
 
 /datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
 	name = "Lexorin Jelly"
@@ -102,7 +103,8 @@
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
 		M.adjustStaminaLoss(0.4*volume)
-		M.reagents.add_reagent("frostoil", 0.4*volume)
+		if(M.reagents)
+			M.reagents.add_reagent("frostoil", 0.4*volume)
 
 /datum/reagent/blob/b_sorium
 	name = "Sorium"

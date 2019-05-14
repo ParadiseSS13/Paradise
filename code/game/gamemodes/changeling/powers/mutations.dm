@@ -132,15 +132,6 @@
 	throw_range = 0
 	throw_speed = 0
 
-/obj/item/melee/arm_blade/New()
-	..()
-	if(ismob(loc))
-		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-
-/obj/item/melee/arm_blade/dropped(mob/user)
-	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-	. = ..()
-
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
@@ -433,7 +424,7 @@
 	..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))

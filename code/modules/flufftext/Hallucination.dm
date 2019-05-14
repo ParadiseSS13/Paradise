@@ -138,7 +138,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	if(target.client)
 		target.client.images |= flood_images
 	next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/fake_flood/process()
 	if(next_expand <= world.time)
@@ -162,7 +162,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		target.client.images |= flood_images
 
 /obj/effect/hallucination/fake_flood/Destroy()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	flood_turfs.Cut()
 	if(target.client)
 		target.client.images.Remove(flood_images)
@@ -671,8 +671,8 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 	/obj/item/gun/energy/kinetic_accelerator/crossbow,\
 	/obj/item/storage/box/syndicate, /obj/item/storage/box/emps,\
 	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
-	/obj/item/clothing/shoes/syndigaloshes, /obj/item/card/id/syndicate,\
-	/obj/item/clothing/mask/gas/voice, /obj/item/clothing/glasses/thermal,\
+	/obj/item/clothing/shoes/chameleon/noslip, /obj/item/card/id/syndicate,\
+	/obj/item/clothing/mask/chameleon, /obj/item/clothing/glasses/thermal,\
 	/obj/item/chameleon, /obj/item/card/emag,\
 	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
 	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\

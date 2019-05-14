@@ -185,13 +185,14 @@
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir)
-	if(!inertia_moving)
+/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	if (!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	if (length(client_mobs_in_contents))
 		update_parallax_contents()
-	return 1
+	return TRUE
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
@@ -221,7 +222,12 @@
 		destination.Entered(src)
 		for(var/atom/movable/AM in destination)
 			AM.Crossed(src)
-
+		var/turf/oldturf = get_turf(old_loc)
+		var/turf/destturf = get_turf(destination)
+		var/old_z = (oldturf ? oldturf.z : null)
+		var/dest_z = (destturf ? destturf.z : null)
+		if(old_z != dest_z)
+			onTransitZ(old_z, dest_z)
 		if(isturf(destination) && opacity)
 			var/turf/new_loc = destination
 			new_loc.reconsider_lights()
@@ -233,6 +239,11 @@
 		L.source_atom.update_light()
 
 	return 1
+
+/atom/movable/proc/onTransitZ(old_z,new_z)
+	for(var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
+		var/atom/movable/AM = item
+		AM.onTransitZ(old_z,new_z)
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)

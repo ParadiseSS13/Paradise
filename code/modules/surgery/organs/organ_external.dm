@@ -286,7 +286,7 @@ This function completely restores a damaged organ to perfect condition.
 		owner.updatehealth("limb rejuvenate")
 	update_icon()
 	if(!owner)
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 
 /****************************************************
 			   PROCESSING & UPDATING
