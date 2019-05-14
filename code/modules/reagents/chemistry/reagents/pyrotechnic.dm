@@ -342,7 +342,11 @@
 	if(method == TOUCH)
 		M.ExtinguishMob()
 
-/datum/reagent/cryostylane/reaction_turf(turf/T, volume)
+/datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
+	if(!istype(T))
+		return
+	if(volume >= 3)
+		T.MakeSlippery(TURF_WET_ICE)
 	if(volume >= 5)
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(15,30))

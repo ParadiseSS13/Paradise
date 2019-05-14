@@ -22,7 +22,7 @@
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= 225 && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
+	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
 

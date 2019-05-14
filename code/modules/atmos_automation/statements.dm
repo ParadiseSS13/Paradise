@@ -29,7 +29,7 @@ var/global/automation_types = subtypesof(/datum/automation)
 /datum/automation/proc/OnRemove()
 	return
 
-/datum/automation/proc/process()
+/datum/automation/process()
 	return
 
 /datum/automation/proc/Evaluate()

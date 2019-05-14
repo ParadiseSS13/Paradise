@@ -34,7 +34,7 @@ REAGENT SCANNER
 
 /obj/item/t_scanner/Destroy()
 	if(on)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/t_scanner/attack_self(mob/user)
@@ -43,12 +43,12 @@ REAGENT SCANNER
 	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
 
 	if(on)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 
 /obj/item/t_scanner/process()
 	if(!on)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return null
 	scan()
 

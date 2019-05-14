@@ -41,7 +41,7 @@
 "ak" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "al" = (
 /obj/machinery/door/window/westright,
 /turf/simulated/floor/plasteel/airless,
@@ -173,11 +173,11 @@
 /area/awaymission/northblock)
 "aI" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_l (EAST)";
+	dir = 8;
 	icon_state = "burst_l";
-	dir = 4
+	tag = "icon-burst_l (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/syndishuttle)
 "aJ" = (
 /turf/simulated/floor/plating/airless,
@@ -197,14 +197,6 @@
 /obj/machinery/mecha_part_fabricator/robot,
 /turf/simulated/floor/plasteel,
 /area/awaymission/northblock)
-"aO" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_r (EAST)";
-	icon_state = "propulsion_r";
-	dir = 4
-	},
-/turf/space,
-/area/awaymission/syndishuttle)
 "aP" = (
 /obj/structure/shuttle/engine/heater{
 	tag = "icon-heater (WEST)";
@@ -264,10 +256,10 @@
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
 	},
-/area/space)
+/area/space/nearstation)
 "ba" = (
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "bb" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/plasteel/airless,
@@ -278,16 +270,6 @@
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/northblock)
-"bd" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_l (EAST)";
-	icon_state = "burst_l";
-	dir = 4
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
-/area/awaymission/syndishuttle)
 "be" = (
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/shuttle/plating,
@@ -349,16 +331,6 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
-"bo" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (EAST)";
-	icon_state = "propulsion";
-	dir = 4
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
-/area/awaymission/syndishuttle)
 "bp" = (
 /obj/structure/shuttle/engine/router,
 /turf/simulated/shuttle/plating,
@@ -554,16 +526,6 @@
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/grass,
 /area/awaymission/research)
-"bU" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_r (EAST)";
-	icon_state = "burst_r";
-	dir = 4
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
-/area/awaymission/syndishuttle)
 "bV" = (
 /obj/structure/shuttle/engine/heater{
 	tag = "icon-heater (NORTH)";
@@ -775,11 +737,11 @@
 /area/awaymission/research)
 "cy" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (EAST)";
-	icon_state = "propulsion";
-	dir = 4
+	dir = 8;
+	icon_state = "burst_l";
+	tag = "icon-burst_l (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/research)
 "cz" = (
 /obj/structure/shuttle/engine/heater{
@@ -794,7 +756,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/research)
 "cA" = (
 /turf/simulated/floor/plasteel{
@@ -807,14 +769,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/research)
-"cC" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_l (EAST)";
-	icon_state = "propulsion_l";
-	dir = 4
-	},
-/turf/space,
-/area/awaymission/syndishuttle)
 "cD" = (
 /turf/simulated/floor/plating/airless,
 /turf/simulated/shuttle/wall{
@@ -885,7 +839,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/research)
 "cL" = (
 /obj/effect/decal/remains/human{
@@ -1763,7 +1717,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/research)
 "eI" = (
 /obj/structure/window/reinforced{
@@ -3581,14 +3535,14 @@
 	icon_state = "propulsion_r"
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/arrivalblock)
 "je" = (
 /turf/space,
 /area/awaymission/arrivalblock)
 "jf" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/arrivalblock)
 "jg" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -3604,7 +3558,7 @@
 	icon_state = "propulsion_l"
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/arrivalblock)
 "jh" = (
 /obj/structure/cable{
@@ -4038,7 +3992,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/arrivalblock)
 "km" = (
 /obj/structure/window/reinforced,
@@ -4138,7 +4092,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/arrivalblock)
 "kB" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -4147,7 +4101,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/arrivalblock)
 "kC" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -4169,7 +4123,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "kG" = (
-/obj/item/clothing/shoes/syndigaloshes,
+/obj/item/clothing/shoes/chameleon/noslip,
 /obj/item/clothing/under/syndicate,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
@@ -4737,11 +4691,11 @@ aa
 aa
 aC
 aC
-bd
-bo
-bo
-bo
-bU
+aI
+aI
+aI
+aI
+aI
 aC
 aC
 aa
@@ -5461,7 +5415,7 @@ aa
 aa
 aC
 aI
-aO
+aI
 aC
 er
 eK
@@ -5469,7 +5423,7 @@ eK
 ff
 ff
 aC
-cC
+aI
 aK
 aC
 af
@@ -5535,7 +5489,7 @@ eK
 eX
 eX
 aC
-aP
+bq
 aJ
 af
 aj

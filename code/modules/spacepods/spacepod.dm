@@ -152,7 +152,7 @@
 	if(src.empcounter > 0)
 		src.empcounter--
 	else
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
@@ -286,7 +286,7 @@
 	deal_damage(80 / severity)
 	if(empcounter < (40 / severity))
 		empcounter = 40 / severity
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 	switch(severity)
 		if(1)

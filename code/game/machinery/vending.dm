@@ -741,6 +741,8 @@
 	throw_item.throw_at(target, 16, 3, src)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 
+/obj/machinery/vending/onTransitZ()
+	return
 /*
  * Vending machine types
  */
@@ -1055,10 +1057,9 @@
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
-	products = list(/obj/item/clothing/under/rank/scientist = 6,/obj/item/clothing/suit/bio_suit = 6,/obj/item/clothing/head/bio_hood = 6,
-					/obj/item/transfer_valve = 6,/obj/item/assembly/timer = 6,/obj/item/assembly/signaler = 6,
-					/obj/item/assembly/prox_sensor = 6,/obj/item/assembly/igniter = 6)
-	contraband = list(/obj/item/assembly/health = 3)
+	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
+					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
+	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
 
 /obj/machinery/vending/wallmed1
 	name = "\improper NanoMed"
@@ -1420,7 +1421,7 @@
 	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/glasses/sunglasses/fake=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
 	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
 	/obj/item/clothing/shoes/sandal=1, /obj/item/clothing/gloves/fingerless=2,
-	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1)
+	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1, /obj/item/clothing/suit/mantle = 2, /obj/item/clothing/suit/mantle/old = 1, /obj/item/clothing/suit/mantle/regal = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool=1,/obj/item/clothing/mask/balaclava=1,/obj/item/clothing/head/ushanka=1,/obj/item/clothing/under/soviet=1,/obj/item/storage/belt/fannypack/black=1)
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered=1,/obj/item/clothing/head/mailman=1,/obj/item/clothing/under/rank/mailman=1,/obj/item/clothing/suit/jacket/leather=1,/obj/item/clothing/under/pants/mustangjeans=1)
 	refill_canister = /obj/item/vending_refill/clothing

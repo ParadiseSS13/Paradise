@@ -367,26 +367,26 @@ UI STUFF
 	if(href_list["resolve"])
 		var/indexNum = text2num(href_list["resolve"])
 		if(resolveTicket(indexNum))
-			message_staff("[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]")
+			message_staff("[span_text][usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
 			to_chat_safe(returnClient(indexNum), "[span_text]Your [ticket_name] has now been resolved.</span>")
 			showUI(usr)
 
 	if(href_list["detailresolve"])
 		var/indexNum = text2num(href_list["detailresolve"])
 		if(resolveTicket(indexNum))
-			message_staff("[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]")
+			message_staff("[span_text][usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
 			to_chat_safe(returnClient(indexNum), "[span_text]Your [ticket_name] has now been resolved.</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailclose"])
 		var/indexNum = text2num(href_list["detailclose"])
 		if(!check_rights(close_rights))
-			to_chat(usr, "Not enough rights to close this ticket.")
+			to_chat(usr, "<span class='warning'>Not enough rights to close this ticket.</span>")
 			return
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
-			message_staff("[usr.client] / ([usr]) closed [ticket_name] number [indexNum]")
+			message_staff("[span_text][usr.client] / ([usr]) closed [ticket_name] number [indexNum]</span>")
 			to_chat_safe(returnClient(indexNum), close_messages)
 			showDetailUI(usr, indexNum)
 			
@@ -394,7 +394,7 @@ UI STUFF
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])
 		if(openTicket(indexNum))
-			message_staff("[usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]")
+			message_staff("[span_text][usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["assignstaff"])
@@ -404,5 +404,5 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
 	if(assignStaffToTicket(usr.client, index))
-		message_staff("[usr.client] / ([usr]) has taken [ticket_name] number [index]")
-		to_chat_safe(returnClient(index), "[span_text]Your [ticket_name] is being handled by [usr.client].")
+		message_staff("[span_text][usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
+		to_chat_safe(returnClient(index), "[span_text]Your [ticket_name] is being handled by [usr.client].</span>")

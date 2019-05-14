@@ -216,11 +216,11 @@
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
-	listclearnulls(ticker.mode.shadowling_thralls)
-	if(!(ling.mind in ticker.mode.shadows))
+	listclearnulls(SSticker.mode.shadowling_thralls)
+	if(!(ling.mind in SSticker.mode.shadows))
 		return
 	if(!isshadowling(ling))
-		if(ticker.mode.shadowling_thralls.len >= 5)
+		if(SSticker.mode.shadowling_thralls.len >= 5)
 			charge_counter = charge_max
 			return
 	for(var/mob/living/carbon/human/target in targets)
@@ -291,7 +291,7 @@
 		target.visible_message("<span class='big'>[target] looks to have experienced a revelation!</span>", \
 								"<span class='warning'>False faces all d<b>ark not real not real not--</b></span>")
 		target.setOxyLoss(0) //In case the shadowling was choking them out
-		ticker.mode.add_thrall(target.mind)
+		SSticker.mode.add_thrall(target.mind)
 		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 
 /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor //Resets a shadowling's species to normal, removes genetic defects, and re-equips their armor
@@ -335,7 +335,7 @@
 	include_user = 1
 	var/blind_smoke_acquired
 	var/screech_acquired
-	var/drainLifeAcquired
+	var/nullChargeAcquired
 	var/reviveThrallAcquired
 	action_icon_state = "collective_mind"
 
@@ -345,7 +345,7 @@
 		return
 	for(var/mob/living/target in targets)
 		var/thralls = 0
-		var/victory_threshold = ticker.mode.required_thralls
+		var/victory_threshold = SSticker.mode.required_thralls
 		var/mob/M
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
@@ -359,23 +359,24 @@
 			to_chat(target, "<span class='warning'>Your concentration has been broken. The mental hooks you have sent out now retract into your mind.</span>")
 			return
 
-		if(thralls >= 3 && !screech_acquired)
+		if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !screech_acquired)
 			screech_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
-		if(thralls >= 5 && !blind_smoke_acquired)
+		if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
-		if(thralls >= 7 && !drainLifeAcquired)
-			drainLifeAcquired = 1
-			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Life</b> ability. You can now drain the health of nearby humans to heal yourself.</i></span>")
-			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife(null))
+		if(thralls >= CEILING(7 * SSticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
+			nullChargeAcquired = 1
+			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging \
+			or sending power until repaired.</i></span>")
+			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/null_charge(null))
 
-		if(thralls >= 9 && !reviveThrallAcquired)
+		if(thralls >= CEILING(9 * SSticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
@@ -491,45 +492,57 @@
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))
 
-/obj/effect/proc_holder/spell/aoe_turf/drainLife
-	name = "Drain Life"
-	desc = "Damages nearby humans, draining their life and healing your own wounds."
+/obj/effect/proc_holder/spell/aoe_turf/null_charge
+	name = "Null Charge"
+	desc = "Empties an APC, preventing it from recharging until fixed."
 	panel = "Shadowling Abilities"
-	range = 3
-	charge_max = 100
-	clothes_req = 0
-	var/targetsDrained
-	var/list/nearbyTargets
-	action_icon_state = "drain_life"
+	charge_max = 600
+	clothes_req = FALSE
+	action_icon_state = "null_charge"
 
-/obj/effect/proc_holder/spell/aoe_turf/drainLife/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/null_charge/cast(mob/user = usr)
 	if(!shadowling_check(user))
 		charge_counter = charge_max
 		return
-	var/mob/living/carbon/human/U = usr
-	targetsDrained = 0
-	nearbyTargets = list()
-	for(var/turf/T in targets)
-		for(var/mob/living/carbon/M in T.contents)
-			if(M == src)
-				continue
-			targetsDrained++
-			nearbyTargets.Add(M)
-	if(!targetsDrained)
+
+	var/list/local_objs = view(1, user)
+	var/obj/machinery/power/apc/target_apc
+	for(var/object in local_objs)
+		if(istype(object, /obj/machinery/power/apc))
+			target_apc = object
+			break
+
+	if(!target_apc)
+		to_chat(user, "<span class='warning'>You must stand next to an APC to drain it!</span>")
 		charge_counter = charge_max
-		to_chat(U, "<span class='warning'>There were no nearby humans for you to drain.</span>")
 		return
-	for(var/mob/living/carbon/M in nearbyTargets)
-		U.heal_organ_damage(10, 10)
-		U.adjustToxLoss(-10)
-		U.adjustOxyLoss(-10)
-		U.adjustStaminaLoss(-20)
-		U.AdjustWeakened(-1)
-		U.AdjustStunned(-1)
-		M.adjustOxyLoss(20)
-		M.adjustStaminaLoss(20)
-		to_chat(M, "<span class='boldannounce'>You feel a wave of exhaustion and a curious draining sensation directed towards [U]!</span>")
-	to_chat(U, "<span class='shadowling'>You draw life from those around you to heal your wounds.</span>")
+	
+	if(target_apc.cell?.charge == 0)
+		to_chat(user, "<span class='warning'>APC must have a power to drain!</span>")
+		charge_counter = charge_max
+		return
+
+	target_apc.operating = 0
+	target_apc.update()
+	target_apc.update_icon()
+	target_apc.visible_message("<span class='warning'>The [target_apc] flickers and begins to grow dark.</span>")
+
+	to_chat(user, "<span class='shadowling'>You dim the APC's screen and carefully begin siphoning its power into the void.</span>")
+	if(!do_after(user, 200, target=target_apc))
+		//Whoops!  The APC's powers back on
+		to_chat(user, "<span class='shadowling'>Your concentration breaks and the APC suddenly repowers!</span>")
+		target_apc.operating = 1
+		target_apc.update()
+		target_apc.update_icon()
+		target_apc.visible_message("<span class='warning'>The [target_apc] begins glowing brightly!</span>")
+	else
+		//We did it!
+		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")
+		target_apc.cell?.charge = 0	//Sent to the shadow realm
+		target_apc.chargemode = 0 //Won't recharge either until an someone hits the button
+		target_apc.charging = 0
+		target_apc.null_charge()
+		target_apc.update_icon()
 
 
 
@@ -565,7 +578,7 @@
 					charge_counter = charge_max
 					return
 				var/empowered_thralls = 0
-				for(var/datum/mind/M in ticker.mode.shadowling_thralls)
+				for(var/datum/mind/M in SSticker.mode.shadowling_thralls)
 					if(!ishuman(M.current))
 						return
 					var/mob/living/carbon/human/H = M.current
@@ -754,7 +767,7 @@
 
 		to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing [target.p_them()] into a thrall.</span>")
 		to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
-		ticker.mode.add_thrall(target.mind)
+		SSticker.mode.add_thrall(target.mind)
 		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		target.add_language("Shadowling Hivemind")
 

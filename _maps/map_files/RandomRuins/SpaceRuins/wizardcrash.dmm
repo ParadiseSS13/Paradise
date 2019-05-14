@@ -498,11 +498,11 @@
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/space/nearstation)
 "bI" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plasma,

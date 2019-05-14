@@ -13398,7 +13398,7 @@
 /area/awaymission/UO71/loot)
 "zt" = (
 /obj/structure/chair/wood/normal,
-/obj/item/clothing/shoes/syndigaloshes,
+/obj/item/clothing/shoes/chameleon/noslip,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zu" = (

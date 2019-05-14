@@ -325,9 +325,10 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = 0
-	if(user.mind && !(user.mind.assigned_role == "Chaplain"))
-		if(prob(24))
-			handle_haunt(user)
+	if(istype(src,/obj/item/camera/spooky))
+		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
+			if(prob(24))
+				handle_haunt(user)
 	spawn(64)
 		icon_state = icon_on
 		on = 1

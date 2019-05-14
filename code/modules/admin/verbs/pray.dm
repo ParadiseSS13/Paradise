@@ -18,8 +18,8 @@
 	var/prayer_type = "PRAYER"
 	var/deity
 	if(usr.job == "Chaplain")
-		if(ticker && ticker.Bible_deity_name)
-			deity = ticker.Bible_deity_name
+		if(SSticker && SSticker.Bible_deity_name)
+			deity = SSticker.Bible_deity_name
 		cross = image('icons/obj/storage.dmi',"kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
@@ -27,7 +27,7 @@
 		cross = image('icons/obj/storage.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
-		deity = ticker.cultdat.entity_name
+		deity = SSticker.cultdat.entity_name
 
 	log_say("(PRAYER) [msg]", usr)
 	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"

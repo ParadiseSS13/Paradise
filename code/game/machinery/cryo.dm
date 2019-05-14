@@ -5,7 +5,8 @@
 	icon_state = "pod0"
 	density = 1
 	anchored = 1.0
-	layer = 2.8
+	layer = ABOVE_WINDOW_LAYER
+	plane = GAME_PLANE
 	interact_offline = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	var/on = 0
@@ -220,7 +221,7 @@
 	data["cellTemperatureStatus"] = "good"
 	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > 225)
+	else if(air_contents.temperature > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? 1 : 0
@@ -323,7 +324,6 @@
 	if(!src.occupant)
 		overlays += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
 		return
-
 
 	if(occupant)
 		var/image/pickle = image(occupant.icon, occupant.icon_state)

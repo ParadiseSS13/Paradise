@@ -21,11 +21,11 @@ var/ert_request_answered = FALSE
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
-	if(ticker.current_state == GAME_STATE_PREGAME)
+	if(SSticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
@@ -90,22 +90,13 @@ var/ert_request_answered = FALSE
 		return 0
 
 	var/index = 1
-	var/ert_spawn_seconds = 120
-	spawn(ert_spawn_seconds * 10) // to account for spawn() using deciseconds
-		var/list/unspawnable_ert = list()
-		for(var/mob/M in response_team_members)
-			if(M)
-				unspawnable_ert |= M
-		if(unspawnable_ert.len)
-			message_admins("ERT SPAWN: The following ERT members could not be spawned within [ert_spawn_seconds] seconds:")
-			for(var/mob/M in unspawnable_ert)
-				message_admins("- Unspawned ERT: [ADMIN_FULLMONTY(M)]")
 	for(var/mob/M in response_team_members)
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
 
 		if(!M || !M.client)
 			continue
+		log_debug("Spawning as ERT: [M.ckey] ([M])")
 		var/client/C = M.client
 		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
 		if(!M || !new_commando)
@@ -173,12 +164,12 @@ var/ert_request_answered = FALSE
 	M.mind.original = M
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
-	if(!(M.mind in ticker.minds))
-		ticker.minds += M.mind //Adds them to regular mind list.
-	ticker.mode.ert += M.mind
+	if(!(M.mind in SSticker.minds))
+		SSticker.minds += M.mind //Adds them to regular mind list.
+	SSticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
-	job_master.CreateMoneyAccount(M, class, null)
+	SSjobs.CreateMoneyAccount(M, class, null)
 
 	active_team.equip_officer(class, M)
 
