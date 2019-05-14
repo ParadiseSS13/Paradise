@@ -221,12 +221,11 @@ var/list/pipemenu = list(
 	if(!check_menu(user))
 		to_chat(user, "<span class='notice'>You can't do that right now!</span>")
 		return
-	var/icon_file = 'icons/obj/interface.dmi'
 	var/list/choices = list(
 		RPD_MENU_ROTATE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
-		RPD_MENU_FLIP = image(icon = icon_file, icon_state = "rpd_flip"),
-		RPD_MENU_DELETE = image(icon = icon_file, icon_state = "rpd_delete"),
-		"UI" = image(icon = icon_file, icon_state = "ui_interact")
+		RPD_MENU_FLIP = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_flip"),
+		RPD_MENU_DELETE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_delete"),
+		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
 	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
 	if(!check_menu(user))
