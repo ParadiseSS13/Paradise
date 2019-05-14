@@ -256,6 +256,8 @@
 
 		if(H.mind && H.mind.initial_account)
 			C.associated_account_number = H.mind.initial_account.account_number
+		C.owner_uid = H.UID()
+		C.owner_ckey = H.ckey
 
 /datum/outfit/job/proc/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/pda/PDA = H.wear_pda
@@ -265,3 +267,10 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+
+/datum/job/proc/would_accept_job_transfer_from_player(mob/player)
+	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
+		return TRUE
+	if(!istype(player))
+		return FALSE
+	return is_job_whitelisted(player, title)

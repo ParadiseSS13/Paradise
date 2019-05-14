@@ -745,7 +745,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
-	if(stat != DEAD || !ticker)
+	if(stat != DEAD || !SSticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
@@ -901,13 +901,18 @@ var/list/slot_equipment_priority = list( \
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
-	if(isliving(M)) // Ewww
+	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
 			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip) return
-	if(usr == src) return
-	if(!Adjacent(usr)) return
+	if(!M.can_strip)
+		return
+	if(usr == src)
+		return
+	if(!Adjacent(usr))
+		return
+	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
+		return
 	show_inv(usr)
 
 /mob/proc/can_use_hands()
@@ -925,7 +930,7 @@ var/list/slot_equipment_priority = list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+	if(!istype(A, /area/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -976,6 +981,7 @@ var/list/slot_equipment_priority = list( \
 			stat("CPU:", "[world.cpu]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
+			stat("Server Time:", time_stamp())
 			stat(null)
 			if(Master)
 				Master.stat_entry()
@@ -1095,7 +1101,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!ticker || ticker.current_state < 3)
+	if(!SSticker || SSticker.current_state < 3)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
@@ -1341,3 +1347,13 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/is_literate()
 	return FALSE
+
+/mob/proc/update_sight()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+
+/mob/proc/sync_lighting_plane_alpha()
+	if(hud_used)
+		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		if (L)
+			L.alpha = lighting_alpha

@@ -94,9 +94,8 @@ var/global/list/ts_spiderling_list = list()
 	// Vision
 	idle_vision_range = 10
 	aggro_vision_range = 10
-	see_in_dark = 10
-	nightvision = 1
-	see_invisible = 5
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_MOBS
 
 	// AI aggression settings

@@ -33,8 +33,8 @@ var/global/list/empty_playable_ai_cores = list()
 		mind.objectives.Cut()
 		mind.special_role = null
 	else
-		if(ticker.mode.name == "AutoTraitor")
-			var/datum/game_mode/traitor/autotraitor/current_mode = ticker.mode
+		if(SSticker.mode.name == "AutoTraitor")
+			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 			current_mode.possible_traitors.Remove(src)
 
 	// Ghost the current player and disallow them to return to the body

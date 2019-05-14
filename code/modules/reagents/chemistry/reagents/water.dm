@@ -109,7 +109,7 @@
 		if(!(istype(B) && B.off_floor))
 			qdel(O)
 	else
-		if(!istype(O, /atom/movable/lighting_overlay))
+		if(!istype(O, /atom/movable/lighting_object))
 			O.color = initial(O.color)
 		O.clean_blood()
 
@@ -326,14 +326,14 @@
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
-			ticker.mode.remove_vampire_mind(M.mind)
+			SSticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
 		if(iscultist(M))
-			ticker.mode.remove_cultist(M.mind)
+			SSticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
