@@ -574,7 +574,7 @@
 					SC.can_order_contraband = C.contraband_enabled
 				qdel(src)
 				return
-	if (user.a_intent == "harm")
+	if (user.a_intent == INTENT_HARM)
 		return ..()
 
 

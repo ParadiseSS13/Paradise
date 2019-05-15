@@ -169,9 +169,6 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attack_animal(mob/user)
-	boom(user)
-
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
 	if(locked)
 		if(istype(W, /obj/item/card/emag))
@@ -209,6 +206,9 @@
 	else
 		..()
 
+/obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
+	boom()
+	
 /obj/structure/closet/crate/secure/loot/proc/boom(mob/user)
 	to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
 	for(var/atom/movable/AM in src)

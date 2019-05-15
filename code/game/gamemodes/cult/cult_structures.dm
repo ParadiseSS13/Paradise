@@ -246,7 +246,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = 1
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	anchored = 1.0
 
 /obj/effect/gateway/Bumped(mob/M as mob|obj)

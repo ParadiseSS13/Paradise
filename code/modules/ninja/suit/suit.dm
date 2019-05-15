@@ -14,7 +14,7 @@ Contents:
 	item_state = "s-ninja_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank, /obj/item/stock_parts/cell)
 	slowdown = 0
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	armor = list(melee = 60, bullet = 60, laser = 45, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 	var/suitActive = 0

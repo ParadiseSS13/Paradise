@@ -18,7 +18,8 @@
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
-	burntime = 5
+	obj_integrity = 50
+	max_integrity = 50	
 	attack_verb = list("bapped")
 
 	var/info		//What's actually written on the paper.

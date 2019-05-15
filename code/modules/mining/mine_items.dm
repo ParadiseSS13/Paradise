@@ -5,7 +5,7 @@
 	name = "Light emtter"
 	anchored = 1
 	invisibility = 101
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	light_range = 8
 	light_power = 0
 
@@ -503,8 +503,9 @@
 	var/buildstackamount = 5
 
 /obj/structure/fans/deconstruct()
-	if(buildstacktype)
-		new buildstacktype(loc, buildstackamount)
+	if(!(flags & NODECONSTRUCT))
+		if(buildstacktype)
+			new buildstacktype(loc,buildstackamount)
 	qdel(src)
 
 /obj/structure/fans/attackby(obj/item/W, mob/user, params)

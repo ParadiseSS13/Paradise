@@ -212,6 +212,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			if(C.gloves && (C.gloves.max_heat_protection_temperature > 360))
 				extinguish()
 				to_chat(user,"<span class='notice'>You put out the fire on [src].</span>")
+				update_icon()
 			else
 				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
 				var/obj/item/organ/external/affecting = C.get_organ("[user.hand ? "l" : "r" ]_arm")
@@ -274,7 +275,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
 /obj/item/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage))
+	if(istype(I, /obj/item/storage) && user.a_intent == INTENT_HELP)
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
 			if(S.collection_mode) //Mode is set to collect all items on a tile and we clicked on a valid one.

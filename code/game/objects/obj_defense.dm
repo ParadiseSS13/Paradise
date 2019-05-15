@@ -57,7 +57,6 @@
 /obj/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	..() //contents explosion
 	if(target == src)
 		obj_integrity = 0
 		qdel(src)
@@ -112,7 +111,7 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage_upper && !M.obj_damage)
-		M.emote("custom", message = "[M.friendly] [src].")
+		M.emote("custom", message = "[M.name] [M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1

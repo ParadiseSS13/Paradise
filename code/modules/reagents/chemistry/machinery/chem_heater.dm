@@ -6,6 +6,7 @@
 	icon_state = "mixer0b"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
+	resistance_flags = ACID_PROOF
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = T0C
 	var/on = FALSE

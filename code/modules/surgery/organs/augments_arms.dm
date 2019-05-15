@@ -86,7 +86,7 @@
 	holder = item
 
 	holder.flags |= NODROP
-	holder.unacidable = 1
+	holder.resistance_flags = ACID_PROOF
 	holder.slot_flags = null
 	holder.w_class = WEIGHT_CLASS_HUGE
 	holder.materials = null

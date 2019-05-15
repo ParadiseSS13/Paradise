@@ -359,8 +359,8 @@
 	name = "gamma level hatch"
 	hackProof = 1
 	aiControlDisabled = 1
-	unacidable = 1
 	is_special = 1
+	resistance_flags = ACID_PROOF
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
 	if(!issilicon(user))

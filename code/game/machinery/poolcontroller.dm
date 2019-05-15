@@ -192,7 +192,7 @@
 
 /obj/machinery/poolcontroller/seacontroller
 	invisibility = 101
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	name = "Sea Controller"
 	desc = "A controller for the underwater portion of the sea. Players shouldn't see this."
 	deep_water = TRUE		//deep sea is deep water

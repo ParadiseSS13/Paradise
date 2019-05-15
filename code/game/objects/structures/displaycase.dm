@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	desc = "A display case for prized possessions. It taunts you to kick it."
 	density = 1
 	anchored = 1
-	unacidable = 1 //Dissolving the case would also delete the contents.
+	resistance_flags = ACID_PROOF //Dissolving the case would also delete the contents.
 	var/health = 30
 	var/obj/item/occupant = null
 	var/destroyed = 0

@@ -19,8 +19,9 @@
 	density = 1
 	opacity = 1
 	resistance_flags = FLAMMABLE
-	burntime = 30
-	var/health = 50
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	var/tmp/busy = 0
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 
@@ -60,7 +61,7 @@
 			"<span class='notice'>You disassemble \the [src].</span>")
 			busy = 0
 			density = 0
-			qdel(src)
+			deconstruct(TRUE)
 		else
 			busy = 0
 		return 1
@@ -72,13 +73,13 @@
 	else
 		switch(O.damtype)
 			if("fire")
-				health -= O.force * 1
+				obj_integrity -= O.force * 1
 			if("brute")
-				health -= O.force * 0.75
+				obj_integrity -= O.force * 0.75
 			else
-		if(health <= 0)
+		if(obj_integrity <= 0)
 			visible_message("<span class='warning'>The bookcase is smashed apart!</span>")
-			qdel(src)
+			deconstruct(TRUE)
 		return ..()
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
@@ -93,32 +94,11 @@
 				choice.forceMove(get_turf(src))
 			update_icon()
 
-/obj/structure/bookcase/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/obj/item/I in contents)
-				qdel(I)
-			qdel(src)
-			return
-		if(2.0)
-			for(var/obj/item/I in contents)
-				if(prob(50))
-					qdel(I)
-			qdel(src)
-			return
-		if(3.0)
-			if(prob(50))
-				qdel(src)
-			return
-	return
-
-/obj/structure/bookcase/Destroy()
-	for(var/i in 1 to 5)
-		new /obj/item/stack/sheet/wood(get_turf(src))
-	for(var/obj/item/I in contents)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(get_turf(src))
-	return ..()
+/obj/structure/bookcase/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/wood(loc, 4)
+	for(var/obj/item/book/B in contents)
+		B.forceMove(get_turf(src))
+	qdel(src)
 
 /obj/structure/bookcase/update_icon()
 	if(contents.len < 5)

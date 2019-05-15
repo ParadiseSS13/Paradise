@@ -104,7 +104,7 @@ for reference:
 	icon_state = "woodenbarricade"
 	stacktype = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
-	burntime = 25
+	
 
 /obj/structure/barricade/mime
 	name = "floor"

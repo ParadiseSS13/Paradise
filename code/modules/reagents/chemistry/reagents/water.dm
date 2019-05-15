@@ -76,6 +76,7 @@
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.extinguish()
 	O.acid_level = 0
+	O.cut_overlay(acid_overlay, TRUE)
 
 	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O

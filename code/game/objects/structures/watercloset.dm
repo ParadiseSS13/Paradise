@@ -391,6 +391,7 @@
 	if(istype(O, /obj/item))
 		var/obj/item/I = O
 		I.acid_level = 0
+		I.cut_overlay(acid_overlay, TRUE)
 		I.extinguish()
 
 	O.water_act(100, convertHeat(), src)
@@ -640,6 +641,7 @@
 	if(wateract)
 		O.water_act(20,310.15,src)
 		O.acid_level = 0
+		O.cut_overlay(acid_overlay, TRUE)
 
 /obj/structure/sink/update_icon()
 	..()

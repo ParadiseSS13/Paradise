@@ -58,7 +58,7 @@
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
 		broken = 1
-		opened = 0
+		opened = 1
 		update_icon()
 		if(stored_extinguisher)
 			stored_extinguisher.forceMove(loc)

@@ -10,7 +10,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "effect"
 	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = 0
-	unacidable = 1//So effect are not targeted by alien acid.
+	resistance_flags = ACID_PROOF//So effect are not targeted by alien acid.
 
 /obj/effect/effect/New()
 	..()

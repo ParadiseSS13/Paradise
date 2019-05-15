@@ -9,7 +9,7 @@
 	icon_off = "blackbox"
 	luminosity = 8
 	max_n_of_items = INFINITY
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	pixel_y = -4
 	use_power = NO_POWER_USE
@@ -100,7 +100,7 @@
 	use_power = NO_POWER_USE
 	density = 1
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
 	var/last_use_timer = 0

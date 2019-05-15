@@ -11,7 +11,7 @@
 	resistance_flags = FLAMMABLE
 	obj_integrity = 100
 	max_integrity = 100
-	burntime = 5
+	
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70

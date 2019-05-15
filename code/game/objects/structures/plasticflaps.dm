@@ -116,7 +116,7 @@
 				qdel(src)
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/plastic/five(loc)
 	qdel(src)
 

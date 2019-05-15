@@ -3,7 +3,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	anchored = 1.0
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 /obj/effect/landmark/New()
 

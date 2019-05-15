@@ -2,7 +2,7 @@
 	name = "manifest"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
-	unacidable = 1//Just to be sure.
+	resistance_flags = ACID_PROOF//Just to be sure.
 
 /obj/effect/manifest/New()
 

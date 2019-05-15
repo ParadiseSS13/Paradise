@@ -20,7 +20,7 @@ var/bomb_set
 	var/lastentered
 	var/is_syndicate = 0
 	use_power = NO_POWER_USE
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -331,7 +331,7 @@ var/bomb_set
 
 /obj/machinery/nuclearbomb/blob_act()
 	if(timing == -1.0)
-		qdel()
+		return
 	else
 		return ..()
 	return

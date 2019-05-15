@@ -1135,7 +1135,9 @@ so that different stomachs can handle things in different ways VB*/
 	for(var/X in get_equipped_items())
 		var/obj/item/I = X
 		I.acid_level = 0 //washes off the acid on our clothes
+		I.cut_overlay(acid_overlay, TRUE)
 		I.extinguish() //extinguishes our clothes
+		I.cut_overlay(fire_overlay, TRUE)
 	..()
 
 /mob/living/carbon/update_sight()

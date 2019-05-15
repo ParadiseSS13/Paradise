@@ -222,7 +222,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	user.throw_at(general_direction,pressures/10,pressures/50)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(can_unwrench)
 			if(stored)
 				stored.forceMove(get_turf(src))

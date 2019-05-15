@@ -33,11 +33,11 @@
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		unacidable = 1//Just to be sure.
+		resistance_flags = ACID_PROOF//Just to be sure.
 
 /obj/effect/beam
 	name = "beam"
-	unacidable = 1//Just to be sure.
+	resistance_flags = ACID_PROOF//Just to be sure.
 	var/def_zone
 	pass_flags = PASSTABLE
 
@@ -53,7 +53,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
 	anchored = 1.0
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 /obj/effect/projection
 	name = "Projection"
@@ -73,7 +73,7 @@
 	desc = "A stand with the empty body of a cyborg bolted to it."
 	density = 1
 	anchored = 1
-	unacidable = 1//temporary until I decide whether the borg can be removed. -veyveyr
+	resistance_flags = ACID_PROOF//temporary until I decide whether the borg can be removed. -veyveyr
 
 /obj/effect/spawner
 	name = "object spawner"

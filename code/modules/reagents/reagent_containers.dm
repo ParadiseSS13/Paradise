@@ -92,7 +92,8 @@
 /obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)
 	if(!reagents || !reagents.total_volume)
 		return
-
+	if(has_lid && !thrown)
+		return
 	if(ismob(target) && target.reagents)
 		if(thrown)
 			reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target

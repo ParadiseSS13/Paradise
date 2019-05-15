@@ -10,8 +10,9 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
-	resistance_flags = FLAMMABLE | ACID_PROOF
-	obj_integrity = 50
+	resistance_flags = ACID_PROOF
+	obj_integrity = 20
+	max_integrity = 20
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
@@ -26,15 +27,6 @@
 			return
 	else
 		..()
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(exposed_temperature,exposed_volume)
-	if(!reagents.total_volume)
-		return
-	..()
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/burn()
-	reagents.clear_reagents()
-	extinguish()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
 	overlays.Cut()

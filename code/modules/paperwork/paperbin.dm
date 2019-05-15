@@ -21,10 +21,11 @@
 	QDEL_LIST(papers)
 	return ..()
 
-/obj/item/paper_bin/burn()
-	amount = 0
-	extinguish()
-	update_icon()
+/obj/item/paper_bin/fire_act(exposed_temperature, exposed_volume)
+	if(amount)
+		amount = 0
+		update_icon()
+	..()
 
 /obj/item/paper_bin/MouseDrop(atom/over_object)
 	var/mob/M = usr

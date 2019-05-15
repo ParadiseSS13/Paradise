@@ -157,6 +157,9 @@
 	list_reagents = list("sugar" = 3, "ethanol" = 2, "stabilizing_agent" = 3, "minttoxin" = 2)
 	w_class = WEIGHT_CLASS_TINY
 	wine_power = 0.2
+	resistance_flags = FLAMMABLE
+	obj_integrity = 100
+	max_integrity = 100
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/New()
 	..()
@@ -201,6 +204,9 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FLAMMABLE
+	obj_integrity = 200
+	max_integrity = 200
 
 //what you can craft with these things
 /datum/crafting_recipe/mushroom_bowl

@@ -277,6 +277,7 @@
 	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
 	container_type = OPENCONTAINER
+	isGlass = FALSE
 
 /obj/item/reagent_containers/glass/beaker/noreact/New()
 	..()
@@ -292,6 +293,7 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	container_type = OPENCONTAINER
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)

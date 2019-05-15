@@ -69,9 +69,16 @@
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
 				anchored = 0
+		else
+			return ..()
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
+/obj/machinery/food_cart/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)
+	
 /obj/structure/foodcart/attack_hand(mob/user)
 	user.set_machine(src)
 	var/dat

@@ -128,7 +128,7 @@
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
 	
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
 

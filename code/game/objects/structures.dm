@@ -145,16 +145,16 @@
 	..()
 	if(!(resistance_flags & INDESTRUCTIBLE)) //phil35 maybe make this a proc so it doesn't show for effect?
 		if(resistance_flags & ON_FIRE)
-			user << "<span class='warning'>It's on fire!</span>"
+			to_chat(user, "<span class='warning'>It's on fire!</span>")
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		if(broken)
-			user << "<span class='notice'>It looks broken.</span>"
+			to_chat(user, "<span class='notice'>It looks broken.</span>")
 		switch(healthpercent)
 			if(100 to INFINITY)
-				user <<  "It seems pristine and undamaged."
+				to_chat(user, "It seems pristine and undamaged.")
 			if(50 to 100)
-				user <<  "It looks slightly damaged."
+				to_chat(user, "It looks slightly damaged.")
 			if(25 to 50)
-				user <<  "It appears heavily damaged."
+				to_chat(user, "It appears heavily damaged.")
 			if(0 to 25)
-				user <<  "<span class='warning'>It's falling apart!</span>" 
+				to_chat(user, "<span class='warning'>It's falling apart!</span>")

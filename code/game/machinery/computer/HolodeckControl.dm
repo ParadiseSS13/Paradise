@@ -347,8 +347,8 @@
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /obj/structure/table/holotable
-	can_deconstruct = FALSE
 	canSmoothWith = list(/obj/structure/table/holotable)
+	resistance_flags = NODECONSTRUCT
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
@@ -374,11 +374,9 @@
 	anchored = 1.0
 	flags = ON_BORDER
 
-/obj/structure/rack/holorack
-	can_deconstruct = FALSE
-
 /obj/item/holo
 	damtype = STAMINA
+	resistance_flags = NODECONSTRUCT
 
 /obj/item/holo/claymore
 	name = "claymore"
@@ -459,6 +457,10 @@
 	item_state = "basketball"
 	desc = "Here's your chance, do your dance at the Space Jam."
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
+	resistance_flags = NODECONSTRUCT
+
+/obj/structure/rack/holorack
+	resistance_flags = NODECONSTRUCT
 
 /obj/structure/holohoop
 	name = "basketball hoop"
@@ -468,6 +470,7 @@
 	anchored = 1
 	density = 1
 	pass_flags = LETPASSTHROW
+	resistance_flags = NODECONSTRUCT
 
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)

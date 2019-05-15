@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(safes)
 	icon_state = "safe"
 	obj_integrity = 1000 // better bring the big guns if you wanna crack this bad boy
 	max_integrity = 1000
+	integrity_failure = 100
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -58,6 +59,14 @@ GLOBAL_LIST_EMPTY(safes)
 			space += I.w_class
 			I.forceMove(src)
 
+/obj/structure/safe/obj_break()
+	if (!open)
+		open = TRUE
+		drill_open()
+	else
+		broken = TRUE
+		update_icon()
+			
 /obj/structure/safe/Destroy()
 	GLOB.safes -= src
 	drill?.soundloop?.stop()

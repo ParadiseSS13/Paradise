@@ -394,5 +394,5 @@
 	on = TRUE
 	anchored = TRUE
 	var/range = null
-	unacidable = TRUE
+	
 	resistance_flags = LAVA_PROOF

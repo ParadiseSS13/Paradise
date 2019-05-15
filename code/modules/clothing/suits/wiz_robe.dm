@@ -65,7 +65,7 @@
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20)
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
@@ -122,7 +122,7 @@
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	unacidable = 0
+	
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -133,7 +133,7 @@
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	unacidable = 0
+	
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -145,6 +145,6 @@
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	unacidable = 0
+	
 	resistance_flags = FLAMMABLE
 	magical = FALSE

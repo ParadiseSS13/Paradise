@@ -76,7 +76,7 @@ obj/item/clothing/head/helmet/space/syndicate/black/strike
 	desc = "A heavily armored black helmet that is only given to high-ranking Syndicate operatives."
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 /obj/item/clothing/suit/space/syndicate/black
 	name = "Black Space Suit"
@@ -88,7 +88,7 @@ obj/item/clothing/suit/space/syndicate/black/strike
 	desc = "A heavily armored, black space suit that is only given to high-ranking Syndicate operatives."
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
@@ -149,7 +149,7 @@ obj/item/clothing/head/helmet/space/syndicate/black/red/strike
 	desc = "A heavily armored, black and red space helmet that is only given to elite Syndicate operatives, it looks particularly menacing."
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 /obj/item/clothing/suit/space/syndicate/black/red
 	name = "Black and Red Space Suit"
@@ -161,7 +161,7 @@ obj/item/clothing/suit/space/syndicate/black/red/strike
 	desc = "A heavily armored, black and red space suit that is only given to elite Syndicate operatives, it looks particularly menacing."
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 
 //Black with yellow/red engineering syndicate space suit

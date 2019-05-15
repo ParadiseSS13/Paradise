@@ -126,7 +126,7 @@
 // Chair types
 /obj/structure/chair/wood
 	resistance_flags = FLAMMABLE
-	burntime = 20
+	
 	buildstackamount = 3
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood

@@ -24,7 +24,7 @@
 	desc="A tear in the dimensional fabric of space and time."
 	icon='icons/effects/tear.dmi'
 	icon_state="tear"
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	density = 0
 	anchored = 1
 	luminosity = 3

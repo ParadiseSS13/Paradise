@@ -20,7 +20,7 @@ To draw a rune, use an arcane tome.
 	icon_state = "1"
 	var/visibility = 0
 	var/view_range = 7
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	layer = TURF_LAYER
 
 	var/invocation = "Aiy ele-mayo!" //This is said by cultists when the rune is invoked.

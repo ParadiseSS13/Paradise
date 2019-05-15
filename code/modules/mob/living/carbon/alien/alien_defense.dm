@@ -42,6 +42,9 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
 
+/mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
+	return 0//aliens are immune to acid.
+	
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
 		return 0

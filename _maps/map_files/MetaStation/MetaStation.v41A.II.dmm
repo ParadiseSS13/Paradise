@@ -95089,7 +95089,7 @@
 "dds" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{

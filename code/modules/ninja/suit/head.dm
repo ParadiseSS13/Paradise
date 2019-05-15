@@ -6,5 +6,5 @@
 	icon_state = "s-ninja"
 	item_state = "s-ninja_hood"
 	armor = list(melee = 60, bullet = 60, laser = 45, energy = 15, bomb = 30, bio = 30, rad = 25)
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 	blockTracking = 1

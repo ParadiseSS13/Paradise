@@ -6,8 +6,7 @@
 	icon_state = "necrocrate"
 	icon_opened = "necrocrateopen"
 	icon_closed = "necrocrate"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."

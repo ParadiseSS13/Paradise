@@ -576,7 +576,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/collapse
 	var/image/down
 
-	var/health = 100
+	obj_integrity = 100
 
 /obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
 	step_away(src,my_target,2)
@@ -586,7 +586,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	my_target.visible_message("<span class='danger'>[my_target] flails around wildly.</span>", \
 							"<span class='danger'>[my_target] has attacked [src]!</span>")
 
-	health -= P.force
+	obj_integrity -= P.force
 	return
 
 /obj/effect/fake_attacker/Crossed(mob/M, somenumber)
@@ -624,7 +624,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/fake_attacker/proc/attack_loop()
 	while(1)
 		sleep(rand(5,10))
-		if(src.health < 0 || my_target.stat)
+		if(obj_integrity < 0 || my_target.stat)
 			collapse()
 			continue
 		if(get_dist(src,my_target) > 1)

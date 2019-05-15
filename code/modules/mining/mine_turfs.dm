@@ -67,6 +67,9 @@ var/global/list/rockTurfEdgeCache = list(
 
 	HideRock()
 
+/turf/simulated/mineral/acid_melt()
+	ChangeTurf(baseturf)
+
 /turf/simulated/mineral/proc/HideRock()
 	if(hidden)
 		name = "rock"
