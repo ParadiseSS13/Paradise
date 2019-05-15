@@ -105,6 +105,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
+	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -151,6 +152,8 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 80)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
@@ -186,6 +189,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/wood
 

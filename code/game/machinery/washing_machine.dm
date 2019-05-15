@@ -23,6 +23,10 @@
 	var/gibs_ready = 0
 	var/obj/crayon
 
+/obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal (loc, 2)
+	qdel(src)
+	
 /obj/machinery/washing_machine/verb/start()
 	set name = "Start Washing"
 	set category = "Object"

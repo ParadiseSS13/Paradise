@@ -158,7 +158,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
-/atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+/atom/proc/attack_hulk(mob/living/carbon/human/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_attack_logs(user, src, "punched", "hulk powers")
@@ -769,5 +769,3 @@ var/list/blood_splatter_icons = list()
 
 /atom/proc/mech_melee_attack(obj/mecha/M)
 	return
-/atom/proc/contents_explosion(severity, target)
-	return //For handling the effects of explosions on contents that would not normally be effected

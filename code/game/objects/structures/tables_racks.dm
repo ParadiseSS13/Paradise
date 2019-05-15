@@ -24,6 +24,7 @@
 	climbable = TRUE
 	obj_integrity = 100
 	max_integrity = 100
+	resistance_flags = NONE
 	integrity_failure = 30
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
@@ -451,8 +452,6 @@
 	obj_integrity = 70
 	max_integrity = 70
 	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
-	resistance_flags = FLAMMABLE
-	burntime = 20
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
 	if(!total_override)

@@ -258,14 +258,34 @@
 
 /datum/reagent/acid/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(ishuman(M) && !isgrey(M))
-		volume = round(volume,0.1)
-		if(method == INGEST)
-			M.adjustBruteLoss(min(6*toxpwr, volume * toxpwr))
-			return
+		var/mob/living/carbon/human/H = M
+		for (var/obj/item/clothing/N in H) // splash acid on all their clothes too
+			N.acid_act(acidpwr, volume)
 		if(method == TOUCH)
-			M.adjustBruteLoss(1.5 * min(6*toxpwr, volume * toxpwr))
-			return
-		M.acid_act(acidpwr, volume)
+			if(volume > 25)
+				if(H.wear_mask)
+					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+					return
+
+				if(H.head)
+					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+					return
+
+				if(prob(75))
+					H.take_organ_damage(5, 10)
+					H.emote("scream")
+					var/obj/item/organ/external/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.disfigure()
+				else
+					H.take_organ_damage(5, 10)
+			else
+				H.take_organ_damage(5, 10)
+		else
+			to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			if(volume >= 10)
+				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+				H.emote("scream")
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()

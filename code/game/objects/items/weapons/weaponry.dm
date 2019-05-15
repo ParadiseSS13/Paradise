@@ -9,6 +9,10 @@
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 
 
 /obj/item/banhammer/suicide_act(mob/user)
@@ -46,6 +50,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -70,6 +78,10 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -141,6 +153,7 @@
 	embedded_fall_chance = 0 //Hahaha!
 	sharp = 1
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/spear/kidan
 	icon_state = "kidanspear"
@@ -163,6 +176,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/homerun_ready = 0
 	var/homerun_able = 0
+	resistance_flags = FLAMMABLE
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"

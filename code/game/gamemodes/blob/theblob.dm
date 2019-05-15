@@ -22,7 +22,6 @@
 	src.update_icon()
 	..()
 	ConsumeTile()
-	return
 
 /obj/structure/blob/proc/ConsumeTile()
 	for(var/atom/A in loc)

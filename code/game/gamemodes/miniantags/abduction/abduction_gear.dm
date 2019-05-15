@@ -676,6 +676,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
 	icon_state = "bed"
+	resistance_flags = NONE
 
 /obj/structure/table_frame/abductor
 	name = "alien table frame"
@@ -684,6 +685,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 	density = TRUE
+	resistance_flags = NONE
 
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
 	if(iswrench(I))
@@ -716,6 +718,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			P.use(1)
 			new /obj/machinery/optable/abductor(loc)
 			qdel(src)
+	else ..()
 
 /obj/structure/table/abductor
 	name = "alien table"
@@ -728,6 +731,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestackamount = 1
 	canSmoothWith = null
 	frame = /obj/structure/table_frame/abductor
+	resistance_flags = NONE
 
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'
@@ -736,6 +740,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	injected_reagents = list("corazone","spaceacillin")
 	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
 	inject_amount = 10
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/abductor
 	name = "alien locker"
@@ -744,6 +749,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_closed = "abductor"
 	icon_opened = "abductoropen"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
+	resistance_flags = NONE
 
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"

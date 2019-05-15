@@ -5,14 +5,14 @@
 	flags = HEADBANGPROTECT
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
-	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 40, bullet = 30, laser = 30,energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
-	
+	resistance_flags = NONE
 	species_fit = list("Vox", "Drask", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
@@ -152,6 +152,7 @@
 	desc = "An ancient helmet made of bronze and leather."
 	flags = null
 	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
+	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
@@ -225,7 +226,7 @@ obj/item/clothing/head/blob
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0)
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 40, bomb = 60, bio = 0, rad = 0, fire = 60, acid = 60)
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command

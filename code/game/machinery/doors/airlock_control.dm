@@ -151,7 +151,7 @@
 	name = "airlock sensor"
 	anchored = 1
 	power_channel = ENVIRON
-
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/id_tag
 	var/master_tag
 	var/frequency = 1379

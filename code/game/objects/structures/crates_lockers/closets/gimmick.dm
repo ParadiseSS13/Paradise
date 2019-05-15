@@ -5,7 +5,8 @@
 	icon_closed = "cabinet_closed"
 	icon_opened = "cabinet_open"
 	resistance_flags = FLAMMABLE
-	burntime = 20
+	obj_integrity = 70
+	max_integrity = 70
 
 /obj/structure/closet/cabinet/update_icon()
 	if(!opened)

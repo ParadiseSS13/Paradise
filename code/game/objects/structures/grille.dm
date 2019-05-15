@@ -64,7 +64,7 @@
 		shock(user, 70)
 		shockcooldown = world.time + my_shockcooldown
 
-/obj/structure/grille/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+/obj/structure/grille/attack_hulk(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM)
 		if(!shock(user, 70))
 			..(user, TRUE)

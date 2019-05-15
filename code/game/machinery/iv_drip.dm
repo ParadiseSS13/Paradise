@@ -9,6 +9,11 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
+/obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc)
+	qdel(src)
+	
 /obj/machinery/iv_drip/update_icon()
 	cut_overlays()
 

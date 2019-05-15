@@ -1,6 +1,7 @@
 /obj/structure/flora
 	resistance_flags = FLAMMABLE
-	burntime = 30
+	obj_integrity = 150
+	max_integrity = 150
 
 //trees
 /obj/structure/flora/tree

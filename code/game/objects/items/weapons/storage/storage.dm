@@ -432,6 +432,10 @@
 		remove_from_storage(I, T)
 		CHECK_TICK
 
+/obj/item/storage/deconstruct(disassembled) // empty storage on floor when destroyed
+	quick_empty()
+	qdel(src)
+
 /obj/item/storage/New()
 	..()
 	can_hold = typecacheof(can_hold)

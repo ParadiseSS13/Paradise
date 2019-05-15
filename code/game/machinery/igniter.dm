@@ -4,7 +4,10 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "igniter1"
 	plane = FLOOR_PLANE
-	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0)
+	obj_integrity = 300
+	max_integrity = 300
+	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 	var/id = null
 	var/on = 1.0
 	anchored = 1.0

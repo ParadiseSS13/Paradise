@@ -3,6 +3,9 @@
 	name = "personal closet"
 	req_access = list(access_all_personal_lockers)
 	var/registered_name = null
+	obj_integrity = 250
+	max_integrity = 250
+	armor = list(melee = 30, bullet = 50, laser = 50, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 
 /obj/structure/closet/secure_closet/personal/New()
 	..()

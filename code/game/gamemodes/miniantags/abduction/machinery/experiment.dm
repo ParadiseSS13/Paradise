@@ -5,6 +5,7 @@
 	icon_state = "experiment-open"
 	anchored = TRUE
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/points = 0
 	var/credits = 0
 	var/list/history = list()

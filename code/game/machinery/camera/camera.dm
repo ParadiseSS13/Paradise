@@ -246,7 +246,8 @@
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
-		toggle_cam(null, 0)
+		toggle_cam(null, FALSE)
+		wires.CutAll()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(disassembled)

@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	anchored = FALSE
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
+	obj_integrity = 150
 	max_integrity = 150
 	can_be_hit = TRUE
 	//	Motion, EMP-Proof, X-Ray
@@ -25,6 +26,11 @@
 	QDEL_LIST(upgrades)
 	return ..()
 
+/obj/structure/camera_assembly/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc)
+	qdel(src) 
+	
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 
 	switch(state)

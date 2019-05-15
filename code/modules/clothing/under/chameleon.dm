@@ -183,7 +183,7 @@
 	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -210,7 +210,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -236,7 +236,7 @@
 	icon_state = "meson"
 	item_state = "meson"
 	resistance_flags = NONE
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -263,7 +263,7 @@
 	item_state = "ygloves"
 
 	resistance_flags = NONE
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -321,7 +321,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/obj/item/voice_changer/voice_changer
 
@@ -357,7 +357,7 @@
 	desc = "A pair of black shoes."
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -379,7 +379,7 @@
 	item_color = "black"
 	desc = "A pair of black shoes."
 	flags = NOSLIP
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize()
@@ -389,7 +389,7 @@
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
 	var/datum/action/item_action/chameleon/change/chameleon_action
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/storage/backpack/chameleon/Initialize()
@@ -411,7 +411,7 @@
 	name = "toolbelt"
 	desc = "Holds tools."
 	var/datum/action/item_action/chameleon/change/chameleon_action
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/storage/belt/chameleon/Initialize()
@@ -433,7 +433,7 @@
 /obj/item/radio/headset/chameleon
 	name = "radio headset"
 	var/datum/action/item_action/chameleon/change/chameleon_action
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/radio/headset/chameleon/Initialize()
@@ -454,7 +454,7 @@
 /obj/item/pda/chameleon
 	name = "PDA"
 	var/datum/action/item_action/chameleon/change/chameleon_action
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
 /obj/item/pda/chameleon/Initialize()
@@ -475,7 +475,7 @@
 
 /obj/item/stamp/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	
 /obj/item/stamp/chameleon/Initialize()

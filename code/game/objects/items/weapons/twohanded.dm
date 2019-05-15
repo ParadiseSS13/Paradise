@@ -110,6 +110,7 @@
 	icon_state = "offhand"
 	name = "offhand"
 	flags = ABSTRACT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/item/twohanded/offhand/unwield()
 	if(!QDELETED(src))
@@ -176,6 +177,10 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 30)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
@@ -219,6 +224,10 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/dualsaber/New()
 	if(!blade_color)
@@ -258,7 +267,7 @@
 		return ..()
 	return FALSE
 
-/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
+/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(wielded)
 		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
 		return TRUE
@@ -323,6 +332,9 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 
 /obj/item/twohanded/spear/update_icon()
 	if(explosive)
@@ -551,7 +563,8 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 50, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 50, bio = 0, rad = 0, fire = 100, acid = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
@@ -771,6 +784,10 @@
 	force_wielded = 15
 	attack_verb = list("attacked", "impaled", "pierced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	obj_integrity = 200
+	max_integrity = 200
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 30)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"

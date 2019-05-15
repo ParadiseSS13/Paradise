@@ -3,7 +3,7 @@
 
 	name = "Embedded Controller"
 	anchored = 1
-
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 

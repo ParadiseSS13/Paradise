@@ -173,4 +173,4 @@ datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/livi
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
-	resistance_flags = FIRE_PROOF
+	resistance_flags = NONE

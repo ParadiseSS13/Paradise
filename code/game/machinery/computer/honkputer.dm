@@ -10,7 +10,6 @@
 	circuit = /obj/item/circuitboard/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
-	//var/state = STATE_DEFAULT
 	var/const/STATE_DEFAULT = 1
 
 /obj/machinery/computer/HONKputer/process()

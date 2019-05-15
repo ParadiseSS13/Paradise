@@ -148,6 +148,8 @@
 
 /obj/item/stack/tile/fakespace/loaded
 	amount = 30
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 
 //High-traction
 /obj/item/stack/tile/noslip

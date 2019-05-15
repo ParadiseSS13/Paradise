@@ -6,6 +6,13 @@
 	density = 0
 	anchored = 1
 	var/notices = 0
+	obj_integrity = 150
+	max_integrity = 150
+
+/obj/structure/noticeboard/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal (loc, 1)
+	qdel(src)
 
 /obj/structure/noticeboard/Initialize()
 	..()

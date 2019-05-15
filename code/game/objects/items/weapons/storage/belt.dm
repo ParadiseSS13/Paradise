@@ -9,6 +9,7 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
+	resistance_flags = NONE
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)

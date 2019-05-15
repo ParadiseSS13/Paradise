@@ -4,7 +4,7 @@
 	internal_damage_threshold = 50
 	maint_access = 0
 	damage_absorption = list("brute"=0.7,"fire"=1,"bullet"=0.7,"laser"=0.85,"energy"=1,"bomb"=0.8)
-	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 100)
 	var/am = "d3c2fbcadca903a41161ccc9df9cf948"
 
 /obj/mecha/combat/moved_inside(var/mob/living/carbon/human/H as mob)

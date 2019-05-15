@@ -20,7 +20,7 @@
 
 /turf/simulated/proc/burn_tile()
 
-/turf/acid_act(acidpwr, acid_volume)
+/turf/simulated/acid_act(acidpwr, acid_volume)
 	. = 1
 	var/has_acid_effect = 0
 	for(var/obj/O in src)
@@ -36,7 +36,7 @@
 		new /obj/effect/acid(src, acidpwr, acid_volume)
 
 
-/turf/proc/acid_melt()
+/turf/simulated/proc/acid_melt()
 	return
 	
 /turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost

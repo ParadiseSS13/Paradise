@@ -4,6 +4,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien-pad-idle"
 	anchored = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/turf/teleport_target
 
 /obj/machinery/abductor/pad/proc/Warp(mob/living/target)

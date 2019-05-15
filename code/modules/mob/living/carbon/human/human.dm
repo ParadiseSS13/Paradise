@@ -220,7 +220,7 @@
 			else
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
-
+				damage_clothes(400 - getarmor(null, "bomb"), BRUTE, "bomb")
 				var/limbs_affected = pick(2,3,4)
 				var/obj/item/organ/external/processing_dismember
 				var/list/valid_limbs = bodyparts.Copy()
@@ -242,7 +242,7 @@
 			var/limbs_affected = 0
 			var/obj/item/organ/external/processing_dismember
 			var/list/valid_limbs = bodyparts.Copy()
-
+			damage_clothes(200 - getarmor(null, "bomb"), BRUTE, "bomb")
 			if(prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
 				f_loss = f_loss/1.5
@@ -287,6 +287,7 @@
 				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
+			damage_clothes(max(50 - getarmor(null,"bomb"), 0), BRUTE, "bomb")
 
 	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 

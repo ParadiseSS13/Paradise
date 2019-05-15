@@ -218,11 +218,11 @@
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
-	if(user.a_intent == "harm")
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
 
-/obj/machinery/constructable_frame/machine_frame/deconstruct(disassembled = TRUE)
+/obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(state >= 2)
 			new /obj/item/stack/cable_coil(loc , 5)

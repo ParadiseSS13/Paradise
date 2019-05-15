@@ -9,6 +9,7 @@
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
+	resistance_flags = NONE
 	
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey" )
 	sprite_sheets = list(

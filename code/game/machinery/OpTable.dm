@@ -56,7 +56,7 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM)
 		..(user, TRUE)
 		visible_message("<span class='warning'>[user] destroys the operating table!</span>")

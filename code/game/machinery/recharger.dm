@@ -69,6 +69,12 @@
 		use_power = IDLE_POWER_USE
 		update_icon()
 
+/obj/machinery/recharger/deconstruct(disassembled)
+	if (charging)
+		var/obj/item/gun/energy/G = charging // if it was charging a gun, drop the gun
+		G.forceMove(src.loc)
+	qdel(src)
+
 /obj/machinery/recharger/attack_tk(mob/user)
 	if(charging)
 		charging.update_icon()

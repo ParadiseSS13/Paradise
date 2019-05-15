@@ -9,15 +9,15 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0)
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0, fire = 70, acid = 50)
 	strip_delay = 70
-	
+	resistance_flags = NONE
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 25, bomb = 50, bio = 30, rad = 30)
+	armor = list(melee = 40, bullet = 30, laser = 25, energy = 25, bomb = 50, bio = 30, rad = 30, fire = 90, acid = 50)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
@@ -42,7 +42,8 @@
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
-	
+	resistance_flags = NONE
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 40, acid = 75)	
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -78,7 +79,7 @@
 	item_color = "hosred"
 	strip_delay = 50
 	put_on_delay = 50
-	
+	resistance_flags = NONE
 	var/footstep = 1
 	shoe_sound = "jackboot"
 

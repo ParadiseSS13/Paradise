@@ -276,12 +276,11 @@
 	qdel(src)
 
 /obj/item/toy/snappop/fire_act(exposed_temperature,exposed_volume)
-	..()
 	pop_burst()
 
 /obj/item/toy/snappop/throw_impact(atom/hit_atom)
-	..()
-	pop_burst()
+	if (!..())
+		pop_burst()
 
 /obj/item/toy/snappop/Crossed(H as mob|obj)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
@@ -404,7 +403,8 @@
 
 obj/item/toy/cards
 	resistance_flags = FLAMMABLE
-	burntime = 5
+	obj_integrity = 50
+	max_integrity = 50
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -751,6 +751,7 @@ obj/item/toy/cards/deck/syndicate
 	card_throw_speed = 3
 	card_throw_range = 20
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+	resistance_flags = NONE
 	
 
 /*

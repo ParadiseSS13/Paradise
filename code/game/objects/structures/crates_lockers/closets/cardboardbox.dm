@@ -5,9 +5,9 @@
 	icon_state = "cardboard"
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
-	health = 10
 	resistance_flags = FLAMMABLE
-	burntime = 20
+	obj_integrity = 70
+	max_integrity = 70
 	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/amt = 4

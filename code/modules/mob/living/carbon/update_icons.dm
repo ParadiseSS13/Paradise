@@ -35,7 +35,8 @@
 	return
 
 /obj/item/proc/worn_overlays(isinhands = FALSE, icon_file)
-	. = list()
+	return
+
 //update whether handcuffs appears on our hud.
 /mob/living/carbon/proc/update_hud_handcuffed()
 	if(hud_used)

@@ -5,6 +5,7 @@
 	icon_state = "dispenser"
 	density = TRUE
 	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/gland_types
 	var/list/gland_colors
 	var/list/amounts

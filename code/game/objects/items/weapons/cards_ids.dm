@@ -17,7 +17,8 @@
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	var/associated_account_number = 0
-
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/files = list(  )
 
 /obj/item/card/data

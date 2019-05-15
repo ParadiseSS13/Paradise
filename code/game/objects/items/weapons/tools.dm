@@ -28,6 +28,8 @@
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
+
 
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -234,6 +236,7 @@
 	sharp = 1
 	toolspeed = 1
 	var/random_color = TRUE
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
@@ -336,6 +339,8 @@
 	var/can_off_process = 0
 	var/light_intensity = 2 //how powerful the emitted light is when used.
 	var/nextrefueltick = 0
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 30)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/weldingtool/New()
 	..()
@@ -682,6 +687,7 @@ obj/item/weldingtool/experimental/process()
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"

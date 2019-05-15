@@ -9,6 +9,7 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
+	resistance_flags = NONE
 	
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
@@ -30,7 +31,8 @@
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
 	flash_protect = 2
 	tint = 2
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 55)
+	resistance_flags = FIRE_PROOF
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
 

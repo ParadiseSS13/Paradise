@@ -6,7 +6,7 @@
 	icon_state = "dispenser"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
-	resistance_flags = FIRE_PROOF | ACID_PROOF
+	resistance_flags = ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell

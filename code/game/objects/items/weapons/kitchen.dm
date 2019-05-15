@@ -33,6 +33,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 0
 	var/max_contents = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 
 /obj/item/kitchen/utensil/New()
 	if(prob(60))
@@ -182,6 +183,7 @@
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
 
 /*

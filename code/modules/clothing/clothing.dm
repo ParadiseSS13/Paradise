@@ -270,14 +270,17 @@ BLIND     // can't see anything
 		damaged_clothes = 0
 		cut_overlay(damaged_clothes_icons[index], TRUE)
 
-/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
-	if(damaged_item && istype(W, /obj/item/stack/sheet/cloth))
+/obj/item/clothing/attackby(obj/item/W, mob/user, params)
+	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cloth))
 		var/obj/item/stack/sheet/cloth/C = W
 		C.use(1)
 		update_clothes_damaged_state(FALSE)
 		obj_integrity = max_integrity
 		user << "<span class='notice'>You fix the damages on [src] with [C].</span>"
 		return 1
+	return ..()
+
+/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
@@ -661,7 +664,7 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	resistance_flags = 0
+	resistance_flags = NONE
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
@@ -689,7 +692,7 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight,/obj/item/tank)
 	slowdown = 1
-	resistance_flags = 0
+	resistance_flags = NONE
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50, fire = 80, acid = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS

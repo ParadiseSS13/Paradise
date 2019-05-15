@@ -43,6 +43,7 @@
 /obj/item/trash/plate
 	name = "Plate"
 	icon_state = "plate"
+	resistance_flags = NONE
 	
 
 /obj/item/trash/snack_bowl
@@ -76,6 +77,7 @@
 	icon_state = "cola"
 	var/is_glass = 0
 	var/is_plastic = 0
+	resistance_flags = NONE
 	
 
 /obj/item/trash/gum

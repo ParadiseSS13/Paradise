@@ -235,7 +235,7 @@
 	item_state = "hazard"
 	blood_overlay_type = "armor"
 	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen)
-	
+	resistance_flags = NONE
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'

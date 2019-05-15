@@ -10,9 +10,9 @@
 	force = 5
 	throwforce = 10
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
-	max_integrity = 40
+	armor = list(melee = 100, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 100)
 	obj_integrity = 40
+	max_integrity = 40
 	item_state = "shard-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")

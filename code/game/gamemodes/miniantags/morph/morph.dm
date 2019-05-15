@@ -12,6 +12,7 @@
 	icon_dead = "morph_dead"
 	speed = 2
 	a_intent = INTENT_HARM
+	obj_damage = 50
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE

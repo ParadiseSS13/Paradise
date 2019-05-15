@@ -211,7 +211,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		if(istype(C))
 			if(C.gloves && (C.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				user << "<span class='notice'>You put out the fire on [src].</span>"
+				to_chat(user,"<span class='notice'>You put out the fire on [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
 				var/obj/item/organ/external/affecting = C.get_organ("[user.hand ? "l" : "r" ]_arm")

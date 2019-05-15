@@ -15,7 +15,8 @@
 	slot_flags = SLOT_BELT
 	attack_verb = null
 	var/lit = 0
-
+	resistance_flags = FIRE_PROOF
+	
 /obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."

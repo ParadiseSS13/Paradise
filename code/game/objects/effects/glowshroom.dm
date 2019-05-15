@@ -9,6 +9,8 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowshroom" //replaced in New
 	layer = 2.1
+	obj_integrity = 30
+	max_integrity = 30
 	var/endurance = 30
 	var/delay = 1200
 	var/floor = 0
@@ -16,6 +18,13 @@
 	var/spreadIntoAdjacentChance = 60
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
+/obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
+	. = 1
+	visible_message("<span class='danger'>[src] melts away!</span>")
+	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
+	I.desc = "Looks like this was \an [src] some time ago."
+	qdel(src)
+	
 /obj/structure/glowshroom/glowcap
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."

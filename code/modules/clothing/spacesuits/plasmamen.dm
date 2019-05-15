@@ -5,7 +5,8 @@
 	desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	allowed = list(/obj/item/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
 	slowdown = 0
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
+	resistance_flags = FIRE_PROOF
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 100, acid = 75)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
@@ -81,6 +82,8 @@
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0, fire = 100, acid = 75)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/attack_self(mob/user)
 	toggle_light(user)

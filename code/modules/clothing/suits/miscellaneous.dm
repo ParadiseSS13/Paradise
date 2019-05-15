@@ -17,6 +17,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/gun/energy/laser/tag/blue)
+	resistance_flags = NONE
 	
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -31,6 +32,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/gun/energy/laser/tag/red)
+	resistance_flags = NONE	
 	
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -138,8 +140,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	
-
+	resistance_flags = NONE
 
 /obj/item/clothing/suit/hastur
 	name = "Hastur's robes"
@@ -148,7 +149,7 @@
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-
+	resistance_flags = NONE
 
 /obj/item/clothing/suit/imperium_monk
 	name = "imperium monk"
@@ -158,6 +159,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	resistance_flags = NONE
 
 /obj/item/clothing/suit/chickensuit
 	name = "chicken suit"

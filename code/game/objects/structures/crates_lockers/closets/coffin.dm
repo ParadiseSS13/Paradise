@@ -5,7 +5,8 @@
 	icon_closed = "coffin"
 	icon_opened = "coffin_open"
 	resistance_flags = FLAMMABLE
-	burntime = 20
+	obj_integrity = 70
+	max_integrity = 70
 	material_drop = /obj/item/stack/sheet/wood
 
 /obj/structure/closet/coffin/update_icon()

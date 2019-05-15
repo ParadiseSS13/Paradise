@@ -393,7 +393,15 @@
 			return ARM_RIGHT
 		if("l_arm")
 			return ARM_LEFT
+		if ("l_hand")
+			return HAND_LEFT
+		if ("r_hand")
+			return HAND_RIGHT
 		if("r_leg")
 			return LEG_RIGHT
 		if("l_leg")
 			return LEG_LEFT
+		if ("r_foot")
+			return FOOT_RIGHT
+		if ("l_loot")
+			return FOOT_LEFT

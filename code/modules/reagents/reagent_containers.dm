@@ -77,8 +77,9 @@
 
 /obj/item/reagent_containers/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	SplashReagents(hit_atom, TRUE)
-	smash(hit_atom,TRUE)
+	if (!.)
+		SplashReagents(hit_atom, TRUE)
+		smash(hit_atom,TRUE)
 
 /obj/item/reagent_containers/proc/smash(atom/target, mob/thrower, ranged = FALSE)
 	if(!isGlass)

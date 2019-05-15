@@ -41,6 +41,9 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(floor_tile)
 		builtin_tile = new floor_tile
 
+/turf/simulated/floor/acid_melt()
+	ChangeTurf(baseturf)
+
 /turf/simulated/floor/Destroy()
 	QDEL_NULL(builtin_tile)
 	return ..()

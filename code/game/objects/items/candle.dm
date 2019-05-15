@@ -51,10 +51,10 @@
 			light("<span class='notice'>[user] tilts [C] and lights [src] with it.</span>")
 
 
-/obj/item/candle/fire_act(exposed_temperature,exposed_volume)
-	..()
-	if(!lit)
+/obj/item/candle/fire_act(exposed_temperature, exposed_volume)
+	if(!src.lit)
 		light() //honk
+	..()
 
 /obj/item/candle/proc/light(show_message)
 	if(!lit)

@@ -85,6 +85,7 @@
 	name = "chrysalis wall"
 	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
 	max_integrity = INFINITY
+	resistance_flags = FIRE_PROOF | ACID_PROOF // can't be too safe
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"

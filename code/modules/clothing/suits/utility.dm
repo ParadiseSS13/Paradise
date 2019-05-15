@@ -65,7 +65,7 @@
 	desc = "Use in case of bomb."
 	icon_state = "bombsuit"
 	flags = BLOCKHAIR | THICKMATERIAL
-	armor = list(melee = 20, bullet = 0, laser = 20, energy = 10, bomb = 100, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 0, laser = 20,energy = 10, bomb = 100, bio = 0, rad = 0, fire = 80, acid = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	cold_protection = HEAD
@@ -74,6 +74,7 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 70
 	put_on_delay = 70
+	resistance_flags = NONE
 	
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -92,7 +93,7 @@
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor = list(melee = 20, bullet = 0, laser = 20, energy = 10, bomb = 100, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 0, laser = 20,energy = 10, bomb = 100, bio = 0, rad = 0, fire = 80, acid = 50)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -100,7 +101,8 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	strip_delay = 70
 	put_on_delay = 70
-	
+	resistance_flags = NONE
+
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -125,9 +127,10 @@
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = BLOCKHAIR|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 60, rad = 100)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 60, rad = 100, fire = 30, acid = 30)
 	strip_delay = 60
 	put_on_delay = 60
+	resistance_flags = NONE
 	
 	species_fit = list("Vox")
 	sprite_sheets = list(

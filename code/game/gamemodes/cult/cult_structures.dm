@@ -42,7 +42,7 @@
 	)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
-/obj/structure/cult/functional/proc/destroy_structure()
+/obj/structure/cult/functional/deconstruct()
 	visible_message(death_message)
 	playsound(src, death_sound, 50, 1)
 	qdel(src)
@@ -68,23 +68,6 @@
 			icon_state = initial(icon_state)
 	else
 		return ..()
-
-/obj/structure/cult/functional/proc/updatehealth()
-	if(obj_integrity <= 0)
-		destroy_structure()
-
-/obj/structure/cult/functional/take_damage(damage, damage_type = BRUTE)
-	if(damage_type == BRUTE || damage_type == BURN)
-		obj_integrity -= damage
-		updatehealth()
-
-/obj/structure/cult/functional/attackby(obj/item/I, mob/living/user)
-	..()
-	take_damage(I.force, I.damtype)
-	playsound(loc, I.hitsound, 80, 1)
-
-/obj/structure/cult/functional/bullet_act(var/obj/item/projectile/P)
-	take_damage(P.damage, P.damage_type)
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
 	if(!iscultist(user))

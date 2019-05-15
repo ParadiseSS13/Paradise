@@ -84,7 +84,7 @@
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
-	resistance_flags = 0
+	resistance_flags = NONE
 	siemens_strength = 1
 	var/alarm_id = null
 	var/frequency = ATMOS_VENTSCRUB

@@ -355,6 +355,11 @@
 		update_icon()
 		use_power(200)
 
+/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
+	if(occupant)
+		go_out()
+	..()
+
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
 	if(!(occupant || mess))

@@ -37,7 +37,7 @@
 				if(prob(25))
 					qdel(src)
 
-/obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+/obj/effect/attack_hulk(mob/living/carbon/human/user)
 	return 0
 	
 /obj/effect/decal

@@ -13,6 +13,7 @@
 	force = 10
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)
+	resistance_flags = FIRE_PROOF
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	var/max_water = 50
 	var/last_use = 1.0

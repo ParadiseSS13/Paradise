@@ -774,6 +774,8 @@ var/global/list/multiverse = list()
 	var/cooldown_time = 30 //3s
 	var/cooldown = 0
 	burntime = 0
+	obj_integrity = 10
+	max_integrity = 10
 	resistance_flags = FLAMMABLE
 
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)

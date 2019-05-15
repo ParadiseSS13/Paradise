@@ -4,26 +4,20 @@
 	opacity = 0
 	density = 0
 	layer = 3.5
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	obj_integrity = 100
+	max_integrity = 100
+	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
-/obj/structure/sign/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			qdel(src)
-			return
-		if(3.0)
-			qdel(src)
-			return
-		else
-	return
-
-/obj/structure/sign/blob_act()
-	qdel(src)
-	return
-
+/obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/weapons/slash.ogg', 80, 1)
+			else
+				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 80, 1)
+			
 /obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
 	if(istype(tool, /obj/item/screwdriver) && !istype(src, /obj/structure/sign/double))
 		to_chat(user, "You unfasten the sign with your [tool].")
@@ -35,7 +29,8 @@
 		//S.icon = I.Scale(24, 24)
 		S.sign_state = icon_state
 		qdel(src)
-	else ..()
+	else
+		return ..()
 
 /obj/item/sign
 	name = "sign"
@@ -74,6 +69,8 @@
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "A framed picture of the station."
+	obj_integrity = 500
+	max_integrity = 500
 
 /obj/structure/sign/double/map/left
 	icon_state = "map-left"

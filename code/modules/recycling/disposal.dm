@@ -881,7 +881,7 @@
 	//pass on ex_act to our contents before calling it on ourself
 	var/obj/structure/disposalholder/H = locate() in src
 	if(H)
-		H.contents_explosion(severity, target)
+		H.ex_act(severity,target)
 	..()
 
 

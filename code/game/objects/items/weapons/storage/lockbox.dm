@@ -13,6 +13,11 @@
 	var/icon_locked = "lockbox+l"
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
+
+/obj/item/storage/lockbox/obj_break(damage_flag)
+	locked = 0
+	icon_state = icon_broken
 
 /obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))

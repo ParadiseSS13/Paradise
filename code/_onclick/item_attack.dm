@@ -86,6 +86,8 @@
 		return
 	if(flags & (NOBLUDGEON))
 		return
+	if(user.a_intent == INTENT_HELP) //so you don't hit a machine with a tool while trying to disassemble it.
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)

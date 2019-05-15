@@ -334,7 +334,6 @@
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
 	resistance_flags = FLAMMABLE
-	burntime = 20
 
 /obj/structure/closet/secure_closet/detective/New()
 	..()

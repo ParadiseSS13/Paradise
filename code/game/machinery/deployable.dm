@@ -71,7 +71,7 @@ for reference:
 	return
 
 /obj/structure/barricade/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool) && user.a_intent != "harm")
+	if(istype(I, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = I
 		if(obj_integrity < max_integrity)
 			if(WT.remove_fuel(0,user))
