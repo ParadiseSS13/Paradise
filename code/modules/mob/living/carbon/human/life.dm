@@ -806,6 +806,8 @@
 
 		handle_organs()
 		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
+		if (!B)
+			return
 		if((getBrainLoss() >= 120 && B.vital) || (health + (getOxyLoss() / 2)) <= -500)
 			death()
 			return
