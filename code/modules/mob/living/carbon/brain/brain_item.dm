@@ -18,6 +18,7 @@
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
+	var/decoy_override = FALSE	//if it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -34,6 +35,10 @@
 			brainmob.client.screen.len = null //clear the hud
 
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
+	if(brainmob || decoy_override)
+		return
+	if(!H.mind)
+		return
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)

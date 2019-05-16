@@ -31,6 +31,9 @@
 		H.dna.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
 		//  isn't, but I don't want to remove it, just in case.
+		var/obj/item/organ/internal/brain/B = user.get_int_organ(/obj/item/organ/internal/brain)
+		B.vital = FALSE
+		B.decoy_override = TRUE
 		for(var/organ_name in H.bodyparts_by_name)
 			var/obj/item/organ/external/O = H.bodyparts_by_name[organ_name]
 			if(!O)

@@ -805,8 +805,8 @@
 			gloves.germ_level += 1
 
 		handle_organs()
-
-		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
+		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
+		if((getBrainLoss() >= 120 && B.vital) || (health + (getOxyLoss() / 2)) <= -500)
 			death()
 			return
 

@@ -375,6 +375,11 @@ var/list/sting_paths
 			path.on_purchase(src)
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
+	if(istype(C))
+		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+		if(B)
+			B.vital = FALSE
+			B.decoy_override = TRUE	
 	mind.changeling.absorbed_dna |= C.dna.Clone()
 	mind.changeling.trim_dna()
 	return 1
