@@ -657,7 +657,7 @@ About the new airlock wires panel:
 				var/obj/item/organ/external/affecting = H.get_organ("head")
 				H.Stun(5)
 				H.Weaken(5)
-				if(affecting.receive_damage(10, 0))
+				if(affecting && affecting.receive_damage(10, 0))
 					H.UpdateDamageIcon()
 			else
 				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
