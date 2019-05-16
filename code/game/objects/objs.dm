@@ -30,8 +30,10 @@
 	..()
 	if(!armor)
 		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	if(obj_integrity == null)
+	if(!obj_integrity)
 		obj_integrity = max_integrity
+	if (!max_integrity)
+		max_integrity = obj_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		if(force_blueprints)

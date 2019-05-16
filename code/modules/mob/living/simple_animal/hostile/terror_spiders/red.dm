@@ -21,6 +21,7 @@
 	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	obj_damage = 200
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 2 // movement_delay() gives 4.5, or 0.45s between steps, which = about 2.2 tiles/second. Player is slightly faster than AI, but cannot move on diagonals.
 	spider_opens_doors = 2
@@ -63,5 +64,6 @@
 
 /obj/structure/spider/terrorweb/red
 	obj_integrity = 30
+	max_integrity = 30
 	name = "reinforced web"
 	desc = "This web is reinforced with extra strands, for added strength."

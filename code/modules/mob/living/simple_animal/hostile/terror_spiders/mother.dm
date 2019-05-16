@@ -20,6 +20,7 @@
 	health = 50
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+	obj_damage = 200
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2

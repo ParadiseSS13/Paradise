@@ -170,7 +170,7 @@
 	maxHealth = 240
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	obj_damage = 60
+	obj_damage = 200
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")

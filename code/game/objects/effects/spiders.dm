@@ -6,6 +6,7 @@
 	anchored = TRUE
 	density = FALSE
 	obj_integrity = 15
+	max_integrity = 15
 	resistance_flags = FLAMMABLE
 	var/mob/living/carbon/human/master_commander = null
 

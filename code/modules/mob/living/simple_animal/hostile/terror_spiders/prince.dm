@@ -24,6 +24,7 @@
 	ventcrawler = 0
 	ai_ventcrawls = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	obj_damage = 500
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2

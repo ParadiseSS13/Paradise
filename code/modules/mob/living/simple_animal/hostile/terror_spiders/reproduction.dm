@@ -9,7 +9,7 @@
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75
-	obj_integrity = 3
+	obj_integrity = 10
 	resistance_flags = FLAMMABLE
 	var/stillborn = FALSE
 	faction = list("terrorspiders")

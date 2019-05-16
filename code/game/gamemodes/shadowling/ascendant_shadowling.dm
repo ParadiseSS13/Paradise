@@ -29,6 +29,7 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	obj_damage = 200
 
 	faction = list("faithless")
 

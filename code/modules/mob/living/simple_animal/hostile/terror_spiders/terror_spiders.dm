@@ -198,7 +198,7 @@ var/global/list/ts_spiderling_list = list()
 				F.open()
 		else
 			to_chat(src, "Closing fire doors does not help.")
-	else if(istype(target, /obj/machinery/door/airlock))
+	else if(istype(target, /obj/machinery/door/airlock) && a_intent == INTENT_HELP)
 		var/obj/machinery/door/airlock/A = target
 		if(A.density)
 			try_open_airlock(A)

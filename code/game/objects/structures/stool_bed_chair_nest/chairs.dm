@@ -126,7 +126,8 @@
 // Chair types
 /obj/structure/chair/wood
 	resistance_flags = FLAMMABLE
-	
+	obj_integrity = 70
+	max_integrity = 70
 	buildstackamount = 3
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood

@@ -132,11 +132,13 @@
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
 	icon_state = "beret_atmospherics"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"

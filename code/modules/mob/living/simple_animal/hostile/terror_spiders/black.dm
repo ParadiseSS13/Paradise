@@ -21,6 +21,7 @@
 	health = 120
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	obj_damage = 100
 	web_type = /obj/structure/spider/terrorweb/black
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
@@ -49,6 +50,7 @@
 /obj/structure/spider/terrorweb/black
 	name = "sinister web"
 	desc = "This web has beads of a dark fluid on its strands."
+	resistance_flags = NONE
 
 /obj/structure/spider/terrorweb/black/web_special_ability(mob/living/carbon/C)
 	if(istype(C))

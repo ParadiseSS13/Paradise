@@ -24,6 +24,7 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	flags_size = ONESIZEFITSALL
+	resistance_flags = FIRE_PROOF
 	
 
 /obj/item/clothing/under/rank/atmospheric_technician/skirt

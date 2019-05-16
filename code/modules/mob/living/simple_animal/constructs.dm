@@ -308,6 +308,7 @@
 	melee_damage_upper = 5
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	obj_damage = 200
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"

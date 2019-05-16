@@ -19,6 +19,7 @@
 	health = 200
 	melee_damage_lower = 5
 	melee_damage_upper = 15
+	obj_damage = 150
 	spider_tier = TS_TIER_2
 	web_type = /obj/structure/spider/terrorweb/white
 

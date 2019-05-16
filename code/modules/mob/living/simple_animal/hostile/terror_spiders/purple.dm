@@ -27,6 +27,7 @@
 	ventcrawler = 0
 	ai_ventcrawls = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	obj_damage = 500
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	web_type = /obj/structure/spider/terrorweb/purple
 	ai_spins_webs = FALSE
@@ -95,3 +96,5 @@
 	desc = "This web is so thick, most cannot see beyond it."
 	opacity = 1
 	obj_integrity = 40
+	max_integrity = 40
+	resistance_flags = NONE

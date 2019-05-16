@@ -386,22 +386,22 @@
 	b_zone = check_zone(b_zone)
 	switch(b_zone)
 		if("chest")
-			return UPPER_TORSO | LOWER_TORSO
+			return UPPER_TORSO | LOWER_TORSO | FULL_BODY
 		if("head")
 			return HEAD
 		if("r_arm")
-			return ARM_RIGHT
+			return ARM_RIGHT | ARMS | FULL_BODY
 		if("l_arm")
-			return ARM_LEFT
+			return ARM_LEFT | ARMS | FULL_BODY
 		if ("l_hand")
-			return HAND_LEFT
+			return HAND_LEFT | HANDS | FULL_BODY
 		if ("r_hand")
-			return HAND_RIGHT
+			return HAND_RIGHT | HANDS | FULL_BODY
 		if("r_leg")
-			return LEG_RIGHT
+			return LEG_RIGHT | LEGS | FULL_BODY
 		if("l_leg")
-			return LEG_LEFT
+			return LEG_LEFT | LEGS | FULL_BODY
 		if ("r_foot")
-			return FOOT_RIGHT
-		if ("l_loot")
-			return FOOT_LEFT
+			return FOOT_RIGHT | FEET | FULL_BODY
+		if ("l_foot")
+			return FOOT_LEFT | FEET | FULL_BODY

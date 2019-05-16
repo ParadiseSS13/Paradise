@@ -20,7 +20,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 100
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-
+	obj_damage = 200
 	force_threshold = 15
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0

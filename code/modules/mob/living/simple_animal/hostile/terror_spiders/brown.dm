@@ -22,6 +22,7 @@
 	move_to_delay = 20 // Slow.
 	spider_opens_doors = 2 // Breach specialist.
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // Breaks anything.
+	obj_damage = 500
 	spider_tier = TS_TIER_2
 	ai_ventbreaker = 1
 	freq_ventcrawl_combat = 600 // Ventcrawls very frequently, breaking open vents as it goes.

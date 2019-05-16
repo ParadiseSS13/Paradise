@@ -8,6 +8,7 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
+	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
