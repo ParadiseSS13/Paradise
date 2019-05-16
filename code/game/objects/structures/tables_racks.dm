@@ -645,6 +645,7 @@
 	anchored = TRUE
 	pass_flags = LETPASSTHROW
 	max_integrity = 20
+	obj_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
 	to_chat(user, "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>")

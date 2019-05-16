@@ -29,6 +29,7 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
+	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.

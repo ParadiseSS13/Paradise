@@ -22,6 +22,9 @@
 
 /turf/simulated/acid_act(acidpwr, acid_volume)
 	. = 1
+	var/acid_type = /obj/effect/acid
+	if(acidpwr >= 200) //alien acid power
+		acid_type = /obj/effect/acid/alien
 	var/has_acid_effect = 0
 	for(var/obj/O in src)
 		if(intact && O.level == 1) //hidden under the floor
@@ -33,7 +36,7 @@
 			continue
 		O.acid_act(acidpwr, acid_volume)
 	if(!has_acid_effect)
-		new /obj/effect/acid(src, acidpwr, acid_volume)
+		new acid_type(src, acidpwr, acid_volume)
 
 
 /turf/simulated/proc/acid_melt()

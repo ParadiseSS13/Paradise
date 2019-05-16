@@ -1,4 +1,11 @@
 /obj/mecha/proc/get_armour_facing(relative_dir)
+	switch(relative_dir)
+		if(0) // BACKSTAB!
+			return facing_modifiers[BACK_ARMOUR]
+		if(45, 90, 270, 315)
+			return facing_modifiers[SIDE_ARMOUR]
+		if(225, 180, 135)
+			return facing_modifiers[FRONT_ARMOUR]
 	return 1 //always return non-0
 
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)

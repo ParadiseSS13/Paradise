@@ -661,11 +661,7 @@
 				return src.attack_hand(user)
 			if(W.flags & NOBLUDGEON)
 				return
-			user.changeNext_move(CLICK_CD_MELEE)
-			user.do_attack_animation(src)
-			user.visible_message("<span class='warning'>The [src.name] has been hit with the [W.name] by [user.name]!</span>", \
-				"<span class='warning'>You hit the [src.name] with your [W.name]!</span>", \
-				"You hear a bang.")
+			..()
 
 /obj/machinery/power/apc/emag_act(user as mob)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card

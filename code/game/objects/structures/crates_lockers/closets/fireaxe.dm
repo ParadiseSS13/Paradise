@@ -12,9 +12,10 @@
 	var/open = 0 //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
 	opened = 1
 	var/hitstaken = 0
+	var/hasaxe = 1
 	locked = 1
-	obj_integrity = 150
-	max_integrity = 150
+	obj_integrity = 100
+	max_integrity = 100
 	integrity_failure = 50
 
 /obj/structure/closet/fireaxecabinet/New()
@@ -41,7 +42,7 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon()
 			return
-	else if(istype(O, /obj/item/weldingtool) && user.a_intent == INTENT_HELP && !broken)
+	else if(istype(O, /obj/item/weldingtool) && !broken)
 		if (obj_integrity < max_integrity)
 			var/obj/item/weldingtool/WT = O
 			to_chat(user, "<span class='notice'>You begin repairing [src].</span>")
@@ -52,7 +53,7 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 			else
 				to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 		return
-	if(istype(O, /obj/item/twohanded/fireaxe) && open)
+	if(istype(O, /obj/item/twohanded/fireaxe) && open && user.a_intent == INTENT_HELP)
 		if(!fireaxe)
 			if(O:wielded)
 				to_chat(user, "<span class='warning'>Unwield the axe first.</span>")
@@ -92,7 +93,7 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 					src.locked = 1
 					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
 				return
-		else
+		else if (user.a_intent == INTENT_HELP)
 			open = !open
 			if(open)
 				icon_state = text("fireaxe[][][][]opening",hasaxe,src.open,src.hitstaken,broken)
@@ -100,6 +101,9 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 			else
 				icon_state = text("fireaxe[][][][]closing",hasaxe,src.open,src.hitstaken,broken)
 				spawn(10) update_icon()
+		else
+			opened = FALSE
+			return ..()
 
 /obj/structure/closet/fireaxecabinet/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -120,11 +124,12 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 
 /obj/structure/closet/fireaxecabinet/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
-		update_icon()
 		broken = TRUE
+		open = TRUE
 		playsound(src, 'sound/effects/Glassbr3.ogg', 100, 1)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
+		update_icon()
 
 /obj/structure/closet/fireaxecabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -145,7 +150,8 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
 			fireaxe = null
-			user << "<span class='caution'>You take the fire axe from the [name].</span>"
+			hasaxe = FALSE
+			to_chat(user, "<span class='caution'>You take the fire axe from the [name].</span>")
 			src.add_fingerprint(user)
 			update_icon()
 			return
@@ -162,29 +168,25 @@ obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/livi
 	return
 
 /obj/structure/closet/fireaxecabinet/update_icon()
-	cut_overlays()
 	if(fireaxe)
-		add_overlay("axe")
+		hasaxe = 1
 	if(!open)
 		var/hp_percent = obj_integrity/max_integrity * 100
-		if(broken)
-			add_overlay("glass4")
-		else
-			switch(hp_percent)
-				if(-INFINITY to 40)
-					add_overlay("glass3")
-				if(40 to 60)
-					add_overlay("glass2")
-				if(60 to 80)
-					add_overlay("glass1")
-				if(80 to INFINITY)
-					add_overlay("glass")
-		if(locked)
-			add_overlay("locked")
-		else
-			add_overlay("unlocked")
-	else
-		add_overlay("glass_raised")
+		switch(hp_percent)
+			if(-INFINITY to 50)
+				hitstaken = 4
+			if(60 to 70)
+				hitstaken = 3
+			if(70 to 80)
+				hitstaken = 2
+			if (80 to 90)
+				hitstaken = 1
+			if(90 to INFINITY)
+				hitstaken = 0
+	if (broken)
+		hitstaken = 4
+		open = TRUE
+	icon_state = text("fireaxe[][][][]",hasaxe,open,hitstaken,broken)
 
 /obj/structure/closet/fireaxecabinet/proc/toggle_lock(mob/user)
 	user << "<span class = 'caution'> Resetting circuitry...</span>"

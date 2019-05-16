@@ -624,15 +624,11 @@
 				else
 					var/melted_something = FALSE
 					if(H.wear_mask && !(H.wear_mask.flags & ACID_PROOF))
-						qdel(H.wear_mask)
-						H.update_inv_wear_mask()
-						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
+						H.wear_mask.acid_act(acidpwr,volume)
 						melted_something = TRUE
 
 					if(H.head && !(H.head.flags & ACID_PROOF))
-						qdel(H.head)
-						H.update_inv_head()
-						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
+						H.head.acid_act(acidpwr,volume)
 						melted_something = TRUE
 					if(melted_something)
 						return

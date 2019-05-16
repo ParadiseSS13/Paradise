@@ -16,6 +16,7 @@
 	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
+	isGlass = FALSE
 
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)

@@ -358,8 +358,7 @@
 	..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
-	for(var/obj/item/Item in contents)
-		remove_from_storage(Item, src.loc)
+	quick_empty()
 	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
@@ -433,7 +432,10 @@
 		CHECK_TICK
 
 /obj/item/storage/deconstruct(disassembled) // empty storage on floor when destroyed
-	quick_empty()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, T)
+		CHECK_TICK
 	qdel(src)
 
 /obj/item/storage/New()

@@ -44,7 +44,6 @@
 	if(!iscarbon(usr))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-	opened = !opened
 	toggle_cabinet()
 
 /obj/structure/extinguisher_cabinet/proc/toggle_cabinet(mob/user)
@@ -59,10 +58,10 @@
 	if(!broken && !(flags & NODECONSTRUCT))
 		broken = 1
 		opened = 1
-		update_icon()
 		if(stored_extinguisher)
 			stored_extinguisher.forceMove(loc)
 			stored_extinguisher = null
+		update_icon()
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

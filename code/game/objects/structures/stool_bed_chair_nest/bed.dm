@@ -9,7 +9,7 @@
  * Beds
  */
 
-/obj/structure/bed
+/obj/structure/bed	
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'

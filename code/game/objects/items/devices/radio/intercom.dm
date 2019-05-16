@@ -4,6 +4,9 @@
 	icon_state = "intercom"
 	anchored = 1
 	w_class = WEIGHT_CLASS_BULKY
+	can_be_hit = TRUE
+	obj_integrity = 100
+	max_integrity = 100
 	canhear_range = 2
 	flags = CONDUCT
 	var/number = 0
@@ -137,6 +140,8 @@
 /obj/item/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
+	if (user.a_intent == INTENT_HARM)
+		return ..()
 	switch(buildstage)
 		if(3)
 			if(iswirecutter(W) && b_stat && wires.IsAllCut())

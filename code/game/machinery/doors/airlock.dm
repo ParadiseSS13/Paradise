@@ -1201,7 +1201,7 @@ About the new airlock wires panel:
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
 		return
-	if (user.a_intent == "HARM")
+	if (user.a_intent == INTENT_HARM)
 		return ..()
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\

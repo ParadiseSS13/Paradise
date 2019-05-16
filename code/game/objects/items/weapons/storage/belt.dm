@@ -46,6 +46,7 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	resistance_flags = FIRE_PROOF
 	use_item_overlays = 1
 	can_hold = list(
 		/obj/item/crowbar,

@@ -91,7 +91,7 @@
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
 	var/untrackable // Can not be tracked by AI's
-
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/blood_type = "\[UNSET\]"
 	var/dna_hash = "\[UNSET\]"
 	var/fingerprint_hash = "\[UNSET\]"

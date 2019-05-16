@@ -157,6 +157,7 @@
 	desc = "It's a tough backpack for the daily grind of station life."
 	icon_state = "engiepack"
 	item_state = "engiepack"
+	resistance_flags = FIRE_PROOF
 	
 
 /obj/item/storage/backpack/botany
@@ -234,6 +235,7 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
+	resistance_flags = FIRE_PROOF
 	
 
 /obj/item/storage/backpack/satchel_med
@@ -480,6 +482,7 @@
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-eng"
 	item_state = "duffel-eng"
+	resistance_flags = FIRE_PROOF
 	
 
 /obj/item/storage/backpack/duffel/atmos
@@ -487,6 +490,7 @@
 	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
 	icon_state = "duffel-atmos"
 	item_state = "duffel-atmos"
+	resistance_flags = FIRE_PROOF
 	
 
 /obj/item/storage/backpack/duffel/hydro
@@ -524,6 +528,7 @@
 	name = "emergency response team engineer backpack"
 	desc = "A spacious backpack with lots of pockets, worn by engineering members of a Nanotrasen Emergency Response Team."
 	icon_state = "ert_engineering"
+	resistance_flags = FIRE_PROOF
 
 //Medical
 /obj/item/storage/backpack/ert/medical

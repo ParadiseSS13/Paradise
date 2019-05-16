@@ -229,6 +229,7 @@
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
+	return
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
@@ -313,10 +314,12 @@
 
 /atom/proc/blob_act(obj/structure/blob/B)
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
+	return
 
 /atom/proc/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
+	return
 
 /atom/proc/acid_act(acidpwr, acid_volume)
 	return
