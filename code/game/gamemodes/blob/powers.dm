@@ -367,10 +367,10 @@
 
 	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
 	if(!N)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring..</span>")
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
 		return
 	if(!istype(N, /obj/structure/blob/node))
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring..</span>")
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
 		return
 	if(!can_buy(100))
 		return

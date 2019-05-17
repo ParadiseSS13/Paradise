@@ -126,7 +126,7 @@
 /obj/screen/blob/Split
 	icon_state = "ui_split"
 	name = "Split consciousness (100)"
-	desc = "Creates another Blob Overmind at the targetted node. One use only.<br>Offsprings are unable to use this ability."
+	desc = "Creates another Blob Overmind at the targeted node. One use only.<br>Offspring are unable to use this ability."
 
 /obj/screen/blob/Split/Click()
 	if(isovermind(usr))
