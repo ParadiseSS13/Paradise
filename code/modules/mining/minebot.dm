@@ -207,19 +207,26 @@
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
 	button_icon_state = "meson"
+	var/sight_flags = SEE_TURFS
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /datum/action/innate/minedrone/toggle_meson_vision/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	if(user.sight & SEE_TURFS)
-		user.sight &= ~SEE_TURFS
-		user.lighting_alpha = initial(user.lighting_alpha)
+	var/mob/living/user = owner
+	var/is_active = user.sight & SEE_TURFS
+
+	if(is_active)
+		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+		user.update_sight()
 	else
-		user.sight |= SEE_TURFS
-		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		user.update_sight()
 
-	user.sync_lighting_plane_alpha()
+	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
 
-	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
+/datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
+	user.sight |= sight_flags
+	if(!isnull(lighting_alpha))
+		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
 /datum/action/innate/minedrone/toggle_mode
 	name = "Toggle Mode"

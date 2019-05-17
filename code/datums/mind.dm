@@ -18,6 +18,7 @@
 		However if you want that mind to have any special properties like being a traitor etc you will have to do that
 		yourself.
 */
+#define SUMMON_POSSIBILITIES 3
 
 /datum/mind
 	var/key
@@ -824,6 +825,11 @@
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
+					if(!summon_spots.len)
+						while(summon_spots.len < SUMMON_POSSIBILITIES)
+							var/area/summon = pick(return_sorted_areas() - summon_spots)
+							if(summon && is_station_level(summon.z) && summon.valid_territory)
+								summon_spots += summon
 			if("tome")
 				var/mob/living/carbon/human/H = current
 				if(istype(H))
