@@ -53,7 +53,7 @@
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = target.get_organ_slot("zombie_infection")
 	if(!infection)
-		if (target.InCritical || (!target.check_death_method && target.health <= HEALTH_THRESHOLD_DEAD))
+		if (T.InCritical() || (!T.check_death_method() && T.health <= HEALTH_THRESHOLD_DEAD))
 			infection = new(target)
 
 /obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
