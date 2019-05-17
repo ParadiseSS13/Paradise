@@ -378,8 +378,8 @@
 	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
 	qdel(N)
 
-	if(ticker && ticker.mode.name == "blob")
-		var/datum/game_mode/blob/BL = ticker.mode
+	if(SSticker && SSticker.mode.name == "blob")
+		var/datum/game_mode/blob/BL = SSticker.mode
 		BL.blobwincount += initial(BL.blobwincount)
 
 

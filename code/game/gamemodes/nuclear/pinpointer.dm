@@ -273,7 +273,7 @@
 	var/mob/living/carbon/nearest_op = null
 
 /obj/item/pinpointer/operative/attack_self()
-	if(!usr.mind || !(usr.mind in ticker.mode.syndicates))
+	if(!usr.mind || !(usr.mind in SSticker.mode.syndicates))
 		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return 0
 	if(!active)
@@ -290,7 +290,7 @@
 		nearest_op = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/mob/living/carbon/M in GLOB.mob_list)
-			if(M.mind && (M.mind in ticker.mode.syndicates))
+			if(M.mind && (M.mind in SSticker.mode.syndicates))
 				if(get_dist(M, get_turf(src)) < closest_distance) //Actually points toward the nearest op, instead of a random one like it used to
 					nearest_op = M
 

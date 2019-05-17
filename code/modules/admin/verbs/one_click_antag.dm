@@ -175,8 +175,13 @@ client/proc/one_click_antag()
 
 		for(var/i = 0, i<numCultists, i++)
 			H = pick(candidates)
-			ticker.mode.add_cultist(H.mind)
+			SSticker.mode.add_cultist(H.mind)
 			candidates.Remove(H)
+			if(!summon_spots.len)
+				while(summon_spots.len < SUMMON_POSSIBILITIES)
+					var/area/summon = pick(return_sorted_areas() - summon_spots)
+					if(summon && is_station_level(summon.z) && summon.valid_territory)
+						summon_spots += summon
 
 		return 1
 	return 0
@@ -247,17 +252,17 @@ client/proc/one_click_antag()
 		if(closet_spawn)
 			new /obj/structure/closet/syndicate/nuclear(closet_spawn.loc)
 
-		for(var/datum/mind/synd_mind in ticker.mode.syndicates)
+		for(var/datum/mind/synd_mind in SSticker.mode.syndicates)
 			if(synd_mind.current)
 				if(synd_mind.current.client)
 					for(var/image/I in synd_mind.current.client.images)
 						if(I.icon_state == "synd")
 							qdel(I)
 
-		for(var/datum/mind/synd_mind in ticker.mode.syndicates)
+		for(var/datum/mind/synd_mind in SSticker.mode.syndicates)
 			if(synd_mind.current)
 				if(synd_mind.current.client)
-					for(var/datum/mind/synd_mind_1 in ticker.mode.syndicates)
+					for(var/datum/mind/synd_mind_1 in SSticker.mode.syndicates)
 						if(synd_mind_1.current)
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
@@ -406,7 +411,7 @@ client/proc/one_click_antag()
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.offstation_role = TRUE
 	//Adds them to current traitor list. Which is really the extra antagonist list.
-	ticker.mode.traitors += new_syndicate_commando.mind
+	SSticker.mode.traitors += new_syndicate_commando.mind
 	new_syndicate_commando.equip_syndicate_commando(syndicate_leader_selected)
 
 	return new_syndicate_commando
@@ -466,7 +471,7 @@ client/proc/one_click_antag()
 					break
 
 				new_vox.key = theghost.key
-				ticker.mode.traitors += new_vox.mind
+				SSticker.mode.traitors += new_vox.mind
 
 				to_chat(new_vox, "<span class='notice'>You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span></span>")
 				to_chat(new_vox, "<span class='warning'>Don't forget to turn on your nitrogen internals!</span>")
