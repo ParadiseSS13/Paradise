@@ -335,6 +335,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .skrell					{color: #00CED1;}
 .solcom					{color: #8282FB;}
 .com_srus				{color: #7c4848;}
+.zombie					{color: #ff0000;}
 .soghun					{color: #228B22;}
 .changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
@@ -388,7 +389,6 @@ h1.alert, h2.alert			{color: #FFF;}
 .whisper				{font-style:italic;color:#CCCCCC;}
 /* Recruiting stuff */
 .recruit 				{color: #5c00e6; font-weight: bold; font-style: italic;}
-"}
 
 .memo					{color: #638500;	text-align: center;}
 .memoedit				{text-align: center;	font-size: 75%;}

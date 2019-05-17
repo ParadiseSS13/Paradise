@@ -22,9 +22,6 @@
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
-
-#define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
-
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2

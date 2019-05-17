@@ -757,6 +757,15 @@
 	desc = "Bark bark bark."
 	key = "vu"
 
+/datum/language/com_srus
+	name = "Zombie"
+	desc = "BRAAAAAAINS!"
+	speech_verb = "moans"
+	whisper_verb = "mutters"
+	exclaim_verb = "wails"
+	colour = "zombie"
+	key = "zom"
+	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
 
 
 #undef SCRAMBLE_CACHE_LEN

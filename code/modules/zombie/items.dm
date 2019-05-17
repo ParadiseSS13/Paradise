@@ -1,7 +1,7 @@
 /obj/item/zombie_hand
 	name = "zombie claw"
 	desc = "A zombie's claw is its primary tool, capable of infecting \
-		unconcious or dead humans, butchering all other living things to \
+		unconscious or dead humans, butchering all other living things to \
 		sustain the zombie, forcing open airlock doors and opening \
 		child-safe caps on bottles."
 	flags = NODROP|ABSTRACT
@@ -9,7 +9,6 @@
 	icon_state = "bloodhand_left"
 	var/icon_left = "bloodhand_left"
 	var/icon_right = "bloodhand_right"
-	//hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 25
 	damtype = "brute"
 
@@ -43,7 +42,6 @@
 			check_feast(target, user)
 
 /obj/item/zombie_hand/proc/check_infection(var/mob/living/carbon/human/target, var/mob/user)
-	CHECK_DNA_AND_SPECIES(target)
 	var/mob/living/carbon/human/T = target
 	if(NOZOMBIE in T.dna.species.species_traits)
 		// cannot infect any NOZOMBIE subspecies (such as high functioning
