@@ -23,6 +23,8 @@
 // MUTATIONS
 ///////////////////////////////////////
 
+#define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
+
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2
@@ -147,3 +149,4 @@
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
 #define CAN_WINGDINGS	19
+#define NOZOMBIE 20

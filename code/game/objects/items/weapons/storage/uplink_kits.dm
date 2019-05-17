@@ -113,6 +113,19 @@
 	desc = "A sleek, sturdy box"
 	icon_state = "box_of_doom"
 
+/obj/item/storage/box/syndie_kit/romerol
+	name = "Romerol Kit"
+	desc = "A box containing a deadly virus capable of reanimating dead as zombies."
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/reagent_containers/glass/bottle/romerol,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/dropper)
+
+/obj/item/storage/box/syndie_kit/romerol/New()
+	..()
+	new /obj/item/reagent_containers/glass/bottle/romerol(src)
+	new /obj/item/reagent_containers/syringe(src)
+	new /obj/item/reagent_containers/dropper(src)
+	return
+
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)

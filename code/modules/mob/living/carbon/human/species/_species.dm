@@ -51,9 +51,10 @@
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-
+	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-
+	var/obj/item/mutanthands
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -305,6 +306,12 @@
 	return
 
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
+	return
+
+/datum/species/proc/spec_death(mob/living/carbon/human/C)
+	return
+
+/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	return
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)

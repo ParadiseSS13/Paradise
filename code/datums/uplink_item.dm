@@ -190,6 +190,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	job = list("Clown")
 
+/datum/uplink_item/stealthy_weapons/romerol_kit
+	name = "Romerol"
+	reference = "ROM"
+	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. On death, these nodules take control of the dead body, causing limited revivification, along with slurred speech, aggression, and the ability to infect others with this agent."
+	item = /obj/item/storage/box/syndie_kit/romerol
+	cost = 25
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -638,6 +645,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
+	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
 	item = /obj/item/storage/box/syndie_kit/guardian

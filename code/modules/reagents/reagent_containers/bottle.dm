@@ -12,6 +12,11 @@
 	container_type = OPENCONTAINER
 	volume = 30
 
+/obj/item/reagent_containers/glass/bottle/romerol
+	name = "romerol bottle"
+	desc = "A small bottle of Romerol. The REAL zombie powder."
+	list_reagents = list("romerol" = 30)
+	
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon()
 

@@ -203,6 +203,23 @@
 
 	return ..()
 
+datum/reagent/romerol
+	name = "romerol"
+	// the REAL zombie powder
+	id = "romerol"
+	description = "Romerol is a highly experimental bioterror agent \
+		which causes dormant nodules to be etched into the grey matter of \
+		the subject. These nodules only become active upon death of the \
+		host, upon which, the secondary structures activate and take control \
+		of the host body."
+	color = "#123524" // RGB (18, 53, 36)
+	metabolization_rate = INFINITY
+
+/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H)
+	// Silently add the zombie infection organ to be activated upon death
+	new /obj/item/organ/internal/zombie_infection(H)
+	..()
+
 /datum/reagent/stable_mutagen/on_tick()
 	var/datum/reagent/blood/B = locate() in holder.reagent_list
 	if(B && islist(B.data) && !data)
