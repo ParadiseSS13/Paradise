@@ -330,7 +330,7 @@
 		return
 		
 	if (!head)
-		to_chat(src, "They have no head to infest!")
+		to_chat(src, "[M.p_they(TRUE)] [M.p_have()] no head to infest!")
 		return
 
 	to_chat(src, "You slither up [M] and begin probing at [M.p_their()] ear canal...")
