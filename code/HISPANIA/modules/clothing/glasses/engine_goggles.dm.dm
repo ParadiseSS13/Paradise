@@ -1,3 +1,86 @@
+//esto va en code\__DEFINES\traits
+#define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
+#define ADD_TRAIT(target, trait, source) \
+	do { \
+		var/list/_L; \
+		if (!target.status_traits) { \
+			target.status_traits = list(); \
+			_L = target.status_traits; \
+			_L[trait] = list(source); \
+		} else { \
+			_L = target.status_traits; \
+			if (_L[trait]) { \
+				_L[trait] |= list(source); \
+			} else { \
+				_L[trait] = list(source); \
+			} \
+		} \
+	} while (0)
+#define REMOVE_TRAIT(target, trait, sources) \
+	do { \
+		var/list/_L = target.status_traits; \
+		var/list/_S; \
+		if (sources && !islist(sources)) { \
+			_S = list(sources); \
+		} else { \
+			_S = sources\
+		}; \
+		if (_L && _L[trait]) { \
+			for (var/_T in _L[trait]) { \
+				if ((!_S && (_T != ROUNDSTART_TRAIT)) || (_T in _S)) { \
+					_L[trait] -= _T \
+				} \
+			};\
+			if (!length(_L[trait])) { \
+				_L -= trait \
+			}; \
+			if (!length(_L)) { \
+				target.status_traits = null \
+			}; \
+		} \
+	} while (0)
+#define REMOVE_TRAITS_NOT_IN(target, sources) \
+	do { \
+		var/list/_L = target.status_traits; \
+		var/list/_S = sources; \
+		if (_L) { \
+			for (var/_T in _L) { \
+				_L[_T] &= _S;\
+				if (!length(_L[_T])) { \
+					_L -= _T } \
+				};\
+				if (!length(_L)) { \
+					target.status_traits = null\
+				};\
+		}\
+	} while (0)
+#define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
+#define HAS_TRAIT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (source in target.status_traits[trait]) : FALSE) : FALSE)
+//fin traits
+
+//esto va en la carpeta code\game\objects\items\devices\escanners
+/obj/item/t_scanner/proc/scantg()
+	t_ray_scan(loc)
+
+/proc/t_ray_scan(mob/viewer, flick_time = 8, distance = 3)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	var/list/t_ray_images = list()
+	for(var/obj/O in orange(distance, viewer) )
+		if(O.level != 1)
+			continue
+
+		if(O.invisibility == INVISIBILITY_MAXIMUM || HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+			var/image/I = new(loc = get_turf(O))
+			var/mutable_appearance/MA = new(O)
+			MA.alpha = 128
+			MA.dir = O.dir
+			I.appearance = MA
+			t_ray_images += I
+	if(t_ray_images.len)
+		flick_overlay(t_ray_images, list(viewer.client), flick_time)
+//fin escaners 
+
 //Engineering Mesons
 
 #define MODE_NONE ""
@@ -15,7 +98,7 @@
 	actions_types = list(/datum/action/item_action/toggle_mode)
 
 	vision_flags = NONE
-	darkness_view = 2
+	see_in_dark = 2
 	invis_view = SEE_INVISIBLE_LIVING
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
@@ -38,12 +121,12 @@
 	switch(mode)
 		if(MODE_MESON)
 			vision_flags = SEE_TURFS
-			darkness_view = 1
+			see_in_dark = 1
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 		if(MODE_TRAY) //undoes the last mode, meson
 			vision_flags = NONE
-			darkness_view = 2
+			see_in_dark = 2
 			lighting_alpha = null
 
 	if(ishuman(user))
