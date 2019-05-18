@@ -117,7 +117,6 @@
 	lighting = 0
 	operating = 0
 
-
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
 
@@ -132,6 +131,9 @@
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
+
+/obj/machinery/power/apc/get_cell()
+	return cell
 
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.

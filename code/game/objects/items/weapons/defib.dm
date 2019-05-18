@@ -23,6 +23,9 @@
 	var/obj/item/stock_parts/cell/high/bcell = null
 	var/combat = 0 //can we revive through space suits?
 
+/obj/item/defibrillator/get_cell()
+	return bcell
+
 /obj/item/defibrillator/New() //starts without a cell for rnd
 	..()
 	paddles = make_paddles()
