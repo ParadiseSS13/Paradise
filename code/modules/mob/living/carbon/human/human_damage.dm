@@ -89,7 +89,7 @@
 		if(!check_death_method() && amount > 10)//for newcrit races only, and only for bigger hits
 			switch(health)//bad things happen, depending on how hurt you are.
 				if(-INFINITY to -300)//really massive damage
-					src.set_heartattack(TRUE)
+					set_heartattack(TRUE)
 				if(-299 to -200)
 					var/datum/disease/D = new /datum/disease/critical/heart_failure
 					ForceContractDisease(D)
