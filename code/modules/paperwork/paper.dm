@@ -403,8 +403,8 @@
 
 /obj/item/paper/fire_act()
 	..()
-	if(burn_state >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
-		info = "[stars(info)]"
+	if(burn_state >= FLAMMABLE) //Renders paper that has been lit on fire to be illegible.
+		info = "<i>Heat-curled corners and sooty words reveal little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(var/obj/item/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
