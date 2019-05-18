@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	school = "transmutation"
 	charge_max = 600
+	starts_charged = FALSE
 	clothes_req = 0
 	stat_allowed = 1
 	invocation = ""
