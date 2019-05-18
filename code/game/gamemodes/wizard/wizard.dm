@@ -194,7 +194,7 @@
 
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
-		ticker.mode_result = "wizard loss - wizard killed"
+		SSticker.mode_result = "wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1

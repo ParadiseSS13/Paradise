@@ -76,7 +76,7 @@
 
 	if(SSdbcore.Connect())
 		var/sql
-		if(ticker && ticker.mode)
+		if(SSticker && SSticker.mode)
 			sql += "game_mode = '[SSticker.mode]'"
 		if(sql)
 			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")

@@ -279,10 +279,10 @@ var/global/list/all_cults = list()
 	bonus_check()
 
 	if(!check_cult_victory())
-		ticker.mode_result = "cult win - cult win"
+		SSticker.mode_result = "cult win - cult win"
 		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
 	else
-		ticker.mode_result = "cult loss - staff stopped the cult"
+		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"

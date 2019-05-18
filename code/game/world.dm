@@ -7,10 +7,10 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		log_world("Database connection established.")
 	else
 		log_world("Your server failed to establish a connection with the database.")
-	
+
 	SSdbcore.SetRoundID()
 	SetupLogs()
-	
+
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 
@@ -309,7 +309,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
 	if(end_string)
-		ticker.end_state = end_string
+		SSticker.end_state = end_string
 	Master.Shutdown() //run SS shutdowns
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)

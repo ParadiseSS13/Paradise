@@ -237,7 +237,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	to_chat(world, "<span class='warning'><FONT size = 3><B>[win_type] [win_group] victory!</B></FONT></span>")
 	to_chat(world, "[win_msg]")
-	ticker.mode_result = "heist - [win_type] [win_group]"
+	SSticker.mode_result = "heist - [win_type] [win_group]"
 
 	var/count = 1
 	for(var/datum/objective/objective in raid_objectives)

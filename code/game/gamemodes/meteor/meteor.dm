@@ -54,7 +54,7 @@
 	else
 		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
 
-	ticker.mode_result = "meteor end - evacuation"
+	SSticker.mode_result = "meteor end - evacuation"
 
 	..()
 	return 1
