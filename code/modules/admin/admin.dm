@@ -28,6 +28,11 @@ var/global/nologevent = 0
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
 				to_chat(C, msg)
 
+/proc/message_mentorTicket(var/msg)
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_MENTORTICKETLOGS))
+				to_chat(C, msg)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
 	if(!M || !M.ckey)
@@ -73,7 +78,7 @@ var/global/nologevent = 0
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
 	if(M.client)
-		body += "<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a> - "
+		body += "<a href='?src=[usr.UID()];priv_msg=[M.client.UID()]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
 		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
@@ -567,7 +572,7 @@ var/global/nologevent = 0
 		delay = delay * 10
 	message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
 	log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-	ticker.delay_end = 0
+	SSticker.delay_end = 0
 	feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
@@ -667,20 +672,26 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Unable to start the game as it is not set up.")
 		return
-	if(ticker.current_state == GAME_STATE_PREGAME)
-		if(alert(usr, "Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
+
+	if(config.start_now_confirmation)
+		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
-		ticker.current_state = GAME_STATE_SETTING_UP
-		log_admin("[key_name(usr)] has started the game.")
-		message_admins("[key_name_admin(usr)] has started the game.")
+
+	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
+		SSticker.force_start = TRUE
+		log_admin("[usr.key] has started the game.")
+		var/msg = ""
+		if(SSticker.current_state == GAME_STATE_STARTUP)
+			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
+		message_admins("<font color='blue'>[usr.key] has started the game.[msg]</font>")
 		feedback_add_details("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
-		return 0
+		return 
 
 /datum/admins/proc/toggleenter()
 	set category = "Server"
@@ -757,10 +768,10 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!ticker || ticker.current_state != GAME_STATE_PREGAME)
-		ticker.delay_end = !ticker.delay_end
-		log_admin("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
-		message_admins("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
+	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
+		SSticker.delay_end = !SSticker.delay_end
+		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
+		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		return //alert("Round end delayed", null, null, null, null, null)
 	going = !( going )
 	if(!( going ))
@@ -774,32 +785,32 @@ var/global/nologevent = 0
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
 /proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
-	if(!ticker || !ticker.mode)
+	if(!SSticker || !SSticker.mode)
 		return 0
 	if(!istype(M))
 		return 0
-	if((M.mind in ticker.mode.head_revolutionaries) || (M.mind in ticker.mode.revolutionaries))
-		if(ticker.mode.config_tag == "revolution")
+	if((M.mind in SSticker.mode.head_revolutionaries) || (M.mind in SSticker.mode.revolutionaries))
+		if(SSticker.mode.config_tag == "revolution")
 			return 2
 		return 1
-	if(M.mind in ticker.mode.cult)
-		if(ticker.mode.config_tag == "cult")
+	if(M.mind in SSticker.mode.cult)
+		if(SSticker.mode.config_tag == "cult")
 			return 2
 		return 1
-	if(M.mind in ticker.mode.syndicates)
-		if(ticker.mode.config_tag == "nuclear")
+	if(M.mind in SSticker.mode.syndicates)
+		if(SSticker.mode.config_tag == "nuclear")
 			return 2
 		return 1
-	if(M.mind in ticker.mode.wizards)
-		if(ticker.mode.config_tag == "wizard")
+	if(M.mind in SSticker.mode.wizards)
+		if(SSticker.mode.config_tag == "wizard")
 			return 2
 		return 1
-	if(M.mind in ticker.mode.changelings)
-		if(ticker.mode.config_tag == "changeling")
+	if(M.mind in SSticker.mode.changelings)
+		if(SSticker.mode.config_tag == "changeling")
 			return 2
 		return 1
-	if(M.mind in ticker.mode.abductors)
-		if(ticker.mode.config_tag == "abduction")
+	if(M.mind in SSticker.mode.abductors)
+		if(SSticker.mode.config_tag == "abduction")
 			return 2
 		return 1
 	if(isrobot(M))
@@ -944,9 +955,6 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
 		P.update_recharge_turf()
 
-	for(var/obj/machinery/power/apc/A in toArea)
-		A.init()
-
 	if(gamma_ship_location)
 		gamma_ship_location = 0
 	else
@@ -1090,7 +1098,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		dat += "<tr><td><b>" + id + "</b></td>"
 		dat += "<td>" + ckey + "</td>"
 		dat += "<td><a href='?src=[UID()];force_discord_unlink=[ckey]'>Unlink</td></tr>"
-		
+
 	dat += "</table></body></html>"
 
 	usr << browse(dat, "window=duplicates;size=500x480")

@@ -198,12 +198,6 @@
 				stat("Total Blood", "[mind.vampire.bloodtotal]")
 				stat("Usable Blood", "[mind.vampire.bloodusable]")
 
-			if(mind.nation)
-				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")
-				stat("Nation Leader", "[mind.nation.current_leader ? "[mind.nation.current_leader]" : "None"]")
-				stat("Nation Heir", "[mind.nation.heir ? "[mind.nation.heir]" : "None"]")
-
-
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
@@ -420,8 +414,22 @@
 			if(has_breathable_mask && istype(belt, /obj/item/tank))
 				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>[(l_store && !(l_store.flags&ABSTRACT)) ? "Left (Full)" : "<font color=grey>Left (Empty)</font>"]</A>"
-			dat += "&nbsp;<A href='?src=[UID()];pockets=right'>[(r_store && !(r_store.flags&ABSTRACT)) ? "Right (Full)" : "<font color=grey>Right (Empty)</font>"]</A></td></tr>"
+			// Pockets
+			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
+			if(l_store && internal && l_store == internal)
+				dat += "[l_store]"
+			else if(l_store && !(l_store.flags&ABSTRACT))
+				dat += "Left (Full)"
+			else
+				dat += "<font color=grey>Left (Empty)</font>"
+			dat += "</A>&nbsp;<A href='?src=[UID()];pockets=right'>"
+			if(r_store && internal && r_store == internal)
+				dat += "[r_store]"
+			else if(r_store && !(r_store.flags&ABSTRACT))
+				dat += "Right (Full)"
+			else
+				dat += "<font color=grey>Right (Empty)</font>"
+			dat += "</A></td></tr>"
 			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
 			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? wear_pda : "<font color=grey>Empty</font>"]</A></td></tr>"
 
@@ -551,19 +559,17 @@
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
+
 	if(stat == DEAD)
 		grant_death_vision()
 		return
 
 	dna.species.update_sight(src)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
 
-//Removed the horrible safety parameter. It was only being used by ninja code anyways.
-//Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0)
-	if(status_flags & GODMODE)	//godmode
-		return 0
-	if(NO_SHOCK in mutations) //shockproof
-		return 0
+//Added a safety check in case you want to shock a human mob directly through electrocute_act.
+/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	if(tesla_shock)
 		var/total_coeff = 1
 		if(gloves)
@@ -581,20 +587,18 @@
 			siemens_coeff = 0
 	else if(!safety)
 		var/gloves_siemens_coeff = 1
-		var/species_siemens_coeff = 1
 		if(gloves)
 			var/obj/item/clothing/gloves/G = gloves
 			gloves_siemens_coeff = G.siemens_coefficient
-		if(dna.species)
-			species_siemens_coeff = dna.species.siemens_coeff
-		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
-	if(undergoing_cardiac_arrest())
+		siemens_coeff = gloves_siemens_coeff
+	if(undergoing_cardiac_arrest() && !illusion)
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
 			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
-	. = ..()
 
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
+	. = ..(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
@@ -1330,11 +1334,13 @@
 
 	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
 	var/list/kept_items[0]
-
+	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
 			kept_items[I] = thing
+			item_flags[I] = I.flags
+			I.flags = 0 // Temporary set the flags to 0
 
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
@@ -1400,8 +1406,9 @@
 	else
 		dna.species.create_organs(src)
 
-	for(var/thing in kept_items)
+	for(var/obj/item/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
+		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -1440,11 +1447,7 @@
 
 	dna.species.on_species_gain(src)
 
-	see_in_dark = dna.species.get_resultant_darksight(src)
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
+	update_sight()
 
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
@@ -1974,7 +1977,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(7) // Pride
 			log_game("[src] was influenced by the sin of pride.")
 			O = new /datum/objective/sintouched/pride
-	ticker.mode.sintouched += src.mind
+	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
 	var/obj_count = 1
 	to_chat(src, "<span class='notice> Your current objectives:")

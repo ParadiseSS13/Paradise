@@ -44,10 +44,11 @@
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = 1
 	vision_flags = SEE_MOBS
-	helmet_goggles_invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	see_in_dark = 8
 	HUDType = MEDHUD
 	strip_delay = 130
 
@@ -58,7 +59,7 @@
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
 

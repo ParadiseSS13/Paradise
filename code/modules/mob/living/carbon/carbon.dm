@@ -72,7 +72,7 @@
 
 			if(prob(src.getBruteLoss() - 50))
 				for(var/atom/movable/A in stomach_contents)
-					A.loc = loc
+					A.forceMove(drop_location())
 					stomach_contents.Remove(A)
 				src.gib()
 
@@ -109,7 +109,7 @@
 					adjustBruteLoss(3)
 			else
 				if(T)
-					T.add_vomit_floor(src)
+					T.add_vomit_floor()
 				nutrition -= lost_nutrition
 				if(stun)
 					adjustToxLoss(-3)
@@ -134,43 +134,48 @@
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
+/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(status_flags & GODMODE)	//godmode
-		return 0
+		return FALSE
 	if(NO_SHOCK in mutations) //shockproof
-		return 0
+		return FALSE
 	if(tesla_shock && tesla_ignore)
 		return FALSE
 	shock_damage *= siemens_coeff
-	if(shock_damage<1 && !override)
-		return 0
+	if(dna && dna.species)
+		shock_damage *= dna.species.siemens_coeff
+	if(shock_damage < 1 && !override)
+		return FALSE
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
-	shock_internal_organs(shock_damage)
+	if(illusion)
+		adjustStaminaLoss(shock_damage)
+	else
+		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
+		shock_internal_organs(shock_damage)
 	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack.</span>" \
-	)
+		"<span class='danger'>[src] was shocked by \the [source]!</span>",
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
+		"<span class='italics'>You hear a heavy electrical crack.</span>")
 	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
 		Stun(2)
 	spawn(20)
 		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
 			Stun(3)
 			Weaken(3)
 	if(shock_damage > 200)
 		src.visible_message(
-			"<span class='danger'>[src] was arc flashed by the [source]!</span>", \
-			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
-			"<span class='italics'>You hear a lightning-like crack!</span>" \
-		)
+			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
+			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
+			"<span class='italics'>You hear a lightning-like crack!</span>")
 		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(src.loc,-1,0,2,2)
+		explosion(loc, -1, 0, 2, 2)
+
 	if(override)
 		return override
 	else
@@ -318,8 +323,8 @@
 			return
 
 		var/extra_darkview = 0
-		if(E.dark_view)
-			extra_darkview = max(E.dark_view - 2, 0)
+		if(E.see_in_dark)
+			extra_darkview = max(E.see_in_dark - 2, 0)
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
@@ -828,7 +833,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.loc = loc
+				handcuffed.forceMove(drop_location())
 				handcuffed.dropped(src)
 				handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
@@ -836,7 +841,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				update_handcuffed()
 				return
 			if(I == legcuffed)
-				legcuffed.loc = loc
+				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
 				update_inv_legcuffed()
@@ -930,7 +935,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(client)
 			client.screen -= W
 		if(W)
-			W.loc = loc
+			W.forceMove(drop_location())
 			W.dropped(src)
 			if(W)
 				W.layer = initial(W.layer)
@@ -942,7 +947,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(client)
 			client.screen -= W
 		if(W)
-			W.loc = loc
+			W.forceMove(drop_location())
 			W.dropped(src)
 			if(W)
 				W.layer = initial(W.layer)
@@ -1125,3 +1130,38 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/shock_internal_organs(intensity)
 	for(var/obj/item/organ/O in internal_organs)
 		O.shock_organ(intensity)
+
+/mob/living/carbon/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
+		sight |= E.vision_flags
+		if(E.see_in_dark)
+			see_in_dark = max(see_in_dark, E.see_in_dark)
+		if(E.see_invisible)
+			see_invisible = min(see_invisible, E.see_invisible)
+		if(!isnull(E.lighting_alpha))
+			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(XRAY in mutations)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

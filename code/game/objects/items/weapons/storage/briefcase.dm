@@ -15,5 +15,15 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 
-/obj/item/storage/briefcase/New()
-	..()
+/obj/item/storage/briefcase/sniperbundle
+	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
+	force = 10
+
+/obj/item/storage/briefcase/sniperbundle/New()
+	..() 
+	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
+	new /obj/item/clothing/accessory/red(src)
+	new /obj/item/clothing/under/syndicate/sniper(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
+	new /obj/item/suppressor/specialoffer(src)

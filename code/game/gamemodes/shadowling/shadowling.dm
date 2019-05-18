@@ -53,17 +53,18 @@ Made by Xhuis
 	var/objective_explanation
 	var/warning_threshold
 	var/victory_warning_announced = FALSE
+	var/thrall_ratio = 1
 
 /proc/is_thrall(var/mob/living/M)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadowling_thralls)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
 
 /proc/is_shadow_or_thrall(var/mob/living/M)
-	return istype(M) && M.mind && ticker && ticker.mode && ((M.mind in ticker.mode.shadowling_thralls) || (M.mind in ticker.mode.shadows))
+	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
 
 /proc/is_shadow(var/mob/living/M)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadows)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadows)
 
 
 /datum/game_mode/shadowling
@@ -101,6 +102,7 @@ Made by Xhuis
 
 	var/thrall_scaling = round(num_players() / 3)
 	required_thralls = Clamp(thrall_scaling, 15, 25)
+	thrall_ratio = required_thralls / 15
 
 	warning_threshold = round(0.66 * required_thralls)
 
@@ -262,15 +264,19 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		feedback_set_details("round_end_result","shadowling win - shadowling ascension")
+		to_chat(world, "<FONT size = 3><B>Shadowling Victory</B></FONT>")
 		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		feedback_set_details("round_end_result","shadowling loss - shadowling killed")
+		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
 	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		feedback_set_details("round_end_result","shadowling loss - crew escaped")
+		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
 	else
 		feedback_set_details("round_end_result","shadowling loss - generic failure")
+		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
 	..()
 	return 1

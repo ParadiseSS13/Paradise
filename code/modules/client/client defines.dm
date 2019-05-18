@@ -7,6 +7,7 @@
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
 	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
+	var/datum/pm_tracker/pm_tracker = new()
 
 		/////////
 		//OTHER//
@@ -18,6 +19,8 @@
 	var/adminobs		= null
 	var/area			= null
 	var/time_died_as_mouse = null //when the client last died as a mouse
+
+	var/typing = FALSE // Prevents typing window stacking
 
 	var/adminhelped = 0
 
@@ -44,7 +47,7 @@
 	var/received_irc_pm = -99999
 	var/irc_admin			//IRC admin that spoke with them last.
 	var/mute_irc = 0
-
+	var/ssd_warning_acknowledged = FALSE
 
 		////////////////////////////////////
 		//things that require the database//
@@ -65,25 +68,6 @@
 	// Set on login.
 	var/datum/media_manager/media = null
 
-	/////////////////////////////////////////////////////////////////////
-	//adv. hotkey mode vars, code using them in /interface/interface.dm//
-	/////////////////////////////////////////////////////////////////////
-
-	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to make this save on SQL)
-	var/hotkeyon = 0 //is the hotkey on?
-
-	var/hotkeylist = list( //list defining hotkey types, look at lists in place for structure if adding any if the future
-		"QWERTY" = list(
-			"on" = "hotkeymode",
-			"off" = "macro"),
-		"AZERTY" = list(
-			"on" = "AZERTYon",
-			"off" = "AZERTYoff"),
-		"Cyborg" = list(
-			"on" = "borghotkeymode",
-			"off" = "borgmacro")
-	)
-
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
@@ -98,7 +82,7 @@
 	var/datum/chatOutput/chatOutput
 
 	// Donator stuff.
-	var/donator_level = DONATOR_LEVEL_NONE
+	var/donator_level = 0
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE

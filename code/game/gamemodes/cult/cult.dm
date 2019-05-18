@@ -5,7 +5,7 @@ var/global/list/all_cults = list()
 	var/list/datum/mind/cult = list()
 
 /proc/iscultist(mob/living/M as mob)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.cult)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
 
 
 /proc/is_convertable_to_cult(datum/mind/mind)
@@ -30,8 +30,8 @@ var/global/list/all_cults = list()
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)
-	if(istype(ticker.mode.name, "cult"))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(istype(SSticker.mode.name, "cult"))
+		var/datum/game_mode/cult/cult_mode = SSticker.mode
 		if(mind == cult_mode.sacrifice_target)
 			return 1
 	return 0
@@ -121,7 +121,7 @@ var/global/list/all_cults = list()
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [ticker.cultdat.entity_name], [ticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.cultdat.entity_name].</span>")
+		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
 
 	first_phase()
 
@@ -135,16 +135,16 @@ var/global/list/all_cults = list()
 			if("survive")
 				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
 			if("convert")
-				explanation = "We must increase our influence before we can summon [ticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
+				explanation = "We must increase our influence before we can summon [SSticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 			if("bloodspill")
-				explanation = "We must prepare this place for [ticker.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
+				explanation = "We must prepare this place for [SSticker.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 			if("sacrifice")
 				if(sacrifice_target)
 					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune and three acolytes to do so."
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [ticker.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
+				explanation = "Summon [SSticker.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
@@ -179,12 +179,13 @@ var/global/list/all_cults = list()
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
 	if(!istype(cult_mind))
 		return 0
-	var/datum/game_mode/cult/cult_mode = ticker.mode
+	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
+		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -313,10 +314,10 @@ var/global/list/all_cults = list()
 							feedback_add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
 				if("eldergod")
 					if(!eldergod)
-						explanation = "Summon [ticker.cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
+						explanation = "Summon [SSticker.cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
 					else
-						explanation = "Summon [ticker.cultdat.entity_name]. <font color='red'>Fail.</font>"
+						explanation = "Summon [SSticker.cultdat.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
 				if("slaughter")
 					if(demons_summoned)
@@ -344,10 +345,10 @@ var/global/list/all_cults = list()
 
 				if("harvest")
 					if(harvested > harvest_target)
-						explanation = "Offer [harvest_target] humans for [ticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
+						explanation = "Offer [harvest_target] humans for [SSticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
 					else
-						explanation = "Offer [harvest_target] humans for [ticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail!</B></font>"
+						explanation = "Offer [harvest_target] humans for [SSticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|FAIL")
 
 				if("hijack")
@@ -374,7 +375,7 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/proc/auto_declare_completion_cult()
-	if(cult.len || (ticker && GAMEMODE_IS_CULT))
+	if(cult.len || (SSticker && GAMEMODE_IS_CULT))
 		var/text = "<FONT size = 2><B>The cultists were:</B></FONT>"
 		for(var/datum/mind/cultist in cult)
 

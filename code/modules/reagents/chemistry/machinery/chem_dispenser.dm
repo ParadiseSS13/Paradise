@@ -184,6 +184,8 @@
 	if(href_list["ejectBeaker"])
 		if(beaker)
 			beaker.forceMove(loc)
+			if(Adjacent(usr) && !issilicon(usr))
+				usr.put_in_hands(beaker)
 			beaker = null
 			overlays.Cut()
 

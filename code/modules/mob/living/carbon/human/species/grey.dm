@@ -27,6 +27,7 @@
 	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
+	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
@@ -56,6 +57,9 @@
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")
-		H.reagents.del_reagent(R.id)
-		return 0
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return FALSE
+	if(R.id == "water")
+		H.adjustFireLoss(1)
+		return TRUE
 	return ..()

@@ -34,7 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "salbutamol", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
+	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -341,7 +341,7 @@
 			check_brine()
 
 			//Also heal some oxyloss ourselves just in case!!
-			occupant.adjustOxyLoss(-4)
+			occupant.adjustOxyLoss(-10)
 
 			use_power(7500) //This might need tweaking.
 
@@ -416,25 +416,24 @@
 
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
-	callHook("clone", list(H))
-	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
-		ticker.mode.update_rev_icons_added() //So the icon actually appears
-	if(H.mind in ticker.mode.syndicates)
-		ticker.mode.update_synd_icons_added()
-	if(H.mind in ticker.mode.cult)
-		ticker.mode.add_cultist(occupant.mind)
-		ticker.mode.update_cult_icons_added() //So the icon actually appears
-		ticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
-	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
-		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
+	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
+		SSticker.mode.update_rev_icons_added() //So the icon actually appears
+	if(H.mind in SSticker.mode.syndicates)
+		SSticker.mode.update_synd_icons_added()
+	if(H.mind in SSticker.mode.cult)
+		SSticker.mode.add_cultist(occupant.mind)
+		SSticker.mode.update_cult_icons_added() //So the icon actually appears
+		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
+	if((H.mind in SSticker.mode.implanter) || (H.mind in SSticker.mode.implanted))
+		SSticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
-	if((H.mind in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
-		ticker.mode.update_vampire_icons_added(H.mind)
-	if(H.mind in ticker.mode.changelings)
-		ticker.mode.update_change_icons_added(H.mind)
- 	if((H.mind in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
- 		ticker.mode.update_shadow_icons_added(H.mind)
+	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
+		SSticker.mode.update_vampire_icons_added(H.mind)
+	if(H.mind in SSticker.mode.changelings)
+		SSticker.mode.update_change_icons_added(H.mind)
+ 	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
+ 		SSticker.mode.update_shadow_icons_added(H.mind)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
@@ -449,10 +448,14 @@
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
-
+	var/turf/T = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
-		mess = 0
-		gibs(loc)
+		for(var/i in missing_organs)
+			var/obj/I = i
+			I.forceMove(T)
+		missing_organs.Cut()
+		mess = FALSE
+		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 		update_icon()
 		return
@@ -476,7 +479,11 @@
 	for(var/i in missing_organs)
 		qdel(i)
 	missing_organs.Cut()
-	occupant.forceMove(get_turf(src))
+	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
+	occupant.setOxyLoss(0)
+	for(var/datum/disease/critical/crit in occupant.viruses)
+		crit.cure()
+	occupant.forceMove(T)
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
 	occupant.special_post_clone_handling()

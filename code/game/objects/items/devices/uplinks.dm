@@ -23,7 +23,6 @@ var/list/world_uplinks = list()
 	var/used_TC = 0
 
 	var/job = null
-	var/show_descriptions = 0
 	var/temp_category
 	var/uplink_type = "traitor"
 
@@ -32,8 +31,8 @@ var/list/world_uplinks = list()
 
 /obj/item/uplink/New()
 	..()
-	welcome = ticker.mode.uplink_welcome
-	uses = ticker.mode.uplink_uses
+	welcome = SSticker.mode.uplink_welcome
+	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items()
 
 	world_uplinks += src
@@ -72,7 +71,10 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			dat += "<A href='byond://?src=[UID()];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])<BR>"
+			dat += "<A href='byond://?src=[UID()];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])"
+			if(I.hijack_only)
+				dat += " (HIJACK ONLY)"
+			dat += " <BR>"
 			category_items++
 
 	dat += "<A href='byond://?src=[UID()];buy_item=random'>Random Item (??)</A><br>"
@@ -95,7 +97,7 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
+			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference))
 			reference[I.reference] = I
 
 	var/datum/nano_item_lists/result = new
@@ -231,7 +233,6 @@ var/list/world_uplinks = list()
 	data["welcome"] = welcome
 	data["crystals"] = uses
 	data["menu"] = nanoui_menu
-	data["descriptions"] = show_descriptions
 	if(!nanoui_items)
 		generate_items(user)
 	data["nano_items"] = nanoui_items
@@ -266,12 +267,6 @@ var/list/world_uplinks = list()
 		if(href_list["menu"])
 			nanoui_menu = text2num(href_list["menu"])
 			update_nano_data(href_list["id"])
-		if(href_list["menu"])
-			nanoui_menu = text2num(href_list["menu"])
-			update_nano_data(href_list["id"])
-		if(href_list["descriptions"])
-			show_descriptions = !show_descriptions
-			update_nano_data()
 		if(href_list["category"])
 			temp_category = href_list["category"]
 			update_nano_data()

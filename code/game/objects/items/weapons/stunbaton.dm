@@ -141,6 +141,12 @@
 	if(isrobot(M))
 		..()
 		return
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(check_martial_counter(H, user))
+			return
+
 	if(!isliving(M))
 		return
 
@@ -166,8 +172,6 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(check_martial_counter(L, user))
-			return
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return

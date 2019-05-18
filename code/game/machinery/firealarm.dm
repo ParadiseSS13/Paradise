@@ -143,7 +143,7 @@ FIRE ALARM
 			alarm()
 			time = 0
 			timing = 0
-			processing_objects -= src
+			STOP_PROCESSING(SSobj, src)
 		updateDialog()
 	last_process = world.timeofday
 
@@ -206,9 +206,9 @@ FIRE ALARM
 		last_process = world.timeofday
 		if(oldTiming != timing)
 			if(timing)
-				processing_objects += src
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects -= src
+				STOP_PROCESSING(SSobj, src)
 	else if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
 		time += tp
@@ -220,7 +220,7 @@ FIRE ALARM
 	var/area/A = get_area(src)
 	A.fire_reset()
 	for(var/obj/machinery/firealarm/FA in A)
-		fire_alarm.clearAlarm(loc, FA)
+		SSalarms.fire_alarm.clearAlarm(loc, FA)
 	return
 
 /obj/machinery/firealarm/proc/alarm(var/duration = 0)
@@ -228,7 +228,7 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	for(var/obj/machinery/firealarm/FA in A)
-		fire_alarm.triggerAlarm(loc, FA, duration)
+		SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
 	update_icon()
 	//playsound(loc, 'sound/ambience/signal.ogg', 75, 0)
 	return

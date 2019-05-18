@@ -1,12 +1,12 @@
 
 
-/mob/proc/rightandwrong(var/summon_type) //0 = Summon Guns, 1 = Summon Magic
-	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","suppressed","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction","arg","uzi","turret","pulsecarbine","decloner","mindflayer","kinetic","advplasmacutter","wormhole","wt550","grenadelauncher","medibeam")
+/mob/proc/rightandwrong(summon_type, revolver_fight = FALSE, fake_revolver_fight = FALSE) //0 = Summon Guns, 1 = Summon Magic
+	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","suppressed","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction","arg","uzi","turret","pulsecarbine","decloner","mindflayer","kinetic","advplasmacutter","wormhole","wt550","grenadelauncher","medibeam", "fakerevolver")
 	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special","voodoo","special")
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos","necromantic")
 
 	to_chat(usr, "<B>You summoned [summon_type ? "magic" : "guns"]!</B>")
-	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]!")
+	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]! ([revolver_fight ? "Revolver duel!" : ""] [fake_revolver_fight ? "Suicidal revolver duel!" : ""])")
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat == 2 || !(H.client))
@@ -17,6 +17,13 @@
 		var/randomizeguns = pick(gunslist)
 		var/randomizemagic = pick(magiclist)
 		var/randomizemagicspecial = pick(magicspeciallist)
+		if(revolver_fight)
+			randomizeguns = "revolver"
+		if(fake_revolver_fight)
+			if(prob(50))
+				randomizeguns = "revolver"
+			else
+				randomizeguns = "fakerevolver"
 		if(!summon_type)
 			switch(randomizeguns)
 				if("taser")
@@ -88,6 +95,8 @@
 					new /obj/item/gun/projectile/revolver/grenadelauncher(get_turf(H))
 				if("medibeam")
 					new /obj/item/gun/medbeam(get_turf(H))
+				if("fakerevolver")
+					new /obj/item/toy/russian_revolver/trick_revolver(get_turf(H)) //lol
 
 			playsound(get_turf(H), 'sound/magic/summon_guns.ogg', 50, 1)
 		else
@@ -137,7 +146,8 @@
 						H.mutations.Add(XRAY)
 						H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 						H.see_in_dark = 8
-						H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+						H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+						H.update_sight()
 						to_chat(H, "<span class='notice'>The walls suddenly disappear.</span>")
 				if("voodoo")
 					new /obj/item/voodoo(get_turf(H))

@@ -28,8 +28,13 @@
 #define CHAT_NO_TICKETLOGS 65536
 #define UI_DARKMODE 131072
 #define DISABLE_KARMA 262144
+#define CHAT_NO_MENTORTICKETLOGS 524288
+#define TYPING_ONCE 1048576
+#define AMBIENT_OCCLUSION 2097152
 
-#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC)
+#define TOGGLES_TOTAL 4194303 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
+
+#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC|AMBIENT_OCCLUSION)
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
 #define ATKLOG_ALL	0

@@ -31,7 +31,10 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				amount = amount * dna.species.brain_mod
-			sponge.receive_damage(amount, 1)
+			sponge.damage = Clamp(sponge.damage + amount, 0, 120)
+			if(sponge.damage >= 120)
+				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
+				death()
 	if(updating)
 		update_stat("adjustBrainLoss")
 	return STATUS_UPDATE_STAT
@@ -45,7 +48,10 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				amount = amount * dna.species.brain_mod
-			sponge.damage = min(max(amount, 0), (maxHealth*2))
+			sponge.damage = Clamp(amount, 0, 120)
+			if(sponge.damage >= 120)
+				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
+				death()
 	if(updating)
 		update_stat("setBrainLoss")
 	return STATUS_UPDATE_STAT
@@ -172,6 +178,7 @@
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
 	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
@@ -179,6 +186,7 @@
 
 /mob/living/carbon/human/setOxyLoss(amount)
 	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
@@ -354,7 +362,7 @@ This function restores all organs.
 
 			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
 				var/mob/living/carbon/human/H = LAssailant
-				if(H.mind && H.mind in (ticker.mode.superheroes || ticker.mode.supervillains || ticker.mode.greyshirts))
+				if(H.mind && H.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
 					var/list/attack_bubble_recipients = list()
 					var/mob/living/user
 					for(var/mob/O in viewers(user, src))

@@ -760,10 +760,10 @@
 
 /obj/item/clothing/head/pirate/fluff/stumpy/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/head/pirate/fluff/stumpy/process()
@@ -1774,3 +1774,15 @@
 	name = "Pretzel's Ring"
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
+
+/obj/item/clothing/under/fluff/voxbodysuit //Gangelwaefre: Kikeri
+	name = "Vox Bodysuit"
+	desc = "A shimmering bodysuit custom-fit to a vox. Has shorts sewn in."
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "voxbodysuit"
+	item_state = "voxbodysuit"
+	item_color = "voxbodysuit"
+	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	species_fit = list("Vox")

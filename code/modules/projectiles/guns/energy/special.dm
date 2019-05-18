@@ -340,11 +340,11 @@
 /obj/item/gun/energy/temperature/New()
 	..()
 	update_icon()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/gun/energy/temperature/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/energy/temperature/newshot()

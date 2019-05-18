@@ -137,10 +137,10 @@ var/list/GPS_list = list()
 		for marking the area around the transition edges."
 	var/list/turf/tagged
 
-/obj/item/gps/visible_debug/New()
+/obj/item/gps/visible_debug/Initialize(mapload)
 	. = ..()
 	tagged = list()
-	GLOB.fast_processing.Add(src)
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/gps/visible_debug/process()
 	var/turf/T = get_turf(src)
@@ -161,5 +161,5 @@ var/list/GPS_list = list()
 	if(tagged)
 		clear()
 	tagged = null
-	GLOB.fast_processing.Remove(src)
+	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()

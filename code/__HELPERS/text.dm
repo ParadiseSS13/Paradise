@@ -109,6 +109,20 @@
 	else
 		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 
+// Uses client.typing to check if the popup should appear or not
+/proc/typing_input(mob/user, message = "", title = "", default = "")
+	if(user.client.checkTyping()) // Prevent double windows
+		return null
+	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
+	C.typing = TRUE
+	var/msg = input(user, message, title, default) as text|null
+	if(!C)
+		return null
+	C.typing = FALSE
+	if(!user || C != user.client) // User got out of the mob for some reason or the mob is gone
+		return null
+	return msg
+
 //Filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
 	if(!t_in || length(t_in) > max_length)

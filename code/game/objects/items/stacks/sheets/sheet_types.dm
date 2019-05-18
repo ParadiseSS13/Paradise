@@ -240,6 +240,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
+	new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
 	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
 	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
 	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),

@@ -42,7 +42,7 @@
 
 /datum/reagent/consumable/drink/cold/ice/on_mob_life(mob/living/M)
 	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
-	..()
+	return ..()
 
 /datum/reagent/consumable/drink/cold/space_cola
 	name = "Cola"
