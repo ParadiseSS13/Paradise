@@ -1,6 +1,6 @@
 /datum/design/plasma_tank
 	name = "Empty plasma tank"
-	desc = "un tanque de plasma vacio"
+	desc = "an empty plasma tank"
 	id = "plasmatank"
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
