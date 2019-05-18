@@ -1,0 +1,7 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "Ambient occlusion had been added to the game. This represents a shadowy effect on most objects. It can be turned off through the game preferences menu."
+  - tweak: "Our lighting system has been updated to /tg/'s latest version. Hopefully this means we'll have less lag later in the round."
+  - tweak: "Night vision has been modified. There are now three levels of night vision. Certain creatures that were previously able to toggle night vision can now switch between all levels. Thermals now give some night vision."
+  - tweak: "Mesons now no longer fully light up non-visible turfs. It uses slight darkness instead."

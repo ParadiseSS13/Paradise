@@ -600,7 +600,7 @@ var/global/list/damage_icon_parts = list()
 					client.screen -= thing														// WHAT THE FUCKING FUCK BAY GODDAMNIT
 																								// **I FUCKING HATE YOU AAAAAAAAAA**
 				if(thing)																		//
-					thing.loc = loc																//
+					thing.forceMove(drop_location())											//
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
@@ -662,6 +662,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_glasses(var/update_icons=1)
 	remove_overlay(GLASSES_LAYER)
 	remove_overlay(GLASSES_OVER_LAYER)
+	remove_overlay(OVER_MASK_LAYER)
 
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
@@ -684,7 +685,12 @@ var/global/list/damage_icon_parts = list()
 			new_glasses = icon_condition(glasses, 'icons/mob/eyes.dmi', 'icons/hispania/mob/eyes.dmi', "[glasses.icon_state]", null, null, -GLASSES_LAYER)
 
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
-		if(hair_style && hair_style.glasses_over) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
+		var/obj/item/clothing/glasses/G = glasses
+		if(istype(G) && G.over_mask) //If the user's used the 'wear over mask' verb on the glasses.
+			new_glasses.layer = -OVER_MASK_LAYER
+			overlays_standing[OVER_MASK_LAYER] = new_glasses
+			apply_overlay(OVER_MASK_LAYER)
+		else if(hair_style && hair_style.glasses_over) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
 			new_glasses.layer = -GLASSES_OVER_LAYER
 			overlays_standing[GLASSES_OVER_LAYER] = new_glasses
 			apply_overlay(GLASSES_OVER_LAYER)

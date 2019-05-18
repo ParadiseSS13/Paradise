@@ -909,8 +909,7 @@
 
 /datum/reagent/vomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/vomit(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		T.add_vomit_floor()
 
 /datum/reagent/greenvomit
 	name = "Green vomit"
@@ -922,8 +921,7 @@
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/vomit/green(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		T.add_vomit_floor(FALSE, TRUE)
 
 ////Lavaland Flora Reagents////
 

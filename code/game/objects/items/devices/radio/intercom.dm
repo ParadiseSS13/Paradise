@@ -49,7 +49,7 @@
 	..()
 	buildstage = building
 	if(buildstage)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
 		if(ndir)
 			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
@@ -105,7 +105,7 @@
 	)
 
 /obj/item/radio/intercom/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.global_intercoms.Remove(src)
 	return ..()
 
@@ -128,7 +128,7 @@
 		// TODO: Integrate radio with the space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
-	if(freq in ANTAG_FREQS)
+	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 
@@ -150,7 +150,7 @@
 					b_stat = 1
 					buildstage = 1
 					update_icon()
-					processing_objects.Remove(src)
+					STOP_PROCESSING(SSobj, src)
 				return 1
 			else return ..()
 		if(2)
@@ -163,7 +163,7 @@
 					buildstage = 3
 					to_chat(user, "<span class='notice'>You secure the electronics!</span>")
 					update_icon()
-					processing_objects.Add(src)
+					START_PROCESSING(SSobj, src)
 					for(var/i, i<= 5, i++)
 						wires.UpdateCut(i,1)
 				return 1

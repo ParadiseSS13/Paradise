@@ -159,7 +159,7 @@ Doesn't work on other aliens/AI.*/
 			for(var/mob/M in src)
 				if(M in stomach_contents)
 					stomach_contents.Remove(M)
-					M.loc = loc
+					M.forceMove(loc)
 					//Paralyse(10)
 			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 	return

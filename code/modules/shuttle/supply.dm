@@ -58,7 +58,7 @@
 
 		var/contcount
 		for(var/atom/A in T.contents)
-			if(istype(A,/atom/movable/lighting_overlay))
+			if(istype(A,/atom/movable/lighting_object))
 				continue
 			if(istype(A,/obj/machinery/light))
 				continue //hacky but whatever, shuttles need three spots each for this shit
@@ -739,7 +739,7 @@
 	return 1
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 
@@ -750,18 +750,6 @@
 
 	frequency.post_signal(src, status_signal)
 
-/**********
-    MISC
- **********/
-/area/supply/station
-	name = "Supply Shuttle"
-	icon_state = "shuttle3"
-	requires_power = 0
-
-/area/supply/dock
-	name = "Supply Shuttle"
-	icon_state = "shuttle3"
-	requires_power = 0
 
 #undef ORDER_SCREEN_WIDTH
 #undef ORDER_SCREEN_HEIGHT

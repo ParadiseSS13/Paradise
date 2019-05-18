@@ -27,13 +27,13 @@
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
 
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 
 	return ..()
 

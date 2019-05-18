@@ -107,7 +107,7 @@
 /obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
 		storage_slots = 0
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/storage/bag/plasticbag/process()
@@ -120,7 +120,7 @@
 				H.AdjustLoseBreath(1)
 	else
 		storage_slots = 7
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return
 
 // -----------------------------

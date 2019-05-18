@@ -621,6 +621,33 @@
 		src.give_spell(M)
 		href_list["datumrefresh"] = href_list["give_spell"]
 
+	else if(href_list["givemartialart"])
+		if(!check_rights(R_SERVER|R_EVENT))	return
+
+		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
+		if(!istype(C))
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
+			return
+
+		var/list/artpaths = subtypesof(/datum/martial_art)
+		var/list/artnames = list()
+		for(var/i in artpaths)
+			var/datum/martial_art/M = i
+			artnames[initial(M.name)] = M
+
+		var/result = input(usr, "Choose the martial art to teach", "JUDO CHOP") as null|anything in artnames
+		if(!usr)
+			return
+		if(QDELETED(C))
+			to_chat(usr, "Mob doesn't exist anymore")
+			return
+
+		if(result)
+			var/chosenart = artnames[result]
+			var/datum/martial_art/MA = new chosenart
+			MA.teach(C)
+
+		href_list["datumrefresh"] = href_list["givemartialart"]
 
 	else if(href_list["give_disease"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -1215,13 +1242,28 @@
 			return
 
 		switch(Text)
-			if("brute")	L.adjustBruteLoss(amount, robotic=1)
-			if("fire")	L.adjustFireLoss(amount, robotic=1)
-			if("toxin")	L.adjustToxLoss(amount)
-			if("oxygen")L.adjustOxyLoss(amount)
-			if("brain")	L.adjustBrainLoss(amount)
-			if("clone")	L.adjustCloneLoss(amount)
-			if("stamina") L.adjustStaminaLoss(amount)
+			if("brute")
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L	
+					H.adjustBruteLoss(amount, robotic = TRUE)
+				else
+					L.adjustBruteLoss(amount)
+			if("fire")	
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L	
+					H.adjustFireLoss(amount, robotic = TRUE)
+				else
+					L.adjustFireLoss(amount)
+			if("toxin")	
+				L.adjustToxLoss(amount)
+			if("oxygen")
+				L.adjustOxyLoss(amount)
+			if("brain")	
+				L.adjustBrainLoss(amount)
+			if("clone")	
+				L.adjustCloneLoss(amount)
+			if("stamina") 
+				L.adjustStaminaLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 				return

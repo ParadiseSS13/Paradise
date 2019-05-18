@@ -19,6 +19,7 @@
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
+	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 

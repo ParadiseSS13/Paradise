@@ -41,7 +41,7 @@
 "ak" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "al" = (
 /obj/machinery/door/window/westright,
 /turf/simulated/floor/plasteel/airless,
@@ -256,10 +256,10 @@
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
 	},
-/area/space)
+/area/space/nearstation)
 "ba" = (
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "bb" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/plasteel/airless,
@@ -4123,7 +4123,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "kG" = (
-/obj/item/clothing/shoes/syndigaloshes,
+/obj/item/clothing/shoes/chameleon/noslip,
 /obj/item/clothing/under/syndicate,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";

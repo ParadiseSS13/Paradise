@@ -207,10 +207,10 @@
 
 /obj/item/flash/cameraflash/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/flash/cameraflash/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/flash/cameraflash/process() //this and the two parts above are part of the charge system.

@@ -94,6 +94,13 @@
 #define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
 #define APPEARANCE_ALL 32767
 
+//If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
+//Hostile Mob AI Status
+#define AI_ON       1
+#define AI_IDLE     2
+#define AI_OFF      3
+#define AI_Z_OFF    4
+
 // Intents
 #define INTENT_HELP		"help"
 #define INTENT_DISARM	"disarm"

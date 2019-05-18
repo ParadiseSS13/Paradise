@@ -57,7 +57,7 @@
 	SetLoseBreath(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp")
+		emote("deathgasp", force = TRUE)
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
@@ -69,7 +69,6 @@
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 1)
-	callHook("death", list(src, gibbed))
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s

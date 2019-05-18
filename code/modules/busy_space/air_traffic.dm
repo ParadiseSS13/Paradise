@@ -17,7 +17,7 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 	next_message = world.time + rand(delay_min, delay_max)
 	process()
 
-/datum/lore/atc_controller/proc/process()
+/datum/lore/atc_controller/process()
 	if(world.time >= next_message)
 		if(squelched)
 			next_message = world.time + backoff_delay

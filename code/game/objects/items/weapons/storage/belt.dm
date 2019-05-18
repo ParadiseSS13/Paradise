@@ -4,22 +4,21 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
-
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)
 		overlays.Cut()
 		for(var/obj/item/I in contents)
 			overlays += "[I.name]"
-
 	..()
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
-
 
 /obj/item/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
@@ -68,7 +67,7 @@
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
-	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
+	new /obj/item/stack/cable_coil/random(src, 30)
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/New()
@@ -99,7 +98,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
+	new /obj/item/stack/cable_coil/random(src, 30)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
@@ -184,7 +183,6 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	update_icon()
 
-
 /obj/item/storage/belt/botany
 	name = "botanist belt"
 	desc = "Can hold various botanical supplies."
@@ -206,7 +204,6 @@
 		/obj/item/wirecutters,
         /obj/item/wrench,
 	)
-
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -472,7 +469,6 @@
 	..()
 	update_icon()
 
-
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
 	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
@@ -509,7 +505,6 @@
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
 	update_icon()
-
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -599,7 +594,6 @@
 //     Bluespace Belt
 // -------------------------------------
 
-
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
 	desc = "The greatest in pants-supporting technology."
@@ -632,8 +626,6 @@
 	var/bolacount = 0
 	var/cooldown = 0
 
-
-
 /obj/item/storage/belt/bluespace/owlman/New()
 	..()
 	new /obj/item/grenade/smokebomb(src)
@@ -642,8 +634,12 @@
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/restraints/legcuffs/bola(src)
 	new /obj/item/restraints/legcuffs/bola(src)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	cooldown = world.time
+
+/obj/item/storage/belt/bluespace/owlman/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/storage/belt/bluespace/owlman/process()
 	if(cooldown < world.time - 600)
