@@ -86,6 +86,17 @@
 	if(amount > 0)
 		if(dna.species)
 			amount = amount * dna.species.brute_mod
+		if(!check_death_method() && amount > 10)//for newcrit races only, and only for bigger hits
+			switch(health)//bad things happen, depending on how hurt you are.
+				if(-INFINITY to -300)//really massive damage
+					src.set_heartattack(TRUE)
+				if(-299 to -200)
+					var/datum/disease/D = new /datum/disease/critical/heart_failure
+					ForceContractDisease(D)
+				if(-199 to -100)
+					var/datum/disease/D = new /datum/disease/critical/shock
+					ForceContractDisease(D)
+
 		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
