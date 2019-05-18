@@ -634,7 +634,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.simple_animal_list
+		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.simple_animals
 		if(target)
 			ai_actual_track(target)
 		else
@@ -642,7 +642,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locate(href_list["callbot"]) in GLOB.simple_animal_list
+		Bot = locate(href_list["callbot"]) in GLOB.simple_animals
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
@@ -650,7 +650,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in GLOB.simple_animal_list
+		Bot = locate(href_list["interface"]) in GLOB.simple_animals
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return
 		Bot.attack_ai(src)
@@ -746,7 +746,7 @@ var/list/ai_verbs_default = list(
 	d += "<A HREF=?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for(var/mob/living/simple_animal/bot/Bot in GLOB.simple_animal_list)
+	for(var/mob/living/simple_animal/bot/Bot in GLOB.simple_animals)
 		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
@@ -1291,3 +1291,26 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/ExtinguishMob()
 	return
+
+
+/mob/living/silicon/ai/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	if(aiRestorePowerRoutine)
+		sight = sight &~ SEE_TURFS
+		sight = sight &~ SEE_MOBS
+		sight = sight &~ SEE_OBJS
+		see_in_dark = 0
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

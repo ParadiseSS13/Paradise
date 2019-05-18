@@ -57,8 +57,8 @@
 				return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
-			ticker.mode.equip_traitor(N)
-			ticker.mode.traitors += N.mind
+			SSticker.mode.equip_traitor(N)
+			SSticker.mode.traitors += N.mind
 			N.mind.special_role = SPECIAL_ROLE_TRAITOR
 			var/objective = "Free Objective"
 			switch(rand(1,100))
@@ -188,11 +188,11 @@
 /obj/machinery/power/singularity_beacon/process()
 	if(!active)
 		return PROCESS_KILL
+
+	if(surplus() >= 1500)
+		add_load(1500)
 	else
-		if(surplus() > 1500)
-			draw_power(1500)
-		else
-			Deactivate()
+		Deactivate()
 
 /obj/machinery/power/singularity_beacon/syndicate
 	icontype = "beaconsynd"

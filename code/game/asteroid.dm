@@ -30,7 +30,9 @@ var/global/max_secret_rooms = 6
 				T.ChangeTurf(floor)
 				room_turfs["floors"] += T
 
+			var/old_area = T.loc
 			A.contents += T
+			T.change_area(old_area, A)
 
 	return room_turfs
 

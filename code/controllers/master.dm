@@ -194,8 +194,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
 	log_world(msg)
 
-	if(config.developer_express_start & ticker.current_state == GAME_STATE_PREGAME)
-		ticker.current_state = GAME_STATE_SETTING_UP
+	if(config.developer_express_start & SSticker.current_state == GAME_STATE_PREGAME)
+		SSticker.current_state = GAME_STATE_SETTING_UP
 
 	if(!current_runlevel)
 		SetRunLevel(1)

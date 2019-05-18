@@ -312,5 +312,5 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	message_admins("[key_name_admin(user)] has pressed the vox win button.")
 	log_admin("[key_name(user)] pressed the vox win button during a vox round.")
 
-	var/datum/game_mode/heist/H = ticker.mode
+	var/datum/game_mode/heist/H = SSticker.mode
 	H.win_button_triggered = 1

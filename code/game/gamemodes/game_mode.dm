@@ -77,7 +77,7 @@
 	if(SSdbcore.Connect())
 		var/sql
 		if(ticker && ticker.mode)
-			sql += "game_mode = '[ticker.mode]'"
+			sql += "game_mode = '[SSticker.mode]'"
 		if(sql)
 			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")
 			query_round_game_mode.Execute()
@@ -90,7 +90,7 @@
 
 ///process()
 ///Called by the gameticker
-/datum/game_mode/proc/process()
+/datum/game_mode/process()
 	return 0
 
 //Called by the gameticker

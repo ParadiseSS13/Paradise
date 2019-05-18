@@ -72,7 +72,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
-	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
@@ -216,11 +215,6 @@ var/list/admin_verbs_proccall = list(
 	/client/proc/callproc_datum,
 	/client/proc/SDQL2_query
 )
-var/list/admin_verbs_snpc = list(
-	/client/proc/resetSNPC,
-	/client/proc/customiseSNPC,
-	/client/proc/hide_snpc_verbs
-)
 var/list/admin_verbs_ticket = list(
 	/client/proc/openAdminTicketUI,
 	/client/proc/toggleticketlogs,
@@ -291,8 +285,6 @@ var/list/admin_verbs_ticket = list(
 		admin_verbs_proccall,
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		admin_verbs_snpc,
-		/client/proc/hide_snpc_verbs,
 		admin_verbs_ticket
 	)
 
@@ -1011,28 +1003,6 @@ var/list/admin_verbs_ticket = list(
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")
-
-/client/proc/show_snpc_verbs()
-	set name = "Show SNPC Verbs"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	verbs += admin_verbs_snpc
-	verbs -= /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs have been toggled on.</span>")
-
-/client/proc/hide_snpc_verbs()
-	set name = "Hide SNPC Verbs"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	verbs -= admin_verbs_snpc
-	verbs += /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
 
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"

@@ -137,18 +137,17 @@
 				return 1
 	return -1
 
-/datum/computer_file/program/card_mod/proc/format_jobs(list/jobs)
+/datum/computer_file/program/card_mod/proc/format_jobs(list/jobs, targetrank, list/jobformats)
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	if(!card_slot || !card_slot.stored_card)
 		return null
-	var/obj/item/card/id/id_card = card_slot.stored_card
 	var/list/formatted = list()
 	for(var/job in jobs)
 		formatted.Add(list(list(
 			"display_name" = replacetext(job, "&nbsp", " "),
-			"target_rank" = id_card && id_card.assignment ? id_card.assignment : "Unassigned",
-			"job" = job)))
-
+			"target_rank" = targetrank,
+			"job" = job,
+			"jlinkformat" = jobformats[job] ? jobformats[job] : null)))
 	return formatted
 
 
@@ -225,11 +224,12 @@
 					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
+						SSjobs.log_job_transfer(modify.registered_name, modify.getRankAndAssignment(), temp_t, scan.registered_name)
 						modify.assignment = temp_t
 						log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
 				else
 					var/list/access = list()
-					if(is_centcom)
+					if(is_centcom && islist(get_centcom_access(t1)))
 						access = get_centcom_access(t1)
 					else
 						var/datum/job/jobdatum
@@ -249,11 +249,19 @@
 					if(t1 == "Civilian")
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
+					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
+					SSjobs.slot_job_transfer(modify.rank, t1)
+
+					var/mob/living/carbon/human/H = modify.getPlayer()
+					if(istype(H))
+						if(jobban_isbanned(H, t1))
+							message_admins("[ADMIN_FULLMONTY(H)] has been assigned the job [t1], in possible violation of their job ban.")
+						if(H.mind)
+							H.mind.playtime_role = t1
+
 					modify.access = access
 					modify.assignment = t1
 					modify.rank = t1
-
-				callHook("reassign_employee", list(modify))
 
 		if("PRG_reg")
 			if(is_authenticated(usr))
@@ -270,6 +278,18 @@
 
 		if("PRG_mode")
 			mode = text2num(href_list["mode_target"])
+
+		if("PRG_wipe_my_logs")
+			if(is_authenticated(usr) && is_centcom)
+				var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
+				if(delcount)
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+
+		if("PRG_wipe_all_logs")
+			if(is_authenticated(usr))
+				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
+				if(delcount)
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if("PRG_print")
 			if(!printing && computer)
@@ -312,9 +332,9 @@
 				var/jobnamedata = modify.getRankAndAssignment()
 				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
 				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
 				modify.assignment = "Terminated"
 				modify.access = list()
-				callHook("terminate_employee", list(modify))
 
 		if("PRG_make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
@@ -398,6 +418,7 @@
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()
 	data["scan_name"] = scan ? scan.name : "-----"
+	data["scan_owner"] = scan && scan.registered_name ? scan.registered_name : null
 	data["authenticated"] = is_authenticated(user)
 	data["has_modify"] = !!modify
 	data["account_number"] = modify ? modify.associated_account_number : null
@@ -405,14 +426,17 @@
 	data["all_centcom_access"] = null
 	data["regions"] = null
 
-	data["engineering_jobs"] = format_jobs(engineering_positions)
-	data["medical_jobs"] = format_jobs(medical_positions)
-	data["science_jobs"] = format_jobs(science_positions)
-	data["security_jobs"] = format_jobs(security_positions)
-	data["support_jobs"] = format_jobs(support_positions)
-	data["civilian_jobs"] = format_jobs(civilian_positions)
-	data["special_jobs"] = format_jobs(whitelisted_positions)
-	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
+	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
+
+	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
+	data["engineering_jobs"] = format_jobs(engineering_positions, data["target_rank"], job_formats)
+	data["medical_jobs"] = format_jobs(medical_positions, data["target_rank"], job_formats)
+	data["science_jobs"] = format_jobs(science_positions, data["target_rank"], job_formats)
+	data["security_jobs"] = format_jobs(security_positions, data["target_rank"], job_formats)
+	data["support_jobs"] = format_jobs(support_positions, data["target_rank"], job_formats)
+	data["civilian_jobs"] = format_jobs(civilian_positions, data["target_rank"], job_formats)
+	data["special_jobs"] = format_jobs(whitelisted_positions, data["target_rank"], job_formats)
+	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs(), data["target_rank"], job_formats)
 	data["card_skins"] = format_card_skins(get_station_card_skins())
 
 	data["job_slots"] = format_job_slots()
@@ -422,6 +446,9 @@
 	var/seconds = time_to_wait - (60*mins)
 	data["cooldown_mins"] = mins
 	data["cooldown_secs"] = (seconds < 10) ? "0[seconds]" : seconds
+
+	if(mode == 3 && is_authenticated(user))
+		data["id_change_html"] = SSjobs.fetch_transfer_record_html(is_centcom)
 
 	if(modify)
 		data["current_skin"] = modify.icon_state

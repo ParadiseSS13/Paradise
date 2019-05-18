@@ -14,20 +14,15 @@
 		loc = locate(1,1,1)
 	lastarea = loc
 
+	client.screen = list() // Remove HUD items just in case.
+	client.images = list()
+	if(!hud_used)
+		create_mob_hud()
+	if(hud_used)
+		hud_used.show_hud(hud_used.hud_version)
+
 	sight |= SEE_TURFS
 	GLOB.player_list |= src
-
-/*
-	var/list/watch_locations = list()
-	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
-		if(landmark.tag == "landmark*new_player")
-			watch_locations += landmark.loc
-
-	if(watch_locations.len>0)
-		loc = pick(watch_locations)
-*/
-
-	callHook("mob_login", list("client" = client, "mob" = src))
 
 	new_player_panel()
 

@@ -44,7 +44,7 @@
 /datum/game_mode/proc/declare_job_completion()
 	var/text = "<hr><b><u>Job Completion</u></b>"
 
-	for(var/datum/mind/employee in ticker.minds)
+	for(var/datum/mind/employee in SSticker.minds)
 
 		if(!employee.job_objectives.len)//If the employee had no objectives, don't need to process this.
 			continue

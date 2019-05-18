@@ -6,7 +6,7 @@
 		message_admins("[key_name_admin(usr)] has attempted to override the admin panel!")
 		return
 
-	if(ticker.mode && ticker.mode.check_antagonists_topic(href, href_list))
+	if(SSticker.mode && SSticker.mode.check_antagonists_topic(href, href_list))
 		check_antagonists()
 		return
 
@@ -315,9 +315,9 @@
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_SERVER))	return
 
-		ticker.delay_end = !ticker.delay_end
-		log_admin("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
+		SSticker.delay_end = !SSticker.delay_end
+		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["simplemake"])
@@ -1073,7 +1073,7 @@
 	else if(href_list["c_mode"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(ticker && ticker.mode)
+		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<B>What mode do you wish to play?</B><HR>"}
 		for(var/mode in config.modes)
@@ -1086,7 +1086,7 @@
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(ticker && ticker.mode)
+		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
@@ -1100,7 +1100,7 @@
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(ticker && ticker.mode)
+		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [master_mode].")
@@ -1113,7 +1113,7 @@
 	else if(href_list["f_secret2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(ticker && ticker.mode)
+		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
@@ -1547,25 +1547,25 @@
 			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
 			return
 
-		var/datum/game_mode/cult/cult_round = ticker.mode
+		var/datum/game_mode/cult/cult_round = SSticker.mode
 		cult_round.bypass_phase()
 		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.cultdat.entity_name]", "Voice of [ticker.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]", "")
 		if(!input)
 			return
 
-		for(var/datum/mind/H in ticker.mode.cult)
+		for(var/datum/mind/H in SSticker.mode.cult)
 			if (H.current)
-				to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+				to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+			to_chat(O, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [ticker.cultdat.entity_name]: [input]")
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
+		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
@@ -1946,8 +1946,8 @@
 					kill_objective.target = H.mind
 					kill_objective.explanation_text = "Assassinate [H.real_name], the [H.mind.assigned_role]."
 					newtraitormind.objectives += kill_objective
-					ticker.mode.equip_traitor(newtraitor)
-					ticker.mode.traitors |= newtraitor.mind
+					SSticker.mode.equip_traitor(newtraitor)
+					SSticker.mode.traitors |= newtraitor.mind
 					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 					to_chat(newtraitor, "<B>You are now a traitor.</B>")
 					to_chat(newtraitor, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>");
@@ -2329,7 +2329,7 @@
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
-		if(!ticker || !ticker.mode)
+		if(!SSticker || !SSticker.mode)
 			alert("The game hasn't started yet!")
 			return
 
@@ -2472,7 +2472,7 @@
 	else if(href_list["kick_all_from_lobby"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
+		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			var/afkonly = text2num(href_list["afkonly"])
 			if(alert("Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby?","Confirmation","Yes","Cancel") != "Yes")
 				return
@@ -2550,7 +2550,7 @@
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 			if("gravity")
-				if(!(ticker && ticker.mode))
+				if(!(SSticker && SSticker.mode))
 					to_chat(usr, "Please wait until the game starts!  Not sure how it will work otherwise.")
 					return
 				gravity_is_on = !gravity_is_on
@@ -2582,7 +2582,7 @@
 				message_admins("<span class='notice'>[key_name_admin(usr)] made all SMESs powered</span>", 1)
 				power_restore_quick()
 			if("prisonwarp")
-				if(!ticker)
+				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
@@ -2623,7 +2623,7 @@
 						H.loc = pick(prisonsecuritywarp)
 					prisonwarped += H
 			if("traitor_all")
-				if(!ticker)
+				if(!SSticker)
 					alert("The game hasn't started yet!")
 					return
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
@@ -2634,24 +2634,24 @@
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
-					ticker.mode.traitors += H.mind
+					SSticker.mode.traitors += H.mind
 					H.mind.special_role = SPECIAL_ROLE_TRAITOR
 					var/datum/objective/new_objective = new
 					new_objective.owner = H
 					new_objective.explanation_text = objective
 					H.mind.objectives += new_objective
-					ticker.mode.greet_traitor(H.mind)
+					SSticker.mode.greet_traitor(H.mind)
 					//ticker.mode.forge_traitor_objectives(H.mind)
-					ticker.mode.finalize_traitor(H.mind)
+					SSticker.mode.finalize_traitor(H.mind)
 				for(var/mob/living/silicon/A in GLOB.player_list)
-					ticker.mode.traitors += A.mind
+					SSticker.mode.traitors += A.mind
 					A.mind.special_role = SPECIAL_ROLE_TRAITOR
 					var/datum/objective/new_objective = new
 					new_objective.owner = A
 					new_objective.explanation_text = objective
 					A.mind.objectives += new_objective
-					ticker.mode.greet_traitor(A.mind)
-					ticker.mode.finalize_traitor(A.mind)
+					SSticker.mode.greet_traitor(A.mind)
+					SSticker.mode.finalize_traitor(A.mind)
 				message_admins("<span class='notice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective]</span>", 1)
 				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
 
@@ -2894,10 +2894,10 @@
 			if("showailaws")
 				output_ai_laws()
 			if("showgm")
-				if(!ticker)
+				if(!SSticker)
 					alert("The game hasn't started yet!")
-				else if(ticker.mode)
-					alert("The game mode is [ticker.mode.name]")
+				else if(SSticker.mode)
+					alert("The game mode is [SSticker.mode.name]")
 				else alert("For some reason there's a ticker, but not a game mode")
 			if("manifest")
 				var/dat = "<B>Showing Crew Manifest.</B><HR>"
@@ -3232,7 +3232,7 @@
 				return
 			G.report_message = description
 		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
-		ticker.mode.station_goals += G
+		SSticker.mode.station_goals += G
 		modify_goals()
 
 	else if(href_list["showdetails"])
@@ -3356,7 +3356,7 @@
 		protect_objective.target = H.mind
 		protect_objective.explanation_text = "Protect [H.real_name], the [H.mind.assigned_role]."
 		hunter_mind.objectives += protect_objective
-	ticker.mode.traitors |= hunter_mob.mind
+	SSticker.mode.traitors |= hunter_mob.mind
 	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
 	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
 	if(killthem)

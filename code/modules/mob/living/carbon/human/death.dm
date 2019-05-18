@@ -112,7 +112,7 @@
 		if(H.mind)
 			H.mind.kills += "[key_name(src)]"
 
-	if(ticker && ticker.mode)
+	if(SSticker && SSticker.mode)
 		SSblackbox.ReportDeath(src)
 
 	if(wearing_rig)

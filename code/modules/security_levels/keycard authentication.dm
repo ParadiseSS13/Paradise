@@ -178,7 +178,7 @@
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
-	return ticker.mode && ticker.mode.ert_disabled
+	return SSticker.mode && SSticker.mode.ert_disabled
 
 var/global/maint_all_access = 0
 var/global/station_all_access = 0

@@ -113,9 +113,14 @@
 /proc/typing_input(mob/user, message = "", title = "", default = "")
 	if(user.client.checkTyping()) // Prevent double windows
 		return null
-	user.client.typing = TRUE
+	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
+	C.typing = TRUE
 	var/msg = input(user, message, title, default) as text|null
-	user.client.typing = FALSE
+	if(!C)
+		return null
+	C.typing = FALSE
+	if(!user || C != user.client) // User got out of the mob for some reason or the mob is gone
+		return null
 	return msg
 
 //Filters out undesirable characters from names

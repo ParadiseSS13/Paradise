@@ -37,7 +37,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -52,7 +52,8 @@
 	icon_state = "nvgmeson"
 	item_state = "glasses"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
-	darkness_view = 8
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/meson/prescription
@@ -103,8 +104,8 @@
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
 	item_state = "glasses"
-	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -122,8 +123,8 @@
 	icon_state = "night"
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
-	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -177,6 +178,15 @@
 	flags = NODROP
 	flags_cover = null
 
+/obj/item/clothing/glasses/material/lighting
+	name = "Neutron Goggles"
+	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
+	origin_tech = null
+	vision_flags = 0
+
+	flags = NODROP
+	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
 	desc = "Made by Nerd. Co."
@@ -223,7 +233,7 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = 1
+	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
@@ -237,7 +247,7 @@
 /obj/item/clothing/glasses/sunglasses/fake
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	name = "cheap sunglasses"
-	darkness_view = 0
+	see_in_dark = 0
 	flash_protect = 0
 	tint = 0
 
@@ -246,16 +256,16 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self()
-	toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
+	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
 	if(slot == slot_glasses)
 		return 1
 
-/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
-	usr.update_client_colour()
+	user.update_client_colour()
 
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
@@ -285,7 +295,7 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = 1
+	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
 	species_fit = list("Vox")
@@ -382,6 +392,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -389,18 +400,18 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-	emp_act(severity)
-		if(istype(src.loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/M = src.loc
-			to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
-			if(M.glasses == src)
-				M.EyeBlind(3)
-				M.EyeBlurry(5)
-				if(!(M.disabilities & NEARSIGHTED))
-					M.BecomeNearsighted()
-					spawn(100)
-						M.CureNearsighted()
-		..()
+/obj/item/clothing/glasses/thermal/emp_act(severity)
+	if(istype(src.loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/M = src.loc
+		to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
+		if(M.glasses == src)
+			M.EyeBlind(3)
+			M.EyeBlurry(5)
+			if(!(M.disabilities & NEARSIGHTED))
+				M.BecomeNearsighted()
+				spawn(100)
+					M.CureNearsighted()
+	..()
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "Optical Meson Scanner"
@@ -503,11 +514,11 @@
 	icon_state = "godeye"
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	darkness_view = 8
+	see_in_dark = 8
 	scan_reagents = 1
 	flags = NODROP
 	flags_cover = null
-	invis_view = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)

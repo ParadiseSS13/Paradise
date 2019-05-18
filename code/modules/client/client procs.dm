@@ -9,6 +9,7 @@
 #define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	511		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+#define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
 	/*
 	When somebody clicks a link in game, this Topic is called first.
@@ -73,9 +74,7 @@
 	//Admin PM
 	if(href_list["priv_msg"])
 		var/client/C = locate(href_list["priv_msg"])
-		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
-			var/mob/M = C
-			C = M.client
+
 		if(!C) // Might be a stealthmin ID, so pass it in straight
 			C = href_list["priv_msg"]
 		else if(C.UID() != href_list["priv_msg"])
@@ -227,6 +226,9 @@
 						vote_on_poll(pollid, optionid, 1)
 		src << browse(null, "window=playerpoll")
 		handle_player_polling()
+	if(href_list["ssdwarning"])
+		ssd_warning_acknowledged = TRUE
+		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 
 	switch(href_list["action"])
 		if("openLink")
@@ -326,13 +328,13 @@
 		GLOB.admins += src
 		holder.owner = src
 
-	donator_check()
-
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
 		preferences_datums[ckey] = prefs
+	else
+		prefs.parent = src
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
@@ -340,12 +342,6 @@
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
-
-	if(custom_event_msg && custom_event_msg != "")
-		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
-		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
-		to_chat(src, "<br>")
 
 	if( (world.address == address || !address) && !host )
 		host = key
@@ -374,6 +370,7 @@
 			to_chat(src, message)
 		clientmessages.Remove(ckey)
 
+	donator_check()
 
 	send_resources()
 
@@ -393,10 +390,14 @@
 		if(SSdbcore.Connect())
 			to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
-	if(!void)
-		void = new()
+	generate_clickcatcher()
+	apply_clickcatcher()
 
-	screen += void
+	if(custom_event_msg && custom_event_msg != "")
+		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
+		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
+		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
@@ -428,16 +429,26 @@
 	if(!SSdbcore.Connect())
 		return
 
+	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+		donator_level = DONATOR_LEVEL_MAX
+		donor_loadout_points()
+		return
+
 	//Donator stuff.
 	var/datum/DBQuery/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
 	query_donor_select.Execute()
 	while(query_donor_select.NextRow())
 		if(!text2num(query_donor_select.item[3]))
 			// Inactive donator.
-			donator_level = DONATOR_LEVEL_NONE
+			donator_level = 0
 			return
 		donator_level = text2num(query_donor_select.item[2])
+		donor_loadout_points()
 		break
+
+/client/proc/donor_loadout_points()
+	if(donator_level > 0 && prefs)
+		prefs.max_gear_slots = config.max_loadout_points + 5
 
 /client/proc/log_client_to_db(connectiontopic)
 	if(IsGuestKey(key))
@@ -675,8 +686,8 @@
 			message += " (RESTRICTED)"
 		to_chat(world, "[message]")
 
-/client/proc/colour_transition(var/list/colour_to = null, var/time = 10) //Call this with no parameters to reset to default.
-	animate(src, color=colour_to, time=time, easing=SINE_EASING)
+/client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
+	animate(src, color = colour_to, time = time, easing = SINE_EASING)
 
 /client/proc/on_varedit()
 	var_edited = TRUE
@@ -770,3 +781,25 @@
 			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
+
+/client/proc/generate_clickcatcher()
+	if(!void)
+		void = new()
+		screen += void
+
+/client/proc/apply_clickcatcher()
+	generate_clickcatcher()
+	var/list/actualview = getviewsize(view)
+	void.UpdateGreed(actualview[1],actualview[2])
+
+/client/proc/send_ssd_warning(mob/M)
+	if(!config.ssd_warning)
+		return FALSE
+	if(ssd_warning_acknowledged)
+		return FALSE
+	if(M && M.player_logged < SSD_WARNING_TIMER)
+		return FALSE
+	to_chat(src, "Interacting with SSD players is against server rules unless you've ahelped first for permission. If you have, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</A> and proceed.")
+	return TRUE
+
+#undef SSD_WARNING_TIMER

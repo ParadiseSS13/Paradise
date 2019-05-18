@@ -229,6 +229,8 @@
 		else if(href_list["eject"])
 			if(beaker)
 				beaker.forceMove(get_turf(src))
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(beaker)
 				beaker = null
 				reagents.clear_reagents()
 				update_icon()

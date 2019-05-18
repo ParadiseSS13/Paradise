@@ -215,7 +215,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 	if(istype(M, /mob/living/carbon/human))
@@ -233,7 +233,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 
@@ -293,7 +293,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -313,7 +313,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -333,7 +333,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -405,7 +405,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 	if(istype(M, /mob/living/carbon/human))
@@ -818,7 +818,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		alert("Wait until the game starts")
 		return
 	if(istype(M, /mob/living/carbon))

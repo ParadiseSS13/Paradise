@@ -87,7 +87,7 @@
 	if(check_counter >= 5)
 		if(!finished)
 			check_heads()
-			ticker.mode.check_win()
+			SSticker.mode.check_win()
 		check_counter = 0
 	return FALSE
 
@@ -369,7 +369,7 @@
 
 /datum/game_mode/revolution/set_scoreboard_gvars()
 	var/foecount = 0
-	for(var/datum/mind/M in ticker.mode.head_revolutionaries)
+	for(var/datum/mind/M in SSticker.mode.head_revolutionaries)
 		foecount++
 		if(!M || !M.current)
 			score_opkilled++
@@ -408,10 +408,10 @@
 	var/comcount = 0
 	var/revcount = 0
 	var/loycount = 0
-	for(var/datum/mind/M in ticker.mode:head_revolutionaries)
+	for(var/datum/mind/M in SSticker.mode:head_revolutionaries)
 		if(M.current && M.current.stat != DEAD)
 			foecount++
-	for(var/datum/mind/M in ticker.mode:revolutionaries)
+	for(var/datum/mind/M in SSticker.mode:revolutionaries)
 		if(M.current && M.current.stat != DEAD)
 			revcount++
 	for(var/mob/living/carbon/human/player in world)
@@ -421,7 +421,7 @@
 				if(player.stat != DEAD)
 					comcount++
 			else
-				if(player.mind in ticker.mode.revolutionaries) continue
+				if(player.mind in SSticker.mode.revolutionaries) continue
 				loycount++
 
 	for(var/mob/living/silicon/X in world)

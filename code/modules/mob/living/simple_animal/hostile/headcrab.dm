@@ -59,9 +59,6 @@
 			return
 	target.attack_animal(src)
 
-
-
-
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
@@ -91,7 +88,12 @@
 		if(origin.changeling.can_absorb_dna(M, owner))
 			origin.changeling.absorb_dna(owner, M)
 
-		origin.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
+		var/datum/action/changeling/humanform/HF = new
+		HF.Grant(M)
+		for(var/power in origin.changeling.purchasedpowers)
+			var/datum/action/changeling/S = power
+			if(istype(S) && S.needs_button)
+				S.Grant(M)
 		M.key = origin.key
 	owner.gib()
 

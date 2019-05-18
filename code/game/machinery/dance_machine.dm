@@ -54,6 +54,7 @@
 /obj/machinery/disco/Destroy()
 	dance_over()
 	selection = null
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/machinery/disco/attackby(obj/item/O, mob/user, params)
@@ -128,7 +129,7 @@
 				active = TRUE
 				update_icon()
 				dance_setup()
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 				lights_spin()
 				updateUsrDialog()
 			else if(active)
@@ -472,7 +473,7 @@
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
 	else if(active)
 		active = FALSE
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		icon_state = "disco0"

@@ -41,7 +41,7 @@
 	invocation = "Ra'sha yoka!"
 
 /obj/item/paper/talisman/malformed/invoke(mob/living/user, successfuluse = 1)
-	to_chat(user, "<span class='cultitalic'>You feel a pain in your head. [ticker.cultdat.entity_title3] is displeased.</span>")
+	to_chat(user, "<span class='cultitalic'>You feel a pain in your head. [SSticker.cultdat.entity_title3] is displeased.</span>")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.apply_damage(10, BRUTE, "head")

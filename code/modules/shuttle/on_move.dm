@@ -1,12 +1,12 @@
 // Shuttle on-movement //
-/atom/movable/proc/onShuttleMove(turf/T1, rotation)
-    if(rotation)
-        shuttleRotate(rotation)
-    forceMove(T1)
-    return 1
-
-/atom/movable/lighting_overlay/onShuttleMove()
-    return 0
+/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation)
+	var/turf/newT = get_turf(src)
+	if(newT.z != oldT.z)
+		onTransitZ(oldT.z, newT.z)
+	if(rotation)
+		shuttleRotate(rotation)
+	forceMove(T1)
+	return 1
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
     // Used for marking where to preview/load shuttles
@@ -58,3 +58,4 @@
 	. = ..()
 	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
 		INVOKE_ASYNC(src, .proc/unlock)
+

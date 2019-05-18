@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(air)
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
-	..()
+	return ..()
 
 
 /datum/controller/subsystem/air/fire(resumed = 0)
