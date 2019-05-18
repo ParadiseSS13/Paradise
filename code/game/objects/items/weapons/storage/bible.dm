@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook","creeper", 
 /obj/item/storage/bible/attack_self(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
-	if(ticker && !ticker.Bible_icon_state && H.mind.assigned_role == "Chaplain")
+	if(SSticker && !SSticker.Bible_icon_state && H.mind.assigned_role == "Chaplain")
 		//Open bible selection
 
 		var/dat = "<html><head><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"
@@ -87,9 +87,9 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook","creeper", 
 		//Set biblespecific chapels
 		setupbiblespecifics(B, usr)
 
-		if(ticker)
-			ticker.Bible_icon_state = B.icon_state
-			ticker.Bible_item_state = B.item_state
+		if(SSticker)
+			SSticker.Bible_icon_state = B.icon_state
+			SSticker.Bible_item_state = B.item_state
 		feedback_set_details("religion_book","[biblename]")
 
 		usr << browse(null, "window=editicon") // Close window
