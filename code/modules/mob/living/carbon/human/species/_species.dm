@@ -405,8 +405,12 @@
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
-		var/randn = rand(1, 100)
-		if(randn <= 25)
+		var/chance = (target.maxHealth - target.health)
+		if(chance > 80)
+			chance = 80 // never give someone a guaranteed chance to disarm
+		if(chance < 20)
+			chance = 20 // but always have a chance of disarming
+		if(prob(chance - 10)) // 10-70% chance to knock over depending on targets health
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
@@ -419,7 +423,7 @@
 
 		var/talked = 0	// BubbleWrap
 
-		if(randn <= 60)
+		if(prob(chance)) // 20-80% chance to disarm depending on targets health
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
 				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
