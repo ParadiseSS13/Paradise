@@ -21,6 +21,9 @@
 	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
+	if(target.mind.changeling)
+		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
+		return
 	return 1
 
 /datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
