@@ -19,7 +19,8 @@
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	obj_integrity = 50
-	max_integrity = 50	
+	max_integrity = 50
+	integrity_failure = 25	
 	attack_verb = list("bapped")
 
 	var/info		//What's actually written on the paper.
@@ -404,7 +405,7 @@
 
 /obj/item/paper/fire_act(exposed_temperature,exposed_volume)
 	..()
-	if(burn_state >= FLAMMABLE) //Renders paper that has been lit on fire to be illegible.
+	if(resistance_flags & FLAMMABLE) //Renders paper that has been lit on fire to be illegible.
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(var/obj/item/stamp/S)
