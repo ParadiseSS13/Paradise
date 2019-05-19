@@ -87,3 +87,5 @@ var/copier_items_printed_logged = FALSE
 
 
 GLOBAL_VAR(map_name) // Self explanatory
+
+var/global/datum/datacore/data_core = null // Station datacore, manifest, etc
