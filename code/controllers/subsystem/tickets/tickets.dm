@@ -404,5 +404,8 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
 	if(assignStaffToTicket(usr.client, index))
-		message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
+		if(span_text == "<span class='mentorhelp'>")
+			message_staff("[span_text][usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
+		else
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
 		to_chat_safe(returnClient(index), "[span_text]Your [ticket_name] is being handled by [usr.client].</span>")
