@@ -13,19 +13,16 @@
 	var/icon_locked = "lockbox+l"
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
-	obj_integrity = 500
-	max_integrity = 500
-	integrity_failure = 150
+	obj_integrity = 300
+	max_integrity = 300
+	integrity_failure = 50
 	can_be_hit = TRUE
-	resistance_flags = NONE
+	resistance_flags = INDESTRUCTIBLE | ACID_PROOF | FIRE_PROOF
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 
 /obj/item/storage/lockbox/obj_break()
 	locked = 0
 	icon_state = icon_broken
-
-/obj/item/storage/lockbox/deconstruct(disassembled)
-	qdel(src) // destroy it so if you're careless about breaking it you won't get whats inside
 
 /obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
@@ -126,6 +123,7 @@
 	storage_slots = 12
 	can_be_hit = TRUE
 	req_access = list(access_captain)
+	resistance_flags = NONE
 	icon_locked = "medalbox+l"
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
