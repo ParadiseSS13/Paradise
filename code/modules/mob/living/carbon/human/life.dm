@@ -403,7 +403,7 @@
 				equip_to_slot(H.helmet, slot_head)
 				H.helmet.flags |= NODROP
 				to_chat(src, "<span class='notice'>Your hardsuit helmet automatically deploys, sealing you off from the world.</span>")
-				to_chat(src, "Low pressure environment, suit helmet automatically deployed.")
+				to_chat(src, "High pressure environment, suit helmet automatically deployed.")
 		else
 			clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.warning_high_pressure)
