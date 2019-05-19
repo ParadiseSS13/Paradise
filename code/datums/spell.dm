@@ -215,14 +215,15 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	if(action)
 		action.UpdateButtonIcon()
-	addtimer(CALLBACK(src, .add_charge), 10)
+	START_PROCESSING(SSfastprocess, src)
 
-/obj/effect/proc_holder/spell/proc/add_charge()
-	charge_counter += 10
-	if(charge_counter < charge_max) //Needs to charge some more
-		addtimer(CALLBACK(src, .add_charge), 10)
+/obj/effect/proc_holder/spell/process()
+	charge_counter += 2
+	if(charge_counter < charge_max)
 		return
-	if(action) //We got this far, it's charged
+	STOP_PROCESSING(SSfastprocess, src)
+	charge_counter = charge_max
+	if(action)
 		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
