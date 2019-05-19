@@ -388,27 +388,57 @@
 
 	var/pressure = environment.return_pressure()
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
+	var/obj/item/clothing/suit/space/hardsuit/elite/H // if they're wearing an elite hardsuit
 	if(status_flags & GODMODE)	return 1	//godmode
-
+	if(istype(wear_suit,/obj/item/clothing/suit/space/hardsuit/elite))
+		H = wear_suit
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
 		if(!(HEATRES in mutations))
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+			if (H && H.helmet && !head)
+				H.helmet.loc = src
+				H.helmet.pickup(H)
+				equip_to_slot(H.helmet, slot_head)
+				H.helmet.flags |= NODROP
+				to_chat(src, "<span class='notice'>Your hardsuit helmet automatically deploys, sealing you off from the world.</span>")
+				to_chat(src, "Low pressure environment, suit helmet automatically deployed.")
 		else
 			clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.warning_high_pressure)
 		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
+		if (H && H.helmet && !head)
+			H.helmet.loc = src
+			H.helmet.pickup(H)
+			equip_to_slot(H.helmet, slot_head)
+			H.helmet.flags |= NODROP
+			to_chat(src, "<span class='notice'>Your hardsuit helmet automatically deploys, sealing you off from the world.</span>")
+			to_chat(src, "High pressure environment, suit helmet automatically deployed.")
 	else if(adjusted_pressure >= dna.species.warning_low_pressure)
 		clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
+		if (H && H.helmet && !head)
+			H.helmet.loc = src
+			H.helmet.pickup(H)
+			equip_to_slot(H.helmet, slot_head)
+			H.helmet.flags |= NODROP
+			to_chat(src, "<span class='notice'>Your hardsuit helmet automatically deploys, sealing you off from the world.</span>")
+			to_chat(src, "Low pressure environment, suit helmet automatically deployed.")
 	else
 		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
+			if (H && H.helmet && !head)
+				H.helmet.loc = src
+				H.helmet.pickup(H)
+				equip_to_slot(H.helmet, slot_head)
+				H.helmet.flags |= NODROP
+				to_chat(src, "<span class='notice'>Your hardsuit helmet automatically deploys, sealing you off from the world.</span>")
+				to_chat(src, "Low pressure environment, suit helmet automatically deployed.")
 
 
 ///FIRE CODE

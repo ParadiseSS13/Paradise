@@ -293,6 +293,21 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
+/obj/item/clothing/suit/space/hardsuit/elite/verb/toggle_smartmode()
+	set name = "Toggle Smartmode"
+	set category = "Object"
+	set src in usr
+	if(!isliving(usr))
+		return
+	
+	var/mob/living/carbon/human/H = usr
+
+	if(!istype(H)) return
+	if(H.stat) return
+	if(H.wear_suit != src) return
+	smartmode = !smartmode
+	to_chat(H, "<span class='notice'>Hardsuit safemode is now [smartmode ? "Enabled" : "Disabled"]</span>")
+
 /obj/item/clothing/suit/space/hardsuit/elite
 	icon_state = "hardsuit-white"
 	name = "advanced hardsuit"
@@ -301,6 +316,7 @@
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	var/smartmode = FALSE
 
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
