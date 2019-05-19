@@ -337,6 +337,7 @@
 #include "code\datums\helper_datums\global_iterator.dm"
 #include "code\datums\helper_datums\hotkey_modes.dm"
 #include "code\datums\helper_datums\icon_snapshot.dm"
+#include "code\datums\helper_datums\input.dm"
 #include "code\datums\helper_datums\map_template.dm"
 #include "code\datums\helper_datums\teleport.dm"
 #include "code\datums\helper_datums\topic_input.dm"

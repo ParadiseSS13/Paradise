@@ -196,6 +196,7 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
+	item_state = "sechailer"
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
