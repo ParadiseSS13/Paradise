@@ -21,7 +21,7 @@ Bonus
 	resistance = -4
 	stage_speed = -4
 	transmittable = -3
-	level = 5
+	level = 6
 	severity = 0
 	activation_delay = 11
 
@@ -50,7 +50,7 @@ Bonus
 	resistance = -3
 	stage_speed = -2
 	transmittable = -4
-	level = 4
+	level = 5
 	activation_delay = 7
 
 /datum/symptom/sensory_restoration/DoEffect(datum/disease/advance/A)

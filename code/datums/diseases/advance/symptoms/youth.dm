@@ -22,7 +22,7 @@ BONUS
 	resistance = 4
 	stage_speed = 4
 	transmittable = -4
-	level = 5
+	level = 7
 	activation_delay = 17
 
 /datum/symptom/youth/Activate(datum/disease/advance/A)

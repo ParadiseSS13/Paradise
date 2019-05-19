@@ -22,7 +22,7 @@ Bonus
 	resistance = -4
 	stage_speed = -4
 	transmittable = -4
-	level = 6
+	level = 7
 	severity = 5
 
 /datum/symptom/fire/DoEffect(datum/disease/advance/A)

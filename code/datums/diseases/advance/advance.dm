@@ -36,6 +36,8 @@ var/list/advance_cures = 	list(
 	// NEW VARS
 
 	var/list/symptoms = list() // The symptoms of the disease.
+	var/list/unhatched_symptoms = list() // Symptoms not yet known
+	var/list/unhatched_symptom_possilities = list() // associative list, key = unhatched symptom name, value = list of fake possibilities names
 	var/id = ""
 	var/processing = 0
 	var/hatched = FALSE // If the virus can be used to create more virus cultures, will activate at 3th stage. If there are more than 5 symptoms it will require a host with a soul attached to it.
@@ -58,6 +60,11 @@ var/list/advance_cures = 	list(
 			hatched = D.hatched && !new_virus // Don't copy if it's newly mixed
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
+			message_admins("D.unh len: [LAZYLEN(D.unhatched_symptoms)]")
+			for(var/sympName in D.unhatched_symptoms)
+				unhatched_symptoms += sympName
+				unhatched_symptom_possilities[sympName] = D.unhatched_symptom_possilities[sympName]
+			message_admins("unh len: [LAZYLEN(unhatched_symptoms)]")
 
 	Refresh(FALSE, FALSE) // Don't reset hatchet
 	..(process, D)
@@ -74,6 +81,10 @@ var/list/advance_cures = 	list(
 	..()
 	if(!hatched && stage >= 3)
 		hatched = LAZYLEN(symptoms) > 5 ? ishuman(affected_mob) && affected_mob.mind : TRUE // Ready for production
+		qdel(unhatched_symptoms) // Clear the list and make it new
+		unhatched_symptoms = list()
+		QDEL_LIST_ASSOC(unhatched_symptom_possilities)
+		unhatched_symptom_possilities = list()
 
 	if(symptoms && symptoms.len)
 
@@ -121,7 +132,20 @@ var/list/advance_cures = 	list(
 	if(!(IsSame(D)))
 		var/list/possible_symptoms = shuffle(D.symptoms)
 		for(var/datum/symptom/S in possible_symptoms)
-			AddSymptom(new S.type)
+			AddSymptom(new S.type, FALSE)
+		
+		// Add the unhatched data. Unhatched wins over hatched duplicates
+		var/list/tempUnhatched = list()
+		var/list/tempUnhatchedPosibilities = list()
+		for(var/datum/symptom/S in symptoms)
+			if(S.name in unhatched_symptoms)
+				tempUnhatched += S.name
+				tempUnhatchedPosibilities[S.name] = unhatched_symptom_possilities[S.name]
+			else if(S.name in D.unhatched_symptoms)
+				tempUnhatched += S.name
+				tempUnhatchedPosibilities[S.name] = D.unhatched_symptom_possilities[S.name]
+		unhatched_symptoms = tempUnhatched
+		unhatched_symptom_possilities = tempUnhatchedPosibilities
 
 /datum/disease/advance/proc/HasSymptom(datum/symptom/S)
 	for(var/datum/symptom/symp in symptoms)
@@ -298,7 +322,7 @@ var/list/advance_cures = 	list(
 
 // Add a symptom, if it is over the limit (with a small chance to be able to go over)
 // we take a random symptom away and add the new one.
-/datum/disease/advance/proc/AddSymptom(datum/symptom/S)
+/datum/disease/advance/proc/AddSymptom(datum/symptom/S, newSymptom = TRUE)
 
 	if(HasSymptom(S))
 		return
@@ -308,12 +332,25 @@ var/list/advance_cures = 	list(
 	else
 		RemoveSymptom(pick(symptoms))
 		symptoms += S
+	if(newSymptom)
+		AddSymptomToUnknowns(S)
 	return
+
+/datum/disease/advance/proc/AddSymptomToUnknowns(datum/symptom/S)
+	unhatched_symptoms += S.name //Add it to the list of unknowns
+	var/list/results = GenerateSymptoms(S.level, S.level, 2) // Generate 2 possibilities
+	var/list/names = list()
+	for(var/datum/symptom/symp in results)
+		names += symp.name
+	unhatched_symptom_possilities[S.name] = names
 
 // Simply removes the symptom.
 /datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
 	symptoms -= S
-	return
+	if(S.name in unhatched_symptoms)
+		unhatched_symptoms -= S.name
+		QDEL_LIST(unhatched_symptom_possilities[S.name])
+		unhatched_symptom_possilities -= S.name
 
 /*
 
@@ -323,9 +360,6 @@ var/list/advance_cures = 	list(
 
 // Mix a list of advance diseases and return the mixed result.
 /proc/Advance_Mix(var/list/D_list)
-
-//	to_chat(world, "Mixing!!!!")
-
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
@@ -344,12 +378,14 @@ var/list/advance_cures = 	list(
 
 		var/datum/disease/advance/D1 = pick(diseases)
 		diseases -= D1
-
+		message_admins("D1 len: [LAZYLEN(D1.unhatched_symptoms)]")
 		var/datum/disease/advance/D2 = pick(diseases)
+		message_admins("D2 len: [LAZYLEN(D2.unhatched_symptoms)]")
 		D2.Mix(D1)
+		message_admins("D2 post len: [LAZYLEN(D1.unhatched_symptoms)]")
 
 	 // Should be only 1 entry left, but if not let's only return a single entry
-//	to_chat(world, "END MIXING!!!!!")
+	 
 	var/datum/disease/advance/to_return = pick(diseases)
 	to_return.Refresh(TRUE)
 	return to_return

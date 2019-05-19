@@ -22,7 +22,7 @@ Bonus
 	resistance = -3
 	stage_speed = -3
 	transmittable = -1
-	level = 5
+	level = 6
 	severity = 3
 
 /datum/symptom/hallucigen/DoEffect(datum/disease/advance/A)

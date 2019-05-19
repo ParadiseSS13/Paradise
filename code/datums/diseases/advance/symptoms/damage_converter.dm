@@ -22,7 +22,7 @@ Bonus
 	resistance = -4
 	stage_speed = -4
 	transmittable = -2
-	level = 4
+	level = 6
 	activation_delay = 4
 
 /datum/symptom/damage_converter/DoEffect(datum/disease/advance/A)

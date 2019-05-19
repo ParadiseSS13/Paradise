@@ -22,7 +22,7 @@ Bonus
 	resistance = -2
 	stage_speed = -1
 	transmittable = -3
-	level = 4
+	level = 5
 	severity = 3
 
 /datum/symptom/deafness/DoEffect(datum/disease/advance/A)

@@ -22,7 +22,7 @@ Bonus
 	resistance = -1
 	stage_speed = -3
 	transmittable = 0
-	level = 4
+	level = 5
 	severity = 2
 
 

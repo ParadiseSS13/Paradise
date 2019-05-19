@@ -22,7 +22,7 @@ Bonus
 	resistance = -3
 	stage_speed = -3
 	transmittable = -4
-	level = 6
+	level = 7
 	activation_delay = 7
 
 /datum/symptom/oxygen/DoEffect(datum/disease/advance/A)

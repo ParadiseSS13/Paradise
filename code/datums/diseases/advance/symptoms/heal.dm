@@ -22,7 +22,7 @@ Bonus
 	resistance = -4
 	stage_speed = -4
 	transmittable = -4
-	level = 6
+	level = 8
 	activation_delay = 4
 
 /datum/symptom/heal/DoEffect(datum/disease/advance/A)
@@ -61,7 +61,7 @@ Bonus
 	resistance = -1
 	stage_speed = -1
 	transmittable = -4
-	level = 3
+	level = 4
 	var/list/cured_diseases = list()
 
 /datum/symptom/heal/metabolism/Heal(mob/living/M, datum/disease/advance/A)

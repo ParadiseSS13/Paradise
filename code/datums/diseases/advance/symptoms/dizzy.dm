@@ -22,7 +22,7 @@ Bonus
 	resistance = -2
 	stage_speed = -3
 	transmittable = -1
-	level = 4
+	level = 5
 	severity = 2
 
 /datum/symptom/dizzy/DoEffect(datum/disease/advance/A)

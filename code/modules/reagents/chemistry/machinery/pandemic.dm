@@ -281,10 +281,15 @@
 						var/datum/disease/D = thing
 						i++
 						if(!(D.visibility_flags & HIDDEN_PANDEMIC))
-
+							var/hatched = TRUE
+							var/list/unhatched_symptoms = list()
+							var/list/unhatched_symptom_possilities = list()
 							if(istype(D, /datum/disease/advance))
 
 								var/datum/disease/advance/A = D
+								hatched = A.hatched // Only show stats when the virus has reached stage 3
+								unhatched_symptoms = A.unhatched_symptoms
+								unhatched_symptom_possilities = A.unhatched_symptom_possilities
 								D = archive_diseases[A.GetDiseaseID()]
 								if(D)
 									if(D.name == "Unknown")
@@ -298,16 +303,25 @@
 							dat += "<b>Disease Agent:</b> [D?"[D.agent] - <A href='?src=[UID()];create_virus_culture=[i]'>Create virus culture bottle</A>":"none"]<BR>"
 							dat += "<b>Common name:</b> [(D.name||"none")]<BR>"
 							dat += "<b>Description: </b> [(D.desc||"none")]<BR>"
-							dat += "<b>Spread:</b> [(D.spread_text||"none")]<BR>"
-							dat += "<b>Possible cure:</b> [(D.cure_text||"none")]<BR><BR>"
+							dat += "<b>Spread:</b> [hatched ? (D.spread_text||"none") : "Unknown"]<BR>"
+							dat += "<b>Possible cure:</b> [hatched ? (D.cure_text||"none") : "Unknown"]<BR><BR>"
 
 							if(istype(D, /datum/disease/advance))
 								var/datum/disease/advance/A = D
 								dat += "<b>Symptoms:</b> "
 								var/english_symptoms = list()
 								for(var/datum/symptom/S in A.symptoms)
-									english_symptoms += S.name
+									if(!(S.name in unhatched_symptoms)) // Skip the unknown ones
+										english_symptoms += S.name
 								dat += english_list(english_symptoms)
+								english_symptoms = list()
+								if(LAZYLEN(unhatched_symptoms))
+									for(var/symptomName in unhatched_symptoms)
+										var/list/possibilities = list(symptomName)
+										possibilities += unhatched_symptom_possilities[symptomName]
+										english_symptoms += "(" + english_list(shuffle(possibilities), "nothing", " or ") + ")" // Create an entry (possible symptoms)
+									dat += "<BR><b>Unhatched Symptoms:</b> " + english_list(english_symptoms)
+
 
 						else
 							dat += "No detectable virus in the sample."

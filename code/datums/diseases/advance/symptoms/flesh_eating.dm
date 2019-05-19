@@ -22,7 +22,7 @@ Bonus
 	resistance = -4
 	stage_speed = 0
 	transmittable = -4
-	level = 6
+	level = 8
 	severity = 5
 
 /datum/symptom/flesh_eating/DoEffect(datum/disease/advance/A)

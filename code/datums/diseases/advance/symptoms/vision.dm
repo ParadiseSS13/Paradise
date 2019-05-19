@@ -22,7 +22,7 @@ Bonus
 	resistance = -4
 	stage_speed = -4
 	transmittable = -3
-	level = 5
+	level = 6
 	severity = 4
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)

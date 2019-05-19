@@ -22,7 +22,7 @@ Bonus
 	resistance = -3
 	stage_speed = -3
 	transmittable = -1
-	level = 6
+	level = 7
 	severity = 2
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)

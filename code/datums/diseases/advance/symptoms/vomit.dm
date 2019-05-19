@@ -70,7 +70,7 @@ Bonus
 	resistance = -1
 	stage_speed = -1
 	transmittable = 1
-	level = 4
+	level = 5
 	severity = 5
 
 /datum/symptom/vomit/blood/Vomit(mob/living/carbon/M)
