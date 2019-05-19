@@ -36,7 +36,7 @@
 			for(var/M in GLOB.silicon_mob_list)
 				if(isrobot(M))
 					var/mob/living/silicon/robot/R = M
-					if(istype(R.module, /obj/item/robot_module/combat))
+					if(istype(R.module, /obj/item/robot_module/combat) && !R.crisis)
 						R.reset_module()
 						to_chat(R, "<span class='warning'>Crisis mode deactivated. The combat module is no longer available and your module has been reset.</span>")
 
