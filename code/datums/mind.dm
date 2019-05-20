@@ -906,9 +906,11 @@
 				if(src in SSticker.mode.changelings)
 					SSticker.mode.changelings -= src
 					special_role = null
-					current.remove_changeling_powers()
+					if(changeling)
+						current.remove_changeling_powers()
+						qdel(changeling)
+						changeling = null
 					SSticker.mode.update_change_icons_removed(src)
-					if(changeling)	qdel(changeling)
 					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
 					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
