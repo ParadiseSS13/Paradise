@@ -228,7 +228,7 @@
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
-		if(!cannot_amputate && brute_dam >= min_broken_damage)
+		if(!cannot_amputate && brute_dam >= max_damage)
 			if(prob(brute_dam / 2)) // the probability of dismembering is now dependent on the damage of the limb
 				if(sharp)
 					droplimb(0, DROPLIMB_SHARP)
