@@ -44,7 +44,7 @@
 	var/lingpowers = list()
 	for(var/power in changeling.purchasedpowers)
 		lingpowers += power
-	
+
 	changeling.absorbed_dna -= changeling.find_dna(user.dna)
 	changeling.protected_dna -= changeling.find_dna(user.dna)
 	changeling.absorbedcount -= 1
@@ -66,6 +66,7 @@
 
 	for(var/power in lingpowers)
 		var/datum/action/changeling/S = power
+		target.mind.changeling.purchasedpowers += S
 		if(istype(S) && S.needs_button)
 			S.Grant(target)
 
