@@ -55,13 +55,9 @@ var/ert_request_answered = FALSE
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
-	if(response_team_members.len > 6)
-		to_chat(src, "<span class='warning'>The emergency response team is already full!</span>")
-		return 0
-
 	return 1
 
-/proc/trigger_armed_response_team(var/datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
+/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 	response_team_members = list()
 	active_team = response_team_type
 	active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
@@ -71,7 +67,7 @@ var/ert_request_answered = FALSE
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = FALSE
-		return 0
+		return
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
@@ -87,46 +83,64 @@ var/ert_request_answered = FALSE
 	if(!response_team_members.len)
 		active_team.cannot_send_team()
 		send_emergency_team = FALSE
-		return 0
+		return
 
-	var/index = 1
+	var/list/ert_gender_prefs = list()
 	for(var/mob/M in response_team_members)
-		if(index > emergencyresponseteamspawn.len)
-			index = 1
+		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/get_ert_role_prefs, response_team_members, ert_gender_prefs), 100)
 
+/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs)
+	var/list/ert_role_prefs = list()
+	for(var/datum/async_input/A in ert_gender_prefs)
+		A.close()
+	for(var/mob/M in response_team_members)
+		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (15 seconds):", active_team.get_slot_list()))
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 150)
+
+/proc/dispatch_response_team(list/response_team_members, list/ert_gender_prefs, list/ert_role_prefs)
+	var/spawn_index = 1
+
+	for(var/i = 1, i <= response_team_members.len, i++)
+		if(spawn_index > emergencyresponseteamspawn.len)
+			break
+		if(!active_team.get_slot_list().len)
+			break
+		var/gender_pref = ert_gender_prefs[i].result
+		var/role_pref = ert_role_prefs[i].close()
+		var/mob/M = response_team_members[i]
 		if(!M || !M.client)
 			continue
-		log_debug("Spawning as ERT: [M.ckey] ([M])")
-		var/client/C = M.client
-		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
-		if(!M || !new_commando)
+		if(!gender_pref || !role_pref)
+			// Player was afk and did not select
 			continue
-		new_commando.mind.key = M.key
-		new_commando.key = M.key
-		new_commando.update_icons()
-		index++
-
+		for(var/role in role_pref)
+			if(active_team.check_slot_available(role))
+				var/mob/living/new_commando = M.client.create_response_team(gender_pref, role, emergencyresponseteamspawn[spawn_index])
+				active_team.reduceSlots(role)
+				spawn_index++
+				if(!M || !new_commando)
+					break
+				new_commando.mind.key = M.key
+				new_commando.key = M.key
+				new_commando.update_icons()
+				break
 	send_emergency_team = FALSE
-	active_team.announce_team()
-	return 1
 
-/client/proc/create_response_team(var/turf/spawn_location)
-	var/class = 0
-	while(!class)
-		class = input(src, "Which loadout would you like to choose?") in active_team.get_slot_list()
-		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
-			class = 0
+	if(active_team.count)
+		active_team.announce_team()
+		return
+	// Everyone who said yes was afk
+	active_team.cannot_send_team()
 
-	if(class == "Cyborg")
-		active_team.reduceCyborgSlots()
+/client/proc/create_response_team(new_gender, role, turf/spawn_location)
+	if(role == "Cyborg")
 		var/cyborg_unlock = active_team.getCyborgUnlock()
 		var/mob/living/silicon/robot/ert/R = new /mob/living/silicon/robot/ert(spawn_location, cyborg_unlock)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-
-	var/new_gender = alert(src, "Please select your gender.", "ERT Character Generation", "Male", "Female")
 
 	if(new_gender)
 		if(new_gender == "Male")
@@ -169,21 +183,24 @@ var/ert_request_answered = FALSE
 	SSticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
-	SSjobs.CreateMoneyAccount(M, class, null)
+	SSjobs.CreateMoneyAccount(M, role, null)
 
-	active_team.equip_officer(class, M)
+	active_team.equip_officer(role, M)
 
 	return M
 
 
 /datum/response_team
-	var/command_slots = 1
-	var/engineer_slots = 3
-	var/medical_slots = 3
-	var/security_slots = 3
-	var/janitor_slots = 0
-	var/paranormal_slots = 0
-	var/cyborg_slots = 0
+	var/list/slots = list(
+		Commander = 0,
+		Security = 0,
+		Engineer = 0,
+		Medic = 0,
+		Janitor = 0,
+		Paranormal = 0,
+		Cyborg = 0
+	)
+	var/count = 0
 
 	var/command_outfit
 	var/engineering_outfit
@@ -193,88 +210,56 @@ var/ert_request_answered = FALSE
 	var/paranormal_outfit
 	var/cyborg_unlock = 0
 
-/datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
-	command_slots = com == null ? command_slots : com
-	security_slots = sec == null ? security_slots : sec
-	medical_slots = med == null ? medical_slots : med
-	engineer_slots = eng == null ? engineer_slots : eng
-	janitor_slots = jan == null ? janitor_slots : jan
-	paranormal_slots = par == null ? paranormal_slots : par
-	cyborg_slots = cyb == null ? cyborg_slots : cyb
+/datum/response_team/proc/setSlots(com=1, sec=3, med=3, eng=3, jan=0, par=0, cyb=0)
+	slots["Commander"] = com
+	slots["Security"] = sec
+	slots["Medic"] = med
+	slots["Engineer"] = eng
+	slots["Janitor"] = jan
+	slots["Paranormal"] = par
+	slots["Cyborg"] = cyb
 
-/datum/response_team/proc/reduceCyborgSlots()
-	cyborg_slots--
+/datum/response_team/proc/reduceSlots(role)
+	slots[role]--
+	count++
 
 /datum/response_team/proc/getCyborgUnlock()
 	return cyborg_unlock
 
 /datum/response_team/proc/get_slot_list()
 	var/list/slots_available = list()
-	if(command_slots)
-		slots_available |= "Commander"
-	if(security_slots)
-		slots_available |= "Security"
-	if(engineer_slots)
-		slots_available |= "Engineer"
-	if(medical_slots)
-		slots_available |= "Medic"
-	if(janitor_slots)
-		slots_available |= "Janitor"
-	if(paranormal_slots)
-		slots_available |= "Paranormal"
-	if(cyborg_slots)
-		slots_available |= "Cyborg"
+	for(var/role in slots)
+		if(slots[role])
+			slots_available.Add(role)
 	return slots_available
 
-/datum/response_team/proc/check_slot_available(var/slot)
-	switch(slot)
-		if("Commander")
-			return command_slots
-		if("Security")
-			return security_slots
-		if("Engineer")
-			return engineer_slots
-		if("Medic")
-			return medical_slots
-		if("Janitor")
-			return janitor_slots
-		if("Paranormal")
-			return paranormal_slots
-		if("Cyborg")
-			return cyborg_slots
-	return 0
+/datum/response_team/proc/check_slot_available(role)
+	return slots[role]
 
 /datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	switch(officer_type)
 		if("Engineer")
-			engineer_slots -= 1
 			M.equipOutfit(engineering_outfit)
 			M.job = "ERT Engineering"
 
 		if("Security")
-			security_slots -= 1
 			M.equipOutfit(security_outfit)
 			M.job = "ERT Security"
 
 		if("Medic")
-			medical_slots -= 1
 			M.equipOutfit(medical_outfit)
 			M.job = "ERT Medical"
 
 		if("Janitor")
-			janitor_slots -= 1
 			M.equipOutfit(janitor_outfit)
 			M.job = "ERT Janitor"
 
 		if("Paranormal")
-			paranormal_slots -= 1
 			M.equipOutfit(paranormal_outfit)
 			M.job = "ERT Paranormal"
 			M.mind.isholy = TRUE
 
 		if("Commander")
-			command_slots = 0
-
 			// Override name and age for the commander
 			M.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
 			M.age = rand(35,45)
