@@ -229,7 +229,7 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
 		if(!cannot_amputate && (brute_dam) >= (max_damage))
-			if(prob(brute / 2))
+			if(prob(brute_dam)) // the probability of dismembering is now dependent on the damage of the limb
 				if(sharp)
 					droplimb(0, DROPLIMB_SHARP)
 
