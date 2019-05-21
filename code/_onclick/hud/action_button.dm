@@ -24,7 +24,7 @@
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
 	name = "Hide Buttons"
-	desc = "Shift-click any button to reset its position, and Control-click it to unlock/lock its position in place. Alt-click this button to reset all buttons to their default positions."
+	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. Alt-click this button to reset all buttons to their default positions."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = 0
