@@ -1117,6 +1117,7 @@
 #include "code\HISPANIA\datums\diseases\virush.dm"
 #include "code\HISPANIA\defines\procs\discord.dm"
 #include "code\HISPANIA\game\hispania_items.dm"
+#include "code\HISPANIA\game\machinery\jukebox.dm"
 #include "code\HISPANIA\game\objects\items\miscellaneous\bell.dm"
 #include "code\HISPANIA\game\objects\items\weapons\manuals.dm"
 #include "code\HISPANIA\game\objects\structures\crates_lockers\closets\cardboardcham.dm"
