@@ -167,7 +167,7 @@
 				if(2)
 					say(pick(s2))
 				if(3)
-					emote("babea")
+					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/datum/dna/gene/gene in dna_genes)
