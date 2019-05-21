@@ -459,8 +459,8 @@
 			organData["germ_level"] = I.germ_level
 			organData["damage"] = I.damage
 			organData["maxHealth"] = I.max_damage
-			organData["bruised"] = I.min_bruised_damage
-			organData["broken"] = I.min_broken_damage
+			organData["bruised"] = I.min_broken_damage
+			organData["broken"] = I.min_bruised_damage
 			organData["robotic"] = I.is_robotic()
 			organData["dead"] = (I.status & ORGAN_DEAD)
 
