@@ -947,7 +947,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "tank transfer valves crate"
-	access = access_research
+	access = access_rd
 
 /datum/supply_packs/science/prototype
 	name = "Machine Prototype Crate"
