@@ -233,7 +233,7 @@
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("chocolate" = 30)
+	list_reagents = list("hot_coco" = 30)
 
 /obj/item/reagent_containers/food/drinks/weightloss
 	name = "Weight-Loss Shake"
