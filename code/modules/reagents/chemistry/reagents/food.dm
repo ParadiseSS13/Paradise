@@ -64,15 +64,15 @@
 /datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
 	if(M.satiety < 600)
 		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.5
+				H.blood_volume += 1
 	return ..() | update_flags
 
 /datum/reagent/consumable/sugar
