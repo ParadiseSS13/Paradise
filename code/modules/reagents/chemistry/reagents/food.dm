@@ -42,6 +42,7 @@
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
+	nutriment_factor = 20 * REAGENTS_METABOLISM
 	taste_message = "meat"
 
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
@@ -49,6 +50,7 @@
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
+	nutriment_factor = 18 * REAGENTS_METABOLISM
 	taste_message = "vegetables"
 
 /datum/reagent/consumable/vitamin
