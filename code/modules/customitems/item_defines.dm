@@ -452,6 +452,52 @@
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
+/obj/item/fluff/shadey_plasman_modkit2 // Shadeykins: Star-Scattered Sky
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+	force = 0
+	throwforce = 0
+
+/obj/item/fluff/shadey_plasman_modkit2/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			return
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		used |= USED_MOD_HELM
+
+		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
+		P.name = "plasma containment helmet"
+		P.desc = "Starry skies / behold the cries / of a thousand drowning spacemen."
+		P.icon_state = "plasmaman_star_helmet[P.on]"
+		P.base_state = "plasmaman_star_helmet"
+
+		if(P == H.head)
+			H.update_inv_head()
+		return
+	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			return
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		used |= USED_MOD_SUIT
+
+		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
+		P.name = "plasma containment suit"
+		P.desc = "A militant yet feminine containment suit; designed to keep plasma in and everything else out! It's even got an overskirt."
+		P.icon_state = "plasmaman_star"
+
+		if(P == H.wear_suit)
+			H.update_inv_wear_suit()
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 /obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
 	name = "plasmaman suit modkit"
 	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
