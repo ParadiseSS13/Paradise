@@ -523,7 +523,7 @@
 	id = "chocolate"
 	description = "Chocolate is a delightful product derived from the seeds of the theobroma cacao tree."
 	reagent_state = LIQUID
-	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
+	nutriment_factor = 0	//chocolate decays into sugar which provides its own nutrition
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
 	drink_name = "Glass of chocolate"
