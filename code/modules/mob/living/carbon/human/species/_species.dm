@@ -39,8 +39,6 @@
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
-	var/invis_sight = SEE_INVISIBLE_LIVING
-
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
@@ -80,7 +78,7 @@
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/blood_color = "#A10808" //Red.
-	var/flesh_color = "#FFC896" //Pink.
+	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
@@ -309,6 +307,9 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return
+
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
@@ -319,7 +320,7 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
@@ -330,11 +331,11 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
-		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
+		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
 		if(SKELETON in target.mutations)
@@ -348,7 +349,7 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
@@ -393,7 +394,7 @@
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
@@ -521,6 +522,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
+	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("chomp")
@@ -626,22 +628,19 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return null
 	return has_organ[organ_slot]
 
-/datum/species/proc/get_resultant_darksight(mob/living/carbon/human/H) //Returns default value of 2 if the mob doesn't have eyes, otherwise it grabs the eyes darksight.
-	var/resultant_darksight = 2
-	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-	if(eyes)
-		resultant_darksight = eyes.get_dark_view()
-	return resultant_darksight
-
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
 	H.sight = initial(H.sight)
-	H.see_in_dark = get_resultant_darksight(H)
-	H.see_invisible = invis_sight
 
-	if(H.see_in_dark > 2) //Preliminary see_invisible handling as per set_species() in code\modules\mob\living\carbon\human\human.dm.
-		H.see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes)
+		H.sight |= eyes.vision_flags
+		H.see_in_dark = eyes.see_in_dark
+		H.see_invisible = eyes.see_invisible
+		H.lighting_alpha = eyes.lighting_alpha
 	else
-		H.see_invisible = SEE_INVISIBLE_LIVING
+		H.see_in_dark = initial(H.see_in_dark)
+		H.see_invisible = initial(H.see_invisible)
+		H.lighting_alpha = initial(H.lighting_alpha)
 
 	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
@@ -652,39 +651,43 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
-			H.see_invisible = SEE_INVISIBLE_MINIMUM
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
 		H.sight |= E.vision_flags
-		if(E.dark_view)
-			H.see_in_dark = E.dark_view
+		if(E.see_in_dark)
+			H.see_in_dark = max(H.see_in_dark, E.see_in_dark)
 		if(E.see_invisible)
 			H.see_invisible = min(H.see_invisible, E.see_invisible)
+		if(E.lighting_alpha)
+			H.lighting_alpha = min(H.lighting_alpha, E.lighting_alpha)
 
-	var/lesser_darkview_bonus = INFINITY
 	// my glasses, I can't see without my glasses
 	if(H.glasses)
 		var/obj/item/clothing/glasses/G = H.glasses
 		H.sight |= G.vision_flags
-		lesser_darkview_bonus = G.darkness_view
+		H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
+
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
 		else
 			H.see_invisible = min(G.invis_view, H.see_invisible)
+		
+		if(!isnull(G.lighting_alpha))
+			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
 	// better living through hat trading
 	if(H.head)
 		if(istype(H.head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = H.head
 			H.sight |= hat.vision_flags
+			H.see_in_dark = max(hat.see_in_dark, H.see_in_dark)
 
-			if(hat.darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
-				lesser_darkview_bonus = min(hat.darkness_view,lesser_darkview_bonus)
-
-			if(hat.helmet_goggles_invis_view)
-				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
+			if(!isnull(hat.lighting_alpha))
+				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
 	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
 		var/obj/item/rig/rig = H.back
@@ -693,27 +696,27 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
 					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
 					if(istype(G))
-						H.see_in_dark = (G.darkness_view ? G.darkness_view : get_resultant_darksight(H)) // Otherwise we keep our darkness view with togglable nightvision.
-						if(G.vision_flags)		// MESONS
-							H.sight |= G.vision_flags
-
+						H.sight |= G.vision_flags
+						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
 						H.see_invisible = min(G.invis_view, H.see_invisible)
 
-	if(lesser_darkview_bonus != INFINITY)
-		H.see_in_dark = max(lesser_darkview_bonus, H.see_in_dark)
+						if(!isnull(G.lighting_alpha))
+							H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
 	if(H.vision_type)
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, get_resultant_darksight(H))
-		H.see_invisible = H.vision_type.see_invisible
-		if(H.vision_type.light_sensitive)
-			H.weakeyes = 1
 		H.sight |= H.vision_type.sight_flags
+		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
+
+		if(!isnull(H.vision_type.lighting_alpha))
+			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
+
+		if(H.vision_type.light_sensitive)
+			H.weakeyes = TRUE
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
-	if(H.see_override)	//Override all
-		H.see_invisible = H.see_override
+	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately

@@ -31,23 +31,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	Master.Initialize(10, FALSE)
 
 	processScheduler = new
-	master_controller = new /datum/controller/game_controller()
 	spawn(1)
-		processScheduler.deferSetupFor(/datum/controller/process/ticker)
 		processScheduler.setup()
-
-		master_controller.setup()
-
-	if(using_map && using_map.name)
-		map_name = "[using_map.name]"
-	else
-		map_name = "Unknown"
-
-
-	if(config && config.server_name)
-		name = "[config.server_name]: [station_name()]"
-	else
-		name = station_name()
 
 
 #undef RECOMMENDED_VERSION
@@ -117,13 +102,13 @@ var/world_topic_spam_protect_time = world.timeofday
 			player_count++
 		s["players"] = player_count
 		s["admins"] = admin_count
-		s["map_name"] = map_name ? map_name : "Unknown"
+		s["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
 
 		if(key_valid)
-			if(ticker && ticker.mode)
-				s["real_mode"] = ticker.mode.name
+			if(SSticker && SSticker.mode)
+				s["real_mode"] = SSticker.mode.name
 				s["security_level"] = get_security_level()
-				s["ticker_state"] = ticker.current_state
+				s["ticker_state"] = SSticker.current_state
 
 			if(SSshuttle && SSshuttle.emergency)
 				// Shuttle status, see /__DEFINES/stat.dm
@@ -299,8 +284,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(!isnull(time))
 		delay = max(0,time)
 	else
-		delay = ticker.restart_timeout
-	if(ticker.delay_end)
+		delay = SSticker.restart_timeout
+	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
@@ -309,12 +294,12 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
 		spawn(delay - sound_length)
-			if(!ticker.delay_end)
+			if(!SSticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
-	if(ticker.delay_end)
+	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
@@ -372,26 +357,28 @@ var/world_topic_spam_protect_time = world.timeofday
 	// apply some settings from config..
 
 /world/proc/update_status()
+	status = get_status_text()
+
+/proc/get_world_status_text()
+	return world.get_status_text()
+
+/world/proc/get_status_text()
 	var/s = ""
 
 	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
+	s += "<b>[station_name()]</b> "
+	if(config && config.githuburl)
+		s+= "([game_version])"
 
-	s += "<b>[station_name()]</b>";
-	s += " ("
-	s += "<a href=\"http://nanotrasen.se\">" //Change this to wherever you want the hub to link to.
-	s += "[game_version]"
-	s += "</a>"
-	s += ")"
-	s += "<br>The Perfect Mix of RP & Action<br>"
+	if(config && config.server_tag_line)
+		s += "<br>[config.server_tag_line]"
 
-
-
-
+	s += "<br>"
 	var/list/features = list()
 
-	if(ticker)
-		if(master_mode)
+	if(SSticker)
+		if(master_mode && master_mode != "secret")
 			features += master_mode
 	else
 		features += "<b>STARTING</b>"
@@ -399,39 +386,22 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(!enter_allowed)
 		features += "closed"
 
-	features += abandon_allowed ? "respawn" : "no respawn"
+	if(config && config.server_extra_features)
+		features += config.server_extra_features
 
 	if(config && config.allow_vote_mode)
 		features += "vote"
 
-	if(config && config.allow_ai)
-		features += "AI allowed"
+	if(config && config.wikiurl)
+		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
 
-	var/n = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			n++
-
-	if(n > 1)
-		features += "~[n] players"
-	else if(n > 0)
-		features += "~[n] player"
-
-	/*
-	is there a reason for this? the byond site shows 'hosted by X' when there is a proper host already.
-	if(host)
-		features += "hosted by <b>[host]</b>"
-	*/
-
-//	if(!host && config && config.hostedby)
-//		features += "hosted by <b>[config.hostedby]</b>"
+	if(abandon_allowed)
+		features += "respawn"
 
 	if(features)
-		s += ": [jointext(features, ", ")]"
+		s += "[jointext(features, ", ")]"
 
-	/* does this help? I do not know */
-	if(src.status != s)
-		src.status = s
+	return s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
 var/failed_db_connections = 0

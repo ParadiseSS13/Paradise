@@ -18,23 +18,11 @@
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
-	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
-
 	if(NO_BLOOD in dna.species.species_traits)
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= 225 && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
-
-		//Blood regeneration if there is some space
-		if(blood_volume < max_blood && blood_volume)
-			if(mind) //Handles vampires "eating" blood that isn't their own.
-				if(mind in ticker.mode.vampires)
-					if(nutrition >= NUTRITION_LEVEL_WELL_FED)
-						return //We don't want blood tranfusions making vampires fat.
-					if(blood_data["donor"] != src)
-						nutrition += (15 * REAGENTS_METABOLISM)
-						return //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
+	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
@@ -56,7 +44,7 @@
 				if(prob(15))
 					Paralyse(rand(1,3))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
-			if(0 to BLOOD_VOLUME_SURVIVE)
+			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
 
 		var/temp_bleed = 0

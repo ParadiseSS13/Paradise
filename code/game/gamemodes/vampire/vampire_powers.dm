@@ -156,6 +156,7 @@
 	user.SetWeakened(0)
 	user.SetStunned(0)
 	user.SetParalysis(0)
+	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
 	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
@@ -226,6 +227,7 @@
 		target.Weaken(5)
 		target.stuttering = 20
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
+		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -275,7 +277,7 @@
 
 
 /proc/isvampirethrall(mob/living/M as mob)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.vampire_enthralled)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall
 	name = "Enthrall (300)"
@@ -314,11 +316,11 @@
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return 0
-	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
+	if(enthrall_safe || ( C.mind in SSticker.mode.vampires )||( C.mind.vampire )||( C.mind in SSticker.mode.vampire_enthralled ))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return 0
 	if(!affects(C))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [ticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
 		return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
@@ -329,21 +331,21 @@
 	if(!istype(H))
 		return 0
 	var/ref = "\ref[user.mind]"
-	if(!(ref in ticker.mode.vampire_thralls))
-		ticker.mode.vampire_thralls[ref] = list(H.mind)
+	if(!(ref in SSticker.mode.vampire_thralls))
+		SSticker.mode.vampire_thralls[ref] = list(H.mind)
 	else
-		ticker.mode.vampire_thralls[ref] += H.mind
+		SSticker.mode.vampire_thralls[ref] += H.mind
 
-	ticker.mode.update_vampire_icons_added(H.mind)
-	ticker.mode.update_vampire_icons_added(user.mind)
+	SSticker.mode.update_vampire_icons_added(H.mind)
+	SSticker.mode.update_vampire_icons_added(user.mind)
 	var/datum/mindslaves/slaved = user.mind.som
 	H.mind.som = slaved
 	slaved.serv += H
 	slaved.add_serv_hud(user.mind, "vampire")//handles master servent icons
 	slaved.add_serv_hud(H.mind, "vampthrall")
 
-	ticker.mode.vampire_enthralled.Add(H.mind)
-	ticker.mode.vampire_enthralled[H.mind] = user.mind
+	SSticker.mode.vampire_enthralled.Add(H.mind)
+	SSticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
@@ -437,9 +439,6 @@
 		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
-		if(get_area(mobloc) == /area/security/armoury/gamma)
-			to_chat(user, "A strange energy repels you!")
-			mobloc = originalloc
 		animation.loc = mobloc
 		steam.location = mobloc
 		steam.start()

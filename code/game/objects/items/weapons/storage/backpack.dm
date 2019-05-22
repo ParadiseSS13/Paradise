@@ -52,6 +52,7 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
+	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
@@ -112,7 +113,7 @@
 	..()
 	new /obj/item/clothing/under/rank/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
-	new /obj/item/clothing/mask/gas/voice/clown(src)
+	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
 	new /obj/item/storage/box/survival(src)
@@ -124,6 +125,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
+	new /obj/item/dnainjector/comic(src)
 
 /obj/item/storage/backpack/mime
 	name = "Parcel Parceaux"
@@ -315,7 +317,7 @@
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
 	desc = "A large duffelbag for holding extra tactical supplies."
-	icon_state = "duffel-syndi"
+	icon_state = "duffel-syndie"
 	item_state = "duffel-syndimed"
 	origin_tech = "syndicate=1"
 	silent = 1
@@ -333,20 +335,63 @@
 	icon_state = "duffel-syndiammo"
 	item_state = "duffel-syndiammo"
 
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
 
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded/New()
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun/New()
 	..()
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
+	for(var/i in 1 to 6)
+		new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
-	new /obj/item/ammo_box/magazine/m12g/stun(src)
+	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
+
+/obj/item/storage/backpack/duffel/syndie/ammo/smg
+	desc = "A large duffel bag, packed to the brim with C-20r magazines."
+
+/obj/item/storage/backpack/duffel/syndie/ammo/smg/New()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/smgm45(src)
+
+/obj/item/storage/backpack/duffel/syndie/c20rbundle
+	desc = "A large duffel bag containing a C-20r, some magazines, and a cheap looking suppressor."
+
+/obj/item/storage/backpack/duffel/syndie/c20rbundle/New()
+	..()
+	new /obj/item/ammo_box/magazine/smgm45(src)
+	new /obj/item/ammo_box/magazine/smgm45(src)
+	new /obj/item/gun/projectile/automatic/c20r(src)
+	new /obj/item/suppressor/specialoffer(src)
+
+/obj/item/storage/backpack/duffel/syndie/bulldogbundle
+	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."
+
+/obj/item/storage/backpack/duffel/syndie/bulldogbundle/New()
+	..()
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/clothing/glasses/thermal/syndi(src)
+
+/obj/item/storage/backpack/duffel/syndie/med/medicalbundle
+	desc = "A large duffel bag containing a tactical medkit, a Donksoft machine gun and a big jumbo box of riot darts."
+
+/obj/item/storage/backpack/duffel/syndie/med/medicalbundle/New()
+	..()
+	new /obj/item/storage/firstaid/tactical(src)
+	new /obj/item/gun/projectile/automatic/l6_saw/toy(src)
+	new /obj/item/ammo_box/foambox/riot(src)
+
+/obj/item/storage/backpack/duffel/syndie/c4/New()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/grenade/plastic/c4(src)
+
+/obj/item/storage/backpack/duffel/syndie/x4/New()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/grenade/plastic/x4(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery
 	name = "surgery duffelbag"

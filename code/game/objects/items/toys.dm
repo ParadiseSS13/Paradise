@@ -1066,6 +1066,32 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
+//New generation TG plushies
+
+/obj/item/toy/plushie/lizardplushie
+	name = "lizard plushie"
+	desc = "An adorable stuffed toy that resembles a lizardperson."
+	icon_state = "plushie_lizard"
+	item_state = "plushie_lizard"
+
+/obj/item/toy/plushie/snakeplushie
+	name = "snake plushie"
+	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
+	icon_state = "plushie_snake"
+	item_state = "plushie_snake"
+
+/obj/item/toy/plushie/nukeplushie
+	name = "operative plushie"
+	desc = "An stuffed toy that resembles a syndicate nuclear operative. The tag claims operatives to be purely fictitious."
+	icon_state = "plushie_nuke"
+	item_state = "plushie_nuke"
+
+/obj/item/toy/plushie/slimeplushie
+	name = "slime plushie"
+	desc = "An adorable stuffed toy that resembles a slime. It is practically just a hacky sack."
+	icon_state = "plushie_slime"
+	item_state = "plushie_slime"
+
 /*
  * Foam Armblade
  */
@@ -1395,7 +1421,12 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/russian_revolver/attack(mob/M, mob/living/user)
 	return
 
-/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, proximity)
+/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, flag, params)
+	if(flag)
+		if(target in user.contents)
+			return
+		if(!ismob(target))
+			return
 	shoot_gun(user)
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()

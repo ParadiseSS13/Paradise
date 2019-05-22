@@ -81,6 +81,7 @@
 	power_channel = ENVIRON
 	req_one_access = list(access_atmospherics, access_engine_equip)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	siemens_strength = 1
 	var/alarm_id = null
 	var/frequency = ATMOS_VENTSCRUB
 	//var/skipprocess = 0 //Experimenting
@@ -212,8 +213,8 @@
 
 /obj/machinery/alarm/Destroy()
 	GLOB.air_alarms -= src
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
@@ -374,38 +375,6 @@
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
-/obj/machinery/alarm/receive_signal(datum/signal/signal)
-	if(stat & (NOPOWER|BROKEN) || !alarm_area)
-		return
-	if(alarm_area.master_air_alarm != src)
-		if(master_is_operating())
-			return
-		elect_master()
-		if(alarm_area.master_air_alarm != src)
-			return
-	if(!signal || signal.encryption)
-		return
-	var/id_tag = signal.data["tag"]
-	if(!id_tag)
-		return
-	if(signal.data["area"] != area_uid)
-		return
-	if(signal.data["sigtype"] != "status")
-		return
-
-	var/dev_type = signal.data["device"]
-	if(!(id_tag in alarm_area.air_scrub_names) && !(id_tag in alarm_area.air_vent_names))
-		register_env_machine(id_tag, dev_type)
-	var/got_update=0
-	if(dev_type == "AScr")
-		alarm_area.air_scrub_info[id_tag] = signal.data
-		got_update=1
-	else if(dev_type == "AVP")
-		alarm_area.air_vent_info[id_tag] = signal.data
-		got_update=1
-	if(got_update && waiting_on_device==id_tag)
-		waiting_on_device=null
-
 /obj/machinery/alarm/proc/register_env_machine(var/m_id, var/device_type)
 	var/new_name
 	if(device_type=="AVP")
@@ -432,9 +401,9 @@
 		send_signal(id_tag, list("status") )
 
 /obj/machinery/alarm/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_TO_AIRALARM)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_TO_AIRALARM)
 
 /obj/machinery/alarm/proc/send_signal(var/target, var/list/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
 	if(!radio_connection)
@@ -571,7 +540,7 @@
 	update_icon()
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(alarm_frequency)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
 	if(!frequency)
 		return
 

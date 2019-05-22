@@ -1,4 +1,4 @@
-/mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
+/mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
 	if((stat == DEAD) || (status_flags & FAKEDEATH))
 		return // No screaming bodies
@@ -13,22 +13,22 @@
 	if(muzzled)
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
 		if(M.mute == MUZZLE_MUTE_NONE)
-			muzzled = 0 //Not all muzzles block sound
+			muzzled = FALSE //Not all muzzles block sound
 	if(!can_speak())
-		muzzled = 1
+		muzzled = TRUE
 	//var/m_type = 1
 
 	for(var/obj/item/implant/I in src)
 		if(I.implanted)
-			I.trigger(act, src)
+			I.trigger(act, src, force)
 
-	var/miming = 0
+	var/miming = FALSE
 	if(mind)
 		miming = mind.miming
 
 	//Emote Cooldown System (it's so simple!)
-	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
-	var/on_CD = 0
+	//handle_emote_CD() located in [code\modules\mob\emote.dm]
+	var/on_CD = FALSE
 	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
@@ -61,16 +61,16 @@
 			else
 				return
 		if("squish", "squishes")
-			var/found_slime_bodypart = 0
+			var/found_slime_bodypart = FALSE
 
 			if(isslimeperson(src))	//Only Slime People can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
-				found_slime_bodypart = 1
+				found_slime_bodypart = TRUE
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
 					if(istype(L.dna.species, /datum/species/slime))
 						on_CD = handle_emote_CD()
-						found_slime_bodypart = 1
+						found_slime_bodypart = TRUE
 						break
 
 			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
@@ -118,9 +118,9 @@
 			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
-			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
+			on_CD = FALSE	//If it doesn't induce the cooldown, we won't check for the cooldown
 
-	if(on_CD == 1)		// Check if we need to suppress the emote attempt.
+	if(!force && on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
 
 	switch(act)
@@ -206,9 +206,13 @@
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
-			m_type = 2
+			if(!muzzled)
+				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+				m_type = 2
+			else
+				message = "<B>[src]</B> makes a weak hissing noise."
+				m_type = 2
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)

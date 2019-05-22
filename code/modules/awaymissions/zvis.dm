@@ -1,8 +1,8 @@
 /area/awaymission/upperlevel
 	name = "Open Space"
 	color = "#888"
-	dynamic_lighting = 0
-	requires_power = 0
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	requires_power = FALSE
 
 // Used by /turf/unsimulated/floor/upperlevel as a reference for where the other floor is
 /obj/effect/levelref
@@ -58,11 +58,11 @@
 	owner = o
 	if(args.len >= 3)
 		params = args.Copy(3)
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 	trigger()
 
 /obj/effect/portal_sensor/Destroy()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/portal_sensor/Crossed(A)
@@ -84,9 +84,14 @@
 
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
-	if(istype(T) && T.lighting_overlay && !T.lighting_overlay.needs_update)
-		var/atom/movable/lighting_overlay/O = T.lighting_overlay
-		var/hash = O.lum_r + O.lum_g + O.lum_b
+	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
+		var/atom/movable/lighting_object/O = T.lighting_object
+		var/hash = 0
+		
+		for(var/lighting_corner in O)
+			var/datum/lighting_corner/C = lighting_corner
+			hash = hash + C.lum_r + C.lum_g + C.lum_b
+			
 		if(hash != light_hash)
 			light_hash = hash
 			trigger()

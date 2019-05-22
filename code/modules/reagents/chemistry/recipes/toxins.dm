@@ -139,7 +139,7 @@
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
-	min_temp = T0C + 130
+	min_temp = T0C + 50
 	mix_sound = null
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
@@ -175,3 +175,11 @@
 	result_amount = 4
 	mix_message = "The mixture thins and loses all color."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/rotatium
+	name = "Rotatium"
+	id = "Rotatium"
+	result = "rotatium"
+	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
+	result_amount = 3
+	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"

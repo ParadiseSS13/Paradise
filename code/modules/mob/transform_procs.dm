@@ -94,8 +94,6 @@
 
 		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
 
-	callHook("borgify", list(O))
-
 	O.update_pipe_vision()
 
 	O.Namepick()
@@ -288,8 +286,6 @@
 	if(ispath(MP, /mob/living/simple_animal/cow))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/parrot))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
 	if(!GAMEMODE_IS_NUCLEAR)
 		if(ispath(MP, /mob/living/simple_animal/pet/fox/Syndifox))

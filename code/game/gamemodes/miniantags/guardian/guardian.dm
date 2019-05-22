@@ -12,6 +12,7 @@
 	icon_dead = "magicOrange"
 	speed = 0
 	a_intent = INTENT_HARM
+	can_change_intents = 0
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -60,9 +61,9 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD)
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
+			visible_message("<span class='danger'>[src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
 	snapback()
@@ -84,6 +85,18 @@
 				new /obj/effect/temp_visual/guardian/phase/out(loc)
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
 				new /obj/effect/temp_visual/guardian/phase(loc)
+
+/mob/living/simple_animal/hostile/guardian/proc/is_deployed()
+	return loc != summoner
+
+/mob/living/simple_animal/hostile/guardian/AttackingTarget()
+	if(!is_deployed() && a_intent == INTENT_HARM)
+		to_chat(src, "<span class='danger'>You must be manifested to attack!</span>")
+		return FALSE
+	else if(!is_deployed() && a_intent == INTENT_HELP)
+		return FALSE
+	else
+		return ..()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -149,11 +162,12 @@
 	if(!summoner) return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
+		new /obj/effect/temp_visual/guardian/phase(loc)
 		src.client.eye = loc
 		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-	if(cooldown > world.time && !forced)
+	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
 	if(!summoner) return
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))

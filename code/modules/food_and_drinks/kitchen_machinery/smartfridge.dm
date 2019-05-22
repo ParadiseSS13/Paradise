@@ -373,6 +373,7 @@
 			for(var/obj/O in contents)
 				if(O.name == K)
 					O.forceMove(loc)
+					adjust_item_drop_location(O)
 					update_icon()
 					i--
 					if(i <= 0)

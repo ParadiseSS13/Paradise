@@ -21,12 +21,12 @@
 
 /datum/data/pda/app/mob_hunter_game/start()
 	..()
-	processing_objects.Add(pda)
+	START_PROCESSING(SSobj, pda)
 
 /datum/data/pda/app/mob_hunter_game/stop()
 	..()
 	disconnect("Program Terminated")
-	processing_objects.Remove(pda)
+	STOP_PROCESSING(SSobj, pda)
 
 /datum/data/pda/app/mob_hunter_game/proc/scan_nearby()
 	if(!SSmob_hunt || !connected)

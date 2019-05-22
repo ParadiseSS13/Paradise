@@ -14,7 +14,7 @@
 
 /obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
 	blob_cores += src
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
 	if(!overmind)
@@ -42,7 +42,7 @@
 	if(overmind)
 		overmind.blob_core = null
 	overmind = null
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
@@ -82,7 +82,7 @@
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)
-			B.change_to(/obj/structure/blob/shield)
+			B.change_to(/obj/structure/blob/shield/core)
 			if(B && overmind)
 				B.color = overmind.blob_reagent_datum.color
 			else
@@ -122,7 +122,7 @@
 			spawn(0)
 				if(is_offspring)
 					B.is_offspring = TRUE
-		
+
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
@@ -136,3 +136,8 @@
 			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
 	else
 		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")
+
+/obj/structure/blob/core/onTransitZ(old_z, new_z)
+	if(overmind && is_station_level(new_z))
+		overmind.forceMove(get_turf(src))
+	return ..()

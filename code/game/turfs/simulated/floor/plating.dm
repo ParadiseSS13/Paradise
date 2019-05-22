@@ -144,8 +144,8 @@
 
 /turf/simulated/floor/engine/cult/New()
 	..()
-	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		icon_state = ticker.cultdat.cult_floor_icon_state
+	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
+		icon_state = SSticker.cultdat.cult_floor_icon_state
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -232,7 +232,7 @@
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 700000
+	heat_capacity = HEAT_CAPACITY_VACUUM
 
 /turf/simulated/floor/plating/airless/catwalk/New()
 	..()

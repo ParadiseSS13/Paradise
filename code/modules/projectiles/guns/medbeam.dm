@@ -17,10 +17,10 @@
 
 /obj/item/gun/medbeam/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/medbeam/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/medbeam/handle_suicide()

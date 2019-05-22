@@ -9,7 +9,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!(M.mind in ticker.mode.vampires))
+	if(!(M.mind in SSticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
@@ -27,7 +27,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!(M.mind in ticker.mode.vampires))
+	if(!(M.mind in SSticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
@@ -448,7 +448,7 @@
 /datum/reagent/consumable/egg/on_mob_life(mob/living/M)
 	if(prob(3))
 		M.reagents.add_reagent("cholesterol", rand(1,2))
-	..()
+	return ..()
 
 /datum/reagent/consumable/corn_starch
 	name = "Corn Starch"
@@ -642,9 +642,6 @@
 	reagent_state = LIQUID
 	color = "#684435"
 	taste_message = "burritos"
-
-/datum/reagent/consumable/beans/on_mob_life(mob/living/M)
-	return ..()
 
 /datum/reagent/consumable/bread
 	name = "Bread"
@@ -908,8 +905,7 @@
 
 /datum/reagent/vomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/vomit(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		T.add_vomit_floor()
 
 /datum/reagent/greenvomit
 	name = "Green vomit"
@@ -921,8 +917,7 @@
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/vomit/green(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		T.add_vomit_floor(FALSE, TRUE)
 
 ////Lavaland Flora Reagents////
 

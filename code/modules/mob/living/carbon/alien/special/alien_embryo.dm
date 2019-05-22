@@ -93,8 +93,8 @@
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
-			if(ticker && ticker.mode)
-				ticker.mode.xenos += new_xeno.mind
+			if(SSticker && SSticker.mode)
+				SSticker.mode.xenos += new_xeno.mind
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH

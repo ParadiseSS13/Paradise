@@ -93,7 +93,7 @@
 
 /mob/living/carbon/human/death(gibbed)
 	if(can_die() && !gibbed && deathgasp_on_death)
-		emote("deathgasp") //let the world KNOW WE ARE DEAD
+		emote("deathgasp", force = TRUE) //let the world KNOW WE ARE DEAD
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -112,7 +112,7 @@
 		if(H.mind)
 			H.mind.kills += "[key_name(src)]"
 
-	if(ticker && ticker.mode)
+	if(SSticker && SSticker.mode)
 //		log_world("k")
 		sql_report_death(src)
 

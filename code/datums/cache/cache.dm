@@ -1,6 +1,6 @@
 /datum/cache_entry
 	var/timestamp
-	var/data
-	
+	var/list/data = list()
+
 /datum/repository
 	var/cache_data

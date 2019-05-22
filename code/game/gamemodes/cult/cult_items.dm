@@ -201,7 +201,7 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 2
+	claw_damage_increase = 4
 
 /obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
@@ -218,7 +218,7 @@
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	darkness_view = 8
+	see_in_dark = 8
 	flash_protect = 1
 
 /obj/item/clothing/glasses/night/cultblind/equipped(mob/user, slot)
@@ -367,8 +367,18 @@
 /obj/item/clothing/head/culthood/alt/ghost
 	flags = NODROP | DROPDEL
 
-/obj/item/clothing/suit/cultrobes/alt/ghost
+/obj/item/clothing/suit/cultrobesghost
+	name = "ghostly cult robes"
+	desc = "A set of ethreal armored robes worn by the undead followers of a cult."
+	icon_state = "cultrobesalt"
+	item_state = "cultrobesalt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
+	flags_inv = HIDEJUMPSUIT
+
 	flags = NODROP | DROPDEL
+
 
 /obj/item/clothing/shoes/cult/ghost
 	flags = NODROP | DROPDEL
@@ -377,7 +387,7 @@
 	name = "Cultist Ghost"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	suit = /obj/item/clothing/suit/cultrobesghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost

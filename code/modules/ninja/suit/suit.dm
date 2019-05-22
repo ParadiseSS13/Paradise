@@ -24,7 +24,7 @@ Contents:
 	var/obj/item/clothing/head/helmet/space/space_ninja/suitHood
 	var/obj/item/clothing/gloves/space_ninja/suitGloves
 	var/obj/item/clothing/shoes/space_ninja/suitShoes
-	var/obj/item/clothing/mask/gas/voice/space_ninja/suitMask
+	var/obj/item/clothing/mask/gas/space_ninja/suitMask
 	var/mob/living/carbon/human/suitOccupant
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_suit_lock(mob/living/carbon/human/user)
@@ -41,7 +41,7 @@ Contents:
 		if(!istype(user.shoes, /obj/item/clothing/shoes/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate foot gear.\nABORTING...</span>")
 			return 0
-		if(!istype(user.wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
+		if(!istype(user.wear_mask, /obj/item/clothing/mask/gas/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate mask.\nABORTING...</span>")
 			return 0
 

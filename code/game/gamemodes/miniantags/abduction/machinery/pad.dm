@@ -7,7 +7,8 @@
 	var/turf/teleport_target
 
 /obj/machinery/abductor/pad/proc/Warp(mob/living/target)
-	target.Move(src.loc)
+	if(!target.buckled)
+		target.forceMove(get_turf(src))
 
 /obj/machinery/abductor/pad/proc/Send()
 	if(teleport_target == null)

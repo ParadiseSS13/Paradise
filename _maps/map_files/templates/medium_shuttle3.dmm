@@ -8,7 +8,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -26,7 +26,7 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -103,7 +103,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -113,7 +113,7 @@
 	icon_state = "heater";
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -129,7 +129,7 @@
 	icon_state = "heater";
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -139,7 +139,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
@@ -262,13 +262,13 @@
 	})
 "F" = (
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})
 "G" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered{
 	name = "Shuttle"
 	})

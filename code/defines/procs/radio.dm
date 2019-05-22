@@ -13,8 +13,8 @@
 		if(SYNDTEAM_FREQ)
 			freq_text = "#unid"
 		else
-			for(var/channel in radiochannels)
-				if(radiochannels[channel] == display_freq)
+			for(var/channel in SSradio.radiochannels)
+				if(SSradio.radiochannels[channel] == display_freq)
 					freq_text = channel
 					break
 

@@ -17,7 +17,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "dont_use_this_floor"
-
+	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.040
@@ -91,8 +91,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return
 
 /turf/simulated/floor/proc/update_icon()
-	if(air)
-		update_visuals()
+	update_visuals()
 	overlays -= current_overlay
 	if(current_overlay)
 		overlays.Add(current_overlay)
