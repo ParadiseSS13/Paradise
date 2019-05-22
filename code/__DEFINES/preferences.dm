@@ -30,9 +30,11 @@
 #define DISABLE_KARMA 262144
 #define CHAT_NO_MENTORTICKETLOGS 524288
 #define TYPING_ONCE 1048576
-#define NUMPAD_TARGET 2097512
-#define AZERTY 4194304
+#define AMBIENT_OCCLUSION 2097152
+#define AZERTY 4194303
+#define NUMPAD_TARGET 8388606
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC|NUMPAD_TARGET)
+#define TOGGLES_TOTAL 16777212 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
 #define ATKLOG_ALL	0

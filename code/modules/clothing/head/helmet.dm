@@ -50,6 +50,7 @@
 	desc = "A helmet with a built-in thermal scanning visor."
 	icon_state = "helmetthermals"
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/head/helmet/meson
 	name = "meson visor helmet"
@@ -67,7 +68,7 @@
 	name = "night-vision helmet"
 	desc = "A helmet with a built-in pair of night vision goggles."
 	icon_state = "helmetNVG"
-	helmet_goggles_invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"

@@ -46,8 +46,8 @@
 	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
-		W.layer = 20	//TODO: move to equipped?
-		W.plane = HUD_PLANE	//TODO: move to equipped?
+		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
+		W.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
 		W.equipped(src,slot_l_hand)
 		if(pulling == W)
 			stop_pulling()
@@ -62,8 +62,8 @@
 	if(!r_hand && has_right_hand())
 		W.forceMove(src)
 		r_hand = W
-		W.layer = 20
-		W.plane = HUD_PLANE
+		W.layer = ABOVE_HUD_LAYER
+		W.plane = ABOVE_HUD_PLANE
 		W.equipped(src,slot_r_hand)
 		if(pulling == W)
 			stop_pulling()

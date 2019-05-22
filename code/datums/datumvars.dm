@@ -1242,13 +1242,28 @@
 			return
 
 		switch(Text)
-			if("brute")	L.adjustBruteLoss(amount, robotic=1)
-			if("fire")	L.adjustFireLoss(amount, robotic=1)
-			if("toxin")	L.adjustToxLoss(amount)
-			if("oxygen")L.adjustOxyLoss(amount)
-			if("brain")	L.adjustBrainLoss(amount)
-			if("clone")	L.adjustCloneLoss(amount)
-			if("stamina") L.adjustStaminaLoss(amount)
+			if("brute")
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L	
+					H.adjustBruteLoss(amount, robotic = TRUE)
+				else
+					L.adjustBruteLoss(amount)
+			if("fire")	
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L	
+					H.adjustFireLoss(amount, robotic = TRUE)
+				else
+					L.adjustFireLoss(amount)
+			if("toxin")	
+				L.adjustToxLoss(amount)
+			if("oxygen")
+				L.adjustOxyLoss(amount)
+			if("brain")	
+				L.adjustBrainLoss(amount)
+			if("clone")	
+				L.adjustCloneLoss(amount)
+			if("stamina") 
+				L.adjustStaminaLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 				return

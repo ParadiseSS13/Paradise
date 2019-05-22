@@ -36,7 +36,7 @@
 			debug_variables(Master)
 			feedback_add_details("admin_verb","Dsmc")
 		if("Ticker")
-			debug_variables(ticker)
+			debug_variables(SSticker)
 			feedback_add_details("admin_verb","DTicker")
 		if("Air")
 			debug_variables(SSair)

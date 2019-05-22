@@ -559,11 +559,14 @@
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
+
 	if(stat == DEAD)
 		grant_death_vision()
 		return
 
 	dna.species.update_sight(src)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
 
 //Added a safety check in case you want to shock a human mob directly through electrocute_act.
 /mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
@@ -1331,11 +1334,13 @@
 
 	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
 	var/list/kept_items[0]
-
+	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
 			kept_items[I] = thing
+			item_flags[I] = I.flags
+			I.flags = 0 // Temporary set the flags to 0
 
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
@@ -1401,8 +1406,9 @@
 	else
 		dna.species.create_organs(src)
 
-	for(var/thing in kept_items)
+	for(var/obj/item/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
+		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -1441,11 +1447,7 @@
 
 	dna.species.on_species_gain(src)
 
-	see_in_dark = dna.species.get_resultant_darksight(src)
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
+	update_sight()
 
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
@@ -1975,7 +1977,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(7) // Pride
 			log_game("[src] was influenced by the sin of pride.")
 			O = new /datum/objective/sintouched/pride
-	ticker.mode.sintouched += src.mind
+	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
 	var/obj_count = 1
 	to_chat(src, "<span class='notice> Your current objectives:")

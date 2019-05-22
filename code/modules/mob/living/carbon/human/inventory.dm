@@ -107,7 +107,7 @@
 			update_tint()
 		if(G.prescription)
 			update_nearsighted_effects()
-		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
+		if(G.vision_flags || G.see_in_dark || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
 			update_sight()
 		update_inv_glasses()
 		update_client_colour()
@@ -120,7 +120,7 @@
 		// Bandanas and paper hats go on the head but are not head clothing
 		if(istype(I,/obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = I
-			if(hat.vision_flags || hat.darkness_view || hat.helmet_goggles_invis_view)
+			if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 				update_sight()
 		head_update(I)
 		update_inv_head()
@@ -179,134 +179,136 @@
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 //set redraw_mob to 0 if you don't wish the hud to be updated - if you're doing it manually in your own proc.
-/mob/living/carbon/human/equip_to_slot(obj/item/W as obj, slot, redraw_mob = 1)
-	if(!slot) return
-	if(!istype(W)) return
-	if(!has_organ_for_slot(slot)) return
+/mob/living/carbon/human/equip_to_slot(obj/item/I, slot, redraw_mob = 1)
+	if(!slot)
+		return
+	if(!istype(I))
+		return
+	if(!has_organ_for_slot(slot))
+		return
 
-	if(W == src.l_hand)
+	if(I == src.l_hand)
 		src.l_hand = null
 		update_inv_l_hand() //So items actually disappear from hands.
-	else if(W == src.r_hand)
+	else if(I == src.r_hand)
 		src.r_hand = null
 		update_inv_r_hand()
 
-	W.screen_loc = null
-	W.loc = src
-	W.equipped(src, slot)
-	W.layer = 20
-	W.plane = HUD_PLANE
+	I.screen_loc = null
+	I.forceMove(src)
+	I.equipped(src, slot)
+	I.layer = ABOVE_HUD_LAYER
+	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(slot_back)
-			back = W
+			back = I
 			update_inv_back(redraw_mob)
 		if(slot_wear_mask)
-			wear_mask = W
+			wear_mask = I
 			if((wear_mask.flags & BLOCKHAIR) || (wear_mask.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
 			if(hud_list.len)
 				sec_hud_set_ID()
-			wear_mask_update(W, toggle_off = TRUE)
+			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
-			handcuffed = W
+			handcuffed = I
 			update_inv_handcuffed(redraw_mob)
 		if(slot_legcuffed)
-			legcuffed = W
+			legcuffed = I
 			update_inv_legcuffed(redraw_mob)
 		if(slot_l_hand)
-			l_hand = W
+			l_hand = I
 			update_inv_l_hand(redraw_mob)
 		if(slot_r_hand)
-			r_hand = W
+			r_hand = I
 			update_inv_r_hand(redraw_mob)
 		if(slot_belt)
-			belt = W
+			belt = I
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
-			wear_id = W
+			wear_id = I
 			if(hud_list.len)
 				sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
-			wear_pda = W
+			wear_pda = I
 			update_inv_wear_pda(redraw_mob)
 		if(slot_l_ear)
-			l_ear = W
+			l_ear = I
 			if(l_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(W)
-				O.loc = src
+				var/obj/item/clothing/ears/offear/O = new(I)
+				O.forceMove(src)
 				r_ear = O
-				O.layer = 20
-				O.plane = HUD_PLANE
+				O.layer = ABOVE_HUD_LAYER
+				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_r_ear)
-			r_ear = W
+			r_ear = I
 			if(r_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(W)
-				O.loc = src
+				var/obj/item/clothing/ears/offear/O = new(I)
+				O.forceMove(src)
 				l_ear = O
-				O.layer = 20
-				O.plane = HUD_PLANE
+				O.layer = ABOVE_HUD_LAYER
+				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
-			glasses = W
-			var/obj/item/clothing/glasses/G = W
+			glasses = I
+			var/obj/item/clothing/glasses/G = I
 			if(G.tint)
 				update_tint()
 			if(G.prescription)
 				update_nearsighted_effects()
-			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
+			if(G.vision_flags || G.see_in_dark || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
 				update_sight()
 			update_inv_glasses(redraw_mob)
 			update_client_colour()
 		if(slot_gloves)
-			gloves = W
+			gloves = I
 			update_inv_gloves(redraw_mob)
 		if(slot_head)
-			head = W
+			head = I
 			if((head.flags & BLOCKHAIR) || (head.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
 			// paper + bandanas
-			if(istype(W, /obj/item/clothing/head))
-				var/obj/item/clothing/head/hat = W
-				if(hat.vision_flags || hat.darkness_view || hat.helmet_goggles_invis_view)
+			if(istype(I, /obj/item/clothing/head))
+				var/obj/item/clothing/head/hat = I
+				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
-			head_update(W)
+			head_update(I)
 			update_inv_head(redraw_mob)
 		if(slot_shoes)
-			shoes = W
+			shoes = I
 			update_inv_shoes(redraw_mob)
 		if(slot_wear_suit)
-			wear_suit = W
+			wear_suit = I
 			update_inv_wear_suit(redraw_mob)
 		if(slot_w_uniform)
-			w_uniform = W
+			w_uniform = I
 			update_inv_w_uniform(redraw_mob)
 		if(slot_l_store)
-			l_store = W
+			l_store = I
 			update_inv_pockets(redraw_mob)
 		if(slot_r_store)
-			r_store = W
+			r_store = I
 			update_inv_pockets(redraw_mob)
 		if(slot_s_store)
-			s_store = W
+			s_store = I
 			update_inv_s_store(redraw_mob)
 		if(slot_in_backpack)
-			if(get_active_hand() == W)
-				unEquip(W)
-			W.loc = back
+			if(get_active_hand() == I)
+				unEquip(I)
+			I.forceMove(back)
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
-			uniform.attackby(W,src)
+			uniform.attackby(I, src)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
-			return
 
 /mob/living/carbon/human/put_in_hands(obj/item/W)
 	if(!W)		return 0
