@@ -22,11 +22,10 @@ env:
     - BYOND_MINOR="1454"
     - BYOND_MACRO_COUNT=4
   matrix:
-    - DM_MAPFILE="cyberiad"
+    - DM_MAPFILE="hispania"
     - DM_MAPFILE="metastation"
     - DM_MAPFILE="delta"
     - DM_MAPFILE="test_all_maps"
-    - DM_MAPFILE="hispania"
 
 stages:
   - File Checks
