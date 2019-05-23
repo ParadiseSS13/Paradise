@@ -10,14 +10,15 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey", "Plasmaman" )
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****

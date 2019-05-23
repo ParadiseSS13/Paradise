@@ -377,8 +377,9 @@
 	else
 		data_core.manifest_inject(character)
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		AnnounceArrival(character, rank, join_message)
-		AddEmploymentContract(character)
+		if(!IsAdminJob(rank))
+			AnnounceArrival(character, rank, join_message)
+			AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob
