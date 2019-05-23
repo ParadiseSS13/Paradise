@@ -4,13 +4,16 @@
 	// 1spooky
 	name = "High-Functioning Zombie"
 	name_plural = "High-Functioning Zombies"
-	icobase = 'icons/mob/human_races/r_human.dmi'
-	deform = 'icons/mob/human_races/r_def_human.dmi'
+	icobase = 'icons/mob/human_races/r_zombie.dmi'
+	deform = 'icons/mob/human_races/r_def_zombie.dmi'
 	dies_at_threshold = TRUE
 	species_traits = list(NO_BLOOD,NOZOMBIE,NOTRANSSTING,NO_BREATHE, RADIMMUNE, NO_SCAN)
 	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
+	flesh_color = "#00FF00" // for green examine text
+	bodyflags = HAS_SKIN_COLOR
+	dietflags = DIET_CARN
 	has_organ = list(	
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -26,21 +29,24 @@
 /datum/species/zombie/infectious
 	name = "Infectious Zombie"
 	mutanthands = /obj/item/zombie_hand
+	icobase = 'icons/mob/human_races/r_zombie.dmi'
+	deform = 'icons/mob/human_races/r_def_zombie.dmi'
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
 	default_language = "Zombie"
 	language = "Zombie"
 	var/heal_rate = 1
 	var/regen_cooldown = 0
+	flesh_color = "#00FF00" // for green examine text
 
 /datum/species/zombie/infectious/handle_dna(mob/living/carbon/human/H, remove)
-	H.mutations.Add(HUSK)
 	. = ..()
 
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
 
 /datum/species/zombie/infectious/spec_attacked_by(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H)
+	. = ..()
 	if(.)
 		regen_cooldown = world.time + REGENERATION_DELAY
 
@@ -75,11 +81,15 @@
 		C.drop_r_hand()
 		C.put_in_hands(new mutanthands())
 		C.put_in_hands(new mutanthands())
-	C.ChangeToHusk()
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = C.get_organ_slot("zombie_infection")
 	if(!infection)
 		infection = new()
 		infection.insert(C)
+
+/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/old_species)
+	qdel(C.r_hand)
+	qdel(C.l_hand)
+	return ..()
 
 #undef REGENERATION_DELAY
