@@ -344,11 +344,14 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/theft_area
 
 /datum/objective/steal/proc/get_location()
-    if(steal_target.location_override)
-        return steal_target.location_override
-    var/obj/item/T = locate(steal_target.typepath)
-    theft_area = get_area(T.loc)
-    return "[theft_area]"
+	if(steal_target.location_override)
+		return steal_target.location_override
+	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
+	for(var/obj/item/candidate in steal_candidates)
+		if(!is_admin_level(candidate.loc.z))
+			theft_area = get_area(candidate.loc)
+			return "[theft_area]"
+	return "an unknown area"
 
 /datum/objective/steal/find_target()
 	var/loop=50
