@@ -10,14 +10,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -194,6 +194,7 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
+	item_state = "sechailer"
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
