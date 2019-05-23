@@ -12,8 +12,6 @@
 	force = 25
 	damtype = "brute"
 
-	var/removing_airlock = FALSE
-
 /obj/item/zombie_hand/equipped(mob/user, slot)
 	. = ..()
 	switch(slot)
@@ -32,9 +30,7 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/machinery/door/airlock) && !removing_airlock)
-		tear_airlock(target, user)
-
+		
 	else if(isliving(target))
 		if(ishuman(target))
 			check_infection(target, user)
@@ -63,34 +59,6 @@
 		user.adjustFireLoss(-hp_gained)
 		user.adjustCloneLoss(-hp_gained)
 		user.adjustBrainLoss(-hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
-
-/obj/item/zombie_hand/proc/tear_airlock(obj/machinery/door/airlock/A, mob/user)
-	removing_airlock = TRUE
-	to_chat(user,"<span class='notice'>You start tearing apart the airlock...\
-		</span>")
-
-	playsound(src.loc, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
-	A.audible_message("<span class='italics'>You hear a loud metallic \
-		grinding sound.</span>")
-
-	spawn(20)
-		if(removing_airlock)
-			playsound(src.loc, 'sound/hallucinations/growl3.ogg', 50, 1)
-			user.audible_message("<span class='warning'>[user] growls as \
-				their claws dig into the metal frame...</span>")
-
-	if(do_after(user, delay=160, needhand=FALSE, target=A, progress=TRUE))
-		playsound(src.loc, 'sound/hallucinations/far_noise.ogg', 50, 1)
-		A.audible_message("<span class='danger'>With a screech, [A] is torn \
-			apart!</span>")
-		var/obj/structure/door_assembly/door = new A.assemblytype(get_turf(A))
-		door.density = 0
-		door.anchored = 1
-		door.name = "ravaged [door]"
-		door.desc = "An airlock that has been torn apart. Looks like it \
-			won't be keeping much out now."
-		qdel(A)
-	removing_airlock = FALSE
 
 /obj/item/zombie_hand/suicide_act(mob/living/carbon/human/user)
 	// Suiciding as a zombie brings someone else in to play it
