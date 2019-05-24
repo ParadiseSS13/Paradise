@@ -265,7 +265,6 @@ CREATE TABLE `SS13_player` (
   `exp` mediumtext,
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
-  `parallax` tinyint(1) DEFAULT '8',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
