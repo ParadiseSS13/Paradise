@@ -124,6 +124,10 @@
 	target.adjustFireLoss(-2)
 	target.adjustToxLoss(-1)
 	target.adjustOxyLoss(-1)
+	if(!mounted)
+		target.adjustBruteLoss(-2)
+		target.adjustFireLoss(-2)
+
 	//agregado por evan para que cure solo 10 ticks por disparo.
 	if(tick >= tick_max)
 		LoseTarget()
