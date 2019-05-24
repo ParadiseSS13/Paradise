@@ -106,6 +106,12 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("warble", "warbles")
+			if(isskrell(src)) //Only Skrell can warble.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -219,6 +225,13 @@
 
 			message = "<B>[src]</B> rustles [p_their()] quills[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+			m_type = 2
+
+		if("warble", "warbles")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> warbles[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/warble.ogg', 50, 0) //Gredit to alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
@@ -904,6 +917,8 @@
 					emotelist += "\nVox specific emotes :- quill(s)"
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
+				if("Skrell")
+					emotelist += "\nSkrell specific emotes :- warble(s)"
 
 			if(ismachine(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
