@@ -207,7 +207,7 @@
 	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
-		if(user.get_item_by_slot(SLOT_GLASSES) == src)
+		if(user.get_item_by_slot(slot_glasses) == src)
 			user.update_inv_glasses()
 		else
 			user.update_inv_hands()
