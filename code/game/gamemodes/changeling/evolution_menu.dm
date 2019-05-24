@@ -422,9 +422,3 @@ var/list/sting_paths
 		if(power.name == P.name)
 			return 1
 	return 0
-
-/datum/changeling/proc/regain_powers() //for when action buttons are lost and need to be regained, such as when the mind enters a new mob
-	for(var/power in purchasedpowers)
-		var/datum/action/changeling/S = power
-		if(istype(S) && S.needs_button)
-			S.Grant(src)
