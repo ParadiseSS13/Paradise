@@ -1189,10 +1189,6 @@
 	icon_state = "wall3"
 	},
 /area/shuttle/syndicate)
-"acV" = (
-/obj/item/restraints/handcuffs/pinkcuffs,
-/turf/simulated/floor/plating,
-/area/security/main)
 "acW" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -130951,9 +130947,9 @@ aaa
 aaa
 aaa
 aaa
+aaa
 aab
-anA
-acV
+aab
 anH
 akI
 alF
@@ -131208,9 +131204,9 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
 aab
-anA
-anA
 anH
 akH
 alC
@@ -131466,8 +131462,8 @@ aaa
 aaa
 aaa
 aaa
-aab
-aab
+aaa
+aaa
 aih
 akJ
 akH

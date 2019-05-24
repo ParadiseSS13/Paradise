@@ -133,11 +133,6 @@
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
 
-/obj/item/restraints/handcuffs/pinkcuffs
-	name = "fluffy pink handcuffs"
-	desc = "Use this to keep prisoners in line. Or you know, your significant other."
-	icon_state = "pinkcuffs"
-
 /obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))

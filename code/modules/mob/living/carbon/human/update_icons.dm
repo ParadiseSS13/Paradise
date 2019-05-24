@@ -979,10 +979,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_handcuffed(var/update_icons=1)
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "pinkcuff1", layer = -HANDCUFF_LAYER)
-		else
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
 	apply_overlay(HANDCUFF_LAYER)
 
 /mob/living/carbon/human/update_inv_legcuffed(var/update_icons=1)
