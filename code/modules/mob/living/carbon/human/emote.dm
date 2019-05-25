@@ -231,7 +231,7 @@
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> warbles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/warble.ogg', 50, 0) //Gredit to alienistcog (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/warble.ogg', 50, 0) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
