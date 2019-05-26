@@ -188,7 +188,25 @@ SUBSYSTEM_DEF(ticker)
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
-	callHook("roundstart")
+	// Handles job scaling
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config");
+		SSjobs.LoadJobs("config/jobs_highpop.txt")
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config");
+
+	// Make VR controller
+	make_vr_room("Lobby", "lobby", 0)
+
+	// Spawn empty AI cores
+	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
+		if(S.name != "AI")
+			continue
+		if(locate(/mob/living) in S.loc)
+			continue
+		empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
 
 	//here to initialize the random events nicely at round start
 	setup_economy()

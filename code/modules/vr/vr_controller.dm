@@ -56,8 +56,3 @@ proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 	vr_human = build_virtual_avatar(H, pick(room.spawn_points), room.template)
 	control_remote(H, vr_human)
 	return vr_human
-
-//Preloaded rooms
-/hook/roundstart/proc/starting_levels()
-	make_vr_room("Lobby", "lobby", 0)
-	return 1

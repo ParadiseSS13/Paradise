@@ -1,15 +1,5 @@
 var/global/list/empty_playable_ai_cores = list()
 
-/hook/roundstart/proc/spawn_empty_ai()
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
-			continue
-		if(locate(/mob/living) in S.loc)
-			continue
-		empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
-
-	return 1
-
 /mob/living/silicon/ai/verb/wipe_core()
 	set name = "Wipe Core"
 	set category = "OOC"
