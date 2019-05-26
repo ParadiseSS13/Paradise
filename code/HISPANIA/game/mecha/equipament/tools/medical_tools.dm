@@ -2,12 +2,12 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
-	name = "exosuit medical beamgun"
-	desc = "Equipment for medical exosuits. Generates a focused beam of medical nanites."
+/obj/item/mecha_parts/mecha_equipment/medical/protomechmedbeam
+	name = "exosuit prototype beamgun"
+	desc = "Equipment for medical exosuits. Generates a focused beam of medical nanites. This prototype consumes excessive energy."
 	icon = 'icons/hispania/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_medigun"
-	energy_drain = 4000
+	energy_drain = 8000
 	range = MELEE|RANGED
 	equip_cooldown = 20
 	origin_tech = "materials=6;biotech=6;magnets=5;engineering=6"

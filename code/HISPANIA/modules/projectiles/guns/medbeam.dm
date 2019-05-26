@@ -15,7 +15,7 @@
 	var/datum/beam/current_beam = null
 	var/mounted = 0 //Denotes if this is a handheld or mounted version.
 	var/tick = 0    //variable agregado por evan par inicializar los ticks de curacion.
-	var/tick_max = 20 // esto delimita el numero de ticks maximos de curacion.
+	var/tick_max = 10 // esto delimita el numero de ticks maximos de curacion.
 
 
 	weapon_weight = WEAPON_MEDIUM
@@ -120,13 +120,12 @@
 	if(target.health != target.maxHealth)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 	tick = tick + 1
-	target.adjustBruteLoss(-2)
-	target.adjustFireLoss(-2)
-	target.adjustToxLoss(-1)
-	target.adjustOxyLoss(-1)
+	target.adjustBruteLoss(-4)
+	target.adjustFireLoss(-4)
+
 	if(!mounted)
-		target.adjustBruteLoss(-2)
-		target.adjustFireLoss(-2)
+		target.adjustToxLoss(-1)
+		target.adjustOxyLoss(-1)
 
 	//agregado por evan para que cure solo 10 ticks por disparo.
 	if(tick >= tick_max)
