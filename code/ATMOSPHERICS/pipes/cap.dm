@@ -4,7 +4,6 @@
 	icon = 'icons/atmos/pipes.dmi'
 	icon_state = "cap"
 	level = 2
-	layer = 2.4 //under wires with their 2.44
 
 	volume = 35
 
@@ -55,6 +54,8 @@
 		node.update_underlays()
 
 /obj/machinery/atmospherics/pipe/cap/update_icon(var/safety = 0)
+	..()
+	
 	if(!check_icon_cache())
 		return
 

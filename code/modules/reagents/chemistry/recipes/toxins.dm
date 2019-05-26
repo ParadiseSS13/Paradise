@@ -175,3 +175,11 @@
 	result_amount = 4
 	mix_message = "The mixture thins and loses all color."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/rotatium
+	name = "Rotatium"
+	id = "Rotatium"
+	result = "rotatium"
+	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
+	result_amount = 3
+	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"

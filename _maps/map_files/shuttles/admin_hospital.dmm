@@ -371,14 +371,14 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/turf/unsimulated/floor,
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "aM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "propulsion"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/administration)
 "aN" = (
 /obj/structure/table/reinforced,
@@ -1206,6 +1206,78 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
+"hL" = (
+/obj/structure/shuttle/window{
+	tag = "icon-window5_mid";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_mid";
+	dir = 2
+	},
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/space,
+/area/shuttle/administration)
+"qa" = (
+/obj/structure/shuttle/window{
+	tag = "icon-window5_end";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	dir = 2
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/turf/space,
+/area/shuttle/administration)
+"Kq" = (
+/obj/structure/shuttle/window{
+	tag = "icon-window5_end";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	dir = 2
+	},
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/space,
+/area/shuttle/administration)
+"Vi" = (
+/obj/structure/shuttle/window{
+	tag = "icon-window5_end (NORTH)";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	dir = 1
+	},
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/space,
+/area/shuttle/administration)
 
 (1,1,1) = {"
 ab
@@ -1265,7 +1337,7 @@ aC
 cv
 aw
 cm
-ad
+qa
 "}
 (4,1,1) = {"
 ae
@@ -1285,7 +1357,7 @@ cf
 cw
 aw
 cn
-ae
+hL
 "}
 (5,1,1) = {"
 af
@@ -1305,7 +1377,7 @@ aC
 cv
 aw
 co
-af
+Vi
 "}
 (6,1,1) = {"
 ac
@@ -1485,7 +1557,7 @@ bx
 aw
 aw
 bS
-ad
+Kq
 "}
 (15,1,1) = {"
 al
@@ -1505,7 +1577,7 @@ by
 aw
 aw
 bT
-ae
+hL
 "}
 (16,1,1) = {"
 am
@@ -1525,7 +1597,7 @@ bz
 aw
 aw
 bU
-af
+Vi
 "}
 (17,1,1) = {"
 ac

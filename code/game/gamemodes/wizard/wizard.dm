@@ -58,7 +58,7 @@
 
 /datum/game_mode/proc/remove_wizard(datum/mind/wizard_mind)
 	if(wizard_mind in wizards)
-		ticker.mode.wizards -= wizard_mind
+		SSticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
 		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
 		wizard_mind.current.spellremove(wizard_mind.current)
@@ -67,7 +67,7 @@
 			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
 		else
 			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
-		ticker.mode.update_wiz_icons_removed(wizard_mind)
+		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
 	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
@@ -282,4 +282,4 @@ Made a proc so this is not repeated 14 (or more) times.*/
 		return 1
 
 /proc/iswizard(mob/living/M as mob)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.wizards)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.wizards)

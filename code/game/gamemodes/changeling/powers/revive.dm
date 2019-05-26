@@ -1,11 +1,12 @@
-/obj/effect/proc_holder/changeling/revive
+/datum/action/changeling/revive
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
+	button_icon_state = "revive"
 	req_stat = DEAD
 	always_keep = 1
 
 //Revive from regenerative stasis
-/obj/effect/proc_holder/changeling/revive/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/revive/sting_action(var/mob/living/carbon/user)
 	user.setToxLoss(0, FALSE)
 	user.setOxyLoss(0, FALSE)
 	user.setCloneLoss(0, FALSE)
@@ -62,7 +63,7 @@
 	user.regenerate_icons()
 
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
-	user.mind.changeling.purchasedpowers -= src
+	src.Remove(user)
 	user.med_hud_set_status()
 	user.med_hud_set_health()
 	feedback_add_details("changeling_powers","CR")

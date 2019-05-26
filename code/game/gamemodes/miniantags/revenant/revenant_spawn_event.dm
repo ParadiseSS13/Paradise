@@ -45,7 +45,7 @@
 		player_mind.transfer_to(revvie)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
-		ticker.mode.traitors |= player_mind
+		SSticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been made into a revenant by an event.")
 		log_game("[key_of_revenant] was spawned as a revenant by an event.")
 		return 1

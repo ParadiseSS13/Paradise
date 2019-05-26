@@ -184,42 +184,52 @@
 	generic_pixel_x = 1
 	vehicle_move_delay = 1
 
-// Wisp Lantern
+//Wisp Lantern
 /obj/item/wisp_lantern
 	name = "spooky lantern"
 	desc = "This lantern gives off no light, but is home to a friendly wisp."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
+	item_state = "lantern"
+	light_range = 7
 	var/obj/effect/wisp/wisp
+	var/sight_flags = SEE_MOBS
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
 		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
-		return
-	if(wisp.loc == src)
-		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
-		user.sight |= SEE_MOBS
 		icon_state = "lantern"
-		wisp.orbit(user, 20, forceMove = TRUE)
+		return
+
+	if(wisp.loc == src)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+
+		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		icon_state = "lantern"
+		wisp.orbit(user, 20)
+		set_light(0)
+
+		user.update_sight()
+		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
+
 		feedback_add_details("wisp_lantern","F") // freed
-
 	else
+		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
-
-		if(wisp.orbiting)
-			var/atom/A = wisp.orbiting
-			if(isliving(A))
-				var/mob/living/M = A
-				M.sight &= ~SEE_MOBS
-				to_chat(M, "<span class='notice'>Your vision returns to normal.</span>")
-
 		wisp.stop_orbit()
-		wisp.loc = src
+		wisp.forceMove(src)
+		set_light(initial(light_range))
+
+		user.update_sight()
+		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
+
 		icon_state = "lantern-blue"
 		feedback_add_details("wisp_lantern","R") // returned
 
-/obj/item/wisp_lantern/New()
-	..()
+/obj/item/wisp_lantern/Initialize(mapload)
+	. = ..()
 	wisp = new(src)
 
 /obj/item/wisp_lantern/Destroy()
@@ -230,17 +240,20 @@
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
 	return ..()
 
+/obj/item/wisp_lantern/proc/update_user_sight(mob/user)
+	user.sight |= sight_flags
+	if(!isnull(lighting_alpha))
+		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
+
 /obj/effect/wisp
 	name = "friendly wisp"
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	layer = ABOVE_ALL_MOB_LAYER
-	light_power = 1
 	light_range = 7
+	layer = ABOVE_ALL_MOB_LAYER
 
 //Red/Blue Cubes
-
 /obj/item/warp_cube
 	name = "blue cube"
 	desc = "A mysterious blue cube."

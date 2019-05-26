@@ -745,7 +745,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
-	if(stat != DEAD || !ticker)
+	if(stat != DEAD || !SSticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
@@ -930,7 +930,7 @@ var/list/slot_equipment_priority = list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+	if(!istype(A, /area/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -955,9 +955,6 @@ var/list/slot_equipment_priority = list( \
 	show_stat_turf_contents()
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
-
-	if(mind && mind.changeling)
-		add_stings_to_statpanel(mind.changeling.purchasedpowers)
 
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
@@ -1025,12 +1022,6 @@ var/list/slot_equipment_priority = list( \
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
 
-
-/mob/proc/add_stings_to_statpanel(var/list/stings)
-	for(var/obj/effect/proc_holder/changeling/S in stings)
-		if(S.chemical_cost >=0 && S.can_be_used_by(src))
-			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
-
 /mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
@@ -1039,7 +1030,6 @@ var/list/slot_equipment_priority = list( \
 			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
 		if("holdervar")
 			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
-
 
 // facing verbs
 /mob/proc/canface()
@@ -1101,7 +1091,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!ticker || ticker.current_state < 3)
+	if(!SSticker || SSticker.current_state < 3)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
@@ -1347,3 +1337,13 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/is_literate()
 	return FALSE
+
+/mob/proc/update_sight()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+
+/mob/proc/sync_lighting_plane_alpha()
+	if(hud_used)
+		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		if (L)
+			L.alpha = lighting_alpha
