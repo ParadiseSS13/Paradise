@@ -396,9 +396,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
-		
-	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in SSmapping.ghostteleportlocs
-	var/area/thearea = SSmapping.ghostteleportlocs[A]
+
+	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in ghostteleportlocs
+	var/area/thearea = ghostteleportlocs[A]
 
 	if(!thearea)
 		return
@@ -720,7 +720,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/updateghostimages()
 	if(!client)
 		return
-	if(!ghostvision)
+	if(seedarkness || !ghostvision)
 		client.images -= ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now

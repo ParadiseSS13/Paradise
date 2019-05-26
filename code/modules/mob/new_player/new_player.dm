@@ -59,7 +59,7 @@
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
-	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
+	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
@@ -106,21 +106,21 @@
 
 /mob/new_player/Stat()
 	statpanel("Lobby")
-	if(client.statpanel=="Lobby" && ticker)
-		if(ticker.hide_mode)
+	if(client.statpanel=="Lobby" && SSticker)
+		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
 		else
-			if(ticker.hide_mode == 0)
+			if(SSticker.hide_mode == 0)
 				stat("Game Mode:", "[master_mode]") // Old setting for showing the game mode
 			else
 				stat("Game Mode: ", "Secret")
 
-		if((ticker.current_state == GAME_STATE_PREGAME) && going)
-			stat("Time To Start:", ticker.pregame_timeleft)
-		if((ticker.current_state == GAME_STATE_PREGAME) && !going)
+		if((SSticker.current_state == GAME_STATE_PREGAME) && going)
+			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
+		if((SSticker.current_state == GAME_STATE_PREGAME) && !going)
 			stat("Time To Start:", "DELAYED")
 
-		if(ticker.current_state == GAME_STATE_PREGAME)
+		if(SSticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
 			if(check_rights(R_ADMIN, 0, src))
 				stat("Players Ready:", "[totalPlayersReady]")
@@ -136,7 +136,7 @@
 	..()
 
 	statpanel("Status")
-	if(client.statpanel == "Status" && ticker)
+	if(client.statpanel == "Status" && SSticker)
 		show_stat_station_time()
 
 
@@ -217,7 +217,7 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
-		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
 
@@ -303,7 +303,7 @@
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return 0
-	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
 	if(!enter_allowed)
@@ -330,7 +330,7 @@
 		ai_character.moveToEmptyCore()
 		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
-		ticker.mode.latespawn(ai_character)
+		SSticker.mode.latespawn(ai_character)
 		qdel(src)
 		return
 
@@ -370,15 +370,16 @@
 	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
 
-	ticker.mode.latespawn(character)
+	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
 	else
 		data_core.manifest_inject(character)
-		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		AnnounceArrival(character, rank, join_message)
-		AddEmploymentContract(character)
+		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
+		if(!IsAdminJob(rank))
+			AnnounceArrival(character, rank, join_message)
+			AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob
@@ -386,7 +387,7 @@
 
 
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if(ticker.current_state == GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 			ailist += A
@@ -418,7 +419,7 @@
 				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if(ticker.current_state == GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 			ailist += A
@@ -536,7 +537,7 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
-	if(ticker.random_players || appearance_isbanned(new_character))
+	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)

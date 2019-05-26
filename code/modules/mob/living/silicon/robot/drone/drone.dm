@@ -182,7 +182,7 @@
 	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
 
 	if(jobban_isbanned(src, ROLE_SYNDICATE))
-		ticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
+		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 

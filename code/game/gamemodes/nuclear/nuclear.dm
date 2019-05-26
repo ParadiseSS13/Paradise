@@ -4,7 +4,7 @@
 	var/list/datum/mind/syndicates = list()
 
 proc/issyndicate(mob/living/M as mob)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.syndicates)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
@@ -64,7 +64,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
 	if(operative_mind in syndicates)
-		ticker.mode.syndicates -= operative_mind
+		SSticker.mode.syndicates -= operative_mind
 		operative_mind.special_role = null
 		for(var/datum/objective/nuclear/O in operative_mind.objectives)
 			operative_mind.objectives -= O
@@ -73,7 +73,7 @@ proc/issyndicate(mob/living/M as mob)
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
 		else
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
-		ticker.mode.update_synd_icons_removed(operative_mind)
+		SSticker.mode.update_synd_icons_removed(operative_mind)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +208,7 @@ proc/issyndicate(mob/living/M as mob)
 		P.stamp(stamp)
 		qdel(stamp)
 
-		if(ticker.mode.config_tag=="nuclear")
+		if(SSticker.mode.config_tag=="nuclear")
 			P.loc = synd_mind.current.loc
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
@@ -437,7 +437,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/nuclear/set_scoreboard_gvars()
 	var/foecount = 0
-	for(var/datum/mind/M in ticker.mode.syndicates)
+	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 		if(!M || !M.current)
 			score_opkilled++
@@ -490,7 +490,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/diskdat = ""
 	var/bombdat = null
 
-	for(var/datum/mind/M in ticker.mode.syndicates)
+	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 
 	for(var/mob/living/C in world)

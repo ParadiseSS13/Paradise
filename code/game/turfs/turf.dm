@@ -38,7 +38,7 @@
 	..()
 	for(var/atom/movable/AM in src)
 		Entered(AM)
-	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	if(smooth && SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		queue_smooth(src)
 
 /turf/Initialize(mapload)
@@ -286,6 +286,10 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
+/turf/get_spooked()
+	for(var/atom/movable/AM in contents)
+		AM.get_spooked()
+
 /turf/proc/burn_down()
 	return
 
@@ -407,7 +411,7 @@
 	return(2)
 
 /turf/proc/visibilityChanged()
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
@@ -460,7 +464,7 @@
 	blueprint_data += I
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type=/turf/space)

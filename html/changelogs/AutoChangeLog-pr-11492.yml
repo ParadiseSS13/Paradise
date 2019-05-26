@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "When a nuclear operative chooses to play as the borg instead of operative using the cyborg teleporter, ghosts will now be informed of this in their acceptance message."
