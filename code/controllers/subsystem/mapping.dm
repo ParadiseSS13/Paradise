@@ -12,9 +12,9 @@ SUBSYSTEM_DEF(mapping)
 	// Seed space ruins
 	if(!config.disable_space_ruins)
 		var/timer = start_watch()
-		log_startup_progress("Creating random space levels...")
+		log_startup_progress("Creating random space levels...", "Mapping")
 		seedRuins(level_name_to_num(EMPTY_AREA), rand(0, 3), /area/space, space_ruins_templates)
-		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
+		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.", "Mapping")
 
 		// load in extra levels of space ruins
 

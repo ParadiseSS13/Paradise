@@ -143,9 +143,13 @@
 /**
  * Standardized method for tracking startup times.
  */
-/proc/log_startup_progress(var/message)
-	to_chat(world, "<span class='danger'>[message]</span>")
-	log_world(message)
+/proc/log_startup_progress(var/message, var/tag)
+	if(tag)
+		to_chat(world, "<span class='danger'><small>\[[tag]\]</small> [message]</span>")
+		log_world("\[[tag]\] [message]")
+	else
+		to_chat(world, "<span class='danger'>[message]</span>")
+		log_world(message)
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot

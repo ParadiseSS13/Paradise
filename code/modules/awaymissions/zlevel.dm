@@ -47,7 +47,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 	if(potentialRandomZlevels && potentialRandomZlevels.len)
 		var/watch = start_watch()
-		log_startup_progress("Loading away mission...")
+		log_startup_progress("Loading away mission...", "Mapping")
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
@@ -57,17 +57,17 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			maploader.load_map(file, z_offset = zlev)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
 			space_manager.remove_dirt(zlev)
-			log_world("  Away mission loaded: [map]")
+			log_world("\[Mapping\] Away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
 
-		log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
+		log_startup_progress("Away mission loaded in [stop_watch(watch)]s.", "Mapping")
 
 	else
-		log_startup_progress("  No away missions found.")
+		log_startup_progress("No away missions found.", "Mapping")
 		return
 
 
@@ -77,18 +77,18 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 	if(potentialRandomZlevels && potentialRandomZlevels.len)
 		var/watch = start_watch()
-		log_startup_progress("Loading away missions...")
+		log_startup_progress("Loading away missions...", "Mapping")
 
 		for(var/map in potentialRandomZlevels)
 			var/file = file(map)
 			if(isfile(file))
-				log_startup_progress("Loading away mission: [map]")
+				log_startup_progress("Loading away mission: [map]", "Mapping")
 				var/zlev = space_manager.add_new_zlevel()
 				space_manager.add_dirt(zlev)
 				maploader.load_map(file, z_offset = zlev)
 				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
 				space_manager.remove_dirt(zlev)
-				log_world("  Away mission loaded: [map]")
+				log_world("\[Mapping\] Away mission loaded: [map]")
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
 
@@ -97,11 +97,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 					continue
 				awaydestinations.Add(L)
 
-			log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
+			log_startup_progress(" Away mission loaded in [stop_watch(watch)]s.", "Mapping")
 			watch = start_watch()
 
 	else
-		log_startup_progress("  No away missions found.")
+		log_startup_progress("No away missions found.", "Mapping")
 		return
 
 /proc/generateMapList(filename)
@@ -169,7 +169,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			if(!valid)
 				continue
 
-			log_world("  Ruin \"[ruin.name]\" loaded in [stop_watch(watch)]s at ([T.x], [T.y], [T.z]).")
+			log_world("\[Mapping\] Ruin \"[ruin.name]\" loaded in [stop_watch(watch)]s at ([T.x], [T.y], [T.z]).")
 
 			var/obj/effect/ruin_loader/R = new /obj/effect/ruin_loader(T)
 			R.Load(ruins,ruin)
@@ -180,7 +180,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 
 	if(initialbudget == budget) //Kill me
-		log_world("  No ruins loaded.")
+		log_world("\[Mapping\] No ruins loaded.")
 
 
 /obj/effect/ruin_loader

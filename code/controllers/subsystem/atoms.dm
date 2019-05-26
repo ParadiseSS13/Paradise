@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(atoms)
 
 	var/watch = start_watch()
 	if(noisy)
-		log_startup_progress("Initializing atoms...")
+		log_startup_progress("Initializing atoms...", "Atoms")
 	else
 		log_debug("Initializing atoms...")
 	var/count
@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(atoms)
 				CHECK_TICK
 
 	if(noisy)
-		log_startup_progress("	Initialized [count] atoms in [stop_watch(watch)]s")
+		log_startup_progress("Initialized [count] atoms in [stop_watch(watch)]s", "Atoms")
 	else
 		log_debug("	Initialized [count] atoms in [stop_watch(watch)]s")
 	pass(count)
@@ -64,14 +64,14 @@ SUBSYSTEM_DEF(atoms)
 	if(late_loaders.len)
 		watch = start_watch()
 		if(noisy)
-			log_startup_progress("Late-initializing atoms...")
+			log_startup_progress("Late-initializing atoms...", "Atoms")
 		else
 			log_debug("Late-initializing atoms...")
 		for(var/I in late_loaders)
 			var/atom/A = I
 			A.LateInitialize()
 		if(noisy)
-			log_startup_progress("	Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s")
+			log_startup_progress("Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s", "Atoms")
 		else
 			log_debug("	Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s")
 		late_loaders.Cut()
