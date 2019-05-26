@@ -28,5 +28,21 @@ SUBSYSTEM_DEF(icon_smooth)
 			continue
 		smooth_icon(A)
 		CHECK_TICK
-
+	// Smooth those atoms
+	var/s_watch = start_watch()
+	log_startup_progress("Smoothing atoms...")
+	for(var/turf/T in world)
+		if(T.smooth)
+			queue_smooth(T)
+		for(var/A in T)
+			var/atom/AA = A
+			if(AA.smooth)
+				queue_smooth(AA)
+	log_startup_progress("Smoothed atoms in [stop_watch(s_watch)]s.")
+	// Reticulate those splines, baby!
+	var/r_watch = start_watch()
+	log_startup_progress("Reticulating splines...")
+	for(var/turf/simulated/mineral/M in GLOB.mineral_turfs)
+		M.add_edges()
+	log_startup_progress("Splines reticulated in [stop_watch(r_watch)]s.")
 	return ..()

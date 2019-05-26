@@ -76,14 +76,6 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/mineral/proc/Spread(var/turf/T)
 	new src.type(T)
 
-/hook/startup/proc/add_mineral_edges()
-	var/watch = start_watch()
-	log_startup_progress("Reticulating splines...")
-	for(var/turf/simulated/mineral/M in GLOB.mineral_turfs)
-		M.add_edges()
-	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
-	return 1
-
 /turf/simulated/mineral/proc/add_edges()
 	var/turf/T
 	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
