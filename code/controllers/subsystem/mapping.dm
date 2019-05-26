@@ -3,6 +3,8 @@ SUBSYSTEM_DEF(mapping)
 	init_order = INIT_ORDER_MAPPING // 9
 	flags = SS_NO_FIRE
 	var/list/potentialRandomZlevels = list()
+	var/list/teleportlocs = list()
+	var/list/ghostteleportlocs = list()
 
 /datum/controller/subsystem/mapping/Initialize(timeofday)
 	// Make the map list
@@ -31,6 +33,24 @@ SUBSYSTEM_DEF(mapping)
 	// Populate mining Z-level hidden rooms
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
+
+	for(var/area/AR in world)
+		if(AR.no_teleportlocs) continue
+		if(teleportlocs.Find(AR.name)) continue
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			teleportlocs += AR.name
+			teleportlocs[AR.name] = AR
+	teleportlocs = sortAssoc(teleportlocs)
+
+	for(var/area/AR in world)
+		if(ghostteleportlocs.Find(AR.name)) continue
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			ghostteleportlocs += AR.name
+			ghostteleportlocs[AR.name] = AR
+	ghostteleportlocs = sortAssoc(ghostteleportlocs)
+
 	return ..()
 
 // Call this before you remove the last dirt on a z level - that way, all objects

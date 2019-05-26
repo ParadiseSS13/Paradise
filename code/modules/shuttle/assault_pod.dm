@@ -33,8 +33,8 @@
 
 /obj/item/assault_pod/attack_self(mob/living/user)
 	var/target_area
-	target_area = input("Area to land", "Select a Landing Zone", target_area) in teleportlocs
-	var/area/picked_area = teleportlocs[target_area]
+	target_area = input("Area to land", "Select a Landing Zone", target_area) in SSmapping.teleportlocs
+	var/area/picked_area = SSmapping.teleportlocs[target_area]
 	if(!src || QDELETED(src))
 		return
 

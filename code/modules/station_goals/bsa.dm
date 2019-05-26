@@ -357,7 +357,7 @@
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? ghostteleportlocs : teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 
