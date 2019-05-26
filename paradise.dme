@@ -1447,6 +1447,7 @@
 #include "code\modules\events\vent_clog.dm"
 #include "code\modules\events\wallrot.dm"
 #include "code\modules\events\wormholes.dm"
+#include "code\modules\events\holidays\Christmas.dm"
 #include "code\modules\events\wizard\ghost.dm"
 #include "code\modules\examine\examine.dm"
 #include "code\modules\examine\descriptions\atmospherics.dm"

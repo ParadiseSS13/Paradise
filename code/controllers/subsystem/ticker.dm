@@ -193,7 +193,7 @@ SUBSYSTEM_DEF(ticker)
 	//here to initialize the random events nicely at round start
 	setup_economy()
 	setupfactions()
-
+	SSholiday.Holiday_Game_Start()
 	//shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
