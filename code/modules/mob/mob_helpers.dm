@@ -485,6 +485,8 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					if(title)
+						A.name = title
 					A.desc = message
 					A.action = action
 					A.target = source

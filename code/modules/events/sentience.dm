@@ -1,6 +1,8 @@
 /datum/event/sentience
 
 /datum/event/sentience/start()
+	processing = FALSE //so it won't fire again in next tick
+
 	var/ghostmsg = "Do you want to awaken as a sentient being?"
 	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 1)
 	var/list/potential = list()
