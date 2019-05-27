@@ -33,7 +33,7 @@
 #define AMBIENT_OCCLUSION 2097152
 #define CHAT_GHOSTPDA 4194304
 
-#define TOGGLES_TOTAL 4194303 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
+#define TOGGLES_TOTAL 8388607 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
 
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC|AMBIENT_OCCLUSION|CHAT_GHOSTPDA)
 
