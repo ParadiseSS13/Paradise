@@ -21,8 +21,11 @@ var/global/nologevent = 0
 					to_chat(C, msg)
 
 
-/proc/message_adminTicket(var/msg)
-	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+/proc/message_adminTicket(var/msg, var/alt = FALSE)
+	if(alt)
+		msg = "<span class=admin_channel>ADMIN TICKET: [msg]</span>"
+	else
+		msg = "<span class=adminticket><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
