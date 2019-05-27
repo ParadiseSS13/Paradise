@@ -30,10 +30,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	Master.Initialize(10, FALSE)
 
-	processScheduler = new
-	spawn(1)
-		processScheduler.setup()
-
 
 #undef RECOMMENDED_VERSION
 
@@ -306,7 +302,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
-	processScheduler.stop()
 	Master.Shutdown()	//run SS shutdowns
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
