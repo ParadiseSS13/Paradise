@@ -337,8 +337,8 @@ UI STUFF
 	return TRUE
 
 //Sends a message to the designated staff
-/datum/controller/subsystem/tickets/proc/message_staff(var/msg)
-	message_adminTicket(msg)
+/datum/controller/subsystem/tickets/proc/message_staff(var/msg, var/alt = FALSE)
+	message_adminTicket(msg, alt)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
 
@@ -406,5 +406,8 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
 	if(assignStaffToTicket(usr.client, index))
-		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
+		if(span_class == "mentorhelp")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
+		else
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
