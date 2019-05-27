@@ -395,6 +395,8 @@ proc/get_radio_key_from_channel(var/channel)
 	for(var/mob/M in GLOB.dead_mob_list)	//does this include players who joined as observers as well?
 		if(!M.client)
 			continue
+		if(isnewplayer(M))
+			continue
 		if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS))
 			listening |= M
 
