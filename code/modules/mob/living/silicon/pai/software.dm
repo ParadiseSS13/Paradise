@@ -13,7 +13,8 @@ var/list/pai_emotions = list(
 
 var/global/list/pai_software_by_key = list()
 var/global/list/default_pai_software = list()
-/hook/startup/proc/populate_pai_software_list()
+
+/proc/populate_pai_software_list()
 	var/r = 1 // I would use ., but it'd sacrifice runtime detection
 	for(var/type in subtypesof(/datum/pai_software))
 		var/datum/pai_software/P = new type()

@@ -1,7 +1,3 @@
-/hook/startup/proc/createDatacore()
-	data_core = new /datum/datacore()
-	return 1
-
 /datum/datacore
 	var/list/medical = list()
 	var/list/general = list()

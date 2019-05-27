@@ -2,11 +2,6 @@
 
 var/list/whitelist = list()
 
-/hook/startup/proc/loadWhitelist()
-	if(config.usewhitelist)
-		load_whitelist()
-	return 1
-
 /proc/load_whitelist()
 	whitelist = file2list(WHITELISTFILE)
 	if(!whitelist.len)	whitelist = null
@@ -47,11 +42,6 @@ var/list/whitelist = list()
 
 
 /var/list/alien_whitelist = list()
-
-/hook/startup/proc/loadAlienWhitelist()
-	if(config.usealienwhitelist)
-		load_alienwhitelist()
-	return 1
 
 /proc/load_alienwhitelist()
 	var/text = file2text("config/alienwhitelist.txt")

@@ -1,4 +1,4 @@
-/hook/startup/proc/setup_title_screen()
+/proc/setup_title_screen()
 	var/list/provisional_title_screens = flist("config/title_screens/images/")
 	var/list/title_screens = list()
 	var/use_rare_screens = prob(1)

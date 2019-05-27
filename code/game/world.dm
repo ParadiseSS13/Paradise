@@ -17,6 +17,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
 	makeDatumRefLists()
+	EarlyInitializations() // Load stuff that needs to be loaded FAST, like before the MC even starts
 	callHook("startup")
 
 	src.update_status()
@@ -323,11 +324,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		..(0)
 
-
-/hook/startup/proc/loadMode()
-	world.load_mode()
-	return 1
-
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
@@ -339,10 +335,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
-
-/hook/startup/proc/loadMOTD()
-	world.load_motd()
-	return 1
 
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
@@ -424,12 +416,35 @@ var/failed_old_db_connections = 0
 		fdel(GLOB.config_error_log)
 
 
-/hook/startup/proc/connectDB()
+/proc/connectDB()
 	if(!setup_database_connection())
 		log_world("Your server failed to establish a connection with the feedback database.")
 	else
 		log_world("Feedback database connection established.")
 	return 1
+
+// This replaces startup hooks. If stuff doesnt need to be initialised this early put it in a subsystem
+/proc/EarlyInitializations()
+	connectDB() // Connect to the game DB
+	data_core = new /datum/datacore() // Make the datacore (Manifest + Records)
+	if(config.usewhitelist)
+		load_whitelist() // Load karma jobs
+	if(config.usealienwhitelist)
+		load_alienwhitelist() // Load karma races
+	world.load_mode() // Load gamemode
+	world.load_motd() // Load MOTD (Login message)
+	investigate_reset() // Reset admin investigation
+	load_admins() // Load admins
+	jobban_loadbanfile() // Load job bans
+	LoadBans() // Load regular bans
+	populate_gear_list() // Setup loadout items
+	setup_title_screen() // Picks a title screen image
+	library_catalog.initialize() // Loads library catalogue (Manuals, etc)
+	initalize_body_accessories() // Load body accessories (Tails)
+	paiController = new /datum/paiController() // Sets up the pAI controller
+	populate_pai_software_list() // Setup the pAI software list
+
+	log_startup_progress("Early Initialisations Complete")
 
 /proc/setup_database_connection()
 
