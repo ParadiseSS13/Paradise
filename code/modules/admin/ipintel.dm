@@ -132,7 +132,44 @@
 	log_game("IPINTEL: [text]")
 	log_debug("IPINTEL: [text]")
 
+
+/proc/ipintel_is_banned(t_ckey, t_ip)
+	if(!config.ipintel_email)
+		return FALSE
+	if(!config.ipintel_whitelist)
+		return FALSE
+	if(!dbcon.IsConnected())
+		return FALSE
+	if(!ipintel_badip_check(t_ip))
+		return FALSE
+	if(vpn_whitelist_check(t_ckey))
+		return FALSE
+	return TRUE
+
+/proc/ipintel_badip_check(target_ip)
+	var/rating_bad = config.ipintel_rating_bad
+	if(!rating_bad)
+		log_debug("ipintel_badip_check reports misconfigured rating_bad directive")
+		return FALSE
+	var/valid_hours = config.ipintel_save_bad
+	if(!valid_hours)
+		log_debug("ipintel_badip_check reports misconfigured ipintel_save_bad directive")
+		return FALSE
+	var/check_sql = {"SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON('[target_ip]') AND intel >= [rating_bad] AND (date + INTERVAL [valid_hours] HOUR) > NOW()"}
+	var/DBQuery/query_get_ip_intel = dbcon.NewQuery(check_sql)
+	if(!query_get_ip_intel.Execute())
+		log_debug("ipintel_badip_check reports failed query execution")
+		qdel(query_get_ip_intel)
+		return FALSE
+	if(!query_get_ip_intel.NextRow())
+		qdel(query_get_ip_intel)
+		return FALSE
+	qdel(query_get_ip_intel)
+	return TRUE
+
 /proc/vpn_whitelist_check(target_ckey)
+	if(!config.ipintel_whitelist)
+		return FALSE
 	var/target_sql_ckey = ckey(target_ckey)
 	var/DBQuery/query_whitelist_check = dbcon.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_whitelist_check.Execute())

@@ -198,6 +198,8 @@ GUEST_BAN
 #IPINTEL_MAXPLAYTIME 10
 ## Require players (except the previous ones with playtime, if enabled) to be whitelisted to use proxies/VPNs.
 #IPINTEL_WHITELIST
+## URL to show to admins to provide more information about an IP address. Leave undefined for default.
+#IPINTEL_DETAILSURL https://iphub.info/?ip=
 
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER

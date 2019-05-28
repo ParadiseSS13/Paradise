@@ -557,21 +557,25 @@
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
+		if(vpn_whitelist_check(ckey))
+			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
+			return
+
 		var/datum/ipintel/res = get_ip_intel(address)
 		ip_intel = res.intel
-		if(ip_intel >= config.ipintel_rating_bad)
-			if(config.ipintel_whitelist)
-				if(vpn_whitelist_check(ckey))
-					log_debug("IPIntel: Player [ckey] IP [address] rated [ip_intel*100]% passes check due to whitelisted status.")
-				else
-					message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] IP [address] was restricted due to likely proxy/VPN.</span>")
-					iprestricted = TRUE
-					vpn_warning()
-			else
-				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] IP [address] rated [ip_intel*100]% likely to be a Proxy/VPN.</span>")
+		verify_ip_intel()
 
-/client/proc/vpn_warning()
-	to_chat(src, "<span class='userdanger'>You are using a proxy/VPN. That is not allowed. Either turn it off, or request whitelisting here: [config.banappeals]</span>")
+/client/proc/verify_ip_intel()
+	if(ip_intel >= config.ipintel_rating_bad)
+		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
+		if(config.ipintel_whitelist)
+			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
+			// Don't send them a message. They won't see it at this stage. Instead, they see a message when they try to reconnect.
+			qdel(src)
+		else
+			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]</span>")
+
+
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT

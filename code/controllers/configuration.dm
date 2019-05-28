@@ -135,6 +135,7 @@
 	var/ipintel_domain = "check.getipintel.net"
 	var/ipintel_maxplaytime = 0
 	var/ipintel_whitelist = 0
+	var/ipintel_detailsurl = "https://iphub.info/?ip="
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -326,6 +327,8 @@
 					config.ipintel_maxplaytime = text2num(value)
 				if("ipintel_whitelist")
 					config.ipintel_whitelist = 1
+				if("ipintel_detailsurl")
+					config.ipintel_detailsurl = value
 
 				if("log_ooc")
 					config.log_ooc = 1
