@@ -387,7 +387,7 @@
 						if(!user.put_in_hands(O))
 							O.forceMove(loc)
 							adjust_item_drop_location(O)
-							update_icon()
+						update_icon()
 						break
 				return TRUE
 			else
