@@ -312,7 +312,7 @@
 					dat += "nothing<BR>"
 			else
 				dat += "nothing<BR>"
-		dat += "<BR><A href='?src=[UID()];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Empty beaker and Eject</A>":"")]<BR>"
+		dat += "<BR><A href='?src=[UID()];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Empty and eject beaker</A>":"")]<BR>"
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Close</A>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 400)
