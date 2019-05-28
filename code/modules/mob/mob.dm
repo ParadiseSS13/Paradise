@@ -956,9 +956,6 @@ var/list/slot_equipment_priority = list( \
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 
-	if(mind && mind.changeling)
-		add_stings_to_statpanel(mind.changeling.purchasedpowers)
-
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
 			add_spell_to_statpanel(S)
@@ -968,13 +965,6 @@ var/list/slot_equipment_priority = list( \
 
 
 	if(is_admin(src))
-		if(statpanel("DI"))	//not looking at that panel
-			stat("Loc", "([x], [y], [z]) [loc]")
-			stat("CPU", "[world.cpu]")
-			stat("Instances", "[world.contents.len]")
-
-			if(processScheduler)
-				processScheduler.statProcesses()
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
@@ -1025,12 +1015,6 @@ var/list/slot_equipment_priority = list( \
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
 
-
-/mob/proc/add_stings_to_statpanel(var/list/stings)
-	for(var/obj/effect/proc_holder/changeling/S in stings)
-		if(S.chemical_cost >=0 && S.can_be_used_by(src))
-			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
-
 /mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
@@ -1039,7 +1023,6 @@ var/list/slot_equipment_priority = list( \
 			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
 		if("holdervar")
 			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
-
 
 // facing verbs
 /mob/proc/canface()

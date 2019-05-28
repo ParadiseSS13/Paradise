@@ -39,7 +39,7 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -88,7 +88,7 @@
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = 0
 	scan_reagents = 1 //You can see reagents while wearing science goggles
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -112,7 +112,7 @@
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
 	item_state = "glasses"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
@@ -125,7 +125,7 @@
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -137,7 +137,7 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -149,7 +149,7 @@
 	icon_state = "monocle"
 	item_state = "headset" // lol
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -163,7 +163,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=3;engineering=3"
 	vision_flags = SEE_OBJS
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -193,7 +193,7 @@
 	icon_state = "glasses"
 	item_state = "glasses"
 	prescription = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -210,7 +210,7 @@
 	name = "3D glasses"
 	icon_state = "3d"
 	item_state = "3d"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -221,7 +221,7 @@
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
 	item_state = "gglasses"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -237,7 +237,7 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -256,16 +256,16 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self()
-	toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
+	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
 	if(slot == slot_glasses)
 		return 1
 
-/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
-	usr.update_client_colour()
+	user.update_client_colour()
 
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
@@ -298,7 +298,7 @@
 	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -324,7 +324,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = 2
 	tint = 2
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -394,7 +394,7 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
@@ -425,7 +425,7 @@
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover."
 	icon_state = "sun"
 	item_state = "sunglasses"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -543,7 +543,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 	tint = 0
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)

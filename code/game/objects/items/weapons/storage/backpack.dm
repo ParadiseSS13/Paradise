@@ -17,7 +17,6 @@
 	storage_slots = 21
 	burn_state = FLAMMABLE
 	burntime = 20
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
@@ -52,6 +51,7 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
+	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
