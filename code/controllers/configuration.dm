@@ -137,6 +137,8 @@
 	var/ipintel_whitelist = 0
 	var/ipintel_detailsurl = "https://iphub.info/?ip="
 
+	var/forum_link_url
+
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
@@ -329,6 +331,9 @@
 					config.ipintel_whitelist = 1
 				if("ipintel_detailsurl")
 					config.ipintel_detailsurl = value
+
+				if("forum_link_url")
+					config.forum_link_url = value
 
 				if("log_ooc")
 					config.log_ooc = 1

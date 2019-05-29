@@ -201,6 +201,9 @@ GUEST_BAN
 ## URL to show to admins to provide more information about an IP address. Leave undefined for default.
 #IPINTEL_DETAILSURL https://iphub.info/?ip=
 
+## URL to use to link forum accounts. If not set, no link option will be offered.
+#FORUM_LINK_URL https://example.com/link.php?token=
+
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER
 

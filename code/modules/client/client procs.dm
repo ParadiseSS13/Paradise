@@ -229,7 +229,8 @@
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
-
+	if(href_list["link_forum_account"])
+		link_forum_account()
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -392,6 +393,8 @@
 
 	generate_clickcatcher()
 	apply_clickcatcher()
+
+	check_forum_link()
 
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
@@ -576,6 +579,46 @@
 			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]</span>")
 
 
+/client/proc/check_forum_link()
+	if(config.forum_link_url && prefs && !prefs.fuid)
+		to_chat(src, "<B>You do not have your forum account linked. <a href='?src=[UID()];link_forum_account=true'>LINK FORUM ACCOUNT</a></B>")
+
+/client/proc/create_oauth_token()
+	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
+	if(!query_find_token.Execute())
+		log_debug("create_oauth_token: failed db read")
+		return
+	if(query_find_token.NextRow())
+		return query_find_token.item[1]
+	var/tokenstr = md5("[ckey][rand()]")
+	var/DBQuery/query_insert_token = dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
+	if(!query_insert_token.Execute())
+		return
+	return tokenstr
+
+/client/proc/link_forum_account()
+	if(IsGuestKey(key))
+		to_chat(src, "Guest keys cannot be linked.")
+		return
+	if(prefs && prefs.fuid)
+		to_chat(src, "Your forum account is already set.")
+		return
+	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
+	if(!query_find_link.Execute())
+		log_debug("link_forum_account: failed db read")
+		return
+	if(query_find_link.NextRow())
+		if(query_find_link.item[1])
+			to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+			return
+	var/tokenid = create_oauth_token()
+	if(!tokenid)
+		to_chat(src, "link_forum_account: unable to create token")
+		return
+	var/url = "[config.forum_link_url][tokenid]"
+	to_chat(src, {"Now opening a windows to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>."})
+	src << link(url)
+	return
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT

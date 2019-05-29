@@ -92,6 +92,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/windowflashing = TRUE
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
+	var/fuid							// forum userid
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
