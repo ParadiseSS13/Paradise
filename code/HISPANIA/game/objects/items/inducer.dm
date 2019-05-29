@@ -11,10 +11,10 @@
 	var/opened = FALSE
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
-	var/powertransfer = null 
+	var/powertransfer = null
 	var/ratio = 0.1
 	var/recharging = FALSE
-	//flags = NOBLUDGEON
+
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -96,7 +96,7 @@
 	if(!cell.charge)
 		to_chat(user, "<span class='warning'>[src]'s battery is dead!</span>")
 		return FALSE
-	
+
 	if(!isturf(A) && user.loc == A)
 		return FALSE
 
@@ -144,12 +144,9 @@
 
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM)
-		force = 7
-		return ..()
-
-	if(afterattack(M, user))
+		..()
+	else
 		return
-	return
 
 
 /obj/item/inducer/attack_self(mob/user)
