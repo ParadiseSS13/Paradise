@@ -42,6 +42,7 @@
 	name = "Protein"
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
+	nutriment_factor = 20 * REAGENTS_METABOLISM
 	diet_flags = DIET_CARN | DIET_OMNI
 	taste_message = "meat"
 
@@ -50,6 +51,7 @@
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
+	nutriment_factor = 18 * REAGENTS_METABOLISM
 	taste_message = "vegetables"
 
 /datum/reagent/consumable/vitamin
@@ -63,15 +65,15 @@
 /datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
 	if(M.satiety < 600)
 		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.5
+				H.blood_volume += 1
 	return ..() | update_flags
 
 /datum/reagent/consumable/sugar
@@ -312,7 +314,7 @@
 	id = "hot_coco"
 	description = "Made with love! And cocoa beans."
 	reagent_state = LIQUID
-	nutriment_factor = 2 * REAGENTS_METABOLISM
+	nutriment_factor = 0
 	color = "#403010" // rgb: 64, 48, 16
 	taste_message = "chocolate"
 
@@ -523,7 +525,7 @@
 	id = "chocolate"
 	description = "Chocolate is a delightful product derived from the seeds of the theobroma cacao tree."
 	reagent_state = LIQUID
-	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
+	nutriment_factor = 0	//chocolate decays into sugar which provides its own nutrition
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
 	drink_name = "Glass of chocolate"
@@ -581,7 +583,7 @@
 	reagent_state = LIQUID
 	color = "#B4B400"
 	metabolization_rate = 0.2
-	nutriment_factor = 2
+	nutriment_factor = 0.5
 	taste_message = "broth"
 
 /datum/reagent/consumable/cheese
