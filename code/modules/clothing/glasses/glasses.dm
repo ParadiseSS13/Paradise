@@ -178,6 +178,15 @@
 	flags = NODROP
 	flags_cover = null
 
+/obj/item/clothing/glasses/material/lighting
+	name = "Neutron Goggles"
+	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
+	origin_tech = null
+	vision_flags = 0
+
+	flags = NODROP
+	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
 	desc = "Made by Nerd. Co."
@@ -247,16 +256,16 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self()
-	toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
+	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
 	if(slot == slot_glasses)
 		return 1
 
-/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
-	usr.update_client_colour()
+	user.update_client_colour()
 
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"

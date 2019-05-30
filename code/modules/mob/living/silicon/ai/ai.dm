@@ -1303,8 +1303,8 @@ var/list/ai_verbs_default = list(
 
 	see_invisible = initial(see_invisible)
 	see_in_dark = initial(see_in_dark)
-	lighting_alpha = initial(lighting_alpha)
 	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
 
 	if(aiRestorePowerRoutine)
 		sight = sight &~ SEE_TURFS

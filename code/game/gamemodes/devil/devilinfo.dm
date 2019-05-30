@@ -300,9 +300,9 @@ var/global/list/lawlorify = list (
 	to_chat(world, "<font size=5><span class='danger'>SLOTH, WRATH, GLUTTONY, ACEDIA, ENVY, GREED, PRIDE! FIRES OF HELL AWAKEN!!</span></font>")
 	world << 'sound/hallucinations/veryfar_noise.ogg'
 	sleep(50)
-	if(!ticker.mode.devil_ascended)
+	if(!SSticker.mode.devil_ascended)
 		SSshuttle.emergency.request(null, 0.3)
-	ticker.mode.devil_ascended++
+	SSticker.mode.devil_ascended++
 
 /datum/devilinfo/proc/increase_arch_devil()
 	if(!ascendable)

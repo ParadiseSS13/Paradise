@@ -354,8 +354,8 @@ var/bomb_set
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
-	if(ticker && ticker.mode)
-		ticker.mode.explosion_in_progress = 1
+	if(SSticker && SSticker.mode)
+		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
 
 	enter_allowed = 0
@@ -368,17 +368,17 @@ var/bomb_set
 	else
 		off_station = 2
 
-	if(ticker)
-		if(ticker.mode && ticker.mode.name == "nuclear emergency")
+	if(SSticker)
+		if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
 			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
 			if(syndie_shuttle)
-				ticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
-			ticker.mode:nuke_off_station = off_station
-		ticker.station_explosion_cinematic(off_station,null)
-		if(ticker.mode)
-			ticker.mode.explosion_in_progress = 0
-			if(ticker.mode.name == "nuclear emergency")
-				ticker.mode:nukes_left --
+				SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
+			SSticker.mode:nuke_off_station = off_station
+		SSticker.station_explosion_cinematic(off_station,null)
+		if(SSticker.mode)
+			SSticker.mode.explosion_in_progress = 0
+			if(SSticker.mode.name == "nuclear emergency")
+				SSticker.mode:nukes_left --
 			else if(off_station == 1)
 				to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
 			else if(off_station == 2)
@@ -386,10 +386,10 @@ var/bomb_set
 			else
 				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
 
-			ticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
+			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
-			if(!ticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
+			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
 				world.Reboot("Station destroyed by Nuclear Device.", "end_error", "nuke - unhandled ending")
 				return
 	return
