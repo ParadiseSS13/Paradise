@@ -10,7 +10,6 @@
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey", "Plasmaman" )
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -37,7 +36,6 @@
 	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 
 /obj/item/clothing/mask/breath/vox
 	desc = "A weirdly-shaped breath mask."

@@ -258,3 +258,8 @@
 
 /turf/space/proc/remove_transitions()
 	destination_z = initial(destination_z)
+
+/turf/space/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)

@@ -17,7 +17,6 @@
 	storage_slots = 21
 	burn_state = FLAMMABLE
 	burntime = 20
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)

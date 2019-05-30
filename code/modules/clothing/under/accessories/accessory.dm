@@ -118,7 +118,7 @@
 	icon_state = "waistcoat"
 	item_state = "waistcoat"
 	item_color = "waistcoat"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -462,7 +462,7 @@
 	icon_state = "cowboyshirt"
 	item_state = "cowboyshirt"
 	item_color = "cowboyshirt"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -473,7 +473,7 @@
 	icon_state = "cowboyshirt_s"
 	item_state = "cowboyshirt_s"
 	item_color = "cowboyshirt_s"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -484,7 +484,7 @@
 	icon_state = "cowboyshirt_white"
 	item_state = "cowboyshirt_white"
 	item_color = "cowboyshirt_white"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -495,7 +495,7 @@
 	icon_state = "cowboyshirt_whites"
 	item_state = "cowboyshirt_whites"
 	item_color = "cowboyshirt_whites"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -506,7 +506,7 @@
 	icon_state = "cowboyshirt_pink"
 	item_state = "cowboyshirt_pink"
 	item_color = "cowboyshirt_pink"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -517,7 +517,7 @@
 	icon_state = "cowboyshirt_pinks"
 	item_state = "cowboyshirt_pinks"
 	item_color = "cowboyshirt_pinks"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -528,7 +528,7 @@
 	icon_state = "cowboyshirt_navy"
 	item_state = "cowboyshirt_navy"
 	item_color = "cowboyshirt_navy"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -539,7 +539,7 @@
 	icon_state = "cowboyshirt_navys"
 	item_state = "cowboyshirt_navys"
 	item_color = "cowboyshirt_navys"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -550,7 +550,7 @@
 	icon_state = "cowboyshirt_red"
 	item_state = "cowboyshirt_red"
 	item_color = "cowboyshirt_red"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -561,7 +561,7 @@
 	icon_state = "cowboyshirt_reds"
 	item_state = "cowboyshirt_reds"
 	item_color = "cowboyshirt_reds"
-	species_fit = list("Vox", "Drask", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
