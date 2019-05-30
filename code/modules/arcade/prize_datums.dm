@@ -157,8 +157,8 @@ var/global/datum/prizes/global_prizes = new
 	cost = 65
 
 /datum/prize_item/plushie
-	name = "Random Animal Plushie"
-	desc = "A colorful animal-shaped plush toy."
+	name = "Random Plushie"
+	desc = "A colorful plush toy."
 	typepath = /obj/item/toy/prizeball/plushie
 	cost = 75
 

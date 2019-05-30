@@ -9,6 +9,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
  * as well as allowing users to save and load configurations.
  */
 /datum/nttc_configuration
+	var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
 	// ALL OF THE JOB CRAP
 	// Dict of all jobs and their department color classes
 	var/all_jobs = list(
@@ -130,7 +131,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/job_indicator_type = null
 
 	/* Tables */
-	var/list/regex = list()
+	// var/list/regex = list()
 
 	/* Arrays */
 	var/list/firewall = list()
@@ -144,7 +145,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	)
 
 	// This is used to sanitize topic data
-	var/list/tables = list("regex")
+	// var/list/tables = list("regex")
 	var/list/arrays = list("firewall")
 
 	// This tells the datum what is safe to serialize and what's not. It also applies to deserialization.
@@ -159,7 +160,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"toggle_gibberish",
 		"toggle_honk",
 		"setting_language",
-		"regex",
+		// "regex",
 		"firewall"
 	)
 
@@ -175,7 +176,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"toggle_gibberish" = "bool",
 		"toggle_honk" = "bool",
 		"setting_language" = "string",
-		"regex" = "table",
+		// "regex" = "table",
 		"firewall" = "array"
 	)
 
@@ -203,7 +204,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	job_indicator_type = initial(job_indicator_type)
 
 	/* Tables */
-	regex = list()
+	// regex = list()
 
 	/* Arrays */ 
 	firewall = list()
@@ -225,7 +226,11 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
-/datum/nttc_configuration/proc/nttc_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
+/datum/nttc_configuration/proc/nttc_deserialize(text, obj/machinery/computer/telecomms/traffic/source, var/ckey)
+	if(word_blacklist.Find(text)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: [ckey] attempted to upload an NTTC configuration containing JS abusable tags")
+		return FALSE
 	var/list/var_list = json_decode(text)
 	for(var/variable in var_list)
 		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
@@ -236,6 +241,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			variable_value = nttc_sanitize(variable_value, sanitize_method)
 			if(variable_value != null)
 				vars[variable] = variable_value
+	return TRUE
 
 // Sanitizing user input. Don't blindly trust the JSON.
 /datum/nttc_configuration/proc/nttc_sanitize(variable, sanitize_method)
@@ -245,7 +251,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	switch(sanitize_method)
 		if("bool")
 			return variable ? TRUE : FALSE
-		if("table", "array")
+		// if("table", "array")
+		if("array")
 			if(!islist(variable))
 				return list()
 			// Insert html filtering for the regexes here if you're boring
@@ -350,14 +357,14 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 					S.speaking = GLOB.all_languages[setting_language]
 
 	// Regex replacements
-	if(islist(regex) && regex.len > 0)
-		for(var/datum/multilingual_say_piece/S in message_pieces)
-			var/new_message = S.message
-			for(var/reg in regex)
-				var/replacePattern = pencode_to_html(regex[reg])
-				var/regex/start = regex("[reg]", "gi")
-				new_message = start.Replace(new_message, replacePattern)
-			S.message = new_message
+	// if(islist(regex) && regex.len > 0)
+	// 	for(var/datum/multilingual_say_piece/S in message_pieces)
+	// 		var/new_message = S.message
+	// 		for(var/reg in regex)
+	// 			var/replacePattern = pencode_to_html(regex[reg])
+	// 			var/regex/start = regex("[reg]", "gi")
+	// 			new_message = start.Replace(new_message, replacePattern)
+	// 		S.message = new_message
 
 	// Make sure the message is valid after we tinkered with it, otherwise reject it
 	if(signal.data["message"] == "" || !signal.data["message"])
@@ -398,29 +405,34 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		log_action(user, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 
 	// Tables
-	if(href_list["create_row"])
-		if(href_list["table"] && href_list["table"] in tables)
-			if(requires_unlock[href_list["table"]] && !source.unlocked)
-				return
-			var/new_key = input(user, "Provide a key for the new row.", "New Row") as text|null
-			if(!new_key)
-				return
-			var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
-			if(new_value == null)
-				return
-			var/list/table = vars[href_list["table"]]
-			table[new_key] = new_value
-			to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
-			log_action(user, "updated [href_list["table"]] - new row [new_key] -> [new_value]")
+	// if(href_list["create_row"])
+	// 	if(href_list["table"] && href_list["table"] in tables)
+	// 		if(requires_unlock[href_list["table"]] && !source.unlocked)
+	// 			return
+	// 		var/new_key = input(user, "Provide a key for the new row.", "New Row") as text|null
+	// 		if(!new_key)
+	// 			return
+	// 		var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
+	// 		if(new_value == null)
+	// 			return
+	// 		if(word_blacklist.Find(new_value)) //uh oh, they tried to be naughty
+	// 			message_admins("<span class='danger'>EXPLOIT WARNING: </span> [user.ckey] attempted to add a NTTC regex row containing JS abusable tags!")
+	// 			log_admin("EXPLOIT WARNING: [user.ckey] attempted to add a NTTC regex row containing JS abusable tags")
+	// 			to_chat(user, "<span class='biggerdanger'>ERROR: Regex contained bad strings. Upload cancelled.</span>")
+	// 			return
+	// 		var/list/table = vars[href_list["table"]]
+	// 		table[new_key] = new_value
+	// 		to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
+	// 		log_action(user, "updated [href_list["table"]] - new row [new_key] -> [new_value]")
 
-	if(href_list["delete_row"])
-		if(href_list["table"] && href_list["table"] in tables)
-			if(requires_unlock[href_list["table"]] && !source.unlocked)
-				return
-			var/list/table = vars[href_list["table"]]
-			table.Remove(href_list["delete_row"])
-			to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
-			log_action(user, "updated [href_list["table"]] - removed row [href_list["delete_row"]]")
+	// if(href_list["delete_row"])
+	// 	if(href_list["table"] && href_list["table"] in tables)
+	// 		if(requires_unlock[href_list["table"]] && !source.unlocked)
+	// 			return
+	// 		var/list/table = vars[href_list["table"]]
+	// 		table.Remove(href_list["delete_row"])
+	// 		to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
+	// 		log_action(user, "updated [href_list["table"]] - removed row [href_list["delete_row"]]")
 
 	// Arrays
 	if(href_list["create_item"])
@@ -450,8 +462,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	if(href_list["load_config"])
 		var/json = input(user, "Provide configuration JSON below.", "Load Config", nttc_serialize()) as message
-		nttc_deserialize(json, source)
-		log_action(user, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)
+		if(nttc_deserialize(json, source, user.ckey))
+			log_action(user, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)
 
 	user << output(list2params(list(nttc_serialize())), "[window_id].browser:updateConfig")
 
@@ -470,7 +482,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"tab_hack.html" = 'html/nttc/dist/tab_hack.html',
 		"tab_filtering.html" = 'html/nttc/dist/tab_filtering.html',
 		"tab_firewall.html" = 'html/nttc/dist/tab_firewall.html',
-		"tab_regex.html" = 'html/nttc/dist/tab_regex.html',
+		// "tab_regex.html" = 'html/nttc/dist/tab_regex.html',
 		"uiTitleFluff.png" = 'html/nttc/dist/uiTitleFluff.png'
 	)
 

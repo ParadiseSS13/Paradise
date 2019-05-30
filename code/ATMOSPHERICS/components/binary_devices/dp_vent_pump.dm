@@ -71,6 +71,8 @@
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_icon(var/safety = 0)
+	..()
+	
 	if(!check_icon_cache())
 		return
 

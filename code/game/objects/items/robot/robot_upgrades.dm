@@ -32,25 +32,9 @@
 	if(..())
 		return
 
-	R.notify_ai(2)
+	R.reset_module()
 
-	R.hands.icon_state = "nomod"
-	R.icon_state = "robot"
-
-	// Remove upgrades
-	R.sight_mode = 0
-	R.speed = 0
-	R.ionpulse = FALSE
-
-	R.module.remove_from(R)
-	QDEL_NULL(R.module)
-
-	R.rename_character(R.real_name, R.get_default_name("Default"))
-
-	R.update_icons()
-	R.update_headlamp()
-
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/rename
 	name = "cyborg reclassification board"

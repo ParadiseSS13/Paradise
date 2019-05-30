@@ -44,6 +44,10 @@
 	name = "cow crate"
 	content_mob = /mob/living/simple_animal/cow
 
+/obj/structure/closet/critter/pig
+	name = "pig crate"
+	content_mob = /mob/living/simple_animal/pig
+
 /obj/structure/closet/critter/goat
 	name = "goat crate"
 	content_mob = /mob/living/simple_animal/hostile/retaliate/goat

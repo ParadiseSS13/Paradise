@@ -64,6 +64,9 @@
 /obj/item/robot_module/proc/remove_from(mob/living/silicon/robot/R)
 	GLOB.robot_module_count[name]--
 
+	R.hands.icon_state = "nomod"
+	R.icon_state = "robot"
+
 	if(R.camera && ("Robots" in R.camera.network))
 		for(var/network in networks)
 			R.camera.network.Remove(network)
@@ -72,8 +75,18 @@
 	R.status_flags |= CANPUSH
 	R.magpulse = FALSE
 
+	R.ionpulse = FALSE
+	R.speed = 0
+
+	R.update_icons()
+	R.update_headlamp()
+
+	R.rename_character(R.real_name, R.get_default_name("Default"))
+
 	remove_languages(R)
 	remove_subsystems_and_actions(R)
+
+	R.notify_ai(2)
 
 /obj/item/robot_module/emp_act(severity)
 	if(modules)

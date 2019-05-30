@@ -232,6 +232,9 @@
 			on = FALSE
 	return
 
+/obj/machinery/light/get_spooked()
+	flicker()
+
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(var/trigger = TRUE)
 	switch(status)

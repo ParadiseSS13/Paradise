@@ -53,7 +53,7 @@
 
 	var/dat
 
-	if(!( ticker ))
+	if(!( SSticker ))
 		return
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
@@ -231,9 +231,9 @@
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
-		/obj/item/storage/internal,
 		/obj/item/spacepod_key,
-		/obj/item/nullrod
+		/obj/item/nullrod,
+		/obj/item/key
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -364,13 +364,13 @@
 
 	// Skip past any cult sacrifice objective using this person
 	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
+		var/datum/game_mode/cult/cult_mode = SSticker.mode
 		var/list/p_s_t = cult_mode.get_possible_sac_targets()
 		if(p_s_t.len)
 			cult_mode.sacrifice_target = pick(p_s_t)
-			for(var/datum/mind/H in ticker.mode.cult)
+			for(var/datum/mind/H in SSticker.mode.cult)
 				if(H.current)
-					to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+					to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
 		else
 			cult_mode.bypass_phase()
 
@@ -403,8 +403,8 @@
 			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 		else
-			if(ticker.mode.name == "AutoTraitor")
-				var/datum/game_mode/traitor/autotraitor/current_mode = ticker.mode
+			if(SSticker.mode.name == "AutoTraitor")
+				var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 				current_mode.possible_traitors.Remove(occupant)
 
 	// Delete them from datacore.

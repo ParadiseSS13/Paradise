@@ -1,44 +1,44 @@
 /area/awaymission/UO71
 	name = "UO71"
 	icon_state = "away"
-	report_alerts = 0
-	tele_proof = 1
+	report_alerts = FALSE
+	tele_proof = TRUE
 
 
 /area/awaymission/UO71/plaza
 	name = "UO71 Plaza"
 	icon_state = "awaycontent1"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/centralhall
 	name = "UO71 Central"
 	icon_state = "awaycontent2"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/eng
 	name = "UO71 Engineering"
 	icon_state = "awaycontent3"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/mining
 	name = "UO71 Mining"
 	icon_state = "awaycontent4"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/science
 	name = "UO71 Science"
 	icon_state = "awaycontent5"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/medical
 	name = "UO71 Medical"
 	icon_state = "awaycontent6"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/gateway
 	name = "UO71 Gateway"
 	icon_state = "awaycontent7"
-	fire = 1
+	fire = TRUE
 
 /area/awaymission/UO71/outside
 	name = "UO71 Outside"
@@ -47,36 +47,41 @@
 /area/awaymission/UO71/bridge
 	name = "UO71 Bridge"
 	icon_state = "awaycontent21"
-	fire = 1
-	requires_power = 0
-	tele_proof = 1
+	fire = TRUE
+	requires_power = FALSE
+	tele_proof = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/UO71/queen
 	name = "UO71 Queen Lair"
 	icon_state = "awaycontent9"
-	fire = 1
-	requires_power = 0
-	tele_proof = 1
+	fire = TRUE
+	requires_power = FALSE
+	tele_proof = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/UO71/prince
 	name = "UO71 Prince Containment"
 	icon_state = "awaycontent10"
-	fire = 1
-	requires_power = 0
-	tele_proof = 1
+	fire = TRUE
+	requires_power = FALSE
+	tele_proof = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/UO71/mother
 	name = "UO71 Mother Containment"
 	icon_state = "awaycontent10"
-	fire = 1
-	requires_power = 0
-	tele_proof = 1
+	fire = TRUE
+	requires_power = FALSE
+	tele_proof = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/UO71/loot
 	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
-	requires_power = 0
-	tele_proof = 1
+	requires_power = FALSE
+	tele_proof = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"

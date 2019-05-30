@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(nightshift)
 	return ..()
 
 /datum/controller/subsystem/nightshift/fire(resumed = FALSE)
-	if(world.time - round_start_time < nightshift_first_check)
+	if(world.time - SSticker.round_start_time < nightshift_first_check)
 		return
 	check_nightshift()
 

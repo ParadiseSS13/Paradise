@@ -59,7 +59,7 @@
 		to_chat(src, "You're already dead!")
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 
@@ -116,7 +116,7 @@
 		to_chat(src, "You're already dead!")
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 

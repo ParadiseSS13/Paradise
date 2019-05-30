@@ -14,7 +14,6 @@ var/global/list/image/splatter_cache = list()
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
-	appearance_flags = NO_CLIENT_COLOR
 	blood_DNA = list()
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
@@ -28,7 +27,7 @@ var/global/list/image/splatter_cache = list()
 	. = ..()
 	update_icon()
 	if(GAMEMODE_IS_CULT)
-		var/datum/game_mode/cult/mode_ticker = ticker.mode
+		var/datum/game_mode/cult/mode_ticker = SSticker.mode
 		var/turf/T = get_turf(src)
 		if(T && (is_station_level(T.z)))//F I V E   T I L E S
 			if(!(T in mode_ticker.bloody_floors))
@@ -48,7 +47,7 @@ var/global/list/image/splatter_cache = list()
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(GAMEMODE_IS_CULT)
-		var/datum/game_mode/cult/mode_ticker = ticker.mode
+		var/datum/game_mode/cult/mode_ticker = SSticker.mode
 		var/turf/T = get_turf(src)
 		if(T && (is_station_level(T.z)))
 			mode_ticker.bloody_floors -= T
@@ -155,7 +154,6 @@ var/global/list/image/splatter_cache = list()
 	layer = TURF_LAYER
 	random_icon_states = null
 	blood_DNA = list()
-	appearance_flags = NO_CLIENT_COLOR
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
