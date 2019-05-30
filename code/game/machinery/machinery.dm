@@ -148,8 +148,8 @@ Class Procs:
 	if(!speed_process)
 		return
 	speed_process = FALSE
-	START_PROCESSING(SSmachines, src)
 	STOP_PROCESSING(SSfastprocess, src)
+	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/Destroy()
 	if(myArea)
