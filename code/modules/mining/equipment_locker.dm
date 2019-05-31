@@ -401,62 +401,53 @@
 	anchored = 1.0
 	var/obj/item/card/id/inserted_id
 	var/list/prize_list = list(
-		new /datum/data/mining_equipment("Stimpack",			/obj/item/reagent_containers/hypospray/autoinjector/stimpack, 50),
-		new /datum/data/mining_equipment("Teporone MediPen",	/obj/item/reagent_containers/hypospray/autoinjector/teporone, 50),
-		new /datum/data/mining_equipment("MediPen Bundle",		/obj/item/storage/box/autoinjector/utility,	 			   200),
-		new /datum/data/mining_equipment("Whiskey",             /obj/item/reagent_containers/food/drinks/bottle/whiskey,    100),
-		new /datum/data/mining_equipment("Cigar",               /obj/item/clothing/mask/cigarette/cigar/havana,                    150),
-		new /datum/data/mining_equipment("Soap",                /obj/item/soap/nanotrasen, 						           200),
-		new /datum/data/mining_equipment("Laser Pointer",       /obj/item/laser_pointer, 				                   300),
-		new /datum/data/mining_equipment("Alien Toy",           /obj/item/clothing/mask/facehugger/toy, 		                   300),
-		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/t_scanner/adv_mining_scanner,                     400),
-		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/hivelordstabilizer,                               400),
-		new /datum/data/mining_equipment("Mining Drone",        /obj/item/mining_drone_cube,                                500),
-		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/mine_bot_upgrade,      			   			   400),
-		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/mine_bot_upgrade/health,      			   	       400),
-		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/mine_bot_upgrade/cooldown,      			   	   600),
-		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/twohanded/required/mining_hammer,				   750),
-		new /datum/data/mining_equipment("Drone AI Upgrade",    /obj/item/slimepotion/sentience/mining,      			   	      1000),
-		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
-		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/storage/firstaid/brute,						   600),
-		new /datum/data/mining_equipment("Jaunter",             /obj/item/wormhole_jaunter,                                 600),
-		new /datum/data/mining_equipment("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator,               	   750),
-		new /datum/data/mining_equipment("Resonator",           /obj/item/resonator,                                    	   800),
-		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/lazarus_injector,                                1000),
-		new /datum/data/mining_equipment("Silver Pickaxe",		/obj/item/pickaxe/silver,				                  1000),
-		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/mobcapsule, 									   800),
-		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/storage/belt/lazarus,							   200),
-		new /datum/data/mining_equipment("Jetpack",             /obj/item/tank/jetpack/carbondioxide/mining,               2000),
-		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
-		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/pickaxe/diamond,				                  2000),
-		new /datum/data/mining_equipment("Super Resonator",     /obj/item/resonator/upgraded,                              2500),
-		new /datum/data/mining_equipment("KA White Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer,								100),
+		new /datum/data/mining_equipment("Stimpack",					/obj/item/reagent_containers/hypospray/autoinjector/stimpack, 	50),
+		new /datum/data/mining_equipment("Teporone MediPen",			/obj/item/reagent_containers/hypospray/autoinjector/teporone, 	50),
+		new /datum/data/mining_equipment("MediPen Bundle",				/obj/item/storage/box/autoinjector/utility,	 			   		200),
+		new /datum/data/mining_equipment("Whiskey",             		/obj/item/reagent_containers/food/drinks/bottle/whiskey,    	100),
+		new /datum/data/mining_equipment("Cigar",               		/obj/item/clothing/mask/cigarette/cigar/havana,					150),
+		new /datum/data/mining_equipment("Soap",                		/obj/item/soap/nanotrasen, 						           		200),
+		new /datum/data/mining_equipment("Laser Pointer",       		/obj/item/laser_pointer, 				                   		300),
+		new /datum/data/mining_equipment("Alien Toy",           		/obj/item/clothing/mask/facehugger/toy, 		                300),
+		new /datum/data/mining_equipment("Advanced Scanner",			/obj/item/t_scanner/adv_mining_scanner,                    		400),
+		new /datum/data/mining_equipment("Hivelord Stabilizer",			/obj/item/hivelordstabilizer,                              		400),
+		new /datum/data/mining_equipment("Mining Drone",        		/obj/item/mining_drone_cube,                               		500),
+		new /datum/data/mining_equipment("Drone Melee Upgrade", 		/obj/item/mine_bot_upgrade,      			   			   		400),
+		new /datum/data/mining_equipment("Drone Health Upgrade",		/obj/item/mine_bot_upgrade/health,      			   	       	400),
+		new /datum/data/mining_equipment("Drone Ranged Upgrade",		/obj/item/mine_bot_upgrade/cooldown,      			   	   		600),
+		new /datum/data/mining_equipment("Kinetic Crusher", 			/obj/item/twohanded/required/kinetic_crusher,			   		750),
+		new /datum/data/mining_equipment("Shelter Capsule",				/obj/item/survivalcapsule,										400),
+		new /datum/data/mining_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,	    						3000),
+		new /datum/data/mining_equipment("Explorer\'s Webbing",			/obj/item/storage/belt/mining,									500),
+		new /datum/data/mining_equipment("Drone AI Upgrade",    		/obj/item/slimepotion/sentience/mining,      			   	    1000),
+		new /datum/data/mining_equipment("GAR mesons",					/obj/item/clothing/glasses/meson/gar,							500),
+		new /datum/data/mining_equipment("Brute First-Aid Kit",			/obj/item/storage/firstaid/brute,						   		600),
+		new /datum/data/mining_equipment("Jaunter",             		/obj/item/wormhole_jaunter,                                 	600),
+		new /datum/data/mining_equipment("Kinetic Accelerator", 		/obj/item/gun/energy/kinetic_accelerator,               	   	750),
+		new /datum/data/mining_equipment("Resonator",           		/obj/item/resonator,                                    	   	800),
+		new /datum/data/mining_equipment("Lazarus Injector",    		/obj/item/lazarus_injector,                                		1000),
+		new /datum/data/mining_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,				                  		1000),
+		new /datum/data/mining_equipment("Lazarus Capsule", 			/obj/item/mobcapsule, 									  		800),
+		new /datum/data/mining_equipment("Lazarus Capsule belt",		/obj/item/storage/belt/lazarus,							   		200),
+		new /datum/data/mining_equipment("Jetpack",             		/obj/item/tank/jetpack/carbondioxide/mining,               		2000),
+		new /datum/data/mining_equipment("Space Cash",    				/obj/item/stack/spacecash/c1000,                    			2000),
+		new /datum/data/mining_equipment("Diamond Pickaxe",				/obj/item/pickaxe/diamond,				                  		2000),
+		new /datum/data/mining_equipment("Super Resonator",     		/obj/item/resonator/upgraded,                              		2500),
+		new /datum/data/mining_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,        							2500),
+		new /datum/data/mining_equipment("Mining Hardsuit",				/obj/item/storage/box/mininghardsuit,							2000),
+		new /datum/data/mining_equipment("1 Marker Beacon",				/obj/item/stack/marker_beacon,									10),
+		new /datum/data/mining_equipment("10 Marker Beacons",			/obj/item/stack/marker_beacon/ten,								100),
+		new /datum/data/mining_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,							300),
+		new /datum/data/mining_equipment("KA White Tracer Rounds",		/obj/item/borg/upgrade/modkit/tracer,							100),
 		new /datum/data/mining_equipment("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable,				150),
-		new /datum/data/mining_equipment("KA Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,								250),
-		new /datum/data/mining_equipment("KA Hyper Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod/orange,						300),
-		new /datum/data/mining_equipment("KA Range Increase",	/obj/item/borg/upgrade/modkit/range,									1000),
-		new /datum/data/mining_equipment("KA Damage Increase",	/obj/item/borg/upgrade/modkit/damage,									1000),
-		new /datum/data/mining_equipment("KA Cooldown Decrease",/obj/item/borg/upgrade/modkit/cooldown,									1000),
-		new /datum/data/mining_equipment("KA AoE Damage",		/obj/item/borg/upgrade/modkit/aoe/mobs,									2000),
-		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/card/mining_point_card,               			   500),
-		)
-
-/obj/machinery/mineral/equipment_vendor/lavaland //Purchasable lavaland items, for compatability with the other asteroid
-	name = "lavaland mining equipment vendor"
-
-/obj/machinery/mineral/equipment_vendor/lavaland/Initialize()
-	. = ..()
-	desc += "\nIt seems a few selections have been added."
-	prize_list += list(
-		new /datum/data/mining_equipment("Mining Conscription Kit",     	/obj/item/storage/backpack/duffel/mining_conscript, 				1000),
-		new /datum/data/mining_equipment("Shelter Capsule",					/obj/item/survivalcapsule,											400),
-		new /datum/data/mining_equipment("Luxury Shelter Capsule",			/obj/item/survivalcapsule/luxury,	    							3000),
-		new /datum/data/mining_equipment("Jump Boots",						/obj/item/clothing/shoes/bhop,        								2500),
-		new /datum/data/mining_equipment("Mining Hardsuit",					/obj/item/storage/box/mininghardsuit,								2000),
-		new /datum/data/mining_equipment("1 Marker Beacon",					/obj/item/stack/marker_beacon,										10),
-		new /datum/data/mining_equipment("10 Marker Beacons",				/obj/item/stack/marker_beacon/ten,									100),
-		new /datum/data/mining_equipment("30 Marker Beacons",				/obj/item/stack/marker_beacon/thirty,								300),
-		new /datum/data/mining_equipment("Explorer\'s Webbing",				/obj/item/storage/belt/mining,										500)
+		new /datum/data/mining_equipment("KA Super Chassis",			/obj/item/borg/upgrade/modkit/chassis_mod,						250),
+		new /datum/data/mining_equipment("KA Hyper Chassis",			/obj/item/borg/upgrade/modkit/chassis_mod/orange,				300),
+		new /datum/data/mining_equipment("KA Range Increase",			/obj/item/borg/upgrade/modkit/range,							1000),
+		new /datum/data/mining_equipment("KA Damage Increase",			/obj/item/borg/upgrade/modkit/damage,							1000),
+		new /datum/data/mining_equipment("KA Cooldown Decrease",		/obj/item/borg/upgrade/modkit/cooldown,							1000),
+		new /datum/data/mining_equipment("KA AoE Damage",				/obj/item/borg/upgrade/modkit/aoe/mobs,							2000),
+		new /datum/data/mining_equipment("Point Transfer Card", 		/obj/item/card/mining_point_card,               			  	500),
+		new /datum/data/mining_equipment("Mining Conscription Kit",     /obj/item/storage/backpack/duffel/mining_conscript, 			1000),
 		)
 
 /obj/machinery/mineral/equipment_vendor/golem
@@ -486,15 +477,15 @@
 		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)
 		)
 
-/datum/data/mining_equipment/
+/datum/data/mining_equipment
 	var/equipment_name = "generic"
 	var/equipment_path = null
 	var/cost = 0
 
 /datum/data/mining_equipment/New(name, path, cost)
-	src.equipment_name = name
-	src.equipment_path = path
-	src.cost = cost
+	equipment_name = name
+	equipment_path = path
+	cost = cost
 
 /obj/machinery/mineral/equipment_vendor/New()
 	..()
@@ -606,20 +597,33 @@
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in list("Kinetic Accelerator", "Resonator", "Mining Drone", "Advanced Scanner", "Crusher")
-	if(!selection || !Adjacent(redeemer) || voucher.loc != redeemer)
+	var/items = list("Kinetic Accelerator", "Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Crusher Kit", "Mining Conscription Kit", "Advanced Scanner")
+
+	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
+
+	var/drop_location = loc
 	switch(selection)
 		if("Kinetic Accelerator")
-			new /obj/item/gun/energy/kinetic_accelerator(src.loc)
-		if("Resonator")
-			new /obj/item/resonator(src.loc)
-		if("Mining Drone")
-			new /obj/item/storage/box/drone_kit(src.loc)
+			new /obj/item/gun/energy/kinetic_accelerator(drop_location)
+		if("Survival Capsule and Explorer's Webbing")
+			new /obj/item/storage/belt/mining(drop_location)
+		if("Resonator Kit")
+			new /obj/item/extinguisher/mini(drop_location)
+			new /obj/item/resonator(drop_location)
+		if("Minebot Kit")
+			new /obj/item/mining_drone_cube(drop_location)
+			new /obj/item/weldingtool/hugetank(drop_location)
+			new /obj/item/clothing/head/welding(drop_location)
+		if("Crusher Kit")
+			new /obj/item/extinguisher/mini(drop_location)
+			new /obj/item/twohanded/required/kinetic_crusher(drop_location)
+		if("Mining Conscription Kit")
+			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 		if("Advanced Scanner")
-			new /obj/item/t_scanner/adv_mining_scanner(src.loc)
-		if("Crusher")
-			new /obj/item/twohanded/required/mining_hammer(loc)
+			new /obj/item/t_scanner/adv_mining_scanner(drop_location)
+
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
@@ -892,21 +896,6 @@
 	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
 	qdel(src)
 
-/**********************Mining drone kit**********************/
-
-/obj/item/storage/box/drone_kit
-	name = "Drone Kit"
-	desc = "A boxed kit that includes one mining drone cube and a welding tool with an increased capacity."
-	icon_state = "implant"
-	max_w_class = WEIGHT_CLASS_NORMAL
-	storage_slots = 2
-	can_hold = list(/obj/item/mining_drone_cube, /obj/item/weldingtool/hugetank)
-
-/obj/item/storage/box/drone_kit/New()
-	..()
-	new /obj/item/mining_drone_cube(src)
-	new /obj/item/weldingtool/hugetank(src)
-
 /**********************Lazarus Injector**********************/
 
 /obj/item/lazarus_injector
@@ -1127,7 +1116,7 @@
 	qdel(src)
 
 /*********************Mining Hammer****************/
-/obj/item/twohanded/required/mining_hammer
+/obj/item/twohanded/required/kinetic_crusher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining_hammer1"
 	item_state = "mining_hammer1"
@@ -1161,7 +1150,7 @@
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 6
-	var/obj/item/twohanded/required/mining_hammer/hammer_synced =  null
+	var/obj/item/twohanded/required/kinetic_crusher/hammer_synced =  null
 
 /obj/item/projectile/destabilizer/on_hit(atom/target, blocked = 0, hit_zone)
 	if(hammer_synced)
@@ -1184,7 +1173,7 @@
 			M.gets_drilled(firer)
 	..()
 
-/obj/item/twohanded/required/mining_hammer/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/twohanded/required/kinetic_crusher/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = get_turf(src)
 		if(!istype(proj_turf, /turf))
@@ -1219,7 +1208,7 @@
 			else
 				L.apply_damage(50, BRUTE, blocked = def_check)
 
-/obj/item/twohanded/required/mining_hammer/proc/Recharge()
+/obj/item/twohanded/required/kinetic_crusher/proc/Recharge()
 	if(!charged)
 		charged = 1
 		icon_state = "mining_hammer1"

@@ -1145,7 +1145,7 @@
 /turf/simulated/wall,
 /area/mine/living_quarters)
 "cN" = (
-/obj/machinery/mineral/equipment_vendor/lavaland,
+/obj/machinery/mineral/equipment_vendor,
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
@@ -1346,7 +1346,7 @@
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "dl" = (
-/obj/machinery/mineral/equipment_vendor/lavaland,
+/obj/machinery/mineral/equipment_vendor,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -2348,7 +2348,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "fo" = (
-/obj/machinery/mineral/equipment_vendor/lavaland,
+/obj/machinery/mineral/equipment_vendor,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
