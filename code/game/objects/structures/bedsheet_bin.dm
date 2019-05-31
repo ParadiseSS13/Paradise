@@ -87,6 +87,12 @@ LINEN BINS
 	dream_messages = list("yellow")
 	nightmare_messages = list("locker full of banana peels")
 
+/obj/item/bedsheet/black
+	icon_state = "sheetblack"
+	item_color = "sheetblack"
+	dream_messages = list("black")
+	nightmare_messages = list("the void of space")
+
 /obj/item/bedsheet/mime
 	name = "mime's blanket"
 	desc = "A very soothing striped blanket.  All the noise just seems to fade out when you're under the covers in this."

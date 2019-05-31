@@ -113,6 +113,13 @@
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
+//spray tan
+/obj/item/reagent_containers/spray/spraytan
+	name = "spray tan"
+	volume = 50
+	desc = "Gyaro brand spray tan. Do not spray near eyes or other orifices."
+	list_reagents = list("spraytan" = 50)
+
 //pepperspray
 /obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"

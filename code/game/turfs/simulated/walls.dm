@@ -60,7 +60,6 @@
 		qdel(WR)
 	. = ..()
 
-
 //Appearance
 /turf/simulated/wall/examine(mob/user)
 	. = ..(user)
@@ -151,7 +150,7 @@
 /turf/simulated/wall/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			src.ChangeTurf(/turf/space)
+			ChangeTurf(baseturf)
 			return
 		if(2.0)
 			if(prob(50))
@@ -252,6 +251,7 @@
 
 /turf/simulated/wall/attack_hulk(mob/user, does_attack_animation = FALSE)
 	..(user, TRUE)
+
 	if(prob(hardness) || rotting)
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))

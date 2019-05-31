@@ -375,6 +375,7 @@
 	SSthrowing.processing[src] = TT
 	TT.tick()
 
+	return TRUE
 
 //Overlays
 /atom/movable/overlay

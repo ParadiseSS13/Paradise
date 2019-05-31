@@ -1,4 +1,3 @@
-#define SUMMON_POSSIBILITIES 3
 var/global/list/all_cults = list()
 
 /datum/game_mode

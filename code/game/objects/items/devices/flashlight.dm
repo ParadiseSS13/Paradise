@@ -292,10 +292,10 @@
 	color = null
 
 /obj/item/flashlight/flare/glowstick/random/Initialize()
-	..()
+	. = ..()
 	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
-	return INITIALIZE_HINT_QDEL
+	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/item/flashlight/flare/extinguish_light()
 	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")

@@ -2776,7 +2776,7 @@
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
-				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining asteroid")
+				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")

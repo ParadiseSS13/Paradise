@@ -48,6 +48,13 @@
 
 	if(prob(5))
 		playsound(loc, 'sound/items/Welder.ogg', 100, 1)
+		if(istype(target, /turf/simulated/mineral))
+			var/turf/simulated/mineral/M = target
+			M.ChangeTurf(/turf/simulated/floor/plating/asteroid/airless)
+
+		if(istype(target, /turf/simulated/floor))
+			var/turf/simulated/floor/F = target
+			F.ChangeTurf(F.baseturf)
 
 	for(var/obj/O in target)
 		if(prob(20) && !(resistance_flags & UNACIDABLE))

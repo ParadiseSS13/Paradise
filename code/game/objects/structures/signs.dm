@@ -103,6 +103,11 @@
 	desc = "A warning sign which reads 'HARD VACUUM AHEAD'"
 	icon_state = "space"
 
+/obj/structure/sign/vacuum/external
+	name = "\improper EXTERNAL AIRLOCK"
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'."
+	layer = MOB_LAYER
+
 /obj/structure/sign/deathsposal
 	name = "\improper DISPOSAL LEADS TO SPACE"
 	desc = "A warning sign which reads 'DISPOSAL LEADS TO SPACE'"
@@ -127,6 +132,15 @@
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'"
 	icon_state = "nosmoking2"
+
+/obj/structure/sign/radiation
+	name = "\improper HAZARDOUS RADIATION"
+	desc = "A warning sign alerting the user of potential radiation hazards."
+	icon_state = "radiation"
+
+/obj/structure/sign/radiation/rad_area
+	name = "\improper RADIOACTIVE AREA"
+	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
 
 /obj/structure/sign/redcross
 	name = "medbay"
@@ -157,21 +171,6 @@
 	name = "Kidan wall trophy"
 	desc = "A dead and stuffed Diona nymph, mounted on a board."
 	icon_state = "kidanplaque"
-
-/obj/structure/sign/science			//These 3 have multiple types, just var-edit the icon_state to whatever one you want on the map
-	name = "\improper SCIENCE!"
-	desc = "A warning sign which reads 'SCIENCE!'"
-	icon_state = "science1"
-
-/obj/structure/sign/chemistry
-	name = "\improper CHEMISTRY"
-	desc = "A warning sign which reads 'CHEMISTRY'"
-	icon_state = "chemistry1"
-
-/obj/structure/sign/botany
-	name = "\improper HYDROPONICS"
-	desc = "A warning sign which reads 'HYDROPONICS'"
-	icon_state = "hydro1"
 
 /obj/structure/sign/mech
 	name = "\improper mech painting"
@@ -208,6 +207,74 @@
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
+/obj/structure/sign/science	
+	name = "\improper SCIENCE!"
+	desc = "A warning sign which reads 'SCIENCE!'"
+	icon_state = "science1"
+
+/obj/structure/sign/chemistry
+	name = "\improper CHEMISTRY"
+	desc = "A warning sign which reads 'CHEMISTRY'"
+	icon_state = "chemistry1"
+
+/obj/structure/sign/botany
+	name = "\improper HYDROPONICS"
+	desc = "A warning sign which reads 'HYDROPONICS'"
+	icon_state = "hydro1"
+
+/obj/structure/sign/xenobio
+	name = "\improper XENOBIOLOGY"
+	desc = "A sign labelling an area as a place where xenobiological entities are researched."
+	icon_state = "xenobio"
+
+/obj/structure/sign/evac
+	name = "\improper EVACUATION"
+	desc = "A sign labelling an area where evacuation procedures take place."
+	icon_state = "evac"
+
+/obj/structure/sign/drop
+	name = "\improper DROP PODS"
+	desc = "A sign labelling an area where drop pod loading procedures take place."
+	icon_state = "drop"
+
+/obj/structure/sign/custodian
+	name = "\improper CUSTODIAN"
+	desc = "A sign labelling an area where the custodian works."
+	icon_state = "custodian"
+
+/obj/structure/sign/engineering
+	name = "\improper ENGINEERING"
+	desc = "A sign labelling an area where engineers work."
+	icon_state = "engine"
+
+/obj/structure/sign/cargo
+	name = "\improper CARGO"
+	desc = "A sign labelling an area where cargo ships dock."
+	icon_state = "cargo"
+
+/obj/structure/sign/security
+	name = "\improper SECURITY"
+	desc = "A sign labelling an area where the law is law."
+	icon_state = "security"
+
+/obj/structure/sign/holy
+	name = "\improper HOLY"
+	desc = "A sign labelling a religious area."
+	icon_state = "holy"
+
+/obj/structure/sign/restroom
+	name = "\improper RESTROOM"
+	desc = "A sign labelling a restroom."
+	icon_state = "restroom"
+
+/obj/structure/sign/medbay
+	name = "\improper MEDBAY"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	icon_state = "bluecross"
+
+/obj/structure/sign/medbay/alt
+	icon_state = "bluecross2"
+
 /obj/structure/sign/directions/science
 	name = "\improper Research Division"
 	desc = "A direction sign, pointing out which way the Research Division is."
@@ -232,3 +299,18 @@
 	name = "\improper Escape Arm"
 	desc = "A direction sign, pointing out which way escape shuttle dock is."
 	icon_state = "direction_evac"
+
+/obj/structure/sign/directions/cargo
+	name = "\improper Cargo Department"
+	desc = "A direction sign, pointing out which way the Cargo department is."
+	icon_state = "direction_supply"
+
+/obj/structure/sign/explosives
+	name = "\improper HIGH EXPLOSIVES"
+	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
+	icon_state = "explosives"
+
+/obj/structure/sign/explosives/alt
+	name = "\improper HIGH EXPLOSIVES"
+	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
+	icon_state = "explosives2"

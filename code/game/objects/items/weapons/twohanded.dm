@@ -197,6 +197,15 @@
 			var/obj/structure/grille/G = A
 			G.take_damage(200, BRUTE, "melee", 0)
 
+/obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+	icon_state = "bone_axe0"
+	name = "bone axe"
+	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
+	force_wielded = 23
+
+/obj/item/twohanded/fireaxe/boneaxe/update_icon()
+	icon_state = "bone_axe[wielded]"
+
 /*
  * Double-Bladed Energy Swords - Cheridan
  */
@@ -358,6 +367,19 @@
 	if(explosive)
 		explosive.prime()
 		qdel(src)
+
+/obj/item/twohanded/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+	icon_state = "bone_spear0"
+	name = "bone spear"
+	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
+	force = 11
+	force_unwielded = 11
+	force_wielded = 20					//I have no idea how to balance
+	throwforce = 22
+	armour_penetration = 15				//Enhanced armor piercing
+
+/obj/item/twohanded/spear/bonespear/update_icon()
+	icon_state = "bone_spear[wielded]"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide

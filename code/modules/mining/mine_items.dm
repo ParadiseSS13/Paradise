@@ -32,6 +32,21 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 
+/obj/structure/closet/wardrobe/miner/lavaland
+
+/obj/structure/closet/wardrobe/miner/lavaland/New()
+	..()
+	contents = list()
+	new /obj/item/storage/backpack/duffel(src)
+	new /obj/item/storage/backpack/explorer(src)
+	new /obj/item/storage/backpack/explorer(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "miningsec1"
@@ -50,6 +65,8 @@
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/survivalcapsule(src)
+	new /obj/item/stack/marker_beacon/ten
 
 /**********************Shuttle Computer**************************/
 
@@ -76,12 +93,11 @@
 	icon_state = "pickaxe"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 15.0
-	throwforce = 10.0
+	force = 15
+	throwforce = 10
 	item_state = "pickaxe"
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
-	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=2;engineering=3"
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
@@ -94,11 +110,21 @@
 /obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
 
+/obj/item/pickaxe/emergency
+	name = "emergency disembarkation tool"
+	desc = "For extracting yourself from rough landings."
+
+/obj/item/pickaxe/safety
+	name = "safety pickaxe"
+	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon."
+	force = 1
+	throwforce = 1
+	attack_verb = list("ineffectively hit")
+
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
-	digspeed = 30 //mines faster than a normal pickaxe, bought from mining vendor
 	origin_tech = "materials=3;engineering=4"
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	toolspeed = 0.75
@@ -107,7 +133,6 @@
 	name = "golden pickaxe"
 	icon_state = "gpickaxe"
 	item_state = "gpickaxe"
-	digspeed = 20
 	origin_tech = "materials=4;engineering=4"
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
 	toolspeed = 0.6
@@ -116,7 +141,6 @@
 	name = "diamond-tipped pickaxe"
 	icon_state = "dpickaxe"
 	item_state = "dpickaxe"
-	digspeed = 20 //mines twice as fast as a normal pickaxe, bought from mining vendor
 	origin_tech = "materials=5;engineering=4"
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	toolspeed = 0.5
@@ -125,7 +149,6 @@
 	name = "mining drill"
 	icon_state = "handdrill"
 	item_state = "jackhammer"
-	digspeed = 25 //available from roundstart, faster than a pickaxe.
 	digsound = list('sound/weapons/drill.ogg')
 	hitsound = 'sound/weapons/drill.ogg'
 	usesound = 'sound/weapons/drill.ogg'
@@ -141,7 +164,6 @@
 /obj/item/pickaxe/drill/diamonddrill
 	name = "diamond-tipped mining drill"
 	icon_state = "diamonddrill"
-	digspeed = 10
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
 	desc = "Yours is the drill that will pierce the heavens!"
 	toolspeed = 0.25
@@ -156,14 +178,12 @@
 /obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
-	digspeed = 10
 	toolspeed = 0.25
 
 /obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
 	icon_state = "jackhammer"
 	item_state = "jackhammer"
-	digspeed = 5 //the epitome of powertools. extremely fast mining, laughs at puny walls
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -180,8 +200,8 @@
 	icon_state = "shovel"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 8.0
-	throwforce = 4.0
+	force = 8
+	throwforce = 4
 	item_state = "shovel"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
@@ -195,11 +215,17 @@
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
 	item_state = "spade"
-	force = 5.0
-	throwforce = 7.0
+	force = 5
+	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 2
 
+/obj/item/shovel/safety
+	name = "safety shovel"
+	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon."
+	force = 1
+	throwforce = 1
+	attack_verb = list("ineffectively hit")
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
@@ -371,6 +397,16 @@
 	icon_regular_floor = "podfloor"
 	floor_tile = /obj/item/stack/tile/pod
 
+/turf/simulated/floor/pod/light
+	icon_state = "podfloor_light"
+	icon_regular_floor = "podfloor_light"
+	floor_tile = /obj/item/stack/tile/pod/light
+
+/turf/simulated/floor/pod/dark
+	icon_state = "podfloor_dark"
+	icon_regular_floor = "podfloor_dark"
+	floor_tile = /obj/item/stack/tile/pod/dark
+
 //Door
 /obj/machinery/door/airlock/survival_pod
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
@@ -459,6 +495,9 @@
 	max_n_of_items = 10
 	pixel_y = -4
 
+/obj/machinery/smartfridge/survival_pod/update_icon()
+	return
+
 /obj/item/circuitboard/smartfridge/survival
 	name = "circuit board (Smartfridge Survival)"
 	build_path = /obj/machinery/smartfridge/survival_pod
@@ -502,6 +541,18 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
+/obj/structure/fans/Initialize(loc)
+	..()
+	air_update_turf(1)
+
+/obj/structure/fans/Destroy()
+	arbitraryatmosblockingvar = 0
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/fans/CanAtmosPass(turf/T)
+	return !arbitraryatmosblockingvar
+
 /obj/structure/fans/deconstruct()
 	if(!(flags & NODECONSTRUCT))
 		if(buildstacktype)
@@ -525,17 +576,11 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
-/obj/structure/fans/Initialize(loc)
-	..()
-	air_update_turf(1)
-
-/obj/structure/fans/Destroy()
-	arbitraryatmosblockingvar = 0
-	air_update_turf(1)
-	return ..()
-
-/obj/structure/fans/CanAtmosPass(turf/T)
-	return !arbitraryatmosblockingvar
+/obj/structure/fans/tiny/invisible
+	name = "air flow blocker"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	unacidable = TRUE
+	invisibility = INVISIBILITY_ABSTRACT	
 
 //Signs
 /obj/structure/sign/mining

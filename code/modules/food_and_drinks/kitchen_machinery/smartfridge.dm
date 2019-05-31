@@ -141,11 +141,33 @@
 			amount--
 	update_icon()
 
-/obj/machinery/smartfridge/chemistry/accept_check(obj/item/O)
+/obj/machinery/smartfridge/secure/chemistry/accept_check(obj/item/O)
 	if(istype(O,/obj/item/storage/pill_bottle) || istype(O,/obj/item/reagent_containers))
 		return 1
 	return 0
 
+/obj/machinery/smartfridge/secure/chemistry/preloaded
+	spawn_meds = list(
+		/obj/item/reagent_containers/food/pill/epinephrine = 12,
+		/obj/item/reagent_containers/food/pill/charcoal = 5,
+		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
+		/obj/item/reagent_containers/glass/bottle/charcoal = 1)
+
+/obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
+	req_access_txt = null
+	req_access = list(access_syndicate)
+
+/obj/machinery/smartfridge/disks
+	name = "disk compartmentalizer"
+	desc = "A machine capable of storing a variety of disks. Denoted by most as the DSU (disk storage unit)."
+	icon_state = "disktoaster"
+	pass_flags = PASSTABLE
+
+/obj/machinery/smartfridge/disks/accept_check(obj/item/O)
+	if(istype(O, /obj/item/disk/))
+		return TRUE
+	else
+		return FALSE
 
 // ----------------------------
 // Virology Medical Smartfridge
@@ -165,6 +187,20 @@
 	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker))
 		return 1
 	return 0
+
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded
+	spawn_meds = list(
+		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/cold = 1,
+		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
+		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
+		/obj/item/reagent_containers/glass/bottle/plasma = 1,
+		/obj/item/reagent_containers/glass/bottle/reagent/synaptizine = 1,
+		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1)
+
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
+	req_access_txt = null
+	req_access = list(access_syndicate)
 
 /obj/machinery/smartfridge/drinks
 	name = "\improper Drink Showcase"

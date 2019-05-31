@@ -94,6 +94,9 @@
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 
+/obj/item/gun/projectile/automatic/c20r/toy/riot
+	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
+
 /obj/item/gun/projectile/automatic/c20r/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
@@ -104,6 +107,9 @@
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
+
+/obj/item/gun/projectile/automatic/l6_saw/toy/riot
+	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()

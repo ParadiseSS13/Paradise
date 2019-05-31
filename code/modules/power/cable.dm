@@ -63,7 +63,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	. = ..()
 
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
-
 	var/dash = findtext(icon_state, "-")
 	d1 = text2num(copytext( icon_state, 1, dash ))
 	d2 = text2num(copytext( icon_state, dash+1 ))
@@ -73,13 +72,11 @@ By design, d1 is the smallest direction and d2 is the highest
 		hide(T.intact)
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 
-
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
 		cut_cable_from_powernet()				// update the powernets
 	LAZYREMOVE(GLOB.cable_list, src)			//remove it from global cable list
 	return ..()									// then go ahead and delete the cable
-
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))	

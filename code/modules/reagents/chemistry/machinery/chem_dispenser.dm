@@ -38,6 +38,51 @@
 	RefreshParts()
 	dispensable_reagents = sortList(dispensable_reagents)
 
+/obj/machinery/chem_dispenser/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/mutagensaltpeter
+	name = "botanical chemical dispenser"
+	desc = "Creates and dispenses chemicals useful for botany."
+	can_deconstruct = FALSE
+
+	dispensable_reagents = list(
+		"mutagen",
+		"saltpetre",
+		"eznutriment",
+		"left4zednutriment",
+		"robustharvestnutriment",
+		"water",
+		"plantbgone",
+		"weedkiller",
+		"pestkiller",
+		"cryoxadone",
+		"ammonia",
+		"ash",
+		"diethylamine")
+	upgrade_reagents = null
+
+/obj/machinery/chem_dispenser/mutagensaltpeter/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null)
+	RefreshParts()
+
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
@@ -298,6 +343,18 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
+/obj/machinery/chem_dispenser/soda/upgraded/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
 /obj/machinery/chem_dispenser/beer
 	icon_state = "booze_dispenser"
 	name = "booze dispenser"
@@ -317,6 +374,18 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/beer/upgraded/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new cell_type(null)
 	RefreshParts()

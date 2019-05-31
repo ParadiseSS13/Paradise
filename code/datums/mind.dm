@@ -18,7 +18,6 @@
 		However if you want that mind to have any special properties like being a traitor etc you will have to do that
 		yourself.
 */
-#define SUMMON_POSSIBILITIES 3
 
 /datum/mind
 	var/key

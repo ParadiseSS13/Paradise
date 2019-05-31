@@ -68,3 +68,37 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
+
+/obj/item/melee/flyswatter
+	name = "flyswatter"
+	desc = "Useful for killing insects of all sizes."
+	icon_state = "flyswatter"
+	item_state = "flyswatter"
+	force = 1
+	throwforce = 1
+	attack_verb = list("swatted", "smacked")
+	hitsound = 'sound/effects/snap.ogg'
+	w_class = WEIGHT_CLASS_SMALL
+	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
+	var/list/strong_against
+
+/obj/item/melee/flyswatter/Initialize(mapload)
+	. = ..()
+	strong_against = typecacheof(list(
+					/mob/living/simple_animal/hostile/poison/bees/,
+					/mob/living/simple_animal/butterfly,
+					/mob/living/simple_animal/cockroach,
+					/obj/item/queen_bee
+	))
+
+/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag)
+	. = ..()
+	if(proximity_flag)
+		if(is_type_in_typecache(target, strong_against))
+			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
+			to_chat(user, "<span class='warning'>You easily splat the [target].</span>")
+			if(istype(target, /mob/living/))
+				var/mob/living/bug = target
+				bug.death(1)
+			else
+				qdel(target)

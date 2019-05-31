@@ -87,6 +87,7 @@
 	var/insulated
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
+	unacidable = TRUE
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -94,10 +95,13 @@
 /turf/simulated/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/engine/make_plating(var/force = 0)
+/turf/simulated/floor/engine/make_plating(force = 0)
 	if(force)
 		..()
 	return //unplateable
+
+/turf/simulated/floor/engine/attack_hand(mob/user as mob)
+	user.Move_Pulled(src)
 
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
@@ -122,22 +126,18 @@
 			name = "insulated " + name
 			return
 
-/turf/simulated/floor/engine/ex_act(severity,target)
+/turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
 		if(1)
-			if(prob(80))
-				ReplaceWithLattice()
-			else if(prob(50))
-				qdel(src)
-			else
-				if(builtin_tile)
-					builtin_tile.loc = src
-					builtin_tile = null
-				make_plating(1)
+			ChangeTurf(baseturf)
 		if(2)
 			if(prob(50))
-				make_plating(1)
+				ChangeTurf(baseturf)
 
+/turf/simulated/floor/engine/blob_act()
+	if(prob(25))
+		ChangeTurf(baseturf)
+		
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
@@ -220,60 +220,6 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
-
-// CATWALKS
-// Space and plating, all in one buggy fucking turf!
-// These are *so* fucking bad it makes me want to kill myself
-/turf/simulated/floor/plating/airless/catwalk
-	icon = 'icons/turf/catwalks.dmi'
-	icon_state = "catwalk0"
-	name = "catwalk"
-	desc = "Cats really don't like these things."
-
-	temperature = TCMB
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = HEAT_CAPACITY_VACUUM
-
-/turf/simulated/floor/plating/airless/catwalk/New()
-	..()
-	set_light(4) //starlight
-	name = "catwalk"
-	update_icon(1)
-
-/turf/simulated/floor/plating/airless/catwalk/update_icon(var/propogate=1)
-	underlays.Cut()
-	underlays += new /icon('icons/turf/space.dmi',SPACE_ICON_STATE)
-
-	var/dirs = 0
-	for(var/direction in cardinal)
-		var/turf/T = get_step(src,direction)
-		if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
-			var/turf/simulated/floor/plating/airless/catwalk/C=T
-			dirs |= direction
-			if(propogate)
-				C.update_icon(0)
-	icon_state="catwalk[dirs]"
-
-/turf/simulated/floor/plating/airless/catwalk/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/stack/rods))
-		return 1
-	else if(istype(C, /obj/item/stack/tile))
-		return 1
-
-	if(..())
-		return 1
-
-	if(!broken && isscrewdriver(C))
-		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")
-		new /obj/item/stack/rods(src, 1)
-		ReplaceWithLattice()
-		for(var/direction in cardinal)
-			var/turf/T = get_step(src,direction)
-			if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
-				var/turf/simulated/floor/plating/airless/catwalk/CW=T
-				CW.update_icon(0)
-		playsound(src, C.usesound, 80, 1)
-
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
@@ -322,7 +268,7 @@
 	smash()
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 
 /turf/simulated/floor/plating/abductor
 	name = "alien floor"

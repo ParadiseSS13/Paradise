@@ -164,7 +164,7 @@
 	},
 /area/shuttle/escape)
 "aB" = (
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/status_display{
@@ -175,7 +175,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/bed,
@@ -207,7 +207,7 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aH" = (
 /obj/item/storage/bible{
@@ -246,7 +246,7 @@
 	name = "station intercom (General)";
 	pixel_x = 28
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aM" = (
 /obj/structure/grille,

@@ -48,6 +48,9 @@
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
 
+	var/list/atom_colours	 //used to store the different colors on an atom
+						//its inherent color, the colored paint applied on it, special color effect etc...
+
 /atom/New(loc, ...)
 	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		_preloader.load(src)
@@ -80,6 +83,9 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(color)
+		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
 	if(light_power && light_range)
 		update_light()
@@ -742,6 +748,8 @@ var/list/blood_splatter_icons = list()
 	switch(var_name)
 		if("light_power", "light_range", "light_color")
 			update_light()
+		if("color")
+			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 
 
 /atom/vv_get_dropdown()
@@ -775,3 +783,51 @@ var/list/blood_splatter_icons = list()
 
 /atom/proc/mech_melee_attack(obj/mecha/M)
 	return
+/*
+	Adds an instance of colour_type to the atom's atom_colours list
+*/
+/atom/proc/add_atom_colour(coloration, colour_priority)
+	if(!atom_colours || !atom_colours.len)
+		atom_colours = list()
+		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+	if(!coloration)
+		return
+	if(colour_priority > atom_colours.len)
+		return
+	atom_colours[colour_priority] = coloration
+	update_atom_colour()
+
+
+/*
+	Removes an instance of colour_type from the atom's atom_colours list
+*/
+/atom/proc/remove_atom_colour(colour_priority, coloration)
+	if(!atom_colours)
+		atom_colours = list()
+		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+	if(colour_priority > atom_colours.len)
+		return
+	if(coloration && atom_colours[colour_priority] != coloration)
+		return //if we don't have the expected color (for a specific priority) to remove, do nothing
+	atom_colours[colour_priority] = null
+	update_atom_colour()
+
+
+/*
+	Resets the atom's color to null, and then sets it to the highest priority
+	colour available
+*/
+/atom/proc/update_atom_colour()
+	if(!atom_colours)
+		atom_colours = list()
+		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+	color = null
+	for(var/C in atom_colours)
+		if(islist(C))
+			var/list/L = C
+			if(L.len)
+				color = L
+				return
+		else if(C)
+			color = C
+			return

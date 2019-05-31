@@ -125,6 +125,53 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	var/static/list/can_strengthen_clothing
+
+/obj/item/stack/sheet/animalhide/goliath_hide/Initialize(mapload)
+	. = ..()
+	if(!can_strengthen_clothing)
+		can_strengthen_clothing = typecacheof(list(
+			/obj/item/clothing/suit/space/hardsuit/mining,
+			/obj/item/clothing/head/helmet/space/hardsuit/mining,
+			/obj/item/clothing/suit/space/eva/plasmaman/miner,
+			/obj/item/clothing/head/helmet/space/eva/plasmaman/miner,
+			/obj/item/clothing/suit/hooded/explorer,
+			/obj/item/clothing/head/hooded/explorer
+		))
+
+/obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
+	if(proximity_flag)
+		if(is_type_in_typecache(target, can_strengthen_clothing))
+			var/obj/item/clothing/C = target
+			var/current_armor = C.armor
+			if(current_armor["melee"] < 60)
+				current_armor["melee"] = min(current_armor["melee"] + 10, 60)
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+				use(1)
+			else
+				to_chat(user, "<span class='info'>You can't improve [C] any further.</span>")
+				return
+		if(istype(target, /obj/mecha/working/ripley))
+			var/obj/mecha/D = target
+			if(D.icon_state != "ripley-open")
+				to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
+				return
+			var/list/damage_absorption = D.damage_absorption
+			if(damage_absorption["brute"] > 0.3)
+				damage_absorption["brute"] = max(damage_absorption["brute"] - 0.1, 0.3)
+				damage_absorption["bullet"] = damage_absorption["bullet"] - 0.05
+				damage_absorption["fire"] = damage_absorption["fire"] - 0.05
+				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+				use(1)
+				D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
+				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+				if(damage_absorption["brute"] == 0.3)
+					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
+					D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
+			else
+				to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+				return
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
