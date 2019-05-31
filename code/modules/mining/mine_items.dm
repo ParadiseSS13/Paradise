@@ -93,8 +93,8 @@
 	icon_state = "pickaxe"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 15.0
-	throwforce = 10.0
+	force = 15
+	throwforce = 10
 	item_state = "pickaxe"
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
@@ -113,6 +113,13 @@
 /obj/item/pickaxe/emergency
 	name = "emergency disembarkation tool"
 	desc = "For extracting yourself from rough landings."
+
+/obj/item/pickaxe/safety
+	name = "safety pickaxe"
+	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon."
+	force = 1
+	throwforce = 1
+	attack_verb = list("ineffectively hit")
 
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
@@ -193,8 +200,8 @@
 	icon_state = "shovel"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 8.0
-	throwforce = 4.0
+	force = 8
+	throwforce = 4
 	item_state = "shovel"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
@@ -208,11 +215,17 @@
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
 	item_state = "spade"
-	force = 5.0
-	throwforce = 7.0
+	force = 5
+	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 2
 
+/obj/item/shovel/safety
+	name = "safety shovel"
+	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon."
+	force = 1
+	throwforce = 1
+	attack_verb = list("ineffectively hit")
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 

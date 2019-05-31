@@ -112,8 +112,8 @@
 "au" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
-/obj/item/pickaxe,
-/obj/item/flashlight,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
 /obj/item/clothing/glasses/meson,
 /obj/item/mining_scanner,
 /turf/simulated/floor/plasteel,
@@ -121,8 +121,8 @@
 "av" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
-/obj/item/flashlight,
-/obj/item/pickaxe,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe/safety,
 /obj/item/clothing/glasses/meson,
 /obj/item/mining_scanner,
 /turf/simulated/floor/plasteel,
