@@ -186,3 +186,11 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	anchored = TRUE
+
+/obj/effect/decal/cleanable/insectguts
+	name = "cockroach guts"
+	desc = "One bug squashed. Four more will rise in its place."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "xfloor1"
+	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+	anchored = TRUE

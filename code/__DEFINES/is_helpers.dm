@@ -54,6 +54,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
 
+#define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
+
+#define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 

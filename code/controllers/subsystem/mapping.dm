@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(mapping)
 	if(!config.disable_space_ruins)
 		var/timer = start_watch()
 		log_startup_progress("Creating random space levels...")
-		seedRuins(level_name_to_num(EMPTY_AREA), rand(0, 3), /area/space, space_ruins_templates)
+		seedRuins(list(level_name_to_num(EMPTY_AREA)), rand(0, 3), /area/space, space_ruins_templates)
 		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
 
 		// load in extra levels of space ruins
@@ -21,13 +21,21 @@ SUBSYSTEM_DEF(mapping)
 		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
 		for(var/i = 1, i <= num_extra_space, i++)
 			var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
-			seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
+			seedRuins(list(zlev), rand(0, 3), /area/space, space_ruins_templates)
 
 	// Setup the Z-level linkage
 	space_manager.do_transition_setup()
-	// Populate mining Z-level hidden rooms
-	for(var/i=0, i<max_secret_rooms, i++)
-		make_mining_asteroid_secret()
+
+	// Handle the mining z-level ruins or secrets.
+	var/mining_type = MINETYPE
+	if (mining_type == "lavaland")
+		// Spawn Lavaland ruins and rivers.
+		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
+		spawn_rivers()
+	else
+		// Populate mining Z-level hidden rooms
+		for(var/i = 0, i < max_secret_rooms, i++)
+			make_mining_asteroid_secret()
 	return ..()
 
 /datum/controller/subsystem/mapping/Recover()

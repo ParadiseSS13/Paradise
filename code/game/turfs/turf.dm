@@ -180,8 +180,11 @@
 	if(L)
 		qdel(L)
 
+/turf/proc/TerraformTurf(path)
+	return ChangeTurf(path)
+
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	if(!path)
 		return
 	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -199,9 +202,13 @@
 	BeforeChange()
 	if(SSair)
 		SSair.remove_from_active(src)
+
+	var/old_baseturf = baseturf
 	var/turf/W = new path(src)
+	W.baseturf = old_baseturf
+	
 	if(!defer_change)
-		W.AfterChange()
+		W.AfterChange(ignore_air)
 
 	W.blueprint_data = old_blueprint_data
 
@@ -283,8 +290,8 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	src.ChangeTurf(/turf/space)
-	new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+	ChangeTurf(baseturf)
+	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
@@ -420,7 +427,7 @@
 				continue
 			if(O.invisibility == 101)
 				O.singularity_act()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 	return(2)
 
 /turf/proc/visibilityChanged()

@@ -46,6 +46,9 @@ LOG_SAY
 ## log admin actions
 LOG_ADMIN
 
+## log debug messages
+LOG_DEBUG
+
 ## log admin chat
 LOG_ADMINCHAT
 

@@ -277,3 +277,4 @@
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 	sprite_sheets = null
 	sprite_sheets_obj = null
+	

@@ -275,6 +275,21 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/turf/simulated/wall/mineral/plastitanium/explosive
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	GLOB.explosive_walls += src
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Destroy()
+	GLOB.explosive_walls -= src
+	return ..()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/proc/self_destruct()
+	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	bombcore.detonate()
+
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
 	if(T.type != type)

@@ -1,4 +1,3 @@
-#define MEDAL_PREFIX "Drake"
 /*
 
 ASH DRAKE
@@ -48,7 +47,7 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = 0
 	var/swoop_cooldown = 0
-	medal_type = MEDAL_PREFIX
+	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	death_sound = 'sound/misc/demon_dies.ogg'
@@ -275,5 +274,3 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
 	return
-
-#undef MEDAL_PREFIX

@@ -625,12 +625,14 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
-		.=1
+		. = 1
 	else
 		return 0
-	if(accessories.len && (A.slot in list("utility","armband")))
+	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
-			if(AC.slot == A.slot)
+			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
+				return 0
+			if(!A.allow_duplicates && AC.type == A.type)
 				return 0
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)

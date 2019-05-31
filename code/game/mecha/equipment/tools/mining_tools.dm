@@ -59,12 +59,12 @@
 	drill.log_message("Drilled through [src]")
 	drill.move_ores()
 
-/turf/simulated/floor/plating/airless/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
+/turf/simulated/floor/plating/asteroid/airless/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	if(istype(drill, /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill))
-		for(var/turf/simulated/floor/plating/airless/asteroid/M in range(1, src))
+		for(var/turf/simulated/floor/plating/asteroid/airless/M in range(1, src))
 			M.gets_drilled()
 	else
-		for(var/turf/simulated/floor/plating/airless/asteroid/M in range(1, drill.chassis))
+		for(var/turf/simulated/floor/plating/asteroid/airless/M in range(1, drill.chassis))
 			if(get_dir(drill.chassis, M) & drill.chassis.dir)
 				M.gets_drilled()
 	drill.log_message("Drilled through [src]")

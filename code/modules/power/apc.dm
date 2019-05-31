@@ -116,8 +116,11 @@
 	lighting = 0
 	operating = 0
 
-
 /obj/machinery/power/apc/noalarm
+	report_power_alarm = 0
+
+/obj/machinery/power/apc/syndicate //general syndicate access
+	req_access = list(access_syndicate)
 	report_power_alarm = 0
 
 /obj/item/apc_electronics

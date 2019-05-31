@@ -325,6 +325,10 @@
 	origin_tech = "syndicate=1"
 	var/registered_user = null
 	untrackable = 1
+	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
+
+/obj/item/card/id/syndicate/anyone
+	anyone = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -344,7 +348,7 @@
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
 		if(istype(user, /mob/living) && user.mind)
-			if(user.mind.special_role)
+			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 

@@ -190,7 +190,7 @@ var/sc_safecode5 = "[rand(0,9)]"
 					continue
 				if(O.invisibility == 101)
 					src.consume(O)
-		T.ChangeTurf(/turf/space)
+		T.ChangeTurf(T.baseturf)
 	return
 
 /obj/singularity/narsie/sc_Narsie/ex_act()

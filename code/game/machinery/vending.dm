@@ -806,6 +806,9 @@
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	refill_canister = /obj/item/vending_refill/boozeomat
 
+/obj/machinery/vending/boozeomat/syndicate_access
+	req_access = list(access_syndicate)
+
 /obj/machinery/vending/assist
 	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
 						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
@@ -1008,6 +1011,32 @@
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
+
+/obj/machinery/vending/toyliberationstation
+	name = "\improper Syndicate Donksoft Toy Vendor"
+	desc = "An ages 8 and up approved vendor that dispenses toys. If you were to find the right wires, you can unlock the adult mode setting!"
+	icon_state = "syndi"
+	product_slogans = "Get your cool toys today!;Trigger a valid hunter today!;Quality toy weapons for cheap prices!;Give them to HoPs for all access!;Give them to HoS to get permabrigged!"
+	product_ads = "Feel robust with your toys!;Express your inner child today!;Toy weapons don't kill people, but valid hunters do!;Who needs responsibilities when you have toy weapons?;Make your next murder FUN!"
+	vend_reply = "Come back for more!"
+	products = list(/obj/item/gun/projectile/automatic/toy = 10,
+					/obj/item/gun/projectile/automatic/toy/pistol= 10,
+					/obj/item/gun/projectile/shotgun/toy = 10,
+					/obj/item/toy/sword = 10,
+					/obj/item/ammo_box/foambox = 20,
+					/obj/item/toy/foamblade = 10,
+					/obj/item/toy/syndicateballoon = 10,
+					/obj/item/clothing/suit/syndicatefake = 5,
+					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
+	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow= 10,   //Congrats, you unlocked the +18 setting!
+					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+					  /obj/item/ammo_box/foambox/riot = 20,
+					  /obj/item/toy/katana = 10,
+					  /obj/item/twohanded/dualsaber/toy = 5,
+					  /obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
 	desc = "If you want to get cancer, might as well do it in style."
@@ -1052,6 +1081,10 @@
 					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+
+/obj/machinery/vending/medical/syndicate_access
+	name = "\improper SyndiMed Plus"
+	req_access = list(access_syndicate)
 
 //This one's from bay12
 /obj/machinery/vending/plasmaresearch

@@ -46,6 +46,11 @@
 	var/list/emote_taunt = list()
 	var/taunt_chance = 0
 
+	var/lose_patience_timer_id //id for a timer to call LoseTarget(), used to stop mobs fixating on a target they can't reach
+	var/lose_patience_timeout = 300 //30 seconds by default, so there's no major changes to AI behaviour, beyond actually bailing if stuck forever
+
+	var/attack_all_objects = FALSE //if true, equivalent to having a wanted_objects list containing ALL objects.
+
 /mob/living/simple_animal/hostile/New()
 	..()
 	if(!targets_from)
@@ -198,13 +203,15 @@
 				return 0
 			return 1
 	if(isobj(the_target))
-		if(is_type_in_typecache(the_target, wanted_objects))
+		if(attack_all_objects || is_type_in_list(the_target, wanted_objects))
 			return 1
 	return 0
 
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target)//Step 4, give us our selected target
 	target = new_target
+	LosePatience()
 	if(target != null)
+		GainPatience()
 		Aggro()
 		return 1
 
@@ -231,6 +238,7 @@
 		if(target)
 			if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from)) //If they're next to us, attack
 				AttackingTarget()
+				GainPatience()
 			return 1
 		return 0
 	if(environment_smash)
@@ -399,6 +407,17 @@
 
 /mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
 	return !FindTarget(possible_targets, 1)
+
+
+//These two procs handle losing our target if we've failed to attack them for
+//more than lose_patience_timeout deciseconds, which probably means we're stuck
+/mob/living/simple_animal/hostile/proc/GainPatience()
+	if(lose_patience_timeout)
+		LosePatience()
+		lose_patience_timer_id = addtimer(CALLBACK(src, .proc/LoseTarget), lose_patience_timeout, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/hostile/proc/LosePatience()
+	deltimer(lose_patience_timer_id)
 
 /mob/living/simple_animal/hostile/consider_wakeup()
 	..()

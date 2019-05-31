@@ -23,6 +23,12 @@
 /obj/item/clothing/head/berserkerhood
 	flags = NODROP
 
+/obj/item/clothing/head/hooded/drake
+	flags = NODROP
+
+/obj/item/clothing/head/hooded/goliath
+	flags = NODROP
+
 /obj/item/clothing/suit/hooded/New()
 	MakeHood()
 	..()

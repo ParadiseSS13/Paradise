@@ -64,6 +64,8 @@
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
+	var/medal_hub_address = null
+	var/medal_hub_password = null
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
@@ -233,6 +235,9 @@
 	//Start now warning
 	var/start_now_confirmation = 0
 
+	// Lavaland
+	var/lavaland_budget = 60
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -348,7 +353,7 @@
 					config.log_admin = 1
 
 				if("log_debug")
-					config.log_debug = text2num(value)
+					config.log_debug = 1
 
 				if("log_game")
 					config.log_game = 1
@@ -673,10 +678,10 @@
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
 
 				if("medal_hub_address")
-					global.medal_hub = value
+					config.medal_hub_address = value
 
 				if("medal_hub_password")
-					global.medal_pass = value
+					config.medal_hub_password = value
 
 				if("disable_ooc_emoji")
 					config.disable_ooc_emoji = 1
@@ -767,6 +772,8 @@
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
+				if("lavaland_budget")
+					config.lavaland_budget = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
