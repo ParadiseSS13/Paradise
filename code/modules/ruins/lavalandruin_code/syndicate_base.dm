@@ -33,7 +33,8 @@
 	assignedrole = "Lavaland Syndicate"
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
-	new/obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
+	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
+	S.setDir(dir)
 	return ..()
 
 /datum/outfit/lavaland_syndicate
