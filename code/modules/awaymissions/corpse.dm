@@ -204,7 +204,7 @@
 			var/T = vars[slot]
 			if(!isnum(T))
 				outfit.vars[slot] = T
-		H.equipOutfit(outfit, TRUE)
+		H.equipOutfit(outfit)
 		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
