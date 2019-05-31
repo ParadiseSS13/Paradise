@@ -574,9 +574,10 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 
 	usr << browse(output,"window=lookupbans;size=900x700")
 
-/proc/flag_account_for_forum_sync(var/ckey)
+/proc/flag_account_for_forum_sync(ckey)
 	if(!dbcon)
 		return
-	var/sql = "UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey = '[ckey]'"
+	var/skey = sanitizeSQL(ckey)
+	var/sql = "UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey = '[skey]'"
 	var/DBQuery/adm_query = dbcon.NewQuery(sql)
 	adm_query.Execute()
