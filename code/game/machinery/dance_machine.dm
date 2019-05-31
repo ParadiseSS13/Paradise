@@ -322,14 +322,12 @@
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
-	switch(rand(0,9))
+	switch(rand(0,6))
 		if(0 to 1)
 			dance2(M)
 		if(2 to 3)
 			dance3(M)
 		if(4 to 6)
-			dance4(M)
-		if(7 to 9)
 			dance5(M)
 
 /obj/machinery/disco/proc/dance2(mob/living/M)
@@ -387,19 +385,6 @@
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		sleep(1)
 	M.lying_fix()
-
-
-/obj/machinery/disco/proc/dance4(mob/living/M)
-	var/speed = rand(1, 3)
-	set waitfor = 0
-	var/time = 30
-	while(time)
-		sleep(speed)
-		for(var/i in 1 to speed)
-			M.setDir(pick(cardinal))
-			M.resting = !M.resting
-			M.update_canmove()
-		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
