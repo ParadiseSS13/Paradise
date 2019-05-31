@@ -79,6 +79,8 @@
 	robust_searching = 1
 	var/fromtendril = FALSE
 	loot = list()
+	crusher_drop_mod = 25
+	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize()
@@ -103,6 +105,8 @@
 	light_power = 2.5
 	light_color = LIGHT_COLOR_ORANGE
 	projectiletype = /obj/item/projectile/temp/basilisk/magmawing
+	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
+	crusher_drop_mod = 60
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
 	name = "icewing watcher"
@@ -115,6 +119,8 @@
 	health = 170
 	projectiletype = /obj/item/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
+	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
+	crusher_drop_mod = 30
 
 /obj/item/projectile/temp/basilisk/magmawing
 	name = "scorching blast"

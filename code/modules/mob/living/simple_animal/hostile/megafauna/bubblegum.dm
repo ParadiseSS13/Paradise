@@ -37,12 +37,13 @@ Difficulty: Hard
 	armour_penetration = 40
 	melee_damage_lower = 40
 	melee_damage_upper = 40
-	speed = 1
+	speed = 2
 	move_to_delay = 10
 	ranged = 1
 	pixel_x = -32
 	del_on_death = 1
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	var/charging = 0
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE

@@ -327,4 +327,3 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	oxygen = 22
 	nitrogen = 82
-	temperature = 180

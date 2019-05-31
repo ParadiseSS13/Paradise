@@ -53,6 +53,7 @@ Difficulty: Hard
 	ranged_cooldown_time = 40
 	aggro_vision_range = 23
 	loot = list(/obj/item/hierophant_staff)
+	crusher_loot = list(/obj/item/hierophant_staff, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams

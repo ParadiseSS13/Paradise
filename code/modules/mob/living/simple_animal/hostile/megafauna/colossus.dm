@@ -45,7 +45,8 @@ Difficulty: Very Hard
 	del_on_death = 1
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	loot = list(/obj/machinery/anomalous_crystal/random, /obj/item/organ/internal/vocal_cords/colossus)
+	loot = list(/obj/structure/closet/crate/necropolis/colossus)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
@@ -244,9 +245,9 @@ Difficulty: Very Hard
 /obj/item/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"
-	damage = 25
+	damage = 20
 	armour_penetration = 100
-	speed = 2
+	speed = 3
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE

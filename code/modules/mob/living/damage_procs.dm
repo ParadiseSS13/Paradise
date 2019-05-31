@@ -310,3 +310,15 @@
 
 /mob/living/proc/has_organic_damage()
 	return (maxHealth - health)
+
+//heal up to amount damage, in a given order
+/mob/living/proc/heal_ordered_damage(amount, list/damage_types)
+	. = amount //we'll return the amount of damage healed
+	for(var/i in damage_types)
+		var/amount_to_heal = min(amount, getBruteLoss(i)) //heal only up to the amount of damage we have
+		if(amount_to_heal)
+			apply_damage_type(-amount_to_heal, i)
+			amount -= amount_to_heal //remove what we healed from our current amount
+		if(!amount)
+			break
+	. -= amount //if there's leftover healing, remove it from what we return

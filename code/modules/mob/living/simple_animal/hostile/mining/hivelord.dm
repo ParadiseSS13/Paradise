@@ -232,6 +232,8 @@
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "bounces harmlessly off of"
 	loot = list(/obj/item/organ/internal/hivelord_core/legion)
+	crusher_drop_mod = 25
+	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = 1
 	stat_attack = 1
@@ -246,6 +248,9 @@
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
 		return INITIALIZE_HINT_QDEL
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/spawn_crusher_loot()
+	loot += crusher_loot //we don't butcher
+
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
 	desc = "You can still see what was once a midget under the shifting mass of corruption."
@@ -256,6 +261,7 @@
 	maxHealth = 60
 	health = 60
 	speed = 2 //faster!
+	crusher_drop_mod = 20
 	dwarf_mob = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril

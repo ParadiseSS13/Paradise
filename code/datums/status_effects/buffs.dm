@@ -53,3 +53,70 @@
 /datum/status_effect/exercised/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSprocessing, src)
+
+//Blood-drunk
+/datum/status_effect/blooddrunk
+	id = "blooddrunk"
+	duration = 10 //1 second
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	var/last_bruteloss
+	var/last_fireloss 
+	var/last_toxloss 
+	var/last_oxyloss 
+	var/last_cloneloss 
+
+/obj/screen/alert/status_effect/blooddrunk
+	name = "Blood-Drunk"
+	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
+	icon_state = "blooddrunk"
+
+/datum/status_effect/blooddrunk/on_apply() //Different to /tg/ version, because they handle things differently. I think this is better anyway
+	flash_color(owner, flash_color = "#FF0000", flash_time = 10) 
+	var/status = CANSTUN | CANWEAKEN | CANPARALYSE //Completely immune to stuns, same as stimulants.
+	owner.status_flags &= ~status
+	if(iscarbon(owner))
+		last_bruteloss = owner.getBruteLoss() //Collecting damage values for later
+		last_fireloss = owner.getFireLoss()
+		last_toxloss = owner.getToxLoss()
+		last_oxyloss = owner.getOxyLoss()
+		last_cloneloss = owner.getCloneLoss() //Lets be real, who's gonna take clone damage while on lavaland, but we have to be consistent
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
+	return ..()
+
+/datum/status_effect/blooddrunk/tick()
+	var/healamount
+	var/new_bruteloss = owner.getBruteLoss()
+	var/new_fireloss = owner.getFireLoss()
+	var/new_toxloss = owner.getToxLoss()
+	var/new_oxyloss = owner.getOxyLoss()
+	var/new_cloneloss = owner.getCloneLoss()
+
+	if(new_bruteloss > last_bruteloss)
+		healamount = (last_bruteloss-new_bruteloss)*0.9 //Takes a negative value of damage taken, takes 90% of the value
+		owner.adjustBruteLoss(healamount) //Adjusts damage by the value before, healing for 90% of damage taken
+
+	if(new_fireloss > last_fireloss)
+		healamount = (last_fireloss-new_fireloss)*0.9
+		owner.adjustFireLoss(healamount)
+
+	if(new_toxloss > last_toxloss)
+		healamount = (last_toxloss-new_toxloss)*0.9
+		owner.adjustToxLoss(healamount)
+
+	if(new_oxyloss > last_oxyloss)
+		healamount = (last_oxyloss-new_oxyloss)*0.9
+		owner.adjustOxyLoss(healamount)
+
+	if(new_cloneloss > last_cloneloss)
+		healamount = (last_cloneloss-new_cloneloss)*0.9
+		owner.adjustCloneLoss(healamount)
+
+	last_bruteloss = owner.getBruteLoss() //Resetting damage values
+	last_fireloss = owner.getFireLoss()
+	last_toxloss = owner.getToxLoss()
+	last_oxyloss = owner.getOxyLoss()
+	last_cloneloss = owner.getCloneLoss()
+
+/datum/status_effect/blooddrunk/on_remove()
+	owner.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE

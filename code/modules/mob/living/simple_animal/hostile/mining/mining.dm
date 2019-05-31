@@ -13,6 +13,8 @@
 	response_harm = "strikes"
 	status_flags = 0
 	a_intent = INTENT_HARM
+	var/crusher_loot
+	var/crusher_drop_mod = 0
 	var/throw_message = "bounces off of"
 	var/icon_aggro = null // for swapping to when we get aggressive
 	see_in_dark = 8
@@ -45,3 +47,12 @@
 			visible_message("<span class='notice'>The [T.name] [src.throw_message] [src.name]!</span>")
 			return
 	..()
+
+/mob/living/simple_animal/hostile/asteroid/death(gibbed)
+	var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	if(C && prob(crusher_drop_mod))
+		spawn_crusher_loot()
+	..(gibbed)
+
+/mob/living/simple_animal/hostile/asteroid/proc/spawn_crusher_loot()
+	butcher_results[crusher_loot] = TRUE

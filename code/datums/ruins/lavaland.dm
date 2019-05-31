@@ -19,6 +19,25 @@
 	However, all the inhabitants seem to do is grow drugs and guns."
 	suffix = "lavaland_surface_seed_vault.dmm"
 	cost = 10
+
+/datum/map_template/ruin/lavaland/biodome/winter
+	name = "Biodome Winter"
+	id = "biodome-winter"
+	description = "For those getaways where you want to get back to nature, but you don't want to leave the fortified military compound where you spend your days. \
+	Includes a unique(*) laser pistol display case, and the recently introduced I.C.E(tm)."
+	suffix = "lavaland_surface_biodome_winter.dmm"
+
+/datum/map_template/ruin/lavaland/biodome/clown
+	name = "Biodome Clown Planet"
+	id = "biodome-clown"
+	description = "WELCOME TO CLOWN PLANET! HONK HONK HONK etc.!"
+	suffix = "lavaland_biodome_clown_planet.dmm"
+
+/datum/map_template/ruin/lavaland/hierophant
+	name = "Hierophant's Arena"
+	id = "hierophant"
+	description = "A strange, square chunk of metal of massive size. Inside awaits only death and many, many squares."
+	suffix = "lavaland_surface_hierophant.dmm"
 	allow_duplicates = FALSE
 
 datum/map_template/ruin/lavaland/ash_walker

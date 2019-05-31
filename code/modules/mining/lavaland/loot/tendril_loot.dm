@@ -407,3 +407,16 @@
 		return QDEL_HINT_LETMELIVE
 	else
 		. = ..()
+
+/obj/item/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/book_of_babel/attack_self(mob/user)
+	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
+	user.grant_all_languages()
+	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	qdel(src)

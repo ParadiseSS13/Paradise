@@ -21,7 +21,7 @@
 
 /turf/simulated/proc/burn_tile()
 
-/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, infinite=FALSE) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
@@ -41,11 +41,12 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		overlays += wet_overlay
-
-	spawn(rand(790, 820)) // Purely so for visual effect
-		if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
-			return
-		MakeDry(wet_setting)
+	
+	if(!infinite)
+		spawn(rand(790, 820)) // Purely so for visual effect
+			if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
+				return
+			MakeDry(wet_setting)
 
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)

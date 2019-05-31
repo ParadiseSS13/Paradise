@@ -494,3 +494,20 @@
 			break
 	current.gib()
 	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+
+//Colossus
+/obj/structure/closet/crate/necropolis/colossus
+	name = "colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/New()
+	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(choices)
+	new random_crystal(src)
+	new /obj/item/organ/internal/vocal_cords/colossus(src)
+
+/obj/structure/closet/crate/necropolis/colossus/crusher
+	name = "angelic colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/crusher/New()
+	..()
+	new /obj/item/crusher_trophy/blaster_tubes(src)

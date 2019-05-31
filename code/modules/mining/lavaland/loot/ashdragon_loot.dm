@@ -15,6 +15,13 @@
 		if(4)
 			new /obj/item/dragons_blood(src)
 
+/obj/structure/closet/crate/necropolis/dragon/crusher
+	name = "firey dragon chest"
+
+/obj/structure/closet/crate/necropolis/dragon/crusher/New()
+	..()
+	new /obj/item/crusher_trophy/tail_spike(src)
+
 // Spectral Blade
 
 /obj/item/melee/ghost_sword

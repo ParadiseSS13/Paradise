@@ -143,5 +143,7 @@
 	pre_attack_icon = "goliath2"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
 	loot = list()
+	crusher_drop_mod = 25
+	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
 	stat_attack = 1
 	robust_searching = 1

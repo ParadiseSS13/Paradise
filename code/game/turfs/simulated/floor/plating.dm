@@ -277,3 +277,28 @@
 /turf/simulated/floor/plating/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
+
+/turf/simulated/floor/plating/ice
+	name = "ice sheet"
+	desc = "A sheet of solid ice. Looks slippery."
+	icon = 'icons/turf/floors/ice_turfs.dmi'
+	icon_state = "unsmooth"
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+	baseturf = /turf/simulated/floor/plating/ice
+	slowdown = TRUE
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
+
+/turf/simulated/floor/plating/ice/Initialize()
+	. = ..()
+	MakeSlippery(TURF_WET_PERMAFROST, TRUE)
+
+/turf/simulated/floor/plating/ice/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
+/turf/simulated/floor/plating/ice/smooth
+	icon_state = "smooth"
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)

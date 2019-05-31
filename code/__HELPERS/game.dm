@@ -526,3 +526,14 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 	if(!C || !C.prefs.windowflashing)
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/proc/lavaland_equipment_pressure_check(turf/T)
+	. = FALSE
+	if(!istype(T))
+		return
+	var/datum/gas_mixture/environment = T.return_air()
+	if(!istype(environment))
+		return
+	var/pressure = environment.return_pressure()
+	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+		. = TRUE

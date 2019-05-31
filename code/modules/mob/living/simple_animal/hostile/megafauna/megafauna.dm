@@ -33,6 +33,8 @@
 	/obj/machinery/power/emitter)
 	var/medal_type
 	var/score_type = BOSS_SCORE
+	var/list/crusher_loot
+	var/crusher_damage = 0
 	var/elimination = 0
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
@@ -54,9 +56,15 @@
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		feedback_set_details("megafauna_kills","[initial(name)]")
+		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		if(C && crusher_loot && crusher_damage >= (maxHealth * 0.5))
+			spawn_crusher_loot()
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			grant_achievement(medal_type,score_type)
 	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
+	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
 	..()

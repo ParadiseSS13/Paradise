@@ -23,10 +23,17 @@
 	name = "\improper Salvation"
 	icon_state = "away"
 
+/area/ruin/powered/clownplanet
+	icon_state = "dk_yellow"
+
 /area/ruin/powered/snow_biodome
+	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
+
+/area/ruin/powered/snow_biodome
+	icon_state = "dk_yellow"
 
 // Ruins of "onehalf" ship
 /area/ruin/onehalf/hallway
@@ -44,3 +51,4 @@
 /area/ruin/onehalf/bridge
 	name = "Bridge"
 	icon_state = "bridge"
+

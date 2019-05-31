@@ -108,6 +108,11 @@
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
 
+/turf/simulated/floor/noslip/lavaland
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"

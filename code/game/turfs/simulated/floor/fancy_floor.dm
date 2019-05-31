@@ -53,6 +53,11 @@
 				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
+/turf/simulated/floor/wood/asteroid
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon_state = "grass1"

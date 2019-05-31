@@ -290,3 +290,10 @@
 /obj/effect/temp_visual/dir_setting/firing_effect/magic
 	icon_state = "shieldsparkles"
 	duration = 3
+
+/obj/effect/temp_visual/fire
+	icon = 'icons/effects/fire.dmi'
+	icon_state = "4"
+	light_range = 3
+	light_color = LIGHT_COLOR_FIRE
+	duration = 10

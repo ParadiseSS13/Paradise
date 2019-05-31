@@ -1635,6 +1635,7 @@
 #include "code\modules\mining\ore.dm"
 #include "code\modules\mining\satchel_ore_boxdm.dm"
 #include "code\modules\mining\shelters.dm"
+#include "code\modules\mining\equipment\crusher.dm"
 #include "code\modules\mining\equipment\marker_beacons.dm"
 #include "code\modules\mining\laborcamp\laborshuttle.dm"
 #include "code\modules\mining\laborcamp\laborstacker.dm"
