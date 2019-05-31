@@ -578,8 +578,7 @@
 
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	invisibility = INVISIBILITY_ABSTRACT	
 
 //Signs

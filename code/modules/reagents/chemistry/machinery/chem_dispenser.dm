@@ -53,7 +53,6 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	can_deconstruct = FALSE
 
 	dispensable_reagents = list(
 		"mutagen",

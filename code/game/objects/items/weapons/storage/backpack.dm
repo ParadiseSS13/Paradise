@@ -16,8 +16,8 @@
 	max_combined_w_class = 21
 	storage_slots = 21
 	resistance_flags = NONE
-	obj_integrity = 100
-	max_integrity = 100
+	obj_integrity = 300
+	max_integrity = 300
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'

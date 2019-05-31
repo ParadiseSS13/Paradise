@@ -35,18 +35,6 @@
 /turf/unsimulated/floor/chasm/dense
 	density = 1
 
-/turf/unsimulated/floor/lava
-	name = "lava"
-	desc = "That looks... a bit dangerous"
-	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/unsimulated/floor/lava)
-	var/lava_damage = 250
-	var/lava_fire = 20
-	light_range = 2
-	light_color = "#FFC040"
-
 /turf/unsimulated/floor/lava/Entered(AM)
 	. = 0
 	var/thing_to_check = src
@@ -133,12 +121,6 @@
 	var/lava_fire = 20
 	light_range = 2
 	light_color = "#FFC040"
-
-/turf/unsimulated/floor/lava/Entered(mob/living/M, atom/OL, ignoreRest = 0)
-	if(istype(M))
-		M.apply_damage(lava_damage, BURN)
-		M.adjust_fire_stacks(lava_fire)
-		M.IgniteMob()
 
 /turf/unsimulated/floor/lava/dense
 	density = 1
