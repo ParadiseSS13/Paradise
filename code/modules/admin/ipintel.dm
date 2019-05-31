@@ -15,10 +15,10 @@
 	if(intel < 0)
 		return
 	if(intel <= config.ipintel_rating_bad)
-		if(world.realtime < cacherealtime + (config.ipintel_save_good * 60 * 60 * 10))
+		if(world.realtime < cacherealtime + (config.ipintel_save_good HOURS))
 			return TRUE
 	else
-		if(world.realtime < cacherealtime + (config.ipintel_save_bad * 60 * 60 * 10))
+		if(world.realtime < cacherealtime + (config.ipintel_save_bad HOURS))
 			return TRUE
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
@@ -124,7 +124,7 @@
 	if(retryed)
 		SSipintel.errors++
 		error += " Could not check [ip]. Disabling IPINTEL for [SSipintel.errors] minute[( SSipintel.errors == 1 ? "" : "s" )]"
-		SSipintel.throttle = world.timeofday + (2 * SSipintel.errors * MINUTES)
+		SSipintel.throttle = world.timeofday + (2 * SSipintel.errors MINUTES)
 	else
 		error += " Attempting retry on [ip]."
 	log_ipintel(error)
@@ -156,8 +156,8 @@
 	if(!valid_hours)
 		log_debug("ipintel_badip_check reports misconfigured ipintel_save_bad directive")
 		return FALSE
-	ipintel = sanitizeSQL(ipintel)
 	target_ip = sanitizeSQL(target_ip)
+	rating_bad = sanitizeSQL(rating_bad)
 	valid_hours = sanitizeSQL(valid_hours)
 	var/check_sql = {"SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON('[target_ip]') AND intel >= [rating_bad] AND (date + INTERVAL [valid_hours] HOUR) > NOW()"}
 	var/DBQuery/query_get_ip_intel = dbcon.NewQuery(check_sql)
