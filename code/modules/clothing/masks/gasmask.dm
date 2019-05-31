@@ -70,6 +70,11 @@
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0)
 	resistance_flags = FIRE_PROOF
 
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		)
+
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
 

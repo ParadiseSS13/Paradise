@@ -485,7 +485,7 @@
 /datum/data/mining_equipment/New(name, path, equipment_cost)
 	equipment_name = name
 	equipment_path = path
-	equipment_cost = cost
+	cost = equipment_cost
 
 /obj/machinery/mineral/equipment_vendor/New()
 	..()

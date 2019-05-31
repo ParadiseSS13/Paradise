@@ -682,6 +682,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bf" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/igniter{
@@ -691,6 +693,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bg" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/glass{
@@ -733,6 +737,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bj" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/glass{
@@ -1046,6 +1052,9 @@
 	dir = 8;
 	level = 2
 	},
+/obj/machinery/pipedispenser{
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bM" = (
@@ -1090,8 +1099,8 @@
 	pixel_x = -6;
 	pixel_y = -25;
 	req_access_txt = "150";
-	tag_exterior_door = "syndicate_incinerator_exterior";
-	tag_interior_door = "syndicate_incinerator_interior"
+	tag_exterior_door = "syndicate_base_incinerator_exterior";
+	tag_interior_door = "syndicate_base_incinerator_interior"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel,
@@ -1273,7 +1282,7 @@
 "ch" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
-	id_tag = "Syndicate_Construction_o2_sensor"
+	id_tag = "syndie_lavaland_o2_sensor"
 	},
 /turf/simulated/floor/engine{
 	name = "o2 floor";
@@ -5344,9 +5353,16 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/fire,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/masks{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/box/gloves{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 5
 	},
@@ -5359,6 +5375,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5372,9 +5389,12 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -5486,8 +5506,15 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "lK" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -4;
+	pixel_y = -4
+	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -5518,6 +5545,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lM" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -5716,14 +5745,13 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/pipedispenser{
-	pixel_y = 12
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mh" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -5870,6 +5898,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mG" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5989,6 +6019,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nd" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -6309,8 +6341,10 @@
 "nB" = (
 /obj/structure/table/reinforced,
 /obj/item/surgicaldrill,
-/obj/item/cautery,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/bonegel,
+/obj/item/bonesetter,
+/obj/item/FixOVein,
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "nC" = (
@@ -6318,6 +6352,7 @@
 /obj/item/retractor,
 /obj/item/hemostat,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/cautery,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -6582,6 +6617,8 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "oe" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/binary/dp_vent_pump/high_volume{
@@ -6746,6 +6783,7 @@
 "oE" = (
 /obj/structure/cable,
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/compressor{

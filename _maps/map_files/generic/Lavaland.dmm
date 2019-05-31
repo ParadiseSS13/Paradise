@@ -112,8 +112,8 @@
 "au" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
-/obj/item/pickaxe,
-/obj/item/flashlight,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
 /obj/item/clothing/glasses/meson,
 /obj/item/mining_scanner,
 /turf/simulated/floor/plasteel,
@@ -121,8 +121,8 @@
 "av" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
-/obj/item/flashlight,
-/obj/item/pickaxe,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe/safety,
 /obj/item/clothing/glasses/meson,
 /obj/item/mining_scanner,
 /turf/simulated/floor/plasteel,
@@ -1376,14 +1376,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/obj/machinery/meter,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dq" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -1581,7 +1581,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
 	},
 /turf/simulated/floor/plating,
@@ -1657,10 +1657,7 @@
 	name = "Mining Station Maintenance";
 	req_access_txt = "48"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dT" = (
