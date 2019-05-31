@@ -129,6 +129,18 @@
 	var/slime_delay = 0
 	var/animal_delay = 0
 
+	//IP Intel vars
+	var/ipintel_email
+	var/ipintel_rating_bad = 1
+	var/ipintel_save_good = 12
+	var/ipintel_save_bad = 1
+	var/ipintel_domain = "check.getipintel.net"
+	var/ipintel_maxplaytime = 0
+	var/ipintel_whitelist = 0
+	var/ipintel_detailsurl = "https://iphub.info/?ip="
+
+	var/forum_link_url
+
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
@@ -304,9 +316,29 @@
 
 				if("auto_cryo_ssd_mins")
 					config.auto_cryo_ssd_mins = text2num(value)
-
 				if("ssd_warning")
 					config.ssd_warning = 1
+
+				if("ipintel_email")
+					if(value != "ch@nge.me")
+						config.ipintel_email = value
+				if("ipintel_rating_bad")
+					config.ipintel_rating_bad = text2num(value)
+				if("ipintel_domain")
+					config.ipintel_domain = value
+				if("ipintel_save_good")
+					config.ipintel_save_good = text2num(value)
+				if("ipintel_save_bad")
+					config.ipintel_save_bad = text2num(value)
+				if("ipintel_maxplaytime")
+					config.ipintel_maxplaytime = text2num(value)
+				if("ipintel_whitelist")
+					config.ipintel_whitelist = 1
+				if("ipintel_detailsurl")
+					config.ipintel_detailsurl = value
+
+				if("forum_link_url")
+					config.forum_link_url = value
 
 				if("log_ooc")
 					config.log_ooc = 1
