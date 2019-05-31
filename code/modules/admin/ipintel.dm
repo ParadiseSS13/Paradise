@@ -15,10 +15,10 @@
 	if(intel < 0)
 		return
 	if(intel <= config.ipintel_rating_bad)
-		if(world.realtime < cacherealtime + (config.ipintel_save_good * HOURS))
+		if(world.realtime < cacherealtime + (config.ipintel_save_good * 60 * 60 * 10))
 			return TRUE
 	else
-		if(world.realtime < cacherealtime + (config.ipintel_save_bad * HOURS))
+		if(world.realtime < cacherealtime + (config.ipintel_save_bad * 60 * 60 * 10))
 			return TRUE
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
