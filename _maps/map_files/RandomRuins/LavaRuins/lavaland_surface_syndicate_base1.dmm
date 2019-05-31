@@ -1115,7 +1115,7 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "bS" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access = list("access_syndicate")
+	req_access_txt = "150"
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
