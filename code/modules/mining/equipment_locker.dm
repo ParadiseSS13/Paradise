@@ -482,10 +482,10 @@
 	var/equipment_path = null
 	var/cost = 0
 
-/datum/data/mining_equipment/New(name, path, cost)
+/datum/data/mining_equipment/New(name, path, equipment_cost)
 	equipment_name = name
 	equipment_path = path
-	cost = cost
+	equipment_cost = cost
 
 /obj/machinery/mineral/equipment_vendor/New()
 	..()
