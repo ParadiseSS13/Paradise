@@ -28,7 +28,7 @@ GLOBAL_LIST(labor_sheet_values)
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_list += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		GLOB.labor_sheet_values = sortList(sheet_list, /proc/cmp_sheet_list)
+		GLOB.labor_sheet_values = sheet_list
 
 /obj/machinery/mineral/labor_claim_console/Destroy()
 	. = ..()
@@ -42,6 +42,7 @@ GLOBAL_LIST(labor_sheet_values)
 		if(!inserted_id)
 			if(!user.unEquip(I))
 				return
+			I.forceMove(src)
 			inserted_id = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 			return
@@ -49,20 +50,23 @@ GLOBAL_LIST(labor_sheet_values)
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
 	return ..()
 
+/obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
+	ui_interact(user)
+
 /obj/machinery/mineral/labor_claim_console/attack_ghost(mob/user)
 	attack_hand(user)
 
 /obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "labor_claim_console.tmpl", name, 450, 475, state)
+		ui = new(user, src, ui_key, "labor_claim_console.tmpl", name, 450, 625, state)
 		ui.open()
 
 /obj/machinery/mineral/labor_claim_console/ui_data(mob/user)
 	var/list/data = list()
 	var/can_go_home = FALSE
 
-	data["emagged"] = (emagged) ? 1 : 0
+	data["emagged"] = (emagged) ? TRUE : FALSE
 	if(inserted_id)
 		data["id"] = inserted_id
 		data["id_name"] = inserted_id.registered_name
@@ -79,46 +83,48 @@ GLOBAL_LIST(labor_sheet_values)
 
 	return data
 
-/obj/machinery/mineral/labor_claim_console/Topic (action, params)
+/obj/machinery/mineral/labor_claim_console/Topic(href, href_list)
 	if(..())
 		return TRUE
 
-	switch(action)
-		if("handle_id")
-			if(inserted_id)
-				if(!usr.put_in_hands(inserted_id))
-					inserted_id.forceMove(get_turf(src))		
-				inserted_id = null
-			else
-				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/card/id/prisoner))
-					if(!usr.unEquip(I))
-						return
-					inserted_id = I
-		if("claim_points")
-			inserted_id.points += stacking_machine.points
-			stacking_machine.points = 0
-			to_chat(usr, "Points transferred.")
-		if("move_shuttle")
-			if(!alone_in_area(get_area(src), usr))
-				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
-			else
-				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE))
-					if(1)
-						to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
-					if(2)
-						to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
-					if(3)
-						to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
-					else
-						if(!(emagged))
-							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
-							announcer.autosay(message, "Labor Camp Controller", "Security")
-						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+	if(href_list["handle_id"])
+		if(inserted_id)
+			if(!usr.put_in_hands(inserted_id))
+				inserted_id.forceMove(get_turf(src))		
+			inserted_id = null
+		else
+			var/obj/item/I = usr.get_active_hand()
+			if(istype(I, /obj/item/card/id/prisoner))
+				if(!usr.unEquip(I))
+					return
+				I.forceMove(src)
+				inserted_id = I
+	if(href_list["claim_points"])
+		inserted_id.points += stacking_machine.points
+		stacking_machine.points = 0
+		to_chat(usr, "Points transferred.")
+	if(href_list["move_shuttle"])
+		if(!alone_in_area(get_area(src), usr))
+			to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+		else
+			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE))
+				if(1)
+					to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
+				if(2)
+					to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
+				if(3)
+					to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+				else
+					if(!(emagged))
+						var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
+						announcer.autosay(message, "Labor Camp Controller", "Security")
+					to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+
+	return TRUE
 
 /obj/machinery/mineral/labor_claim_console/proc/check_auth()
 	if(emagged)
-		return 1 //Shuttle is emagged, let any ol' person through
+		return TRUE //Shuttle is emagged, let any ol' person through
 	return (istype(inserted_id) && inserted_id.points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
 
 /obj/machinery/mineral/labor_claim_console/proc/locate_stacking_machine()
