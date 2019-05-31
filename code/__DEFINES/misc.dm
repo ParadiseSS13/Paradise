@@ -402,3 +402,6 @@
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
 #define SENSOR_COORDS 3
+
+// Cult summon possibilities
+#define SUMMON_POSSIBILITIES 3

@@ -482,6 +482,9 @@
 	max_n_of_items = 10
 	pixel_y = -4
 
+/obj/machinery/smartfridge/survival_pod/update_icon()
+	return
+
 /obj/item/circuitboard/smartfridge/survival
 	name = "circuit board (Smartfridge Survival)"
 	build_path = /obj/machinery/smartfridge/survival_pod

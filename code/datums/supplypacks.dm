@@ -1362,6 +1362,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 40
 	containername = "religious supplies crate"
 
+/datum/supply_packs/misc/minerkit
+	name = "Shaft Miner Starter Kit"
+	cost = 30
+	access = access_qm
+	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
+	containertype = /obj/structure/closet/crate/secure
+	containername = "shaft miner starter kit"
+
 
 ///////////// Paper Work
 

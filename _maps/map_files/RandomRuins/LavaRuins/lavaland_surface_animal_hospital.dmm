@@ -633,6 +633,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/tank/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (
