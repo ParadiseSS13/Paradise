@@ -104,7 +104,11 @@
 
 	spawn()
 		if(!new_overmind)
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			if(is_offspring)
+				candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			else
+				candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+
 			if(candidates.len)
 				C = pick(candidates)
 		else
@@ -121,7 +125,6 @@
 			spawn(0)
 				if(is_offspring)
 					B.is_offspring = TRUE
-
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

@@ -99,5 +99,5 @@
 	item_state = "bio_suit"
 	strip_delay = 40
 	put_on_delay = 20
-	species_fit = null
+
 	sprite_sheets = null

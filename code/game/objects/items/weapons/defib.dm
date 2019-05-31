@@ -12,7 +12,6 @@
 	origin_tech = "biotech=4"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)

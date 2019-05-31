@@ -204,7 +204,7 @@ obj/item/clothing/head/blob
 	item_state = "blobhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)

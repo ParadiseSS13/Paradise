@@ -16,12 +16,6 @@
 	var/destination_x
 	var/destination_y
 
-/turf/space/acid_act(acidpwr, acid_volume)
-	return 0
-
-/turf/space/New()
-	. = ..()
-
 /turf/space/Initialize(mapload)
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
@@ -258,3 +252,8 @@
 
 /turf/space/proc/remove_transitions()
 	destination_z = initial(destination_z)
+
+/turf/space/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)

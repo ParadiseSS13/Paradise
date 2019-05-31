@@ -95,7 +95,6 @@
 	desc = "A vest drenched in the blood of Greytide. It has seen better days."
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/secjacket
@@ -141,7 +140,6 @@
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
 	flags_inv = 0
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
@@ -389,7 +387,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	species_fit = null
 	sprite_sheets = null
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
 

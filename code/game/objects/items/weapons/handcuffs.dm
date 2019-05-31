@@ -25,6 +25,10 @@
 	if(!istype(C))
 		return
 
+	if(flags & NODROP)
+		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+		return
+
 	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user, user)

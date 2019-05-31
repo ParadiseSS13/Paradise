@@ -8,18 +8,25 @@
 	button_icon_state = "augmented_eyesight"
 	chemical_cost = 0
 	dna_cost = 2 //Would be 1 without thermal vision
+	active = FALSE
 
-/datum/action/changeling/augmented_eyesight/sting_action(mob/living/carbon/human/user)
+/datum/action/changeling/augmented_eyesight/on_purchase(mob/user) //The ability starts inactive, so we should be protected from flashes.
+	..()
+	var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/shield/ling()
+	O.insert(user)
+	active = FALSE
+
+/datum/action/changeling/augmented_eyesight/sting_action(mob/living/carbon/user)
 	if(!istype(user))
 		return
-	if(user.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/thermals/ling))
-		var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/shield/ling()
-		O.insert(user)
-
-	else
+	if(!active)
 		var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling()
 		O.insert(user)
-
+		active = TRUE
+	else
+		var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/shield/ling()
+		O.insert(user)
+		active = FALSE
 	return 1
 
 /datum/action/changeling/augmented_eyesight/Remove(mob/user)
@@ -49,7 +56,6 @@
 	var/obj/S = ..()
 	S.reagents.add_reagent("oculine", 15)
 	return S
-
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling
 	name = "heat receptors"

@@ -757,7 +757,7 @@
 		break
 	if(!throw_item)
 		return
-	throw_item.throw_at(target, 16, 3, src)
+	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 
 /obj/machinery/vending/onTransitZ()

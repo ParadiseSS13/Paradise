@@ -57,7 +57,7 @@
 
 /mob/living/simple_animal/mouse/Life()
 	..()
-	if(prob(0.5))
+	if(prob(0.5) && !ckey)
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0

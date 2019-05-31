@@ -720,7 +720,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/updateghostimages()
 	if(!client)
 		return
-	if(!ghostvision)
+	if(seedarkness || !ghostvision)
 		client.images -= ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now

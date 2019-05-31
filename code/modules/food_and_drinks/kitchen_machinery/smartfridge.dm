@@ -77,7 +77,7 @@
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	icon_on = "smartfridge_chem"
+	icon_on = "smartfridge"
 
 /obj/machinery/smartfridge/medbay/accept_check(obj/item/O)
 	if(istype(O,/obj/item/reagent_containers/glass))
@@ -104,7 +104,7 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	icon_on = "smartfridge_chem"
+	icon_on = "smartfridge"
 	req_one_access_txt = "5;33"
 
 /obj/machinery/smartfridge/secure/medbay/accept_check(obj/item/O)
@@ -122,7 +122,7 @@
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	icon_on = "smartfridge_chem"
+	icon_on = "smartfridge"
 	req_access_txt = "33"
 	var/list/spawn_meds = list()
 
@@ -139,6 +139,7 @@
 				item_quants[I.name] = 1
 			SSnanoui.update_uis(src)
 			amount--
+	update_icon()
 
 /obj/machinery/smartfridge/chemistry/accept_check(obj/item/O)
 	if(istype(O,/obj/item/storage/pill_bottle) || istype(O,/obj/item/reagent_containers))
@@ -189,10 +190,17 @@
 
 /obj/machinery/smartfridge/update_icon()
 	if(stat & (BROKEN|NOPOWER))
-		icon_state = icon_off
+		icon_state = "[initial(icon_state)]-off"
 	else
-		icon_state = icon_on
-
+		switch(contents.len)
+			if(0)
+				icon_state = "[initial(icon_state)]"
+			if(1 to 25)
+				icon_state = "[initial(icon_state)]1"
+			if(26 to 75)
+				icon_state = "[initial(icon_state)]2"
+			if(76 to INFINITY)
+				icon_state = "[initial(icon_state)]3"
 
 /*******************
 *   Item Adding
@@ -231,6 +239,7 @@
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SSnanoui.update_uis(src)
+		update_icon()
 
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
@@ -244,6 +253,7 @@
 				to_chat(user, "<span class='notice'>Some items are refused.</span>")
 
 		SSnanoui.update_uis(src)
+		update_icon()
 
 	else if(!istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")

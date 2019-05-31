@@ -77,7 +77,7 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/helmet.dmi'
 	)
@@ -91,7 +91,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -104,7 +104,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -266,7 +266,7 @@
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -421,7 +421,7 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -454,7 +454,7 @@
 	icon_state = "papersack"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE|HIDEEARS
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -465,7 +465,7 @@
 	icon_state = "papersack_smile"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE|HIDEEARS
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)

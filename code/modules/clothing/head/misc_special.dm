@@ -132,7 +132,7 @@
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -159,7 +159,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -230,7 +230,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	species_disguise = "High-tech robot"
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -256,7 +256,7 @@
 	desc = "A band of rubber with a very reflective looking mirror attached to the front of it. One of the early signs of medical budget cuts."
 	icon_state = "head_mirror"
 	item_state = "head_mirror"
-	species_fit = list("Vox, Drask")
+
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/species/vox/head.dmi',
 	"Drask" = 'icons/mob/species/drask/head.dmi',

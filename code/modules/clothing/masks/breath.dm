@@ -18,7 +18,8 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
@@ -37,7 +38,6 @@
 	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 
 /obj/item/clothing/mask/breath/vox
 	desc = "A weirdly-shaped breath mask."

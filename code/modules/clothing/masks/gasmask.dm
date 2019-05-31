@@ -18,7 +18,8 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****
