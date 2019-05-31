@@ -125,6 +125,17 @@
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 
+/obj/item/reagent_containers/food/snacks/goliath
+	name = "goliath meat"
+	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
+	icon_state = "goliathmeat"
+	list_reagents = list("nutriment" = 3, "toxin" = 5)
+
+/obj/item/reagent_containers/food/snacks/goliath/burn()
+	visible_message("[src] finishes cooking!")
+	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
+	qdel(src)
+
 //////////////////////
 //	Cooked Meat		//
 //////////////////////
@@ -205,6 +216,12 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
 
+/obj/item/reagent_containers/food/snacks/goliath_steak
+	name = "goliath steak"
+	desc = "A delicious, lava cooked steak."
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	icon_state = "goliathsteak"
+	trash = null
 
 //////////////////////
 //		Cubes		//
@@ -216,6 +233,7 @@
 	icon_state = "monkeycube"
 	bitesize = 12
 	filling_color = "#ADAC7F"
+	var/faction
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 
@@ -236,10 +254,15 @@
 		else
 			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
 		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
+		if(faction)
+			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden.Copy()
 		creature.set_species(monkey_type)
 		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/monkeycube/syndicate
+	faction = list("neutral", "syndicate")
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 	name = "farwa cube"

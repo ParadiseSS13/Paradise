@@ -1497,6 +1497,18 @@ obj/item/toy/cards/deck/syndicate/black
 		icon_state = "chainsaw0"
 
 /*
+ * Cat Toy
+  */
+/obj/item/toy/cattoy
+	name = "toy mouse"
+	desc = "A colorful toy mouse!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "toy_mouse"
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FLAMMABLE
+	var/cooldown = 0
+
+/*
  * Action Figures
  */
 

@@ -1060,7 +1060,7 @@
 	tag = ""
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/awaymission/centcomAway/maint)
 "cO" = (
 /obj/structure/cable{
@@ -1083,7 +1083,7 @@
 	tag = ""
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/awaymission/centcomAway/maint)
 "cP" = (
 /obj/structure/table/reinforced,
@@ -1552,7 +1552,7 @@
 	tag = ""
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/awaymission/centcomAway/maint)
 "dV" = (
 /obj/structure/closet/crate,
@@ -1647,7 +1647,7 @@
 	tag = ""
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/awaymission/centcomAway/maint)
 "ei" = (
 /obj/structure/table,
@@ -1695,7 +1695,7 @@
 /obj/structure/cable,
 /obj/machinery/power/tracker,
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/awaymission/centcomAway/maint)
 "ep" = (
 /obj/structure/table,

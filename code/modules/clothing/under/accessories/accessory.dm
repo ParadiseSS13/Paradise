@@ -7,9 +7,10 @@
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
 	w_class = WEIGHT_CLASS_SMALL
-	var/slot = "decor"
+	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
+	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
 /obj/item/clothing/accessory/New()
 	..()
@@ -377,6 +378,31 @@
 	item_state = "necklace"
 	item_color = "necklace"
 	slot_flags = SLOT_TIE
+
+/obj/item/clothing/accessory/necklace/dope
+	name = "gold necklace"
+	desc = "Damn, it feels good to be a gangster."
+	icon_state = "bling"
+	item_state = "bling"
+	item_color = "bling"
+
+/obj/item/clothing/accessory/necklace/skullcodpiece
+	name = "skull codpiece"
+	desc = "A skull shaped ornament, intended to protect the important things in life."
+	icon_state = "skull"
+	item_state = "skull"
+	item_color = "skull"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/talisman
+	name = "bone talisman"
+	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
+	icon_state = "talisman"
+	item_state = "talisman"
+	item_color = "talisman"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"

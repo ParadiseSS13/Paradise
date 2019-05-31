@@ -357,7 +357,7 @@
 /turf/simulated/mineral/random,
 /area/mine/dangerous/explored/golem)
 "aJ" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored/golem)
 "aK" = (
 /turf/simulated/mineral/random/high_chance,

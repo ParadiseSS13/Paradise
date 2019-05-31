@@ -161,9 +161,9 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	burn_state = LAVA_PROOF | FIRE_PROOF
 	unacidable = 1
-	var/turf_type = /turf/unsimulated/floor/lava // /turf/simulated/floor/plating/lava/smooth once Lavaland turfs are added
+	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
-	var/reset_turf_type = /turf/simulated/floor/plating/airless/asteroid // /turf/simulated/floor/plating/asteroid/basalt once Lavaland turfs are added
+	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"
 	var/create_cooldown = 100
 	var/create_delay = 30

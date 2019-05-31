@@ -106,6 +106,12 @@
 	icon_state = "pill17"
 	list_reagents = list("charcoal" = 50)
 
+/obj/item/reagent_containers/food/pill/epinephrine
+	name = "Epinephrine pill"
+	desc = "Used to provide shots of adrenaline."
+	icon_state = "pill6"
+	list_reagents = list("epinephrine" = 50)
+
 /obj/item/reagent_containers/food/pill/salicylic
 	name = "Salicylic Acid pill"
 	desc = "Commonly used to treat moderate pain and fevers."

@@ -41,6 +41,11 @@
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on
+	on = TRUE
+	scrub_N2O = TRUE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
 	icon = null

@@ -204,7 +204,7 @@
 			var/T = vars[slot]
 			if(!isnum(T))
 				outfit.vars[slot] = T
-		H.equipOutfit(outfit, TRUE)
+		H.equipOutfit(outfit)
 		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
@@ -448,6 +448,13 @@
 	icon_state = "sleeper"
 	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
 	assignedrole = "Space Bartender"
+
+/obj/effect/mob_spawn/human/beach/alive/lifeguard
+	flavour_text = "<span class='big bold'>You're a spunky lifeguard!</span><b> It's up to you to make sure nobody drowns or gets eaten by sharks and stuff.</b>"
+	mob_gender = "female"
+	name = "lifeguard sleeper"
+	id_job = "Lifeguard"
+	uniform = /obj/item/clothing/under/shorts/red
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
