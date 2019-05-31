@@ -179,6 +179,10 @@
 /obj/effect/baseturf_helper,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"X" = (
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/ruin/powered)
 
 (1,1,1) = {"
 a
@@ -383,7 +387,7 @@ b
 b
 f
 k
-f
+X
 b
 b
 b
