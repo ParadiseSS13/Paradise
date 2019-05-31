@@ -45,6 +45,7 @@ GLOBAL_LIST(labor_sheet_values)
 			I.forceMove(src)
 			inserted_id = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
+			SSnanoui.update_uis(src)
 			return
 		else
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
