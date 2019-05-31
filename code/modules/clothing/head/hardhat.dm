@@ -10,7 +10,6 @@
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
-	species_fit = list("Grey")
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)

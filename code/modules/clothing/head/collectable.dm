@@ -59,7 +59,7 @@
 	icon_state = "welding"
 	item_state = "welding"
 	resistance_flags = NONE
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -126,8 +126,6 @@
 	icon_state = "swat"
 	item_state = "swat"
 	resistance_flags = NONE
-	
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)

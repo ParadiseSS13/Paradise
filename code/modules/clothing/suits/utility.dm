@@ -75,8 +75,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
-	
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -102,8 +101,6 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
-
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -131,8 +128,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-	
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -154,8 +150,7 @@
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	put_on_delay = 60
-	
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)

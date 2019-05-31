@@ -47,11 +47,44 @@
 	light_range = 2
 	light_color = "#FFC040"
 
-/turf/unsimulated/floor/lava/Entered(mob/living/M, atom/OL, ignoreRest = 0)
-	if(istype(M))
-		M.apply_damage(lava_damage, BURN)
-		M.adjust_fire_stacks(lava_fire)
-		M.IgniteMob()
+/turf/unsimulated/floor/lava/Entered(AM)
+	. = 0
+	var/thing_to_check = src
+	if (AM)
+		thing_to_check = list(AM)
+	for(var/thing in thing_to_check)
+		if(isobj(thing))
+			var/obj/O = thing
+			if((O.resistance_flags & (LAVA_PROOF|ON_FIRE|INDESTRUCTIBLE)) || O.throwing)
+				continue
+			. = 1
+			if(!(O.resistance_flags & FLAMMABLE))
+				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
+				O.resistance_flags = ~FIRE_PROOF
+			if(O.armor["fire"] > 50) //obj with 100% fire armor still get slowly burned away.
+				O.armor["fire"] = 50
+			O.fire_act(10000, 1000)
+
+
+		else if (isliving(thing))
+			. = 1
+			var/mob/living/L = thing
+			if("lava" in L.weather_immunities)
+				continue
+			if(L.buckled)
+				if(isobj(L.buckled))
+					var/obj/O = L.buckled
+					if(O.resistance_flags & LAVA_PROOF)
+						continue
+				if(isliving(L.buckled)) //Goliath riding
+					var/mob/living/live = L.buckled
+					if("lava" in live.weather_immunities)
+						continue
+
+			L.adjustFireLoss(20)
+			if(L) //mobs turning into object corpses could get deleted here.
+				L.adjust_fire_stacks(20)
+				L.IgniteMob()
 
 /turf/unsimulated/floor/lava/dense
 	density = 1

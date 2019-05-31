@@ -13,7 +13,6 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	resistance_flags = NONE
-	species_fit = list("Vox", "Drask", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/species/drask/helmet.dmi',

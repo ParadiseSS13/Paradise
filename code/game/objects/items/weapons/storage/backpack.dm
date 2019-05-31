@@ -18,7 +18,7 @@
 	resistance_flags = NONE
 	obj_integrity = 100
 	max_integrity = 100
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)

@@ -10,8 +10,6 @@
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
-	
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey" )
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',

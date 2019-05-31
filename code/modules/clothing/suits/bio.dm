@@ -9,8 +9,6 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	resistance_flags = ACID_PROOF
-	
-	species_fit = list("Vox", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -34,8 +32,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 70
 	put_on_delay = 70
-	
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
