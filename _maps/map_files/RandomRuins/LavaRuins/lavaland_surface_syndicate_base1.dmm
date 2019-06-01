@@ -1052,9 +1052,6 @@
 	dir = 8;
 	level = 2
 	},
-/obj/machinery/pipedispenser{
-	pixel_y = 0
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bM" = (
@@ -3565,12 +3562,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hV" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hW" = (
@@ -4948,7 +4945,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -4960,6 +4956,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kr" = (
@@ -5166,9 +5163,9 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/machinery/vending/cigarette,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette/syndicate/free,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kN" = (
@@ -5746,6 +5743,9 @@
 /obj/item/stock_parts/cell/high/plus,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/rpd{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mh" = (
@@ -6840,6 +6840,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"yU" = (
+/turf/simulated/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/chemistry)
+"Au" = (
+/turf/simulated/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "BF" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -6893,6 +6899,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"Qt" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "RE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -7158,7 +7168,7 @@ ab
 ab
 ab
 mn
-mn
+mo
 mM
 nh
 mM
@@ -7237,7 +7247,7 @@ ab
 ab
 ab
 eh
-eh
+gj
 eh
 eh
 eh
@@ -7537,7 +7547,7 @@ ab
 ab
 ab
 eh
-eh
+gj
 eI
 eI
 gt
@@ -7709,7 +7719,7 @@ lf
 bw
 jy
 jy
-jy
+jP
 np
 aH
 mT
@@ -7779,7 +7789,7 @@ ab
 ab
 ab
 ae
-ae
+aL
 aq
 aq
 qG
@@ -8293,7 +8303,7 @@ fH
 gG
 he
 hA
-hz
+hO
 id
 im
 bX
@@ -8388,7 +8398,7 @@ dI
 dZ
 ew
 as
-as
+yU
 as
 gJ
 hh
@@ -8812,7 +8822,7 @@ bL
 bO
 bQ
 bi
-bQ
+Qt
 oB
 ju
 ju
@@ -8885,7 +8895,7 @@ ab
 ab
 ab
 dy
-dy
+dP
 eE
 fe
 dy
@@ -9005,7 +9015,7 @@ ab
 ju
 kD
 bB
-ju
+Au
 kD
 bB
 ju

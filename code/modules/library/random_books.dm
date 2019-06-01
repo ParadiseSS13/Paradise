@@ -49,7 +49,7 @@
 	if(prob(25))
 		category = null
 	var/c = category? " AND category='[sanitizeSQL(category)]'" :""
-	var/DBQuery/query_get_random_books = dbcon.NewQuery("SELECT * FROM [format_table_name("library")] WHERE isnull(flagged)[c] GROUP BY title ORDER BY rand() LIMIT [amount];")
+	var/DBQuery/query_get_random_books = dbcon.NewQuery("SELECT * FROM [format_table_name("library")] WHERE (isnull(flagged) OR flagged = 0)[c] GROUP BY title ORDER BY rand() LIMIT [amount];")
 	query_get_random_books.Execute()
 	while(query_get_random_books.NextRow())
 		var/obj/item/book/B = new(location)

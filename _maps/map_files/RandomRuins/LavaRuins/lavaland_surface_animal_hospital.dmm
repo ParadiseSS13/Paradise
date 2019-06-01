@@ -120,10 +120,10 @@
 /area/ruin/powered/animal_hospital)
 "aq" = (
 /obj/structure/table,
-/obj/item/cautery{
-	pixel_x = 4
-	},
 /obj/item/surgicaldrill,
+/obj/item/bonegel,
+/obj/item/bonesetter,
+/obj/item/FixOVein,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ar" = (
@@ -243,6 +243,9 @@
 /obj/structure/table,
 /obj/item/retractor,
 /obj/item/hemostat,
+/obj/item/cautery{
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aE" = (
@@ -480,15 +483,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bm" = (
-/obj/structure/chair/comfy/teal{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/vending/crittercare,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bn" = (

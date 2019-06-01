@@ -441,7 +441,7 @@
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "sleeper-open"
-	density = 0
+	density = FALSE
 
 /obj/machinery/sleeper/survival_pod/New()
 	..()

@@ -115,5 +115,7 @@
 	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"
 
+	has_fine_manipulation = FALSE
+
 	slowdown = -0.80
 	species_traits = list(NO_BREATHE, NOGUNS)
