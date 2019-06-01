@@ -28,7 +28,7 @@
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
 	var/assignedrole
-	var/banType = "lavaland"
+	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
 
 
