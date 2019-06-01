@@ -31,10 +31,10 @@
 		if(1)
 			qdel(src)
 		if(2)
-			prob(80)
+			if(prob(80))
 				qdel(src)
 		if(3)
-			prob(50)
+			if(prob(50))
 				qdel(src)
 
 /obj/structure/flora/ash/proc/harvest(user, no_drop)
