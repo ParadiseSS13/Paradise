@@ -879,6 +879,25 @@
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
 
+/obj/machinery/computer/shuttle/golem_ship
+	name = "Golem Ship Console"
+	desc = "Used to control the Golem Ship."
+	circuit = /obj/item/circuitboard/shuttle/golem_ship
+	shuttleId = "freegolem"
+	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z4;freegolem_z6"
+
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user))
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		return
+	..()
+
+/obj/machinery/computer/shuttle/golem_ship/recall
+	name = "golem ship recall terminal"
+	desc = "Used to recall the Golem Ship."
+	possible_destinations = "freegolem_lavaland"
+	resistance_flags = INDESTRUCTIBLE
+
 //#undef DOCKING_PORT_HIGHLIGHT
 
 /turf/proc/copyTurf(turf/T)

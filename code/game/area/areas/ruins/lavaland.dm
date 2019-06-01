@@ -16,9 +16,8 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
+	name = "Free Golem Landing"
 	icon_state = "dk_yellow"
-	xenobiology_compatible = TRUE
 
 /area/ruin/powered/greed
 	icon_state = "dk_yellow"
