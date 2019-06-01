@@ -277,6 +277,7 @@
 
 /turf/simulated/wall/mineral/plastitanium/explosive
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
+	smooth = SMOOTH_MORE
 
 /turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
 	. = ..()
@@ -287,8 +288,11 @@
 	return ..()
 
 /turf/simulated/wall/mineral/plastitanium/explosive/proc/self_destruct()
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
 	bombcore.detonate()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity)
+	return
 
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
