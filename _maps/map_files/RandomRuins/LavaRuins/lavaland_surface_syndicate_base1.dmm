@@ -6005,12 +6005,18 @@
 	id = "syndie_lavaland_incineratorturbine"
 	},
 /obj/machinery/door_control{
-	pixel_x = 6;
-	pixel_y = -24
+	id = "lavalandsyndi_incineratoroutput";
+	name = "Incinerator Output Blast Door Control";
+	pixel_x = -6;
+	pixel_y = -24;
+	req_access_txt = "150"
 	},
 /obj/machinery/door_control{
-	pixel_x = -6;
-	pixel_y = -24
+	id = "lavalandsyndi_incineratorinput";
+	name = "Incinerator Input Blast Door Control";
+	pixel_x = 6;
+	pixel_y = -24;
+	req_access_txt = "150"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -6806,7 +6812,9 @@
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "oH" = (
-/obj/machinery/door/poddoor,
+/obj/machinery/door/poddoor{
+	id_tag = "lavalandsyndi_incineratorinput"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "oP" = (
@@ -6932,6 +6940,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"Wv" = (
+/obj/machinery/door/poddoor{
+	id_tag = "lavalandsyndi_incineratoroutput"
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 
 (1,1,1) = {"
 aa
@@ -8776,7 +8790,7 @@ bj
 bf
 oE
 oG
-oH
+Wv
 ab
 ab
 ab

@@ -30,7 +30,7 @@
 	var/assignedrole
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
-
+	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -111,6 +111,7 @@
 				MM.objectives += new/datum/objective(objective)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
+		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
