@@ -81,7 +81,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/exp
 	var/ooccolor = "#b82e00"
-	var/be_special = list()				//Special role selection
+	var/list/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
@@ -2280,3 +2280,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/close_load_dialog(mob/user)
 	user << browse(null, "window=saves")
+
+//Check if the user has ANY job selected.
+/datum/preferences/proc/check_any_job()
+	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
