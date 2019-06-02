@@ -76,6 +76,12 @@
 	icon_state = "pill16"
 	list_reagents = list("adminordrazine" = 50)
 
+/obj/item/reagent_containers/food/pill/morphine
+	name = "morphine pill"
+	desc = "Commonly used to treat insomnia."
+	icon_state = "pill8"
+	list_reagents = list("morphine" = 30)
+
 /obj/item/reagent_containers/food/pill/methamphetamine
 	name = "Methamphetamine pill"
 	desc = "Helps improve the ability to concentrate."

@@ -72,15 +72,7 @@
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.extinguish()
-
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
-		cube.Expand()
-	// Dehydrated carp
-	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))
-		var/obj/item/toy/carpplushie/dehy_carp/dehy = O
-		dehy.Swell() // Makes a carp
-
+	O.water_act(volume, 283.15, src) // As reagents don't have a temperature value, we'll just use 10 celsius
 
 /datum/reagent/lube
 	name = "Space Lube"

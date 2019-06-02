@@ -1130,10 +1130,10 @@
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?"
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access_txt = "5"
-	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
+	req_access = list(access_medical)
+	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
 /obj/machinery/vending/wallmed2
@@ -1141,10 +1141,10 @@
 	desc = "Wall-mounted Medical Equipment dispenser."
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access_txt = "5"
-	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5,/obj/item/reagent_containers/syringe/charcoal = 3,/obj/item/stack/medical/bruise_pack = 3,
-					/obj/item/stack/medical/ointment =3,/obj/item/healthanalyzer = 3)
+	req_access = list(access_medical)
+	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/syringe/charcoal = 3, /obj/item/stack/medical/bruise_pack = 3,
+					/obj/item/stack/medical/ointment = 3, /obj/item/healthanalyzer = 3)
 	contraband = list(/obj/item/reagent_containers/food/pill/tox = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
