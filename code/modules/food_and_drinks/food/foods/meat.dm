@@ -237,8 +237,8 @@
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 
-/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
-	if(volume >= 5)
+/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = TOUCH)
+	if(volume >= 1)
 		return Expand()
 
 /obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)

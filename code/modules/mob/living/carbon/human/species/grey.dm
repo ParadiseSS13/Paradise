@@ -36,10 +36,38 @@
 	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(REMOTETALKBLOCK)
 
-/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source)
+/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = TOUCH)
 	..()
-	H.take_organ_damage(5, min(volume, 20))
-	H.emote("scream")
+
+	if(method == TOUCH)
+		if(volume > 25)
+			if(H.wear_mask)
+				to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+				return
+
+			if(H.head)
+				to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+				return
+
+			if(prob(75))
+				H.take_organ_damage(5, 10)
+				H.emote("scream")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
+				if(affecting)
+					affecting.disfigure()
+			else
+				H.take_organ_damage(5, 10)
+		else
+			H.take_organ_damage(5, 10)
+	else
+		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.emote("scream")
+			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs

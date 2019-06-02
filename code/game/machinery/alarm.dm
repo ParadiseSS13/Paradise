@@ -98,7 +98,7 @@
 
 	// Waiting on a device to respond.
 	// Specifies an id_tag.  NULL means we aren't waiting.
-	var/waiting_on_device=null
+	var/waiting_on_device = null
 
 	var/mode = AALARM_MODE_SCRUBBING
 	var/preset = AALARM_PRESET_HUMAN

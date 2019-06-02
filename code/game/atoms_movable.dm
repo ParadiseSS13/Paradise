@@ -398,7 +398,7 @@
 	return
 
 
-/atom/movable/proc/water_act(var/volume, var/temperature, var/source) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+/atom/movable/proc/water_act(volume, temperature, source, method = TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return 1
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
