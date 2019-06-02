@@ -22,6 +22,7 @@
 	var/is_secure = 0
 	var/can_dry = FALSE
 	var/drying = FALSE
+	var/visible_contents = TRUE
 	var/datum/wires/smartfridge/wires = null
 
 /obj/machinery/smartfridge/New()
@@ -158,10 +159,11 @@
 	req_access = list(access_syndicate)
 
 /obj/machinery/smartfridge/disks
-	name = "disk compartmentalizer"
+	name = "Disk Compartmentalizer"
 	desc = "A machine capable of storing a variety of disks. Denoted by most as the DSU (disk storage unit)."
 	icon_state = "disktoaster"
 	pass_flags = PASSTABLE
+	visible_contents = FALSE
 
 /obj/machinery/smartfridge/disks/accept_check(obj/item/O)
 	if(istype(O, /obj/item/disk/))
@@ -228,15 +230,18 @@
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "[initial(icon_state)]-off"
 	else
-		switch(contents.len)
-			if(0)
-				icon_state = "[initial(icon_state)]"
-			if(1 to 25)
-				icon_state = "[initial(icon_state)]1"
-			if(26 to 75)
-				icon_state = "[initial(icon_state)]2"
-			if(76 to INFINITY)
-				icon_state = "[initial(icon_state)]3"
+		if(visible_contents)
+			switch(contents.len)
+				if(0)
+					icon_state = "[initial(icon_state)]"
+				if(1 to 25)
+					icon_state = "[initial(icon_state)]1"
+				if(26 to 75)
+					icon_state = "[initial(icon_state)]2"
+				if(76 to INFINITY)
+					icon_state = "[initial(icon_state)]3"
+		else
+			icon_state = "[initial(icon_state)]"
 
 /*******************
 *   Item Adding
@@ -457,16 +462,17 @@
 //  Drying Rack 'smartfridge'
 // ----------------------------
 /obj/machinery/smartfridge/drying_rack
-	name = "drying rack"
+	name = "Drying Rack"
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "drying_rack_on"
+	icon_state = "drying_rack"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 200
-	icon_on = "drying_rack_on"
-	icon_off = "drying_rack"
+	icon_on = "drying_rack"
+	icon_off = "drying_rack-off"
 	can_dry = TRUE
+	visible_contents = FALSE
 
 /obj/machinery/smartfridge/drying_rack/New()
 	..()
