@@ -4580,7 +4580,8 @@
 "jK" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	volume_rate = 200
+	volume_rate = 200;
+	id = "syndie_lavaland_waste"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -6777,7 +6778,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "oB" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
 	id = "syndie_lavaland_inc_in"
 	},
