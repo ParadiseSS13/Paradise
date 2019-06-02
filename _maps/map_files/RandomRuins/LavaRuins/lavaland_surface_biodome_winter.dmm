@@ -2,6 +2,10 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
+"ab" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "ac" = (
 /obj/item/stack/medical/ointment,
 /obj/structure/table,
@@ -946,7 +950,7 @@ ak
 ak
 ak
 ak
-ak
+ab
 ak
 ak
 aC

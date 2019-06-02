@@ -957,6 +957,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/clownplanet)
+"bx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered/clownplanet)
 "bB" = (
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/powered/clownplanet)
@@ -1735,7 +1750,7 @@ av
 bl
 bo
 bt
-as
+bx
 cc
 bM
 bR
