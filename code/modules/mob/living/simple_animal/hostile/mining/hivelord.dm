@@ -236,7 +236,6 @@
 	del_on_death = 1
 	stat_attack = 1
 	robust_searching = 1
-	var/fromtendril = FALSE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 

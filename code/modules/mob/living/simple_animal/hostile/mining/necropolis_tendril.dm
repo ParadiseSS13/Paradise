@@ -73,7 +73,7 @@
 		qdel(src)
 
 /mob/living/simple_animal/hostile/spawner/lavaland/goliath
-	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
 
 /mob/living/simple_animal/hostile/spawner/lavaland/legion
 	mob_type = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
