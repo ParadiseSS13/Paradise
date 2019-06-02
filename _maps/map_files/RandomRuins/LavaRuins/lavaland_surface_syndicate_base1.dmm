@@ -719,7 +719,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -731,7 +731,7 @@
 	target_pressure = 4500
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -3947,7 +3947,8 @@
 "iI" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
-	req_access_txt = "150"
+	req_access_txt = "150";
+	locked = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -6628,7 +6629,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/binary/dp_vent_pump/high_volume{
+/obj/machinery/atmospherics/binary/dp_vent_pump/high_volume/on{
 	dir = 8
 	},
 /turf/simulated/floor/engine,
