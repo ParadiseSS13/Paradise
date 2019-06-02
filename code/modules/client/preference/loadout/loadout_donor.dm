@@ -14,6 +14,10 @@
 /datum/gear/donor/noble_boot
 	display_name = "Noble Boots"
 	path = /obj/item/clothing/shoes/fluff/noble_boot
+	
+/datum/gear/donor/noble_clothes
+	display_name = "Noble Clothes"
+	path = /obj/item/clothing/under/noble_clothes
 
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
@@ -60,6 +64,11 @@
 /datum/gear/donor/goldtophat/blue
 	display_name = "Blue Gold-trimmed Top Hat"
 	path = /obj/item/clothing/head/fluff/goldtophat/blue
+	
+/datum/gear/donor/lord_admiral_coat
+	display_name = "Lord Admiral's Coat"
+	path = /obj/item/clothing/suit/lordadmiral
+	cost = 2
 
 /datum/gear/donor/mushhat
 	display_name = "Mushroom Hat"
