@@ -108,56 +108,63 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
-		return 0
+		return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
 			caster.reset_perspective(0)
-			return 0
+			return FALSE
 
 	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
+		return FALSE
 
 	if(!skipcharge)
 		switch(charge_type)
 			if("recharge")
 				if(charge_counter < charge_max)
 					to_chat(user, still_recharging_msg)
-					return 0
+					return FALSE
 			if("charges")
 				if(!charge_counter)
 					to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-					return 0
+					return FALSE
 
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
-			return 0
+			return FALSE
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			to_chat(user, "Mmmf mrrfff!")
-			return 0
+			return FALSE
 
 	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
-	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
+	var/obj/effect/proc_holder/spell/absolutelynoclothes/naked_required = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
+
+	if(ishuman(user) && istype(naked_required)) //check nakedness if absolutely no clothes was bought
+		var/mob/living/carbon/human/H = user
+		if(H.wear_suit || H.head || H.shoes || H.gloves || H.wear_mask || H.w_uniform || H.glasses)
+			to_chat(user, "<span class='notice'>You are wearing too many clothes to cast spells!</span>")
+			return FALSE
+	else if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
 		var/mob/living/carbon/human/H = user
 		var/obj/item/clothing/robe = H.wear_suit
 		var/obj/item/clothing/hat = H.head
 		var/obj/item/clothing/shoes = H.shoes
 		if(!robe || !hat || !shoes)
 			to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
-			return 0
+			return FALSE
 		if(!robe.magical || !hat.magical || !shoes.magical)
 			to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
-			return 0
+			return FALSE
 	else if(!ishuman(user))
 		if(clothes_req || human_req)
 			to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
-			return 0
+			return FALSE
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
-			return 0
+			return FALSE
 
 	if(!skipcharge)
 		switch(charge_type)
@@ -170,7 +177,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	if(action)
 		action.UpdateButtonIcon()
-	return 1
+	return TRUE
 
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
@@ -450,41 +457,47 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
-		return 0
+		return FALSE
 
 	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
+		return FALSE
 
 	switch(charge_type)
 		if("recharge")
 			if(charge_counter < charge_max)
-				return 0
+				return FALSE
 		if("charges")
 			if(!charge_counter)
-				return 0
+				return FALSE
 
 	if(user.stat && !stat_allowed)
-		return 0
+		return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
 		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
-			return 0
+			return FALSE
 
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
+		var/obj/effect/proc_holder/spell/absolutelynoclothes/naked_required = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
+
+		if(istype(naked_required)) //check nakedness if absolutely no clothes was bought
+			if(H.wear_suit || H.head || H.shoes || H.gloves || H.wear_mask || H.w_uniform || H.glasses)
+				return FALSE
+			return TRUE
 		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
 			var/obj/item/clothing/robe = H.wear_suit
 			var/obj/item/clothing/hat = H.head
 			var/obj/item/clothing/shoes = H.shoes
 			if(!robe || !hat || !shoes)
-				return 0
+				return FALSE
 			if(!robe.magical || !hat.magical || !shoes.magical)
-				return 0
+				return FALSE
 	else
 		if(clothes_req  || human_req)
-			return 0
+			return FALSE
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
-			return 0
-	return 1
+			return FALSE
+	return TRUE

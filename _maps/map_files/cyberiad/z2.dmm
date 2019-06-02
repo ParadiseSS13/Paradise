@@ -2055,12 +2055,7 @@
 	},
 /area/wizard_station)
 "fr" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
-/obj/item/storage/backpack/satchel,
+/obj/structure/dresser,
 /turf/unsimulated/floor{
 	dir = 9;
 	icon_state = "carpetside"
@@ -2160,6 +2155,7 @@
 /obj/effect/landmark{
 	name = "Teleport-Scroll"
 	},
+/obj/item/storage/backpack/satchel,
 /turf/unsimulated/floor{
 	dir = 6;
 	icon_state = "carpetside"

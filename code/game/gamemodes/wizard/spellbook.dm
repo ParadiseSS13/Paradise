@@ -100,6 +100,13 @@
 	log_name = "NC"
 	category = "Defensive"
 
+/datum/spellbook_entry/absolutelynoclothes
+	name = "Absolutely No Clothes"
+	spell_type = /obj/effect/proc_holder/spell/absolutelynoclothes
+	log_name = "ANC"
+	category = "Defensive"
+	cost = 0
+
 /datum/spellbook_entry/fireball
 	name = "Fireball"
 	spell_type = /obj/effect/proc_holder/spell/fireball

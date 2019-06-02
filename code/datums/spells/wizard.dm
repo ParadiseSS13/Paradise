@@ -73,6 +73,10 @@
 	name = "No Clothes"
 	desc = "This always-on spell allows you to cast magic without your garments."
 
+/obj/effect/proc_holder/spell/absolutelynoclothes
+	name = "Absolutely No Clothes"
+	desc = "This variant of the No Clothes spell allows you to cast any spell but requires you to be naked. Belts, headsets and backpacks are fine. So is underwear, if you insist on it..."
+
 /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	name = "Mutate"
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
