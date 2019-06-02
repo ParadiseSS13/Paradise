@@ -77,7 +77,7 @@
 	list_reagents = list("adminordrazine" = 50)
 
 /obj/item/reagent_containers/food/pill/morphine
-	name = "morphine pill"
+	name = "Morphine pill"
 	desc = "Commonly used to treat insomnia."
 	icon_state = "pill8"
 	list_reagents = list("morphine" = 30)
