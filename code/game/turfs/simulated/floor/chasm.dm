@@ -169,6 +169,17 @@
 		AM.color = oldcolor
 		AM.transform = oldtransform
 		AM.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1, 10),rand(1, 10))
+	else if(ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		if(!H.mind)
+			return
+		var/job = H.mind.assigned_role
+		if(!job)
+			return
+		SSjobs.FreeRole(job)
+		for(var/obj/machinery/requests_console/D in allConsoles)
+			if(D.department == "Cargo Bay")
+				D.createMessage("Lavaland Crew Monitor", "A crewmember dissapeared", "Sensors of [H] ([job]) went of the monitoring system. Opening a new job opening.", 2)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
