@@ -33,7 +33,7 @@
 	pull_force = MOVE_FORCE_VERY_STRONG
 	var/pre_attack = 0
 	var/pre_attack_icon = "Goliath_preattack"
-	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide{layer = ABOVE_MOB_LAYER})
+	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	..()
