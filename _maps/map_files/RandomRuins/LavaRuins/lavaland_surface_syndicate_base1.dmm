@@ -1108,10 +1108,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"bQ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/engineering)
 "bR" = (
 /obj/machinery/optable,
 /obj/effect/decal/cleanable/dirt,
@@ -6037,7 +6033,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nf" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nh" = (
 /obj/machinery/telecomms/relay/preset/ruskie{
@@ -6850,6 +6846,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"yd" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "yU" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
@@ -6918,6 +6918,9 @@
 	dir = 9
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
+"RI" = (
+/turf/simulated/wall/mineral/plastitanium/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "RV" = (
 /obj/structure/sign/fire,
@@ -8688,9 +8691,9 @@ IJ
 IJ
 IJ
 uB
-ju
-ju
-ju
+RI
+RI
+RI
 ab
 ab
 ab
@@ -8738,10 +8741,10 @@ mF
 nc
 ju
 bh
-ju
+RI
 oz
-ju
-ju
+RI
+RI
 nf
 ab
 ab
@@ -8836,12 +8839,12 @@ bF
 ca
 bL
 bO
-bQ
-bi
 Qt
+bi
+yd
 oB
-ju
-ju
+RI
+RI
 nf
 ab
 ab
@@ -8888,7 +8891,7 @@ bM
 RV
 tW
 RE
-ju
+RI
 oH
 nf
 ab
@@ -8938,7 +8941,7 @@ bN
 bP
 cl
 cn
-ju
+RI
 ab
 ab
 ab
@@ -8988,7 +8991,7 @@ mK
 kD
 cm
 co
-ju
+RI
 ab
 ab
 ab
@@ -9035,10 +9038,10 @@ Au
 kD
 bB
 ju
-ju
-ju
-ju
-ju
+RI
+RI
+RI
+RI
 ab
 ab
 ab
