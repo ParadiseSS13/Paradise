@@ -175,136 +175,174 @@
 
 /atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
+	return TRUE
 
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.Integrate(src)
+	return FALSE
+
+/atom/movable/lighting_object/swarmer_act()
+	return FALSE
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
-	return
+	return FALSE
 
 /turf/simulated/floor/swarmer_act()//ex_act() on turf calls it on its contents, this is to prevent attacking mobs by DisIntegrate()'ing the floor
-	return
+	return FALSE
 
 /obj/machinery/atmospherics/swarmer_act()
-	return
+	return FALSE
 
 /obj/structure/disposalpipe/swarmer_act()
-	return
+	return FALSE
 
 /obj/machinery/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DismantleMachine(src)
+	return TRUE
 
 /obj/machinery/light/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
+	return TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
+	return TRUE
 
 /obj/machinery/camera/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
 	toggle_cam(S, 0)
+	return TRUE
 
 /obj/structure/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S) // Since the console is still parented to this
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(!active)
 		S.DisIntegrate(src)
-		return
+		return TRUE
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
+	return TRUE
 
 /obj/machinery/vending/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//It's more visually interesting than dismantling the machine
 	S.DisIntegrate(src)
+	return TRUE
 
 /obj/machinery/turretid/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
+	return TRUE
 
 /obj/machinery/chem_dispenser/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>The volatile chemicals in this machine would destroy us. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/nuclearbomb/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This device's destruction would result in the extermination of everything in the area. Aborting.</span>")
+	return FALSE
 
 /obj/effect/rune/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Searching... sensor malfunction! Target lost. Aborting.</span>")
+	return FALSE
 
 /obj/structure/reagent_dispensers/fueltank/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Destroying this object would cause a chain reaction. Aborting.</span>")
+	return FALSE
 
 /obj/structure/cable/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/telecomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/message_server/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/blackbox_recorder/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This machine has recorded large amounts of data on this structure and its inhabitants, it will be a useful resource to our masters in the future. Aborting. </span>")
+	return FALSE
 
 /obj/machinery/power/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This bluespace source will be important to us later. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This cryogenic sleeper should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	return FALSE
 
 /obj/structure/cryofeed/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This cryogenic feed should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/computer/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting.</span>")
+	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	for(var/turf/T in range(1, src))
 		if(istype(T, /turf/space) || istype(T.loc, /area/space) || istype(T, /turf/simulated/floor/plating/airless))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
-			return
-	..()
+			return FALSE
+	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	for(var/turf/T in range(1, src))
 		if(istype(T, /turf/space) || istype(T.loc, /area/space))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
-			return
-	..()
+			return FALSE
+	return ..()
 
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
 	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
+	return FALSE
 
 /obj/item/circuitboard/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
+	return FALSE
 
 /obj/machinery/porta_turret/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>")
+	return FALSE
 
 /obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Destroying this vehicle would destroy us. Aborting.</span>")
+	return FALSE
 
 /obj/machinery/clonepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(occupant)
 		to_chat(S, "<span class='warning'>Destroying this machine while it is occupied would result in biological and sentient resources to be harmed. Aborting.</span>")
-		return
-	..()
+		return FALSE
+	return ..()
 
 /mob/living/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisperseTarget(src)
+	return TRUE
 
 /mob/living/carbon/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This biological resource is somehow resisting our bluespace transceiver. Aborting.</span>")
+	return FALSE
 
+/obj/structure/lattice/catwalk/swarmer_catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>We have created these for our own benefit. Aborting.</span>")
+	return FALSE	
 
 ////END CTRL CLICK FOR SWARMERS////
 

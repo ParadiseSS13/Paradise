@@ -140,7 +140,7 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
 	var/pre_attack = 0
-	loot = list(/obj/item/asteroid/goliath_hide{layer = 4.1})
+	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide{layer = ABOVE_MOB_LAYER})
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	..()
@@ -223,46 +223,3 @@
 	else
 		spawn(50)
 			qdel(src)
-
-/obj/item/asteroid/goliath_hide
-	name = "goliath hide plates"
-	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "goliath_hide"
-	flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
-	layer = 4
-
-/obj/item/asteroid/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
-	if(proximity_flag)
-		if(istype(target, /obj/item/clothing/suit/space/hardsuit/mining) || istype(target, /obj/item/clothing/head/helmet/space/hardsuit/mining) || istype(target, /obj/item/clothing/suit/space/eva/plasmaman/miner) || istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman/miner))
-			var/obj/item/clothing/C = target
-			var/current_armor = C.armor
-			if(current_armor["melee"] < 60)
-				current_armor["melee"] = min(current_armor["melee"] + 10, 60)
-				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-				qdel(src)
-			else
-				to_chat(user, "<span class='info'>You can't improve [C] any further.</span>")
-				return
-		if(istype(target, /obj/mecha/working/ripley))
-			var/obj/mecha/D = target
-			if(D.icon_state != "ripley-open")
-				to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
-				return
-			var/list/damage_absorption = D.damage_absorption
-			if(damage_absorption["brute"] > 0.3)
-				damage_absorption["brute"] = max(damage_absorption["brute"] - 0.1, 0.3)
-				damage_absorption["bullet"] = damage_absorption["bullet"] - 0.05
-				damage_absorption["fire"] = damage_absorption["fire"] - 0.05
-				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
-				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-				qdel(src)
-				D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
-				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
-				if(damage_absorption["brute"] == 0.3)
-					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
-					D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
-			else
-				to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
-				return

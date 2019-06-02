@@ -198,8 +198,8 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aL" = (
-/obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/sand,
+/obj/machinery/vending/cigarette/beach,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "aM" = (
