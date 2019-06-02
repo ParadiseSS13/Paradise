@@ -151,7 +151,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
-	O.extinguish()
+	extinguish()
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"

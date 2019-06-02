@@ -18,6 +18,9 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
+/turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
@@ -58,14 +61,14 @@
 			gets_dug()
 			return
 
-	if(istype(W,/obj/item/storage/bag/ore))
+	else if(istype(W,/obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = W
 		if(S.collection_mode == 1)
 			for(var/obj/item/stack/ore/O in src.contents)
 				O.attackby(W,user)
 				return
 
-	if(istype(W, /obj/item/stack/tile))
+	else if(istype(W, /obj/item/stack/tile))
 		var/obj/item/stack/tile/Z = W
 		if(!Z.use(1))
 			return
