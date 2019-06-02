@@ -127,6 +127,7 @@
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = 0
 	req_access = list(access_syndicate)
+	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
