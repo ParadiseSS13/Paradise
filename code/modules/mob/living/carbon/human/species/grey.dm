@@ -37,7 +37,7 @@
 	H.dna.default_blocks.Add(REMOTETALKBLOCK)
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = TOUCH)
-	..()
+	. = ..()
 
 	if(method == TOUCH)
 		if(volume > 25)

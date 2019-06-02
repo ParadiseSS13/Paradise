@@ -507,7 +507,7 @@ emp_act
 	..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
-	..()
+	. = ..()
 	dna.species.water_act(src, volume, temperature, source, method)
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)

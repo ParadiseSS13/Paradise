@@ -217,6 +217,7 @@
 		IgniteMob()
 
 /mob/living/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
 
 //This is called when the mob is thrown into a dense turf

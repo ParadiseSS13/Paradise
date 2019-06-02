@@ -207,6 +207,7 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 
 //Step two - washing (also handled by water reagent code and washing machine code)
 /obj/item/stack/sheet/hairlesshide/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
 	if(volume >= 10)
 		new /obj/item/stack/sheet/wetleather(get_turf(src), amount)
 		qdel(src)

@@ -23,6 +23,7 @@
 	return ..()
 
 /obj/item/toy/carpplushie/dehy_carp/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
 	if(volume >= 1)
 		Swell()
 

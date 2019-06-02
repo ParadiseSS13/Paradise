@@ -28,7 +28,6 @@
 	T.water_act(volume, water_temperature, src) 
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.extinguish()
 	O.water_act(volume, water_temperature, src) 
 
 /datum/reagent/lube
