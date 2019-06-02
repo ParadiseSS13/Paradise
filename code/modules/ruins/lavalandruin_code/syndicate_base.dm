@@ -74,10 +74,10 @@
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
 	r_hand = /obj/item/melee/energy/sword/saber
-	mask = /obj/item/clothing/mask/gas/voice
+	mask = /obj/item/clothing/mask/chameleon
 	suit = /obj/item/clothing/suit/armor/vest
 
-/obj/item/clothing/mask/gas/voice/gps/New()
+/obj/item/clothing/mask/chameleon/gps/New()
 	. = ..()
 	new /obj/item/gps/internal/lavaland_syndicate_base(src)
 
