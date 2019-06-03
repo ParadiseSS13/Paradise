@@ -1365,7 +1365,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "dZ" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "ea" = (
@@ -3718,7 +3718,7 @@
 /turf/space,
 /area/space/nearstation)
 "jz" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "jA" = (

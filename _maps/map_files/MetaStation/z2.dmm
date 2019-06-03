@@ -1498,7 +1498,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena_source)
 "eb" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "ec" = (
@@ -5805,7 +5805,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena)
 "qu" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "qv" = (
