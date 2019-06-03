@@ -17,6 +17,14 @@
 	eyes = "blank_eyes"
 	brute_mod = 2.28 // 100% * 2.28 * 0.66 (robolimbs) ~= 150%
 	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
+
+	warning_low_pressure = 50 // Copied Straight from the Vox
+	hazard_low_pressure = 0
+
+	cold_level_1 = 80 // Copied Straight from the Vox
+	cold_level_2 = 50
+	cold_level_3 = 0
+
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
