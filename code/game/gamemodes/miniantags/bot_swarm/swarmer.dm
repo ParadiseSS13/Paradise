@@ -184,6 +184,14 @@
 /atom/movable/lighting_object/swarmer_act()
 	return FALSE
 
+/obj/effect/swarmer_act()
+	return FALSE
+
+/obj/effect/decal/cleanable/robot_debris/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S.DisIntegrate(src)
+	qdel(src)
+	return TRUE
+
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
 	return FALSE
 
