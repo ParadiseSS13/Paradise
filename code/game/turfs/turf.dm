@@ -181,7 +181,7 @@
 		qdel(L)
 
 /turf/proc/TerraformTurf(path, defer_change = FALSE, ignore_air = FALSE)
-	return ChangeTurf(path, ignore_air)
+	return ChangeTurf(path, defer_change, ignore_air)
 
 //Creates a new turf
 /turf/proc/ChangeTurf(path, defer_change = FALSE, ignore_air = FALSE)

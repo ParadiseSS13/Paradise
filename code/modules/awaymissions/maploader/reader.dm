@@ -321,7 +321,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/turf/T = locate(x,y,z)
 	if(T)
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, 1, 0)
+			T.ChangeTurf(path, TRUE)
 			instance = T
 		else if(ispath(path, /area))
 
