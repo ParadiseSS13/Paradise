@@ -149,6 +149,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/blob_act()
 	qdel(src)
 
+/obj/item/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	extinguish()
+
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
 	set category = null

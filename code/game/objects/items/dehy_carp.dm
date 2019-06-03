@@ -22,6 +22,10 @@
 		owned = 0
 	return ..()
 
+/obj/item/toy/carpplushie/dehy_carp/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	if(volume >= 1)
+		Swell()
 
 /obj/item/toy/carpplushie/dehy_carp/afterattack(obj/O, mob/user,proximity)
 	if(!proximity) return

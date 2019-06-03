@@ -18,6 +18,9 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
+/turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
@@ -58,14 +61,14 @@
 			gets_dug()
 			return
 
-	if(istype(W,/obj/item/storage/bag/ore))
+	else if(istype(W,/obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = W
 		if(S.collection_mode == 1)
 			for(var/obj/item/stack/ore/O in src.contents)
 				O.attackby(W,user)
 				return
 
-	if(istype(W, /obj/item/stack/tile))
+	else if(istype(W, /obj/item/stack/tile))
 		var/obj/item/stack/tile/Z = W
 		if(!Z.use(1))
 			return
@@ -164,7 +167,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
-	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast = 50, /mob/living/simple_animal/hostile/spawner/lavaland/goliath = 3, \
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /mob/living/simple_animal/hostile/spawner/lavaland/goliath = 3, \
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 40, /mob/living/simple_animal/hostile/spawner/lavaland = 2, \
 		/mob/living/simple_animal/hostile/asteroid/hivelord/legion = 30, /mob/living/simple_animal/hostile/spawner/lavaland/legion = 3, \
 		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10)

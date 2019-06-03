@@ -719,7 +719,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -731,7 +731,7 @@
 	target_pressure = 4500
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -1107,10 +1107,6 @@
 /obj/structure/window/plastitanium,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/engineering)
-"bQ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bR" = (
 /obj/machinery/optable,
@@ -2625,21 +2621,21 @@
 "ft" = (
 /obj/effect/turf_decal/box/white/corners,
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/food/drinks/waterbottle/large{
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/waterbottle/large{
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/waterbottle/large,
-/obj/item/reagent_containers/food/drinks/waterbottle/large,
-/obj/item/reagent_containers/food/drinks/waterbottle/large{
+/obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/drinks/waterbottle/large{
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -3947,7 +3943,8 @@
 "iI" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
-	req_access_txt = "150"
+	req_access_txt = "150";
+	locked = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -6036,7 +6033,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nf" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nh" = (
 /obj/machinery/telecomms/relay/preset/ruskie{
@@ -6628,7 +6625,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/binary/dp_vent_pump/high_volume{
+/obj/machinery/atmospherics/binary/dp_vent_pump/high_volume/on{
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -6849,6 +6846,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"yd" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "yU" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
@@ -6917,6 +6918,9 @@
 	dir = 9
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
+"RI" = (
+/turf/simulated/wall/mineral/plastitanium/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "RV" = (
 /obj/structure/sign/fire,
@@ -8687,9 +8691,9 @@ IJ
 IJ
 IJ
 uB
-ju
-ju
-ju
+RI
+RI
+RI
 ab
 ab
 ab
@@ -8737,10 +8741,10 @@ mF
 nc
 ju
 bh
-ju
+RI
 oz
-ju
-ju
+RI
+RI
 nf
 ab
 ab
@@ -8835,12 +8839,12 @@ bF
 ca
 bL
 bO
-bQ
-bi
 Qt
+bi
+yd
 oB
-ju
-ju
+RI
+RI
 nf
 ab
 ab
@@ -8887,7 +8891,7 @@ bM
 RV
 tW
 RE
-ju
+RI
 oH
 nf
 ab
@@ -8937,7 +8941,7 @@ bN
 bP
 cl
 cn
-ju
+RI
 ab
 ab
 ab
@@ -8987,7 +8991,7 @@ mK
 kD
 cm
 co
-ju
+RI
 ab
 ab
 ab
@@ -9034,10 +9038,10 @@ Au
 kD
 bB
 ju
-ju
-ju
-ju
-ju
+RI
+RI
+RI
+RI
 ab
 ab
 ab
