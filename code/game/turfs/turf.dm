@@ -180,11 +180,11 @@
 	if(L)
 		qdel(L)
 
-/turf/proc/TerraformTurf(path, defer_change = FALSE, ignore_air = FALSE)
-	return ChangeTurf(path, defer_change, ignore_air)
+/turf/proc/TerraformTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, ignore_air = FALSE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	if(!path)
 		return
 	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
