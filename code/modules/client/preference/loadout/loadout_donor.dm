@@ -65,11 +65,6 @@
 	display_name = "Blue Gold-trimmed Top Hat"
 	path = /obj/item/clothing/head/fluff/goldtophat/blue
 	
-/datum/gear/donor/lord_admiral_coat
-	display_name = "Lord Admiral's Coat"
-	path = /obj/item/clothing/suit/lordadmiral
-	cost = 2
-
 /datum/gear/donor/mushhat
 	display_name = "Mushroom Hat"
 	path = /obj/item/clothing/head/fluff/mushhat
