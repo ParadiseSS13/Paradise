@@ -36,7 +36,7 @@
 		if(8)
 			new /obj/item/organ/internal/brain/xeno(src)
 		if(9)
-			new /obj/item/organ/internal/heart/cursed(src)
+			new /obj/item/organ/internal/heart/cursed/wizard(src)
 		if(10)
 			new /obj/item/ship_in_a_bottle(src)
 		if(11)
