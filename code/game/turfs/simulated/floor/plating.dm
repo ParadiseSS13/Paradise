@@ -287,12 +287,3 @@
 /turf/simulated/floor/plating/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
-
-/turf/simulated/floor/plating/abductor/break_tile()
-	return //unbreakable
-
-/turf/simulated/floor/plating/abductor/burn_tile()
-	return //unburnable
-
-/turf/simulated/floor/plating/abductor/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return

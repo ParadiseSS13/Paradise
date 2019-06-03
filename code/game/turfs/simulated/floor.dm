@@ -120,13 +120,22 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
 
-/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, ignore_air = FALSE)
-	if(!istype(src,/turf/simulated/floor)) 
+/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+	if(!istype(src, /turf/simulated/floor)) 
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
-	if(!ispath(T,/turf/simulated/floor)) 
+	if(!ispath(T, /turf/simulated/floor)) 
 		return ..()
+		
+	var/old_icon = icon_regular_floor
+	var/old_plating = icon_plating
+	var/old_dir = dir
 
 	var/turf/simulated/floor/W = ..()
+
+	if(keep_icon)
+		W.icon_regular_floor = old_icon
+		W.icon_plating = old_plating
+		W.dir = old_dir
 
 	W.update_icon()
 	return W
