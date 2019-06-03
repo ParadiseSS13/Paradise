@@ -81,17 +81,17 @@
 
 /obj/effect/portal/proc/teleport(atom/movable/M, force = FALSE)
 	if(!istype(M))
-		return
+		return FALSE
 
-	if(iseffect(M) || !M.simulated)
-		return
+	if(!M.simulated || iseffect(M))
+		return FALSE
 
 	if(M.anchored && ismecha(M))
-		return
+		return FALSE
 
 	if(!target)
 		qdel(src)
-		return
+		return FALSE
 
 	if(ismegafauna(M))
 		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
@@ -100,9 +100,13 @@
 		icon_state = fail_icon
 		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
 			invalid_teleport()
+			return FALSE
 	else
 		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
 			invalid_teleport()
+			return FALSE
+	
+	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")

@@ -138,10 +138,10 @@
 	if(!AM)	
 		return FALSE
 
-	if(is_type_in_list(AM, blacklist))	
+	if(!AM.simulated)	
 		return FALSE
 
-	if(!AM.simulated)	
+	if(is_type_in_list(AM, blacklist))	
 		return FALSE
 
 	if(AM.anchored)

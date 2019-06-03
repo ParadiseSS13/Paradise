@@ -173,9 +173,9 @@ var/sc_safecode5 = "[rand(0,9)]"
 		mezzer()
 
 /obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
-	if(is_type_in_list(A, uneatable))
-		return FALSE
 	if(!A.simulated)
+		return FALSE
+	if(is_type_in_list(A, uneatable))
 		return FALSE
 	if(istype(A,/mob/living))
 		var/mob/living/L = A
