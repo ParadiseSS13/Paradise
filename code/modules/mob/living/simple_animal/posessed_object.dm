@@ -108,7 +108,7 @@
 
 
 /mob/living/simple_animal/possessed_object/IsAdvancedToolUser() // So we can shoot guns (Mostly ourselves), among other things.
-	return 1
+	return TRUE
 
 
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!

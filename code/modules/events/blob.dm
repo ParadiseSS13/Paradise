@@ -23,6 +23,5 @@
 	var/mob/M = pick(candidates)
 	B.key = M.key
 	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
-	var/image/alert_overlay = image('icons/mob/blob.dmi', "blank_blob")
-	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B, alert_overlay = alert_overlay)
+	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B)
 	processing = TRUE // Let it naturally end, if it runs successfully

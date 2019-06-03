@@ -28,17 +28,30 @@
 	name = "kitchen cabinet"
 	req_access = list(access_kitchen)
 
-	New()
-		..()
-		for(var/i in 1 to 3)
-			new /obj/item/reagent_containers/food/condiment/flour(src)
-		new /obj/item/reagent_containers/food/condiment/rice(src)
-		new /obj/item/reagent_containers/food/condiment/sugar(src)
+/obj/structure/closet/secure_closet/freezer/kitchen/New()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/condiment/flour(src)
+	new /obj/item/reagent_containers/food/condiment/rice(src)
+	new /obj/item/reagent_containers/food/condiment/sugar(src)
 
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
 
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance
+	name = "maintenance refrigerator"
+	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
+	req_access = list()
+
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance/New()
+	..()
+	for(var/i = 0, i < 5, i++)
+		new /obj/item/reagent_containers/food/condiment/milk(src)
+	for(var/i = 0, i < 5, i++)
+		new /obj/item/reagent_containers/food/condiment/soymilk(src)
+	for(var/i = 0, i < 2, i++)
+		new /obj/item/storage/fancy/egg_box(src)
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
@@ -54,6 +67,9 @@
 	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/food/snacks/meat/monkey(src)
 
+/obj/structure/closet/secure_closet/freezer/meat/open
+	req_access = null
+	locked = FALSE
 
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
@@ -72,6 +88,9 @@
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 
+/obj/structure/closet/secure_closet/freezer/fridge/open
+	req_access = null
+	locked = FALSE
 
 /obj/structure/closet/secure_closet/freezer/money
 	name = "freezer"

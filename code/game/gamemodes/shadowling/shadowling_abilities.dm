@@ -24,8 +24,35 @@
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
+	range = 10	//has no effect beyond this range, so setting this makes invalid/useless targets not show up in popup
 	action_icon_state = "glare"
-	humans_only = 1
+	humans_only = 1	//useless since we override chose_targets, but might be used for other code later??? Might remove, idk
+
+/obj/effect/proc_holder/spell/targeted/glare/choose_targets(mob/user)
+	var/list/possible_targets = list()
+	for(var/mob/living/carbon/human/target in view_or_range(range, user, "view"))
+		if(target.stat)
+			continue
+		if(is_shadow_or_thrall(target))
+			continue
+		possible_targets += target
+	var/mob/living/carbon/human/M
+	var/list/targets = list()
+	if(possible_targets.len == 1)//no choice involved
+		targets = possible_targets
+	else
+		M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
+		if(M in view_or_range(range, user, "view"))
+			targets += M
+
+	
+	if(!targets.len) //doesn't waste the spell
+		revert_cast(user)
+		return
+
+	perform(targets, user = user)
+	return
+	
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)

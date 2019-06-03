@@ -18,7 +18,7 @@
 	ventcrawler = 2
 	gold_core_spawnable = 2
 	var/squish_chance = 50
-	loot = list(/obj/effect/decal/cleanable/deadcockroach)
+	loot = list(/obj/effect/decal/cleanable/insectguts)
 	del_on_death = 1
 
 /mob/living/simple_animal/cockroach/can_die()
@@ -40,10 +40,3 @@
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return
 
-/obj/effect/decal/cleanable/deadcockroach
-	name = "cockroach guts"
-	desc = "One bug squashed. Four more will rise in its place."
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "xfloor1"
-	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
-	anchored = 1

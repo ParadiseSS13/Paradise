@@ -2852,7 +2852,7 @@
 /turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate6)
 "jc" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "jd" = (
 /turf/simulated/wall/mineral/plasma,

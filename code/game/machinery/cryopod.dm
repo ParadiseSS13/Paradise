@@ -231,9 +231,9 @@
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
-		/obj/item/storage/internal,
 		/obj/item/spacepod_key,
-		/obj/item/nullrod
+		/obj/item/nullrod,
+		/obj/item/key
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (

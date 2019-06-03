@@ -217,6 +217,15 @@
 	item_color = "miner"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/miner/lavaland
+	desc = "A green uniform for operating in hazardous environments."
+	name = "shaft miner's jumpsuit"
+	icon_state = "explorer"
+	item_state = "explorer"
+	item_color = "explorer"
+
+	sprite_sheets = list()
+
 /obj/item/clothing/under/barber
 	desc = "It's a barber's uniform."
 	name = "barber's uniform"

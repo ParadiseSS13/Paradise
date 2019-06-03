@@ -1,5 +1,4 @@
 
-#define MEDAL_PREFIX "Colossus"
 /*
 
 COLOSSUS
@@ -44,7 +43,7 @@ Difficulty: Very Hard
 	ranged = 1
 	pixel_x = -32
 	del_on_death = 1
-	medal_type = MEDAL_PREFIX
+	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	loot = list(/obj/machinery/anomalous_crystal/random, /obj/item/organ/internal/vocal_cords/colossus)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
@@ -262,5 +261,3 @@ Difficulty: Very Hard
 	gpstag = "Angelic Signal"
 	desc = "Get in the fucking robot."
 	invisibility = 100
-
-#undef MEDAL_PREFIX

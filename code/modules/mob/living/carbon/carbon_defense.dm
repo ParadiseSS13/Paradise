@@ -14,11 +14,10 @@
 			return TRUE
 	..()
 
-/mob/living/carbon/water_act(volume, temperature, source)
+/mob/living/carbon/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
 	if(volume > 10) //anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
-	..()
-
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	if(lying && surgeries.len)

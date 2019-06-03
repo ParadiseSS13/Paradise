@@ -25,16 +25,16 @@
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
-		return 1
+		return TRUE
 
 	if(istype(C, /obj/item/stack/rods))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return 1
+			return TRUE
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
-			return 1
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30 * C.toolspeed, target = src))
@@ -43,7 +43,7 @@
 					playsound(src, C.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return 1
+				return TRUE
 
 	else if(istype(C, /obj/item/stack/tile))
 		if(!broken && !burnt)
@@ -54,20 +54,20 @@
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
-		return 1
+		return TRUE
 
 	else if(istype(C, /obj/item/weldingtool))
 		var/obj/item/weldingtool/welder = C
-		if( welder.isOn() && (broken || burnt) )
-			if(welder.remove_fuel(0,user))
+		if(welder.isOn() && (broken || burnt))
+			if(welder.remove_fuel(0, user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
 				overlays -= current_overlay
 				current_overlay = null
-				burnt = 0
-				broken = 0
+				burnt = FALSE
+				broken = FALSE
 				update_icon()
-			return 1
+			return TRUE
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
@@ -87,6 +87,7 @@
 	var/insulated
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
+	unacidable = TRUE
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -94,10 +95,16 @@
 /turf/simulated/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/engine/make_plating(var/force = 0)
+/turf/simulated/floor/engine/make_plating(force = 0)
 	if(force)
 		..()
 	return //unplateable
+
+/turf/simulated/floor/engine/attack_hand(mob/user as mob)
+	user.Move_Pulled(src)
+
+/turf/simulated/floor/engine/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
 
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
@@ -111,6 +118,7 @@
 			new /obj/item/stack/rods(src, 2)
 			ChangeTurf(/turf/simulated/floor/plating)
 			return
+
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
 		to_chat(user, "<span class='notice'>You begin insulating [src]...</span>")
 		if(do_after(user, 40, target = src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
@@ -122,22 +130,18 @@
 			name = "insulated " + name
 			return
 
-/turf/simulated/floor/engine/ex_act(severity,target)
+/turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
 		if(1)
-			if(prob(80))
-				ReplaceWithLattice()
-			else if(prob(50))
-				qdel(src)
-			else
-				if(builtin_tile)
-					builtin_tile.loc = src
-					builtin_tile = null
-				make_plating(1)
+			ChangeTurf(baseturf)
 		if(2)
 			if(prob(50))
-				make_plating(1)
+				ChangeTurf(baseturf)
 
+/turf/simulated/floor/engine/blob_act()
+	if(prob(25))
+		ChangeTurf(baseturf)
+		
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
@@ -220,59 +224,8 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
-
-// CATWALKS
-// Space and plating, all in one buggy fucking turf!
-// These are *so* fucking bad it makes me want to kill myself
-/turf/simulated/floor/plating/airless/catwalk
-	icon = 'icons/turf/catwalks.dmi'
-	icon_state = "catwalk0"
-	name = "catwalk"
-	desc = "Cats really don't like these things."
-
-	temperature = TCMB
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = HEAT_CAPACITY_VACUUM
-
-/turf/simulated/floor/plating/airless/catwalk/New()
-	..()
-	set_light(4) //starlight
-	name = "catwalk"
-	update_icon(1)
-
-/turf/simulated/floor/plating/airless/catwalk/update_icon(var/propogate=1)
-	underlays.Cut()
-	underlays += new /icon('icons/turf/space.dmi',SPACE_ICON_STATE)
-
-	var/dirs = 0
-	for(var/direction in cardinal)
-		var/turf/T = get_step(src,direction)
-		if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
-			var/turf/simulated/floor/plating/airless/catwalk/C=T
-			dirs |= direction
-			if(propogate)
-				C.update_icon(0)
-	icon_state="catwalk[dirs]"
-
-/turf/simulated/floor/plating/airless/catwalk/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/stack/rods))
-		return 1
-	else if(istype(C, /obj/item/stack/tile))
-		return 1
-
-	if(..())
-		return 1
-
-	if(!broken && isscrewdriver(C))
-		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")
-		new /obj/item/stack/rods(src, 1)
-		ReplaceWithLattice()
-		for(var/direction in cardinal)
-			var/turf/T = get_step(src,direction)
-			if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
-				var/turf/simulated/floor/plating/airless/catwalk/CW=T
-				CW.update_icon(0)
-		playsound(src, C.usesound, 80, 1)
+/turf/simulated/floor/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
 
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
@@ -289,6 +242,9 @@
 			icon_state = "metalfoam"
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
+
+/turf/simulated/floor/plating/metalfoam/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
 
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
 	if(..())
@@ -322,7 +278,7 @@
 	smash()
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 
 /turf/simulated/floor/plating/abductor
 	name = "alien floor"
@@ -331,3 +287,12 @@
 /turf/simulated/floor/plating/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
+
+/turf/simulated/floor/plating/abductor/break_tile()
+	return //unbreakable
+
+/turf/simulated/floor/plating/abductor/burn_tile()
+	return //unburnable
+
+/turf/simulated/floor/plating/abductor/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
