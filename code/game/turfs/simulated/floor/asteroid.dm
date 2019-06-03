@@ -72,7 +72,10 @@
 		var/obj/item/stack/tile/Z = W
 		if(!Z.use(1))
 			return
-		ChangeTurf(Z.turf_type)
+		if(istype(Z, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
+			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+		else
+			ChangeTurf(Z.turf_type, keep_icon = FALSE)
 		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 
 /turf/simulated/floor/plating/asteroid/gets_drilled()
