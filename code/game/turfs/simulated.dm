@@ -116,7 +116,7 @@
 				if(TURF_WET_PERMAFROST) // Permafrost
 					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
-/turf/simulated/ChangeTurf(var/path)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()
 	queue_smooth_neighbors(src)
 
