@@ -95,12 +95,6 @@
 	slowdown = 0
 	return
 
-/turf/simulated/floor/plating/asteroid/singularity_act()
-	return
-
-/turf/simulated/floor/plating/asteroid/singularity_pull(S, current_size)
-	return
-
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
