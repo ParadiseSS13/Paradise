@@ -27,6 +27,9 @@
 /turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)
 	return
 
+/turf/simulated/floor/plating/asteroid/remove_plating()
+	return
+
 /turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	switch(severity)
 		if(3)
