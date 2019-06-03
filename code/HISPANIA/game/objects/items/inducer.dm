@@ -11,10 +11,9 @@
 	var/opened = FALSE
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
-	var/powertransfer = null 
+	var/powertransfer = null
 	var/ratio = 0.1
 	var/recharging = FALSE
-	//flags = NOBLUDGEON
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -36,17 +35,6 @@
 	. = ..()
 	if(cell)
 		cell.emp_act(severity)
-
-/obj/item/inducer/attack_obj(obj/O, mob/living/carbon/user)
-	if(user.a_intent == INTENT_HARM)
-		force = 7
-		return ..()
-
-	if(afterattack(O, user))
-		return
-
-	return
-
 
 /obj/item/inducer/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/screwdriver))
@@ -81,9 +69,9 @@
 	return ..()
 
 /obj/item/inducer/afterattack(atom/movable/A, mob/user, proximity_flag, click_parameters)
+	force = 7
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
-	force = 0
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to use [src]!</span>")
@@ -96,7 +84,7 @@
 	if(!cell.charge)
 		to_chat(user, "<span class='warning'>[src]'s battery is dead!</span>")
 		return FALSE
-	
+
 	if(!isturf(A) && user.loc == A)
 		return FALSE
 
@@ -109,6 +97,7 @@
 		return TRUE
 	else
 		recharging = TRUE
+	force = 0
 	var/obj/item/stock_parts/cell/C = A.get_cell()
 	var/obj/O
 	var/coefficient = 1
@@ -145,11 +134,10 @@
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM)
 		force = 7
-		return ..()
-
-	if(afterattack(M, user))
+		return..()
+	else
+		force = 0
 		return
-	return
 
 
 /obj/item/inducer/attack_self(mob/user)
