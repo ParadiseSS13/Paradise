@@ -181,8 +181,10 @@
 	S.Integrate(src)
 	return FALSE
 
-/atom/movable/lighting_object/swarmer_act()
-	return FALSE
+/atom/movable/swarmer_act()
+	if(!simulated)
+		return FALSE
+	return ..()
 
 /obj/effect/swarmer_act()
 	return FALSE

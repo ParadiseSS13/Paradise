@@ -53,13 +53,13 @@
 		return FALSE
 
 	var/thing_to_check = src
-	if (AM)
+	if(AM)
 		thing_to_check = list(AM)
 	for(var/thing in thing_to_check)
-		if(istype(thing, /atom/movable/lighting_object) || istype(thing, /atom/movable/overlay))
-			continue
 		if(isobj(thing))
 			var/obj/O = thing
+			if(!O.simulated)
+				continue
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
 			. = 1
@@ -71,7 +71,7 @@
 				O.resistance_flags &= ~FIRE_PROOF
 			O.fire_act(10000, 1000)
 
-		else if (isliving(thing))
+		else if(isliving(thing))
 			. = 1
 			var/mob/living/L = thing
 			if(L.flying)

@@ -8,7 +8,7 @@
 	canSmoothWith = list(/turf/simulated/floor/chasm)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
-	var/static/list/forbidden_types = typecacheof(list(/obj/effect/portal, /obj/singularity, /obj/structure/stone_tile, /obj/item/projectile, /obj/effect/temp_visual, /obj/effect/collapse, /obj/effect/collapse, /atom/movable/lighting_object))
+	var/static/list/forbidden_types = typecacheof(list(/obj/effect/portal, /obj/singularity, /obj/structure/stone_tile, /obj/item/projectile, /obj/effect/temp_visual, /obj/effect/collapse, /obj/effect/collapse))
 	var/drop_x = 1
 	var/drop_y = 1
 	var/drop_z = 1
@@ -75,7 +75,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing)
+	if(is_type_in_typecache(AM, forbidden_types) || !AM.simulated || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
 	if(isliving(AM))
