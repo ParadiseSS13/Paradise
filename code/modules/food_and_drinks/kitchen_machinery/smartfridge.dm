@@ -11,17 +11,15 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	var/max_n_of_items = 1500
-	var/icon_on = "smartfridge"
-	var/icon_off = "smartfridge-off"
-	var/icon_panel = "smartfridge-panel"
 	var/item_quants = list()
-	var/seconds_electrified = 0;
-	var/shoot_inventory = 0
-	var/locked = 0
-	var/scan_id = 1
-	var/is_secure = 0
+	var/seconds_electrified = 0
+	var/shoot_inventory = FALSE
+	var/locked = FALSE
+	var/scan_id = TRUE
+	var/is_secure = FALSE
 	var/can_dry = FALSE
 	var/drying = FALSE
+	var/visible_contents = TRUE
 	var/datum/wires/smartfridge/wires = null
 
 /obj/machinery/smartfridge/New()
@@ -65,8 +63,6 @@
 	desc = "When you need seeds fast!"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
-	icon_on = "seeds"
-	icon_off = "seeds-off"
 
 /obj/machinery/smartfridge/seeds/accept_check(obj/item/O)
 	if(istype(O,/obj/item/seeds/))
@@ -77,7 +73,6 @@
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	icon_on = "smartfridge"
 
 /obj/machinery/smartfridge/medbay/accept_check(obj/item/O)
 	if(istype(O,/obj/item/reagent_containers/glass))
@@ -104,7 +99,6 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	icon_on = "smartfridge"
 	req_one_access_txt = "5;33"
 
 /obj/machinery/smartfridge/secure/medbay/accept_check(obj/item/O)
@@ -122,7 +116,6 @@
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	icon_on = "smartfridge"
 	req_access_txt = "33"
 	var/list/spawn_meds = list()
 
@@ -162,12 +155,7 @@
 	desc = "A machine capable of storing a variety of disks. Denoted by most as the DSU (disk storage unit)."
 	icon_state = "disktoaster"
 	pass_flags = PASSTABLE
-
-/obj/machinery/smartfridge/disks/accept_check(obj/item/O)
-	if(istype(O, /obj/item/disk/))
-		return TRUE
-	else
-		return FALSE
+	visible_contents = FALSE
 
 // ----------------------------
 // Virology Medical Smartfridge
@@ -227,7 +215,7 @@
 /obj/machinery/smartfridge/update_icon()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "[initial(icon_state)]-off"
-	else
+	else if(visible_contents)
 		switch(contents.len)
 			if(0)
 				icon_state = "[initial(icon_state)]"
@@ -237,6 +225,8 @@
 				icon_state = "[initial(icon_state)]2"
 			if(76 to INFINITY)
 				icon_state = "[initial(icon_state)]3"
+	else
+		icon_state = "[initial(icon_state)]"
 
 /*******************
 *   Item Adding
@@ -460,13 +450,12 @@
 	name = "drying rack"
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "drying_rack_on"
+	icon_state = "drying_rack"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 200
-	icon_on = "drying_rack_on"
-	icon_off = "drying_rack"
 	can_dry = TRUE
+	visible_contents = FALSE
 
 /obj/machinery/smartfridge/drying_rack/New()
 	..()
@@ -524,6 +513,7 @@
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
+
 	overlays.Cut()
 	if(drying)
 		overlays += "drying_rack_drying"

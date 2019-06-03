@@ -120,30 +120,31 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
 
-/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE)
-	if(!istype(src,/turf/simulated/floor)) return ..() //fucking turfs switch the fucking src of the fucking running procs
-	if(!ispath(T,/turf/simulated/floor)) return ..()
-	var/old_icon = icon_regular_floor
-	var/old_plating = icon_plating
-	var/old_dir = dir
+/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, ignore_air = FALSE)
+	if(!istype(src,/turf/simulated/floor)) 
+		return ..() //fucking turfs switch the fucking src of the fucking running procs
+	if(!ispath(T,/turf/simulated/floor)) 
+		return ..()
+
 	var/turf/simulated/floor/W = ..()
-	if(keep_icon)
-		W.icon_regular_floor = old_icon
-		W.icon_plating = old_plating
-		W.dir = old_dir
+
 	W.update_icon()
 	return W
 
 /turf/simulated/floor/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
-		return 1
+		return TRUE
+
 	if(..())
-		return 1
+		return TRUE
+
 	if(intact && iscrowbar(C))
 		pry_tile(C, user)
-		return 1
+		return TRUE
+
 	if(intact && istype(C, /obj/item/stack/tile))
 		try_replace_tile(C, user, params)
+
 	if(istype(C, /obj/item/pipe))
 		var/obj/item/pipe/P = C
 		if(P.pipe_type != -1) // ANY PIPE
@@ -152,6 +153,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				"<span class='notice'>You slide [P] along \the [src].</span>", \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
+
 			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 				P.dir = 5
 				if(user.dir == 1)
@@ -161,13 +163,14 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				else if(user.dir == 4)
 					P.dir = 10
 			else
-				P.dir = user.dir
+				P.setDir(user.dir)
+
 			P.x = src.x
 			P.y = src.y
 			P.z = src.z
-			P.loc = src
-			return 1
-	return 0
+			P.forceMove(src)
+			return TRUE
+	return FALSE
 
 /turf/simulated/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)

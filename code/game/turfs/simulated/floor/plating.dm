@@ -68,8 +68,8 @@
 				playsound(src, welder.usesound, 80, 1)
 				overlays -= current_overlay
 				current_overlay = null
-				burnt = 0
-				broken = 0
+				burnt = FALSE
+				broken = FALSE
 				update_icon()
 			else
 				to_chat(user, "<span class='notice'>You start removing [src].</span>")
@@ -122,6 +122,9 @@
 /turf/simulated/floor/engine/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
+/turf/simulated/floor/engine/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
 		return
@@ -134,6 +137,7 @@
 			new /obj/item/stack/rods(src, 2)
 			ChangeTurf(/turf/simulated/floor/plating)
 			return
+
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
 		to_chat(user, "<span class='notice'>You begin insulating [src]...</span>")
 		if(do_after(user, 40, target = src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
@@ -245,6 +249,9 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
+/turf/simulated/floor/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
@@ -262,6 +269,9 @@
 			icon_state = "ironfoam"
 
 /turf/simulated/floor/plating/metalfoam/remove_plating()
+	return
+
+/turf/simulated/floor/plating/metalfoam/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
 
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
@@ -305,3 +315,12 @@
 /turf/simulated/floor/plating/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
+
+/turf/simulated/floor/plating/abductor/break_tile()
+	return //unbreakable
+
+/turf/simulated/floor/plating/abductor/burn_tile()
+	return //unburnable
+
+/turf/simulated/floor/plating/abductor/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return

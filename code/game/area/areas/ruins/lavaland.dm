@@ -36,6 +36,7 @@
 	name = "Secret Base"
 	icon_state = "dk_yellow"
 	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg')
+	report_alerts = FALSE
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"

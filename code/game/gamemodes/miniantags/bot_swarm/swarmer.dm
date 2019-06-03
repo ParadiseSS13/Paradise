@@ -344,6 +344,10 @@
 	to_chat(S, "<span class='warning'>We have created these for our own benefit. Aborting.</span>")
 	return FALSE	
 
+/obj/structure/shuttle/engine/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>This shuttle may be important to us later. Aborting.</span>")
+	return FALSE	
+
 ////END CTRL CLICK FOR SWARMERS////
 
 /mob/living/simple_animal/hostile/swarmer/proc/Fabricate(var/atom/fabrication_object,var/fabrication_cost = 0)
