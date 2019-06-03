@@ -83,7 +83,7 @@
 			return TRUE
 
 /turf/simulated/floor/plating/proc/remove_plating(mob/user)
-	if(isspaceturf(baseturf))
+	if(baseturf == /turf/space)
 		ReplaceWithLattice()
 	else
 		TerraformTurf(baseturf)
