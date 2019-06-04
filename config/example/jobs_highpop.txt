@@ -20,7 +20,7 @@ Botanist=2
 Chef=1
 Janitor=1
 Quartermaster=1
-Shaft Miner=3
+Shaft Miner=8
 
 Warden=1
 Detective=1
