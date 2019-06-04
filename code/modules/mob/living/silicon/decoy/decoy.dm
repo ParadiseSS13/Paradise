@@ -30,6 +30,8 @@
 	icon_state = "ai-magma"
 
 /mob/living/silicon/decoy/syndicate/depot
+	universal_speak = 1
+	universal_understand = 1
 	var/raised_alert = FALSE
 
 /mob/living/silicon/decoy/syndicate/depot/proc/raise_alert()

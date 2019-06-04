@@ -830,16 +830,17 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "bq" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1449;
-	master_tag = "syndicate_base_east";
-	name = "exterior access button";
-	pixel_x = -21;
-	pixel_y = 21;
-	req_access_txt = "150"
+/obj/docking_port/stationary{
+	area_type = /area/lavaland/surface/outdoors;
+	dir = 4;
+	dwidth = 7;
+	height = 5;
+	id = "syncargo_lavaland";
+	name = "Syndicate Lavaland";
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
+	width = 11
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "br" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1408,6 +1409,51 @@
 	},
 /turf/simulated/floor/engine/insulated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"cv" = (
+/obj/machinery/light/small,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1449;
+	master_tag = "syndicate_base_east";
+	name = "exterior access button";
+	pixel_x = 0;
+	pixel_y = 21;
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plating{
+	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/syndicate_lava_base/cargo)
+"cw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
+"cx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/autolathe,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
+"cy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
+"cz" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "cA" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/science,
@@ -2906,15 +2952,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
-"gg" = (
-/obj/structure/sign/fire{
-	pixel_y = 32
-	},
-/obj/structure/sign/xeno_warning_mining{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
 "gj" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/virology)
@@ -3182,14 +3219,6 @@
 /obj/structure/sign/cargo,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
-"gP" = (
-/obj/machinery/photocopier,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
 "gQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -3340,23 +3369,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
-"ho" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/computer/shuttle{
-	desc = "Occasionally used to call in a resupply shuttle if one is in range.";
-	dir = 8;
-	icon_keyboard = "syndie_key";
-	icon_screen = "syndishuttle";
-	light_color = "#FA8282";
-	name = "syndicate cargo shuttle terminal";
-	possible_destinations = "syndielavaland_cargo";
-	req_access_txt = "150";
-	shuttleId = "syndie_cargo"
-	},
-/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -3595,15 +3607,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
-"hV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hW" = (
@@ -8664,7 +8667,7 @@ eA
 fa
 dy
 fY
-gP
+cw
 gQ
 hl
 hS
@@ -8708,7 +8711,7 @@ ab
 ab
 ab
 ab
-dy
+eF
 bk
 eB
 fb
@@ -8808,7 +8811,7 @@ ab
 ab
 ab
 ab
-dy
+eF
 eg
 eD
 fd
@@ -8817,7 +8820,7 @@ bm
 gS
 hn
 gQ
-hV
+cy
 ha
 ha
 ha
@@ -8857,7 +8860,7 @@ ab
 ab
 ab
 ab
-ab
+ac
 dy
 dP
 eE
@@ -8865,14 +8868,14 @@ fe
 dy
 bn
 dy
-ho
+cx
 hD
 dy
 dy
 ac
-ab
-ab
-ab
+ac
+ac
+ac
 ac
 jK
 ju
@@ -8907,8 +8910,8 @@ ab
 ab
 ab
 ab
-ab
-ab
+ac
+ac
 dy
 eF
 eF
@@ -8918,13 +8921,13 @@ dy
 eF
 eF
 dy
+ac
+ac
+ac
+cz
 ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
+ac
 ju
 ju
 kC
@@ -8956,26 +8959,26 @@ ab
 ab
 ab
 ab
+ac
+ac
+ac
+ac
+ac
+ac
+fx
+bp
+fx
+ac
+ac
+ac
+ac
+ac
+ac
 ab
 ab
 ab
-ab
-ab
-ab
-dy
-gg
-dy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
+ac
 ju
 kD
 bB
@@ -9006,26 +9009,26 @@ ab
 ab
 ab
 ab
+cz
+ac
+ac
+ac
+ac
+ac
+dP
+cv
+dP
+ac
+ac
+ac
+ac
+ac
 ab
 ab
 ab
 ab
 ab
-ab
-fx
-bp
-fx
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
 ju
 bs
 bu
@@ -9055,20 +9058,20 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 bq
-ab
-ab
-ab
-ab
-ab
+ac
+ac
+ac
+ac
+ac
 ab
 ab
 ab
@@ -9102,22 +9105,22 @@ aa
 aa
 aa
 ab
-aa
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ab
 ab
 ab
@@ -9151,23 +9154,23 @@ aa
 aa
 aa
 aa
-aa
-aa
-ab
-ab
-aa
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ab
 ab
 ab
@@ -9202,21 +9205,21 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ab
 ab
 ab
@@ -9249,6 +9252,178 @@ aa
 "}
 (48,1,1) = {"
 aa
+ab
+aa
+aa
+ab
+ab
+ab
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+aa
+aa
+aa
+"}
+(49,1,1) = {"
+aa
+aa
+aa
+ab
+aa
+ab
+ab
+ab
+ab
+ac
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+aa
+ab
+ab
+ab
+aa
+aa
+aa
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa
+"}
+(50,1,1) = {"
+aa
+aa
+aa
+ab
+aa
+aa
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(51,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -9261,6 +9436,29 @@ aa
 aa
 aa
 aa
+aa
+ab
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(52,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
 ab
 ab
 ab
@@ -9275,24 +9473,29 @@ ab
 ab
 ab
 ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa

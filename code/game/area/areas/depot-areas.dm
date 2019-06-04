@@ -32,6 +32,7 @@
 	var/detected_pod = FALSE
 	var/detected_double_agent = FALSE
 	var/mine_trigger_count = 0
+	var/perimeter_shield_status = FALSE
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
@@ -114,9 +115,13 @@
 	updateicon()
 
 /area/syndicate_depot/core/proc/locker_looted()
-	something_looted = TRUE
-	if(on_peaceful)
-		increase_alert("Thieves!")
+	if(!something_looted)
+		something_looted = TRUE
+		if(on_peaceful)
+			increase_alert("Thieves!")
+		if(perimeter_shield_status)
+			increase_alert("Perimeter shield breach!")
+
 
 /area/syndicate_depot/core/proc/armory_locker_looted()
 	if(!run_finished && !used_self_destruct)
@@ -146,7 +151,8 @@
 	if(detected_pod)
 		return
 	detected_pod = TRUE
-	increase_alert("Hostile spacepod detected: [P]")
+	if(!called_backup)
+		increase_alert("Hostile spacepod detected: [P]")
 
 /area/syndicate_depot/core/proc/saw_double_agent(mob/living/M)
 	if(detected_double_agent)
@@ -170,9 +176,6 @@
 				L.locked = !L.locked
 			L.req_access = list(access_syndicate_leader)
 			L.update_icon()
-		for(var/obj/machinery/computer/syndicate_depot/teleporter/P in src)
-			if(!P.portal_enabled)
-				P.toggle_portal()
 	else
 		log_game("Depot visit: ended")
 		alert_log += "Visitor mode ended."

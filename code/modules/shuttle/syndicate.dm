@@ -61,6 +61,15 @@
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/machinery/computer/shuttle/syncargo
+	name = "Syndicate Cargo Shuttle Console"
+	desc = "Used to call and send the Syndicate Cargo shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
+	shuttleId = "syncargo"
+	possible_destinations = "syncargo_away;syncargo_depot;syncargo_lavaland"
+	resistance_flags = INDESTRUCTIBLE
+
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the syndicate shuttle."

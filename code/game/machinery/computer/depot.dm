@@ -196,6 +196,7 @@
 	if(istype(perimeterarea) && (GAMEMODE_IS_NUCLEAR || prob(20)))
 		spawn(200)
 			perimeterarea.perimeter_shields_up()
+			depotarea.perimeter_shield_status = TRUE
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/Destroy()
 	if(istype(perimeterarea) && perimeterarea.shield_list.len)
@@ -219,8 +220,10 @@
 		return
 	if(perimeterarea.shield_list.len)
 		perimeterarea.perimeter_shields_down()
+		depotarea.perimeter_shield_status = FALSE
 	else
 		perimeterarea.perimeter_shields_up()
+		depotarea.perimeter_shield_status = TRUE
 	playsound(user, sound_yes, 50, 0)
 
 
@@ -282,17 +285,13 @@
 		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
 		return
 	message_sent = TRUE
-	if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
-		var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
-		if(!input)
-			message_sent = FALSE
-			return
-		Syndicate_announce(input, user)
-		to_chat(user, "Message transmitted.")
-		log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
-	else
-		to_chat(user, "<span class='warning'>[src] requires authentication with syndicate codewords, which you do not know.</span>")
-		raise_alert("Detected unauthorized access by [user] to [src]!")
+	var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
+	if(!input)
+		message_sent = FALSE
+		return
+	Syndicate_announce(input, user)
+	to_chat(user, "Message transmitted.")
+	log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
 	updateUsrDialog()
 	playsound(user, sound_yes, 50, 0)
 
@@ -318,7 +317,9 @@
 					to_chat(user, "<span class='warning'>Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight.</span>")
 		else if(subcommand == DEPOT_VISITOR_START)
 			if(depotarea.something_looted)
-				to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from the depot.</span>")
+				to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from a locker in the depot.</span>")
+			else if("syndicate" in user.faction)
+				to_chat(user, "<span class='warning'>You are already recognized as a member of the Syndicate, and do not need to sign in.</span>")
 			else if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
 				grant_syndie_faction(user)
 				depotarea.peaceful_mode(TRUE, TRUE)
@@ -359,6 +360,7 @@
 	icon_keyboard = "teleport_key"
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
 	var/obj/effect/portal/redspace/myportal
+	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
 
@@ -394,18 +396,6 @@
 	return FALSE
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/choosetarget()
-	var/list/eligible_turfs = list()
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
-		var/turf/T = get_turf(R)
-		if(!is_station_level(T.z))
-			continue
-		eligible_turfs += T
-	if(eligible_turfs.len)
-		return pick(eligible_turfs)
-	else
-		return FALSE
-
-/obj/machinery/computer/syndicate_depot/teleporter/targeted/choosetarget()
 	var/list/L = list()
 	var/list/areaindex = list()
 
@@ -434,9 +424,15 @@
 		myportal = P
 		var/area/A = get_area(tele_target)
 		P.name = "[A] portal"
+		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, 0)
+		myportal2 = P2
+		P2.name = "mysterious portal"
 	else if(!portal_enabled && myportal)
 		qdel(myportal)
 		myportal = null
+		if(myportal2)
+			qdel(myportal2)
+			myportal2 = null
 
 /obj/machinery/computer/syndicate_depot/teleporter/get_menu(mob/user)
 	var/menutext = "<B>Syndicate Teleporter Control</B><HR>"
