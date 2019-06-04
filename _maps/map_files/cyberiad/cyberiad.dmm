@@ -74238,9 +74238,7 @@
 /area/toxins/test_area)
 "cCw" = (
 /obj/machinery/igniter{
-	icon_state = "igniter0";
-	id = "Incinerator";
-	on = 0
+	id = "Incinerator"
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/incinerator)
@@ -93941,9 +93939,7 @@
 	tag = ""
 	},
 /obj/machinery/igniter{
-	icon_state = "igniter0";
-	id = "gasturbine";
-	on = 0
+	id = "gasturbine"
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)

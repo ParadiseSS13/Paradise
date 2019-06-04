@@ -21229,10 +21229,8 @@
 	tag = ""
 	},
 /obj/machinery/igniter{
-	icon_state = "igniter0";
 	id = "Incinerator";
-	luminosity = 2;
-	on = 0
+	luminosity = 2
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)

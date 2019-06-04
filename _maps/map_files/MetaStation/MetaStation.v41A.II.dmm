@@ -73649,10 +73649,8 @@
 /area/medical/reception)
 "cuQ" = (
 /obj/machinery/igniter{
-	icon_state = "igniter0";
 	id = "Turbine_igniter";
-	luminosity = 2;
-	on = 0
+	luminosity = 2
 	},
 /obj/structure/cable{
 	d1 = 1;
