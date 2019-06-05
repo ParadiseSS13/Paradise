@@ -1616,7 +1616,7 @@
 	requires_power = 0
 	})
 "cR" = (
-/obj/machinery/poolcontroller/seacontroller,
+/obj/machinery/poolcontroller/invisible/sea,
 /turf/unsimulated/wall/metal,
 /area/awaymission/undersea{
 	requires_power = 0
