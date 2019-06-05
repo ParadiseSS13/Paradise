@@ -6,7 +6,7 @@
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/undersea)
 "ac" = (
-/obj/machinery/poolcontroller/seacontroller,
+/obj/machinery/poolcontroller/invisible/sea,
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/undersea)
 "ad" = (
