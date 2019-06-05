@@ -1450,10 +1450,6 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
-"cz" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "cA" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/science,
@@ -3361,13 +3357,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hl" = (
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
-"hn" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hq" = (
@@ -8818,7 +8807,7 @@ fd
 bl
 bm
 gS
-hn
+gQ
 gQ
 cy
 ha
@@ -8924,7 +8913,7 @@ dy
 ac
 ac
 ac
-cz
+ac
 ab
 ac
 ac
@@ -9009,7 +8998,7 @@ ab
 ab
 ab
 ab
-cz
+ac
 ac
 ac
 ac
@@ -9103,7 +9092,7 @@ aa
 (45,1,1) = {"
 aa
 aa
-aa
+ab
 ab
 ab
 ab
@@ -9153,7 +9142,7 @@ aa
 (46,1,1) = {"
 aa
 aa
-aa
+ab
 ab
 ab
 ab
@@ -9204,7 +9193,7 @@ aa
 aa
 aa
 aa
-aa
+ab
 ab
 ab
 ab
@@ -9254,7 +9243,7 @@ aa
 aa
 ab
 aa
-aa
+ab
 ab
 ab
 ab
@@ -9305,7 +9294,7 @@ aa
 aa
 aa
 ab
-aa
+ab
 ab
 ab
 ab
@@ -9327,13 +9316,13 @@ ab
 ab
 ab
 ab
-aa
 ab
 ab
 ab
-aa
-aa
-aa
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -9356,7 +9345,6 @@ aa
 aa
 ab
 aa
-aa
 ab
 ab
 ab
@@ -9365,8 +9353,9 @@ ab
 ab
 ab
 ab
-ac
-ac
+ab
+ab
+ab
 ab
 ab
 ab
