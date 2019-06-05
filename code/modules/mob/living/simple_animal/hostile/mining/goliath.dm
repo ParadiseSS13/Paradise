@@ -10,7 +10,7 @@
 	attack_sound = 'sound/weapons/punch4.ogg'
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 40
-	ranged = 1
+	ranged = TRUE
 	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
 	ranged_cooldown_time = 120
 	friendly = "wails at"
@@ -31,12 +31,12 @@
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
-	var/pre_attack = 0
+	var/pre_attack = FALSE
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
-	..()
+	. = ..()
 	handle_preattack()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/handle_preattack()
@@ -59,8 +59,7 @@
 		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
-		pre_attack = 0
-	return
+		pre_attack = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(damage)
 	ranged_cooldown--
@@ -72,7 +71,6 @@
 	handle_preattack()
 	if(icon_state != icon_aggro)
 		icon_state = icon_aggro
-	return
 
 // Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
@@ -87,8 +85,8 @@
 	pre_attack_icon = "goliath2"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
 	loot = list()
-	stat_attack = 1
-	robust_searching = 1
+	stat_attack = TRUE
+	robust_searching = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize()
 	. = ..()
@@ -136,7 +134,7 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
 	fromtendril = TRUE
 
-//tentacles
+// Tentacles
 /obj/effect/temp_visual/goliath_tentacle
 	name = "goliath tentacle"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
