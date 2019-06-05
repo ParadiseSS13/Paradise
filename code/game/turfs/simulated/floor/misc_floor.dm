@@ -67,10 +67,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 
-/turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	return	//cannot pry off tiles of water
-
-
 /turf/simulated/floor/beach/water/New()
 	..()
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)

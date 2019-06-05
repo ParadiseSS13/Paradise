@@ -1494,6 +1494,10 @@
 /obj/structure/closet/crate,
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach)
+"LZ" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water/deep,
+/area/awaymission/beach)
 
 (1,1,1) = {"
 aa
@@ -15371,7 +15375,7 @@ du
 du
 du
 du
-du
+LZ
 "}
 (55,1,1) = {"
 aa

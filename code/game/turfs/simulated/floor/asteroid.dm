@@ -18,9 +18,6 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
-/turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return
-
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
