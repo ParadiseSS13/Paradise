@@ -43,6 +43,9 @@
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
 
+/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)	
+	return
+
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
