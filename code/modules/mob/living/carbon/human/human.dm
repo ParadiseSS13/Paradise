@@ -1711,8 +1711,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(dna.species.has_fine_manipulation)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/get_permeability_protection()
 	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
@@ -2002,6 +2002,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		dna.SetSEState(block, FALSE, TRUE)
 		genemutcheck(src, block, null, MUTCHK_FORCED)
 	dna.UpdateSE()
+
+/mob/living/carbon/human/get_spooked()
+	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 
 /mob/living/carbon/human/extinguish_light()
 	// Parent function handles stuff the human may be holding

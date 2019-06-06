@@ -295,7 +295,7 @@ var/list/robot_verbs_default = list(
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
+		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
 		modules += "Combat"
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
@@ -422,6 +422,31 @@ var/list/robot_verbs_default = list(
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
+
+/mob/living/silicon/robot/proc/reset_module()
+	notify_ai(2)
+
+	uneq_all()
+	sight_mode = null
+	hands.icon_state = "nomod"
+	icon_state = "robot"
+	module.remove_subsystems_and_actions(src)
+	QDEL_NULL(module)
+
+	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	rename_character(real_name, get_default_name("Default"))
+	languages = list()
+	speech_synthesizer_langs = list()
+
+	update_icons()
+	update_headlamp()
+
+	speed = 0 // Remove upgrades.
+	ionpulse = FALSE
+	magpulse = FALSE
+	add_language("Robot Talk", 1)
+
+	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)

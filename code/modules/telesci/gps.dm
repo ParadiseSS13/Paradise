@@ -80,19 +80,18 @@ var/list/GPS_list = list()
 	popup.open()
 
 /obj/item/gps/Topic(href, href_list)
-	if(..(state = inventory_state))
+	if(..())
 		return 1
 
 	if(href_list["tag"] )
-		var/a = input("Please enter desired tag.", name, gpstag) as text|null
-		if(!a || ..(state = inventory_state))
-			return 1
+		var/tag = input("Please enter desired tag.", name, gpstag) as text|null
+		if(!tag || ..())
+			return TRUE
 
-		a = uppertext(sanitize(copytext(a, 1, 5)))
-		if(src.loc == usr)
-			gpstag = a
-			name = "global positioning system ([gpstag])"
-			attack_self(usr)
+		tag = uppertext(sanitize(copytext(tag, 1, 5)))
+		gpstag = tag
+		name = "global positioning system ([gpstag])"
+		attack_self(usr)
 
 /obj/item/gps/science
 	icon_state = "gps-s"

@@ -381,6 +381,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	burn_state = FIRE_PROOF
 
+/obj/item/clothing/under/gladiator/ash_walker
+	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+	has_sensor = FALSE
+
 //dress
 
 /obj/item/clothing/under/dress/dress_fire

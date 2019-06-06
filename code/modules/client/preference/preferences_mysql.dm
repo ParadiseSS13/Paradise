@@ -18,7 +18,8 @@
 					ghost_anonsay,
 					exp,
 					clientfps,
-					atklog
+					atklog,
+					fuid
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -50,6 +51,7 @@
 		exp = query.item[16]
 		clientfps = text2num(query.item[17])
 		atklog = text2num(query.item[18])
+		fuid = text2num(query.item[19])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -69,6 +71,7 @@
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
+	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)

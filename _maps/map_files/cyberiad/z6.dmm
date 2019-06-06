@@ -16,7 +16,7 @@
 /area/djstation/solars)
 "ad" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/space/nearstation)
 "ae" = (
 /obj/structure/lattice,
@@ -77,7 +77,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "ao" = (
 /obj/structure/grille{
@@ -94,7 +94,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aq" = (
 /obj/structure/cable{
@@ -126,7 +126,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "at" = (
 /obj/structure/lattice,
@@ -313,7 +313,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "aR" = (
 /obj/structure/cable{
@@ -332,7 +332,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aS" = (
 /obj/structure/cable{
@@ -341,7 +341,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aT" = (
 /obj/structure/cable{
@@ -360,7 +360,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aU" = (
 /obj/item/storage/toolbox/mechanical{
@@ -387,7 +387,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "aW" = (
 /turf/simulated/floor/plasteel{
@@ -4603,7 +4603,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "jL" = (
 /obj/structure/table/wood,
@@ -5361,7 +5361,7 @@
 	invisibility = 100;
 	location = "SDNE"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "lq" = (
 /obj/structure/chair/office/light,
@@ -5467,7 +5467,7 @@
 	name = "Derelict Annex"
 	})
 "lE" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -5495,7 +5495,7 @@
 	},
 /area/syndicate_depot/outer)
 "lK" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "lL" = (
 /turf/simulated/floor/plating/airless,
@@ -5624,7 +5624,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_bot"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mc" = (
 /obj/machinery/light{
@@ -5652,11 +5652,11 @@
 /area/syndicate_depot/outer)
 "mf" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mg" = (
 /obj/machinery/light,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mh" = (
 /obj/machinery/light{
@@ -5673,7 +5673,7 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mj" = (
 /obj/machinery/navbeacon/invisible{
@@ -5681,7 +5681,7 @@
 	invisibility = 100;
 	location = "SDNW"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mk" = (
 /obj/structure/table,
@@ -5704,7 +5704,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mo" = (
 /obj/item/shard,
@@ -5776,7 +5776,7 @@
 	},
 /area/space/nearstation)
 "my" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f9";
 	icon_state = "swall_f9";
@@ -5856,7 +5856,7 @@
 /turf/simulated/mineral,
 /area/space/nearstation)
 "mI" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "mJ" = (
 /obj/effect/decal/cleanable/blood,
@@ -5934,7 +5934,7 @@
 /area/syndicate_depot/core)
 "mT" = (
 /obj/item/shard,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "mU" = (
 /obj/structure/closet/crate,
@@ -5984,7 +5984,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "nc" = (
 /obj/item/stack/ore/bananium,
@@ -6266,7 +6266,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "nO" = (
 /obj/effect/mob_spawn/human/clown/corpse{
@@ -6525,7 +6525,7 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "oy" = (
 /obj/structure/cable{
@@ -6694,7 +6694,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "oT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -6782,7 +6782,7 @@
 	invisibility = 100;
 	location = "SDSW"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "pe" = (
 /obj/machinery/power/apc/noalarm{
@@ -6817,7 +6817,7 @@
 	invisibility = 100;
 	location = "SDSE"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "pi" = (
 /obj/structure/sign/poster/official/obey,
@@ -6870,7 +6870,7 @@
 /area/syndicate_depot/core)
 "pq" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "pr" = (
 /obj/structure/closet/crate/can,
@@ -6936,13 +6936,13 @@
 "pw" = (
 /obj/item/candle,
 /obj/structure/table,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "px" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "py" = (
 /obj/structure/chair{
@@ -6972,7 +6972,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "pC" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "pD" = (
 /obj/structure/falsewall,
@@ -7752,7 +7752,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rn" = (
 /obj/structure/cable{
@@ -7766,7 +7766,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "ro" = (
 /obj/structure/window/reinforced,
@@ -7994,7 +7994,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rG" = (
 /obj/structure/closet/crate/secure/loot,
@@ -8030,7 +8030,7 @@
 /area/derelict/crew_quarters)
 "rJ" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rK" = (
 /obj/machinery/power/tracker,
@@ -8273,7 +8273,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "si" = (
 /obj/structure/cable{
@@ -9007,7 +9007,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "tF" = (
 /obj/structure/sign/greencross,
@@ -9041,7 +9041,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "tI" = (
 /obj/structure/cable{
@@ -9564,7 +9564,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "uJ" = (
 /turf/space,
@@ -9896,7 +9896,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "vn" = (
 /obj/item/shard{
@@ -10463,7 +10463,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wm" = (
 /obj/structure/cable{
@@ -10477,7 +10477,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wn" = (
 /obj/structure/closet/jcloset,
@@ -10503,7 +10503,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wp" = (
 /obj/structure/cable{
@@ -10522,7 +10522,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wq" = (
 /obj/structure/cable{
@@ -10541,7 +10541,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wr" = (
 /obj/docking_port/stationary{

@@ -31,7 +31,7 @@
 	#define CENTCOMM "CentComm"
 	#define TELECOMMS "Telecomms Satellite"
 	#define DERELICT "Derelicted Station"
-	#define MINING "Mining Asteroid"
+	#define MINING "Lavaland"
 	#define CONSTRUCTION "Construction Area"
 	#define EMPTY_AREA "Empty Area"
 	#define EMPTY_AREA_2 "Empty Area 2"

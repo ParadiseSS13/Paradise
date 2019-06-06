@@ -1964,7 +1964,7 @@ var/list/ghostteleportlocs = list()
 /area/traitor
 	name = "\improper Syndicate Base"
 	icon_state = "syndie_hall"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
@@ -2134,7 +2134,7 @@ var/list/ghostteleportlocs = list()
 /area/awaymission
 	name = "\improper Strange Location"
 	icon_state = "away"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/example
 	name = "\improper Strange Station"
@@ -2160,7 +2160,7 @@ var/list/ghostteleportlocs = list()
 
 /area/awaycontent
 	name = "space"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaycontent/a1
 	icon_state = "awaycontent1"

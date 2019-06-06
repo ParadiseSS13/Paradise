@@ -16,8 +16,8 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	mob_size = MOB_SIZE_SMALL
-	simplespecies = /mob/living/simple_animal/pet/cat
-	childtype = /mob/living/simple_animal/pet/cat/kitten
+	animal_species = /mob/living/simple_animal/pet/cat
+	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -117,13 +117,17 @@
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1,src))
+		for(var/mob/living/simple_animal/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(1, "splats \the [M]!")
 				M.splat()
 				movement_target = null
 				stop_automated_movement = 0
 				break
+		for(var/obj/item/toy/cattoy/T in view(1, src))
+			if(T.cooldown < (world.time - 400))
+				custom_emote(1, "bats \the [T] around with its paw!")
+				T.cooldown = world.time
 	make_babies()
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()

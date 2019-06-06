@@ -3,63 +3,115 @@
 	desc = "Looks unstable. Best to test it with the clown."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
-	density = 1
-	unacidable = 1//Can't destroy energy portals.
-	var/failchance = 5
+	density = TRUE
+	unacidable = TRUE
+	anchored = TRUE
+
 	var/obj/item/target = null
 	var/creator = null
-	anchored = 1
-	var/precision = 1 // how close to the portal you will teleport. 0 = on the portal, 1 = adjacent
-	var/can_multitool_to_remove = 0
+
+	var/failchance = 5
+	var/fail_icon = "portal1"
+
+	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
 
 /obj/effect/portal/Bumped(mob/M as mob|obj)
 	teleport(M)
 
-/obj/effect/portal/New(loc, turf/target, creator=null, lifespan=300)
+/obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
+	..()
+
 	GLOB.portals += src
-	src.loc = loc
+
 	src.target = target
 	src.creator = creator
+
 	if(lifespan > 0)
 		spawn(lifespan)
 			qdel(src)
 
 /obj/effect/portal/Destroy()
 	GLOB.portals -= src
-	if(istype(creator, /obj))
+
+	if(isobj(creator))
 		var/obj/O = creator
 		O.portal_destroyed(src)
+
 	creator = null
 	target = null
 	return ..()
 
-/obj/effect/portal/proc/teleport(atom/movable/M as mob|obj)
-	if(istype(M, /obj/effect)) //sparks don't teleport
+/obj/effect/portal/singularity_pull()
+	return
+
+/obj/effect/portal/singularity_act()
+	return
+
+/obj/effect/portal/Crossed(atom/movable/AM)
+	if(isobserver(AM))
+		return ..()
+
+	if(!teleport(AM))
+		return ..()
+
+/obj/effect/portal/attack_tk(mob/user)
+	return
+
+/obj/effect/portal/attack_hand(mob/user)
+	. = ..()
+	if(.)
 		return
-	if(M.anchored&&istype(M, /obj/mecha))
-		return
-	if(!( target ))
-		qdel(src)
-		return
-	if(istype(M, /atom/movable))
-		if(prob(failchance))
-			src.icon_state = "portal1"
-			if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
-				invalid_teleport()
-		else
-			if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
-				invalid_teleport()
+	if(get_turf(user) == get_turf(src))
+		teleport(user)
+	if(Adjacent(user))
+		user.forceMove(get_turf(src))
+
+/obj/effect/portal/attack_ghost(mob/dead/observer/O)
+	if(target)
+		O.forceMove(target)
 
 /obj/effect/portal/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/multitool) && can_multitool_to_remove)
+	if(ismultitool(A) && can_multitool_to_remove)
 		qdel(src)
+	else if(user && Adjacent(user))
+		user.forceMove(get_turf(src))
+		return TRUE
+
+/obj/effect/portal/proc/teleport(atom/movable/M, force = FALSE)
+	if(!istype(M))
+		return FALSE
+
+	if(!M.simulated || iseffect(M))
+		return FALSE
+
+	if(M.anchored && ismecha(M))
+		return FALSE
+
+	if(!target)
+		qdel(src)
+		return FALSE
+
+	if(ismegafauna(M))
+		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
+
+	if(prob(failchance))
+		icon_state = fail_icon
+		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
+			invalid_teleport()
+			return FALSE
+	else
+		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
+			invalid_teleport()
+			return FALSE
+	
+	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
 	do_sparks(5, 0, loc)
 	qdel(src)
-
 
 /obj/effect/portal/redspace
 	name = "redspace portal"
