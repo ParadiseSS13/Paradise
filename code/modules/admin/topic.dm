@@ -2158,7 +2158,7 @@
 		var/obj/item/paper/P = new /obj/item/paper(null) //hopefully the null loc won't cause trouble for us
 
 		if(!fax)
-			var/list/departmentoptions = alldepartments + "All Departments"
+			var/list/departmentoptions = alldepartments + hidden_departments + "All Departments"
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
 			if(!destination)
 				qdel(P)
