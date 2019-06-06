@@ -769,6 +769,7 @@ var/global/list/damage_icon_parts = list()
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 			bloodsies.color = shoes.blood_color
 			standing.overlays += bloodsies
+		standing.color = shoes.color
 		overlays_standing[SHOES_LAYER] = standing
 	else
 		if(feet_blood_DNA)
@@ -819,6 +820,7 @@ var/global/list/damage_icon_parts = list()
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
 			bloodsies.color = head.blood_color
 			standing.overlays += bloodsies
+		standing.color = head.color
 		overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
@@ -886,6 +888,7 @@ var/global/list/damage_icon_parts = list()
 			bloodsies.color = wear_suit.blood_color
 			standing.overlays += bloodsies
 
+		standing.color = wear_suit.color
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
@@ -951,6 +954,7 @@ var/global/list/damage_icon_parts = list()
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
 			bloodsies.color = wear_mask.blood_color
 			standing.overlays += bloodsies
+		standing.color = wear_mask.color
 		overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
 
@@ -973,6 +977,7 @@ var/global/list/damage_icon_parts = list()
 			standing = mutable_appearance('icons/mob/back.dmi', "[back.icon_state]", layer = -BACK_LAYER)
 
 		//create the image
+		standing.color = back.color
 		overlays_standing[BACK_LAYER] = standing
 	apply_overlay(BACK_LAYER)
 

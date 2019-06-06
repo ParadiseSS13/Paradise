@@ -422,21 +422,18 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
 
-/obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
-	..()
-	if(!issignaler(S))
-		..()
-		return
+/obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)
+	. = ..()
 
-	if(!S.secured)
-		qdel(S)
-		var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
-		user.put_in_hands(A)
-		to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
-		user.unEquip(src, 1)
-		qdel(src)
-	else
-		return
+	if(istype(I,/obj/item/assembly/signaler))
+		var/obj/item/assembly/signaler/S = I
+		if(!S.secured)
+			qdel(S)
+			var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
+			user.put_in_hands(A)
+			to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
+			user.unEquip(src, 1)
+			qdel(src)
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()

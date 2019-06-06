@@ -114,43 +114,6 @@
 #define CHRISTMAS				"Christmas"
 #define FRIDAY_13TH				"Friday the 13th"
 
-//Light color defs, for light-emitting things
-//Some defs may be pure color- this is for neatness, and configurability. Changing #define COLOR_ is a bad idea.
-#define LIGHT_COLOR_CYAN		"#7BF9FF"
-#define LIGHT_COLOR_PURE_CYAN	"#00FFFF"
-
-#define LIGHT_COLOR_RED			"#B40000"
-#define LIGHT_COLOR_ORANGE		"#FF9933"
-#define LIGHT_COLOR_DARKRED		"#A91515"
-#define LIGHT_COLOR_PURE_RED	"#FF0000"
-
-#define LIGHT_COLOR_GREEN		"#00CC00"
-#define LIGHT_COLOR_DARKGREEN	"#50AB00"
-#define LIGHT_COLOR_PURE_GREEN	"#00FF00"
-
-#define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
-#define LIGHT_COLOR_LIGHTBLUE	"#0099FF"
-#define LIGHT_COLOR_DARKBLUE	"#315AB4"
-#define LIGHT_COLOR_PURE_BLUE	"#0000FF"
-
-#define LIGHT_COLOR_FADEDPURPLE	"#A97FAA"
-#define LIGHT_COLOR_PURPLE		"#CD00CD"
-#define LIGHT_COLOR_PINK		"#FF33CC"
-
-#define LIGHT_COLOR_YELLOW     "#E1E17D" //Dimmed yellow, leaning kaki. rgb(225, 225, 125)
-
-#define LIGHT_COLOR_WHITE		"#FFFFFF"
-
-#define LIGHT_COLOR_LAVA       "#C48A18" //Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
-#define LIGHT_COLOR_FIRE       "#FAA019" //Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
-
-#define LIGHT_COLOR_FLARE      "#FA644B" //Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
-#define LIGHT_COLOR_SLIME_LAMP "#AFC84B" //Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
-#define LIGHT_COLOR_BLUEGREEN  "#7DE1AF" //Light blueish green. rgb(125, 225, 175)
-#define LIGHT_COLOR_LIGHT_CYAN "#40CEFF" //More-saturated cyan. rgb(64, 206, 255)
-#define LIGHT_COLOR_DARK_BLUE  "#6496FA" //Saturated blue. rgb(51, 117, 248)
-#define LIGHT_COLOR_LAVENDER   "#9B51FF" //Less-saturated light purple. rgb(155, 81, 255)
-
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm
@@ -422,26 +385,6 @@
 #define GHOST_ORBIT_TRIANGLE	"triangle"
 #define GHOST_ORBIT_HEXAGON		"hexagon"
 #define GHOST_ORBIT_SQUARE		"square"
-#define GHOST_ORBIT_PENTAGON	"pentagon"
-
-//Explosive wall groups
-#define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
-
-// Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
-
-//Fullscreen overlay resolution in tiles.
-#define FULLSCREEN_OVERLAY_RESOLUTION_X 15
-#define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
-
-//suit sensors: sensor_mode defines
-#define SENSOR_OFF 0
-#define SENSOR_LIVING 1
-#define SENSOR_VITALS 2
-#define SENSOR_COORDS 3
-
-// Cult summon possibilities
-#define SUMMON_POSSIBILITIES 3#define GHOST_ORBIT_SQUARE		"square"
 #define GHOST_ORBIT_PENTAGON	"pentagon"
 
 //Explosive wall groups

@@ -21,7 +21,7 @@
 
 /turf/simulated/proc/burn_tile()
 
-/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, infinite=FALSE) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, infinite = FALSE) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting

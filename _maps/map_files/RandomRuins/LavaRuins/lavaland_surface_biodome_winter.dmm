@@ -161,8 +161,13 @@
 /obj/vehicle/atv,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
+"aK" = (
+/obj/structure/table/wood,
+/obj/item/key/snowmobile,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_biodome)
 "aL" = (
-/obj/structure/displaycase,
+/obj/structure/displaycase/lavaland_winter,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_biodome)
 "aM" = (
@@ -283,7 +288,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "tl" = (
-/turf/simulated/floor/pod,
+/turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
 "xU" = (
 /obj/item/storage/toolbox/mechanical,
@@ -329,11 +334,11 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "KS" = (
-/obj/item/twohanded/required/chainsaw,
 /obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/twohanded/required/chainsaw,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Mp" = (
@@ -908,7 +913,7 @@ ah
 af
 aq
 ax
-aw
+aK
 aF
 at
 at

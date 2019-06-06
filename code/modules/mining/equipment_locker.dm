@@ -429,6 +429,7 @@
 		new /datum/data/mining_equipment("Point Transfer Card", 		/obj/item/card/mining_point_card,								500),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",			/obj/item/storage/firstaid/brute,								600),
 		new /datum/data/mining_equipment("Drone Ranged Upgrade",		/obj/item/mine_bot_upgrade/cooldown,							600),
+		new /datum/data/mining_equipment("Fire First-Aid Kit",			/obj/item/storage/firstaid/fire,								600),
 		new /datum/data/mining_equipment("Jaunter",             		/obj/item/wormhole_jaunter,										600),
 		new /datum/data/mining_equipment("Kinetic Accelerator",			/obj/item/gun/energy/kinetic_accelerator,						750),
 		new /datum/data/mining_equipment("Kinetic Crusher", 			/obj/item/twohanded/required/kinetic_crusher,					750),

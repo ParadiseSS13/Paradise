@@ -759,6 +759,6 @@
 
 /mob/proc/grant_all_languages()
 	for(var/la in GLOB.all_languages)
-		src.add_language(la)
+		add_language(la)
 
 #undef SCRAMBLE_CACHE_LEN
