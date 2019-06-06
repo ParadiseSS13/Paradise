@@ -11,7 +11,7 @@
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	burn_state = FIRE_PROOF
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -95,7 +95,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)

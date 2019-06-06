@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(ticker)
 		world.name = "[config.server_name]: [station_name()]"
 	else
 		world.name = station_name()
-		
+
 	return ..()
 
 
@@ -75,11 +75,11 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PREGAME)
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
 			pregame_timeleft = max(0,round_start_time - world.time)
-			
+
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
 				tipped = TRUE
-			
+
 			if(pregame_timeleft <= 0 || force_start)
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
@@ -277,14 +277,6 @@ SUBSYSTEM_DEF(ticker)
 		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
-
-	/* DONE THROUGH PROCESS SCHEDULER
-	supply_controller.process() 		//Start the supply shuttle regenerating points -- TLE
-	master_controller.process()		//Start master_controller.process()
-	lighting_controller.process()	//Start processing DynamicAreaLighting updates
-	*/
-
-	processScheduler.start()
 
 	if(config.sql_enabled)
 		spawn(3000)
@@ -531,3 +523,5 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
 
+/datum/controller/subsystem/ticker/proc/IsRoundInProgress()
+	return current_state == GAME_STATE_PLAYING

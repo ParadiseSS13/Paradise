@@ -121,10 +121,6 @@
 			A.diagonal_smooth(adjacencies)
 		else
 			cardinal_smooth(A, adjacencies)
-		if(A.smooth & SMOOTH_DIAGONAL)
-			A.diagonal_smooth(adjacencies)
-		else
-			cardinal_smooth(A, adjacencies)
 
 /atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)

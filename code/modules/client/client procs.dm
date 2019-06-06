@@ -229,7 +229,8 @@
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
-
+	if(href_list["link_forum_account"])
+		link_forum_account()
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -320,8 +321,7 @@
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
 	if(!config.disable_localhost_admin)
-		var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-		if(!isnull(address) && address in localhost_addresses)
+		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = admin_datums[ckey]
 	if(holder)
@@ -370,8 +370,9 @@
 			to_chat(src, message)
 		clientmessages.Remove(ckey)
 
-	donator_check()
 
+	donator_check()
+	check_ip_intel()
 	send_resources()
 
 	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
@@ -393,6 +394,8 @@
 	generate_clickcatcher()
 	apply_clickcatcher()
 
+	check_forum_link()
+
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
@@ -408,6 +411,12 @@
 		tooltips = new /datum/tooltip(src)
 
 	Master.UpdateTickRate()
+
+/client/proc/is_connecting_from_localhost()
+	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
+	if(!isnull(address) && address in localhost_addresses)
+		return TRUE
+	return FALSE
 
 //////////////
 //DISCONNECT//
@@ -539,6 +548,81 @@
 	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
+/client/proc/check_ip_intel()
+	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
+	if(config.ipintel_email)
+		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
+			if(living_hours >= config.ipintel_maxplaytime)
+				return
+
+		if(is_connecting_from_localhost())
+			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
+			return
+
+		if(vpn_whitelist_check(ckey))
+			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
+			return
+
+		var/datum/ipintel/res = get_ip_intel(address)
+		ip_intel = res.intel
+		verify_ip_intel()
+
+/client/proc/verify_ip_intel()
+	if(ip_intel >= config.ipintel_rating_bad)
+		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
+		if(config.ipintel_whitelist)
+			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
+				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
+				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
+				if(config.banappeals)
+					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [config.banappeals]"
+				to_chat(src, blockmsg)
+				qdel(src)
+		else
+			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]</span>")
+
+
+/client/proc/check_forum_link()
+	if(config.forum_link_url && prefs && !prefs.fuid)
+		to_chat(src, "<B>You do not have your forum account linked. <a href='?src=[UID()];link_forum_account=true'>LINK FORUM ACCOUNT</a></B>")
+
+/client/proc/create_oauth_token()
+	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
+	if(!query_find_token.Execute())
+		log_debug("create_oauth_token: failed db read")
+		return
+	if(query_find_token.NextRow())
+		return query_find_token.item[1]
+	var/tokenstr = md5("[ckey][rand()]")
+	var/DBQuery/query_insert_token = dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
+	if(!query_insert_token.Execute())
+		return
+	return tokenstr
+
+/client/proc/link_forum_account()
+	if(IsGuestKey(key))
+		to_chat(src, "Guest keys cannot be linked.")
+		return
+	if(prefs && prefs.fuid)
+		to_chat(src, "Your forum account is already set.")
+		return
+	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
+	if(!query_find_link.Execute())
+		log_debug("link_forum_account: failed db read")
+		return
+	if(query_find_link.NextRow())
+		if(query_find_link.item[1])
+			to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+			return
+	var/tokenid = create_oauth_token()
+	if(!tokenid)
+		to_chat(src, "link_forum_account: unable to create token")
+		return
+	var/url = "[config.forum_link_url][tokenid]"
+	to_chat(src, {"Now opening a windows to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>."})
+	src << link(url)
+	return
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT

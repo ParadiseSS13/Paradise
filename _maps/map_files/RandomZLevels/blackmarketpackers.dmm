@@ -6,11 +6,11 @@
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission)
 "ac" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ad" = (
 /obj/effect/mob_spawn/human/doctor,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ae" = (
 /obj/item/circular_saw,
@@ -2996,7 +2996,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hC" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Fore)
 "hD" = (
 /obj/structure/rack,
@@ -3006,7 +3006,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Fore)
 "hF" = (
 /turf/simulated/shuttle/wall,
@@ -3163,7 +3163,7 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ic" = (
 /obj/structure/bed,
@@ -3412,7 +3412,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission)
 "iM" = (
-/turf/simulated/mineral/random/high_chance_clown,
+/turf/simulated/mineral/random/high_chance/clown,
 /area/awaymission)
 "iN" = (
 /obj/effect/decal/cleanable/blood,
@@ -3444,7 +3444,7 @@
 /area/awaymission)
 "iS" = (
 /mob/living/simple_animal/hostile/carp,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "iT" = (
 /turf/simulated/floor/plating,

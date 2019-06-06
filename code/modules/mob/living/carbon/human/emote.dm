@@ -206,9 +206,13 @@
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
-			m_type = 2
+			if(!muzzled)
+				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+				m_type = 2
+			else
+				message = "<B>[src]</B> makes a weak hissing noise."
+				m_type = 2
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)

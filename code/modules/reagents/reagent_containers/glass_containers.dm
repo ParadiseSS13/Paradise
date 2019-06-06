@@ -56,9 +56,54 @@
 	if(!is_open_container())
 		to_chat(user, "<span class='notice'>Airtight lid seals it completely.</span>")
 
+/obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
+	if(!is_open_container())
+		return ..()
+
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
+
+	if(istype(M))
+		var/list/transferred = list()
+		for(var/datum/reagent/R in reagents.reagent_list)
+			transferred += R.name
+		var/contained = english_list(transferred)
+
+		if(user.a_intent == INTENT_HARM)
+			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
+							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
+			add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			if(!iscarbon(user))
+				M.LAssailant = null
+			else
+				M.LAssailant = user
+
+			reagents.reaction(M, TOUCH)
+			reagents.clear_reagents()
+		else 
+			if(M != user)
+				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
+							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
+				if(!do_mob(user, M))
+					return
+				if(!reagents || !reagents.total_volume)
+					return // The drink might be empty after the delay, such as by spam-feeding
+				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
+				add_attack_logs(M, user, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			else
+				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+
+			reagents.reaction(M, INGEST)
+			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
+			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	else
+		return ..()
+
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
+
 	if(!is_open_container())
 		return
 
@@ -66,26 +111,7 @@
 		if(istype(target, type))
 			return
 
-	if(ismob(target) && target.reagents && reagents.total_volume)
-		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
-
-		var/mob/living/M = target
-		var/list/injected = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			injected += R.name
-		var/contained = english_list(injected)
-		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
-		if(!iscarbon(user))
-			M.LAssailant = null
-		else
-			M.LAssailant = user
-
-		for(var/mob/O in viewers(world.view, user))
-			O.show_message(text("<span class='warning'>[] has been splashed with something by []!</span>", target, user), 1)
-		reagents.reaction(target, TOUCH)
-		spawn(5) reagents.clear_reagents()
-		return
-	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
+	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 		if(target.reagents && !target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
 			return
@@ -116,12 +142,11 @@
 	else if(istype(target, /obj/effect/decal)) //stops splashing while scooping up fluids
 		return
 
-	else if(reagents.total_volume)
-		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
+	else if(reagents.total_volume && user.a_intent == INTENT_HARM)
+		user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
+							"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 		reagents.reaction(target, TOUCH)
-		spawn(5) reagents.clear_reagents()
-		return
-
+		reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
@@ -338,3 +363,28 @@
 		qdel(src)
 	else
 		..()
+
+/obj/item/reagent_containers/glass/beaker/waterbottle
+	name = "bottle of water"
+	desc = "A bottle of water filled at an old Earth bottling facility."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "smallbottle"
+	item_state = "bottle"
+	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	materials = list(MAT_GLASS = 0)
+	volume = 50
+	amount_per_transfer_from_this = 10
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/empty
+	list_reagents = list()
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/large
+	desc = "A fresh commercial-sized bottle of water."
+	icon_state = "largebottle"
+	materials = list(MAT_GLASS = 0)
+	list_reagents = list("water" = 100)
+	volume = 100
+	amount_per_transfer_from_this = 20
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
+	list_reagents = list()

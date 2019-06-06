@@ -275,6 +275,16 @@
 	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
 	payload = /obj/item/bombcore/large
 	can_unanchor = FALSE
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE // If set, this bomb will also cause explosive walls in the same group to explode
+
+/obj/machinery/syndicatebomb/self_destruct/try_detonate(ignore_active = FALSE)
+	. = ..()
+	if(. && explosive_wall_group)
+		for(var/wall in GLOB.explosive_walls)
+			var/turf/simulated/wall/mineral/plastitanium/explosive/E = wall
+			if(E.explosive_wall_group == explosive_wall_group)
+				E.self_destruct()
+				sleep(5)
 
 ///Bomb Cores///
 
@@ -292,6 +302,7 @@
 	var/range_medium = 9
 	var/range_light = 17
 	var/range_flame = 17
+	var/admin_log = TRUE
 
 /obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
 	detonate()
@@ -305,7 +316,7 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame)
+	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
@@ -395,6 +406,9 @@
 	range_medium = 10
 	range_light = 20
 	range_flame = 20
+
+/obj/item/bombcore/large/explosive_wall
+	admin_log = FALSE
 
 /obj/item/bombcore/large/underwall
 	layer = ABOVE_OPEN_TURF_LAYER
