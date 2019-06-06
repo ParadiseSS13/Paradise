@@ -12,6 +12,7 @@ var/const/INGEST = 2
 	var/chem_temp = T20C
 	var/list/datum/reagent/addiction_list = new/list()
 	var/flags
+	var/list/reagents_generated_per_cycle = new/list()
 
 /datum/reagents/New(maximum = 100)
 	maximum_volume = maximum
@@ -348,7 +349,8 @@ var/const/INGEST = 2
 	if(flags & REAGENT_NOREACT)
 		STOP_PROCESSING(SSobj, src)
 		return
-
+	for(var/thing in reagents_generated_per_cycle)
+		add_reagent(thing, 1)
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
 
