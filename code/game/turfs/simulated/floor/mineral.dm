@@ -254,6 +254,3 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
-
-/turf/simulated/floor/plating/abductor2/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return

@@ -157,6 +157,9 @@
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
 
+/obj/machinery/smartfridge/disks/accept_check(obj/item/O)
+	return istype(O, /obj/item/disk)
+
 // ----------------------------
 // Virology Medical Smartfridge
 // ----------------------------

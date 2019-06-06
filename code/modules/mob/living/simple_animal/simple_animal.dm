@@ -62,10 +62,9 @@
 	var/can_collar = 0 // can add collar to mob or not
 
 	//Hot simple_animal baby making vars
-
-	var/childtype = null
-	var/scan_ready = 1
-	var/simplespecies //Sorry, no spider+corgi buttbabies.
+	var/list/childtype = null
+	var/next_scan_time = 0
+	var/animal_species //Sorry, no spider+corgi buttbabies.
 
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
@@ -446,27 +445,32 @@
 
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
-	if(gender != FEMALE || stat || !scan_ready || !childtype || !simplespecies)
-		return
-	scan_ready = 0
-	spawn(400)
-		scan_ready = 1
-	var/alone = 1
+	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
+		return FALSE
+	next_scan_time = world.time + 400
+	
+	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0
+
 	for(var/mob/M in oview(7, src))
-		if(istype(M, childtype)) //Check for children FIRST.
+		if(M.stat != CONSCIOUS) //Check if it's conscious FIRST.
+			continue
+		else if(istype(M, childtype)) //Check for children SECOND.
 			children++
-		else if(istype(M, simplespecies))
-			if(M.client)
+		else if(istype(M, animal_species))
+			if(M.ckey)
 				continue
 			else if(!istype(M, childtype) && M.gender == MALE) //Better safe than sorry ;_;
 				partner = M
-		else if(istype(M, /mob/))
-			alone = 0
-			continue
+		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
+			return //we never mate when not alone, so just abort early
+
 	if(alone && partner && children < 3)
-		return new childtype(loc)
+		var/childspawn = pickweight(childtype)
+		var/turf/target = get_turf(loc)
+		if(target)
+			return new childspawn(target)
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"
