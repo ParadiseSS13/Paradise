@@ -24,7 +24,7 @@
 	available_networks["Mining Outpost"] =    list(access_qm,access_hop,access_hos,access_captain)
 	available_networks["Research"] =          list(access_rd,access_hos,access_captain)
 	available_networks["Prison"] =            list(access_hos,access_captain)
-	available_networks["Labor"] =             list(access_hos,access_captain)
+	available_networks["Labor Camp"] =        list(access_hos,access_captain)
 	available_networks["Interrogation"] =     list(access_hos,access_captain)
 	available_networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
 	available_networks["Fire Alarms"] =       list(access_ce,access_hos,access_captain)

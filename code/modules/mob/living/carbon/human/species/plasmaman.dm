@@ -130,8 +130,8 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/cargo
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/cargo
 		if("Shaft Miner")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/miner
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/miner
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/explorer
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/explorer
 		if("Botanist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/botanist
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/botanist

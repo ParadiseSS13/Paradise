@@ -53,6 +53,7 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
+	/datum/admins/proc/vpn_whitelist,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
 	/client/proc/toggleadminlogs,

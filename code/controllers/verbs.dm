@@ -2,24 +2,26 @@
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
 
-/client/proc/restart_controller(controller in list("Master","Failsafe"))
+/client/proc/restart_controller(controller in list("Master", "Failsafe"))
 	set category = "Debug"
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
-	usr = null
-	src = null
+	if(!holder)
+		return
 	switch(controller)
+		if("Master")
+			Recreate_MC()
+			feedback_add_details("admin_verb","RMaster")
 		if("Failsafe")
 			new /datum/controller/failsafe()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "RFailsafe")
-	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
-	return
 
-/client/proc/debug_controller(controller in list("failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
-	"Cameras","Garbage", "Transfer Controller","Event","Alarm","Nano","Vote","Fires",
-	"Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
+	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
+
+/client/proc/debug_controller(controller in list("failsafe", "Master", "Ticker", "Air", "Jobs", "Sun", "Radio", "Configuration", "pAI",
+	"Cameras", "Garbage", "Event", "Alarm", "Nano", "Vote", "Fires",
+	"Mob", "NPC Pool", "Shuttle", "Timer", "Weather", "Space", "Mob Hunt Server"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -29,10 +31,7 @@
 		if("failsafe")
 			debug_variables(Failsafe)
 			SSblackbox.record_feedback("tally", "admin_verb", 1,  "dfailsafe")
-		if("Scheduler")
-			debug_variables(processScheduler)
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "DprocessScheduler")
-		if("StonedMaster")
+		if("Master")
 			debug_variables(Master)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsmc")
 		if("Ticker")
@@ -59,15 +58,15 @@
 		if("Cameras")
 			debug_variables(cameranet)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DCameras")
+		if("Garbage")
+			debug_variables(SSgarbage)
+			feedback_add_details("admin_verb","DGarbage")
 		if("Event")
 			debug_variables(SSevents)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DEvent")
 		if("Alarm")
 			debug_variables(SSalarms)
 			SSblackbox.record_feedback("tally", "admin_verb", 1,  "DAlarm")
-		if("Garbage")
-			debug_variables(SSgarbage)
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "DGarbage")
 		if("Nano")
 			debug_variables(SSnanoui)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DNano")
@@ -100,4 +99,3 @@
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "DMobHuntServer")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
-	return

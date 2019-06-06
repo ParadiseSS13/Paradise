@@ -3,36 +3,35 @@
 	config_tag = "raginmages"
 	required_players = 20
 	use_huds = 1
+	but_wait_theres_more = 1
 	var/max_mages = 0
-	var/making_mage = 0
+	var/making_mage = FALSE
 	var/mages_made = 1
 	var/time_checked = 0
-	var/players_per_mage = 6 // If the admin wants to tweak things or something
-	but_wait_theres_more = 1
+	var/players_per_mage = 10 // If the admin wants to tweak things or something
 	var/delay_per_mage = 4200 // Every 7 minutes by default
 	var/time_till_chaos = 18000 // Half-hour in
 
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
-	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, help defeat all the space wizards!</B>")
-
+	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
-	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
+	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1
+	to_chat(wizard.current, "<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(wizard.current, "<b>Objective Alpha</b>: Make sure the station pays for its actions against our diplomats")
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
-	// Accidental pun!
-	var/wizard_cap = (max_mages || (num_players_started() / players_per_mage))
+	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
+	max_mages = wizard_cap
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
@@ -115,67 +114,40 @@
 		qdel(B)
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
-
 	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		return 0
-	making_mage = 1
-	var/list/candidates = list()
+		return FALSE
+	making_mage = TRUE
+
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a raging Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 20 SECONDS)
 	var/mob/dead/observer/harry = null
-	spawn(rand(200, 600))
-		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
-		//Protip: This returns clients, not ghosts
-		candidates = get_candidate_ghosts(ROLE_WIZARD)
-		if(!candidates.len)
-			message_admins("No applicable clients for the next ragin' mage, asking ghosts instead.")
-			var/time_passed = world.time
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-					spawn(0)
-						switch(alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									continue
-								candidates += G
-							if("No")
-								continue
-			sleep(300)
-		if(!candidates.len)
-			message_admins("This is awkward, sleeping until another mage check...")
-			making_mage = 0
-			return
+	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
+
+	if(!candidates.len)
+		message_admins("This is awkward, sleeping until another mage check..")
+		making_mage = FALSE
+		sleep(300)
+		return
+	else
+		harry = pick(candidates)
+		making_mage = FALSE
+		if(harry)
+			var/mob/living/carbon/human/new_character= makeBody(harry)
+			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+			mages_made++
+			return TRUE
 		else
-			candidates = shuffle(candidates)
-			for(var/mob/dead/observer/i in candidates)
-				if(!i) continue //Dont bother removing them from the list since we only grab one wizard
-
-				// YER A WIZZERD HARRY
-				harry = i
-				break
-
-			making_mage = 0
-			if(harry)
-				var/mob/living/carbon/human/new_character= makeBody(harry)
-
-
-				new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
-				mages_made++
-				return 1
-			else
-				log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-				return 0
+			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
+			return FALSE
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
 // Lemme know if this causes species to mess up spectacularly or anything
 /datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
-	if(!G || !G.key) return // Let's not steal someone's soul here
-
+	if(!G || !G.key)
+		return // Let's not steal someone's soul here
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))
-
 	G.client.prefs.copy_to(new_character)
-
 	new_character.key = G.key
-
 	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()

@@ -149,7 +149,7 @@ var/list/chatResources = list(
 				var/list/row = connectionHistory[i]
 				if(!row || row.len < 3 || !(row["ckey"] && row["compid"] && row["ip"]))
 					return
-				if(world.IsBanned(row["ckey"], row["compid"], row["ip"]))
+				if(world.IsBanned(row["ckey"], row["compid"], row["ip"], FALSE))
 					found = row
 					break
 

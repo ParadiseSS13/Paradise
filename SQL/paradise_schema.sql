@@ -267,6 +267,8 @@ CREATE TABLE `player` (
   `exp` mediumtext,
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
+  `fuid` BIGINT(20) NULL DEFAULT NULL,
+  `fupdate` SMALLINT(4) NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
@@ -551,15 +553,27 @@ CREATE TABLE `memo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `discord`
+-- Table structure for table `ipintel`
 --
-DROP TABLE IF EXISTS `discord`;
+DROP TABLE IF EXISTS `ipintel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `discord` (
-  `ckey` varchar(32) NOT NULL,
-  `discord_id` bigint(20) NOT NULL,
-  `notify` int(11) NOT NULL,
-  PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE  `ipintel` (
+`ip` INT UNSIGNED NOT NULL ,
+`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL ,
+`intel` REAL NOT NULL DEFAULT  '0',
+PRIMARY KEY (  `ip` )
+) ENGINE = INNODB;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vpn_whitelist`
+--
+DROP TABLE IF EXISTS `vpn_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vpn_whitelist` (
+  `ckey` VARCHAR(32) NOT NULL,
+  `reason` text
+  PRIMARY KEY (`ckey`)
+) ENGINE=INNODB;

@@ -246,7 +246,7 @@
 		return
 
 	// Clumsy folks can only flush it.
-	if(user.IsAdvancedToolUser(1))
+	if(user.IsAdvancedToolUser())
 		ui_interact(user)
 	else
 		flush = !flush

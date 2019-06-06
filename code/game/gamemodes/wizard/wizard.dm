@@ -8,7 +8,6 @@
 	required_enemies = 1
 	recommended_enemies = 1
 	free_golems_disabled = TRUE
-
 	var/use_huds = 0
 	var/finished = 0
 	var/but_wait_theres_more = 0
@@ -16,7 +15,6 @@
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
 	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
-
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
 	if(!..())
@@ -41,7 +39,6 @@
 		wiz.current.loc = pick(wizardstart)
 	..()
 	return 1
-
 
 /datum/game_mode/wizard/post_setup()
 	for(var/datum/mind/wizard in wizards)
@@ -74,7 +71,6 @@
 	wizhud.join_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, ((wiz_mind in wizards) ? "hudwizard" : "apprentice"))
 
-
 /datum/game_mode/proc/update_wiz_icons_removed(datum/mind/wiz_mind)
 	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
 	wizhud.leave_hud(wiz_mind.current)
@@ -85,7 +81,6 @@
 	wiz_objective.owner = wizard
 	wizard.objectives += wiz_objective
 	return
-
 
 /datum/game_mode/proc/name_wizard(mob/living/carbon/human/wizard_mob)
 	//Allows the wizard to choose a custom name or go with a random one. Spawn 0 so it does not lag the round starting.
@@ -104,7 +99,6 @@
 			wizard_mob.mind.name = newname
 	return
 
-
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
@@ -116,7 +110,6 @@
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
-
 
 /*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
@@ -165,7 +158,6 @@
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return 1
 
-
 /datum/game_mode/wizard/check_finished()
 	var/wizards_alive = 0
 	var/traitors_alive = 0
@@ -190,15 +182,12 @@
 		finished = 1
 		return 1
 
-
-
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1
-
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)

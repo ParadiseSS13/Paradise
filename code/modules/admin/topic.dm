@@ -2739,7 +2739,7 @@
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
-				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining asteroid")
+				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("retardify")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)

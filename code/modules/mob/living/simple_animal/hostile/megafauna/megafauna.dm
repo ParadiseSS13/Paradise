@@ -1,5 +1,3 @@
-#define MEDAL_PREFIX "Boss"
-
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
 	desc = "Attack the weak point for massive damage."
@@ -33,7 +31,7 @@
 	/obj/structure/barricade,
 	/obj/machinery/field,
 	/obj/machinery/power/emitter)
-	var/medal_type = MEDAL_PREFIX
+	var/medal_type
 	var/score_type = BOSS_SCORE
 	var/elimination = 0
 	var/anger_modifier = 0
@@ -42,7 +40,7 @@
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
-	layer = MOB_LAYER + 0.5 //Looks weird with them slipping under mineral walls and cameras and shit otherwise
+	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
@@ -102,122 +100,16 @@
 		if(3)
 			adjustBruteLoss(50)
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype,scoretype)
+/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
+	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
+		return FALSE
 
-	if(medal_type == "Boss")	//Don't award medals if the medal type isn't set
-		return
-
-	if(admin_spawned)
-		return
-
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-		for(var/mob/living/L in view(7,src))
-			if(L.stat)
-				continue
-			if(L.client)
-				var/client/C = L.client
-				var/suffixm = BOSS_KILL_MEDAL
-				UnlockMedal("Boss [suffixm]",C)
-				UnlockMedal("[medaltype] [suffixm]",C)
-				SetScore(BOSS_SCORE,C,1)
-				SetScore(score_type,C,1)
-
-/proc/UnlockMedal(medal,client/player)
-
-	if(!player || !medal)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-		spawn()
-			var/result = world.SetMedal(medal, player, global.medal_hub, global.medal_pass)
-			if(isnull(result))
-				global.medals_enabled = FALSE
-				log_game("MEDAL ERROR: Could not contact hub to award medal:[medal] player:[player.ckey]")
-				message_admins("Error! Failed to contact hub to award [medal] medal to [player.ckey]!")
-			else if(result)
-				to_chat(player.mob, "<span class='greenannounce'><B>Achievement unlocked: [medal]!</B></span>")
-
-
-/proc/SetScore(score,client/player,increment,force)
-
-	if(!score || !player)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-		spawn()
-			var/list/oldscore = GetScore(score,player,1)
-
-			if(increment)
-				if(!oldscore[score])
-					oldscore[score] = 1
-				else
-					oldscore[score] = (text2num(oldscore[score]) + 1)
-			else
-				oldscore[score] = force
-
-			var/newscoreparam = list2params(oldscore)
-
-			var/result = world.SetScores(player.ckey, newscoreparam, global.medal_hub, global.medal_pass)
-
-			if(isnull(result))
-				global.medals_enabled = FALSE
-				log_game("SCORE ERROR: Could not contact hub to set score. Score:[score] player:[player.ckey]")
-				message_admins("Error! Failed to contact hub to set [score] score for [player.ckey]!")
-
-
-/proc/GetScore(score,client/player,returnlist)
-
-	if(!score || !player)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-
-		var/scoreget = world.GetScores(player.ckey, score, global.medal_hub, global.medal_pass)
-		if(isnull(scoreget))
-			global.medals_enabled = FALSE
-			log_game("SCORE ERROR: Could not contact hub to get score. Score:[score] player:[player.ckey]")
-			message_admins("Error! Failed to contact hub to get score: [score] for [player.ckey]!")
-			return
-
-		var/list/scoregetlist = params2list(scoreget)
-
-		if(returnlist)
-			return scoregetlist
-		else
-			return scoregetlist[score]
-
-
-/proc/CheckMedal(medal,client/player)
-
-	if(!player || !medal)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-
-		var/result = world.GetMedal(medal, player, global.medal_hub, global.medal_pass)
-
-		if(isnull(result))
-			global.medals_enabled = FALSE
-			log_game("MEDAL ERROR: Could not contact hub to get medal:[medal] player:[player.ckey]")
-			message_admins("Error! Failed to contact hub to get [medal] medal for [player.ckey]!")
-		else if(result)
-			to_chat(player.mob, "[medal] is unlocked")
-
-/proc/LockMedal(medal,client/player)
-
-	if(!player || !medal)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-
-		var/result = world.ClearMedal(medal, player, global.medal_hub, global.medal_pass)
-
-		if(isnull(result))
-			global.medals_enabled = FALSE
-			log_game("MEDAL ERROR: Could not contact hub to clear medal:[medal] player:[player.ckey]")
-			message_admins("Error! Failed to contact hub to clear [medal] medal for [player.ckey]!")
-		else if(result)
-			message_admins("Medal: [medal] removed for [player.ckey]")
-		else
-			message_admins("Medal: [medal] was not found for [player.ckey]. Unable to clear.")
-
-
-/proc/ClearScore(client/player)
-	world.SetScores(player.ckey, "", global.medal_hub, global.medal_pass)
-
-#undef MEDAL_PREFIX
+	for(var/mob/living/L in view(7,src))
+		if(L.stat || !L.client)
+			continue
+		var/client/C = L.client
+		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
+		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
+		SSmedals.SetScore(BOSS_SCORE, C, 1)
+		SSmedals.SetScore(score_type, C, 1)
+	return TRUE

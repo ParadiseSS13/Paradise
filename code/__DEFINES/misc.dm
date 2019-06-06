@@ -298,19 +298,6 @@
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
 
-// Medal names
-#define BOSS_KILL_MEDAL "Killer"
-#define ALL_KILL_MEDAL "Exterminator"	//Killing all of x type
-
-// Score names
-#define LEGION_SCORE "Legion Killed"
-#define COLOSSUS_SCORE "Colossus Killed"
-#define BUBBLEGUM_SCORE "Bubblegum Killed"
-#define DRAKE_SCORE "Drakes Killed"
-#define BIRD_SCORE "Hierophants Killed"
-#define BOSS_SCORE "Bosses Killed"
-#define TENDRIL_CLEAR_SCORE "Tendrils Killed"
-
 // The number of station goals generated each round.
 #define STATION_GOAL_BUDGET 1
 
@@ -368,12 +355,40 @@
 #define DEFIB_TIME_LIMIT 120
 #define DEFIB_TIME_LOSS 60
 
+//different types of atom colorations
+#define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
+#define TEMPORARY_COLOUR_PRIORITY 	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
+#define WASHABLE_COLOUR_PRIORITY 	3 //color splashed onto an atom (e.g. paint on turf)
+#define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
+#define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
+
+//Ruin Generation
+
+#define SPACERUIN_MAP_EDGE_PAD 15
+#define PLACEMENT_TRIES 100 //How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
+
+#define PLACE_DEFAULT "random"
+#define PLACE_SAME_Z "same"
+#define PLACE_SPACE_RUIN "space"
+#define PLACE_LAVA_RUIN "lavaland"
+
+//Cleaning tool strength
+// 1 is also a valid cleaning strength but completely unused so left undefined
+#define CLEAN_WEAK 			2
+#define CLEAN_MEDIUM		3 // Acceptable tools
+#define CLEAN_STRONG		4 // Industrial strength
+#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
+#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
+
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"
 #define GHOST_ORBIT_TRIANGLE	"triangle"
 #define GHOST_ORBIT_HEXAGON		"hexagon"
 #define GHOST_ORBIT_SQUARE		"square"
 #define GHOST_ORBIT_PENTAGON	"pentagon"
+
+//Explosive wall groups
+#define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
 // Filters
 #define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
@@ -387,3 +402,6 @@
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
 #define SENSOR_COORDS 3
+
+// Cult summon possibilities
+#define SUMMON_POSSIBILITIES 3

@@ -1,4 +1,3 @@
-#define MEDAL_PREFIX "Legion"
 /*
 
 LEGION
@@ -31,6 +30,7 @@ Difficulty: Medium
 	armour_penetration = 50
 	melee_damage_lower = 25
 	melee_damage_upper = 25
+	wander = 0
 	speed = 2
 	ranged = 1
 	del_on_death = 1
@@ -39,7 +39,7 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/size = 5
 	var/charging = 0
-	medal_type = MEDAL_PREFIX
+	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	pixel_y = -90
 	pixel_x = -75
@@ -143,5 +143,3 @@ Difficulty: Medium
 	gpstag = "Echoing Signal"
 	desc = "The message repeats."
 	invisibility = 100
-
-#undef MEDAL_PREFIX

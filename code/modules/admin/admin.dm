@@ -21,8 +21,11 @@ var/global/nologevent = 0
 					to_chat(C, msg)
 
 
-/proc/message_adminTicket(var/msg)
-	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+/proc/message_adminTicket(var/msg, var/alt = FALSE)
+	if(alt)
+		msg = "<span class=admin_channel>ADMIN TICKET: [msg]</span>"
+	else
+		msg = "<span class=adminticket><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
@@ -272,6 +275,15 @@ var/global/nologevent = 0
 		return
 
 	show_note(key)
+
+/datum/admins/proc/vpn_whitelist()
+	set category = "Admin"
+	set name = "VPN Ckey Whitelist"
+	if(!check_rights(R_ADMIN))
+		return
+	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
+	if(key)
+		vpn_whitelist_panel(key)
 
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Event"

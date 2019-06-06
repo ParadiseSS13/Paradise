@@ -55,13 +55,6 @@
 		update_icon()
 	return
 
-// this prevented pills, food, and other things from being picked up by bags.
-// possibly intentional, but removing it allows us to not duplicate functionality.
-// -Sayu (storage conslidation)
-/*
-/obj/item/reagent_containers/attackby(obj/item/I as obj, mob/user as mob, params)
-	return
-*/
 /obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
 	return
 

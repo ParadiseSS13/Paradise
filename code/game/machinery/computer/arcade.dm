@@ -484,7 +484,7 @@
 						playsound(src.loc, 'sound/effects/bang.ogg', 100, 1)
 						var/turf/simulated/floor/F
 						for(F in orange(1, src))
-							F.ChangeTurf(/turf/space)
+							F.ChangeTurf(F.baseturf)
 						atom_say("Something slams into the floor around [src], exposing it to space!")
 						if(hull)
 							sleep(10)

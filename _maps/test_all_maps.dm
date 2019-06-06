@@ -17,6 +17,20 @@
 	#include "map_files\RandomZLevels\wildwest.dmm"
 
 
+	// Lavaland Ruins
+	#include "map_files\RandomRuins\LavaRuins\lavaland_biodome_beach.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_animal_hospital.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_ash_walker1.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk1.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk2.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk3.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_hermit.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_hierophant.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_seed_vault.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_swarmer_crash.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_syndicate_base1.dmm"
+
+
 	// Space Ruins
 	#include "map_files\RandomRuins\SpaceRuins\abandonedzoo.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\asteroid1.dmm"

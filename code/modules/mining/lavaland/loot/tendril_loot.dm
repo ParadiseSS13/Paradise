@@ -126,12 +126,13 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	keytype = /obj/item/oar
 	burn_state = LAVA_PROOF | FIRE_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
 	var/turf/current = get_turf(src)
 
-	if(istype(next, /turf/unsimulated/floor/lava) || istype(current, /turf/unsimulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
+	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
 		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
@@ -168,6 +169,7 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
