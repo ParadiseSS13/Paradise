@@ -208,3 +208,9 @@
 
 /datum/effect_system/smoke_spread/sleeping
 	effect_type = /obj/effect/particle_effect/smoke/sleeping
+
+/proc/do_smoke(range=0, location=null, smoke_type = /obj/effect/particle_effect/smoke)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.effect_type = smoke_type
+	smoke.set_up(range, location)
+	smoke.start()
