@@ -2,6 +2,7 @@ var/list/obj/machinery/photocopier/faxmachine/allfaxes = list()
 var/list/admin_departments = list("Central Command")
 var/list/hidden_admin_departments = list("Syndicate")
 var/list/alldepartments = list()
+var/list/hidden_departments = list()
 var/global/list/fax_blacklist = list()
 
 /obj/machinery/photocopier/faxmachine
@@ -35,13 +36,23 @@ var/global/list/fax_blacklist = list()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
-		if(!(("[department]" in alldepartments) || ("[department]" in admin_departments) || ("[department]" in hidden_admin_departments)))
+		if(!(("[department]" in alldepartments) || ("[department]" in hidden_departments) || ("[department]" in admin_departments) || ("[department]" in hidden_admin_departments)))
 			alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = 1
+
+/obj/machinery/photocopier/faxmachine/longrange/syndie
+	name = "syndicate long range fax machine"
+	emagged = TRUE
+	req_one_access = list(access_syndicate)
+	//No point setting fax network, being emagged overrides that anyway.
+
+/obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
+	if(department != "Unknown")
+		hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
 	ui_interact(user)
@@ -119,7 +130,7 @@ var/global/list/fax_blacklist = list()
 			if((destination in admin_departments) || (destination in hidden_admin_departments))
 				send_admin_fax(usr, destination)
 			else
-				sendfax(destination,usr)
+				sendfax(destination, usr)
 
 			if(sendcooldown)
 				spawn(sendcooldown) // cooldown time
@@ -155,6 +166,7 @@ var/global/list/fax_blacklist = list()
 
 			if(emagged)
 				combineddepartments += hidden_admin_departments.Copy()
+				combineddepartments += hidden_departments.Copy()
 
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)
