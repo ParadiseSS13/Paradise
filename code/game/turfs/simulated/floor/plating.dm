@@ -19,12 +19,10 @@
 
 /turf/simulated/floor/plating/damaged/New()
 	..()
-	icon_state = icon_plating
 	break_tile()
 
 /turf/simulated/floor/plating/burnt/New()
 	..()
-	icon_state = icon_plating
 	burn_tile()
 
 /turf/simulated/floor/plating/update_icon()

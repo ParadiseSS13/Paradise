@@ -495,7 +495,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/narsie/New()
 	..()
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat.entity_title3]. Requires 9 invokers."
+	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 9 invokers."
 
 /obj/effect/rune/narsie/check_icon()
 	return

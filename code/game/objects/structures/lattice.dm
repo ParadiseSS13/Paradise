@@ -32,6 +32,8 @@
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	if(istype(C, /obj/item/wirecutters))
+		var/obj/item/wirecutters/W = C
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
 		deconstruct()
 	else

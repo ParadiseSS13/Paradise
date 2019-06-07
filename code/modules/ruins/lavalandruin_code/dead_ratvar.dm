@@ -75,6 +75,10 @@
 	climbable = TRUE
 	max_integrity = 100
 	can_deconstruct = TRUE
+	anchored = TRUE
+	density = TRUE
+	unacidable = TRUE
+	resistance_flags = FIRE_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 
 /obj/structure/clockwork/wall_gear/displaced
@@ -227,7 +231,7 @@
 	icon_state = "fallen_armor"
 	w_class = WEIGHT_CLASS_NORMAL
 
-//Ratvarian spear: A relatively fragile spear from the Celestial Derelict. Deals extreme damage to silicons and enemy cultists, but doesn't last long when summoned.
+//Ratvarian spear
 /obj/item/clockwork/weapon/ratvarian_spear
 	name = "ratvarian spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."

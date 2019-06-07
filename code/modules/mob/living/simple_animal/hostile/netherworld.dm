@@ -64,7 +64,7 @@
 	attacktext = "punches"
 	deathmessage = "falls apart into a fine dust."
 
-/mob/living/simple_animal/hostile/spawner
+/mob/living/simple_animal/hostile/spawner/nether
 	name = "netherworld link"
 	desc = null //see examine()
 	icon_state = "nether"
@@ -76,18 +76,18 @@
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
 	faction = list("nether")
 
-/obj/structure/spawner/nether/Initialize()
+/mob/living/simple_animal/hostile/spawner/nether/Initialize()
 	.=..()
 	START_PROCESSING(SSprocessing, src)
 
-/obj/structure/spawner/nether/examine(mob/user)
+/mob/living/simple_animal/hostile/spawner/nether/examine(mob/user)
 	..()
 	if(isskeleton(user))
 		to_chat(user, "A direct link to another dimension full of creatures very happy to see you. <span class='nicegreen'>You can see your house from here!</span>")
 	else
 		to_chat(user, "A direct link to another dimension full of creatures not very happy to see you. <span class='warning'>Entering the link would be a very bad idea.</span>")
 
-/obj/structure/spawner/nether/attack_hand(mob/user)
+/mob/living/simple_animal/hostile/spawner/nether/attack_hand(mob/user)
 	. = ..()
 	if(isskeleton(user))
 		to_chat(user, "<span class='notice'>You don't feel like going home yet...</span>")
@@ -96,7 +96,7 @@
 							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
 		contents.Add(user)
 
-/obj/structure/spawner/nether/process()
+/mob/living/simple_animal/hostile/spawner/nether/process()
 	for(var/mob/living/M in contents)
 		if(M)
 			playsound(src, 'sound/magic/demon_consume.ogg', 50, 1)

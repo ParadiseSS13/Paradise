@@ -30,10 +30,7 @@
 	},
 /area/ruin/unpowered)
 "g" = (
-/obj/structure/reagent_dispensers/water_cooler{
-	name = "punch cooler";
-	reagent_id = /datum/reagent/consumable/ethanol/bacchus_blessing
-	},
+/obj/structure/reagent_dispensers/water_cooler/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
 	oxygen = 14;

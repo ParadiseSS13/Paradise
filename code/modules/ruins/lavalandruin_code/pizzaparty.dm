@@ -5,3 +5,7 @@
 				/obj/item/pizzabox/mushroom = 3,
 				/obj/item/pizza_bomb = 1)
 	lootdoubles = FALSE
+
+/obj/structure/reagent_dispensers/water_cooler/pizzaparty
+	name = "punch cooler"
+	reagent_id = "bacchus_blessing"
