@@ -8413,11 +8413,11 @@
 	name = "MO19 Arrivals"
 	})
 "mb" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/awaycontent/a1{
@@ -8431,7 +8431,7 @@
 	name = "MO19 Arrivals"
 	})
 "md" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -8592,11 +8592,11 @@
 	name = "MO19 Arrivals"
 	})
 "mr" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
@@ -8623,11 +8623,11 @@
 	name = "MO19 Arrivals"
 	})
 "mu" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/landmark{
 	name = "awaystart"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/awaycontent/a1{
@@ -8965,10 +8965,10 @@
 	name = "MO19 Arrivals"
 	})
 "mX" = (
-/obj/structure/chair,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
 	},
@@ -9070,10 +9070,10 @@
 	name = "MO19 Arrivals"
 	})
 "nh" = (
-/obj/structure/chair{
+/obj/machinery/light/small,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/small,
 /turf/simulated/shuttle/floor,
 /area/awaycontent/a1{
 	has_gravity = 1;

@@ -219,7 +219,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "aH" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -361,7 +361,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "ba" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -369,7 +369,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "bb" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -475,7 +475,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "bq" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -534,7 +534,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "by" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -648,7 +648,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "bN" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -656,7 +656,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "bO" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -1638,7 +1638,7 @@
 	},
 /area/awaymission/spacebattle/syndicate4)
 "eQ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -2419,7 +2419,7 @@
 	},
 /area/awaymission/spacebattle/syndicate7)
 "hM" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -2727,7 +2727,7 @@
 	},
 /area/awaymission/spacebattle/syndicate5)
 "iI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -2813,7 +2813,7 @@
 	},
 /area/awaymission/spacebattle/syndicate6)
 "iW" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate,

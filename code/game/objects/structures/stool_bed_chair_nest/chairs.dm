@@ -146,35 +146,38 @@
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
-	color = rgb(255,255,255)
+	color = rgb(255, 255, 255)
 	burn_state = FLAMMABLE
 	burntime = 30
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
 
-/obj/structure/chair/comfy/New()
-	armrest = image("icons/obj/chairs.dmi", "comfychair_armrest")
+/obj/structure/chair/comfy/Initialize(mapload)
+	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
+
+/obj/structure/chair/comfy/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
 	return ..()
 
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays += armrest
-	else
-		overlays -= armrest
+	. = ..()
+	update_armrest()
 
 /obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays -= armrest
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/comfy/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
 	else
-		overlays += armrest
+		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
 	color = rgb(141,70,0)
@@ -208,6 +211,14 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+
+/obj/structure/chair/comfy/shuttle
+	name = "shuttle seat"
+	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
+	icon_state = "shuttle_chair"
+
+/obj/structure/chair/comfy/shuttle/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
