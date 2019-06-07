@@ -618,7 +618,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 			if(!user.unEquip(W))
 				return
 			build_step++
-			to_chat(user, "<span class='notice'>You add the bikehorn to [src] Honk!</span>")
+			to_chat(user, "<span class='notice'>You add the bikehorn to [src]! Honk!</span>")
 			desc = "A clown box with a robot arm and a bikehorn permanently grafted to it. It needs a trombone to be finished"
 			qdel(W)
 	else if(build_step == 2)
