@@ -915,4 +915,4 @@
 	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)

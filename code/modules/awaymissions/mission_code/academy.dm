@@ -87,7 +87,12 @@
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
-		forceMove(get_turf(user))
+		user.unEquip(src)
+
+/obj/item/dice/d20/fate/proc/create_smoke(amount)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(amount, 0, drop_location())
+	smoke.start()
 
 /obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user, roll)
 	var/turf/T = get_turf(src)
@@ -109,7 +114,7 @@
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
 			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant))
+				if(istype(I, /obj/item/implant) || istype(I, /obj/item/organ))
 					continue
 				qdel(I)
 		if(5)
@@ -124,7 +129,7 @@
 		if(7)
 			//Throw
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
-			user.Stun(60)
+			user.Stun(6)
 			user.adjustBruteLoss(50)
 			var/throw_dir = cardinal
 			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
@@ -145,12 +150,12 @@
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
 			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
-			do_smoke(0, drop_location())
+			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
 			//Healing
 			T.visible_message("<span class='userdanger'>[user] looks very healthy!</span>")
-			user.revive(full_heal = 1, admin_revive = 1)
+			user.revive()
 		if(13)
 			//Mad Dosh
 			T.visible_message("<span class='userdanger'>Mad dosh shoots out of [src]!</span>")
@@ -166,24 +171,24 @@
 		if(14)
 			//Free Gun
 			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
-			do_smoke(0, drop_location())
+			create_smoke(2)
 			new /obj/item/gun/projectile/revolver/mateba(drop_location())
 		if(15)
 			//Random One-use spellbook
 			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
-			do_smoke(0, drop_location())
+			create_smoke(2)
 			new /obj/item/spellbook/oneuse/random(drop_location())
 		if(16)
 			//Servant & Servant Summon
 			T.visible_message("<span class='userdanger'>A Dice Servant appears in a cloud of smoke!</span>")
 			var/mob/living/carbon/human/H = new(drop_location())
-			do_smoke(0, drop_location())
+			create_smoke(2)
 
 			H.equipOutfit(/datum/outfit/butler)
 			var/datum/mind/servant_mind = new /datum/mind()
 			var/datum/objective/O = new
 			O.owner = servant_mind
-			O.target = H.mind
+			O.target = user.mind
 			O.explanation_text = "Serve [user.real_name]."
 			servant_mind.objectives += O
 			servant_mind.transfer_to(H)
@@ -193,6 +198,7 @@
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key
+				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
 			var/obj/effect/proc_holder/spell/targeted/summonmob/S = new
 			S.target_mob = H
@@ -202,12 +208,12 @@
 			//Tator Kit
 			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
 			new /obj/item/storage/box/syndicate(drop_location())
-			do_smoke(0, drop_location())
+			create_smoke(2)
 		if(18)
 			//Captain ID
 			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
 			new /obj/item/card/id/captains_spare(drop_location())
-			do_smoke(0, drop_location())
+			create_smoke(2)
 		if(19)
 			//Instrinct Resistance
 			T.visible_message("<span class='userdanger'>[user] looks very robust!</span>")
