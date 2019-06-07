@@ -40,7 +40,7 @@
 	. = list()
 	if(!isnum(amount) || amount<1)
 		return
-	if(!dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		if(fail_loud || prob(5))
 			var/obj/item/paper/P = new(location)
 			P.info = "There once was a book from Nantucket<br>But the database failed us, so f*$! it.<br>I tried to be good to you<br>Now this is an I.O.U<br>If you're feeling entitled, well, stuff it!<br><br><font color='gray'>~</font>"
@@ -49,7 +49,7 @@
 	if(prob(25))
 		category = null
 	var/c = category? " AND category='[sanitizeSQL(category)]'" :""
-	var/DBQuery/query_get_random_books = dbcon.NewQuery("SELECT * FROM [format_table_name("library")] WHERE (isnull(flagged) OR flagged = 0)[c] GROUP BY title ORDER BY rand() LIMIT [amount];")
+	var/datum/DBQuery/query_get_random_books = SSdbcore.NewQuery("SELECT * FROM [format_table_name("library")] WHERE (isnull(flagged) OR flagged = 0)[c] GROUP BY title ORDER BY rand() LIMIT [amount];")
 	query_get_random_books.Execute()
 	while(query_get_random_books.NextRow())
 		var/obj/item/book/B = new(location)

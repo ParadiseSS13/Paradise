@@ -586,14 +586,14 @@
 		to_chat(src, "<B>You do not have your forum account linked. <a href='?src=[UID()];link_forum_account=true'>LINK FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
-	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
+	var/datum/DBQuery/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_token.Execute())
 		log_debug("create_oauth_token: failed db read")
 		return
 	if(query_find_token.NextRow())
 		return query_find_token.item[1]
 	var/tokenstr = md5("[ckey][rand()]")
-	var/DBQuery/query_insert_token = dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
+	var/datum/DBQuery/query_insert_token = SSdbcore.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
 	if(!query_insert_token.Execute())
 		return
 	return tokenstr
@@ -605,7 +605,7 @@
 	if(prefs && prefs.fuid)
 		to_chat(src, "Your forum account is already set.")
 		return
-	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
+	var/datum/DBQuery/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_link.Execute())
 		log_debug("link_forum_account: failed db read")
 		return

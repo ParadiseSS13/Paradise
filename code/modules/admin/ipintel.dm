@@ -34,9 +34,9 @@
 			cachedintel.cache = TRUE
 			return cachedintel
 
-		if(dbcon.IsConnected())
+		if(SSdbcore.IsConnected())
 			var/rating_bad = config.ipintel_rating_bad
-			var/DBQuery/query_get_ip_intel = dbcon.NewQuery({"
+			var/datum/DBQuery/query_get_ip_intel = SSdbcore.NewQuery({"
 				SELECT date, intel, TIMESTAMPDIFF(MINUTE,date,NOW())
 				FROM [format_table_name("ipintel")]
 				WHERE
@@ -67,8 +67,8 @@
 	res.intel = ip_intel_query(ip)
 	if(updatecache && res.intel >= 0)
 		SSipintel.cache[ip] = res
-		if(dbcon.IsConnected())
-			var/DBQuery/query_add_ip_intel = dbcon.NewQuery("INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON('[ip]'), [res.intel]) ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()")
+		if(SSdbcore.IsConnected())
+			var/datum/DBQuery/query_add_ip_intel = SSdbcore.NewQuery("INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON('[ip]'), [res.intel]) ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()")
 			query_add_ip_intel.Execute()
 			qdel(query_add_ip_intel)
 
@@ -139,7 +139,7 @@
 		return FALSE
 	if(!config.ipintel_whitelist)
 		return FALSE
-	if(!dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return FALSE
 	if(!ipintel_badip_check(t_ip))
 		return FALSE
@@ -160,7 +160,7 @@
 	rating_bad = sanitizeSQL(rating_bad)
 	valid_hours = sanitizeSQL(valid_hours)
 	var/check_sql = {"SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON('[target_ip]') AND intel >= [rating_bad] AND (date + INTERVAL [valid_hours] HOUR) > NOW()"}
-	var/DBQuery/query_get_ip_intel = dbcon.NewQuery(check_sql)
+	var/datum/DBQuery/query_get_ip_intel = SSdbcore.NewQuery(check_sql)
 	if(!query_get_ip_intel.Execute())
 		log_debug("ipintel_badip_check reports failed query execution")
 		qdel(query_get_ip_intel)
@@ -175,7 +175,7 @@
 	if(!config.ipintel_whitelist)
 		return FALSE
 	var/target_sql_ckey = ckey(target_ckey)
-	var/DBQuery/query_whitelist_check = dbcon.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
+	var/datum/DBQuery/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_whitelist_check.Execute())
 		var/err = query_whitelist_check.ErrorMsg()
 		log_debug("SQL ERROR on proc/vpn_whitelist_check for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
@@ -190,7 +190,7 @@
 	if(!reason_string)
 		return FALSE
 	reason_string = sanitizeSQL(reason_string)
-	var/DBQuery/query_whitelist_add = dbcon.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES ('[target_sql_ckey]','[reason_string]')")
+	var/datum/DBQuery/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES ('[target_sql_ckey]','[reason_string]')")
 	if(!query_whitelist_add.Execute())
 		var/err = query_whitelist_add.ErrorMsg()
 		log_debug("SQL ERROR on proc/vpn_whitelist_add for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
@@ -199,7 +199,7 @@
 
 /proc/vpn_whitelist_remove(target_ckey)
 	var/target_sql_ckey = ckey(target_ckey)
-	var/DBQuery/query_whitelist_remove = dbcon.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
+	var/datum/DBQuery/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_whitelist_remove.Execute())
 		var/err = query_whitelist_remove.ErrorMsg()
 		log_debug("SQL ERROR on proc/vpn_whitelist_remove for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")

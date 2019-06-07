@@ -570,9 +570,9 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	usr << browse(output,"window=lookupbans;size=900x700")
 
 /proc/flag_account_for_forum_sync(ckey)
-	if(!dbcon)
+	if(!SSdbcore)
 		return
 	var/skey = sanitizeSQL(ckey)
 	var/sql = "UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey = '[skey]'"
-	var/DBQuery/adm_query = dbcon.NewQuery(sql)
+	var/datum/DBQuery/adm_query = SSdbcore.NewQuery(sql)
 	adm_query.Execute()
