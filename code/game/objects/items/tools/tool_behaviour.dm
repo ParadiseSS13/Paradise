@@ -3,9 +3,8 @@
 /obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
-	if(!delay && !tool_start_check(user, amount))
+	if(!tool_start_check(user, amount) && !delay)
 		return
-
 	delay *= toolspeed
 
 	// Play tool sound at the beginning of tool usage.
