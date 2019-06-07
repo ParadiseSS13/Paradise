@@ -177,6 +177,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
+/obj/item/seeds/wheat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aC" = (
@@ -256,6 +257,8 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/obj/item/seeds/comfrey,
+/obj/item/seeds/aloe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aN" = (
@@ -1256,10 +1259,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "do" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/sink/puddle,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
