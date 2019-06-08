@@ -160,15 +160,15 @@
 	title = "Shaft Miner"
 	flag = MINER
 	department_flag = SUPPORT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 6
+	spawn_positions = 6
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Spelunker")
+	alt_titles = list("Spelunker", "Lavaland Hunter")
 	outfit = /datum/outfit/job/mining
 
 /datum/outfit/job/mining
@@ -187,9 +187,10 @@
 		/obj/item/storage/bag/ore=1,\
 		/obj/item/kitchen/knife/combat/survival=1,\
 		/obj/item/mining_voucher=1,\
-		/obj/item/stack/marker_beacon/ten=1
+		/obj/item/stack/marker_beacon/ten=1,\
+		/obj/item/gps/mining=1
 	)
-	
+
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/explorer
 
