@@ -597,7 +597,7 @@
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Lazarus Kit", "Kinetic Accelerator", "Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Crusher Kit", "Mining Conscription Kit", "Advanced Scanner")
+	var/items = list("Kinetic Accelerator", "Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Crusher Kit", "Mining Conscription Kit", "Lazarus Kit",  "Advanced Scanner")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
