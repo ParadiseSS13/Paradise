@@ -60,7 +60,7 @@
 /obj/structure/closet/secure_closet/miner/New()
 	..()
 	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
+	new /obj/item/pickaxe/mini(src)
 	new /obj/item/radio/headset/headset_cargo/mining(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore(src)
@@ -109,6 +109,12 @@
 
 /obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
+
+/obj/item/pickaxe/mini
+	name = "compact pickaxe"
+	icon_state = "minipick"
+	w_class = WEIGHT_CLASS_NORMAL
+	toolspeed = 1.2
 
 /obj/item/pickaxe/emergency
 	name = "emergency disembarkation tool"

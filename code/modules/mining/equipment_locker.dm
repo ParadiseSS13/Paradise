@@ -597,7 +597,7 @@
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Kinetic Accelerator", "Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Crusher Kit", "Mining Conscription Kit", "Advanced Scanner")
+	var/items = list("Lazarus Kit", "Kinetic Accelerator", "Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Crusher Kit", "Mining Conscription Kit", "Advanced Scanner")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -619,10 +619,17 @@
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/required/kinetic_crusher(drop_location)
+			new /obj/item/storage/belt/mining(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 		if("Advanced Scanner")
 			new /obj/item/t_scanner/adv_mining_scanner(drop_location)
+		if("Lazarus Kit")
+			new /obj/item/storage/belt/lazarus(drop_location)
+			new /obj/item/mobcapsule(drop_location)
+			new /obj/item/lazarus_injector(drop_location)
+			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
+			new /obj/item/stack/medical/ointment/advanced(drop_location)
 
 	qdel(voucher)
 
