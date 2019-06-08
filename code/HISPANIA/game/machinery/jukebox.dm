@@ -89,6 +89,9 @@
 		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
 		return
 
+	if(!Adjacent(user) && !isAI(user))
+		return
+
 	add_fingerprint(user)
 	ui_interact(user)
 
