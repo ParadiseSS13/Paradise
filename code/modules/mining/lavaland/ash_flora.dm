@@ -27,6 +27,17 @@
 	if(prob(15))
 		harvest(null, TRUE)
 
+/obj/structure/flora/ash/ex_act(severity, target)	
+	switch(severity)	
+		if(1)	
+			qdel(src)	
+		if(2)	
+			if(prob(80))	
+				qdel(src)	
+		if(3)	
+			if(prob(50))	
+				qdel(src)
+
 /obj/structure/flora/ash/proc/harvest(user, no_drop)
 	if(harvested)
 		return 0
