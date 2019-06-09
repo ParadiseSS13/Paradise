@@ -1280,7 +1280,7 @@
 		src.debug_variables(DAT)
 
 	if(href_list["copyoutfit"])
-		if(!check_rights(R_SPAWN))
+		if(!check_rights(R_EVENT))
 			return
 		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
 		if(istype(H))

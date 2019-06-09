@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	set category = "Debug"
 	set name = "Outfit Manager"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_EVENT))
 		return
 	holder.outfit_manager(usr)
 
@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	var/list/headwear = typesof(/obj/item/clothing/head)
 	var/list/glasses = typesof(/obj/item/clothing/glasses)
 	var/list/masks = typesof(/obj/item/clothing/mask)
+	var/list/pdas = typesof(/obj/item/pda)
 	var/list/ids = typesof(/obj/item/card/id)
 
 	var/uniform_select = "<select name=\"outfit_uniform\"><option value=\"\">None</option>"
@@ -100,6 +101,11 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	for(var/path in ids)
 		id_select += "<option value=\"[path]\">[path]</option>"
 	id_select += "</select>"
+
+	var/pda_select = "<select name=\"outfit_id\"><option value=\"\">None</option>"
+	for(var/path in pdas)
+		pda_select += "<option value=\"[path]\">[path]</option>"
+	pda_select += "</select>"
 
 	var/dat = {"
 	<html><head><title>Create Outfit</title></head><body>
@@ -186,6 +192,12 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 			</td>
 		</tr>
 		<tr>
+			<th>PDA:</th>
+			<td>
+				[pda_select]
+			</td>
+		</tr>
+		<tr>
 			<th>Left Pocket:</th>
 			<td>
 				<input type="text" name="outfit_l_pocket" value="">
@@ -241,6 +253,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	O.l_pocket = text2path(href_list["outfit_l_pocket"])
 	O.r_pocket = text2path(href_list["outfit_r_pocket"])
 	O.id = text2path(href_list["outfit_id"])
+	O.pda = text2path(href_list["outfit_pda"])
 	O.belt = text2path(href_list["outfit_belt"])
 	O.l_ear = text2path(href_list["outfit_l_ear"])
 	O.r_ear = text2path(href_list["outfit_r_ear"])

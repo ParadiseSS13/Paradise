@@ -625,19 +625,20 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
-		. = 1
+		. = TRUE
 	else
-		return 0
+		return FALSE
+
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				return 0
+				return FALSE
 			if(!A.allow_duplicates && AC.type == A.type)
-				return 0
+				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user)
+		attach_accessory(I, user, TRUE)
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
@@ -646,10 +647,11 @@ BLIND     // can't see anything
 
 	. = ..()
 
-/obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user)
+/obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
-		if(!user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
+		if(check_unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
 			return FALSE
+
 		accessories += A
 		A.on_attached(src, user)
 

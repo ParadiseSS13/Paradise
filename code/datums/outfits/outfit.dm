@@ -179,14 +179,14 @@
 /datum/outfit/proc/save_to_file(mob/admin)
 	var/stored_data = get_json_data()
 	var/json = json_encode(stored_data)
-	//Kinda annoying but as far as i can tell you need to make actual file.
+	// Kinda annoying but as far as I can tell you need to make actual file.
 	var/f = file("data/TempOutfitUpload") 
 	fdel(f)
 	WRITE_FILE(f, json)
 	admin << ftp(f, "[name].json")
 
 /datum/outfit/proc/load_from(list/outfit_data)
-	//This could probably use more strict validation
+	// This could probably use more strict validation.
 	name = outfit_data["name"]
 	uniform = text2path(outfit_data["uniform"])
 	suit = text2path(outfit_data["suit"])
@@ -200,13 +200,13 @@
 	r_ear = text2path(outfit_data["r_ear"])
 	glasses = text2path(outfit_data["glasses"])
 	id = text2path(outfit_data["id"])
+	pda = text2path(outfit_data["pda"])
 	l_pocket = text2path(outfit_data["l_pocket"])
 	r_pocket = text2path(outfit_data["r_pocket"])
 	suit_store = text2path(outfit_data["suit_store"])
 	r_hand = text2path(outfit_data["r_hand"])
 	l_hand = text2path(outfit_data["l_hand"])
-	pda = text2path(outfit_data["pda"])
-	internals_slot = outfit_data["internals_slot"]
+	internals_slot = text2path(outfit_data["internals_slot"])
 
 	var/list/backpack = outfit_data["backpack_contents"]
 	backpack_contents = list()
@@ -226,16 +226,16 @@
 	var/list/cybernetic_impl = outfit_data["cybernetic_implants"]
 	cybernetic_implants = list()
 	for(var/I in cybernetic_impl)
-		var/imptype = text2path(I)
-		if(imptype)
-			cybernetic_implants += cybernetic_impl
+		var/cybtype = text2path(I)
+		if(cybtype)
+			cybernetic_implants += cybtype
 
 	var/list/accessories = outfit_data["accessories"]
 	accessories = list()
 	for(var/A in accessories)
 		var/accessorytype = text2path(A)
 		if(accessorytype)
-			accessories += A
+			accessories += accessorytype
 
 	return TRUE
 
@@ -255,12 +255,12 @@
 	.["r_ear"] = r_ear
 	.["glasses"] = glasses
 	.["id"] = id
+	.["pda"] = pda
 	.["l_pocket"] = l_pocket
 	.["r_pocket"] = r_pocket
 	.["suit_store"] = suit_store
 	.["r_hand"] = r_hand
 	.["l_hand"] = l_hand
-	.["pda"] = pda
 	.["internals_slot"] = internals_slot
 	.["backpack_contents"] = backpack_contents
 	.["box"] = box

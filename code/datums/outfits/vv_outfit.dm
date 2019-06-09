@@ -35,6 +35,8 @@
 			glasses = item_path
 		if(slot_wear_id)
 			id = item_path
+		if(slot_wear_pda)
+			pda = item_path
 		if(slot_s_store)
 			suit_store = item_path
 		if(slot_l_store)
