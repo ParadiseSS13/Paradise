@@ -766,13 +766,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)
 		return
+
 	var/mob/living/carbon/human/new_char = new(get_turf(src))
 	client.prefs.copy_to(new_char)
 	if(mind)
-		mind.active = 1
+		mind.active = TRUE
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+	return new_char
 
 /mob/dead/observer/is_literate()
 	return TRUE

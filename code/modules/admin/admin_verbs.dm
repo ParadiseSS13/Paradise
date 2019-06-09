@@ -118,7 +118,8 @@ var/list/admin_verbs_event = list(
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
 	/client/proc/event_manager_panel,
-	/client/proc/modify_goals
+	/client/proc/modify_goals,
+	/client/proc/outfit_manager
 	)
 
 var/list/admin_verbs_spawn = list(

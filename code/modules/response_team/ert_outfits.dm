@@ -23,6 +23,10 @@
 		PDA.ownrank = rt_assignment
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
+/datum/outfit/job/centcom/response_team/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+
+	H.job = rt_mob_job
 
 //////////////////// COMMANDER ///////////////////
 
@@ -30,6 +34,7 @@
 	name = "RT Commander"
 	rt_assignment = "Emergency Response Team Leader"
 	rt_job = "Emergency Response Team Leader"
+	rt_mob_job = "ERT Commander" 
 
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	back = /obj/item/storage/backpack/ert/commander
@@ -38,6 +43,12 @@
 
 	l_pocket = /obj/item/pinpointer
 	r_pocket = /obj/item/melee/classic_baton/telescopic
+
+/datum/outfit/job/centcom/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+
+	H.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
+	H.age = rand(35,45)
 
 /datum/outfit/job/centcom/response_team/commander/amber
 	name = "RT Commander (Amber)"
@@ -107,6 +118,7 @@
 /datum/outfit/job/centcom/response_team/security
 	name = "RT Security"
 	rt_job = "Emergency Response Team Officer"
+	rt_mob_job = "ERT Security" 
 	uniform = /obj/item/clothing/under/rank/security
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/response_team
@@ -194,6 +206,7 @@
 /datum/outfit/job/centcom/response_team/engineer
 	name = "RT Engineer"
 	rt_job = "Emergency Response Team Engineer"
+	rt_mob_job = "ERT Engineering" 
 	back = /obj/item/storage/backpack/ert/engineer
 	uniform = /obj/item/clothing/under/rank/engineer
 
@@ -276,6 +289,7 @@
 /datum/outfit/job/centcom/response_team/medic
 	name = "RT Medic"
 	rt_job = "Emergency Response Team Medic"
+	rt_mob_job = "ERT Medical" 
 	uniform = /obj/item/clothing/under/rank/medical
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
@@ -312,6 +326,7 @@
 
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
+	rt_mob_job = "ERT Medical" 
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
@@ -377,6 +392,7 @@
 /datum/outfit/job/centcom/response_team/paranormal
 	name = "RT Paranormal"
 	rt_job = "Emergency Response Team Inquisitor"
+	rt_mob_job = "ERT Paranormal" 
 	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	gloves = /obj/item/clothing/gloves/color/black
@@ -391,6 +407,11 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1
 		)
+
+/datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind)
+		H.mind.isholy = TRUE
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
@@ -433,6 +454,7 @@
 /datum/outfit/job/centcom/response_team/janitorial
 	name = "RT Janitor"
 	rt_job = "Emergency Response Team Janitor"
+	rt_mob_job = "ERT Janitor"
 	uniform = /obj/item/clothing/under/color/purple
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
