@@ -11976,7 +11976,7 @@
 	},
 /area/syndicate_mothership)
 "BA" = (
-/obj/machinery/computer/shuttle/syncargo,
+/obj/machinery/computer/shuttle/syncargo/admin,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -12683,7 +12683,7 @@
 	dwidth = 7;
 	height = 5;
 	id = "syncargo_away";
-	name = "Syndicate Base";
+	name = "Syndicate HQ (ADMIN ONLY)";
 	width = 11
 	},
 /turf/unsimulated/floor{

@@ -11944,6 +11944,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_cargo)
+"Tx" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/syncargo,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_cargo)
 "UB" = (
 /obj/item/candle,
 /obj/structure/table,
@@ -64405,8 +64411,8 @@ Tj
 Tj
 Pr
 SM
-SM
-SM
+DK
+Tx
 BO
 OX
 Yh
