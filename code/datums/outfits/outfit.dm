@@ -22,8 +22,10 @@
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
-	var/list/implants = null
-	var/list/cybernetic_implants = null
+	var/box // Internals box. Will be inserted at the start of backpack_contents
+	var/list/implants = list()
+	var/list/cybernetic_implants = list()
+	var/list/accessories = list()
 
 	var/list/chameleon_extras //extra types for chameleon outfit changes, mostly guns
 
@@ -84,11 +86,23 @@
 	if(pda)
 		equip_item(H, pda, slot_wear_pda)
 
+	if(uniform)
+		for(var/path in accessories)
+			var/obj/item/clothing/accessory/A = new path()
+			var/obj/item/clothing/under/U = uniform
+			U.attach_accessory(A, H)
+
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
 			equip_item(H, l_pocket, slot_l_store)
 		if(r_pocket)
 			equip_item(H, r_pocket, slot_r_store)
+
+		if(box)
+			if(!backpack_contents)
+				backpack_contents = list()
+			backpack_contents.Insert(1, box)
+			backpack_contents[box] = 1
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -168,7 +182,7 @@
 	//Kinda annoying but as far as i can tell you need to make actual file.
 	var/f = file("data/TempOutfitUpload") 
 	fdel(f)
-	WRITE_FILE(f,json)
+	WRITE_FILE(f, json)
 	admin << ftp(f, "[name].json")
 
 /datum/outfit/proc/load_from(list/outfit_data)
@@ -191,19 +205,38 @@
 	suit_store = text2path(outfit_data["suit_store"])
 	r_hand = text2path(outfit_data["r_hand"])
 	l_hand = text2path(outfit_data["l_hand"])
+	pda = text2path(outfit_data["pda"])
 	internals_slot = outfit_data["internals_slot"]
+
 	var/list/backpack = outfit_data["backpack_contents"]
 	backpack_contents = list()
 	for(var/item in backpack)
 		var/itype = text2path(item)
 		if(itype)
 			backpack_contents[itype] = backpack[item]
+	box = text2path(outfit_data["box"])
+
 	var/list/impl = outfit_data["implants"]
 	implants = list()
 	for(var/I in impl)
 		var/imptype = text2path(I)
 		if(imptype)
 			implants += imptype
+
+	var/list/cybernetic_impl = outfit_data["cybernetic_implants"]
+	cybernetic_implants = list()
+	for(var/I in cybernetic_impl)
+		var/imptype = text2path(I)
+		if(imptype)
+			cybernetic_implants += cybernetic_impl
+
+	var/list/accessories = outfit_data["accessories"]
+	accessories = list()
+	for(var/A in accessories)
+		var/accessorytype = text2path(A)
+		if(accessorytype)
+			accessories += A
+
 	return TRUE
 
 /datum/outfit/proc/get_json_data()
@@ -227,6 +260,10 @@
 	.["suit_store"] = suit_store
 	.["r_hand"] = r_hand
 	.["l_hand"] = l_hand
+	.["pda"] = pda
 	.["internals_slot"] = internals_slot
 	.["backpack_contents"] = backpack_contents
+	.["box"] = box
 	.["implants"] = implants
+	.["cybernetic_implants"] = cybernetic_implants
+	.["accessories"] = accessories

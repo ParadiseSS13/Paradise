@@ -69,7 +69,7 @@
 
 	//Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(slot_w_uniform, slot_back, slot_wear_suit, slot_belt, slot_gloves, slot_shoes, slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses, slot_wear_id, slot_s_store, slot_l_store, slot_r_store)
+	var/list/slots_to_check = list(slot_w_uniform, slot_back, slot_wear_suit, slot_belt, slot_gloves, slot_shoes, slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses, slot_wear_id, slot_wear_pda, slot_s_store, slot_l_store, slot_r_store)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -87,7 +87,7 @@
 		if(ID && ID.registered_name == real_name)
 			O.update_id_name = TRUE
 	//Copy hands
-	if(l_hand && r_hand) //Not in the mood to let outfits transfer amputees
+	if(l_hand || r_hand) //Not in the mood to let outfits transfer amputees
 		var/obj/item/left_hand = l_hand
 		var/obj/item/right_hand = r_hand
 		if(istype(left_hand))
@@ -101,24 +101,39 @@
 			if(vedits)
 				result["RHAND"] = vedits
 	O.vv_values = result
+
 	//Copy backpack contents if exist.
 	var/obj/item/backpack = get_item_by_slot(slot_back)
-	if(istype(backpack) && SEND_SIGNAL(backpack, COMSIG_CONTAINS_STORAGE))
-		var/list/bp_stuff = list()
+	if(istype(backpack) && LAZYLEN(backpack.contents) > 0)
 		var/list/typecounts = list()
-		SEND_SIGNAL(backpack, COMSIG_TRY_STORAGE_RETURN_INVENTORY, bp_stuff, FALSE)
-		for(var/obj/item/I in bp_stuff)
+		for(var/obj/item/I in backpack)
 			if(typecounts[I.type])
 				typecounts[I.type] += 1
 			else
 				typecounts[I.type] = 1
 		O.backpack_contents = typecounts
 		//TODO : Copy varedits from backpack stuff too.
+
 	//Copy implants
 	O.implants = list()
 	for(var/obj/item/implant/I in contents)
 		if(istype(I))
 			O.implants |= I.type
+
+	// Copy cybernetic implants
+	O.cybernetic_implants = list()
+	for(var/obj/item/organ/internal/CI in contents)
+		if(istype(CI))
+			O.cybernetic_implants |= CI.type
+
+	// Copy accessories
+	if(O.uniform)
+		var/obj/item/clothing/under/U = O.uniform
+		O.accessories = list()
+		for(var/obj/item/clothing/accessory/A in U.accessories)
+			if(istype(A))
+				O.accessories |= A
+
 	//Copy to outfit cache
 	var/outfit_name = stripped_input(usr, "Enter the outfit name")
 	O.name = outfit_name
