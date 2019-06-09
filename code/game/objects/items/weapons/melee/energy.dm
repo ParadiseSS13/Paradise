@@ -175,23 +175,7 @@
 
 /obj/item/melee/energy/sword/saber/attackby(obj/item/W, mob/living/user, params)
 	..()
-	if(istype(W, /obj/item/melee/energy/sword/saber))
-		if(W == src)
-			to_chat(user, "<span class='notice'>You try to attach the end of the energy sword to... itself. You're not very smart, are you?</span>")
-			if(ishuman(user))
-				user.adjustBrainLoss(10)
-		else
-			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
-			if(src.hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = 1
-				newSaber.item_color = "rainbow"
-			user.unEquip(W)
-			user.unEquip(src)
-			qdel(W)
-			qdel(src)
-			user.put_in_hands(newSaber)
-	else if(istype(W, /obj/item/multitool))
+	if(istype(W, /obj/item/multitool))
 		if(hacked == 0)
 			hacked = 1
 			item_color = "rainbow"

@@ -534,6 +534,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/energy/sword/saber
 	cost = 8
 
+/datum/uplink_item/dangerous/dsword
+	name = "double-bladed energy sword"
+	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise, this one is doubled side and can reflect all energy projectiles"
+	reference = "DES"
+	item = /obj/item/twohanded/dualsaber
+	cost = 16
+
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
 	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply.\
@@ -1627,7 +1634,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
-	
+
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
