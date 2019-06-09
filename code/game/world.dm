@@ -369,7 +369,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(config && config.server_tag_line)
 		s += "<br>[config.server_tag_line]"
 
-	s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], " + get_security_level()
+	s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], " + capitalize(get_security_level())
 
 	s += "<br>"
 	var/list/features = list()
