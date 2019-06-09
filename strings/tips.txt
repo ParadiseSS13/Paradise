@@ -194,7 +194,7 @@ As a Terror Spider, don't forget you can move your nest if the crew is pressurin
 As a Terror Spider, try putting webs on white floor tiles, they are much harder to see there.
 As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure victory in melee combat.
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
-When your restrained to alien nest and theres somebody in a nest next to you, you can unbuckle eachother but not yourself.
+When you are restrained to alien nest and there is somebody in a nest next to you, you can unbuckle each other but not yourself.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
