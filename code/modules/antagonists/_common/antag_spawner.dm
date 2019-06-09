@@ -18,6 +18,7 @@
 	icon_state = "locator"
 	var/borg_to_spawn
 	var/checking = FALSE
+	var/rolename = "Syndicate Operative"
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -26,12 +27,12 @@
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 		return FALSE
-	if(!(user.mind in ticker.mode.syndicates))
+	if(!(user.mind in SSticker.mode.syndicates))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return FALSE
 	if(checking)
 		to_chat(user, "<span class='danger'>The device is already connecting to Syndicate command. Please wait.</span>")
-		return FALSE	
+		return FALSE
 	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/attack_self(mob/user)
@@ -45,7 +46,7 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/nuke_candidates = pollCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg" : "operative"]?", ROLE_OPERATIVE, TRUE, 150)
+	var/list/nuke_candidates = pollCandidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 150)
 	if(LAZYLEN(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -62,27 +63,27 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	var/agent_number = LAZYLEN(ticker.mode.syndicates) - 1
+	var/agent_number = LAZYLEN(SSticker.mode.syndicates) - 1
 	M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
 	set_syndicate_values(C, M)
-	ticker.mode.create_syndicate(M.mind)
-	ticker.mode.equip_syndicate(M, 0)
-	ticker.mode.update_syndicate_id(M.mind, FALSE)
+	SSticker.mode.create_syndicate(M.mind)
+	SSticker.mode.equip_syndicate(M, 0)
+	SSticker.mode.update_syndicate_id(M.mind, FALSE)
 
 /obj/item/antag_spawner/nuke_ops/proc/set_syndicate_values(client/C, mob/living/M)
 	M.key = C.key
 
-	ticker.mode.syndicates += M.mind
-	ticker.mode.update_synd_icons_added(M.mind)
+	SSticker.mode.syndicates += M.mind
+	SSticker.mode.update_synd_icons_added(M.mind)
 
 	M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
 	M.mind.special_role = SPECIAL_ROLE_NUKEOPS
 	M.mind.offstation_role = TRUE
 
 	M.faction = list("syndicate")
-	ticker.mode.forge_syndicate_objectives(M.mind)
-	ticker.mode.greet_syndicate(M.mind)
+	SSticker.mode.forge_syndicate_objectives(M.mind)
+	SSticker.mode.greet_syndicate(M.mind)
 
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
@@ -109,13 +110,15 @@
 
 	if(switch_roles_choice == "Syndicate Cyborg")
 		switch_roles = TRUE
+		rolename = initial(rolename)
 	else
 		switch_roles = FALSE
+		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
-	if(!(user in ticker.mode.syndicates))
+	if(!(user in SSticker.mode.syndicates))
 		used = FALSE
 		return
 
@@ -147,7 +150,7 @@
 		set_syndicate_values(user.current.client, R)
 
 		L.key = C.key
-		ticker.mode.greet_syndicate(L.mind)
+		SSticker.mode.greet_syndicate(L.mind)
 
 ///////////SLAUGHTER DEMON
 
@@ -164,7 +167,7 @@
 	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
-	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a demon from the Den..
+	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 
@@ -174,7 +177,10 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
-	var/list/candidates = pollCandidates("Do you want to play as a slaughter demon summoned by [user.real_name]?", ROLE_DEMON, 1, 100)
+	var/type = "slaughter"
+	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
+		type = "laughter"
+	var/list/candidates = pollCandidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, 1, 100)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
@@ -195,7 +201,7 @@
 	S.key = C.key
 	S.mind.assigned_role = S.name
 	S.mind.special_role = S.name
-	ticker.mode.traitors += S.mind
+	SSticker.mode.traitors += S.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = S.mind
 	KillDaWiz.target = user.mind
@@ -204,7 +210,6 @@
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.owner = S.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
-	S.mind.objectives += KillDaCrew
 	S.mind.objectives += KillDaCrew
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
@@ -217,7 +222,7 @@
 	color = "#FF69B4" // HOT PINK
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
-	objective_verb = "Hug and Tickle"
+	objective_verb = "Hug and tickle"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
 
 ///////////MORPH
@@ -245,7 +250,7 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
 
-	var/list/candidates = pollCandidates("Do you want to play as a morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
+	var/list/candidates = pollCandidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
@@ -259,12 +264,12 @@
 		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/M = new /mob/living/simple_animal/hostile/morph(pick(xeno_spawn))
+	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(xeno_spawn))
 	M.key = C.key
 	M.mind.assigned_role = SPECIAL_ROLE_MORPH
 	M.mind.special_role = SPECIAL_ROLE_MORPH
 	to_chat(M, M.playstyle_string)
-	ticker.mode.traitors += M.mind
+	SSticker.mode.traitors += M.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind

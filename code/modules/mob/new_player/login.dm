@@ -24,8 +24,6 @@
 	sight |= SEE_TURFS
 	GLOB.player_list |= src
 
-	callHook("mob_login", list("client" = client, "mob" = src))
-
 	new_player_panel()
 
 	spawn(30)

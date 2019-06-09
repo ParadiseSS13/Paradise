@@ -185,11 +185,12 @@
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir)
-	if(!inertia_moving)
+/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	if (!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
-	return 1
+	return TRUE
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
@@ -374,30 +375,28 @@
 	SSthrowing.processing[src] = TT
 	TT.tick()
 
+	return TRUE
 
 //Overlays
 /atom/movable/overlay
 	var/atom/master = null
-	anchored = 1
+	anchored = TRUE
+	simulated = FALSE
 
 /atom/movable/overlay/New()
 	verbs.Cut()
 	return
 
 /atom/movable/overlay/attackby(a, b, c)
-	if(src.master)
-		return src.master.attackby(a, b, c)
-	return
-
+	if(master)
+		return master.attackby(a, b, c)
 
 /atom/movable/overlay/attack_hand(a, b, c)
-	if(src.master)
-		return src.master.attack_hand(a, b, c)
-	return
+	if(master)
+		return master.attack_hand(a, b, c)
 
-
-/atom/movable/proc/water_act(var/volume, var/temperature, var/source) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
-	return 1
+/atom/movable/proc/water_act(volume, temperature, source, method = TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	if(!buckled_mob.Move(newloc, direct))

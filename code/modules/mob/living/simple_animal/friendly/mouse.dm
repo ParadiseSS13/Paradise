@@ -35,8 +35,9 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/mouse/Initialize()
+/mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -56,7 +57,7 @@
 
 /mob/living/simple_animal/mouse/Life()
 	..()
-	if(prob(0.5))
+	if(prob(0.5) && !ckey)
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
@@ -92,10 +93,9 @@
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if(ishuman(AM))
-		if(stat == CONSCIOUS)
+		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-			SEND_SOUND(M, squeak_sound)
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)

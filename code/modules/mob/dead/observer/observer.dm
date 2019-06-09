@@ -10,23 +10,23 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
-	layer = 4
+	layer = GHOST_LAYER
 	stat = DEAD
-	density = 0
-	canmove = 0
+	density = FALSE
+	canmove = FALSE
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
-	var/bootime = 0
+	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
-	universal_speak = 1
+	universal_speak = TRUE
 	var/atom/movable/following = null
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
-	var/ghostvision = 1 //is the ghost able to see things humans can't?
-	var/seedarkness = 1
+	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	var/seedarkness = TRUE
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
@@ -94,6 +94,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
+
+/mob/dead/observer/examine(mob/user)
+	..()
+	if(!invisibility)
+		to_chat(user, "It seems extremely obvious.")
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -226,31 +231,31 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			P.despawn_occupant()
 	return
 
+// Ghosts have no momentum, being massless ectoplasm
+/mob/dead/observer/Process_Spacemove(movement_dir)
+	return 1
+
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
-	dir = direct
-	ghostimage.dir = dir
+	setDir(direct)
+	ghostimage.setDir(dir)
+
+	var/oldloc = loc
+
 	if(NewLoc)
 		forceMove(NewLoc)
-		return
-	forceMove(get_turf(src)) //Get out of closets and such as a ghost
-	if((direct & NORTH) && y < world.maxy)
-		y++
-	else if((direct & SOUTH) && y > 1)
-		y--
-	if((direct & EAST) && x < world.maxx)
-		x++
-	else if((direct & WEST) && x > 1)
-		x--
+	else
+		forceMove(get_turf(src))  //Get out of closets and such as a ghost
+		if((direct & NORTH) && y < world.maxy)
+			y++
+		else if((direct & SOUTH) && y > 1)
+			y--
+		if((direct & EAST) && x < world.maxx)
+			x++
+		else if((direct & WEST) && x > 1)
+			x--
 
-	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
-		S.Crossed(src)
-
-	var/area/A = get_area(src)
-	if(A)
-		A.Entered(src)
-
-	..()
+	Moved(oldloc, direct)
 
 /mob/dead/observer/can_use_hands()	return 0
 
@@ -399,7 +404,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in ghostteleportlocs
 	var/area/thearea = ghostteleportlocs[A]
-	
+
 	if(!thearea)
 		return
 
@@ -720,7 +725,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/updateghostimages()
 	if(!client)
 		return
-	if(!ghostvision)
+	if(seedarkness || !ghostvision)
 		client.images -= ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now

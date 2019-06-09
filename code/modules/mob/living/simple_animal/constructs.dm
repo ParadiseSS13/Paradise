@@ -29,21 +29,21 @@
 
 /mob/living/simple_animal/hostile/construct/New()
 	..()
-	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[const_type] ([rand(1, 1000)])"
 		real_name = const_type
 		icon_living = const_type
 		icon_state = const_type
 	else
-		name = "[ticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
-		real_name = ticker.cultdat.get_name(const_type)
-		icon_living = ticker.cultdat.get_icon(const_type)
-		icon_state = ticker.cultdat.get_icon(const_type)
+		name = "[SSticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
+		real_name = SSticker.cultdat.get_name(const_type)
+		icon_living = SSticker.cultdat.get_icon(const_type)
+		icon_state = SSticker.cultdat.get_icon(const_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(ticker.cultdat.theme == "blood")
+	if(SSticker.cultdat.theme == "blood")
 		updateglow()
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)

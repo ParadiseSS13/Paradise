@@ -148,8 +148,8 @@ Class Procs:
 	if(!speed_process)
 		return
 	speed_process = FALSE
-	START_PROCESSING(SSmachines, src)
 	STOP_PROCESSING(SSfastprocess, src)
+	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/Destroy()
 	if(myArea)
@@ -348,28 +348,28 @@ Class Procs:
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(user.lying || user.stat)
-		return 1
+	if(user.incapacitated())
+		return TRUE
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return 1
+		return TRUE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
 			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
-			return 1
+			return TRUE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
-			return 1
+			return TRUE
 
 	if(panel_open)
 		add_fingerprint(user)
-		return 0
+		return FALSE
 
 	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
-		return 1
+		return TRUE
 
 	add_fingerprint(user)
 
@@ -595,3 +595,11 @@ Class Procs:
 		emp_act(EMP_LIGHT)
 	else
 		ex_act(EXPLODE_HEAVY)
+
+/obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
+	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
+	for (var/i in 1 to 32)
+		. += hex2num(md5[i])
+	. = . % 9
+	AM.pixel_x = -8 + ((.%3)*8)
+	AM.pixel_y = -8 + (round( . / 3)*8)

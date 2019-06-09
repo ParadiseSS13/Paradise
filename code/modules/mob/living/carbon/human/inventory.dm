@@ -44,9 +44,9 @@
 			return has_organ("chest")
 		if(slot_wear_id)
 			// the only relevant check for this is the uniform check
-			return 1
+			return TRUE
 		if(slot_wear_pda)
-			return 1
+			return TRUE
 		if(slot_l_ear)
 			return has_organ("head")
 		if(slot_r_ear)
@@ -70,9 +70,9 @@
 		if(slot_s_store)
 			return has_organ("chest")
 		if(slot_in_backpack)
-			return 1
+			return TRUE
 		if(slot_tie)
-			return 1
+			return TRUE
 
 // The actual dropping happens at the mob level - checks to prevent drops should
 // come here
@@ -187,82 +187,85 @@
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 //set redraw_mob to 0 if you don't wish the hud to be updated - if you're doing it manually in your own proc.
-/mob/living/carbon/human/equip_to_slot(obj/item/W as obj, slot, redraw_mob = 1)
-	if(!slot) return
-	if(!istype(W)) return
-	if(!has_organ_for_slot(slot)) return
+/mob/living/carbon/human/equip_to_slot(obj/item/I, slot, redraw_mob = 1)
+	if(!slot)
+		return
+	if(!istype(I))
+		return
+	if(!has_organ_for_slot(slot))
+		return
 
-	if(W == src.l_hand)
+	if(I == src.l_hand)
 		src.l_hand = null
 		update_inv_l_hand() //So items actually disappear from hands.
-	else if(W == src.r_hand)
+	else if(I == src.r_hand)
 		src.r_hand = null
 		update_inv_r_hand()
 
-	W.screen_loc = null
-	W.loc = src
-	W.equipped(src, slot)
-	W.layer = ABOVE_HUD_LAYER
-	W.plane = ABOVE_HUD_PLANE
+	I.screen_loc = null
+	I.forceMove(src)
+	I.equipped(src, slot)
+	I.layer = ABOVE_HUD_LAYER
+	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(slot_back)
-			back = W
+			back = I
 			update_inv_back(redraw_mob)
 		if(slot_wear_mask)
-			wear_mask = W
+			wear_mask = I
 			if((wear_mask.flags & BLOCKHAIR) || (wear_mask.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
 			if(hud_list.len)
 				sec_hud_set_ID()
-			wear_mask_update(W, toggle_off = TRUE)
+			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
-			handcuffed = W
+			handcuffed = I
 			update_inv_handcuffed(redraw_mob)
 		if(slot_legcuffed)
-			legcuffed = W
+			legcuffed = I
 			update_inv_legcuffed(redraw_mob)
 		if(slot_l_hand)
-			l_hand = W
+			l_hand = I
 			update_inv_l_hand(redraw_mob)
 		if(slot_r_hand)
-			r_hand = W
+			r_hand = I
 			update_inv_r_hand(redraw_mob)
 		if(slot_belt)
-			belt = W
+			belt = I
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
-			wear_id = W
+			wear_id = I
 			if(hud_list.len)
 				sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
-			wear_pda = W
+			wear_pda = I
 			update_inv_wear_pda(redraw_mob)
 		if(slot_l_ear)
-			l_ear = W
+			l_ear = I
 			if(l_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(W)
-				O.loc = src
+				var/obj/item/clothing/ears/offear/O = new(I)
+				O.forceMove(src)
 				r_ear = O
 				O.layer = ABOVE_HUD_LAYER
 				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_r_ear)
-			r_ear = W
+			r_ear = I
 			if(r_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(W)
-				O.loc = src
+				var/obj/item/clothing/ears/offear/O = new(I)
+				O.forceMove(src)
 				l_ear = O
 				O.layer = ABOVE_HUD_LAYER
 				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
-			glasses = W
-			var/obj/item/clothing/glasses/G = W
+			glasses = I
+			var/obj/item/clothing/glasses/G = I
 			if(G.tint)
 				update_tint()
 			if(G.prescription)
@@ -272,49 +275,48 @@
 			update_inv_glasses(redraw_mob)
 			update_client_colour()
 		if(slot_gloves)
-			gloves = W
+			gloves = I
 			update_inv_gloves(redraw_mob)
 		if(slot_head)
-			head = W
+			head = I
 			if((head.flags & BLOCKHAIR) || (head.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
 			// paper + bandanas
-			if(istype(W, /obj/item/clothing/head))
-				var/obj/item/clothing/head/hat = W
+			if(istype(I, /obj/item/clothing/head))
+				var/obj/item/clothing/head/hat = I
 				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
-			head_update(W)
+			head_update(I)
 			update_inv_head(redraw_mob)
 		if(slot_shoes)
-			shoes = W
+			shoes = I
 			update_inv_shoes(redraw_mob)
 		if(slot_wear_suit)
-			wear_suit = W
+			wear_suit = I
 			update_inv_wear_suit(redraw_mob)
 		if(slot_w_uniform)
-			w_uniform = W
+			w_uniform = I
 			update_inv_w_uniform(redraw_mob)
 		if(slot_l_store)
-			l_store = W
+			l_store = I
 			update_inv_pockets(redraw_mob)
 		if(slot_r_store)
-			r_store = W
+			r_store = I
 			update_inv_pockets(redraw_mob)
 		if(slot_s_store)
-			s_store = W
+			s_store = I
 			update_inv_s_store(redraw_mob)
 		if(slot_in_backpack)
-			if(get_active_hand() == W)
-				unEquip(W)
-			W.loc = back
+			if(get_active_hand() == I)
+				unEquip(I)
+			I.forceMove(back)
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
-			uniform.attackby(W,src)
+			uniform.attackby(I, src)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
-			return
 
 /mob/living/carbon/human/put_in_hands(obj/item/W)
 	if(!W)		return 0
@@ -419,56 +421,34 @@
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = 0)
 	switch(dna.species.handle_can_equip(I, slot, disable_warning, src))
-		if(1)	return 1
-		if(2)	return 0 //if it returns 2, it wants no normal handling
-
+		if(1)	return TRUE
+		if(2)	return FALSE //if it returns 2, it wants no normal handling
+	if(!has_organ_for_slot(slot))
+		return FALSE
+	
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
 			//testing("[M] TOO FAT TO WEAR [src]!")
 			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")
-				return 0
+				return FALSE
 
 	switch(slot)
 		if(slot_l_hand)
-			if(l_hand)
-				return 0
-			return !incapacitated()
+			return !l_hand && !incapacitated()
 		if(slot_r_hand)
-			if(r_hand)
-				return 0
-			return !incapacitated()
+			return !r_hand && !incapacitated()
 		if(slot_wear_mask)
-			if(wear_mask)
-				return 0
-			if(!(I.slot_flags & SLOT_MASK))
-				return 0
-			return 1
+			return !wear_mask && (I.slot_flags & SLOT_MASK)
 		if(slot_back)
-			if(back)
-				return 0
-			if(!(I.slot_flags & SLOT_BACK))
-				return 0
-			return 1
+			return !back && (I.slot_flags & SLOT_BACK)
 		if(slot_wear_suit)
-			if(wear_suit)
-				return 0
-			if(!(I.slot_flags & SLOT_OCLOTHING))
-				return 0
-			return 1
+			return !wear_suit && (I.slot_flags & SLOT_OCLOTHING)
 		if(slot_gloves)
-			if(gloves)
-				return 0
-			if(!(I.slot_flags & SLOT_GLOVES))
-				return 0
-			return 1
+			return !gloves && (I.slot_flags & SLOT_GLOVES)
 		if(slot_shoes)
-			if(shoes)
-				return 0
-			if(!(I.slot_flags & SLOT_FEET))
-				return 0
-			return 1
+			return !shoes && (I.slot_flags & SLOT_FEET)
 		if(slot_belt)
 			if(belt)
 				return 0
@@ -480,39 +460,15 @@
 				return
 			return 1
 		if(slot_glasses)
-			if(glasses)
-				return 0
-			if(!(I.slot_flags & SLOT_EYES))
-				return 0
-			return 1
+			return !glasses && (I.slot_flags & SLOT_EYES)
 		if(slot_head)
-			if(head)
-				return 0
-			if(!(I.slot_flags & SLOT_HEAD))
-				return 0
-			return 1
+			return !head && (I.slot_flags & SLOT_HEAD)
 		if(slot_l_ear)
-			if(l_ear)
-				return 0
-			if(!(I.slot_flags & SLOT_EARS))
-				return 0
-			if((I.slot_flags & SLOT_TWOEARS) && r_ear )
-				return 0
-			return 1
+			return !l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && r_ear)
 		if(slot_r_ear)
-			if(r_ear)
-				return 0
-			if(!(I.slot_flags & SLOT_EARS))
-				return 0
-			if((I.slot_flags & SLOT_TWOEARS) && l_ear)
-				return 0
-			return 1
+			return !r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && l_ear)
 		if(slot_w_uniform)
-			if(w_uniform)
-				return 0
-			if(!(I.slot_flags & SLOT_ICLOTHING))
-				return 0
-			return 1
+			return !w_uniform && (I.slot_flags & SLOT_ICLOTHING)
 		if(slot_wear_id)
 			if(wear_id)
 				return 0
@@ -581,17 +537,9 @@
 				return 1
 			return 0
 		if(slot_handcuffed)
-			if(handcuffed)
-				return 0
-			if(!istype(I, /obj/item/restraints/handcuffs))
-				return 0
-			return 1
+			return !handcuffed && istype(I, /obj/item/restraints/handcuffs)
 		if(slot_legcuffed)
-			if(legcuffed)
-				return 0
-			if(!istype(I, /obj/item/restraints/legcuffs))
-				return 0
-			return 1
+			return !legcuffed && istype(I, /obj/item/restraints/legcuffs)
 		if(slot_in_backpack)
 			if(back && istype(back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = back

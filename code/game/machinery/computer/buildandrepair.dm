@@ -218,6 +218,10 @@
 	name = "Circuit board (Power Monitor)"
 	build_path = /obj/machinery/computer/monitor
 	origin_tech = "programming=2;powerstorage=2"
+/obj/item/circuitboard/powermonitor/secret
+	name = "Circuit board (Outdated Power Monitor)"
+	build_path = /obj/machinery/computer/monitor/secret
+	origin_tech = "programming=2;powerstorage=2"
 /obj/item/circuitboard/olddoor
 	name = "Circuit board (DoorMex)"
 	build_path = /obj/machinery/computer/pod/old
