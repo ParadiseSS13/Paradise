@@ -1031,6 +1031,7 @@
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow= 10,   //Congrats, you unlocked the +18 setting!
 					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					  /obj/item/ammo_box/foambox/riot = 20,
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,

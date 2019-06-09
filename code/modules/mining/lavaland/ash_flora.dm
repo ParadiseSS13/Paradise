@@ -4,6 +4,7 @@
 	icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
+	anchored = TRUE
 	var/harvested_name = "shortened mushrooms"
 	var/harvested_desc = "Some quickly regrowing mushrooms, formerly known to be quite large."
 	var/needs_sharp_harvest = TRUE
@@ -25,17 +26,6 @@
 	icon_state = base_icon
 	if(prob(15))
 		harvest(null, TRUE)
-
-/obj/structure/flora/ash/ex_act(severity, target)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(80))
-				qdel(src)
-		if(3)
-			if(prob(50))
-				qdel(src)
 
 /obj/structure/flora/ash/proc/harvest(user, no_drop)
 	if(harvested)

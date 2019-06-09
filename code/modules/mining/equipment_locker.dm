@@ -699,7 +699,7 @@
 
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
-	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to blue space for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least."
+	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
@@ -708,15 +708,16 @@
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
+	slot_flags = SLOT_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
+	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
-		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
+		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
 		return FALSE
 	return TRUE
 
@@ -736,49 +737,42 @@
 
 	var/list/L = get_destinations(user)
 	if(!L.len)
-		to_chat(user, "<span class='notice'>The [src.name] found no beacons in the world to anchor a wormhole to.</span>")
+		to_chat(user, "<span class='notice'>The [name] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/wormhole/jaunt_tunnel/J = new (get_turf(src), src, 100, null, FALSE, get_turf(chosen_beacon))
+	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100)
 	if(adjacent)
 		try_move_adjacent(J)
+	else
+		J.teleport(user)
 	playsound(src,'sound/effects/sparks4.ogg',50,1)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(SLOT_BELT) == src)
+	if(user.get_item_by_slot(slot_belt) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else
 		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
 
-/obj/effect/portal/wormhole/jaunt_tunnel
+/obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
+	failchance = 0
 
-/obj/effect/portal/wormhole/jaunt_tunnel/teleport(atom/movable/M)
-	if(istype(M, /obj/effect))
-		return
-	if(istype(M, /atom/movable))
-		if(do_teleport(M, target, 6))
-			if(isliving(M))
-				var/mob/living/L = M
-				L.Weaken(3)
-				if(ishuman(L))
-					shake_camera(L, 20, 1)
-					var/mob/living/carbon/human/H = L
-					spawn(20)
-						if(H && H.check_has_mouth())
-							H.visible_message("<span class='danger'>[L.name] vomits from travelling through the [src.name]!</span>", "<span class='userdanger'>You throw up from travelling through the [src.name]!</span>")
-							H.nutrition -= 20
-							H.adjustToxLoss(-3)
-							var/turf/T = get_turf(H)
-							T.add_vomit_floor()
-		else
-			visible_message("<span class='warning'>[src] flickers and fails, due to bluespace interference!</span>")
-			qdel(src)
+/obj/effect/portal/jaunt_tunnel/teleport(atom/movable/M)
+	. = ..()
+	if(.)
+		// KERPLUNK
+		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
+		if(iscarbon(M))
+			var/mob/living/carbon/L = M
+			L.Weaken(6)
+			if(ishuman(L))
+				shake_camera(L, 20, 1)
+				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)
 
 /**********************Resonator**********************/
 

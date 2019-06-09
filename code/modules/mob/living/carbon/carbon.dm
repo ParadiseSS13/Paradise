@@ -712,16 +712,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			return back
 		if(slot_wear_mask)
 			return wear_mask
-		if(slot_handcuffed)
-			return handcuffed
-		if(slot_legcuffed)
-			return legcuffed
+		if(slot_wear_suit)
+			return wear_suit
 		if(slot_l_hand)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
+		if(slot_handcuffed)
+			return handcuffed
+		if(slot_legcuffed)
+			return legcuffed
 	return null
-
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse(var/method)	//method 0 is for hands, 1 is for machines, more accurate
