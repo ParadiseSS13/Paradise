@@ -88,6 +88,7 @@
 		var/obj/item/card/id/ID = id_slot.GetID()
 		if(ID && ID.registered_name == real_name)
 			O.update_id_name = TRUE
+
 	//Copy hands
 	if(l_hand || r_hand) //Not in the mood to let outfits transfer amputees
 		var/obj/item/left_hand = l_hand
@@ -129,10 +130,10 @@
 			O.cybernetic_implants |= CI.type
 
 	// Copy accessories
-	if(O.uniform)
-		var/obj/item/clothing/under/U = O.uniform
+	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(slot_w_uniform)
+	if(uniform_slot)
 		O.accessories = list()
-		for(var/obj/item/clothing/accessory/A in U.accessories)
+		for(var/obj/item/clothing/accessory/A in uniform_slot.accessories)
 			if(istype(A))
 				O.accessories |= A
 

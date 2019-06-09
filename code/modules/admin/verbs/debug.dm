@@ -576,7 +576,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!ishuman(M) || !isobserver(M))
+	if(!ishuman(M) && !isobserver(M))
 		alert("Invalid mob")
 		return
 

@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
 /client/proc/outfit_manager()
-	set category = "Debug"
+	set category = "Event"
 	set name = "Outfit Manager"
 
 	if(!check_rights(R_EVENT))
@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 		id_select += "<option value=\"[path]\">[path]</option>"
 	id_select += "</select>"
 
-	var/pda_select = "<select name=\"outfit_id\"><option value=\"\">None</option>"
+	var/pda_select = "<select name=\"outfit_pda\"><option value=\"\">None</option>"
 	for(var/path in pdas)
 		pda_select += "<option value=\"[path]\">[path]</option>"
 	pda_select += "</select>"
@@ -259,4 +259,4 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	O.r_ear = text2path(href_list["outfit_r_ear"])
 
 	GLOB.custom_outfits.Add(O)
-	message_admins("[key_name(usr)] created \"[O.name]\" outfit!")
+	message_admins("[key_name_admin(usr)] created \"[O.name]\" outfit.")
