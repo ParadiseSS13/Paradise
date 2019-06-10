@@ -122,11 +122,11 @@ As the Librarian, be sure to keep the shelves stocked and the library clean for 
 As a Cargo Technician, you can hack MULEbots to make them faster, run over people in their way, and even let you ride them!
 As a Cargo Technician, you can order contraband items from the supply shuttle console by de-constructing it and using a multitool on the circuit board, the re-assembling it.
 As a Cargo Technician, you can earn more cargo points by shipping back crates from maintenance, liquid containers, plasma sheets, rare seeds from hydroponics, and more!
-As a Shaft Miner, northern part of lavaland has a lot more rare minerals than on the southern but is a lot more dangerous.
+As a Shaft Miner, the northern part of Lavaland has a lot more rare minerals than the Southern part, but is a lot more dangerous.
 As a Shaft Miner, always have a GPS on you, so a fellow miner or cyborg can come to save you if you die.
-As a Shaft Miner, you can use certain equipment to be safe from a ash storm, this can range from bluespace shelters to fireproof suits.
-As a Shaft Miner, consider twice before you take out a tendril, some tendrils may be benifictal for your survival like the legion tendril for legion souls to heal yourself with.
-As a Ash Walker, you can refine ores with the bonfire
+As a Shaft Miner, you can use certain equipment to be safe from ash storms. This equipment can range from bluespace shelters to fireproof suits.
+As a Shaft Miner, think twice before taking out a tendril. Some tendrils may be beneficial to your survival. For instance, the Legion tendril can be used to farm Legion souls. These souls can be used to fully heal yourself.
+As an Ash Walker, you can refine ores using the bonfire in your nest.
 As a Traitor, the cryptographic sequencer (emag) can not only open doors, but also lockers, crates, APCs and more. It can hack cyborgs, and even cause bots to go berserk. Use it on the right machines, and you can even order more traitor gear or contact the Syndicate. Experiment!
 As a Traitor, subverting the AI to serve you can make it an extremely powerful ally. However, be careful of the wording in the laws you give it, as it may use your poorly written laws against you!
 As a Traitor, the Captain and the Head of Security are two of the most difficult to kill targets on the station. If either one is your target, plan carefully.
@@ -194,7 +194,6 @@ As a Terror Spider, don't forget you can move your nest if the crew is pressurin
 As a Terror Spider, try putting webs on white floor tiles, they are much harder to see there.
 As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure victory in melee combat.
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
-When you are restrained to alien nest and there is somebody in a nest next to you, you can unbuckle each other but not yourself.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
