@@ -2101,7 +2101,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						"Off" = PARALLAX_DISABLE,
 						"Low" = PARALLAX_LOW,
 						"Medium" = PARALLAX_MED,
-						"High" = PARALLAX_INSANE,
+						"High" = PARALLAX_HIGH,
 						"Insane" = PARALLAX_INSANE
 					)
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
