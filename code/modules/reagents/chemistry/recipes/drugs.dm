@@ -99,11 +99,11 @@
 	result_amount = 3
 	mix_message = "The mixture turns a rather unassuming color and settles."
 
-/datum/chemical_reaction/lube/ultra
+/datum/chemical_reaction/ultralube
 	name = "Ultra-Lube"
 	id = "ultralube"
 	result = "ultralube"
-	required_reagents = list("lube" = 2, "formaldehyde" = 1, "cryostylane" = 1)
+	required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1, "formaldehyde" = 1, "cryostylane" = 1)
 	result_amount = 2
 	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
 

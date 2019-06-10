@@ -718,7 +718,7 @@
 	name = "Synthanol"
 	id = "synthanol"
 	result = "synthanol"
-	required_reagents = list("lube" = 1, "plasma" = 1, "fuel" = 1)
+	required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1, "plasma" = 1, "fuel" = 1)
 	result_amount = 3
 	mix_message = "The chemicals mix to create shiny, blue substance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

@@ -106,14 +106,6 @@
 	P.amount = 10
 	P.forceMove(get_turf(holder.my_atom))
 
-/datum/chemical_reaction/lube
-	name = "Space Lube"
-	id = "lube"
-	result = "lube"
-	required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1)
-	result_amount = 3
-	mix_message = "The substance turns a striking cyan and becomes oily."
-
 /datum/chemical_reaction/holy_water
 	name = "Holy Water"
 	id = "holywater"
@@ -284,7 +276,7 @@
 	name = "Jestosterone"
 	id = "jestosterone"
 	result = "jestosterone"
-	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "banana" = 1, "lube" = 1, "space_drugs" = 1) //Or one freshly-squeezed clown
+	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "banana" = 1, "water" = 1, "silicon" = 1, "oxygen" = 1, "space_drugs" = 1) //Or one freshly-squeezed clown
 	min_temp = T0C + 100
 	result_amount = 5
 	mix_message = "The substance quickly shifts colour, cycling from red, to yellow, to green, to blue, and finally settles at a vibrant fuchsia."

@@ -635,7 +635,7 @@
 //////////////////////////////
 
 //Ultra-Lube: Meth
-/datum/reagent/lube/ultra
+/datum/reagent/ultralube
 	name = "Ultra-Lube"
 	id = "ultralube"
 	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
