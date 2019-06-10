@@ -20,6 +20,7 @@
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_1(null, C.view)
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_2(null, C.view)
+		C.parallax_layers_cached += new /obj/screen/parallax_layer/planet(null, C.view)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
@@ -62,6 +63,7 @@
 /datum/hud/proc/update_parallax_pref()
 	remove_parallax()
 	create_parallax()
+	update_parallax()
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
 // Well, it would if our shuttle code had dynamic areas 
@@ -169,21 +171,30 @@
 
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
+		L.update_status(mymob)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)
-		var/change_x = offset_x * L.speed
-		L.offset_x -= change_x
-		var/change_y = offset_y * L.speed
-		L.offset_y -= change_y
-		if(L.offset_x > 240)
-			L.offset_x -= 480
-		if(L.offset_x < -240)
-			L.offset_x += 480
-		if(L.offset_y > 240)
-			L.offset_y -= 480
-		if(L.offset_y < -240)
-			L.offset_y += 480
+		
+		var/change_x
+		var/change_y
 
+		if(L.absolute)
+			L.offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
+			L.offset_y = -(posobj.y - SSparallax.planet_y_offset) * L.speed
+		else
+			change_x = offset_x * L.speed
+			L.offset_x -= change_x
+			change_y = offset_y * L.speed
+			L.offset_y -= change_y
+
+			if(L.offset_x > 240)
+				L.offset_x -= 480
+			if(L.offset_x < -240)
+				L.offset_x += 480
+			if(L.offset_y > 240)
+				L.offset_y -= 480
+			if(L.offset_y < -240)
+				L.offset_y += 480
 
 		if(!areaobj.parallax_movedir && C.dont_animate_parallax <= world.time && (offset_x || offset_y) && abs(offset_x) <= max(C.parallax_throttle/world.tick_lag+1,1) && abs(offset_y) <= max(C.parallax_throttle/world.tick_lag+1,1) && (round(abs(change_x)) > 1 || round(abs(change_y)) > 1))
 			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
@@ -204,6 +215,7 @@
 	var/offset_x = 0
 	var/offset_y = 0
 	var/view_sized
+	var/absolute = FALSE
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
 	screen_loc = "CENTER-7,CENTER-7"
@@ -232,15 +244,35 @@
 	overlays = new_overlays
 	view_sized = view
 
+/obj/screen/parallax_layer/proc/update_status(mob/M)
+	return
+
 /obj/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
-	layer = 1
+	layer = 1255
 
 /obj/screen/parallax_layer/layer_2
 	icon_state = "layer2"
 	speed = 1
 	layer = 2
+
+/obj/screen/parallax_layer/planet
+	icon_state = "planet"
+	blend_mode = BLEND_OVERLAY
+	absolute = TRUE //Status of seperation
+	speed = 3
+	layer = 30
+
+/obj/screen/parallax_layer/planet/update_status(mob/M)
+	var/turf/T = get_turf(M)
+	if(is_station_level(T.z))
+		invisibility = 0
+	else
+		invisibility = INVISIBILITY_ABSTRACT
+
+/obj/screen/parallax_layer/planet/update_o()
+	return //Shit wont move
 
 /obj/screen/parallax_pmaster
 	appearance_flags = PLANE_MASTER
