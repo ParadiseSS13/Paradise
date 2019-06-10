@@ -466,13 +466,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
 			switch (parallax)
-				if (PARALLAX_LOW)
+				if(PARALLAX_LOW)
 					dat += "Low"
-				if (PARALLAX_MED)
+				if(PARALLAX_MED)
 					dat += "Medium"
-				if (PARALLAX_INSANE)
+				if(PARALLAX_INSANE)
 					dat += "Insane"
-				if (PARALLAX_DISABLE)
+				if(PARALLAX_DISABLE)
 					dat += "Disabled"
 				else
 					dat += "High"
@@ -2105,7 +2105,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						"Insane" = PARALLAX_INSANE
 					)
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
-					if (parent && parent.mob && parent.mob.hud_used)
+					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
 

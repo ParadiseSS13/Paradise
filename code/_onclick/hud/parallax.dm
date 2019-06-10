@@ -13,7 +13,7 @@
 
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
-	if (!apply_parallax_pref())
+	if(!apply_parallax_pref())
 		return
 
 	if(!length(C.parallax_layers_cached))
@@ -24,7 +24,7 @@
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
-	if (length(C.parallax_layers) > C.parallax_layers_max)
+	if(length(C.parallax_layers) > C.parallax_layers_max)
 		C.parallax_layers.len = C.parallax_layers_max
 
 	C.screen |= (C.parallax_layers + C.parallax_static_layers_tail)
@@ -37,22 +37,22 @@
 /datum/hud/proc/apply_parallax_pref()
 	var/client/C = mymob.client
 	switch(C.prefs.parallax)
-		if (PARALLAX_INSANE)
+		if(PARALLAX_INSANE)
 			C.parallax_throttle = FALSE
 			C.parallax_layers_max = 4
 			return TRUE
 
-		if (PARALLAX_MED)
+		if(PARALLAX_MED)
 			C.parallax_throttle = PARALLAX_DELAY_MED
 			C.parallax_layers_max = 2
 			return TRUE
 
-		if (PARALLAX_LOW)
+		if(PARALLAX_LOW)
 			C.parallax_throttle = PARALLAX_DELAY_LOW
 			C.parallax_layers_max = 1
 			return TRUE
 
-		if (PARALLAX_DISABLE)
+		if(PARALLAX_DISABLE)
 			return FALSE
 
 		else
@@ -80,7 +80,7 @@
 			L.icon_state = initial(L.icon_state)
 			L.update_o(C.view)
 			var/T = PARALLAX_LOOP_TIME / L.speed
-			if (T > animate_time)
+			if(T > animate_time)
 				animate_time = T
 		C.dont_animate_parallax = world.time + min(animate_time, PARALLAX_LOOP_TIME)
 		animatedir = C.parallax_movedir
@@ -101,18 +101,18 @@
 		var/obj/screen/parallax_layer/L = thing
 
 		var/T = PARALLAX_LOOP_TIME / L.speed
-		if (isnull(shortesttimer))
+		if(isnull(shortesttimer))
 			shortesttimer = T
-		if (T < shortesttimer)
+		if(T < shortesttimer)
 			shortesttimer = T
 		L.transform = newtransform
 		animate(L, transform = matrix(), time = T, easing = QUAD_EASING | (new_parallax_movedir ? EASE_IN : EASE_OUT), flags = ANIMATION_END_NOW)
-		if (new_parallax_movedir)
+		if(new_parallax_movedir)
 			L.transform = newtransform
 			animate(transform = matrix(), time = T) //queue up another animate so lag doesn't create a shutter
 
 	C.parallax_movedir = new_parallax_movedir
-	if (C.parallax_animate_timer)
+	if(C.parallax_animate_timer)
 		deltimer(C.parallax_animate_timer)
 	C.parallax_animate_timer = addtimer(src, .update_parallax_motionblur, min(shortesttimer, PARALLAX_LOOP_TIME), TIMER_CLIENT_TIME, C, animatedir, new_parallax_movedir, newtransform)
 
@@ -120,12 +120,12 @@
 	C.parallax_animate_timer = FALSE
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
-		if (!new_parallax_movedir)
+		if(!new_parallax_movedir)
 			animate(L)
 			continue
 
 		var/newstate = initial(L.icon_state)
-		if (animatedir)
+		if(animatedir)
 			if(animatedir == NORTH || animatedir == SOUTH)
 				newstate += "_vertical"
 			else
@@ -133,7 +133,7 @@
 
 		var/T = PARALLAX_LOOP_TIME / L.speed
 
-		if (newstate in icon_states(L.icon))
+		if(newstate in icon_states(L.icon))
 			L.icon_state = newstate
 			L.update_o(C.view)
 
@@ -154,7 +154,7 @@
 		C.previous_turf = posobj
 		force = TRUE
 
-	if (!force && world.time < C.last_parallax_shift+C.parallax_throttle)
+	if(!force && world.time < C.last_parallax_shift+C.parallax_throttle)
 		return
 
 	//Doing it this way prevents parallax layers from "jumping" when you change Z-Levels.
@@ -172,7 +172,7 @@
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
 		L.update_status(mymob)
-		if (L.view_sized != C.view)
+		if(L.view_sized != C.view)
 			L.update_o(C.view)
 		
 		var/change_x
@@ -224,12 +224,12 @@
 
 /obj/screen/parallax_layer/New(view)
 	..()
-	if (!view)
+	if(!view)
 		view = world.view
 	update_o(view)
 
 /obj/screen/parallax_layer/proc/update_o(view)
-	if (!view)
+	if(!view)
 		view = world.view
 	var/list/new_overlays = list()
 	var/count = Ceiling(view/(480/world.icon_size))+1
