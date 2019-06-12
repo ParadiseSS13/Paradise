@@ -163,6 +163,8 @@
 	if(mob.notransform)
 		return 0 //This is sota the goto stop mobs from moving var
 
+	SEND_SIGNAL(mob, COMSIG_CLIENT_MOVE, n, direct)
+
 	if(mob.control_object)
 		return Move_object(direct)
 

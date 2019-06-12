@@ -19,15 +19,18 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
 	if(selected_type)
 		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
+	sendMorAhelp(src, msg, selected_type)
 
+/proc/sendMorAhelp(client/sender, msg, selected_type)
 	//clean the input msg
 	if(!msg)
 		return
 
-	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
+	if(sender.handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	
 	if(!msg)	return
 	var/original_msg = msg
 
@@ -84,7 +87,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 							continue
 			msg += "[original_word] "
 
-	if(!mob)	return						//this doesn't happen
+	if(!sender.mob)	return						//this doesn't happen
 
 	//send this msg to all admins
 	var/admin_number_afk = 0
@@ -104,38 +107,38 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			mentorholders += X
 			continue
 	var/ticketNum // Holder for the ticket number
-	var/prunedmsg ="[src]: [msg]" // Message without links
+	var/prunedmsg ="[sender]: [msg]" // Message without links
 	var/datum/ticket/T
 	var/isMhelp = selected_type == "Mentorhelp"
 	var/span
 	if(isMhelp)
 		span = "<span class='mentorhelp'>"
-		if(SSmentor_tickets.checkForOpenTicket(src)) // If user already has an open ticket
-			T = SSmentor_tickets.checkForOpenTicket(src)
+		if(SSmentor_tickets.checkForOpenTicket(sender)) // If user already has an open ticket
+			T = SSmentor_tickets.checkForOpenTicket(sender)
 		else
 			ticketNum = SSmentor_tickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
 	else //Ahelp
 		span = "<span class='adminhelp'>"
-		if(SStickets.checkForOpenTicket(src)) // If user already has an open ticket
-			T = SStickets.checkForOpenTicket(src) // Make T equal to the ticket they have open
+		if(SStickets.checkForOpenTicket(sender)) // If user already has an open ticket
+			T = SStickets.checkForOpenTicket(sender) // Make T equal to the ticket they have open
 		else
 			ticketNum = SStickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
 	
 	if(T)
 		ticketNum = T.ticketNum // ticketNum is the number of their ticket.
-		T.addResponse(src, msg)
+		T.addResponse(sender, msg)
 	
-	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) :</span> [span][msg]</span>"
+	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(sender, TRUE, selected_type)] ([ADMIN_QUE(sender.mob,"?")]) ([ADMIN_PP(sender.mob,"PP")]) ([ADMIN_VV(sender.mob,"VV")]) ([ADMIN_SM(sender.mob,"SM")]) ([admin_jump_link(sender.mob)]) (<A HREF='?_sender_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_sender_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_sender_=holder;adminchecklaws=[sender.mob.UID()]'>CL</A>)" : ""] (<A HREF='?_sender_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) :</span> [span][msg]</span>"
 	if(isMhelp)
 		//Open a new adminticket and inform the user.
-		SSmentor_tickets.newTicket(src, prunedmsg, msg)
+		SSmentor_tickets.newTicket(sender, prunedmsg, msg)
 		for(var/client/X in mentorholders + modholders + adminholders)
 			if(X.prefs.sound & SOUND_MENTORHELP)
 				X << 'sound/effects/adminhelp.ogg'
 			to_chat(X, msg)
 	else //Ahelp
 		//Open a new adminticket and inform the user.
-		SStickets.newTicket(src, prunedmsg, msg)
+		SStickets.newTicket(sender, prunedmsg, msg)
 		for(var/client/X in modholders + adminholders)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
@@ -145,17 +148,17 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			
 
 	//show it to the person adminhelping too
-	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")
+	to_chat(sender, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")
 
 	var/admin_number_present = adminholders.len - admin_number_afk
-	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
+	log_admin("[selected_type]: [key_name(sender)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
-			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
+			send2adminirc("[selected_type] from [key_name(sender)]: [original_msg] - !!No admins online!!")
 		else
-			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
+			send2adminirc("[selected_type] from [key_name(sender)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
-		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
+		send2adminirc("[selected_type] from [key_name(sender)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 

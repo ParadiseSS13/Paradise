@@ -555,6 +555,8 @@
 			new_character.rename_self("mime")
 		mind.original = new_character
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+		if(key == "NetraKyram") // TODO make this modular using the DB
+			new_character.AddComponent(/datum/component/idle_warning, "This player has narcolepsy and might have fallen asleep due to it. This is a medical condition that they cannot control. They request that you cryo them.", 600)
 
 
 	new_character.key = key		//Manually transfer the key to log them in

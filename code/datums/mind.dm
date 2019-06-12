@@ -99,6 +99,7 @@
 	if(!istype(new_character))
 		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
 	if(current)					//remove ourself from our old body's mind variable
+		SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, new_character)
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 

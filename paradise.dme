@@ -272,6 +272,7 @@
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\ducttape.dm"
+#include "code\datums\components\idle_warning.dm"
 #include "code\datums\components\jestosterone.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\squeak.dm"
