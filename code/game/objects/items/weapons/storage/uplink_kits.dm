@@ -94,8 +94,7 @@
 			return
 
 		if("darklord") // 22TC + two 0TC
-			new /obj/item/melee/energy/sword/saber/red(src) // 8TC
-			new /obj/item/melee/energy/sword/saber/red(src) // 8TC
+			new /obj/item/twohanded/dualsaber/red(src) // 16TC
 			new /obj/item/dnainjector/telemut/darkbundle(src) // 0TC
 			new /obj/item/clothing/suit/hooded/chaplain_hoodie(src) // 0TC
 			new /obj/item/card/id/syndicate(src) // 2TC
@@ -108,7 +107,7 @@
 			new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator(src) // 16TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
-			new /obj/item/clothing/glasses/thermal/syndi/sunglasses(src) // 6TC 
+			new /obj/item/clothing/glasses/thermal/syndi/sunglasses(src) // 6TC
 			new /obj/item/clothing/gloves/combat(src) // 0 TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) // 0 TC
 			new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src) // 0TC
