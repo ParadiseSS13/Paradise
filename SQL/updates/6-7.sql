@@ -1,4 +1,4 @@
-#Updating the SQL from version 5 to version 6. -fethas
+#Updating the SQL from version 6 to version 7. -fethas
 #Adding new columns to contain special character names.
 ALTER TABLE `characters`
 	ADD `clown_name` varchar(45) NOT NULL AFTER `autohiss`,
