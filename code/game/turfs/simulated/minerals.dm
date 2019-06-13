@@ -22,7 +22,7 @@
 	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
 	var/last_act = 0
 	var/scan_state = null //Holder for the image we display when we're pinged by a mining scanner
-	var/defer_change = 0
+	var/defer_change = FALSE
 
 /turf/simulated/mineral/New()
 	if (!canSmoothWith)

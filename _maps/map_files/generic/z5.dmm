@@ -1612,21 +1612,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 25
@@ -1642,21 +1632,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -1669,21 +1649,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -1702,21 +1672,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Storage";

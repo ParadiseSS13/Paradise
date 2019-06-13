@@ -16,8 +16,8 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	mob_size = MOB_SIZE_SMALL
-	simplespecies = /mob/living/simple_animal/pet/cat
-	childtype = /mob/living/simple_animal/pet/cat/kitten
+	animal_species = /mob/living/simple_animal/pet/cat
+	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"

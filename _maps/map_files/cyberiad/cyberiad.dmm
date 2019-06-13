@@ -17671,7 +17671,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/drinks/waterbottle,
+/obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aDE" = (
@@ -18969,7 +18969,7 @@
 /area/crew_quarters/courtroom)
 "aGr" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/waterbottle,
+/obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 4
@@ -20138,7 +20138,7 @@
 /area/crew_quarters/courtroom)
 "aIX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/waterbottle{
+/obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = 5
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -22042,7 +22042,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/drinks/waterbottle{
+/obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = 5
 	},
 /turf/simulated/floor/carpet,
@@ -22758,7 +22758,7 @@
 /area/maintenance/fpmaint)
 "aOw" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/waterbottle{
+/obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = 5
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -74238,9 +74238,7 @@
 /area/toxins/test_area)
 "cCw" = (
 /obj/machinery/igniter{
-	icon_state = "igniter0";
-	id = "Incinerator";
-	on = 0
+	id = "Incinerator"
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/incinerator)
@@ -93941,9 +93939,7 @@
 	tag = ""
 	},
 /obj/machinery/igniter{
-	icon_state = "igniter0";
-	id = "gasturbine";
-	on = 0
+	id = "gasturbine"
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)

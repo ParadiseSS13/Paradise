@@ -1031,6 +1031,7 @@
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow= 10,   //Congrats, you unlocked the +18 setting!
 					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					  /obj/item/ammo_box/foambox/riot = 20,
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
@@ -1052,6 +1053,36 @@
 
 /obj/machinery/vending/cigarette/free
 	prices = list()
+
+/obj/machinery/vending/cigarette/syndicate
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
+					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
+					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
+					/obj/item/storage/box/matches = 10,
+					/obj/item/lighter/zippo = 4,
+					/obj/item/storage/fancy/rollingpapers = 5)
+
+/obj/machinery/vending/cigarette/syndicate/free
+	prices = list()
+
+/obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
+	name = "\improper ShadyCigs Ultra"
+	desc = "Now with extra premium products!"
+	product_ads = "Probably not bad for you!;Dope will get you through times of no money better than money will get you through times of no dope!;It's good for you!"
+	product_slogans = "Turn on, tune in, drop out!;Better living through chemistry!;Toke!;Don't forget to keep a smile on your lips and a song in your heart!"
+	products = list(/obj/item/storage/fancy/cigarettes = 5,
+					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
+					/obj/item/storage/box/matches = 10,
+					/obj/item/lighter/random = 4,
+					/obj/item/storage/fancy/rollingpapers = 5)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+				   /obj/item/lighter/zippo = 3)
 
 /obj/machinery/vending/cigarette/New()
 	..()
@@ -1100,10 +1131,10 @@
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?"
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access_txt = "5"
-	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
+	req_access = list(access_medical)
+	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
 /obj/machinery/vending/wallmed2
@@ -1111,10 +1142,10 @@
 	desc = "Wall-mounted Medical Equipment dispenser."
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access_txt = "5"
-	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5,/obj/item/reagent_containers/syringe/charcoal = 3,/obj/item/stack/medical/bruise_pack = 3,
-					/obj/item/stack/medical/ointment =3,/obj/item/healthanalyzer = 3)
+	req_access = list(access_medical)
+	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/syringe/charcoal = 3, /obj/item/stack/medical/bruise_pack = 3,
+					/obj/item/stack/medical/ointment = 3, /obj/item/healthanalyzer = 3)
 	contraband = list(/obj/item/reagent_containers/food/pill/tox = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 

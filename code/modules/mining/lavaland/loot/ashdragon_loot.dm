@@ -72,7 +72,7 @@
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(is_type_in_list(O.following, contents))
+		if((O.following in contents))
 			ghost_counter++
 			O.invisibility = 0
 			current_spirits |= O
@@ -198,7 +198,7 @@
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
 				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
 				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
-				T.ChangeTurf(turf_type)
+				T.TerraformTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown
 				qdel(L)
 			else
@@ -207,7 +207,7 @@
 				return
 		else
 			user.visible_message("<span class='danger'>[user] turns \the [T] into [reset_string]!</span>")
-			T.ChangeTurf(reset_turf_type)
+			T.TerraformTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/fireball.ogg', 200, 1)
 

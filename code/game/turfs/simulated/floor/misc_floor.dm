@@ -43,6 +43,9 @@
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
 
+/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)	
+	return
+
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
@@ -66,10 +69,6 @@
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
-
-/turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	return	//cannot pry off tiles of water
-
 
 /turf/simulated/floor/beach/water/New()
 	..()
