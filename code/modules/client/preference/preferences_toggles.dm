@@ -2,18 +2,18 @@
 /client/verb/toggle_ghost_ears()
 	set name = "Show/Hide GhostEars"
 	set category = "Preferences"
-	set desc = ".Toggle Between seeing all mob speech, and only speech of nearby mobs"
+	set desc = ".Toggle between seeing all player mob speech, and only speech of nearby mobs"
 	prefs.toggles ^= CHAT_GHOSTEARS
-	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTEARS) ? "see all speech in the world" : "only see speech from nearby mobs"].")
+	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTEARS) ? "see all player speech in the world" : "only see speech from nearby mobs"].")
 	prefs.save_preferences(src)
 	feedback_add_details("admin_verb","TGE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ghost_sight()
 	set name = "Show/Hide GhostSight"
 	set category = "Preferences"
-	set desc = ".Toggle Between seeing all mob emotes, and only emotes of nearby mobs"
+	set desc = ".Toggle between seeing all player mob emotes, and only emotes of nearby mobs"
 	prefs.toggles ^= CHAT_GHOSTSIGHT
-	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTSIGHT) ? "see all emotes in the world" : "only see emotes from nearby mobs"].")
+	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTSIGHT) ? "see all player emotes in the world" : "only see emotes from nearby mobs"].")
 	prefs.save_preferences(src)
 	feedback_add_details("admin_verb","TGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
