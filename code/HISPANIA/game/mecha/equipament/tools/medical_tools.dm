@@ -8,7 +8,7 @@
 	equip_cooldown = 10
 	var/last_check = 0
 	origin_tech = "materials=6;biotech=6;magnets=5;engineering=6"
-	var/obj/item/gun/medbeamtg/mech/protomedbeamtg/medigun
+	var/obj/item/gun/medbeamgun/mech/protomedbeamgun/medigun
 
 /obj/item/mecha_parts/mecha_equipment/medical/protomechmedbeam/Initialize()
 	. = ..()

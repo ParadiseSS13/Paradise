@@ -1,4 +1,4 @@
-/obj/item/gun/medbeamtg
+/obj/item/gun/medbeamgun
 	name = "Medical Beamgun"
 	desc = "Don't cross the streams!"
 	icon = 'icons/obj/chronos.dmi'
@@ -17,24 +17,24 @@
 	var/proto = FALSE
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/medbeamtg/Initialize()
+/obj/item/gun/medbeamgun/Initialize()
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/gun/medbeamtg/Destroy(mob/user)
+/obj/item/gun/medbeamgun/Destroy(mob/user)
 	STOP_PROCESSING(SSobj, src)
 	LoseTarget()
 	return ..()
 
-/obj/item/gun/medbeamtg/dropped(mob/user)
+/obj/item/gun/medbeamgun/dropped(mob/user)
 	..()
 	LoseTarget()
 
-/obj/item/gun/medbeamtg/equipped(mob/user)
+/obj/item/gun/medbeamgun/equipped(mob/user)
 	..()
 	LoseTarget()
 
-/obj/item/gun/medbeamtg/proc/LoseTarget()
+/obj/item/gun/medbeamgun/proc/LoseTarget()
 	if(active)
 		qdel(current_beam)
 		current_beam = null
@@ -42,7 +42,7 @@
 		on_beam_release(current_target)
 	current_target = null
 
-/obj/item/gun/medbeamtg/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/medbeamgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(isliving(user))
 		add_fingerprint(user)
 
@@ -58,7 +58,7 @@
 
 	feedback_add_details("gun_fired","[type]")
 
-/obj/item/gun/medbeamtg/process()
+/obj/item/gun/medbeamgun/process()
 
 	var/source = loc
 	if(!mounted && !isliving(source))
@@ -83,7 +83,7 @@
 	if(current_target)
 		on_beam_tick(current_target)
 
-/obj/item/gun/medbeamtg/proc/los_check(atom/movable/user, mob/target)
+/obj/item/gun/medbeamgun/proc/los_check(atom/movable/user, mob/target)
 	var/turf/user_turf = user.loc
 	if(mounted)
 		user_turf = get_turf(user)
@@ -109,10 +109,10 @@
 	qdel(dummy)
 	return TRUE
 
-/obj/item/gun/medbeamtg/proc/on_beam_hit(var/mob/living/target)
+/obj/item/gun/medbeamgun/proc/on_beam_hit(var/mob/living/target)
 	return
 
-/obj/item/gun/medbeamtg/proc/on_beam_tick(var/mob/living/target)
+/obj/item/gun/medbeamgun/proc/on_beam_tick(var/mob/living/target)
 	if(target.health != target.maxHealth)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF", 30)
 	target.adjustBruteLoss(-4)
@@ -123,27 +123,27 @@
 		target.adjustOxyLoss(-1)
 
 
-/obj/item/gun/medbeamtg/proc/on_beam_release(var/mob/living/target)
+/obj/item/gun/medbeamgun/proc/on_beam_release(var/mob/living/target)
 	return
 
 /obj/effect/ebeam/medical
 	name = "medical beam"
 
 //////////////////////////////Mech Version///////////////////////////////
-/obj/item/gun/medbeamtg/mech
+/obj/item/gun/medbeamgun/mech
 	mounted = TRUE
 
-/obj/item/gun/medbeamtg/mech/Initialize()
+/obj/item/gun/medbeamgun/mech/Initialize()
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
 
 //esto intenta adaptar las 3 lineas anteriores al code de paradise.
-/obj/item/gun/medbeamtg/mech/New()
+/obj/item/gun/medbeamgun/mech/New()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 //fin
 
 //////////////////////////////Proto mech varsion (beangum mounted de hispania)///////////////////////////////
-/obj/item/gun/medbeamtg/mech/protomedbeamtg/
+/obj/item/gun/medbeamgun/mech/protomedbeamgun/
 	max_range = 7
 	proto = TRUE
