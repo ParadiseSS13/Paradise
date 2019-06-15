@@ -930,11 +930,12 @@
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-				M.show_message(message)
+		if(client)
+			for(var/mob/M in GLOB.dead_mob_list)
+				if(!M.client || istype(M, /mob/new_player))
+					continue //skip monkeys, leavers and new players
+				if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+					M.show_message(message)
 
 		switch(m_type)
 			if(1)

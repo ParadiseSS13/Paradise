@@ -61,15 +61,16 @@
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
-		for(var/mob/M in GLOB.player_list)
-			if(!M.client)
-				continue //skip monkeys and leavers
-			if(istype(M, /mob/new_player))
-				continue
-			if(findtext(message," snores.")) //Because we have so many sleeping people.
-				break
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-				M.show_message(message)
+		if(client)
+			for(var/mob/M in GLOB.player_list)
+				if(!M.client)
+					continue //skip monkeys and leavers
+				if(istype(M, /mob/new_player))
+					continue
+				if(findtext(message," snores.")) //Because we have so many sleeping people.
+					break
+				if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+					M.show_message(message)
 
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item

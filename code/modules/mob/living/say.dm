@@ -290,12 +290,13 @@ proc/get_radio_key_from_channel(var/channel)
 	if(act && type && message) //parent call
 		log_emote(message, src)
 
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players //who the hell knows why new players are in the dead mob list
+		if(client)
+			for(var/mob/M in GLOB.dead_mob_list)
+				if(!M.client || istype(M, /mob/new_player))
+					continue //skip monkeys, leavers and new players //who the hell knows why new players are in the dead mob list
 
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-				M.show_message(message)
+				if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+					M.show_message(message)
 
 		switch(type)
 			if(1) //Visible
@@ -392,11 +393,12 @@ proc/get_radio_key_from_channel(var/channel)
 			hearturfs += get_turf(L)
 
 	//ghosts
-	for(var/mob/M in GLOB.dead_mob_list)	//does this include players who joined as observers as well?
-		if(!M.client)
-			continue
-		if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS))
-			listening |= M
+	if(client)
+		for(var/mob/M in GLOB.dead_mob_list)	//does this include players who joined as observers as well?
+			if(!M.client)
+				continue
+			if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS))
+				listening |= M
 
 	// This, in tandem with "hearturfs", lets nested mobs hear whispers that are in range
 	// Grifted from saycode above.
