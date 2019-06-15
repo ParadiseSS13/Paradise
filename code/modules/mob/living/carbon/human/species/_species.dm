@@ -600,7 +600,7 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
-	if(H.mind && H.mind.vampire && (H.mind in ticker.mode.vampires)) //Vampires
+	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
 		switch(H.nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				H.throw_alert("nutrition", /obj/screen/alert/fat/vampire)
@@ -689,7 +689,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.see_invisible = G.invis_override
 		else
 			H.see_invisible = min(G.invis_view, H.see_invisible)
-		
+
 		if(!isnull(G.lighting_alpha))
 			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 

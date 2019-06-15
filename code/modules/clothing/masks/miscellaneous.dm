@@ -117,7 +117,7 @@
 	security_lock = TRUE
 	locked = FALSE
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey" )
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
