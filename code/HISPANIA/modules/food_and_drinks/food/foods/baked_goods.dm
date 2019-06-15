@@ -99,27 +99,27 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 5, "vitamin" = 2)
 
-/obj/item/reagent_containers/food/snacks/arepa_queso
+/obj/item/reagent_containers/food/snacks/arepa_cheese
 	name = "Cheese arepa"
 	desc = "Venezuelan flavor just with cheese."
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "arepa_queso"
+	icon_state = "arepa_cheese"
 	bitesize = 4
 	list_reagents = list("nutriment" = 5, "vitamin" = 5)
 
-/obj/item/reagent_containers/food/snacks/arepa_jamon
+/obj/item/reagent_containers/food/snacks/arepa_ham
 	name = "Ham arepa"
 	desc = "Venezuelan flavor just with ham."
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "jamon_arepa"
+	icon_state = "ham_arepa"
 	bitesize = 4
 	list_reagents = list("nutriment" = 6, "vitamin" = 5)
 
-/obj/item/reagent_containers/food/snacks/arepa_jamon_queso
+/obj/item/reagent_containers/food/snacks/arepa_ham_cheese
 	name = "Cheese and ham arepa"
 	desc = "Venezuelan flavor but with ham and cheese."
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "arepa_jamon_queso"
+	icon_state = "arepa_ham_cheese"
 	bitesize = 6
 	list_reagents = list("nutriment" = 8, "vitamin" = 6)
 
@@ -131,11 +131,11 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 10, "vitamin" = 9)
 
-/obj/item/reagent_containers/food/snacks/arepa_fantasma_boo
-	name = "Ghost arepa BOOOOO"
+/obj/item/reagent_containers/food/snacks/ghost_arepa
+	name = "Ghost arepa"
 	desc = "deliciously spooky BOOOOOOOOO"
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "arepa_fantasma_booo"
+	icon_state = "arepa_ghost"
 	bitesize = 3
 	list_reagents = list("nutriment" = 4, "vitamin" = 7, "ectoplasm" = 5)
 
@@ -173,27 +173,27 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 5, "vitamin" = 5, "slimejelly" = 5)
 
-/obj/item/reagent_containers/food/snacks/arepa_dulce
+/obj/item/reagent_containers/food/snacks/sweet_arepa
 	name = "Sweet arepa"
 	desc = "A sweet and delicious arepa."
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "arepa_dulce"
+	icon_state = "sweet_arepa"
 	bitesize = 5
 	list_reagents = list("nutriment" = 3, "vitamin" = 5, "slimejelly" = 10, "sugar" = 10)
 
-/obj/item/reagent_containers/food/snacks/queso_arepa
+/obj/item/reagent_containers/food/snacks/cheese_arepa
 	name = "Cheese arepa"
 	desc = "A lot of cheese with delicious arepa."
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "queso_arepa"
+	icon_state = "cheese_arepa"
 	bitesize = 10
 	list_reagents = list("nutriment" = 10, "vitamin" = 4)
 
-/obj/item/reagent_containers/food/snacks/arepa_frutal
+/obj/item/reagent_containers/food/snacks/fruit_arepa
 	name = "Fruit arepa"
 	desc = "A tropical arepa."
 	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "arepa_frutal"
+	icon_state = "fruit_arepa"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "vitamin" = 8, "banana" = 10)
 
@@ -239,26 +239,9 @@
 	list_reagents = list("nutriment" = 9, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/arepa_magma
-	name = "Magma Arepa"
-	desc = "Arepa taken from Lavaland itself."
+	name = "Magma arepa"
+	desc = "Arepa taken from lavaland itself."
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "arepa_magma"
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "capsaicin" = 20, "condensedcapsaicin" = 20)  //666,el diablo
-
-/obj/item/reagent_containers/food/snacks/alma_venezolana
-	name = "Venezuelan soul"
-	desc = "The condensed soul of a Venezuelan, able to heal physical and spiritual damage."
-	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "alma_venezolana"
-	bitesize = 10
-	list_reagents = list("nutriment" = 20, "vitamin" = 20, "gold" = 5, "holywater" = 10, "ectoplasm" = 7, "styptic_powder" = 6, "blood" = 5)
-
-
-/obj/item/reagent_containers/food/snacks/verdadera_alma_venezolana //en realidad queria que fuera un admincure como el core de hiverlord
-	name = "Venezuela"
-	desc = "You don't know what to say."
-	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "verdadera_alma_venezolana"
-	bitesize = 50
-	list_reagents = list("nutriment" = 30, "vitamin" = 30, "gold" = 10, "holywater" = 15, "ectoplasm" = 10, "styptic_powder" = 10, "silver_sulfadiazine" = 10)

@@ -7,20 +7,20 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa
 
-/datum/recipe/grill/arepa_queso
+/datum/recipe/grill/arepa_cheese
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa, /obj/item/reagent_containers/food/snacks/cheesewedge)
-	result = /obj/item/reagent_containers/food/snacks/arepa_queso
+	result = /obj/item/reagent_containers/food/snacks/arepa_cheese
 
-/datum/recipe/grill/arepa_jamon
+/datum/recipe/grill/arepa_ham
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa, /obj/item/reagent_containers/food/snacks/rawcutlet)
-	result = /obj/item/reagent_containers/food/snacks/arepa_jamon
+	result = /obj/item/reagent_containers/food/snacks/arepa_ham
 
-/datum/recipe/grill/arepa_jamon_queso
+/datum/recipe/grill/arepa_ham_cheese
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa, /obj/item/reagent_containers/food/snacks/rawcutlet, /obj/item/reagent_containers/food/snacks/cheesewedge)
-	result = /obj/item/reagent_containers/food/snacks/arepa_jamon_queso
+	result = /obj/item/reagent_containers/food/snacks/arepa_ham_cheese
 
 /datum/recipe/grill/arepa_plasma
 	reagents = list("plasma_dust" = 10)
@@ -29,12 +29,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa_plasma
 
-/datum/recipe/grill/arepa_fantasma_boo
+/datum/recipe/grill/ghost_arepa
 	reagents = list("enzyme" = 5, "milk" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa, /obj/item/reagent_containers/food/snacks/ectoplasm
 	)
-	result = /obj/item/reagent_containers/food/snacks/arepa_fantasma_boo
+	result = /obj/item/reagent_containers/food/snacks/ghost_arepa
 
 /datum/recipe/grill/xeno_arepa
 	reagents = list("sugar" = 5, "enzyme" = 5)
@@ -68,27 +68,27 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa_slime
 
-/datum/recipe/grill/arepa_dulce
+/datum/recipe/grill/sweet_arepa
 	reagents = list("slimejelly" = 5, "sugar" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa, /obj/item/slime_extract
 	)
-	result = /obj/item/reagent_containers/food/snacks/arepa_dulce
+	result = /obj/item/reagent_containers/food/snacks/sweet_arepa
 
-/datum/recipe/grill/queso_arepa
+/datum/recipe/grill/cheese_arepa
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa, /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
 	)
-	result = /obj/item/reagent_containers/food/snacks/queso_arepa
+	result = /obj/item/reagent_containers/food/snacks/cheese_arepa
 
-/datum/recipe/grill/arepa_frutal
+/datum/recipe/grill/fruit_arepa
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa,
 		/obj/item/reagent_containers/food/snacks/grown/banana,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/reagent_containers/food/snacks/grown/apple,
 	)
-	result = /obj/item/reagent_containers/food/snacks/arepa_frutal
+	result = /obj/item/reagent_containers/food/snacks/fruit_arepa
 
 /datum/recipe/grill/arepa_salmon
 	items = list(
@@ -132,40 +132,4 @@
 		/obj/item/reagent_containers/food/snacks/arepa_infernal
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa_magma
-
-/datum/recipe/grill/alma_venezolana
-	reagents = list("gold" = 5, "holywater" = 5, "blood" = 5)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/arepa,
-		/obj/item/reagent_containers/food/snacks/arepa_queso,
-		/obj/item/reagent_containers/food/snacks/arepa_jamon,
-		/obj/item/reagent_containers/food/snacks/arepa_jamon_queso,
-	)
-	result = /obj/item/reagent_containers/food/snacks/alma_venezolana
-
-/datum/recipe/grill/verdadera_alma_venezola
-	reagents = list("silver" = 10, "gold" = 10)
-	items = list(
-		 /obj/item/reagent_containers/food/snacks/alma_venezolana,
-		 /obj/item/reagent_containers/food/snacks/arepa,
-		 /obj/item/reagent_containers/food/snacks/arepa_queso,
-		 /obj/item/reagent_containers/food/snacks/arepa_jamon,
-		 /obj/item/reagent_containers/food/snacks/arepa_jamon_queso,
-		 /obj/item/reagent_containers/food/snacks/arepa_plasma,
-		 /obj/item/reagent_containers/food/snacks/arepa_fantasma_boo,
-		 /obj/item/reagent_containers/food/snacks/xeno_arepa,
-		 /obj/item/reagent_containers/food/snacks/spider_arepa,
-		 /obj/item/reagent_containers/food/snacks/arepa_life,
-		 /obj/item/reagent_containers/food/snacks/arepa_slime,
-		 /obj/item/reagent_containers/food/snacks/arepa_dulce,
-		 /obj/item/reagent_containers/food/snacks/queso_arepa,
-		 /obj/item/reagent_containers/food/snacks/arepa_frutal,
-		 /obj/item/reagent_containers/food/snacks/arepa_salmon,
-		 /obj/item/reagent_containers/food/snacks/arepa_industrial,
-		 /obj/item/reagent_containers/food/snacks/arepa_infernal,
-		 /obj/item/reagent_containers/food/snacks/arepa_ice,
-		 /obj/item/reagent_containers/food/snacks/arepa_plumphelmet,
-		 /obj/item/reagent_containers/food/snacks/arepa_magma,
-	)
-	result = /obj/item/reagent_containers/food/snacks/verdadera_alma_venezolana
 
