@@ -1,10 +1,11 @@
 /mob/living/simple_animal/hostile/syndicate
 	name = "Syndicate Operative"
 	desc = "Death to Nanotrasen."
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "syndicate"
 	icon_living = "syndicate"
-	icon_dead = "syndicate_dead"
-	icon_gib = "syndicate_gib"
+	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
+	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -32,8 +33,8 @@
 /mob/living/simple_animal/hostile/syndicate/melee
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	icon_state = "syndicatemelee"
-	icon_living = "syndicatemelee"
+	icon_state = "syndicate_sword"
+	icon_living = "syndicate_sword"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
@@ -103,6 +104,11 @@
 	depotarea = areaMaster
 	spawn_turf = get_turf(src)
 
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
+	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
+	return ListTargets()
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Aggro()
 	. = ..()
 	if(target && istype(depotarea))
@@ -111,7 +117,7 @@
 			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
 			if(alert_on_shield_breach)
 				if(depotarea.shield_list.len)
-					raise_alert("[name] reports that an intruder is trying to breach the armory shield!")
+					raise_alert("[name] reports that [target] is trying to breach the armory shield!")
 					alert_on_shield_breach = FALSE
 					raised_alert = FALSE
 					alert_on_death = TRUE
@@ -200,10 +206,23 @@
 	alert_on_death = TRUE
 	melee_block_chance = 60
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/Initialize()
+	..()
+	if(prob(50))
+		ranged = 1
+		rapid = 1
+		retreat_distance = 3
+		minimum_distance = 3
+		melee_block_chance = 0
+		icon_state = "syndicate_smg"
+		icon_living = "syndicate_smg"
+		projectiletype = /obj/item/projectile/beam/laser
+		projectilesound = 'sound/weapons/laser.ogg' // do not use casingtype, it spams bullet casings.
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
 	name = "Syndicate Quartermaster"
-	icon_state = "syndicatemeleespace"
-	icon_living = "syndicatemeleespace"
+	icon_state = "syndicate_stormtrooper_sword"
+	icon_living = "syndicate_stormtrooper_sword"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxHealth = 250
@@ -230,8 +249,8 @@
 	name = "Syndicate Backup"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	icon_state = "syndicatemeleespace"
-	icon_living = "syndicatemeleespace"
+	icon_state = "syndicate_space_sword"
+	icon_living = "syndicate_space_sword"
 	speed = 1
 	wander = 0
 	alert_on_spacing = FALSE
@@ -245,8 +264,8 @@
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	icon_state = "syndicatemeleespace"
-	icon_living = "syndicatemeleespace"
+	icon_state = "syndicate_space_sword"
+	icon_living = "syndicate_space_sword"
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
@@ -259,14 +278,14 @@
 	rapid = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	icon_state = "syndicateranged"
-	icon_living = "syndicateranged"
+	icon_state = "syndicate_smg"
+	icon_living = "syndicate_smg"
 	casingtype = /obj/item/ammo_casing/c45
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
-	icon_state = "syndicaterangedpsace"
-	icon_living = "syndicaterangedpsace"
+	icon_state = "syndicate_space_smg"
+	icon_living = "syndicate_space_smg"
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

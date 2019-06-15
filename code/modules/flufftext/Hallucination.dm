@@ -217,7 +217,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	qdel(src)
 
 /obj/effect/hallucination/simple/clown
-	image_icon = 'icons/mob/animal.dmi'
+	image_icon = 'icons/mob/simple_human.dmi'
 	image_state = "clown"
 
 /obj/effect/hallucination/simple/clown/New(loc, mob/living/carbon/T, duration)

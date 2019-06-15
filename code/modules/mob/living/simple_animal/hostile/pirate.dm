@@ -1,9 +1,10 @@
 /mob/living/simple_animal/hostile/pirate
 	name = "Pirate"
 	desc = "Does what he wants cause a pirate is free."
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "piratemelee"
 	icon_living = "piratemelee"
-	icon_dead = "piratemelee_dead"
+	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pushes the"
@@ -33,7 +34,7 @@
 	name = "Pirate Gunner"
 	icon_state = "pirateranged"
 	icon_living = "pirateranged"
-	icon_dead = "piratemelee_dead"
+	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
 	projectilesound = 'sound/weapons/laser.ogg'
 	ranged = 1
 	rapid = 1
