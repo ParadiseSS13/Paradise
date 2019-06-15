@@ -323,4 +323,4 @@
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)

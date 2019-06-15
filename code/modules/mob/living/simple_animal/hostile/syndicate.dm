@@ -114,7 +114,8 @@
 	if(target && istype(depotarea))
 		if(!seen_enemy)
 			seen_enemy = TRUE
-			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
+			if(!ranged)
+				playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
 			if(alert_on_shield_breach)
 				if(depotarea.shield_list.len)
 					raise_alert("[name] reports that [target] is trying to breach the armory shield!")

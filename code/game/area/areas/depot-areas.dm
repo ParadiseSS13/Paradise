@@ -320,7 +320,7 @@
 		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
-	for(var/obj/structure/falsewall/reinforced/F in src)
+	for(var/obj/structure/falsewall/plastitanium/F in src)
 		spawn(0)
 			F.toggle()
 
