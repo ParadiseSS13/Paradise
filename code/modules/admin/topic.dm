@@ -2003,7 +2003,7 @@
 			message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please move out of cryostorage if you want to avoid being despawned.</span>")
-				H << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
 				if(H.client)
 					window_flash(H.client)
 		else if(cryo_ssd(H))
