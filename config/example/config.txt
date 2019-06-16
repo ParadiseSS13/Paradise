@@ -85,6 +85,9 @@ LOG_WORLD_OUTPUT
 ## log admin warning messages
 LOG_ADMINWARN
 
+## Amount of minutes that a person has to be AFK before he'll be listed on the "List AFK players" verb
+#LIST_AFK_MINIMUM 5
+
 ## probablities for game modes chosen in "secret" and "random" modes
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked

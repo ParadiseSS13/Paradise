@@ -74,6 +74,8 @@
 
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
+	
+	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
 	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
@@ -318,6 +320,9 @@
 					config.auto_cryo_ssd_mins = text2num(value)
 				if("ssd_warning")
 					config.ssd_warning = 1
+
+				if("list_afk_minimum")
+					config.list_afk_minimum = text2num(value)
 
 				if("ipintel_email")
 					if(value != "ch@nge.me")

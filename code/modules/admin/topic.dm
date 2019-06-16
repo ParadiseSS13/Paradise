@@ -1993,7 +1993,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(!isLivingSSD(H))
+		if(!href_list["cryoafk"] && !isLivingSSD(H))
 			to_chat(usr, "This can only be used on living, SSD players.")
 			return
 		if(istype(H.loc, /obj/machinery/cryopod))
@@ -2001,6 +2001,11 @@
 			P.despawn_occupant()
 			log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
 			message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
+			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
+				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please move out of cryostorage if you want to avoid being despawned.</span>")
+				H << 'sound/effects/adminhelp.ogg'
+				if(H.client)
+					window_flash(H.client)
 		else if(cryo_ssd(H))
 			log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
