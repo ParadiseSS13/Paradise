@@ -1375,6 +1375,8 @@ var/list/ghostteleportlocs = list()
 	icon_state = "medbay"
 
 //Security
+/area/security
+	can_get_auto_cryod = FALSE
 
 /area/security/main
 	name = "\improper Security Office"
