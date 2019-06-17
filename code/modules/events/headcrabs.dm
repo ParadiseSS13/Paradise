@@ -121,7 +121,7 @@
 
 
 /datum/event/headcrabs/announce()
-	event_announcement.Announce("Bioscans indicate that creatues have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	event_announcement.Announce("Bioscans indicate that creatures have been breeding in [locstring]. Clear them out, before this starts to affect productivity", "Lifesign Alert")
 
 #undef LOC_ATMOS_CONTROL
 #undef LOC_FPMAINT
