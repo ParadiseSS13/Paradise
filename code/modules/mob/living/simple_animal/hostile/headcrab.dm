@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/headcrab
 	name = "headcrab"
-	desc = "A headcrab. Run!"
+	desc = "A small parasitic creature that would like to connect with your brain stem."
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab"
 	icon_living = "headcrab"

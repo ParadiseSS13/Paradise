@@ -108,7 +108,7 @@
 	switch(headcrab) //Switch is for the future
 		if(HEADCRAB_NORMAL)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
-			max_number = 12
+			max_number = 6
 
 	spawn(0)
 		var/num = rand(2,max_number)
