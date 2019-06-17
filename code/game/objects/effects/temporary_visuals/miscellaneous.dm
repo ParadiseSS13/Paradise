@@ -172,7 +172,6 @@
 /obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
 	name = "healing glow"
 	icon_state = "heal"
-	duration = 15
 
 /obj/effect/temp_visual/heal/New(loc, colour, var/time = 15)
 	..()
