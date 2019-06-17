@@ -4,6 +4,7 @@
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab"
 	icon_living = "headcrab"
+	icon_dead = "headcrab_dead"
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 8
@@ -16,9 +17,8 @@
 	var/host_species = ""
 	var/list/human_overlays = list()
 
-
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(!is_zombie && isturf(src.loc))
+	if(!is_zombie && isturf(src.loc) && stat != DEAD)
 		for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
 			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 				Zombify(H)
@@ -55,19 +55,17 @@
 	H.forceMove(src)
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
+/mob/living/simple_animal/hostile/headcrab/death()
+	..()
+	if(is_zombie)
+		qdel(src)
+
 
 /mob/living/simple_animal/hostile/headcrab/handle_automated_speech() // This way they have different screams when attacking, sometimes. Might be seen as sphagetthi code though.
 	if(speak_chance)
 		if(rand(0,200) < speak_chance)
 			if(speak && speak.len)
-				var/pick = rand(0,speak.len - 1)
-				playsound(get_turf(),speak[pick], 200, 1)
-
-/mob/living/simple_animal/hostile/headcrab/death()
-	. = ..()
-	icon_state = "headcrab_dead"
-	if(is_zombie)
-		qdel(src) //The headcrab would be in no "nice" shape to be ressurected or toyed with, so it gibs.
+				playsound(get_turf(src), pick(speak), 200, 1)
 
 /mob/living/simple_animal/hostile/headcrab/Destroy()
 	if(contents)
