@@ -17,8 +17,8 @@
 			            access_teleporter, access_external_airlocks, access_atmospherics, access_emergency_storage, access_eva,
 			            access_heads, access_construction, access_sec_doors,
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
-	minimal_player_age = 25
-	exp_requirements = 2160
+	minimal_player_age = 15
+	exp_requirements = 2880
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chief_engineer
 
@@ -58,8 +58,8 @@
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom, access_mechanic)
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
 	alt_titles = list("Atmospherics Specialist","Mechanic")
-	minimal_player_age = 7
-	exp_requirements = 300
+	minimal_player_age = 4
+	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/engineer
 
@@ -86,7 +86,7 @@
 	title = "Life Support Specialist"
 	flag = ATMOSTECH
 	department_flag = ENGSEC
-	total_positions = 3
+	total_positions = 1
 	spawn_positions = 2
 	is_engineering = 1
 	supervisors = "the chief engineer"
@@ -95,9 +95,9 @@
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom, access_mechanic)
 	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction, access_mineral_storeroom, access_tech_storage)
 	alt_titles = list("Atmospheric Technician")
-	minimal_player_age = 7
+	minimal_player_age = 4
 	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
