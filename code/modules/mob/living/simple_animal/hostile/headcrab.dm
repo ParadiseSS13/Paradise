@@ -7,8 +7,8 @@
 	icon_dead = "headcrab_dead"
 	health = 40
 	maxHealth = 40
-	melee_damage_lower = 8
-	melee_damage_upper = 16
+	melee_damage_lower = 5
+	melee_damage_upper = 10
 	attacktext = "bites"
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
@@ -44,6 +44,7 @@
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
 	speak_emote = list("groans")
+	attacktext = "bites"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
 	if(head_organ)
