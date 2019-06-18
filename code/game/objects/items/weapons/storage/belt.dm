@@ -194,15 +194,17 @@
 		/obj/item/cultivator,
 		/obj/item/hatchet,
 		/obj/item/reagent_containers/glass/bottle,
-//		/obj/item/reagent_containers/syringe,
-//		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
 		/obj/item/flashlight/pen,
 		/obj/item/seeds,
 		/obj/item/wirecutters,
-        /obj/item/wrench,
+		/obj/item/wrench,
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/reagent_containers/spray/plantbgone,
 	)
 
 /obj/item/storage/belt/security

@@ -15,9 +15,9 @@
 	minimal_access = list(access_eva, access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom, access_maint_tunnels)
-	minimal_player_age = 25
-	exp_requirements = 2160
-	exp_type = EXP_TYPE_CREW
+	minimal_player_age = 15
+	exp_requirements = 2880
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
@@ -136,14 +136,14 @@
 					head = /obj/item/clothing/head/nursehat
 				else
 					uniform = /obj/item/clothing/under/rank/medical/purple
-			
+
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 
 /datum/job/chemist
 	title = "Chemist"
 	flag = CHEMIST
 	department_flag = MEDSCI
-	total_positions = 2
+	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer"
@@ -177,7 +177,7 @@
 	title = "Geneticist"
 	flag = GENETICIST
 	department_flag = MEDSCI
-	total_positions = 2
+	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
@@ -220,8 +220,8 @@
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 600
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
