@@ -48,7 +48,7 @@
 
 	if(current_target)
 		LoseTarget()
-	if(!isliving(target))
+	if(!istype(target, /mob/living) || istype(target, /mob/living/carbon/human/machine) || istype(target, /mob/living/silicon) || istype(target, /mob/living/simple_animal/bot))
 		return
 
 	current_target = target

@@ -1,5 +1,5 @@
 /datum/design/protomechmedbeam
-	name = "Exosuit Medical Equipment (prototype beamgun)"
+	name = "Exosuit Medical Equipment (Prototype Beamgun)"
 	desc = "Equipment for medical exosuits. Generates a focused beam of medical nanites. This prototype consumes excessive energy."
 	id = "protomechmedbeamgun"
 	build_type = MECHFAB
