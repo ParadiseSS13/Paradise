@@ -115,7 +115,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	is_command = 1
 	minimal_player_age = 21
 	exp_requirements = 2880
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_COMMAND
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
