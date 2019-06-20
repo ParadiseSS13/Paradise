@@ -75,7 +75,7 @@
 	title = "Botanist"
 	flag = BOTANIST
 	department_flag = SUPPORT
-	total_positions = 3
+	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -115,6 +115,8 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	outfit = /datum/outfit/job/qm
@@ -163,8 +165,8 @@
 	title = "Shaft Miner"
 	flag = MINER
 	department_flag = SUPPORT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 5
+	spawn_positions = 5
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
