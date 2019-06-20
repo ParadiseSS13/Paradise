@@ -106,7 +106,11 @@
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	icon_state = "trayson-meson"
 	item_state = "trayson-meson"
+	var/icon_state_base = "trayson-"
+	lefthand_file = 'icons/HISPANIA/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/HISPANIA/mob/inhands/clothing_righthand.dmi'
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	hispania_icon = TRUE
 
 	vision_flags = NONE
 	see_in_dark = 2
@@ -164,7 +168,7 @@
 			t_ray_scan(user, range, 50)
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
-	icon_state = "trayson-[mode]"
+	icon_state = icon_state_base+"[mode]"
 	update_mob()
 
 /obj/item/clothing/glasses/meson/engine/proc/update_mob()
@@ -186,6 +190,9 @@
 /obj/item/clothing/glasses/meson/engine/ce
 	name = "superior engineering scanner goggles"
 	desc = "A engineering scanner goggles whith welding protection"
+	icon_state_base = "traysonce-"
+	icon_state = "traysonce-"
+	item_state = "traysonce-"
 	flash_protect = 2
 	tint = 0
 

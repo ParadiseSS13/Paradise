@@ -1122,6 +1122,7 @@
 #include "code\HISPANIA\game\objects\structures\crates_lockers\closets\cardboardcham.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_suit.dm"
 #include "code\HISPANIA\modules\clothing\glasses\engine_goggles.dm.dm"
+#include "code\HISPANIA\modules\clothing\glasses\glasses.dm"
 #include "code\HISPANIA\modules\clothing\head\misc.dm"
 #include "code\HISPANIA\modules\clothing\suits\labcoat.dm"
 #include "code\HISPANIA\modules\crafting\recipes.dm"
