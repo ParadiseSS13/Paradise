@@ -352,7 +352,7 @@
 
 /obj/item/clothing/glasses/welding/superior
 	name = "superior welding goggles"
-	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
+	desc = "Welding goggles made from more expensive materials, and an integrated Diagnostic HUD."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
 	flash_protect = 2

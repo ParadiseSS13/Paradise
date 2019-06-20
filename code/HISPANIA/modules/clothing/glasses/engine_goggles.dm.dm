@@ -106,6 +106,7 @@
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	icon_state = "trayson-meson"
 	item_state = "trayson-meson"
+	origin_tech = "magnets=3;plasmatech=3;materials=2;engineering=4"
 	var/icon_state_base = "trayson-"
 	lefthand_file = 'icons/HISPANIA/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/HISPANIA/mob/inhands/clothing_righthand.dmi'
@@ -118,7 +119,8 @@
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_NONE)
 	var/mode = MODE_NONE
-	var/range = 4
+	var/range = 5
+	var/init_flash_protect = 0
 
 /obj/item/clothing/glasses/meson/engine/Initialize()
 	. = ..()
@@ -138,11 +140,18 @@
 			vision_flags = SEE_TURFS
 			see_in_dark = 1
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			flash_protect = 0
 
 		if(MODE_TRAY) //undoes the last mode, meson
 			vision_flags = NONE
 			see_in_dark = 2
 			lighting_alpha = null
+			flash_protect = 0
+
+		if(MODE_NONE)
+			see_in_dark = 2
+			vision_flags = NONE
+			flash_protect = init_flash_protect
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -165,7 +174,7 @@
 		return
 	switch(mode)
 		if(MODE_TRAY)
-			t_ray_scan(user, range, 50)
+			t_ray_scan(user, range, 45)
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = icon_state_base+"[mode]"
@@ -183,17 +192,19 @@
 	icon_state = "trayson-t-ray"
 	item_state = "trayson-t-ray"
 	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
-	range = 5
+	origin_tech = "magnets=2;plasmatech=2;engineering=2"
 
 	modes = list(MODE_NONE = MODE_TRAY, MODE_TRAY = MODE_NONE)
 
 /obj/item/clothing/glasses/meson/engine/ce
 	name = "superior engineering scanner goggles"
 	desc = "A engineering scanner goggles whith welding protection"
+	origin_tech = "magnets=3;plasmatech=3;materials=4;engineering=4"
 	icon_state_base = "traysonce-"
 	icon_state = "traysonce-"
 	item_state = "traysonce-"
-	flash_protect = 2
+	init_flash_protect = 2
+	flash_protect
 	tint = 0
 
 

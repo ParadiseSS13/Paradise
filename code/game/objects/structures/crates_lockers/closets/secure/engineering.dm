@@ -22,7 +22,7 @@
 	new /obj/item/clothing/under/rank/chief_engineer/skirt(src)
 	new /obj/item/clothing/suit/mantle/chief_engineer(src)
 	new /obj/item/clothing/head/hardhat/white(src)
-	new /obj/item/clothing/glasses/welding/superior(src)
+	new /obj/item/clothing/glasses/meson/engine/ce(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/cartridge/ce(src)
