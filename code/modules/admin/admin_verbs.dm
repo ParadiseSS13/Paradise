@@ -79,7 +79,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/list_ssds,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/show_discord_duplicates,
+	/client/proc/show_discord_duplicates, // This needs removing at some point, ingame discord linking got removed in #11359
+	/client/proc/toggle_panic_bunker
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -1027,3 +1028,16 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	holder.discord_duplicates()
+
+/client/proc/toggle_panic_bunker()
+	set name = "Toggle Panic Bunker"
+	set category = "Admin"
+	set desc = "Disables new players connecting."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled 
+
+	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
+	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
