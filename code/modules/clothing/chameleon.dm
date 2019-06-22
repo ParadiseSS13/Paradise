@@ -284,7 +284,6 @@
 	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	flash_protect = 1
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
