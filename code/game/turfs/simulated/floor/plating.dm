@@ -2,7 +2,7 @@
 	name = "plating"
 	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
-	intact = 0
+	intact = FALSE
 	floor_tile = null
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
@@ -25,16 +25,16 @@
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
-		return 1
+		return TRUE
 
 	if(istype(C, /obj/item/stack/rods))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return 1
+			return TRUE
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
-			return 1
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30 * C.toolspeed, target = src))
@@ -43,7 +43,7 @@
 					playsound(src, C.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return 1
+				return TRUE
 
 	else if(istype(C, /obj/item/stack/tile))
 		if(!broken && !burnt)
@@ -54,20 +54,20 @@
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
-		return 1
+		return TRUE
 
 	else if(istype(C, /obj/item/weldingtool))
 		var/obj/item/weldingtool/welder = C
-		if( welder.isOn() && (broken || burnt) )
-			if(welder.remove_fuel(0,user))
+		if(welder.isOn() && (broken || burnt))
+			if(welder.remove_fuel(0, user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
 				overlays -= current_overlay
 				current_overlay = null
-				burnt = 0
-				broken = 0
+				burnt = FALSE
+				broken = FALSE
 				update_icon()
-			return 1
+			return TRUE
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
@@ -103,6 +103,9 @@
 /turf/simulated/floor/engine/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
+/turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	return
+
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
 		return
@@ -115,6 +118,7 @@
 			new /obj/item/stack/rods(src, 2)
 			ChangeTurf(/turf/simulated/floor/plating)
 			return
+
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
 		to_chat(user, "<span class='notice'>You begin insulating [src]...</span>")
 		if(do_after(user, 40, target = src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
@@ -220,6 +224,9 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
+/turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	return
+
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
@@ -238,7 +245,8 @@
 
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
 	if(..())
-		return 1
+		return TRUE
+
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)

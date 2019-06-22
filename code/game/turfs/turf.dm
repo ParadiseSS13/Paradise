@@ -180,8 +180,8 @@
 	if(L)
 		qdel(L)
 
-/turf/proc/TerraformTurf(path)
-	return ChangeTurf(path)
+/turf/proc/TerraformTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
 
 //Creates a new turf
 /turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
@@ -209,7 +209,6 @@
 	
 	if(!defer_change)
 		W.AfterChange(ignore_air)
-
 	W.blueprint_data = old_blueprint_data
 
 	recalc_atom_opacity()
@@ -492,15 +491,13 @@
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X
+		if(!A.simulated)
+			continue
 		if(istype(A, /mob/dead))
 			continue
 		if(istype(A, /obj/effect/landmark))
 			continue
 		if(istype(A, /obj/docking_port))
-			continue
-		if(istype(A, /atom/movable/lighting_object))
-			continue
-		if(!A.simulated)
 			continue
 		qdel(A, force=TRUE)
 

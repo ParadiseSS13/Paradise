@@ -1,0 +1,6 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Gutlunches will now eat properly."
+  - bugfix: "The tesla can no longer travel through wormholes."
+  - bugfix: "Fixed an issue with honkbot construction."

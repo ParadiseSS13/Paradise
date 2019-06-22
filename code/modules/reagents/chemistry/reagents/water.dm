@@ -19,39 +19,10 @@
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
 	taste_message = null
+	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
-/datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		// Put out fire
-		M.adjust_fire_stacks(-(volume * 0.2))
-
-	if(isgrey(M)) // You gosh darn snowflakes
-		var/mob/living/carbon/human/G = M
-		if(method == TOUCH)
-			if(volume > 25)
-				if(G.wear_mask)
-					to_chat(G, "<span class='danger'>Your [G.wear_mask] protects you from the acid!</span>")
-					return
-
-				if(G.head)
-					to_chat(G, "<span class='danger'>Your [G.wear_mask] protects you from the acid!</span>")
-					return
-
-				if(prob(75))
-					G.take_organ_damage(5, 10)
-					G.emote("scream")
-					var/obj/item/organ/external/affecting = G.get_organ("head")
-					if(affecting)
-						affecting.disfigure()
-				else
-					G.take_organ_damage(5, 10)
-			else
-				G.take_organ_damage(5, 10)
-		else
-			to_chat(G, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-			if(volume >= 10)
-				G.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
-				G.emote("scream")
+/datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
+	M.water_act(volume, water_temperature, src, method)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -114,7 +85,7 @@
 		if(!(istype(B) && B.off_floor))
 			qdel(O)
 	else
-		if(!istype(O, /atom/movable/lighting_object))
+		if(O.simulated)
 			O.color = initial(O.color)
 		O.clean_blood()
 

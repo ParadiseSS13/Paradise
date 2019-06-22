@@ -18,8 +18,25 @@
 	visibilityChanged()
 
 /turf/simulated/proc/break_tile()
+	return
 
 /turf/simulated/proc/burn_tile()
+	return
+
+/turf/simulated/proc/water_act(volume, temperature, source)
+	if(volume >= 3)
+		MakeSlippery()
+
+	for(var/mob/living/carbon/slime/M in src)
+		M.apply_water()
+
+	var/hotspot = (locate(/obj/effect/hotspot) in src)
+	if(hotspot)
+		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
+		lowertemp.react()
+		assume_air(lowertemp)
+		qdel(hotspot)
 
 /turf/simulated/acid_act(acidpwr, acid_volume)
 	. = 1
@@ -121,7 +138,7 @@
 				if(TURF_WET_PERMAFROST) // Permafrost
 					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
-/turf/simulated/ChangeTurf(var/path)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()
 	queue_smooth_neighbors(src)
 

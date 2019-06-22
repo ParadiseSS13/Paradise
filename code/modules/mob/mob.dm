@@ -1010,7 +1010,7 @@ var/list/slot_equipment_priority = list( \
 				var/atom/A = foo
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see))
+				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
@@ -1068,7 +1068,7 @@ var/list/slot_equipment_priority = list( \
 
 
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
-	return 0
+	return FALSE
 
 /mob/proc/swap_hand()
 	return

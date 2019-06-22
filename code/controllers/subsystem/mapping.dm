@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(mapping)
 	var/mining_type = MINETYPE
 	if (mining_type == "lavaland")
 		// Spawn Lavaland ruins and rivers.
-		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors, lava_ruins_templates)
+		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates)
 		spawn_rivers()
 	else
 		// Populate mining Z-level hidden rooms

@@ -1712,8 +1712,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(dna.species.has_fine_manipulation)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/get_permeability_protection()
 	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)

@@ -3608,7 +3608,7 @@
 	name = "MO19 Research"
 	})
 "fj" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_y = 24
 	},
@@ -5104,7 +5104,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 28
 	},
@@ -5267,7 +5267,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_y = 24
 	},
@@ -5413,7 +5413,7 @@
 	pixel_x = 0;
 	pixel_y = 0
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 28
 	},
@@ -6594,7 +6594,7 @@
 	name = "MO19 Arrivals"
 	})
 "jp" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -7560,7 +7560,7 @@
 	name = "MO19 Arrivals"
 	})
 "kK" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -8028,7 +8028,7 @@
 	name = "MO19 Arrivals"
 	})
 "lt" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -8649,7 +8649,7 @@
 	name = "MO19 Arrivals"
 	})
 "mw" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -8898,7 +8898,7 @@
 	name = "MO19 Arrivals"
 	})
 "mS" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},

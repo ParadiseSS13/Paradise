@@ -102,9 +102,9 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	resistance_flags = ACID_PROOF //Dissolving the case would also delete the contents.
 	var/health = 30
 	var/obj/item/occupant = null
-	var/destroyed = 0
-	var/locked = 0
-	var/burglar_alarm = 0
+	var/destroyed = FALSE
+	var/locked = FALSE
+	var/burglar_alarm = FALSE
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/airlock_electronics/circuit
@@ -120,8 +120,8 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
-	burglar_alarm = 1
-	locked = 1
+	burglar_alarm = TRUE
+	locked = TRUE
 	req_access = list(access_captain)
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 		burglar_alarm()
 
 /obj/structure/displaycase/proc/burglar_alarm()
-	if(burglar_alarm)
+	if(burglar_alarm && is_station_contact(z))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
@@ -194,10 +194,10 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 			sleep(74) // 7.4 seconds long
 
 /obj/structure/displaycase/update_icon()
-	if(src.broken)
-		src.icon_state = "glassbox2b"
+	if(broken)
+		icon_state = "glassbox2b"
 	else
-		src.icon_state = "glassbox2[locked]"
+		icon_state = "glassbox2[locked]"
 	overlays = 0
 	if(occupant)
 		var/icon/occupant_icon=getFlatIcon(occupant)

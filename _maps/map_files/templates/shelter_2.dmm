@@ -9,7 +9,7 @@
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
 "c" = (
-/obj/machinery/smartfridge/survival_pod/loaded,
+/obj/machinery/smartfridge/survival_pod,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "d" = (
@@ -39,6 +39,9 @@
 /area/survivalpod)
 "i" = (
 /obj/machinery/sleeper/survival_pod,
+/obj/machinery/vending/wallmed1/survival_pod{
+	pixel_x = -24
+	},
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "j" = (
@@ -161,7 +164,7 @@
 	icon_state = "cutout_lusty";
 	name = "lusty xenomorph maid"
 	},
- /turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "A" = (
 /obj/structure/table/wood/fancy/black,

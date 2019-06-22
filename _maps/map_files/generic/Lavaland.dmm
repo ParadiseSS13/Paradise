@@ -628,6 +628,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bH" = (
@@ -898,6 +899,7 @@
 	opacity = 0;
 	req_access_txt = "54"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ck" = (
@@ -1706,6 +1708,7 @@
 	opacity = 0;
 	req_access_txt = "54"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "dZ" = (
@@ -2920,6 +2923,7 @@
 	name = "Labor Camp Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "gv" = (
@@ -2930,6 +2934,7 @@
 	opacity = 0;
 	req_one_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "gw" = (
@@ -2940,6 +2945,7 @@
 	opacity = 0;
 	req_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "gx" = (
@@ -2949,6 +2955,7 @@
 	locked = 1;
 	name = "Labor Camp External Access"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "gy" = (
@@ -3009,6 +3016,7 @@
 	locked = 1;
 	name = "Labor Camp External Access"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "gF" = (

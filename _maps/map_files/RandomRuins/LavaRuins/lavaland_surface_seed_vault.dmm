@@ -11,6 +11,7 @@
 	id_tag = "seed_vault_inner";
 	locked = 1
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "d" = (

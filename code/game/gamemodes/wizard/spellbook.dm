@@ -229,6 +229,12 @@
 	log_name = "LD"
 	category = "Defensive"
 
+/datum/spellbook_entry/lichdom/IsAvailible()
+	if(SSticker.mode.name == "ragin' mages")
+		return FALSE
+	else
+		return TRUE
+
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
 	spell_type = /obj/effect/proc_holder/spell/targeted/lightning
@@ -398,8 +404,8 @@
 	name = "Bottle of Tickles"
 	desc = "A bottle of magically infused fun, the smell of which will \
 		attract adorable extradimensional beings when broken. These beings \
-		are similar to slaughter demons, but they do not permamently kill \
-		their victims, instead putting them in an extradimensional hugspace, \
+		are similar to slaughter demons, but are a little weaker and they do not permamently \
+		kill their victims, instead putting them in an extradimensional hugspace, \
 		to be released on the demon's death. Chaotic, but not ultimately \
 		damaging. The crew's reaction to the other hand could be very \
 		destructive."
@@ -411,7 +417,7 @@
 
 /datum/spellbook_entry/item/oozebottle
 	name = "Bottle of Ooze"
-	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with. Be careful though, as Morph diet includes Wizards."
+	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with and even casting some very basic spells. Be careful though, as Morph diet includes Wizards."
 	item_path = /obj/item/antag_spawner/morph
 	cost = 1
 	log_name = "BO"
@@ -419,7 +425,7 @@
 	category = "Assistance"
 
 /datum/spellbook_entry/item/tarotdeck
-	name = "Tarot Deck"
+	name = "Guardian Deck"
 	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/guardiancreator
@@ -438,14 +444,6 @@
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
 	log_name = "SI"
-
-/datum/spellbook_entry/item/cursed_heart
-	name = "Cursed Heart"
-	desc = "A heart that has been revived by dark magicks. The user must ensure the heart is manually beaten or their blood circulation will suffer, but every beat heals their injuries. It must beat every 6 seconds."
-	item_path = /obj/item/organ/internal/heart/cursed/wizard
-	log_name = "CH"
-	cost = 1
-	category = "Defensive"
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -473,9 +471,12 @@
 	name = "Summon Ghosts"
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
+	log_name = "SGH"
 
 /datum/spellbook_entry/summon/ghosts/IsAvailible()
-	if(!SSticker.mode)
+	if(!SSticker.mode) // In case spellbook is placed on map
+		return FALSE
+	if(SSticker.mode.name == "ragin' mages")
 		return FALSE
 	else
 		return TRUE
@@ -489,18 +490,17 @@
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
-	category = "Rituals"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. Just be careful not to stand still too long!"
+	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. Just be careful not to stand still too long! You will also receive 1 extra point to use in your spellbook."
 	cost = 0
 	log_name = "SG"
 
 /datum/spellbook_entry/summon/guns/IsAvailible()
 	if(!SSticker.mode) // In case spellbook is placed on map
-		return 0
+		return FALSE
 	if(SSticker.mode.name == "ragin' mages")
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned",log_name)
@@ -512,18 +512,17 @@
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
-	category = "Challenges"
-	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
+	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time. You will also receive 1 extra point to use in your spellbook."
 	cost = 0
 	log_name = "SU"
 
 /datum/spellbook_entry/summon/magic/IsAvailible()
 	if(!SSticker.mode) // In case spellbook is placed on map
-		return 0
+		return FALSE
 	if(SSticker.mode.name == "ragin' mages")
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned",log_name)
@@ -611,9 +610,6 @@
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
-		if("Challenges")
-			dat += "The Wizard Federation typically has hard limits on the potency and number of spells brought to the station based on risk.<BR>"
-			dat += "Arming the station against you will increases the risk, but will grant you one more charge for your spellbook.<BR>"
 		if("Rituals")
 			dat += "These powerful spells change the very fabric of reality. Not always in your favour.<BR>"
 	return dat

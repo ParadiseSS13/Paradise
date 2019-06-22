@@ -9,11 +9,14 @@
 	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	var/id = null
-	var/on = 1.0
-	anchored = 1.0
+	var/on = FALSE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+/obj/machinery/igniter/on
+	on = TRUE
 
 /obj/machinery/igniter/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -54,8 +57,8 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "migniter"
 	var/id = null
-	var/disable = 0
-	var/last_spark = 0
+	var/disable = FALSE
+	var/last_spark = FALSE
 	var/base_state = "migniter"
 	anchored = 1
 

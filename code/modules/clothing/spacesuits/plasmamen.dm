@@ -238,6 +238,16 @@
 	base_state = "plasmamanMiner_helmet"
 	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
+/obj/item/clothing/suit/space/eva/plasmaman/explorer
+	name = "plasmaman explorer suit"
+	icon_state = "plasmamanExplorer_suit"
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 50, bio = 100, rad = 50, fire = 50, acid = 50)
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/explorer
+	name = "plasmaman explorer helmet"
+	icon_state = "plasmamanExplorer_helmet0"
+	base_state = "plasmamanExplorer_helmet"
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 50, bio = 100, rad = 50, fire = 50, acid = 50)
 
 // MEDSCI
 
