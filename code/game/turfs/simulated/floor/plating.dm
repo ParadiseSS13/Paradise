@@ -2,7 +2,7 @@
 	name = "plating"
 	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
-	intact = 0
+	intact = FALSE
 	floor_tile = null
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
@@ -103,7 +103,7 @@
 /turf/simulated/floor/engine/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
-/turf/simulated/floor/engine/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
@@ -224,7 +224,7 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
-/turf/simulated/floor/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
 /turf/simulated/floor/plating/metalfoam
@@ -243,12 +243,10 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return
-
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
 	if(..())
-		return 1
+		return TRUE
+
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)

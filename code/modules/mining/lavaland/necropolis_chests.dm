@@ -30,7 +30,6 @@
 		if(6)
 			new /obj/item/pickaxe/diamond(src)
 		if(7)
-			new /obj/item/clothing/head/culthood(src)
 			new /obj/item/clothing/suit/hooded/cultrobes(src)
 			new /obj/item/bedsheet/cult(src)
 		if(8)

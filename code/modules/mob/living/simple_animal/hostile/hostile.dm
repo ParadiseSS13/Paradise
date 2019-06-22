@@ -67,7 +67,7 @@
 	. = ..()
 	if(!.)
 		walk(src, 0)
-		return 0
+		return FALSE
 
 /mob/living/simple_animal/hostile/handle_automated_action()
 	if(AIStatus == AI_OFF)

@@ -1012,7 +1012,7 @@ var/list/slot_equipment_priority = list( \
 				var/atom/A = foo
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see))
+				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
