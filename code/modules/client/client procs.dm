@@ -412,6 +412,16 @@
 
 	Master.UpdateTickRate()
 
+	// Check total playercount
+	var/playercount = 0
+	for(var/mob/M in GLOB.player_list)
+		if(M.client)
+			playercount += 1
+	
+	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
+		GLOB.panic_bunker_enabled = 1
+		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
+
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
 	if(!isnull(address) && address in localhost_addresses)
