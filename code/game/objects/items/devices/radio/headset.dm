@@ -99,6 +99,13 @@
 /obj/item/radio/headset/syndicate/alt/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
+/obj/item/radio/headset/syndicate/alt/lavaland
+	name = "syndicate lavaland headset"
+
+/obj/item/radio/headset/syndicate/alt/lavaland/New()
+	. = ..()
+	set_frequency(SYND_FREQ)
+
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary

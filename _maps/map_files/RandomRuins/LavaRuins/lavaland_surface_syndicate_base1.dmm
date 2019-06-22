@@ -1653,12 +1653,12 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/radio/headset/syndicate/alt{
+/obj/item/radio/headset/syndicate/alt/lavaland{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/radio/headset/syndicate/alt,
-/obj/item/radio/headset/syndicate/alt{
+/obj/item/radio/headset/syndicate/alt/lavaland,
+/obj/item/radio/headset/syndicate/alt/lavaland{
 	pixel_x = 3;
 	pixel_y = -3
 	},
