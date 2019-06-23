@@ -488,28 +488,6 @@
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	return TRUE
 
-/datum/spellbook_entry/summon/guns
-	name = "Summon Guns"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. Just be careful not to stand still too long! You will also receive 1 extra point to use in your spellbook."
-	cost = 0
-	log_name = "SG"
-
-/datum/spellbook_entry/summon/guns/IsAvailible()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
-
-/datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned",log_name)
-	user.rightandwrong(0)
-	book.uses += 1
-	active = 1
-	to_chat(user, "<span class='notice'>You have cast summon guns and gained an extra charge for your spellbook.</span>")
-	return 1
-
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time. You will also receive 1 extra point to use in your spellbook."
