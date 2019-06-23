@@ -551,7 +551,7 @@
 		// Check new peeps for panic bunker
 		if(GLOB.panic_bunker_enabled)
 			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
-			src << "Sorry but the server is currently not accepting connections from never before seen players."
+			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
 			del(src)
 			return // Dont insert or they can just go in again
 		
