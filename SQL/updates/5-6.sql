@@ -32,3 +32,6 @@ CREATE TABLE `oauth_tokens` (
 
 #Drop the old 'discord' table that is not used anymore
 DROP TABLE `discord`;
+
+# Add afk_watch which gives users the option to make use of the AFK watcher subsystem
+ALTER TABLE `player` ADD `afk_watch` tinyint(1) NOT NULL DEFAULT '0';
