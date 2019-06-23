@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
 	wait = 300
 	flags = SS_BACKGROUND
-	var/list/afk_players = list() // Associative list. client as key and AFK state as value
+	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 
 
 /datum/controller/subsystem/afk/Initialize()
