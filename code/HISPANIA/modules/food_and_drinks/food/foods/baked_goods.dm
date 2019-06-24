@@ -235,7 +235,7 @@
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "arepa_plumphelmet"
 	bitesize = 5
-	list_reagents = list("nutriment" = 9, "vitamin" = 5)
+	list_reagents = list("nutriment" = 9, "vitamin" = 5, "synthanol" = 5)
 
 /obj/item/reagent_containers/food/snacks/arepa_magma
 	name = "magma arepa"
