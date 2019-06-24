@@ -57,7 +57,7 @@
 		if(!(istype(B) && B.off_floor))
 			qdel(O)
 	else
-		if(!istype(O, /atom/movable/lighting_object))
+		if(O.simulated)
 			O.color = initial(O.color)
 		O.clean_blood()
 

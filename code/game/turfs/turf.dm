@@ -491,15 +491,13 @@
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X
+		if(!A.simulated)
+			continue
 		if(istype(A, /mob/dead))
 			continue
 		if(istype(A, /obj/effect/landmark))
 			continue
 		if(istype(A, /obj/docking_port))
-			continue
-		if(istype(A, /atom/movable/lighting_object))
-			continue
-		if(!A.simulated)
 			continue
 		qdel(A, force=TRUE)
 

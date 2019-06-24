@@ -1718,8 +1718,8 @@ var/mob/dview/dview_mob = new
 /proc/turf_clear(turf/T)
 	for(var/atom/A in T)
 		if(A.simulated)
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
