@@ -442,3 +442,4 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 #START_NOW_CONFIRMATION
 
 ## Stickyban all brazilian and portugues
+#BR_OPERATION
