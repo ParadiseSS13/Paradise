@@ -331,11 +331,11 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
-		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
+		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
 		if(SKELETON in target.mutations)
@@ -725,7 +725,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
 

@@ -51,7 +51,7 @@
 		if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
-		if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")	//don't have dexterity
+		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
 			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
 			return
 
@@ -292,10 +292,10 @@
 	color = null
 
 /obj/item/flashlight/flare/glowstick/random/Initialize()
-	..()
+	. = ..()
 	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
-	return INITIALIZE_HINT_QDEL
+	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/item/flashlight/flare/extinguish_light()
 	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")

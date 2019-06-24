@@ -140,7 +140,7 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
 	var/pre_attack = 0
-	loot = list(/obj/item/asteroid/goliath_hide{layer = 4.1})
+	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide{layer = ABOVE_MOB_LAYER})
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	..()

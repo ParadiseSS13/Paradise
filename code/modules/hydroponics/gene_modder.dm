@@ -32,6 +32,16 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
+/obj/machinery/plantgenes/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/plantgenes(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	RefreshParts()
+
 /obj/machinery/plantgenes/Destroy()
 	core_genes.Cut()
 	reagent_genes.Cut()

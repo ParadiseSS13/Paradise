@@ -607,7 +607,6 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.job = "Clown"
 	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
@@ -682,7 +681,6 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.job = "Mime"
 	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), slot_head)
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)

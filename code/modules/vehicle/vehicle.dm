@@ -3,7 +3,7 @@
 	name = "vehicle"
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "fuckyou"
+	icon_state = "scooter"
 	density = 1
 	anchored = 0
 	can_buckle = 1

@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Fixes conveyor belts not moving items spawned via an autolathe. (And other possible behaviours when machines switch between speed and normal processes)"

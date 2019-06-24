@@ -267,7 +267,7 @@ emp_act
 							apply_effect(5, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
-							ticker.mode.remove_revolutionary(mind)
+							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
@@ -506,9 +506,9 @@ emp_act
 			return 0
 	..()
 
-/mob/living/carbon/human/water_act(volume, temperature, source)
-	..()
-	dna.species.water_act(src,volume,temperature,source)
+/mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	dna.species.water_act(src, volume, temperature, source, method)
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))

@@ -30,27 +30,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	Master.Initialize(10, FALSE)
 
-	processScheduler = new
-	spawn(1)
-		processScheduler.deferSetupFor(/datum/controller/process/ticker)
-		processScheduler.setup()
-
-
-	if(!syndicate_code_phrase)
-		syndicate_code_phrase = generate_code_phrase()
-	if(!syndicate_code_response)
-		syndicate_code_response	= generate_code_phrase()
-	if(using_map && using_map.name)
-		map_name = "[using_map.name]"
-	else
-		map_name = "Unknown"
-
-
-	if(config && config.server_name)
-		name = "[config.server_name]: [station_name()]"
-	else
-		name = station_name()
-
 
 #undef RECOMMENDED_VERSION
 
@@ -119,13 +98,13 @@ var/world_topic_spam_protect_time = world.timeofday
 			player_count++
 		s["players"] = player_count
 		s["admins"] = admin_count
-		s["map_name"] = map_name ? map_name : "Unknown"
+		s["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
 
 		if(key_valid)
-			if(ticker && ticker.mode)
-				s["real_mode"] = ticker.mode.name
+			if(SSticker && SSticker.mode)
+				s["real_mode"] = SSticker.mode.name
 				s["security_level"] = get_security_level()
-				s["ticker_state"] = ticker.current_state
+				s["ticker_state"] = SSticker.current_state
 
 			if(SSshuttle && SSshuttle.emergency)
 				// Shuttle status, see /__DEFINES/stat.dm
@@ -301,8 +280,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(!isnull(time))
 		delay = max(0,time)
 	else
-		delay = ticker.restart_timeout
-	if(ticker.delay_end)
+		delay = SSticker.restart_timeout
+	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
@@ -311,19 +290,18 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
 		spawn(delay - sound_length)
-			if(!ticker.delay_end)
+			if(!SSticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
-	if(ticker.delay_end)
+	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
-	processScheduler.stop()
 	Master.Shutdown()	//run SS shutdowns
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
@@ -394,7 +372,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	s += "<br>"
 	var/list/features = list()
 
-	if(ticker)
+	if(SSticker)
 		if(master_mode && master_mode != "secret")
 			features += master_mode
 	else

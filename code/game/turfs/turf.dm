@@ -38,7 +38,7 @@
 	..()
 	for(var/atom/movable/AM in src)
 		Entered(AM)
-	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	if(smooth && SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		queue_smooth(src)
 
 /turf/Initialize(mapload)
@@ -180,8 +180,11 @@
 	if(L)
 		qdel(L)
 
+/turf/proc/TerraformTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
+
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	if(!path)
 		return
 	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -199,10 +202,13 @@
 	BeforeChange()
 	if(SSair)
 		SSair.remove_from_active(src)
-	var/turf/W = new path(src)
-	if(!defer_change)
-		W.AfterChange()
 
+	var/old_baseturf = baseturf
+	var/turf/W = new path(src)
+	W.baseturf = old_baseturf
+	
+	if(!defer_change)
+		W.AfterChange(ignore_air)
 	W.blueprint_data = old_blueprint_data
 
 	recalc_atom_opacity()
@@ -283,8 +289,8 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	src.ChangeTurf(/turf/space)
-	new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+	ChangeTurf(baseturf)
+	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
@@ -298,6 +304,10 @@
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
+
+/turf/get_spooked()
+	for(var/atom/movable/AM in contents)
+		AM.get_spooked()
 
 /turf/proc/burn_down()
 	return
@@ -416,11 +426,11 @@
 				continue
 			if(O.invisibility == 101)
 				O.singularity_act()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 	return(2)
 
 /turf/proc/visibilityChanged()
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
@@ -473,7 +483,7 @@
 	blueprint_data += I
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type=/turf/space)
@@ -481,15 +491,13 @@
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X
+		if(!A.simulated)
+			continue
 		if(istype(A, /mob/dead))
 			continue
 		if(istype(A, /obj/effect/landmark))
 			continue
 		if(istype(A, /obj/docking_port))
-			continue
-		if(istype(A, /atom/movable/lighting_object))
-			continue
-		if(!A.simulated)
 			continue
 		qdel(A, force=TRUE)
 

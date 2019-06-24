@@ -293,7 +293,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	else
 		H.LAssailant = owner
 	while(do_mob(owner, H, 50))
-		if(!(owner.mind in ticker.mode.vampires))
+		if(!(owner.mind in SSticker.mode.vampires))
 			to_chat(owner, "<span class='warning'>Your fangs have disappeared!</span>")
 			return
 		old_bloodtotal = bloodtotal
@@ -342,7 +342,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 /datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
 	if(vampire_mind in vampires)
-		ticker.mode.vampires -= vampire_mind
+		SSticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
 		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
 		if(vampire_mind.vampire)
@@ -352,7 +352,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
 		else
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>")
-		ticker.mode.update_vampire_icons_removed(vampire_mind)
+		SSticker.mode.update_vampire_icons_removed(vampire_mind)
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)

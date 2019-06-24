@@ -6,7 +6,7 @@
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/undersea)
 "ac" = (
-/obj/machinery/poolcontroller/seacontroller,
+/obj/machinery/poolcontroller/invisible/sea,
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/undersea)
 "ad" = (
@@ -1493,6 +1493,10 @@
 "eE" = (
 /obj/structure/closet/crate,
 /turf/unsimulated/beach/sand,
+/area/awaymission/beach)
+"LZ" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
 
 (1,1,1) = {"
@@ -15371,7 +15375,7 @@ du
 du
 du
 du
-du
+LZ
 "}
 (55,1,1) = {"
 aa

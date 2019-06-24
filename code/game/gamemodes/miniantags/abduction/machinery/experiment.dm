@@ -140,14 +140,14 @@
 		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
 		var/datum/objective/abductee/O = new objtype()
-		ticker.mode.abductees += H.mind
+		SSticker.mode.abductees += H.mind
 		H.mind.objectives += O
 		var/obj_count = 1
 		to_chat(H, "<span class='notice'>Your current objectives:</span>")
 		for(var/datum/objective/objective in H.mind.objectives)
 			to_chat(H, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 			obj_count++
-		ticker.mode.update_abductor_icons_added(H.mind)
+		SSticker.mode.update_abductor_icons_added(H.mind)
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()

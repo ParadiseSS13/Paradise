@@ -76,6 +76,12 @@
 	icon_state = "pill16"
 	list_reagents = list("adminordrazine" = 50)
 
+/obj/item/reagent_containers/food/pill/morphine
+	name = "Morphine pill"
+	desc = "Commonly used to treat insomnia."
+	icon_state = "pill8"
+	list_reagents = list("morphine" = 30)
+
 /obj/item/reagent_containers/food/pill/methamphetamine
 	name = "Methamphetamine pill"
 	desc = "Helps improve the ability to concentrate."
@@ -105,6 +111,12 @@
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
 	list_reagents = list("charcoal" = 50)
+
+/obj/item/reagent_containers/food/pill/epinephrine
+	name = "Epinephrine pill"
+	desc = "Used to provide shots of adrenaline."
+	icon_state = "pill6"
+	list_reagents = list("epinephrine" = 50)
 
 /obj/item/reagent_containers/food/pill/salicylic
 	name = "Salicylic Acid pill"

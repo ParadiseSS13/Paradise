@@ -362,7 +362,7 @@ This function restores all organs.
 
 			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
 				var/mob/living/carbon/human/H = LAssailant
-				if(H.mind && H.mind in (ticker.mode.superheroes || ticker.mode.supervillains || ticker.mode.greyshirts))
+				if(H.mind && H.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
 					var/list/attack_bubble_recipients = list()
 					var/mob/living/user
 					for(var/mob/O in viewers(user, src))
