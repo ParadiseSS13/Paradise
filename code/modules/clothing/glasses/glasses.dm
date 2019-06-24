@@ -413,12 +413,6 @@
 					M.CureNearsighted()
 	..()
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
-		)
-
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"
 	desc = "A monocle thermal."
