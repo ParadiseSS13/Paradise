@@ -37,6 +37,9 @@
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
 	if(P.is_reflectable && prob(reflect_chance))
+		if(P.legacy) // to prevent legacy projectile exploits
+			visible_message("<span class='warning'>[P] dispereses into energy from [src]!</span>")
+			qdel(P)
 		var/P_turf = get_turf(P)
 		var/face_direction = get_dir(src, P_turf)
 		var/face_angle = dir2angle(face_direction)
