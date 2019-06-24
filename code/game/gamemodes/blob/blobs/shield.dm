@@ -36,10 +36,7 @@
 	var/reflect_chance = 80 //80% chance to reflect
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
-	if(P.is_reflectable && prob(reflect_chance))
-		if(P.legacy) // to prevent legacy projectile exploits
-			visible_message("<span class='warning'>[P] dispereses into energy from [src]!</span>")
-			qdel(P)
+	if(P.is_reflectable && prob(reflect_chance) && !P.legacy)
 		var/P_turf = get_turf(P)
 		var/face_direction = get_dir(src, P_turf)
 		var/face_angle = dir2angle(face_direction)
@@ -51,6 +48,9 @@
 		P.firer = src //so people who fired the lasers are not immune to them when it reflects
 		visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 		return -1// complete projectile permutation
+	else if(P.is_reflectable && P.legacy) //to stop legacy projectile exploits
+		visible_message("<span class='warning'>[P] dispereses into energy from [src]!</span>")
+		qdel(P)
 	else
 		playsound(src, P.hitsound, 50, 1)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
