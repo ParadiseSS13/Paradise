@@ -8,32 +8,14 @@
 	var/orig_dev_range = devastation_range
 	var/orig_heavy_range = heavy_impact_range
 	var/orig_light_range = light_impact_range
-	var/MAX_EX_DEVESTATION_RANGE1 = MAX_EX_DEVESTATION_RANGE // estas tres variables terminadas en 1 seran el cap de bombas para z>3
-	var/MAX_EX_HEAVY_RANGE1 = MAX_EX_HEAVY_RANGE
-	var/MAX_EX_LIGHT_RANGE1 = MAX_EX_LIGHT_RANGE
-	var/newbombcap = 1.4 // este factor multiplica al cap de bombas de los admin. editar al gusto
-	var/limnewbombcap = 128/newbombcap  // esto determina cuando el nuevo cap de bombas tendra sentido o no
 
-	if (MAX_EX_LIGHT_RANGE <= limnewbombcap) // esto define al nuevo cap de bombas (si tiene sentido)
-		MAX_EX_DEVESTATION_RANGE1 = MAX_EX_LIGHT_RANGE * newbombcap
-		MAX_EX_HEAVY_RANGE1 = MAX_EX_LIGHT_RANGE * newbombcap
-		MAX_EX_LIGHT_RANGE1 = MAX_EX_LIGHT_RANGE * newbombcap
-
-	if(epicenter.z > 3 )
-		devastation_range = min (MAX_EX_DEVESTATION_RANGE1, devastation_range)
-		heavy_impact_range = min (MAX_EX_HEAVY_RANGE1, heavy_impact_range)
-		light_impact_range = min (MAX_EX_LIGHT_RANGE1, light_impact_range)
+	if(!ignorecap)
+		// Clamp all values to MAX_EXPLOSION_RANGE
+		devastation_range = min (MAX_EX_DEVESTATION_RANGE, devastation_range)
+		heavy_impact_range = min (MAX_EX_HEAVY_RANGE, heavy_impact_range)
+		light_impact_range = min (MAX_EX_LIGHT_RANGE, light_impact_range)
 		flash_range = min (MAX_EX_FLASH_RANGE, flash_range)
 		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
-	else
-
-		if(!ignorecap) //esto es el codigo del bombcap antes de que lo tocara
-			// Clamp all values to MAX_EXPLOSION_RANGE
-			devastation_range = min (MAX_EX_DEVESTATION_RANGE, devastation_range)
-			heavy_impact_range = min (MAX_EX_HEAVY_RANGE, heavy_impact_range)
-			light_impact_range = min (MAX_EX_LIGHT_RANGE, light_impact_range)
-			flash_range = min (MAX_EX_FLASH_RANGE, flash_range)
-			flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
 
 	spawn(0)
 		var/watch = start_watch()
@@ -182,6 +164,8 @@
 
 	return 1
 
+
+
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
 		tile.ex_act(2)
@@ -255,4 +239,3 @@
 	for(var/turf/T in wipe_colours)
 		T.color = null
 		T.maptext = ""
-
