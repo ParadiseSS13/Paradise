@@ -15,7 +15,7 @@
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "d" = (
-/obj/machinery/smartfridge/survival_pod/loaded,
+/obj/machinery/smartfridge/survival_pod,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "e" = (
@@ -30,6 +30,9 @@
 /area/survivalpod)
 "g" = (
 /obj/machinery/sleeper/survival_pod,
+/obj/machinery/vending/wallmed1/survival_pod{
+	pixel_x = -24
+	},
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "h" = (

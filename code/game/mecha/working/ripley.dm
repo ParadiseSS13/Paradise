@@ -21,7 +21,7 @@
 
 /obj/mecha/working/ripley/Destroy()
 	while(damage_absorption["brute"] < 0.6)
-		new /obj/item/asteroid/goliath_hide(loc)
+		new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 		damage_absorption["brute"] = damage_absorption["brute"] + 0.1 //If a goliath-plated ripley gets killed, all the plates drop
 	for(var/atom/movable/A in cargo)
 		A.forceMove(loc)

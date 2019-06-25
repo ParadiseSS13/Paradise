@@ -8,7 +8,7 @@
 	strip_delay = 60
 	put_on_delay = 40
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -91,7 +91,6 @@
 	desc = "A vest drenched in the blood of Greytide. It has seen better days."
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/secjacket
@@ -137,7 +136,6 @@
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
 	flags_inv = 0
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
@@ -383,7 +381,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	species_fit = null
 	sprite_sheets = null
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
 
@@ -477,3 +474,67 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	burn_state = FIRE_PROOF
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+
+//LAVALAND!
+
+/obj/item/clothing/suit/hooded/drake
+	name = "drake armour"
+	icon_state = "dragon"
+	item_state = "dragon"
+	desc = "A suit of armour fashioned from the remains of an ash drake."
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
+	hoodtype = /obj/item/clothing/head/hooded/drake
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/head/hooded/drake
+	name = "drake helmet"
+	icon_state = "dragon"
+	item_state = "dragon"
+	desc = "The skull of a dragon."
+	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/suit/hooded/goliath
+	name = "goliath cloak"
+	icon_state = "goliath_cloak"
+	item_state = "goliath_cloak"
+	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	hoodtype = /obj/item/clothing/head/hooded/goliath
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/head/hooded/goliath
+	name = "goliath cloak hood"
+	icon_state = "golhood"
+	item_state = "golhood"
+	desc = "A protective & concealing hood."
+	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/suit/armor/bone
+	name = "bone armor"
+	desc = "A tribal armor plate, crafted from animal bone."
+	icon_state = "bonearmor"
+	item_state = "bonearmor"
+	blood_overlay_type = "armor"
+	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+
+/obj/item/clothing/head/skullhelmet
+	name = "skull helmet"
+	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 10, "bio" = 5, "rad" = 20, "fire" = 40, "acid" = 20)
+	icon_state = "skull"
+	item_state = "skull"

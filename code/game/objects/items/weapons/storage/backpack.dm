@@ -17,7 +17,6 @@
 	storage_slots = 21
 	burn_state = FLAMMABLE
 	burntime = 20
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
@@ -52,6 +51,7 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
+	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
@@ -158,6 +158,12 @@
 	item_state = "engiepack"
 	burn_state = FIRE_PROOF
 
+/obj/item/storage/backpack/explorer
+	name = "explorer bag"
+	desc = "A robust backpack for stashing your loot."
+	icon_state = "explorerpack"
+	item_state = "explorerpack"
+
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
 	desc = "It's a backpack made of all-natural fibers."
@@ -234,6 +240,12 @@
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
 	burn_state = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel/explorer
+	name = "explorer satchel"
+	desc = "A robust satchel for stashing your loot."
+	icon_state = "satchel-explorer"
+	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"

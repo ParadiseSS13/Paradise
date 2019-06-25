@@ -131,3 +131,9 @@
 	new /obj/item/documents/syndicate/yellow(src)
 	update_icon()
 
+/obj/item/folder/syndicate/mining/New()
+	. = ..()
+	new /obj/item/documents/syndicate/mining(src)
+	update_icon()
+
+

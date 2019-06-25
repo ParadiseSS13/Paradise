@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Added new bonus loadout items for higher-tier patrons. Also gave admins access to patron items, and ensured that during custom events, you see the custom event announcement when you connect."

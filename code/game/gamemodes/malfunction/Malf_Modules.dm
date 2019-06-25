@@ -111,7 +111,7 @@
 		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
 		L.dust()
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	ticker.force_ending = 1
+	SSticker.force_ending = 1
 
 
 /datum/AI_Module/large/upgrade_turrets

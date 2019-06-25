@@ -72,7 +72,7 @@
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
-			ticker.mode.traitors |= mind
+			SSticker.mode.traitors |= mind
 			objective.owner = mind
 			fluffObjective.owner = mind
 			//Paradise Port:I added the objective for one spawned like this
@@ -174,7 +174,7 @@
 		S.mind.assigned_role = "Harbringer of the Slaughter"
 		S.mind.special_role = "Harbringer of the Slaughter"
 		to_chat(S, playstyle_string)
-		ticker.mode.add_cultist(S.mind)
+		SSticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
@@ -290,6 +290,10 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
+	maxHealth = 150
+	health = 150
+	melee_damage_lower = 20
+	melee_damage_upper = 20
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'

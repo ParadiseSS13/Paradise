@@ -120,7 +120,7 @@
 	desc = "Groovy!"
 	icon_state = "psyche"
 	item_color = "psyche"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)

@@ -7,6 +7,7 @@
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
 	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
+	var/datum/pm_tracker/pm_tracker = new()
 
 		/////////
 		//OTHER//
@@ -70,6 +71,8 @@
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
+
+	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
 

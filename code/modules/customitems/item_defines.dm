@@ -323,7 +323,6 @@
 	if(!has_action)
 		new /datum/action/item_action/openclose(jacket)//this actually works
 	jacket.adjust_flavour = "unbutton"
-	jacket.species_fit = null
 	jacket.sprite_sheets = null
 	user.update_inv_wear_suit()
 	qdel(src)
@@ -345,7 +344,6 @@
 		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
-		M.species_fit = list("Vulpkanin")
 		M.sprite_sheets = list(
 			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 			)
@@ -844,7 +842,6 @@
 	actions_types = list()
 	ignore_suitadjust = 1
 	adjust_flavour = null
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/storage/labcoat/fluff/pulsecoat //ozewse : Daniel Harper : Donated to them by Runemeds, who is the original donor.
@@ -934,7 +931,6 @@
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "aeneasrinil_open"
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/jacket/fluff/kidosvest // Anxipal: Kido Qasteth
@@ -946,7 +942,6 @@
 	ignore_suitadjust = 1
 	actions_types = list()
 	adjust_flavour = null
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/jacket/fluff/jacksvest // Anxipal: Jack Harper
@@ -957,7 +952,6 @@
 	ignore_suitadjust = TRUE
 	actions_types = list()
 	adjust_flavour = null
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
@@ -997,7 +991,6 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/storage/labcoat/fluff/ionward_labcoat // Ionward: Gemini
@@ -1005,7 +998,6 @@
 	desc = "A thin, faded, carbon fiber labcoat. On the back, a Technocracy vessel's logo. Inside, the name 'Gemini' is printed on the collar."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ionward_labcoat_open"
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
@@ -1059,7 +1051,7 @@
 	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
-	species_fit = list("Vox")
+
 	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
@@ -1338,7 +1330,6 @@
 	ignore_suitadjust = TRUE
 	actions_types = list()
 	adjust_flavour = null
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/under/fluff/fox
@@ -1481,7 +1472,6 @@
 	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "vest_black"
 	item_state = "vest_black"
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/under/pants/fluff/combat
@@ -1498,7 +1488,6 @@
 	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
 	suit_adjusted = 1
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/storage/backpack/fluff/syndiesatchel //SkeletalElite: Rawkkihiki
@@ -2004,7 +1993,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	species_fit = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
@@ -2028,7 +2016,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	species_fit = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
@@ -2066,4 +2053,3 @@
 	item_state = "voxbodysuit"
 	item_color = "voxbodysuit"
 	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	species_fit = list("Vox")
