@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	ghost = TRUE
 
+	action_icon_state = "boo"
 	school = "transmutation"
 	charge_max = 600
 	starts_charged = FALSE

@@ -133,8 +133,6 @@
 	if(operating)
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
 
 	if(density && !emagged)
 		if(allowed(user))
@@ -156,7 +154,7 @@
 	return try_to_activate_door(user)
 
 /obj/machinery/door/attack_tk(mob/user)
-	if(requiresID() && !allowed(null))
+	if(!allowed(null))
 		return
 	..()
 
@@ -164,9 +162,7 @@
 	add_fingerprint(user)
 	if(operating || emagged)
 		return
-	if(!requiresID())
-		user = null //so allowed(user) always succeeds
-	if(allowed(user) || user.can_advanced_admin_interact())
+	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
 			open()
 		else
@@ -178,6 +174,8 @@
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
 		return TRUE
+	if(!requiresID())
+		return FALSE // Intentional. machinery/door/requiresID() always == 1. airlocks, however, == 0 if ID scan is disabled. Yes, this var is poorly named.
 	return ..()
 
 /obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
