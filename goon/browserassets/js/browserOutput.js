@@ -41,6 +41,7 @@ var opts = {
 	'suppressOptionsClose': false, //Whether or not we should be hiding the suboptions menu
 	'highlightTerms': [],
 	'highlightLimit': 5,
+	'highlightEscapeRegex':true,
 	'highlightColor': '#FFFF00', //The color of the highlighted message
 	'pingDisabled': false, //Has the user disabled the ping counter
 
@@ -159,7 +160,7 @@ function setHighlightColor(match) {
 function highlightTerms(el) {
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			var rexp = new RegExp("("+opts.highlightTerms[i]+")","gmi")
+			var rexp = new RegExp("("+opts.highlightEscapeRegex?opts.highlightTerms[i].replace(new RegExp("([^a-zA-Z0-9])","gmi"),"\\$1"):opts.highlightTerms[i]+")","gmi")
 			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>")
 		}
 	}
@@ -606,6 +607,10 @@ $(function() {
 		opts.highlightColor = savedConfig.shighlightColor;
 		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
 	}
+	if (savedConfig.shighlightEscapeRegex) {
+		opts.highlightEscapeRegex = savedConfig.shighlightEscapeRegex;
+		internalOutput('<span class="internal boldnshit">Loaded highlight regex enable of: '+savedConfig.shighlightEscapeRegex+'</span>', 'internal');
+	}
 	if (savedConfig.shideSpam) {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
@@ -969,7 +974,9 @@ $(function() {
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
-				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>Regex compatible<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
+		    			'<input type="checkbox">Regex Enabled</input>'+
+		    		'<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
@@ -1007,6 +1014,7 @@ $(function() {
 		}
 
 		var color = $('#highlightColor').val();
+		opts.highlightEnableRegex = !($('#highlightRegexEnable').checked)
 		color = color.trim();
 		if (color == '' || color.charAt(0) != '#') {
 			opts.highlightColor = '#FFFF00';
