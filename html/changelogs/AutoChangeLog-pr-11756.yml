@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - rscdel: "Reverts the string highlighting done by regex"
