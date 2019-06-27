@@ -160,7 +160,10 @@ function setHighlightColor(match) {
 function highlightTerms(el) {
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			var rexp = new RegExp("("+opts.highlightEscapeRegex?opts.highlightTerms[i].replace(new RegExp("([^a-zA-Z0-9])","gmi"),"\\$1"):opts.highlightTerms[i]+")","gmi")
+			var rexp = new RegExp("("+opts.highlightTerms[i]+")","gmi")
+			if(opts.highlightEscapeRegex){
+				rexp = new RegExp("("+opts.highlightTerms[i].replace(new RegExp("([^a-zA-Z0-9])","gmi"),"\\$1")+")","gmi")
+			}
 			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>")
 		}
 	}
@@ -570,6 +573,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
+		'shighlightEscapeRegex': getCookie('highlightescaperegex'),
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
@@ -975,7 +979,7 @@ $(function() {
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
 				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
-		    			'<input type="checkbox">Regex Enabled</input>'+
+		    			'<input name="highlightRegex" id="highlightregexenable" type="checkbox" ' + (opts.highlightEscapeRegex ? "" : "checked") + '>Regex Enabled</input>'+
 		    		'<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
@@ -986,7 +990,6 @@ $(function() {
 			'</div>';
 		createPopup(popupContent, 250);
 	});
-
 	$('body').on('keyup', '#highlightColor', function() {
 		var color = $('#highlightColor').val();
 		color = color.trim();
@@ -1014,7 +1017,7 @@ $(function() {
 		}
 
 		var color = $('#highlightColor').val();
-		opts.highlightEnableRegex = !($('#highlightRegexEnable').checked)
+		opts.highlightEscapeRegex = !(document.getElementById('highlightregexenable').checked)
 		color = color.trim();
 		if (color == '' || color.charAt(0) != '#') {
 			opts.highlightColor = '#FFFF00';
@@ -1024,6 +1027,7 @@ $(function() {
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
 
+		setCookie('highlightescaperegex', opts.highlightEscapeRegex,365)
 		setCookie('highlightterms', JSON.stringify(opts.highlightTerms), 365);
 		setCookie('highlightcolor', opts.highlightColor, 365);
 	});
