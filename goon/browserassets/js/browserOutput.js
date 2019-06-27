@@ -157,10 +157,13 @@ function setHighlightColor(match) {
 
 //Highlights words based on user settings
 function highlightTerms(el) {
+	var element = $(el)
+	if(!(element.mark)) { // mark.js isn't loaded; give up
+		return
+	}
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			var rexp = new RegExp("("+opts.highlightTerms[i]+")","gmi")
-			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>")
+			element.mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
 		}
 	}
 }
@@ -962,6 +965,10 @@ $(function() {
 	});
 
 	$('#highlightTerm').click(function(e) {
+		if(!($().mark)) {
+			internalOutput('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
+			return;
+		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
@@ -969,7 +976,7 @@ $(function() {
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
-				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>Regex compatible<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.</div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
