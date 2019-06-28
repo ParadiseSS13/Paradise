@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - imageadd: "Ports liquid dispenser sprites from tgstation."
