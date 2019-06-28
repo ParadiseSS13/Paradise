@@ -94,6 +94,7 @@
 	dat += "[S.clothes_req?"Needs wizard garb":"Can be cast without wizard garb"]<br>"
 	return dat
 
+//Main category - Spells
 //Offensive
 /datum/spellbook_entry/blind
 	name = "Blind"
@@ -194,6 +195,18 @@
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/lichdom
+	name = "Bind Soul"
+	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
+	log_name = "LD"
+	category = "Defensive"
+
+/datum/spellbook_entry/lichdom/IsAvailible()
+	if(SSticker.mode.name == "ragin' mages")
+		return FALSE
+	else
+		return TRUE
+
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
 	spell_type = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile
@@ -260,212 +273,13 @@
 	category = "Assistance"
 	cost = 1
 
-/datum/spellbook_entry/lichdom
-	name = "Bind Soul"
-	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
-	log_name = "LD"
-	category = "Assistance"
-
-/datum/spellbook_entry/lichdom/IsAvailible()
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
-
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
 	log_name = "NC"
 	category = "Assistance"
 
-/datum/spellbook_entry/item
-	name = "Buy Item"
-	refundable = 0
-	buy_word = "Summon"
-	var/item_path = null
-
-/datum/spellbook_entry/item/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	new item_path(get_turf(user))
-	feedback_add_details("wizard_spell_learned", log_name)
-	return 1
-
-/datum/spellbook_entry/item/GetInfo()
-	var/dat =""
-	dat += "<b>[name]</b>"
-	dat += " Cost:[cost]<br>"
-	dat += "<i>[desc]</i><br>"
-	if(surplus>=0)
-		dat += "[surplus] left.<br>"
-	return dat
-
-//Staves
-/datum/spellbook_entry/item/staffdoor
-	name = "Staff of Door Creation"
-	desc = "A particular staff that can mold solid metal into ornate wooden doors. Useful for getting around in the absence of other transportation. Does not work on glass."
-	item_path = /obj/item/gun/magic/staff/door
-	log_name = "SD"
-	category = "Staves"
-	cost = 1
-
-/datum/spellbook_entry/item/staffhealing
-	name = "Staff of Healing"
-	desc = "An altruistic staff that can heal the lame and raise the dead."
-	item_path = /obj/item/gun/magic/staff/healing
-	log_name = "SH"
-	category = "Staves"
-	cost = 1
-
-/datum/spellbook_entry/item/staffslipping
-	name = "Staff of Slipping"
-	desc = "A staff that shoots magical bananas. These bananas will either slip or stun the target when hit. Surprisingly reliable!"
-	item_path = /obj/item/gun/magic/staff/slipping
-	log_name = "SL"
-	category = "Staves"
-	cost = 1
-
-/datum/spellbook_entry/item/staffanimation
-	name = "Staff of Animation"
-	desc = "An arcane staff capable of shooting bolts of eldritch energy which cause inanimate objects to come to life. This magic doesn't affect machines."
-	item_path = /obj/item/gun/magic/staff/animate
-	log_name = "SA"
-	category = "Staves"
-
-/datum/spellbook_entry/item/staffchange
-	name = "Staff of Change"
-	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
-	item_path = /obj/item/gun/magic/staff/change
-	log_name = "ST"
-	category = "Staves"
-
-/datum/spellbook_entry/item/staffchaos
-	name = "Staff of Chaos"
-	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
-	item_path = /obj/item/gun/magic/staff/chaos
-	log_name = "SC"
-	category = "Staves"
-
-//Artefacts
-/datum/spellbook_entry/item/necrostone
-	name = "A Necromantic Stone"
-	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
-	item_path = /obj/item/necromantic_stone
-	log_name = "NS"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/armor
-	name = "Mastercrafted Armor Set"
-	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space. Comes bundled with Boots of Gripping."
-	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
-	log_name = "HS"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/armor/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	. = ..()
-	if(.)
-		new /obj/item/clothing/shoes/magboots/wizard(get_turf(user))
-		new /obj/item/clothing/gloves/color/purple(get_turf(user)) // To complete the outfit
-		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
-
-/datum/spellbook_entry/item/mjolnir
-	name = "Mjolnir"
-	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/twohanded/mjollnir
-	log_name = "MJ"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/scryingorb
-	name = "Scrying Orb"
-	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
-	item_path = /obj/item/scrying
-	log_name = "SO"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
-			user.see_in_dark = 8
-			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
-	return TRUE
-
-/datum/spellbook_entry/item/singularity_hammer
-	name = "Singularity Hammer"
-	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
-	item_path = /obj/item/twohanded/singularityhammer
-	log_name = "SI"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/soulstones
-	name = "Six Soul Stone Shards and the spell Artificer"
-	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. The spell Artificer allows you to create arcane machines for the captured souls to pilot."
-	item_path = /obj/item/storage/belt/soulstone/full
-	log_name = "SS"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	. = ..()
-	if(.)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
-	return .
-
-/datum/spellbook_entry/item/wands
-	name = "Wand Assortment"
-	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
-	item_path = /obj/item/storage/belt/wands/full
-	log_name = "WA"
-	category = "Artefacts"
-
-//Summons
-/datum/spellbook_entry/item/oozebottle
-	name = "Bottle of Ooze"
-	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with and even casting some very basic spells. Be careful though, as Morph diet includes Wizards."
-	item_path = /obj/item/antag_spawner/morph
-	log_name = "BO"
-	category = "Summons"
-	limit = 3
-	cost = 1
-
-/datum/spellbook_entry/item/hugbottle
-	name = "Bottle of Tickles"
-	desc = "A bottle of magically infused fun, the smell of which will \
-		attract adorable extradimensional beings when broken. These beings \
-		are similar to slaughter demons, but are a little weaker and they do not permamently \
-		kill their victims, instead putting them in an extradimensional hugspace, \
-		to be released on the demon's death. Chaotic, but not ultimately \
-		damaging. The crew's reaction to the other hand could be very \
-		destructive."
-	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
-	log_name = "HB"
-	category = "Summons"
-	limit = 3
-	cost = 1 // Non-destructive; it's just a jape, sibling!
-
-/datum/spellbook_entry/item/bloodbottle
-	name = "Bottle of Blood"
-	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon
-	log_name = "BB"
-	category = "Summons"
-	limit = 3
-
-/datum/spellbook_entry/item/contract
-	name = "Contract of Apprenticeship"
-	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
-	item_path = /obj/item/contract
-	log_name = "CT"
-	category = "Summons"
-
-/datum/spellbook_entry/item/tarotdeck
-	name = "Guardian Deck"
-	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
-	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
-	item_path = /obj/item/guardiancreator
-	log_name = "TD"
-	category = "Summons"
-	limit = 1
-
+//Rituals
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
 	category = "Rituals"
@@ -553,6 +367,196 @@
 	to_chat(user, "<span class='notice'>You have cast summon magic and gained an extra charge for your spellbook.</span>")
 	return 1
 
+//Main category - Magical Items
+/datum/spellbook_entry/item
+	name = "Buy Item"
+	refundable = 0
+	buy_word = "Summon"
+	var/item_path = null
+
+/datum/spellbook_entry/item/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+	new item_path(get_turf(user))
+	feedback_add_details("wizard_spell_learned", log_name)
+	return 1
+
+/datum/spellbook_entry/item/GetInfo()
+	var/dat =""
+	dat += "<b>[name]</b>"
+	dat += " Cost:[cost]<br>"
+	dat += "<i>[desc]</i><br>"
+	if(surplus>=0)
+		dat += "[surplus] left.<br>"
+	return dat
+
+//Weapons and Armors
+/datum/spellbook_entry/item/armor
+	name = "Mastercrafted Armor Set"
+	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space. Comes bundled with Boots of Gripping."
+	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
+	log_name = "HS"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/armor/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		new /obj/item/clothing/shoes/magboots/wizard(get_turf(user))
+		new /obj/item/clothing/gloves/color/purple(get_turf(user)) // To complete the outfit
+		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
+
+/datum/spellbook_entry/item/mjolnir
+	name = "Mjolnir"
+	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
+	item_path = /obj/item/twohanded/mjollnir
+	log_name = "MJ"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/singularity_hammer
+	name = "Singularity Hammer"
+	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
+	item_path = /obj/item/twohanded/singularityhammer
+	log_name = "SI"
+	category = "Weapons and Armors"
+
+//Staves
+/datum/spellbook_entry/item/staffdoor
+	name = "Staff of Door Creation"
+	desc = "A particular staff that can mold solid metal into ornate wooden doors. Useful for getting around in the absence of other transportation. Does not work on glass."
+	item_path = /obj/item/gun/magic/staff/door
+	log_name = "SD"
+	category = "Staves"
+	cost = 1
+
+/datum/spellbook_entry/item/staffhealing
+	name = "Staff of Healing"
+	desc = "An altruistic staff that can heal the lame and raise the dead."
+	item_path = /obj/item/gun/magic/staff/healing
+	log_name = "SH"
+	category = "Staves"
+	cost = 1
+
+/datum/spellbook_entry/item/staffslipping
+	name = "Staff of Slipping"
+	desc = "A staff that shoots magical bananas. These bananas will either slip or stun the target when hit. Surprisingly reliable!"
+	item_path = /obj/item/gun/magic/staff/slipping
+	log_name = "SL"
+	category = "Staves"
+	cost = 1
+
+/datum/spellbook_entry/item/staffanimation
+	name = "Staff of Animation"
+	desc = "An arcane staff capable of shooting bolts of eldritch energy which cause inanimate objects to come to life. This magic doesn't affect machines."
+	item_path = /obj/item/gun/magic/staff/animate
+	log_name = "SA"
+	category = "Staves"
+
+/datum/spellbook_entry/item/staffchange
+	name = "Staff of Change"
+	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
+	item_path = /obj/item/gun/magic/staff/change
+	log_name = "ST"
+	category = "Staves"
+
+/datum/spellbook_entry/item/staffchaos
+	name = "Staff of Chaos"
+	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
+	item_path = /obj/item/gun/magic/staff/chaos
+	log_name = "SC"
+	category = "Staves"
+
+//Artefacts
+/datum/spellbook_entry/item/necrostone
+	name = "A Necromantic Stone"
+	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
+	item_path = /obj/item/necromantic_stone
+	log_name = "NS"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/scryingorb
+	name = "Scrying Orb"
+	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
+	item_path = /obj/item/scrying
+	log_name = "SO"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+	if(..())
+		if(!(XRAY in user.mutations))
+			user.mutations.Add(XRAY)
+			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+			user.see_in_dark = 8
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
+	return TRUE
+
+/datum/spellbook_entry/item/soulstones
+	name = "Six Soul Stone Shards and the spell Artificer"
+	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. The spell Artificer allows you to create arcane machines for the captured souls to pilot."
+	item_path = /obj/item/storage/belt/soulstone/full
+	log_name = "SS"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
+	return .
+
+/datum/spellbook_entry/item/wands
+	name = "Wand Assortment"
+	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
+	item_path = /obj/item/storage/belt/wands/full
+	log_name = "WA"
+	category = "Artefacts"
+
+//Summons
+/datum/spellbook_entry/item/oozebottle
+	name = "Bottle of Ooze"
+	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with and even casting some very basic spells. Be careful though, as Morph diet includes Wizards."
+	item_path = /obj/item/antag_spawner/morph
+	log_name = "BO"
+	category = "Summons"
+	limit = 3
+	cost = 1
+
+/datum/spellbook_entry/item/hugbottle
+	name = "Bottle of Tickles"
+	desc = "A bottle of magically infused fun, the smell of which will \
+		attract adorable extradimensional beings when broken. These beings \
+		are similar to slaughter demons, but are a little weaker and they do not permamently \
+		kill their victims, instead putting them in an extradimensional hugspace, \
+		to be released on the demon's death. Chaotic, but not ultimately \
+		damaging. The crew's reaction to the other hand could be very \
+		destructive."
+	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
+	log_name = "HB"
+	category = "Summons"
+	limit = 3
+	cost = 1 // Non-destructive; it's just a jape, sibling!
+
+/datum/spellbook_entry/item/bloodbottle
+	name = "Bottle of Blood"
+	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/slaughter_demon
+	log_name = "BB"
+	category = "Summons"
+	limit = 3
+
+/datum/spellbook_entry/item/contract
+	name = "Contract of Apprenticeship"
+	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
+	item_path = /obj/item/contract
+	log_name = "CT"
+	category = "Summons"
+
+/datum/spellbook_entry/item/tarotdeck
+	name = "Guardian Deck"
+	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
+	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
+	item_path = /obj/item/guardiancreator
+	log_name = "TD"
+	category = "Summons"
+	limit = 1
+
 /obj/item/spellbook
 	name = "spell book"
 	desc = "The legendary book of spells of the wizard."
@@ -565,9 +569,13 @@
 	var/temp = null
 	var/op = 1
 	var/tab = null
+	var/main_tab = null
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
+	var/list/main_categories = list("Spells", "Magical Items")
+	var/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
+	var/list/item_categories = list("Weapons and Armors", "Staves", "Artefacts", "Summons")
 
 /obj/item/spellbook/proc/initialize()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
@@ -578,6 +586,7 @@
 			categories |= E.category
 		else
 			qdel(E)
+	main_tab = main_categories[1]
 	tab = categories[1]
 
 /obj/item/spellbook/New()
@@ -591,21 +600,29 @@
 			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
 		else
 			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
-
 			uses+=2
-
 			qdel(O)
 
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
-
 		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
 			uses += 1
+			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
+				if(!isnull(HB.limit))
+					HB.limit++
 		else
 			uses += 2
-		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
-			if(!isnull(BB.limit))
-				BB.limit++
+			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
+				if(!isnull(BB.limit))
+					BB.limit++
+		qdel(O)
+
+	if(istype(O, /obj/item/antag_spawner/morph))
+		to_chat(user, "<span class='notice'>On second thought, maybe awakening a morph is a bad idea. You refund your points.</span>")
+		uses += 1
+		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
+			if(!isnull(OB.limit))
+				OB.limit++
 		qdel(O)
 
 /obj/item/spellbook/proc/GetCategoryHeader(var/category)
@@ -627,6 +644,11 @@
 			dat += "Spells geared towards improving your other items and abilities.<BR><BR>"
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
+		if("Rituals")
+			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<BR>"
+		if("Weapons and Armors")
+			dat += "Various weapons and armors to crush your enemies and protect you from harm.<BR><BR>"
+			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
 		if("Staves")
 			dat += "Various staves granting you their power, which they slowly recharge over time.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
@@ -636,8 +658,6 @@
 		if("Summons")
 			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
-		if("Rituals")
-			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<BR>"
 	return dat
 
 /obj/item/spellbook/proc/wrap(var/content)
@@ -673,11 +693,24 @@
 
 	dat += "<ul id=\"tabs\">"
 	var/list/cat_dat = list()
-	for(var/category in categories)
-		cat_dat[category] = "<hr>"
-		dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
-
+	for(var/main_category in main_categories)
+		cat_dat[main_category] = "<hr>"
+		dat += "<li><a [main_tab==main_category?"class=selected":""] href='byond://?src=[UID()];mainpage=[main_category]'>[main_category]</a></li>"
 	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
+	dat += "<hr><br>"
+	switch(main_tab)
+		if("Spells")
+			for(var/category in categories)
+				if(category in item_categories)
+					continue
+				cat_dat[category] = "<hr>"
+				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
+		if("Magical Items")
+			for(var/category in categories)
+				if(category in spell_categories)
+					continue
+				cat_dat[category] = "<hr>"
+				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
@@ -735,13 +768,19 @@
 					if(!isnull(E.limit))
 						E.limit += result
 					uses += result
+		else if(href_list["mainpage"])
+			main_tab = sanitize(href_list["mainpage"])
+			tab = sanitize(href_list["page"])
+			if(main_tab == "Spells")
+				tab = spell_categories[1]
+			else if(main_tab == "Magical Items")
+				tab = item_categories[1]
 		else if(href_list["page"])
 			tab = sanitize(href_list["page"])
 	attack_self(H)
 	return 1
 
-//Single Use Spellbooks//
-
+//Single Use Spellbooks
 /obj/item/spellbook/oneuse
 	var/spell = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
