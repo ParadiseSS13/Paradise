@@ -499,15 +499,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
-	name = "Compact Sniper Rifle"
-	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
-	reference = "CSR"
-	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
-	cost = 16
-	surplus = 0
-	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear)
+/datum/uplink_item/dangerous/false_briefcase_sniper
+	name = "False Bottomed Briefcase with Compact Rifle"
+	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Comes loaded with a powerful compact rifle and 3 rounds. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
+	reference = "FBBC"
+	item = /obj/item/storage/briefcase/false_bottomed/sniper
+	cost = 11
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
@@ -1627,7 +1624,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
-	
+
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \

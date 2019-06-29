@@ -178,7 +178,7 @@
 	name = "sniper rounds (compact)"
 	desc = "An extremely powerful round capable of inflicting massive damage on a target."
 	ammo_type = /obj/item/ammo_casing/compact
-	max_ammo = 4
+	max_ammo = 3
 
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
