@@ -388,6 +388,51 @@
 		dat += "[surplus] left.<br>"
 	return dat
 
+//Artefacts
+/datum/spellbook_entry/item/necrostone
+	name = "A Necromantic Stone"
+	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
+	item_path = /obj/item/necromantic_stone
+	log_name = "NS"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/scryingorb
+	name = "Scrying Orb"
+	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
+	item_path = /obj/item/scrying
+	log_name = "SO"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+	if(..())
+		if(!(XRAY in user.mutations))
+			user.mutations.Add(XRAY)
+			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+			user.see_in_dark = 8
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
+	return TRUE
+
+/datum/spellbook_entry/item/soulstones
+	name = "Six Soul Stone Shards and the spell Artificer"
+	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. The spell Artificer allows you to create arcane machines for the captured souls to pilot."
+	item_path = /obj/item/storage/belt/soulstone/full
+	log_name = "SS"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
+	return .
+
+/datum/spellbook_entry/item/wands
+	name = "Wand Assortment"
+	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
+	item_path = /obj/item/storage/belt/wands/full
+	log_name = "WA"
+	category = "Artefacts"
+
 //Weapons and Armors
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armor Set"
@@ -463,51 +508,6 @@
 	log_name = "SC"
 	category = "Staves"
 
-//Artefacts
-/datum/spellbook_entry/item/necrostone
-	name = "A Necromantic Stone"
-	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
-	item_path = /obj/item/necromantic_stone
-	log_name = "NS"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/scryingorb
-	name = "Scrying Orb"
-	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
-	item_path = /obj/item/scrying
-	log_name = "SO"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
-			user.see_in_dark = 8
-			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
-	return TRUE
-
-/datum/spellbook_entry/item/soulstones
-	name = "Six Soul Stone Shards and the spell Artificer"
-	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. The spell Artificer allows you to create arcane machines for the captured souls to pilot."
-	item_path = /obj/item/storage/belt/soulstone/full
-	log_name = "SS"
-	category = "Artefacts"
-
-/datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	. = ..()
-	if(.)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
-	return .
-
-/datum/spellbook_entry/item/wands
-	name = "Wand Assortment"
-	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
-	item_path = /obj/item/storage/belt/wands/full
-	log_name = "WA"
-	category = "Artefacts"
-
 //Summons
 /datum/spellbook_entry/item/oozebottle
 	name = "Bottle of Ooze"
@@ -575,7 +575,7 @@
 	var/list/categories = list()
 	var/list/main_categories = list("Spells", "Magical Items")
 	var/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
-	var/list/item_categories = list("Weapons and Armors", "Staves", "Artefacts", "Summons")
+	var/list/item_categories = list("Artefacts", "Weapons and Armors", "Staves", "Summons")
 
 /obj/item/spellbook/proc/initialize()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
@@ -667,16 +667,16 @@
 	<head>
 		<style type="text/css">
       		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 5px 0 0 0; padding: 0 0 0.3em 0; }
+      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
       		ul#tabs li { display: inline; }
-      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
+      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
       		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.7em 0.3em 0.4em 0.3em; }
-			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.6em 0; }
+      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
+			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 1em 0; font-size: 14px; }
 			ul#maintabs li { display: inline; }
-      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 2px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
+      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 2px solid #c9c3ba; padding: 1em; text-decoration: none; }
       		ul#maintabs li a:hover { background-color: #f1f0ee; }
-      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1em 0.6em 0.7em 0.6em; }
+      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
       		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
       		div.tabContent.hide { display: none; }
     	</style>
@@ -701,8 +701,7 @@
 	for(var/main_category in main_categories)
 		cat_dat[main_category] = "<hr>"
 		dat += "<li><a [main_tab==main_category?"class=selected":""] href='byond://?src=[UID()];mainpage=[main_category]'>[main_category]</a></li>"
-	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
-	dat += "<hr></ul>"
+	dat += "</ul>"
 	switch(main_tab)
 		if("Spells")
 			dat += "<ul id=\"tabs\">"
@@ -711,6 +710,7 @@
 					continue
 				cat_dat[category] = "<hr>"
 				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
+			dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
 		if("Magical Items")
 			dat += "<ul id=\"tabs\">"
 			for(var/category in categories)
@@ -718,6 +718,7 @@
 					continue
 				cat_dat[category] = "<hr>"
 				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
+			dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
