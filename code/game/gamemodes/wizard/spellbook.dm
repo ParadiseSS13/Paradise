@@ -667,11 +667,16 @@
 	<head>
 		<style type="text/css">
       		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
+      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.3em 0; }
       		ul#tabs li { display: inline; }
       		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
       		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
+      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.7em 0.3em 0.4em 0.3em; }
+			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.6em 0; }
+			ul#maintabs li { display: inline; }
+      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 2px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
+      		ul#maintabs li a:hover { background-color: #f1f0ee; }
+      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1em 0.6em 0.7em 0.6em; }
       		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
       		div.tabContent.hide { display: none; }
     	</style>
@@ -691,21 +696,23 @@
 	user.set_machine(src)
 	var/dat = ""
 
-	dat += "<ul id=\"tabs\">"
+	dat += "<ul id=\"maintabs\">"
 	var/list/cat_dat = list()
 	for(var/main_category in main_categories)
 		cat_dat[main_category] = "<hr>"
 		dat += "<li><a [main_tab==main_category?"class=selected":""] href='byond://?src=[UID()];mainpage=[main_category]'>[main_category]</a></li>"
 	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
-	dat += "<hr><br>"
+	dat += "<hr></ul>"
 	switch(main_tab)
 		if("Spells")
+			dat += "<ul id=\"tabs\">"
 			for(var/category in categories)
 				if(category in item_categories)
 					continue
 				cat_dat[category] = "<hr>"
 				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
 		if("Magical Items")
+			dat += "<ul id=\"tabs\">"
 			for(var/category in categories)
 				if(category in spell_categories)
 					continue
