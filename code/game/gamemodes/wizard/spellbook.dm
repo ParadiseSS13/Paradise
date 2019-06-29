@@ -667,7 +667,7 @@
 	<head>
 		<style type="text/css">
       		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.3em 0; }
+      		ul#tabs { list-style-type: none; margin: 5px 0 0 0; padding: 0 0 0.3em 0; }
       		ul#tabs li { display: inline; }
       		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
       		ul#tabs li a:hover { background-color: #f1f0ee; }
