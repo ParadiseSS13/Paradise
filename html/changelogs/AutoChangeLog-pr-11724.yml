@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Terror Spiders no longer trigger their special attack when nuzzling someone on help intent."

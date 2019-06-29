@@ -1,0 +1,4 @@
+author: "iantine"
+delete-after: True
+changes: 
+  - rscadd: "Skrell *warble emote"
