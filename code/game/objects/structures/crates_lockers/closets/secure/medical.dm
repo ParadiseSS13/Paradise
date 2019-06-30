@@ -110,6 +110,7 @@
 /obj/item/storage/pill_bottle/psychiatrist
 	name = "psychiatrist's pill bottle"
 	desc = "Contains various pills to calm or sedate patients."
+	wrapper_color = COLOR_WHITE
 
 /obj/item/storage/pill_bottle/psychiatrist/New()
 	..()

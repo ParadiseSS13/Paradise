@@ -133,6 +133,11 @@
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(loc)
 			loaded_pill_bottle = null
+	else if(href_list["change_pillbottle"])
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.wrapper_color = COLOR_RED;
+			loaded_pill_bottle.apply_wrap();
+			usr << browse(null, "window=chem_master_iconsel")
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
 		onclose(usr, "chem_master")

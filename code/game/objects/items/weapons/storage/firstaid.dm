@@ -269,9 +269,6 @@
 		var/image/I = image(icon, "pillbottle_wrap")
 		I.color = wrapper_color
 		overlays += I
-	else
-		wrapper_color = pick(COLOR_RED, COLOR_BLUE, COLOR_CYAN, COLOR_GRAY, COLOR_GREEN, COLOR_ORANGE, COLOR_PINK, COLOR_RED, COLOR_YELLOW)
-		apply_wrap()
 
 /obj/item/storage/pill_bottle/attack(mob/M, mob/user)
 	if(iscarbon(M) && contents.len)
@@ -287,6 +284,9 @@
 			break
 	else
 		return ..()
+
+/obj/item/storage/pill_bottle/ert
+	wrapper_color = COLOR_TEAL
 
 /obj/item/storage/pill_bottle/ert/New()
 	..()
@@ -333,6 +333,7 @@
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "Patch Pack"
+	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
@@ -358,7 +359,7 @@
 /obj/item/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"
 	desc = "Contains various pills for minor pain relief."
-	wrapper_color = COLOR_RED
+	wrapper_color = LIGHT_COLOR_RED
 
 /obj/item/storage/pill_bottle/painkillers/New()
 	..()
@@ -370,6 +371,9 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/fakedeath
+	wrapper_color = COLOR_GRAY
 
 /obj/item/storage/pill_bottle/fakedeath/New()
 	..()

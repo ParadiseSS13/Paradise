@@ -54,6 +54,7 @@
 /obj/item/storage/pill_bottle/random_drug_bottle
 	name = "pill bottle (???)"
 	desc = "Huh."
+	wrapper_color = COLOR_GRAY
 
 /obj/item/storage/pill_bottle/random_drug_bottle/New()
 	..()
