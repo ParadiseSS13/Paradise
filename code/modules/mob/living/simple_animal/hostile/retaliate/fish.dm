@@ -54,7 +54,6 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	speak_emote = list("blurps")
-	butcher_results = null
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
