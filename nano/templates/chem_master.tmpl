@@ -80,25 +80,27 @@
 {{else}}
 	<span class='item'>No beaker loaded</span><br>
 {{/if}}
-<span class='item'>
-	{{if data.loaded_pill_bottle}}
-	<table>
-		<tr>
-			<td>
-				{{:helper.link('Pill Bottle (' + data.loaded_pill_bottle_contents_len + '/' + data.loaded_pill_bottle_storage_slots + ')', 'eject', {'ejectp': 1})}}
-			</td>
-			<td>
-				{{:helper.link('Change Wrapper', 'pencil', {'change_pillbottle': 1})}}
-			</td>
-		</tr>
-	</table>
-	{{else}}
+<div class='statusDisplay'>
+	<span class='item'>
+		{{if data.loaded_pill_bottle}}
 		<table>
 			<tr>
 				<td>
-					{{:helper.link('No Pill Bottle', 'eject', {}, 'disabled')}}
+					{{:helper.link('Pill Bottle (' + data.loaded_pill_bottle_contents_len + '/' + data.loaded_pill_bottle_storage_slots + ')', 'eject', {'ejectp': 1})}}
+				</td>
+				<td>
+					{{:helper.link('Change Wrapper', 'pencil', {'change_pillbottle': 1})}}
 				</td>
 			</tr>
 		</table>
-	{{/if}}
-</span>
+		{{else}}
+			<table>
+				<tr>
+					<td>
+						{{:helper.link('No Pill Bottle', 'eject', {}, 'disabled')}}
+					</td>
+				</tr>
+			</table>
+		{{/if}}
+	</span>
+</div>

@@ -286,7 +286,7 @@
 		return ..()
 
 /obj/item/storage/pill_bottle/ert
-	wrapper_color = COLOR_TEAL
+	wrapper_color = COLOR_MAROON
 
 /obj/item/storage/pill_bottle/ert/New()
 	..()
@@ -359,7 +359,7 @@
 /obj/item/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"
 	desc = "Contains various pills for minor pain relief."
-	wrapper_color = LIGHT_COLOR_RED
+	wrapper_color = COLOR_RED
 
 /obj/item/storage/pill_bottle/painkillers/New()
 	..()
@@ -373,7 +373,7 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 
 /obj/item/storage/pill_bottle/fakedeath
-	wrapper_color = COLOR_GRAY
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/fakedeath/New()
 	..()

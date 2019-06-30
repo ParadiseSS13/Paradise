@@ -135,9 +135,37 @@
 			loaded_pill_bottle = null
 	else if(href_list["change_pillbottle"])
 		if(loaded_pill_bottle)
-			loaded_pill_bottle.wrapper_color = COLOR_RED;
+			var/list/wrappers = list("Default wrapper", "Red wrapper", "Green wrapper", "Pale green wrapper", "Blue wrapper", "Light blue wrapper", "Teal wrapper", "Yellow wrapper", "Orange wrapper", "Pink wrapper", "Brown wrapper")
+			var/chosen = input(usr, "Select a pillbottle wrapper", "Pillbottle wrapper", wrappers[1]) as null|anything in wrappers
+			if(!chosen)
+				return
+			var/color
+			switch(chosen)
+				if("Default wrapper")
+					loaded_pill_bottle.cut_overlays()
+					return
+				if("Red wrapper")
+					color = COLOR_RED
+				if("Green wrapper")
+					color = COLOR_GREEN
+				if("Pink wrapper")
+					color = COLOR_PINK
+				if("Teal wrapper")
+					color = COLOR_TEAL
+				if("Blue wrapper")
+					color = COLOR_BLUE
+				if("Brown wrapper")
+					color = COLOR_MAROON
+				if("Light blue wrapper")
+					color = COLOR_CYAN_BLUE
+				if("Yellow wrapper")
+					color = COLOR_YELLOW
+				if("Pale green wrapper")
+					color = COLOR_PALE_BTL_GREEN
+				if("Orange wrapper")
+					color = COLOR_ORANGE
+			loaded_pill_bottle.wrapper_color = color;
 			loaded_pill_bottle.apply_wrap();
-			usr << browse(null, "window=chem_master_iconsel")
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
 		onclose(usr, "chem_master")
@@ -190,7 +218,7 @@
 				dat += "<A href='?src=[UID()];main=1'>(Back)</A>"
 			else
 				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=[UID()];main=1'>(Back)</A>"
-			usr << browse(dat, "window=chem_master;size=575x400")
+			usr << browse(dat, "window=chem_master;size=575x500")
 			return
 
 		else if(href_list["add"])
@@ -393,7 +421,7 @@
 
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
+		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 500)
 		ui.open()
 
 /obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)

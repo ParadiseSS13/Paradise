@@ -123,7 +123,7 @@
 /obj/item/storage/pill_bottle/random_meds
 	name = "unlabelled pillbottle"
 	desc = "The sheer recklessness of this bottle's existence astounds you."
-	wrapper_color = COLOR_GRAY
+	allow_wrap = FALSE
 	var/labelled = FALSE
 
 /obj/item/storage/pill_bottle/random_meds/New()
