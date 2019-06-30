@@ -240,6 +240,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
+	new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
 	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
 	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
 	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
@@ -384,8 +385,8 @@ var/global/list/datum/stack_recipe/brass_recipes = list (\
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
-	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/empty), \
-	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
+	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \

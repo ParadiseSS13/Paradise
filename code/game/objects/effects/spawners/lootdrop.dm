@@ -140,8 +140,8 @@
 				/obj/item/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
 				/obj/item/stamp/chameleon = 2,
-				/obj/item/clothing/shoes/syndigaloshes = 5,
-				/obj/item/clothing/mask/gas/voice = 2,
+				/obj/item/clothing/shoes/chameleon/noslip = 5,
+				/obj/item/clothing/mask/chameleon = 2,
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
@@ -242,7 +242,8 @@
 				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
 				/obj/item/gun/projectile/shotgun/toy = 50,
 				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
-				/obj/item/gun/projectile/shotgun/toy/tommygun = 50
+				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
+				/obj/item/gun/projectile/automatic/sniper_rifle/toy = 50
 				)
 
 

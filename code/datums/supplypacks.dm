@@ -1073,6 +1073,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/critter/cow
 	containername = "cow crate"
 
+/datum/supply_packs/organic/pig
+	name = "Pig Crate"
+	cost = 25
+	containertype = /obj/structure/closet/critter/pig
+	containername = "pig crate"
+
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
 	cost = 25
@@ -1102,7 +1108,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Cat Crate"
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(/obj/item/clothing/accessory/petcollar,
+					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
 /datum/supply_packs/organic/pug
@@ -1205,7 +1212,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/honey_frame,
 					/obj/item/queen_bee/bought,
 					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit)
+					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/melee/flyswatter)
 	cost = 15
 	containername = "beekeeping starter kit"
 
@@ -1353,6 +1361,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/burial)
 	cost = 40
 	containername = "religious supplies crate"
+
+/datum/supply_packs/misc/minerkit
+	name = "Shaft Miner Starter Kit"
+	cost = 30
+	access = access_qm
+	contains = list(/obj/item/storage/backpack/duffel/mining_conscript/noid)
+	containertype = /obj/structure/closet/crate/secure
+	containername = "shaft miner starter kit"
 
 
 ///////////// Paper Work

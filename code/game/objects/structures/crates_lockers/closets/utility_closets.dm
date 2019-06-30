@@ -19,6 +19,9 @@
 	icon_closed = "emergency"
 	icon_opened = "emergencyopen"
 
+/obj/structure/closet/emcloset/anchored
+	anchored = TRUE
+
 /obj/structure/closet/emcloset/New()
 	..()
 

@@ -59,7 +59,7 @@
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
-	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
+	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
@@ -106,21 +106,21 @@
 
 /mob/new_player/Stat()
 	statpanel("Lobby")
-	if(client.statpanel=="Lobby" && ticker)
-		if(ticker.hide_mode)
+	if(client.statpanel=="Lobby" && SSticker)
+		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
 		else
-			if(ticker.hide_mode == 0)
+			if(SSticker.hide_mode == 0)
 				stat("Game Mode:", "[master_mode]") // Old setting for showing the game mode
 			else
 				stat("Game Mode: ", "Secret")
 
-		if((ticker.current_state == GAME_STATE_PREGAME) && going)
-			stat("Time To Start:", ticker.pregame_timeleft)
-		if((ticker.current_state == GAME_STATE_PREGAME) && !going)
+		if((SSticker.current_state == GAME_STATE_PREGAME) && going)
+			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
+		if((SSticker.current_state == GAME_STATE_PREGAME) && !going)
 			stat("Time To Start:", "DELAYED")
 
-		if(ticker.current_state == GAME_STATE_PREGAME)
+		if(SSticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
 			if(check_rights(R_ADMIN, 0, src))
 				stat("Players Ready:", "[totalPlayersReady]")
@@ -136,7 +136,7 @@
 	..()
 
 	statpanel("Status")
-	if(client.statpanel == "Status" && ticker)
+	if(client.statpanel == "Status" && SSticker)
 		show_stat_station_time()
 
 
@@ -182,7 +182,8 @@
 			return 0
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
-			if(!client)	return 1
+			if(!client)
+				return 1
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
@@ -193,7 +194,7 @@
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.loc = O.loc
+			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
@@ -217,10 +218,9 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
-		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
-
 		if(client.prefs.species in GLOB.whitelisted_species)
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -303,7 +303,7 @@
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return 0
-	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
 	if(!enter_allowed)
@@ -330,7 +330,7 @@
 		ai_character.moveToEmptyCore()
 		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
-		ticker.mode.latespawn(ai_character)
+		SSticker.mode.latespawn(ai_character)
 		qdel(src)
 		return
 
@@ -344,45 +344,42 @@
 		else if(IsSyndicateCommand(rank))
 			character.loc = pick(syndicateofficer)
 		else
-			character.loc = pick(aroomwarp)
+			character.forceMove(pick(aroomwarp))
 		join_message = "has arrived"
 	else
 		if(spawning_at)
 			S = spawntypes[spawning_at]
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
-				character.loc = pick(S.turfs)
+				character.forceMove(pick(S.turfs))
 				join_message = S.msg
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.loc = pick(latejoin)
+				character.forceMove(pick(latejoin))
 				join_message = "has arrived on the station"
 		else
-			character.loc = pick(latejoin)
+			character.forceMove(pick(latejoin))
 			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
 	if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
-		character.buckled.loc = character.loc
+		character.buckled.forceMove(character.loc)
 		character.buckled.dir = character.dir
 
 	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
 
-	ticker.mode.latespawn(character)
+	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
-		callHook("latespawn", list(character))
-	else if(IsAdminJob(rank))
-		callHook("latespawn", list(character))
 	else
 		data_core.manifest_inject(character)
-		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		AnnounceArrival(character, rank, join_message)
-		callHook("latespawn", list(character))
-		AddEmploymentContract(character)
+		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
+		if(!IsAdminJob(rank))
+			AnnounceArrival(character, rank, join_message)
+			AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob
@@ -390,7 +387,7 @@
 
 
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if(ticker.current_state == GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 			ailist += A
@@ -422,7 +419,7 @@
 				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if(ticker.current_state == GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 			ailist += A
@@ -464,8 +461,7 @@
 				dat += " [a.title]. </font><br>"
 
 
-	dat += "Choose from the following open positions:<br><br>"
-
+	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
 		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
@@ -480,6 +476,7 @@
 		)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
@@ -502,23 +499,27 @@
 			if(!categorized)
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
-	dat += "<table><tr><td valign='top'>"
-	for(var/jobcat in categorizedJobs)
-		if(categorizedJobs[jobcat]["colBreak"])
-			dat += "</td><td valign='top'>"
-		if(length(categorizedJobs[jobcat]["jobs"]) < 1)
-			continue
-		var/color = categorizedJobs[jobcat]["color"]
-		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
-		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
-		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			if(job in SSjobs.prioritized_jobs)
-				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
-			else
-				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
-		dat += "</fieldset><br>"
+	if(num_jobs_available)
+		dat += "Choose from the following open positions:<br><br>"
+		dat += "<table><tr><td valign='top'>"
+		for(var/jobcat in categorizedJobs)
+			if(categorizedJobs[jobcat]["colBreak"])
+				dat += "</td><td valign='top'>"
+			if(length(categorizedJobs[jobcat]["jobs"]) < 1)
+				continue
+			var/color = categorizedJobs[jobcat]["color"]
+			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
+			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
+				if(job in SSjobs.prioritized_jobs)
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+				else
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			dat += "</fieldset><br>"
 
-	dat += "</td></tr></table></center>"
+		dat += "</td></tr></table></center>"
+	else
+		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<BR>Wait a few minutes, then try again.<BR>Or, try observing the round.</center>"
 	// Removing the old window method but leaving it here for reference
 //		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
 	// Added the new browser window method
@@ -536,7 +537,7 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
-	if(ticker.random_players || appearance_isbanned(new_character))
+	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)

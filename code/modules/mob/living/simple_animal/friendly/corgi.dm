@@ -22,8 +22,8 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	see_in_dark = 5
-	childtype = /mob/living/simple_animal/pet/corgi/puppy
-	simplespecies = /mob/living/simple_animal/pet/corgi
+	childtype = list(/mob/living/simple_animal/pet/corgi)
+	animal_species = /mob/living/simple_animal/pet/corgi
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/shaved = 0
 	var/obj/item/inventory_head
@@ -451,7 +451,7 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/pet/corgi/Ian/process_ai()
+/mob/living/simple_animal/pet/corgi/Ian/Life()
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
@@ -578,7 +578,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/pet/corgi/Lisa/process_ai()
+/mob/living/simple_animal/pet/corgi/Lisa/Life()
 	..()
 
 	make_babies()

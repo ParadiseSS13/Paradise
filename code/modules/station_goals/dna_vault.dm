@@ -13,7 +13,7 @@
 /datum/station_goal/dna_vault/New()
 	..()
 	animal_count = rand(15, 20) //might be too few given ~15 roundstart stationside ones
-	human_count = rand(round(0.75 * ticker.mode.num_players_started()), ticker.mode.num_players_started()) // 75%+ roundstart population.
+	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
 	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
 
@@ -166,8 +166,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		F.parent = src
 		fillers += F
 
-	if(ticker.mode)
-		for(var/datum/station_goal/dna_vault/G in ticker.mode.station_goals)
+	if(SSticker.mode)
+		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
 			animals_max = G.animal_count
 			plants_max = G.plant_count
 			dna_max = G.human_count

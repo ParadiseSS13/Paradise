@@ -62,10 +62,9 @@
 	var/can_collar = 0 // can add collar to mob or not
 
 	//Hot simple_animal baby making vars
-
-	var/childtype = null
-	var/scan_ready = 1
-	var/simplespecies //Sorry, no spider+corgi buttbabies.
+	var/list/childtype = null
+	var/next_scan_time = 0
+	var/animal_species //Sorry, no spider+corgi buttbabies.
 
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
@@ -80,10 +79,14 @@
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
+	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
+	var/can_have_ai = TRUE //once we have become sentient, we can never go back
+	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
+
 
 /mob/living/simple_animal/Initialize()
 	..()
-	GLOB.simple_animal_list += src
+	GLOB.simple_animals[AIStatus] += src
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
@@ -97,7 +100,18 @@
 		collar.forceMove(loc)
 		collar = null
 	master_commander = null
-	GLOB.simple_animal_list -= src
+	GLOB.simple_animals[AIStatus] -= src
+	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
+		SSnpcpool.currentrun -= src
+
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+
+	var/turf/T = get_turf(src)
+	if (T && AIStatus == AI_Z_OFF)
+		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+
 	return ..()
 
 /mob/living/simple_animal/Login()
@@ -110,12 +124,6 @@
 	..(reason)
 	health = Clamp(health, 0, maxHealth)
 	med_hud_set_status()
-
-
-/mob/living/simple_animal/proc/process_ai()
-	handle_automated_movement()
-	handle_automated_action()
-	handle_automated_speech()
 
 /mob/living/simple_animal/lay_down()
 	..()
@@ -437,27 +445,32 @@
 
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
-	if(gender != FEMALE || stat || !scan_ready || !childtype || !simplespecies)
-		return
-	scan_ready = 0
-	spawn(400)
-		scan_ready = 1
-	var/alone = 1
+	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
+		return FALSE
+	next_scan_time = world.time + 400
+	
+	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0
+
 	for(var/mob/M in oview(7, src))
-		if(istype(M, childtype)) //Check for children FIRST.
+		if(M.stat != CONSCIOUS) //Check if it's conscious FIRST.
+			continue
+		else if(istype(M, childtype)) //Check for children SECOND.
 			children++
-		else if(istype(M, simplespecies))
-			if(M.client)
+		else if(istype(M, animal_species))
+			if(M.ckey)
 				continue
 			else if(!istype(M, childtype) && M.gender == MALE) //Better safe than sorry ;_;
 				partner = M
-		else if(istype(M, /mob/))
-			alone = 0
-			continue
+		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
+			return //we never mate when not alone, so just abort early
+
 	if(alone && partner && children < 3)
-		return new childtype(loc)
+		var/childspawn = pickweight(childtype)
+		var/turf/target = get_turf(loc)
+		if(target)
+			return new childspawn(target)
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"
@@ -534,8 +547,8 @@
 
 	W.forceMove(src)
 	W.equipped(src, slot)
-	W.layer = 20
-	W.plane = HUD_PLANE
+	W.layer = ABOVE_HUD_LAYER
+	W.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(slot_collar)
@@ -562,11 +575,59 @@
 /* End Inventory */
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+	toggle_ai(AI_OFF)
+	can_have_ai = FALSE
 	return
+
+/mob/living/simple_animal/can_hear()
+	. = TRUE
+
+/mob/living/simple_animal/proc/consider_wakeup()
+	if(pulledby || shouldwakeup)
+		toggle_ai(AI_ON)
+
+/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(!ckey && !stat)//Not unconscious
+		if(AIStatus == AI_IDLE)
+			toggle_ai(AI_ON) 
+
+/mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(!can_have_ai && (togglestatus != AI_OFF))
+		return
+	if(AIStatus != togglestatus)
+		if(togglestatus > 0 && togglestatus < 5)
+			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
+				var/turf/T = get_turf(src)
+				if(AIStatus == AI_Z_OFF)
+					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+				else
+					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
+			GLOB.simple_animals[AIStatus] -= src
+			GLOB.simple_animals[togglestatus] += src
+			AIStatus = togglestatus
+		else
+			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+
+/mob/living/simple_animal/onTransitZ(old_z, new_z)
+	..()
+	if(AIStatus == AI_Z_OFF)
+		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
+		toggle_ai(initial(AIStatus)) 
+
+// Simple animals will not be given night vision upon death, as that would result in issues when they are revived.
+/mob/living/simple_animal/grant_death_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_OBSERVER
+	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/update_sight()
 	if(!client)
 		return
+
 	if(stat == DEAD)
 		grant_death_vision()
 		return
@@ -580,5 +641,5 @@
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-/mob/living/simple_animal/can_hear()
-	. = TRUE
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

@@ -107,6 +107,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
@@ -136,9 +137,10 @@
 			var/obj/item/I = target
 			var/old_layer = I.layer
 			var/old_plane = I.plane
-			I.layer = HUD_LAYER_SCREEN + 1
-			I.plane = HUD_PLANE
-			current_button.overlays += I
+			I.layer = FLOAT_LAYER //AAAH
+			I.plane = FLOAT_PLANE //^ what that guy said
+			current_button.cut_overlays()
+			current_button.add_overlay(I)
 			I.layer = old_layer
 			I.plane = old_plane
 	else
@@ -384,6 +386,13 @@
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
+// Jump boots
+/datum/action/item_action/bhop
+	name = "Activate Jump Boots"
+	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "jetboot"
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
@@ -405,6 +414,19 @@
 	..()
 	name = "Use [target.name]"
 	button.name = name
+
+/datum/action/item_action/voice_changer/toggle
+	name = "Toggle Voice Changer"
+
+/datum/action/item_action/voice_changer/voice
+	name = "Set Voice"
+
+/datum/action/item_action/voice_changer/voice/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/voice_changer/V = target
+	V.set_voice(usr)
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory

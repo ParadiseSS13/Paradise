@@ -1,6 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - imageadd: "Added new torch sprites"
-  - tweak: "Torch light color is now orange instead of red"
-  - bugfix: "Torch sprite now correctly shows all inhand sprites"

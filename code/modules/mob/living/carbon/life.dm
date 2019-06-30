@@ -343,36 +343,6 @@
 		Sleeping(2)
 	return sleeping
 
-/mob/living/carbon/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
-	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
-	sight = initial(sight)
-
-	if(XRAY in mutations)
-		grant_xray_vision()
-
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
-			return
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.dark_view)
-			see_in_dark = max(see_in_dark,E.dark_view)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-
-	if(see_override)
-		see_invisible = see_override
-
-
 /mob/living/carbon/handle_hud_icons()
 	return
 

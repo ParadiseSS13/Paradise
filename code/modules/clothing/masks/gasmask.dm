@@ -10,14 +10,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -61,6 +61,34 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+/obj/item/clothing/mask/gas/explorer
+	name = "explorer gas mask"
+	desc = "A military-grade gas mask that can be connected to an air supply."
+	icon_state = "gas_mining"
+	actions_types = list(/datum/action/item_action/adjust)
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0)
+	resistance_flags = FIRE_PROOF
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		)
+
+/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+	adjustmask(user)
+
+/obj/item/clothing/mask/gas/explorer/adjustmask(user)
+	..()
+	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+	. = ..()
+	adjustmask()
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
@@ -162,11 +190,6 @@
 	item_state = "sexymime"
 	burn_state = FLAMMABLE
 
-/obj/item/clothing/mask/gas/death_commando
-	name = "Death Commando Mask"
-	icon_state = "death_commando_mask"
-	item_state = "death_commando_mask"
-
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Beep boop"
@@ -199,6 +222,7 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
+	item_state = "sechailer"
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1

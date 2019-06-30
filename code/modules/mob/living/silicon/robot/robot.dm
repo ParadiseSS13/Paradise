@@ -114,7 +114,9 @@ var/list/robot_verbs_default = list(
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = 19	//Objects that appear on screen are on layer 20, UI should be just below it.
+	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer 20, UI should be just below it.
+	robot_modules_background.plane = HUD_PLANE
+
 	ident = rand(1, 999)
 	rename_character(null, get_default_name())
 	update_icons()
@@ -157,6 +159,7 @@ var/list/robot_verbs_default = list(
 		var/datum/robot_component/cell_component = components["power cell"]
 		cell_component.wrapped = cell
 		cell_component.installed = 1
+		cell_component.install()
 
 	diag_hud_set_borgcell()
 	scanner = new(src)
@@ -286,7 +289,7 @@ var/list/robot_verbs_default = list(
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
+		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
 		modules += "Combat"
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
@@ -414,6 +417,31 @@ var/list/robot_verbs_default = list(
 		radio.config(module.channels)
 	notify_ai(2)
 
+/mob/living/silicon/robot/proc/reset_module()
+	notify_ai(2)
+
+	uneq_all()
+	sight_mode = null
+	hands.icon_state = "nomod"
+	icon_state = "robot"
+	module.remove_subsystems_and_actions(src)
+	QDEL_NULL(module)
+
+	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	rename_character(real_name, get_default_name("Default"))
+	languages = list()
+	speech_synthesizer_langs = list()
+
+	update_icons()
+	update_headlamp()
+
+	speed = 0 // Remove upgrades.
+	ionpulse = FALSE
+	magpulse = FALSE
+	add_language("Robot Talk", 1)
+
+	status_flags |= CANPUSH
+
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
 	set name = "Toggle Module"
@@ -438,8 +466,10 @@ var/list/robot_verbs_default = list(
 	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		dat += "<b>[C.name]</b><br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-
+		if(C.installed == 0)
+			dat += "<b>[C.name]</b><br>MISSING<br>"
+		else
+			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
 	return dat
 
 /mob/living/silicon/robot/verb/self_diagnosis_verb()
@@ -591,6 +621,9 @@ var/list/robot_verbs_default = list(
 		if(!getBruteLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
+		else if(!getBruteLoss(TRUE))
+			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+			return
 		var/obj/item/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
@@ -603,10 +636,13 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+		else if(!getFireLoss(TRUE))
+			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
@@ -654,10 +690,10 @@ var/list/robot_verbs_default = list(
 					I.burn = C.electronics_damage
 
 				I.loc = src.loc
-
-				if(C.installed == 1)
-					C.uninstall()
+				var/was_installed = C.installed
 				C.installed = 0
+				if(was_installed == 1)
+					C.uninstall()
 
 		else
 			if(locked)
@@ -1340,9 +1376,9 @@ var/list/robot_verbs_default = list(
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(cyborg_unlock)
 		crisis = 1
-	if(!(mind in ticker.minds))
-		ticker.minds += mind
-	ticker.mode.ert += mind
+	if(!(mind in SSticker.minds))
+		SSticker.minds += mind
+	SSticker.mode.ert += mind
 
 /mob/living/silicon/robot/ert/gamma
 	crisis = 1
@@ -1362,7 +1398,7 @@ var/list/robot_verbs_default = list(
 	..()
 	var/brute = 1000
 	var/burn = 1000
-	var/list/datum/robot_component/borked_parts = get_damaged_components(brute,burn,1)
+	var/list/datum/robot_component/borked_parts = get_damaged_components(TRUE, TRUE, TRUE, TRUE)
 	for(var/datum/robot_component/borked_part in borked_parts)
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage
@@ -1383,3 +1419,38 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/check_ear_prot()
 	return ear_protection
+
+/mob/living/silicon/robot/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(sight_mode & BORGMESON)
+		sight |= SEE_TURFS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	if(sight_mode & BORGXRAY)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_invisible = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		see_in_dark = 8
+
+	if(sight_mode & BORGTHERM)
+		sight |= SEE_MOBS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+	

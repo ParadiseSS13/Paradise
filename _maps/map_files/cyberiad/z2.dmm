@@ -3499,7 +3499,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena)
 "jb" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "jc" = (
@@ -4426,7 +4426,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena_source)
 "lD" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "lE" = (
@@ -8030,11 +8030,12 @@
 "tH" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 8;
-	height = 15;
+	dwidth = 9;
+	height = 18;
 	id = "admin_away";
 	name = "centcom bay 1";
-	width = 18
+	timid = 1;
+	width = 19
 	},
 /turf/space,
 /area/space)
@@ -8543,7 +8544,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/mask/gas/cyborg,
-/obj/item/clothing/mask/gas/voice,
+/obj/item/clothing/mask/chameleon,
 /obj/item/clothing/mask/balaclava{
 	pixel_x = 3;
 	pixel_y = -3
@@ -8729,7 +8730,7 @@
 /area/admin)
 "uY" = (
 /obj/structure/rack,
-/obj/item/clothing/under/chameleon/all{
+/obj/item/clothing/mask/chameleon{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -9036,7 +9037,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/shoes/centcom,
-/obj/item/clothing/shoes/syndigaloshes{
+/obj/item/clothing/shoes/chameleon/noslip{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -12275,7 +12276,7 @@
 "Hv" = (
 /obj/structure/rack,
 /obj/item/katana/energy,
-/obj/item/clothing/mask/gas/voice/space_ninja,
+/obj/item/clothing/mask/gas/space_ninja,
 /turf/unsimulated/floor{
 	icon_state = "engine"
 	},
@@ -12565,6 +12566,10 @@
 /obj/effect/landmark/ai_multicam_room,
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
+"Qt" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/ninja/holding)
 "QE" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/shuttle/floor{
@@ -35340,9 +35345,9 @@ wK
 wK
 wK
 wK
-aN
-aN
-aN
+wK
+wK
+wK
 aN
 aN
 aN
@@ -35581,25 +35586,25 @@ aN
 aN
 cp
 cj
-yt
-yt
-yt
-cr
 aN
 aN
-cr
-yt
-cr
 aN
 aN
-cr
-yt
-yt
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -35838,9 +35843,6 @@ aN
 aN
 cp
 cj
-yt
-yt
-cr
 aN
 aN
 aN
@@ -35850,13 +35852,16 @@ aN
 aN
 aN
 aN
-cr
-yt
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36095,8 +36100,6 @@ aN
 aN
 cp
 cj
-yt
-cr
 aN
 aN
 aN
@@ -36108,12 +36111,14 @@ aN
 aN
 aN
 aN
-cr
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36352,7 +36357,6 @@ aN
 aN
 cp
 cj
-cr
 aN
 aN
 aN
@@ -36366,11 +36370,12 @@ aN
 aN
 aN
 aN
-cr
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36624,10 +36629,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36881,10 +36886,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37138,10 +37143,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37395,10 +37400,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37652,10 +37657,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37909,10 +37914,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38166,10 +38171,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38423,10 +38428,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38680,10 +38685,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38937,10 +38942,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39179,7 +39184,6 @@ qo
 qs
 tx
 wK
-cr
 aN
 aN
 aN
@@ -39193,11 +39197,12 @@ aN
 aN
 aN
 aN
-cr
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39436,25 +39441,25 @@ qo
 qs
 tA
 wK
-yt
 aN
 aN
 aN
 aN
 aN
-yt
-yt
-yt
 aN
 aN
 aN
 aN
 aN
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39693,25 +39698,25 @@ tq
 tv
 tz
 wK
-yt
-cr
 aN
 aN
 aN
 aN
-yt
-yt
-yt
 aN
 aN
 aN
 aN
-cr
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39950,25 +39955,25 @@ wK
 wK
 wK
 wK
-yt
-yt
-cr
 aN
 aN
-cr
-yt
-yt
-yt
-cr
 aN
 aN
-cr
-yt
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -40207,25 +40212,25 @@ aN
 aN
 aN
 wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
 aN
 aN
 aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+wK
 aN
 aN
 aN
@@ -40463,26 +40468,26 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
 aN
 aN
 aN
@@ -54449,7 +54454,7 @@ fI
 fH
 fH
 he
-hv
+Qt
 fg
 aN
 aN

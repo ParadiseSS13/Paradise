@@ -11152,7 +11152,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/medical)
 "uW" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "uX" = (
 /obj/structure/cable{
@@ -11633,7 +11633,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "vV" = (
 /obj/machinery/computer/monitor,
@@ -13391,14 +13391,14 @@
 /area/awaymission/UO71/loot)
 "zr" = (
 /obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "zs" = (
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zt" = (
 /obj/structure/chair/wood/normal,
-/obj/item/clothing/shoes/syndigaloshes,
+/obj/item/clothing/shoes/chameleon/noslip,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zu" = (

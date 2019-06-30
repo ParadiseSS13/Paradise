@@ -1,0 +1,5 @@
+author: "craftxbox"
+delete-after: True
+changes: 
+  - tweak: "Highlight string uses regex"
+  - rscdel: "Removed jquery mark"

@@ -6,17 +6,17 @@
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission)
 "ac" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ad" = (
 /obj/effect/mob_spawn/human/doctor,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ae" = (
 /obj/item/circular_saw,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "af" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall12";
@@ -46,7 +46,7 @@
 "aj" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ak" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall12";
@@ -97,7 +97,7 @@
 "as" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "at" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -2626,14 +2626,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Aft)
-"gy" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/space)
 "gz" = (
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
@@ -3004,7 +2996,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hC" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Fore)
 "hD" = (
 /obj/structure/rack,
@@ -3014,7 +3006,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Fore)
 "hF" = (
 /turf/simulated/shuttle/wall,
@@ -3171,7 +3163,7 @@
 /obj/effect/landmark{
 	name = "awaystart"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ic" = (
 /obj/structure/bed,
@@ -3273,7 +3265,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ip" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall13";
@@ -3420,7 +3412,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission)
 "iM" = (
-/turf/simulated/mineral/random/high_chance_clown,
+/turf/simulated/mineral/random/high_chance/clown,
 /area/awaymission)
 "iN" = (
 /obj/effect/decal/cleanable/blood,
@@ -3452,7 +3444,7 @@
 /area/awaymission)
 "iS" = (
 /mob/living/simple_animal/hostile/carp,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "iT" = (
 /turf/simulated/floor/plating,
@@ -3522,12 +3514,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission)
-"jf" = (
-/turf/space,
-/area/crew_quarters/bar)
-"jg" = (
-/turf/space,
-/area/exploration/methlab)
 "jh" = (
 /obj/machinery/door_control{
 	id = "packerMed";
@@ -9820,7 +9806,7 @@ eW
 fF
 ee
 aW
-gy
+gg
 aa
 aa
 gP
@@ -13998,7 +13984,7 @@ aa
 aa
 aa
 aa
-jf
+aa
 aa
 aa
 aa
@@ -14389,11 +14375,11 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14518,12 +14504,12 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14648,13 +14634,13 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14779,9 +14765,9 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14908,8 +14894,8 @@ aa
 aa
 aa
 aa
-jg
-jg
+aa
+aa
 aa
 aa
 aa
@@ -15038,12 +15024,12 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15168,12 +15154,12 @@ aa
 aa
 aa
 aa
-jg
-jg
-jg
-jg
-jg
-jg
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15300,7 +15286,7 @@ aa
 aa
 aa
 aa
-jg
+aa
 aa
 aa
 aa
