@@ -311,6 +311,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
+	check_unres()
 	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
@@ -333,7 +334,6 @@ About the new airlock wires panel:
 	var/image/sparks_overlay
 	var/image/note_overlay
 	var/notetype = note_type()
-
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay("closed", icon)

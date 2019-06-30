@@ -75,7 +75,6 @@
 	icon_state = "airlock_unres_helper"
 
 /obj/effect/mapping_helpers/airlock/unres/Initialize(mapload)
-	..()
 	if(!mapload)
 		log_world("### MAP WARNING, [src] spawned outside of mapload!")
 		return
@@ -84,7 +83,7 @@
 		airlock.unres_sides ^= dir
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
-		
+	..()	
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN
