@@ -142,3 +142,4 @@
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/tank/emergency_oxygen/engi(src)
 	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/crowbar/power(src)
