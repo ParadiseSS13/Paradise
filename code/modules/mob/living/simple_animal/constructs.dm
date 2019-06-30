@@ -113,7 +113,7 @@
 	status_flags = 0
 	const_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
@@ -171,7 +171,7 @@
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	const_type = "wraith"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
@@ -202,7 +202,8 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	const_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon,
@@ -311,7 +312,8 @@
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/targeted/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
