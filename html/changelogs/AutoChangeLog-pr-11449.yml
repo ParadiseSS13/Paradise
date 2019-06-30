@@ -1,0 +1,7 @@
+author: "Shadeykins"
+delete-after: True
+changes: 
+  - tweak: "Changed Quarantine, NT Default, Aggressive, and Corporate AI lawsets.
+balance: Reduced the ability for NT Default AI's to murder people just because."
+  - bugfix: "Removed several redundancies in Aggressive lawset."
+  - spellcheck: "Fixed a few subject-verb disagreements (is -> are)."
