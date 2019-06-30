@@ -5180,15 +5180,15 @@
 "ajr" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced,
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/gun/energy/disabler{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/gun/energy/disabler{
 	pixel_x = 0;
 	pixel_y = 0
 	},
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/gun/energy/disabler{
 	pixel_x = 3;
 	pixel_y = -3
 	},

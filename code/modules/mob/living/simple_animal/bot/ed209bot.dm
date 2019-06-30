@@ -41,7 +41,7 @@
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
-	var/shoot_sound = 'sound/weapons/taser.ogg'
+	var/shoot_sound = 'sound/weapons/laser.ogg'
 
 
 /mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
@@ -383,7 +383,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/gun/advtaser/G = new /obj/item/gun/energy/gun/advtaser(Tsec)
+		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -424,8 +424,8 @@
 			projectile = /obj/item/projectile/beam
 	else
 		if(!lasercolor)
-			shoot_sound = 'sound/weapons/taser.ogg'
-			projectile = /obj/item/projectile/energy/electrode
+			shoot_sound = 'sound/weapons/laser.ogg'
+			projectile = /obj/item/projectile/beam/disabler
 		else if(lasercolor == "b")
 			projectile = /obj/item/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
