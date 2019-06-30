@@ -95,10 +95,3 @@
 		max_w_class = initial(max_w_class)
 	else
 		return ..()
-
-/obj/item/storage/briefcase/false_bottomed/sniper
-
-/obj/item/storage/briefcase/false_bottomed/sniper/New()
-	..()
-	var/obj/item/gun/projectile/automatic/sniper_rifle/compact/SNIPER = new
-	stored_item = SNIPER
