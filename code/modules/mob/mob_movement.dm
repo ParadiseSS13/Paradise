@@ -400,7 +400,7 @@
 	if(..())
 		return 1
 	var/atom/movable/backup = get_spacemove_backup()
-	if(backup)
+	if(backup && pulling != backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
 			if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
