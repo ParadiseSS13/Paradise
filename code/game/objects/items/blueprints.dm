@@ -65,8 +65,8 @@
 
 
 /obj/item/areaeditor/permit/create_area()
-	..()
-	qdel(src)
+	if(..() == TRUE)
+		qdel(src)
 
 //free golem blueprints, like permit but can claim as much as needed
 
@@ -186,25 +186,26 @@
 
 
 /obj/item/areaeditor/proc/create_area()
+	var/area_created = FALSE
 	var/res = detect_room(get_turf(usr))
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
 				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
-				return
+				return area_created
 			if(ROOM_ERR_TOOLARGE)
 				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
-				return
+				return area_created
 			else
 				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
-				return
+				return area_created
 	var/list/turf/turfs = res
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN))
 	if(!str || !length(str)) //cancel
-		return
+		return area_created
 	if(length(str) > 50)
 		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
-		return
+		return area_created
 	var/area/A = new
 	A.name = str
 	A.power_equip = FALSE
@@ -220,7 +221,8 @@
 		thing.change_area(old_area, A)
 
 	interact()
-	return
+	area_created = TRUE
+	return area_created
 
 /obj/item/areaeditor/proc/edit_area()
 	var/area/A = get_area()
