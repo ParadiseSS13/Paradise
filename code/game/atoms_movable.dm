@@ -129,47 +129,65 @@
 	loc = T
 
 /atom/movable/Move(atom/newloc, direct = 0)
-	. = FALSE
-	if(!newloc || newloc == loc)
-		return
-
-	if(!direct)
-		direct = get_dir(src, newloc)
-	setDir(direct)
-
-	if(!loc.Exit(src, newloc))
-		return
-
-	if(!newloc.Enter(src, src.loc))
-		return
-
-	// Past this is the point of no return
-	var/atom/oldloc = loc
-	var/area/oldarea = get_area(oldloc)
-	var/area/newarea = get_area(newloc)
-	loc = newloc
-	. = TRUE
-	oldloc.Exited(src, newloc)
-	if(oldarea != newarea)
-		oldarea.Exited(src, newloc)
-
-	for(var/i in oldloc)
-		if(i == src) // Multi tile objects
-			continue
-		var/atom/movable/thing = i
-		thing.Uncrossed(src)
-
-	newloc.Entered(src, oldloc)
-	if(oldarea != newarea)
-		newarea.Entered(src, oldloc)
-
-	for(var/i in loc)
-		if(i == src) // Multi tile objects
-			continue
-		var/atom/movable/thing = i
-		thing.Crossed(src)
-		
 	if(!loc || !newloc) return 0
+	var/atom/oldloc = loc
+
+	if(loc != newloc)
+		if (!(direct & (direct - 1))) //Cardinal move
+			. = ..()
+		else //Diagonal move, split it into cardinal moves
+			moving_diagonally = FIRST_DIAG_STEP
+			var/first_step_dir
+			// The `&& moving_diagonally` checks are so that a forceMove taking
+			// place due to a Crossed, Bumped, etc. call will interrupt
+			// the second half of the diagonal movement, or the second attempt
+			// at a first half if step() fails because we hit something.
+			if (direct & NORTH)
+				if (direct & EAST)
+					if (step(src, NORTH) && moving_diagonally)
+						first_step_dir = NORTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, EAST)
+					else if (moving_diagonally && step(src, EAST))
+						first_step_dir = EAST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, NORTH)
+				else if (direct & WEST)
+					if (step(src, NORTH) && moving_diagonally)
+						first_step_dir = NORTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, WEST)
+					else if (moving_diagonally && step(src, WEST))
+						first_step_dir = WEST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, NORTH)
+			else if (direct & SOUTH)
+				if (direct & EAST)
+					if (step(src, SOUTH) && moving_diagonally)
+						first_step_dir = SOUTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, EAST)
+					else if (moving_diagonally && step(src, EAST))
+						first_step_dir = EAST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, SOUTH)
+				else if (direct & WEST)
+					if (step(src, SOUTH) && moving_diagonally)
+						first_step_dir = SOUTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, WEST)
+					else if (moving_diagonally && step(src, WEST))
+						first_step_dir = WEST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, SOUTH)
+			if(moving_diagonally == SECOND_DIAG_STEP)
+				if(!.)
+					setDir(first_step_dir)
+				else if (!inertia_moving)
+					inertia_next_move = world.time + inertia_move_delay
+					newtonian_move(direct)
+			moving_diagonally = 0
+			return
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
 		last_move = 0
