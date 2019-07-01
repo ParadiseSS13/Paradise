@@ -9,6 +9,7 @@ var/global/list/fax_blacklist = list()
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
 
 	var/long_range_enabled = 0 // Can we send messages off the station?
