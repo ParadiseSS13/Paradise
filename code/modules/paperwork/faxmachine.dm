@@ -11,6 +11,7 @@ var/global/list/fax_blacklist = list()
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	var/fax_network = "Local Fax Network"
+	var/syndie_restricted = FALSE //is it a syndicate base fax restricted from contacting NT assets?
 
 	var/long_range_enabled = 0 // Can we send messages off the station?
 	req_one_access = list(access_lawyer, access_heads, access_armory)
@@ -47,6 +48,7 @@ var/global/list/fax_blacklist = list()
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
 	emagged = TRUE
+	syndie_restricted = TRUE
 	req_one_access = list(access_syndicate)
 	//No point setting fax network, being emagged overrides that anyway.
 
@@ -167,6 +169,13 @@ var/global/list/fax_blacklist = list()
 			if(emagged)
 				combineddepartments += hidden_admin_departments.Copy()
 				combineddepartments += hidden_departments.Copy()
+
+			if(syndie_restricted)
+				combineddepartments = hidden_admin_departments.Copy()
+				combineddepartments += hidden_departments.Copy()
+				for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+					if(F.emagged)//we can contact emagged faxes on the station
+						combineddepartments |= F.department
 
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)
