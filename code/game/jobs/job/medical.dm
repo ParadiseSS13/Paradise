@@ -307,6 +307,7 @@
 	id = /obj/item/card/id/medical
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
+	belt = /obj/item/crowbar/power/rescue
 	backpack_contents = list(
 		/obj/item/healthanalyzer = 1
 	)

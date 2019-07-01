@@ -746,6 +746,20 @@ obj/item/weldingtool/experimental/process()
 	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(cutjaws)
+	
+/obj/item/crowbar/power/rescue
+	name = "rescue jaws of life"
+	desc = "A Rescue variant of the Jaws of Life, bigger and less versatile than the original. Designed for prying open pesky doors in emergencies."
+	icon_state = "jaws_pry_rescue"
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_BACK | SLOT_BELT
+	force = 8
+	toolspeed = 1
+	airlock_open_time = 90
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked", "rescued")
+	
+/obj/item/crowbar/power/rescue/attack_self(mob/user)
+	return
 
 // Conversion kit
 /obj/item/conversion_kit

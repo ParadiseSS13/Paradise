@@ -280,3 +280,14 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	category = list("Equipment")
+
+/datum/design/jawsoflife_rescue
+	name = "Rescue Jaws of Life"
+	desc = "The Rescue variant of the Jaws of Life, designed to quickly open doors in emergencies. Bigger and less versatile than the original."
+	id = "jawsoflife"
+	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6) // added one more requirment since the Jaws of Life are a bit OP
+	build_path = /obj/item/crowbar/power/rescue
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2000)
+	category = list("Equipment")
+
