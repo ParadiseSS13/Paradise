@@ -453,6 +453,11 @@
 /obj/screen/healths/corgi
 	icon = 'icons/mob/screen_corgi.dmi'
 
+/obj/screen/healths/slime
+	icon = 'icons/mob/screen_slime.dmi'
+	icon_state = "slime_health0"
+	screen_loc = ui_slime_health
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healths/guardian
 	name = "summoner health"
