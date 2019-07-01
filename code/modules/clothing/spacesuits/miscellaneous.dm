@@ -180,6 +180,8 @@
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd, /obj/item/crowbar/power/rescue)
+
 	species_restricted = list("exclude", "Diona", "Wryn")
 
 	sprite_sheets = list(
