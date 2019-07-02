@@ -77,7 +77,11 @@
 	
 	if(href_list["unres_direction"])
 		unres_direction = text2num(href_list["unres_direction"])
-		unres_sides = unres_direction
+		if (unres_sides == unres_direction)
+			unres_sides = 0
+			unres_direction = null
+		else
+			unres_sides = unres_direction
 
 	attack_self(usr)
 
