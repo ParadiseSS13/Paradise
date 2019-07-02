@@ -32,6 +32,7 @@
 	<br><i>You are free to attack anyone not aligned with the Syndicate in the vicinity of your base. <font size=6>DO NOT</font> work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. <font size=6>DO NOT</font> leave your base without admin permission.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
+	del_types = list() // Necessary to prevent del_types from removing radio!
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
@@ -45,7 +46,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland
+	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland // See del_types above
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/anyone
@@ -67,15 +68,18 @@
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize(mapload)
 	. = ..()
-	if(prob(90)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
-		new /mob/living/simple_animal/hostile/syndicate/ranged(get_turf(src))
+	if(!GAMEMODE_IS_TRAITOR || prob(90)) // must be a mode with traitors, and roll 10% chance, to allow this
 		return INITIALIZE_HINT_QDEL
 
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
+	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
 	r_hand = /obj/item/melee/energy/sword/saber
 	mask = /obj/item/clothing/mask/chameleon
 	suit = /obj/item/clothing/suit/armor/vest
+	backpack_contents = list(
+		/obj/item/paper/monitorkey = 1 // message console on lavaland does NOT spawn with this
+	)
 
 /obj/item/clothing/mask/chameleon/gps/New()
 	. = ..()

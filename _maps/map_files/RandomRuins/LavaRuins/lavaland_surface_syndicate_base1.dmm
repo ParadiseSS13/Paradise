@@ -1242,21 +1242,6 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"cf" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/radio/intercom/syndicate,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/engine{
@@ -6763,7 +6748,6 @@
 /obj/machinery/computer/message_monitor{
 	dir = 1
 	},
-/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ov" = (
@@ -7377,8 +7361,8 @@ ab
 mp
 mQ
 nl
+ni
 nJ
-cf
 ov
 mn
 ab

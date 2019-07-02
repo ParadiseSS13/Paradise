@@ -14,6 +14,7 @@
 #define GAMEMODE_IS_NUCLEAR		(SSticker && istype(SSticker.mode, /datum/game_mode/nuclear))
 #define GAMEMODE_IS_REVOLUTION	(SSticker && istype(SSticker.mode, /datum/game_mode/revolution))
 #define GAMEMODE_IS_WIZARD		(SSticker && istype(SSticker.mode, /datum/game_mode/wizard))
+#define GAMEMODE_IS_TRAITOR		(SSticker && istype(SSticker.mode, /datum/game_mode/traitor)) // Includes autotraitor
 
 //special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
