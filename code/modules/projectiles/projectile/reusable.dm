@@ -75,5 +75,5 @@
 	name = "riot sniper foam dart"
 	icon_state = "foamdartsniper_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-	stamina = 100
+	stamina = 80
 	log_override = FALSE
