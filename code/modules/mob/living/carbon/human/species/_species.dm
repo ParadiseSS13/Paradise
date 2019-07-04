@@ -344,6 +344,9 @@
 		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
 			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
 			return
+		if(!target.ckey)
+			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
+			return
 		//we're good to suck the blood, blaah
 		user.mind.vampire.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
