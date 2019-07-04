@@ -183,10 +183,8 @@
 				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>")
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
-				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Weaken(10)
-				target.Stun(10)
-				target.stuttering = 10
+				to_chat(target, "<span class='warning'>You begin to notice your consciousness fading</span>")
+				target.AdjustSleeping(10)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
@@ -216,6 +214,10 @@
 	stat_allowed = 1
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		revert_cast(user)
+		return 0
 	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
 	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
@@ -266,10 +268,9 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(4)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(4)
+		C.AdjustConfused(20)
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
@@ -413,9 +414,16 @@
 	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
-/obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(user.buckled)
 		user.buckled.unbuckle_mob()
+	if(user.handcuffed)
+		var/obj/O = user.get_item_by_slot(slot_handcuffed)
+		if(!istype(O))
+			return FALSE
+		user.unEquip(O)
+		O.forceMove(get_turf(user))
+		visible_message("<span class= 'warning'>You hear a CLANG as the handcuffs fall to the ground</span>")
 	spawn(0)
 		var/mob/living/U = user
 		var/originalloc = get_turf(user.loc)
@@ -502,7 +510,7 @@
 
 	perform(turfs, user = user)
 
-/obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(usr.buckled)
 		user.buckled.unbuckle_mob()
 	spawn(0)
