@@ -413,13 +413,6 @@
 /obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(user.buckled)
 		user.buckled.unbuckle_mob()
-	if(user.handcuffed)
-		var/obj/O = user.get_item_by_slot(slot_handcuffed)
-		if(!istype(O))
-			return FALSE
-		user.unEquip(O)
-		O.forceMove(get_turf(user))
-		visible_message("<span class= 'warning'>You hear a CLANG as the handcuffs fall to the ground</span>")
 	spawn(0)
 		var/mob/living/U = user
 		var/originalloc = get_turf(user.loc)
