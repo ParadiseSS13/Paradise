@@ -79,14 +79,20 @@
 		user.forceMove(get_turf(src))
 		return TRUE
 
-/obj/effect/portal/proc/teleport(atom/movable/M, force = FALSE)
+/obj/effect/portal/proc/can_teleport(atom/movable/M)
+	. = TRUE
+
 	if(!istype(M))
-		return FALSE
+		. = FALSE
 
 	if(!M.simulated || iseffect(M))
-		return FALSE
+		. = FALSE
 
 	if(M.anchored && ismecha(M))
+		. = FALSE
+
+/obj/effect/portal/proc/teleport(atom/movable/M)
+	if(!can_teleport(M))
 		return FALSE
 
 	if(!target)
