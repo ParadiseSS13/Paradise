@@ -307,10 +307,12 @@
 		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
-			if (martial_art.reroute_deflection)
+			if(martial_art.reroute_deflection)
 				P.firer = src
 				P.setAngle(rand(0, 360))//SHING
-			return 0
+				return -1
+			else
+				return 0
 	..()
 
 /mob/living/carbon/human/restrained()
