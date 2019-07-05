@@ -300,12 +300,16 @@
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
-/mob/living/carbon/human/bullet_act()
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!prob(martial_art.deflection_chance))
 			return ..()
 		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
+			if (martial_art.reroute_deflection)
+				P.firer = src
+				P.setAngle(rand(0, 360))//SHING
 			return 0
 	..()
 

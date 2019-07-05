@@ -7,6 +7,7 @@
 /datum/martial_art/the_sleeping_carp
 	name = "The Sleeping Carp"
 	deflection_chance = 100
+	reroute_deflection = TRUE
 	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
 	no_guns = TRUE
 	no_guns_message = "Use of ranged weaponry would bring dishonor to the clan."
