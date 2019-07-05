@@ -612,7 +612,6 @@
 	var/obj/effect/timestop/T = new /obj/effect/timestop
 	T.forceMove(get_turf(holder.my_atom))
 	T.immune += mob
-	T.timestop()
 
 
 /datum/chemical_reaction/slimecamera

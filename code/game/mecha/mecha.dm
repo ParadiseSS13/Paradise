@@ -47,6 +47,7 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = FALSE
+	var/completely_disabled = FALSE //stops the mech from doing anything
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -189,6 +190,8 @@
 		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
+	if(completely_disabled)
+		return
 	if(!occupant || occupant != user )
 		return
 	if(user.incapacitated())
@@ -283,6 +286,8 @@
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
+	if(completely_disabled)
+		return
 	if(!direction)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.

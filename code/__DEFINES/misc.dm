@@ -160,6 +160,9 @@
 #define POLLTYPE_RATING		"NUMVAL"
 #define POLLTYPE_MULTI		"MULTICHOICE"
 
+#define FIELD_TURF 1
+#define FIELD_EDGE 2
+
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
 #define MANIFEST_ERROR_NAME		1
