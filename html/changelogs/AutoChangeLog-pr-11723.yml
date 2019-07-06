@@ -1,4 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - bugfix: "Fixes an oversight from the lavaland port invovling Laz injectors and sentience typing that didn't carry over from tg."
