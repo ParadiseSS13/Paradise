@@ -65,7 +65,7 @@
 
 
 /obj/item/areaeditor/permit/create_area()
-	if(..() == TRUE)
+	if(..())
 		qdel(src)
 
 //free golem blueprints, like permit but can claim as much as needed
