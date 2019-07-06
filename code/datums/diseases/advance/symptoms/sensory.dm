@@ -15,51 +15,52 @@ Bonus
 
 //////////////////////////////////////
 */
-/datum/symptom/mind_restoration
-	name = "Mind Restoration"
+/datum/symptom/sensory_restoration
+	name = "Sensory Restoration"
 	stealth = -1
 	resistance = -4
 	stage_speed = -4
 	transmittable = -3
 	level = 5
 	severity = 0
+	symptom_delay_min = 5
+	symptom_delay_max = 10
+	var/purge_alcohol = FALSE
+	var/brain_heal = FALSE
 
-/datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
+/datum/symptom/sensory_restoration/Start(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
-		var/mob/living/M = A.affected_mob
-		var/datum/reagents/RD = M.reagents
+	if(A.properties["resistance"] >= 6) //heal brain damage
+		brain_heal = TRUE
+	if(A.properties["transmittable"] >= 8) //purge alcohol
+		purge_alcohol = TRUE
 
-		if(A.stage >= 3)
-			M.AdjustSlur(-2)
-			M.AdjustDrunk(-4)
-			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3, 0, 1)
-		if(A.stage >= 4)
-			M.AdjustDrowsy(-2)
-			if(RD.has_reagent("lsd"))
-				RD.remove_reagent("lsd", 5)
-			if(RD.has_reagent("histamine"))
-				RD.remove_reagent("histamine", 5)
-			M.AdjustHallucinate(-10)
-		if(A.stage >= 5)
-			RD.check_and_add("mannitol", 10, 10)
+/datum/symptom/sensory_restoration/Activate(var/datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/carbon/M = A.affected_mob
+	var/obj/item/organ/internal/eyes/E = M.get_int_organ(/obj/item/organ/internal/eyes)
+	if(A.stage >= 2)
+		M.AdjustEarDamage(-2)
+		E.heal_internal_damage(2)
+	if(A.stage >= 3)
+		M.AdjustDizzy(-2)
+		M.AdjustDrowsy(-2)
+		M.AdjustSlur(-2)
+		M.AdjustConfused(-2)
+		if(purge_alcohol)
+			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.AdjustDrunk(-5)
 
-/datum/symptom/sensory_restoration
-	name = "Sensory Restoration"
-	stealth = -1
-	resistance = -3
-	stage_speed = -2
-	transmittable = -4
-	level = 4
+	if(A.stage >= 4)
+		M.AdjustDrowsy(-2)
+		if(M.reagents.has_reagent("lsd"))
+			M.reagents.remove_reagent("lsd", 5)
+		if(M.reagents.has_reagent("histamine"))
+			M.reagents.remove_reagent("histamine", 5)
+		M.hallucination = max(0, M.hallucination - 10)
 
-/datum/symptom/sensory_restoration/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(4, 5)
-				if(M.reagents.get_reagent_amount("oculine") < 20)
-					M.reagents.add_reagent("oculine", 20)
-			else
-				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]</span>")
+	if(brain_heal && A.stage >= 5)
+		M.adjustBrainLoss(-3)

@@ -18,31 +18,63 @@ Bonus
 /datum/symptom/voice_change
 
 	name = "Voice Change"
-	stealth = -2
-	resistance = -3
-	stage_speed = -3
-	transmittable = -1
+	desc = "The virus alters the pitch and tone of the host's vocal cords, changing how their voice sounds."
+	stealth = -1
+	resistance = -2
+	stage_speed = -2
+	transmittable = 2
 	level = 6
 	severity = 2
+	base_message_chance = 100
+	symptom_delay_min = 60
+	symptom_delay_max = 120
+	var/scramble_language = FALSE
+	var/datum/language/current_language
+	var/list/original_language
+	var/datum/language/mob_language
+	threshold_desc = "<b>Transmission 14:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
+					  <b>Stage Speed 7:</b> Changes voice more often.<br>\
+					  <b>Stealth 3:</b> The symptom remains hidden until active."
+
+/datum/symptom/voice_change/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stealth"] >= 3)
+		suppress_warning = TRUE
+	if(A.properties["stage_rate"] >= 7) //faster change of voice
+		base_message_chance = 25
+		symptom_delay_min = 25
+		symptom_delay_max = 85
+	if(A.properties["transmittable"] >= 14) //random language
+		scramble_language = TRUE
+		var/mob/living/M = A.affected_mob
+		original_language = M.languages.Copy()
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-
-		var/mob/living/carbon/M = A.affected_mob
-		switch(A.stage)
-			if(1, 2, 3, 4)
+	if(!..())
+		return
+	var/mob/living/carbon/M = A.affected_mob
+	switch(A.stage)
+		if(1, 2, 3, 4)
+			if(prob(base_message_chance) && !suppress_warning)
 				to_chat(M, "<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
-			else
-				if(ishuman(M))
-					var/mob/living/carbon/human/H = M
-					H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
-
-	return
+		else
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
+				if(scramble_language)
+					for(var/datum/language/L in M.languages)
+						M.remove_language(L)
+					current_language = pick(subtypesof(/datum/language) - /datum/language/common)
+					H.add_language(current_language)
 
 /datum/symptom/voice_change/End(datum/disease/advance/A)
 	..()
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.UnsetSpecialVoice()
-	return
+	if(scramble_language)
+		var/mob/living/M = A.affected_mob
+		M.remove_language(current_language)
+		for (var/datum/language/L in original_language)
+			M.add_language(L)

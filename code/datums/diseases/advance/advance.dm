@@ -34,7 +34,7 @@ var/list/advance_cures = 	list(
 	viable_mobtypes = list(/mob/living/carbon/human)
 
 	// NEW VARS
-
+	var/list/properties = list()
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = 0
@@ -56,7 +56,10 @@ var/list/advance_cures = 	list(
 			symptoms = GenerateSymptoms(0, 2)
 		else
 			for(var/datum/symptom/S in D.symptoms)
-				symptoms += new S.type
+				var/datum/symptom/new_symp = new S.type
+				new_symp.name = S.name
+				new_symp.neutered = S.neutered
+				symptoms += new_symp
 
 	Refresh()
 	..(process, D)
@@ -117,7 +120,7 @@ var/list/advance_cures = 	list(
 	if(!(IsSame(D)))
 		var/list/possible_symptoms = shuffle(D.symptoms)
 		for(var/datum/symptom/S in possible_symptoms)
-			AddSymptom(new S.type)
+			AddSymptom(S.Copy())
 
 /datum/disease/advance/proc/HasSymptom(datum/symptom/S)
 	for(var/datum/symptom/symp in symptoms)
@@ -153,7 +156,7 @@ var/list/advance_cures = 	list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = 0)
+/datum/disease/advance/proc/Refresh(new_name = FALSE)
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties)
 	id = null
@@ -191,10 +194,8 @@ var/list/advance_cures = 	list(
 
 	if(properties && properties.len)
 		switch(properties["stealth"])
-			if(2)
+			if(2 to INFINITY)
 				visibility_flags = HIDDEN_SCANNER
-			if(3 to INFINITY)
-				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(Clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
@@ -262,7 +263,16 @@ var/list/advance_cures = 	list(
 	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
 	if(s)
 		AddSymptom(s)
-		Refresh(1)
+		Refresh(TRUE)
+	return
+
+// Randomly neuter a symptom.
+/datum/disease/advance/proc/Neuter()
+	if(symptoms.len)
+		var/s = safepick(symptoms)
+		if(s)
+			NeuterSymptom(s)
+			Refresh(TRUE)
 	return
 
 // Randomly remove a symptom.
@@ -310,6 +320,12 @@ var/list/advance_cures = 	list(
 	symptoms -= S
 	return
 
+// Neuter a symptom, so it will only affect stats
+/datum/disease/advance/proc/NeuterSymptom(datum/symptom/S)
+	if(!S.neutered)
+		S.neutered = TRUE
+		S.name += " (neutered)"
+		S.id += "N" //new disease is unique
 /*
 
 	Static Procs
