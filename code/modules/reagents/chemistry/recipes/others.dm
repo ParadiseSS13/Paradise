@@ -467,7 +467,7 @@
 	id = "mixvirus8"
 	required_reagents = list("plasmavirusfood" = 1)
 	level_min = 6
-	level_max = 6
+	level_max = 7
 
 /datum/chemical_reaction/mix_virus/mix_virus_9
 	name = "Mix Virus 9"
