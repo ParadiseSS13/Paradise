@@ -106,7 +106,9 @@
 
 	else if(href_list["select_disease"])
 		if(stored)
+			temp_html += "<h3>Threshold Effects:</h3>"
 			temp_html += "[stored.threshold_desc]<hr>"
+			temp_html += "<h3>Symptom Statistics:</h3>"
 			temp_html += "<b>Name:</b>[stored.name]<BR>"
 			temp_html += "<b>Description:</b>[stored.desc]<BR>"
 			temp_html += "<b>Resistance:</b> [stored.resistance]<BR>"
@@ -114,6 +116,8 @@
 			temp_html += "<b>Transmittability:</b> [stored.transmittable]<BR>"
 			temp_html += "<b>Stage Speed:</b> [stored.stage_speed]<BR>"
 			temp_html += "<b>Severity:</b> [stored.severity]<BR>"
+			if (stored.neutered)
+				temp_html += "<b>This symptom has been neutered, and has no effect. It will still affect the virus' statistics.</b>"
 			updateUsrDialog()
 			return
 		else
@@ -298,12 +302,13 @@
 								var/transmittable = num2text(A.properties["transmittable"])
 								var/stage_speed = num2text(A.properties["stage_rate"])
 								var/severity = num2text(A.properties["severity"])
+								dat += "<h3>Disease statistics:</h3><BR>"
 								dat += "<b>Resistance:</b> [resistance]<BR>"
 								dat += "<b>Stealth:</b> [stealth]<BR>"
 								dat += "<b>Transmittability:</b> [transmittable]<BR>"
 								dat += "<b>Stage Speed:</b> [stage_speed]<BR>"
 								dat += "<b>Severity:</b> [severity]<BR>"
-								dat += "<b>Symptoms:</b><BR> "
+								dat += "<b>Symptoms:</b> "
 								for(var/datum/symptom/S in A.symptoms)
 									stored = S
 									dat += "<a href='?src=[UID()];select_disease=1'>[S.name]</a> "

@@ -345,7 +345,6 @@
 /area/ruin/unpowered)
 "aP" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
