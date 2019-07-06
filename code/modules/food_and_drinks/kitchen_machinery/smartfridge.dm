@@ -173,7 +173,7 @@
 					  /obj/item/reagent_containers/glass/bottle/mutagen = 1,
 					  /obj/item/reagent_containers/glass/bottle/plasma = 1,
 					  /obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
-						/obj/item/reagent_containers/glass/bottle/formaldehyde = 1)
+						/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker))
