@@ -284,7 +284,6 @@
 				/obj/item/dnainjector/telemut = 50,
 
 				// Virology
-				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
 				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50
 				)
 

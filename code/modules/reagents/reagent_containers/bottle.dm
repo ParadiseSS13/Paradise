@@ -286,12 +286,6 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/voice_change
 
-/obj/item/reagent_containers/glass/bottle/liver_enhance_virion
-	name = "Liver enhancement virion culture bottle"
-	desc = "A small bottle. Contains liver enhancement virion culture in synthblood medium."
-	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/heal
-
 /obj/item/reagent_containers/glass/bottle/hullucigen_virion
 	name = "Hullucigen virion culture bottle"
 	desc = "A small bottle. Contains hullucigen virion culture in synthblood medium."
@@ -370,12 +364,6 @@
 	desc = "A small bottle. Contains a sample of Fungal Tubercle bacillus."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/tuberculosis
-
-/obj/item/reagent_containers/glass/bottle/regeneration
-	name = "Regeneration culture bottle"
-	desc = "A small bottle. Contains a sample of a virus that heals toxin damage."
-	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/heal
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration
 	name = "Sensory Restoration culture bottle"

@@ -270,14 +270,27 @@
 							dat += "<b>Description: </b> [(D.desc||"none")]<BR>"
 							dat += "<b>Spread:</b> [(D.spread_text||"none")]<BR>"
 							dat += "<b>Possible cure:</b> [(D.cure_text||"none")]<BR><BR>"
+							
 
 							if(istype(D, /datum/disease/advance))
 								var/datum/disease/advance/A = D
-								dat += "<b>Symptoms:</b> "
+								A.AssignProperties(A.GenerateProperties)
+								var/resistance = num2text(A.properties["resistance"])
+								var/stealth = num2text(A.properties["stealth"])
+								var/transmittable = num2text(A.properties["transmittable"])
+								var/stage_speed = num2text(A.properties["stage_rate"])
+								var/severity = num2text(A.properties["severity"])
+								dat += "<b>Resistance:</b> [resistance]<BR>"
+								dat += "<b>Stealth:</b> [stealth]<BR>"
+								dat += "<b>Transmittability:</b> [transmittable]<BR>"
+								dat += "<b>Stage Speed:</b> [stage_speed]<BR>"
+								dat += "<b>Severity:</b> [severity]<BR>"
+								dat += "<b>Symptoms:</b><BR> "
 								var/english_symptoms = list()
 								for(var/datum/symptom/S in A.symptoms)
 									english_symptoms += S.name
 								dat += english_list(english_symptoms)
+
 
 						else
 							dat += "No detectable virus in the sample."
