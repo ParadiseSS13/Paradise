@@ -5,7 +5,7 @@
 	resistance = 0
 	stage_speed = 0
 	transmittable = 0
-	level = 0 //not obtainable
+	level = -1 //not obtainable
 	base_message_chance = 20 //here used for the overlays
 	symptom_delay_min = 1
 	symptom_delay_max = 1

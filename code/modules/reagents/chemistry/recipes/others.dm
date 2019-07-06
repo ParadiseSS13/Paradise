@@ -1,5 +1,4 @@
 /datum/chemical_reaction/mix_virus/neuter_virus
-
 	name = "Neuter Virus"
 	id = "neutervirus"
 	required_reagents = list("formaldehyde" = 1)
@@ -12,7 +11,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Neuter()
-			
+
 // foam and foam precursor
 /datum/chemical_reaction/surfactant
 	name = "Foam surfactant"
