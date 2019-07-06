@@ -17,10 +17,11 @@ BONUS
 /datum/symptom/beard
 
 	name = "Facial Hypertrichosis"
-	stealth = -3
-	resistance = -1
-	stage_speed = -3
-	transmittable = -1
+	desc = "The virus increases hair production significantly, causing rapid beard growth."
+	stealth = 0
+	resistance = 3
+	stage_speed = 2
+	transmittable = 1
 	level = 4
 	severity = 1
 	symptom_delay_min = 18

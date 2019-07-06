@@ -12,6 +12,7 @@
 	var/printing = null
 	var/wait = null
 	var/obj/item/reagent_containers/beaker = null
+	var/datum/symptom/stored = null
 
 /obj/machinery/computer/pandemic/New()
 	..()
@@ -102,6 +103,23 @@
 			temp_html = "The replicator is not ready yet."
 		updateUsrDialog()
 		return
+
+	else if(href_list["select_disease"])
+		if(stored)
+			temp_html += "[stored.threshold_desc]<hr>"
+			temp_html += "<b>Name:</b>[stored.name]<BR>"
+			temp_html += "<b>Description:</b>[stored.desc]<BR>"
+			temp_html += "<b>Resistance:</b> [stored.resistance]<BR>"
+			temp_html += "<b>Stealth:</b> [stored.stealth]<BR>"
+			temp_html += "<b>Transmittability:</b> [stored.transmittable]<BR>"
+			temp_html += "<b>Stage Speed:</b> [stored.stage_speed]<BR>"
+			temp_html += "<b>Severity:</b> [stored.severity]<BR>"
+			updateUsrDialog()
+			return
+		else
+			return
+
+
 	else if(href_list["create_virus_culture"])
 		if(!wait)
 			var/type = GetVirusTypeByIndex(text2num(href_list["create_virus_culture"]))//the path is received as string - converting
@@ -274,7 +292,7 @@
 
 							if(istype(D, /datum/disease/advance))
 								var/datum/disease/advance/A = D
-								A.AssignProperties(A.GenerateProperties)
+								A.properties = A.GenerateProperties()
 								var/resistance = num2text(A.properties["resistance"])
 								var/stealth = num2text(A.properties["stealth"])
 								var/transmittable = num2text(A.properties["transmittable"])
@@ -286,10 +304,9 @@
 								dat += "<b>Stage Speed:</b> [stage_speed]<BR>"
 								dat += "<b>Severity:</b> [severity]<BR>"
 								dat += "<b>Symptoms:</b><BR> "
-								var/english_symptoms = list()
 								for(var/datum/symptom/S in A.symptoms)
-									english_symptoms += S.name
-								dat += english_list(english_symptoms)
+									stored = S
+									dat += "<a href='?src=[UID()];select_disease=1'>[S.name]</a> "
 
 
 						else

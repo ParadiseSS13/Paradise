@@ -17,16 +17,15 @@ Bonus
 */
 /datum/symptom/sensory_restoration
 	name = "Sensory Restoration"
-	stealth = -1
-	resistance = -4
-	stage_speed = -4
-	transmittable = -3
-	level = 5
-	severity = 0
-	symptom_delay_min = 5
-	symptom_delay_max = 10
-	var/purge_alcohol = FALSE
-	var/brain_heal = FALSE
+	desc = "The virus stimulates the production and replacement of sensory tissues, causing the host to regenerate eyes and ears when damaged."
+	stealth = 0
+	resistance = 1
+	stage_speed = -2
+	transmittable = 2
+	level = 4
+	base_message_chance = 7
+	symptom_delay_min = 1
+	symptom_delay_max = 1
 
 /datum/symptom/sensory_restoration/Start(datum/disease/advance/A)
 	..()
