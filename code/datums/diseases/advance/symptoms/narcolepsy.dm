@@ -29,7 +29,7 @@ Bonus
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
 					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 
-/datum/symptom/narcolepsy/Start(datum/disease/advance/A)
+/datum/symptom/narcolepsy/Start(var/datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["transmittable"] >= 7) //stamina damage
@@ -39,11 +39,11 @@ Bonus
 		symptom_delay_max = 60
 
 /datum/symptom/narcolepsy/Activate(var/datum/disease/advance/A)
-	var/mob/living/M = A.affected_mob
+	var/mob/living/carbon/M = A.affected_mob
 	//this ticks even when on cooldown
 	switch(sleep_level) //Works sorta like morphine
 		if(10 to 19)
-			M.AdjustDrowsy(1)
+			M.drowsyness += 1
 		if(20 to INFINITY)
 			M.Sleeping(30, 0)
 			sleep_level = 0

@@ -124,7 +124,7 @@ Bonus
 	var/get_damage = rand(6,10)
 	M.take_overall_damage(brute = get_damage)
 	if(chems)
-		M.reagents.add_reagent_list(list(/datum/reagent/heparin = 2, /datum/reagent/lipolicide = 2))
+		M.reagents.add_reagent_list(list("heparin" = 2, "lipocide" = 2))
 	//if(zombie)
 		//M.reagents.add_reagent(/datum/reagent/romerol, 1) uncomment this once we have romerol(if its merged)
 	return 1

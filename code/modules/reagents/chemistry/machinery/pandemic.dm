@@ -13,6 +13,7 @@
 	var/wait = null
 	var/obj/item/reagent_containers/beaker = null
 	var/datum/symptom/stored = null
+	var/list/L
 
 /obj/machinery/computer/pandemic/New()
 	..()
@@ -105,12 +106,15 @@
 		return
 
 	else if(href_list["select_disease"])
+		for (var/datum/symptom/S in L)
+			if(S.name == href_list["select_disease"])
+				stored = S
 		if(stored)
 			temp_html += "<h3>Threshold Effects:</h3>"
 			temp_html += "[stored.threshold_desc]<hr>"
 			temp_html += "<h3>Symptom Statistics:</h3>"
-			temp_html += "<b>Name:</b>[stored.name]<BR>"
-			temp_html += "<b>Description:</b>[stored.desc]<BR>"
+			temp_html += "<b>Name: </b>[stored.name]<BR>"
+			temp_html += "<b>Description: </b>[stored.desc]<BR>"
 			temp_html += "<b>Resistance:</b> [stored.resistance]<BR>"
 			temp_html += "<b>Stealth:</b> [stored.stealth]<BR>"
 			temp_html += "<b>Transmittability:</b> [stored.transmittable]<BR>"
@@ -166,6 +170,7 @@
 		updateUsrDialog()
 		return
 	else if(href_list["clear"])
+		stored = null
 		temp_html = ""
 		updateUsrDialog()
 		return
@@ -296,7 +301,6 @@
 
 							if(istype(D, /datum/disease/advance))
 								var/datum/disease/advance/A = D
-								A.properties = A.GenerateProperties()
 								var/resistance = num2text(A.properties["resistance"])
 								var/stealth = num2text(A.properties["stealth"])
 								var/transmittable = num2text(A.properties["transmittable"])
@@ -309,9 +313,9 @@
 								dat += "<b>Stage Speed:</b> [stage_speed]<BR>"
 								dat += "<b>Severity:</b> [severity]<BR>"
 								dat += "<b>Symptoms:</b> "
+								L = A.symptoms
 								for(var/datum/symptom/S in A.symptoms)
-									stored = S
-									dat += "<a href='?src=[UID()];select_disease=1'>[S.name]</a> "
+									dat += "<a href='?src=[UID()];select_disease=[S.name]'>[S.name]</a> "
 
 
 						else

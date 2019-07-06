@@ -102,6 +102,10 @@ var/list/diseases = subtypesof(/datum/disease)
 	if(!. || (needs_all_cures && . < cures.len))
 		return 0
 
+//add this disease if the host does not already have too many
+/datum/disease/proc/try_infect(var/mob/living/infectee, make_copy = TRUE)
+	return FALSE
+
 /datum/disease/proc/spread(force_spread = 0)
 	if(!affected_mob)
 		return

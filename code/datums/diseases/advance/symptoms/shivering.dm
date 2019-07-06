@@ -54,6 +54,7 @@ Bonus
 	var/get_cold = 6 * power
 	var/limit = BODYTEMP_COLD_DAMAGE_LIMIT + 1
 	if(unsafe)
-		limit = 0
-	M.adjust_bodytemperature(-get_cold * A.stage, limit)
+		M.adjust_bodytemperature(-get_cold * A.stage)
+	else	
+		M.adjust_bodytemperature(-get_cold * A.stage, limit)
 	return 1

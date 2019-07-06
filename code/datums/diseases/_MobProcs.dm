@@ -18,6 +18,8 @@
 		return FALSE
 
 	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) > 0)
+		var/datum/disease/advance/F = D
+		F.try_infect(src)
 		return FALSE
 
 	if(!(type in D.viable_mobtypes))
