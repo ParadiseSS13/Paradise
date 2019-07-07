@@ -41,19 +41,20 @@ var/global/list/image/fluidtrack_cache = list()
 			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if (!(entered_dirs & H.dir))
-				entered_dirs |= H.dir
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
-		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
-			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if (!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
+				update_icon()
+		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
+			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
-		update_icon()
+			if (!(entered_dirs & H.dir))
+				entered_dirs |= H.dir
+				update_icon()
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
 	..()
 	if(ishuman(O))
@@ -66,19 +67,20 @@ var/global/list/image/fluidtrack_cache = list()
 			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if (!(exited_dirs & H.dir))
-				exited_dirs |= H.dir
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
-		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet
-			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if (!(exited_dirs & H.dir))
 				exited_dirs |= H.dir
+				update_icon()
+		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet
+			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
-	update_icon()
+			if (!(exited_dirs & H.dir))
+				exited_dirs |= H.dir
+				update_icon()
 
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
