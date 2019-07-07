@@ -81,6 +81,9 @@
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
 					<BR>
+					<b>Viruses</b><BR>
+					<A href='?src=[UID()];secretsfun=customvirus'>Create Custom Virus Outbreak</A>&nbsp;&nbsp;
+					<BR>					
 					</center>"}
 
 		if(2)
