@@ -1,7 +1,7 @@
 /obj/machinery/ai_slipper
 	name = "\improper AI liquid dispenser"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "motion3"
+	icon_state = "liquid_dispenser"
 	layer = 3
 	plane = FLOOR_PLANE
 	obj_integrity = 200
@@ -18,14 +18,14 @@
 
 /obj/machinery/ai_slipper/power_change()
 	if(stat & BROKEN)
-		return
+		update_icon()
 	else
 		if( powered() )
 			stat &= ~NOPOWER
 		else
-			icon_state = "motion0"
 			stat |= NOPOWER
 			disabled = TRUE
+		update_icon()
 
 /obj/machinery/ai_slipper/proc/setState(var/enabled, var/uses)
 	disabled = disabled
@@ -57,7 +57,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	disabled = !disabled
-	icon_state = disabled? "motion0":"motion3"
+	update_icon()
 
 /obj/machinery/ai_slipper/proc/Activate()
 	if(stat & (NOPOWER|BROKEN))
@@ -70,6 +70,12 @@
 		cooldown_on = TRUE
 		cooldown_time = world.timeofday + 100
 		slip_process()
+
+/obj/machinery/ai_slipper/update_icon()
+	if(stat & (NOPOWER|BROKEN) || disabled)
+		icon_state = "liquid_dispenser"
+	else
+		icon_state = "liquid_dispenser_on"
 
 /obj/machinery/ai_slipper/attack_ai(mob/user)
 	return attack_hand(user)
