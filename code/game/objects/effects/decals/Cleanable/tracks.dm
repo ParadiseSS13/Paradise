@@ -130,3 +130,8 @@ var/global/list/image/fluidtrack_cache = list()
 	FP.update_icon()
 
 	return FP
+
+/obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/blood/footprints/C)
+	if(blood_state != C.blood_state) //We only replace footprints of the same type as us
+		return
+	..()
