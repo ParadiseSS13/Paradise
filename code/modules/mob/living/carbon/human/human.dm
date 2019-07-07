@@ -1941,7 +1941,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
 	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
-	.["Make Mask of Nar'sie"] = "?_src_=vars;makemask=[UID()]"
 	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
 	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
 	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
