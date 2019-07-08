@@ -210,32 +210,8 @@
 	playsound(get_turf(src), projectile_sound, 50, TRUE)
 	if(prob(35))
 		sparks.start()
-	switch(dir)
-		if(NORTH)
-			P.yo = 20
-			P.xo = 0
-		if(NORTHEAST)
-			P.yo = 20
-			P.xo = 20
-		if(EAST)
-			P.yo = 0
-			P.xo = 20
-		if(SOUTHEAST)
-			P.yo = -20
-			P.xo = 20
-		if(WEST)
-			P.yo = 0
-			P.xo = -20
-		if(SOUTHWEST)
-			P.yo = -20
-			P.xo = -20
-		if(NORTHWEST)
-			P.yo = 20
-			P.xo = -20
-		else // Any other
-			P.yo = -20
-			P.xo = 0
-
+	P.firer = src
+	P.fire(dir2angle(dir))
 	last_shot = world.time
 	if(shot_number < 3)
 		fire_delay = 20
@@ -243,9 +219,6 @@
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
-	P.setDir(dir)
-	P.starting = loc
-	P.fire()
 	return P
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)

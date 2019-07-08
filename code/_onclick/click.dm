@@ -60,7 +60,7 @@
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
-/mob/proc/ClickOn( var/atom/A, var/params )
+/mob/proc/ClickOn( var/atom/A, var/params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -199,11 +199,11 @@
 	for things like ranged glove touches, spitting alien acid/neurotoxin,
 	animals lunging, etc.
 */
-/mob/proc/RangedAttack(var/atom/A, var/params)
+/mob/proc/RangedAttack(var/atom/A, params)
 	if(!mutations.len)
 		return
 	if((LASER in mutations) && a_intent == INTENT_HARM)
-		LaserEyes(A) // moved into a proc below
+		LaserEyes(A, params) // moved into a proc below
 		return
 	else
 		if(TK in mutations)
@@ -361,13 +361,11 @@
 	Laser Eyes: as the name implies, handles this since nothing else does currently
 	face_atom: turns the mob towards what you clicked on
 */
-/mob/proc/LaserEyes(atom/A)
+/mob/proc/LaserEyes(atom/A, params)
 	return
 
-/mob/living/LaserEyes(atom/A)
+/mob/living/LaserEyes(atom/A, params)
 	changeNext_move(CLICK_CD_RANGE)
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(A)
 
 	var/obj/item/projectile/beam/LE = new /obj/item/projectile/beam(loc)
 	LE.icon = 'icons/effects/genetics.dmi'
@@ -376,10 +374,7 @@
 
 	LE.firer = src
 	LE.def_zone = get_organ_target()
-	LE.original = A
-	LE.current = T
-	LE.yo = U.y - T.y
-	LE.xo = U.x - T.x
+	LE.preparePixelProjectile(A,src,params)
 	LE.fire()
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place

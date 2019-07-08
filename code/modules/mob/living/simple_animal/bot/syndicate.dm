@@ -153,12 +153,7 @@
 	lastfired = world.time
 	var/obj/item/projectile/P = new projectile(loc)
 	playsound(loc, shoot_sound, 100, 1)
-	P.current = loc
-	P.starting = loc
-	P.firer = src
-	P.yo = target.y - loc.y
-	P.xo = target.x - loc.x
-	P.original = target
+	P.preparePixelProjectile(target, src)
 	P.fire()
 
 /mob/living/simple_animal/bot/ed209/syndicate/explode()

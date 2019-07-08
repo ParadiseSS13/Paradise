@@ -1171,7 +1171,7 @@
 			M.gets_drilled(firer)
 	..()
 
-/obj/item/twohanded/required/kinetic_crusher/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/twohanded/required/kinetic_crusher/afterattack(atom/target, mob/user, proximity_flag, clickparams)
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = get_turf(src)
 		if(!istype(proj_turf, /turf))
@@ -1182,7 +1182,7 @@
 			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 			return
 		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(user.loc)
-		D.preparePixelProjectile(target,get_turf(target), user)
+		D.preparePixelProjectile(target, user, clickparams)
 		D.hammer_synced = src
 		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
 		D.fire()

@@ -1,3 +1,6 @@
+
+#define MOVES_HITSCAN -1		//Not actually hitscan but close as we get.
+
 /obj/item/projectile
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
@@ -18,19 +21,30 @@
 	var/suppressed = 0	//Attack message
 	var/yo = null
 	var/xo = null
-	var/current = null
 	var/atom/original = null // the original target clicked
 	var/turf/starting = null // the projectile's starting turf
 	var/list/permutated = list() // we've passed through these atoms, don't try to hit them again
-	var/paused = FALSE //for suspending the projectile midair
 	var/p_x = 16
 	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
 	var/speed = 1			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = 0
 	var/spread = 0			//amount (in degrees) of projectile spread
-	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
-	
+
+	//Fired processing vars
+	var/fired = FALSE	//Have we been fired yet
+	var/paused = FALSE	//for suspending the projectile midair
+	var/last_projectile_move = 0
+	var/last_process = 0
+	var/time_offset = 0
+	var/old_pixel_x = 0
+	var/old_pixel_y = 0
+	var/pixel_x_increment = 0
+	var/pixel_y_increment = 0
+	var/pixel_x_offset = 0
+	var/pixel_y_offset = 0
+	var/new_x = 0
+	var/new_y = 0	
 	var/ignore_source_check = FALSE
 	
 	var/damage = 10
@@ -59,23 +73,27 @@
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 0
-
+	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
+	var/decayedRange
 
-/obj/item/projectile/New()
+/obj/item/projectile/Initialize()
+	. = ..()
 	permutated = list()
-	return ..()
+	decayedRange = range
 
 /obj/item/projectile/proc/Range()
 	range--
-	if(damage && tile_dropoff)
-		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
-	if(stamina && tile_dropoff_s)
-		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
 	if(range <= 0 && loc)
 		on_range()
-	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
-		on_range()
+
+//Returns true if the target atom is on our current turf and above the right layer
+/obj/item/projectile/proc/can_hit_target(atom/target, var/list/passthrough)
+	if(target && (target.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER) || ismob(target))
+		if(loc == get_turf(target))
+			if(!(target in passthrough))
+				return TRUE
+	return FALSE
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
@@ -208,78 +226,147 @@
 	qdel(src)
 
 /obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
-	return 1 //Bullets don't drift in space
+	return TRUE //Bullets don't drift in space
 
-/obj/item/projectile/proc/fire(var/setAngle)
-	if(setAngle)
-		Angle = setAngle
-	if(!legacy) //new projectiles
-		set waitfor = 0
-		while(loc)
-			if(!paused)
-				if((!( current ) || loc == current))
-					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
+/obj/item/projectile/process()
+	last_process = world.time
+	if(!loc || !fired)
+		fired = FALSE
+		return PROCESS_KILL
+	if(paused || !isturf(loc))
+		last_projectile_move += world.time - last_process		//Compensates for pausing, so it doesn't become a hitscan projectile when unpaused from charged up ticks.
+		return
+	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
+	time_offset = 0
+	var/required_moves = speed > 0? Floor(elapsed_time_deciseconds / speed) : MOVES_HITSCAN			//Would be better if a 0 speed made hitscan but everyone hates those so I can't make it a universal system :<
+	if(required_moves == MOVES_HITSCAN)
+		required_moves = SSprojectiles.global_max_tick_moves
+	else
+		if(required_moves > SSprojectiles.global_max_tick_moves)
+			var/overrun = required_moves - SSprojectiles.global_max_tick_moves
+			required_moves = SSprojectiles.global_max_tick_moves
+			time_offset += overrun * speed
+		time_offset += Modulus(elapsed_time_deciseconds, speed)
 
-				if(!Angle)
-					Angle=round(Get_Angle(src,current))
-				if(spread)
-					Angle += (rand() - 0.5) * spread
-				var/matrix/M = new
-				M.Turn(Angle)
-				transform = M
+	for(var/i in 1 to required_moves)
+		pixel_move(required_moves)
 
-				var/Pixel_x=round(sin(Angle)+16*sin(Angle)*2)
-				var/Pixel_y=round(cos(Angle)+16*cos(Angle)*2)
-				var/pixel_x_offset = pixel_x + Pixel_x
-				var/pixel_y_offset = pixel_y + Pixel_y
-				var/new_x = x
-				var/new_y = y
+/obj/item/projectile/proc/fire(angle, atom/direct_target)
+	//If no angle needs to resolve it from xo/yo!
+	if(isnum(angle))
+		setAngle(angle)
+	if(spread)
+		setAngle(Angle + ((rand() - 0.5) * spread))
+	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
+		var/turf/starting = get_turf(src)
+		var/turf/target = locate(Clamp(starting + xo, 1, world.maxx), Clamp(starting + yo, 1, world.maxy), starting.z)
+		setAngle(Get_Angle(src, target))
+	if(!nondirectional_sprite)
+		var/matrix/M = new
+		M.Turn(Angle)
+		transform = M
+	old_pixel_x = pixel_x
+	old_pixel_y = pixel_y
+	last_projectile_move = world.time
+	fired = TRUE
+	if(!isprocessing)
+		START_PROCESSING(SSprojectiles, src)
 
-				while(pixel_x_offset > 16)
-					pixel_x_offset -= 32
-					pixel_x -= 32
-					new_x++// x++
-				while(pixel_x_offset < -16)
-					pixel_x_offset += 32
-					pixel_x += 32
-					new_x--
+/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+	Angle = new_angle
+	return TRUE
 
-				while(pixel_y_offset > 16)
-					pixel_y_offset -= 32
-					pixel_y -= 32
-					new_y++
-				while(pixel_y_offset < -16)
-					pixel_y_offset += 32
-					pixel_y += 32
-					new_y--
+/obj/item/projectile/proc/pixel_move(moves)
+	if(!nondirectional_sprite)
+		var/matrix/M = new
+		M.Turn(Angle)
+		transform = M
 
-				speed = round(speed)
-				step_towards(src, locate(new_x, new_y, z))
-				if(speed <= 1)
-					pixel_x = pixel_x_offset
-					pixel_y = pixel_y_offset
-				else
-					animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
+	pixel_x_increment=round((sin(Angle)+16*sin(Angle)*2), 1)	//round() is a floor operation when only one argument is supplied, we don't want that here
+	pixel_y_increment=round((cos(Angle)+16*cos(Angle)*2), 1)
+	pixel_x_offset = old_pixel_x + pixel_x_increment
+	pixel_y_offset = old_pixel_y + pixel_y_increment
+	new_x = x
+	new_y = y
 
-				if(original && (original.layer>=2.75) || ismob(original))
-					if(loc == get_turf(original))
-						if(!(original in permutated))
-							Bump(original, 1)
-				Range()
-			sleep(max(1, speed))
-	else //old projectile system
-		set waitfor = 0
-		while(loc)
-			if(!paused)
-				if((!( current ) || loc == current))
-					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-				step_towards(src, current)
-				if(original && (original.layer>=2.75) || ismob(original))
-					if(loc == get_turf(original))
-						if(!(original in permutated))
-							Bump(original, 1)
-				Range()
-			sleep(1)
+	while(pixel_x_offset > 16)
+		pixel_x_offset -= 32
+		old_pixel_x -= 32
+		new_x++// x++
+	while(pixel_x_offset < -16)
+		pixel_x_offset += 32
+		old_pixel_x += 32
+		new_x--
+	while(pixel_y_offset > 16)
+		pixel_y_offset -= 32
+		old_pixel_y -= 32
+		new_y++
+	while(pixel_y_offset < -16)
+		pixel_y_offset += 32
+		old_pixel_y += 32
+		new_y--
+
+	step_towards(src, locate(new_x, new_y, z))
+	pixel_x = old_pixel_x
+	pixel_y = old_pixel_y
+	//var/animation_time = ((SSprojectiles.flags & SS_TICKER? (SSprojectiles.wait * world.tick_lag) : SSprojectiles.wait) / moves)
+	animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = 1, flags = ANIMATION_END_NOW)
+	old_pixel_x = pixel_x_offset
+	old_pixel_y = pixel_y_offset
+	if(can_hit_target(original, permutated))
+		Bump(original)
+	Range()
+	last_projectile_move = world.time
+
+/obj/item/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
+	var/turf/curloc = get_turf(source)
+	var/turf/targloc = get_turf(target)
+	forceMove(get_turf(source))
+	starting = get_turf(source)
+	original = target
+	yo = targloc.y - curloc.y
+	xo = targloc.x - curloc.x
+
+	if(isliving(source) && params)
+		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, params)
+		p_x = calculated[2]
+		p_y = calculated[3]
+
+		if(spread)
+			setAngle(calculated[1] + spread)
+		else
+			setAngle(calculated[1])
+	else
+		setAngle(Get_Angle(src, targloc))
+
+/proc/calculate_projectile_angle_and_pixel_offsets(mob/user, params)
+	var/list/mouse_control = params2list(params)
+	var/p_x = 0
+	var/p_y = 0
+	var/angle = 0
+	if(mouse_control["icon-x"])
+		p_x = text2num(mouse_control["icon-x"])
+	if(mouse_control["icon-y"])
+		p_y = text2num(mouse_control["icon-y"])
+	if(mouse_control["screen-loc"])
+		//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
+		var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
+
+		//Split X+Pixel_X up into list(X, Pixel_X)
+		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
+
+		//Split Y+Pixel_Y up into list(Y, Pixel_Y)
+		var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
+		var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
+		var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32
+
+		//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
+		var/screenview = (user.client.view * 2 + 1) * world.icon_size //Refer to http://www.byond.com/docs/ref/info.html#/client/var/view for mad maths
+
+		var/ox = round(screenview/2) - user.client.pixel_x //"origin" x
+		var/oy = round(screenview/2) - user.client.pixel_y //"origin" y
+		angle = Atan2(y - oy, x - ox)
+	return list(angle, p_x, p_y)
 
 obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a projectile is hit by it.
 	..()
@@ -288,10 +375,11 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 
 /obj/item/projectile/Destroy()
 	ammo_casing = null
+	STOP_PROCESSING(SSprojectiles, src)
 	return ..()
 
 /obj/item/projectile/proc/dumbfire(var/dir)
-	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
+	preparePixelProjectile(get_ranged_target_turf(src, dir, world.maxx), src) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 	
 
@@ -307,7 +395,3 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 	if(A.flags_2 & CHECK_RICOCHET_1)
 		return TRUE
 	return FALSE
-	
-/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
-	Angle = new_angle
-	return TRUE

@@ -729,10 +729,7 @@ var/list/turret_icons
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
 	if(istype(A))
-		A.original = target
-		A.current = T
-		A.yo = U.y - T.y
-		A.xo = U.x - T.x
+		A.preparePixelProjectile(target,src)
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)

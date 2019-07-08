@@ -370,8 +370,7 @@
 		return 0
 
 	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
-	FB.current = get_turf(user)
-	FB.preparePixelProjectile(target, get_turf(target), user)
+	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
 	remove_ranged_ability(user)

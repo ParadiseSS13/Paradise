@@ -635,17 +635,11 @@
 	death()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/shootAt(var/atom/movable/target)
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(target)
-	if(!T || !U)
-		return
 	var/obj/item/projectile/beam/A = new /obj/item/projectile/beam(loc)
 	A.icon = 'icons/effects/genetics.dmi'
 	A.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
-	A.current = T
-	A.yo = U.y - T.y
-	A.xo = U.x - T.x
+	A.preparePixelProjectile(target, src)
 	A.fire()
 	return
 

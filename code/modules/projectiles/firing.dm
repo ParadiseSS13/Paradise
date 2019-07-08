@@ -52,7 +52,7 @@
 		QDEL_NULL(BB)
 		return 1
 
-	BB.preparePixelProjectile(target, targloc, user, params, spread)
+	BB.preparePixelProjectile(target, user, params, spread)
 	if(BB)
 		BB.fire()
 	BB = null
@@ -62,39 +62,3 @@
 	var/dx = abs(target.x - current.x)
 	var/dy = abs(target.y - current.y)
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
-
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, var/turf/targloc, mob/living/user, params, spread)
-	var/turf/curloc = get_turf(user)
-	loc = get_turf(user)
-	starting = get_turf(user)
-	current = curloc
-	yo = targloc.y - curloc.y
-	xo = targloc.x - curloc.x
-
-	if(params)
-		var/list/mouse_control = params2list(params)
-		if(mouse_control["icon-x"])
-			p_x = text2num(mouse_control["icon-x"])
-		if(mouse_control["icon-y"])
-			p_y = text2num(mouse_control["icon-y"])
-		if(mouse_control["screen-loc"])
-			//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-			var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
-
-			//Split X+Pixel_X up into list(X, Pixel_X)
-			var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-
-			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-			var/x = text2num(screen_loc_X[1]) * world.icon_size + text2num(screen_loc_X[2]) - world.icon_size + (user.client ? user.client.pixel_x : 0)
-			var/y = text2num(screen_loc_Y[1]) * world.icon_size + text2num(screen_loc_Y[2]) - world.icon_size + (user.client ? user.client.pixel_y : 0)
-
-			//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
-			var/screenview = (user.client.view * 2 + 1) * world.icon_size //Refer to http://www.byond.com/docs/ref/info.html#/client/var/view for mad maths
-
-			var/ox = round(screenview/2) //"origin" x
-			var/oy = round(screenview/2) //"origin" y
-			var/angle = Atan2(y - oy, x - ox)
-			Angle = angle
-	if(spread)
-		Angle += spread

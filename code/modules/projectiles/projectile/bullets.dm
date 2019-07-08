@@ -90,6 +90,15 @@
 	stamina = 25
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/pellet/Range()
+	..()
+	if(damage > 0)
+		damage -= tile_dropoff
+	if(stamina > 0)
+		stamina -= tile_dropoff_s
+	if(damage < 0 && stamina < 0)
+		qdel(src)
+		
 /obj/item/projectile/bullet/pellet/weak
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
 	damage = 6

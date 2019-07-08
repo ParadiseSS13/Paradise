@@ -180,7 +180,7 @@
 */
 /mob/living/silicon/robot/UnarmedAttack(atom/A)
 	A.attack_robot(src)
-/mob/living/silicon/robot/RangedAttack(atom/A)
+/mob/living/silicon/robot/RangedAttack(atom/A, mouseparams)
 	A.attack_robot(src)
 
 /atom/proc/attack_robot(mob/user as mob)

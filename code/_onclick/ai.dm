@@ -119,7 +119,7 @@
 */
 /mob/living/silicon/ai/UnarmedAttack(atom/A)
 	A.attack_ai(src)
-/mob/living/silicon/ai/RangedAttack(atom/A)
+/mob/living/silicon/ai/RangedAttack(atom/A, mouseparams)
 	A.attack_ai(src)
 
 /atom/proc/attack_ai(mob/user as mob)

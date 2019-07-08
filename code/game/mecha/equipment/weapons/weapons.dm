@@ -41,7 +41,6 @@
 		var/obj/item/projectile/A = new projectile(curloc)
 		A.firer = chassis.occupant
 		A.original = target
-		A.current = curloc
 
 		var/spread = 0
 		if(variance)
@@ -49,7 +48,7 @@
 				spread = round((rand() - 0.5) * variance)
 			else
 				spread = round((i / projectiles_per_shot - 0.5) * variance)
-		A.preparePixelProjectile(target, targloc, chassis.occupant, params, spread)
+		A.preparePixelProjectile(target, chassis.occupant, params, spread)
 
 		chassis.use_power(energy_drain)
 		projectiles--

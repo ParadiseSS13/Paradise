@@ -451,9 +451,7 @@
 		return
 	var/obj/item/projectile/A = new projectile(loc)
 	playsound(loc, shoot_sound, 50, 1)
-	A.current = U
-	A.yo = U.y - T.y
-	A.xo = U.x - T.x
+	A.preparePixelProjectile(target,src)
 	A.fire()
 
 /mob/living/simple_animal/bot/ed209/attack_alien(mob/living/carbon/alien/user)
@@ -543,7 +541,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A, mouseparams)
 	if(!on)
 		return
 	shootAt(A)

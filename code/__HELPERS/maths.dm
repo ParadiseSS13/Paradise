@@ -3,6 +3,9 @@
 var/const/E		= 2.71828183
 var/const/Sqrt2	= 1.41421356
 
+/proc/Modulus(x, y)	//Byond's modulus doesn't work with decimals.
+	return x - y * round(x / y)
+
 /proc/Atan2(x, y)
 	if(!x && !y) return 0
 	var/a = arccos(x / sqrt(x*x + y*y))

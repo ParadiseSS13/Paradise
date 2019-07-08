@@ -114,7 +114,6 @@ Doesn't work on other aliens/AI.*/
 			return
 
 		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
-		A.current = U
 		A.firer = src
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x

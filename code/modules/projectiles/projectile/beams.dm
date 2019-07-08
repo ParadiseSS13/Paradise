@@ -68,8 +68,6 @@
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
-	legacy = 1
-	animate_movement = SLIDE_STEPS
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/projectile/beam/emitter/singularity_pull()

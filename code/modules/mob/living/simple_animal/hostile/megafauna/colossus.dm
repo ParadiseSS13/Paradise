@@ -199,17 +199,13 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker)
 	if(!marker || marker == loc)
 		return
-	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
-	P.current = startloc
-	P.starting = startloc
+	var/obj/item/projectile/P = new /obj/item/projectile/colossus(loc)
 	P.firer = src
-	P.yo = marker.y - startloc.y
-	P.xo = marker.x - startloc.x
 	if(target)
 		P.original = target
 	else
 		P.original = marker
+	P.preparePixelProjectile(P.original, src)
 	P.fire()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
