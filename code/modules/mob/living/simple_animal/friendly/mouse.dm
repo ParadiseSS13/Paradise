@@ -116,11 +116,11 @@
 /mob/living/simple_animal/mouse/death(gibbed, toast)	
 	// Only execute the below if we successfully died
 	playsound(src, squeak_sound, 40, 1)
-	if (!gibbed)
+	. = ..(gibbed)
+	if(!gibbed)
 		if(toast)
 			add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 			desc = "It's toast."
-	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	layer = MOB_LAYER
