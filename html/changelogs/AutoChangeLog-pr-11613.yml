@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Smartfridge will now try to put an item in your hands after vending, if able"
