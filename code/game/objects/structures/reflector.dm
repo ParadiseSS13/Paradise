@@ -11,6 +11,10 @@
 	var/finished = 0
 	var/admin = FALSE //Can't be rotated or deconstructed
 	var/can_rotate = TRUE
+	var/framebuildstacktype = /obj/item/stack/sheet/metal
+	var/framebuildstackamount = 5
+	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/buildstackamount = 0
 	var/list/allowed_projectile_typecache = list(/obj/item/projectile/beam)
 	var/rotation_angle = -1
 
@@ -78,8 +82,10 @@
 		to_chat(user, "You begin to dismantle [src].")
 		if(do_after(user, 80, target = src))
 			playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
-			to_chat(user, "You dismantle [src].")
-			new /obj/item/stack/sheet/metal(src.loc, 5)
+			to_chat(user, "<span class='notice'>You dismantle [src].</span>")
+			new framebuildstacktype(drop_location(), framebuildstackamount)
+			if(buildstackamount)
+				new buildstacktype(drop_location(), buildstackamount)
 			qdel(src)
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
@@ -178,6 +184,8 @@
 	desc = "An angled mirror for reflecting laser beams."
 	density = TRUE
 	finished = 1
+	buildstacktype = /obj/item/stack/sheet/glass
+	buildstackamount = 5
 
 /obj/structure/reflector/single/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(rotation_angle, (P.Angle + 180))
@@ -195,7 +203,8 @@
 	desc = "A double sided angled mirror for reflecting laser beams."
 	density = TRUE
 	finished = 1
-
+	buildstacktype = /obj/item/stack/sheet/rglass
+	buildstackamount = 10
 
 /obj/structure/reflector/double/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(rotation_angle, (P.Angle + 180))
@@ -212,7 +221,9 @@
 	desc = "A box with an internal set of mirrors that reflects all laser beams in a single direction."
 	density = TRUE
 	finished = 1
-
+	buildstacktype = /obj/item/stack/sheet/mineral/diamond
+	buildstackamount = 1
+	
 /obj/structure/reflector/box/auto_reflect(obj/item/projectile/P)
 	P.Angle = rotation_angle
 	return ..()
