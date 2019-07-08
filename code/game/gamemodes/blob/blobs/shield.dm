@@ -48,9 +48,6 @@
 		P.firer = src //so people who fired the lasers are not immune to them when it reflects
 		visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 		return -1// complete projectile permutation
-	else if(P.is_reflectable) //to stop legacy projectile exploits
-		visible_message("<span class='warning'>[P] disperses into energy from [src]!</span>")
-		qdel(P)
 	else
 		playsound(src, P.hitsound, 50, 1)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")

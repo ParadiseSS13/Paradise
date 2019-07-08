@@ -65,7 +65,7 @@
 	return -1
 
 /obj/structure/reflector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/screwdriver))
+	if(isscrewdriver(W))
 		can_rotate = !can_rotate
 		to_chat(user, "<span class='notice'>You [can_rotate ? "unlock" : "lock"] [src]'s rotation.</span>")
 		playsound(src, W.usesound, 50, 1)
