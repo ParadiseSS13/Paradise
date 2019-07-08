@@ -92,6 +92,8 @@
 		has_paint = 1
 	update_icons()
 
+/obj/spacepod/get_cell()
+	return battery
 
 /obj/spacepod/New()
 	. = ..()

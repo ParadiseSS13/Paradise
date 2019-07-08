@@ -169,6 +169,14 @@
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
 		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(BANTYPE_PERMA)
+			add_note(banckey, "Permanently Banned - [banreason]", null, usr.ckey, 0)
+		else if(BANTYPE_TEMP)
+			add_note(banckey, "Banned for [banduration] minutes - [banreason]", null, usr.ckey, 0)
+		else if(BANTYPE_JOB_PERMA)
+			add_note(banckey, "Banned from [banjob] - [banreason]", null, usr.ckey, 0)
+		else
+			add_note(banckey, "[banreason]", null, usr.ckey, 0)
 
 
 	else if(href_list["editrights"])
