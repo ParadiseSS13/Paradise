@@ -23,6 +23,9 @@
 	power_supply.use(round(power_supply.charge / severity))
 	update_icon()
 
+/obj/item/gun/energy/get_cell()
+	return power_supply
+
 /obj/item/gun/energy/New()
 	..()
 	if(cell_type)
