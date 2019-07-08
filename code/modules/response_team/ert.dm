@@ -63,7 +63,7 @@ var/ert_request_answered = FALSE
 	active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	send_emergency_team = TRUE
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
+	var/list/ert_candidates = shuffle(pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = FALSE
