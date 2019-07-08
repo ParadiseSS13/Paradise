@@ -1,0 +1,4 @@
+author: "Tayyyyyyy"
+delete-after: True
+changes: 
+  - tweak: "paper supports markdown as well as pencode"
