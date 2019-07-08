@@ -1019,16 +1019,6 @@
 			return
 		holder.Topic(href, list("makeai"=href_list["makeai"]))
 
-	else if(href_list["makemask"])
-		if(!check_rights(R_SPAWN)) return
-		var/mob/currentMob = locateUID(href_list["makemask"])
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!currentMob)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makemask"=href_list["makemask"]))
-
-
 	else if(href_list["setspecies"])
 		if(!check_rights(R_SPAWN))	return
 
