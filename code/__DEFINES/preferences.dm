@@ -33,12 +33,11 @@
 #define AMBIENT_OCCLUSION 2097152
 #define AZERTY 4194304
 #define NUMPAD_TARGET 8388606
-#define CHAT_GHOSTPDA 16777212‬
-#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC|NUMPAD_TARGET)
-#define TOGGLES_TOTAL 33554424‬ // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
+#define CHAT_GHOSTPDA 16777212
+#define TOGGLES_TOTAL 33554361 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
 
 
-#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC|AMBIENT_OCCLUSION|CHAT_GHOSTPDA)
+#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC|AMBIENT_OCCLUSION|NUMPAD_TARGET|CHAT_GHOSTPDA)
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
 #define ATKLOG_ALL	0

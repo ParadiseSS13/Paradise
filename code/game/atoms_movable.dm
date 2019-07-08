@@ -146,7 +146,7 @@
 			// place due to a Crossed, Bumped, etc. call will interrupt
 			// the second half of the diagonal movement, or the second attempt
 			// at a first half if step() fails because we hit something.
-			if (direct & NORTH)
+			if(direct & NORTH)
 				if (direct & EAST)
 					if (step(src, NORTH) && moving_diagonally)
 						first_step_dir = NORTH
