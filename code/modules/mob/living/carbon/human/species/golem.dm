@@ -441,10 +441,16 @@
 			if(P.starting)
 				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
 				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/turf/target = get_turf(P.starting)
+				var/turf/curloc = get_turf(src)
 
 				// redirect the projectile
-				P.preparePixelProjectile(locate(Clamp(target.x + new_x, 1, world.maxx), Clamp(target.y + new_y, 1, world.maxy), H.z), H)
+				P.original = locate(new_x, new_y, P.z)
+				P.starting = curloc
+				P.firer = src
+				var/new_angle_s = P.Angle + rand(120,240)
+				while(new_angle_s > 180)	// Translate to regular projectile degrees
+					new_angle_s -= 360
+				P.setAngle(new_angle_s)
 			return FALSE
 	return TRUE
 

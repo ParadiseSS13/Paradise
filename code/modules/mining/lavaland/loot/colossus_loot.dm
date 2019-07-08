@@ -259,20 +259,7 @@
 	if(..())
 		var/obj/item/projectile/P = new generated_projectile(get_turf(src))
 		P.dir = dir
-		switch(dir)
-			if(NORTH)
-				P.yo = 20
-				P.xo = 0
-			if(EAST)
-				P.yo = 0
-				P.xo = 20
-			if(WEST)
-				P.yo = 0
-				P.xo = -20
-			else
-				P.yo = -20
-				P.xo = 0
-		P.fire()
+		P.fire(dir2angle(dir))
 
 /obj/machinery/anomalous_crystal/dark_reprise //Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
 	activation_method = "touch"

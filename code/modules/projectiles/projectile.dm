@@ -257,8 +257,12 @@
 		setAngle(angle)
 	if(spread)
 		setAngle(Angle + ((rand() - 0.5) * spread))
+	starting = get_turf(src)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
-		var/turf/starting = get_turf(src)
+		if(isnull(xo) || isnull(yo))
+			CRASH("WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
+			qdel(src)
+			return
 		var/turf/target = locate(Clamp(starting + xo, 1, world.maxx), Clamp(starting + yo, 1, world.maxy), starting.z)
 		setAngle(Get_Angle(src, target))
 	if(!nondirectional_sprite)

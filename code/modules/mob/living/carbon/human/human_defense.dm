@@ -23,11 +23,9 @@ emp_act
 				var/turf/curloc = get_turf(src)
 
 				// redirect the projectile
-				P.firer = src
 				P.original = locate(new_x, new_y, P.z)
 				P.starting = curloc
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
+				P.firer = src
 				var/new_angle_s = P.Angle + rand(120,240)
 				while(new_angle_s > 180)	// Translate to regular projectile degrees
 					new_angle_s -= 360
