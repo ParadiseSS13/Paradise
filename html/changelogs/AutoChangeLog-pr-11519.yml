@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Clicking on a health doll icon will now check you for injuries"
