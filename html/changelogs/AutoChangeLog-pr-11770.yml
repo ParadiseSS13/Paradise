@@ -1,5 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Writing in blood can't be done while dead or incapacitated any more"
-  - bugfix: "You can't write stuff in blood at a distance any more"

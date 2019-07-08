@@ -58,6 +58,10 @@
 		pulledby = null
 	return ..()
 
+//Returns an atom's power cell, if it has one. Overload for individual items.
+/atom/movable/proc/get_cell()
+	return
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE

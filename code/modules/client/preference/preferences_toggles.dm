@@ -266,3 +266,11 @@
 	else
 		to_chat(usr, "<span class='notice'>You are now in QWERTY mode.")
 	return
+/client/verb/toggle_ghost_pda()
+	set name = "Show/Hide GhostPDA"
+	set category = "Preferences"
+	set desc = ".Toggle seeing PDA messages as an observer."
+	prefs.toggles ^= CHAT_GHOSTPDA
+	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
+	prefs.save_preferences(src)
+	feedback_add_details("admin_verb","TGP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
