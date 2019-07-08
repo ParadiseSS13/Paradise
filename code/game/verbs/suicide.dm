@@ -243,5 +243,5 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide.</span>")
 		adjustOxyLoss(max(100 - getBruteLoss(100), 0))
