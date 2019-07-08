@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "Ghosts can now see all PDA messages when enabled through a preference setting."
