@@ -1,23 +1,44 @@
 /obj/structure/reflector
-	name = "reflector frame"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "box_0"
+	name = "reflector base"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "reflector_map"
 	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
 	anchored = 0
-	density = 1
+	density = 0
 	layer = 3
+	var/deflector_icon_state
+	var/image/deflector_overlay
 	var/finished = 0
 	var/admin = FALSE //Can't be rotated or deconstructed
+	var/can_rotate = TRUE
 	var/list/allowed_projectile_typecache = list(/obj/item/projectile/beam)
 	var/rotation_angle = -1
 
 /obj/structure/reflector/Initialize()
 	. = ..()
+	icon_state = "reflector_base"
 	allowed_projectile_typecache = typecacheof(allowed_projectile_typecache)
+	if(deflector_icon_state)
+		deflector_overlay = image(icon, deflector_icon_state)
+		add_overlay(deflector_overlay)
+
 	if(rotation_angle == -1)
 		setAngle(dir2angle(dir))
 	else
 		setAngle(rotation_angle)
+
+	if(admin)
+		can_rotate = FALSE
+
+/obj/structure/reflector/examine(mob/user)
+	..()
+	if(finished)
+		to_chat(user, "It is set to [rotation_angle] degrees, and the rotation is [can_rotate ? "unlocked" : "locked"].")
+		if(!admin)
+			if(can_rotate)
+				to_chat(user, "<span class='notice'>Alt-click to adjust its direction.</span>")
+			else
+				to_chat(user, "<span class='notice'>Use screwdriver to unlock the rotation.</span>")
 
 /obj/structure/reflector/Moved()
 	setAngle(dir_map_to_angle(dir))
@@ -37,12 +58,18 @@
 	return -1
 
 /obj/structure/reflector/proc/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
-	P.ignore_source_check = TRUE
+	P.firer = src
+	P.ignore_source_check
 	P.range = P.decayedRange
 	P.decayedRange = max(P.decayedRange--, 0)
 	return -1
 
 /obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/screwdriver))
+		can_rotate = !can_rotate
+		to_chat(user, "<span class='notice'>You [can_rotate ? "unlock" : "lock"] [src]'s rotation.</span>")
+		playsound(src, W.usesound, 50, 1)
+		return
 	if(iswrench(W))
 		if(anchored)
 			to_chat(user, "Unweld [src] first!")
@@ -113,7 +140,7 @@
 	if (anchored)
 		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
 		return FALSE
-	var/new_angle = input(user, "Input a new angle for primary reflection face.", "Reflector Angle") as null|num
+	var/new_angle = input(user, "Input a new angle for primary reflection face.", "Reflector Angle", rotation_angle) as null|num
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -122,11 +149,12 @@
 	return TRUE
 
 /obj/structure/reflector/proc/setAngle(new_angle)
-	rotation_angle = new_angle
-	setDir(NORTH)
-	var/matrix/M = new
-	M.Turn(new_angle)
-	transform = M
+	if(can_rotate)
+		rotation_angle = new_angle
+		if(deflector_overlay)
+			cut_overlay(deflector_overlay)
+			deflector_overlay.transform = turn(matrix(), new_angle)
+			add_overlay(deflector_overlay)
 
 
 /obj/structure/reflector/AltClick(mob/user)
@@ -136,7 +164,7 @@
 		return
 	if(!in_range(src, user))
 		return
-	else
+	else if (finished)
 		rotate(user)
 
 
@@ -146,9 +174,9 @@
 
 /obj/structure/reflector/single
 	name = "reflector"
-	icon = 'icons/obj/reflector.dmi'
-	icon_state = "reflector"
-	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
+	deflector_icon_state = "reflector"
+	desc = "An angled mirror for reflecting laser beams."
+	density = TRUE
 	finished = 1
 
 /obj/structure/reflector/single/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
@@ -163,9 +191,9 @@
 
 /obj/structure/reflector/double
 	name = "double sided reflector"
-	icon = 'icons/obj/reflector.dmi'
-	icon_state = "reflector_double"
-	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
+	deflector_icon_state = "reflector_double"
+	desc = "A double sided angled mirror for reflecting laser beams."
+	density = TRUE
 	finished = 1
 
 
@@ -180,9 +208,9 @@
 
 /obj/structure/reflector/box
 	name = "reflector box"
-	icon = 'icons/obj/reflector.dmi'
-	icon_state = "reflector_box"
-	desc = "A box with an internal set of mirrors that reflects all laser fire in a single direction."
+	deflector_icon_state = "reflector_box"
+	desc = "A box with an internal set of mirrors that reflects all laser beams in a single direction."
+	density = TRUE
 	finished = 1
 
 /obj/structure/reflector/box/auto_reflect(obj/item/projectile/P)

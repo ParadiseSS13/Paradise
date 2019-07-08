@@ -271,6 +271,7 @@
 	fired = TRUE
 	if(!isprocessing)
 		START_PROCESSING(SSprojectiles, src)
+	pixel_move()	//move it now!
 
 /obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
 	Angle = new_angle
@@ -314,7 +315,7 @@
 	old_pixel_x = pixel_x_offset
 	old_pixel_y = pixel_y_offset
 	if(can_hit_target(original, permutated))
-		Bump(original)
+		Bump(original, 1)
 	Range()
 	last_projectile_move = world.time
 
