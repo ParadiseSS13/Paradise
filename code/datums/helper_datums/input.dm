@@ -141,6 +141,11 @@
 	..()
 	popup.add_script("autocomplete.js", 'html/browser/autocomplete.js')
 
+	for(var/i=1, i <= choices.len, i++)
+		var/C = choices[choices[i]]
+		choices[i] = url_encode(choices[i], TRUE)
+		choices[choices[i]] = C
+
 /datum/async_input/autocomplete/render_prompt()
 	return "<label for='input'>[prompt]</label>"
 
@@ -162,6 +167,8 @@
 		// Entering an invalid choice is the same as canceling
 		if(href_list["submit"] in choices)
 			result = href_list["submit"]
+		else if(url_encode(href_list["submit"], TRUE) in choices)
+			result = url_encode(href_list["submit"], TRUE)
 		close()
 		return
 
