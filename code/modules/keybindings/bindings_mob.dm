@@ -5,7 +5,7 @@
 /mob/key_down(_key, client/user)
 	if(user.prefs.toggles & AZERTY)
 		switch(_key)
-			if("Delete", "H")
+			if("Delete")
 				if(!pulling)
 					to_chat(src, "<span class='notice'>You are not pulling anything.</span>")
 				else
@@ -38,7 +38,7 @@
 				return
 	else
 		switch(_key)
-			if("Delete", "H")
+			if("Delete")
 				if(!pulling)
 					to_chat(src, "<span class='notice'>You are not pulling anything.</span>")
 				else

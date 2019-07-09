@@ -186,7 +186,7 @@
 			n = get_step(mob, direct)
 
 	. = ..()
-	//mob.setDir(direct)
+	mob.setDir(direct)
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)

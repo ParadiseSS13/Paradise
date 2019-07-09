@@ -96,27 +96,6 @@
 		src << link(config.donationsurl)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-
-/client/verb/hotkey_mode()
-	set name = "Set Hotkey Mode"
-	set category = "Preferences"
-
-	var/list/hotkey_modes = list()
-	for(var/hotkey_mode in subtypesof(/datum/hotkey_mode))
-		var/datum/hotkey_mode/H = hotkey_mode
-		hotkey_modes[initial(H.name)] = H
-
-	var/chosen_mode_name = input("Choose your preferred hotkey mode.", "Hotkey mode selection") as null|anything in hotkey_modes
-	if(!chosen_mode_name)
-		return
-
-	var/datum/hotkey_mode/chosen_mode = hotkey_modes[chosen_mode_name] 
-	var/datum/hotkey_mode/hotkey_mode = new chosen_mode(src)
-	
-	hotkey_mode.set_winset_values()
-	to_chat(usr, "<span class='info'>Your hotkey mode has been changed to [hotkey_mode.name].</span>")
-
-	qdel(hotkey_mode)
 	
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
@@ -157,7 +136,7 @@ Hotkey-Mode: (hotkey-mode must be on)
 \tT = say
 \tO = OOC
 \tB = resist
-\tH = stop pulling
+\tH = Holster/unholster gun if you have a holster
 \tX = swap-hand
 \tZ = activate held object (or y)
 \tF = cycle-intents-left
@@ -190,8 +169,6 @@ Any-Mode: (hotkey doesn't need to be on)
 \tCtrl+2 = disarm-intent
 \tCtrl+3 = grab-intent
 \tCtrl+4 = harm-intent
-\tCtrl+'+/-' OR
-\tShift+Mousewheel = Ghost zoom in/out
 \tDEL = stop pulling
 \tINS = cycle-intents-right
 \tHOME = drop

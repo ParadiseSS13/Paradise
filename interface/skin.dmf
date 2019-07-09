@@ -152,16 +152,6 @@ window "mainwindow"
 		anchor2 = none
 		is-visible = false
 		saved-params = ""
-	elem "hotkey_toggle"
-		type = BUTTON
-		pos = 560,420
-		size = 80x20
-		anchor1 = 100,100
-		anchor2 = none
-		saved-params = ""
-		text = "Hotkey Toggle"
-		command = ".winset \"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]"
-		button-type = pushbox
 	elem "mainvsplit"
 		type = CHILD
 		pos = 3,0
@@ -184,8 +174,8 @@ window "mainwindow"
 		saved-params = "command"
 	elem "saybutton"
 		type = BUTTON
-		pos = 520,420
-		size = 40x20
+		pos = 480,420
+		size = 80x20
 		anchor1 = 100,100
 		anchor2 = none
 		saved-params = "is-checked"
@@ -194,8 +184,8 @@ window "mainwindow"
 		button-type = pushbox
 	elem "mebutton"
 		type = BUTTON
-		pos = 480,420
-		size = 40x20
+		pos = 560,420
+		size = 80x20
 		anchor1 = 100,100
 		anchor2 = none
 		saved-params = "is-checked"

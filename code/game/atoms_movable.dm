@@ -233,6 +233,7 @@
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
 	loc = destination
+	moving_diagonally = 0
 
 	if(old_loc)
 		old_loc.Exited(src, destination)
