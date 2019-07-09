@@ -68,7 +68,7 @@
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
 
-	// If we're pulling something then drop what we're currently pulling and pull this instead.
+	// if we're pulling something then drop what we're currently pulling and pull this instead.
 	if(pulling)
 		if(state == 0)
 			stop_pulling()
@@ -137,7 +137,7 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		if (!(direct & (direct - 1))) //Cardinal move
+		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
@@ -147,47 +147,47 @@
 			// the second half of the diagonal movement, or the second attempt
 			// at a first half if step() fails because we hit something.
 			if(direct & NORTH)
-				if (direct & EAST)
-					if (step(src, NORTH) && moving_diagonally)
+				if(direct & EAST)
+					if(step(src, NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, EAST)
-					else if (moving_diagonally && step(src, EAST))
+					else if(moving_diagonally && step(src, EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, NORTH)
-				else if (direct & WEST)
-					if (step(src, NORTH) && moving_diagonally)
+				else if(direct & WEST)
+					if(step(src, NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, WEST)
-					else if (moving_diagonally && step(src, WEST))
+					else if(moving_diagonally && step(src, WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, NORTH)
-			else if (direct & SOUTH)
-				if (direct & EAST)
-					if (step(src, SOUTH) && moving_diagonally)
+			else if(direct & SOUTH)
+				if(direct & EAST)
+					if(step(src, SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, EAST)
-					else if (moving_diagonally && step(src, EAST))
+					else if(moving_diagonally && step(src, EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
-				else if (direct & WEST)
-					if (step(src, SOUTH) && moving_diagonally)
+				else if(direct & WEST)
+					if(step(src, SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, WEST)
-					else if (moving_diagonally && step(src, WEST))
+					else if(moving_diagonally && step(src, WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
 				if(!.)
 					setDir(first_step_dir)
-				else if (!inertia_moving)
+				else if(!inertia_moving)
 					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
 			moving_diagonally = 0
@@ -210,7 +210,7 @@
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
-	if (!inertia_moving)
+	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	return TRUE
@@ -263,7 +263,7 @@
 	return 1
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
-	for(var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
+	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
 		var/atom/movable/AM = item
 		AM.onTransitZ(old_z,new_z)
 
