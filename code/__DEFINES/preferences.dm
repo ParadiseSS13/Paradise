@@ -32,7 +32,7 @@
 #define TYPING_ONCE 1048576
 #define AMBIENT_OCCLUSION 2097152
 #define AZERTY 4194304
-#define NUMPAD_TARGET 8388606
+#define NUMPAD_TARGET 8388608
 #define CHAT_GHOSTPDA 16777212
 #define TOGGLES_TOTAL 33554361 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined. 
 
