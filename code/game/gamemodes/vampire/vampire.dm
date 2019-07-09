@@ -306,7 +306,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				blood = min(5, H.blood_volume)	// The dead only give 5 blood
 				bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
-			if(!issmall(H) || H.ckey)
+			if(!issmall(H) || H.ckey) // not small OR has a ckey, monkeys with ckeys can be sucked, humanized monkeys can be sucked monkeys without ckeys cannot be sucked
 				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
