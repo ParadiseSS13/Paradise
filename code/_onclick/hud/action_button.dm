@@ -6,19 +6,16 @@
 	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-			closeToolTip(usr)
 			return
 		var/obj/screen/movable/action_button/B = over_object
 		var/list/actions = usr.actions
 		actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
 		moved = FALSE
 		B.moved = FALSE
-		closeToolTip(usr)
 		usr.update_action_buttons()
 	else if(istype(over_object, /obj/screen/movable/action_button/hide_toggle))
-		closeToolTip(usr)
+		return
 	else
-		closeToolTip(usr)
 		return ..()
 
 /obj/screen/movable/action_button/Click(location,control,params)
@@ -50,9 +47,8 @@
 
 /obj/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
 	if(istype(over_object, /obj/screen/movable/action_button))
-		closeToolTip(usr)
+		return
 	else
-		closeToolTip(usr)
 		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
