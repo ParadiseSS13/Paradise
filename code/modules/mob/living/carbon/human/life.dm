@@ -397,7 +397,7 @@
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
-			if (H && H.helmet && !head)
+			if(H && H.helmet && !head)
 				H.helmet.loc = src
 				H.helmet.pickup(H)
 				equip_to_slot(H.helmet, slot_head)
@@ -408,7 +408,7 @@
 			clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.warning_high_pressure)
 		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
-		if (H && H.helmet && !head)
+		if(H && H.helmet && !head)
 			H.helmet.loc = src
 			H.helmet.pickup(H)
 			equip_to_slot(H.helmet, slot_head)
@@ -419,7 +419,7 @@
 		clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
-		if (H && H.helmet && !head)
+		if(H && H.helmet && !head)
 			H.helmet.loc = src
 			H.helmet.pickup(H)
 			equip_to_slot(H.helmet, slot_head)
@@ -432,7 +432,7 @@
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
-			if (H && H.helmet && !head)
+			if(H && H.helmet && !head)
 				H.helmet.loc = src
 				H.helmet.pickup(H)
 				equip_to_slot(H.helmet, slot_head)
