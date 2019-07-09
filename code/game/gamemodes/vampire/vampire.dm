@@ -313,7 +313,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
 			if(issmall(H) && !H.ckey)
-				to_chat(V, "<span class='notice'><b>feeding on [H] reduces your hunger, but you get no usable blood from it.</b></span>")
+				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your hunger, but you get no usable blood from it.</b></span>")
 				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5)
 			else
 				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
