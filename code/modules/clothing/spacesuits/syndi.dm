@@ -1,11 +1,10 @@
 //Regular syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate
 	name = "red space helmet"
-	desc = "Top secret Spess Helmet."
 	icon_state = "syndicate"
 	item_state = "syndicate"
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
-	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 20, bullet = 25, laser = 15, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/space/syndicate
 	name = "red space suit"
@@ -14,7 +13,7 @@
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
-	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 20, bullet = 25, laser = 15, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 
 //Green syndicate space suit
