@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Destroying a disposals trunk should no longer occasionally delete things held inside it."
