@@ -1,5 +1,3 @@
-#define DEFAULT_DOOMSDAY_TIMER 4500
-
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
 	name = "AI Action"
@@ -108,22 +106,23 @@
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
 
-/datum/module_picker/proc/use(mob/user)
-	var/list/dat = list()
-	dat += "<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>"
-	dat += "<HR>"
-	dat += "<B>Install Module:</B><BR>"
-	dat += "<I>The number afterwards is the amount of processing time it consumes.</I><BR>"
+/datum/module_picker/proc/use(user as mob)
+	var/dat
+	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
+			<HR>
+			<B>Install Module:</B><BR>
+			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
 	for(var/datum/AI_Module/large/module in possible_modules)
-		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
+		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	for(var/datum/AI_Module/small/module in possible_modules)
-		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
+		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
 	if(temp)
 		dat += "[temp]"
-	var/datum/browser/popup = new(user, "modpicker", "Malf Module Menu")
-	popup.set_content(dat.Join())
+	var/datum/browser/popup = new(user, "modpicker", "Malf Module Menu", 400, 500)
+	popup.set_content(dat)
 	popup.open()
+	return
 
 /datum/module_picker/Topic(href, href_list)
 	..()
@@ -204,6 +203,7 @@
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/nuke_station
 	unlock_text = "<span class='notice'>You slowly, carefully, establish a connection with the on-station self-destruct. You can now activate it at any time.</span>"
+	unlock_sound = 'sound/items/timer.ogg'
 
 /datum/action/innate/ai/nuke_station
 	name = "Doomsday Device"
@@ -224,11 +224,11 @@
 	set_us_up_the_bomb()
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
-	to_chat(src, "<span class='notice'>Nuclear device armed.</span>")
+	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
 	event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
-	owner_AI.nuking = 1
-	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(src)
+	owner_AI.nuking = TRUE
+	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
 	owner_AI.doomsday_device.start()
 	for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
@@ -337,7 +337,6 @@
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/lockdown
 	unlock_text = "<span class='notice'>You upload a sleeper trojan into the door control systems. You can send a signal to set it off at any time.</span>"
-	unlock_sound = 'sound/machines/boltsdown.ogg'
 
 /datum/action/innate/ai/lockdown
 	name = "Lockdown"
@@ -368,7 +367,6 @@
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/destroy_rcds
 	unlock_text = "<span class='notice'>After some improvisation, you rig your onboard radio to be able to send a signal to detonate all RCDs.</span>"
-	unlock_sound = 'sound/items/timer.ogg'
 
 /datum/action/innate/ai/destroy_rcds
 	name = "Destroy RCDs"
@@ -409,7 +407,6 @@
 	cost = 25
 	power_type = /datum/action/innate/ai/break_fire_alarms
 	unlock_text = "<span class='notice'>You replace the thermal sensing capabilities of all fire alarms with a manual override, allowing you to turn them off at will.</span>"
-	unlock_sound = 'goon/sound/machinery/firealarm.ogg'
 
 /datum/action/innate/ai/break_fire_alarms
 	name = "Override Thermal Sensors"
@@ -435,7 +432,6 @@
 	cost = 50
 	power_type = /datum/action/innate/ai/break_air_alarms
 	unlock_text = "<span class='notice'>You remove the safety overrides on all air alarms, but you leave the confirm prompts open. You can hit 'Yes' at any time... you bastard.</span>"
-	unlock_sound = 'sound/effects/space_wind.ogg'
 
 /datum/action/innate/ai/break_air_alarms
 	name = "Override Air Alarm Safeties"
@@ -459,7 +455,6 @@
 	cost = 20
 	power_type = /datum/action/innate/ai/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
-	unlock_sound = 'sound/effects/comfyfire.ogg' //definitely not comfy, but it's the closest sound to "roaring fire" we have
 
 /datum/action/innate/ai/overload_machine
 	name = "Overload Machine"
@@ -468,19 +463,14 @@
 	uses = 2
 
 /datum/action/innate/ai/overload_machine/Activate()
-	var/filtered = list()
-	for(var/obj/machinery/MF in GLOB.machines)
-		filtered += MF
-
-	var/select = input("Choose a device to overload", "Overload Machine", null, null) as null|anything in filtered
+	var/select = input("Choose a device to overload", "Overload Machine", null, null) as null|anything in GLOB.machines
 	if(!select)
-		adjust_uses(1)
+		uses++
 		return
 
 	var/obj/machinery/M = select
 	if(istype(M, /obj/machinery))
 		if(uses > 0)
-			uses --
 			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
 			to_chat(src, "<span class='warning'>Overloading machine circuitry...</span>")
 			spawn(50)
@@ -491,7 +481,7 @@
 			to_chat(src, "<span class='notice'>Out of uses.</span>")
 	else
 		to_chat(src, "<span class='notice'>That's not a machine.</span>")
-		adjust_uses(1)
+		uses++
 		return
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
@@ -501,8 +491,7 @@
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. Four uses."
 	cost = 30
 	power_type = /datum/action/innate/ai/override_machine
-	unlock_text = "<span class='notice'>You procure a virus from the Space Dark Web and distribute it to the station's machines.</span>"
-	unlock_sound = 'sound/machines/airlock_alien_prying.ogg'
+	unlock_text = "<span class='notice'>You procure a virus from the Space Dark Web and prepare to distribute it to the station's machines.</span>"
 
 /datum/action/innate/ai/override_machine
 	name = "Override Machine"
@@ -511,23 +500,18 @@
 	uses = 4
 
 /datum/action/innate/ai/override_machine/Activate()
-	var/filtered = list()
-	for(var/obj/machinery/MF in GLOB.machines)
-		filtered += MF
-
-	var/select = input("Choose a device to override", "Override Machine", null, null) as null|anything in filtered
+	var/select = input("Choose a device to override", "Override Machine", null, null) as null|anything in GLOB.machines
 	if(!select)
-		adjust_uses(1)
+		uses++
 		return
 
 	var/obj/machinery/M = select
 	if(istype(M, /obj/machinery))
 		if(!M.can_be_overridden())
 			to_chat(src, "Can't override this device.")
-			adjust_uses(1)
+			uses++
 			return
 		else if(uses > 0)
-			uses --
 			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
 			to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
 			spawn(50)
@@ -537,7 +521,7 @@
 			to_chat(src, "<span class='notice'>Out of uses.</span>")
 	else
 		to_chat(src, "<span class='notice'>That's not a machine.</span>")
-		adjust_uses(1)
+		uses++
 		return
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
@@ -548,7 +532,7 @@
 	cost = 100
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/place_transformer
-	unlock_text = "<span class='notice'>You make contact with Space Amazon and request a robotics factory for delivery.</span>"
+	unlock_text = "<span class='notice'>You prepare a robotics factory for deployment.</span>"
 	unlock_sound = 'sound/machines/ping.ogg'
 
 /datum/action/innate/ai/place_transformer
@@ -622,7 +606,6 @@
 	cost = 15
 	power_type = /datum/action/innate/ai/blackout
 	unlock_text = "<span class='notice'>You hook into the powernet and route bonus power towards the station's lighting.</span>"
-	unlock_sound = "sparks"
 
 /datum/action/innate/ai/blackout
 	name = "Blackout"
@@ -648,7 +631,6 @@
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/reactivate_cameras
 	unlock_text = "<span class='notice'>You deploy nanomachines to the cameranet.</span>"
-	unlock_sound = 'sound/items/wirecutter.ogg'
 
 /datum/action/innate/ai/reactivate_cameras
 	name = "Reactivate Cameras"
@@ -677,8 +659,9 @@
 	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
 	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
 	adjust_uses(0, TRUE) //Checks the uses remaining
-	if(uses)
+	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] There are [uses] reactivations remaining."
+		owner_AI.update_action_buttons()
 
 //Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
 /datum/AI_Module/large/upgrade_cameras
@@ -731,4 +714,3 @@
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = TRUE
 
-#undef DEFAULT_DOOMSDAY_TIMER
