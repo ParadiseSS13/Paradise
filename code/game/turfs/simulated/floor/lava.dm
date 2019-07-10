@@ -38,6 +38,9 @@
 /turf/simulated/floor/plating/lava/make_plating()
 	return
 
+/turf/simulated/floor/plating/lava/remove_plating()
+	return
+
 /turf/simulated/floor/plating/lava/proc/is_safe()
 	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
 	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
