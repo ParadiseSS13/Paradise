@@ -325,7 +325,6 @@
 			turret.health += 30
 			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
-	to_chat(src, "<span class='notice'>Turrets upgraded.</span>")
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/AI_Module/large/lockdown
@@ -354,7 +353,7 @@
 	post_status("alert", "lockdown")
 
 	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
-	to_chat(src, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
+	to_chat(owner, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
 	spawn(900)
 		minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
 
@@ -380,7 +379,7 @@
 		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			RCD.detonate_pulse()
 
-	to_chat(src, "<span class='danger'>RCD detonation pulse emitted.</span>")
+	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")
 	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, 0)
 
 //Unlock Mech Domination: Unlocks the ability to dominate mechs. Big shocker, right?
@@ -419,7 +418,7 @@
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = TRUE
-	to_chat(src, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
+	to_chat(owner, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 //Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
@@ -444,7 +443,7 @@
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
-	to_chat(src, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
+	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
@@ -472,15 +471,15 @@
 	if(istype(M, /obj/machinery))
 		if(uses > 0)
 			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
-			to_chat(src, "<span class='warning'>Overloading machine circuitry...</span>")
+			to_chat(owner, "<span class='warning'>Overloading machine circuitry...</span>")
 			spawn(50)
 				if(M)
 					explosion(get_turf(M), 0,1,1,0)
 					qdel(M)
 		else
-			to_chat(src, "<span class='notice'>Out of uses.</span>")
+			to_chat(owner, "<span class='notice'>Out of uses.</span>")
 	else
-		to_chat(src, "<span class='notice'>That's not a machine.</span>")
+		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
 		uses++
 		return
 
@@ -508,19 +507,19 @@
 	var/obj/machinery/M = select
 	if(istype(M, /obj/machinery))
 		if(!M.can_be_overridden())
-			to_chat(src, "Can't override this device.")
+			to_chat(owner, "Can't override this device.")
 			uses++
 			return
 		else if(uses > 0)
 			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
-			to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
+			to_chat(owner, "<span class='warning'>Reprogramming machine behaviour...</span>")
 			spawn(50)
 				if(M && !QDELETED(M))
 					new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
 		else
-			to_chat(src, "<span class='notice'>Out of uses.</span>")
+			to_chat(owner, "<span class='notice'>Out of uses.</span>")
 	else
-		to_chat(src, "<span class='notice'>That's not a machine.</span>")
+		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
 		uses++
 		return
 
