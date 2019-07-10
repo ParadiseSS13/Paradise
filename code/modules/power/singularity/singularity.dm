@@ -437,3 +437,6 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
+
+/obj/singularity/throw_at()
+	return FALSE
