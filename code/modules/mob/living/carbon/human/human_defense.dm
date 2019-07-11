@@ -319,7 +319,7 @@ emp_act
 			B = r_hand
 		if(B && B.deflectmode)
 			if(prob(10))
-				visible_message("<span class='warning'><b>[src] Deflects the [I] directly back at the thrower! It's a home run!</b></span>", "<span class='warning'><b>You deflect the [I] directly back at the thrower! It's a home run!</b></span>")
+				visible_message("<span class='boldwarning'>[src] Deflects the [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)				
 				I.throw_at(I.thrownby, 20, 20, src)
