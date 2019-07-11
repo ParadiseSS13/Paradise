@@ -108,7 +108,7 @@ world/IsBanned(key, address, computer_id, check_ipintel = TRUE)
 				var/appealmessage = ""
 				if(config.banappeals)
 					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
-				expires = " This ban does not expire automatically and must be appealed. [appealmessage]"
+				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime].[expires]"
 
