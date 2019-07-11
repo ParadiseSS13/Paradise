@@ -328,7 +328,7 @@ emp_act
 					B.lastdeflect = world.time + 3000
 				return TRUE				
 			else if(prob(30))
-				visible_message("<span class='warning'>[src] swings! And he misses! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
+				visible_message("<span class='warning'>[src] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				do_attack_animation(get_step(src,pick(alldirs)), ATTACK_EFFECT_DISARM)			
 				B.deflectmode = FALSE
