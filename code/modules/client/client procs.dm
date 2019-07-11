@@ -796,18 +796,15 @@
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "mainwindow.hotkey_toggle", "background-color=#40628a;text-color=#FFFFFF")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=#272727")
 	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
 	winset(src, "mainwindow.tooltip", "background-color=#272727")
 	/* Outputwindow */
-	winset(src, "outputwindow.outputwindow", "background-color=#272727")
 	winset(src, "outputwindow.browseroutput", "background-color=#272727")
 	/* Rpane */
 	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpane", "background-color=#272727")
 	winset(src, "rpane.rpanewindow", "background-color=#272727")
 	/* Browserwindow */
 	winset(src, "browserwindow", "background-color=#272727")
@@ -831,18 +828,15 @@
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
 	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
-	winset(src, "mainwindow.hotkey_toggle", "background-color=none;text-color=#000000")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=none")
 	winset(src, "mainwindow.mainvsplit", "background-color=none")
 	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
-	winset(src, "outputwindow.outputwindow", "background-color=none")
 	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
-	winset(src, "rpane.rpane", "background-color=none")
 	winset(src, "rpane.rpanewindow", "background-color=none")
 	/* Browserwindow */
 	winset(src, "browserwindow", "background-color=none")
