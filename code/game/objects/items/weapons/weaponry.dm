@@ -157,6 +157,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
+	var/deflectmode = FALSE // deflect small/medium thrown objects
+	var/lastdeflect
 	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
@@ -171,12 +173,18 @@
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able)
-		..()
-		return
+		if(!deflectmode && world.time >= lastdeflect)
+			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you, You cannot attack during this time.</span>")
+			deflectmode = TRUE
+		else if(deflectmode && world.time >= lastdeflect)
+			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you, You can attack during this time</span>")
+			deflectmode = FALSE
+		else
+			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "m:ss")]</span>")
+		return ..()
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
-		..()
-		return
+		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 90, target = user))
@@ -185,6 +193,9 @@
 	..()
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+	if(deflectmode)
+		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		return
 	. = ..()
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(homerun_ready)
