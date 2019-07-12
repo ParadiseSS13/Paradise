@@ -341,9 +341,6 @@
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
-		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
-			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
-			return
 		//we're good to suck the blood, blaah
 		user.mind.vampire.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
@@ -603,20 +600,37 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
-	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			H.throw_alert("nutrition", /obj/screen/alert/fat)
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			H.throw_alert("nutrition", /obj/screen/alert/full)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			H.throw_alert("nutrition", /obj/screen/alert/well_fed)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /obj/screen/alert/fed)
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /obj/screen/alert/hungry)
-		else
-			H.throw_alert("nutrition", /obj/screen/alert/starving)
-	return 1
+	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /obj/screen/alert/fat/vampire)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				H.throw_alert("nutrition", /obj/screen/alert/full/vampire)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/fed/vampire)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
+			else
+				H.throw_alert("nutrition", /obj/screen/alert/starving/vampire)
+		return 1
+
+	else ///Any other non-vampires
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /obj/screen/alert/fat)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				H.throw_alert("nutrition", /obj/screen/alert/full)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/well_fed)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/fed)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /obj/screen/alert/hungry)
+			else
+				H.throw_alert("nutrition", /obj/screen/alert/starving)
+		return 1
 
 /*
 Returns the path corresponding to the corresponding organ
@@ -675,7 +689,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.see_invisible = G.invis_override
 		else
 			H.see_invisible = min(G.invis_view, H.see_invisible)
-		
+
 		if(!isnull(G.lighting_alpha))
 			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 

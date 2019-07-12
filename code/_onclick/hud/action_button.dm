@@ -1,4 +1,3 @@
-
 /obj/screen/movable/action_button
 	var/datum/action/linked_action
 	screen_loc = null
@@ -6,18 +5,26 @@
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
-		moved = 0
+		if(locked)
+			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			return TRUE
+		moved = FALSE
 		usr.update_action_buttons() //redraw buttons that are no longer considered "moved"
-		return 1
-	if(usr.next_move >= world.time) // Is this needed ?
+		return TRUE
+	if(modifiers["ctrl"])
+		locked = !locked
+		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
+		return TRUE
+	if(usr.next_click > world.time)
 		return
+	usr.next_click = world.time + 1
 	linked_action.Trigger()
-	return 1
+	return TRUE
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
 	name = "Hide Buttons"
-	desc = "Shift-click any button to reset its position. Alt-click to reset all buttons to their default positions."
+	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. Alt-click this button to reset all buttons to their default positions."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = 0
@@ -25,8 +32,15 @@
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
+		if(locked)
+			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			return TRUE
 		moved = FALSE
 		usr.update_action_buttons(TRUE)
+		return TRUE
+	if(modifiers["ctrl"])
+		locked = !locked
+		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		return TRUE
 	if(modifiers["alt"])
 		for(var/V in usr.actions)
@@ -69,14 +83,12 @@
 	var/image/img = image(icon, src, hidden ? "show" : "hide")
 	overlays += img
 
-
 /obj/screen/movable/action_button/MouseEntered(location,control,params)
 	openToolTip(usr,src,params,title = name,content = desc)
 
 
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
-
 
 /mob/proc/update_action_buttons_icon()
 	for(var/X in actions)
@@ -120,7 +132,6 @@
 		hud_used.hide_actions_toggle.screen_loc = hud_used.hide_actions_toggle.moved
 	if(reload_screen)
 		client.screen += hud_used.hide_actions_toggle
-
 
 
 #define AB_MAX_COLUMNS 10
