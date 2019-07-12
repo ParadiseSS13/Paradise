@@ -162,8 +162,6 @@
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
-	show_stat_station_time()
-
 	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
