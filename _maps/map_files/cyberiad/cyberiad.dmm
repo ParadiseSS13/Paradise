@@ -16150,6 +16150,14 @@
 	dir = 4;
 	network = list("SS13")
 	},
+/obj/machinery/door_control{
+	id = "magistrateofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	pixel_x = -25;
+	pixel_y = -2;
+	req_access_txt = "74"
+	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "aAN" = (
@@ -19000,6 +19008,7 @@
 "aGv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
+	id_tag = "magistrateofficedoor";
 	name = "Magistrate's Office";
 	req_access_txt = "74"
 	},
