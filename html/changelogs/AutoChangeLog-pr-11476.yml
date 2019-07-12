@@ -1,8 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - imageadd: "Added inhand sprite for eggbox"
-  - imageadd: "Added inhand sprites for all types of soaps"
-  - imageadd: "Added inhand sprite for small parcel"
-  - imageadd: "Added inhand sprite for sechailer"
-  - imageadd: "Added inhand sprite for bag of holding"
