@@ -20,7 +20,10 @@
 				adminhelp()
 			return
 		if("F2") // Screenshot. Hold shift to choose a name and location to save in
-			winset(src, null, "command=.screenshot [!keys_held["shift"] ? "auto" : ""]")
+			ooc()
+			return
+		if("F4")
+			mob.me_verb()
 			return
 		if("F12") // Toggles minimal HUD
 			mob.button_pressed_F12()
