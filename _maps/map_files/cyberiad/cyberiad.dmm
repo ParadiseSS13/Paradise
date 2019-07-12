@@ -13713,16 +13713,12 @@
 	},
 /area/security/permabrig)
 "awP" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/structure/table,
+/obj/item/suppressor,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_3)
+/area/shuttle/syndicate)
 "awQ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -14332,16 +14328,15 @@
 	},
 /area/security/prison/cell_block/A)
 "axN" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/machinery/suit_storage_unit/standard_unit{
+	desc = "A stolen nanotrasen suit storage unit which contains a standard set of EVA equipment. Perfect for sneaking in the station unnoticed.";
+	magboots_type = /obj/item/clothing/shoes/magboots;
+	storage_type = /obj/item/tank/jetpack/oxygen
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
-/area/shuttle/pod_3)
+/area/shuttle/syndicate)
 "axO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -22884,21 +22879,27 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aON" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/pod_3)
+"aOO" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
 	icon_state = "swall_f5";
 	dir = 2
 	},
-/area/shuttle/pod_1)
-"aOO" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/shuttle/pod_1)
+/area/shuttle/pod_3)
 "aOP" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -23357,7 +23358,7 @@
 	icon_state = "swall_f5";
 	dir = 2
 	},
-/area/shuttle/pod_2)
+/area/shuttle/pod_1)
 "aPQ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -23412,7 +23413,7 @@
 	icon_state = "swall_f9";
 	dir = 2
 	},
-/area/shuttle/pod_2)
+/area/shuttle/pod_1)
 "aPV" = (
 /obj/structure/chair{
 	dir = 8
@@ -33755,6 +33756,26 @@
 	},
 /area/hydroponics)
 "bje" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_2)
+"bjf" = (
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
+"bjg" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
+	},
+/area/shuttle/pod_2)
+"bjh" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -33775,57 +33796,6 @@
 /turf/simulated/floor/plasteel{
 	tag = "icon-siding1 (NORTH)";
 	icon_state = "siding1";
-	dir = 1
-	},
-/area/hydroponics)
-"bjf" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
-"bjg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/mob/living/simple_animal/pig,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding2 (NORTH)";
-	icon_state = "siding2";
-	dir = 1
-	},
-/area/hydroponics)
-"bjh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding2 (NORTH)";
-	icon_state = "siding2";
 	dir = 1
 	},
 /area/hydroponics)
@@ -40655,17 +40625,29 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bwX" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/area/shuttle/transport)
+/mob/living/simple_animal/pig,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
 "bwY" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -41451,17 +41433,28 @@
 	},
 /area/hallway/primary/central/ne)
 "bys" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/area/shuttle/transport)
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
 "byt" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
@@ -50861,6 +50854,18 @@
 	icon_state = "diagonalWall3"
 	},
 /area/shuttle/administration)
+"bPM" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion";
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/transport)
 "bPN" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -52059,6 +52064,18 @@
 	icon_state = "wall3"
 	},
 /area/shuttle/administration)
+"bRH" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion";
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/transport)
 "bRI" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/east{
@@ -54136,6 +54153,28 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
+"bVk" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/pod_4)
+"bVl" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_4)
 "bVm" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
@@ -89541,17 +89580,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/starboard)
-"ddW" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_4)
 "ddX" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -89565,17 +89593,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"ddY" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/pod_4)
 "ddZ" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
@@ -105314,9 +105331,9 @@ aaa
 aaa
 aaa
 aaa
-bwX
+bPM
 bvi
-bys
+bRH
 aaa
 aaa
 aaa
@@ -105570,11 +105587,11 @@ aab
 aaa
 aaa
 aaa
-bwX
+bPM
 btv
 bvj
 bwE
-bys
+bRH
 aaa
 bAQ
 bCa
@@ -106063,7 +106080,7 @@ aaa
 aJP
 aLa
 aLa
-aON
+aPP
 aOP
 aMs
 aVf
@@ -106577,7 +106594,7 @@ aaa
 aJQ
 aLa
 aLa
-aOO
+aPU
 aOR
 aQa
 aMd
@@ -107036,8 +107053,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
 acT
+abQ
 abQ
 abQ
 abQ
@@ -107091,7 +107108,7 @@ aaa
 aJR
 aLe
 aLe
-aPP
+bje
 aOP
 aMs
 aPJ
@@ -107293,8 +107310,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
 abI
+axN
 ade
 ade
 adS
@@ -107550,8 +107567,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
 abI
+abV
 abV
 abV
 abV
@@ -107605,7 +107622,7 @@ aaa
 aJT
 aLe
 aLe
-aPU
+bjg
 aOR
 aQa
 aPQ
@@ -107807,8 +107824,8 @@ abQ
 abQ
 acq
 aaa
-aaa
 abI
+abV
 abV
 ady
 abV
@@ -108064,9 +108081,9 @@ acd
 ack
 abI
 aaa
-aaa
 abI
 adf
+awP
 adz
 adT
 abV
@@ -129042,9 +129059,9 @@ dfR
 dcq
 dcq
 dcq
-ddW
+bVk
 doL
-ddY
+bVl
 dcq
 aaa
 aaa
@@ -135118,7 +135135,7 @@ bbC
 aGY
 beb
 djw
-bje
+bjh
 boX
 bpH
 bqH
@@ -135375,7 +135392,7 @@ bbh
 aGY
 beb
 dju
-bjg
+bwX
 bjv
 dnD
 bmy
@@ -135632,7 +135649,7 @@ bbh
 aGY
 beb
 djx
-bjh
+bys
 bjv
 dnE
 bmy
@@ -135862,9 +135879,9 @@ atG
 auA
 axg
 axh
-awP
+aON
 avt
-axN
+aOO
 atG
 aaa
 aFK
@@ -135889,7 +135906,7 @@ bbI
 aGY
 beb
 bfH
-bjh
+bys
 bjx
 bfH
 bmy
@@ -136146,7 +136163,7 @@ bbV
 aGY
 beb
 bfJ
-bjh
+bys
 bjy
 bkY
 bmy
