@@ -12231,6 +12231,12 @@
 "FL" = (
 /turf/simulated/wall/r_wall,
 /area/adminconstruction)
+"Ga" = (
+/obj/machinery/computer/shuttle/ert,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "GP" = (
 /turf/unsimulated/floor{
 	icon_state = "gcircuit"
@@ -31702,7 +31708,7 @@ pb
 uj
 uj
 uj
-uj
+Ga
 sX
 we
 we
