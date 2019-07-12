@@ -2,6 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.living_mob_list -= src
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,6 +31,7 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.living_mob_list += src
+	set_focus(src)
 	prepare_huds()
 	..()
 
@@ -49,7 +51,6 @@
 
 /mob/proc/GetAltName()
 	return ""
-
 
 /mob/proc/Cell()
 	set category = "Admin"
@@ -173,6 +174,7 @@
 	return 0
 
 /mob/proc/Life(seconds, times_fired)
+	set waitfor = FALSE
 	if(forced_look)
 		if(!isnum(forced_look))
 			var/atom/A = locateUID(forced_look)

@@ -96,27 +96,6 @@
 		src << link(config.donationsurl)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-
-/client/verb/hotkey_mode()
-	set name = "Set Hotkey Mode"
-	set category = "Preferences"
-
-	var/list/hotkey_modes = list()
-	for(var/hotkey_mode in subtypesof(/datum/hotkey_mode))
-		var/datum/hotkey_mode/H = hotkey_mode
-		hotkey_modes[initial(H.name)] = H
-
-	var/chosen_mode_name = input("Choose your preferred hotkey mode.", "Hotkey mode selection") as null|anything in hotkey_modes
-	if(!chosen_mode_name)
-		return
-
-	var/datum/hotkey_mode/chosen_mode = hotkey_modes[chosen_mode_name] 
-	var/datum/hotkey_mode/hotkey_mode = new chosen_mode(src)
-	
-	hotkey_mode.set_winset_values()
-	to_chat(usr, "<span class='info'>Your hotkey mode has been changed to [hotkey_mode.name].</span>")
-
-	qdel(hotkey_mode)
 	
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
@@ -124,11 +103,12 @@
 
 	var/adminhotkeys = {"<font color='purple'>
 Admin:
-\tF5 = Asay
-\tF6 = Admin Ghost
-\tF7 = Player Panel
-\tF8 = Admin PM
-\tF9 = Invisimin
+\tF3 = asay
+\tF5 = Aghost (admin-ghost)
+\tF6 = player-panel
+\tF7 = Buildmode
+\tF8 = Invisimin
+\tCtrl+F8 = Stealthmin
 
 Admin ghost:
 \tCtrl+Click = Player Panel
@@ -144,56 +124,58 @@ Admin ghost:
 /mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
 Hotkey-Mode: (hotkey-mode must be on)
-\tTAB = Toggle Hotkey Mode
-\ta = Move Left
-\ts = Move Down
-\td = Move Right
-\tw = Move Up
-\tq = Drop Item
-\te = Equip Item
-\tr = Throw Item
-\tm = Me
-\tt = Say
-\to = OOC
-\tb = Resist
-\tx = Swap Hands
-\tz = Activate Held Object (or y)
-\tf = Cycle Intents Left
-\tg = Cycle Intents Right
-\t1 = Help Intent
-\t2 = Disarm Intent
-\t3 = Grab Intent
-\t4 = Harm Intent
+\tTAB = toggle hotkey-mode
+\tA = left
+\tS = down
+\tD = right
+\tW = up
+\tQ = drop
+\tE = equip
+\tR = throw
+\tM = me
+\tT = say
+\tO = OOC
+\tB = resist
+\tH = Holster/unholster gun if you have a holster
+\tX = swap-hand
+\tZ = activate held object (or y)
+\tF = cycle-intents-left
+\tG = cycle-intents-right
+\t1 = help-intent
+\t2 = disarm-intent
+\t3 = grab-intent
+\t4 = harm-intent
+\tNumpad = Body target selection (Press 8 repeatedly for Head->Eyes->Mouth)
+\tAlt(HOLD) = Alter movement intent
 </font>"}
 
 	var/other = {"<font color='purple'>
 Any-Mode: (hotkey doesn't need to be on)
-\tCtrl+a = Move Left
-\tCtrl+s = Move Down
-\tCtrl+d = Move Right
-\tCtrl+w = Move Up
-\tCtrl+q = Drop Item
-\tCtrl+e = Equip Item
-\tCtrl+r = Throw Item
-\tCtrl+b = Resist
-\tCtrl+o = OOC
-\tCtrl+x = Swap Hands
-\tCtrl+z = Activate Held Object (or Ctrl+y)
-\tCtrl+f = Cycle Intents Left
-\tCtrl+g = Cycle Intents Right
-\tCtrl+1 = Help Intent
-\tCtrl+2 = Disarm Intent
-\tCtrl+3 = Grab Intent
-\tCtrl+4 = Harm Intent
-\tDEL = Pull
-\tINS = Cycle Intents Right
-\tHOME = Drop Item
-\tPGUP = Swap Hands
-\tPGDN = Activate Held Object
-\tEND = Throw Item
-\tF2 = OOC
-\tF3 = Say
-\tF4 = Me
+\tCtrl+A = left
+\tCtrl+S = down
+\tCtrl+D = right
+\tCtrl+W = up
+\tCtrl+Q = drop
+\tCtrl+E = equip
+\tCtrl+R = throw
+\tCtrl+B = resist
+\tCtrl+H = stop pulling
+\tCtrl+O = OOC
+\tCtrl+X = swap-hand
+\tCtrl+Z = activate held object (or Ctrl+y)
+\tCtrl+F = cycle-intents-left
+\tCtrl+G = cycle-intents-right
+\tCtrl+1 = help-intent
+\tCtrl+2 = disarm-intent
+\tCtrl+3 = grab-intent
+\tCtrl+4 = harm-intent
+\tDEL = stop pulling
+\tINS = cycle-intents-right
+\tHOME = drop
+\tPGUP = swap-hand
+\tPGDN = activate held object
+\tEND = throw
+\tCtrl+Numpad = Body target selection (Press 8 repeatedly for Head->Eyes->Mouth)
 </font>"}
 
 	to_chat(src, hotkey_mode)
@@ -203,19 +185,19 @@ Any-Mode: (hotkey doesn't need to be on)
 	var/hotkey_mode = {"<font color='purple'>
 Hotkey-Mode: (hotkey-mode must be on)
 \tTAB = Toggle Hotkey Mode
-\ta = Move Left
-\ts = Move Down
-\td = Move Right
-\tw = Move Up
-\tq = Unequip Active Module
-\tm = Me
-\tt = Say
-\to = OOC
-\tx = Cycle Active Modules
-\tb = Resist
-\tz = Activate Held Object (or y)
-\tf = Cycle Intents Left
-\tg = Cycle Intents Right
+\tA = Move Left
+\tS = Move Down
+\tD = Move Right
+\tW = Move Up
+\tQ = Unequip Active Module
+\tM = Me
+\tT = Say
+\tO = OOC
+\tX = Cycle Active Modules
+\tB = Resist
+\tZ or Y = Activate Held Object
+\tF = Cycle Intents Left
+\tG = Cycle Intents Right
 \t1 = Activate Module 1
 \t2 = Activate Module 2
 \t3 = Activate Module 3
@@ -224,17 +206,17 @@ Hotkey-Mode: (hotkey-mode must be on)
 
 	var/other = {"<font color='purple'>
 Any-Mode: (hotkey doesn't need to be on)
-\tCtrl+a = Move Left
-\tCtrl+s = Move Down
-\tCtrl+d = Move Right
-\tCtrl+w = Move Up
-\tCtrl+q = Unequip Active Module
-\tCtrl+x = Cycle Active Modules
-\tCtrl+b = Resist
-\tCtrl+o = OOC
-\tCtrl+z = Activate Held Object (or Ctrl+y)
-\tCtrl+f = Cycle Intents Left
-\tCtrl+g = Cycle Intents Right
+\tCtrl+A = Move Left
+\tCtrl+S = Move Down
+\tCtrl+D = Move Right
+\tCtrl+W = Move Up
+\tCtrl+Q = Unequip Active Module
+\tCtrl+X = Cycle Active Modules
+\tCtrl+B = Resist
+\tCtrl+O = OOC
+\tCtrl+Z or Ctrl+Y = Activate Held Object
+\tCtrl+F = Cycle Intents Left
+\tCtrl+G = Cycle Intents Right
 \tCtrl+1 = Activate Module 1
 \tCtrl+2 = Activate Module 2
 \tCtrl+3 = Activate Module 3
