@@ -14328,11 +14328,7 @@
 	},
 /area/security/prison/cell_block/A)
 "axN" = (
-/obj/machinery/suit_storage_unit/standard_unit{
-	desc = "A stolen nanotrasen suit storage unit which contains a standard set of EVA equipment. Perfect for sneaking in the station unnoticed.";
-	magboots_type = /obj/item/clothing/shoes/magboots;
-	storage_type = /obj/item/tank/jetpack/oxygen
-	},
+/obj/machinery/suit_storage_unit/standard_unit/stolen,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},

@@ -45,6 +45,11 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva
 	mask_type    = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/standard_unit/stolen
+	desc = "A stolen nanotrasen suit storage unit which contains a standard set of EVA equipment. Perfect for sneaking in the station unnoticed."
+	magboots_type = /obj/item/clothing/shoes/magboots
+	storage_type = /obj/item/tank/jetpack/oxygen
+
 /obj/machinery/suit_storage_unit/standard_unit/secure
 	secure = TRUE	//start with ID lock enabled
 
@@ -699,7 +704,7 @@
 	else
 		mask.forceMove(loc)
 		mask = null
-	
+
 /obj/machinery/suit_storage_unit/proc/dispense_magboots(mob/user as mob)
 	if(!magboots)
 		return
