@@ -338,3 +338,8 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	. = TRUE
+
+/mob/living/proc/LowBattery()
+    if(isrobot(usr))
+        var/mob/living/silicon/robot/R = usr
+        return (R.low_power_mode)
