@@ -3,6 +3,8 @@
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
+	TgsNew(minimum_required_security_level = TGS_SECURITY_TRUSTED)
+	GLOB.revdata = new
 	SetupLogs()
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
@@ -28,7 +30,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	Master.Initialize(10, FALSE)
+	Master.Initialize(10, FALSE, TRUE)
 
 
 #undef RECOMMENDED_VERSION
@@ -50,6 +52,7 @@ var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
+	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
@@ -276,6 +279,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		else
 			return ..(1)
 
+	TgsReboot()
 	var/delay
 	if(!isnull(time))
 		delay = max(0,time)
@@ -416,6 +420,8 @@ var/failed_old_db_connections = 0
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
+
+	log_runtime(GLOB.revdata.get_log_message())
 
 
 /hook/startup/proc/connectDB()

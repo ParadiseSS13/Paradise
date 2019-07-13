@@ -1,5 +1,7 @@
 var/datum/configuration/config = null
 
+GLOBAL_DATUM(revdata, /datum/getrev)
+
 var/host = null
 var/join_motd = null
 GLOBAL_VAR(join_tos)
