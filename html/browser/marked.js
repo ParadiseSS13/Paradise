@@ -11,16 +11,26 @@ function parse(node) {
     parse(node.childNodes[i]);
   }
 
-  if(!node.innerHTML) {
+  if (!node.innerHTML || node.tagName === 'A') {
     return;
   }
-  node.innerHTML = marked(node.innerHTML.replace(/<br>/gi, '\n'), { breaks: true });
+
+  node.innerHTML = marked(node.innerHTML.replace(/<br>/gi, '\n'), { breaks: true, gfm: false });
 }
 
-function main() {
+window.onload = function() {
+  var para = marked.Renderer.prototype.paragraph;
+  var field = '<span class="paper_field">';
+  marked.Renderer.prototype.paragraph = function(text) {
+    if (text.slice(0, field.length) === field ||
+        text.slice(0, 2) === '<a'||
+        text.slice(0, 5) === '<font' && text.indexOf('<a') >= 0) {
+      return text;
+    }
+    return para(text);
+  };
+
   if ($('#markdown')) {
     parse($('#markdown'));
   }
 }
-
-window.onload = main;
