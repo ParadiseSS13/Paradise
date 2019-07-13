@@ -244,7 +244,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = 1
-	if(InCritical())
+	if(InCritical() || LowBattery())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
@@ -258,6 +258,11 @@
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
+	
+/mob/living/proc/LowBattery()
+    if (isrobot(usr))
+        var/mob/living/silicon/robot/R = usr
+        return (R.low_power_mode)
 
 /mob/living/ex_act(severity)
 	..()
