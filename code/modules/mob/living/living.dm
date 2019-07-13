@@ -260,7 +260,7 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 	
 /mob/living/proc/LowBattery()
-    if (isrobot(usr))
+    if(isrobot(usr))
         var/mob/living/silicon/robot/R = usr
         return (R.low_power_mode)
 
