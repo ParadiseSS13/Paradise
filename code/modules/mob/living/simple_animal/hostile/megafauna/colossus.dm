@@ -109,8 +109,7 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/at_shield/New(new_loc, new_target)
 	..()
 	target = new_target
-	spawn(0)
-		orbit(target, 0, FALSE, 0, 0, FALSE, TRUE)
+	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
 	if(!stat)
@@ -141,49 +140,12 @@ Difficulty: Very Hard
 	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
 
 	sleep(10)
-	spawn(0)
-		spiral_shoot()
-	spawn(0)
-		spiral_shoot(1)
+	INVOKE_ASYNC(src, .proc/spiral_shoot)
+	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = 0, counter_start = 1)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = FALSE, counter_start = 8)
 	var/counter = counter_start
-	var/turf/marker
 	for(var/i in 1 to 80)
-		switch(counter)
-			if(1)
-				marker = locate(x, y - 2, z)
-			if(2)
-				marker = locate(x - 1, y - 2, z)
-			if(3)
-				marker = locate(x - 2, y - 2, z)
-			if(4)
-				marker = locate(x - 2, y - 1, z)
-			if(5)
-				marker = locate(x - 2, y, z)
-			if(6)
-				marker = locate(x - 2, y + 1, z)
-			if(7)
-				marker = locate(x - 2, y + 2, z)
-			if(8)
-				marker = locate(x - 1, y + 2, z)
-			if(9)
-				marker = locate(x, y + 2, z)
-			if(10)
-				marker = locate(x + 1, y + 2, z)
-			if(11)
-				marker = locate(x + 2, y + 2, z)
-			if(12)
-				marker = locate(x + 2, y + 1, z)
-			if(13)
-				marker = locate(x + 2, y, z)
-			if(14)
-				marker = locate(x + 2, y - 1, z)
-			if(15)
-				marker = locate(x + 2, y - 2, z)
-			if(16)
-				marker = locate(x + 1, y - 2, z)
-
 		if(negative)
 			counter--
 		else
@@ -192,21 +154,20 @@ Difficulty: Very Hard
 			counter = 1
 		if(counter < 1)
 			counter = 16
-		shoot_projectile(marker)
+		shoot_projectile(null, counter * 22.5)
 		playsound(get_turf(src), 'sound/magic/invoke_general.ogg', 20, 1)
 		sleep(1)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker)
-	if(!marker || marker == loc)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
+	if(!isnum(set_angle) && (!marker || marker == loc))
 		return
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(loc)
+	var/turf/startloc = get_turf(src)
+	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
+	P.preparePixelProjectile(marker, startloc)
 	P.firer = src
 	if(target)
 		P.original = target
-	else
-		P.original = marker
-	P.preparePixelProjectile(P.original, src)
-	P.fire()
+	P.fire(set_angle)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
 	var/turf/U = get_turf(src)
@@ -215,14 +176,18 @@ Difficulty: Very Hard
 		if(prob(5))
 			shoot_projectile(T)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
+	var/turf/target_turf = get_turf(target)
 	playsound(get_turf(src), 'sound/magic/invoke_general.ogg', 200, 1, 2)
-	var/turf/T = get_turf(target)
-	newtonian_move(get_dir(T, targets_from))
-	for(var/turf/turf in range(1, T))
-		shoot_projectile(turf)
+	newtonian_move(get_dir(target_turf, src))
+	var/angle_to_target = Get_Angle(src, target_turf)
+	if(isnum(set_angle))
+		angle_to_target = set_angle
+	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
+	for(var/i in colossus_shotgun_shot_angles)
+		shoot_projectile(null, angle_to_target + i)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots	(list/dirs)
 	if(!islist(dirs))
 		dirs = alldirs.Copy()
 	playsound(get_turf(src), 'sound/magic/invoke_general.ogg', 200, 1, 2)
