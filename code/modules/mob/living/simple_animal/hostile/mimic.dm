@@ -105,7 +105,7 @@
 	var/mob/living/L = .
 	if(istype(L))
 		if(prob(15))
-			L.Weaken(2)
+			L.Knockdown(40)
 			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
 
 var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/cable, /obj/structure/window)
@@ -196,7 +196,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(prob(15))
-				C.Weaken(2)
+				C.Knockdown(40)
 				C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
 						"<span class='userdanger'>\The [src] knocks you down!</span>")
 

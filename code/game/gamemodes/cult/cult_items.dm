@@ -13,7 +13,7 @@
 
 /obj/item/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	if(!iscultist(user))
-		user.Weaken(5)
+		user.Knockdown(100)
 		user.unEquip(src, 1)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>", \
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
@@ -59,7 +59,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	breakouttime = 45
-	weaken = 1
+	knockdown = 20
 
 /obj/item/clothing/head/culthood
 	name = "cult hood"
@@ -159,7 +159,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
 		user.Dizzy(30)
-		user.Weaken(5)
+		user.Knockdown(100)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, attack_text, isinhands)
 	if(current_charges)
@@ -227,7 +227,7 @@
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.unEquip(src, 1)
 		user.Dizzy(30)
-		user.Weaken(5)
+		user.Knockdown(100)
 		user.EyeBlind(30)
 
 /obj/item/shuttle_curse
@@ -241,7 +241,7 @@
 /obj/item/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
 		user.unEquip(src, 1)
-		user.Weaken(5)
+		user.Knockdown(100)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)

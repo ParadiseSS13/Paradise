@@ -218,14 +218,14 @@
 		var/mob/living/occupant = buckled_mob
 		unbuckle_mob()
 		occupant.throw_at(A, 3, propelled)
-		occupant.apply_effect(6, STUN, 0)
-		occupant.apply_effect(6, WEAKEN, 0)
+		occupant.apply_effect(120, STUN, 0)
+		occupant.apply_effect(120, KNOCKDOWN, 0)
 		occupant.apply_effect(6, STUTTER, 0)
 		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		if(istype(A, /mob/living))
 			var/mob/living/victim = A
-			victim.apply_effect(6, STUN, 0)
-			victim.apply_effect(6, WEAKEN, 0)
+			victim.apply_effect(120, STUN, 0)
+			victim.apply_effect(120, KNOCKDOWN, 0)
 			victim.apply_effect(6, STUTTER, 0)
 			victim.take_organ_damage(10)
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
@@ -368,8 +368,8 @@
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)
-				C.apply_effect(6, STUN, 0)
-				C.apply_effect(6, WEAKEN, 0)
+				C.apply_effect(120, STUN, 0)
+				C.apply_effect(120, KNOCKDOWN, 0)
 				C.apply_effect(6, STUTTER, 0)
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		smash(user)
@@ -389,7 +389,7 @@
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Weaken(5)
+		T.Knockdown(100)
 		return
 	..()
 

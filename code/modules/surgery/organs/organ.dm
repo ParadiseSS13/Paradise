@@ -261,11 +261,11 @@
 			if(1)
 				receive_damage(0, 5.5)
 				if(owner)
-					owner.Stun(10)
+					owner.Stun(200)
 			if(2)
 				receive_damage(0, 2.8)
 				if(owner)
-					owner.Stun(5)
+					owner.Stun(100)
 	else
 		switch(severity)
 			if(1)

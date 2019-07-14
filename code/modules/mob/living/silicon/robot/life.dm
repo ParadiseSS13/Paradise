@@ -14,9 +14,9 @@
 		process_queued_alarms()
 
 /mob/living/silicon/robot/proc/clamp_values()
-	SetStunned(min(stunned, 30))
-	SetParalysis(min(paralysis, 30))
-	SetWeakened(min(weakened, 20))
+	SetStun(min(stun, 30))
+	SetUnconscious(min(unconscious, 30))
+	SetKnockdown(min(knockdown, 20))
 	SetSleeping(0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
@@ -169,7 +169,7 @@
 			weaponlock_time = 120
 
 /mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || weakened || buckled || lockcharge || stat)
+	if(unconscious || stun || knockdown || buckled || lockcharge || stat)
 		canmove = 0
 	else
 		canmove = 1

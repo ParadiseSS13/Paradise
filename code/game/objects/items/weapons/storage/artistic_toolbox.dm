@@ -71,7 +71,7 @@
 				return
 			if(!victim)
 				return
-			if(!victim.stat && !victim.restrained() && !victim.weakened)
+			if(!victim.stat && !victim.restrained() && !victim.knockdown)
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
 			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
@@ -155,7 +155,7 @@
 		progenitor.servantlinks.Remove(src)
 	progenitor = null
 	if(affected_mob)
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		affected_mob.status_flags |= CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS
 	return ..()
 
 /datum/disease/memetic_madness/stage_act()
@@ -169,7 +169,7 @@
 		affected_mob.adjustFireLoss(-12)
 		affected_mob.adjustToxLoss(-5)
 		affected_mob.setStaminaLoss(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+		var/status = CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS
 		affected_mob.status_flags &= ~status
 		affected_mob.AdjustDizzy(-10)
 		affected_mob.AdjustDrowsy(-10)
@@ -202,7 +202,7 @@
 		progenitor.hunger += min(max((progenitor.force / 10), 1), 10)
 
 	else
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		affected_mob.status_flags |= CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS
 
 	if(stage == 4)
 		if(get_dist(get_turf(progenitor), get_turf(affected_mob)) <= 7)

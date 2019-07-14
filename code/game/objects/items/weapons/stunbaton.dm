@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	var/stunforce = 7
+	var/stunforce = 140
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/bcell = null
 	var/hitcost = 1000
@@ -137,7 +137,7 @@
 	if(status && (CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		user.Weaken(stunforce*3)
+		user.Knockdown(stunforce*3)
 		deductcharge(hitcost)
 		return
 
@@ -184,7 +184,7 @@
 		C.shock_internal_organs(33)
 
 	L.Stun(stunforce)
-	L.Weaken(stunforce)
+	L.Knockdown(stunforce)
 	L.apply_effect(STUTTER, stunforce)
 
 	if(user)
@@ -211,7 +211,7 @@
 		if(bcell.charge > 0 && status == 1)
 			flick("baton_active", source)
 			user.Stun(stunforce)
-			user.Weaken(stunforce)
+			user.Knockdown(stunforce)
 			user.stuttering = stunforce
 			deductcharge(hitcost)
 			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
@@ -230,7 +230,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	stunforce = 5
+	stunforce = 100
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = SLOT_BACK

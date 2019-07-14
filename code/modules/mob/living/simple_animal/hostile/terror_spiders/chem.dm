@@ -30,5 +30,5 @@
 		// total damage: 8, human health 150 until crit, = 18.75 ticks, = 37s until death
 		update_flags |= M.adjustToxLoss(8, FALSE)
 		update_flags |= M.EyeBlurry(6, FALSE)
-		update_flags |= M.Paralyse(5, FALSE)
+		update_flags |= M.Unconscious(100, FALSE)
 	return ..() | update_flags

@@ -22,7 +22,7 @@
 		M.AdjustEyeBlurry(20)
 		M.AdjustDrowsy(20)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
-			M.AdjustParalysis(2)
+			M.AdjustUnconscious(2)
 			M.AdjustDizzy(10)
 			M.AdjustSlur(10)
 			M.AdjustConfused(10)
@@ -33,7 +33,7 @@
 /obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
 	name = "rubber bullet"
 	damage = 5
-	weaken = 3
+	knockdown = 60
 	stamina = 60
 	icon_state = "bullet-r"
 
@@ -44,7 +44,7 @@
 	hitsound_wall = null
 
 /obj/item/projectile/bullet/weakbullet2/invisible/fake
-	weaken = 0
+	knockdown = 0
 	stamina = 0
 	nodamage = 1
 	log_override = TRUE
@@ -161,8 +161,8 @@
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5
-	stun = 5
-	weaken = 5
+	stun = 100
+	knockdown = 100
 	stutter = 5
 	jitter = 20
 	range = 7
@@ -189,8 +189,8 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	weaken = 8
-	stun = 8
+	knockdown = 160
+	stun = 160
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
@@ -206,13 +206,13 @@
 
 /obj/item/projectile/bullet/meteorshot/weak
 	damage = 10
-	weaken = 4
-	stun = 4
+	knockdown = 80
+	stun = 80
 
 /obj/item/projectile/bullet/mime
 	damage = 0
-	stun = 5
-	weaken = 5
+	stun = 100
+	knockdown = 100
 	slur = 20
 	stutter = 20
 
@@ -281,11 +281,11 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	weaken = 5
+	knockdown = 100
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
 	if(isalien(target))
-		weaken = 0
+		knockdown = 0
 		nodamage = 1
 	. = ..() // Execute the rest of the code.
 

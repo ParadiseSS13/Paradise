@@ -25,9 +25,9 @@
 			//		emote("gasp")
 			if(!reagents.has_reagent("epinephrine"))
 				adjustOxyLoss(1)
-			Paralyse(3)
+			Unconscious(60)
 
-		if(paralysis)
+		if(unconscious)
 			stat = UNCONSCIOUS
 		else if(sleeping)
 			stat = UNCONSCIOUS

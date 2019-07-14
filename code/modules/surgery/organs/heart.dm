@@ -204,9 +204,9 @@
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1
 		owner.AdjustDrowsy(-4 * boost)
-		owner.AdjustParalysis(-1 * boost)
-		owner.AdjustStunned(-1 * boost)
-		owner.AdjustWeakened(-1 * boost)
+		owner.AdjustUnconscious(-20 * boost)
+		owner.AdjustStun(-20 * boost)
+		owner.AdjustKnockdown(-20 * boost)
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-1 * boost)
 

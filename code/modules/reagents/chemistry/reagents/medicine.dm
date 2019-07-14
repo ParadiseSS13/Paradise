@@ -39,7 +39,7 @@
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
 	id = "synaptizine"
-	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
+	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as unconscious."
 	reagent_state = LIQUID
 	color = "#FA46FA"
 	overdose_threshold = 40
@@ -48,9 +48,9 @@
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
-	update_flags |= M.AdjustParalysis(-1, FALSE)
-	update_flags |= M.AdjustStunned(-1, FALSE)
-	update_flags |= M.AdjustWeakened(-1, FALSE)
+	update_flags |= M.AdjustUnconscious(-20, FALSE)
+	update_flags |= M.AdjustStun(-20, FALSE)
+	update_flags |= M.AdjustKnockdown(-20, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
@@ -75,7 +75,7 @@
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(8)
-			update_flags |= M.Weaken(4, FALSE)
+			update_flags |= M.Knockdown(80, FALSE)
 		if(effect <= 15)
 			update_flags |= M.adjustToxLoss(1, FALSE)
 	return list(effect, update_flags)
@@ -309,15 +309,15 @@
 		if(effect <= 1)
 			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
 			M.emote("scream")
-			update_flags |= M.Stun(4, FALSE)
-			update_flags |= M.Weaken(4, FALSE)
+			update_flags |= M.Stun(80, FALSE)
+			update_flags |= M.Knockdown(80, FALSE)
 		else if(effect <= 3)
 			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
 			M.AdjustConfused(15)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
 			M.Dizzy(5)
-			update_flags |= M.Weaken(3, FALSE)
+			update_flags |= M.Knockdown(60, FALSE)
 		else if(effect <= 7)
 			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
 			M.Jitter(30)
@@ -325,16 +325,16 @@
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
 			M.emote("scream")
-			update_flags |= M.Stun(7, FALSE)
-			update_flags |= M.Weaken(7, FALSE)
+			update_flags |= M.Stun(140, FALSE)
+			update_flags |= M.Knockdown(140, FALSE)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
-			update_flags |= M.Paralyse(5, FALSE)
-			update_flags |= M.Weaken(4, FALSE)
+			update_flags |= M.Unconscious(100, FALSE)
+			update_flags |= M.Knockdown(80, FALSE)
 		else if(effect <= 8)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
 			M.Dizzy(5)
-			update_flags |= M.Weaken(3, FALSE)
+			update_flags |= M.Knockdown(60, FALSE)
 	return list(effect, update_flags)
 
 /datum/reagent/medicine/calomel
@@ -457,9 +457,9 @@
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
-	update_flags |= M.AdjustParalysis(-1, FALSE)
-	update_flags |= M.AdjustStunned(-1, FALSE)
-	update_flags |= M.AdjustWeakened(-1, FALSE)
+	update_flags |= M.AdjustUnconscious(-20, FALSE)
+	update_flags |= M.AdjustStun(-20, FALSE)
+	update_flags |= M.AdjustKnockdown(-20, FALSE)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
 	if(M.getOxyLoss() > 75)
@@ -489,7 +489,7 @@
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M.name] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(2)
-			update_flags |= M.Weaken(3, FALSE)
+			update_flags |= M.Knockdown(60, FALSE)
 		if(effect <= 15)
 			M.emote("collapse")
 	return list(effect, update_flags)
@@ -536,7 +536,7 @@
 		if(16 to 35)
 			M.Drowsy(20)
 		if(36 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
+			update_flags |= M.Unconscious(300, FALSE)
 			M.Drowsy(20)
 	return ..() | update_flags
 
@@ -612,11 +612,11 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(prob(20))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustUnconscious(-20, FALSE)
 	if(prob(20))
-		update_flags |= M.AdjustStunned(-1, FALSE)
+		update_flags |= M.AdjustStun(-20, FALSE)
 	if(prob(20))
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+		update_flags |= M.AdjustKnockdown(-20, FALSE)
 	if(prob(5))
 		update_flags |= M.SetSleeping(0, FALSE)
 	if(prob(5))
@@ -650,7 +650,7 @@
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(2)
-			update_flags |= M.Weaken(3, FALSE)
+			update_flags |= M.Knockdown(60, FALSE)
 		if(effect <= 15)
 			M.emote("collapse")
 	return list(effect, update_flags)
@@ -793,19 +793,19 @@
 		M.AdjustDrowsy(-10)
 		M.SetConfused(0)
 		update_flags |= M.SetSleeping(0, FALSE)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+		var/status = CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS
 		M.status_flags &= ~status
 	else
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags |= CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			update_flags |= M.Stun(3, FALSE)
+			update_flags |= M.Stun(60, FALSE)
 
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags |= CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS
 	..()
 
 /datum/reagent/medicine/stimulative_agent
@@ -825,9 +825,9 @@
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.AdjustParalysis(-3, FALSE)
-	update_flags |= M.AdjustStunned(-3, FALSE)
-	update_flags |= M.AdjustWeakened(-3, FALSE)
+	update_flags |= M.AdjustUnconscious(-60, FALSE)
+	update_flags |= M.AdjustStun(-60, FALSE)
+	update_flags |= M.AdjustKnockdown(-60, FALSE)
 	update_flags |= M.adjustStaminaLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
@@ -922,7 +922,7 @@
 		if(31 to 40)
 			M.Drowsy(20)
 		if(41 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
+			update_flags |= M.Unconscious(300, FALSE)
 			M.Drowsy(20)
 	return ..() | update_flags
 
@@ -987,10 +987,10 @@
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+	if(prob(50))		//Same effects as coffee, to help purge ill effects like unconscious
+		update_flags |= M.AdjustUnconscious(-20, FALSE)
+		update_flags |= M.AdjustStun(-20, FALSE)
+		update_flags |= M.AdjustKnockdown(-20, FALSE)
 		M.AdjustConfused(-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
@@ -1123,10 +1123,10 @@
 				if(prob(75))
 					M.AdjustConfused(5)
 				else
-					update_flags |= M.AdjustWeakened(5, FALSE)
+					update_flags |= M.AdjustKnockdown(100, FALSE)
 		if(44)
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
-			update_flags |= M.AdjustWeakened(15, FALSE)
+			update_flags |= M.AdjustKnockdown(300, FALSE)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
 				return ..()
@@ -1162,6 +1162,6 @@
 	update_flags |= M.adjustBruteLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustToxLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.Stun(7, FALSE)
-	update_flags |= M.Weaken(7, FALSE)
+	update_flags |= M.Stun(140, FALSE)
+	update_flags |= M.Knockdown(140, FALSE)
 	return ..() | update_flags

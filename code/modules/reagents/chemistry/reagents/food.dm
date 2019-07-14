@@ -90,9 +90,9 @@
 	if(current_cycle >= 90)
 		M.AdjustJitter(2)
 	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+		update_flags |= M.AdjustUnconscious(-20, FALSE)
+		update_flags |= M.AdjustStun(-20, FALSE)
+		update_flags |= M.AdjustKnockdown(-20, FALSE)
 	if(prob(4))
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
@@ -104,8 +104,8 @@
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Paralyse(3 * severity, FALSE)
-	update_flags |= M.Weaken(4 * severity, FALSE)
+	update_flags |= M.Unconscious(60 * severity, FALSE)
+	update_flags |= M.Knockdown(80 * severity, FALSE)
 	if(prob(8))
 		update_flags |= M.adjustToxLoss(severity, FALSE)
 	return list(0, update_flags)
@@ -207,7 +207,7 @@
 				victim.EyeBlind(1)
 				victim.Confused(3)
 				victim.damageoverlaytemp = 60
-				victim.Weaken(3)
+				victim.Knockdown(60)
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
@@ -223,7 +223,7 @@
 				victim.EyeBlind(2)
 				victim.Confused(6)
 				victim.damageoverlaytemp = 75
-				victim.Weaken(5)
+				victim.Knockdown(100)
 				victim.drop_item()
 
 /datum/reagent/consumable/frostoil
@@ -697,8 +697,8 @@
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
 		update_flags |= M.adjustOxyLoss(25, FALSE)
-		update_flags |= M.Stun(5, FALSE)
-		update_flags |= M.Paralyse(10, FALSE)
+		update_flags |= M.Stun(100, FALSE)
+		update_flags |= M.Unconscious(200, FALSE)
 	return list(0, update_flags)
 
 /datum/reagent/consumable/meatslurry
@@ -795,8 +795,8 @@
 
 /datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
-		M.Stun(2, FALSE)
-		M.Weaken(2, FALSE)
+		M.Stun(40, FALSE)
+		M.Knockdown(40, FALSE)
 		M.update_canmove()
 		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		M.ForceContractDisease(new /datum/disease/food_poisoning(0))
@@ -837,11 +837,11 @@
 	else if(volume >= 45 && prob(volume*0.08))
 		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
 		update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		update_flags |= M.Stun(1, FALSE)
+		update_flags |= M.Stun(20, FALSE)
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
-		update_flags |= M.Stun(1, FALSE)
-		update_flags |= M.Weaken(1, FALSE)
+		update_flags |= M.Stun(20, FALSE)
+		update_flags |= M.Knockdown(20, FALSE)
 		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..() | update_flags
 
@@ -931,7 +931,7 @@
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 10)
-		update_flags |= M.Paralyse(2, FALSE)
+		update_flags |= M.Unconscious(40, FALSE)
 	if(prob(20))
 		update_flags |= M.LoseBreath(4, FALSE)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)

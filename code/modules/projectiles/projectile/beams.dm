@@ -112,8 +112,8 @@
 	name = "sniper beam"
 	icon_state = "sniperlaser"
 	damage = 60
-	stun = 5
-	weaken = 5
+	stun = 100
+	knockdown = 100
 	stutter = 5
 	light_color = LIGHT_COLOR_PINK
 

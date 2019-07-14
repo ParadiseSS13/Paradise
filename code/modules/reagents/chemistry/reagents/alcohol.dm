@@ -511,7 +511,7 @@
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	var/update_flag = STATUS_UPDATE_NONE
-	update_flag |= M.Stun(1, FALSE)
+	update_flag |= M.Stun(20, FALSE)
 	return ..() | update_flag
 
 /datum/reagent/consumable/ethanol/irish_cream
@@ -910,7 +910,7 @@
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 13)
-		update_flags |= M.Weaken(3, FALSE)
+		update_flags |= M.Knockdown(60, FALSE)
 	if(current_cycle >= 55)
 		update_flags |= M.Druggy(55, FALSE)
 	if(current_cycle >= 200)
@@ -1056,9 +1056,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(prob(25))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+		update_flags |= M.AdjustUnconscious(-20, FALSE)
+		update_flags |= M.AdjustStun(-20, FALSE)
+		update_flags |= M.AdjustKnockdown(-20, FALSE)
 	if(prob(8))
 		M.reagents.add_reagent("methamphetamine",1.2)
 		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
@@ -1140,7 +1140,7 @@
 	if(prob(50))
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
-		update_flags |= M.Stun(1, FALSE)
+		update_flags |= M.Stun(20, FALSE)
 	if(prob(8))
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
 	if(prob(8))

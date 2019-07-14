@@ -383,7 +383,7 @@
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || weakened)
+					if(lying || knockdown)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
@@ -404,7 +404,7 @@
 								message = "<B>[src]</B> attempts a flip and crashes to the floor!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Weaken(2)
+								Knockdown(40)
 							else
 								message = "<B>[src]</B> does a flip!"
 								SpinAnimation(5,1)
@@ -448,7 +448,7 @@
 			message = "<B>[src]</B> faints."
 			if(sleeping)
 				return //Can't faint while asleep
-			AdjustSleeping(2)
+			AdjustSleeping(40)
 			m_type = 1
 
 		if("cough", "coughs")
@@ -765,7 +765,7 @@
 					m_type = 1
 
 		if("collapse", "collapses")
-			Paralyse(2)
+			Unconscious(40)
 			message = "<B>[src]</B> collapses!"
 			m_type = 2
 			if(miming)

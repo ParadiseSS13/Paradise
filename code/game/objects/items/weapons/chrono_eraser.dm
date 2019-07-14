@@ -210,7 +210,7 @@
 			qdel(captured)
 			qdel(src)
 		else
-			captured.Paralyse(4)
+			captured.Unconscious(80)
 			if(captured.reagents)
 				captured.reagents.del_reagent("synaptizine") //you pesky thing you
 			if(captured.loc != src) //If they manage to escape, immediately kill them, this is so that even if there IS a way to get out, they won't use it

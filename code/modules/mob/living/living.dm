@@ -412,9 +412,9 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetParalysis(0, 1, 1)
-	SetStunned(0, 1, 1)
-	SetWeakened(0, 1, 1)
+	SetUnconscious(0, 1, 1)
+	SetStun(0, 1, 1)
+	SetKnockdown(0, 1, 1)
 	SetSlowed(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
@@ -610,7 +610,7 @@
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
+	if(!isliving(src) || next_move > world.time || stat || knockdown || stun || unconscious)
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
@@ -684,7 +684,7 @@
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-	Weaken(5)
+	Knockdown(100)
 
 /mob/living/proc/get_visible_name()
 	return name
@@ -1024,12 +1024,12 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("weakened")
-			SetWeakened(var_value)
-		if("stunned")
-			SetStunned(var_value)
-		if("paralysis")
-			SetParalysis(var_value)
+		if("knockdown")
+			SetKnockdown(var_value)
+		if("stun")
+			SetStun(var_value)
+		if("unconscious")
+			SetUnconscious(var_value)
 		if("sleeping")
 			SetSleeping(var_value)
 		if("maxHealth")

@@ -4,17 +4,17 @@
 		return FALSE
 	. = ..()
 
-/mob/living/carbon/human/SetStunned(amount, updating = 1, force = 0)
+/mob/living/carbon/human/SetStun(amount, updating = 1, force = 0)
 	if(dna.species)
 		amount = amount * dna.species.stun_mod
 	..()
 
-/mob/living/carbon/human/SetWeakened(amount, updating = 1, force = 0)
+/mob/living/carbon/human/SetKnockdown(amount, updating = 1, force = 0)
 	if(dna.species)
 		amount = amount * dna.species.stun_mod
 	..()
 
-/mob/living/carbon/human/SetParalysis(amount, updating = 1, force = 0)
+/mob/living/carbon/human/SetUnconscious(amount, updating = 1, force = 0)
 	if(dna.species)
 		amount = amount * dna.species.stun_mod
 	..()

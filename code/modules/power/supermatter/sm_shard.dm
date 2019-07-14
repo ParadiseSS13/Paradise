@@ -60,7 +60,7 @@
 					H.UpdateDamageIcon()
 				H.updatehealth()
 				if(!(H.species && (H.species.flags & NO_PAIN)))
-					H.Weaken(3)
+					H.Knockdown(60)
 	..()
 
 

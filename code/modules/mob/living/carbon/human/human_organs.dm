@@ -65,7 +65,7 @@
 			if(!(NO_PAIN in dna.species.species_traits))
 				emote("scream")
 			custom_emote(1, "collapses!")
-		Weaken(5) //can't emote while weakened, apparently.
+		Knockdown(100) //can't emote while knockdown, apparently.
 
 
 /mob/living/carbon/human/proc/handle_grasp()

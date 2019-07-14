@@ -50,7 +50,7 @@
 	var/oxy_mod = 1		 // Oxy damage reduction/amplification
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
-	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
+	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/unconscious
 
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 
@@ -382,9 +382,9 @@
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
-							"<span class='userdanger'>[user] has weakened [target]!</span>")
-			target.apply_effect(4, WEAKEN, armor_block)
+			target.visible_message("<span class='danger'>[user] has knocked [target] down!</span>", \
+							"<span class='userdanger'>[user] has knocked [target] down!</span>")
+			target.apply_effect(40, KNOCKDOWN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
@@ -404,7 +404,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
 		var/randn = rand(1, 100)
 		if(randn <= 25)
-			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
+			target.apply_effect(40, KNOCKDOWN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)

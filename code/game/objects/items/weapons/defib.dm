@@ -339,7 +339,7 @@
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
-			H.Weaken(5)
+			H.Knockdown(100)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
@@ -426,7 +426,7 @@
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive(FALSE)
 						H.KnockOut(FALSE)
-						H.Paralyse(5)
+						H.Unconscious(100)
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
@@ -490,7 +490,7 @@
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
-			H.Weaken(5)
+			H.Knockdown(100)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			H.shock_internal_organs(100)
@@ -545,7 +545,7 @@
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive(FALSE)
 						H.KnockOut(FALSE)
-						H.Paralyse(5)
+						H.Unconscious(100)
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))

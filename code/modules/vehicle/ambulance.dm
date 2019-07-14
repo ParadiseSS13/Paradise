@@ -16,7 +16,7 @@
 	name = "Toggle Sirens"
 	icon_icon = 'icons/obj/vehicles.dmi'
 	button_icon_state = "docwagon2"
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUN | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 

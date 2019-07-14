@@ -697,8 +697,8 @@
 					add_attack_logs(src, M, "Knocked down")
 					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
 					M.stop_pulling()
-					M.Stun(8)
-					M.Weaken(5)
+					M.Stun(160)
+					M.Knockdown(100)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)

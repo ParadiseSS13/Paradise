@@ -29,8 +29,8 @@
 
 /datum/martial_art/adminfu/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	A.do_attack_animation(D)
-	D.Weaken(25)
-	D.Stun(25)
+	D.Knockdown(25)
+	D.Stun(500)
 	return 1
 
 /datum/martial_art/adminfu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

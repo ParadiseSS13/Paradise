@@ -4,7 +4,7 @@
 	maxHealth = 250
 	health = 250
 	icon_state = "alienq_s"
-	status_flags = CANPARALYSE
+	status_flags = CANUNCONSCIOUS
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0

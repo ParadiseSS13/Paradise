@@ -74,7 +74,7 @@
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
 			current_body = lich
-			lich.Weaken(10+10*resurrections)
+			lich.Knockdown(10+10*resurrections * 20)
 			++resurrections
 			lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(lich), slot_shoes)
 			lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), slot_w_uniform)

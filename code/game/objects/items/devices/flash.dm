@@ -87,16 +87,16 @@
 	add_attack_logs(user, M, "Flashed with [src]")
 	if(user && targeted)
 		if(M.weakeyes)
-			M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+			M.Knockdown(60) //quick weaken bypasses eye protection but has no eye flash
 		if(M.flash_eyes(1, 1))
 			M.AdjustConfused(power)
 			terrible_conversion_proc(M, user)
-			M.Stun(1)
+			M.Stun(20)
 			visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 			to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 			to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			if(M.weakeyes)
-				M.Stun(2)
+				M.Stun(40)
 				M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shields your eyes!</span>")
 		else
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
@@ -129,7 +129,7 @@
 						return 1
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
-			M.Weaken(rand(5,10))
+			M.Knockdown(rand(100,200))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
 		return 1
 

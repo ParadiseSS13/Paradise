@@ -335,7 +335,7 @@
 			popup.open()
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
-	if(usr.lying || usr.stat || usr.stunned || !Adjacent(usr))
+	if(usr.lying || usr.stat || usr.stun || !Adjacent(usr))
 		return
 
 	var/mob/living/living_user = usr

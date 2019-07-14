@@ -37,7 +37,7 @@
 	else
 		adjustOxyLoss(-1)
 
-	handle_stunned()
+	handle_stun()
 
 	var/area/my_area = get_area(src)
 

@@ -95,7 +95,7 @@
 		head_attack_message = " on the head"
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
-			target.apply_effect(min(armor_duration, 10) , WEAKEN) // Never weaken more than a flash!
+			target.apply_effect(min(armor_duration, 10) * 20 , KNOCKDOWN) // Never weaken more than a flash!
 
 	//Display an attack message.
 	if(target != user)

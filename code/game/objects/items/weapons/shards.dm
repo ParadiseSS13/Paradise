@@ -83,7 +83,7 @@
 					return
 				if(affecting.is_robotic())
 					return
-				H.Weaken(3)
+				H.Knockdown(60)
 				if(affecting.receive_damage(5, 0))
 					H.UpdateDamageIcon()
 	..()

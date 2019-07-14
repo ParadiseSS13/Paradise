@@ -181,7 +181,7 @@ var/const/SAFETY_COOLDOWN = 100
 				eat(I, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
-	L.Paralyse(5)
+	L.Unconscious(100)
 
 	// For admin fun, var edit emagged to 2.
 	if(gib || emagged == 2)

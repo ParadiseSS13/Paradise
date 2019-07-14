@@ -56,7 +56,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
-		user.Paralyse(20)
+		user.Unconscious(20)
 		return
 
 	if(M.stat !=2)

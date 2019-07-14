@@ -14,7 +14,7 @@
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = FALSE // movement delay to add
 
-	status_flags = CANPARALYSE|CANPUSH
+	status_flags = CANUNCONSCIOUS|CANPUSH
 	var/heal_rate = 5
 
 	var/large = FALSE
@@ -130,7 +130,7 @@
 	stat(null, "Move Mode: [m_intent]")
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+/mob/living/carbon/alien/SetStun(amount, updating = 1, force = 0)
 	..()
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay

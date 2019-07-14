@@ -28,7 +28,7 @@
 /obj/item/organ/internal/headpocket/on_life()
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ("head")
-	if(pocket.contents.len && (owner.stunned || !findtextEx(head.h_style, "Tentacles")))
+	if(pocket.contents.len && (owner.stun || !findtextEx(head.h_style, "Tentacles")))
 		owner.visible_message("<span class='notice'>Something falls from [owner]'s head!</span>",
 													"<span class='notice'>Something falls from your head!</span>")
 		empty_contents()

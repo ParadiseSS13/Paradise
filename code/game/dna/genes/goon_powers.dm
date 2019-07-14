@@ -388,7 +388,7 @@
 
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/user = usr)
 	var/failure = 0
-	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
+	if(istype(user.loc,/mob/) || user.lying || user.stun || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
@@ -404,8 +404,8 @@
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
-			user.Weaken(5)
-			user.Stun(5)
+			user.Knockdown(100)
+			user.Stun(100)
 			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
@@ -425,16 +425,16 @@
 		if(FAT in user.mutations && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
-			user.AdjustWeakened(10)
-			user.AdjustStunned(5)
+			user.AdjustKnockdown(10)
+			user.AdjustStun(100)
 
 		user.layer = prevLayer
 
 	if(istype(user.loc,/obj/))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-		user.AdjustParalysis(3)
-		user.AdjustWeakened(5)
+		user.AdjustUnconscious(60)
+		user.AdjustKnockdown(100)
 		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6

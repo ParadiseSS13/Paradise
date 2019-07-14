@@ -82,9 +82,9 @@
 
 /mob/living/carbon/human/handle_disabilities()
 	if(disabilities & EPILEPSY)
-		if((prob(1) && paralysis < 1))
+		if((prob(1) && unconscious < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-			Paralyse(10)
+			Unconscious(200)
 			Jitter(1000)
 
 	// If we have the gene for being crazy, have random events.
@@ -93,12 +93,12 @@
 			Hallucinate(20)
 
 	if(disabilities & COUGHING)
-		if((prob(5) && paralysis <= 1))
+		if((prob(5) && unconscious <= 1))
 			drop_item()
 			emote("cough")
 	if(disabilities & TOURETTES)
-		if((prob(10) && paralysis <= 1))
-			Stun(10)
+		if((prob(10) && unconscious <= 1))
+			Stun(200)
 			switch(rand(1, 3))
 				if(1)
 					emote("twitch")
@@ -211,7 +211,7 @@
 					autopsy_damage = 2
 					if(prob(5))
 						radiation = max(radiation-5, 0)
-						Weaken(3)
+						Knockdown(60)
 						to_chat(src, "<span class='danger'>You feel weak.</span>")
 						emote("collapse")
 
@@ -651,8 +651,8 @@
 		AdjustDrowsy(-1)
 		EyeBlurry(2)
 		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
+			AdjustSleeping(20)
+			Unconscious(100)
 
 	AdjustConfused(-1)
 	// decrement dizziness counter, clamped to 0
@@ -713,7 +713,7 @@
 				if(prob(8))
 					fakevomit()
 			if(alcohol_strength >= pass_out)
-				Paralyse(5/sober_str)
+				Unconscious(100/sober_str)
 				Drowsy(30/sober_str)
 				if(L)
 					L.receive_damage(0.1, 1)
@@ -748,7 +748,7 @@
 		if(REGEN in mutations)
 			heal_overall_damage(0.1, 0.1)
 
-		if(paralysis)
+		if(unconscious)
 			stat = UNCONSCIOUS
 
 		else if(sleeping)
@@ -812,7 +812,7 @@
 
 		if(getBrainLoss() >= 100) // braindeath
 			AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
-			Weaken(30)
+			Knockdown(600)
 
 		if(!check_death_method())
 			if(health <= HEALTH_THRESHOLD_DEAD)
@@ -829,7 +829,7 @@
 				if(prob(7))
 					AdjustConfused(2)
 				if(prob(5))
-					Paralyse(2)
+					Unconscious(40)
 				switch(health)
 					if(-INFINITY to -100)
 						adjustOxyLoss(1)
@@ -840,12 +840,12 @@
 						if(prob(health * -0.2))
 							var/datum/disease/D = new /datum/disease/critical/heart_failure
 							ForceContractDisease(D)
-						Paralyse(5)
+						Unconscious(100)
 					if(-99 to -80)
 						adjustOxyLoss(1)
 						if(prob(4))
 							to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
-							Paralyse(2)
+							Unconscious(40)
 							var/datum/disease/D = new /datum/disease/critical/heart_failure
 							ForceContractDisease(D)
 					if(-79 to -50)
@@ -858,9 +858,9 @@
 							ForceContractDisease(D)
 						if(prob(6))
 							to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-							Weaken(3)
+							Knockdown(60)
 						if(prob(3))
-							Paralyse(2)
+							Unconscious(40)
 					if(-49 to 0)
 						adjustOxyLoss(1)
 						if(prob(3))
@@ -868,7 +868,7 @@
 							ForceContractDisease(D)
 						if(prob(5))
 							to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-							Weaken(3)
+							Knockdown(60)
 
 	else //dead
 		SetSilence(0)
@@ -1111,7 +1111,7 @@
 		adjustBrainLoss(3)
 	else if(prob(10))
 		adjustBrainLoss(1)
-	Weaken(5)
+	Knockdown(100)
 	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
 	adjustOxyLoss(20)
 

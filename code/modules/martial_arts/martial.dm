@@ -68,9 +68,9 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
-								"<span class='userdanger'>[A] has weakened [D]!</span>")
-		D.apply_effect(4, WEAKEN, armor_block)
+		D.visible_message("<span class='danger'>[A] has knocked [D] down!!</span>", \
+								"<span class='userdanger'>[A] has knocked [D] down!</span>")
+		D.apply_effect(40, KNOCKDOWN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
@@ -229,7 +229,7 @@
 	add_fingerprint(user)
 	if((CLUMSY in user.disabilities) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
-		user.Weaken(3)
+		user.Knockdown(60)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, "head")
@@ -264,13 +264,13 @@
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									   "<span class='userdanger'>Your legs give out!</span>")
-				H.Weaken(4)
+				H.Knockdown(80)
 			if(H.staminaloss && !H.sleeping)
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
-					H.SetSleeping(30)
+					H.SetSleeping(600)
 					H.adjustBrainLoss(25)
 			return
 		else

@@ -38,7 +38,7 @@
 				if(istajaran(affected_mob))
 					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a hairball!</span>", \
 													"<span class='userdanger'>You cough up a hairball!</span>")
-					affected_mob.Stun(5)
+					affected_mob.Stun(100)
 				else
 					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")

@@ -213,10 +213,10 @@
 		M.SetSleeping(0)
 		M.Stuttering(20)
 		M.MinimumDeafTicks(30)
-		M.Weaken(3)
+		M.Knockdown(60)
 		if(prob(30))
-			M.Stun(10)
-			M.Paralyse(4)
+			M.Stun(200)
+			M.Unconscious(80)
 		else
 			M.Jitter(500)
 		///else the mousetraps are useless

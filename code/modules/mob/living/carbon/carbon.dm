@@ -88,13 +88,13 @@
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
 		return 0
 	if(stun)
-		Stun(4)
+		Stun(80)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
 		if(stun)
-			Weaken(10)
+			Knockdown(200)
 	else
 		if(message)
 			visible_message("<span class='danger'>[src] throws up!</span>", \
@@ -162,12 +162,12 @@
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
 	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(2)
+		Stun(40)
 	spawn(20)
 		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(3)
-			Weaken(3)
+			Stun(60)
+			Knockdown(60)
 	if(shock_damage > 200)
 		src.visible_message(
 			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
@@ -226,12 +226,12 @@
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
-				AdjustSleeping(-5)
+				AdjustSleeping(-100)
 				if(sleeping == 0)
 					StopResting()
-				AdjustParalysis(-3)
-				AdjustStunned(-3)
-				AdjustWeakened(-3)
+				AdjustUnconscious(-60)
+				AdjustStun(-60)
+				AdjustKnockdown(-60)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -319,7 +319,7 @@
 		if(visual)
 			return
 		if(weakeyes)
-			Stun(2)
+			Stun(40)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
@@ -528,15 +528,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				hurt = FALSE*/
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
-			Weaken(1)
+			Knockdown(20)
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)
-			victim.Weaken(1)
-			Weaken(1)
+			victim.Knockdown(20)
+			Knockdown(20)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
@@ -780,7 +780,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Knockdown(60, 1, 1) //We dont check for CANKNOCKDOWN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
@@ -958,7 +958,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
+/mob/living/carbon/proc/slip(description, stun, knockdown, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
@@ -977,7 +977,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
-	Weaken(weaken)
+	Knockdown(knockdown)
 	return 1
 
 /mob/living/carbon/proc/can_eat(flags = 255)

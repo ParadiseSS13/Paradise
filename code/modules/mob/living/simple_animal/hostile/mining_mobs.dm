@@ -213,7 +213,7 @@
 
 /obj/effect/goliath_tentacle/proc/Trip()
 	for(var/mob/living/M in src.loc)
-		M.Stun(5)
+		M.Stun(100)
 		M.adjustBruteLoss(rand(10,15))
 		latched = 1
 		if(src && M)

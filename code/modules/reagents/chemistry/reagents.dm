@@ -154,8 +154,8 @@
 	if(prob(6))
 		to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 		M.visible_message("<span class='warning'>[M] gags and retches!</span>")
-		update_flags |= M.Stun(rand(2,4), FALSE)
-		update_flags |= M.Weaken(rand(2,4), FALSE)
+		update_flags |= M.Stun(rand(40,80), FALSE)
+		update_flags |= M.Knockdown(rand(40,80), FALSE)
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
 	if(prob(5))
@@ -165,7 +165,7 @@
 /datum/reagent/proc/fakedeath(mob/living/M)
 	if(M.status_flags & FAKEDEATH)
 		return
-	if(!(M.status_flags & CANPARALYSE))
+	if(!(M.status_flags & CANUNCONSCIOUS))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return

@@ -147,7 +147,7 @@
 		return 0
 	var/mob/living/victim = pick(victims)
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
-	victim.Stun(3) //HUE
+	victim.Stun(60) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
 		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")

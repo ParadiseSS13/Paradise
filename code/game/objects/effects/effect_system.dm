@@ -560,7 +560,7 @@ steam.start() -- spawns the effect
 //		if(M.wear_suit, /obj/item/clothing/suit/wizrobe && (M.hat, /obj/item/clothing/head/wizard) && (M.shoes, /obj/item/clothing/shoes/sandal))  // I'll work on it later
 		else
 			M.drop_item()
-			M.AdjustSleeping(5)
+			M.AdjustSleeping(100)
 			if(M.coughedtime != 1)
 				M.coughedtime = 1
 				M.emote("cough")
@@ -577,7 +577,7 @@ steam.start() -- spawns the effect
 			return
 		else
 			M.drop_item()
-			M.AdjustSleeping(5)
+			M.AdjustSleeping(100)
 			if(M.coughedtime != 1)
 				M.coughedtime = 1
 				M.emote("cough")
@@ -1171,7 +1171,7 @@ steam.start() -- spawns the effect
 			for(var/mob/M in viewers(1, location))
 				if(prob (50 * amount))
 					to_chat(M, "<span class='warning'>The explosion knocks you down.</span>")
-					M.Weaken(rand(1,5))
+					M.Knockdown(rand(20,100))
 			return
 		else
 			var/devastation = -1

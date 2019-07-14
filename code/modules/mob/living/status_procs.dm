@@ -38,7 +38,7 @@
 	*	Dizzy						*
 			The screen goes all warped
 	*	Drowsy
-			You begin to yawn, and have a chance of incrementing "Paralysis"
+			You begin to yawn, and have a chance of incrementing "unconscious"
 	*	Druggy					*
 			A trippy overlay appears.
 	*	Drunk						*
@@ -53,7 +53,7 @@
 			Your character will visibly twitch. Higher values amplify the effect.
 	* LoseBreath			*
 			Your character is unable to breathe.
-	*	Paralysis				*
+	*	unconscious				*
 			Your character is knocked out.
 	* Silent					*
 			Your character is unable to speak.
@@ -69,7 +69,7 @@
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
 			Your character stutters parts of their messages.
-	*	Weakened				*
+	*	knockdown				*
 			Your character collapses, but is still conscious.
 */
 
@@ -116,14 +116,14 @@
 	var/hallucination = 0
 	var/jitteriness = 0
 	var/losebreath = 0
-	var/paralysis = 0
+	var/unconscious = 0
 	var/silent = 0
 	var/sleeping = 0
 	var/slowed = 0
 	var/slurring = 0
-	var/stunned = 0
+	var/stun = 0
 	var/stuttering = 0
-	var/weakened = 0
+	var/knockdown = 0
 
 /mob/living
 	// Bitfields
@@ -306,26 +306,6 @@
 	var/new_value = directional_bounded_sum(losebreath, amount, bound_lower, bound_upper)
 	SetLoseBreath(new_value)
 
-// PARALYSE
-
-/mob/living/Paralyse(amount, updating = 1, force = 0)
-	return SetParalysis(max(paralysis, amount), updating, force)
-
-/mob/living/SetParalysis(amount, updating = 1, force = 0)
-	. = STATUS_UPDATE_STAT
-	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	if(status_flags & CANPARALYSE || force)
-		paralysis = max(amount, 0)
-		if(updating)
-			update_canmove()
-			update_stat("paralysis")
-
-/mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(paralysis, amount, bound_lower, bound_upper)
-	return SetParalysis(new_value, updating, force)
-
 // SILENT
 
 /mob/living/Silence(amount)
@@ -338,25 +318,6 @@
 	var/new_value = directional_bounded_sum(silent, amount, bound_lower, bound_upper)
 	SetSilence(new_value)
 
-// SLEEPING
-
-/mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
-	return SetSleeping(max(sleeping, amount), updating, no_alert)
-
-/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
-	. = STATUS_UPDATE_STAT
-	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	sleeping = max(amount, 0)
-	if(updating)
-		update_sleeping_effects(no_alert)
-		update_stat("sleeping")
-		update_canmove()
-
-/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
-	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	return SetSleeping(new_value, updating, no_alert)
 
 // SLOWED
 
@@ -394,27 +355,30 @@
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
 	SetCultSlur(new_value)
 
-// STUN
+#define STUN_TIME_MULTIPLIER 0.05 //temporary; multiplies input stun times by this, will be removed once stuns are status effects
+/////////////////////////////////// STUN ////////////////////////////////////
 
-/mob/living/Stun(amount, updating = 1, force = 0)
-	return SetStunned(max(stunned, amount), updating, force)
-
-/mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
-	. = STATUS_UPDATE_CANMOVE
-	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-
-	if(status_flags & CANSTUN || force)
-		stunned = max(amount, 0)
+/mob/living/Stun(amount, updating = 1, ignore_canstun = 0)
+	if(status_flags & CANSTUN || ignore_canstun)
+		stun = max(max(stun,amount * STUN_TIME_MULTIPLIER),0) //can't go below 0, getting a low amount of stun doesn't lower your current stun
 		if(updating)
 			update_canmove()
-	else
-		return STATUS_UPDATE_NONE
+		return TRUE
 
-/mob/living/AdjustStunned(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(stunned, amount, bound_lower, bound_upper)
-	return SetStunned(new_value, updating, force)
+/mob/living/SetStun(amount, updating = 1, ignore_canstun = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stun"
+	if(status_flags & CANSTUN || ignore_canstun)
+		stun = max(amount * STUN_TIME_MULTIPLIER,0)
+		if(updating)
+			update_canmove()
+		return TRUE
+
+/mob/living/AdjustStun(amount, updating = 1, ignore_canstun = 0)
+	if(status_flags & CANSTUN || ignore_canstun)
+		stun = max(stun + (amount * STUN_TIME_MULTIPLIER),0)
+		if(updating)
+			update_canmove()
+		return TRUE
+
 
 // STUTTERING
 
@@ -431,26 +395,98 @@
 	var/new_value = directional_bounded_sum(stuttering, amount, bound_lower, bound_upper)
 	SetStuttering(new_value, force)
 
-// WEAKEN
+/////////////////////////////////// KNOCKDOWN ////////////////////////////////////
 
-/mob/living/Weaken(amount, updating = 1, force = 0)
-	return SetWeakened(max(weakened, amount), updating, force)
-
-/mob/living/SetWeakened(amount, updating = 1, force = 0)
-	. = STATUS_UPDATE_CANMOVE
-	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	if(status_flags & CANWEAKEN || force)
-		weakened = max(amount, 0)
+/mob/living/Knockdown(amount, updating = 1, ignore_canknockdown = 0)
+	if((status_flags & CANKNOCKDOWN) || ignore_canknockdown)
+		knockdown = max(max(knockdown,amount * STUN_TIME_MULTIPLIER),0)
 		if(updating)
 			update_canmove()	//updates lying, canmove and icons
-	else
-		return STATUS_UPDATE_NONE
+		return TRUE
 
-/mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
-	return SetWeakened(new_value, updating, force)
+/mob/living/SetKnockdown(amount, updating = 1, ignore_canknockdown = 0)
+	if(status_flags & CANKNOCKDOWN || ignore_canknockdown)
+		knockdown = max(amount * STUN_TIME_MULTIPLIER,0)
+		if(updating)
+			update_canmove()	//updates lying, canmove and icons
+		return TRUE
+
+/mob/living/AdjustKnockdown(amount, updating = 1, ignore_canknockdown = 0)
+	if((status_flags & CANKNOCKDOWN) || ignore_canknockdown)
+		knockdown = max(knockdown + (amount * STUN_TIME_MULTIPLIER) ,0)
+		if(updating)
+			update_canmove()	//updates lying, canmove and icons
+		return TRUE
+
+/////////////////////////////////// UNCONSCIOUS ////////////////////////////////////
+
+/mob/living/Unconscious(amount, updating = TRUE, ignore_canunconscious = FALSE)
+	if(status_flags & CANUNCONSCIOUS || ignore_canunconscious)
+		var/old_unconscious = unconscious
+		unconscious = max(max(unconscious,amount * STUN_TIME_MULTIPLIER),0)
+		if((!old_unconscious && unconscious) || (old_unconscious && !unconscious))
+			if(updating)
+				update_stat()
+		return TRUE
+
+/mob/living/SetUnconscious(amount, updating = TRUE, ignore_canunconscious = FALSE)
+	if(status_flags & CANUNCONSCIOUS || ignore_canunconscious)
+		var/old_unconscious = unconscious
+		unconscious = max(amount * STUN_TIME_MULTIPLIER,0)
+		if((!old_unconscious && unconscious) || (old_unconscious && !unconscious))
+			if(updating)
+				update_stat()
+		return TRUE
+
+/mob/living/AdjustUnconscious(amount, updating = TRUE, ignore_canunconscious = FALSE)
+	if(status_flags & CANUNCONSCIOUS || ignore_canunconscious)
+		var/old_unconscious = unconscious
+		unconscious = max(unconscious + (amount * STUN_TIME_MULTIPLIER) ,0)
+		if((!old_unconscious && unconscious) || (old_unconscious && !unconscious))
+			if(updating)
+				update_stat()
+		return TRUE
+
+/////////////////////////////////// SLEEPING ////////////////////////////////////
+
+/mob/living/Sleeping(amount, updating = TRUE, no_alert = FALSE)
+	var/old_sleeping = sleeping
+	sleeping = max(max(sleeping,amount * STUN_TIME_MULTIPLIER),0)
+	if(!old_sleeping && sleeping)
+		if(!no_alert)
+			throw_alert("asleep", /obj/screen/alert/asleep)
+		if(updating)
+			update_stat()
+	else if(old_sleeping && !sleeping)
+		clear_alert("asleep")
+		if(updating)
+			update_stat()
+
+/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+	var/old_sleeping = sleeping
+	sleeping = max(amount * STUN_TIME_MULTIPLIER,0)
+	if(!old_sleeping && sleeping)
+		if(!no_alert)
+			throw_alert("asleep", /obj/screen/alert/asleep)
+		if(updating)
+			update_stat()
+	else if(old_sleeping && !sleeping)
+		clear_alert("asleep")
+		if(updating)
+			update_stat()
+
+/mob/living/AdjustSleeping(amount, updating = 1, no_alert = FALSE)
+	var/old_sleeping = sleeping
+	sleeping = max(sleeping + (amount * STUN_TIME_MULTIPLIER) ,0)
+	if(!old_sleeping && sleeping)
+		if(!no_alert)
+			throw_alert("asleep", /obj/screen/alert/asleep)
+		if(updating)
+			update_stat()
+	else if(old_sleeping && !sleeping)
+		clear_alert("asleep")
+		if(updating)
+			update_stat()
 
 //
 //		DISABILITIES

@@ -59,7 +59,7 @@
 	sleep(delay/4)
 	if(imp_in && imp_in.stat)
 		imp_in.visible_message("<span class = 'warning'>[imp_in] doubles over in pain!</span>")
-		imp_in.Weaken(7)
+		imp_in.Knockdown(140)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(delay/4)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)

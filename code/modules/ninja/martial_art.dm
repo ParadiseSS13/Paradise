@@ -51,7 +51,7 @@
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
 
 /datum/martial_art/ninja_martial_art/proc/wrist_wrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.weakened)
+	if(!D.stat && !D.knockdown)
 		if(has_focus)
 			has_focus = 0
 			A.face_atom(D)
@@ -61,7 +61,7 @@
 			D.emote("scream")
 			D.drop_item()
 			D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
-			D.Stun(1)
+			D.Stun(20)
 			spawn(50) has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
@@ -69,7 +69,7 @@
 	return A.pointed(D)
 
 /datum/martial_art/ninja_martial_art/proc/choke_hold(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.weakened)
+	if(!D.stat && !D.knockdown)
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
 			to_chat(A, "<span class='warning'>You cannot grab [D] from that angle!</span>")
@@ -106,7 +106,7 @@
 
 		to_chat(A, "<span class='warning'>You feel [D] go limp in your grip.</span>")
 		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
-		D.AdjustParalysis(20)
+		D.AdjustUnconscious(20)
 
 		has_choke_hold = 0
 
@@ -114,7 +114,7 @@
 	return A.pointed(D)
 
 /datum/martial_art/ninja_martial_art/proc/palm_strike(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.weakened)
+	if(!D.stat && !D.knockdown)
 		if(has_focus)
 			has_focus = 0
 			A.face_atom(D)
@@ -126,7 +126,7 @@
 			var/atom/throw_target = get_ranged_target_turf(D, get_dir(D, get_step_away(D, A)), 3) // Get a turf 3 tiles away from the target relative to our direction from him.
 			D.throw_at(throw_target, 200, 4) // Throw the poor bastard at the target we just gabbed.
 
-			D.Weaken(2)
+			D.Knockdown(40)
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 			spawn(50) has_focus = 1
 			return 1

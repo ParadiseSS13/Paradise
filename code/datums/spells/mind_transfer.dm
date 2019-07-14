@@ -78,5 +78,5 @@ Also, you never added distance checking after target is selected. I've went ahea
 	//MIND TRANSFER END
 
 	//Here we paralyze both mobs and knock them out for a time.
-	caster.Paralyse(paralysis_amount_caster)
-	victim.Paralyse(paralysis_amount_victim)
+	caster.Unconscious(paralysis_amount_caster)
+	victim.Unconscious(paralysis_amount_victim)

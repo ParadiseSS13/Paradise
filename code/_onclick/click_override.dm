@@ -71,7 +71,7 @@
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
 			if(user.a_intent == INTENT_DISARM)
-				L.Weaken(3)
+				L.Knockdown(60)
 			else
 				if(P.unlimited_power)
 					L.electrocute_act(1000, P, safety = TRUE, override = TRUE) //Just kill them

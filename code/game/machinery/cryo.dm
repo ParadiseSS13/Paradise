@@ -375,7 +375,7 @@
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
 			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
-			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
+			occupant.Unconscious(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss())
 					occupant.adjustOxyLoss(-6)

@@ -56,7 +56,7 @@
 
 	if(handle_regular_status_updates()) // Status & health update, are we dead or alive etc.
 		handle_disabilities() // eye, ear, brain damages
-		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
+		handle_status_effects() //all special effects, stunned, knockdown, jitteryness, hallucination, sleeping, etc
 
 	if(client)
 		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
@@ -98,34 +98,34 @@
 /mob/living/proc/handle_regular_status_updates()
 	return stat != DEAD
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: stunned, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects()
-	handle_stunned()
-	handle_weakened()
+	handle_stun()
+	handle_knockdown()
 	handle_stuttering()
 	handle_silent()
 	handle_drugged()
 	handle_slurring()
-	handle_paralysed()
+	handle_unconscious()
 	handle_sleeping()
 	handle_slowed()
 	handle_drunk()
 	handle_cultslurring()
 
 
-/mob/living/proc/handle_stunned()
-	if(stunned)
-		AdjustStunned(-1, updating = 1, force = 1)
-		if(!stunned)
+/mob/living/proc/handle_stun()
+	if(stun)
+		AdjustStun(-20, 1, 1)
+		if(!stun)
 			update_icons()
-	return stunned
+	return stun
 
-/mob/living/proc/handle_weakened()
-	if(weakened)
-		AdjustWeakened(-1, updating = 1, force = 1)
-		if(!weakened)
+/mob/living/proc/handle_knockdown()
+	if(knockdown)
+		AdjustKnockdown(-20, 1, 1)
+		if(!knockdown)
 			update_icons()
-	return weakened
+	return knockdown
 
 /mob/living/proc/handle_stuttering()
 	if(stuttering)
@@ -152,10 +152,10 @@
 		AdjustCultSlur(-1)
 	return cultslurring
 
-/mob/living/proc/handle_paralysed()
-	if(paralysis)
-		AdjustParalysis(-1, updating = 1, force = 1)
-	return paralysis
+/mob/living/proc/handle_unconscious()
+	if(unconscious)
+		AdjustUnconscious(-20, 1, 1)
+	return unconscious
 
 /mob/living/proc/handle_sleeping()
 	if(sleeping)

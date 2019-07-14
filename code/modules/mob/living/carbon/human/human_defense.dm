@@ -264,7 +264,7 @@ emp_act
 						if(prob(I.force))
 							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
-							apply_effect(5, WEAKEN, armor)
+							apply_effect(100, KNOCKDOWN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
@@ -285,7 +285,7 @@ emp_act
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")
-						apply_effect(5, WEAKEN, armor)
+						apply_effect(100, KNOCKDOWN, armor)
 
 					if(bloody)
 						if(wear_suit)
@@ -416,7 +416,7 @@ emp_act
 			if(damage >= 25)
 				visible_message("<span class='danger'>[M] has wounded [src]!</span>", \
  					"<span class='userdanger'>[M] has wounded [src]!</span>")
-				apply_effect(4, WEAKEN, armor_block)
+				apply_effect(40, KNOCKDOWN, armor_block)
 				add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
@@ -424,7 +424,7 @@ emp_act
 			if(prob(80))
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
+				apply_effect(100, KNOCKDOWN, run_armor_check(affecting, "melee"))
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 			else
@@ -477,7 +477,7 @@ emp_act
 			switch(M.damtype)
 				if("brute")
 					if(M.force > 20)
-						Paralyse(1)
+						Unconscious(20)
 					update |= affecting.receive_damage(rand(M.force/2, M.force), 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 				if("fire")

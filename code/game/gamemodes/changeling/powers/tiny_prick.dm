@@ -103,7 +103,7 @@
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
 
-	if(iscarbon(target) && (target.status_flags & CANWEAKEN))
+	if(iscarbon(target) && (target.status_flags & CANKNOCKDOWN))
 		var/mob/living/carbon/C = target
 		C.do_jitter_animation(500)
 

@@ -12,8 +12,8 @@
 	throw_range = 20
 	discrete = 1
 
-	trip_stun = 4
-	trip_weaken = 2
+	trip_stun = 80
+	trip_weaken = 40
 	trip_chance = 100
 	trip_walksafe = FALSE
 	trip_verb = TV_SLIP

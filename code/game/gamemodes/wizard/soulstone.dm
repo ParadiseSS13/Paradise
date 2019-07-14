@@ -47,7 +47,7 @@
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	if(!can_use(user))
-		user.Paralyse(5)
+		user.Unconscious(100)
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
 
@@ -127,7 +127,7 @@
 		return
 
 	if(!can_use(user))
-		user.Paralyse(5)
+		user.Unconscious(100)
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
 

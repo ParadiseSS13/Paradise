@@ -274,7 +274,7 @@
 	modules += new /obj/item/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
 	modules += new /obj/item/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
 	modules += new /obj/item/reagent_containers/food/drinks/bottle/limejuice(src) // -0.2 tox/sec
-	modules += new /obj/item/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
+	modules += new /obj/item/reagent_containers/food/drinks/coffee(src) // -1 unconscious stunned & knockdown/sec
 	modules += new /obj/item/reagent_containers/food/drinks/tea(src)
 	modules += new /obj/item/reagent_containers/food/drinks/bottle/milk(src) // -0.2 brute/sec
 	modules += new /obj/item/reagent_containers/food/condiment/sugar(src)

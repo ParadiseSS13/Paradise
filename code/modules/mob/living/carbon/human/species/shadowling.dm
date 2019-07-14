@@ -46,8 +46,8 @@
 			H.CureNearsighted()
 			H.CureBlind()
 			H.adjustCloneLoss(-1)
-			H.SetWeakened(0)
-			H.SetStunned(0)
+			H.SetKnockdown(0)
+			H.SetStun(0)
 	..()
 
 

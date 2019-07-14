@@ -59,7 +59,7 @@
 	name = "alloy spike"
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
-	stun = 1
+	stun = 20
 	armour_penetration = 30
 	icon_state = "magspear"
 
@@ -99,5 +99,5 @@
 	flag = "bullet"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-	weaken = 5
-	stun = 5
+	knockdown = 100
+	stun = 100

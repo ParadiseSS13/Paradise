@@ -163,14 +163,14 @@
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
+				affecting.Knockdown(60) //This is being left in the code as an example of adding a new variable to do something in grab code.
 
 */
 
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(5)  //It will hamper your voice, being choked and all.
+		affecting.Stun(100)  //It will hamper your voice, being choked and all.
 		if(isliving(affecting) && !breathing_tube)
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
@@ -178,7 +178,7 @@
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
 		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
+		affecting.Knockdown(100)	//Should keep you down unless you get help.
 		if(!breathing_tube)
 			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 
@@ -255,7 +255,7 @@
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
-			affecting.Weaken(3)
+			affecting.Knockdown(60)
 			step_to(assailant, affecting)
 			assailant.setDir(EAST) //face the victim
 			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
@@ -280,7 +280,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(10) //10 ticks of ensured grab
+		affecting.Stun(200) //10 ticks of ensured grab
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] starts to tighten [assailant.p_their()] grip on [affecting]'s neck!</span>")
 		hud.icon_state = "kill1"
@@ -372,7 +372,7 @@
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
 						force_down = 1
-						affecting.Weaken(3)
+						affecting.Knockdown(60)
 						affecting.lying = 1
 						step_to(assailant, affecting)
 						assailant.setDir(EAST) //face the victim

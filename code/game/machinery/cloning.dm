@@ -272,7 +272,7 @@
 	check_brine()
 	//Get the clone body ready
 	maim_clone(H)
-	H.Paralyse(4)
+	H.Unconscious(80)
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
@@ -316,7 +316,7 @@
 			connected_message("Clone Rejected: Deceased.")
 
 		else if(occupant.cloneloss > (100 - heal_level))
-			occupant.Paralyse(4)
+			occupant.Unconscious(80)
 
 			 //Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))

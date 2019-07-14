@@ -41,7 +41,7 @@
 
 /obj/item/grown/bananapeel/traitorpeel
 	trip_stun = 0
-	trip_weaken = 7
+	trip_weaken = 140
 	trip_tiles = 4
 	trip_walksafe = FALSE
 

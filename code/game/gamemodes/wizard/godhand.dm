@@ -67,7 +67,7 @@
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
 	var/mob/M = target
-	M.Stun(2)
+	M.Stun(40)
 	new /obj/structure/closet/statue(M.loc, M)
 	..()
 

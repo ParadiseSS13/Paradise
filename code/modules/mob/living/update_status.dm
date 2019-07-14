@@ -62,11 +62,11 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
+	return !(knockdown || unconscious || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || paralysis || stunned || weakened || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
+	if(stat || unconscious || stun || knockdown || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay
@@ -78,7 +78,7 @@
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stunned)
+	if(fall_over || resting || stun)
 		drop_r_hand()
 		drop_l_hand()
 	else
@@ -89,7 +89,7 @@
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || stunned || buckled)
+	canmove = !(fall_over || resting || stun || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
@@ -113,7 +113,7 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
-		else if(paralysis || status_flags & FAKEDEATH)
+		else if(unconscious || status_flags & FAKEDEATH)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
@@ -125,12 +125,12 @@
 /mob/living/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
-		if("weakened")
-			SetWeakened(weakened)
-		if("stunned")
-			SetStunned(stunned)
-		if("paralysis")
-			SetParalysis(paralysis)
+		if("knockdown")
+			SetKnockdown(knockdown)
+		if("stun")
+			SetStun(stun)
+		if("unconscious")
+			SetUnconscious(unconscious)
 		if("sleeping")
 			SetSleeping(sleeping)
 		if("eye_blind")

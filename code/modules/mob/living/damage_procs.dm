@@ -63,10 +63,10 @@
 	switch(effecttype)
 		if(STUN)
 			Stun(effect * blocked)
-		if(WEAKEN)
-			Weaken(effect * blocked)
-		if(PARALYZE)
-			Paralyse(effect * blocked)
+		if(KNOCKDOWN)
+			Knockdown(effect * blocked)
+		if(UNCONSCIOUS)
+			Unconscious(effect * blocked)
 		if(IRRADIATE)
 			var/rad_damage = effect
 			if(!negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
@@ -86,11 +86,11 @@
 	updatehealth("apply effect")
 	return 1
 
-/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
+/mob/living/proc/apply_effects(var/stun = 0, var/knockdown = 0, var/unconscious = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
 	if(blocked >= 100)	return 0
 	if(stun)		apply_effect(stun, STUN, blocked)
-	if(weaken)		apply_effect(weaken, WEAKEN, blocked)
-	if(paralyze)	apply_effect(paralyze, PARALYZE, blocked)
+	if(knockdown)		apply_effect(knockdown, KNOCKDOWN, blocked)
+	if(unconscious)	apply_effect(unconscious, UNCONSCIOUS, blocked)
 	if(irradiate)	apply_effect(irradiate, IRRADIATE, blocked)
 	if(slur) 		apply_effect(slur, SLUR, blocked)
 	if(stutter)		apply_effect(stutter, STUTTER, blocked)

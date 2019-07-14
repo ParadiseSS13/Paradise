@@ -53,7 +53,7 @@
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
-		C.Weaken(2)
+		C.Knockdown(40)
 
 /mob/living/simple_animal/bot/secbot/griefsky/New()
 	..()
@@ -91,7 +91,7 @@
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
 		if(prob(stun_chance)) 
-			C.Weaken(5)
+			C.Knockdown(100)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
 		var/area/location = get_area(src)

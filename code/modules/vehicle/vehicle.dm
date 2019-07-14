@@ -109,8 +109,8 @@
 				var/turf/simulated/T = src.loc
 				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-					buckled_mob.Stun(7)
-					buckled_mob.Weaken(7)
+					buckled_mob.Stun(140)
+					buckled_mob.Knockdown(140)
 					unbuckle_mob()
 					step(src, dir)
 

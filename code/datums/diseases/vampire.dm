@@ -30,5 +30,5 @@
 
 	if(prob(5))
 		to_chat(affected_mob, "<span class='danger'>Your joints ache horribly!</span>")
-		affected_mob.Weaken(stuntime)
+		affected_mob.Knockdown(stuntime)
 		affected_mob.Stun(stuntime)

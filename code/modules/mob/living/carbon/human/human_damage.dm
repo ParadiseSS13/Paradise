@@ -130,9 +130,9 @@
 	return STATUS_UPDATE_HEALTH
 
 
-/mob/living/carbon/human/Paralyse(amount)
+/mob/living/carbon/human/Unconscious(amount)
 	// Notify our AI if they can now control the suit.
-	if(wearing_rig && !stat && paralysis < amount) //We are passing out right this second.
+	if(wearing_rig && !stat && unconscious < amount) //We are passing out right this second.
 		wearing_rig.notify_ai("<span class='danger'>Warning: user consciousness failure. Mobility control passed to integrated intelligence system.</span>")
 	return ..()
 

@@ -73,7 +73,7 @@
 	name = "Tail lash"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "tail"
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUN
 
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
@@ -95,7 +95,7 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(5)
+					user.Knockdown(100)
 					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.

@@ -22,7 +22,7 @@
 	explosion(get_turf(user),0,0,2,0,silent=1)
 	for(var/mob/living/carbon/human/H in range(2,user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
-		H.Stun(1)
+		H.Stun(20)
 		H.EyeBlurry(20)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(E))
@@ -30,7 +30,7 @@
 		H.AdjustConfused(3)
 	for(var/mob/living/silicon/S in range(2,user))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
-		S.Weaken(3)
+		S.Knockdown(60)
 	var/new_location = user.drop_location()
 	spawn(5) // So it's not killed in explosion
 		var/mob/living/simple_animal/hostile/headcrab/crab = new(new_location)

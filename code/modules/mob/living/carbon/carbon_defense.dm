@@ -51,9 +51,9 @@
 /mob/living/carbon/attack_slime(mob/living/carbon/slime/M)
 	if(..())
 		var/power = M.powerlevel + rand(0,3)
-		Weaken(power)
+		Knockdown(power * 20)
 		Stuttering(power)
-		Stun(power)
+		Stun(power * 20)
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustFireLoss(M.powerlevel * rand(6,10))

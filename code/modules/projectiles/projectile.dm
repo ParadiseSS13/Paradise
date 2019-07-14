@@ -45,8 +45,8 @@
 	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
 	//Effects
 	var/stun = 0
-	var/weaken = 0
-	var/paralyze = 0
+	var/knockdown = 0
+	var/unconscious = 0
 	var/irradiate = 0
 	var/stutter = 0
 	var/slur = 0
@@ -142,7 +142,7 @@
 			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
 		else
 			add_attack_logs(firer, L, "Shot with a [type]")
-	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	return L.apply_effects(stun, knockdown, unconscious, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null

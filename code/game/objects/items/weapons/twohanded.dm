@@ -545,7 +545,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(4)
+			target.Knockdown(80)
 			..()
 		return
 	else
@@ -607,7 +607,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.apply_effect(20, KNOCKDOWN, 0)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -655,14 +655,14 @@
 		//charged = 0
 		playsound(loc, "sparks", 50, 1)
 		if(isliving(M))
-			M.Stun(3)
+			M.Stun(60)
 			shock(M)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(3)
+		L.Stun(60)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.

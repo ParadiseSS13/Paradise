@@ -4,7 +4,7 @@
 		adjustBruteLoss(15)
 		var/hitverb = "punched"
 		if(mob_size < MOB_SIZE_LARGE)
-			Paralyse(1)
+			Unconscious(20)
 			spawn(0)
 				step_away(src, user, 15)
 				sleep(1)
@@ -24,9 +24,9 @@
 					visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 							"<span class='userdanger'>[M] has punched [src]!</span>")
 					if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
-						Paralyse(2)
-						visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
-								"<span class='userdanger'>[M] has weakened [src]!</span>", \
+						Unconscious(40)
+						visible_message("<span class='danger'>[M] has knockdown [src]!</span>", \
+								"<span class='userdanger'>[M] has knockdown [src]!</span>", \
 								"<span class='danger'>You hear someone fall.</span>")
 					adjustBruteLoss(damage)
 					add_attack_logs(M, src, "Melee attacked with fists")
@@ -37,7 +37,7 @@
 			if(INTENT_DISARM)
 				if(!lying)
 					if(prob(5))//Very small chance to push an alien down.
-						Paralyse(2)
+						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \

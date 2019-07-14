@@ -117,8 +117,8 @@
 /obj/item/grown/bananapeel/specialpeel     //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
-	trip_stun = 2
-	trip_weaken = 2
+	trip_stun = 40
+	trip_weaken = 40
 	trip_chance = 100
 	trip_walksafe = FALSE
 	trip_verb = TV_SLIP

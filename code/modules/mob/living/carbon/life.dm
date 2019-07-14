@@ -138,7 +138,7 @@
 		if(!co2overloadtime)
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
-			Paralyse(3)
+			Unconscious(60)
 			adjustOxyLoss(3)
 			if(world.time - co2overloadtime > 300)
 				adjustOxyLoss(8)
@@ -161,7 +161,7 @@
 		for(var/datum/gas/sleeping_agent/SA in breath.trace_gases)
 			var/SA_partialpressure = (SA.moles/breath.total_moles())*breath_pressure
 			if(SA_partialpressure > SA_para_min)
-				Paralyse(3)
+				Unconscious(60)
 				if(SA_partialpressure > SA_sleep_min)
 					AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
 			else if(SA_partialpressure > 0.01)
@@ -255,7 +255,7 @@
 				M.adjustBruteLoss(5)
 				nutrition += 10
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: stunned, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
 
@@ -301,8 +301,8 @@
 		AdjustDrowsy(-restingpwr)
 		EyeBlurry(2)
 		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
+			AdjustSleeping(20)
+			Unconscious(100)
 
 	if(confused)
 		AdjustConfused(-1)

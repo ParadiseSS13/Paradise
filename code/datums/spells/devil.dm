@@ -187,8 +187,8 @@
 		for(var/datum/objective/sintouched/A in H.mind.objectives)
 			continue
 		H.influenceSin()
-		H.Weaken(2)
-		H.Stun(2)
+		H.Knockdown(40)
+		H.Stun(40)
 
 /obj/effect/proc_holder/spell/targeted/summon_dancefloor
 	name = "Summon Dancefloor"

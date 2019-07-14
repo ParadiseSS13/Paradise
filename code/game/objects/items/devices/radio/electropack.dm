@@ -89,7 +89,7 @@
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, M)
 
-		M.Weaken(5)
+		M.Knockdown(100)
 
 	if(master)
 		master.receive_signal()

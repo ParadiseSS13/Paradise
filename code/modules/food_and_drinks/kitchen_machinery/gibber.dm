@@ -28,7 +28,7 @@
 	if(occupant || locked)
 		return FALSE
 	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
-	user.Stun(10)
+	user.Stun(200)
 	user.forceMove(src)
 	occupant = user
 	update_icon()

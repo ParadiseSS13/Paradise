@@ -59,7 +59,7 @@
 		if(3.0)
 			b_loss += 30
 			if(prob(50))
-				Paralyse(1)
+				Unconscious(20)
 			AdjustEarDamage(15, 60)
 
 	adjustBruteLoss(b_loss)

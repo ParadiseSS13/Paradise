@@ -377,7 +377,7 @@ This is always put in the attack log.
 			drifting = 0
 			Uloc = user.loc
 
-		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
+		if(!user || user.stat || user.knockdown || user.stun  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 

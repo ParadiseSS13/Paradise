@@ -75,8 +75,8 @@
 
 /obj/item/projectile/bullet/sniper
 	damage = 70
-	stun = 5
-	weaken = 5
+	stun = 100
+	knockdown = 100
 	dismemberment = 50
 	armour_penetration = 50
 	var/breakthings = TRUE
@@ -108,13 +108,13 @@
 	nodamage = 1
 	stun = 0
 	dismemberment = 0
-	weaken = 0
+	knockdown = 0
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living))
 		var/mob/living/L = target
-		L.SetSleeping(20)
+		L.SetSleeping(400)
 
 	return ..()
 
@@ -139,7 +139,7 @@
 	damage = 15
 	stun = 0
 	dismemberment = 0
-	weaken = 0
+	knockdown = 0
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
@@ -170,7 +170,7 @@
 	forcedodge = 1
 	stun = 0
 	dismemberment = 0
-	weaken = 0
+	knockdown = 0
 	breakthings = FALSE
 
 //compact ammo

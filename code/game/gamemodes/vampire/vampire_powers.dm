@@ -153,9 +153,9 @@
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
 
-	user.SetWeakened(0)
-	user.SetStunned(0)
-	user.SetParalysis(0)
+	user.SetKnockdown(0)
+	user.SetStun(0)
+	user.SetUnconscious(0)
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
 	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
@@ -184,8 +184,8 @@
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Weaken(10)
-				target.Stun(10)
+				target.Knockdown(200)
+				target.Stun(200)
 				target.stuttering = 10
 		else
 			revert_cast(usr)
@@ -223,8 +223,8 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(5)
-		target.Weaken(5)
+		target.Stun(100)
+		target.Knockdown(100)
 		target.stuttering = 20
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
@@ -266,10 +266,10 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(4)
+		C.Knockdown(80)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(4)
+		C.Stun(80)
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
@@ -581,12 +581,12 @@
 					E.perma_injury = 0
 		return
 	if(stat != DEAD)
-		if(weakened)
+		if(knockdown)
 			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
 			adjustBrainLoss(60)
 		else
 			visible_message("<span class='warning'>[src] looks to be stunned by the energy!</span>")
-			Weaken(20)
+			Knockdown(400)
 		return
 	for(var/obj/item/implant/mindshield/L in src)
 		if(L && L.implanted)
@@ -603,4 +603,4 @@
 	add_attack_logs(M, src, "Vampire-sired")
 	mind.make_Vampire()
 	revive()
-	Weaken(20)
+	Knockdown(400)

@@ -196,16 +196,16 @@
 	if(src.stat == DEAD)
 		src.lying = 1
 	else
-		if(src.paralysis || src.stunned || src.weakened || (status_flags && FAKEDEATH)) //Stunned etc.
-			if(src.stunned > 0)
-				AdjustStunned(-1)
+		if(src.unconscious || src.stun || src.knockdown || (status_flags && FAKEDEATH)) //Stunned etc.
+			if(src.stun > 0)
+				AdjustStun(-20)
 				src.stat = 0
-			if(src.weakened > 0)
-				AdjustWeakened(-1)
+			if(src.knockdown > 0)
+				AdjustKnockdown(-20)
 				src.lying = 0
 				src.stat = 0
-			if(src.paralysis > 0)
-				AdjustParalysis(-1)
+			if(src.unconscious > 0)
+				AdjustUnconscious(-20)
 				src.lying = 0
 				src.stat = 0
 

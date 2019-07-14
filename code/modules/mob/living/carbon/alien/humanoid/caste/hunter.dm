@@ -105,19 +105,19 @@
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.apply_effect(5, WEAKEN, H.run_armor_check(null, "melee"))
+					H.apply_effect(100, KNOCKDOWN, H.run_armor_check(null, "melee"))
 				else
-					L.Weaken(5)
+					L.Knockdown(100)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				Weaken(2, 1, 1)
+				Knockdown(40, 1, 1)
 
 			toggle_leap(0)
 			pounce_cooldown = world.time + pounce_cooldown_time
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			Weaken(2, 1, 1)
+			Knockdown(40, 1, 1)
 
 		if(leaping)
 			leaping = 0

@@ -21,14 +21,14 @@ proc/Intoxicated(phrase)
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 
-proc/NewStutter(phrase,stunned)
+proc/NewStutter(phrase,stun)
 	phrase = html_decode(phrase)
 
 	var/list/split_phrase = splittext(phrase," ") //Split it up into words.
 
 	var/list/unstuttered_words = split_phrase.Copy()
 	var/i = rand(1,3)
-	if(stunned) i = split_phrase.len
+	if(stun) i = split_phrase.len
 	for(,i > 0,i--) //Pick a few words to stutter on.
 
 		if(!unstuttered_words.len)

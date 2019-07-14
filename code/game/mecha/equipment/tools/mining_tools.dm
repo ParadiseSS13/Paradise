@@ -94,7 +94,7 @@
 		target.take_organ_damage(drill_damage)
 
 	if(target)
-		target.Paralyse(10)
+		target.Unconscious(200)
 
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill

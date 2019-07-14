@@ -125,12 +125,12 @@
 
 /datum/dna/gene/basic/hulk/activate(var/mob/M, var/connected, var/flags)
 	..()
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
+	var/status = CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS | CANPUSH
 	M.status_flags &= ~status
 
 /datum/dna/gene/basic/hulk/deactivate(var/mob/M, var/connected, var/flags)
 	..()
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
+	M.status_flags |= CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS | CANPUSH
 
 /datum/dna/gene/basic/hulk/OnDrawUnderlays(var/mob/M,var/g,var/fat)
 	if(HULK in M.mutations)
@@ -149,7 +149,7 @@
 		genemutcheck(M, HULKBLOCK,null,MUTCHK_FORCED)
 		M.update_mutations()		//update our mutation overlays
 		M.update_body()
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
+		M.status_flags |= CANSTUN | CANKNOCKDOWN | CANUNCONSCIOUS | CANPUSH //temporary fix until the problem can be solved.
 		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
 /datum/dna/gene/basic/xray

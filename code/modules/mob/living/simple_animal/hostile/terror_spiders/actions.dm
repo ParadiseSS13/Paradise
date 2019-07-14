@@ -165,8 +165,8 @@
 			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(4) // 8 seconds.
-			M.Weaken(4) // 8 seconds.
+			M.Stun(80) // 8 seconds.
+			M.Knockdown(80) // 8 seconds.
 			DeCloakNearby()
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover

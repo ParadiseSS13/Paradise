@@ -195,7 +195,7 @@
 					to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
 					user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
 					to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
-					target.Weaken(12)
+					target.Knockdown(240)
 					sleep(20)
 					if(ismindshielded(target))
 						to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")

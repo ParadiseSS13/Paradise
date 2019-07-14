@@ -17,9 +17,9 @@
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
 	user.SetSleeping(0)
 	user.stat = 0
-	user.SetParalysis(0)
-	user.SetStunned(0)
-	user.SetWeakened(0)
+	user.SetUnconscious(0)
+	user.SetStun(0)
+	user.SetKnockdown(0)
 	user.lying = 0
 	user.update_canmove()
 	user.reagents.add_reagent("synaptizine", 20)

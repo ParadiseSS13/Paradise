@@ -604,7 +604,7 @@
 									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(10)
+							L.Unconscious(200)
 							L.ex_act(2)
 
 			// Move unanchored atoms

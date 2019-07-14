@@ -29,7 +29,7 @@
 	sound = 'sound/magic/magic_missile.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
-	amt_weakened = 3
+	amt_weakened = 60
 	sound = 'sound/magic/mm_hit.ogg'
 
 
@@ -66,7 +66,7 @@
 	sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile
-	amt_weakened = 3
+	amt_weakened = 60
 	sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/proc_holder/spell/noclothes
@@ -412,14 +412,14 @@
 		if(distfromcaster == 0)
 			if(istype(AM, /mob/living))
 				var/mob/living/M = AM
-				M.Weaken(5)
+				M.Knockdown(100)
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
 			if(istype(AM, /mob/living))
 				var/mob/living/M = AM
-				M.Weaken(2)
+				M.Knockdown(40)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0)
 				AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.

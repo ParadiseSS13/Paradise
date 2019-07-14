@@ -38,8 +38,8 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
-	trip_stun = 8
-	trip_weaken = 5
+	trip_stun = 160
+	trip_weaken = 100
 	trip_chance = 100
 	trip_walksafe = TRUE
 	trip_verb = TV_SLIP

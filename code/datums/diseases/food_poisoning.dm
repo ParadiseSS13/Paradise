@@ -67,5 +67,4 @@
 				else
 					to_chat(affected_mob, "<span class='danger'>Your stomach lurches painfully!</span>")
 					affected_mob.visible_message("<span class='danger'>[affected_mob] gags and retches!</span>")
-					affected_mob.Stun(rand(2,4))
-					affected_mob.Weaken(rand(2,4))
+					affected_mob.Knockdown(rand(40,80))

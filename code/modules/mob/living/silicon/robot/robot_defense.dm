@@ -3,7 +3,7 @@
 		if(!lying)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			if(prob(85))
-				Stun(7)
+				Stun(140)
 				step(src, get_dir(M,src))
 				spawn(5)
 					step(src, get_dir(M,src))

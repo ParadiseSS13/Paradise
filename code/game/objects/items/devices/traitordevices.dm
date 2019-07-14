@@ -47,7 +47,7 @@ effective or pretty fucking useless.
 
 	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
-			M.Weaken(rand(4,7))
+			M.Knockdown(rand(80,140))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
@@ -101,7 +101,7 @@ effective or pretty fucking useless.
 		spawn((wavelength+(intensity*4))*10)
 			if(M)
 				if(intensity >= 5)
-					M.apply_effect(round(intensity/1.5), PARALYZE)
+					M.apply_effect(round(intensity/1.5) * 20, UNCONSCIOUS)
 				M.apply_effect(intensity*10, IRRADIATE)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")

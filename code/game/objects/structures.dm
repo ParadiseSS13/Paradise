@@ -106,7 +106,7 @@
 
 		if(M.lying) return //No spamming this on people.
 
-		M.Weaken(5)
+		M.Knockdown(100)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
 		if(prob(25))
@@ -152,7 +152,7 @@
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if(user.stat || user.unconscious || user.sleeping || user.lying || user.knockdown)
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")

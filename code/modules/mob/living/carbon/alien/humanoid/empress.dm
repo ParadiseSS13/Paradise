@@ -4,7 +4,7 @@
 	maxHealth = 700
 	health = 700
 	icon_state = "alienq_s"
-	status_flags = CANPARALYSE
+	status_flags = CANUNCONSCIOUS
 	mob_size = MOB_SIZE_LARGE
 	large = 1
 	ventcrawler = 0

@@ -59,7 +59,7 @@
 		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
 		user.key = ghost.key
 	qdel(ghost)
-	user.Paralyse(2)
+	user.Unconscious(40)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
 	user.regenerate_icons()

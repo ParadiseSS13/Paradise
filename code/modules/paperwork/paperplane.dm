@@ -32,7 +32,7 @@
 	return ..()
 
 /obj/item/paperplane/suicide_act(mob/living/user)
-	user.Stun(10)
+	user.Stun(200)
 	user.visible_message("<span class='suicide'>[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	user.EyeBlurry(6)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
@@ -103,7 +103,7 @@
 			return
 		visible_message("<span class='danger'>[src] hits [H] in the eye!</span>")
 		H.EyeBlurry(6)
-		H.Weaken(2)
+		H.Knockdown(40)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(E)
 			E.take_damage(8, 1)

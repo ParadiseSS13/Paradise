@@ -70,7 +70,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				possibleShadowlingNames.Remove(newNameId)
 				H.real_name = newNameId
 				H.name = user.real_name
-				H.SetStunned(0)
+				H.SetStun(0)
 				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
 
 				for(var/obj/structure/alien/resin/wall/shadowling/W in orange(H, 1))
@@ -159,7 +159,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				to_chat(H, "<i><b><span class='reallybig'>YE--</span></b></i>")
 				sleep(1)
 				for(var/mob/living/M in orange(7, H))
-					M.Weaken(10)
+					M.Knockdown(200)
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/obj/machinery/power/apc/A in GLOB.apcs)
 					A.overload_lighting()

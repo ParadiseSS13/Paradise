@@ -444,7 +444,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
 		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
 		owner.emote("scream")
-		owner.Stun(2)
+		owner.Stun(40)
 		owner.handle_splints()
 
 

@@ -42,7 +42,7 @@
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
-					Paralyse(rand(1,3))
+					Unconscious(rand(20,60))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()

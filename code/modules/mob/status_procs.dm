@@ -112,13 +112,13 @@
 	return
 
 
-/mob/proc/Paralyse()
+/mob/proc/Unconscious()
 	return
 
-/mob/proc/SetParalysis()
+/mob/proc/SetUnconscious()
 	return
 
-/mob/proc/AdjustParalysis()
+/mob/proc/AdjustUnconscious()
 	return
 
 
@@ -173,10 +173,10 @@
 /mob/proc/Stun()
 	return
 
-/mob/proc/SetStunned()
+/mob/proc/SetStun()
 	return
 
-/mob/proc/AdjustStunned()
+/mob/proc/AdjustStun()
 	return
 
 
@@ -190,13 +190,13 @@
 	return
 
 
-/mob/proc/Weaken()
+/mob/proc/Knockdown()
 	return
 
-/mob/proc/SetWeakened()
+/mob/proc/SetKnockdown()
 	return
 
-/mob/proc/AdjustWeakened()
+/mob/proc/AdjustKnockdown()
 	return
 
 /mob/proc/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)

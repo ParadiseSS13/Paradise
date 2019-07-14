@@ -11,9 +11,9 @@
 	user.setOxyLoss(0, FALSE)
 	user.setCloneLoss(0, FALSE)
 	user.setBrainLoss(0, FALSE)
-	user.SetParalysis(0, FALSE)
-	user.SetStunned(0, FALSE)
-	user.SetWeakened(0, FALSE)
+	user.SetUnconscious(0, FALSE)
+	user.SetStun(0, FALSE)
+	user.SetKnockdown(0, FALSE)
 	user.radiation = 0
 	user.SetEyeBlind(0, FALSE)
 	user.SetEyeBlurry(0, FALSE)
