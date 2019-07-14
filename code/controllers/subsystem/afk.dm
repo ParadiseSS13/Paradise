@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(afk)
 		var/turf/T 
 		// Only players and players with the AFK watch enabled
 		// No dead, unconcious, restrained, people without jobs, people on other Z levels than the station or antags
-		if(H.client == null || !H.client.prefs.afk_watch || !H.mind || \
+		if(!H.client || !H.client.prefs.afk_watch || !H.mind || \
 			H.stat || H.restrained() || !H.job || H.mind.special_role || \
 				!is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey]) 
