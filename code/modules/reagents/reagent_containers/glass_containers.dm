@@ -94,7 +94,8 @@
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 
-			reagents.reaction(M, INGEST)
+			var/fraction = min(5 / reagents.total_volume, 1)
+			reagents.reaction(M, INGEST, fraction)
 			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	else
