@@ -244,7 +244,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = 1
-	if(InCritical() || LowBattery())
+	if(CanSuccumb())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
@@ -256,6 +256,9 @@
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
+/mob/living/proc/CanSuccumb()
+	return InCritical()
+	
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 	

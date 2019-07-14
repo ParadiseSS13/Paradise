@@ -576,6 +576,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/restrained()
 	return 0
 
+/mob/living/silicon/robot/CanSuccumb()
+	return low_power_mode
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
