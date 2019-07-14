@@ -360,6 +360,11 @@
 		return
 	toggle_ai(AI_ON)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/DestroySurroundings()
+	if(!target)
+		return
+	. = ..()
+
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: MISC AI CODE -----------------------------
 // --------------------------------------------------------------------------------
