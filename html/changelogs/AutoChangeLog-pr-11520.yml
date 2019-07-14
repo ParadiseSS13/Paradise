@@ -1,5 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Boo affects APCs again"
-  - bugfix: "Boo no longer fully charges when you enter your corpse"
