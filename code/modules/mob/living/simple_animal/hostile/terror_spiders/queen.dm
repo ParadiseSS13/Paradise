@@ -151,11 +151,11 @@
 					neststep = 2
 					NestMode()
 			if(2)
-				// Create initial pair of purple nest guards.
+				// Create initial four purple nest guards.
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					spider_lastspawn = world.time
-					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 4)
 					neststep = 3
 			if(3)
 				// Create spiders (random T1 types) until nest is full.
@@ -166,10 +166,9 @@
 								spider_spawnfrequency = spider_spawnfrequency_stable
 							neststep = 4
 						else
-							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
-							if(!N)
-								spider_lastspawn = world.time
-								DoLayTerrorEggs(pick(spider_types_standard), 2)
+							spider_lastspawn = world.time
+							var/spiders_left_to_spawn = Clamp( (spider_max_per_nest - CountSpiders()), 1, 10)
+							DoLayTerrorEggs(pick(spider_types_standard), spiders_left_to_spawn)
 			if(4)
 				// Nest should be full. If so, pulse attack command. Otherwise, start replenishing nest (stage 5).
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
@@ -185,20 +184,18 @@
 						if(ai_nest_is_full())
 							neststep = 4
 						else
-							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
-							if(!N)
-								spider_lastspawn = world.time
-								var/num_purple = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
-								var/num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
-								var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
-								if(num_purple < 4)
-									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
-								else if(num_white < 2)
-									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2)
-								else if(num_brown < 2)
-									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 2)
-								else
-									DoLayTerrorEggs(pick(spider_types_standard), 2)
+							spider_lastspawn = world.time
+							var/num_purple = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+							var/num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
+							var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
+							if(num_purple < 4)
+								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
+							else if(num_white < 2)
+								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2)
+							else if(num_brown < 4)
+								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 4)
+							else
+								DoLayTerrorEggs(pick(spider_types_standard), 5)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
 	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
