@@ -15,7 +15,7 @@ function parse(node) {
     return;
   }
 
-  node.innerHTML = marked(node.innerHTML.replace(/<br>/gi, '\n'), { breaks: true, gfm: false });
+  node.innerHTML = marked(node.innerHTML.replace(/<br>/gi, '\n').replace(/\t/gi, ''), { breaks: true, gfm: false });
 }
 
 window.onload = function() {
