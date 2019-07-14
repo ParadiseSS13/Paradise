@@ -37,7 +37,7 @@ var/global/list/ts_spiderling_list = list()
 
 	// Movement
 	pass_flags = PASSTABLE
-	turns_per_move = 5 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
+	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 	// 5 = 4 tiles/sec, 6 = 3.3 tiles/sec. 3 = 6.6 tiles/sec.
