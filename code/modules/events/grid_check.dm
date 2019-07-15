@@ -47,7 +47,7 @@
 			C.cell.charge = 0
 	for(var/obj/machinery/power/P in GLOB.machines)
 		var/area/current_area = get_area(P)
-		if((current_area.type in skipped_areas_apc) || !is_station_level(P.z))
+		if((current_area.type in skipped_areas_apc) || (current_area.type in skipped_areas) || !is_station_level(P.z))
 			continue
 		P.malfunction = TRUE
 
@@ -74,7 +74,7 @@
 		S.power_change()
 	for(var/obj/machinery/power/P in GLOB.machines)
 		var/area/current_area = get_area(P)
-		if((current_area.type in skipped_areas_apc) || !is_station_level(P.z))
+		if((current_area.type in skipped_areas_apc) || (current_area.type in skipped_areas) || !is_station_level(P.z))
 			continue
 		P.malfunction = FALSE
 
