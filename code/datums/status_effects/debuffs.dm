@@ -80,12 +80,12 @@
 
 /obj/screen/alert/status_effect/stunned
 	name = "Stunned"
-	desc = "You've been stunned by something. You can't move!"
+	desc = "You can't move!"
 	icon_state = "stun"
 
 /obj/screen/alert/status_effect/knockdown
 	name = "Knocked down"
-	desc = "You have been knocked down! You can't move!"
+	desc = "You can't move!"
 	icon_state = "paralysis"
 
 //STUN
