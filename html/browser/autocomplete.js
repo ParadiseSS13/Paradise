@@ -15,14 +15,6 @@ function updateTopic() {
   submitButton.setAttribute('href', hrefList.join(';'));
 }
 
-function clean(name) {
-  // \improper shows up as 2 characters outside of ascii range
-  if (name.charCodeAt(0) > 127) {
-    return name.slice(2);
-  }
-  return name;
-}
-
 function setElements() {
   input = $('#input');
   submitButton = $('#submit-button');
@@ -35,7 +27,7 @@ function setElements() {
 
   for (var i = 0; i < choices.options.length; i++) {
     var name = choices.options[i].value;
-    var cleaned = clean(name);
+    var cleaned = decodeURI(name);
     optionsMap[cleaned] = name;
     choices.options[i].value = cleaned;
   }

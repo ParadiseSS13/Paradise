@@ -156,7 +156,6 @@
 /mob/living/silicon/Stat()
 	..()
 	if(statpanel("Status"))
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
 
