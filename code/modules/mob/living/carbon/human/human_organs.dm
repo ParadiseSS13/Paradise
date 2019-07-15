@@ -59,9 +59,16 @@
 	if(stance_damage < 0)
 		stance_damage = 0
 
+	if(stance_damage <= 6)
+		legless = 0
+
 	// standing is poor
 	if(stance_damage >= 8)
+		if(legless)
+			SetWeakened(0)
+			return
 		if(!(lying || resting))
+			legless = TRUE
 			if(!(NO_PAIN in dna.species.species_traits))
 				emote("scream")
 			custom_emote(1, "collapses!")

@@ -415,6 +415,7 @@
 	SetParalysis(0, 1, 1)
 	SetStunned(0, 1, 1)
 	SetWeakened(0, 1, 1)
+	legless = 0
 	SetSlowed(0)
 	SetLoseBreath(0)
 	SetDizzy(0)

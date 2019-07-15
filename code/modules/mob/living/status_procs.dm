@@ -99,6 +99,7 @@
 
 	// Booleans
 	var/resting = FALSE
+	var/legless = FALSE
 
 	/*
 	STATUS EFFECTS
@@ -156,6 +157,22 @@
 	flying = FALSE
 	if(val_change)
 		update_animations()
+
+// LEGLESS
+
+/mob/living/proc/IsLegless(updating = 1)
+	var/val_change = !legless
+	legless = TRUE
+
+	if(updating && val_change)
+		update_canmove()
+
+/mob/living/proc/NotLegless(updating = 1)
+	var/val_change = !!legless
+	legless = FALSE
+
+	if(updating && val_change)
+		update_canmove()
 
 
 // SCALAR STATUS EFFECTS

@@ -62,7 +62,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
+	return !(weakened || legless || paralysis || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
@@ -78,7 +78,7 @@
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stunned)
+	if(fall_over || legless || resting || stunned)
 		drop_r_hand()
 		drop_l_hand()
 	else
@@ -89,7 +89,7 @@
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || stunned || buckled)
+	canmove = !(fall_over || legless || resting || stunned || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
