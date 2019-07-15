@@ -467,7 +467,7 @@
 			human_mob.remove_all_embedded_objects()
 
 	restore_all_organs()
-	NotLegless()
+	legless = FALSE
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
 		update_revive()
