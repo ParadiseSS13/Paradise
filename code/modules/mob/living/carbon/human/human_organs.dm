@@ -60,19 +60,19 @@
 		stance_damage = 0
 
 	if(stance_damage <= 6)
-		legless = 0
+		legless = FALSE
 
 	// standing is poor
 	if(stance_damage >= 8)
 		if(legless)
-			SetWeakened(0)
 			return
 		if(!(lying || resting))
 			legless = TRUE
 			if(!(NO_PAIN in dna.species.species_traits))
 				emote("scream")
 			custom_emote(1, "collapses!")
-		Weaken(5) //can't emote while weakened, apparently.
+		Weaken(5) //can't emote while weakened, apparently. Weakness kept here just to make the player collapse
+		SetWeakened(0) // Being weakened constantly is replaced by the legless status, so we dont need weakness
 
 
 /mob/living/carbon/human/proc/handle_grasp()
