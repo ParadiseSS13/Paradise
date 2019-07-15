@@ -9,7 +9,7 @@
 	materials = list(MAT_METAL=200)
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
-	obj_integrity = 100
+	
 	max_integrity = 100
 	
 	amount_per_transfer_from_this = 5

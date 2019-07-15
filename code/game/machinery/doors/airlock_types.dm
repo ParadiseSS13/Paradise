@@ -5,12 +5,12 @@
 /obj/machinery/door/airlock/command
 	icon = 'icons/obj/doors/airlocks/station/command.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
-	obj_integrity = 450
+	max_integrity = 450
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
-	obj_integrity = 450
+	max_integrity = 450
 
 /obj/machinery/door/airlock/engineering
 	icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
@@ -24,7 +24,6 @@
 	name = "maintenance access"
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
-	obj_integrity = 250
 
 /obj/machinery/door/airlock/maintenance/external
 	name = "external airlock access"
@@ -66,7 +65,7 @@
 /obj/machinery/door/airlock/command/glass
 	opacity = 0
 	glass = TRUE
-	obj_integrity = 400
+	
 
 /obj/machinery/door/airlock/engineering/glass
 	opacity = 0
@@ -75,7 +74,7 @@
 /obj/machinery/door/airlock/security/glass
 	opacity = 0
 	glass = TRUE
-	obj_integrity = 400
+	
 
 /obj/machinery/door/airlock/medical/glass
 	opacity = 0
@@ -104,7 +103,7 @@
 /obj/machinery/door/airlock/maintenance/external/glass
 	opacity = 0
 	glass = TRUE
-	obj_integrity = 200
+	
 
 //////////////////////////////////
 /*
@@ -133,11 +132,11 @@
 	name = "diamond airlock"
 	icon = 'icons/obj/doors/airlocks/station/diamond.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_diamond
-	obj_integrity = 1000
+	max_integrity = 1000
 	explosion_block = 2
 
 /obj/machinery/door/airlock/diamond/glass
-	obj_integrity = 950
+	max_integrity = 950
 	opacity = 0
 	glass = TRUE
 
@@ -251,10 +250,10 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_titanium
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
-	obj_integrity = 400
+	
 
 /obj/machinery/door/airlock/titanium/glass
-	obj_integrity = 350
+	max_integrity = 350
 	opacity = 0
 	glass = TRUE
 
@@ -301,7 +300,7 @@
 	opacity = 0
 	explosion_block = 2
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
-	obj_integrity = 1000
+	max_integrity = 1000
 	security_level = 6
 
 //////////////////////////////////
@@ -315,7 +314,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
-	obj_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
+	 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
 	security_level = 6
 
 //////////////////////////////////
@@ -338,7 +337,7 @@
 	name = "Command Center"
 	req_access_txt = "153"
 	explosion_block = 2
-	obj_integrity = 1000
+	max_integrity = 1000
 	security_level = 6
 
 /obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
@@ -406,7 +405,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/highsec/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
-	obj_integrity = 500
+	
 	security_level = 1
 	damage_deflection = 30
 
@@ -459,7 +458,7 @@
 	explosion_block = 3
 	hackProof = TRUE
 	aiControlDisabled = 1
-	obj_integrity = 700
+	max_integrity = 700
 	security_level = 1
 
 //////////////////////////////////

@@ -3,7 +3,7 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_idle"
 	desc = "Some blob creature thingy"
-	obj_integrity = 75
+	
 	max_integrity = 75
 	fire_resist = 2
 	point_return = 4
@@ -29,7 +29,7 @@
 	desc = "A solid wall of slightly twitching tendrils with a reflective glow."
 	icon_state = "blob_idle_glow"
 	brute_resist = 0
-	obj_integrity = 50
+	
 	max_integrity = 50
 	point_return = 9
 	flags_2 = CHECK_RICOCHET_1

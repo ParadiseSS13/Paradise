@@ -23,14 +23,14 @@
 	var/acid_level = 0 //how much acid is on that obj
 	var/list/armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 	var/max_integrity = 500
-	var/obj_integrity = 500	
+	var/obj_integrity
 	var/integrity_failure = 0 //0 if we have no special broken behavior
 
-/obj/New()
+/obj/Initialize()
 	..()
 	if(!armor)
 		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	if(!obj_integrity)
+	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if (!max_integrity)
 		max_integrity = obj_integrity

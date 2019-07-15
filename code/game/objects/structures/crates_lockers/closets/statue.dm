@@ -5,7 +5,7 @@
 	icon_state = "human_male"
 	density = 1
 	anchored = 1
-	obj_integrity = 200
+	
 	max_integrity = 200
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.

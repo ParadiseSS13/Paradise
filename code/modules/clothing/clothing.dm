@@ -5,7 +5,7 @@
 	var/hardsuit_restrict_helmet = 0 // Stops the user from equipping a hardsuit helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	resistance_flags = FLAMMABLE
-	obj_integrity = 150
+	
 	max_integrity = 150
 	integrity_failure = 80
 	/*

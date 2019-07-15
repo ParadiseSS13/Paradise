@@ -18,7 +18,7 @@
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
-	obj_integrity = 50
+	
 	max_integrity = 50
 	integrity_failure = 25	
 	attack_verb = list("bapped")

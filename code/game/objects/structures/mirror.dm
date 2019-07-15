@@ -6,7 +6,7 @@
 	icon_state = "mirror"
 	density = 0
 	anchored = 1
-	obj_integrity = 200
+	
 	max_integrity = 200
 	integrity_failure = 100
 	var/shattered = 0

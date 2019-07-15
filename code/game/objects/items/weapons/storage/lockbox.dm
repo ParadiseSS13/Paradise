@@ -13,7 +13,7 @@
 	var/icon_locked = "lockbox+l"
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
-	obj_integrity = 300
+	
 	max_integrity = 300
 	integrity_failure = 50
 	can_be_hit = TRUE

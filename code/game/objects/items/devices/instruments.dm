@@ -5,7 +5,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/instruments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/instruments_righthand.dmi'
 	resistance_flags = FLAMMABLE
-	obj_integrity = 100
+	
 	max_integrity = 100
 	var/datum/song/handheld/song
 	var/instrumentId = "generic"

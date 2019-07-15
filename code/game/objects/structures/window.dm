@@ -32,7 +32,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	flags = ON_BORDER
 	can_be_unanchored = TRUE
 	max_integrity = 25
-	obj_integrity = 25
+	
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE

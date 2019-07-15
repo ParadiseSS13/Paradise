@@ -139,7 +139,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = 1 // prevents people dragging it
 	density = 0 // prevents it blocking all movement
-	obj_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
+	 // two welders, or one laser shot (15 for the normal spider webs)
 	max_integrity = 20
 	resistance_flags = FLAMMABLE
 	icon_state = "stickyweb1"

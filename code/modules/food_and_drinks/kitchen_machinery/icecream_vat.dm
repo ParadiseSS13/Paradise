@@ -9,7 +9,7 @@
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
-	obj_integrity = 300
+	
 	max_integrity = 300
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/useramount = 15	//Last used amount

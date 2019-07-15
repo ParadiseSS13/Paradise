@@ -14,7 +14,6 @@
 	var/icon_broken = "securebroken"
 	var/icon_off = "secureoff"
 	wall_mounted = 0 //never solid (You can always pass over it)
-	obj_integrity = 250
 	max_integrity = 250
 	armor = list(melee = 30, bullet = 50, laser = 50, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 

@@ -18,7 +18,7 @@
 	anchored = TRUE
 	buckle_lying = TRUE
 	resistance_flags = FLAMMABLE
-	obj_integrity = 100
+	
 	max_integrity = 100
 	integrity_failure = 30
 	var/buildstacktype = /obj/item/stack/sheet/metal

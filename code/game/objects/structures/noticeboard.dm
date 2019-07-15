@@ -6,7 +6,7 @@
 	density = 0
 	anchored = 1
 	var/notices = 0
-	obj_integrity = 150
+	
 	max_integrity = 150
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)

@@ -4,7 +4,6 @@
 
 	density = 1
 	anchored = 1
-	obj_integrity = 250
 	max_integrity = 250
 	integrity_failure = 80
 	use_power = IDLE_POWER_USE

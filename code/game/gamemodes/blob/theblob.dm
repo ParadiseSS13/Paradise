@@ -8,7 +8,7 @@
 	opacity = 0
 	anchored = 1
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
-	obj_integrity = 30
+	
 	max_integrity = 30
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 70)
 	var/health_timestamp = 0
@@ -223,7 +223,7 @@
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0
-	obj_integrity = 30
+	
 	max_integrity = 30
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 70)
 

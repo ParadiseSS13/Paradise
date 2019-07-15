@@ -1030,7 +1030,7 @@ var/list/teleport_runes = list()
 	N.name = "Invoker's Shield"
 	N.desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals"
 	N.color = "red"
-	N.obj_integrity = 20
+	N.max_integrity = 20
 	N.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	new_human.key = ghost_to_spawn.key
 	SSticker.mode.add_cultist(new_human.mind, 0)

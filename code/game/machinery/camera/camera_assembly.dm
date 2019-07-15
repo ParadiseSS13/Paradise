@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	anchored = FALSE
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
-	obj_integrity = 150
+	
 	max_integrity = 150
 	can_be_hit = TRUE
 	//	Motion, EMP-Proof, X-Ray

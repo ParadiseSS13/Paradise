@@ -173,7 +173,7 @@
 	density = TRUE
 	opacity = TRUE	// changed in New()
 	anchored = TRUE
-	obj_integrity = 20
+	
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
 

@@ -19,7 +19,7 @@
 	density = 1
 	opacity = 1
 	resistance_flags = FLAMMABLE
-	obj_integrity = 200
+	
 	max_integrity = 200
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	var/tmp/busy = 0

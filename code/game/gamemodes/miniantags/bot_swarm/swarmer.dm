@@ -467,7 +467,7 @@
 	layer = MOB_LAYER
 	anchored = 1
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	obj_integrity = 30
+	
 	max_integrity = 30
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_ICON
@@ -517,7 +517,7 @@
 	icon_state = "trap"
 	light_range = 1
 	light_color = LIGHT_COLOR_CYAN
-	obj_integrity = 10
+	max_integrity = 10
 
 /obj/structure/swarmer/trap/Crossed(var/atom/movable/AM)
 	if(isliving(AM))
@@ -558,7 +558,7 @@
 	icon_state = "barricade"
 	light_range = 1
 	light_color = LIGHT_COLOR_CYAN
-	obj_integrity = 50
+	
 	max_integrity = 50
 
 /obj/structure/swarmer/blockade/CanPass(atom/movable/O)

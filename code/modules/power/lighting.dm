@@ -16,7 +16,7 @@
 	icon_state = "tube-construct-stage1"
 	anchored = 1
 	layer = 5
-	obj_integrity = 200
+	
 	max_integrity = 200
 	armor = list(melee = 50, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 50)
 	var/stage = 1
@@ -143,7 +143,7 @@
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
-	obj_integrity = 100
+	
 	max_integrity = 100
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = FALSE					// 1 if on, 0 if off

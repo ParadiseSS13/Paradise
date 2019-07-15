@@ -773,7 +773,7 @@ var/global/list/multiverse = list()
 	var/obj/item/link = null
 	var/cooldown_time = 30 //3s
 	var/cooldown = 0
-	obj_integrity = 10
+	
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
 

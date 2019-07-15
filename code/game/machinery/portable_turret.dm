@@ -78,7 +78,7 @@
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "Pulse Turret"
-	obj_integrity = 200
+	
 	enabled = 1
 	lethal = 1
 	req_access = list(access_cent_commander)
@@ -1062,6 +1062,6 @@ var/list/turret_icons
 /obj/machinery/porta_turret/syndicate/assault_pod
 	name = "machine gun turret (4.6x30mm)"
 	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
-	obj_integrity = 100
+	max_integrity = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3

@@ -5,7 +5,7 @@
 	anchored = 1
 	w_class = WEIGHT_CLASS_BULKY
 	can_be_hit = TRUE
-	obj_integrity = 100
+	
 	max_integrity = 100
 	canhear_range = 2
 	flags = CONDUCT

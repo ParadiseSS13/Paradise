@@ -12,7 +12,6 @@
 	var/strength = 5 //How weakened targets are when flashed.
 	var/base_state = "mflash"
 	anchored = 1
-	obj_integrity = 250
 	max_integrity = 250
 	integrity_failure = 100
 

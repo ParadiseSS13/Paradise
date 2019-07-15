@@ -4,7 +4,7 @@
 	opacity = 0
 	density = 0
 	layer = 3.5
-	obj_integrity = 100
+	
 	max_integrity = 100
 	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 
@@ -69,7 +69,7 @@
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "A framed picture of the station."
-	obj_integrity = 500
+	
 	max_integrity = 500
 
 /obj/structure/sign/double/map/left

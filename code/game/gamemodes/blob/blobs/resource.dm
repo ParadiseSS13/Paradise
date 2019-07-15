@@ -2,7 +2,7 @@
 	name = "resource blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
-	obj_integrity = 30
+	
 	max_integrity = 30
 	fire_resist = 2
 	point_return = 12

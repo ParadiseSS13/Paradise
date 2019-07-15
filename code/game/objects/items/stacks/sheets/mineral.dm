@@ -169,7 +169,7 @@ var/global/list/datum/stack_recipe/snow_recipes = list(
 	sheettype = "plasma"
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 	resistance_flags = FLAMMABLE
-	obj_integrity = 100
+	
 	max_integrity = 100
 
 /obj/item/stack/sheet/mineral/plasma/New()

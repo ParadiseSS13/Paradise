@@ -9,7 +9,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowshroom" //replaced in New
 	layer = 2.1
-	obj_integrity = 30
+	
 	max_integrity = 30
 	var/endurance = 30
 	var/delay = 1200

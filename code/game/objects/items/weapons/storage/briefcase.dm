@@ -13,7 +13,7 @@
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	resistance_flags = FLAMMABLE
-	obj_integrity = 150
+	
 	max_integrity = 150
 
 /obj/item/storage/briefcase/sniperbundle

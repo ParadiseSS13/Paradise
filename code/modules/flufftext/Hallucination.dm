@@ -575,8 +575,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/image/up
 	var/collapse
 	var/image/down
-
-	obj_integrity = 100
+	max_integrity = 100
+	
 
 /obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
 	step_away(src,my_target,2)

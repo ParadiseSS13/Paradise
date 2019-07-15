@@ -263,3 +263,6 @@
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
+
+/turf/space/acid_act(acidpwr, acid_volume)
+	return 

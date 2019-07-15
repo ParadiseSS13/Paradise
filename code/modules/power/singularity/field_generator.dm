@@ -28,7 +28,7 @@ field_generator power level display
 	density = 1
 	use_power = NO_POWER_USE
 	armor = list(melee = 25, bullet = 10, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
-	obj_integrity = 500
+	
 	max_integrity = 500
 	var/const/num_power_levels = 6	// Total number of power level icon has
 	var/power_level = 0

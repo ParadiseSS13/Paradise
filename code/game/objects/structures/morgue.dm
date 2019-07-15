@@ -17,7 +17,7 @@
 	icon_state = "morgue1"
 	density = 1
 	dir = EAST
-	obj_integrity = 400
+	
 	max_integrity = 400
 	var/obj/structure/tray/m_tray/connected = null
 	var/list/status_descriptors = list(
@@ -194,7 +194,7 @@
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
 	pass_flags = LETPASSTHROW
-	obj_integrity = 350
+	
 	max_integrity = 350
 
 

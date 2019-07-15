@@ -10,7 +10,6 @@
 	icon_state = "tracker"
 	density = TRUE
 	use_power = NO_POWER_USE
-	obj_integrity = 250
 	max_integrity = 250
 	integrity_failure = 50
 	var/id = 0

@@ -8,7 +8,7 @@ var/global/list/rad_collectors = list()
 	anchored = 0
 	density = 1
 	req_access = list(access_engine_equip)
-	obj_integrity = 350
+	
 	max_integrity = 350
 	integrity_failure = 80
 //	use_power = NO_POWER_USE

@@ -30,7 +30,7 @@
 //Cult versions cuase fuck map conflicts
 /obj/structure/cult/functional
 	var/cooldowntime = 0
-	obj_integrity = 100
+	max_integrity = 100
 	var/death_message = "<span class='warning'>The structure falls apart.</span>" //The message shown when the structure is destroyed
 	var/death_sound = 'sound/items/bikehorn.ogg'
 	var/heathen_message = "You're a huge nerd, go away. Also, a coder forgot to put a message here."
@@ -98,7 +98,7 @@
 	name = "altar"
 	desc = "A bloodstained altar dedicated to a cult."
 	icon_state = "talismanaltar"
-	obj_integrity = 150 //Sturdy
+	max_integrity = 150 //Sturdy
 	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
 	death_sound = 'sound/effects/altar_break.ogg'
 	heathen_message = "<span class='warning'>There is a foreboding aura to the altar and you want nothing to do with it.</span>"
@@ -112,7 +112,7 @@
 	name = "daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
 	icon_state = "forge"
-	obj_integrity = 300 //Made of metal
+	max_integrity = 300 //Made of metal
 	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
 	heathen_message = "<span class='warning'>Your hand feels like it's melting off as you try to touch the forge.</span>"
@@ -163,7 +163,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	icon_state = "pylon"
 	light_range = 5
 	light_color = "#3e0000"
-	obj_integrity = 50 //Very fragile
+	max_integrity = 50 //Very fragile
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 

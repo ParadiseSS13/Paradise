@@ -22,7 +22,7 @@
 	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
 	climbable = TRUE
-	obj_integrity = 100
+	
 	max_integrity = 100
 	resistance_flags = NONE
 	integrity_failure = 30
@@ -504,7 +504,7 @@
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
 	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
-	obj_integrity = 200
+	
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(melee = 10, bullet = 30, laser = 30, energy = 100, bomb = 20, bio = 0, rad = 0, fire = 80, acid = 70)
@@ -645,7 +645,7 @@
 	anchored = TRUE
 	pass_flags = LETPASSTHROW
 	max_integrity = 20
-	obj_integrity = 20
+	
 
 /obj/structure/rack/examine(mob/user)
 	to_chat(user, "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>")

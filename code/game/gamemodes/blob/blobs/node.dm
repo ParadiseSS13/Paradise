@@ -2,7 +2,7 @@
 	name = "blob node"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
-	obj_integrity = 200
+	
 	max_integrity = 200
 	fire_resist = 2
 	point_return = 18

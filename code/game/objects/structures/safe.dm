@@ -14,8 +14,7 @@ GLOBAL_LIST_EMPTY(safes)
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
-	obj_integrity = 1000 // better bring the big guns if you wanna crack this bad boy
-	max_integrity = 1000
+	max_integrity = 1000 // better bring the big guns if you wanna crack this bad boy
 	integrity_failure = 100
 	anchored = TRUE
 	density = TRUE

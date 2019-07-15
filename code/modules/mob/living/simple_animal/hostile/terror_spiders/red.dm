@@ -63,7 +63,7 @@
 
 
 /obj/structure/spider/terrorweb/red
-	obj_integrity = 30
+	
 	max_integrity = 30
 	name = "reinforced web"
 	desc = "This web is reinforced with extra strands, for added strength."

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
 	req_access = list(access_bar)
-	obj_integrity = 500
+	
 	max_integrity = 500
 	integrity_failure = 250
 	armor = list(melee = 20, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)

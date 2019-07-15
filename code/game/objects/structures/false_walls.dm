@@ -17,7 +17,7 @@
 	var/opening = 0
 	density = 1
 	opacity = 1
-	obj_integrity = 100
+	
 	max_integrity = 100
 	canSmoothWith = list(
 	/turf/simulated/wall,

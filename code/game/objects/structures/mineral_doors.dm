@@ -7,7 +7,7 @@
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
-	obj_integrity = 200
+	
 	max_integrity = 200
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 100, bomb = 10, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/initial_state
@@ -155,7 +155,7 @@
 
 /obj/structure/mineral_door/iron
 	hardness = 3
-	obj_integrity = 300
+	
 	max_integrity = 300
 
 /obj/structure/mineral_door/silver
@@ -163,7 +163,7 @@
 	icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
 	hardness = 3
-	obj_integrity = 300
+	
 	max_integrity = 300
 
 /obj/structure/mineral_door/gold
@@ -177,7 +177,7 @@
 	sheetType = /obj/item/stack/sheet/mineral/uranium
 	hardness = 3
 	light_range = 2
-	obj_integrity = 300
+	
 	max_integrity = 300
 
 /obj/structure/mineral_door/sandstone
@@ -185,7 +185,7 @@
 	icon_state = "sandstone"
 	sheetType = /obj/item/stack/sheet/mineral/sandstone
 	hardness = 0.5
-	obj_integrity = 100
+	
 	max_integrity = 100
 
 /obj/structure/mineral_door/transparent
@@ -222,7 +222,6 @@
 	name = "diamond door"
 	icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
-	obj_integrity = 1000
 	max_integrity = 1000
 
 /obj/structure/mineral_door/wood
@@ -232,7 +231,7 @@
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
-	obj_integrity = 200
+	
 	max_integrity = 200
 
 /obj/structure/mineral_door/resin

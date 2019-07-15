@@ -37,7 +37,7 @@
 	var/step_energy_drain = 10
 	var/melee_energy_drain = 15
 	var/overload_step_energy_drain_min = 100
-	obj_integrity = 300 //obj_integrity is health
+	 //obj_integrity is health
 	max_integrity = 300
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	//the values in this list show how much damage will pass through, not how much will be absorbed.

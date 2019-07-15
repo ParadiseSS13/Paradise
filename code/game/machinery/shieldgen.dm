@@ -8,7 +8,7 @@
 	anchored = 1
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 200
-	obj_integrity = 200 //The shield can only take so much beating (prevents perma-prisons)
+	 //The shield can only take so much beating (prevents perma-prisons)
 
 /obj/structure/emergency_shield/New()
 	src.setDir(pick(1,2,3,4))
@@ -65,7 +65,7 @@
 	name = "Invoker's Shield"
 	desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals"
 	color = "red"
-	obj_integrity = 20
+	
 	max_integrity = 20
 	mouse_opacity = 0
 
@@ -80,7 +80,7 @@
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(access_engine)
 	max_integrity = 100
-	obj_integrity = 100
+	
 	var/active = 0
 	var/list/deployed_shields = list()
 	var/locked = 0
@@ -232,7 +232,7 @@
 	req_access = list(access_teleporter)
 	flags = CONDUCT
 	use_power = 0
-	obj_integrity = 300
+	
 	max_integrity = 300
 	var/active = 0
 	var/power = 0

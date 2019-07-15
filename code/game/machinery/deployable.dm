@@ -58,7 +58,7 @@ for reference:
 /obj/structure/barricade
 	anchored = 1.0
 	density = 1.0
-	obj_integrity = 100
+	
 	max_integrity = 100
 	var/stacktype = /obj/item/stack/sheet/metal
 
@@ -131,7 +131,7 @@ for reference:
 	anchored = 0.0
 	density = 1.0
 	icon_state = "barrier0"
-	obj_integrity = 100
+	
 	max_integrity = 100
 	var/locked = 0.0
 //	req_access = list(access_maint_tunnels)

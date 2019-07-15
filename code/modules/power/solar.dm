@@ -10,7 +10,6 @@
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
-	obj_integrity = 150
 	max_integrity = 150
 	integrity_failure = 50
 	var/id = 0
@@ -263,7 +262,7 @@
 	icon_state = "computer"
 	anchored = 1
 	density = 1
-	obj_integrity = 200
+	
 	max_integrity = 200
 	integrity_failure = 100
 	use_power = IDLE_POWER_USE

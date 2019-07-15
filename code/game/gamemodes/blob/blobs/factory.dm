@@ -2,7 +2,7 @@
 	name = "factory blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
-	obj_integrity = 100
+	
 	max_integrity = 100
 	fire_resist = 2
 	point_return = 18

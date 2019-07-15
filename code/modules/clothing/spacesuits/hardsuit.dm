@@ -6,7 +6,7 @@
 	item_state = "eng_helm"
 	hardsuit_restrict_helmet = 1
 	resistance_flags = NONE
-	obj_integrity = 200
+	
 	max_integrity = 200
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75, fire = 50, acid = 75)
 	allowed = list(/obj/item/flashlight)

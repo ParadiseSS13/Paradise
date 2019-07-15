@@ -10,7 +10,7 @@
 	opacity = 0
 	dir = EAST
 	resistance_flags = ACID_PROOF
-	obj_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
+	 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
 	max_integrity = 150
 	integrity_failure = 0
 	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 70, acid = 100)

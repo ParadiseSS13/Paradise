@@ -5,7 +5,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
-	obj_integrity = 200
+	
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral

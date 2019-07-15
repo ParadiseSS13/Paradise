@@ -14,7 +14,7 @@
 	var/hitstaken = 0
 	var/hasaxe = 1
 	locked = 1
-	obj_integrity = 100
+	
 	max_integrity = 100
 	integrity_failure = 50
 

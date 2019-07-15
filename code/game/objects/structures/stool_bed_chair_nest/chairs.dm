@@ -8,7 +8,6 @@
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
 	resistance_flags = NONE
-	obj_integrity = 250
 	max_integrity = 250
 	integrity_failure = 25
 	buckle_offset = 0
