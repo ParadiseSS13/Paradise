@@ -307,11 +307,6 @@
 		qdel(src)
 		return
 
-	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
-	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
-
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 
@@ -755,6 +750,10 @@
 
 //Send resources to the client.
 /client/proc/send_resources()
+	// Change the way they should download resources.
+	if(config.resource_urls)
+		preload_rsc = pick(config.resource_urls)
+	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
