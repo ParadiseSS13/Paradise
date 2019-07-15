@@ -13,6 +13,9 @@
 	var/set_temperature = 50		// in celcius, add T0C for kelvin
 	var/heating_power = 40000
 
+/obj/machinery/space_heater/get_cell()
+	return cell
+
 /obj/machinery/space_heater/New()
 	..()
 	cell = new(src)
@@ -39,7 +42,6 @@
 		to_chat(user, "The power cell is [cell ? "installed" : "missing"].")
 	else
 		to_chat(user, "The charge meter reads [cell ? round(cell.percent(),1) : 0]%")
-
 
 /obj/machinery/space_heater/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

@@ -23,12 +23,11 @@
 /turf/simulated/proc/burn_tile()
 	return
 
-/turf/simulated/proc/water_act(volume, temperature, source)
+/turf/simulated/water_act(volume, temperature, source)
+	. = ..()
+	
 	if(volume >= 3)
 		MakeSlippery()
-
-	for(var/mob/living/carbon/slime/M in src)
-		M.apply_water()
 
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)

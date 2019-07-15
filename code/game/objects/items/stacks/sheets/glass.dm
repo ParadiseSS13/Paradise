@@ -34,6 +34,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/glass
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 100)
 	resistance_flags = ACID_PROOF
+	point_value = 1
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -94,6 +95,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/rglass
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 70, acid = 100)
 	resistance_flags = ACID_PROOF
+	point_value = 4
 
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()
@@ -117,6 +119,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	origin_tech = "plasmatech=2;materials=2"
 	created_window = /obj/structure/window/plasmabasic
 	full_window = /obj/structure/window/full/plasmabasic
+	point_value = 19
 
 /obj/item/stack/sheet/plasmaglass/New(loc, amount)
 	recipes = GLOB.pglass_recipes
@@ -158,6 +161,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	created_window = /obj/structure/window/plasmareinforced
 	full_window = /obj/structure/window/full/plasmareinforced
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0)
+	point_value = 23
 
 /obj/item/stack/sheet/plasmarglass/New(loc, amount)
 	recipes = GLOB.prglass_recipes

@@ -106,6 +106,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	resistance_flags = FIRE_PROOF
+	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -154,6 +155,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 80)
 	resistance_flags = FIRE_PROOF
+	point_value = 23
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes

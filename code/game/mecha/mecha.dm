@@ -144,6 +144,10 @@
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
+
+/obj/mecha/get_cell()
+	return cell
+
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank

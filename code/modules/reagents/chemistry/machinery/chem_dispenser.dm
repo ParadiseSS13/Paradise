@@ -25,6 +25,9 @@
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 
+/obj/machinery/chem_dispenser/get_cell()
+	return cell
+
 /obj/machinery/chem_dispenser/New()
 	..()
 	component_parts = list()

@@ -70,6 +70,10 @@
 #define ATTACK_EFFECT_MECHFIRE	"mech_fire"
 #define ATTACK_EFFECT_MECHTOXIN	"mech_toxin"
 #define ATTACK_EFFECT_BOOP		"boop" //Honk
+//NOTE: INTENT_HOTKEY_* defines are not actual intents!
+//they are here to support hotkeys
+#define INTENT_HOTKEY_LEFT  "left"
+#define INTENT_HOTKEY_RIGHT "right"
 
 //Embedded objects
 #define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
@@ -83,6 +87,22 @@
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
 
 #define DAMAGE_PRECISION 0.1
+// Body Parts
+#define BODY_ZONE_HEAD		"head"
+#define BODY_ZONE_CHEST		"chest"
+#define BODY_ZONE_L_ARM		"l_arm"
+#define BODY_ZONE_R_ARM		"r_arm"
+#define BODY_ZONE_L_LEG		"l_leg"
+#define BODY_ZONE_R_LEG		"r_leg"
+
+#define BODY_ZONE_PRECISE_EYES		"eyes"
+#define BODY_ZONE_PRECISE_MOUTH		"mouth"
+#define BODY_ZONE_PRECISE_GROIN		"groin"
+#define BODY_ZONE_PRECISE_L_HAND	"l_hand"
+#define BODY_ZONE_PRECISE_R_HAND	"r_hand"
+#define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
+#define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
+
 //Gun Stuff
 #define SAWN_INTACT  0
 #define SAWN_OFF     1

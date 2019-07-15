@@ -434,7 +434,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/structure/window/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	setDir(ini_dir)
 	move_update_air(T)
 

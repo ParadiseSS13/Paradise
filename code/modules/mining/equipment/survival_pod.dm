@@ -237,6 +237,9 @@
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
 
+/obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
+	return FALSE
+
 /obj/machinery/smartfridge/survival_pod/empty
 	name = "dusty survival pod storage"
 	desc = "A heated storage unit. This one's seen better days."
