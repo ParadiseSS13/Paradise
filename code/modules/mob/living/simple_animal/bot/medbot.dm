@@ -9,7 +9,7 @@
 	health = 20
 	maxHealth = 20
 	pass_flags = PASSMOB
-
+	status_flags = (CANPUSH | CANSTUN)
 	radio_channel = "Medical"
 
 	bot_type = MED_BOT
@@ -108,6 +108,9 @@
 	if(!on)
 		icon_state = "medibot0"
 		return
+	if(IsStun())
+		icon_state = "medibota"
+		return
 	if(mode == BOT_HEALING)
 		icon_state = "medibots[stationary_mode]"
 		return
@@ -129,6 +132,10 @@
 
 	if(new_skin)
 		skin = new_skin
+	update_icon()
+
+/mob/living/simple_animal/bot/medbot/update_canmove()
+	. = ..()
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
@@ -301,17 +308,10 @@
 	if(mode == BOT_HEALING)
 		return
 
-	if(stun)
-		icon_state = "medibota"
-		stun--
-
+	if(IsStun())
 		oldpatient = patient
 		patient = null
 		mode = BOT_IDLE
-
-		if(stun <= 0)
-			update_icon()
-			stun = 0
 		return
 
 	if(frustration > 8)
@@ -553,11 +553,6 @@
 	if(current_volume + injection_amount > R.overdose_threshold)
 		return 1
 	return 0
-
-/mob/living/simple_animal/bot/medbot/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag == "taser")
-		stun = min(stun+200,400)
-	..()
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = 0

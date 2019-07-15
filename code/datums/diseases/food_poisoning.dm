@@ -17,7 +17,7 @@
 
 /datum/disease/food_poisoning/stage_act()
 	..()
-	if(affected_mob.sleeping && prob(33))
+	if(affected_mob.IsSleeping() && prob(33))
 		to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 		cure()
 		return
@@ -28,7 +28,7 @@
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>You feel queasy.</span>")
 		if(2)
-			if(affected_mob.sleeping && prob(40))
+			if(affected_mob.IsSleeping() && prob(40))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
@@ -43,7 +43,7 @@
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>You feel nauseous.</span>")
 		if(3)
-			if(affected_mob.sleeping && prob(25))
+			if(affected_mob.IsSleeping() && prob(25))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return

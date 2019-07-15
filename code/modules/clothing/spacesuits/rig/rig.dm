@@ -654,7 +654,7 @@
 		return 0
 
 	if(href_list["toggle_piece"])
-		if(ishuman(usr) && (usr.stat || usr.stun || usr.lying))
+		if(ishuman(usr) && (usr.stat || usr.IsStun() || usr.lying))
 			return 0
 		toggle_piece(href_list["toggle_piece"], usr)
 	else if(href_list["toggle_seals"])
@@ -861,7 +861,7 @@
 	if(get_dist(src, user) <= 1) //Needs to be adjecant to the rig to get shocked.
 		if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
 			spark_system.start()
-			if(user.stun)
+			if(user.IsStun())
 				return 1
 	return 0
 
@@ -1046,7 +1046,7 @@
 	unseal(user)
 	return 1
 
-/obj/item/rig/proc/can_touch(var/mob/user, var/mob/wearer)
+/obj/item/rig/proc/can_touch(var/mob/living/user, var/mob/wearer)
 	if(!user)
 		return 0
 	if(!wearer.Adjacent(user))
@@ -1054,7 +1054,7 @@
 	if(user.restrained())
 		to_chat(user, "<span class='notice'>You need your hands free for this.</span>")
 		return 0
-	if(user.stat || user.unconscious || user.sleeping || user.lying || user.knockdown)
+	if(user.stat || user.IsUnconscious() || user.IsSleeping() || user.lying || user.IsKnockdown())
 		return 0
 	return 1
 #undef ONLY_DEPLOY

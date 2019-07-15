@@ -14,9 +14,8 @@
 		process_queued_alarms()
 
 /mob/living/silicon/robot/proc/clamp_values()
-	SetStun(min(stun, 30))
-	SetUnconscious(min(unconscious, 30))
-	SetKnockdown(min(knockdown, 20))
+	SetUnconscious(min(AmountUnconscious(), 30))
+	SetKnockdown(min(AmountKnockdown(), 20))
 	SetSleeping(0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
@@ -56,9 +55,6 @@
 			camera.status = 0
 		else
 			camera.status = 1
-
-	if(sleeping)
-		AdjustSleeping(-1)
 
 	if(.) //alive
 		if(!istype(src, /mob/living/silicon/robot/drone))
@@ -169,7 +165,7 @@
 			weaponlock_time = 120
 
 /mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(unconscious || stun || knockdown || buckled || lockcharge || stat)
+	if(IsUnconscious() || IsStun() || IsKnockdown() || buckled || lockcharge || stat)
 		canmove = 0
 	else
 		canmove = 1

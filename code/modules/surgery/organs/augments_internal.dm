@@ -130,9 +130,9 @@
 	..()
 	if(crit_fail)
 		return
-	if(owner.stun > STUN_SET_AMOUNT)
+	if(owner.AmountStun() > STUN_SET_AMOUNT)
 		owner.SetStun(STUN_SET_AMOUNT)
-	if(owner.knockdown > STUN_SET_AMOUNT)
+	if(owner.AmountKnockdown() > STUN_SET_AMOUNT)
 		owner.SetKnockdown(STUN_SET_AMOUNT)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
@@ -269,7 +269,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
 	if(reviving)
-		if(owner.stat == UNCONSCIOUS && (owner.sleeping == 0)) //!owner.sleeping didn't work for whatever dumb reason
+		if(owner.stat == UNCONSCIOUS && owner.IsSleeping()) //!owner.sleeping didn't work for whatever dumb reason
 			spawn(30)
 				if(prob(90) && owner.getOxyLoss())
 					owner.adjustOxyLoss(-3)

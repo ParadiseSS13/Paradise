@@ -73,7 +73,7 @@
 
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-	if(usr.stat || (!ishuman(user) && !isrobot(user)) || user.restrained() || !check_table(user) || user.knockdown || user.stun)
+	if(usr.stat || (!ishuman(user) && !isrobot(user)) || user.restrained() || !check_table(user) || user.IsKnockdown() || user.IsStun())
 		return
 
 	if(!ismob(O)) //humans only

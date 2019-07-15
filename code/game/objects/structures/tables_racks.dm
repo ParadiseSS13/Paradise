@@ -688,7 +688,7 @@
 	return
 
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.knockdown || user.resting || user.lying)
+	if(user.IsKnockdown() || user.resting || user.lying)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)

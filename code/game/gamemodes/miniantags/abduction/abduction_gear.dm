@@ -494,7 +494,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.stun || L.sleeping)
+	if(L.IsStun() || L.IsSleeping())
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
@@ -566,7 +566,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	..()
 	switch(mode)
 		if(BATON_STUN)
-			to_chat(user, "<span class='warning'>The baton is in stun mode.</span>")
+			to_chat(user, "<span class='warning'>The baton is in IsStun() mode.</span>")
 		if(BATON_SLEEP)
 			to_chat(user, "<span class='warning'>The baton is in sleep inducement mode.</span>")
 		if(BATON_CUFF)

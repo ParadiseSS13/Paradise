@@ -126,7 +126,7 @@
 		if(emagged <= 1)
 			honk_attack(A)
 		else
-			if(!C.stun || arrest_type) //originaly was paralisysed in tg ported as stun
+			if(!C.IsStun() || arrest_type) //originaly was paralisysed in tg ported as stun
 				stun_attack(A)
 		..()
 	else if(!spam_flag) //honking at the ground

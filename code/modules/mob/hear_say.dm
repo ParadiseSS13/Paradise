@@ -68,10 +68,11 @@
 		if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
 			italics = 1
 			sound_vol *= 0.5
-
-	if(sleeping || stat == UNCONSCIOUS)
-		hear_sleep(multilingual_to_message(message_pieces))
-		return 0
+	if(isliving(src))
+		var/mob/living/L = src
+		if(L.IsSleeping() || L.stat == UNCONSCIOUS)
+			hear_sleep(multilingual_to_message(message_pieces))
+			return 0
 
 	var/speaker_name = speaker.name
 	if(ishuman(speaker))
@@ -112,10 +113,11 @@
 /mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
 	if(!client)
 		return
-
-	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
-		hear_sleep(multilingual_to_message(message_pieces))
-		return
+	if(isliving(src))
+		var/mob/living/L = src
+		if(L.IsSleeping() || L.stat == UNCONSCIOUS) //If unconscious or sleeping
+			hear_sleep(multilingual_to_message(message_pieces))
+			return
 
 	var/message = combine_message(message_pieces, verb, speaker, always_stars = hard_to_hear)
 	if(message == "")

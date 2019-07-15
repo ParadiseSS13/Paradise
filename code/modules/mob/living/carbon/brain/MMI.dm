@@ -224,7 +224,7 @@
 	..()
 
 /obj/item/mmi/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stun)
+	if(user.stat || user.IsStun())
 		return
 	var/obj/item/rig/rig = src.get_rig()
 	if(rig)

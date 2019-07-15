@@ -383,7 +383,7 @@
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || knockdown)
+					if(lying || IsKnockdown())
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
@@ -446,7 +446,7 @@
 
 		if("faint", "faints")
 			message = "<B>[src]</B> faints."
-			if(sleeping)
+			if(IsSleeping())
 				return //Can't faint while asleep
 			AdjustSleeping(40)
 			m_type = 1

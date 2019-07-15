@@ -412,9 +412,9 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetUnconscious(0, 1, 1)
-	SetStun(0, 1, 1)
-	SetKnockdown(0, 1, 1)
+	SetUnconscious(0)
+	SetStun(0)
+	SetKnockdown(0)
 	SetSlowed(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
@@ -610,7 +610,7 @@
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || knockdown || stun || unconscious)
+	if(!isliving(src) || next_move > world.time || stat || IsKnockdown() || IsStun() || IsUnconscious())
 		return
 	changeNext_move(CLICK_CD_RESIST)
 

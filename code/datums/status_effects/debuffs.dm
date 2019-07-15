@@ -1,3 +1,107 @@
+//Largely negative status effects go here, even if they have small benificial effects
+//STUN EFFECTS
+/datum/status_effect/incapacitating
+	tick_interval = 0
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+
+/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+	if(isnum(set_duration))
+		duration = set_duration
+	. = ..()
+	if(.)
+		if(updating_canmove)
+			owner.update_canmove()
+			if(issilicon(owner))
+				owner.update_stat()
+
+/datum/status_effect/incapacitating/on_remove()
+	owner.update_canmove()
+	if(issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
+		owner.update_stat()
+
+//SLEEPING
+/datum/status_effect/incapacitating/sleeping
+	id = "sleeping"
+	alert_type = /obj/screen/alert/status_effect/asleep
+	var/mob/living/carbon/carbon_owner
+	var/mob/living/carbon/human/human_owner
+
+/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, updating_canmove)
+	. = ..()
+	if(.)
+		if(updating_canmove)
+			owner.update_stat()
+		if(iscarbon(owner)) //to avoid repeated istypes
+			carbon_owner = owner
+		if(ishuman(owner))
+			human_owner = owner
+
+/datum/status_effect/incapacitating/sleeping/Destroy()
+	carbon_owner = null
+	human_owner = null
+	return ..()
+
+/datum/status_effect/incapacitating/sleeping/tick()
+	var/comfort = 1
+	if(owner.staminaloss)
+		owner.adjustStaminaLoss(-10)
+	if(istype(owner.buckled, /obj/structure/bed))
+		var/obj/structure/bed/bed = owner.buckled
+		comfort+= bed.comfort
+	for(var/obj/item/bedsheet/bedsheet in range(owner.loc,0))
+		if(bedsheet.loc != owner.loc) //bedsheets in your backpack/neck don't give you comfort
+			continue
+		comfort+= bedsheet.comfort
+		break //Only count the first bedsheet
+	if(human_owner && human_owner.drunk)
+		comfort += 1 //Aren't naps SO much better when drunk?
+		human_owner.AdjustDrunk(1-0.0015*comfort) //reduce drunkenness ~6% per two seconds, when on floor.
+	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+		owner.adjustBruteLoss(-1*comfort)
+		owner.adjustFireLoss(-1*comfort)
+	if(prob(20))
+		if(carbon_owner)
+			carbon_owner.handle_dreams()
+		if(prob(10) && owner.health > HEALTH_THRESHOLD_CRIT)
+			owner.emote("snore")
+	// Keep SSD people asleep
+	if(owner.player_logged)
+		owner.AdjustSleeping(2)
+
+/datum/status_effect/incapacitating/sleeping/on_remove()
+	..()
+	owner.update_stat()
+
+/obj/screen/alert/status_effect/asleep
+	name = "Asleep"
+	desc = "You've fallen asleep. Wait a bit and you should wake up. Unless you don't, considering how helpless you are."
+	icon_state = "asleep"
+
+/obj/screen/alert/status_effect/stunned
+	name = "Stunned"
+	desc = "You can't move! You've been stunned by something."
+	icon_state = "stun"
+
+/obj/screen/alert/status_effect/knockdown
+	name = "Knocked down"
+	desc = "You have been knocked down! You can't move!"
+	icon_state = "paralysis"
+
+//STUN
+/datum/status_effect/incapacitating/stun
+	id = "stun"
+	alert_type = /obj/screen/alert/status_effect/stunned
+
+//KNOCKDOWN
+/datum/status_effect/incapacitating/knockdown
+	id = "knockdown"
+	alert_type = /obj/screen/alert/status_effect/knockdown
+
+//UNCONSCIOUS
+/datum/status_effect/incapacitating/unconscious
+	id = "unconscious"
+
 //OTHER DEBUFFS
 
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes

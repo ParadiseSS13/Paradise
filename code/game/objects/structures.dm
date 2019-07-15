@@ -144,7 +144,7 @@
 			H.UpdateDamageIcon()
 	return
 
-/obj/structure/proc/can_touch(var/mob/user)
+/obj/structure/proc/can_touch(var/mob/living/user)
 	if(!user)
 		return 0
 	if(!Adjacent(user))
@@ -152,7 +152,7 @@
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.unconscious || user.sleeping || user.lying || user.knockdown)
+	if(user.stat || user.IsUnconscious() || user.IsSleeping() || user.lying || user.IsKnockdown())
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")

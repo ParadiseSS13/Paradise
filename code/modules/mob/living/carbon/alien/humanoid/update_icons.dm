@@ -25,7 +25,7 @@
 			icon_state = "alien[caste]_dead"
 			pixel_y = 0
 
-	else if(stat == UNCONSCIOUS || knockdown)
+	else if(stat == UNCONSCIOUS || IsKnockdown())
 		icon_state = "alien[caste]_unconscious"
 		pixel_y = 0
 	else if(leap_on_click)

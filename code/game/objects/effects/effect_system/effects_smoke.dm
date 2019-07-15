@@ -202,7 +202,7 @@
 /obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
-		M.Sleeping(max(M.sleeping,10))
+		M.Sleeping(max(M.AmountSleeping(),10))
 		M.emote("cough")
 		return 1
 

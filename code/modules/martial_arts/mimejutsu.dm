@@ -22,7 +22,7 @@
 	return 0
 
 /datum/martial_art/mimejutsu/proc/mimeChuck(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.stun && !D.knockdown)
+	if(!D.stat && !D.IsStun() && !D.IsKnockdown())
 		var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 		if(!damage)
 			playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
@@ -54,7 +54,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/mimejutsu/proc/mimePalm(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.stun && !D.knockdown)
+	if(!D.stat && !D.IsStun() && !D.IsKnockdown())
 		D.visible_message("<span class='danger'>[A] has barely touched [D] with [A.p_their()] palm!</span>", \
 						"<span class='userdanger'>[A] hovers [A.p_their()] palm over your face!</span>")
 

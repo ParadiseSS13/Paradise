@@ -1,6 +1,6 @@
 // No args for restraints because robots don't have those
 /mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || lockcharge || knockdown || stun || unconscious || !is_component_functioning("actuator"))
+	if(stat || lockcharge || IsKnockdown() || IsStun() || IsUnconscious() || !is_component_functioning("actuator"))
 		return TRUE
 
 /mob/living/silicon/robot/has_vision(information_only = FALSE)
@@ -14,7 +14,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || unconscious || sleeping || resting || stun || knockdown || getOxyLoss() > maxHealth * 0.5)
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || IsUnconscious() || IsSleeping() || resting || IsStun() || IsKnockdown() || getOxyLoss() > maxHealth * 0.5)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")

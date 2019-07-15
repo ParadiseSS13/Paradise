@@ -388,7 +388,7 @@
 
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/user = usr)
 	var/failure = 0
-	if(istype(user.loc,/mob/) || user.lying || user.stun || user.buckled || user.stat)
+	if(istype(user.loc,/mob/) || user.lying || user.IsStun() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 

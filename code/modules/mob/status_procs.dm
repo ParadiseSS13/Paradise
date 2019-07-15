@@ -111,6 +111,11 @@
 /mob/proc/AdjustLoseBreath()
 	return
 
+/mob/proc/IsUnconscious() //non-living mobs shouldn't be unconscious
+	return FALSE
+
+/mob/proc/AmountUnconscious()
+	return
 
 /mob/proc/Unconscious()
 	return
@@ -141,6 +146,11 @@
 /mob/proc/AdjustSleeping()
 	return
 
+/mob/proc/AmountSleeping()
+	return
+	
+/mob/proc/IsSleeping()
+	return
 
 /mob/proc/Slowed()
 	return
@@ -179,7 +189,12 @@
 /mob/proc/AdjustStun()
 	return
 
+/mob/proc/IsStun() //non-living mobs shouldn't be stunned
+	return FALSE
 
+/mob/proc/AmountStun()
+	return
+		
 /mob/proc/Stuttering()
 	return
 
@@ -189,7 +204,11 @@
 /mob/proc/AdjustStuttering()
 	return
 
+/mob/proc/IsKnockdown() //non-living mobs shouldn't be knocked down
+	return FALSE
 
+/mob/proc/AmountKnockdown()
+	return
 /mob/proc/Knockdown()
 	return
 

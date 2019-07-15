@@ -27,9 +27,9 @@
 				adjustOxyLoss(1)
 			Unconscious(60)
 
-		if(unconscious)
+		if(IsUnconscious())
 			stat = UNCONSCIOUS
-		else if(sleeping)
+		else if(IsSleeping())
 			stat = UNCONSCIOUS
 			if(prob(10) && health)
 				emote("hiss_")

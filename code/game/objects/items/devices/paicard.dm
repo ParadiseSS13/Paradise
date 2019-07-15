@@ -18,7 +18,7 @@
 	faction = list("syndicate")
 
 /obj/item/paicard/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stun)
+	if(user.stat || user.IsStun())
 		return
 	var/obj/item/rig/rig = get_rig()
 	if(istype(rig))

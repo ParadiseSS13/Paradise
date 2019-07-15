@@ -10,7 +10,7 @@
 	color = "#664300" // rgb: 102, 67, 0
 	adj_dizzy = -5
 	adj_drowsy = -3
-	adj_sleepy = -2
+	adj_sleepy = -40
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."

@@ -53,7 +53,7 @@
 /datum/martial_art/cqc/proc/Slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(!D.knockdown && !D.resting && !D.lying)
+	if(!D.IsKnockdown() && !D.resting && !D.lying)
 		D.visible_message("<span class='warning'>[A] slams [D] into the ground!</span>", \
 						  	"<span class='userdanger'>[A] slams you into the ground!</span>")
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
@@ -70,7 +70,7 @@
 	if(!can_use(A))
 		return FALSE
 	var/success = FALSE
-	if(!D.stat || !D.knockdown)
+	if(!D.stat || !D.IsKnockdown())
 		D.visible_message("<span class='warning'>[A] kicks [D] back!</span>", \
 							"<span class='userdanger'>[A] kicks you back!</span>")
 		playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
@@ -79,7 +79,7 @@
 		D.apply_damage(10, BRUTE)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		success = TRUE
-	if(D.knockdown && !D.stat)
+	if(D.IsKnockdown() && !D.stat)
 		D.visible_message("<span class='warning'>[A] kicks [D]'s head, knocking [D.p_them()] out!</span>", \
 					  		"<span class='userdanger'>[A] kicks your head, knocking you out!</span>")
 		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
@@ -164,7 +164,7 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
 	var/bonus_damage = 13
-	if(D.knockdown || D.resting || D.lying)
+	if(D.IsKnockdown() || D.resting || D.lying)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, BRUTE)
@@ -175,7 +175,7 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
-	if(A.resting && !D.stat && !D.knockdown)
+	if(A.resting && !D.stat && !D.IsKnockdown())
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
@@ -204,7 +204,7 @@
 		restraining = FALSE
 
 	if(prob(65))
-		if(!D.stat || !D.knockdown || !restraining)
+		if(!D.stat || !D.IsKnockdown() || !restraining)
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")

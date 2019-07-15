@@ -196,15 +196,12 @@
 	if(src.stat == DEAD)
 		src.lying = 1
 	else
-		if(src.unconscious || src.stun || src.knockdown || (status_flags && FAKEDEATH)) //Stunned etc.
-			if(src.stun > 0)
-				AdjustStun(-20)
-				src.stat = 0
-			if(src.knockdown > 0)
+		if(src.IsUnconscious() || src.IsKnockdown() || (status_flags && FAKEDEATH)) //Stunned etc.
+			if(src.IsKnockdown())
 				AdjustKnockdown(-20)
 				src.lying = 0
 				src.stat = 0
-			if(src.unconscious > 0)
+			if(src.IsUnconscious())
 				AdjustUnconscious(-20)
 				src.lying = 0
 				src.stat = 0

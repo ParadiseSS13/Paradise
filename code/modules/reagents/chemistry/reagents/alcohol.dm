@@ -252,7 +252,7 @@
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-7)
-	update_flags |= M.AdjustSleeping(-2, FALSE)
+	update_flags |= M.AdjustSleeping(-40, FALSE)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(5)
@@ -1037,7 +1037,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDizzy(-5)
 	M.AdjustDrowsy(-3)
-	update_flags |= (M.AdjustSleeping(-2) ? STATUS_UPDATE_STAT : STATUS_UPDATE_NONE)
+	update_flags |= (M.AdjustSleeping(-40) ? STATUS_UPDATE_STAT : STATUS_UPDATE_NONE)
 	M.Jitter(5)
 	return ..() | update_flags
 

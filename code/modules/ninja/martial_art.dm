@@ -51,7 +51,7 @@
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
 
 /datum/martial_art/ninja_martial_art/proc/wrist_wrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.knockdown)
+	if(!D.stat && !D.IsKnockdown())
 		if(has_focus)
 			has_focus = 0
 			A.face_atom(D)
@@ -69,7 +69,7 @@
 	return A.pointed(D)
 
 /datum/martial_art/ninja_martial_art/proc/choke_hold(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.knockdown)
+	if(!D.stat && !D.IsKnockdown())
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
 			to_chat(A, "<span class='warning'>You cannot grab [D] from that angle!</span>")
@@ -114,7 +114,7 @@
 	return A.pointed(D)
 
 /datum/martial_art/ninja_martial_art/proc/palm_strike(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.knockdown)
+	if(!D.stat && !D.IsKnockdown())
 		if(has_focus)
 			has_focus = 0
 			A.face_atom(D)

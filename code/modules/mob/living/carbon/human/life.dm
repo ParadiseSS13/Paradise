@@ -82,7 +82,7 @@
 
 /mob/living/carbon/human/handle_disabilities()
 	if(disabilities & EPILEPSY)
-		if((prob(1) && unconscious < 1))
+		if((prob(1) && AmountUnconscious() < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 			Unconscious(200)
 			Jitter(1000)
@@ -93,11 +93,11 @@
 			Hallucinate(20)
 
 	if(disabilities & COUGHING)
-		if((prob(5) && unconscious <= 1))
+		if((prob(5) && AmountUnconscious() <= 1))
 			drop_item()
 			emote("cough")
 	if(disabilities & TOURETTES)
-		if((prob(10) && unconscious <= 1))
+		if((prob(10) && AmountUnconscious() <= 1))
 			Stun(200)
 			switch(rand(1, 3))
 				if(1)
@@ -748,10 +748,10 @@
 		if(REGEN in mutations)
 			heal_overall_damage(0.1, 0.1)
 
-		if(unconscious)
+		if(IsUnconscious())
 			stat = UNCONSCIOUS
 
-		else if(sleeping)
+		else if(IsSleeping())
 
 			stat = UNCONSCIOUS
 

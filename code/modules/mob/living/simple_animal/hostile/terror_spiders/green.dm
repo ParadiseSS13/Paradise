@@ -80,7 +80,7 @@
 		..()
 		return
 	var/inject_target = pick("chest","head")
-	if(L.stun || L.can_inject(null,0,inject_target,0))
+	if(L.IsStun() || L.can_inject(null,0,inject_target,0))
 		if(L.eye_blurry < 60)
 			L.AdjustEyeBlurry(10)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.

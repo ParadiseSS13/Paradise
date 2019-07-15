@@ -163,7 +163,7 @@
 			if(SA_partialpressure > SA_para_min)
 				Unconscious(60)
 				if(SA_partialpressure > SA_sleep_min)
-					AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+					Sleeping(max(AmountSleeping() + 40, 200))
 			else if(SA_partialpressure > 0.01)
 				if(prob(20))
 					emote(pick("giggle","laugh"))
@@ -317,31 +317,6 @@
 
 		AdjustHallucinate(-2)
 
-/mob/living/carbon/handle_sleeping()
-	if(..())
-		handle_dreams()
-		adjustStaminaLoss(-10)
-		var/comfort = 1
-		if(istype(buckled, /obj/structure/bed))
-			var/obj/structure/bed/bed = buckled
-			comfort+= bed.comfort
-		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
-			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort
-				continue
-			comfort+= bedsheet.comfort
-			break //Only count the first bedsheet
-		if(drunk)
-			comfort += 1 //Aren't naps SO much better when drunk?
-			AdjustDrunk(1-0.0015*comfort) //reduce drunkenness ~6% per two seconds, when on floor.
-		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-			adjustBruteLoss(-1*comfort)
-			adjustFireLoss(-1*comfort)
-		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
-			emote("snore")
-	// Keep SSD people asleep
-	if(player_logged)
-		Sleeping(2)
-	return sleeping
 
 /mob/living/carbon/handle_hud_icons()
 	return

@@ -6,16 +6,16 @@
 
 /mob/living/carbon/alien/humanoid/handle_disabilities()
 	if(disabilities & EPILEPSY)
-		if((prob(1) && unconscious < 10))
+		if((prob(1) && AmountUnconscious() < 10))
 			to_chat(src, "<span class='danger'>You have a seizure!</span>")
 			Unconscious(200)
 	if(disabilities & COUGHING)
-		if((prob(5) && unconscious <= 1))
+		if((prob(5) && AmountUnconscious() <= 1))
 			drop_item()
 			emote("cough")
 			return
 	if(disabilities & TOURETTES)
-		if((prob(10) && unconscious <= 1))
+		if((prob(10) && AmountUnconscious() <= 1))
 			Stun(200)
 			emote("twitch")
 			return
@@ -59,9 +59,9 @@
 				adjustOxyLoss(1)
 			Unconscious(60)
 
-		if(unconscious)
+		if(IsUnconscious())
 			stat = UNCONSCIOUS
-		else if(sleeping)
+		else if(IsSleeping())
 			stat = UNCONSCIOUS
 			if(prob(10) && health)
 				emote("hiss")

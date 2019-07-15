@@ -481,7 +481,7 @@
 	return verb
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(unconscious || stun || knockdown || stat || resting)
+	if(IsUnconscious() || IsStun() || IsKnockdown() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0

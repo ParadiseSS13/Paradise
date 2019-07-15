@@ -334,7 +334,7 @@
 			R.Stun(slip_stun)
 	else if(ismob(target))
 		var/mob/M = target
-		if(!M.stun)
+		if(!M.IsStun())
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
 			M.Knockdown(slip_weaken)
 			M.Stun(slip_stun)

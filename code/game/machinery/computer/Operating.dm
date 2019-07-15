@@ -117,7 +117,7 @@
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
-		occupantData["unconscious"] = occupant.unconscious
+		occupantData["unconscious"] = occupant.AmountUnconscious()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations

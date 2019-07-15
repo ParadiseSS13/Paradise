@@ -38,7 +38,7 @@ var/global/list/frozen_mob_list = list()
 
 	anchored = 1
 	frozen = AO
-	admin_prev_sleeping = sleeping
+	admin_prev_sleeping = AmountSleeping()
 	AdjustSleeping(20000)
 	if(!(src in frozen_mob_list))
 		frozen_mob_list += src

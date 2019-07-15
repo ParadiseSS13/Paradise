@@ -91,10 +91,12 @@
 				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
-		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
-	else
-		to_chat(src, msg)
+	if(isliving(src))
+		var/mob/living/L = src
+		if(L.stat == UNCONSCIOUS || L.IsSleeping() && stat != DEAD)
+			to_chat(src, "<I>... You can almost hear someone talking ...</I>")
+		else
+			to_chat(src, msg)
 	return
 
 // Show a message to all mobs in sight of this one

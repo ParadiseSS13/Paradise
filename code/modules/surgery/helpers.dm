@@ -144,9 +144,9 @@
 /proc/can_operate(mob/living/carbon/M)
 	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.knockdown || M.stun || M.unconscious || M.sleeping || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsKnockdown() || M.IsStun() || M.IsUnconscious() || M.IsSleeping() || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.knockdown || M.stun || M.unconscious || M.sleeping || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsKnockdown() || M.IsStun() || M.IsUnconscious() || M.IsSleeping() || M.stat))
 		return TRUE
 	return FALSE
 

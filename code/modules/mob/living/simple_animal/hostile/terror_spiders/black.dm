@@ -32,7 +32,7 @@
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
-	if(L.stun || L.can_inject(null, 0, inject_target, 0))
+	if(L.IsStun() || L.can_inject(null, 0, inject_target, 0))
 		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else

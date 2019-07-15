@@ -30,13 +30,6 @@
 	else
 		clear_fullscreen("nearsighted")
 
-/mob/living/update_sleeping_effects(no_alert = FALSE)
-	if(sleeping)
-		if(!no_alert)
-			throw_alert("asleep", /obj/screen/alert/asleep)
-	else
-		clear_alert("asleep")
-
 // Querying status of the mob
 
 // Whether the mob can hear things
@@ -62,11 +55,11 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(knockdown || unconscious || stat || (status_flags & FAKEDEATH))
+	return !(IsKnockdown() || IsUnconscious() || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || unconscious || stun || knockdown || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
+	if(stat || IsUnconscious() || IsStun() || IsKnockdown() || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay
@@ -78,18 +71,19 @@
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stun)
+	if(fall_over || resting || IsStun())
 		drop_r_hand()
 		drop_l_hand()
+		if(pulling)
+			stop_pulling()
 	else
 		lying = 0
-		canmove = 1
 	if(buckled)
 		lying = 90 * buckle_lying
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || stun || buckled)
+	canmove = !(fall_over || resting || IsStun() || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
@@ -113,7 +107,7 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
-		else if(unconscious || status_flags & FAKEDEATH)
+		else if(IsUnconscious() || status_flags & FAKEDEATH)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
@@ -126,13 +120,9 @@
 	. = ..()
 	switch(var_name)
 		if("knockdown")
-			SetKnockdown(knockdown)
-		if("stun")
-			SetStun(stun)
+			SetKnockdown(var_value)
 		if("unconscious")
-			SetUnconscious(unconscious)
-		if("sleeping")
-			SetSleeping(sleeping)
+			SetUnconscious(var_value)
 		if("eye_blind")
 			SetEyeBlind(eye_blind)
 		if("eye_blurry")

@@ -100,32 +100,13 @@
 
 //this updates all special effects: stunned, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects()
-	handle_stun()
-	handle_knockdown()
 	handle_stuttering()
 	handle_silent()
 	handle_drugged()
 	handle_slurring()
-	handle_unconscious()
-	handle_sleeping()
 	handle_slowed()
 	handle_drunk()
 	handle_cultslurring()
-
-
-/mob/living/proc/handle_stun()
-	if(stun)
-		AdjustStun(-20, 1, 1)
-		if(!stun)
-			update_icons()
-	return stun
-
-/mob/living/proc/handle_knockdown()
-	if(knockdown)
-		AdjustKnockdown(-20, 1, 1)
-		if(!knockdown)
-			update_icons()
-	return knockdown
 
 /mob/living/proc/handle_stuttering()
 	if(stuttering)
@@ -151,19 +132,6 @@
 	if(cultslurring)
 		AdjustCultSlur(-1)
 	return cultslurring
-
-/mob/living/proc/handle_unconscious()
-	if(unconscious)
-		AdjustUnconscious(-20, 1, 1)
-	return unconscious
-
-/mob/living/proc/handle_sleeping()
-	if(sleeping)
-		AdjustSleeping(-1)
-		throw_alert("asleep", /obj/screen/alert/asleep)
-	else
-		clear_alert("asleep")
-	return sleeping
 
 /mob/living/proc/handle_slowed()
 	if(slowed)

@@ -581,7 +581,7 @@
 					E.perma_injury = 0
 		return
 	if(stat != DEAD)
-		if(knockdown)
+		if(IsKnockdown())
 			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
 			adjustBrainLoss(60)
 		else

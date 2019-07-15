@@ -273,7 +273,7 @@
 	nutriment_factor = 0
 	adj_dizzy = -5
 	adj_drowsy = -3
-	adj_sleepy = -2
+	adj_sleepy = -40
 	adj_temp_hot = 25
 	overdose_threshold = 45
 	addiction_chance = 1 // It's true.
@@ -365,7 +365,7 @@
 	nutriment_factor = 0
 	adj_dizzy = -2
 	adj_drowsy = -1
-	adj_sleepy = -3
+	adj_sleepy = -40
 	adj_temp_hot = 20
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"

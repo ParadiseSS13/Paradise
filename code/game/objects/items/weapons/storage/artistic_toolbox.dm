@@ -71,7 +71,7 @@
 				return
 			if(!victim)
 				return
-			if(!victim.stat && !victim.restrained() && !victim.knockdown)
+			if(!victim.stat && !victim.restrained() && !victim.IsKnockdown())
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
 			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
