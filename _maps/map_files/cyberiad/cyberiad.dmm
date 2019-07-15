@@ -58480,6 +58480,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cbI" = (
@@ -60558,6 +60561,9 @@
 /area/quartermaster/miningdock)
 "cfc" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cfd" = (
@@ -63768,6 +63774,9 @@
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ckp" = (
@@ -97107,6 +97116,15 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"wVD" = (
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "xAw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -118629,7 +118647,7 @@ cam
 cgH
 cit
 ckn
-ckn
+wVD
 cnm
 cam
 cgQ
@@ -118884,7 +118902,7 @@ cam
 cam
 cam
 cgG
-cfb
+cir
 cfb
 cnG
 cnl

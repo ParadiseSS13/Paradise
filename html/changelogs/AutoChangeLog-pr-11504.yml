@@ -1,4 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - rscdel: "SDQL2 no longer allows a macro argument"
