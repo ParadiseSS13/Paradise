@@ -46,6 +46,9 @@
 		if(C.cell)
 			C.cell.charge = 0
 	for(var/obj/machinery/power/P in GLOB.machines)
+		var/area/current_area = get_area(P)
+		if((current_area.type in skipped_areas_apc) || !is_station_level(P.z))
+			continue
 		P.malfunction = TRUE
 
 /proc/power_restore(var/announce = 1)
@@ -70,6 +73,9 @@
 		S.update_icon()
 		S.power_change()
 	for(var/obj/machinery/power/P in GLOB.machines)
+		var/area/current_area = get_area(P)
+		if((current_area.type in skipped_areas_apc) || !is_station_level(P.z))
+			continue
 		P.malfunction = FALSE
 
 /proc/power_restore_quick(var/announce = 1)
