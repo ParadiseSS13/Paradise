@@ -205,10 +205,10 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 30
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_SECURITY
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
+	access = list(access_security, access_sec_doors, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
 			            access_all_personal_lockers, access_morgue, access_lawyer, access_theatre, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_lawyer, access_magistrate, access_heads)
+	minimal_access = list(access_security, access_sec_doors, access_court, access_maint_tunnels, access_lawyer, access_magistrate, access_heads)
 	outfit = /datum/outfit/job/judge
 
 /datum/outfit/job/judge
