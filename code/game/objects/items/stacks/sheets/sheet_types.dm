@@ -106,6 +106,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
+	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -152,6 +153,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
+	point_value = 23
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
