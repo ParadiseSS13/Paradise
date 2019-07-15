@@ -45,6 +45,8 @@
 			continue
 		if(C.cell)
 			C.cell.charge = 0
+	for(var/obj/machinery/power/P in GLOB.machines)
+		P.malfunction = TRUE
 
 /proc/power_restore(var/announce = 1)
 	var/list/skipped_areas = list(/area/turret_protected/ai)
@@ -67,6 +69,8 @@
 		S.input_attempt = S.last_input_attempt
 		S.update_icon()
 		S.power_change()
+	for(var/obj/machinery/power/P in GLOB.machines)
+		P.malfunction = FALSE
 
 /proc/power_restore_quick(var/announce = 1)
 	if(announce)
