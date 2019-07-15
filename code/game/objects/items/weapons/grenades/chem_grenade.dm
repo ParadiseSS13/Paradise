@@ -239,9 +239,9 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM)
+/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM)
+		nadeassembly.Crossed(AM, oldloc)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
