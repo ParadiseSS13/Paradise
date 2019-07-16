@@ -117,6 +117,5 @@ SUBSYSTEM_DEF(input)
 	var/list/clients = GLOB.clients // Let's sing the list cache song
 	if(listclearnulls(clients)) // clear nulls before we run keyloop
 		log_world("Found a null in clients list!")
-	for(var/i in 1 to clients.len)
-		var/client/C = clients[i]
+	for(var/client/C in clients)
 		C.keyLoop()
