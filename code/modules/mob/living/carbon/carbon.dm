@@ -1078,12 +1078,15 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if((BREATHLESS in mutations) || NO_BREATHE in dna.species.species_traits)
+		return FALSE
+		
 	if(!wear_mask)
 		return TRUE
 
 	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
 		return TRUE
-
+		
 	return FALSE
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
