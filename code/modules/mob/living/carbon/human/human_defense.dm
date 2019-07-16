@@ -416,7 +416,7 @@ emp_act
 			if(damage >= 25)
 				visible_message("<span class='danger'>[M] has wounded [src]!</span>", \
  					"<span class='userdanger'>[M] has wounded [src]!</span>")
-				apply_effect(40, KNOCKDOWN, armor_block)
+				apply_effect(80, KNOCKDOWN, armor_block)
 				add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 

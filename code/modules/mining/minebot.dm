@@ -110,7 +110,7 @@
 	var/datum/gas_mixture/environment = proj_turf.return_air()
 	var/pressure = environment.return_pressure()
 	if(pressure > 50)
-		K.name = "knockdown [K.name]"
+		K.name = "weakened [K.name]"
 
 		K.damage *= K.pressure_decrease
 

@@ -481,6 +481,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.lastattacker = user
 
 	L.Knockdown(140)
+	L.Stun(140)
 	L.apply_effect(STUTTER, 7)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
@@ -566,7 +567,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	..()
 	switch(mode)
 		if(BATON_STUN)
-			to_chat(user, "<span class='warning'>The baton is in IsStun() mode.</span>")
+			to_chat(user, "<span class='warning'>The baton is in stun mode.</span>")
 		if(BATON_SLEEP)
 			to_chat(user, "<span class='warning'>The baton is in sleep inducement mode.</span>")
 		if(BATON_CUFF)

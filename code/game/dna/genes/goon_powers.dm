@@ -425,7 +425,7 @@
 		if(FAT in user.mutations && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
-			user.AdjustKnockdown(10)
+			user.AdjustKnockdown(200)
 			user.AdjustStun(100)
 
 		user.layer = prevLayer

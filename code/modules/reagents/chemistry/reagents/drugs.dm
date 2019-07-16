@@ -655,10 +655,10 @@
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	update_flags |= M.AdjustUnconscious(-2, FALSE)
-	update_flags |= M.AdjustStun(-2, FALSE)
-	update_flags |= M.AdjustKnockdown(-2, FALSE)
-	update_flags |= M.adjustStaminaLoss(-2, FALSE)
+	update_flags |= M.AdjustUnconscious(-40, FALSE)
+	update_flags |= M.AdjustStun(-40, FALSE)
+	update_flags |= M.AdjustKnockdown(-40, FALSE)
+	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.status_flags |= GOTTAGOFAST_METH
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)

@@ -665,7 +665,7 @@
 		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
 		update_flags |= M.adjustOxyLoss(10, FALSE)
 		M.AdjustLoseBreath(1)
-		update_flags |= M.Stun(40, FALSE)
+		update_flags |= M.Stun(60, FALSE)
 		update_flags |= M.Knockdown(40, FALSE)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -729,7 +729,7 @@
 			M.emote("faint")
 			update_flags |= M.Knockdown(100, FALSE)
 		if(6 to INFINITY)
-			update_flags |= M.Unconscious(20, FALSE)
+			update_flags |= M.Unconscious(400, FALSE)
 	M.AdjustJitter(-50)
 	if(prob(10))
 		M.emote("drool")

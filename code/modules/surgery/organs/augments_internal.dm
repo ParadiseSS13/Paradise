@@ -269,7 +269,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
 	if(reviving)
-		if(owner.stat == UNCONSCIOUS && owner.IsSleeping()) //!owner.sleeping didn't work for whatever dumb reason
+		if(owner.stat == UNCONSCIOUS && !owner.IsSleeping()) //!owner.sleeping didn't work for whatever dumb reason
 			spawn(30)
 				if(prob(90) && owner.getOxyLoss())
 					owner.adjustOxyLoss(-3)

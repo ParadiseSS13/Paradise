@@ -163,7 +163,7 @@
 			if(SA_partialpressure > SA_para_min)
 				Unconscious(60)
 				if(SA_partialpressure > SA_sleep_min)
-					Sleeping(max(AmountSleeping() + 40, 200))
+					Sleeping(min(AmountSleeping() + 40, 200))
 			else if(SA_partialpressure > 0.01)
 				if(prob(20))
 					emote(pick("giggle","laugh"))

@@ -236,7 +236,7 @@
 			if(SA_pp > SA_para_min)
 				H.Unconscious(60) // 3 gives them one second to wake up and run away a bit!
 				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-					H.Sleeping(max(H.AmountSleeping() + 160, 200))
+					H.Sleeping(min(H.AmountSleeping() + 160, 200))
 			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
 					H.emote(pick("giggle", "laugh"))

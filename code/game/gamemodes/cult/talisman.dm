@@ -251,6 +251,7 @@
 		else
 			add_attack_logs(user, target, "Stunned with a talisman")
 			target.Knockdown(200)
+			target.Stun(200)
 			target.flash_eyes(1,1)
 			if(issilicon(target))
 				var/mob/living/silicon/S = target

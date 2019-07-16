@@ -365,7 +365,7 @@
 	nutriment_factor = 0
 	adj_dizzy = -2
 	adj_drowsy = -1
-	adj_sleepy = -40
+	adj_sleepy = -60
 	adj_temp_hot = 20
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"

@@ -56,7 +56,7 @@
 		H = target
 		if(H.lying)
 			H.AdjustSleeping(-100)
-			if(H.IsSleeping())
+			if(!H.IsSleeping())
 				H.StopResting()
 			H.AdjustUnconscious(-60)
 			H.AdjustStun(-60)

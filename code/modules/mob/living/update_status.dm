@@ -107,7 +107,7 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
-		else if(IsUnconscious() || status_flags & FAKEDEATH)
+		else if(IsSleeping() || IsUnconscious() || status_flags & FAKEDEATH)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")

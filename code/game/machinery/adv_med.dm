@@ -547,7 +547,7 @@
 			extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 			dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-			dat += "Unconscious Summary %: [occupant.AmountUnconscious()] ([round(occupant.AmountUnconscious() / 4)] seconds left!)<br>"
+			dat += "Unconscious Summary %: [occupant.AmountUnconscious()] ([occupant.AmountUnconscious() / 10] seconds left!)<br>"
 			dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 			dat += "<hr>"

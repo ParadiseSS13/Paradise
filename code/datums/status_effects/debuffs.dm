@@ -12,13 +12,11 @@
 	if(.)
 		if(updating_canmove)
 			owner.update_canmove()
-			if(issilicon(owner))
-				owner.update_stat()
+			owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
 	owner.update_canmove()
-	if(issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
-		owner.update_stat()
+	owner.update_stat()
 
 //SLEEPING
 /datum/status_effect/incapacitating/sleeping
@@ -67,7 +65,7 @@
 			owner.emote("snore")
 	// Keep SSD people asleep
 	if(owner.player_logged)
-		owner.AdjustSleeping(2)
+		owner.AdjustSleeping(40)
 
 /datum/status_effect/incapacitating/sleeping/on_remove()
 	..()

@@ -14,8 +14,9 @@
 		process_queued_alarms()
 
 /mob/living/silicon/robot/proc/clamp_values()
-	SetUnconscious(min(AmountUnconscious(), 30))
-	SetKnockdown(min(AmountKnockdown(), 20))
+	SetStun(min(AmountStun(), 600))
+	SetUnconscious(min(AmountUnconscious(), 600))
+	SetKnockdown(min(AmountKnockdown(), 400))
 	SetSleeping(0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()

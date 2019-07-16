@@ -134,5 +134,5 @@
 		visible_message("<span class='danger'>[M] falls free of the [src]!</span>")
 		unbuckle_mob()
 		M.emote("scream")
-		M.AdjustKnockdown(10)
+		M.AdjustKnockdown(200)
 

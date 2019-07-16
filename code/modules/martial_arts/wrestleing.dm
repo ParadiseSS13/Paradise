@@ -35,7 +35,7 @@
 	D.SpinAnimation(10,1)
 	spawn(3)
 		armor_block = A.run_armor_check(null, "melee")
-		A.apply_effect(40, KNOCKDOWN, armor_block)
+		A.apply_effect(80, KNOCKDOWN, armor_block)
 	return
 
 /datum/martial_art/wrestling/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

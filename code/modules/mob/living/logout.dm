@@ -8,6 +8,6 @@
 			mind.active = 0	//This is to stop say, a mind.transfer_to call on a corpse causing a ghost to re-enter its body.
 		//This causes instant sleep and tags a player as SSD. See life.dm for furthering SSD.
 		if(mind.active)
-			Sleeping(2)
+			Sleeping(40) // use unconscious now as that can be reset with update_stat
 			player_logged = 1
 			last_logout = world.time

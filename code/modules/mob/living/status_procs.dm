@@ -53,11 +53,11 @@
 			Your character will visibly twitch. Higher values amplify the effect.
 	* LoseBreath			*
 			Your character is unable to breathe.
-	*	unconscious				*
+	*	Unconscious(IN DECISECONDS)				*
 			Your character is knocked out.
 	* Silent					*
 			Your character is unable to speak.
-	*	Sleeping				*
+	*	Sleeping(IN DECISECONDS)				*
 			Your character is asleep.
 	*	Slowed					*
 			Your character moves slower.
@@ -65,11 +65,11 @@
 			Your character cannot enunciate clearly.
 	*	CultSlurring			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
-	*	Stunned					*
+	*	Stunned(IN DECISECONDS)					*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
 			Your character stutters parts of their messages.
-	*	knockdown				*
+	*	Knockdown(IN DECISECONDS)				*
 			Your character collapses, but is still conscious.
 */
 
@@ -363,6 +363,7 @@
 	return 0
 
 /mob/living/Stun(amount, updating = TRUE, ignore_canstun = FALSE) //Can't go below remaining duration
+	. = STATUS_UPDATE_CANMOVE
 	if((status_flags & CANSTUN) || ignore_canstun)
 		if(absorb_stun(amount, ignore_canstun))
 			return
@@ -371,9 +372,9 @@
 			S.duration = max(world.time + amount, S.duration)
 		else if(amount > 0)
 			S = apply_status_effect(STATUS_EFFECT_STUN, amount, updating)
-		return S
 
 /mob/living/SetStun(amount, updating = TRUE, ignore_canstun = FALSE) //Sets remaining duration
+	. = STATUS_UPDATE_CANMOVE
 	if((status_flags & CANSTUN) || ignore_canstun)
 		var/datum/status_effect/incapacitating/stun/S = IsStun()
 		if(amount <= 0)
@@ -386,9 +387,9 @@
 				S.duration = world.time + amount
 			else
 				S = apply_status_effect(STATUS_EFFECT_STUN, amount, updating)
-		return S
 
 /mob/living/AdjustStun(amount, updating = TRUE, ignore_canstun = FALSE) //Adds to remaining duration
+	. = STATUS_UPDATE_CANMOVE
 	if((status_flags & CANSTUN) || ignore_canstun)
 		if(absorb_stun(amount, ignore_canstun))
 			return
@@ -397,7 +398,6 @@
 			S.duration += amount
 		else if(amount > 0)
 			S = apply_status_effect(STATUS_EFFECT_STUN, amount, updating)
-		return S
 
 // STUTTERING
 
@@ -426,6 +426,7 @@
 	return 0
 
 /mob/living/Knockdown(amount, updating = TRUE, ignore_canknockdown = FALSE) //Can't go below remaining duration
+	. = STATUS_UPDATE_CANMOVE
 	if((status_flags & CANKNOCKDOWN) || ignore_canknockdown)
 		if(absorb_stun(amount, ignore_canknockdown))
 			return
@@ -434,9 +435,9 @@
 			K.duration = max(world.time + amount, K.duration)
 		else if(amount > 0)
 			K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount, updating)
-		return K
 
 /mob/living/SetKnockdown(amount, updating = TRUE, ignore_canknockdown = FALSE) //Sets remaining duration
+	. = STATUS_UPDATE_CANMOVE
 	if((status_flags & CANKNOCKDOWN) || ignore_canknockdown)
 		var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
 		if(amount <= 0)
@@ -449,9 +450,9 @@
 				K.duration = world.time + amount
 			else
 				K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount, updating)
-		return K
 
 /mob/living/AdjustKnockdown(amount, updating = TRUE, ignore_canknockdown = FALSE) //Adds to remaining duration
+	. = STATUS_UPDATE_CANMOVE	
 	if((status_flags & CANKNOCKDOWN) || ignore_canknockdown)
 		if(absorb_stun(amount, ignore_canknockdown))
 			return
@@ -460,7 +461,6 @@
 			K.duration += amount
 		else if(amount > 0)
 			K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount, updating)
-		return K
 
 /////////////////////////////////// UNCONSCIOUS ////////////////////////////////////
 
@@ -474,15 +474,16 @@
 	return 0
 
 /mob/living/Unconscious(amount, updating = TRUE, ignore_canunconscious = FALSE) //Can't go below remaining duration
+	. = STATUS_UPDATE_STAT	
 	if((status_flags & CANUNCONSCIOUS) || ignore_canunconscious)
 		var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
 		if(U)
 			U.duration = max(world.time + amount, U.duration)
 		else if(amount > 0)
 			U = apply_status_effect(STATUS_EFFECT_UNCONSCIOUS, amount, updating)
-		return U
 
 /mob/living/SetUnconscious(amount, updating = TRUE, ignore_canunconscious = FALSE) //Sets remaining duration
+	. = STATUS_UPDATE_STAT
 	if((status_flags & CANUNCONSCIOUS) || ignore_canunconscious)
 		var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
 		if(amount <= 0)
@@ -492,16 +493,15 @@
 			U.duration = world.time + amount
 		else
 			U = apply_status_effect(STATUS_EFFECT_UNCONSCIOUS, amount, updating)
-		return U
 
 /mob/living/AdjustUnconscious(amount, updating = TRUE, ignore_canunconscious = FALSE) //Adds to remaining duration
+	. = STATUS_UPDATE_STAT	
 	if((status_flags & CANUNCONSCIOUS) || ignore_canunconscious)
 		var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
 		if(U)
 			U.duration += amount
 		else if(amount > 0)
 			U = apply_status_effect(STATUS_EFFECT_UNCONSCIOUS, amount, updating)
-		return U
 
 
 /////////////////////////////////// SLEEPING ////////////////////////////////////
@@ -516,14 +516,15 @@
 	return 0
 
 /mob/living/Sleeping(amount, updating = TRUE) //Can't go below remaining duration
+	. = STATUS_UPDATE_STAT
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		S.duration = max(world.time + amount, S.duration)
 	else if(amount > 0)
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount, updating)
-	return S
 
 /mob/living/SetSleeping(amount, updating = TRUE) //Sets remaining duration
+	. = STATUS_UPDATE_STAT	
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(amount <= 0)
 		if(S)
@@ -532,15 +533,14 @@
 		S.duration = world.time + amount
 	else
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount, updating)
-	return S
 
 /mob/living/AdjustSleeping(amount, updating = TRUE) //Adds to remaining duration
+	. = STATUS_UPDATE_STAT
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		S.duration += amount
 	else if(amount > 0)
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount, updating)
-	return S
 
 //
 //		DISABILITIES

@@ -9,7 +9,7 @@
 	var/range = 2 //this is roughly the size of brig cell
 	var/disable = 0
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
-	var/strength = 100 //How knockdown targets are when flashed.
+	var/strength = 100 //How long in deciseconds targets are knocked down when flashed.
 	var/base_state = "mflash"
 	anchored = 1
 

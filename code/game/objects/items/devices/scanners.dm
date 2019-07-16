@@ -737,7 +737,7 @@ REAGENT SCANNER
 	extra_font = (target.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tApprox. Brain Damage %: [target.getBrainLoss()]<br>"
 
-	dat += "Unconscious Summary %: [target.AmountUnconscious()] ([round(target.AmountUnconscious() / 4)] seconds left!)<br>"
+	dat += "Unconscious Summary %: [target.AmountUnconscious()] ([target.AmountUnconscious() / 10] seconds left!)<br>"
 	dat += "Body Temperature: [target.bodytemperature-T0C]&deg;C ([target.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 	dat += "<hr>"
