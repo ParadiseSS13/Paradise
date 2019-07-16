@@ -90,7 +90,7 @@
 					UI_style_alpha='[UI_style_alpha]',
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
-					toggles='[num2text(toggles, Ceiling(log(10, (TOGGLES_TOTAL+1))))]',
+					toggles='[num2text(toggles, round(log(10, TOGGLES_TOTAL)) + 1)]',
 					atklog='[atklog]',
 					sound='[sound]',
 					randomslot='[randomslot]',
