@@ -158,9 +158,44 @@
 			to_chat(user, "<span class='alert'>You need more wires.</span>")
 			return
 
-		//build the terminal and link it to the network
-		make_terminal(user)
-		terminal.connect_to_network()
+		if(user.loc == loc)
+			to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
+			return
+
+		//Direction the terminal will face to
+		var/tempDir = get_dir(user, src)
+		switch(tempDir)
+			if(NORTHEAST, SOUTHEAST)
+				tempDir = EAST
+			if(NORTHWEST, SOUTHWEST)
+				tempDir = WEST
+		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
+		if(istype(tempLoc, /turf/space))
+			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
+			return 
+		else if(istype(tempLoc))
+			if(tempLoc.intact)
+				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
+				return 
+		
+		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
+		playsound(src.loc, C.usesound, 50, 1)
+
+		if(do_after(user, 50, target = src))
+			if(!terminal && panel_open)
+				T = get_turf(user)
+				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
+				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+					do_sparks(5, 1, src)
+					return
+
+				C.use(10) // make sure the cable gets used up
+				user.visible_message(\
+					"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
+					"<span class='notice'>You add the cables and connect the power terminal.</span>")
+
+				make_terminal(user, tempDir, tempLoc)
+				terminal.connect_to_network()
 		return
 
 	//disassembling the terminal
@@ -174,18 +209,19 @@
 		playsound(src.loc, I.usesound, 50, 1)
 
 		if(do_after(user, 50 * I.toolspeed, target = src))
-			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
-				do_sparks(5, 1, src)
-				return
+			if(terminal && panel_open)
+				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+					do_sparks(5, 1, src)
+					return
 
-			//give the wires back and delete the terminal
-			new /obj/item/stack/cable_coil(T,10)
-			user.visible_message(\
-				"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-				"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
-			inputting = 0 //stop inputting, since we have don't have a terminal anymore
-			qdel(terminal)
-			return
+				//give the wires back and delete the terminal
+				new /obj/item/stack/cable_coil(T,10)
+				user.visible_message(\
+					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
+					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+				inputting = 0 //stop inputting, since we have don't have a terminal anymore
+				qdel(terminal)
+				return
 
 	//crowbarring it !
 	default_deconstruction_crowbar(I)
@@ -196,6 +232,13 @@
 		terminal = null
 		return 1
 	return 0
+
+/obj/machinery/power/smes/proc/make_terminal(user, tempDir, tempLoc)
+	// create a terminal object at the same position as original turf loc
+	// wires will attach to this
+	terminal = new /obj/machinery/power/terminal(tempLoc)
+	terminal.dir = tempDir
+	terminal.master = src
 
 /obj/machinery/power/smes/Destroy()
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
@@ -298,45 +341,6 @@
 	if(clev != chargedisplay() ) //if needed updates the icons overlay
 		update_icon()
 	return
-
-//Will return 1 on failure
-/obj/machinery/power/smes/proc/make_terminal(const/mob/user)
-	if(user.loc == loc)
-		to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
-		return 1
-
-	//Direction the terminal will face to
-	var/tempDir = get_dir(user, src)
-	switch(tempDir)
-		if(NORTHEAST, SOUTHEAST)
-			tempDir = EAST
-		if(NORTHWEST, SOUTHWEST)
-			tempDir = WEST
-	var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-	if(istype(tempLoc, /turf/space))
-		to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
-		return 1
-	else if(istype(tempLoc))
-		if(tempLoc.intact)
-			to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
-			return 1
-	to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
-	if(do_after(user, 50, target = src))
-		var/turf/T = get_turf(user)
-		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
-		if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
-			do_sparks(5, 1, src)
-			return
-
-		user.visible_message(\
-			"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
-			"<span class='notice'>You add the cables and connect the power terminal.</span>")
-
-		terminal = new /obj/machinery/power/terminal(tempLoc)
-		terminal.dir = tempDir
-		terminal.master = src
-		return 0
-	return 1
 
 /obj/machinery/power/smes/attack_ai(mob/user)
 	add_hiddenprint(user)
