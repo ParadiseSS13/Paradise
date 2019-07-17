@@ -62,7 +62,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(weakened || paralysis || stat == UNCONSCIOUS|| (status_flags & FAKEDEATH))
+	return !(weakened || paralysis || (stat && (stat != SOFT_CRIT || pulledby))|| (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
@@ -77,7 +77,7 @@
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
-	var/move_and_fall = stat == SOFT_CRIT && !pulledby // needs to be seperate from fall_over so they can still move
+	var/move_and_fall = (stat == SOFT_CRIT && !pulledby) // needs to be seperate from fall_over so they can still move
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(fall_over || resting || move_and_fall || stunned)
 		drop_r_hand()

@@ -9,12 +9,12 @@
 			return
 //		if(paralysis || sleeping || getOxyLoss() > low_oxy_ko || (status_flags & FAKEDEATH) || health <= crit_health)
 		if(paralysis || sleeping || (check_death_method() && getOxyLoss() > 50) || (status_flags & FAKEDEATH) || health <= HEALTH_THRESHOLD_FULLCRIT && check_death_method())
-			if(stat == CONSCIOUS)
-				KnockOut()
-				create_debug_log("fell unconscious, trigger reason: [reason]")
+			KnockOut()
+			create_debug_log("fell unconscious, trigger reason: [reason]")
 		else
 			if(health <= HEALTH_THRESHOLD_CRIT)
 				stat = SOFT_CRIT
+				update_canmove()
 			else if(stat == UNCONSCIOUS)
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")

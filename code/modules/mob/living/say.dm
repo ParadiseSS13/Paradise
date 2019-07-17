@@ -118,7 +118,8 @@ proc/get_radio_key_from_channel(var/channel)
 	if(stat)
 		if(stat == DEAD)
 			return say_dead(message)
-		return
+		if(stat == UNCONSCIOUS)
+			return
 
 	var/message_mode = parse_message_mode(message, "headset")
 
@@ -136,6 +137,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
+	
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
 		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
 		S.speaking.broadcast(src, S.message)
@@ -172,7 +174,9 @@ proc/get_radio_key_from_channel(var/channel)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
-
+	if(stat == SOFT_CRIT)
+		message_mode = "whispers"
+		verb = "groans"
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
 		return 1
@@ -185,11 +189,6 @@ proc/get_radio_key_from_channel(var/channel)
 	var/italics = 0
 	var/message_range = world.view
 
-	if(stat == SOFT_CRIT)
-		message_range = 1
-		message_mode = "whisper"
-		handle_message_mode("whisper", message_pieces)
-		return
 	//speaking into radios
 	if(used_radios.len)
 		italics = 1
@@ -341,7 +340,8 @@ proc/get_radio_key_from_channel(var/channel)
 	if(stat)
 		if(stat == DEAD)
 			return say_dead(message_pieces)
-		return
+		if(stat == UNCONSCIOUS)	
+			return
 
 	if(is_muzzled())
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
