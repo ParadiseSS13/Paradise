@@ -561,7 +561,7 @@ var/list/ai_verbs_default = list(
 	return TRUE
 
 /mob/living/silicon/ai/blob_act()
-	if(stat != 2)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
 		return TRUE
 	return FALSE
@@ -585,11 +585,11 @@ var/list/ai_verbs_default = list(
 		if(1.0)
 			gib()
 		if(2.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
 
 	return
@@ -734,7 +734,7 @@ var/list/ai_verbs_default = list(
 	set category = "AI Commands"
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
-	if(stat == 2)
+	if(stat == DEAD)
 		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
 		return
 
@@ -812,7 +812,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable())
 		return
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
@@ -859,7 +859,7 @@ var/list/ai_verbs_default = list(
 	set category = "AI Commands"
 	set name = "AI Status"
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You cannot change your emotional status because you are dead!")
 		return
 

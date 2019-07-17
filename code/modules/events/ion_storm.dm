@@ -23,7 +23,7 @@
 /datum/event/ion_storm/start()
 	//AI laws
 	for(var/mob/living/silicon/ai/M in GLOB.living_mob_list)
-		if(M.stat != 2 && M.see_in_dark != 0)
+		if(M.stat != DEAD && M.see_in_dark != 0)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
 				M.add_ion_law(message)

@@ -35,7 +35,7 @@
 	dat += "<B>Maintenance Units</B><BR>"
 
 	for(var/mob/living/silicon/robot/drone/D in world)
-		dat += "<BR>[D.real_name] ([D.stat == 2 ? "<font color='red'>INACTIVE" : "<font color='green'>ACTIVE"]</FONT>)"
+		dat += "<BR>[D.real_name] ([D.stat == DEAD ? "<font color='red'>INACTIVE" : "<font color='green'>ACTIVE"]</FONT>)"
 		dat += "<font dize = 9><BR>Cell charge: [D.cell.charge]/[D.cell.maxcharge]."
 		dat += "<BR>Currently located in: [get_area(D)]."
 		dat += "<BR><A href='?src=[UID()];resync=\ref[D]'>Resync</A> | <A href='?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
@@ -82,7 +82,7 @@
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
 
-		if(D.stat != 2)
+		if(D.stat != DEAD)
 			to_chat(usr, "<span class='warning'>You issue a law synchronization directive for the drone.</span>")
 			D.law_resync()
 
@@ -90,7 +90,7 @@
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
 
-		if(D.stat != 2)
+		if(D.stat != DEAD)
 			to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
 			message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
 			log_game("[key_name(usr)] issued kill order for [key_name(src)] from control console.")

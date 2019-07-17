@@ -47,7 +47,7 @@
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
-	return (information_only && stat == DEAD) || !(eye_blind || (disabilities & BLIND) || stat)
+	return (information_only && stat == DEAD) || !(eye_blind || (disabilities & BLIND) || (stat == UNCONSCIOUS && stat != SOFT_CRIT))
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
@@ -62,7 +62,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
+	return !(weakened || paralysis || stat == UNCONSCIOUS|| (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
@@ -77,8 +77,9 @@
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
+	var/move_and_fall = stat == SOFT_CRIT && !pulledby // needs to be seperate from fall_over so they can still move
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stunned)
+	if(fall_over || resting || move_and_fall || stunned)
 		drop_r_hand()
 		drop_l_hand()
 	else
@@ -86,7 +87,7 @@
 		canmove = 1
 	if(buckled)
 		lying = 90 * buckle_lying
-	else if((fall_over || resting) && !lying)
+	else if((fall_over || move_and_fall || resting) && !lying)
 		fall(fall_over)
 
 	canmove = !(fall_over || resting || stunned || buckled)

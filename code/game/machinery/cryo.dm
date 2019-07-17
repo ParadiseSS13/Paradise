@@ -368,7 +368,7 @@
 	if(air_contents.total_moles() < 10)
 		return
 	if(occupant)
-		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
+		if(occupant.stat == DEAD || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
 			occupant.bodytemperature = T0C
 			return
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())

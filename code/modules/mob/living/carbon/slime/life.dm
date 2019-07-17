@@ -27,14 +27,14 @@
 
 	AIproc = 1
 
-	while(AIproc && stat != 2 && (attacked || hungry || rabid || Victim))
+	while(AIproc && stat != DEAD && (attacked || hungry || rabid || Victim))
 		if(Victim) // can't eat AND have this little process at the same time
 			break
 
 		if(!Target || client)
 			break
 
-		if(Target.health <= -70 || Target.stat == 2)
+		if(Target.health <= -70 || Target.stat == DEAD)
 			Target = null
 			AIproc = 0
 			break

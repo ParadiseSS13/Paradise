@@ -395,7 +395,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
 		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -470,7 +470,7 @@
 			for(var/datum/mind/blob in mode.infected_crew)
 				var/mob/M = blob.current
 				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
 					dat += "<td><A href='?priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"

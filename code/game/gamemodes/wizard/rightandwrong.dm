@@ -9,7 +9,7 @@
 	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]! ([revolver_fight ? "Revolver duel!" : ""] [fake_revolver_fight ? "Suicidal revolver duel!" : ""])")
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(H.stat == 2 || !(H.client))
+		if(H.stat == DEAD || !(H.client))
 			continue
 		if(H.mind)
 			if(H.mind.special_role == SPECIAL_ROLE_WIZARD || H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)

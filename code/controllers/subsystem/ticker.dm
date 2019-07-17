@@ -454,7 +454,7 @@ SUBSYSTEM_DEF(ticker)
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
-		if(aiPlayer.stat != 2)
+		if(aiPlayer.stat != DEAD)
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
 		else
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
@@ -475,7 +475,7 @@ SUBSYSTEM_DEF(ticker)
 			continue
 
 		if(!robo.connected_ai)
-			if(robo.stat != 2)
+			if(robo.stat != DEAD)
 				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>")
 			else
 				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")

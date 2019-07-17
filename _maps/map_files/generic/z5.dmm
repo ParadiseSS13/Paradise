@@ -196,7 +196,7 @@
 "aC" = (
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_dead";
-	stat = 2
+	stat = DEAD
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,

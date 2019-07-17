@@ -178,7 +178,7 @@
 		return 0
 
 	//OH SHIT.
-	if(holder.wearer.stat == 2)
+	if(holder.wearer.stat == DEAD)
 		engage()
 
 /obj/item/rig_module/self_destruct/engage()

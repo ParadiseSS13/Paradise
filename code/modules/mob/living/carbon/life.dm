@@ -372,7 +372,7 @@
 	handle_hud_icons_health_overlay()
 
 /mob/living/carbon/proc/handle_hud_icons_health_overlay()
-	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
+	if((stat == UNCONSCIOUS || stat == SOFT_CRIT) && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
 			switch(health)
@@ -396,8 +396,26 @@
 					severity = 9
 				if(-INFINITY to -95)
 					severity = 10
+			if(!InFullCritical())
+				var/visionseverity = 4
+				switch(health)
+					if(-8 to -4)
+						visionseverity = 5
+					if(-12 to -8)
+						visionseverity = 6
+					if(-16 to -12)
+						visionseverity = 7
+					if(-20 to -16)
+						visionseverity = 8
+					if(-24 to -20)
+						visionseverity = 9
+					if(-INFINITY to -24)
+						visionseverity = 10
+				overlay_fullscreen("critvision", /obj/screen/fullscreen/crit/vision, visionseverity)
+			else
+				clear_fullscreen("critvision")
 			overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
-	else if(stat == CONSCIOUS)
+	else if(stat == CONSCIOUS && stat != SOFT_CRIT)
 		if(check_death_method())
 			clear_fullscreen("crit")
 			if(getOxyLoss())

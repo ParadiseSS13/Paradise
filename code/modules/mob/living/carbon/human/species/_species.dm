@@ -268,6 +268,8 @@
 			. -= 1
 		if(H.status_flags & GOTTAGOFAST_METH)
 			. -= 1
+		if(H.stat == SOFT_CRIT)
+			. = max(SOFTCRIT_MIN_SLOWDOWN, . + SOFTCRIT_ADD_SLOWDOWN) //regardless of how fast you are, you move at a maximum of SOFTCRIT_MIN_SLOWDOWN while in softcrit
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.

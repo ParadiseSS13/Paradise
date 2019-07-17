@@ -106,7 +106,7 @@
 	if(output)
 		var/temp = ""
 		if(patient)
-			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
+			temp = "<br />\[Occupant: [patient] ([patient.stat == DEAD ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
 		return "[output] [temp]"
 	return
 
@@ -155,11 +155,11 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_dam()
 	var/t1
 	switch(patient.stat)
-		if(0)
+		if(CONSCIOUS)
 			t1 = "Conscious"
-		if(1)
+		if(UNCONSCIOUS)
 			t1 = "Unconscious"
-		if(2)
+		if(DEAD)
 			t1 = "*dead*"
 		else
 			t1 = "Unknown"

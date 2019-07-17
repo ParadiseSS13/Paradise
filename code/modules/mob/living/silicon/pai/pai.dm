@@ -210,15 +210,15 @@
 
 	switch(severity)
 		if(1.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
 
 	return
@@ -245,7 +245,7 @@
 		unset_machine()
 		reset_perspective(null)
 		return 0
-	if(stat == 2 || !C.status || !(network in C.network)) return 0
+	if(stat == DEAD || !C.status || !(network in C.network)) return 0
 
 	// ok, we're alive, camera is good and in our network...
 
@@ -284,7 +284,7 @@
 	src:cameraFollow = null
 	var/cameralist[0]
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
@@ -467,7 +467,7 @@
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
-		if(stat != 2)
+		if(stat != DEAD)
 			close_up()
 	return
 
@@ -549,7 +549,7 @@
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	if(stat != 2)
+	if(stat != DEAD)
 		spawn(1)
 			close_up()
 	return 2

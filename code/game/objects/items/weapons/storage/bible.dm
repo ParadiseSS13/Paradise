@@ -73,7 +73,7 @@
 			for(var/mob/O in viewers(M, null))
 				O.show_message(text("<span class='danger'>[] beats [] over the head with []!</span>", user, M, src), 1)
 			playsound(src.loc, "punch", 25, 1, -1)
-	else if(M.stat == 2)
+	else if(M.stat == DEAD)
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("<span class='danger'>[] smacks []'s lifeless corpse with [].</span>", user, M, src), 1)
 		playsound(src.loc, "punch", 25, 1, -1)

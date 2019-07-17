@@ -111,7 +111,7 @@
 		else
 			break
 
-	if(stat == 2)
+	if(stat == DEAD)
 		if(!is_adult)
 			icon_state = "[colour] baby slime dead"
 

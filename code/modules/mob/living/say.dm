@@ -146,6 +146,7 @@ proc/get_radio_key_from_channel(var/channel)
 		log_runtime(EXCEPTION("Message failed to generate pieces. [message] - [json_encode(message_pieces)]"))
 		return 0
 
+
 	if(message_mode == "cords")
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
@@ -184,6 +185,11 @@ proc/get_radio_key_from_channel(var/channel)
 	var/italics = 0
 	var/message_range = world.view
 
+	if(stat == SOFT_CRIT)
+		message_range = 1
+		message_mode = "whisper"
+		handle_message_mode("whisper", message_pieces)
+		return
 	//speaking into radios
 	if(used_radios.len)
 		italics = 1

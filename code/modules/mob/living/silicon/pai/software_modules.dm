@@ -601,7 +601,7 @@
 		count++
 	if(isliving(held))
 		data["holder"] = held
-		data["health"] = "[held.stat > 1 ? "dead" : "[held.health]% healthy"]"
+		data["health"] = "[held.stat == DEAD ? "dead" : "[held.health]% healthy"]"
 		data["brute"] = "[held.getBruteLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getBruteLoss()]</font>"
 		data["oxy"] = "[held.getOxyLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getOxyLoss()]</font>"
 		data["tox"] = "[held.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getToxLoss()]</font>"

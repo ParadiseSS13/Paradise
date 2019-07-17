@@ -360,7 +360,7 @@
 						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
 						if(eyes.damage >= eyes.min_broken_damage)
-							if(M.stat != 2)
+							if(M.stat != DEAD)
 								to_chat(M, "<span class='warning'>You go blind!</span>")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.

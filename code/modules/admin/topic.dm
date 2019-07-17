@@ -2668,7 +2668,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","TA([objective])")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
-					if(H.stat == 2 || !H.client || !H.mind) continue
+					if(H.stat == DEAD || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
 					SSticker.mode.traitors += H.mind
@@ -2718,7 +2718,7 @@
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
-						if(M.stat != 2 && prob(25))
+						if(M.stat != DEAD && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
 								AffectedArea.power_light = 0
@@ -2741,7 +2741,7 @@
 										step_rand(W)
 					sleep(rand(100,1000))
 				for(var/mob/M in GLOB.player_list)
-					if(M.stat != 2)
+					if(M.stat != DEAD)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
 			if("lightout")
 				feedback_inc("admin_secrets_fun_used",1)

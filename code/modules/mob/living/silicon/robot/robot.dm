@@ -583,11 +583,11 @@ var/list/robot_verbs_default = list(
 			gib()
 			return
 		if(2.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
 	return
 

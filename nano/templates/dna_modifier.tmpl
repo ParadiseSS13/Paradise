@@ -23,7 +23,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 			<div class="notice">
 				The occupant's DNA structure is ruined beyond recognition, please insert a subject with an intact DNA structure.
 			</div>
-		{{else data.occupant.stat < 2}}
+		{{else data.occupant.stat <= 2}}
 			<div class="line">
 				<div class="statusLabel">Health:</div>
 					{{if data.occupant.health >= 0}}

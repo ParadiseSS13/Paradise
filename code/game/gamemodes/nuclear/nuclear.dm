@@ -495,7 +495,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	for(var/mob/living/C in world)
 		if(ishuman(C) || isAI(C) || isrobot(C))
-			if(C.stat == 2) continue
+			if(C.stat == DEAD) continue
 			if(!C.client) continue
 			crewcount++
 

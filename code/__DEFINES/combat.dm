@@ -43,7 +43,12 @@
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_FULLCRIT -50
 #define HEALTH_THRESHOLD_DEAD -100
+
+//slowdown when in softcrit
+#define SOFTCRIT_MIN_SLOWDOWN 4
+#define SOFTCRIT_ADD_SLOWDOWN 2
 
 //Grab levels
 #define GRAB_PASSIVE  1

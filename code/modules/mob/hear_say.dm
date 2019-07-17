@@ -69,7 +69,7 @@
 			italics = 1
 			sound_vol *= 0.5
 
-	if(sleeping || stat == UNCONSCIOUS)
+	if(sleeping || stat == UNCONSCIOUS && stat != SOFT_CRIT)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return 0
 

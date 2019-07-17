@@ -9,7 +9,7 @@
 	invisibility = 101
 
 	density = 0
-	stat = 2
+	stat = DEAD
 	canmove = 0
 
 /mob/new_player/New()

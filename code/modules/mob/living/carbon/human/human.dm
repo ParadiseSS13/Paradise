@@ -1711,10 +1711,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 	return FALSE
 
-/mob/living/carbon/human/InCritical()
-	return (health <= HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS)
-
-
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(dna.species.has_fine_manipulation)
 		return TRUE

@@ -276,7 +276,7 @@
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			last_warning = world.time
 		return
-	if(H.stat == 2)
+	if(H.stat == DEAD)
 		return
 
 	if((H == oldpatient) && (world.time < last_found + 200))
@@ -374,7 +374,7 @@
 
 /mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
 	//Time to see if they need medical help!
-	if(C.stat == 2)
+	if(C.stat == DEAD)
 		return 0 //welp too late for them!
 
 	if(C.suiciding)

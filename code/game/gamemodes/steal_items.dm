@@ -55,7 +55,7 @@
 datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
-			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
+			if(istype(A, /mob/living/silicon/ai) && A.stat != DEAD) //See if any AI's are alive inside that card.
 				return 1
 	return 0
 

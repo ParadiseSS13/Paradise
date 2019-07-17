@@ -55,7 +55,7 @@
 		..() //-Yvarov
 
 		if(src.healths)
-			if(src.stat != 2)
+			if(src.stat != DEAD)
 				switch(health)
 					if(250 to INFINITY)
 						src.healths.icon_state = "health0"

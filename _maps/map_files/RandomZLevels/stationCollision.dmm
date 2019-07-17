@@ -915,7 +915,7 @@
 "cU" = (
 /mob/living/carbon/alien/humanoid/hunter{
 	fireloss = 200;
-	stat = 2
+	stat = DEAD
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"

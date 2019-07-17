@@ -92,6 +92,10 @@
 	icon_state = "passage"
 	layer = CRIT_LAYER
 
+/obj/screen/fullscreen/crit/vision
+	icon_state = "oxydamageoverlay"
+	layer = BLIND_LAYER
+
 /obj/screen/fullscreen/blind
 	icon_state = "blackimageoverlay"
 	layer = BLIND_LAYER

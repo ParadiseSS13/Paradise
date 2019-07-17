@@ -226,7 +226,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/item/gun/projectile/automatic/pistol,
 /obj/effect/decal/cleanable/blood/gibs{
@@ -413,7 +413,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/item/clothing/under/rank/security,
 /obj/item/clothing/suit/armor/vest,
@@ -831,7 +831,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/item/clothing/under/syndicate,
 /obj/item/clothing/glasses/night,
@@ -2667,7 +2667,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -3079,7 +3079,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -3217,7 +3217,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
@@ -3598,7 +3598,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/item/xenos_claw,
 /obj/effect/decal/cleanable/dirt,
@@ -3712,7 +3712,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -4324,7 +4324,7 @@
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = DEAD
 	},
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
