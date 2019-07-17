@@ -158,21 +158,29 @@
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return 1
 
+// Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged
 /datum/game_mode/wizard/check_finished()
 	var/wizards_alive = 0
 	var/traitors_alive = 0
+
+	// Wizards
 	for(var/datum/mind/wizard in wizards)
 		if(!istype(wizard.current,/mob/living/carbon))
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
+		if(istype(wizard.current, /obj/item/mmi)) // wizard is in an MMI, don't count them as alive
+			continue
 		wizards_alive++
 
+	// Apprentices - classified as "traitors"
 	if(!wizards_alive)
 		for(var/datum/mind/traitor in traitors)
 			if(!istype(traitor.current,/mob/living/carbon))
 				continue
 			if(traitor.current.stat==DEAD)
+				continue
+			if(istype(traitor.current, /obj/item/mmi)) // apprentice is in an MMI, don't count them as alive
 				continue
 			traitors_alive++
 
