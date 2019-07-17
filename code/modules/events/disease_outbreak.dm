@@ -15,7 +15,7 @@
 	else
 		virus_type = new /datum/disease/advance
 		virus_type.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns,GLOB.verbs)) // random silly name
-		virus_type.symptoms = virus_type.GenerateSymptoms(1,9,6)
+		virus_type.GenerateSymptoms(1,9,6)
 		virus_type.AssignProperties(list("resistance" = rand(0,11), "stealth" = rand(0,2), "stage_rate" = rand(0,5), "transmittable" = rand(0,5), "severity" = rand(0,10)))
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list))
 		if(issmall(H)) //don't infect monkies; that's a waste
