@@ -24,6 +24,8 @@
 	var/max_extinguishes = 5
 	var/extinguishes_left = 5 // Yeah yeah, reagents, blah blah blah.  This should be simple.
 
+	var/can_thicken_material = FALSE
+
 /obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
 	var/mob/living/carbon/human/H=user
 	if(extinguishes_left)
@@ -80,6 +82,8 @@
 	var/base_state = "plasmaman_helmet"
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
+
+	var/can_thicken_material = FALSE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/attack_self(mob/user)
@@ -160,11 +164,39 @@
 /obj/item/clothing/suit/space/eva/plasmaman/botanist
 	name = "plasmaman botanist suit"
 	icon_state = "plasmamanBotanist_suit"
+	can_thicken_material = TRUE
+
+/obj/item/clothing/suit/space/eva/plasmaman/botanist/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/suit/beekeeper_suit))
+		var/obj/item/clothing/suit/beekeeper_suit/S = I
+		if(can_thicken_material)
+			if(!user.unEquip(I))
+				return
+			to_chat(user, "<span class='notice'>You attach [S] to [src].</span>")
+			name = "plasmaman beekeeper suit"
+			desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies. This one has been modified to protect from bee stingers and other small needles."
+			flags = THICKMATERIAL
+			can_thicken_material = FALSE
+			I.loc = src
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/botanist
 	name = "plasmaman botanist helmet"
 	icon_state = "plasmamanBotanist_helmet0"
 	base_state = "plasmamanBotanist_helmet"
+	can_thicken_material = TRUE
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/botanist/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/head/beekeeper_head))
+		var/obj/item/clothing/head/beekeeper_head/S = I
+		if(can_thicken_material)
+			if(!user.unEquip(I))
+				return
+			to_chat(user, "<span class='notice'>You attach [S] to [src].</span>")
+			name = "plasmaman beekeeper helmet"
+			desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies. This one has been modified to protect from bee stingers and other small needles."
+			flags = THICKMATERIAL
+			can_thicken_material = FALSE
+			I.loc = src
 
 /obj/item/clothing/suit/space/eva/plasmaman/chaplain
 	name = "plasmaman chaplain suit"
