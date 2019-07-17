@@ -356,6 +356,7 @@
 
 	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
+	H.Weaken(2)
 	add_attack_logs(user, H, "Vampire-thralled")
 
 
