@@ -7,7 +7,7 @@
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/mm556x45
-	weapon_weight = WEAPON_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
