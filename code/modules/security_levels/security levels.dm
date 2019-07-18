@@ -122,7 +122,7 @@
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
 			if(SEC_LEVEL_DELTA)
-				security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!")
+				security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/stationalert.ogg'))
 				security_level = SEC_LEVEL_DELTA
 
 				post_status("alert", "deltaalert")
