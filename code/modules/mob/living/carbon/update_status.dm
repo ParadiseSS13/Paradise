@@ -15,10 +15,9 @@
 			if(health <= HEALTH_THRESHOLD_CRIT)
 				stat = SOFT_CRIT
 				update_canmove()
-			else if(stat == UNCONSCIOUS)
+			else
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
-
 /mob/living/carbon/update_stamina()
 	..()
 	if(staminaloss)

@@ -88,7 +88,7 @@
 	if(buckled)
 		lying = 90 * buckle_lying
 	else if((fall_over || move_and_fall || resting) && !lying)
-		fall(fall_over)
+		fall(fall_over || move_and_fall)
 
 	canmove = !(fall_over || resting || stunned || buckled)
 	density = !lying

@@ -418,6 +418,7 @@
 	else if(stat == CONSCIOUS && stat != SOFT_CRIT)
 		if(check_death_method())
 			clear_fullscreen("crit")
+			clear_fullscreen("critvision")
 			if(getOxyLoss())
 				var/severity = 0
 				switch(getOxyLoss())
