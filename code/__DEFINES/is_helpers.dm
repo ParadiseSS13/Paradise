@@ -6,6 +6,8 @@
 
 #define ismovableatom(A) (istype(A, /atom/movable))
 
+#define isspacepod(O) (istype(O, /obj/vehicle/sealed/spacepod))
+
 #define isatom(A) (isloc(A))
 
 #define isweakref(D) (istype(D, /datum/weakref))

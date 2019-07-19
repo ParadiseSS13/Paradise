@@ -1081,3 +1081,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/server
 	name = "Telecomms Server Room"
 	icon_state = "tcomsatcham"
+
+//Podbay
+/area/construction/podbay
+	name = "Spacepod Bay"
+	icon_state = "yellow"

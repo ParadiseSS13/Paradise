@@ -77,7 +77,12 @@
 			if(hivemind)
 				stat("Hivemind Vessels", "[hivemind.hive_size] (+[hivemind.size_mod])")
 				stat("Psychic Link Duration", "[(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
-
+		if(isspacepod(loc))
+			var/obj/vehicle/sealed/spacepod/SP = loc
+			var/mob/D = SP.get_driver()
+			stat("Spacepod Driver", "[D ? D : "None"]")
+			stat("Spacepod Charge", "[SP.cell ? "[round(SP.cell.charge/100)]%" : "No Power Cell!"]")
+			stat("Spacepod Integrity", "[SP.obj_integrity ? "[round(SP.obj_integrity/SP.max_integrity*100)]%" : "Detonation Imminent!"]")
 	//NINJACODE
 	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)) //Only display if actually a ninja.
 		var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit

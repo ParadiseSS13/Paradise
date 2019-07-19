@@ -11,7 +11,8 @@
 	circuit = /obj/item/circuitboard/machine/mechfab
 	var/time_coeff = 1
 	var/component_coeff = 1
-	var/datum/techweb/specialized/autounlocking/exofab/stored_research
+	var/datum/techweb/specialized/autounlocking/stored_research
+	var/stored_research_type = /datum/techweb/specialized/autounlocking/exofab
 	var/sync = 0
 	var/part_set
 	var/datum/design/being_built
@@ -33,13 +34,14 @@
 								"Cyborg Upgrade Modules",
 								"Misc"
 								)
+	var/fab_type = MECHFAB
 
 /obj/machinery/mecha_part_fabricator/Initialize()
     var/datum/component/material_container/materials = AddComponent(/datum/component/material_container,
      list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TITANIUM, MAT_BLUESPACE), 0,
         TRUE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
     materials.precise_insertion = TRUE
-    stored_research = new
+    stored_research = new stored_research_type
     return ..()
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
@@ -87,7 +89,7 @@
 	var/output = ""
 	for(var/v in stored_research.researched_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		if(D.build_type & MECHFAB)
+		if(D.build_type & fab_type)
 			if(!(set_name in D.category))
 				continue
 			output += "<div class='part'>[output_part_info(D)]<br>\["
@@ -168,7 +170,7 @@
 	if(set_name in part_sets)
 		for(var/v in stored_research.researched_designs)
 			var/datum/design/D = SSresearch.techweb_design_by_id(v)
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fab_type)
 				if(set_name in D.category)
 					add_to_queue(D)
 
@@ -325,7 +327,7 @@
 		var/T = href_list["part"]
 		for(var/v in stored_research.researched_designs)
 			var/datum/design/D = SSresearch.techweb_design_by_id(v)
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fab_type)
 				if(D.id == T)
 					if(!processing_queue)
 						build_part(D)
@@ -336,7 +338,7 @@
 		var/T = href_list["add_to_queue"]
 		for(var/v in stored_research.researched_designs)
 			var/datum/design/D = SSresearch.techweb_design_by_id(v)
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fab_type)
 				if(D.id == T)
 					add_to_queue(D)
 					break
@@ -374,7 +376,7 @@
 		var/T = href_list["part_desc"]
 		for(var/v in stored_research.researched_designs)
 			var/datum/design/D = SSresearch.techweb_design_by_id(v)
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fab_type)
 				if(D.id == T)
 					var/obj/part = D.build_path
 					temp = {"<h1>[initial(part.name)] description:</h1>

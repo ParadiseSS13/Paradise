@@ -1845,3 +1845,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
+
+/datum/uplink_item/dangerous/spacepod
+	name = "Armed Syndicate Spacepod"
+	desc = "A syndicate spacepod, equipped with lasers, a passenger seat, and a syndicate cloaking device. \
+			Use the given beacon in space to summon the spacepod."
+	item = /obj/item/sbeacondrop/spacepod
+	cost = 85
+	include_modes = list(/datum/game_mode/nuclear)

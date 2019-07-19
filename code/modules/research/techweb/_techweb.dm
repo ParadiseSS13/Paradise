@@ -377,3 +377,7 @@
 
 /datum/techweb/specialized/autounlocking/exofab
 	allowed_buildtypes = MECHFAB
+
+/datum/techweb/specialized/autounlocking/podfab
+	node_autounlock_ids = list("spacepod_basic")
+	allowed_buildtypes = PODFAB
