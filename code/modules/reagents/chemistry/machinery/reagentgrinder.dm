@@ -9,7 +9,7 @@
 	active_power_usage = 100
 	pass_flags = PASSTABLE
 	var/operating = 0
-	var/obj/item/reagent_containers/beaker = null
+	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit = 10
 
 	//IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
@@ -88,10 +88,18 @@
 
 	var/list/holdingitems = list()
 
+/obj/machinery/reagentgrinder/empty
+	icon_state = "juicer0"
+	beaker = null
+
 /obj/machinery/reagentgrinder/New()
 	..()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
-	return
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	RefreshParts()
 
 /obj/machinery/reagentgrinder/Destroy()
 	QDEL_NULL(beaker)
@@ -112,8 +120,16 @@
 		if(default_unfasten_wrench(user, I))
 				return
 
+		if(anchored && !beaker)
+				if(default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I))
+						return
+
+				if(panel_open && istype(I, /obj/item/crowbar))
+						default_deconstruction_crowbar(I)
+						return
+
 		if (istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
-				if (!beaker)
+				if (!beaker && !panel_open)
 						if(!user.drop_item())
 								return 1
 						beaker =  I
@@ -121,7 +137,10 @@
 						update_icon()
 						src.updateUsrDialog()
 				else
-						to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+						if(!panel_open)
+								to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+						else
+								to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 				return 1 //no afterattack
 
 		if(is_type_in_list(I, dried_items))
