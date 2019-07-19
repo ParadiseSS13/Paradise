@@ -136,16 +136,6 @@
 	category = list("Pod Weaponry")
 	materials = list(MAT_METAL = 15000)
 
-/datum/design/pod_gun_disabler
-	construction_time = 200
-	name = "Spacepod Equipment (Burst Disabler)"
-	desc = "Allows for the construction of a spacepod mounted disabler. This is the burst-fire model."
-	id = "podgun_bdisabler"
-	build_type = PODFAB
-	build_path = /obj/item/spacepod_equipment/weaponry/burst_disabler
-	category = list("Pod Weaponry")
-	materials = list(MAT_METAL = 15000,MAT_PLASMA=2000)
-
 /datum/design/pod_gun_laser
 	construction_time = 200
 	name = "Spacepod Equipment (Laser)"

@@ -1165,5 +1165,5 @@
 	description = "Unlocks industrial spacepod armor."
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2750)
 	export_price = 2750
-	prereq_ids = list("spacepod_storage", "high_efficiency", "exp_flight")
+	prereq_ids = list("spacepod_storage", "high_efficiency")
 	design_ids = list("podarmor_industiral")

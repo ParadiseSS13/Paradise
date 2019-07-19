@@ -141,8 +141,8 @@
 
 	if(LAZYLEN(starting_equipment))
 		for(var/A in starting_equipment)
-			var/obj/item/spacepod_equipment/SE = new A(src)
-			add_equipment(E=SE)
+			var/obj/item/spacepod_equipment/SE = new A
+			add_equipment(null, SE)
 
 
 /obj/vehicle/sealed/spacepod/Destroy()

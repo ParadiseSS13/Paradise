@@ -1,10 +1,10 @@
 ###Files and folders specified here will never be tracked.
-/config/*
-!config/**/*/
 
 #Ignore everything in datafolder and subdirectories
 /data/**/*
 /tmp/**/*
+/config/*
+!config/**/*/
 
 #Ignore byond config folder.
 /cfg/**/*
@@ -219,5 +219,3 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 !/config/title_music/sounds/exclude
 /config/title_screens/images/*
 !/config/title_screens/images/exclude
-config/game_options.txt
-config/admins.txt
