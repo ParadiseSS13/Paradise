@@ -201,7 +201,7 @@
 		to_chat(src, "You will no longer hear musical instruments.")
 	feedback_add_details("admin_verb","TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/Toggle_disco() //to toggle off heartbeat sounds, in case they get too annoying
+/client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
 	set name = "Hear/Silence Dance Machine"
 	set category = "Preferences"
 	set desc = "Toggles hearing and dancing to the radiant dance machine"
