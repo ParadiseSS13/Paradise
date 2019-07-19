@@ -16,7 +16,7 @@
 
 	area_type = /area
 	protected_areas = list(/area/space)
-	target_trait = STATION_LEVEL
+	target_trait = ZTRAIT_STATION
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	overlay_plane = FLOOR_PLANE
@@ -26,15 +26,15 @@
 /datum/weather/floor_is_lava/weather_act(mob/living/L)
 	if(issilicon(L))
 		return
+	if(istype(L.buckled, /obj/structure/bed))
+		return
 	for(var/obj/structure/O in L.loc)
-		if(O.density || O.buckled_mob && istype(O, /obj/structure/bed))
+		if(O.density)
 			return
 	if(L.loc.density)
 		return
 	if(!L.client) //Only sentient people are going along with it!
 		return
+	if(L.movement_type & FLYING)
+		return
 	L.adjustFireLoss(3)
-
-/datum/weather/floor_is_lava/fake
-	name = "the floor is lava (fake)"
-	aesthetic = TRUE

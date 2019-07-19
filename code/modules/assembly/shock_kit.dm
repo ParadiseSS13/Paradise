@@ -4,38 +4,31 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "shock_kit"
 	var/obj/item/clothing/head/helmet/part1 = null
-	var/obj/item/radio/electropack/part2 = null
-	var/status = 0
+	var/obj/item/electropack/part2 = null
 	w_class = WEIGHT_CLASS_HUGE
-	flags = CONDUCT
+	flags_1 = CONDUCT_1
 
 /obj/item/assembly/shock_kit/Destroy()
-	QDEL_NULL(part1)
-	QDEL_NULL(part2)
+	qdel(part1)
+	qdel(part2)
 	return ..()
 
-/obj/item/assembly/shock_kit/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench) && !status)
-		var/turf/T = loc
-		if(ismob(T))
-			T = T.loc
-		part1.loc = T
-		part2.loc = T
+/obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	if(part1)
+		part1.forceMove(drop_location())
 		part1.master = null
-		part2.master = null
 		part1 = null
+	if(part2)
+		part2.forceMove(drop_location())
+		part2.master = null
 		part2 = null
-		qdel(src)
-		return
-	if(istype(W, /obj/item/screwdriver))
-		status = !status
-		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
-	add_fingerprint(user)
-	return
+	qdel(src)
+	return TRUE
 
-/obj/item/assembly/shock_kit/attack_self(mob/user as mob)
-	part1.attack_self(user, status)
-	part2.attack_self(user, status)
+/obj/item/assembly/shock_kit/attack_self(mob/user)
+	part1.attack_self(user)
+	part2.attack_self(user)
 	add_fingerprint(user)
 	return
 

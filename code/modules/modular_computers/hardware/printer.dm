@@ -2,7 +2,6 @@
 	name = "printer"
 	desc = "Computer-integrated printer with paper recycling module."
 	power_usage = 100
-	origin_tech = "programming=2;engineering=2"
 	icon_state = "printer"
 	w_class = WEIGHT_CLASS_NORMAL
 	device_type = MC_PRINT
@@ -11,11 +10,11 @@
 
 /obj/item/computer_hardware/printer/diagnostics(mob/living/user)
 	..()
-	to_chat(user, "Paper level: [stored_paper]/[max_paper]")
+	to_chat(user, "Paper level: [stored_paper]/[max_paper].")
 
 /obj/item/computer_hardware/printer/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Paper level: [stored_paper]/[max_paper]</span>")
+	. = ..()
+	. += "<span class='notice'>Paper level: [stored_paper]/[max_paper].</span>"
 
 
 /obj/item/computer_hardware/printer/proc/print_text(var/text_to_print, var/paper_title = "")
@@ -34,27 +33,20 @@
 	if(paper_title)
 		P.name = paper_title
 	P.update_icon()
-	P.populatefields()
-	P.updateinfolinks()
+	P.reload_fields()
 	stored_paper--
 	P = null
-
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-
 	return TRUE
 
 /obj/item/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
 	if(istype(I, /obj/item/paper))
 		if(stored_paper >= max_paper)
-			if(user)
-				to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
+			to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
 			return FALSE
 
-		if(user && !user.unEquip(I))
+		if(user && !user.temporarilyRemoveItemFromInventory(I))
 			return FALSE
-
-		if(user)
-			to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
+		to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
 		qdel(I)
 		stored_paper++
 		return TRUE

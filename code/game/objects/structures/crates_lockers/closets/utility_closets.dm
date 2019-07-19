@@ -14,53 +14,44 @@
  */
 /obj/structure/closet/emcloset
 	name = "emergency closet"
-	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
+	desc = "It's a storage unit for emergency breath masks and O2 tanks."
 	icon_state = "emergency"
-	icon_closed = "emergency"
-	icon_opened = "emergencyopen"
 
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
 
-/obj/structure/closet/emcloset/New()
+/obj/structure/closet/emcloset/PopulateContents()
 	..()
 
-	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10, "nothing" = 0, "delete" = 0)))
-		if("small")
-			new /obj/item/tank/emergency_oxygen(src)
-			new /obj/item/tank/emergency_oxygen(src)
+	if (prob(40))
+		new /obj/item/storage/toolbox/emergency(src)
+
+	switch (pickweight(list("small" = 40, "aid" = 25, "tank" = 20, "both" = 10, "nothing" = 4, "delete" = 1)))
+		if ("small")
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/clothing/mask/breath(src)
-		if("aid")
-			new /obj/item/tank/emergency_oxygen(src)
-			new /obj/item/storage/toolbox/emergency(src)
-			new /obj/item/clothing/mask/breath(src)
+
+		if ("aid")
+			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/storage/firstaid/o2(src)
-		if("tank")
-			new /obj/item/tank/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/tank/emergency_oxygen/engi(src)
+
+		if ("tank")
+			new /obj/item/tank/internals/air(src)
 			new /obj/item/clothing/mask/breath(src)
-		if("both")
-			new /obj/item/storage/toolbox/emergency(src)
-			new /obj/item/tank/emergency_oxygen/engi(src)
+
+		if ("both")
+			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/storage/firstaid/o2(src)
-		if("nothing")
+
+		if ("nothing")
 			// doot
 
-		// teehee - Ah, tg coders...
-		if("delete")
+		// teehee
+		if ("delete")
 			qdel(src)
-
-		//If you want to re-add fire, just add "fire" = 15 to the pick list.
-		/*if("fire")
-			new /obj/structure/closet/firecloset(src.loc)
-			qdel(src)*/
-
-/obj/structure/closet/emcloset/legacy/New()
-	new /obj/item/tank/oxygen(src)
-	new /obj/item/clothing/mask/gas(src)
 
 /*
  * Fire Closet
@@ -68,30 +59,24 @@
 /obj/structure/closet/firecloset
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
-	icon_state = "firecloset"
-	icon_closed = "firecloset"
-	icon_opened = "fireclosetopen"
+	icon_state = "fire"
 
-/obj/structure/closet/firecloset/New()
+/obj/structure/closet/firecloset/PopulateContents()
 	..()
 
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/oxygen/red(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
-/obj/structure/closet/firecloset/full/New()
-	..()
-	contents.Cut()
-
+/obj/structure/closet/firecloset/full/PopulateContents()
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/flashlight(src)
-	new /obj/item/tank/oxygen/red(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
-
 
 /*
  * Tool Closet
@@ -99,13 +84,13 @@
 /obj/structure/closet/toolcloset
 	name = "tool closet"
 	desc = "It's a storage unit for tools."
-	icon_state = "toolcloset"
-	icon_closed = "toolcloset"
-	icon_opened = "toolclosetopen"
+	icon_state = "eng"
+	icon_door = "eng_tool"
 
-/obj/structure/closet/toolcloset/New()
+/obj/structure/closet/toolcloset/PopulateContents()
+	..()
 	if(prob(40))
-		new /obj/item/clothing/suit/storage/hazardvest(src)
+		new /obj/item/clothing/suit/hazardvest(src)
 	if(prob(70))
 		new /obj/item/flashlight(src)
 	if(prob(70))
@@ -123,11 +108,11 @@
 	if(prob(20))
 		new /obj/item/storage/belt/utility(src)
 	if(prob(30))
-		new /obj/item/stack/cable_coil/random(src)
+		new /obj/item/stack/cable_coil(src)
 	if(prob(30))
-		new /obj/item/stack/cable_coil/random(src)
+		new /obj/item/stack/cable_coil(src)
 	if(prob(30))
-		new /obj/item/stack/cable_coil/random(src)
+		new /obj/item/stack/cable_coil(src)
 	if(prob(20))
 		new /obj/item/multitool(src)
 	if(prob(5))
@@ -142,12 +127,12 @@
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
-	icon_state = "radsuitcloset"
-	icon_opened = "toolclosetopen"
-	icon_closed = "radsuitcloset"
+	icon_state = "eng"
+	icon_door = "eng_rad"
 
-/obj/structure/closet/radiation/New()
+/obj/structure/closet/radiation/PopulateContents()
 	..()
+	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
@@ -157,69 +142,34 @@
 /obj/structure/closet/bombcloset
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
-	icon_state = "bombsuit"
-	icon_closed = "bombsuit"
-	icon_opened = "bombsuitopen"
+	icon_state = "bomb"
 
-/obj/structure/closet/bombcloset/New()
+/obj/structure/closet/bombcloset/PopulateContents()
 	..()
-	new /obj/item/clothing/suit/bomb_suit( src )
-	new /obj/item/clothing/under/color/black( src )
-	new /obj/item/clothing/shoes/black( src )
-	new /obj/item/clothing/head/bomb_hood( src )
+	new /obj/item/clothing/suit/bomb_suit(src)
+	new /obj/item/clothing/under/color/black(src)
+	new /obj/item/clothing/shoes/sneakers/black(src)
+	new /obj/item/clothing/head/bomb_hood(src)
 
+/obj/structure/closet/bombcloset/security/PopulateContents()
+	new /obj/item/clothing/suit/bomb_suit/security(src)
+	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/head/bomb_hood/security(src)
 
-/obj/structure/closet/bombclosetsecurity
-	name = "\improper EOD closet"
-	desc = "It's a storage unit for explosion-protective suits."
-	icon_state = "bombsuitsec"
-	icon_closed = "bombsuitsec"
-	icon_opened = "bombsuitsecopen"
-
-/obj/structure/closet/bombclosetsecurity/New()
-	..()
-	new /obj/item/clothing/suit/bomb_suit/security( src )
-	new /obj/item/clothing/under/rank/security( src )
-	new /obj/item/clothing/shoes/brown( src )
-	new /obj/item/clothing/head/bomb_hood/security( src )
+/obj/structure/closet/bombcloset/white/PopulateContents()
+	new /obj/item/clothing/suit/bomb_suit/white(src)
+	new /obj/item/clothing/under/color/black(src)
+	new /obj/item/clothing/shoes/sneakers/black(src)
+	new /obj/item/clothing/head/bomb_hood/white(src)
 
 /*
- * Hydrant
+ * Ammunition
  */
-/obj/structure/closet/hydrant //wall mounted fire closet
-	name = "fire-safety closet"
-	desc = "It's a storage unit for fire-fighting supplies."
-	icon_state = "hydrant"
-	icon_closed = "hydrant"
-	icon_opened = "hydrant_open"
-	anchored = 1
-	density = 0
-	wall_mounted = 1
+/obj/structure/closet/ammunitionlocker
+	name = "ammunition locker"
 
-/obj/structure/closet/hydrant/New()
+/obj/structure/closet/ammunitionlocker/PopulateContents()
 	..()
-	new /obj/item/clothing/suit/fire/firefighter(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/flashlight(src)
-	new /obj/item/tank/oxygen/red(src)
-	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/hardhat/red(src)
-
-/*
- * First Aid
- */
-/obj/structure/closet/medical_wall //wall mounted medical closet
-	name = "first-aid closet"
-	desc = "It's wall-mounted storage unit for first aid supplies."
-	icon_state = "medical_wall"
-	icon_closed = "medical_wall"
-	icon_opened = "medical_wall_open"
-	anchored = 1
-	density = 0
-	wall_mounted = 1
-
-/obj/structure/closet/medical_wall/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
+	for(var/i in 1 to 8)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)

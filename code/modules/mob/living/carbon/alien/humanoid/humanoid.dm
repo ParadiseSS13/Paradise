@@ -1,118 +1,76 @@
 /mob/living/carbon/alien/humanoid
 	name = "alien"
-	icon_state = "alien_s"
-
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	icon_state = "alien"
+	pass_flags = PASSTABLE
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
+	limb_destroyer = 1
+	hud_type = /datum/hud/alien
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
-	var/next_attack = 0
+	var/leap_on_click = 0
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
-	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
-	pass_flags = PASSTABLE
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120  //120 kPa difference required to throw
-
-//This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/humanoid/New()
-	create_reagents(1000)
-	if(name == "alien")
-		name = text("alien ([rand(1, 1000)])")
-	real_name = name
-	add_language("Xenomorph")
-	add_language("Hivemind")
-	..()
-
-/mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
-	if(..())
-		return 1
-
-	return 0
-
-///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living
-
-/mob/living/carbon/alien/humanoid/emp_act(severity)
-	if(r_store) r_store.emp_act(severity)
-	if(l_store) l_store.emp_act(severity)
-	..()
-
-/mob/living/carbon/alien/humanoid/ex_act(severity)
-	..()
-
-	var/shielded = 0
-
-	var/b_loss = null
-	var/f_loss = null
-	switch(severity)
-		if(1.0)
-			gib()
-			return
-
-		if(2.0)
-			if(!shielded)
-				b_loss += 60
-
-			f_loss += 60
-
-			AdjustEarDamage(30, 120)
-		if(3.0)
-			b_loss += 30
-			if(prob(50) && !shielded)
-				Paralyse(1)
-			AdjustEarDamage(15, 60)
-
-	take_overall_damage(b_loss, f_loss)
-
-/mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M)
-	..()
-	var/damage = rand(5, 35)
-	if(M.is_adult)
-		damage = rand(10, 40)
-	adjustBruteLoss(damage)
-	add_attack_logs(src, M, "Slime'd for [damage] damage")
-	return
-
-/mob/living/carbon/alien/humanoid/restrained()
-	if(handcuffed)
-		return 1
-	return 0
+	var/sneaking = 0 //For sneaky-sneaky mode and appropriate slowdown
+	var/drooling = 0 //For Neruotoxic spit overlays
+	deathsound = 'sound/voice/hiss6.ogg'
+	bodyparts = list(/obj/item/bodypart/chest/alien, /obj/item/bodypart/head/alien, /obj/item/bodypart/l_arm/alien,
+					 /obj/item/bodypart/r_arm/alien, /obj/item/bodypart/r_leg/alien, /obj/item/bodypart/l_leg/alien)
 
 
-/mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
+/mob/living/carbon/alien/humanoid/restrained(ignore_grab)
+	return handcuffed
 
-/mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
+/mob/living/carbon/alien/humanoid/show_inv(mob/user)
 	user.set_machine(src)
+	var/list/dat = list()
+	dat += {"
+	<HR>
+	<span class='big bold'>[name]</span>
+	<HR>"}
+	for(var/i in 1 to held_items.len)
+		var/obj/item/I = get_item_for_held_index(i)
+		dat += "<BR><B>[get_held_index_name(i)]:</B><A href='?src=[REF(src)];item=[SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "<font color=grey>Empty</font>"]</a>"
+	dat += "<BR><A href='?src=[REF(src)];pouches=1'>Empty Pouches</A>"
 
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
+	if(handcuffed)
+		dat += "<BR><A href='?src=[REF(src)];item=[SLOT_HANDCUFFED]'>Handcuffed</A>"
+	if(legcuffed)
+		dat += "<BR><A href='?src=[REF(src)];item=[SLOT_LEGCUFFED]'>Legcuffed</A>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	dat += "<tr><td>&nbsp;</td></tr>"
-
-	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
-	dat += "<tr><td><B>Pouches:</B></td><td><A href='?src=[UID()];item=pockets'>[((l_store && !(l_store.flags&ABSTRACT)) || (r_store && !(r_store.flags&ABSTRACT))) ? "Full" : "<font color=grey>Empty</font>"]</A>"
-
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
+	dat += {"
+	<BR>
+	<BR><A href='?src=[REF(user)];mach_close=mob[REF(src)]'>Close</A>
 	"}
+	user << browse(dat.Join(), "window=mob[REF(src)];size=325x500")
+	onclose(user, "mob[REF(src)]")
 
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
-	popup.set_content(dat)
-	popup.open()
 
-/mob/living/carbon/alien/humanoid/canBeHandcuffed()
-	return 1
+/mob/living/carbon/alien/humanoid/Topic(href, href_list)
+	//strip panel
+	if(href_list["pouches"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+		visible_message("<span class='danger'>[usr] tries to empty [src]'s pouches.</span>", \
+						"<span class='userdanger'>[usr] tries to empty [src]'s pouches.</span>")
+		if(do_mob(usr, src, POCKET_STRIP_DELAY * 0.5))
+			dropItemToGround(r_store)
+			dropItemToGround(l_store)
+
+	..()
+
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
-	..(I, cuff_break = 1)
+	..(I, cuff_break = INSTANT_CUFFBREAK)
+
+/mob/living/carbon/alien/humanoid/resist_grab(moving_resist)
+	if(pulledby.grab_state)
+		visible_message("<span class='danger'>[src] has broken free of [pulledby]'s grip!</span>")
+	pulledby.stop_pulling()
+	. = 0
 
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
 	if(leaping)
@@ -130,5 +88,25 @@
 	else
 		return initial(pixel_x)
 
-/mob/living/carbon/alien/humanoid/get_permeability_protection()
+/mob/living/carbon/alien/humanoid/get_permeability_protection(list/target_zones)
 	return 0.8
+
+/mob/living/carbon/alien/humanoid/alien_evolve(mob/living/carbon/alien/humanoid/new_xeno)
+	drop_all_held_items()
+	..()
+
+//For alien evolution/promotion/queen finder procs. Checks for an active alien of that type
+/proc/get_alien_type(var/alienpath)
+	for(var/mob/living/carbon/alien/humanoid/A in GLOB.alive_mob_list)
+		if(!istype(A, alienpath))
+			continue
+		if(!A.key || A.stat == DEAD) //Only living aliens with a ckey are valid.
+			continue
+		return A
+	return FALSE
+
+
+/mob/living/carbon/alien/humanoid/check_breath(datum/gas_mixture/breath)
+	if(breath && breath.total_moles() > 0 && !sneaking)
+		playsound(get_turf(src), pick('sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg'), 50, 0, -5)
+	..()

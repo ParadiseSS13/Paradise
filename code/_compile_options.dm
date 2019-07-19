@@ -1,31 +1,57 @@
-#define DEBUG
-//#define TESTING
+//#define TESTING				//By using the testing("message") proc you can create debug-feedback for people with this
+								//uncommented, but not visible in the release version)
+
+//#define DATUMVAR_DEBUGGING_MODE	//Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
+
+// Comment this out if you are debugging problems that might be obscured by custom error handling in world/Error
+#ifdef DEBUG
+#define USE_CUSTOM_ERROR_HANDLER
+#endif
 
 #ifdef TESTING
+#define DATUMVAR_DEBUGGING_MODE
+
 //#define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
 									//implies FIND_REF_NO_CHECK_TICK
 
 //#define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
 
+
+//#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif
 
-#define IS_MODE_COMPILED(MODE) (ispath(text2path("/datum/game_mode/"+(MODE))))
+//#define UNIT_TESTS			//Enables unit tests via TEST_RUN_PARAMETER
 
-#define BACKGROUND_ENABLED 0 // The default value for all uses of set background. Set background can cause gradual lag and is recommended you only turn this on if necessary.
+#ifndef PRELOAD_RSC				//set to:
+#define PRELOAD_RSC	2			//	0 to allow using external resources or on-demand behaviour;
+#endif							//	1 to use the default behaviour;
+								//	2 for preloading absolutely everything;
 
-//Don't set this very much higher then 1024 unless you like inviting people in to dos your server with message spam
-#define MAX_MESSAGE_LEN 1024
-#define MAX_PAPER_MESSAGE_LEN 3072
-#define MAX_PAPER_FIELDS 50
-#define MAX_BOOK_MESSAGE_LEN 9216
-#define MAX_NAME_LEN 50 	//diona names can get loooooooong
-
-// Version check, terminates compilation if someone is using a version of BYOND that's too old
-#if DM_VERSION < 510
-#error OUTDATED VERSION ERROR - \
-Due to BYOND features used in this codebase, you must update to version 510 or later to compile. \
-This may require updating to a beta release.
+#ifdef LOWMEMORYMODE
+#define FORCE_MAP "_maps/runtimestation.json"
 #endif
 
-// Macros that must exist before world.dm
-#define to_chat to_chat_filename=__FILE__;to_chat_line=__LINE__;to_chat_src=src;__to_chat
+//Update this whenever you need to take advantage of more recent byond features
+#define MIN_COMPILER_VERSION 512
+#if DM_VERSION < MIN_COMPILER_VERSION
+//Don't forget to update this part
+#error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
+#error You need version 512 or higher
+#endif
+
+//Additional code for the above flags.
+#ifdef TESTING
+#warn compiling in TESTING mode. testing() debug messages will be visible.
+#endif
+
+#ifdef GC_FAILURE_HARD_LOOKUP
+#define FIND_REF_NO_CHECK_TICK
+#endif
+
+#ifdef TRAVISBUILDING
+#define UNIT_TESTS
+#endif
+
+#ifdef TRAVISTESTING
+#define TESTING
+#endif

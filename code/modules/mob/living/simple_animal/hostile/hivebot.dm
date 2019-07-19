@@ -3,106 +3,96 @@
 	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/hivebot
-	name = "Hivebot"
-	desc = "A small robot"
+	name = "hivebot"
+	desc = "A small robot."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
+	gender = NEUTER
+	mob_biotypes = list(MOB_ROBOTIC)
 	health = 15
 	maxHealth = 15
+	healable = 0
 	melee_damage_lower = 2
 	melee_damage_upper = 3
 	attacktext = "claws"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
+	projectilesound = 'sound/weapons/gunshot.ogg'
 	projectiletype = /obj/item/projectile/hivebotbullet
 	faction = list("hivebot")
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
 	minbodytemp = 0
-	speak_emote = list("states")
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
-	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
-	deathmessage = "blows apart!"
+	verb_say = "states"
+	verb_ask = "queries"
+	verb_exclaim = "declares"
+	verb_yell = "alarms"
+	bubble_icon = "machine"
+	speech_span = SPAN_ROBOT
+	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
+	loot = list(/obj/effect/decal/cleanable/robot_debris)
+	var/alert_light
+
+	do_footstep = TRUE
+
+/mob/living/simple_animal/hostile/hivebot/Initialize()
+	. = ..()
+	deathmessage = "[src] blows apart!"
+
+/mob/living/simple_animal/hostile/hivebot/Aggro()
+	. = ..()
+	a_intent_change(INTENT_HARM)
+	if(prob(5))
+		say(pick("INTRUDER DETECTED!", "CODE 7-34.", "101010!!"), forced = type)
+
+/mob/living/simple_animal/hostile/hivebot/LoseAggro()
+	. = ..()
+	a_intent_change(INTENT_HELP)
+
+/mob/living/simple_animal/hostile/hivebot/a_intent_change(input as text)
+	. = ..()
+	update_icons()
+
+/mob/living/simple_animal/hostile/hivebot/update_icons()
+	QDEL_NULL(alert_light)
+	if(a_intent != INTENT_HELP)
+		icon_state = "[initial(icon_state)]_attack"
+		alert_light = mob_light(COLOR_RED_LIGHT, 6, 0.4)
+	else
+		icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
+	name = "hivebot"
 	desc = "A smallish robot, this one is armed!"
+	icon_state = "ranged"
+	icon_living = "ranged"
+	icon_dead = "ranged"
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
 
 /mob/living/simple_animal/hostile/hivebot/rapid
+	icon_state = "ranged"
+	icon_living = "ranged"
+	icon_dead = "ranged"
 	ranged = 1
-	rapid = 1
+	rapid = 3
 	retreat_distance = 5
 	minimum_distance = 5
 
 /mob/living/simple_animal/hostile/hivebot/strong
-	name = "Strong Hivebot"
+	name = "strong hivebot"
+	icon_state = "strong"
+	icon_living = "strong"
+	icon_dead = "strong"
 	desc = "A robot, this one is armed and looks tough!"
 	health = 80
 	maxHealth = 80
 	ranged = 1
 
 /mob/living/simple_animal/hostile/hivebot/death(gibbed)
-	// Only execute the below if we successfully died
-	. = ..(gibbed)
-	if(!.)
-		return FALSE
-	do_sparks(3, 1, src)
-
-/mob/living/simple_animal/hostile/hivebot/tele//this still needs work
-	name = "Beacon"
-	desc = "Some odd beacon thing"
-	icon = 'icons/mob/hivebot.dmi'
-	icon_state = "def_radar-off"
-	icon_living = "def_radar-off"
-	health = 200
-	maxHealth = 200
-	status_flags = 0
-	anchored = 1
-	stop_automated_movement = 1
-	var/bot_type = "norm"
-	var/bot_amt = 10
-	var/spawn_delay = 600
-	var/turn_on = 0
-	var/auto_spawn = 1
-	proc
-		warpbots()
-
-
-/mob/living/simple_animal/hostile/hivebot/tele/New()
-	..()
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, src.loc)
-	smoke.start()
-	visible_message("<span class='danger'>The [src] warps in!</span>")
-	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
-
-/mob/living/simple_animal/hostile/hivebot/tele/warpbots()
-	icon_state = "def_radar"
-	visible_message("<span class='warning'>The [src] turns on!</span>")
-	while(bot_amt > 0)
-		bot_amt--
-		switch(bot_type)
-			if("norm")
-				var/mob/living/simple_animal/hostile/hivebot/H = new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
-				H.faction = faction
-			if("range")
-				var/mob/living/simple_animal/hostile/hivebot/range/R = new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
-				R.faction = faction
-			if("rapid")
-				var/mob/living/simple_animal/hostile/hivebot/rapid/F = new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
-				F.faction = faction
-	spawn(100)
-		qdel(src)
-	return
-
-/mob/living/simple_animal/hostile/hivebot/tele/handle_automated_action()
-	if(!..())
-		return
-	if(prob(2))//Might be a bit low, will mess with it likely
-		warpbots()
+	do_sparks(3, TRUE, src)
+	..(1)

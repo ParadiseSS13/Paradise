@@ -1,4 +1,4 @@
-/obj/item/modular_computer/laptop/preset/New()
+/obj/item/modular_computer/laptop/preset/Initialize()
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
@@ -9,6 +9,8 @@
 
 /obj/item/modular_computer/laptop/preset/proc/install_programs()
 	return
+
+
 
 
 /obj/item/modular_computer/laptop/preset/civillian

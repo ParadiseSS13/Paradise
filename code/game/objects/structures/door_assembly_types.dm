@@ -114,6 +114,7 @@
 	airlock_type = /obj/machinery/door/airlock/highsecurity
 	noglass = TRUE
 	material_type = /obj/item/stack/sheet/plasteel
+	material_amt = 4
 
 /obj/structure/door_assembly/door_assembly_vault
 	name = "vault door assembly"
@@ -123,6 +124,7 @@
 	airlock_type = /obj/machinery/door/airlock/vault
 	noglass = TRUE
 	material_type = /obj/item/stack/sheet/plasteel
+	material_amt = 6
 
 /obj/structure/door_assembly/door_assembly_shuttle
 	name = "shuttle airlock assembly"
@@ -131,35 +133,6 @@
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	airlock_type = /obj/machinery/door/airlock/shuttle
 	glass_type = /obj/machinery/door/airlock/shuttle/glass
-
-/obj/structure/door_assembly/multi_tile
-	name = "large airlock assembly"
-	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
-	base_name = "large airlock"
-	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	dir = EAST
-	var/width = 1
-	airlock_type = /obj/machinery/door/airlock/multi_tile
-	glass_type = /obj/machinery/door/airlock/multi_tile/glass
-	material_amt = 8
-
-/obj/structure/door_assembly/multi_tile/New()
-	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
-	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
-	update_icon()
-
-/obj/structure/door_assembly/multi_tile/Move()
-	. = ..()
-	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
-	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
 
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"
@@ -175,10 +148,23 @@
 	airlock_type = /obj/machinery/door/airlock/cult/unruned
 	glass_type = /obj/machinery/door/airlock/cult/unruned/glass
 
+/obj/structure/door_assembly/door_assembly_viro
+	name = "virology airlock assembly"
+	icon = 'icons/obj/doors/airlocks/station/virology.dmi'
+	base_name = "virology airlock"
+	glass_type = /obj/machinery/door/airlock/virology/glass
+	airlock_type = /obj/machinery/door/airlock/virology
+
 /obj/structure/door_assembly/door_assembly_centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
 	airlock_type = /obj/machinery/door/airlock/centcom
+	noglass = TRUE
+
+/obj/structure/door_assembly/door_assembly_grunge
+	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/grunge
 	noglass = TRUE
 
 /obj/structure/door_assembly/door_assembly_gold
@@ -229,14 +215,6 @@
 	airlock_type = /obj/machinery/door/airlock/bananium
 	mineral = "bananium"
 	glass_type = /obj/machinery/door/airlock/bananium/glass
-
-/obj/structure/door_assembly/door_assembly_tranquillite
-	name = "tranquillite airlock assembly"
-	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
-	base_name = "tranquillite airlock"
-	airlock_type = /obj/machinery/door/airlock/tranquillite
-	mineral = "tranquillite"
-	noglass = TRUE
 
 /obj/structure/door_assembly/door_assembly_sandstone
 	name = "sandstone airlock assembly"

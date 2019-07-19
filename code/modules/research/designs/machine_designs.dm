@@ -1,543 +1,596 @@
-///////////////////////////////////
-//////////Machine Boards///////////
-///////////////////////////////////
+////////////////////////////////////////
+//////////////MISC Boards///////////////
+////////////////////////////////////////
 
-/datum/design/thermomachine
-	name = "Machine Board (Freezer/Heater)"
-	desc = "The circuit board for a Freezer/Heater."
-	id = "thermomachine"
-	req_tech = list("programming" = 3, "plasmatech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/thermomachine
-	category = list ("Engineering Machinery")
-
-/datum/design/smes
-	name = "Machine Board (SMES)"
+/datum/design/board/smes
+	name = "Machine Design (SMES Board)"
 	desc = "The circuit board for a SMES."
 	id = "smes"
-	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/smes
+	build_path = /obj/item/circuitboard/machine/smes
 	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/emitter
-	name = "Machine Board (Emitter)"
-	desc = "The circuit board for an emitter."
-	id = "emitter"
-	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/emitter
+/datum/design/board/circulator
+	name = "Machine Design (Circulator Board)"
+	desc = "The circuit board for a circulator."
+	id = "circulator"
+	build_path = /obj/item/circuitboard/machine/circulator
 	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/turbine_computer
+/datum/design/board/teg
+	name = "Machine Design (TEG Board)"
+	desc = "The circuit board for a TEG."
+	id = "teg"
+	build_path = /obj/item/circuitboard/machine/generator
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/announcement_system
+	name = "Machine Design (Automated Announcement System Board)"
+	desc = "The circuit board for an automated announcement system."
+	id = "automated_announcement"
+	build_path = /obj/item/circuitboard/machine/announcement_system
+	category = list("Subspace Telecomms")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/turbine_computer
 	name = "Computer Design (Power Turbine Console Board)"
 	desc = "The circuit board for a power turbine console."
 	id = "power_turbine_console"
-	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/turbine_computer
+	build_path = /obj/item/circuitboard/computer/turbine_computer
 	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/power_compressor
+/datum/design/board/emitter
+	name = "Machine Design (Emitter Board)"
+	desc = "The circuit board for an emitter."
+	id = "emitter"
+	build_path = /obj/item/circuitboard/machine/emitter
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/power_compressor
 	name = "Machine Design (Power Compressor Board)"
 	desc = "The circuit board for a power compressor."
 	id = "power_compressor"
-	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/power_compressor
+	build_path = /obj/item/circuitboard/machine/power_compressor
 	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/power_turbine
+/datum/design/board/power_turbine
 	name = "Machine Design (Power Turbine Board)"
 	desc = "The circuit board for a power turbine."
 	id = "power_turbine"
-	req_tech = list("programming" = 4, "powerstorage" = 4, "engineering" = 5)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/power_turbine
+	build_path = /obj/item/circuitboard/machine/power_turbine
 	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/quantumpad
-	name = "Machine Board (Quantum Pad Board)"
+/datum/design/board/thermomachine
+	name = "Machine Design (Freezer/Heater Board)"
+	desc = "The circuit board for a freezer/heater."
+	id = "thermomachine"
+	build_path = /obj/item/circuitboard/machine/thermomachine
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/space_heater
+	name = "Machine Design (Space Heater Board)"
+	desc = "The circuit board for a space heater."
+	id = "space_heater"
+	build_path = /obj/item/circuitboard/machine/space_heater
+	category = list ("Engineering Machinery")
+	departmental_flags = ALL
+
+/datum/design/board/teleport_station
+	name = "Machine Design (Teleportation Station Board)"
+	desc = "The circuit board for a teleportation station."
+	id = "tele_station"
+	build_path = /obj/item/circuitboard/machine/teleporter_station
+	category = list ("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/teleport_hub
+	name = "Machine Design (Teleportation Hub Board)"
+	desc = "The circuit board for a teleportation hub."
+	id = "tele_hub"
+	build_path = /obj/item/circuitboard/machine/teleporter_hub
+	category = list ("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/quantumpad
+	name = "Machine Design (Quantum Pad Board)"
 	desc = "The circuit board for a quantum telepad."
 	id = "quantumpad"
-	req_tech = list("programming" = 4, "bluespace" = 4, "plasmatech" = 3, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/quantumpad
+	build_path = /obj/item/circuitboard/machine/quantumpad
 	category = list ("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/telepad
-	name = "Machine Board (Telepad Board)"
-	desc = "Allows for the construction of circuit boards used to build a Telepad."
-	id = "telepad"
-	req_tech = list("programming" = 4, "bluespace" = 5, "plasmatech" = 4, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/telesci_pad
+/datum/design/board/launchpad
+	name = "Machine Design (Bluespace Launchpad Board)"
+	desc = "The circuit board for a bluespace Launchpad."
+	id = "launchpad"
+	build_path = /obj/item/circuitboard/machine/launchpad
 	category = list ("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/teleport_hub
-	name = "Machine Board (Teleportation Hub)"
-	desc = "Allows for the construction of circuit boards used to build a Teleportation Hub."
-	id = "tele_hub"
-	req_tech = list("programming" = 3, "bluespace" = 5, "materials" = 4, "engineering" = 5)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/teleporter_hub
+/datum/design/board/launchpad_console
+	name = "Machine Design (Bluespace Launchpad Console Board)"
+	desc = "The circuit board for a bluespace launchpad Console."
+	id = "launchpad_console"
+	build_path = /obj/item/circuitboard/computer/launchpad_console
 	category = list ("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/teleport_station
-	name = "Machine Board (Teleportation Station)"
-	desc = "Allows for the construction of circuit boards used to build a Teleporter Station."
-	id = "tele_station"
-	req_tech = list("programming" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/teleporter_station
-	category = list ("Teleportation Machinery")
+/datum/design/board/teleconsole
+	name = "Computer Design (Teleporter Console)"
+	desc = "Allows for the construction of circuit boards used to build a teleporter control console."
+	id = "teleconsole"
+	build_path = /obj/item/circuitboard/computer/teleporter
+	category = list("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/teleport_perma
-	name = "Machine Board (Permanent Teleporter)"
-	desc = "Allows for the construction of circuit boards used to build a Permanent Teleporter."
-	id = "tele_perma"
-	req_tech = list("programming" = 3, "bluespace" = 5, "materials" = 4, "engineering" = 5)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/teleporter_perma
-	category = list ("Teleportation Machinery")
-
-/datum/design/bodyscanner
-	name = "Machine Board (Body Scanner)"
-	desc = "Allows for the construction of circuit boards used to build a Body Scanner."
-	id = "bodyscanner"
-	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/bodyscanner
-	category = list("Medical Machinery")
-
-/datum/design/bodyscanner_console
-	name = "Machine Board (Body Scanner Console)"
-	desc = "Allows for the construction of circuit boards used to build a Body Scanner Console."
-	id = "bodyscanner_console"
-	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/bodyscanner_console
-	category = list("Medical Machinery")
-
-/datum/design/clonepod
-	name = "Machine Board (Cloning Pod)"
-	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."
-	id = "clonepod"
-	req_tech = list("programming" = 4, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/clonepod
-	category = list("Medical Machinery")
-
-/datum/design/clonescanner
-	name = "Machine Board (Cloning Scanner)"
-	desc = "Allows for the construction of circuit boards used to build a Cloning Scanner."
-	id = "clonescanner"
-	req_tech = list("programming" = 4, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/clonescanner
-	category = list("Medical Machinery")
-
-/datum/design/cryotube
-	name = "Machine Board (Cryotube Board)"
-	desc = "Allows for the construction of circuit boards used to build a Cryotube."
+/datum/design/board/cryotube
+	name = "Machine Design (Cryotube Board)"
+	desc = "The circuit board for a cryotube."
 	id = "cryotube"
-	req_tech = list("programming" = 5, "biotech" = 3, "engineering" = 4, "plasmatech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/cryo_tube
-	category = list("Medical Machinery")
+	build_path = /obj/item/circuitboard/machine/cryo_tube
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
+	category = list ("Medical Machinery")
 
-/datum/design/chem_dispenser
-	name = "Machine Board (Chem Dispenser)"
-	desc = "The circuit board for a Chem Dispenser."
+/datum/design/board/chem_dispenser
+	name = "Machine Design (Portable Chem Dispenser Board)"
+	desc = "The circuit board for a portable chem dispenser."
 	id = "chem_dispenser"
-	req_tech = list("programming" = 5, "biotech" = 3, "materials" = 4, "plasmatech" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/chem_dispenser
-	category = list("Medical Machinery")
+	build_path = /obj/item/circuitboard/machine/chem_dispenser
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
+	category = list ("Medical Machinery")
 
-/datum/design/chem_master
-	name = "Machine Design (ChemMaster Board)"
-	desc = "The circuit board for a ChemMaster 3000."
+/datum/design/board/chem_master
+	name = "Machine Design (Chem Master Board)"
+	desc = "The circuit board for a Chem Master 3000."
 	id = "chem_master"
-	req_tech = list("biotech" = 3, "materials" = 3, "programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/chem_master
-	category = list("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
+	build_path = /obj/item/circuitboard/machine/chem_master
+	category = list ("Medical Machinery")
 
-/datum/design/chem_heater
+/datum/design/board/chem_heater
 	name = "Machine Design (Chemical Heater Board)"
 	desc = "The circuit board for a chemical heater."
 	id = "chem_heater"
-	req_tech = list("engineering" = 2, "biotech" = 2, "programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/chem_heater
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
+	build_path = /obj/item/circuitboard/machine/chem_heater
 	category = list ("Medical Machinery")
 
-/datum/design/sleeper
-	name = "Machine Board (Sleeper)"
-	desc = "Allows for the construction of circuit boards used to build a Sleeper."
-	id = "sleeper"
-	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/sleeper
+/datum/design/board/smoke_machine
+	name = "Machine Design (Smoke Machine)"
+	desc = "The circuit board for a smoke machine."
+	id = "smoke_machine"
+	build_path = /obj/item/circuitboard/machine/smoke_machine
+	category = list ("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/board/reagentgrinder
+	name = "Machine Design (All-In-One Grinder)"
+	desc = "The circuit board for an All-In-One Grinder."
+	id = "reagentgrinder"
+	build_path = /obj/item/circuitboard/machine/reagentgrinder
+	category = list ("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/clonecontrol
+	name = "Computer Design (Cloning Machine Console)"
+	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
+	id = "clonecontrol"
+	build_path = /obj/item/circuitboard/computer/cloning
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 	category = list("Medical Machinery")
 
-/datum/design/biogenerator
-	name = "Machine Board (Biogenerator)"
-	desc = "The circuit board for a Biogenerator."
+/datum/design/board/clonepod
+	name = "Machine Design (Clone Pod)"
+	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."
+	id = "clonepod"
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	build_path = /obj/item/circuitboard/machine/clonepod
+	category = list("Medical Machinery")
+
+/datum/design/board/clonescanner
+	name = "Machine Design (Cloning Scanner)"
+	desc = "Allows for the construction of circuit boards used to build a Cloning Scanner."
+	id = "clonescanner"
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	build_path = /obj/item/circuitboard/machine/clonescanner
+	category = list("Medical Machinery")
+
+/datum/design/board/biogenerator
+	name = "Machine Design (Biogenerator Board)"
+	desc = "The circuit board for a biogenerator."
 	id = "biogenerator"
-	req_tech = list("programming" = 2, "biotech" = 3, "materials" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/biogenerator
+	build_path = /obj/item/circuitboard/machine/biogenerator
 	category = list ("Hydroponics Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/hydroponics
-	name = "Machine Board (Hydroponics Tray)"
-	desc = "The circuit board for a Hydroponics Tray."
+/datum/design/board/hydroponics
+	name = "Machine Design (Hydroponics Tray Board)"
+	desc = "The circuit board for a hydroponics tray."
 	id = "hydro_tray"
-	req_tech = list("biotech" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/hydroponics
+	build_path = /obj/item/circuitboard/machine/hydroponics
 	category = list ("Hydroponics Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/autolathe
-	name = "Machine Board (Autolathe)"
-	desc = "The circuit board for an Autolathe."
-	id = "autolathe"
-	req_tech = list("programming" = 3, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/autolathe
-	category = list("Research Machinery")
-
-/datum/design/circuit_imprinter
-	name = "Machine Board (Circuit Imprinter)"
-	desc = "The circuit board for a Circuit Imprinter."
-	id = "circuit_imprinter"
-	req_tech = list("programming" = 2, "engineering" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/circuit_imprinter
-	category = list("Research Machinery")
-
-/datum/design/cyborgrecharger
-	name = "Machine Board (Cyborg Recharger)"
-	desc = "The circuit board for a Cyborg Recharger."
-	id = "cyborgrecharger"
-	req_tech = list("powerstorage" = 3, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/cyborgrecharger
-	category = list("Research Machinery")
-
-/datum/design/destructive_analyzer
-	name = "Machine Board (Destructive Analyzer)"
-	desc = "The circuit board for a Destructive Analyzer."
+/datum/design/board/destructive_analyzer
+	name = "Machine Design (Destructive Analyzer Board)"
+	desc = "The circuit board for a destructive analyzer."
 	id = "destructive_analyzer"
-	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/destructive_analyzer
+	build_path = /obj/item/circuitboard/machine/destructive_analyzer
 	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/mechfab
-	name = "Machine Board (Exosuit Fabricator)"
-	desc = "The circuit board for an Exosuit Fabricator"
-	id = "mechfab"
-	req_tech = list("programming" = 3, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/mechfab
-	category = list("Research Machinery")
-
-/datum/design/podfab
-	name = "Machine Board (Spacepod Fabricator)"
-	desc = "The circuit board for an Spacepod Fabricator"
-	id = "podfab"
-	req_tech = list("programming" = 3, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/podfab
-	category = list("Research Machinery")
-
-/datum/design/mech_recharger
-	name = "Machine Board (Mech Bay Recharger)"
-	desc = "The circuit board for a Mech Bay Recharger."
-	id = "mech_recharger"
-	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/mech_recharger
-	category = list("Research Machinery")
-
-/datum/design/experimentor
+/datum/design/board/experimentor
 	name = "Machine Design (E.X.P.E.R.I-MENTOR Board)"
 	desc = "The circuit board for an E.X.P.E.R.I-MENTOR."
 	id = "experimentor"
-	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/experimentor
+	build_path = /obj/item/circuitboard/machine/experimentor
 	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/protolathe
-	name = "Machine Board (Protolathe)"
-	desc = "The circuit board for a Protolathe."
+/datum/design/board/protolathe
+	name = "Machine Design (Protolathe Board)"
+	desc = "The circuit board for a protolathe."
 	id = "protolathe"
-	req_tech = list("programming" = 2, "engineering" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/protolathe
+	build_path = /obj/item/circuitboard/machine/protolathe
 	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/rdserver
-	name = "Machine Board (R&D Server)"
-	desc = "The circuit board for an R&D Server"
+/datum/design/board/circuit_imprinter
+	name = "Machine Design (Circuit Imprinter Board)"
+	desc = "The circuit board for a circuit imprinter."
+	id = "circuit_imprinter"
+	build_path = /obj/item/circuitboard/machine/circuit_imprinter
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/rdservercontrol
+	name = "Computer Design (R&D Server Control Console Board)"
+	desc = "The circuit board for an R&D Server Control Console."
+	id = "rdservercontrol"
+	build_path = /obj/item/circuitboard/computer/rdservercontrol
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/rdserver
+	name = "Machine Design (R&D Server Board)"
+	desc = "The circuit board for an R&D Server."
 	id = "rdserver"
-	req_tech = list("programming" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdserver
+	build_path = /obj/item/circuitboard/machine/rdserver
 	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/gibber
+/datum/design/board/mechfab
+	name = "Machine Design (Exosuit Fabricator Board)"
+	desc = "The circuit board for an Exosuit Fabricator."
+	id = "mechfab"
+	build_path = /obj/item/circuitboard/machine/mechfab
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/cyborgrecharger
+	name = "Machine Design (Cyborg Recharger Board)"
+	desc = "The circuit board for a Cyborg Recharger."
+	id = "cyborgrecharger"
+	build_path = /obj/item/circuitboard/machine/cyborgrecharger
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/mech_recharger
+	name = "Machine Design (Mechbay Recharger Board)"
+	desc = "The circuit board for a Mechbay Recharger."
+	id = "mech_recharger"
+	build_path = /obj/item/circuitboard/machine/mech_recharger
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/nanite_chamber
+	name = "Machine Design (Nanite Chamber Board)"
+	desc = "The circuit board for a Nanite Chamber."
+	id = "nanite_chamber"
+	build_path = /obj/item/circuitboard/machine/nanite_chamber
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/public_nanite_chamber
+	name = "Machine Design (Public Nanite Chamber Board)"
+	desc = "The circuit board for a Public Nanite Chamber."
+	id = "public_nanite_chamber"
+	build_path = /obj/item/circuitboard/machine/public_nanite_chamber
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/nanite_programmer
+	name = "Machine Design (Nanite Programmer Board)"
+	desc = "The circuit board for a Nanite Programmer."
+	id = "nanite_programmer"
+	build_path = /obj/item/circuitboard/machine/nanite_programmer
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/nanite_program_hub
+	name = "Machine Design (Nanite Program Hub Board)"
+	desc = "The circuit board for a Nanite Program Hub."
+	id = "nanite_program_hub"
+	build_path = /obj/item/circuitboard/machine/nanite_program_hub
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/microwave
+	name = "Machine Design (Microwave Board)"
+	desc = "The circuit board for a microwave."
+	id = "microwave"
+	build_path = /obj/item/circuitboard/machine/microwave
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/gibber
 	name = "Machine Design (Gibber Board)"
 	desc = "The circuit board for a gibber."
 	id = "gibber"
-	req_tech = list("programming" = 2, "engineering" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/gibber
+	build_path = /obj/item/circuitboard/machine/gibber
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/smartfridge
+/datum/design/board/smartfridge
 	name = "Machine Design (Smartfridge Board)"
 	desc = "The circuit board for a smartfridge."
 	id = "smartfridge"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/smartfridge
+	build_path = /obj/item/circuitboard/machine/smartfridge
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/monkey_recycler
+/datum/design/board/monkey_recycler
 	name = "Machine Design (Monkey Recycler Board)"
 	desc = "The circuit board for a monkey recycler."
 	id = "monkey_recycler"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/monkey_recycler
+	build_path = /obj/item/circuitboard/machine/monkey_recycler
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/seed_extractor
+/datum/design/board/seed_extractor
 	name = "Machine Design (Seed Extractor Board)"
 	desc = "The circuit board for a seed extractor."
 	id = "seed_extractor"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/seed_extractor
+	build_path = /obj/item/circuitboard/machine/seed_extractor
 	category = list ("Hydroponics Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/processor
-	name = "Machine Design (Processor Board)"
-	desc = "The circuit board for a processor."
+/datum/design/board/processor
+	name = "Machine Design (Food/Slime Processor Board)"
+	desc = "The circuit board for a processing unit. Screwdriver the circuit to switch between food (default) or slime processing."
 	id = "processor"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/processor
+	build_path = /obj/item/circuitboard/machine/processor
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/board/soda_dispenser
+	name = "Machine Design (Portable Soda Dispenser Board)"
+	desc = "The circuit board for a portable soda dispenser."
+	id = "soda_dispenser"
+	build_path = /obj/item/circuitboard/machine/chem_dispenser/drinks
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 	category = list ("Misc. Machinery")
 
-/datum/design/recycler
+/datum/design/board/beer_dispenser
+	name = "Machine Design (Portable Booze Dispenser Board)"
+	desc = "The circuit board for a portable booze dispenser."
+	id = "beer_dispenser"
+	build_path = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+	category = list ("Misc. Machinery")
+
+/datum/design/board/recycler
 	name = "Machine Design (Recycler Board)"
 	desc = "The circuit board for a recycler."
 	id = "recycler"
-	req_tech = list("programming" = 2, "engineering" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/recycler
+	build_path = /obj/item/circuitboard/machine/recycler
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/holopad
+/datum/design/board/scanner_gate
+	name = "Machine Design (Scanner Gate)"
+	desc = "The circuit board for a scanner gate."
+	id = "scanner_gate"
+	build_path = /obj/item/circuitboard/machine/scanner_gate
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/holopad
 	name = "Machine Design (AI Holopad Board)"
 	desc = "The circuit board for a holopad."
 	id = "holopad"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/holopad
+	build_path = /obj/item/circuitboard/machine/holopad
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/arcadebattle
-	name = "Machine Board (Battle Arcade Machine)"
-	desc = "Allows for the construction of circuit boards used to build a new Arcade Machine."
-	id = "arcademachinebattle"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/arcade/battle
+/datum/design/board/autolathe
+	name = "Machine Design (Autolathe Board)"
+	desc = "The circuit board for an autolathe."
+	id = "autolathe"
+	build_path = /obj/item/circuitboard/machine/autolathe
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL		//Lets be honest here half the maps have public ones.
+
+/datum/design/board/recharger
+	name = "Machine Design (Weapon Recharger Board)"
+	desc = "The circuit board for a Weapon Recharger."
+	id = "recharger"
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 2000)
+	build_path = /obj/item/circuitboard/machine/recharger
 	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/microwave
-	name = "Machine Board (Microwave)"
-	desc = "The circuit board for a Microwave."
-	id = "microwave"
-	req_tech = list("programming" = 2, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/microwave
-	category = list("Misc. Machinery")
+/datum/design/board/vendor
+	name = "Machine Design (Vendor Board)"
+	desc = "The circuit board for a Vendor."
+	id = "vendor"
+	build_path = /obj/item/circuitboard/machine/vendor
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/oven
-	name = "Machine Board (Oven)"
-	desc = "The circuit board for an Oven."
-	id = "oven"
-	req_tech = list("programming" = 2, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/oven
-	category = list("Misc. Machinery")
-
-/datum/design/grill
-	name = "Machine Board (Grill)"
-	desc = "The circuit board for a Grill."
-	id = "grill"
-	req_tech = list("programming" = 2, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/grill
-	category = list("Misc. Machinery")
-
-/datum/design/candy_maker
-	name = "Machine Board (Candy Maker)"
-	desc = "The circuit board for a Candy Maker."
-	id = "candymaker"
-	req_tech = list("programming" = 2, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/candy_maker
-	category = list("Misc. Machinery")
-
-/datum/design/deepfryer
-	name = "Machine Board (Deep Fryer)"
-	desc = "The circuit board for a Deep Fryer."
-	id = "deepfryer"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/deepfryer
-	category = list("Misc. Machinery")
-
-/datum/design/orion_trail
-	name = "Machine Board (Orion Trail Arcade Machine)"
-	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."
-	id = "arcademachineonion"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/arcade/orion_trail
-	category = list("Misc. Machinery")
-
-/datum/design/pod
-	name = "Machine Board (Mass Driver and Pod Doors Control)"
-	desc = "Allows for the construction of circuit boards used to build a Mass Driver and Pod Doors Control."
-	id = "pod"
-	req_tech = list("programming" = 2,"engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/pod
-	category = list("Misc. Machinery")
-
-/datum/design/ore_redemption
+/datum/design/board/ore_redemption
 	name = "Machine Design (Ore Redemption Board)"
 	desc = "The circuit board for an Ore Redemption machine."
 	id = "ore_redemption"
-	req_tech = list("programming" = 2, "engineering" = 2, "plasmatech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/ore_redemption
+	build_path = /obj/item/circuitboard/machine/ore_redemption
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/mining_equipment_vendor
+/datum/design/board/mining_equipment_vendor
 	name = "Machine Design (Mining Rewards Vendor Board)"
 	desc = "The circuit board for a Mining Rewards Vendor."
 	id = "mining_equipment_vendor"
-	req_tech = list("engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/mining_equipment_vendor
+	build_path = /obj/item/circuitboard/machine/mining_equipment_vendor
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
 
-/datum/design/clawgame
-	name = "Machine Design (Claw Game Board)"
-	desc = "The circuit board for a Claw Game."
-	id = "clawgame"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/clawgame
+/datum/design/board/tesla_coil
+	name = "Machine Design (Tesla Coil Board)"
+	desc = "The circuit board for a tesla coil."
+	id = "tesla_coil"
+	build_path = /obj/item/circuitboard/machine/tesla_coil
 	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/prize_counter
-	name = "Machine Design (Prize Counter)"
-	desc = "The circuit board for an arcade Prize Counter."
-	id = "prize_counter"
-	req_tech = list("programming" = 2, "materials" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/prize_counter
-	category = list("Misc. Machinery")
+/datum/design/board/rad_collector
+	name = "Machine Design (Radiation Collector Board)"
+	desc = "The circuit board for a radiation collector array."
+	id = "rad_collector"
+	build_path = /obj/item/circuitboard/machine/rad_collector
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/gameboard
-	name = "Machine Design (Virtual Gameboard)"
-	desc = "The circuit board for a Virtual Gameboard."
-	id = "gameboard"
-	req_tech = list("programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/gameboard
-	category = list("Misc. Machinery")
+/datum/design/board/grounding_rod
+	name = "Machine Design (Grounding Rod Board)"
+	desc = "The circuit board for a grounding rod."
+	id = "grounding_rod"
+	build_path = /obj/item/circuitboard/machine/grounding_rod
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/plantgenes
+/datum/design/board/plantgenes
 	name = "Machine Design (Plant DNA Manipulator Board)"
 	desc = "The circuit board for a plant DNA manipulator."
 	id = "plantgenes"
-	req_tech = list("programming" = 4, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/plantgenes
-	category = list("Hydroponics Machinery")
+	build_path = /obj/item/circuitboard/machine/plantgenes
+	category = list ("Hydroponics Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/ntnet_relay
+/datum/design/board/ntnet_relay
 	name = "Machine Design (NTNet Relay Board)"
 	desc = "The circuit board for a wireless network relay."
 	id = "ntnet_relay"
-	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/machine/ntnet_relay
 	category = list("Subspace Telecomms")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/limbgrower
+	name = "Machine Design (Limb Grower Board)"
+	desc = "The circuit board for a limb grower."
+	id = "limbgrower"
+	build_path = /obj/item/circuitboard/machine/limbgrower
+	category = list("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/board/harvester
+	name = "Machine Design (Organ Harvester Board)"
+	desc = "The circuit board for an organ harvester."
+	id = "harvester"
+	build_path = /obj/item/circuitboard/machine/harvester
+	category = list("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/board/deepfryer
+	name = "Machine Design (Deep Fryer)"
+	desc = "The circuit board for a Deep Fryer."
+	id = "deepfryer"
+	build_path = /obj/item/circuitboard/machine/deep_fryer
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/board/donksofttoyvendor
+	name = "Machine Design (Donksoft Toy Vendor Board)"
+	desc = "The circuit board for a Donksoft Toy Vendor."
+	id = "donksofttoyvendor"
+	build_path = /obj/item/circuitboard/machine/vending/donksofttoyvendor
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL			//Toys!!
+
+/datum/design/board/cell_charger
+	name = "Machine Design (Cell Charger Board)"
+	desc = "The circuit board for a cell charger."
+	id = "cell_charger"
+	build_path = /obj/item/circuitboard/machine/cell_charger
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/dish_drive
+	name = "Machine Design (Dish Drive)"
+	desc = "The circuit board for a dish drive."
+	id = "dish_drive"
+	build_path = /obj/item/circuitboard/machine/dish_drive
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/board/stacking_unit_console
+	name = "Machine Design (Stacking Machine Console)"
+	desc = "The circuit board for a Stacking Machine Console."
+	id = "stack_console"
+	build_path = /obj/item/circuitboard/machine/stacking_unit_console
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/stacking_machine
+	name = "Machine Design (Stacking Machine)"
+	desc = "The circuit board for a Stacking Machine."
+	id = "stack_machine"
+	build_path = /obj/item/circuitboard/machine/stacking_machine
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/ore_silo
+	name = "Machine Design (Ore Silo)"
+	desc = "The circuit board for an ore silo."
+	id = "ore_silo"
+	build_path = /obj/item/circuitboard/machine/ore_silo
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/board/paystand
+	name = "Machine Design (Pay Stand)"
+	desc = "The circuit board for a paystand."
+	id = "paystand"
+	build_path = /obj/item/circuitboard/machine/paystand
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/fat_sucker
+	name = "Machine Design (Lipid Extractor)"
+	desc = "The circuit board for a lipid extractor."
+	id = "fat_sucker"
+	build_path = /obj/item/circuitboard/machine/fat_sucker
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/board/stasis
+	name = "Machine Design (Lifeform Stasis Unit)"
+	desc = "The circuit board for a stasis unit."
+	id = "stasis"
+	build_path = /obj/item/circuitboard/machine/stasis
+	category = list("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	
+/datum/design/board/spaceship_navigation_beacon
+	name = "Machine Design (Bluespace Navigation Gigabeacon)"
+	desc = "The circuit board for a Bluespace Navigation Gigabeacon."
+	id = "spaceship_navigation_beacon"
+	build_path = /obj/item/circuitboard/machine/spaceship_navigation_beacon
+	category = list ("Teleportation Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE

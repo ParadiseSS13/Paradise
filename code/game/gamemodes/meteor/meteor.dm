@@ -1,61 +1,60 @@
 /datum/game_mode/meteor
 	name = "meteor"
 	config_tag = "meteor"
-	var/const/initialmeteordelay = 6000
-	var/wave = 1
-	required_players = 35
+	report_type = "meteor"
+	false_report_weight = 1
+	var/meteordelay = 2000
+	var/nometeors = 0
+	var/rampupdelta = 5
+	required_players = 0
+
+	announce_span = "danger"
+	announce_text = "A major meteor shower is bombarding the station! The crew needs to evacuate or survive the onslaught."
 
 
-/datum/game_mode/meteor/announce()
-	to_chat(world, "<B>The current game mode is - Meteor!</B>")
-	to_chat(world, "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>")
+/datum/game_mode/meteor/process()
+	if(nometeors || meteordelay > world.time - SSticker.round_start_time)
+		return
+
+	var/list/wavetype = GLOB.meteors_normal
+	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 10 / 60
 
 
-/datum/game_mode/meteor/post_setup()
-	spawn(rand(waittime_l, waittime_h))
-		command_announcement.Announce("The station is on the path of an incoming wave of meteors. Reinforce the hull and prepare damage control parties.", "Incoming Meteors", 'sound/effects/siren.ogg')
-	spawn(initialmeteordelay)
-		sendmeteors()
-	..()
+	if (prob(meteorminutes))
+		wavetype = GLOB.meteors_threatening
+
+	if (prob(meteorminutes/2))
+		wavetype = GLOB.meteors_catastrophic
+
+	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)
+
+	spawn_meteors(ramp_up_final, wavetype)
 
 
-
-/datum/game_mode/meteor/proc/sendmeteors()
-	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000") / 2
-	var/waitduration = rand(3000,6000)
-	while(waveduration - world.time > 0)
-		sleep(max(65 - text2num("[wave]0") / 2, 40))
-		spawn() spawn_meteors(6, meteors_normal)
-	wave++
-	sleep(waitduration)
-	sendmeteors()
-
-/datum/game_mode/meteor/declare_completion()
-	var/text
+/datum/game_mode/meteor/special_report()
 	var/survivors = 0
+	var/list/survivor_list = list()
+
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.stat != DEAD)
-			var/turf/location = get_turf(player.loc)
-			if(!location)	continue
+			++survivors
 
-			if(location.loc.type == SSshuttle.emergency.areaInstance.type) //didn't work in the switch for some reason
-				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
-
+			if(player.onCentCom())
+				survivor_list += "<span class='greentext'>[player.real_name] escaped to the safety of CentCom.</span>"
+			else if(player.onSyndieBase())
+				survivor_list += "<span class='greentext'>[player.real_name] escaped to the (relative) safety of Syndicate Space.</span>"
 			else
-				switch(location.loc.type)
-					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
-						text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
-					else
-						text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
-			survivors++
+				survivor_list += "<span class='neutraltext'>[player.real_name] survived but is stranded without any hope of rescue.</span>"
 
 	if(survivors)
-		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
+		return "<div class='panel greenborder'><span class='header'>The following survived the meteor storm:</span><br>[survivor_list.Join("<br>")]</div>"
 	else
-		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
+		return "<div class='panel redborder'><span class='redtext big'>Nobody survived the meteor storm!</span></div>"
 
-	feedback_set_details("round_end_result","meteor end - evacuation")
-	feedback_set("round_end_result", "Meteor survivors: [survivors]")
-
+/datum/game_mode/meteor/set_round_result()
 	..()
-	return 1
+	SSticker.mode_result = "end - evacuation"
+
+/datum/game_mode/meteor/generate_report()
+	return "[pick("Asteroids have", "Meteors have", "Large rocks have", "Stellar minerals have", "Space hail has", "Debris has")] been detected near your station, and a collision is possible, \
+			though unlikely.  Be prepared for largescale impacts and destruction.  Please note that the debris will prevent the escape shuttle from arriving quickly."

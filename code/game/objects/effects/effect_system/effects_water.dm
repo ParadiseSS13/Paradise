@@ -1,16 +1,19 @@
 //WATER EFFECTS
+
 /obj/effect/particle_effect/water
 	name = "water"
 	icon_state = "extinguish"
 	var/life = 15
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/particle_effect/water/New()
-	..()
+
+/obj/effect/particle_effect/water/Initialize()
+	. = ..()
 	QDEL_IN(src, 70)
 
 /obj/effect/particle_effect/water/Move(turf/newloc)
-	if(--life < 1)
-		qdel()
+	if (--src.life < 1)
+		qdel(src)
 		return 0
 	if(newloc.density)
 		return 0
@@ -19,10 +22,8 @@
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
 		reagents.reaction(A)
-	if(istype(A,/atom/movable))
-		var/atom/movable/AM = A
-		AM.water_act(life, 310.15, src)
 	return ..()
+
 
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
@@ -33,7 +34,7 @@
 // will always spawn at the items location, even if it's moved.
 
 /* Example:
-var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread() -- creates new system
+ var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread() -- creates new system
 steam.set_up(5, 0, mob.loc) -- sets up variables
 OPTIONAL: steam.attach(mob)
 steam.start() -- spawns the effect
@@ -42,10 +43,10 @@ steam.start() -- spawns the effect
 /obj/effect/particle_effect/steam
 	name = "steam"
 	icon_state = "extinguish"
-	density = 0
+	density = FALSE
 
-/obj/effect/particle_effect/steam/New()
-	..()
+/obj/effect/particle_effect/steam/Initialize()
+	. = ..()
 	QDEL_IN(src, 20)
 
 /datum/effect_system/steam_spread

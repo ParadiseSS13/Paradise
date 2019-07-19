@@ -4,149 +4,141 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = 0
-	anchored = 1
-	var/shattered = 0
-	var/list/ui_users = list()
+	density = FALSE
+	anchored = TRUE
+	max_integrity = 200
+	integrity_failure = 100
 
-/obj/structure/mirror/New(turf/T, newdir = SOUTH, building = FALSE)
-	..()
-	if(building)
-		switch(newdir)
-			if(NORTH)
-				pixel_y = -32
-			if(SOUTH)
-				pixel_y = 32
-			if(EAST)
-				pixel_x = -32
-			if(WEST)
-				pixel_x = 32
+/obj/structure/mirror/Initialize(mapload)
+	. = ..()
+	if(icon_state == "mirror_broke" && !broken)
+		obj_break(null, mapload)
 
 /obj/structure/mirror/attack_hand(mob/user)
-	if(shattered)
+	. = ..()
+	if(.)
+		return
+	if(broken || !Adjacent(user))
 		return
 
 	if(ishuman(user))
-		var/datum/nano_module/appearance_changer/AC = ui_users[user]
-		if(!AC)
-			AC = new(src, user)
-			AC.name = "SalonPro Nano-Mirror&trade;"
-			AC.flags = APPEARANCE_ALL_BODY
-			ui_users[user] = AC
-		AC.ui_interact(user)
+		var/mob/living/carbon/human/H = user
 
-/obj/structure/mirror/proc/shatter()
-	if(shattered)
-		return
-	shattered = 1
-	icon_state = "mirror_broke"
-	playsound(src, "shatter", 70, 1)
-	desc = "Oh no, seven years of bad luck!"
+		//see code/modules/mob/dead/new_player/preferences.dm at approx line 545 for comments!
+		//this is largely copypasted from there.
 
-
-/obj/structure/mirror/bullet_act(obj/item/projectile/Proj)
-	if(prob(Proj.damage * 2))
-		if(!shattered)
-			shatter()
+		//handle facial hair (if necessary)
+		if(H.gender != FEMALE)
+			var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hair_styles_list
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+				return	//no tele-grooming
+			if(new_style)
+				H.facial_hair_style = new_style
 		else
-			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-	..()
+			H.facial_hair_style = "Shaved"
 
+		//handle normal hair
+		var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hair_styles_list
+		if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+			return	//no tele-grooming
+		if(new_style)
+			H.hair_style = new_style
 
-/obj/structure/mirror/attackby(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(isscrewdriver(I))
-		user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
-		if(do_after(user, 30 * I.toolspeed, target = src))
-			if(shattered)
-				user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
-				new /obj/item/shard(get_turf(user))
-			else
-				user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
-				new /obj/item/mounted/mirror(get_turf(user))
-			qdel(src)
-			return
+		H.update_hair()
 
-	user.do_attack_animation(src)
-	if(shattered)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
+/obj/structure/mirror/examine_status(mob/user)
+	if(broken)
+		return list()// no message spam
+	return ..()
 
-	if(prob(I.force * 2))
-		visible_message("<span class='warning'>[user] smashes [src] with [I]!</span>")
-		shatter()
-	else
-		visible_message("<span class='warning'>[user] hits [src] with [I]!</span>")
-		playsound(src.loc, 'sound/effects/Glasshit.ogg', 70, 1)
+/obj/structure/mirror/obj_break(damage_flag, mapload)
+	if(!broken && !(flags_1 & NODECONSTRUCT_1))
+		icon_state = "mirror_broke"
+		if(!mapload)
+			playsound(src, "shatter", 70, 1)
+		if(desc == initial(desc))
+			desc = "Oh no, seven years of bad luck!"
+		broken = TRUE
 
-
-/obj/structure/mirror/attack_alien(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(islarva(user))
-		return
-	user.do_attack_animation(src)
-	if(shattered)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
-	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
-	shatter()
-
-
-/obj/structure/mirror/attack_animal(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(!isanimal(user))
-		return
-	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0)
-		return
-	M.do_attack_animation(src)
-	if(shattered)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
-	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
-	shatter()
-
-
-/obj/structure/mirror/attack_slime(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/mob/living/carbon/slime/S = user
-	if(!S.is_adult)
-		return
-	user.do_attack_animation(src)
-	if(shattered)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
-	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
-	shatter()
-
-
-/obj/item/mounted/mirror
-	name = "mirror"
-	desc = "Some reflective glass ready to be hung on a wall. Don't break it!"
-	icon = 'icons/obj/watercloset.dmi'
-	icon_state = "mirror"
-
-/obj/item/mounted/mirror/do_build(turf/on_wall, mob/user)
-	var/obj/structure/mirror/M = new /obj/structure/mirror(get_turf(user), get_dir(on_wall, user), 1)
-	transfer_prints_to(M, TRUE)
+/obj/structure/mirror/deconstruct(disassembled = TRUE)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		if(!disassembled)
+			new /obj/item/shard( src.loc )
 	qdel(src)
+
+/obj/structure/mirror/welder_act(mob/living/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return FALSE
+
+	if(!broken)
+		return TRUE
+
+	if(!I.tool_start_check(user, amount=0))
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	if(I.use_tool(src, user, 10, volume=50))
+		to_chat(user, "<span class='notice'>You repair [src].</span>")
+		broken = 0
+		icon_state = initial(icon_state)
+		desc = initial(desc)
+
+	return TRUE
+
+/obj/structure/mirror/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
+		if(BURN)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
+
 
 /obj/structure/mirror/magic
 	name = "magic mirror"
+	desc = "Turn and face the strange... face."
 	icon_state = "magic_mirror"
+	var/list/choosable_races = list()
+
+/obj/structure/mirror/magic/New()
+	if(!choosable_races.len)
+		for(var/speciestype in subtypesof(/datum/species))
+			var/datum/species/S = speciestype
+			if(initial(S.changesource_flags) & MIRROR_MAGIC)
+				choosable_races += initial(S.id)
+	..()
+
+/obj/structure/mirror/magic/lesser/New()
+	choosable_races = GLOB.roundstart_races.Copy()
+	..()
+
+/obj/structure/mirror/magic/badmin/New()
+	for(var/speciestype in subtypesof(/datum/species))
+		var/datum/species/S = speciestype
+		if(initial(S.changesource_flags) & MIRROR_BADMIN)
+			choosable_races += initial(S.id)
+	..()
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
 	if(!ishuman(user))
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("name", "race", "gender", "hair", "eyes")
+
+	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
 
 	switch(choice)
-		if("Name")
+		if("name")
 			var/newname = copytext(sanitize(input(H, "Who are we again?", "Name change", H.name) as null|text),1,MAX_NAME_LEN)
 
 			if(!newname)
+				return
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			H.real_name = newname
 			H.name = newname
@@ -155,45 +147,98 @@
 			if(H.mind)
 				H.mind.name = newname
 
-		if("Body")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
-			if(config.usealienwhitelist)
-				for(var/Spec in GLOB.whitelisted_species)
-					if(is_alien_whitelisted(H, Spec))
-						race_list += Spec
-			else
-				race_list += GLOB.whitelisted_species
+		if("race")
+			var/newrace
+			var/racechoice = input(H, "What are we again?", "Race change") as null|anything in choosable_races
+			newrace = GLOB.species_list[racechoice]
 
-			var/datum/nano_module/appearance_changer/AC = ui_users[user]
-			if(!AC)
-				AC = new(src, user)
-				AC.name = "Magic Mirror"
-				AC.flags = APPEARANCE_ALL
-				AC.whitelist = race_list
-				ui_users[user] = AC
-			AC.ui_interact(user)
-		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav")
-			var/voice_mutation
-			switch(voice_choice)
-				if("Comic Sans")
-					voice_mutation = COMICBLOCK
-				if("Wingdings")
-					voice_mutation = WINGDINGSBLOCK
-				if("Swedish")
-					voice_mutation = SWEDEBLOCK
-				if("Chav")
-					voice_mutation = CHAVBLOCK
-			if(voice_mutation)
-				if(H.dna.GetSEState(voice_mutation))
-					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+			if(!newrace)
+				return
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+				return
+			H.set_species(newrace, icon_update=0)
+
+			if(H.dna.species.use_skintones)
+				var/new_s_tone = input(user, "Choose your skin tone:", "Race change")  as null|anything in GLOB.skin_tones
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return
+
+				if(new_s_tone)
+					H.skin_tone = new_s_tone
+					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
+
+			if(MUTCOLORS in H.dna.species.species_traits)
+				var/new_mutantcolor = input(user, "Choose your skin color:", "Race change","#"+H.dna.features["mcolor"]) as color|null
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return
+				if(new_mutantcolor)
+					var/temp_hsv = RGBtoHSV(new_mutantcolor)
+
+					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
+						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
+
+					else
+						to_chat(H, "<span class='notice'>Invalid color. Your color is not bright enough.</span>")
+
+			H.update_body()
+			H.update_hair()
+			H.update_body_parts()
+			H.update_mutations_overlay() // no hulk lizard
+
+		if("gender")
+			if(!(H.gender in list("male", "female"))) //blame the patriarchy
+				return
+			if(H.gender == "male")
+				if(alert(H, "Become a Witch?", "Confirmation", "Yes", "No") == "Yes")
+					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+						return
+					H.gender = "female"
+					to_chat(H, "<span class='notice'>Man, you feel like a woman!</span>")
 				else
-					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					return
 
-/obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
+			else
+				if(alert(H, "Become a Warlock?", "Confirmation", "Yes", "No") == "Yes")
+					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+						return
+					H.gender = "male"
+					to_chat(H, "<span class='notice'>Whoa man, you feel like a man!</span>")
+				else
+					return
+			H.dna.update_ui_block(DNA_GENDER_BLOCK)
+			H.update_body()
+			H.update_mutations_overlay() //(hulk male/female)
+
+		if("hair")
+			var/hairchoice = alert(H, "Hair style or hair color?", "Change Hair", "Style", "Color")
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+				return
+			if(hairchoice == "Style") //So you just want to use a mirror then?
+				..()
+			else
+				var/new_hair_color = input(H, "Choose your hair color", "Hair Color","#"+H.hair_color) as color|null
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return
+				if(new_hair_color)
+					H.hair_color = sanitize_hexcolor(new_hair_color)
+					H.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
+				if(H.gender == "male")
+					var/new_face_color = input(H, "Choose your facial hair color", "Hair Color","#"+H.facial_hair_color) as color|null
+					if(new_face_color)
+						H.facial_hair_color = sanitize_hexcolor(new_face_color)
+						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
+				H.update_hair()
+
+		if(BODY_ZONE_PRECISE_EYES)
+			var/new_eye_color = input(H, "Choose your eye color", "Eye Color","#"+H.eye_color) as color|null
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+				return
+			if(new_eye_color)
+				H.eye_color = sanitize_hexcolor(new_eye_color)
+				H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+				H.update_body()
+	if(choice)
+		curse(user)
+
+/obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
-
-/obj/structure/mirror/magic/shatter()
-	return //can't be broken. it's magic, i ain't gotta explain shit

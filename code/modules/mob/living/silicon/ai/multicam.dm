@@ -35,7 +35,7 @@
 		M.Translate((width-1)/2 * world.icon_size, (height-1)/2 * world.icon_size)
 		highlighted_background.transform = M
 		standard_background.transform = M
-		overlays += highlighted ? highlighted_background : standard_background
+		add_overlay(highlighted ? highlighted_background : standard_background)
 
 /obj/screen/movable/pic_in_pic/ai/set_view_size(width, height, do_refresh = TRUE)
 	aiEye.static_visibility_range =	(round(max(width, height) / 2) + 1)
@@ -55,15 +55,15 @@
 	if(highlighted)
 		return
 	highlighted = TRUE
-	overlays -= standard_background
-	overlays += highlighted_background
+	cut_overlay(standard_background)
+	add_overlay(highlighted_background)
 
 /obj/screen/movable/pic_in_pic/ai/proc/unhighlight()
 	if(!highlighted)
 		return
 	highlighted = FALSE
-	overlays -= highlighted_background
-	overlays += standard_background
+	cut_overlay(highlighted_background)
+	add_overlay(standard_background)
 
 /obj/screen/movable/pic_in_pic/ai/proc/set_ai(mob/living/silicon/ai/new_ai)
 	if(ai)
@@ -82,28 +82,28 @@
 
 //Turf, area, and landmark for the viewing room
 
-/turf/unsimulated/ai_visible
+/turf/open/ai_visible
 	name = ""
 	icon = 'icons/misc/pic_in_pic.dmi'
 	icon_state = "room_background"
-	flags = NOJAUNT
-
-/turf/unsimulated/ai_visible/Initialize()
-	. = ..()
-	obscured = image(null, src, null)
+	flags_1 = NOJAUNT_1
 
 /area/ai_multicam_room
 	name = "ai_multicam_room"
 	icon_state = "ai_camera_room"
-	dynamic_lighting = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	valid_territory = FALSE
 	ambientsounds = list()
+	blob_allowed = FALSE
+	noteleport = TRUE
+	hidden = TRUE
+	safe = TRUE
 
 GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
 /obj/effect/landmark/ai_multicam_room
 	name = "ai camera room"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/mob/landmarks.dmi'
 	icon_state = "x"
 
 /obj/effect/landmark/ai_multicam_room/Initialize()
@@ -120,23 +120,33 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
 /mob/camera/aiEye/pic_in_pic
 	name = "Secondary AI Eye"
+	invisibility = INVISIBILITY_OBSERVER
+	mouse_opacity = MOUSE_OPACITY_ICON
+	icon_state = "ai_pip_camera"
 	var/obj/screen/movable/pic_in_pic/ai/screen
 	var/list/cameras_telegraphed = list()
 	var/telegraph_cameras = TRUE
 	var/telegraph_range = 7
+	ai_detector_color = COLOR_ORANGE
 
 /mob/camera/aiEye/pic_in_pic/GetViewerClient()
 	if(screen && screen.ai)
 		return screen.ai.client
 
 /mob/camera/aiEye/pic_in_pic/setLoc(turf/T)
-	T = get_turf(T)
-	forceMove(T)
+	if (T)
+		forceMove(T)
+	else
+		moveToNullspace()
 	if(screen && screen.ai)
 		screen.ai.camera_visibility(src)
 	else
-		cameranet.visibility(src)
+		GLOB.cameranet.visibility(src)
 	update_camera_telegraphing()
+	update_ai_detect_hud()
+
+/mob/camera/aiEye/pic_in_pic/get_visible_turfs()
+	return screen ? screen.get_visible_turfs() : list()
 
 /mob/camera/aiEye/pic_in_pic/proc/update_camera_telegraphing()
 	if(!telegraph_cameras)
@@ -144,9 +154,9 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for(var/VV in visibleCameraChunks)
+	for (var/VV in visibleCameraChunks)
 		var/datum/camerachunk/CC = VV
-		for(var/V in CC.cameras)
+		for (var/V in CC.cameras)
 			var/obj/machinery/camera/C = V
 			if (!C.can_use() || (get_dist(C, src) > telegraph_range))
 				continue
@@ -155,14 +165,14 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	add = visible - cameras_telegraphed
 	remove = cameras_telegraphed - visible
 
-	for(var/V in remove)
+	for (var/V in remove)
 		var/obj/machinery/camera/C = V
 		if(QDELETED(C))
 			continue
 		cameras_telegraphed -= C
 		C.in_use_lights--
 		C.update_icon()
-	for(var/V in add)
+	for (var/V in add)
 		var/obj/machinery/camera/C = V
 		if(QDELETED(C))
 			continue
@@ -172,7 +182,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
 /mob/camera/aiEye/pic_in_pic/proc/disable_camera_telegraphing()
 	telegraph_cameras = FALSE
-	for(var/V in cameras_telegraphed)
+	for (var/V in cameras_telegraphed)
 		var/obj/machinery/camera/C = V
 		if(QDELETED(C))
 			continue
@@ -187,7 +197,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 //AI procs
 
 /mob/living/silicon/ai/proc/drop_new_multicam(silent = FALSE)
-	if(!multicam_allowed)
+	if(!CONFIG_GET(flag/allow_ai_multicam))
 		if(!silent)
 			to_chat(src, "<span class='warning'>This action is currently disabled. Contact an administrator to enable this feature.</span>")
 		return
@@ -206,7 +216,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	return C
 
 /mob/living/silicon/ai/proc/toggle_multicam()
-	if(!multicam_allowed)
+	if(!CONFIG_GET(flag/allow_ai_multicam))
 		to_chat(src, "<span class='warning'>This action is currently disabled. Contact an administrator to enable this feature.</span>")
 		return
 	if(multicam_on)

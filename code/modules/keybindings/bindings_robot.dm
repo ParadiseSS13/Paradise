@@ -6,9 +6,6 @@
 		if("4")
 			a_intent_change(INTENT_HOTKEY_LEFT)
 			return
-		if("X")
-			cycle_modules()
-			return
 		if("Q")
 			uneq_active()
 			return

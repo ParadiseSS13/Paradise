@@ -1,6 +1,3 @@
-// Global var to track modular computers
-var/list/global_modular_computers = list()
-
 // Modular Computer - device that runs various programs and operates with hardware
 // DO NOT SPAWN THIS TYPE. Use /laptop/ or /console/ instead.
 /obj/machinery/modular_computer
@@ -28,22 +25,25 @@ var/list/global_modular_computers = list()
 	var/base_active_power_usage = 100					// Power usage when the computer is open (screen is active) and can be interacted with. Remember hardware can use power too.
 	var/base_idle_power_usage = 10						// Power usage when the computer is idle and screen is off (currently only applies to laptops)
 
-	integrity_failure = 150
-	max_integrity = 300
-
 	var/obj/item/modular_computer/processor/cpu = null				// CPU that handles most logic while this type only handles power and other specific things.
 
-/obj/machinery/modular_computer/New()
-	..()
+/obj/machinery/modular_computer/Initialize()
+	. = ..()
 	cpu = new(src)
 	cpu.physical = src
-	global_modular_computers.Add(src)
 
 /obj/machinery/modular_computer/Destroy()
 	QDEL_NULL(cpu)
 	return ..()
 
+/obj/machinery/modular_computer/examine(mob/user)
+	. = ..()
+	. += get_modular_computer_parts_examine(user)
+
 /obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)
+	. = ..()
+	if(.)
+		return
 	if(cpu)
 		cpu.attack_ghost(user)
 
@@ -51,25 +51,25 @@ var/list/global_modular_computers = list()
 	return cpu ? cpu.emag_act(user) : 1
 
 /obj/machinery/modular_computer/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	icon_state = icon_state_powered
 
 	if(!cpu || !cpu.enabled)
 		if (!(stat & NOPOWER) && (cpu && cpu.use_power()))
-			overlays += screen_icon_screensaver
+			add_overlay(screen_icon_screensaver)
 		else
 			icon_state = icon_state_unpowered
 		set_light(0)
 	else
 		set_light(light_strength)
 		if(cpu.active_program)
-			overlays += cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu
+			add_overlay(cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu)
 		else
-			overlays += screen_icon_state_menu
+			add_overlay(screen_icon_state_menu)
 
 	if(cpu && cpu.obj_integrity <= cpu.integrity_failure)
-		overlays += "bsod"
-		overlays += "broken"
+		add_overlay("bsod")
+		add_overlay("broken")
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/machinery/modular_computer/proc/eject_id()
@@ -99,16 +99,19 @@ var/list/global_modular_computers = list()
 	if(cpu)
 		cpu.AltClick(user)
 
+//ATTACK HAND IGNORING PARENT RETURN VALUE
 // On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/machinery/modular_computer/attack_hand(mob/user)
+/obj/machinery/modular_computer/interact(mob/user)
 	if(cpu)
-		cpu.attack_self(user) // CPU is an item, that's why we route attack_hand to attack_self
+		return cpu.interact(user) // CPU is an item, that's why we route attack_hand to attack_self
+	else
+		return ..()
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
 /obj/machinery/modular_computer/process()
 	if(cpu)
 		// Keep names in sync.
-		cpu.name = src.name
+		cpu.name = name
 		cpu.process()
 
 // Used in following function to reduce copypaste
@@ -121,7 +124,6 @@ var/list/global_modular_computers = list()
 	stat |= NOPOWER
 	update_icon()
 
-
 // Modular computers can have battery in them, we handle power in previous proc, so prevent this from messing it up for us.
 /obj/machinery/modular_computer/power_change()
 	if(cpu && cpu.use_power()) // If MC_CPU still has a power source, PC wouldn't go offline.
@@ -131,8 +133,8 @@ var/list/global_modular_computers = list()
 	..()
 	update_icon()
 
-/obj/machinery/modular_computer/attackby(obj/item/W, mob/user)
-	if(cpu)
+/obj/machinery/modular_computer/attackby(var/obj/item/W as obj, mob/user)
+	if(cpu && !(flags_1 & NODECONSTRUCT_1))
 		return cpu.attackby(W, user)
 	return ..()
 
@@ -146,6 +148,9 @@ var/list/global_modular_computers = list()
 
 // EMPs are similar to explosions, but don't cause physical damage to the casing. Instead they screw up the components
 /obj/machinery/modular_computer/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_CONTENTS)
+		return
 	if(cpu)
 		cpu.emp_act(severity)
 

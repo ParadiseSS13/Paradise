@@ -6,7 +6,8 @@
 /area/ruin/powered/clownplanet
 	icon_state = "dk_yellow"
 
-/area/ruin/powered/animal_hospital
+/area/ruin/unpowered/gaia
+	name = "Patch of Eden"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/snow_biodome
@@ -35,8 +36,7 @@
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
-	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg')
-	report_alerts = FALSE
+	ambientsounds = HIGHSEC
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"

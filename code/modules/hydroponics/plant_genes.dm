@@ -10,8 +10,8 @@
 /datum/plant_gene/proc/Copy()
 	return new type
 
-
-
+/datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
+	return
 
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
 /datum/plant_gene/core
@@ -36,7 +36,7 @@
 /datum/plant_gene/core/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE
-	return S.get_gene(type)
+	return S.get_gene(src.type)
 
 /datum/plant_gene/core/lifespan
 	name = "Lifespan"
@@ -97,7 +97,7 @@
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
 	name = "Nutriment"
-	var/reagent_id = "nutriment"
+	var/reagent_id = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
 
 /datum/plant_gene/reagent/get_name()
@@ -108,7 +108,7 @@
 	name = "UNKNOWN"
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
-	if(R && R.id == reagent_id)
+	if(R && R.type == reagent_id)
 		name = R.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
@@ -137,7 +137,6 @@
 /datum/plant_gene/trait
 	var/rate = 0.05
 	var/examine_line = ""
-	var/list/origin_tech = null
 	var/trait_id // must be set and equal for any two traits of the same type
 
 /datum/plant_gene/trait/Copy()
@@ -157,24 +156,9 @@
 	return TRUE
 
 /datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	if(!origin_tech) // This ugly code segment adds RnD tech levels to resulting plants.
-		return
-
-	if(G.origin_tech)
-		var/list/tech = params2list(G.origin_tech)
-		for(var/t in origin_tech)
-			if(t in tech)
-				tech[t] = max(text2num(tech[t]), origin_tech[t])
-			else
-				tech[t] = origin_tech[t]
-		G.origin_tech = list2params(tech)
-	else
-		G.origin_tech = list2params(origin_tech)
-
-/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_cross(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
 /datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
@@ -195,53 +179,53 @@
 	// For code, see grown.dm
 	name = "Liquid Contents"
 	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
-	origin_tech = list("biotech" = 5)
+
+/datum/plant_gene/trait/squash/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+	// Squash the plant on slip.
+	G.squash(C)
 
 /datum/plant_gene/trait/slip
 	// Makes plant slippery, unless it has a grown-type trash. Then the trash gets slippery.
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
-	rate = 0.1
+	rate = 1.6
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 
 /datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	. = ..()
+	..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
+	var/obj/item/seeds/seed = G.seed
+	var/stun_len = seed.potency * rate
 
-	var/stun_len = G.seed.potency * rate * 0.8
-
-	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
+	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent(/datum/reagent/lube)))
 		stun_len /= 3
 
-	stun_len = min(stun_len, 7) // No fun allowed
+	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, .proc/handle_slip, G))
 
-	G.trip_stun = stun_len
-	G.trip_weaken = stun_len
-	G.trip_chance = 100
-	G.trip_verb = TV_SLIP
-	G.trip_walksafe = FALSE
+/datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
+	for(var/datum/plant_gene/trait/T in G.seed.genes)
+		T.on_slip(G, M)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.
 	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
-	// Multiplies max charge by (rate*1000) when used in potato power cells.
+	// Also affects plant batteries see capatative cell production datum
 	name = "Electrical Activity"
 	rate = 0.2
-	origin_tech = list("powerstorage" = 5)
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
-		C.electrocute_act(round(power), G, 1, TRUE)
+		C.electrocute_act(round(power), G, 1, 1)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(isliving(target))
+	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			C.electrocute_act(round(power), G, 1, TRUE)
+			C.electrocute_act(round(power), G, 1, 1)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -281,13 +265,13 @@
 
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
-	//adds -potency*(rate*0.05) light power to products
+	//adds -potency*(rate*0.2) light power to products
 	name = "Shadow Emission"
 	rate = 0.04
 	glow_color = "#AAD84B"
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
-	return -max(S.potency*(rate*0.05), 0.075)
+	return -max(S.potency*(rate*0.2), 0.2)
 
 /datum/plant_gene/trait/glow/red
 	name = "Red Electrical Glow"
@@ -298,48 +282,30 @@
 	rate = 0.05
 	glow_color = null
 
+
 /datum/plant_gene/trait/teleport
 	// Makes plant teleport people when squashed or slipped on.
 	// Teleport radius is calculated as max(round(potency*rate), 1)
 	name = "Bluespace Activity"
 	rate = 0.1
-	origin_tech = list("bluespace" = 5)
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
-		do_teleport(target, T, teleport_radius)
+		do_teleport(target, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
-	if(do_teleport(C, T, teleport_radius))
-		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
-		if(prob(50))
-			do_teleport(G, T, teleport_radius)
-		else
-			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
-			qdel(G)
+	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
+	if(prob(50))
+		do_teleport(G, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	else
-		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
-		new /obj/effect/decal/cleanable/molten_object(T)
+		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		qdel(G)
-
-
-/datum/plant_gene/trait/noreact
-	// Makes plant reagents not react until squashed.
-	name = "Separated Chemicals"
-
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	..()
-	G.reagents.set_reacting(FALSE)
-
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(G && G.reagents)
-		G.reagents.set_reacting(TRUE)
-		G.reagents.handle_reactions()
 
 
 /datum/plant_gene/trait/maxchem
@@ -375,14 +341,14 @@
 
 			// The secret of potato supercells!
 			var/datum/plant_gene/trait/cell_charge/CG = G.seed.get_gene(/datum/plant_gene/trait/cell_charge)
-			if(CG) // 10x charge for deafult cell charge gene - 20 000 with 100 potency.
-				pocell.maxcharge *= CG.rate*1000
+			if(CG) // Cell charge max is now 40MJ or otherwise known as 400KJ (Same as bluespace powercells)
+				pocell.maxcharge *= CG.rate*100
 			pocell.charge = pocell.maxcharge
-			pocell.name = "[G] battery"
-			pocell.desc = "A rechargable plant based power cell. This one has a power rating of [pocell.maxcharge], and you should not swallow it."
+			pocell.name = "[G.name] battery"
+			pocell.desc = "A rechargeable plant-based power cell. This one has a rating of [DisplayEnergy(pocell.maxcharge)], and you should not swallow it."
 
-			if(G.reagents.has_reagent("plasma", 2))
-				pocell.rigged = 1
+			if(G.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
+				pocell.rigged = TRUE
 
 			qdel(G)
 		else
@@ -392,13 +358,16 @@
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"
 
+/datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	on_throw_impact(G, target)
+
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
 		if(L.reagents && L.can_inject(null, 0))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-			G.reagents.reaction(L, INGEST, fraction)
+			G.reagents.reaction(L, INJECT, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
 
@@ -409,8 +378,21 @@
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
-	S.set_up(G.reagents, splat_location)
-	S.start(smoke_amount)
+	S.attach(splat_location)
+	S.set_up(G.reagents, smoke_amount, splat_location, 0)
+	S.start()
+	G.reagents.clear_reagents()
+
+/datum/plant_gene/trait/fire_resistance // Lavaland
+	name = "Fire Resistance"
+
+/datum/plant_gene/trait/fire_resistance/apply_vars(obj/item/seeds/S)
+	if(!(S.resistance_flags & FIRE_PROOF))
+		S.resistance_flags |= FIRE_PROOF
+
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+	if(!(G.resistance_flags & FIRE_PROOF))
+		G.resistance_flags |= FIRE_PROOF
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

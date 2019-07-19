@@ -1,45 +1,25 @@
-/obj/structure/closet/secure_closet/cargotech
-	name = "cargo technician's locker"
-	req_access = list(access_cargo)
-	icon_state = "securecargo1"
-	icon_closed = "securecargo"
-	icon_locked = "securecargo1"
-	icon_opened = "securecargoopen"
-	icon_broken = "securecargobroken"
-	icon_off = "securecargooff"
-
-/obj/structure/closet/secure_closet/cargotech/New()
-	..()
-	new /obj/item/clothing/under/rank/cargotech(src)
-	new /obj/item/clothing/under/rank/cargotech/skirt(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/radio/headset/headset_cargo(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/head/soft(src)
-//		new /obj/item/cartridge/quartermaster(src)
-
-
 /obj/structure/closet/secure_closet/quartermaster
-	name = "quartermaster's locker"
-	req_access = list(access_qm)
-	icon_state = "secureqm1"
-	icon_closed = "secureqm"
-	icon_locked = "secureqm1"
-	icon_opened = "secureqmopen"
-	icon_broken = "secureqmbroken"
-	icon_off = "secureqmoff"
+	name = "\proper quartermaster's locker"
+	req_access = list(ACCESS_QM)
+	icon_state = "qm"
 
-/obj/structure/closet/secure_closet/quartermaster/New()
+/obj/structure/closet/secure_closet/quartermaster/PopulateContents()
 	..()
+	new /obj/item/clothing/neck/cloak/qm(src)
+	new /obj/item/storage/lockbox/medal/cargo(src)
 	new /obj/item/clothing/under/rank/cargo(src)
 	new /obj/item/clothing/under/rank/cargo/skirt(src)
-	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/radio/headset/headset_cargo(src)
-	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
-	new /obj/item/tank/emergency_oxygen(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/megaphone/cargo(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
+	new /obj/item/export_scanner(src)
 	new /obj/item/door_remote/quartermaster(src)
-	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/circuitboard/machine/techfab/department/cargo(src)
+	new /obj/item/storage/photo_album/QM(src)
+	new /obj/item/circuitboard/machine/ore_silo(src)
+	new /obj/item/card/id/departmental_budget/car(src)

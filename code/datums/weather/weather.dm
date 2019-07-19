@@ -17,7 +17,7 @@
 	var/weather_overlay
 	var/weather_color = null
 
-	var/end_message = "<span class='danger'>The wind relents its assault.</span>" //Displayed once the wather is over
+	var/end_message = "<span class='danger'>The wind relents its assault.</span>" //Displayed once the weather is over
 	var/end_duration = 300 //In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
 	var/end_sound
 	var/end_overlay
@@ -36,7 +36,7 @@
 
 	// These are read by the weather subsystem and used to determine when and where to run the weather.
 	var/probability = 0 // Weight amongst other eligible weather. If zero, will never happen randomly.
-	var/target_trait = STATION_LEVEL // The z-level trait to affect when run randomly or when not overridden.
+	var/target_trait = ZTRAIT_STATION // The z-level trait to affect when run randomly or when not overridden.
 
 	var/barometer_predictable = FALSE
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
@@ -107,8 +107,6 @@
 
 /datum/weather/proc/can_weather_act(mob/living/L) //Can this weather impact a mob?
 	var/turf/mob_turf = get_turf(L)
-	if(!istype(L))
-		return
 	if(mob_turf && !(mob_turf.z in impacted_z_levels))
 		return
 	if(immunity_type in L.weather_immunities)
@@ -126,7 +124,6 @@
 		N.layer = overlay_layer
 		N.plane = overlay_plane
 		N.icon = 'icons/effects/weather_effects.dmi'
-		N.invisibility = 0
 		N.color = weather_color
 		switch(stage)
 			if(STARTUP_STAGE)

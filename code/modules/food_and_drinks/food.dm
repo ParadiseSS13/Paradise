@@ -1,54 +1,49 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
+/// Note: When adding food items with dummy parents, make sure to add
+/// the parent to the exclusion list in code/__HELPERS/unsorted.dm's
+/// get_random_food proc.
+////////////////////////////////////////////////////////////////////////////////
+#define STOP_SERVING_BREAKFAST (15 MINUTES)
+
 /obj/item/reagent_containers/food
-	possible_transfer_amounts = null
-	volume = 50 //Sets the default container amount for all food items.
-	var/filling_color = "#FFFFFF" //Used by sandwiches.
-	var/junkiness = 0  //for junk food. used to lower human satiety.
-	var/bitesize = 2
-	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_type = INGEST
-	var/apply_method = "swallow"
-	var/transfer_efficiency = 1.0
-	var/instant_application = 0 //if we want to bypass the forcedfeed delay
-	var/taste = TRUE//whether you can taste eating from this
-	var/antable = TRUE // Will ants come near it?
-	var/ant_location = null
-	var/ant_timer = null
-	burn_state = FLAMMABLE
-	container_type = INJECTABLE
+	possible_transfer_amounts = list()
+	volume = 50	//Sets the default container amount for all food items.
+	reagent_flags = INJECTABLE
+	resistance_flags = FLAMMABLE
+	var/foodtype = NONE
+	var/last_check_time
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5) //Randomizes postion
-	pixel_y = rand(-5, 5)
-	if(antable)
-		ant_location = get_turf(src)
-		ant_timer = addtimer(CALLBACK(src, .proc/check_for_ants), 3000, TIMER_STOPPABLE)
+	if(!mapload)
+		pixel_x = rand(-5, 5)
+		pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/food/Destroy()
-	ant_location = null
-	if(ant_timer)
-		deltimer(ant_timer)
-	return ..()
+/obj/item/reagent_containers/food/proc/checkLiked(var/fraction, mob/M)
+	if(last_check_time + 50 < world.time)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!HAS_TRAIT(H, TRAIT_AGEUSIA))
+				if(foodtype & H.dna.species.toxic_food)
+					to_chat(H,"<span class='warning'>What the hell was that thing?!</span>")
+					H.adjust_disgust(25 + 30 * fraction)
+					SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
+				else if(foodtype & H.dna.species.disliked_food)
+					to_chat(H,"<span class='notice'>That didn't taste very good...</span>")
+					H.adjust_disgust(11 + 15 * fraction)
+					SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
+				else if(foodtype & H.dna.species.liked_food)
+					to_chat(H,"<span class='notice'>I love this taste!</span>")
+					H.adjust_disgust(-5 + -2.5 * fraction)
+					SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
+			else
+				if(foodtype & H.dna.species.toxic_food)
+					to_chat(H, "<span class='warning'>You don't feel so good...</span>")
+					H.adjust_disgust(25 + 30 * fraction)
+			if((foodtype & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+			last_check_time = world.time
 
-/obj/item/reagent_containers/food/proc/check_for_ants()
-	if(!antable)
-		return
-	var/turf/T = get_turf(src)
-	if(isturf(loc) && !locate(/obj/structure/table) in T)
-		if(ant_location == T)
-			if(prob(15))
-				if(!locate(/obj/effect/decal/ants) in T)
-					new /obj/effect/decal/ants(T)
-					antable = FALSE
-					desc += " It appears to be infested with ants. Yuck!"
-					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
-					if(ant_timer)
-						deltimer(ant_timer)
-		else
-			ant_location = T
-	if(ant_timer)
-		deltimer(ant_timer)
-	ant_timer = addtimer(CALLBACK(src, .proc/check_for_ants), 3000, TIMER_STOPPABLE)
+#undef STOP_SERVING_BREAKFAST

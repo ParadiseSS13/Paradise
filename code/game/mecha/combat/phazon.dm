@@ -1,50 +1,30 @@
 /obj/mecha/combat/phazon
-	desc = "An exosuit which can only be described as 'WTF?'."
-	name = "Phazon"
+	desc = "This is a Phazon exosuit. The pinnacle of scientific research and pride of Nanotrasen, it uses cutting edge bluespace technology and expensive materials."
+	name = "\improper Phazon"
 	icon_state = "phazon"
-	initial_icon = "phazon"
 	step_in = 2
-	dir_in = 2 //Facing south.
+	dir_in = 2 //Facing South.
 	step_energy_drain = 3
-	normal_step_energy_drain = 3
-	health = 200
+	max_integrity = 200
 	deflect_chance = 30
-	damage_absorption = list("brute"=0.7,"fire"=0.7,"bullet"=0.7,"laser"=0.7,"energy"=0.7,"bomb"=0.7)
-	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 30, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100)
 	max_temperature = 25000
 	infra_luminosity = 3
-	wreckage = /obj/effect/decal/mecha_wreckage/phazon
+	wreckage = /obj/structure/mecha_wreckage/phazon
 	add_req_access = 1
-	//operation_req_access = list()
 	internal_damage_threshold = 25
 	force = 15
-	phase_state = "phazon-phase"
 	max_equip = 3
+	phase_state = "phazon-phase"
 
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()
-	phasing_action.Grant(user, src)
 	switch_damtype_action.Grant(user, src)
+	phasing_action.Grant(user, src)
+
 
 /obj/mecha/combat/phazon/RemoveActions(mob/living/user, human_occupant = 0)
 	..()
-	phasing_action.Remove(user)
 	switch_damtype_action.Remove(user)
+	phasing_action.Remove(user)
 
-/obj/mecha/combat/phazon/New()
-	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/rcd
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
-	ME.attach(src)
-
-/obj/mecha/combat/phazon/get_commands()
-	var/output = {"<div class='wr'>
-						<div class='header'>Special</div>
-						<div class='links'>
-						<a href='?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
-						</div>
-						</div>
-						"}
-	output += ..()
-	return output

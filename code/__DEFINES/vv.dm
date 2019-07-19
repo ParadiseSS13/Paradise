@@ -9,7 +9,6 @@
 #define VV_ATOM_TYPE "Atom Typepath"
 #define VV_DATUM_TYPE "Datum Typepath"
 #define VV_TYPE "Custom Typepath"
-#define VV_MATRIX "Matrix"
 #define VV_FILE "File"
 #define VV_LIST "List"
 #define VV_NEW_ATOM "New Atom"
@@ -19,4 +18,4 @@
 #define VV_NULL "NULL"
 #define VV_RESTORE_DEFAULT "Restore to Default"
 #define VV_MARKED_DATUM "Marked Datum"
-#define VV_REGEX "Regex"
+#define VV_BITFIELD "Bitfield"

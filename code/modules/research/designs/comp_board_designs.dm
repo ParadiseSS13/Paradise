@@ -1,393 +1,305 @@
-///////////////////////////////////
-//////////Computer Boards//////////
-///////////////////////////////////
+///////////////////Computer Boards///////////////////////////////////
 
-/datum/design/aicore
-	name = "Console Board (AI Core)"
-	desc = "Allows for the construction of circuit boards used to build new AI cores."
-	id = "aicore"
-	req_tech = list("programming" = 3)
+/datum/design/board
+	name = "Computer Design ( NULL ENTRY )"
+	desc = "I promise this doesn't give you syndicate goodies!"
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/aicore
-	category = list("Computer Boards")
 
-/datum/design/aifixer
-	name = "Console Board (AI Integrity Restorer)"
-	desc = "Allows for the construction of circuit boards used to build an AI Integrity Restorer."
-	id = "aifixer"
-	req_tech = list("programming" = 4, "magnets" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/aifixer
+/datum/design/board/arcade_battle
+	name = "Computer Design (Battle Arcade Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new arcade machine."
+	id = "arcade_battle"
+	build_path = /obj/item/circuitboard/computer/arcade/battle
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/aiupload
-	name = "Console Board (AI Upload)"
+/datum/design/board/orion_trail
+	name = "Computer Design (Orion Trail Arcade Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."
+	id = "arcade_orion"
+	build_path = /obj/item/circuitboard/computer/arcade/orion_trail
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/seccamera
+	name = "Computer Design (Security Camera)"
+	desc = "Allows for the construction of circuit boards used to build security camera computers."
+	id = "seccamera"
+	build_path = /obj/item/circuitboard/computer/security
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/board/rdcamera
+	name = "Computer Design (Research Monitor)"
+	desc = "Allows for the construction of circuit boards used to build research camera computers."
+	id = "rdcamera"
+	build_path = /obj/item/circuitboard/computer/research
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xenobiocamera
+	name = "Computer Design (Xenobiology Console)"
+	desc = "Allows for the construction of circuit boards used to build xenobiology camera computers."
+	id = "xenobioconsole"
+	build_path = /obj/item/circuitboard/computer/xenobiology
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/aiupload
+	name = "Computer Design (AI Upload)"
 	desc = "Allows for the construction of circuit boards used to build an AI Upload Console."
 	id = "aiupload"
-	req_tech = list("programming" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/aiupload
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 2000)
+	build_path = /obj/item/circuitboard/computer/aiupload
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/atmosalerts
-	name = "Console Board (Atmospheric Alerts)"
-	desc = "Allows for the construction of circuit boards used to build an atmosphere alert console.."
-	id = "atmosalerts"
-	req_tech = list("programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/atmos_alert
-	category = list("Computer Boards")
-
-/datum/design/air_management
-	name = "Console Board (Atmospheric Monitor)"
-	desc = "Allows for the construction of circuit boards used to build an Atmospheric Monitor."
-	id = "air_management"
-	req_tech = list("programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/air_management
-	category = list("Computer Boards")
-
-/datum/design/seccamera
-	name = "Console Board (Camera Monitor)"
-	desc = "Allows for the construction of circuit boards used to build camera monitors."
-	id = "seccamera"
-	req_tech = list("programming" = 2, "combat" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/camera
-	category = list("Computer Boards")
-
-/datum/design/clonecontrol
-	name = "Console Board (Cloning Machine Console)"
-	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
-	id = "clonecontrol"
-	req_tech = list("programming" = 4, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/cloning
-	category = list("Computer Boards")
-
-/datum/design/comconsole
-	name = "Console Board (Communications Console)"
-	desc = "Allows for the construction of circuit boards used to build a communications console."
-	id = "comconsole"
-	req_tech = list("programming" = 3, "magnets" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/communications
-	category = list("Computer Boards")
-
-/datum/design/crewconsole
-	name = "Console Board (Crew Monitoring Computer)"
-	desc = "Allows for the construction of circuit boards used to build a Crew monitoring computer."
-	id = "crewconsole"
-	req_tech = list("programming" = 3, "magnets" = 2, "biotech" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/crew
-	category = list("Computer Boards")
-
-/datum/design/borgupload
-	name = "Console Board (Cyborg Upload)"
+/datum/design/board/borgupload
+	name = "Computer Design (Cyborg Upload)"
 	desc = "Allows for the construction of circuit boards used to build a Cyborg Upload Console."
 	id = "borgupload"
-	req_tech = list("programming" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/borgupload
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 2000)
+	build_path = /obj/item/circuitboard/computer/borgupload
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/scan_console
-	name = "Console Board (DNA Machine)"
-	desc = "Allows for the construction of circuit boards used to build a new DNA scanning console."
-	id = "scan_console"
-	req_tech = list("programming" = 2, "biotech" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/scan_consolenew
-	category = list("Computer Boards")
-
-/datum/design/dronecontrol
-	name = "Console Board (Drone Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a Drone Control console."
-	id = "dronecontrol"
-	req_tech = list("programming" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/drone_control
-	category = list("Computer Boards")
-
-/datum/design/mechacontrol
-	name = "Console Board (Exosuit Control Console)"
-	desc = "Allows for the construction of circuit boards used to build an exosuit control console."
-	id = "mechacontrol"
-	req_tech = list("programming" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/mecha_control
-	category = list("Computer Boards")
-
-/datum/design/idcardconsole
-	name = "Console Board (ID Computer)"
-	desc = "Allows for the construction of circuit boards used to build an ID computer."
-	id = "idcardconsole"
-	req_tech = list("programming" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/card
-	category = list("Computer Boards")
-
-/datum/design/mechapower
-	name = "Console Board (Mech Bay Power Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a mech bay power control console."
-	id = "mechapower"
-	req_tech = list("programming" = 3, "powerstorage" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/mech_bay_power_console
-	category = list("Computer Boards")
-
-/datum/design/med_data
-	name = "Console Board (Medical Records)"
+/datum/design/board/med_data
+	name = "Computer Design (Medical Records)"
 	desc = "Allows for the construction of circuit boards used to build a medical records console."
 	id = "med_data"
-	req_tech = list("programming" = 2, "biotech" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/med_data
+	build_path = /obj/item/circuitboard/computer/med_data
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/message_monitor
-	name = "Console Board (Messaging Monitor Console)"
-	desc = "Allows for the construction of circuit boards used to build a messaging monitor console."
-	id = "message_monitor"
-	req_tech = list("programming" = 5)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/message_monitor
-	category = list("Computer Boards")
-
-/datum/design/operating
-	name = "Console Board (Operating Computer)"
+/datum/design/board/operating
+	name = "Computer Design (Operating Computer)"
 	desc = "Allows for the construction of circuit boards used to build an operating computer console."
 	id = "operating"
-	req_tech = list("programming" = 2, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/operating
+	build_path = /obj/item/circuitboard/computer/operating
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/pandemic
+/datum/design/board/pandemic
 	name = "Computer Design (PanD.E.M.I.C. 2200)"
 	desc = "Allows for the construction of circuit boards used to build a PanD.E.M.I.C. 2200 console."
 	id = "pandemic"
-	req_tech = list("programming" = 3, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/pandemic
+	build_path = /obj/item/circuitboard/computer/pandemic
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/powermonitor
-	name = "Console Board (Power Monitor)"
-	desc = "Allows for the construction of circuit boards used to build a new power monitor"
-	id = "powermonitor"
-	req_tech = list("programming" = 2, "powerstorage" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/powermonitor
+/datum/design/board/scan_console
+	name = "Computer Design (DNA Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new DNA scanning console."
+	id = "scan_console"
+	build_path = /obj/item/circuitboard/computer/scan_consolenew
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/prisonmanage
-	name = "Console Board (Prisoner Management Console)"
-	desc = "Allows for the construction of circuit boards used to build a prisoner management console."
-	id = "prisonmanage"
-	req_tech = list("programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/prisoner
+/datum/design/board/comconsole
+	name = "Computer Design (Communications)"
+	desc = "Allows for the construction of circuit boards used to build a communications console."
+	id = "comconsole"
+	build_path = /obj/item/circuitboard/computer/communications
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SECURITY				//Honestly should have a bridge techfab for this sometime.
 
-/datum/design/brigcells
-	name = "Console Board (Brig Cell Management Console)"
-	desc = "Allows for the construction of circuit boards used to build a brig cell management console."
-	id = "brigcells"
-	req_tech = list("programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/brigcells
+/datum/design/board/idcardconsole
+	name = "Computer Design (ID Console)"
+	desc = "Allows for the construction of circuit boards used to build an ID computer."
+	id = "idcardconsole"
+	build_path = /obj/item/circuitboard/computer/card
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SECURITY				//Honestly should have a bridge techfab for this sometime.
 
-/datum/design/rdconsole
-	name = "Console Board (R&D Console)"
-	desc = "Allows for the construction of circuit boards used to build a new R&D console. Can be swiped with a Scientist level ID to manage access levels."
-	id = "rdconsole"
-	req_tech = list("programming" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdconsole
+/datum/design/board/crewconsole
+	name = "Computer Design (Crew monitoring computer)"
+	desc = "Allows for the construction of circuit boards used to build a Crew monitoring computer."
+	id = "crewconsole"
+	build_path = /obj/item/circuitboard/computer/crew
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/rdservercontrol
-	name = "Console Board (R&D Server Control Console)"
-	desc = "The circuit board for a R&D Server Control Console"
-	id = "rdservercontrol"
-	req_tech = list("programming" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdservercontrol
-	category = list("Computer Boards")
-
-/datum/design/robocontrol
-	name = "Console Board (Robotics Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a Robotics Control console."
-	id = "robocontrol"
-	req_tech = list("programming" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/robotics
-	category = list("Computer Boards")
-
-/datum/design/secdata
-	name = "Console Board (Security Records Console)"
+/datum/design/board/secdata
+	name = "Computer Design (Security Records Console)"
 	desc = "Allows for the construction of circuit boards used to build a security records console."
 	id = "secdata"
-	req_tech = list("programming" = 2, "combat" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/secure_data
+	build_path = /obj/item/circuitboard/computer/secure_data
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/solarcontrol
-	name = "Console Board (Solar Control)"
-	desc = "Allows for the construction of circuit boards used to build a solar control console"
+/datum/design/board/atmosalerts
+	name = "Computer Design (Atmosphere Alert)"
+	desc = "Allows for the construction of circuit boards used to build an atmosphere alert console."
+	id = "atmosalerts"
+	build_path = /obj/item/circuitboard/computer/atmos_alert
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/atmos_control
+	name = "Computer Design (Atmospheric Monitor)"
+	desc = "Allows for the construction of circuit boards used to build an Atmospheric Monitor."
+	id = "atmos_control"
+	build_path = /obj/item/circuitboard/computer/atmos_control
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/robocontrol
+	name = "Computer Design (Robotics Control Console)"
+	desc = "Allows for the construction of circuit boards used to build a Robotics Control console."
+	id = "robocontrol"
+	build_path = /obj/item/circuitboard/computer/robotics
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/slot_machine
+	name = "Computer Design (Slot Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new slot machine."
+	id = "slotmachine"
+	build_path = /obj/item/circuitboard/computer/slot_machine
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/powermonitor
+	name = "Computer Design (Power Monitor)"
+	desc = "Allows for the construction of circuit boards used to build a new power monitor."
+	id = "powermonitor"
+	build_path = /obj/item/circuitboard/computer/powermonitor
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/solarcontrol
+	name = "Computer Design (Solar Control)"
+	desc = "Allows for the construction of circuit boards used to build a solar control console."
 	id = "solarcontrol"
-	req_tech = list("programming" = 2, "powerstorage" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/solar_control
+	build_path = /obj/item/circuitboard/computer/solar_control
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/spacepodlocator
-	name = "Console Board (Spacepod Locator)"
-	desc = "Allows for the construction of circuit boards used to build a space-pod locating console"
-	id = "spacepodc"
-	req_tech = list("programming" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/pod_locater
+/datum/design/board/prisonmanage
+	name = "Computer Design (Prisoner Management Console)"
+	desc = "Allows for the construction of circuit boards used to build a prisoner management console."
+	id = "prisonmanage"
+	build_path = /obj/item/circuitboard/computer/prisoner
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/ordercomp
-	name = "Console Board (Supply Ordering Console)"
-	desc = "Allows for the construction of circuit boards used to build a supply ordering console."
-	id = "ordercomp"
-	req_tech = list("programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/ordercomp
+/datum/design/board/mechacontrol
+	name = "Computer Design (Exosuit Control Console)"
+	desc = "Allows for the construction of circuit boards used to build an exosuit control console."
+	id = "mechacontrol"
+	build_path = /obj/item/circuitboard/computer/mecha_control
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/supplycomp
-	name = "Console Board (Supply Shuttle Console)"
-	desc = "Allows for the construction of circuit boards used to build a supply shuttle console."
-	id = "supplycomp"
-	req_tech = list("programming" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/supplycomp
+/datum/design/board/mechapower
+	name = "Computer Design (Mech Bay Power Control Console)"
+	desc = "Allows for the construction of circuit boards used to build a mech bay power control console."
+	id = "mechapower"
+	build_path = /obj/item/circuitboard/computer/mech_bay_power_console
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/comm_monitor
-	name = "Console Board (Telecommunications Monitoring Console)"
+/datum/design/board/rdconsole
+	name = "Computer Design (R&D Console)"
+	desc = "Allows for the construction of circuit boards used to build a new R&D console."
+	id = "rdconsole"
+	build_path = /obj/item/circuitboard/computer/rdconsole
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/cargo
+	name = "Computer Design (Supply Console)"
+	desc = "Allows for the construction of circuit boards used to build a Supply Console."
+	id = "cargo"
+	build_path = /obj/item/circuitboard/computer/cargo
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/board/cargorequest
+	name = "Computer Design (Supply Request Console)"
+	desc = "Allows for the construction of circuit boards used to build a Supply Request Console."
+	id = "cargorequest"
+	build_path = /obj/item/circuitboard/computer/cargo/request
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/board/bounty
+	name = "Computer Design (Bounty Console)"
+	desc = "Allows for the construction of circuit boards used to build a Bounty Console."
+	id = "bounty"
+	build_path = /obj/item/circuitboard/computer/bounty
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/board/mining
+	name = "Computer Design (Outpost Status Display)"
+	desc = "Allows for the construction of circuit boards used to build an outpost status display console."
+	id = "mining"
+	build_path = /obj/item/circuitboard/computer/mining
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/board/comm_monitor
+	name = "Computer Design (Telecommunications Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications monitor."
 	id = "comm_monitor"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_monitor
+	build_path = /obj/item/circuitboard/computer/comm_monitor
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/comm_server
-	name = "Console Board (Telecommunications Server Monitoring Console)"
+/datum/design/board/comm_server
+	name = "Computer Design (Telecommunications Server Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunication server browser and monitor."
 	id = "comm_server"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_server
+	build_path = /obj/item/circuitboard/computer/comm_server
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/comm_traffic
-	name = "Console Board (Telecommunications Traffic Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."
-	id = "comm_traffic"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_traffic
+/datum/design/board/message_monitor
+	name = "Computer Design (Messaging Monitor Console)"
+	desc = "Allows for the construction of circuit boards used to build a messaging monitor console."
+	id = "message_monitor"
+	build_path = /obj/item/circuitboard/computer/message_monitor
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/telesci_console
-	name = "Console Board (Telepad Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a telescience console."
-	id = "telesci_console"
-	req_tech = list("programming" = 3, "bluespace" = 3, "plasmatech" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/telesci_console
+/datum/design/board/aifixer
+	name = "Computer Design (AI Integrity Restorer)"
+	desc = "Allows for the construction of circuit boards used to build an AI Integrity Restorer."
+	id = "aifixer"
+	build_path = /obj/item/circuitboard/computer/aifixer
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/teleconsole
-	name = "Console Board (Teleporter Console)"
-	desc = "Allows for the construction of circuit boards used to build a teleporter control console."
-	id = "teleconsole"
-	req_tech = list("programming" = 3, "bluespace" = 3, "plasmatech" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/teleporter
+/datum/design/board/libraryconsole
+	name = "Computer Design (Library Console)"
+	desc = "Allows for the construction of circuit boards used to build a new library console."
+	id = "libraryconsole"
+	build_path = /obj/item/circuitboard/computer/libraryconsole
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/GAC
-	name = "Console Board (General Air Control)"
-	desc = "Allows for the construction of circuit boards used to build a General Air Control Computer."
-	id = "GAC"
-	req_tech = list("programming" = 3, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/air_management
+/datum/design/board/apc_control
+	name = "Computer Design (APC Control)"
+	desc = "Allows for the construction of circuit boards used to build a new APC control console."
+	id = "apc_control"
+	build_path = /obj/item/circuitboard/computer/apc_control
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/tank_control
-	name = "Console Board (Large Tank Control)"
-	desc = "Allows for the construction of circuit boards used to build a Large Tank Control Computer."
-	id = "tankcontrol"
-	req_tech = list("programming" = 3, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/large_tank_control
+/datum/design/board/nanite_chamber_control
+	name = "Computer Design (Nanite Chamber Control)"
+	desc = "Allows for the construction of circuit boards used to build a new nanite chamber control console."
+	id = "nanite_chamber_control"
+	build_path = /obj/item/circuitboard/computer/nanite_chamber_control
 	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/AAC
-	name = "Console Board (Atmospheric Automations Console)"
-	desc = "Allows for the construction of circuit boards used to build an Atmospheric Automations Console."
-	id = "AAC"
-	req_tech = list("programming" = 4, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/atmos_automation
+/datum/design/board/nanite_cloud_control
+	name = "Computer Design (Nanite Cloud Control)"
+	desc = "Allows for the construction of circuit boards used to build a new nanite cloud control console."
+	id = "nanite_cloud_control"
+	build_path = /obj/item/circuitboard/computer/nanite_cloud_controller
 	category = list("Computer Boards")
-
-/datum/design/xenobiocamera
-	name = "Console Board (Xenobiology Console)"
-	desc = "Allows for the construction of circuit boards used to build xenobiology camera computers."
-	id = "xenobioconsole"
-	req_tech = list("programming" = 3, "biotech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/xenobiology
-	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

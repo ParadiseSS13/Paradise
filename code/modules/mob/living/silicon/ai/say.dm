@@ -1,112 +1,113 @@
-/*
- * AI Saycode
- */
+/mob/living/silicon/ai/say(message, bubble_type,var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	if(parent && istype(parent) && parent.stat != DEAD) //If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
+		parent.say(message, language)
+		return
+	..(message)
+
+/mob/living/silicon/ai/compose_track_href(atom/movable/speaker, namepart)
+	var/mob/M = speaker.GetSource()
+	if(M)
+		return "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	return ""
+
+/mob/living/silicon/ai/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
+	//Also includes the </a> for AI hrefs, for convenience.
+	return "[radio_freq ? " (" + speaker.GetJob() + ")" : ""]" + "[speaker.GetSource() ? "</a>" : ""]"
+
+/mob/living/silicon/ai/IsVocal()
+	return !CONFIG_GET(flag/silent_ai)
+
+/mob/living/silicon/ai/radio(message, message_mode, list/spans, language)
+	if(incapacitated())
+		return FALSE
+	if(!radio_enabled) //AI cannot speak if radio is disabled (via intellicard) or depowered.
+		to_chat(src, "<span class='danger'>Your radio transmitter is offline!</span>")
+		return FALSE
+	..()
+
+/mob/living/silicon/ai/get_message_mode(message)
+	if(copytext(message, 1, 3) in list(":h", ":H", ".h", ".H", "#h", "#H"))
+		return MODE_HOLOPAD
+	else
+		return ..()
+
+//For holopads only. Usable by AI.
+/mob/living/silicon/ai/proc/holopad_talk(message, language)
 
 
-/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
-	if(hard_to_hear)
+	message = trim(message)
+
+	if (!message)
 		return
 
-	var/jobname // the mob's "job"
-	var/mob/living/carbon/human/impersonating //The crewmember being impersonated, if any.
-	var/changed_voice
-
-	if(ishuman(speaker))
-		var/mob/living/carbon/human/H = speaker
-
-		var/obj/item/card/id/id = H.wear_id
-		if((istype(id) && id.is_untrackable()) && H.HasVoiceChanger())
-			changed_voice = 1
-			var/mob/living/carbon/human/I = locate(speaker_name)
-			if(I)
-				impersonating = I
-				jobname = impersonating.get_assignment()
-			else
-				jobname = "Unknown"
+	var/obj/machinery/holopad/T = current
+	if(istype(T) && T.masters[src])//If there is a hologram and its master is the user.
+		var/turf/padturf = get_turf(T)
+		var/padloc
+		if(padturf)
+			padloc = AREACOORD(padturf)
 		else
-			jobname = H.get_assignment()
-
-	else if(iscarbon(speaker)) // Nonhuman carbon mob
-		jobname = "No ID"
-	else if(isAI(speaker))
-		jobname = "AI"
-	else if(isrobot(speaker))
-		jobname = "Cyborg"
-	else if(ispAI(speaker))
-		jobname = "Personal AI"
-	else if(isAutoAnnouncer(speaker))
-		var/mob/living/automatedannouncer/AA = speaker
-		jobname = AA.role
+			padloc = "(UNKNOWN)"
+		src.log_talk(message, LOG_SAY, tag="HOLOPAD in [padloc]")
+		send_speech(message, 7, T, "robot", message_language = language)
+		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message robot'>\"[message]\"</span></span></i>")
 	else
-		jobname = "Unknown"
-
-	var/track = ""
-	var/mob/mob_to_track = null
-	if(changed_voice)
-		if(impersonating)
-			mob_to_track = impersonating
-		else
-			track = "[speaker_name] ([jobname])"
-	else
-		if(istype(follow_target, /mob/living/simple_animal/bot))
-			track = "<a href='byond://?src=[UID()];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
-		else
-			mob_to_track = speaker
-
-	if(mob_to_track)
-		track = "<a href='byond://?src=[UID()];track=\ref[mob_to_track]'>[speaker_name] ([jobname])</a>"
-		track += "&nbsp;<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[Open\]</a>"
-
-	return track
+		to_chat(src, "No holopad connected.")
 
 
-
-/*
- * AI VOX Announcements
- */
-
-var/announcing_vox = 0 // Stores the time of the last announcement
-var/const/VOX_DELAY = 100
-var/const/VOX_PATH = "sound/vox_fem/"
-
+// Make sure that the code compiles with AI_VOX undefined
+#ifdef AI_VOX
+#define VOX_DELAY 600
 /mob/living/silicon/ai/verb/announcement_help()
+
 	set name = "Announcement Help"
 	set desc = "Display a list of vocal words to announce to the crew."
 	set category = "AI Commands"
 
-	var/dat = "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR> \
-	<UL><LI>You can also click on the word to preview it.</LI>\
-	<LI>You can only say 30 words for every announcement.</LI>\
-	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI></UL>\
-	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
+	if(incapacitated())
+		return
+
+	var/dat = {"
+	<font class='bad'>WARNING:</font> Misuse of the announcement system will get you job banned.<BR><BR>
+	Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR>
+	<UL><LI>You can also click on the word to PREVIEW it.</LI>
+	<LI>You can only say 30 words for every announcement.</LI>
+	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI>
+	<LI>Numbers are in word format, e.g. eight, sixty, etc </LI>
+	<LI>Sound effects begin with an 's' before the actual word, e.g. scensor</LI>
+	<LI>Use Ctrl+F to see if a word exists in the list.</LI></UL><HR>
+	"}
 
 	var/index = 0
-	for(var/word in vox_sounds)
+	for(var/word in GLOB.vox_sounds)
 		index++
-		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
-		if(index != vox_sounds.len)
+		dat += "<A href='?src=[REF(src)];say_word=[word]'>[capitalize(word)]</A>"
+		if(index != GLOB.vox_sounds.len)
 			dat += " / "
 
 	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
 	popup.set_content(dat)
 	popup.open()
 
-/mob/living/silicon/ai/proc/ai_announcement()
-	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
-		return
 
+/mob/living/silicon/ai/proc/announcement()
+	var/static/announcing_vox = 0 // Stores the time of the last announcement
 	if(announcing_vox > world.time)
-		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
+		to_chat(src, "<span class='notice'>Please wait [DisplayTimeText(announcing_vox - world.time)].</span>")
 		return
 
-	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
+	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", src.last_announcement) as text
 
 	last_announcement = message
 
-	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+	if(!message || announcing_vox > world.time)
 		return
 
-	if(!message || announcing_vox > world.time)
+	if(incapacitated())
+		return
+
+	if(control_disabled)
+		to_chat(src, "<span class='warning'>Wireless interface disabled, unable to interact with announcement PA.</span>")
 		return
 
 	var/list/words = splittext(trim(message), " ")
@@ -120,16 +121,16 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		if(!word)
 			words -= word
 			continue
-		if(!vox_sounds[word])
+		if(!GLOB.vox_sounds[word])
 			incorrect_words += word
 
 	if(incorrect_words.len)
-		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
+		to_chat(src, "<span class='notice'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
 	announcing_vox = world.time + VOX_DELAY
 
-	log_game("[key_name_admin(src)] made a vocal announcement with the following message: [message].")
+	log_game("[key_name(src)] made a vocal announcement with the following message: [message].")
 
 	for(var/word in words)
 		play_vox_word(word, src.z, null)
@@ -139,30 +140,31 @@ var/const/VOX_PATH = "sound/vox_fem/"
 
 	word = lowertext(word)
 
-	if(vox_sounds[word])
+	if(GLOB.vox_sounds[word])
 
-		var/sound_file = vox_sounds[word]
+		var/sound_file = GLOB.vox_sounds[word]
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 
-		// If there is no single listener, broadcast to everyone in the same z level
+ 		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)
-				if(M.client)
+				if(M.client && M.can_hear() && (M.client.prefs.toggles & SOUND_ANNOUNCEMENTS))
 					var/turf/T = get_turf(M)
-					if(T && T.z == z_level && M.can_hear())
-						M << voice
+					if(T.z == z_level)
+						SEND_SOUND(M, voice)
 		else
-			only_listener << voice
+			SEND_SOUND(only_listener, voice)
 		return 1
 	return 0
 
-// VOX sounds moved to /code/defines/vox_sounds.dm
+#undef VOX_DELAY
+#endif
 
-/client/proc/preload_vox()
-	var/list/vox_files = flist(VOX_PATH)
-	for(var/file in vox_files)
-//	to_chat(src, "Downloading [file]")
-		var/sound/S = sound("[VOX_PATH][file]")
-		src << browse_rsc(S)
+/mob/living/silicon/ai/could_speak_in_language(datum/language/dt)
+	if(is_servant_of_ratvar(src))
+		// Ratvarian AIs can only speak Ratvarian
+		. = ispath(dt, /datum/language/ratvar)
+	else
+		. = ..()

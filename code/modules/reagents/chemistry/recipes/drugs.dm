@@ -1,116 +1,49 @@
 /datum/chemical_reaction/space_drugs
 	name = "Space Drugs"
-	id = "space_drugs"
-	result = "space_drugs"
-	required_reagents = list("mercury" = 1, "sugar" = 1, "lithium" = 1)
-	result_amount = 3
-	mix_message = "Slightly dizzying fumes drift from the solution."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	id = /datum/reagent/drug/space_drugs
+	results = list(/datum/reagent/drug/space_drugs = 3)
+	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/lithium = 1)
 
 /datum/chemical_reaction/crank
 	name = "Crank"
-	id = "crank"
-	result = "crank"
-	required_reagents = list("diphenhydramine" = 1, "ammonia" = 1, "lithium" = 1, "sacid" = 1, "fuel" = 1)
-	result_amount = 5
+	id = /datum/reagent/drug/crank
+	results = list(/datum/reagent/drug/crank = 5)
+	required_reagents = list(/datum/reagent/medicine/diphenhydramine = 1, /datum/reagent/ammonia = 1, /datum/reagent/lithium = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/fuel = 1)
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
-	mix_sound = 'sound/goonstation/effects/crystalshatter.ogg'
-	min_temp = T0C + 100
+	required_temp = 390
 
-/datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
-	fireflash(holder.my_atom, 1)
-	explosion(T, 0, 0, 2)
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
-	id = "krokodil"
-	result = "krokodil"
-	required_reagents = list("diphenhydramine" = 1, "morphine" = 1, "cleaner" = 1, "potassium" = 1, "phosphorus" = 1, "fuel" = 1)
-	result_amount = 6
+	id = /datum/reagent/drug/krokodil
+	results = list(/datum/reagent/drug/krokodil = 6)
+	required_reagents = list(/datum/reagent/medicine/diphenhydramine = 1, /datum/reagent/medicine/morphine = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/potassium = 1, /datum/reagent/phosphorus = 1, /datum/reagent/fuel = 1)
 	mix_message = "The mixture dries into a pale blue powder."
-	min_temp = T0C + 100
-	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+	required_temp = 380
 
 /datum/chemical_reaction/methamphetamine
-	name = "methamphetamine"
-	id = "methamphetamine"
-	result = "methamphetamine"
-	required_reagents = list("ephedrine" = 1, "iodine" = 1, "phosphorus" = 1, "hydrogen" = 1)
-	result_amount = 4
-	min_temp = T0C + 100
-
-/datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.emote("gasp")
-			C.AdjustLoseBreath(1)
-			C.reagents.add_reagent("toxin", 10)
-			C.reagents.add_reagent("neurotoxin2", 20)
+	name = /datum/reagent/drug/methamphetamine
+	id = /datum/reagent/drug/methamphetamine
+	results = list(/datum/reagent/drug/methamphetamine = 4)
+	required_reagents = list(/datum/reagent/medicine/ephedrine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1)
+	required_temp = 374
 
 /datum/chemical_reaction/bath_salts
-	name = "bath_salts"
-	id = "bath_salts"
-	result = "bath_salts"
-	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
-	result_amount = 6
-	min_temp = T0C + 100
-	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
-	mix_sound = 'sound/goonstation/misc/fuse.ogg'
-
-/datum/chemical_reaction/jenkem
-	name = "Jenkem"
-	id = "jenkem"
-	result = "jenkem"
-	required_reagents = list("toiletwater" = 1, "ammonia" = 1, "water" = 1)
-	result_amount = 3
-	mix_message = "The mixture ferments into a filthy morass."
-	mix_sound = 'sound/effects/blobattack.ogg'
-
-/datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("jenkem", 25)
+	name = /datum/reagent/drug/bath_salts
+	id = /datum/reagent/drug/bath_salts
+	results = list(/datum/reagent/drug/bath_salts = 7)
+	required_reagents = list(/datum/reagent/toxin/bad_food = 1, /datum/reagent/saltpetre = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/consumable/enzyme = 1, /datum/reagent/consumable/tea = 1, /datum/reagent/mercury = 1)
+	required_temp = 374
 
 /datum/chemical_reaction/aranesp
-	name = "Aranesp"
-	id = "aranesp"
-	result = "aranesp"
-	required_reagents = list("epinephrine" = 1, "atropine" = 1, "insulin" = 1)
-	result_amount = 3
+	name = /datum/reagent/drug/aranesp
+	id = /datum/reagent/drug/aranesp
+	results = list(/datum/reagent/drug/aranesp = 3)
+	required_reagents = list(/datum/reagent/medicine/epinephrine = 1, /datum/reagent/medicine/atropine = 1, /datum/reagent/medicine/morphine = 1)
 
-/datum/chemical_reaction/fliptonium
-	name = "fliptonium"
-	id = "fliptonium"
-	result = "fliptonium"
-	required_reagents = list("ephedrine" = 1, "liquid_dark_matter" = 1, "chocolate" = 1, "ginsonic" = 1)
-	result_amount = 4
-	mix_message = "The mixture swirls around excitedly!"
-
-/datum/chemical_reaction/lsd
-	name = "Lysergic acid diethylamide"
-	id = "lsd"
-	result = "lsd"
-	required_reagents = list("diethylamine" = 1, "fungus" = 1)
-	result_amount = 3
-	mix_message = "The mixture turns a rather unassuming color and settles."
-
-/datum/chemical_reaction/lube/ultra
-	name = "Ultra-Lube"
-	id = "ultralube"
-	result = "ultralube"
-	required_reagents = list("lube" = 2, "formaldehyde" = 1, "cryostylane" = 1)
-	result_amount = 2
-	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
-
-/datum/chemical_reaction/surge
-	name = "Surge"
-	id = "surge"
-	result = "surge"
-	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
-	result_amount = 6
-	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."
+/datum/chemical_reaction/happiness
+	name = "Happiness"
+	id = /datum/reagent/drug/happiness
+	results = list(/datum/reagent/drug/happiness = 4)
+	required_reagents = list(/datum/reagent/nitrous_oxide = 2, /datum/reagent/medicine/epinephrine = 1, /datum/reagent/consumable/ethanol = 1)
+	required_catalysts = list(/datum/reagent/toxin/plasma = 5)

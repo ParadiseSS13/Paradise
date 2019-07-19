@@ -1,116 +1,158 @@
-#define EMAG_DELAY 50
+/*	Photocopiers!
+ *	Contains:
+ *		Photocopier
+ *		Toner Cartridge
+ */
 
+/*
+ * Photocopier
+ */
 /obj/machinery/photocopier
 	name = "photocopier"
+	desc = "Used to copy important documents and anatomy studies."
 	icon = 'icons/obj/library.dmi'
-	icon_state = "bigscanner"
-	var/insert_anim = "bigscanner1"
-	anchored = 1
-	density = 1
+	icon_state = "photocopier"
+	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
-	var/emag_cooldown
-	atom_say_verb = "bleeps"
-	var/obj/item/copyitem = null	//what's in the copier!
+	max_integrity = 300
+	integrity_failure = 100
+	var/obj/item/paper/copy = null	//what's in the copier!
+	var/obj/item/photo/photocopy = null
+	var/obj/item/documents/doccopy = null
 	var/copies = 1	//how many copies to print!
-	var/toner = 60 //how much toner is left! woooooo~
+	var/toner = 40 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
-	var/mob/living/ass = null
+	var/greytoggle = "Greyscale"
+	var/mob/living/ass //i can't believe i didn't write a stupid-ass comment about this var when i first coded asscopy.
+	var/busy = FALSE
 
-/obj/machinery/photocopier/attack_ai(mob/user)
-	return attack_hand(user)
-
-/obj/machinery/photocopier/attack_ghost(mob/user)
-	return attack_hand(user)
-
-/obj/machinery/photocopier/attack_hand(mob/user)
-	user.set_machine(src)
-
+/obj/machinery/photocopier/ui_interact(mob/user)
+	. = ..()
 	var/dat = "Photocopier<BR><BR>"
-	if(copyitem || (ass && (ass.loc == src.loc)))
-		dat += "<a href='byond://?src=[UID()];remove=1'>Remove Item</a><BR>"
+	if(copy || photocopy || doccopy || (ass && (ass.loc == src.loc)))
+		dat += "<a href='byond://?src=[REF(src)];remove=1'>Remove Paper</a><BR>"
 		if(toner)
-			dat += "<a href='byond://?src=[UID()];copy=1'>Copy</a><BR>"
+			dat += "<a href='byond://?src=[REF(src)];copy=1'>Copy</a><BR>"
 			dat += "Printing: [copies] copies."
-			dat += "<a href='byond://?src=[UID()];min=1'>-</a> "
-			dat += "<a href='byond://?src=[UID()];add=1'>+</a><BR><BR>"
+			dat += "<a href='byond://?src=[REF(src)];min=1'>-</a> "
+			dat += "<a href='byond://?src=[REF(src)];add=1'>+</a><BR><BR>"
+			if(photocopy)
+				dat += "Printing in <a href='byond://?src=[REF(src)];colortoggle=1'>[greytoggle]</a><BR><BR>"
 	else if(toner)
-		dat += "Please insert something to copy.<BR><BR>"
-	if(istype(user,/mob/living/silicon))
-		dat += "<a href='byond://?src=[UID()];aipic=1'>Print photo from database</a><BR><BR>"
+		dat += "Please insert paper to copy.<BR><BR>"
+	if(isAI(user))
+		dat += "<a href='byond://?src=[REF(src)];aipic=1'>Print photo from database</a><BR><BR>"
 	dat += "Current toner level: [toner]"
 	if(!toner)
 		dat +="<BR>Please insert a new toner cartridge!"
-	var/datum/browser/popup = new(user, "copier", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
+	user << browse(dat, "window=copier")
 	onclose(user, "copier")
-	return
 
 /obj/machinery/photocopier/Topic(href, href_list)
 	if(..())
-		return 1
-
+		return
 	if(href_list["copy"])
-		if(stat & (BROKEN|NOPOWER))
-			return
-
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		for(var/i = 0, i < copies, i++)
-			if(toner <= 0)
-				break
-
-			if(copier_items_printed >= copier_max_items) //global vars defined in misc.dm
-				if(prob(10))
-					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
+		if(copy)
+			for(var/i = 0, i < copies, i++)
+				if(toner > 0 && !busy && copy)
+					var/copy_as_paper = 1
+					if(istype(copy, /obj/item/paper/contract/employment))
+						var/obj/item/paper/contract/employment/E = copy
+						var/obj/item/paper/contract/employment/C = new /obj/item/paper/contract/employment (loc, E.target.current)
+						if(C)
+							copy_as_paper = 0
+					if(copy_as_paper)
+						var/obj/item/paper/c = new /obj/item/paper (loc)
+						if(length(copy.info) > 0)	//Only print and add content if the copied doc has words on it
+							if(toner > 10)	//lots of toner, make it dark
+								c.info = "<font color = #101010>"
+							else			//no toner? shitty copies for you!
+								c.info = "<font color = #808080>"
+							var/copied = copy.info
+							copied = replacetext(copied, "<font face=\"[PEN_FONT]\" color=", "<font face=\"[PEN_FONT]\" nocolor=")	//state of the art techniques in action
+							copied = replacetext(copied, "<font face=\"[CRAYON_FONT]\" color=", "<font face=\"[CRAYON_FONT]\" nocolor=")	//This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.
+							c.info += copied
+							c.info += "</font>"
+							c.name = copy.name
+							c.fields = copy.fields
+							c.update_icon()
+							c.updateinfolinks()
+							c.stamps = copy.stamps
+							if(copy.stamped)
+								c.stamped = copy.stamped.Copy()
+							c.copy_overlays(copy, TRUE)
+							toner--
+					busy = TRUE
+					sleep(15)
+					busy = FALSE
 				else
-					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-				if(!copier_items_printed_logged)
-					message_admins("Photocopier cap of [copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
-					copier_items_printed_logged = TRUE
-				break
-
-			if(emag_cooldown > world.time)
-				return
-
-			if(istype(copyitem, /obj/item/paper))
-				copy(copyitem)
-				sleep(15)
-			else if(istype(copyitem, /obj/item/photo))
-				photocopy(copyitem)
-				sleep(15)
-			else if(istype(copyitem, /obj/item/paper_bundle))
-				var/obj/item/paper_bundle/C = copyitem
-				if(toner < (C.amount + 1))
-					visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
-					return
-				var/obj/item/paper_bundle/B = bundlecopy(copyitem)
-				if(!B)
-					return
-				sleep(15*B.amount)
-			else if(ass && ass.loc == loc)
-				copyass()
-				sleep(15)
-			else
-				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
-				break
-			copier_items_printed++
-			use_power(active_power_usage)
+					break
+			updateUsrDialog()
+		else if(photocopy)
+			for(var/i = 0, i < copies, i++)
+				if(toner >= 5 && !busy && photocopy)  //Was set to = 0, but if there was say 3 toner left and this ran, you would get -2 which would be weird for ink
+					new /obj/item/photo (loc, photocopy.picture.Copy(greytoggle == "Greyscale"? TRUE : FALSE))
+					busy = TRUE
+					sleep(15)
+					busy = FALSE
+				else
+					break
+		else if(doccopy)
+			for(var/i = 0, i < copies, i++)
+				if(toner > 5 && !busy && doccopy)
+					new /obj/item/documents/photocopy(loc, doccopy)
+					toner-= 6 // the sprite shows 6 papers, yes I checked
+					busy = TRUE
+					sleep(15)
+					busy = FALSE
+				else
+					break
+			updateUsrDialog()
+		else if(ass) //ASS COPY. By Miauw
+			for(var/i = 0, i < copies, i++)
+				var/icon/temp_img
+				if(ishuman(ass) && (ass.get_item_by_slot(SLOT_W_UNIFORM) || ass.get_item_by_slot(SLOT_WEAR_SUIT)))
+					to_chat(usr, "<span class='notice'>You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.</span>" )
+					break
+				else if(toner >= 5 && !busy && check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
+					if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
+						temp_img = icon('icons/ass/assalien.png')
+					else if(ishuman(ass)) //Suit checks are in check_ass
+						temp_img = icon(ass.gender == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
+					else if(isdrone(ass)) //Drones are hot
+						temp_img = icon('icons/ass/assdrone.png')
+					else
+						break
+					busy = TRUE
+					sleep(15)
+					var/obj/item/photo/p = new /obj/item/photo (loc)
+					var/datum/picture/toEmbed = new(name = "[ass]'s Ass", desc = "You see [ass]'s ass on the photo.", image = temp_img)
+					p.pixel_x = rand(-10, 10)
+					p.pixel_y = rand(-10, 10)
+					toEmbed.psize_x = 128
+					toEmbed.psize_y = 128
+					p.set_picture(toEmbed, TRUE, TRUE)
+					toner -= 5
+					busy = FALSE
+				else
+					break
 		updateUsrDialog()
 	else if(href_list["remove"])
-		if(copyitem)
-			copyitem.forceMove(get_turf(src))
-			if(ishuman(usr))
-				if(!usr.get_active_hand())
-					usr.put_in_hands(copyitem)
-			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
-			copyitem = null
-			updateUsrDialog()
+		if(copy)
+			remove_photocopy(copy, usr)
+			copy = null
+		else if(photocopy)
+			remove_photocopy(photocopy, usr)
+			photocopy = null
+		else if(doccopy)
+			remove_photocopy(doccopy, usr)
+			doccopy = null
 		else if(check_ass())
 			to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
-			updateUsrDialog()
+		updateUsrDialog()
 	else if(href_list["min"])
 		if(copies > 1)
 			copies--
@@ -120,232 +162,132 @@
 			copies++
 			updateUsrDialog()
 	else if(href_list["aipic"])
-		if(!istype(usr,/mob/living/silicon)) return
-		if(stat & (BROKEN|NOPOWER)) return
-
-		if(toner >= 5)
-			var/mob/living/silicon/tempAI = usr
-			var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
-
-			if(!camera)
+		if(!isAI(usr))
+			return
+		if(toner >= 5 && !busy)
+			var/mob/living/silicon/ai/tempAI = usr
+			if(tempAI.aicamera.stored.len == 0)
+				to_chat(usr, "<span class='boldannounce'>No images saved</span>")
 				return
-			var/datum/picture/selection = camera.selectpicture()
-			if(!selection)
-				return
-
-			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			var/obj/item/photo/p = new /obj/item/photo (src.loc)
-			p.construct(selection)
-			if(p.desc == "")
-				p.desc += "Copied by [tempAI.name]"
-			else
-				p.desc += " - Copied by [tempAI.name]"
-			toner -= 5
+			var/datum/picture/selection = tempAI.aicamera.selectpicture(usr)
+			var/obj/item/photo/photo = new(loc, selection)
+			photo.pixel_x = rand(-10, 10)
+			photo.pixel_y = rand(-10, 10)
+			toner -= 5	 //AI prints color pictures only, thus they can do it more efficiently
+			busy = TRUE
 			sleep(15)
+			busy = FALSE
+		updateUsrDialog()
+	else if(href_list["colortoggle"])
+		if(greytoggle == "Greyscale")
+			greytoggle = "Color"
+		else
+			greytoggle = "Greyscale"
 		updateUsrDialog()
 
-/obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
-		if(!copyitem)
-			user.drop_item()
-			copyitem = O
-			O.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
-			flick(insert_anim, src)
-			updateUsrDialog()
+/obj/machinery/photocopier/proc/do_insertion(obj/item/O, mob/user)
+	O.forceMove(src)
+	to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
+	flick("photocopier1", src)
+	updateUsrDialog()
+
+/obj/machinery/photocopier/proc/remove_photocopy(obj/item/O, mob/user)
+	if(!issilicon(user)) //surprised this check didn't exist before, putting stuff in AI's hand is bad
+		O.forceMove(user.loc)
+		user.put_in_hands(O)
+	else
+		O.forceMove(drop_location())
+	to_chat(user, "<span class='notice'>You take [O] out of [src].</span>")
+
+/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
+	if(default_unfasten_wrench(user, O))
+		return
+
+	else if(istype(O, /obj/item/paper))
+		if(copier_empty())
+			if(istype(O, /obj/item/paper/contract/infernal))
+				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
+				resistance_flags |= FLAMMABLE
+				fire_act()
+			else
+				if(!user.temporarilyRemoveItemFromInventory(O))
+					return
+				copy = O
+				do_insertion(O, user)
 		else
-			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
+			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+
+	else if(istype(O, /obj/item/photo))
+		if(copier_empty())
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
+			photocopy = O
+			do_insertion(O, user)
+		else
+			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+
+	else if(istype(O, /obj/item/documents))
+		if(copier_empty())
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
+			doccopy = O
+			do_insertion(O, user)
+		else
+			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+
 	else if(istype(O, /obj/item/toner))
-		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
-			user.drop_item()
-			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
-			var/obj/item/toner/T = O
-			toner += T.toner_amount
+		if(toner <= 0)
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
 			qdel(O)
+			toner = 40
+			to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
 			updateUsrDialog()
 		else
-			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/wrench))
-		playsound(loc, O.usesound, 50, 1)
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
-	else if(istype(O, /obj/item/grab)) //For ass-copying.
-		var/obj/item/grab/G = O
-		if(ismob(G.affecting) && G.affecting != ass)
-			var/mob/GM = G.affecting
-			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
-			GM.forceMove(get_turf(src))
-			ass = GM
-			if(copyitem)
-				copyitem.forceMove(get_turf(src))
-				copyitem = null
-		updateUsrDialog()
-	return
+			to_chat(user, "<span class='warning'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 
-/obj/machinery/photocopier/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-			else
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-		else
-			if(prob(50))
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-	return
-
-/obj/machinery/photocopier/blob_act()
-	if(prob(50))
-		qdel(src)
+	else if(istype(O, /obj/item/areaeditor/blueprints))
+		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document</span>")
 	else
+		return ..()
+
+/obj/machinery/photocopier/obj_break(damage_flag)
+	if(!(flags_1 & NODECONSTRUCT_1))
 		if(toner > 0)
-			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
+			new /obj/effect/decal/cleanable/oil(get_turf(src))
 			toner = 0
-	return
-
-/obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
-	var/obj/item/paper/c = new /obj/item/paper (loc)
-	c.info = copy.info
-	c.name = copy.name // -- Doohl
-	c.fields = copy.fields
-	c.stamps = copy.stamps
-	c.stamped = copy.stamped
-	c.ico = copy.ico
-	c.offset_x = copy.offset_x
-	c.offset_y = copy.offset_y
-	var/list/temp_overlays = copy.overlays       //Iterates through stamps
-	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
-		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if(findtext(copy.ico[j], "deny"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
-			else
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
-			img.pixel_x = copy.offset_x[j]
-			img.pixel_y = copy.offset_y[j]
-			c.overlays += img
-	c.updateinfolinks()
-	toner--
-	if(toner == 0)
-		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
-	return c
-
-
-/obj/machinery/photocopier/proc/photocopy(var/obj/item/photo/photocopy)
-	var/obj/item/photo/p = new /obj/item/photo (loc)
-	p.name = photocopy.name
-	p.icon = photocopy.icon
-	p.tiny = photocopy.tiny
-	p.img = photocopy.img
-	p.desc = photocopy.desc
-	p.pixel_x = photocopy.pixel_x
-	p.pixel_y = photocopy.pixel_y
-	if(photocopy.scribble)
-		p.scribble = photocopy.scribble
-	toner -= 5
-	if(toner < 0)
-		toner = 0
-		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
-	return p
-
-
-/obj/machinery/photocopier/proc/copyass()
-	var/icon/temp_img
-	if(!check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
-		return
-	if(emagged)
-		if(ishuman(ass))
-			var/mob/living/carbon/human/H = ass
-			to_chat(H, "<span class='notice'>Something smells toasty...</span>")
-			var/obj/item/organ/external/G = H.get_organ("groin")
-			G.receive_damage(0, 30)
-			spawn(20)
-				H.emote("scream")
-			emag_cooldown = world.time + EMAG_DELAY
-		else
-			to_chat(ass, "<span class='notice'>Something smells toasty...</span>")
-			ass.apply_damage(30, BURN)
-			emag_cooldown = world.time + EMAG_DELAY
-	if(ishuman(ass)) //Suit checks are in check_ass
-		var/mob/living/carbon/human/H = ass
-		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
-	else if(istype(ass,/mob/living/silicon/robot/drone))
-		temp_img = icon('icons/obj/butts.dmi', "drone")
-	else if(istype(ass,/mob/living/simple_animal/diona))
-		temp_img = icon('icons/obj/butts.dmi', "nymph")
-	else if(isalien(ass) || istype(ass,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
-		temp_img = icon('icons/obj/butts.dmi', "xeno")
-	else
-		return
-	var/obj/item/photo/p = new /obj/item/photo (loc)
-	p.desc = "You see [ass]'s ass on the photo."
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
-	p.img = temp_img
-	var/icon/small_img = icon(temp_img) //Icon() is needed or else temp_img will be rescaled too >.>
-	var/icon/ic = icon('icons/obj/items.dmi',"photo")
-	small_img.Scale(8, 8)
-	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
-	p.icon = ic
-	toner -= 5
-	if(toner < 0)
-		toner = 0
-		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
-	return p
-
-//If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
-/obj/machinery/photocopier/proc/bundlecopy(var/obj/item/paper_bundle/bundle, var/need_toner=1)
-	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
-	for(var/obj/item/W in bundle)
-		if(toner <= 0 && need_toner)
-			toner = 0
-			visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
-			break
-
-		if(istype(W, /obj/item/paper))
-			W = copy(W)
-		else if(istype(W, /obj/item/photo))
-			W = photocopy(W)
-		W.forceMove(P)
-		P.amount++
-	if(!P.amount)
-		qdel(P)
-		return null
-	P.amount--
-	P.forceMove(get_turf(src))
-	P.update_icon()
-	P.icon_state = "paper_words"
-	P.name = bundle.name
-	P.pixel_y = rand(-8, 8)
-	P.pixel_x = rand(-9, 9)
-	return P
-
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
+	if (!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
 		return
 	src.add_fingerprint(user)
-	if(target == user && !user.incapacitated())
-		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-		if(target.anchored) return
-		if(!ishuman(user)) return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
-	target.forceMove(get_turf(src))
-	ass = target
-	if(copyitem)
-		copyitem.forceMove(get_turf(src))
-		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [ass]!</span>")
-		copyitem = null
+	if(target == user)
+		user.visible_message("[user] starts climbing onto the photocopier!", "<span class='notice'>You start climbing onto the photocopier...</span>")
+	else
+		user.visible_message("<span class='warning'>[user] starts putting [target] onto the photocopier!</span>", "<span class='notice'>You start putting [target] onto the photocopier...</span>")
+
+	if(do_after(user, 20, target = src))
+		if(!target || QDELETED(target) || QDELETED(src) || !Adjacent(target)) //check if the photocopier/target still exists.
+			return
+
+		if(target == user)
+			user.visible_message("[user] climbs onto the photocopier!", "<span class='notice'>You climb onto the photocopier.</span>")
+		else
+			user.visible_message("<span class='warning'>[user] puts [target] onto the photocopier!</span>", "<span class='notice'>You put [target] onto the photocopier.</span>")
+
+		target.forceMove(drop_location())
+		ass = target
+
+		if(photocopy)
+			photocopy.forceMove(drop_location())
+			visible_message("<span class='warning'>[photocopy] is shoved out of the way by [ass]!</span>")
+			photocopy = null
+
+		else if(copy)
+			copy.forceMove(drop_location())
+			visible_message("<span class='warning'>[copy] is shoved out of the way by [ass]!</span>")
+			copy = null
 	updateUsrDialog()
 
 /obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
@@ -355,22 +297,39 @@
 		ass = null
 		updateUsrDialog()
 		return 0
+	else if(ishuman(ass))
+		if(!ass.get_item_by_slot(SLOT_W_UNIFORM) && !ass.get_item_by_slot(SLOT_WEAR_SUIT))
+			return 1
+		else
+			return 0
 	else
-		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("<span class='danger'>Attention: Posterior Placed on Printing Plaque!</span>")
 		return 1
 
-/obj/machinery/photocopier/emag_act(user as mob)
-	if(!emagged)
-		emagged = 1
-		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
-	else
-		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
+/obj/machinery/photocopier/proc/copier_blocked()
+	if(QDELETED(src))
+		return
+	if(loc.density)
+		return 1
+	for(var/atom/movable/AM in loc)
+		if(AM == src)
+			continue
+		if(AM.density)
+			return 1
+	return 0
 
+/obj/machinery/photocopier/proc/copier_empty()
+	if(copy || photocopy || check_ass())
+		return 0
+	else
+		return 1
+
+/*
+ * Toner cartridge
+ */
 /obj/item/toner
 	name = "toner cartridge"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
-	var/toner_amount = 30
-
-#undef EMAG_DELAY
+	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
+	var/charges = 5
+	var/max_charges = 5

@@ -6,10 +6,10 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = FALSE, datum/topic_state/state = ghost_state, datum/nanoui/master_ui = null)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "spawners_menu.tmpl", "Spawners Menu", 700, 600, master_ui, state = state)
+		ui = new(user, src, ui_key, "spawners_menu", "Spawners Menu", 700, 600, master_ui, state)
 		ui.open()
 
 /datum/spawners_menu/ui_data(mob/user)
@@ -19,9 +19,9 @@
 		var/list/this = list()
 		this["name"] = spawner
 		this["desc"] = ""
-		this["uids"] = list()
+		this["refs"] = list()
 		for(var/spawner_obj in GLOB.mob_spawners[spawner])
-			this["uids"] += "\ref[spawner_obj]"
+			this["refs"] += "[REF(spawner_obj)]"
 			if(!this["desc"])
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
 					var/obj/effect/mob_spawn/MS = spawner_obj
@@ -34,19 +34,25 @@
 
 	return data
 
-/datum/spawners_menu/Topic(href, href_list)
+/datum/spawners_menu/ui_act(action, params)
 	if(..())
-		return 1
-	var/spawners = replacetext(href_list["uid"], ",", ";")
-	var/list/possible_spawners = params2list(spawners)
-	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
-	if(!MS || !istype(MS))
-		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
 		return
-	switch(href_list["action"])
+
+	var/group_name = params["name"]
+	if(!group_name || !(group_name in GLOB.mob_spawners))
+		return
+	var/list/spawnerlist = GLOB.mob_spawners[group_name]
+	if(!spawnerlist.len)
+		return
+	var/obj/effect/mob_spawn/MS = pick(spawnerlist)
+	if(!istype(MS) || !(MS in GLOB.poi_list))
+		return
+	switch(action)
 		if("jump")
-			owner.forceMove(get_turf(MS))
-			. = TRUE
+			if(MS)
+				owner.forceMove(get_turf(MS))
+				. = TRUE
 		if("spawn")
-			MS.attack_ghost(owner)
-			. = TRUE
+			if(MS)
+				MS.attack_ghost(owner)
+				. = TRUE

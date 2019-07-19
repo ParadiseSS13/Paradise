@@ -5,7 +5,6 @@
 	icon_state = "harddisk_mini"
 	critical = 1
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "programming=1;engineering=1"
 	device_type = MC_HDD
 	var/max_capacity = 128
 	var/used_capacity = 0
@@ -20,8 +19,8 @@
 	store_file(new/datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
 
 /obj/item/computer_hardware/hard_drive/examine(user)
-	..()
-	to_chat(user, "<span class='notice'>It has [max_capacity] GQ of storage capacity.</span>")
+	. = ..()
+	. += "<span class='notice'>It has [max_capacity] GQ of storage capacity.</span>"
 
 /obj/item/computer_hardware/hard_drive/diagnostics(var/mob/user)
 	..()
@@ -121,16 +120,15 @@
 	stored_files = null
 	return ..()
 
-/obj/item/computer_hardware/hard_drive/New()
+/obj/item/computer_hardware/hard_drive/Initialize()
+	. = ..()
 	install_default_programs()
-	..()
 
 
 /obj/item/computer_hardware/hard_drive/advanced
 	name = "advanced hard disk drive"
 	desc = "A hybrid HDD, for use in higher grade computers where balance between power efficiency and capacity is desired."
 	max_capacity = 256
-	origin_tech = "programming=2;engineering=2"
 	power_usage = 50 					// Hybrid, medium capacity and medium power storage
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
@@ -139,7 +137,6 @@
 	name = "super hard disk drive"
 	desc = "A high capacity HDD, for use in cluster storage solutions where capacity is more important than power efficiency."
 	max_capacity = 512
-	origin_tech = "programming=3;engineering=3"
 	power_usage = 100					// High-capacity but uses lots of power, shortening battery life. Best used with APC link.
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
@@ -148,7 +145,6 @@
 	name = "cluster hard disk drive"
 	desc = "A large storage cluster consisting of multiple HDDs for usage in dedicated storage systems."
 	power_usage = 500
-	origin_tech = "programming=4;engineering=4"
 	max_capacity = 2048
 	icon_state = "harddisk"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -158,16 +154,22 @@
 	name = "solid state drive"
 	desc = "An efficient SSD for portable devices."
 	power_usage = 10
-	origin_tech = "programming=2;engineering=2"
 	max_capacity = 64
 	icon_state = "ssd_mini"
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 15
+
+// Syndicate variant - very slight better
+/obj/item/computer_hardware/hard_drive/small/syndicate
+	desc = "An efficient SSD for portable devices developed by a rival organisation."
+	power_usage = 8
+	max_capacity = 70
+	var/datum/antagonist/traitor/traitor_data // Syndicate hard drive has the user's data baked directly into it on creation
 
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"
 	desc = "A highly efficient SSD chip for portable devices."
 	power_usage = 2
-	origin_tech = "programming=1;engineering=1"
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY

@@ -1,23 +1,14 @@
-// can't die if you're not alive
+//This is the proc for gibbing a mob. Cannot gib ghosts.
+//added different sort of gibs and animations. N
 /mob/proc/gib()
-	return FALSE
+	return
 
-/mob/proc/dust()
-	return FALSE
-
-/mob/proc/melt()
-	return FALSE
+//This is the proc for turning a mob into ash. Mostly a copy of gib code (above).
+//Originally created for wizard disintegrate. I've removed the virus code since it's irrelevant here.
+//Dusting robots does not eject the MMI, so it's a bit more powerful than gib() /N
+/mob/proc/dust(just_ash, drop_items, force)
+	return
 
 /mob/proc/death(gibbed)
-	return FALSE
-
-/mob/proc/dust_animation()
-	var/atom/movable/overlay/animation = null
-	animation = new(loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-
-	//	flick("dust-m", animation)
-	new /obj/effect/decal/cleanable/ash(loc)
-	QDEL_IN(animation, 15)
+	SEND_SIGNAL(src, COMSIG_MOB_DEATH, gibbed)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src , gibbed)

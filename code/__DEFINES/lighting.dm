@@ -47,16 +47,6 @@
 #define LIGHT_COLOR_HOLY_MAGIC	"#FFF743" //slightly desaturated bright yellow.
 #define LIGHT_COLOR_BLOOD_MAGIC	"#D00000" //deep crimson
 
-#define LIGHT_COLOR_PURE_CYAN	"#00FFFF"
-#define LIGHT_COLOR_DARKRED		"#A91515"
-#define LIGHT_COLOR_PURE_RED	"#FF0000"
-#define LIGHT_COLOR_DARKGREEN	"#50AB00"
-#define LIGHT_COLOR_PURE_GREEN	"#00FF00"
-#define LIGHT_COLOR_LIGHTBLUE	"#0099FF"
-#define LIGHT_COLOR_DARKBLUE	"#315AB4"
-#define LIGHT_COLOR_PURE_BLUE	"#0000FF"
-#define LIGHT_COLOR_FADEDPURPLE	"#A97FAA"
-
 //These ones aren't a direct colour like the ones above, because nothing would fit
 #define LIGHT_COLOR_FIRE       "#FAA019" //Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
 #define LIGHT_COLOR_LAVA       "#C48A18" //Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)

@@ -5,23 +5,25 @@
 	width = 7
 	height = 7
 
-/obj/docking_port/mobile/assault_pod/request()
-	if(z == initial(src.z)) //No launching pods that have already launched
+/obj/docking_port/mobile/assault_pod/request(obj/docking_port/stationary/S)
+	if(!(z in SSmapping.levels_by_trait(ZTRAIT_STATION))) //No launching pods that have already launched
 		return ..()
 
 
-/obj/docking_port/mobile/assault_pod/dock(obj/docking_port/stationary/S1)
-	..()
+/obj/docking_port/mobile/assault_pod/initiate_docking(obj/docking_port/stationary/S1)
+	. = ..()
 	if(!istype(S1, /obj/docking_port/stationary/transit))
 		playsound(get_turf(src.loc), 'sound/effects/explosion1.ogg',50,1)
 
 
 
 /obj/item/assault_pod
-	name = "Assault Pod Targetting Device"
+	name = "Assault Pod Targeting Device"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
-	item_state = "walkietalkie"
+	item_state = "radio"
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	desc = "Used to select a landing zone for assault pods."
 	var/shuttle_id = "steel_rain"
 	var/dwidth = 3
@@ -33,8 +35,10 @@
 
 /obj/item/assault_pod/attack_self(mob/living/user)
 	var/target_area
-	target_area = input("Area to land", "Select a Landing Zone", target_area) in teleportlocs
-	var/area/picked_area = teleportlocs[target_area]
+	target_area = input("Area to land", "Select a Landing Zone", target_area) as null|anything in GLOB.teleportlocs
+	if(!target_area)
+		return
+	var/area/picked_area = GLOB.teleportlocs[target_area]
 	if(!src || QDELETED(src))
 		return
 
@@ -42,14 +46,13 @@
 	if(!T)
 		return
 	var/obj/docking_port/stationary/landing_zone = new /obj/docking_port/stationary(T)
-	landing_zone.id = "assault_pod(\ref[src])"
+	landing_zone.id = "assault_pod([REF(src)])"
 	landing_zone.name = "Landing Zone"
 	landing_zone.dwidth = dwidth
 	landing_zone.dheight = dheight
 	landing_zone.width = width
 	landing_zone.height = height
-	landing_zone.dir = lz_dir
-	landing_zone.register() //new docking ports must be registered
+	landing_zone.setDir(lz_dir)
 
 	for(var/obj/machinery/computer/shuttle/S in GLOB.machines)
 		if(S.shuttleId == shuttle_id)

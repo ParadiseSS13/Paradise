@@ -1,7 +1,8 @@
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
-	var/datum/click_intercept/buildmode/bd
-	layer = HUD_LAYER_BUILDMODE
+	var/datum/buildmode/bd
+	// If we don't do this, we get occluded by item action buttons
+	layer = ABOVE_HUD_LAYER
 
 /obj/screen/buildmode/New(bld)
 	bd = bld
@@ -22,9 +23,9 @@
 	if(pa.Find("left"))
 		bd.toggle_modeswitch()
 	else if(pa.Find("right"))
-		bd.mode.change_settings(usr)
+		bd.mode.change_settings(usr.client)
 	update_icon()
-	return TRUE
+	return 1
 
 /obj/screen/buildmode/mode/update_icon()
 	icon_state = bd.mode.get_button_iconstate()
@@ -34,9 +35,9 @@
 	screen_loc = "NORTH,WEST+1"
 	name = "Buildmode Help"
 
-/obj/screen/buildmode/help/Click()
-	bd.mode.show_help(usr)
-	return TRUE
+/obj/screen/buildmode/help/Click(location, control, params)
+	bd.mode.show_help(usr.client)
+	return 1
 
 /obj/screen/buildmode/bdir
 	icon_state = "build"
@@ -45,11 +46,12 @@
 
 /obj/screen/buildmode/bdir/update_icon()
 	dir = bd.build_dir
+	return
 
 /obj/screen/buildmode/bdir/Click()
 	bd.toggle_dirswitch()
 	update_icon()
-	return TRUE
+	return 1
 
 // used to switch between modes
 /obj/screen/buildmode/modeswitch
@@ -63,20 +65,20 @@
 
 /obj/screen/buildmode/modeswitch/Click()
 	bd.change_mode(modetype)
-	return TRUE
+	return 1
 
 // used to switch between dirs
 /obj/screen/buildmode/dirswitch
 	icon_state = "build"
 
-/obj/screen/buildmode/dirswitch/New(bld, newdir)
-	dir = newdir
+/obj/screen/buildmode/dirswitch/New(bld, dir)
+	src.dir = dir
 	name = dir2text(dir)
 	return ..(bld)
 
 /obj/screen/buildmode/dirswitch/Click()
 	bd.change_dir(dir)
-	return TRUE
+	return 1
 
 /obj/screen/buildmode/quit
 	icon_state = "buildquit"
@@ -85,4 +87,4 @@
 
 /obj/screen/buildmode/quit/Click()
 	bd.quit()
-	return TRUE
+	return 1

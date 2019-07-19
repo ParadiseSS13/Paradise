@@ -1,72 +1,93 @@
-#pretending we're C because otherwise ruby will initialize, even with "language: dm".
 language: generic
+dist: xenial
 sudo: false
 
-git:
-  depth: 1
+branches:
+  except:
+  - ___TGS3TempBranch
+  - ___TGSTempBranch
 
-cache:
-  directories:
-    - $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}
-
-addons:
-  apt:
-    packages:
-      - libc6-i386
-      - libgcc1:i386
-      - libstdc++6:i386
-
-env:
-  global:
-    - BYOND_MAJOR="512"
-    - BYOND_MINOR="1454"
-    - BYOND_MACRO_COUNT=4
-  matrix:
-    - DM_MAPFILE="cyberiad"
-    - DM_MAPFILE="metastation"
-    - DM_MAPFILE="delta"
-    - DM_MAPFILE="test_all_maps"
-
-stages:
-  - File Checks
-  - test
-
-before_script:
-  - chmod +x ./install-byond.sh
-  - ./install-byond.sh
-script:
-  - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
-  - bash dm.sh -M${DM_MAPFILE} paradise.dme
-
-jobs:
+matrix:
   include:
-    # Basic styling/functionality checks
-    - stage: File Checks
-      env:
+    - name: "Run Linters"
       addons:
+        apt:
+          packages:
+            - python3
+            - python3-pip
+            - python3-setuptools
       install:
-        - pip install --user PyYaml -q
-        - pip install --user beautifulsoup4 -q
-      before_script: skip
+        - tools/travis/install_build_tools.sh
+        - tools/travis/install_spaceman_dmm.sh dreamchecker
       script:
-        - shopt -s globstar
-        - (! grep 'step_[xy]' _maps/map_files/**/*.dmm)
-        - (num=$(grep -Ern '\\(red|blue|green|black|italic|bold|b|i[^mc])' code/ | wc -l); echo "$num BYOND text macros (expecting ${BYOND_MACRO_COUNT} or fewer)"; [ $num -le ${BYOND_MACRO_COUNT} ])
-        - md5sum -c - <<< "6dc1b6bf583f3bd4176b6df494caa5f1 *html/changelogs/example.yml"
-        - python tools/ss13_genchangelog.py html/changelog.html html/changelogs
+        - tools/travis/check_filedirs.sh tgstation.dme
+        - tools/travis/check_changelogs.sh
+        - find . -name "*.php" -print0 | xargs -0 -n1 php -l
+        - find . -name "*.json" -not -path "./tgui/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
+        - tools/travis/build_tgui.sh
+        - tools/travis/check_grep.sh
+        - ~/dreamchecker
 
-    # Compile NanoUI to make sure it works
-    - stage: NanoUI
-      language: node_js
-      node_js:
-        - "9"
-      env:
+    - name: "Compile All Maps"
       addons:
-      before_install:
-        - npm install -g gulp-cli
-        - cd ./nano/
+        apt:
+          packages:
+            - libstdc++6:i386
+      cache:
+        directories:
+          - $HOME/BYOND
       install:
-        - npm install --loglevel=error
+        - tools/travis/install_byond.sh
+        - source $HOME/BYOND/byond/bin/byondsetup
       before_script:
+        - tools/travis/template_dm_generator.py
       script:
-        - gulp
+        - tools/travis/dm.sh -DTRAVISBUILDING -DTRAVISTESTING -DALL_MAPS tgstation.dme
+
+    - name: "Compile and Run Tests"
+      addons:
+        mariadb: '10.2'
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libstdc++6:i386
+            - gcc-multilib
+            - g++-7
+            - g++-7-multilib
+            - libmariadb-client-lgpl-dev:i386
+            - libmariadbd-dev
+      cache:
+        directories:
+          - $HOME/BYOND
+          - $HOME/libmariadb
+      install:
+        - tools/travis/install_byond.sh
+        - source $HOME/BYOND/byond/bin/byondsetup
+        - tools/travis/install_libmariadb.sh
+        - tools/travis/install_rust_g.sh
+      before_script:
+        - mysql -u root -e 'CREATE DATABASE tg_travis;'
+        - mysql -u root tg_travis < SQL/tgstation_schema.sql
+        - mysql -u root -e 'CREATE DATABASE tg_travis_prefixed;'
+        - mysql -u root tg_travis_prefixed < SQL/tgstation_schema_prefixed.sql
+        - tools/travis/build_bsql.sh
+      script:
+        - tools/travis/dm.sh -DTRAVISBUILDING tgstation.dme || travis_terminate 1
+        - tools/travis/run_server.sh
+
+    - name: "Generate Documentation"
+      # Only run for non-PR commits to the real master branch.
+      if: branch = master AND head_branch IS blank
+      install:
+        - tools/travis/install_spaceman_dmm.sh dmdoc
+      before_script:
+        # Travis checks out a hash, try to get back on a branch.
+        - git checkout $TRAVIS_BRANCH || true
+      script:
+        - ~/dmdoc
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: dmdoc
+        github_token: $DMDOC_GITHUB_TOKEN

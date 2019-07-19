@@ -1,7 +1,5 @@
 SUBSYSTEM_DEF(nightshift)
 	name = "Night Shift"
-	init_order = INIT_ORDER_NIGHTSHIFT
-	priority = FIRE_PRIORITY_NIGHTSHIFT
 	wait = 600
 	flags = SS_NO_TICK_CHECK
 
@@ -13,10 +11,8 @@ SUBSYSTEM_DEF(nightshift)
 	var/high_security_mode = FALSE
 
 /datum/controller/subsystem/nightshift/Initialize()
-	if(!config.enable_night_shifts)
+	if(!CONFIG_GET(flag/enable_night_shifts))
 		can_fire = FALSE
-	if(config.randomize_shift_time)
-		GLOB.gametime_offset = rand(0, 23) HOURS
 	return ..()
 
 /datum/controller/subsystem/nightshift/fire(resumed = FALSE)
@@ -25,12 +21,10 @@ SUBSYSTEM_DEF(nightshift)
 	check_nightshift()
 
 /datum/controller/subsystem/nightshift/proc/announce(message)
-	priority_announcement.Announce(message, new_sound = 'sound/misc/notice2.ogg', new_title = "Automated Lighting System Announcement")
+	priority_announce(message, sound='sound/misc/notice2.ogg', sender_override="Automated Lighting System Announcement")
 
-/datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
-	if(check_canfire && !can_fire)
-		return
-	var/emergency = security_level >= SEC_LEVEL_RED
+/datum/controller/subsystem/nightshift/proc/check_nightshift()
+	var/emergency = GLOB.security_level >= SEC_LEVEL_RED
 	var/announcing = TRUE
 	var/time = station_time()
 	var/night_time = (time < nightshift_end_time) || (time > nightshift_start_time)
@@ -50,12 +44,12 @@ SUBSYSTEM_DEF(nightshift)
 /datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE)
 	nightshift_active = active
 	if(announce)
-		if(active)
+		if (active)
 			announce("Good evening, crew. To reduce power consumption and stimulate the circadian rhythms of some species, all of the lights aboard the station have been dimmed for the night.")
 		else
 			announce("Good morning, crew. As it is now day time, all of the lights aboard the station have been restored to their former brightness.")
-	for(var/A in GLOB.apcs)
+	for(var/A in GLOB.apcs_list)
 		var/obj/machinery/power/apc/APC = A
-		if(is_station_level(APC.z))
+		if (APC.area && (APC.area.type in GLOB.the_station_areas))
 			APC.set_nightshift(active)
 			CHECK_TICK

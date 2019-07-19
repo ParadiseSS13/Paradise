@@ -7,6 +7,11 @@
 	requires_ntnet = 1
 	available_on_ntnet = 0
 	available_on_syndinet = 1
+	tgui_id = "ntos_net_dos"
+	ui_style = "syndicate"
+	ui_x = 400
+	ui_y = 250
+
 	var/obj/machinery/ntnet_relay/target = null
 	var/dos_speed = 0
 	var/error = ""
@@ -23,7 +28,7 @@
 			dos_speed = NTNETSPEED_ETHERNET * 10
 	if(target && executed)
 		target.dos_overload += dos_speed
-		if(target.inoperable())
+		if(!target.is_operational())
 			target.dos_sources.Remove(src)
 			target = null
 			error = "Connection to destination relay lost."
@@ -33,26 +38,16 @@
 		target.dos_sources.Remove(src)
 	target = null
 	executed = 0
+
 	..()
 
-/datum/computer_file/program/ntnet_dos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		ui = new(user, src, ui_key, "ntnet_dos.tmpl", "DoS Traffic Generator", 575, 250)
-		ui.set_auto_update(1)
-		ui.set_layout_key("program")
-		ui.open()
-
-
-/datum/computer_file/program/ntnet_dos/Topic(href, list/href_list)
+/datum/computer_file/program/ntnet_dos/ui_act(action, params)
 	if(..())
 		return 1
-	switch(href_list["action"])
+	switch(action)
 		if("PRG_target_relay")
-			for(var/obj/machinery/ntnet_relay/R in ntnet_global.relays)
-				if("[R.uid]" == href_list["targid"])
+			for(var/obj/machinery/ntnet_relay/R in SSnetworks.station_network.relays)
+				if("[R.uid]" == params["targid"])
 					target = R
 			return 1
 		if("PRG_reset")
@@ -66,17 +61,19 @@
 			if(target)
 				executed = 1
 				target.dos_sources.Add(src)
-				if(ntnet_global.intrusion_detection_enabled)
+				if(SSnetworks.station_network.intrusion_detection_enabled)
 					var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
-					ntnet_global.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
-					ntnet_global.intrusion_detection_alarm = 1
+					SSnetworks.station_network.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
+					SSnetworks.station_network.intrusion_detection_alarm = 1
 			return 1
 
 /datum/computer_file/program/ntnet_dos/ui_data(mob/user)
-	if(!ntnet_global)
+	if(!SSnetworks.station_network)
 		return
 
-	var/list/data = get_header_data()
+	var/list/data = list()
+
+	data = get_header_data()
 
 	if(error)
 		data["error"] = error
@@ -96,7 +93,7 @@
 			data["dos_strings"] += list(list("nums" = string))
 	else
 		data["relays"] = list()
-		for(var/obj/machinery/ntnet_relay/R in ntnet_global.relays)
+		for(var/obj/machinery/ntnet_relay/R in SSnetworks.station_network.relays)
 			data["relays"] += list(list("id" = R.uid))
 		data["focus"] = target ? target.uid : null
 

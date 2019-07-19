@@ -4,15 +4,14 @@
 	desc = "A massive stone gateway."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_full"
-	flags = ON_BORDER
+	flags_1 = ON_BORDER_1
 	appearance_flags = 0
 	layer = TABLE_LAYER
 	anchored = TRUE
 	density = TRUE
 	pixel_x = -32
 	pixel_y = -32
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 8
 	light_color = LIGHT_COLOR_LAVA
 	var/open = FALSE
@@ -213,8 +212,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	anchored = TRUE
 	pixel_x = -64
 	pixel_y = -40
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/open = FALSE
 	var/static/mutable_appearance/top_overlay
 
@@ -245,8 +243,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	icon_state = "pristine_tile1"
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/tile_key = "pristine_tile"
 	var/tile_random_sprite_max = 24
 	var/fall_on_cross = STABLE //If the tile has some sort of effect when crossed
@@ -280,7 +277,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		L = AM
 	switch(fall_on_cross)
 		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
-			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.flying) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
+			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.movement_type & FLYING) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
 				collapse()
 		if(UNIQUE_EFFECT)
 			crossed_effect(AM)

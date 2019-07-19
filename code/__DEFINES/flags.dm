@@ -1,144 +1,108 @@
-#define ALL ~0 //For convenience.
+/*
+	These defines are specific to the atom/flags_1 bitmask
+*/
+#define ALL (~0) //For convenience.
 #define NONE 0
+
+//for convenience
+#define ENABLE_BITFIELD(variable, flag) (variable |= (flag))
+#define DISABLE_BITFIELD(variable, flag) (variable &= ~(flag))
+#define CHECK_BITFIELD(variable, flag) (variable & (flag))
+#define TOGGLE_BITFIELD(variable, flag) (variable ^= (flag))
+
+
+//check if all bitflags specified are present
+#define CHECK_MULTIPLE_BITFIELDS(flagvar, flags) (((flagvar) & (flags)) == (flags))
+
+GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 
 // for /datum/var/datum_flags
 #define DF_USE_TAG		(1<<0)
+#define DF_VAR_EDITED	(1<<1)
+#define DF_ISPROCESSING (1<<2)
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
-#define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
-#define AIRTIGHT				8		// mask allows internals
-#define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
-#define CONDUCT					32		// conducts electricity (metal etc.)
-#define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				128		// item has priority to check when entering or leaving
 
-#define EARBANGPROTECT			1024
-
-#define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
-
-#define HEADBANGPROTECT			4096
-
-#define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
-#define THICKMATERIAL 			8192	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
-
-#define DROPDEL					16384	// When dropped, it calls qdel on itself
-
-
-/* Secondary atom flags, for the flags_2 var, denoted with a _2 */
-
-#define SLOWS_WHILE_IN_HAND_2	1
-#define NO_EMP_WIRES_2			2
-#define HOLOGRAM_2				4
-#define FROZEN_2				8
-#define STATIONLOVING_2			16
-#define INFORM_ADMINS_ON_RELOCATE_2	32
-#define BANG_PROTECT_2			64
-
-// An item worn in the ear slot with HEALS_EARS will heal your ears each
-// Life() tick, even if normally your ears would be too damaged to heal.
-#define HEALS_EARS_2			128
-
-// A mob with OMNITONGUE has no restriction in the ability to speak
-// languages that they know. So even if they wouldn't normally be able to
-// through mob or tongue restrictions, this flag allows them to ignore
-// those restrictions.
-#define OMNITONGUE_2			256
-
-// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_2			512
-
-// Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
-#define NO_MAT_REDEMPTION_2		1024
-
-// LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
-#define LAVA_PROTECT_2			2048
-
-#define OVERLAY_QUEUED_2		4096
-
-//Reagent flags
-#define REAGENT_NOREACT			1
-
-//Species clothing flags
-#define HAS_UNDERWEAR 	1
-#define HAS_UNDERSHIRT 	2
-#define HAS_SOCKS		4
-
-//Species Body Flags
-#define HAS_HEAD_ACCESSORY	1
-#define HAS_TAIL 			2
-#define TAIL_OVERLAPPED		4
-#define HAS_SKIN_TONE 		8
-#define HAS_ICON_SKIN_TONE	16
-#define HAS_SKIN_COLOR		32
-#define HAS_HEAD_MARKINGS	64
-#define HAS_BODY_MARKINGS	128
-#define HAS_TAIL_MARKINGS	256
-#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
-#define TAIL_WAGGING    	512
-#define NO_EYES				1024
-#define HAS_ALT_HEADS		2048
-#define ALL_RPARTS			4096
-
-//Species Diet Flags
-#define DIET_CARN		1
-#define DIET_OMNI		2
-#define DIET_HERB		4
-
-
-//bitflags for door switches.
-#define OPEN	1
-#define IDSCAN	2
-#define BOLTS	4
-#define SHOCK	8
-#define SAFE	16
-
-//flags for pass_flags
-#define PASSTABLE		1
-#define PASSGLASS		2
-#define PASSGRILLE		4
-#define PASSBLOB		8
-#define PASSMOB			16
-#define LETPASSTHROW	32
+#define HEAR_1						(1<<3)		// This flag is what recursive_hear_check() uses to determine wether to add an item to the hearer list or not.
+#define CHECK_RICOCHET_1			(1<<4)		// Projectiels will check ricochet on things impacted that have this.
+#define CONDUCT_1					(1<<5)		// conducts electricity (metal etc.)
+#define NODECONSTRUCT_1				(1<<7)		// For machines and structures that should not break into parts, eg, holodeck stuff
+#define OVERLAY_QUEUED_1			(1<<8)		// atom queued to SSoverlay
+#define ON_BORDER_1					(1<<9)		// item has priority to check when entering or leaving
+#define PREVENT_CLICK_UNDER_1		(1<<11)	//Prevent clicking things below it on the same turf eg. doors/ fulltile windows
+#define HOLOGRAM_1					(1<<12)
+#define TESLA_IGNORE_1				(1<<13) // TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
+#define INITIALIZED_1				(1<<14)  //Whether /atom/Initialize() has already run for the object
+#define ADMIN_SPAWNED_1			(1<<15) 	//was this spawned by an admin? used for stat tracking stuff.
 
 //turf-only flags
-#define NOJAUNT		1
-#define NO_LAVA_GEN	2 //Blocks lava rivers being generated on the turf
-#define NO_RUINS 	4
+#define NOJAUNT_1					(1<<0)
+#define UNUSED_RESERVATION_TURF_1	(1<<1)
+#define CAN_BE_DIRTY_1				(1<<2) // If a turf can be made dirty at roundstart. This is also used in areas.
+#define NO_LAVA_GEN_1				(1<<6) //Blocks lava rivers being generated on the turf
+#define NO_RUINS_1					(1<<10) //Blocks ruins spawning on the turf
 
-//ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING 1
-#define SLOT_ICLOTHING 2
-#define SLOT_GLOVES 4
-#define SLOT_EYES 8
-#define SLOT_EARS 16
-#define SLOT_MASK 32
-#define SLOT_HEAD 64
-#define SLOT_FEET 128
-#define SLOT_ID 256
-#define SLOT_BELT 512
-#define SLOT_BACK 1024
-#define SLOT_POCKET 2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
-#define SLOT_TWOEARS 8192
-#define SLOT_PDA 16384
-#define SLOT_TIE 32768
+/*
+	These defines are used specifically with the atom/pass_flags bitmask
+	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)
+*/
+//flags for pass_flags
+#define PASSTABLE		(1<<0)
+#define PASSGLASS		(1<<1)
+#define PASSGRILLE		(1<<2)
+#define PASSBLOB		(1<<3)
+#define PASSMOB			(1<<4)
+#define PASSCLOSEDTURF	(1<<5)
+#define LETPASSTHROW	(1<<6)
 
-//ORGAN TYPE FLAGS
-#define AFFECT_ROBOTIC_ORGAN	1
-#define AFFECT_ORGANIC_ORGAN	2
-#define AFFECT_ALL_ORGANS		3
+//Movement Types
+#define GROUND			(1<<0)
+#define FLYING			(1<<1)
+#define VENTCRAWLING	(1<<2)
+#define FLOATING		(1<<3)
+#define UNSTOPPABLE		(1<<4)			//When moving, will Bump()/Cross()/Uncross() everything, but won't be stopped.
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
+//Fire and Acid stuff, for resistance_flags
+#define LAVA_PROOF		(1<<0)
+#define FIRE_PROOF		(1<<1) //100% immune to fire damage (but not necessarily to lava or heat)
+#define FLAMMABLE		(1<<2)
+#define ON_FIRE			(1<<3)
+#define UNACIDABLE		(1<<4) //acid can't even appear on it, let alone melt it.
+#define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
+#define INDESTRUCTIBLE	(1<<6) //doesn't take damage
+#define FREEZE_PROOF	(1<<7) //can't be frozen
 
-//resistance_flags
-#define INDESTRUCTIBLE 64 //doesn't take damage
+//tesla_zap
+#define TESLA_MACHINE_EXPLOSIVE		(1<<0)
+#define TESLA_ALLOW_DUPLICATES		(1<<1)
+#define TESLA_OBJ_DAMAGE			(1<<2)
+#define TESLA_MOB_DAMAGE			(1<<3)
+#define TESLA_MOB_STUN				(1<<4)
 
-#define CHECK_RICOCHET_1			(1<<4)
+#define TESLA_DEFAULT_FLAGS ALL
+#define TESLA_FUSION_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
 
-GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+//EMP protection
+#define EMP_PROTECT_SELF (1<<0)
+#define EMP_PROTECT_CONTENTS (1<<1)
+#define EMP_PROTECT_WIRES (1<<2)
+
+//Mob mobility var flags
+#define MOBILITY_MOVE			(1<<0)		//can move
+#define MOBILITY_STAND			(1<<1)		//can, and is, standing up
+#define MOBILITY_PICKUP			(1<<2)		//can pickup items
+#define MOBILITY_USE			(1<<3)		//can hold and use items
+#define MOBILITY_UI				(1<<4)		//can use interfaces like machinery
+#define MOBILITY_STORAGE		(1<<5)		//can use storage item
+#define MOBILITY_PULL			(1<<6)		//can pull things
+
+#define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
+#define MOBILITY_FLAGS_INTERACTION (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_UI | MOBILITY_STORAGE)
+
+// radiation
+#define RAD_PROTECT_CONTENTS (1<<0)
+#define RAD_NO_CONTAMINATE (1<<1)
+
+//alternate appearance flags
+#define AA_TARGET_SEE_APPEARANCE (1<<0)
+#define AA_MATCH_TARGET_OVERLAYS (1<<1)

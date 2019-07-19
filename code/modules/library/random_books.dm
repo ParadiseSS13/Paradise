@@ -1,12 +1,12 @@
 /obj/item/book/manual/random
 	icon_state = "random_book"
 
-/obj/item/book/manual/random/New()
+/obj/item/book/manual/random/Initialize()
 	..()
-	var/static/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear)
+	var/static/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/random
 	icon_state = "random_book"
@@ -15,6 +15,9 @@
 
 /obj/item/book/random/Initialize()
 	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/book/random/LateInitialize()
 	create_random_books(amount, src.loc, TRUE, category)
 	qdel(src)
 
@@ -26,21 +29,23 @@
 	var/book_count = 2
 	icon_state = "random_bookcase"
 	anchored = TRUE
+	state = 2
 
-/obj/structure/bookcase/random/New()
+/obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	if(!book_count || !isnum(book_count))
-		update_icon()
-		return
-	book_count += pick(-1,-1,0,1,1)
-	create_random_books(book_count, src, FALSE, category)
+	if(book_count && isnum(book_count))
+		book_count += pick(-1,-1,0,1,1)
+		. = INITIALIZE_HINT_LATELOAD
 	update_icon()
+
+/obj/structure/bookcase/random/LateInitialize()
+	create_random_books(book_count, src, FALSE, category)
 
 /proc/create_random_books(amount = 2, location, fail_loud = FALSE, category = null)
 	. = list()
 	if(!isnum(amount) || amount<1)
 		return
-	if(!dbcon.IsConnected())
+	if (!SSdbcore.Connect())
 		if(fail_loud || prob(5))
 			var/obj/item/paper/P = new(location)
 			P.info = "There once was a book from Nantucket<br>But the database failed us, so f*$! it.<br>I tried to be good to you<br>Now this is an I.O.U<br>If you're feeling entitled, well, stuff it!<br><br><font color='gray'>~</font>"
@@ -49,16 +54,17 @@
 	if(prob(25))
 		category = null
 	var/c = category? " AND category='[sanitizeSQL(category)]'" :""
-	var/DBQuery/query_get_random_books = dbcon.NewQuery("SELECT * FROM [format_table_name("library")] WHERE (isnull(flagged) OR flagged = 0)[c] GROUP BY title ORDER BY rand() LIMIT [amount];")
-	query_get_random_books.Execute()
-	while(query_get_random_books.NextRow())
-		var/obj/item/book/B = new(location)
-		. += B
-		B.author	=	query_get_random_books.item[2]
-		B.title		=	query_get_random_books.item[3]
-		B.dat		=	query_get_random_books.item[4]
-		B.name		=	"Book: [B.title]"
-		B.icon_state=	"book[rand(1,8)]"
+	var/datum/DBQuery/query_get_random_books = SSdbcore.NewQuery("SELECT * FROM [format_table_name("library")] WHERE isnull(deleted)[c] GROUP BY title ORDER BY rand() LIMIT [amount];") // isdeleted copyright (c) not me
+	if(query_get_random_books.Execute())
+		while(query_get_random_books.NextRow())
+			var/obj/item/book/B = new(location)
+			. += B
+			B.author	=	query_get_random_books.item[2]
+			B.title		=	query_get_random_books.item[3]
+			B.dat		=	query_get_random_books.item[4]
+			B.name		=	"Book: [B.title]"
+			B.icon_state=	"book[rand(1,8)]"
+	qdel(query_get_random_books)
 
 /obj/structure/bookcase/random/fiction
 	name = "bookcase (Fiction)"

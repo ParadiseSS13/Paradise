@@ -14,7 +14,7 @@
 	growthstages = 4
 	rarity = 30
 	var/list/mutations = list()
-	reagents_add = list("charcoal" = 0.04, "plantmatter" = 0.02)
+	reagents_add = list(/datum/reagent/medicine/charcoal = 0.04, /datum/reagent/consumable/nutriment = 0.02)
 
 /obj/item/seeds/kudzu/Copy()
 	var/obj/item/seeds/kudzu/S = ..()
@@ -22,23 +22,30 @@
 	return S
 
 /obj/item/seeds/kudzu/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide..</span>")
+	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	plant(user)
-	return BRUTELOSS
+	return (BRUTELOSS)
 
 /obj/item/seeds/kudzu/proc/plant(mob/user)
-	if(istype(user.loc, /turf/space))
+	if(isspaceturf(user.loc))
 		return
-	var/turf/T = get_turf(src)
-	message_admins("Kudzu planted by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) at ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>)",0,1)
-	investigate_log("was planted by [key_name(user)] at ([T.x],[T.y],[T.z])","kudzu")
-	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
-	user.drop_item()
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
+		return FALSE
+	if(locate(/obj/structure/spacevine) in user.loc)
+		to_chat(user, "<span class='warning'>There is too much kudzu here to plant [src].</span>")
+		return FALSE
+	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)]")
+	investigate_log("was planted by [key_name(user)] at [AREACOORD(user)]", INVESTIGATE_BOTANY)
+	new /datum/spacevine_controller(get_turf(user), mutations, potency, production)
 	qdel(src)
 
 /obj/item/seeds/kudzu/attack_self(mob/user)
-	plant(user)
-	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+	user.visible_message("<span class='danger'>[user] begins throwing seeds on the ground...</span>")
+	if(do_after(user, 50, needhand = TRUE, target = user.drop_location(), progress = TRUE))
+		plant(user)
+		to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
@@ -51,7 +58,7 @@
 /obj/item/seeds/kudzu/on_chem_reaction(datum/reagents/S)
 	var/list/temp_mut_list = list()
 
-	if(S.has_reagent("sterilizine", 5))
+	if(S.has_reagent(/datum/reagent/space_cleaner/sterilizine, 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == NEGATIVE)
 				temp_mut_list += SM
@@ -59,7 +66,7 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("fuel", 5))
+	if(S.has_reagent(/datum/reagent/fuel, 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == POSITIVE)
 				temp_mut_list += SM
@@ -67,7 +74,7 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("phenol", 5))
+	if(S.has_reagent(/datum/reagent/phenol, 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == MINOR_NEGATIVE)
 				temp_mut_list += SM
@@ -75,16 +82,16 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("blood", 15))
+	if(S.has_reagent(/datum/reagent/blood, 15))
 		adjust_production(rand(15, -5))
 
-	if(S.has_reagent("amanitin", 5))
+	if(S.has_reagent(/datum/reagent/toxin/amatoxin, 5))
 		adjust_production(rand(5, -15))
 
-	if(S.has_reagent("plasma", 5))
+	if(S.has_reagent(/datum/reagent/toxin/plasma, 5))
 		adjust_potency(rand(5, -15))
 
-	if(S.has_reagent("holywater", 10))
+	if(S.has_reagent(/datum/reagent/water/holywater, 10))
 		adjust_potency(rand(15, -5))
 
 
@@ -95,4 +102,6 @@
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2
-	wine_power = 0.2
+	foodtype = VEGETABLES | GROSS
+	tastes = list("kudzu" = 1)
+	wine_power = 20

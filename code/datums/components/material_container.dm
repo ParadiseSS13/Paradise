@@ -63,9 +63,9 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(I.flags & ABSTRACT)
+	if(I.item_flags & ABSTRACT)
 		return
-	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
+	if((I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
 	. = COMPONENT_NO_AFTERATTACK
@@ -84,15 +84,16 @@
 /datum/component/material_container/proc/user_insert(obj/item/I, mob/living/user)
 	set waitfor = FALSE
 	var/requested_amount
+	var/active_held = user.get_active_held_item()  // differs from I when using TK
 	if(istype(I, /obj/item/stack) && precise_insertion)
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
 		requested_amount = input(user, "How much do you want to insert?", "Inserting [S.singular_name]s") as num|null
 		if(isnull(requested_amount) || (requested_amount <= 0))
 			return
-		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
+		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.physical_can_use_topic(current_parent) < UI_INTERACTIVE || user.get_active_held_item() != active_held)
 			return
-	if(!user.drop_item())
+	if(!user.temporarilyRemoveItemFromInventory(I))
 		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
@@ -100,7 +101,7 @@
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
 			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
-			if(!QDELETED(I) && !user.put_in_hands(I))
+			if(!QDELETED(I) && I == active_held && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
@@ -108,7 +109,7 @@
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)
-	else
+	else if(I == active_held)
 		user.put_in_active_hand(I)
 
 //For inserting an amount of material
@@ -378,13 +379,7 @@
 	name = "Bananium"
 	id = MAT_BANANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
-	coin_type = /obj/item/coin/clown
-
-/datum/material/tranquillite
-	name = "Tranquillite"
-	id = MAT_TRANQUILLITE
-	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
-	coin_type = /obj/item/coin/mime
+	coin_type = /obj/item/coin/bananium
 
 /datum/material/titanium
 	name = "Titanium"

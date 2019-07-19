@@ -1,23 +1,18 @@
-/obj/item/gun/energy/shuriken
-	name = "energy shuriken"
-	desc = "A stunning shuriken made of energy."
-	icon_state = "shuriken"
-	item_state = null
-	icon = 'icons/obj/ninjaobjects.dmi'
-	fire_sound = 'sound/weapons/genhit.ogg'
-	cell_type = "/obj/item/stock_parts/cell/infinite"
-	projectile_type = "/obj/item/projectile/energy/shuriken"
-	charge_cost = 0
-	silenced = 1
 
-/obj/item/gun/energy/shuriken/update_icon()
-	qdel(src)
-	return
 
-/obj/item/gun/energy/shuriken/dropped()
-	qdel(src)
-	return
+//Creates a throwing star
+/obj/item/clothing/suit/space/space_ninja/proc/ninjastar()
+	if(!ninjacost(10))
+		var/mob/living/carbon/human/H = affecting
+		var/obj/item/throwing_star/ninja/N = new(H)
+		if(H.put_in_hands(N))
+			to_chat(H, "<span class='notice'>A throwing star has been created in your hand!</span>")
+		else
+			qdel(N)
+		H.throw_mode_on() //So they can quickly throw it.
 
-/obj/item/gun/energy/shuriken/proc/throw()
-	qdel(src)
-	return
+
+/obj/item/throwing_star/ninja
+	name = "ninja throwing star"
+	throwforce = 30
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 100, "embedded_fall_chance" = 0)

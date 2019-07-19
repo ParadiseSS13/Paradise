@@ -2,298 +2,186 @@ SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
 	runlevels = RUNLEVEL_GAME
-	// Report events at the end of the rouund
-	var/report_at_round_end = 0
 
-    // UI vars
-	var/window_x = 700
-	var/window_y = 600
-	var/table_options = " align='center'"
-	var/head_options = " style='font-weight:bold;'"
-	var/row_options1 = " width='85px'"
-	var/row_options2 = " width='260px'"
-	var/row_options3 = " width='150px'"
+	var/list/control = list()	//list of all datum/round_event_control. Used for selecting events based on weight and occurrences.
+	var/list/running = list()	//list of all existing /datum/round_event
+	var/list/currentrun = list()
 
-    // Event vars
-	var/datum/event_container/selected_event_container = null
-	var/list/active_events = list()
-	var/list/finished_events = list()
-	var/list/allEvents
-	var/list/event_containers = list(
-			EVENT_LEVEL_MUNDANE 	= new/datum/event_container/mundane,
-			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
-			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
-		)
+	var/scheduled = 0			//The next world.time that a naturally occuring random event can be selected.
+	var/frequency_lower = 1800	//3 minutes lower bound.
+	var/frequency_upper = 6000	//10 minutes upper bound. Basically an event will happen every 3 to 10 minutes.
 
-	var/datum/event_meta/new_event = new
+	var/list/holidays			//List of all holidays occuring today or null if no holidays
+	var/wizardmode = FALSE
 
-/datum/controller/subsystem/events/Initialize()
-	allEvents = subtypesof(/datum/event)
+/datum/controller/subsystem/events/Initialize(time, zlevel)
+	for(var/type in typesof(/datum/round_event_control))
+		var/datum/round_event_control/E = new type()
+		if(!E.typepath)
+			continue				//don't want this one! leave it for the garbage collector
+		control += E				//add it to the list of all events (controls)
+	reschedule()
+	getHoliday()
 	return ..()
 
-/datum/controller/subsystem/events/fire()
-	for(var/datum/event/E in active_events)
-		E.process()
 
-	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-		var/list/datum/event_container/EC = event_containers[i]
-		EC.process()
+/datum/controller/subsystem/events/fire(resumed = 0)
+	if(!resumed)
+		checkEvent() //only check these if we aren't resuming a paused fire
+		src.currentrun = running.Copy()
 
-/datum/controller/subsystem/events/proc/event_complete(var/datum/event/E)
-	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
-		log_debug("Event of '[E.type]' with missing meta-data has completed.")
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
+
+	while(currentrun.len)
+		var/datum/thing = currentrun[currentrun.len]
+		currentrun.len--
+		if(thing)
+			thing.process()
+		else
+			running.Remove(thing)
+		if (MC_TICK_CHECK)
+			return
+
+//checks if we should select a random event yet, and reschedules if necessary
+/datum/controller/subsystem/events/proc/checkEvent()
+	if(scheduled <= world.time)
+		spawnEvent()
+		reschedule()
+
+//decides which world.time we should select another random event at.
+/datum/controller/subsystem/events/proc/reschedule()
+	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
+
+//selects a random event based on whether it can occur and it's 'weight'(probability)
+/datum/controller/subsystem/events/proc/spawnEvent()
+	set waitfor = FALSE	//for the admin prompt
+	if(!CONFIG_GET(flag/allow_random_events))
 		return
 
-	finished_events += E
+	var/gamemode = SSticker.mode.config_tag
+	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
+	// Only alive, non-AFK human players count towards this.
 
-	var/theseverity
+	var/sum_of_weights = 0
+	for(var/datum/round_event_control/E in control)
+		if(!E.canSpawnEvent(players_amt, gamemode))
+			continue
+		if(E.weight < 0)						//for round-start events etc.
+			var/res = TriggerEvent(E)
+			if(res == EVENT_INTERRUPTED)
+				continue	//like it never happened
+			if(res == EVENT_CANT_RUN)
+				return
+		sum_of_weights += E.weight
 
-	if(!E.severity)
-		theseverity = EVENT_LEVEL_MODERATE
+	sum_of_weights = rand(0,sum_of_weights)	//reusing this variable. It now represents the 'weight' we want to select
 
-	if(!E.severity == EVENT_LEVEL_MUNDANE && !E.severity == EVENT_LEVEL_MODERATE && !E.severity == EVENT_LEVEL_MAJOR)
-		theseverity = EVENT_LEVEL_MODERATE //just to be careful
+	for(var/datum/round_event_control/E in control)
+		if(!E.canSpawnEvent(players_amt, gamemode))
+			continue
+		sum_of_weights -= E.weight
 
-	if(E.severity)
-		theseverity = E.severity
+		if(sum_of_weights <= 0)				//we've hit our goal
+			if(TriggerEvent(E))
+				return
 
-	// Add the event back to the list of available events
-	var/datum/event_container/EC = event_containers[theseverity]
-	var/datum/event_meta/EM = E.event_meta
-	EC.available_events += EM
+/datum/controller/subsystem/events/proc/TriggerEvent(datum/round_event_control/E)
+	. = E.preRunEvent()
+	if(. == EVENT_CANT_RUN)//we couldn't run this event for some reason, set its max_occurrences to 0
+		E.max_occurrences = 0
+	else if(. == EVENT_READY)
+		E.random = TRUE
+		E.runEvent()
 
-	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
+//allows a client to trigger an event
+//aka Badmin Central
+// > Not in modules/admin
+// REEEEEEEEE
+/client/proc/forceEvent()
+	set name = "Trigger Event"
+	set category = "Fun"
 
-/datum/controller/subsystem/events/proc/delay_events(var/severity, var/delay)
-	var/list/datum/event_container/EC = event_containers[severity]
-	EC.next_event_time += delay
+	if(!holder ||!check_rights(R_FUN))
+		return
 
-/datum/controller/subsystem/events/proc/Interact(var/mob/living/user)
+	holder.forceEvent()
 
-	var/html = GetInteractWindow()
+/datum/admins/proc/forceEvent()
+	var/dat 	= ""
+	var/normal 	= ""
+	var/magic 	= ""
+	var/holiday = ""
+	for(var/datum/round_event_control/E in SSevents.control)
+		dat = "<BR><A href='?src=[REF(src)];[HrefToken()];forceevent=[REF(E)]'>[E]</A>"
+		if(E.holidayID)
+			holiday	+= dat
+		else if(E.wizardevent)
+			magic 	+= dat
+		else
+			normal 	+= dat
 
-	var/datum/browser/popup = new(user, "event_manager", "Event Manager", window_x, window_y)
-	popup.set_content(html)
+	dat = normal + "<BR>" + magic + "<BR>" + holiday
+
+	var/datum/browser/popup = new(usr, "forceevent", "Force Random Event", 300, 750)
+	popup.set_content(dat)
 	popup.open()
 
-/datum/controller/subsystem/events/proc/RoundEnd()
-	if(!report_at_round_end)
-		return
 
-	to_chat(world, "<br><br><br><font size=3><b>Random Events This Round:</b></font>")
-	for(var/datum/event/E in active_events|finished_events)
-		var/datum/event_meta/EM = E.event_meta
-		if(EM.name == "Nothing")
-			continue
-		var/message = "'[EM.name]' began at [station_time_timestamp("hh:mm:ss", E.startedAt)] "
-		if(E.isRunning)
-			message += "and is still running."
+/*
+//////////////
+// HOLIDAYS //
+//////////////
+//Uncommenting ALLOW_HOLIDAYS in config.txt will enable holidays
+
+//It's easy to add stuff. Just add a holiday datum in code/modules/holiday/holidays.dm
+//You can then check if it's a special day in any code in the game by doing if(SSevents.holidays["Groundhog Day"])
+
+//You can also make holiday random events easily thanks to Pete/Gia's system.
+//simply make a random event normally, then assign it a holidayID string which matches the holiday's name.
+//Anything with a holidayID, which isn't in the holidays list, will never occur.
+
+//Please, Don't spam stuff up with stupid stuff (key example being april-fools Pooh/ERP/etc),
+//And don't forget: CHECK YOUR CODE!!!! We don't want any zero-day bugs which happen only on holidays and never get found/fixed!
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//ALSO, MOST IMPORTANTLY: Don't add stupid stuff! Discuss bonus content with Project-Heads first please!//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+
+//sets up the holidays and holidays list
+/datum/controller/subsystem/events/proc/getHoliday()
+	if(!CONFIG_GET(flag/allow_holidays))
+		return		// Holiday stuff was not enabled in the config!
+
+	var/YY = text2num(time2text(world.timeofday, "YY")) 	// get the current year
+	var/MM = text2num(time2text(world.timeofday, "MM")) 	// get the current month
+	var/DD = text2num(time2text(world.timeofday, "DD")) 	// get the current day
+	var/DDD = time2text(world.timeofday, "DDD")	// get the current weekday
+	var/W = weekdayofthemonth()	// is this the first monday? second? etc.
+
+	for(var/H in subtypesof(/datum/holiday))
+		var/datum/holiday/holiday = new H()
+		if(holiday.shouldCelebrate(DD, MM, YY, W, DDD))
+			holiday.celebrate()
+			if(!holidays)
+				holidays = list()
+			holidays[holiday.name] = holiday
 		else
-			if(E.endedAt - E.startedAt > MinutesToTicks(5)) // Only mention end time if the entire duration was more than 5 minutes
-				message += "and ended at [station_time_timestamp("hh:mm:ss", E.endedAt)]."
-			else
-				message += "and ran to completion."
+			qdel(holiday)
 
-		to_chat(world, message)
+	if(holidays)
+		holidays = shuffle(holidays)
+		// regenerate station name because holiday prefixes.
+		set_station_name(new_station_name())
+		world.update_status()
 
-/datum/controller/subsystem/events/proc/GetInteractWindow()
-	var/html = "<A align='right' href='?src=[UID()];refresh=1'>Refresh</A>"
-
-	if(selected_event_container)
-		var/event_time = max(0, selected_event_container.next_event_time - world.time)
-		html += "<A align='right' href='?src=[UID()];back=1'>Back</A><br>"
-		html += "Time till start: [round(event_time / 600, 0.1)]<br>"
-		html += "<div class='block'>"
-		html += "<h2>Available [severity_to_string[selected_event_container.severity]] Events (queued & running events will not be displayed)</h2>"
-		html += "<table[table_options]>"
-		html += "<tr[head_options]><td[row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
-		for(var/datum/event_meta/EM in selected_event_container.available_events)
-			html += "<tr>"
-			html += "<td>[EM.name]</td>"
-			html += "<td><A align='right' href='?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</A></td>"
-			html += "<td>[EM.min_weight]</td>"
-			html += "<td>[EM.max_weight]</td>"
-			html += "<td><A align='right' href='?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
-			html += "<td><A align='right' href='?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
-			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"
-			html += "<td><A align='right' href='?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</A></td>"
-			html += "</tr>"
-		html += "</table>"
-		html += "</div>"
-
-		html += "<div class='block'>"
-		html += "<h2>Add Event</h2>"
-		html += "<table[table_options]>"
-		html += "<tr [head_options]><td[row_options2]>Name</td><td[row_options2]>Type</td><td[row_options1]>Weight</td><td[row_options1]>OneShot</td></tr>"
-		html += "<tr>"
-		html += "<td><A align='right' href='?src=[UID()];set_name=\ref[new_event]'>[new_event.name ? new_event.name : "Enter Event"]</A></td>"
-		html += "<td><A align='right' href='?src=[UID()];set_type=\ref[new_event]'>[new_event.event_type ? new_event.event_type : "Select Type"]</A></td>"
-		html += "<td><A align='right' href='?src=[UID()];set_weight=\ref[new_event]'>[new_event.weight ? new_event.weight : 0]</A></td>"
-		html += "<td><A align='right' href='?src=[UID()];toggle_oneshot=\ref[new_event]'>[new_event.one_shot]</A></td>"
-		html += "</tr>"
-		html += "</table>"
-		html += "<A align='right' href='?src=[UID()];add=\ref[selected_event_container]'>Add</A><br>"
-		html += "</div>"
-	else
-		html += "<A align='right' href='?src=[UID()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</A><br>"
-		html += "<div class='block'>"
-		html += "<h2>Event Start</h2>"
-
-		html += "<table[table_options]>"
-		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options1]>Starts At</td><td[row_options1]>Starts In</td><td[row_options3]>Adjust Start</td><td[row_options1]>Pause</td><td[row_options1]>Interval Mod</td></tr>"
-		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-			var/datum/event_container/EC = event_containers[severity]
-			var/next_event_at = max(0, EC.next_event_time - world.time)
-			html += "<tr>"
-			html += "<td>[severity_to_string[severity]]</td>"
-			html += "<td>[station_time_timestamp("hh:mm:ss", max(EC.next_event_time, world.time))]</td>"
-			html += "<td>[round(next_event_at / 600, 0.1)]</td>"
-			html += "<td>"
-			html +=   "<A align='right' href='?src=[UID()];dec_timer=2;event=\ref[EC]'>--</A>"
-			html +=   "<A align='right' href='?src=[UID()];dec_timer=1;event=\ref[EC]'>-</A>"
-			html +=   "<A align='right' href='?src=[UID()];inc_timer=1;event=\ref[EC]'>+</A>"
-			html +=   "<A align='right' href='?src=[UID()];inc_timer=2;event=\ref[EC]'>++</A>"
-			html += "</td>"
-			html += "<td>"
-			html +=   "<A align='right' href='?src=[UID()];pause=\ref[EC]'>[EC.delayed ? "Resume" : "Pause"]</A>"
-			html += "</td>"
-			html += "<td>"
-			html +=   "<A align='right' href='?src=[UID()];interval=\ref[EC]'>[EC.delay_modifier]</A>"
-			html += "</td>"
-			html += "</tr>"
-		html += "</table>"
-		html += "</div>"
-
-		html += "<div class='block'>"
-		html += "<h2>Next Event</h2>"
-		html += "<table[table_options]>"
-		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options3]>Event Rotation</td><td>Clear</td></tr>"
-		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-			var/datum/event_container/EC = event_containers[severity]
-			var/datum/event_meta/EM = EC.next_event
-			html += "<tr>"
-			html += "<td>[severity_to_string[severity]]</td>"
-			html += "<td><A align='right' href='?src=[UID()];select_event=\ref[EC]'>[EM ? EM.name : "Random"]</A></td>"
-			html += "<td><A align='right' href='?src=[UID()];view_events=\ref[EC]'>View</A></td>"
-			html += "<td><A align='right' href='?src=[UID()];clear=\ref[EC]'>Clear</A></td>"
-			html += "</tr>"
-		html += "</table>"
-		html += "</div>"
-
-		html += "<div class='block'>"
-		html += "<h2>Running Events</h2>"
-		html += "Estimated times, affected by master controller delays."
-		html += "<table[table_options]>"
-		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options1]>Ends At</td><td[row_options1]>Ends In</td><td[row_options3]>Stop</td></tr>"
-		for(var/datum/event/E in active_events)
-			if(!E.event_meta)
-				continue
-			var/datum/event_meta/EM = E.event_meta
-			var/ends_at = E.startedAt + (E.lastProcessAt() * 20)	// A best estimate, based on how often the manager processes
-			var/ends_in = max(0, round((ends_at - world.time) / 600, 0.1))
-			var/no_end = E.noAutoEnd
-			html += "<tr>"
-			html += "<td>[severity_to_string[EM.severity]]</td>"
-			html += "<td>[EM.name]</td>"
-			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
-			html += "<td>[no_end ? "N/A" : ends_in]</td>"
-			html += "<td><A align='right' href='?src=[UID()];stop=\ref[E]'>Stop</A></td>"
-			html += "</tr>"
-		html += "</table>"
-		html += "</div>"
-
-	return html
-
-/datum/controller/subsystem/events/Topic(href, href_list)
-	if(..())
-		return
+/datum/controller/subsystem/events/proc/toggleWizardmode()
+	wizardmode = !wizardmode
+	message_admins("Summon Events has been [wizardmode ? "enabled, events will occur every [SSevents.frequency_lower / 600] to [SSevents.frequency_upper / 600] minutes" : "disabled"]!")
+	log_game("Summon Events was [wizardmode ? "enabled" : "disabled"]!")
 
 
-	if(href_list["toggle_report"])
-		report_at_round_end = !report_at_round_end
-		admin_log_and_message_admins("has [report_at_round_end ? "enabled" : "disabled"] the round end event report.")
-	else if(href_list["dec_timer"])
-		var/datum/event_container/EC = locate(href_list["event"])
-		var/decrease = (60 * RaiseToPower(10, text2num(href_list["dec_timer"])))
-		EC.next_event_time -= decrease
-		admin_log_and_message_admins("decreased timer for [severity_to_string[EC.severity]] events by [decrease/600] minute(s).")
-	else if(href_list["inc_timer"])
-		var/datum/event_container/EC = locate(href_list["event"])
-		var/increase = (60 * RaiseToPower(10, text2num(href_list["inc_timer"])))
-		EC.next_event_time += increase
-		admin_log_and_message_admins("increased timer for [severity_to_string[EC.severity]] events by [increase/600] minute(s).")
-	else if(href_list["select_event"])
-		var/datum/event_container/EC = locate(href_list["select_event"])
-		var/datum/event_meta/EM = EC.SelectEvent()
-		if(EM)
-			admin_log_and_message_admins("has queued the [severity_to_string[EC.severity]] event '[EM.name]'.")
-	else if(href_list["pause"])
-		var/datum/event_container/EC = locate(href_list["pause"])
-		EC.delayed = !EC.delayed
-		admin_log_and_message_admins("has [EC.delayed ? "paused" : "resumed"] countdown for [severity_to_string[EC.severity]] events.")
-	else if(href_list["interval"])
-		var/delay = input("Enter delay modifier. A value less than one means events fire more often, higher than one less often.", "Set Interval Modifier") as num|null
-		if(delay && delay > 0)
-			var/datum/event_container/EC = locate(href_list["interval"])
-			EC.delay_modifier = delay
-			admin_log_and_message_admins("has set the interval modifier for [severity_to_string[EC.severity]] events to [EC.delay_modifier].")
-	else if(href_list["stop"])
-		if(alert("Stopping an event may have unintended side-effects. Continue?","Stopping Event!","Yes","No") != "Yes")
-			return
-		var/datum/event/E = locate(href_list["stop"])
-		var/datum/event_meta/EM = E.event_meta
-		admin_log_and_message_admins("has stopped the [severity_to_string[EM.severity]] event '[EM.name]'.")
-		E.kill()
-	else if(href_list["view_events"])
-		selected_event_container = locate(href_list["view_events"])
-	else if(href_list["back"])
-		selected_event_container = null
-	else if(href_list["set_name"])
-		var/name = input("Enter event name.", "Set Name") as text|null
-		if(name)
-			var/datum/event_meta/EM = locate(href_list["set_name"])
-			EM.name = name
-	else if(href_list["set_type"])
-		var/type = input("Select event type.", "Select") as null|anything in allEvents
-		if(type)
-			var/datum/event_meta/EM = locate(href_list["set_type"])
-			EM.event_type = type
-	else if(href_list["set_weight"])
-		var/weight = input("Enter weight. A higher value means higher chance for the event of being selected.", "Set Weight") as num|null
-		if(weight && weight > 0)
-			var/datum/event_meta/EM = locate(href_list["set_weight"])
-			EM.weight = weight
-			if(EM != new_event)
-				admin_log_and_message_admins("has changed the weight of the [severity_to_string[EM.severity]] event '[EM.name]' to [EM.weight].")
-	else if(href_list["toggle_oneshot"])
-		var/datum/event_meta/EM = locate(href_list["toggle_oneshot"])
-		EM.one_shot = !EM.one_shot
-		if(EM != new_event)
-			admin_log_and_message_admins("has [EM.one_shot ? "set" : "unset"] the oneshot flag for the [severity_to_string[EM.severity]] event '[EM.name]'.")
-	else if(href_list["toggle_enabled"])
-		var/datum/event_meta/EM = locate(href_list["toggle_enabled"])
-		EM.enabled = !EM.enabled
-		admin_log_and_message_admins("has [EM.enabled ? "enabled" : "disabled"] the [severity_to_string[EM.severity]] event '[EM.name]'.")
-	else if(href_list["remove"])
-		if(alert("This will remove the event from rotation. Continue?","Removing Event!","Yes","No") != "Yes")
-			return
-		var/datum/event_meta/EM = locate(href_list["remove"])
-		var/datum/event_container/EC = locate(href_list["EC"])
-		EC.available_events -= EM
-		admin_log_and_message_admins("has removed the [severity_to_string[EM.severity]] event '[EM.name]'.")
-	else if(href_list["add"])
-		if(!new_event.name || !new_event.event_type)
-			return
-		if(alert("This will add a new event to the rotation. Continue?","Add Event!","Yes","No") != "Yes")
-			return
-		new_event.severity = selected_event_container.severity
-		selected_event_container.available_events += new_event
-		admin_log_and_message_admins("has added \a [severity_to_string[new_event.severity]] event '[new_event.name]' of type [new_event.event_type] with weight [new_event.weight].")
-		new_event = new
-	else if(href_list["clear"])
-		var/datum/event_container/EC = locate(href_list["clear"])
-		if(EC.next_event)
-			admin_log_and_message_admins("has dequeued the [severity_to_string[EC.severity]] event '[EC.next_event.name]'.")
-			EC.next_event = null
-
-	Interact(usr)
+/datum/controller/subsystem/events/proc/resetFrequency()
+	frequency_lower = initial(frequency_lower)
+	frequency_upper = initial(frequency_upper)

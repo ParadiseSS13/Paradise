@@ -1,28 +1,20 @@
-/mob/living/simple_animal/hostile/guardian/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/guardian(src)
 
-/datum/hud/guardian/New(mob/owner)
+/datum/hud/guardian/New(mob/living/simple_animal/hostile/guardian/owner)
 	..()
 	var/obj/screen/using
 
-	guardianhealthdisplay = new /obj/screen/healths/guardian()
-	infodisplay += guardianhealthdisplay
+	healths = new /obj/screen/healths/guardian()
+	infodisplay += healths
 
-	using = new /obj/screen/act_intent/guardian()
-	using.icon_state = mymob.a_intent
-	static_inventory += using
-	action_intent = using
-	
 	using = new /obj/screen/guardian/Manifest()
-	using.screen_loc = ui_rhand
+	using.screen_loc = ui_hand_position(2)
 	static_inventory += using
 
 	using = new /obj/screen/guardian/Recall()
-	using.screen_loc = ui_lhand
+	using.screen_loc = ui_hand_position(1)
 	static_inventory += using
 
-	using = new /obj/screen/guardian/ToggleMode()
+	using = new owner.toggle_button_type()
 	using.screen_loc = ui_storage1
 	static_inventory += using
 
@@ -34,12 +26,67 @@
 	using.screen_loc = ui_back
 	static_inventory += using
 
+/datum/hud/dextrous/guardian/New(mob/living/simple_animal/hostile/guardian/owner) //for a dextrous guardian
+	..()
+	var/obj/screen/using
+	if(istype(owner, /mob/living/simple_animal/hostile/guardian/dextrous))
+		var/obj/screen/inventory/inv_box
 
-//HUD BUTTONS
+		inv_box = new /obj/screen/inventory()
+		inv_box.name = "internal storage"
+		inv_box.icon = ui_style
+		inv_box.icon_state = "suit_storage"
+		inv_box.screen_loc = ui_id
+		inv_box.slot_id = SLOT_GENERC_DEXTROUS_STORAGE
+		static_inventory += inv_box
+
+		using = new /obj/screen/guardian/Communicate()
+		using.screen_loc = ui_sstore1
+		static_inventory += using
+
+	else
+
+		using = new /obj/screen/guardian/Communicate()
+		using.screen_loc = ui_id
+		static_inventory += using
+
+	healths = new /obj/screen/healths/guardian()
+	infodisplay += healths
+
+	using = new /obj/screen/guardian/Manifest()
+	using.screen_loc = ui_belt
+	static_inventory += using
+
+	using = new /obj/screen/guardian/Recall()
+	using.screen_loc = ui_back
+	static_inventory += using
+
+	using = new owner.toggle_button_type()
+	using.screen_loc = ui_storage2
+	static_inventory += using
+
+	using = new /obj/screen/guardian/ToggleLight()
+	using.screen_loc = ui_inventory
+	static_inventory += using
+
+/datum/hud/dextrous/guardian/persistent_inventory_update()
+	if(!mymob)
+		return
+	if(istype(mymob, /mob/living/simple_animal/hostile/guardian/dextrous))
+		var/mob/living/simple_animal/hostile/guardian/dextrous/D = mymob
+
+		if(hud_shown)
+			if(D.internal_storage)
+				D.internal_storage.screen_loc = ui_id
+				D.client.screen += D.internal_storage
+		else
+			if(D.internal_storage)
+				D.internal_storage.screen_loc = null
+
+	..()
 
 /obj/screen/guardian
 	icon = 'icons/mob/guardian.dmi'
-	icon_state = "base"
 
 /obj/screen/guardian/Manifest
 	icon_state = "manifest"
@@ -71,6 +118,14 @@
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.ToggleMode()
+
+/obj/screen/guardian/ToggleMode/Inactive
+	icon_state = "notoggle" //greyed out so it doesn't look like it'll work
+
+/obj/screen/guardian/ToggleMode/Assassin
+	icon_state = "stealth"
+	name = "Toggle Stealth"
+	desc = "Enter or exit stealth."
 
 /obj/screen/guardian/Communicate
 	icon_state = "communicate"

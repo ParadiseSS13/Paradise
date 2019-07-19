@@ -1,48 +1,38 @@
 /client/proc/dsay(msg as text)
-	set category = "Admin"
-	set name = "Dsay" //Gave this shit a shorter name so you only have to time out "dsay" rather than "dead say" to use it --NeoFite
+	set category = "Special Verbs"
+	set name = "Dsay"
 	set hidden = 1
-	
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!holder)
+		to_chat(src, "Only administrators may use this command.")
 		return
-		
-	if(!src.mob)
+	if(!mob)
 		return
-		
 	if(prefs.muted & MUTE_DEADCHAT)
-		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
+		to_chat(src, "<span class='danger'>You cannot send DSAY messages (muted).</span>")
 		return
 
-	if(!(prefs.toggles & CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+	if (handle_spam_prevention(msg,MUTE_DEADCHAT))
 		return
 
-	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
+	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
+	mob.log_talk(msg, LOG_DSAY)
+
+	if (!msg)
 		return
-
-	var/stafftype = null
-
-	if(check_rights(R_MENTOR, 0))
-		stafftype = "MENTOR"
-
-	if(check_rights(R_MOD, 0))
-		stafftype = "MOD"
-
-	if(check_rights(R_ADMIN, 0))
-		stafftype = "ADMIN"
-
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
-	log_admin("[key_name(src)] : [msg]")
-
-	if(!msg)
-		return
-
-	var/prefix = "[stafftype] ([src.key])"
+	var/rank_name = holder.rank
+	var/admin_name = key
 	if(holder.fakekey)
-		prefix = "Administrator"
-	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
+		rank_name = pick(strings("admin_nicknames.json", "ranks", "config"))
+		admin_name = pick(strings("admin_nicknames.json", "names", "config"))
+	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[rank_name]([admin_name])</span> says, <span class='message'>\"[emoji_parse(msg)]\"</span></span>"
 
-	feedback_add_details("admin_verb","D") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	for (var/mob/M in GLOB.player_list)
+		if(isnewplayer(M))
+			continue
+		if (M.stat == DEAD || (M.client && M.client.holder && (M.client.prefs.chat_toggles & CHAT_DEAD))) //admins can toggle deadchat on and off. This is a proc in admin.dm and is only give to Administrators and above
+			to_chat(M, rendered)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_dead_say()
 	var/msg = input(src, null, "dsay \"text\"") as text

@@ -3,89 +3,71 @@
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "holder"
 	item_state = "assembly"
-	flags = CONDUCT
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	flags_1 = CONDUCT_1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
-	throw_range = 10
+	throw_speed = 2
+	throw_range = 7
 
-	var/secured = FALSE
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
-/obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
-	return
-
-/obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
-	return
+/obj/item/assembly_holder/ComponentInitialize()
+	. = ..()
+	AddComponent(
+		/datum/component/simple_rotation,
+		ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS)
 
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
 
-/obj/item/assembly_holder/Destroy()
-	if(a_left)
-		a_left.holder = null
-	if(a_right)
-		a_right.holder = null
-	return ..()
 
-/obj/item/assembly_holder/attach(obj/item/D, obj/item/D2, mob/user)
-	if(!D || !D2)
-		return FALSE
-	if(!isassembly(D) || !isassembly(D2))
-		return FALSE
-	var/obj/item/assembly/A1 = D
-	var/obj/item/assembly/A2 = D2
-	if(A1.secured || A2.secured)
-		return FALSE
-	if(!A1.remove_item_from_storage(src))
-		if(user)
-			user.remove_from_mob(A1)
-		A1.loc = src
-	if(!A2.remove_item_from_storage(src))
-		if(user)
-			user.remove_from_mob(A2)
-		A2.loc = src
-	A1.holder = src
-	A2.holder = src
-	a_left = A1
-	a_right = A2
-	name = "[A1.name]-[A2.name] assembly"
+/obj/item/assembly_holder/proc/assemble(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
+	attach(A,user)
+	attach(A2,user)
+	name = "[A.name]-[A2.name] assembly"
 	update_icon()
-	return TRUE
+	SSblackbox.record_feedback("tally", "assembly_made", 1, "[initial(A.name)]-[initial(A2.name)]")
 
+/obj/item/assembly_holder/proc/attach(obj/item/assembly/A, mob/user)
+	if(!A.remove_item_from_storage(src))
+		if(user)
+			user.transferItemToLoc(A, src)
+		else
+			A.forceMove(src)
+	A.holder = src
+	A.toggle_secure()
+	if(!a_left)
+		a_left = A
+	else
+		a_right = A
+	A.holder_movement()
 
 /obj/item/assembly_holder/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	if(a_left)
-		overlays += "[a_left.icon_state]_left"
+		add_overlay("[a_left.icon_state]_left")
 		for(var/O in a_left.attached_overlays)
-			overlays += "[O]_l"
+			add_overlay("[O]_l")
+
 	if(a_right)
-		overlays += "[a_right.icon_state]_right"
-		for(var/O in a_right.attached_overlays)
-			overlays += "[O]_r"
+		if(a_right.is_position_sensitive)
+			add_overlay("[a_right.icon_state]_right")
+			for(var/O in a_right.attached_overlays)
+				add_overlay("[O]_r")
+		else
+			var/mutable_appearance/right = mutable_appearance(icon, "[a_right.icon_state]_left")
+			right.transform = matrix(-1, 0, 0, 0, 1, 0)
+			for(var/O in a_right.attached_overlays)
+				right.add_overlay("[O]_l")
+			add_overlay(right)
+
 	if(master)
 		master.update_icon()
 
-
-/obj/item/assembly_holder/examine(mob/user)
-	..(user)
-	if(in_range(src, user) || loc == user)
-		if(secured)
-			to_chat(user, "[src] is ready!")
-		else
-			to_chat(user, "[src] can be attached!")
-
-
-/obj/item/assembly_holder/HasProximity(atom/movable/AM)
-	if(a_left)
-		a_left.HasProximity(AM)
-	if(a_right)
-		a_right.HasProximity(AM)
-
-
-/obj/item/assembly_holder/Crossed(atom/movable/AM)
+/obj/item/assembly_holder/Crossed(atom/movable/AM as mob|obj)
 	if(a_left)
 		a_left.Crossed(AM)
 	if(a_right)
@@ -97,115 +79,67 @@
 	if(a_right)
 		a_right.on_found(finder)
 
-
-/obj/item/assembly_holder/hear_talk(mob/living/M, list/message_pieces)
+/obj/item/assembly_holder/setDir()
+	. = ..()
 	if(a_left)
-		a_left.hear_talk(M, message_pieces)
-	if(a_right)
-		a_right.hear_talk(M, message_pieces)
-
-/obj/item/assembly_holder/hear_message(mob/living/M, msg)
-	if(a_left)
-		a_left.hear_message(M, msg)
-	if(a_right)
-		a_right.hear_message(M, msg)
-
-/obj/item/assembly_holder/proc/process_movement() // infrared beams and prox sensors
-	if(a_left && a_right)
 		a_left.holder_movement()
+	if(a_right)
 		a_right.holder_movement()
 
-/obj/item/assembly_holder/Move()
+/obj/item/assembly_holder/dropped(mob/user)
 	. = ..()
-	process_movement()
-	return
-
-/obj/item/assembly_holder/pickup()
-	. = ..()
-	process_movement()
-
-/obj/item/assembly_holder/Bump()
-	..()
-	process_movement()
-
-/obj/item/assembly_holder/throw_impact() // called when a throw stops
-	..()
-	process_movement()
+	if(a_left)
+		a_left.dropped()
+	if(a_right)
+		a_right.dropped()
 
 /obj/item/assembly_holder/attack_hand()//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
-	if(a_left && a_right)
-		a_left.holder_movement()
-		a_right.holder_movement()
-	..()
-	return
-
-/obj/item/assembly_holder/attackby(obj/item/W, mob/user, params)
-	if(isscrewdriver(W))
-		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
-			return
-		a_left.toggle_secure()
-		a_right.toggle_secure()
-		secured = !secured
-		if(secured)
-			to_chat(user, "<span class='notice'>[src] is ready!</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
-		update_icon()
+	. = ..()
+	if(.)
 		return
-	else
-		..()
-	return
+	if(a_left)
+		a_left.attack_hand()
+	if(a_right)
+		a_right.attack_hand()
 
+/obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool)
+	if(..())
+		return TRUE
+	to_chat(user, "<span class='notice'>You disassemble [src]!</span>")
+	if(a_left)
+		a_left.on_detach()
+		a_left = null
+	if(a_right)
+		a_right.on_detach()
+		a_right = null
+	qdel(src)
+	return TRUE
 
 /obj/item/assembly_holder/attack_self(mob/user)
-	add_fingerprint(user)
-	if(secured)
-		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
-			return
-		if(istype(a_left, a_right.type))//If they are the same type it causes issues due to window code
-			switch(alert("Which side would you like to use?",,"Left","Right"))
-				if("Left")
-					a_left.attack_self(user)
-				if("Right")
-					a_right.attack_self(user)
-			return
-		else
-			a_left.attack_self(user)
-			a_right.attack_self(user)
+	src.add_fingerprint(user)
+	if(!a_left || !a_right)
+		to_chat(user, "<span class='danger'>Assembly part missing!</span>")
+		return
+	if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
+		switch(alert("Which side would you like to use?",,"Left","Right"))
+			if("Left")
+				a_left.attack_self(user)
+			if("Right")
+				a_right.attack_self(user)
+		return
 	else
-		var/turf/T = get_turf(src)
-		if(!T)
-			return FALSE
-		if(a_left)
-			a_left.holder = null
-			a_left.loc = T
-		if(a_right)
-			a_right.holder = null
-			a_right.loc = T
-		qdel(src)
+		a_left.attack_self(user)
+		a_right.attack_self(user)
 
 
-/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE)
+/obj/item/assembly_holder/proc/process_activation(obj/D, normal = 1, special = 1)
 	if(!D)
 		return FALSE
-	if(normal && a_right && a_left)
+	if((normal) && (a_right) && (a_left))
 		if(a_right != D)
-			a_right.pulsed(0)
+			a_right.pulsed(FALSE)
 		if(a_left != D)
-			a_left.pulsed(0)
+			a_left.pulsed(FALSE)
 	if(master)
 		master.receive_signal()
 	return TRUE
-
-/obj/item/assembly_holder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(25))
-				qdel(src)

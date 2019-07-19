@@ -22,6 +22,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	icon_state = "marker"
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
+	novariants = TRUE
 	var/picked_color = "random"
 
 /obj/item/stack/marker_beacon/ten //miners start with 10 of these
@@ -35,9 +36,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	update_icon()
 
 /obj/item/stack/marker_beacon/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Use in-hand to place a [singular_name].</span>")
-	to_chat(user, "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>")
+	. = ..()
+	. += "<span class='notice'>Use in-hand to place a [singular_name].\n"+\
+	"Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/item/stack/marker_beacon/update_icon()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
@@ -56,10 +57,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	if(input_color)
 		picked_color = input_color
@@ -85,15 +86,15 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	update_icon()
 
 /obj/structure/marker_beacon/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
 		M.update_icon()
 	qdel(src)
 
 /obj/structure/marker_beacon/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>")
+	. = ..()
+	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/structure/marker_beacon/update_icon()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
@@ -124,14 +125,21 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			qdel(src)
 			return
+	if(istype(I, /obj/item/light_eater))
+		var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(drop_location())
+		A.desc += "\nLooks like this used to be \a [src] some time ago."
+		visible_message("<span class='danger'>[src] is disintegrated by [I]!</span>")
+		playsound(src, 'sound/items/welder.ogg', 50, 1)
+		qdel(src)
+		return
 	return ..()
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	if(input_color)
 		picked_color = input_color

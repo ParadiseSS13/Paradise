@@ -1,3 +1,5 @@
+
+
 /mob/living
 	var/list/ownedSoullinks //soullinks we are the owner of
 	var/list/sharedSoullinks //soullinks we are a/the sharer of
@@ -14,6 +16,8 @@
 		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
 	sharedSoullinks = null
 	return ..()
+
+
 
 //Keeps track of a Mob->Mob (potentially Player->Player) connection
 //Can be used to trigger actions on one party when events happen to another
@@ -58,14 +62,6 @@
 //Runs after /living death()
 //Override this for content
 /datum/soullink/proc/sharerDies(gibbed, mob/living/owner)
-
-//Runs after /living update_revive()
-//Override this for content
-/datum/soullink/proc/ownerRevives(mob/living/owner)
-
-//Runs after /living update_revive()
-//Override this for content
-/datum/soullink/proc/sharerRevives(mob/living/owner)
 
 //Quick-use helper
 /proc/soullink(typepath, ...)
@@ -122,7 +118,6 @@
 	if(soulsharer)
 		soulsharer.dust(FALSE)
 
-/datum/soullink/oneway/devilfriend
 
 /////////////////
 // SHARED BODY //
@@ -163,53 +158,3 @@
 //Lose your claim to the throne!
 /datum/soullink/multisharer/replacementpool/sharerDies(gibbed, mob/living/sharer)
 	removeSoulsharer(sharer)
-
-
-////////////////
-// SOUL HOOK //
-////////////////
-// When the owner transitions from dead to alive or vice versa,
-// the linked atom is notified
-
-// Atoms that actually utilize this system are responsible for handling the GC cleanup themselves
-// Splashing the GC handling onto every atom would be a big old waste
-
-/datum/soullink/soulhook
-	var/atom/movable/otherend
-
-/datum/soullink/soulhook/Destroy()
-	if(otherend)
-		LAZYREMOVE(otherend.sharedSoulhooks, src)
-		otherend = null
-	return ..()
-
-/datum/soullink/soulhook/parseArgs(mob/living/owner, atom/movable/other)
-	if(!owner || !other)
-		return FALSE
-	soulowner = owner
-	otherend = other
-	LAZYADD(owner.ownedSoullinks, src)
-	LAZYADD(other.sharedSoulhooks, src)
-	return TRUE
-
-/datum/soullink/soulhook/ownerDies(gibbed, mob/living/owner)
-	if(otherend)
-		otherend.onSoullinkDeath(gibbed, owner)
-
-/datum/soullink/soulhook/ownerRevives(mob/living/owner)
-	if(otherend)
-		otherend.onSoullinkRevive(owner)
-
-// oops I'm butchering the application of this
-/datum/soullink/soulhook/removeSoulsharer(atom/movable/other)
-	if(otherend == other)
-		otherend = null
-		LAZYREMOVE(other.sharedSoulhooks, src)
-	qdel(src) // not much point in a soul link with one end out of the picture for good
-
-/atom/movable
-	var/list/sharedSoulhooks = null
-
-/atom/movable/proc/onSoullinkDeath(gibbed, mob/living/owner)
-
-/atom/movable/proc/onSoullinkRevive(mob/living/owner)

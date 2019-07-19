@@ -1,185 +1,213 @@
 /obj/machinery/pipedispenser
-	name = "Pipe Dispenser"
+	name = "pipe dispenser"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
+	desc = "Dispenses countless types of pipes. Very useful if you need pipes."
 	density = TRUE
-	anchored = TRUE
-	var/unwrenched = 0
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_OFFLINE
 	var/wait = 0
+	var/piping_layer = PIPING_LAYER_DEFAULT
 
-/obj/machinery/pipedispenser/attack_hand(mob/user)
-	if(..())
-		return 1
+/obj/machinery/pipedispenser/attack_paw(mob/user)
+	return attack_hand(user)
 
-	interact(user)
+/obj/machinery/pipedispenser/ui_interact(mob/user)
+	. = ..()
+	var/dat = "PIPING LAYER: <A href='?src=[REF(src)];layer_down=1'>--</A><b>[piping_layer]</b><A href='?src=[REF(src)];layer_up=1'>++</A><BR>"
 
-/obj/machinery/pipedispenser/attack_ghost(mob/user)
-	interact(user)
+	var/recipes = GLOB.atmos_pipe_recipes
 
-/obj/machinery/pipedispenser/interact(mob/user)
-	var/dat = {"
-<b>Regular pipes:</b><BR>
-<A href='?src=[UID()];make=0;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=1;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=5;dir=1'>Manifold</A><BR>
-<A href='?src=[UID()];make=8;dir=1'>Manual Valve</A><BR>
-<A href='?src=[UID()];make=35;dir=1'>Digital Valve</A><BR>
-<A href='?src=[UID()];make=20;dir=1'>Pipe Cap</A><BR>
-<A href='?src=[UID()];make=19;dir=1'>4-Way Manifold</A><BR>
-<A href='?src=[UID()];make=18;dir=1'>Manual T-Valve</A><BR>
-<A href='?src=[UID()];make=38;dir=1'>Digital T-Valve</A><BR>
-<b>Supply pipes:</b><BR>
-<A href='?src=[UID()];make=24;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=25;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=28;dir=1'>Manifold</A><BR>
-<A href='?src=[UID()];make=32;dir=1'>Pipe Cap</A><BR>
-<A href='?src=[UID()];make=30;dir=1'>4-Way Manifold</A><BR>
-<b>Scrubbers pipes:</b><BR>
-<A href='?src=[UID()];make=26;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=27;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=29;dir=1'>Manifold</A><BR>
-<A href='?src=[UID()];make=33;dir=1'>Pipe Cap</A><BR>
-<A href='?src=[UID()];make=31;dir=1'>4-Way Manifold</A><BR>
-<b>Devices:</b><BR>
-<A href='?src=[UID()];make=23;dir=1'>Universal Pipe Adapter</A><BR>
-<A href='?src=[UID()];make=4;dir=1'>Connector</A><BR>
-<A href='?src=[UID()];make=7;dir=1'>Unary Vent</A><BR>
-<A href='?src=[UID()];make=9;dir=1'>Gas Pump</A><BR>
-<A href='?src=[UID()];make=15;dir=1'>Passive Gate</A><BR>
-<A href='?src=[UID()];make=16;dir=1'>Volume Pump</A><BR>
-<A href='?src=[UID()];make=10;dir=1'>Scrubber</A><BR>
-<A href='?src=[UID()];makemeter=1'>Meter</A><BR>
-<A href='?src=[UID()];makegsensor=1'>Gas Sensor</A><BR>
-<A href='?src=[UID()];make=13;dir=1'>Gas Filter</A><BR>
-<A href='?src=[UID()];make=14;dir=1'>Gas Mixer</A><BR>
-<A href='?src=[UID()];make=34;dir=1'>Air Injector</A><BR>
-<A href='?src=[UID()];make=36;dir=1'>Dual-Port Vent Pump</A><BR>
-<A href='?src=[UID()];make=37;dir=1'>Passive Vent</A><BR>
-<b>Heat exchange:</b><BR>
-<A href='?src=[UID()];make=2;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=3;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=6;dir=1'>Junction</A><BR>
-<A href='?src=[UID()];make=17;dir=1'>Heat Exchanger</A><BR>
-<b>Insulated pipes:</b><BR>
-<A href='?src=[UID()];make=11;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=12;dir=5'>Bent Pipe</A><BR>
+	for(var/category in recipes)
+		var/list/cat_recipes = recipes[category]
+		dat += "<b>[category]:</b><ul>"
 
-"}
-//What number the make points to is in the define # at the top of construction.dm in same folder
-//which for some reason couldn't just be left defined, so it could be used here, top kek
+		for(var/i in cat_recipes)
+			var/datum/pipe_info/I = i
+			dat += I.Render(src)
 
-	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
+		dat += "</ul>"
+
+	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
 	onclose(user, "pipedispenser")
+	return
 
 /obj/machinery/pipedispenser/Topic(href, href_list)
-	if(..() || unwrenched)
-		return
-
+	if(..())
+		return 1
+	var/mob/living/L = usr
+	if(!anchored || (istype(L) && !(L.mobility_flags & MOBILITY_UI)) || usr.stat || usr.restrained() || !in_range(loc, usr))
+		usr << browse(null, "window=pipedispenser")
+		return 1
 	usr.set_machine(src)
 	add_fingerprint(usr)
-
-	if(world.time < wait + 4)
-		return
-	wait = world.time
-	if(href_list["make"])
-		var/p_type = text2num(href_list["make"])
-		var/p_dir = text2num(href_list["dir"])
-		var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
-		P.update()
-		P.add_fingerprint(usr)
+	if(href_list["makepipe"])
+		if(wait < world.time)
+			var/p_type = text2path(href_list["makepipe"])
+			if (!verify_recipe(GLOB.atmos_pipe_recipes, p_type))
+				return
+			var/p_dir = text2num(href_list["dir"])
+			var/obj/item/pipe/P = new (loc, p_type, p_dir)
+			P.setPipingLayer(piping_layer)
+			P.add_fingerprint(usr)
+			wait = world.time + 10
 	if(href_list["makemeter"])
-		new /obj/item/pipe_meter(loc)
-	if(href_list["makegsensor"])
-		new /obj/item/pipe_gsensor(loc)
-	return TRUE
+		if(wait < world.time )
+			new /obj/item/pipe_meter(loc)
+			wait = world.time + 15
+	if(href_list["layer_up"])
+		piping_layer = CLAMP(++piping_layer, PIPING_LAYER_MIN, PIPING_LAYER_MAX)
+	if(href_list["layer_down"])
+		piping_layer = CLAMP(--piping_layer, PIPING_LAYER_MIN, PIPING_LAYER_MAX)
+	return
 
-/obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	add_fingerprint(usr)
-	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
-		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
-		user.drop_item()
+/obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
+	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter))
+		to_chat(usr, "<span class='notice'>You put [W] back into [src].</span>")
 		qdel(W)
 		return
-	else if(istype(W, /obj/item/wrench))
-		if(unwrenched==0)
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message( \
-					"[user] unfastens \the [src].", \
-					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
-					"You hear ratchet.")
-				anchored = 0
-				stat |= MAINT
-				unwrenched = 1
-				if(usr.machine==src)
-					usr << browse(null, "window=pipedispenser")
-		else /*if(unwrenched==1)*/
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				user.visible_message( \
-					"[user] fastens \the [src].", \
-					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
-					"You hear ratchet.")
-				anchored = 1
-				stat &= ~MAINT
-				unwrenched = 0
-				power_change()
 	else
 		return ..()
 
+/obj/machinery/pipedispenser/proc/verify_recipe(recipes, path)
+	for(var/category in recipes)
+		var/list/cat_recipes = recipes[category]
+		for(var/i in cat_recipes)
+			var/datum/pipe_info/info = i
+			if (path == info.id)
+				return TRUE
+	return FALSE
+
+/obj/machinery/pipedispenser/wrench_act(mob/living/user, obj/item/I)
+	if(default_unfasten_wrench(user, I, 40))
+		user << browse(null, "window=pipedispenser")
+
+	return TRUE
+
 
 /obj/machinery/pipedispenser/disposal
-	name = "Disposal Pipe Dispenser"
+	name = "disposal pipe dispenser"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
+	desc = "Dispenses pipes that will ultimately be used to move trash around."
+	density = TRUE
 
-//Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
-	if(usr.incapacitated())
+
+//Allow you to drag-drop disposal pipes and transit tubes into it
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/pipe, mob/usr)
+	if(!usr.incapacitated())
 		return
 
-	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src, pipe) > 1 )
+	if (!istype(pipe, /obj/structure/disposalconstruct) && !istype(pipe, /obj/structure/c_transit_tube) && !istype(pipe, /obj/structure/c_transit_tube_pod))
 		return
 
-	if(pipe.anchored)
+	if (get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
+		return
+
+	if (pipe.anchored)
 		return
 
 	qdel(pipe)
 
-/obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
-	if(..())
-		return
-
-	interact(user)
-
-/obj/machinery/pipedispenser/disposal/attack_ghost(mob/user)
-	interact(user)
-
 /obj/machinery/pipedispenser/disposal/interact(mob/user)
-	var/dat = {"<b>Disposal Pipes</b><br><br>
-<A href='?src=[UID()];dmake=100'>Pipe</A><BR>
-<A href='?src=[UID()];dmake=101'>Bent Pipe</A><BR>
-<A href='?src=[UID()];dmake=102'>Junction</A><BR>
-<A href='?src=[UID()];dmake=104'>Y-Junction</A><BR>
-<A href='?src=[UID()];dmake=105'>Trunk</A><BR>
-<A href='?src=[UID()];dmake=106'>Bin</A><BR>
-<A href='?src=[UID()];dmake=107'>Outlet</A><BR>
-<A href='?src=[UID()];dmake=108'>Chute</A><BR>
-"}
 
-	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
-	popup.set_content(dat)
-	popup.open()
+	var/dat = ""
+	var/recipes = GLOB.disposal_pipe_recipes
+
+	for(var/category in recipes)
+		var/list/cat_recipes = recipes[category]
+		dat += "<b>[category]:</b><ul>"
+
+		for(var/i in cat_recipes)
+			var/datum/pipe_info/I = i
+			dat += I.Render(src)
+
+		dat += "</ul>"
+
+	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	return
+
 
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
-	if(!..())
-		return
+	if(..())
+		return 1
+	usr.set_machine(src)
+	add_fingerprint(usr)
 	if(href_list["dmake"])
-		var/p_type = text2num(href_list["dmake"])
-		var/obj/structure/disposalconstruct/C = new(loc, p_type)
-		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
-			C.density = TRUE
+		if(wait < world.time)
+			var/p_type = text2path(href_list["dmake"])
+			if (!verify_recipe(GLOB.disposal_pipe_recipes, p_type))
+				return
+			var/obj/structure/disposalconstruct/C = new (loc, p_type)
+
+			if(!C.can_place())
+				to_chat(usr, "<span class='warning'>There's not enough room to build that here!</span>")
+				qdel(C)
+				return
+			if(href_list["dir"])
+				C.setDir(text2num(href_list["dir"]))
+			C.add_fingerprint(usr)
+			C.update_icon()
+			wait = world.time + 15
+	return
+
+//transit tube dispenser
+//inherit disposal for the dragging proc
+/obj/machinery/pipedispenser/disposal/transit_tube
+	name = "transit tube dispenser"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "pipe_d"
+	density = TRUE
+	desc = "Dispenses pipes that will move beings around."
+
+/obj/machinery/pipedispenser/disposal/transit_tube/interact(mob/user)
+
+	var/dat = {"<B>Transit Tubes:</B><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_STRAIGHT]'>Straight Tube</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_STRAIGHT_CROSSING]'>Straight Tube with Crossing</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_CURVED]'>Curved Tube</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_DIAGONAL]'>Diagonal Tube</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_DIAGONAL_CROSSING]'>Diagonal Tube with Crossing</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_JUNCTION]'>Junction</A><BR>
+<b>Station Equipment:</b><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_STATION]'>Through Tube Station</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_TERMINUS]'>Terminus Tube Station</A><BR>
+<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_POD]'>Transit Tube Pod</A><BR>
+"}
+
+	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	return
+
+
+/obj/machinery/pipedispenser/disposal/transit_tube/Topic(href, href_list)
+	if(..())
+		return 1
+	usr.set_machine(src)
+	add_fingerprint(usr)
+	if(wait < world.time)
+		if(href_list["tube"])
+			var/tube_type = text2num(href_list["tube"])
+			var/obj/structure/C
+			switch(tube_type)
+				if(TRANSIT_TUBE_STRAIGHT)
+					C = new /obj/structure/c_transit_tube(loc)
+				if(TRANSIT_TUBE_STRAIGHT_CROSSING)
+					C = new /obj/structure/c_transit_tube/crossing(loc)
+				if(TRANSIT_TUBE_CURVED)
+					C = new /obj/structure/c_transit_tube/curved(loc)
+				if(TRANSIT_TUBE_DIAGONAL)
+					C = new /obj/structure/c_transit_tube/diagonal(loc)
+				if(TRANSIT_TUBE_DIAGONAL_CROSSING)
+					C = new /obj/structure/c_transit_tube/diagonal/crossing(loc)
+				if(TRANSIT_TUBE_JUNCTION)
+					C = new /obj/structure/c_transit_tube/junction(loc)
+				if(TRANSIT_TUBE_STATION)
+					C = new /obj/structure/c_transit_tube/station(loc)
+				if(TRANSIT_TUBE_TERMINUS)
+					C = new /obj/structure/c_transit_tube/station/reverse(loc)
+				if(TRANSIT_TUBE_POD)
+					C = new /obj/structure/c_transit_tube_pod(loc)
+			if(C)
+				C.add_fingerprint(usr)
+			wait = world.time + 15
+	return

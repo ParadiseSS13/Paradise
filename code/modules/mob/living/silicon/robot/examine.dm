@@ -1,59 +1,51 @@
 /mob/living/silicon/robot/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	..(user)
+	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	if(desc)
+		. += "[desc]"
 
-	var/msg = "<span class='info'>"
-	if(module)
-		msg += "It has loaded a [module.name].\n"
-	var/obj/act_module = get_active_hand()
+	var/obj/act_module = get_active_held_item()
 	if(act_module)
-		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
-	msg += "<span class='warning'>"
-	if(getBruteLoss())
-		if(getBruteLoss() < maxHealth*0.5)
-			msg += "It looks slightly dented.\n"
+		. += "It is holding [icon2html(act_module, user)] \a [act_module]."
+	. += status_effect_examines()
+	if (getBruteLoss())
+		if (getBruteLoss() < maxHealth*0.5)
+			. += "<span class='warning'>It looks slightly dented.</span>"
 		else
-			msg += "<B>It looks severely dented!</B>\n"
-	if(getFireLoss())
-		if(getFireLoss() < maxHealth*0.5)
-			msg += "It looks slightly charred.\n"
+			. += "<span class='warning'><B>It looks severely dented!</B></span>"
+	if (getFireLoss() || getToxLoss())
+		var/overall_fireloss = getFireLoss() + getToxLoss()
+		if (overall_fireloss < maxHealth * 0.5)
+			. += "<span class='warning'>It looks slightly charred.</span>"
 		else
-			msg += "<B>It looks severely burnt and heat-warped!</B>\n"
-	if(health < -maxHealth*0.5)
-		msg += "It looks barely operational.\n"
-	if(fire_stacks < 0)
-		msg += "It's covered in water.\n"
-	else if(fire_stacks > 0)
-		msg += "It's coated in something flammable.\n"
-	msg += "</span>"
+			. += "<span class='warning'><B>It looks severely burnt and heat-warped!</B></span>"
+	if (health < -maxHealth*0.5)
+		. += "<span class='warning'>It looks barely operational.</span>"
+	if (fire_stacks < 0)
+		. += "<span class='warning'>It's covered in water.</span>"
+	else if (fire_stacks > 0)
+		. += "<span class='warning'>It's coated in something flammable.</span>"
 
 	if(opened)
-		msg += "<span class='warning'>Its cover is open and the power cell is [cell ? "installed" : "missing"].</span>\n"
+		. += "<span class='warning'>Its cover is open and the power cell is [cell ? "installed" : "missing"].</span>"
 	else
-		msg += "Its cover is closed[locked ? "" : ", and looks unlocked"].\n"
+		. += "Its cover is closed[locked ? "" : ", and looks unlocked"]."
 
 	if(cell && cell.charge <= 0)
-		msg += "<span class='warning'>Its battery indicator is blinking red!</span>\n"
+		. += "<span class='warning'>Its battery indicator is blinking red!</span>"
+
+	if(is_servant_of_ratvar(src) && get_dist(user, src) <= 1 && !stat) //To counter pseudo-stealth by using headlamps
+		. += "<span class='warning'>Its eyes are glowing a blazing yellow!</span>"
 
 	switch(stat)
 		if(CONSCIOUS)
-			if(!client)
-				msg += "It appears to be in stand-by mode.\n" //afk
+			if(shell)
+				. += "It appears to be an [deployed ? "active" : "empty"] AI shell."
+			else if(!client)
+				. += "It appears to be in stand-by mode." //afk
 		if(UNCONSCIOUS)
-			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
+			. += "<span class='warning'>It doesn't seem to be responding.</span>"
 		if(DEAD)
-			if(!suiciding)
-				msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
-			else
-				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
-	msg += "*---------*</span>"
+			. += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>"
+	. += "*---------*</span>"
 
-	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
-
-	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
-			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\nIt is [pose]"
-
-	to_chat(user, msg)
-	user.showLaws(src)
+	. += ..()

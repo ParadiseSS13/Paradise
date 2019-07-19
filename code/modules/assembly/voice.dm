@@ -1,77 +1,101 @@
+#define INCLUSIVE_MODE 1
+#define EXCLUSIVE_MODE 2
+#define RECOGNIZER_MODE 3
+#define VOICE_SENSOR_MODE 4
+
 /obj/item/assembly/voice
 	name = "voice analyzer"
 	desc = "A small electronic device able to record a voice sample, and send a signal when that sample is repeated."
 	icon_state = "voice"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	origin_tech = "magnets=1;engineering=1"
-	var/listening = 0
-	var/recorded = null	//the activation message
-	var/recorded_type = 0 // 0 for say, 1 for emote
+	flags_1 = HEAR_1
+	attachable = TRUE
+	verb_say = "beeps"
+	verb_ask = "beeps"
+	verb_exclaim = "beeps"
+	var/listening = FALSE
+	var/recorded = "" //the activation message
+	var/mode = 1
+	var/static/list/modes = list("inclusive",
+								 "exclusive",
+								 "recognizer",
+								 "voice sensor")
 
-	bomb_name = "voice-activated bomb"
+/obj/item/assembly/voice/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use a multitool to swap between \"inclusive\", \"exclusive\", \"recognizer\", and \"voice sensor\" mode.</span>"
 
-/obj/item/assembly/voice/describe()
-	if(recorded || listening)
-		return "A meter on [src] flickers with every nearby sound."
-	else
-		return "[src] is deactivated."
-
-/obj/item/assembly/voice/hear_talk(mob/living/M as mob, list/message_pieces)
-	hear_input(M, multilingual_to_message(message_pieces), 0)
-
-/obj/item/assembly/voice/hear_message(mob/living/M as mob, msg)
-	hear_input(M, msg, 1)
-
-/obj/item/assembly/voice/proc/hear_input(mob/living/M as mob, msg, type)
-	if(!istype(M,/mob/living))
+/obj/item/assembly/voice/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+	. = ..()
+	if(speaker == src)
 		return
-	if(listening)
-		recorded = msg
-		recorded_type = type
-		listening = 0
-		var/turf/T = get_turf(src)	//otherwise it won't work in hand
-		T.visible_message("[bicon(src)] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
-	else if(findtext(msg, recorded) && type == recorded_type)
-		pulse(0)
-		var/turf/T = get_turf(src)  //otherwise it won't work in hand
-		T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
 
-/obj/item/assembly/voice/activate()
-	return // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
+	if(listening && !radio_freq)
+		record_speech(speaker, raw_message, message_language)
+	else
+		if(check_activation(speaker, raw_message))
+			addtimer(CALLBACK(src, .proc/pulse, 0), 10)
 
+/obj/item/assembly/voice/proc/record_speech(atom/movable/speaker, raw_message, datum/language/message_language)
+	switch(mode)
+		if(INCLUSIVE_MODE)
+			recorded = raw_message
+			listening = FALSE
+			say("Activation message is '[recorded]'.", message_language)
+		if(EXCLUSIVE_MODE)
+			recorded = raw_message
+			listening = FALSE
+			say("Activation message is '[recorded]'.", message_language)
+		if(RECOGNIZER_MODE)
+			recorded = speaker.GetVoice()
+			listening = FALSE
+			say("Your voice pattern is saved.", message_language)
+		if(VOICE_SENSOR_MODE)
+			if(length(raw_message))
+				addtimer(CALLBACK(src, .proc/pulse, 0), 10)
 
-/obj/item/assembly/voice/attack_self(mob/user)
-	if(!user || !secured)
-		return FALSE
+/obj/item/assembly/voice/proc/check_activation(atom/movable/speaker, raw_message)
+	. = FALSE
+	switch(mode)
+		if(INCLUSIVE_MODE)
+			if(findtext(raw_message, recorded))
+				. = TRUE
+		if(EXCLUSIVE_MODE)
+			if(raw_message == recorded)
+				. = TRUE
+		if(RECOGNIZER_MODE)
+			if(speaker.GetVoice() == recorded)
+				. = TRUE
+		if(VOICE_SENSOR_MODE)
+			if(length(raw_message))
+				. = TRUE
 
-	listening = !listening
-	var/turf/T = get_turf(src)
-	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
+/obj/item/assembly/voice/multitool_act(mob/living/user, obj/item/I)
+	mode %= modes.len
+	mode++
+	to_chat(user, "<span class='notice'>You set [src] into [modes[mode]] mode.</span>")
+	listening = FALSE
+	recorded = ""
 	return TRUE
 
+/obj/item/assembly/voice/activate()
+	if(!secured || holder)
+		return FALSE
+	listening = !listening
+	say("[listening ? "Now" : "No longer"] recording input.")
+	return TRUE
+
+/obj/item/assembly/voice/attack_self(mob/user)
+	if(!user)
+		return FALSE
+	activate()
+	return TRUE
 
 /obj/item/assembly/voice/toggle_secure()
 	. = ..()
-	listening = 0
+	listening = FALSE
 
-/obj/item/assembly/voice/noise
-	name = "noise sensor"
-	desc = "A simple noise sensor that triggers on vocalizations other than speech."
-	icon_state = "voice"
-	materials = list(MAT_METAL=100, MAT_GLASS=10)
-	origin_tech = "magnets=1;engineering=1"
-	bomb_name = "noise-activated bomb"
-
-/obj/item/assembly/voice/noise/attack_self(mob/user)
-	return
-
-/obj/item/assembly/voice/noise/describe()
-	return "[src] does not appear to have any controls."
-
-/obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, list/message_pieces)
-	return
-
-/obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)
-	pulse(0)
-	var/turf/T = get_turf(src)  //otherwise it won't work in hand
-	T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
+#undef INCLUSIVE_MODE
+#undef EXCLUSIVE_MODE
+#undef RECOGNIZER_MODE
+#undef VOICE_SENSOR_MODE

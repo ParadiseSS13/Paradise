@@ -13,7 +13,6 @@
 	var/last_battery_percent = 0							// Used for deciding if battery percentage has chandged
 	var/last_world_time = "00:00"
 	var/list/last_header_icons
-	var/emagged = 0											// Whether the computer is emagged.
 
 	var/base_active_power_usage = 50						// Power usage when the computer is open (screen is active) and can be interacted with. Remember hardware can use power too.
 	var/base_idle_power_usage = 5							// Power usage when the computer is idle and screen is off (currently only applies to laptops)
@@ -32,30 +31,34 @@
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list(melee = 0, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 100, rad = 100)
+	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
 
 	// Important hardware (must be installed for computer to work)
 
 	// Optional hardware (improves functionality, but is not critical for computer to work)
 
-	var/list/all_components							// List of "connection ports" in this computer and the components with which they are plugged
+	var/list/all_components = list()						// List of "connection ports" in this computer and the components with which they are plugged
 
 	var/list/idle_threads							// Idle programs on background. They still receive process calls but can't be interacted with.
 	var/obj/physical = null									// Object that represents our computer. It's used for Adjacent() and UI visibility checks.
+	var/has_light = FALSE						//If the computer has a flashlight/LED light/what-have-you installed
+	var/light_on = FALSE						//If that light is enabled
+	var/comp_light_luminosity = 3				//The brightness of that light
+	var/comp_light_color			//The color of that light
 
 
-
-/obj/item/modular_computer/New()
-	update_icon()
+/obj/item/modular_computer/Initialize()
+	. = ..()
+	START_PROCESSING(SSobj, src)
 	if(!physical)
 		physical = src
-	..()
-	START_PROCESSING(SSobj, src)
-	all_components = list()
+	comp_light_color = "#FFFFFF"
 	idle_threads = list()
+	update_icon()
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
+	STOP_PROCESSING(SSobj, src)
 	for(var/H in all_components)
 		var/obj/item/computer_hardware/CH = all_components[H]
 		if(CH.holder == src)
@@ -64,7 +67,6 @@
 			all_components.Remove(CH.device_type)
 			qdel(CH)
 	physical = null
-	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 
@@ -95,32 +97,30 @@
 	if(issilicon(usr))
 		return
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(!usr.incapacitated())
+	if(usr.canUseTopic(src, BE_CLOSE))
 		card_slot.try_eject(null, usr)
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/proc/eject_card()
 	set name = "Eject Intellicard"
 	set category = "Object"
-	set src in view(1)
 
 	if(issilicon(usr))
 		return
 	var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
-	if(!usr.incapacitated())
-		ai_slot.try_eject(null, usr, 1)
+	if(usr.canUseTopic(src, BE_CLOSE))
+		ai_slot.try_eject(null, usr,1)
 
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/proc/eject_disk()
 	set name = "Eject Data Disk"
 	set category = "Object"
-	set src in view(1)
 
 	if(issilicon(usr))
 		return
 
-	if(!usr.incapacitated())
+	if(usr.canUseTopic(src, BE_CLOSE))
 		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
 		if(uninstall_component(portable_drive, usr))
 			portable_drive.verb_pickup()
@@ -130,7 +130,7 @@
 	if(issilicon(user))
 		return
 
-	if(!user.incapacitated() && Adjacent(user))
+	if(user.canUseTopic(src, BE_CLOSE))
 		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 		var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
 		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
@@ -157,51 +157,62 @@
 		return card_slot.GetID()
 	return ..()
 
+/obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
+	var/mob/M = usr
+	if((!istype(over_object, /obj/screen)) && usr.canUseTopic(src, BE_CLOSE))
+		return attack_self(M)
+	return ..()
+
 /obj/item/modular_computer/attack_ai(mob/user)
 	return attack_self(user)
 
 /obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
+	. = ..()
+	if(.)
+		return
 	if(enabled)
 		ui_interact(user)
-	else if(user.can_admin_interact())
+	else if(IsAdminGhost(user))
 		var/response = alert(user, "This computer is turned off. Would you like to turn it on?", "Admin Override", "Yes", "No")
 		if(response == "Yes")
 			turn_on(user)
 
 /obj/item/modular_computer/emag_act(mob/user)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, "<span class='warning'>\The [src] was already emagged.</span>")
 		return 0
 	else
-		emagged = 1
+		obj_flags |= EMAGGED
 		to_chat(user, "<span class='notice'>You emag \the [src]. It's screen briefly shows a \"OVERRIDE ACCEPTED: New software downloads available.\" message.</span>")
 		return 1
 
 /obj/item/modular_computer/examine(mob/user)
-	..()
+	. = ..()
 	if(obj_integrity <= integrity_failure)
-		to_chat(user, "<span class='danger'>It is heavily damaged!</span>")
+		. += "<span class='danger'>It is heavily damaged!</span>"
 	else if(obj_integrity < max_integrity)
-		to_chat(user, "<span class='warning'>It is damaged.</span>")
+		. += "<span class='warning'>It is damaged.</span>"
+
+	. += get_modular_computer_parts_examine(user)
 
 /obj/item/modular_computer/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	if(!enabled)
 		icon_state = icon_state_unpowered
 	else
 		icon_state = icon_state_powered
-		if(active_program && active_program.program_state != PROGRAM_STATE_KILLED)
-			overlays += active_program.program_icon_state ? active_program.program_icon_state : icon_state_menu
+		if(active_program)
+			add_overlay(active_program.program_icon_state ? active_program.program_icon_state : icon_state_menu)
 		else
-			overlays += icon_state_menu
+			add_overlay(icon_state_menu)
 
 	if(obj_integrity <= integrity_failure)
-		overlays += "bsod"
-		overlays += "broken"
+		add_overlay("bsod")
+		add_overlay("broken")
 
 
 // On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/item/modular_computer/attack_self(mob/user)
+/obj/item/modular_computer/interact(mob/user)
 	if(enabled)
 		ui_interact(user)
 	else
@@ -248,6 +259,11 @@
 	if(active_program && active_program.requires_ntnet && !get_ntnet_status(active_program.requires_ntnet_feature))
 		active_program.event_networkfailure(0) // Active program requires NTNet to run but we've just lost connection. Crash.
 
+	for(var/I in idle_threads)
+		var/datum/computer_file/program/P = I
+		if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature))
+			P.event_networkfailure(1)
+
 	if(active_program)
 		if(active_program.program_state != PROGRAM_STATE_KILLED)
 			active_program.process_tick()
@@ -258,18 +274,75 @@
 	for(var/I in idle_threads)
 		var/datum/computer_file/program/P = I
 		if(P.program_state != PROGRAM_STATE_KILLED)
-			if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature))
-				P.event_networkfailure(1)
 			P.process_tick()
 			P.ntnet_status = get_ntnet_status()
 		else
 			idle_threads.Remove(P)
 
 	handle_power() // Handles all computer power interaction
+	//check_update_ui_need()
+
+// Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
+/obj/item/modular_computer/proc/get_header_data()
+	var/list/data = list()
+
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+
+	if(battery_module && battery_module.battery)
+		switch(battery_module.battery.percent())
+			if(80 to 200) // 100 should be maximal but just in case..
+				data["PC_batteryicon"] = "batt_100.gif"
+			if(60 to 80)
+				data["PC_batteryicon"] = "batt_80.gif"
+			if(40 to 60)
+				data["PC_batteryicon"] = "batt_60.gif"
+			if(20 to 40)
+				data["PC_batteryicon"] = "batt_40.gif"
+			if(5 to 20)
+				data["PC_batteryicon"] = "batt_20.gif"
+			else
+				data["PC_batteryicon"] = "batt_5.gif"
+		data["PC_batterypercent"] = "[round(battery_module.battery.percent())] %"
+		data["PC_showbatteryicon"] = 1
+	else
+		data["PC_batteryicon"] = "batt_5.gif"
+		data["PC_batterypercent"] = "N/C"
+		data["PC_showbatteryicon"] = battery_module ? 1 : 0
+
+	if(recharger && recharger.enabled && recharger.check_functionality() && recharger.use_power(0))
+		data["PC_apclinkicon"] = "charging.gif"
+
+	switch(get_ntnet_status())
+		if(0)
+			data["PC_ntneticon"] = "sig_none.gif"
+		if(1)
+			data["PC_ntneticon"] = "sig_low.gif"
+		if(2)
+			data["PC_ntneticon"] = "sig_high.gif"
+		if(3)
+			data["PC_ntneticon"] = "sig_lan.gif"
+
+	if(idle_threads.len)
+		var/list/program_headers = list()
+		for(var/I in idle_threads)
+			var/datum/computer_file/program/P = I
+			if(!P.ui_header)
+				continue
+			program_headers.Add(list(list(
+				"icon" = P.ui_header
+			)))
+
+		data["PC_programheaders"] = program_headers
+
+	data["PC_stationtime"] = station_time_timestamp()
+	data["PC_hasheader"] = 1
+	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
+	return data
 
 // Relays kill program request to currently active program. Use this to quit current program.
 /obj/item/modular_computer/proc/kill_program(forced = FALSE)
-	if(active_program && active_program.program_state != PROGRAM_STATE_KILLED)
+	if(active_program)
 		active_program.kill_program(forced)
 		active_program = null
 	var/mob/user = usr
@@ -289,21 +362,20 @@
 	if(!get_ntnet_status())
 		return FALSE
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
-	return ntnet_global.add_log(text, network_card)
+	return SSnetworks.station_network.add_log(text, network_card)
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
-	if(enabled)
-		kill_program(forced = TRUE)
-		for(var/datum/computer_file/program/P in idle_threads)
-			P.kill_program(forced = TRUE)
-			idle_threads.Remove(P)
-		if(loud)
-			physical.visible_message("<span class='notice'>\The [src] shuts down.</span>")
-		enabled = 0
-		update_icon()
+	kill_program(forced = TRUE)
+	for(var/datum/computer_file/program/P in idle_threads)
+		P.kill_program(forced = TRUE)
+		idle_threads.Remove(P)
+	if(loud)
+		physical.visible_message("<span class='notice'>\The [src] shuts down.</span>")
+	enabled = 0
+	update_icon()
 
 
-/obj/item/modular_computer/attackby(obj/item/W, mob/user)
+/obj/item/modular_computer/attackby(obj/item/W as obj, mob/user as mob)
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
@@ -315,34 +387,31 @@
 		if(install_component(W, user))
 			return
 
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(all_components.len)
 			to_chat(user, "<span class='warning'>Remove all components from \the [src] before disassembling it.</span>")
 			return
-		new /obj/item/stack/sheet/metal(get_turf(loc), steel_sheet_cost)
+		new /obj/item/stack/sheet/metal( get_turf(src.loc), steel_sheet_cost )
 		physical.visible_message("\The [src] has been disassembled by [user].")
 		relay_qdel()
 		qdel(src)
 		return
 
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(!WT.isOn())
-			to_chat(user, "<span class='warning'>\The [W] is off.</span>")
-			return
-
+	if(W.tool_behaviour == TOOL_WELDER)
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
 			return
 
+		if(!W.tool_start_check(user, amount=1))
+			return
+
 		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
-		var/dmg = round(max_integrity - obj_integrity)
-		if(WT.remove_fuel(round(dmg/75)) && do_after(usr, dmg/10))
+		if(W.use_tool(src, user, 20, volume=50, amount=1))
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 		return
 
-	if(istype(W, /obj/item/screwdriver))
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!all_components.len)
 			to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
 			return

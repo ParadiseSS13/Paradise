@@ -2,14 +2,14 @@
 //
 // The datum containing all the chunks.
 
-var/const/CHUNK_SIZE = 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
+#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
-var/datum/cameranet/cameranet = new()
+GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 /datum/cameranet
 	var/name = "Camera Net" // Name to show for VV and stat()
 
-	// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Destroy().
+	// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Del().
 	var/list/cameras = list()
 	// The chunks of the map, mapping the areas that the cameras can see.
 	var/list/chunks = list()
@@ -18,12 +18,30 @@ var/datum/cameranet/cameranet = new()
 	// The object used for the clickable stat() button.
 	var/obj/effect/statclick/statclick
 
+	// The objects used in vis_contents of obscured turfs
+	var/list/vis_contents_objects
+	var/obj/effect/overlay/camera_static/vis_contents_opaque
+	var/obj/effect/overlay/camera_static/vis_contents_transparent
+	// The image given to the effect in vis_contents on AI clients
+	var/image/obscured
+	var/image/obscured_transparent
+
+/datum/cameranet/New()
+	vis_contents_opaque = new /obj/effect/overlay/camera_static()
+	vis_contents_transparent = new /obj/effect/overlay/camera_static/transparent()
+	vis_contents_objects = list(vis_contents_opaque, vis_contents_transparent)
+
+	obscured = new('icons/effects/cameravis.dmi', vis_contents_opaque, null, CAMERA_STATIC_LAYER)
+	obscured.plane = CAMERA_STATIC_PLANE
+
+	obscured_transparent = new('icons/effects/cameravis.dmi', vis_contents_transparent, null, CAMERA_STATIC_LAYER)
+	obscured_transparent.plane = CAMERA_STATIC_PLANE
+
 // Checks if a chunk has been Generated in x, y, z.
 /datum/cameranet/proc/chunkGenerated(x, y, z)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
-	var/key = "[x],[y],[z]"
-	return (chunks[key])
+	return chunks["[x],[y],[z]"]
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
@@ -31,14 +49,13 @@ var/datum/cameranet/cameranet = new()
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
-	if(!chunks[key])
-		chunks[key] = new /datum/camerachunk(null, x, y, z)
-
-	return chunks[key]
+	. = chunks[key]
+	if(!.)
+		chunks[key] = . = new /datum/camerachunk(x, y, z)
 
 // Updates what the aiEye can see. It is recommended you use this when the aiEye moves or it's location is set.
 
-/datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes)
+/datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes, use_static = USE_STATIC_OPAQUE)
 	if(!islist(moved_eyes))
 		moved_eyes = moved_eyes ? list(moved_eyes) : list()
 	if(islist(other_eyes))
@@ -46,25 +63,28 @@ var/datum/cameranet/cameranet = new()
 	else
 		other_eyes = list()
 
-	var/list/chunks_pre_seen = list()
-	var/list/chunks_post_seen = list()
+	if(C)
+		switch(use_static)
+			if(USE_STATIC_TRANSPARENT)
+				C.images += obscured_transparent
+			if(USE_STATIC_OPAQUE)
+				C.images += obscured
 
 	for(var/V in moved_eyes)
 		var/mob/camera/aiEye/eye = V
-		if(C)
-			chunks_pre_seen |= eye.visibleCameraChunks
-		// 0xf = 15
-		var/static_range = eye.static_visibility_range
-		var/x1 = max(0, eye.x - static_range) & ~(CHUNK_SIZE - 1)
-		var/y1 = max(0, eye.y - static_range) & ~(CHUNK_SIZE - 1)
-		var/x2 = min(world.maxx, eye.x + static_range) & ~(CHUNK_SIZE - 1)
-		var/y2 = min(world.maxy, eye.y + static_range) & ~(CHUNK_SIZE - 1)
-
 		var/list/visibleChunks = list()
+		if(eye.loc)
+			// 0xf = 15
+			var/static_range = eye.static_visibility_range
+			var/x1 = max(0, eye.x - static_range) & ~(CHUNK_SIZE - 1)
+			var/y1 = max(0, eye.y - static_range) & ~(CHUNK_SIZE - 1)
+			var/x2 = min(world.maxx, eye.x + static_range) & ~(CHUNK_SIZE - 1)
+			var/y2 = min(world.maxy, eye.y + static_range) & ~(CHUNK_SIZE - 1)
 
-		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
-			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				visibleChunks |= getCameraChunk(x, y, eye.z)
+
+			for(var/x = x1; x <= x2; x += CHUNK_SIZE)
+				for(var/y = y1; y <= y2; y += CHUNK_SIZE)
+					visibleChunks |= getCameraChunk(x, y, eye.z)
 
 		var/list/remove = eye.visibleCameraChunks - visibleChunks
 		var/list/add = visibleChunks - eye.visibleCameraChunks
@@ -75,48 +95,34 @@ var/datum/cameranet/cameranet = new()
 
 		for(var/chunk in add)
 			var/datum/camerachunk/c = chunk
-			c.add(eye, FALSE)
+			c.add(eye)
 
-		if(C)
-			chunks_post_seen |= eye.visibleCameraChunks
-
-	if(C)
-		for(var/V in other_eyes)
-			var/mob/camera/aiEye/eye = V
-			chunks_post_seen |= eye.visibleCameraChunks
-
-		var/list/remove = chunks_pre_seen - chunks_post_seen
-		var/list/add = chunks_post_seen - chunks_pre_seen
-
-		for(var/chunk in remove)
-			var/datum/camerachunk/c = chunk
-			C.images -= c.obscured
-
-		for(var/chunk in add)
-			var/datum/camerachunk/c = chunk
-			C.images += c.obscured
-
+		if(!eye.visibleCameraChunks.len)
+			var/client/client = eye.GetViewerClient()
+			if(client)
+				switch(eye.use_static)
+					if(USE_STATIC_TRANSPARENT)
+						client.images -= GLOB.cameranet.obscured_transparent
+					if(USE_STATIC_OPAQUE)
+						client.images -= GLOB.cameranet.obscured
 
 // Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 
 /datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)
-
 	if(!SSticker || (opacity_check && !A.opacity))
 		return
 	majorChunkChange(A, 2)
 
 /datum/cameranet/proc/updateChunk(x, y, z)
-	// 0xf = 15
-	if(!chunkGenerated(x, y, z))
+	var/datum/camerachunk/chunk = chunkGenerated(x, y, z)
+	if (!chunk)
 		return
-	var/datum/camerachunk/chunk = getCameraChunk(x, y, z)
 	chunk.hasChanged()
 
 // Removes a camera from a chunk.
 
 /datum/cameranet/proc/removeCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 0)
+	majorChunkChange(c, 0)
 
 // Add a camera to a chunk.
 
@@ -129,8 +135,6 @@ var/datum/cameranet/cameranet = new()
 /datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c)
 	if(c.can_use())
 		majorChunkChange(c, 1)
-	//else
-	//	majorChunkChange(c, 0)
 
 // Never access this proc directly!!!!
 // This will update the chunk and all the surrounding chunks.
@@ -138,8 +142,7 @@ var/datum/cameranet/cameranet = new()
 // Setting the choice to 0 will remove the camera from the chunks.
 // If you want to update the chunks around an object, without adding/removing a camera, use choice 2.
 
-/datum/cameranet/proc/majorChunkChange(atom/c, var/choice)
-	// 0xf = 15
+/datum/cameranet/proc/majorChunkChange(atom/c, choice)
 	if(!c)
 		return
 
@@ -149,13 +152,10 @@ var/datum/cameranet/cameranet = new()
 		var/y1 = max(0, T.y - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
 		var/x2 = min(world.maxx, T.x + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
 		var/y2 = min(world.maxy, T.y + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-
-//		to_chat(world, "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]")
-
 		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				if(chunkGenerated(x, y, T.z))
-					var/datum/camerachunk/chunk = getCameraChunk(x, y, T.z)
+				var/datum/camerachunk/chunk = chunkGenerated(x, y, T.z)
+				if(chunk)
 					if(choice == 0)
 						// Remove the camera.
 						chunk.cameras -= c
@@ -166,14 +166,13 @@ var/datum/cameranet/cameranet = new()
 
 // Will check if a mob is on a viewable turf. Returns 1 if it is, otherwise returns 0.
 
-/datum/cameranet/proc/checkCameraVis(mob/living/target as mob)
-
-	// 0xf = 15
+/datum/cameranet/proc/checkCameraVis(mob/living/target)
 	var/turf/position = get_turf(target)
 	return checkTurfVis(position)
 
-/datum/cameranet/proc/checkTurfVis(var/turf/position)
-	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
+
+/datum/cameranet/proc/checkTurfVis(turf/position)
+	var/datum/camerachunk/chunk = chunkGenerated(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.
@@ -181,20 +180,25 @@ var/datum/cameranet/cameranet = new()
 			return 1
 	return 0
 
-/*
 /datum/cameranet/proc/stat_entry()
 	if(!statclick)
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 
-	stat(name, statclick.update("Cameras: [cameranet.cameras.len] | Chunks: [cameranet.chunks.len]"))
-*/
+	stat(name, statclick.update("Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]"))
 
-// Debug verb for VVing the chunk that the turf is in.
-/*
-/turf/verb/view_chunk()
-	set src in world
+/obj/effect/overlay/camera_static
+	name = "static"
+	icon = null
+	icon_state = null
+	anchored = TRUE  // should only appear in vis_contents, but to be safe
+	appearance_flags = RESET_TRANSFORM | TILE_BOUND
+	// this combination makes the static block clicks to everything below it,
+	// without appearing in the right-click menu for non-AI clients
+	mouse_opacity = MOUSE_OPACITY_ICON
+	invisibility = INVISIBILITY_ABSTRACT
 
-	if(cameranet.chunkGenerated(x, y, z))
-		var/datum/camerachunk/chunk = cameranet.getCameraChunk(x, y, z)
-		usr.client.debug_variables(chunk)
-*/
+	layer = CAMERA_STATIC_LAYER
+	plane = CAMERA_STATIC_PLANE
+
+/obj/effect/overlay/camera_static/transparent
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

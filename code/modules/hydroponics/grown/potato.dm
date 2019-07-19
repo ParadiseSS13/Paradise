@@ -16,7 +16,7 @@
 	icon_dead = "potato-dead"
 	genes = list(/datum/plant_gene/trait/battery)
 	mutatelist = list(/obj/item/seeds/potato/sweet)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/potato
 	seed = /obj/item/seeds/potato
@@ -25,8 +25,9 @@
 	icon_state = "potato"
 	filling_color = "#E9967A"
 	bitesize = 100
-	distill_reagent = "vodka"
-
+	foodtype = VEGETABLES
+	juice_results = list(/datum/reagent/consumable/potato_juice = 0)
+	distill_reagent = /datum/reagent/consumable/ethanol/vodka
 
 /obj/item/reagent_containers/food/snacks/grown/potato/wedges
 	name = "potato wedges"
@@ -34,17 +35,15 @@
 	icon_state = "potato_wedges"
 	filling_color = "#E9967A"
 	bitesize = 100
-	distill_reagent = "sbiten"
 
 
 /obj/item/reagent_containers/food/snacks/grown/potato/attackby(obj/item/W, mob/user, params)
-	if(is_sharp(W))
+	if(W.is_sharp())
 		to_chat(user, "<span class='notice'>You cut the potato into wedges with [W].</span>")
 		var/obj/item/reagent_containers/food/snacks/grown/potato/wedges/Wedges = new /obj/item/reagent_containers/food/snacks/grown/potato/wedges
-		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.put_in_hands(Wedges)
+		remove_item_from_storage(user)
 		qdel(src)
+		user.put_in_hands(Wedges)
 	else
 		return ..()
 
@@ -58,10 +57,11 @@
 	plantname = "Sweet Potato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/potato/sweet
 	mutatelist = list()
-	reagents_add = list("vitamin" = 0.1, "sugar" = 0.1, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.1, /datum/reagent/consumable/sugar = 0.1, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/potato/sweet
 	seed = /obj/item/seeds/potato/sweet
 	name = "sweet potato"
 	desc = "It's sweet."
 	icon_state = "sweetpotato"
+	distill_reagent = /datum/reagent/consumable/ethanol/sbiten

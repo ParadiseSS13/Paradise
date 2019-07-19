@@ -3,6 +3,13 @@
 // DNA vault requires x animals ,y plants, z human dna
 // DNA vaults require high tier stock parts and cold
 // After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
+#define VAULT_TOXIN "Toxin Adaptation"
+#define VAULT_NOBREATH "Lung Enhancement"
+#define VAULT_FIREPROOF "Thermal Regulation"
+#define VAULT_STUNTIME "Neural Repathing"
+#define VAULT_ARMOUR "Bone Reinforcement"
+#define VAULT_SPEED "Leg Muscle Stimulus"
+#define VAULT_QUICK "Arm Muscle Stimulus"
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
@@ -12,8 +19,8 @@
 
 /datum/station_goal/dna_vault/New()
 	..()
-	animal_count = rand(15, 20) //might be too few given ~15 roundstart stationside ones
-	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
+	animal_count = rand(15,20) //might be too few given ~15 roundstart stationside ones
+	human_count = rand(round(0.75 * SSticker.totalPlayersReady) , SSticker.totalPlayersReady) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
 	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
 
@@ -25,39 +32,42 @@
 			.++
 
 /datum/station_goal/dna_vault/get_report()
-	return {"<b>DNA Vault construction</b><br>
-	Our long term prediction systems say there's 99% chance of system-wide cataclysm in near future. As such, we need you to construct a DNA Vault aboard your station.
-	<br><br>
-	The DNA Vault needs to contain samples of:
-	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	 <li>[animal_count] unique animal data.</li>
-	 <li>[plant_count] unique non-standard plant data.</li>
-	 <li>[human_count] unique sapient humanoid DNA data.</li>
-	</ul>
-	The base vault parts should be available for shipping by your cargo shuttle."}
+	return {"Our long term prediction systems indicate a 99% chance of system-wide cataclysm in the near future.
+	 We need you to construct a DNA Vault aboard your station.
+
+	 The DNA Vault needs to contain samples of:
+	 [animal_count] unique animal data
+	 [plant_count] unique non-standard plant data
+	 [human_count] unique sapient humanoid DNA data
+
+	 Base vault parts are available for shipping via cargo."}
+
 
 /datum/station_goal/dna_vault/on_report()
-	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/dna_vault]"]
+	var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/dna_vault]
 	P.special_enabled = TRUE
 
-	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/dna_probes]"]
+	P = SSshuttle.supply_packs[/datum/supply_pack/engineering/dna_probes]
 	P.special_enabled = TRUE
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
 	for(var/obj/machinery/dna_vault/V in GLOB.machines)
-		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && is_station_contact(V.z))
+		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count)
 			return TRUE
 	return FALSE
+
 
 /obj/item/dna_probe
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
-	icon = 'icons/obj/hypo.dmi'
-	item_state = "sampler_hypo"
-	icon_state = "sampler_hypo"
-	flags = NOBLUDGEON
+	icon = 'icons/obj/syringe.dmi'
+	item_state = "hypo"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	icon_state = "hypo"
+	item_flags = NOBLUDGEON
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
@@ -67,19 +77,17 @@
 	plants = list()
 	dna = list()
 
-var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien))
-
 /obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
-	..()
+	. = ..()
 	if(!proximity || !target)
 		return
 	//tray plants
-	if(istype(target,/obj/machinery/hydroponics))
+	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/H = target
 		if(!H.myseed)
 			return
 		if(!H.harvest)// So it's bit harder.
-			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
+			to_chat(user, "<span class='warning'>Plant needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
 			return
 		if(plants[H.myseed.type])
 			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
@@ -88,7 +96,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
 
 	//animals
-	if(isanimal(target) || is_type_in_typecache(target, non_simple_animals))
+	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/monkey, /mob/living/carbon/alien))
+	if(isanimal(target) || is_type_in_typecache(target,non_simple_animals))
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
@@ -109,36 +118,20 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		dna[H.dna.uni_identity] = 1
 		to_chat(user, "<span class='notice'>Humanoid data added to local storage.</span>")
 
-
-/obj/item/circuitboard/machine/dna_vault
-	name = "DNA Vault (Machine Board)"
-	build_path = /obj/machinery/dna_vault
-	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
-	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,
-							/obj/item/stack/cable_coil = 2)
-
-/obj/structure/filler
-	name = "big machinery part"
-	density = 1
-	anchored = 1
-	invisibility = 101
-	var/obj/machinery/parent
-
-/obj/structure/filler/ex_act()
-	return
-
 /obj/machinery/dna_vault
 	name = "DNA Vault"
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 5000
 	pixel_x = -32
 	pixel_y = -64
-	luminosity = 1
+	light_range = 3
+	light_power = 1.5
+	light_color = LIGHT_COLOR_CYAN
+
 
 	//High defaults so it's not completed automatically if there's no station goal
 	var/animals_max = 100
@@ -153,7 +146,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 
 	var/list/obj/structure/fillers = list()
 
-/obj/machinery/dna_vault/New()
+/obj/machinery/dna_vault/Initialize()
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
@@ -172,44 +165,34 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			plants_max = G.plant_count
 			dna_max = G.human_count
 			break
-
-	..()
+	. = ..()
 
 /obj/machinery/dna_vault/Destroy()
 	for(var/V in fillers)
 		var/obj/structure/filler/filler = V
 		filler.parent = null
 		qdel(filler)
-	fillers.Cut()
 	. = ..()
 
-/obj/machinery/dna_vault/attack_ghost(mob/user)
-	if(stat & (BROKEN|MAINT))
-		return
-	return ui_interact(user)
 
-/obj/machinery/dna_vault/attack_hand(mob/user)
-	if(..())
-		return 1
-	ui_interact(user)
-
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "dna_vault.tmpl", name, 550, 400)
+		ui = new(user, src, ui_key, "dna_vault", name, 350, 400, master_ui, state)
 		ui.open()
+
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
 	if(user in power_lottery)
 		return
 	var/list/L = list()
-	var/list/possible_powers = list(VAULT_SPACEIMMUNE,VAULT_XRAY,VAULT_TELEKINESIS,VAULT_PSYCHIC,VAULT_SPEED)
+	var/list/possible_powers = list(VAULT_TOXIN,VAULT_NOBREATH,VAULT_FIREPROOF,VAULT_STUNTIME,VAULT_ARMOUR,VAULT_SPEED,VAULT_QUICK)
 	L += pick_n_take(possible_powers)
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
 
-/obj/machinery/dna_vault/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state) //TODO Make it % bars maybe
+/obj/machinery/dna_vault/ui_data(mob/user) //TODO Make it % bars maybe
 	var/list/data = list()
 	data["plants"] = plants.len
 	data["plants_max"] = plants_max
@@ -229,17 +212,18 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			data["choiceB"] = L[2]
 	return data
 
-/obj/machinery/dna_vault/Topic(href, href_list)
+/obj/machinery/dna_vault/ui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["gene"])
-		upgrade(usr,href_list["choice"])
-		. = TRUE
+		return
+	switch(action)
+		if("gene")
+			upgrade(usr,params["choice"])
+			. = TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
 		completed = TRUE
+
 
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dna_probe))
@@ -262,39 +246,39 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	else
 		return ..()
 
-/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
+
+
+/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H,upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
-	if(!completed)
-		return
-	if(!H.ignore_gene_stability)
-		to_chat(H, "<span class='notice'>[src] stabilizes your genes, granting you the ability to have multiple powers.</span>")
-		H.ignore_gene_stability = 1
+	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
-		if(VAULT_SPACEIMMUNE)
-			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. You also don't feel any cold anymore.</span>")
-			grant_power(H, BREATHLESSBLOCK, BREATHLESS)
-			grant_power(H, FIREBLOCK, COLDRES)
-		if(VAULT_XRAY)
-			to_chat(H, "<span class='notice'>You can suddenly see through walls.</span>")
-			grant_power(H, XRAYBLOCK, XRAY)
-		if(VAULT_TELEKINESIS)
-			to_chat(H, "<span class='notice'>You gain the ability to control objects from a distance.</span>")
-			grant_power(H, TELEBLOCK, TK)
-		if(VAULT_PSYCHIC)
-			to_chat(H, "<span class='notice'>Your mind expands, giving you psychic powers.</span>")
-			grant_power(H, REMOTETALKBLOCK, REMOTE_TALK)
-			grant_power(H, REMOTEVIEWBLOCK, REMOTE_VIEW)
-			grant_power(H, EMPATHBLOCK, EMPATH)
-			grant_power(H, PSYRESISTBLOCK, PSY_RESIST)
+		if(VAULT_TOXIN)
+			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
+			if(locate(/obj/item/organ/lungs) in H.internal_organs)
+				var/obj/item/organ/lungs/L = H.internal_organs_slot[ORGAN_SLOT_LUNGS]
+				L.tox_breath_dam_min = 0
+				L.tox_breath_dam_max = 0
+			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, "dna_vault")
+		if(VAULT_NOBREATH)
+			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
+			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
+		if(VAULT_FIREPROOF)
+			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
+			S.burnmod = 0.5
+			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
+			ADD_TRAIT(H, TRAIT_NOFIRE, "dna_vault")
+		if(VAULT_STUNTIME)
+			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
+			S.stunmod = 0.5
+		if(VAULT_ARMOUR)
+			to_chat(H, "<span class='notice'>You feel tough.</span>")
+			S.armor = 30
+			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
-			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
-			grant_power(H, JUMPBLOCK, JUMPY)
-			grant_power(H, INCREASERUNBLOCK, RUN)
+			to_chat(H, "<span class='notice'>Your legs feel faster.</span>")
+			H.add_movespeed_modifier(MOVESPEED_ID_DNA_VAULT, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+		if(VAULT_QUICK)
+			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
+			H.next_move_modifier = 0.5
 	power_lottery[H] = list()
-
-/obj/machinery/dna_vault/proc/grant_power(mob/living/carbon/human/H, block, power)
-	H.dna.SetSEState(block, 1, 1)
-	H.mutations |= power
-	genemutcheck(H, block, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(block) //prevent removal by mutadone

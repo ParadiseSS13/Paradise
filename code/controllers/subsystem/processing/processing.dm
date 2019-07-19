@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(processing)
 	..("[stat_tag]:[processing.len]")
 
 /datum/controller/subsystem/processing/fire(resumed = 0)
-	if(!resumed)
+	if (!resumed)
 		currentrun = processing.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/current_run = currentrun
@@ -27,10 +27,8 @@ SUBSYSTEM_DEF(processing)
 		else if(thing.process(wait) == PROCESS_KILL)
 			// fully stop so that a future START_PROCESSING will work
 			STOP_PROCESSING(src, thing)
-		if(MC_TICK_CHECK)
+		if (MC_TICK_CHECK)
 			return
-
-/datum/var/isprocessing = FALSE
 
 /datum/proc/process()
 	set waitfor = 0

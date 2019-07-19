@@ -1,17 +1,97 @@
 
 
 /obj/item/reagent_containers/food/drinks/drinkingglass
-	name = "glass"
+	name = "drinking glass"
 	desc = "Your standard drinking glass."
+	custom_price = 5
 	icon_state = "glass_empty"
-	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
 	volume = 50
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
-	burn_state = FLAMMABLE
-	burntime = 5
+	max_integrity = 20
+	spillable = TRUE
+	resistance_flags = ACID_PROOF
+	obj_flags = UNIQUE_RENAME
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change(changetype)
+	cut_overlays()
+	if(reagents.reagent_list.len)
+		var/datum/reagent/R = reagents.get_master_reagent()
+		if(!renamedByPlayer)
+			name = R.glass_name
+			desc = R.glass_desc
+		if(R.glass_icon_state)
+			icon_state = R.glass_icon_state
+		else
+			var/mutable_appearance/reagent_overlay = mutable_appearance(icon, "glassoverlay")
+			icon_state = "glass_empty"
+			reagent_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+			add_overlay(reagent_overlay)
+	else
+		icon_state = "glass_empty"
+		renamedByPlayer = FALSE //so new drinks can rename the glass
+
+//Shot glasses!//
+//  This lets us add shots in here instead of lumping them in with drinks because >logic  //
+//  The format for shots is the exact same as iconstates for the drinking glass, except you use a shot glass instead.  //
+//  If it's a new drink, remember to add it to Chemistry-Reagents.dm  and Chemistry-Recipes.dm as well.  //
+//  You can only mix the ported-over drinks in shot glasses for now (they'll mix in a shaker, but the sprite won't change for glasses). //
+//  This is on a case-by-case basis, and you can even make a separate sprite for shot glasses if you want. //
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
+	name = "shot glass"
+	desc = "A shot glass - the universal symbol for bad decisions."
+	custom_price = 5
+	icon_state = "shotglass"
+	gulp_size = 15
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = list()
+	volume = 15
+	materials = list(MAT_GLASS=100)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change(changetype)
+	cut_overlays()
+
+	if (gulp_size < 15)
+		gulp_size = 15
+	else
+		gulp_size = max(round(reagents.total_volume / 15), 15)
+
+	if (reagents.reagent_list.len > 0)
+		var/datum/reagent/largest_reagent = reagents.get_master_reagent()
+		name = "filled shot glass"
+		desc = "The challenge is not taking as many as you can, but guessing what it is before you pass out."
+
+		if(largest_reagent.shot_glass_icon_state)
+			icon_state = largest_reagent.shot_glass_icon_state
+		else
+			icon_state = "shotglassclear"
+			var/mutable_appearance/shot_overlay = mutable_appearance(icon, "shotglassoverlay")
+			shot_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+			add_overlay(shot_overlay)
+
+
+	else
+		icon_state = "shotglass"
+		name = "shot glass"
+		desc = "A shot glass - the universal symbol for bad decisions."
+		return
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/filled/Initialize()
+	. = ..()
+	on_reagent_change(ADD_REAGENT)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/filled/soda
+	name = "Soda Water"
+	list_reagents = list(/datum/reagent/consumable/sodawater = 50)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/filled/cola
+	name = "Space Cola"
+	list_reagents = list(/datum/reagent/consumable/space_cola = 50)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola
+	name = "Nuka Cola"
+	list_reagents = list(/datum/reagent/consumable/nuka_cola = 50)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
@@ -21,48 +101,31 @@
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 			else
 				to_chat(user, "<span class='notice'>You break [E] in [src].</span>")
-				E.reagents.trans_to(src, E.reagents.total_volume)
+				reagents.add_reagent(/datum/reagent/consumable/eggyolk, 5)
 				qdel(E)
 			return
 	else
 		..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	if(!reagents.total_volume)
+/obj/item/reagent_containers/food/drinks/drinkingglass/attack(obj/target, mob/user)
+	if(user.a_intent == INTENT_HARM && ismob(target) && target.reagents && reagents.total_volume)
+		target.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
+						"<span class='userdanger'>[user] splashes the contents of [src] onto [target]!</span>")
+		log_combat(user, target, "splashed", src)
+		reagents.reaction(target, TOUCH)
+		reagents.clear_reagents()
 		return
 	..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/burn()
-	reagents.clear_reagents()
-	extinguish()
+/obj/item/reagent_containers/food/drinks/drinkingglass/afterattack(obj/target, mob/user, proximity)
+	. = ..()
+	if((!proximity) || !check_allowed_items(target,target_self=1))
+		return
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
-	overlays.Cut()
-	if(reagents.reagent_list.len)
-		var/datum/reagent/R = reagents.get_master_reagent()
-		name = R.drink_name
-		desc = R.drink_desc
-		if(R.drink_icon)
-			icon_state = R.drink_icon
-		else
-			var/image/I = image(icon, "glassoverlay")
-			I.color = mix_color_from_reagents(reagents.reagent_list)
-			overlays += I
-	else
-		icon_state = "glass_empty"
-		name = "glass"
-		desc = "Your standard drinking glass."
+	else if(reagents.total_volume && user.a_intent == INTENT_HARM)
+		user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
+							"<span class='notice'>You splash the contents of [src] onto [target].</span>")
+		reagents.reaction(target, TOUCH)
+		reagents.clear_reagents()
+		return
 
-// for /obj/machinery/vending/sovietsoda
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda
-	list_reagents = list("sodawater" = 50)
-
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/cola
-	list_reagents = list("cola" = 50)
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss
-	list_reagents = list("devilskiss" = 50)
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
-	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)

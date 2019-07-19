@@ -1,79 +1,64 @@
-//////////////////////////////////////////////////////////////////
-//					IMPLANT REMOVAL SURGERY						//
-//////////////////////////////////////////////////////////////////
-
 /datum/surgery/implant_removal
-	name = "Implant Removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/extract_implant,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest")
+	name = "implant removal"
+	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/extract_implant, /datum/surgery_step/close)
+	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	possible_locs = list(BODY_ZONE_CHEST)
 
-/datum/surgery/implant_removal/synth
-	name = "Implant Removal"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest")
-	requires_organic_bodypart = 0
 
-/datum/surgery/implant_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
-	if(!affected)
-		return 0
-	if(affected.is_robotic())
-		return 0
-	return 1
-
-/datum/surgery/implant_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
-	if(!affected)
-		return 0
-	if(!affected.is_robotic())
-		return 0
-
-	return 1
-
+//extract implant
 /datum/surgery_step/extract_implant
 	name = "extract implant"
-	allowed_tools = list(/obj/item/hemostat = 100, /obj/item/crowbar = 65)
+	implements = list(/obj/item/hemostat = 100, TOOL_CROWBAR = 65)
 	time = 64
 	var/obj/item/implant/I = null
 
-/datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/implant) in target
-	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
-	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
-	target.custom_pain("The pain in your [affected.name] is living hell!")
-	..()
+/datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	for(var/obj/item/O in target.implants)
+		I = O
+		break
+	if(I)
+		display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [target_zone]...</span>",
+			"[user] begins to extract [I] from [target]'s [target_zone].",
+			"[user] begins to extract something from [target]'s [target_zone].")
+	else
+		display_results(user, target, "<span class='notice'>You look for an implant in [target]'s [target_zone]...</span>",
+			"[user] looks for an implant in [target]'s [target_zone].",
+			"[user] looks for something in [target]'s [target_zone].")
 
-/datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/implant) in target
-	if(I && (target_zone == "chest")) //implant removal only works on the chest.
-		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
-
+/datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(I)
+		display_results(user, target, "<span class='notice'>You successfully remove [I] from [target]'s [target_zone].</span>",
+			"[user] successfully removes [I] from [target]'s [target_zone]!",
+			"[user] successfully removes something from [target]'s [target_zone]!")
 		I.removed(target)
 
 		var/obj/item/implantcase/case
-
-		if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/implantcase))
-			case = user.get_item_by_slot(slot_l_hand)
-		else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/implantcase))
-			case = user.get_item_by_slot(slot_r_hand)
-		else
+		for(var/obj/item/implantcase/ic in user.held_items)
+			case = ic
+			break
+		if(!case)
 			case = locate(/obj/item/implantcase) in get_turf(target)
-
 		if(case && !case.imp)
 			case.imp = I
 			I.forceMove(case)
 			case.update_icon()
-			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
+			display_results(user, target, "<span class='notice'>You place [I] into [case].</span>",
+				"[user] places [I] into [case]!",
+				"[user] places it into [case]!")
 		else
 			qdel(I)
+
 	else
-		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
-		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
+		to_chat(user, "<span class='warning'>You can't find anything in [target]'s [target_zone]!</span>")
 	return 1
+
+/datum/surgery/implant_removal/mechanic
+	name = "implant removal"
+	requires_bodypart_type = BODYPART_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close)

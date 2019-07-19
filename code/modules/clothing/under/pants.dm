@@ -1,7 +1,9 @@
 /obj/item/clothing/under/pants
 	gender = PLURAL
-	body_parts_covered = LOWER_TORSO|LEGS
-	displays_id = 0
+	body_parts_covered = GROIN|LEGS
+	fitted = NO_FEMALE_UNIFORM
+	can_adjust = FALSE
+	custom_price = 20
 
 /obj/item/clothing/under/pants/classicjeans
 	name = "classic jeans"
@@ -14,6 +16,7 @@
 	desc = "Made in the finest space jeans factory this side of Alpha Centauri."
 	icon_state = "jeansmustang"
 	item_color = "jeansmustang"
+	custom_price = 75
 
 /obj/item/clothing/under/pants/blackjeans
 	name = "black jeans"
@@ -50,12 +53,6 @@
 	desc = "Some tan pants. You look like a white collar worker with these on."
 	icon_state = "tanpants"
 	item_color = "tanpants"
-
-/obj/item/clothing/under/pants/blue
-	name = "blue pants"
-	desc = "Stylish blue pants. These go well with a lot of clothes."
-	icon_state = "bluepants"
-	item_color = "bluepants"
 
 /obj/item/clothing/under/pants/track
 	name = "track pants"

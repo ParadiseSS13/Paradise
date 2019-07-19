@@ -8,46 +8,45 @@
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
-	layer = 2.5
-	anchored = 1
-	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0)
-	var/open = 0		// true if cover is open
-	var/locked = 1		// true if controls are locked
+	layer = LOW_OBJ_LAYER
+	max_integrity = 500
+	armor = list("melee" = 70, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+
+	var/open = FALSE		// true if cover is open
+	var/locked = TRUE		// true if controls are locked
+	var/freq = FREQ_NAV_BEACON
 	var/location = ""	// location response text
 	var/list/codes		// assoc. list of transponder codes
 	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
 
-	req_access = list(access_engine, access_robotics)
+	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
-/obj/machinery/navbeacon/New()
-	..()
+/obj/machinery/navbeacon/Initialize()
+	. = ..()
 
 	set_codes()
 
 	var/turf/T = loc
 	hide(T.intact)
-	if(!codes || !codes.len)
-		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
-	if("patrol" in codes)
+	if(codes["patrol"])
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
 		GLOB.navbeacons["[z]"] += src //Register with the patrol list!
-	if("delivery" in codes)
+	if(codes["delivery"])
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
 
 /obj/machinery/navbeacon/Destroy()
-	GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
+	if (GLOB.navbeacons["[z]"])
+		GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
 	GLOB.deliverybeacons -= src
 	return ..()
 
-/obj/machinery/navbeacon/serialize()
-	var/list/data = ..()
-	data["codes"] = codes
-	return data
-
-/obj/machinery/navbeacon/deserialize(list/data)
-	codes = data["codes"]
+/obj/machinery/navbeacon/onTransitZ(old_z, new_z)
+	if (GLOB.navbeacons["[old_z]"])
+		GLOB.navbeacons["[old_z]"] -= src
+	if (GLOB.navbeacons["[new_z]"])
+		GLOB.navbeacons["[new_z]"] += src
 	..()
 
 // set the transponder codes assoc list from codes_txt
@@ -73,10 +72,10 @@
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon()
 
 // update the icon_state
-/obj/machinery/navbeacon/proc/updateicon()
+/obj/machinery/navbeacon/update_icon()
 	var/state="navbeacon[open]"
 
 	if(invisibility)
@@ -90,18 +89,18 @@
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
 
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open = !open
 
 		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 
-		updateicon()
+		update_icon()
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(open)
-			if(allowed(user))
-				locked = !locked
-				to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
+			if (src.allowed(user))
+				src.locked = !src.locked
+				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
 			else
 				to_chat(user, "<span class='danger'>Access denied.</span>")
 			updateDialog()
@@ -113,13 +112,12 @@
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
 
-/obj/machinery/navbeacon/attack_animal()
+/obj/machinery/navbeacon/attack_paw()
 	return
 
-/obj/machinery/navbeacon/attack_hand(mob/user)
-	interact(user, 0)
-
-/obj/machinery/navbeacon/interact(mob/user, ai = 0)
+/obj/machinery/navbeacon/ui_interact(mob/user)
+	. = ..()
+	var/ai = isAI(user)
 	var/turf/T = loc
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
@@ -147,14 +145,14 @@ Transponder Codes:<UL>"}
 <i>(swipe card to lock controls)</i><BR>
 
 <HR>
-Location: <A href='byond://?src=[UID()];locedit=1'>[location ? location : "None"]</A><BR>
+Location: <A href='byond://?src=[REF(src)];locedit=1'>[location ? location : "None"]</A><BR>
 Transponder Codes:<UL>"}
 
 		for(var/key in codes)
 			t += "<LI>[key] ... [codes[key]]"
-			t += "	<A href='byond://?src=[UID()];edit=1;code=[key]'>Edit</A>"
-			t += "	<A href='byond://?src=[UID()];delete=1;code=[key]'>Delete</A><BR>"
-		t += "	<A href='byond://?src=[UID()];add=1;'>Add New</A><BR>"
+			t += "	<A href='byond://?src=[REF(src)];edit=1;code=[key]'>Edit</A>"
+			t += "	<A href='byond://?src=[REF(src)];delete=1;code=[key]'>Delete</A><BR>"
+		t += "	<A href='byond://?src=[REF(src)];add=1;'>Add New</A><BR>"
 		t+= "<UL></TT>"
 
 	var/datum/browser/popup = new(user, "navbeacon", "Navigation Beacon", 300, 400)
@@ -214,11 +212,3 @@ Transponder Codes:<UL>"}
 			codes[newkey] = newval
 
 			updateDialog()
-
-
-/obj/machinery/navbeacon/invisible
-	invisibility = INVISIBILITY_MAXIMUM
-
-/obj/machinery/navbeacon/invisible/hide(intact)
-	invisibility = INVISIBILITY_MAXIMUM
-	updateicon()

@@ -1,29 +1,39 @@
-/var/global/sent_spiders_to_station = 0
+/datum/round_event_control/spider_infestation
+	name = "Spider Infestation"
+	typepath = /datum/round_event/spider_infestation
+	weight = 5
+	max_occurrences = 1
+	min_players = 15
 
-/datum/event/spider_infestation
+/datum/round_event/spider_infestation
 	announceWhen	= 400
+
 	var/spawncount = 1
 
-/datum/event/spider_infestation/setup()
+
+/datum/round_event/spider_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
-	spawncount = round(num_players() * 0.8)
-	sent_spiders_to_station = 1
+	spawncount = rand(5, 8)
 
-/datum/event/spider_infestation/announce()
-	event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+/datum/round_event/spider_infestation/announce(fake)
+	priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", 'sound/ai/aliens.ogg')
 
-/datum/event/spider_infestation/start()
 
+/datum/round_event/spider_infestation/start()
 	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
+		if(QDELETED(temp_vent))
+			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			if(temp_vent.parent.other_atmosmch.len > 50)
+			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			if(temp_vent_parent.other_atmosmch.len > 20)
 				vents += temp_vent
 
 	while((spawncount >= 1) && vents.len)
 		var/obj/vent = pick(vents)
-		var/obj/structure/spider/spiderling/S = new(vent.loc)
+		var/spawn_type = /obj/structure/spider/spiderling
 		if(prob(66))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
+			spawn_type = /obj/structure/spider/spiderling/nurse
+		announce_to_ghosts(spawn_atom_to_turf(spawn_type, vent, 1, FALSE))
 		vents -= vent
 		spawncount--

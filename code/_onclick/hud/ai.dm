@@ -1,76 +1,88 @@
 /obj/screen/ai
 	icon = 'icons/mob/screen_ai.dmi'
 
+/obj/screen/ai/Click()
+	if(isobserver(usr) || usr.incapacitated())
+		return TRUE
+
 /obj/screen/ai/aicore
 	name = "AI core"
 	icon_state = "ai_core"
 
 /obj/screen/ai/aicore/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.view_core()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.view_core()
 
 /obj/screen/ai/camera_list
 	name = "Show Camera List"
 	icon_state = "camera"
 
 /obj/screen/ai/camera_list/Click()
+	if(..())
+		return
 	var/mob/living/silicon/ai/AI = usr
-	var/camera = input(AI, "Choose which camera you want to view", "Cameras") as null|anything in AI.get_camera_list()
-	AI.ai_camera_list(camera)
+	AI.show_camera_list()
 
 /obj/screen/ai/camera_track
 	name = "Track With Camera"
 	icon_state = "track"
 
 /obj/screen/ai/camera_track/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		var/target_name = input(AI) as null|anything in AI.trackable_mobs()
-		if(target_name)
-			AI.ai_camera_track(target_name)
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	var/target_name = input(AI, "Choose who you want to track", "Tracking") as null|anything in AI.trackable_mobs()
+	AI.ai_camera_track(target_name)
 
 /obj/screen/ai/camera_light
 	name = "Toggle Camera Light"
 	icon_state = "camera_light"
 
 /obj/screen/ai/camera_light/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.toggle_camera_light()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.toggle_camera_light()
 
 /obj/screen/ai/crew_monitor
 	name = "Crew Monitoring Console"
 	icon_state = "crew_monitor"
 
 /obj/screen/ai/crew_monitor/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.subsystem_crew_monitor()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	GLOB.crewmonitor.show(AI,AI)
 
 /obj/screen/ai/crew_manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"
 
 /obj/screen/ai/crew_manifest/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.ai_roster()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.ai_roster()
 
 /obj/screen/ai/alerts
 	name = "Show Alerts"
 	icon_state = "alerts"
 
 /obj/screen/ai/alerts/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.subsystem_alarm_monitor()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.ai_alerts()
 
 /obj/screen/ai/announcement
-	name = "Make Announcement"
+	name = "Make Vox Announcement"
 	icon_state = "announcement"
 
 /obj/screen/ai/announcement/Click()
+	if(..())
+		return
 	var/mob/living/silicon/ai/AI = usr
 	AI.announcement()
 
@@ -79,66 +91,78 @@
 	icon_state = "call_shuttle"
 
 /obj/screen/ai/call_shuttle/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.ai_call_shuttle()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.ai_call_shuttle()
 
 /obj/screen/ai/state_laws
-	name = "Law Manager"
+	name = "State Laws"
 	icon_state = "state_laws"
 
 /obj/screen/ai/state_laws/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.subsystem_law_manager()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.checklaws()
 
 /obj/screen/ai/pda_msg_send
 	name = "PDA - Send Message"
 	icon_state = "pda_send"
 
 /obj/screen/ai/pda_msg_send/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.aiPDA.cmd_send_pdamesg()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.cmd_send_pdamesg(usr)
 
 /obj/screen/ai/pda_msg_show
 	name = "PDA - Show Message Log"
 	icon_state = "pda_receive"
 
 /obj/screen/ai/pda_msg_show/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.aiPDA.cmd_show_message_log()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.cmd_show_message_log(usr)
 
 /obj/screen/ai/image_take
 	name = "Take Image"
 	icon_state = "take_picture"
 
 /obj/screen/ai/image_take/Click()
+	if(..())
+		return
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.aiCamera.toggle_camera_mode()
+		AI.aicamera.toggle_camera_mode(usr)
+	else if(iscyborg(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.aicamera.toggle_camera_mode(usr)
 
 /obj/screen/ai/image_view
 	name = "View Images"
 	icon_state = "view_images"
 
 /obj/screen/ai/image_view/Click()
+	if(..())
+		return
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.aiCamera.viewpictures()
+		AI.aicamera.viewpictures(usr)
+	else if(iscyborg(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.aicamera.viewpictures(usr)
 
 /obj/screen/ai/sensors
-	name = "Toggle Sensor Augmentation"
+	name = "Sensor Augmentation"
 	icon_state = "ai_sensor"
 
 /obj/screen/ai/sensors/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.sensor_mode()
-	else if(isrobot(usr))
-		var/mob/living/silicon/robot/borg = usr
-		borg.sensor_mode()
+	if(..())
+		return
+	var/mob/living/silicon/S = usr
+	S.toggle_sensors()
 
 /obj/screen/ai/multicam
 	name = "Multicamera Mode"
@@ -160,17 +184,17 @@
 	var/mob/living/silicon/ai/AI = usr
 	AI.drop_new_multicam()
 
-/mob/living/silicon/ai/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/ai(src)
+
+/datum/hud/ai
+	ui_style = 'icons/mob/screen_ai.dmi'
 
 /datum/hud/ai/New(mob/owner)
 	..()
-
 	var/obj/screen/using
 
+// Language menu
 	using = new /obj/screen/language_menu
-	using.screen_loc = ui_borg_lanugage_menu
+	using.screen_loc = ui_borg_language_menu
 	static_inventory += using
 
 //AI core
@@ -193,8 +217,8 @@
 	using.screen_loc = ui_ai_camera_light
 	static_inventory += using
 
-//Crew Monitorting
-	using = new  /obj/screen/ai/crew_monitor()
+//Crew Monitoring
+	using = new /obj/screen/ai/crew_monitor()
 	using.screen_loc = ui_ai_crew_monitor
 	static_inventory += using
 

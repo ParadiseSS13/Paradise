@@ -2,12 +2,11 @@
 
 /obj/machinery/lapvend
 	name = "computer vendor"
-	desc = "A vending machine with a built-in microfabricator, capable of dispensing various NT-branded computers."
+	desc = "A vending machine with microfabricator capable of dispensing various NT-branded computers."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "robotics"
-	layer = BELOW_OBJ_LAYER
-	anchored = 1
-	density = 1
+	layer = 2.9
+	density = TRUE
 
 	// The actual laptop/tablet
 	var/obj/item/modular_computer/laptop/fabricated_laptop = null
@@ -17,6 +16,7 @@
 	var/state = 0 							// 0: Select device type, 1: Select loadout, 2: Payment, 3: Thankyou screen
 	var/devtype = 0 						// 0: None(unselected), 1: Laptop, 2: Tablet
 	var/total_price = 0						// Price of currently vended device.
+	var/credits = 0
 
 	// Device loadout
 	var/dev_cpu = 1							// 1: Default, 2: Upgraded
@@ -31,8 +31,12 @@
 /obj/machinery/lapvend/proc/reset_order()
 	state = 0
 	devtype = 0
-	QDEL_NULL(fabricated_laptop)
-	QDEL_NULL(fabricated_tablet)
+	if(fabricated_laptop)
+		qdel(fabricated_laptop)
+		fabricated_laptop = null
+	if(fabricated_tablet)
+		qdel(fabricated_tablet)
+		fabricated_tablet = null
 	dev_cpu = 1
 	dev_battery = 1
 	dev_disk = 1
@@ -159,70 +163,99 @@
 	return 0
 
 
-/obj/machinery/lapvend/Topic(href, href_list)
+
+
+
+/obj/machinery/lapvend/ui_act(action, params)
 	if(..())
 		return 1
 
-	switch(href_list["action"])
+	switch(action)
 		if("pick_device")
 			if(state) // We've already picked a device type
 				return 0
-			devtype = text2num(href_list["pick"])
+			devtype = text2num(params["pick"])
 			state = 1
 			fabricate_and_recalc_price(0)
 			return 1
 		if("clean_order")
 			reset_order()
 			return 1
+		if("purchase")
+			try_purchase()
+			return 1
 	if((state != 1) && devtype) // Following IFs should only be usable when in the Select Loadout mode
 		return 0
-	switch(href_list["action"])
+	switch(action)
 		if("confirm_order")
 			state = 2 // Wait for ID swipe for payment processing
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_cpu")
-			dev_cpu = text2num(href_list["cpu"])
+			dev_cpu = text2num(params["cpu"])
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_battery")
-			dev_battery = text2num(href_list["battery"])
+			dev_battery = text2num(params["battery"])
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_disk")
-			dev_disk = text2num(href_list["disk"])
+			dev_disk = text2num(params["disk"])
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_netcard")
-			dev_netcard = text2num(href_list["netcard"])
+			dev_netcard = text2num(params["netcard"])
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_tesla")
-			dev_apc_recharger = text2num(href_list["tesla"])
+			dev_apc_recharger = text2num(params["tesla"])
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_nanoprint")
-			dev_printer = text2num(href_list["print"])
+			dev_printer = text2num(params["print"])
 			fabricate_and_recalc_price(0)
 			return 1
 		if("hw_card")
-			dev_card = text2num(href_list["card"])
+			dev_card = text2num(params["card"])
 			fabricate_and_recalc_price(0)
 			return 1
 	return 0
 
-/obj/machinery/lapvend/attack_hand(mob/user)
-	ui_interact(user)
+/obj/machinery/lapvend/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	if(stat & (BROKEN | NOPOWER | MAINT))
+		if(ui)
+			ui.close()
+		return 0
 
-/obj/machinery/lapvend/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "computer_fabricator.tmpl", "Personal Computer Vendor", 500, 700)
-		ui.set_auto_update(1)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "computer_fabricator", "Personal Computer Vendor", 500, 400, state = state)
 		ui.open()
+		ui.set_autoupdate(state = 1)
+
+/obj/machinery/lapvend/attackby(obj/item/I as obj, mob/user as mob)
+	if(istype(I, /obj/item/stack/spacecash))
+		var/obj/item/stack/spacecash/c = I
+
+		if(!user.temporarilyRemoveItemFromInventory(c))
+			return
+		credits += c.value
+		visible_message("<span class='info'><span class='name'>[usr]</span> inserts [c.value] credits into [src].</span>")
+		qdel(c)
+		return
+	return ..()
+
+// Simplified payment processing, returns 1 on success.
+/obj/machinery/lapvend/proc/process_payment()
+	if(total_price > credits)
+		say("Insufficient credits.")
+		return 0
+	else
+		return 1
 
 /obj/machinery/lapvend/ui_data(mob/user)
-	var/list/data[0]
+
+	var/list/data = list()
 	data["state"] = state
 	if(state == 1)
 		data["devtype"] = devtype
@@ -235,57 +268,24 @@
 		data["hw_cpu"] = dev_cpu
 	if(state == 1 || state == 2)
 		data["totalprice"] = total_price
+		data["credits"] = credits
+
 	return data
 
-obj/machinery/lapvend/attackby(obj/item/I, mob/user)
-	var/obj/item/card/id/C
-	if(istype(I, /obj/item/card/id))
-		C = I
-	if(istype(I, /obj/item/pda))
-		var/obj/item/pda/PDA = I
-		if(PDA.id)
-			C = PDA.id
 
-	if(C && istype(C) && state == 2)
-		if(process_payment(C, I))
+/obj/machinery/lapvend/proc/try_purchase()
+	// Awaiting payment state
+	if(state == 2)
+		if(process_payment())
 			fabricate_and_recalc_price(1)
 			if((devtype == 1) && fabricated_laptop)
-				fabricated_laptop.forceMove(loc)
+				fabricated_laptop.forceMove(src.loc)
 				fabricated_laptop = null
 			else if((devtype == 2) && fabricated_tablet)
-				fabricated_tablet.update_icon()
-				fabricated_tablet.forceMove(loc)
+				fabricated_tablet.forceMove(src.loc)
 				fabricated_tablet = null
-			atom_say("Enjoy your new product!")
+			credits -= total_price
+			say("Enjoy your new product!")
 			state = 3
 			return 1
 		return 0
-	return ..()
-
-
-// Simplified payment processing, returns 1 on success.
-/obj/machinery/lapvend/proc/process_payment(obj/item/card/id/I, obj/item/ID_container)
-	visible_message("<span class='info'>\The [usr] swipes \the [ID_container] through \the [src].</span>")
-	var/datum/money_account/customer_account = get_card_account(I)
-	if(!customer_account || customer_account.suspended)
-		atom_say("Connection error. Unable to connect to account.")
-		return 0
-
-	if(customer_account.security_level != 0) //If card requires pin authentication (ie seclevel 1 or 2)
-		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		customer_account = attempt_account_access(I.associated_account_number, attempt_pin, 2)
-
-		if(!customer_account)
-			atom_say("Unable to access account: incorrect credentials.")
-			return 0
-
-	if(total_price > customer_account.money)
-		atom_say("Insufficient funds in account.")
-		return 0
-	else
-		customer_account.charge(total_price, vendor_account,
-		"Purchase of [(devtype == 1) ? "laptop computer" : "tablet microcomputer"].",
-		name, customer_account.owner_name, "Sale of [(devtype == 1) ? "laptop computer" : "tablet microcomputer"].",
-		customer_account.owner_name)
-
-		return 1

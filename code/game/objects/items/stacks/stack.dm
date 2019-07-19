@@ -9,16 +9,32 @@
  * Stacks
  */
 /obj/item/stack
-	origin_tech = "materials=1"
-	var/list/recipes = list() // /datum/stack_recipe
+	icon = 'icons/obj/stack_objects.dmi'
+	gender = PLURAL
+	var/list/datum/stack_recipe/recipes
 	var/singular_name
 	var/amount = 1
-	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
+	var/is_cyborg = 0 // It's 1 if module is used by a cyborg, and uses its storage
+	var/datum/robot_energy_storage/source
+	var/cost = 1 // How much energy from storage it costs
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
+	var/full_w_class = WEIGHT_CLASS_NORMAL //The weight class the stack should have at amount > 2/3rds max_amount
+	var/novariants = TRUE //Determines whether the item should update it's sprites based on amount.
+	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
 
-/obj/item/stack/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/on_grind()
+	for(var/i in 1 to grind_results.len) //This should only call if it's ground, so no need to check if grind_results exists
+		grind_results[grind_results[i]] *= get_amount() //Gets the key at position i, then the reagent amount of that key, then multiplies it by stack size
+
+/obj/item/stack/grind_requirements()
+	if(is_cyborg)
+		to_chat(usr, "<span class='warning'>[src] is electronically synthesized in your chassis and can't be ground up!</span>")
+		return
+	return TRUE
+
+/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
@@ -26,303 +42,407 @@
 		new type(loc, max_amount, FALSE)
 	if(!merge_type)
 		merge_type = type
-	if(merge && !(amount >= max_amount))
+	if(merge)
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
-
-/obj/item/stack/Crossed(obj/O)
-	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
-		return
-	if(istype(O, merge_type) && !O.throwing)
-		merge(O)
-	..()
-
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
-	if(istype(AM, merge_type) && !(amount >= max_amount))
-		merge(AM)
-	..()
-
-/obj/item/stack/Destroy()
-	if(usr && usr.machine == src)
-		usr << browse(null, "window=stack")
-	return ..()
-
-/obj/item/stack/examine(mob/user)
-	if(..(user, 1))
-		if(singular_name)
-			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
-		else
-			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
-
-/obj/item/stack/proc/add(newamount)
-	amount += newamount
+	update_weight()
 	update_icon()
 
-/obj/item/stack/attack_self(mob/user)
-	list_recipes(user)
-
-/obj/item/stack/attack_self_tk(mob/user)
-	list_recipes(user)
-
-/obj/item/stack/attack_tk(mob/user)
-	if(user.stat || !isturf(loc)) return
-	// Allow remote stack splitting, because telekinetic inventory managing
-	// is really cool
-	if(src in user.tkgrabbed_objects)
-		var/obj/item/stack/F = split(user, 1)
-		F.attack_tk(user)
-		if(src && user.machine == src)
-			spawn(0)
-				interact(user)
+/obj/item/stack/proc/update_weight()
+	if(amount <= (max_amount * (1/3)))
+		w_class = CLAMP(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
+	else if (amount <= (max_amount * (2/3)))
+		w_class = CLAMP(full_w_class-1, WEIGHT_CLASS_TINY, full_w_class)
 	else
-		..()
+		w_class = full_w_class
+
+/obj/item/stack/update_icon()
+	if(novariants)
+		return ..()
+	if(amount <= (max_amount * (1/3)))
+		icon_state = initial(icon_state)
+	else if (amount <= (max_amount * (2/3)))
+		icon_state = "[initial(icon_state)]_2"
+	else
+		icon_state = "[initial(icon_state)]_3"
+	..()
 
 
-/obj/item/stack/proc/list_recipes(mob/user, recipes_sublist)
-	if(!recipes)
+/obj/item/stack/Destroy()
+	if (usr && usr.machine==src)
+		usr << browse(null, "window=stack")
+	. = ..()
+
+/obj/item/stack/examine(mob/user)
+	. = ..()
+	if (is_cyborg)
+		if(singular_name)
+			. += "There is enough energy for [get_amount()] [singular_name]\s."
+		else
+			. += "There is enough energy for [get_amount()]."
 		return
+	if(singular_name)
+		if(get_amount()>1)
+			. += "There are [get_amount()] [singular_name]\s in the stack."
+		else
+			. += "There is [get_amount()] [singular_name] in the stack."
+	else if(get_amount()>1)
+		. += "There are [get_amount()] in the stack."
+	else
+		. += "There is [get_amount()] in the stack."
+	. += "<span class='notice'>Alt-click to take a custom amount.</span>"
 
-	if(amount <= 0)
+/obj/item/stack/proc/get_amount()
+	if(is_cyborg)
+		. = round(source.energy / cost)
+	else
+		. = (amount)
+
+/obj/item/stack/attack_self(mob/user)
+	interact(user)
+
+/obj/item/stack/interact(mob/user, sublist)
+	ui_interact(user, sublist)
+
+/obj/item/stack/ui_interact(mob/user, recipes_sublist)
+	. = ..()
+	if (!recipes)
+		return
+	if (!src || get_amount() <= 0)
 		user << browse(null, "window=stack")
-		return
-
 	user.set_machine(src) //for correct work of onclose
-
 	var/list/recipe_list = recipes
-	if(recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
+	if (recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
 		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
 		recipe_list = srl.recipes
-
-	var/t1 = "Amount Left: [amount]<br>"
-	for(var/i in 1 to recipe_list.len)
+	var/t1 = "Amount Left: [get_amount()]<br>"
+	for(var/i in 1 to length(recipe_list))
 		var/E = recipe_list[i]
-		if(isnull(E))
+		if (isnull(E))
 			t1 += "<hr>"
 			continue
+		if (i>1 && !isnull(recipe_list[i-1]))
+			t1+="<br>"
 
-		if(i > 1 && !isnull(recipe_list[i - 1]))
-			t1 += "<br>"
-
-		if(istype(E, /datum/stack_recipe_list))
+		if (istype(E, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/srl = E
-			t1 += "<a href='?src=[UID()];sublist=[i]'>[srl.title]</a>"
+			t1 += "<a href='?src=[REF(src)];sublist=[i]'>[srl.title]</a>"
 
-		if(istype(E, /datum/stack_recipe))
+		if (istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(amount / R.req_amount)
+			var/max_multiplier = round(get_amount() / R.req_amount)
 			var/title
 			var/can_build = 1
-			can_build = can_build && (max_multiplier > 0)
+			can_build = can_build && (max_multiplier>0)
 
-			if(R.res_amount > 1)
-				title += "[R.res_amount]x [R.title]\s"
+			if (R.res_amount>1)
+				title+= "[R.res_amount]x [R.title]\s"
 			else
-				title += "[R.title]"
-			title += " ([R.req_amount] [src.singular_name]\s)"
-			if(can_build)
-				t1 += "<A href='?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
+				title+= "[R.title]"
+			title+= " ([R.req_amount] [singular_name]\s)"
+			if (can_build)
+				t1 += text("<A href='?src=[REF(src)];sublist=[recipes_sublist];make=[i];multiplier=1'>[title]</A>  ")
 			else
-				t1 += "[title]"
+				t1 += text("[]", title)
 				continue
-			if(R.max_res_amount > 1 && max_multiplier > 1)
-				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
+			if (R.max_res_amount>1 && max_multiplier>1)
+				max_multiplier = min(max_multiplier, round(R.max_res_amount/R.res_amount))
 				t1 += " |"
-				
-				var/list/multipliers = list(5, 10, 25)
-				for(var/n in multipliers)
-					if(max_multiplier >= n)
-						t1 += " <A href='?src=[UID()];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
-				if(!(max_multiplier in multipliers))
-					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
+				var/list/multipliers = list(5,10,25)
+				for (var/n in multipliers)
+					if (max_multiplier>=n)
+						t1 += " <A href='?src=[REF(src)];make=[i];multiplier=[n]'>[n*R.res_amount]x</A>"
+				if (!(max_multiplier in multipliers))
+					t1 += " <A href='?src=[REF(src)];make=[i];multiplier=[max_multiplier]'>[max_multiplier*R.res_amount]x</A>"
 
 	var/datum/browser/popup = new(user, "stack", name, 400, 400)
 	popup.set_content(t1)
-	popup.open(0)
+	popup.open(FALSE)
 	onclose(user, "stack")
 
 /obj/item/stack/Topic(href, href_list)
 	..()
-	if(usr.incapacitated() || !usr.is_in_active_hand(src))
-		return 0
-
-	if(href_list["sublist"] && !href_list["make"])
-		list_recipes(usr, text2num(href_list["sublist"]))
-
-	if(href_list["make"])
-		if(amount < 1)
-			qdel(src) //Never should happen
+	if (usr.restrained() || usr.stat || usr.get_active_held_item() != src)
+		return
+	if (href_list["sublist"] && !href_list["make"])
+		interact(usr, text2num(href_list["sublist"]))
+	if (href_list["make"])
+		if (get_amount() < 1 && !is_cyborg)
+			qdel(src)
 
 		var/list/recipes_list = recipes
-		if(href_list["sublist"])
+		if (href_list["sublist"])
 			var/datum/stack_recipe_list/srl = recipes_list[text2num(href_list["sublist"])]
 			recipes_list = srl.recipes
-
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
-			multiplier = 1
-
-		if(amount < R.req_amount * multiplier)
-			if(R.req_amount * multiplier>1)
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
-			else
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return 0
-
-		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
-			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
-			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return 0
-
-		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return 0
-
-		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
-				return 0
-
-		if(amount < R.req_amount * multiplier)
+		if (!multiplier ||(multiplier <= 0)) //href protection
 			return
+		if(!building_checks(R, multiplier))
+			return
+		if (R.time)
+			usr.visible_message("<span class='notice'>[usr] starts building \a [R.title].</span>", "<span class='notice'>You start building \a [R.title]...</span>")
+			if (!do_after(usr, R.time, target = usr))
+				return
+			if(!building_checks(R, multiplier))
+				return
 
-		var/atom/O
+		var/obj/O
 		if(R.max_res_amount > 1) //Is it a stack?
 			O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
+		else if(ispath(R.result_type, /turf))
+			var/turf/T = usr.drop_location()
+			if(!isturf(T))
+				return
+			T.PlaceOnTop(R.result_type)
 		else
 			O = new R.result_type(usr.drop_location())
-		O.setDir(usr.dir)
+		if(O)
+			O.setDir(usr.dir)
 		use(R.req_amount * multiplier)
 
-		R.post_build(src, O)
+		//START: oh fuck i'm so sorry
+		if(istype(O, /obj/structure/windoor_assembly))
+			var/obj/structure/windoor_assembly/W = O
+			W.ini_dir = W.dir
+		else if(istype(O, /obj/structure/window))
+			var/obj/structure/window/W = O
+			W.ini_dir = W.dir
+		//END: oh fuck i'm so sorry
 
-		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
-			var/oldsrc = src
-			src = null //dont kill proc after del()
-			usr.unEquip(oldsrc, 1)
-			qdel(oldsrc)
-			if(istype(O, /obj/item))
-				usr.put_in_hands(O)
+		else if(istype(O, /obj/item/restraints/handcuffs/cable))
+			var/obj/item/cuffs = O
+			cuffs.item_color = item_color
+			cuffs.update_icon()
 
+		if (QDELETED(O))
+			return //It's a stack and has already been merged
+
+		if (isitem(O))
+			usr.put_in_hands(O)
 		O.add_fingerprint(usr)
+
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
-			for(var/obj/item/I in O)
+		if ( istype(O, /obj/item/storage) )
+			for (var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
 
-	if(src && usr.machine == src) //do not reopen closed window
-		spawn(0)
-			interact(usr)
-			return
+/obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier)
+	if (get_amount() < R.req_amount*multiplier)
+		if (R.req_amount*multiplier>1)
+			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!</span>")
+		else
+			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
+		return FALSE
+	var/turf/T = get_turf(usr)
 
-/obj/item/stack/proc/use(used, check = TRUE)
+	var/obj/D = R.result_type
+	if(R.window_checks && !valid_window_location(T, initial(D.dir) == FULLTILE_WINDOW_DIR ? FULLTILE_WINDOW_DIR : usr.dir))
+		to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
+		return FALSE
+	if(R.one_per_turf && (locate(R.result_type) in T))
+		to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
+		return FALSE
+	if(R.on_floor)
+		if(!isfloorturf(T))
+			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
+			return FALSE
+		for(var/obj/AM in T)
+			if(istype(AM,/obj/structure/grille))
+				continue
+			if(istype(AM,/obj/structure/table))
+				continue
+			if(istype(AM,/obj/structure/window))
+				var/obj/structure/window/W = AM
+				if(!W.fulltile)
+					continue
+			if(AM.density)
+				to_chat(usr, "<span class='warning'>Theres a [AM.name] here. You cant make a [R.title] here!</span>")
+				return FALSE
+	if(R.placement_checks)
+		switch(R.placement_checks)
+			if(STACK_CHECK_CARDINALS)
+				var/turf/step
+				for(var/direction in GLOB.cardinals)
+					step = get_step(T, direction)
+					if(locate(R.result_type) in step)
+						to_chat(usr, "<span class='warning'>\The [R.title] must not be built directly adjacent to another!</span>")
+						return FALSE
+			if(STACK_CHECK_ADJACENT)
+				if(locate(R.result_type) in range(1, T))
+					to_chat(usr, "<span class='warning'>\The [R.title] must be constructed at least one tile away from others of its type!</span>")
+					return FALSE
+	return TRUE
+
+/obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
 	if(check && zero_amount())
 		return FALSE
-	if(amount < used)
+	if (is_cyborg)
+		return source.use_charge(used * cost)
+	if (amount < used)
 		return FALSE
 	amount -= used
 	if(check)
 		zero_amount()
 	update_icon()
+	update_weight()
 	return TRUE
 
-/obj/item/stack/proc/get_amount()
-	return amount
+/obj/item/stack/tool_use_check(mob/living/user, amount)
+	if(get_amount() < amount)
+		if(singular_name)
+			if(amount > 1)
+				to_chat(user, "<span class='warning'>You need at least [amount] [singular_name]\s to do this!</span>")
+			else
+				to_chat(user, "<span class='warning'>You need at least [amount] [singular_name] to do this!</span>")
+		else
+			to_chat(user, "<span class='warning'>You need at least [amount] to do this!</span>")
 
-/obj/item/stack/proc/get_max_amount()
-	return max_amount
+		return FALSE
 
-/obj/item/stack/proc/get_amount_transferred()
-	return to_transfer
+	return TRUE
 
-/obj/item/stack/proc/split(mob/user, amt)
-	var/obj/item/stack/F = new type(loc, amt)
-	F.copy_evidences(src)
-	if(isliving(user))
-		add_fingerprint(user)
-		F.add_fingerprint(user)
-	use(amt)
-	return F
+/obj/item/stack/proc/zero_amount()
+	if(is_cyborg)
+		return source.energy < cost
+	if(amount < 1)
+		qdel(src)
+		return 1
+	return 0
 
-/obj/item/stack/attack_hand(mob/user)
-	if(user.is_in_inactive_hand(src) && amount > 1)
-		change_stack(user, 1)
-		if(src && usr.machine == src)
-			spawn(0)
-				interact(usr)
+/obj/item/stack/proc/add(amount)
+	if (is_cyborg)
+		source.add_charge(amount * cost)
 	else
-		..()
+		src.amount += amount
+	update_icon()
+	update_weight()
+
+/obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
+	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
+		return
+	var/transfer = get_amount()
+	if(S.is_cyborg)
+		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
+	else
+		transfer = min(transfer, S.max_amount - S.amount)
+	if(pulledby)
+		pulledby.start_pulling(S)
+	S.copy_evidences(src)
+	use(transfer, TRUE)
+	S.add(transfer)
+	return transfer
+
+/obj/item/stack/Crossed(obj/o)
+	if(istype(o, merge_type) && !o.throwing)
+		merge(o)
+	. = ..()
+
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(istype(AM, merge_type))
+		merge(AM)
+	. = ..()
+
+//ATTACK HAND IGNORING PARENT RETURN VALUE
+/obj/item/stack/attack_hand(mob/user)
+	if(user.get_inactive_held_item() == src)
+		if(zero_amount())
+			return
+		return change_stack(user,1)
+	else
+		. = ..()
 
 /obj/item/stack/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	. = ..()
+	if(isturf(loc)) // to prevent people that are alt clicking a tile to see its content from getting undesidered pop ups
 		return
-	if(!in_range(src, user))
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
-	if(!ishuman(usr))
+	if(is_cyborg)
 		return
-	if(amount < 1)
-		return
-	//get amount from user
-	var/min = 0
-	var/max = get_amount()
-	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
-	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
-		return
-	change_stack(user,stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+	else
+		if(zero_amount())
+			return
+		//get amount from user
+		var/max = get_amount()
+		var/stackmaterial = round(input(user,"How many sheets do you wish to take out of this stack? (Maximum  [max])") as null|num)
+		max = get_amount()
+		stackmaterial = min(max, stackmaterial)
+		if(stackmaterial == null || stackmaterial <= 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+			return
+		else
+			change_stack(user, stackmaterial)
+			to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
 
-/obj/item/stack/proc/change_stack(mob/user,amount)
-	var/obj/item/stack/F = new type(user, amount, FALSE)
+/obj/item/stack/proc/change_stack(mob/user, amount)
+	if(!use(amount, TRUE, FALSE))
+		return FALSE
+	var/obj/item/stack/F = new type(user? user : drop_location(), amount, FALSE)
 	. = F
 	F.copy_evidences(src)
-	user.put_in_hands(F)
-	add_fingerprint(user)
-	F.add_fingerprint(user)
-	use(amount)
+	if(user)
+		if(!user.put_in_hands(F, merge_stacks = FALSE))
+			F.forceMove(user.drop_location())
+		add_fingerprint(user)
+		F.add_fingerprint(user)
+	zero_amount()
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, merge_type))
 		var/obj/item/stack/S = W
-		merge(S)
-		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
+		if(merge(S))
+			to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
 	else
-		return ..()
-
-/obj/item/stack/proc/zero_amount()
-	if(amount < 1)
-		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(locate(src) in R.module.modules)
-				R.module.modules -= src
-		if(ismob(loc))
-			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
-			L.unEquip(src, TRUE)
-		qdel(src)
-		return TRUE
-	return FALSE
-
-/obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
-	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
-		return FALSE
-	var/transfer = get_amount()
-	transfer = min(transfer, S.max_amount - S.amount)
-	if(transfer <= 0)
-		return
-	if(pulledby)
-		pulledby.start_pulling(S)
-	S.copy_evidences(src)
-	S.add(transfer)
-	use(transfer)
+		. = ..()
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
-	blood_DNA			= from.blood_DNA
-	fingerprints		= from.fingerprints
-	fingerprintshidden	= from.fingerprintshidden
-	fingerprintslast	= from.fingerprintslast
+	add_blood_DNA(from.return_blood_DNA())
+	add_fingerprint_list(from.return_fingerprints())
+	add_hiddenprint_list(from.return_hiddenprints())
+	fingerprintslast  = from.fingerprintslast
+	//TODO bloody overlay
+
+/obj/item/stack/microwave_act(obj/machinery/microwave/M)
+	if(istype(M) && M.dirty < 100)
+		M.dirty += amount
+
+/*
+ * Recipe datum
+ */
+/datum/stack_recipe
+	var/title = "ERROR"
+	var/result_type
+	var/req_amount = 1
+	var/res_amount = 1
+	var/max_res_amount = 1
+	var/time = 0
+	var/one_per_turf = FALSE
+	var/on_floor = FALSE
+	var/window_checks = FALSE
+	var/placement_checks = FALSE
+
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE )
+
+
+	src.title = title
+	src.result_type = result_type
+	src.req_amount = req_amount
+	src.res_amount = res_amount
+	src.max_res_amount = max_res_amount
+	src.time = time
+	src.one_per_turf = one_per_turf
+	src.on_floor = on_floor
+	src.window_checks = window_checks
+	src.placement_checks = placement_checks
+/*
+ * Recipe list datum
+ */
+/datum/stack_recipe_list
+	var/title = "ERROR"
+	var/list/recipes
+
+/datum/stack_recipe_list/New(title, recipes)
+	src.title = title
+	src.recipes = recipes

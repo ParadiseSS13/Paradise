@@ -1,48 +1,43 @@
 /mob/living/carbon/alien/humanoid/drone
 	name = "alien drone"
 	caste = "d"
-	maxHealth = 100
-	health = 100
-	icon_state = "aliend_s"
+	maxHealth = 125
+	health = 125
+	icon_state = "aliend"
 
-/mob/living/carbon/alien/humanoid/drone/New()
-	create_reagents(100)
-	if(src.name == "alien drone")
-		src.name = text("alien drone ([rand(1, 1000)])")
-	src.real_name = src.name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
+/mob/living/carbon/alien/humanoid/drone/Initialize()
+	AddAbility(new/obj/effect/proc_holder/alien/evolve(null))
+	. = ..()
+
+/mob/living/carbon/alien/humanoid/drone/create_internal_organs()
+	internal_organs += new /obj/item/organ/alien/plasmavessel/large
+	internal_organs += new /obj/item/organ/alien/resinspinner
+	internal_organs += new /obj/item/organ/alien/acid
 	..()
 
-//Drones use the same base as generic humanoids.
-//Drone verbs
+/obj/effect/proc_holder/alien/evolve
+	name = "Evolve to Praetorian"
+	desc = "Praetorian"
+	plasma_cost = 500
 
-/mob/living/carbon/alien/humanoid/drone/verb/evolve() // -- TLE
-	set name = "Evolve (500)"
-	set desc = "Produce an interal egg sac capable of spawning children. Only one queen can exist at a time."
-	set category = "Alien"
+	action_icon_state = "alien_evolve_drone"
 
-	if(powerc(500))
-		// Queen check
-		var/no_queen = 1
-		for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.living_mob_list)
-			if(!Q.key && Q.get_int_organ(/obj/item/organ/internal/brain/))
-				continue
-			no_queen = 0
+/obj/effect/proc_holder/alien/evolve/fire(mob/living/carbon/alien/humanoid/user)
+	var/obj/item/organ/alien/hivenode/node = user.getorgan(/obj/item/organ/alien/hivenode)
+	if(!node) //Players are Murphy's Law. We may not expect there to ever be a living xeno with no hivenode, but they _WILL_ make it happen.
+		to_chat(user, "<span class='danger'>Without the hivemind, you can't possibly hold the responsibility of leadership!</span>")
+		return 0
+	if(node.recent_queen_death)
+		to_chat(user, "<span class='danger'>Your thoughts are still too scattered to take up the position of leadership.</span>")
+		return 0
 
-		if(src.has_brain_worms())
-			to_chat(src, "<span class='warning'>We cannot perform this ability at the present time!</span>")
-			return
-		if(no_queen)
-			adjustPlasma(-500)
-			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
-			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
-			mind.transfer_to(new_xeno)
-			new_xeno.mind.name = new_xeno.name
-			qdel(src)
-		else
-			to_chat(src, "<span class='notice'>We already have an alive queen.</span>")
-	return
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You can't evolve here!</span>")
+		return 0
+	if(!get_alien_type(/mob/living/carbon/alien/humanoid/royal))
+		var/mob/living/carbon/alien/humanoid/royal/praetorian/new_xeno = new (user.loc)
+		user.alien_evolve(new_xeno)
+		return 1
+	else
+		to_chat(user, "<span class='notice'>We already have a living royal!</span>")
+		return 0

@@ -1,5 +1,6 @@
 /*
 All shuttleRotate procs go here
+
 If ever any of these procs are useful for non-shuttles, rename it to proc/rotate and move it to be a generic atom proc
 */
 
@@ -26,6 +27,10 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 
 /************************************Turf rotate procs************************************/
 
+/turf/closed/mineral/shuttleRotate(rotation, params)
+	params &= ~ROTATE_OFFSET
+	return ..()
+
 /************************************Mob rotate procs************************************/
 
 //override to avoid rotating pixel_xy on mobs
@@ -37,48 +42,42 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 
 /mob/dead/observer/shuttleRotate(rotation, params)
 	. = ..()
-	update_icons()
+	update_icon()
 
 /************************************Structure rotate procs************************************/
-
-/obj/structure/cable/shuttleRotate(rotation, params)
-	params &= ~ROTATE_DIR
-	. = ..()
-	if(d1)
-		d1 = angle2dir(rotation+dir2angle(d1))
-	if(d2)
-		d2 = angle2dir(rotation+dir2angle(d2))
-
-	//d1 should be less than d2 for cable icons to work
-	if(d1 > d2)
-		var/temp = d1
-		d1 = d2
-		d2 = temp
-	update_icon()
 
 //Fixes dpdir on shuttle rotation
 /obj/structure/disposalpipe/shuttleRotate(rotation, params)
 	. = ..()
 	var/new_dpdir = 0
-	for(var/D in list(NORTH, SOUTH, EAST, WEST))
+	for(var/D in GLOB.cardinals)
 		if(dpdir & D)
 			new_dpdir = new_dpdir | angle2dir(rotation+dir2angle(D))
 	dpdir = new_dpdir
+
+/obj/structure/table/wood/bar/shuttleRotate(rotation, params)
+	. = ..()
+	boot_dir = angle2dir(rotation + dir2angle(boot_dir))
 
 /obj/structure/alien/weeds/shuttleRotate(rotation, params)
 	params &= ~ROTATE_OFFSET
 	return ..()
 
-//prevents shuttles attempting to rotate this since it messes up sprites
-/obj/structure/table/shuttleRotate(rotation, params)
-	params = NONE
-	return ..()
-
-/obj/structure/table_frame/shuttleRotate(rotation, params)
-	params = NONE
-	return ..()
-
 /************************************Machine rotate procs************************************/
+
+/obj/machinery/atmospherics/shuttleRotate(rotation, params)
+	var/list/real_node_connect = getNodeConnects()
+	for(var/i in 1 to device_type)
+		real_node_connect[i] = angle2dir(rotation+dir2angle(real_node_connect[i]))
+
+	. = ..()
+	SetInitDirections()
+	var/list/supposed_node_connect = getNodeConnects()
+	var/list/nodes_copy = nodes.Copy()
+
+	for(var/i in 1 to device_type)
+		var/new_pos = supposed_node_connect.Find(real_node_connect[i])
+		nodes[new_pos] = nodes_copy[i]
 
 //prevents shuttles attempting to rotate this since it messes up sprites
 /obj/machinery/gateway/shuttleRotate(rotation, params)
@@ -89,3 +88,16 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 /obj/machinery/gravity_generator/shuttleRotate(rotation, params)
 	params = NONE
 	return ..()
+
+/obj/machinery/door/airlock/shuttleRotate(rotation, params)
+	. = ..()
+	if(cyclelinkeddir && (params & ROTATE_DIR))
+		cyclelinkeddir = angle2dir(rotation+dir2angle(cyclelinkeddir))
+		// If we update the linked airlock here, the partner airlock might
+		// not be present yet, so don't do that. Just assume we're still
+		// partnered with the same airlock as before.
+
+/obj/machinery/porta_turret/shuttleRotate(rotation, params)
+	. = ..()
+	if(wall_turret_direction && (params & ROTATE_DIR))
+		wall_turret_direction = turn(wall_turret_direction,rotation)

@@ -8,10 +8,10 @@
 	var/randomdir = TRUE
 	var/timerid
 
-/obj/effect/temp_visual/Initialize(mapload)
+/obj/effect/temp_visual/Initialize()
 	. = ..()
 	if(randomdir)
-		setDir(pick(cardinal))
+		setDir(pick(GLOB.cardinals))
 
 	timerid = QDEL_IN(src, duration)
 
@@ -35,3 +35,5 @@
 	if(set_dir)
 		setDir(set_dir)
 	. = ..()
+
+

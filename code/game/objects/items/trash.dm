@@ -1,103 +1,105 @@
-//Items labled as 'trash' for the trash bag.
-//TODO: Make this an item var or something...
-
 //Added by Jack Rost
 /obj/item/trash
-	icon = 'icons/obj/trash.dmi'
-	w_class = WEIGHT_CLASS_TINY
+	icon = 'icons/obj/janitor.dmi'
+	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	desc = "This is rubbish."
-	burn_state = FLAMMABLE
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
+
+/obj/item/trash/Initialize(mapload)
+	var/turf/T = get_turf(src)
+	if(T && is_station_level(T.z))
+		SSblackbox.record_feedback("tally", "station_mess_created", 1, name)
+	return ..()
+
+/obj/item/trash/Destroy()
+	var/turf/T = get_turf(src)
+	if(T && is_station_level(T.z))
+		SSblackbox.record_feedback("tally", "station_mess_destroyed", 1, name)
+	return ..()
 
 /obj/item/trash/raisins
-	name = "4no raisins"
+	name = "\improper 4no raisins"
 	icon_state= "4no_raisins"
 
 /obj/item/trash/candy
-	name = "Candy"
+	name = "candy"
 	icon_state= "candy"
 
 /obj/item/trash/cheesie
-	name = "Cheesie honkers"
+	name = "cheesie honkers"
 	icon_state = "cheesie_honkers"
 
 /obj/item/trash/chips
-	name = "Chips"
+	name = "chips"
 	icon_state = "chips"
 
 /obj/item/trash/popcorn
-	name = "Popcorn"
+	name = "popcorn"
 	icon_state = "popcorn"
 
 /obj/item/trash/sosjerky
-	name = "Scaredy's Private Reserve Beef Jerky"
+	name = "\improper Scaredy's Private Reserve Beef Jerky"
 	icon_state = "sosjerky"
 
 /obj/item/trash/syndi_cakes
-	name = "Syndi cakes"
+	name = "syndi-cakes"
 	icon_state = "syndi_cakes"
 
+/obj/item/trash/energybar
+	name = "energybar wrapper"
+	icon_state = "energybar"
+
 /obj/item/trash/waffles
-	name = "Waffles"
+	name = "waffles tray"
 	icon_state = "waffles"
 
 /obj/item/trash/plate
-	name = "Plate"
+	name = "plate"
 	icon_state = "plate"
-	burn_state = FIRE_PROOF
-
-/obj/item/trash/snack_bowl
-	name = "Snack bowl"
-	icon_state	= "snack_bowl"
+	resistance_flags = NONE
 
 /obj/item/trash/pistachios
-	name = "Pistachios pack"
+	name = "pistachios pack"
 	icon_state = "pistachios_pack"
 
 /obj/item/trash/semki
-	name = "Semki pack"
+	name = "semki pack"
 	icon_state = "semki_pack"
 
 /obj/item/trash/tray
-	name = "Tray"
+	name = "tray"
 	icon_state = "tray"
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/trash/candle
 	name = "candle"
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle4"
 
-/obj/item/trash/liquidfood
-	name = "\improper \"LiquidFood\" ration"
-	icon_state = "liquidfood"
-
 /obj/item/trash/can
 	name = "crushed can"
 	icon_state = "cola"
-	var/is_glass = 0
-	var/is_plastic = 0
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	grind_results = list(/datum/reagent/aluminium = 10)
 
-/obj/item/trash/gum
-	name = "chewed gum"
-	desc = "NOT free candy."
-	icon_state = "gum"
+/obj/item/trash/can/Initialize()
+	. = ..()
+	pixel_x = rand(-4,4)
+	pixel_y = rand(-4,4)
 
-/obj/item/trash/tastybread
-	name = "bread tube"
-	icon_state = "tastybread"
-
-/obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
-	name = "bullet casing"
-	desc = "A spent bullet casing. Smells like cordite."
-	icon_state = "gshell"
-
-/obj/item/trash/tapetrash
-	name = "old duct tape"
-	icon_state = "tape"
-	desc = "Not sticky anymore."
-	throw_range = 1
-
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
+/obj/item/trash/attack(mob/M, mob/living/user)
 	return
+
+/obj/item/trash/coal
+	name = "lump of coal"
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "slag"
+	desc = "Someone's gotten on the naughty list."
+	grind_results = list(/datum/reagent/carbon = 20)
+
+/obj/item/trash/coal/burn()
+	visible_message("[src] fuses into a diamond! Someone wasn't so naughty after all...")
+	new /obj/item/stack/ore/diamond(loc)
+	qdel(src)

@@ -25,7 +25,8 @@
 	for(var/datum/reagents/R in reactants)
 		R.trans_to(splash_holder, R.total_volume, threatscale, 1, 1)
 		total_temp += R.chem_temp
-	splash_holder.set_reagent_temp((total_temp / reactants.len) + extra_heat) // Average temperature of reagents + extra heat.
+	splash_holder.chem_temp = (total_temp/reactants.len) + extra_heat // Average temperature of reagents + extra heat.
+	splash_holder.handle_reactions() // React them now.
 
 	if(splash_holder.total_volume && affected_range >= 0)	//The possible reactions didnt use up all reagents, so we spread it around.
 		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
@@ -41,7 +42,7 @@
 			for(var/turf/T in (orange(i, epicenter) - orange(i-1, epicenter)))
 				turflist |= T
 			for(var/turf/T in turflist)
-				if( !(get_dir(T,epicenter) in cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
+				if(!(get_dir(T,epicenter) in GLOB.cardinals) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
 					turflist.Remove(T)
 					turflist.Add(T) // we move the purely diagonal turfs to the end of the list.
 			for(var/turf/T in turflist)
@@ -51,7 +52,7 @@
 					var/turf/NT = thing
 					if(!(NT in accessible))
 						continue
-					if(!(get_dir(T,NT) in cardinal))
+					if(!(get_dir(T,NT) in GLOB.cardinals))
 						continue
 					accessible[T] = 1
 					break

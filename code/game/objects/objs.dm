@@ -1,91 +1,89 @@
+
 /obj
-	//var/datum/module/mod		//not used
-	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/crit_fail = 0
-	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
-	var/throwforce = 1
-	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
-	var/sharp = 0		// whether this object cuts
-	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-	var/can_deconstruct = TRUE
-	var/damtype = "brute"
+	speech_span = SPAN_ROBOT
+	var/obj_flags = CAN_BE_HIT
+	var/set_obj_flags // ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+
+	var/damtype = BRUTE
 	var/force = 0
-	var/list/armor
+
+	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = INFINITY
+	var/max_integrity = 500
 	var/integrity_failure = 0 //0 if we have no special broken behavior
 
-	var/resistance_flags = NONE // INDESTRUCTIBLE
-	var/can_be_hit = TRUE //can this be bludgeoned by items?
+	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 
-	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
+	var/acid_level = 0 //how much acid is on that obj
 
-	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
-	var/burntime = 10 //How long it takes to burn to ashes, in seconds
-	var/burn_world_time //What world time the object will burn up completely
-	var/being_shocked = 0
-	var/speed_process = FALSE
+	var/persistence_replacement //have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset.
+	var/current_skin //Has the item been reskinned?
+	var/list/unique_reskin //List of options to reskin.
 
-	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
-	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
+	// Access levels, used in modules\jobs\access.dm
+	var/list/req_access
+	var/req_access_txt = "0"
+	var/list/req_one_access
+	var/req_one_access_txt = "0"
 
-/obj/New()
-	..()
-	if(!armor)
-		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
-	if(on_blueprints && isturf(loc))
-		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
+	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
 
-/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
-	// Calling Topic without a corresponding window open causes runtime errors
-	if(!nowindow && ..())
-		return 1
-
-	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
-	// Instead any such checks are made in CanUseTopic()
-	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
-		CouldUseTopic(usr)
-		return 0
-
-	CouldNotUseTopic(usr)
-	return 1
-
-/obj/proc/CouldUseTopic(var/mob/user)
-	var/atom/host = nano_host()
-	host.add_fingerprint(user)
-
-/obj/proc/CouldNotUseTopic(var/mob/user)
-	// Nada
-
-/obj/Destroy()
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
-	SSnanoui.close_uis(src)
+/obj/vv_edit_var(vname, vval)
+	switch(vname)
+		if("anchored")
+			setAnchored(vval)
+			return TRUE
+		if("obj_flags")
+			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
+				return FALSE
+		if("control_object")
+			var/obj/O = vval
+			if(istype(O) && (O.obj_flags & DANGEROUS_POSSESSION))
+				return FALSE
 	return ..()
 
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//SHAME = 16
-//OBLITERATION = 32
+/obj/Initialize()
+	. = ..()
+	if (islist(armor))
+		armor = getArmor(arglist(armor))
+	else if (!armor)
+		armor = getArmor()
+	else if (!istype(armor, /datum/armor))
+		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
-//Output a creative message and then return the damagetype done
-/obj/proc/suicide_act(mob/user)
-	return FALSE
+	if(obj_integrity == null)
+		obj_integrity = max_integrity
+	if (set_obj_flags)
+		var/flagslist = splittext(set_obj_flags,";")
+		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
+		for (var/flag in flagslist)
+			if (findtext(flag,"!",1,2))
+				flag = copytext(flag,1-(length(flag))) // Get all but the initial !
+				obj_flags &= ~string_to_objflag[flag]
+			else
+				obj_flags |= string_to_objflag[flag]
+	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
+		var/turf/T = loc
+		T.add_blueprints_preround(src)
+
+
+/obj/Destroy(force=FALSE)
+	if(!ismachinery(src))
+		STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+	SStgui.close_uis(src)
+	. = ..()
+
+/obj/proc/setAnchored(anchorvalue)
+	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
+	anchored = anchorvalue
+
+/obj/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+	..()
+	if(obj_flags & FROZEN)
+		visible_message("<span class='danger'>[src] shatters into a million pieces!</span>")
+		qdel(src)
+
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)
@@ -110,54 +108,71 @@
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
+
 	if(breath_request>0)
-		return remove_air(breath_request)
+		var/datum/gas_mixture/environment = return_air()
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
 /obj/proc/updateUsrDialog()
-	if(in_use)
-		var/is_in_use = 0
+	if((obj_flags & IN_USE) && !(obj_flags & USES_TGUI))
+		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
-				is_in_use = 1
-				src.attack_hand(M)
-		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
-			if(!(usr in nearby))
-				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
-					is_in_use = 1
-					src.attack_ai(usr)
+			if ((M.client && M.machine == src))
+				is_in_use = TRUE
+				ui_interact(M)
+		if(issilicon(usr) || IsAdminGhost(usr))
+			if (!(usr in nearby))
+				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
+					is_in_use = TRUE
+					ui_interact(usr)
 
 		// check for TK users
 
-		if(istype(usr, /mob/living/carbon/human))
-			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
-				if(!(usr in nearby))
-					if(usr.client && usr.machine==src)
-						is_in_use = 1
-						src.attack_hand(usr)
-		in_use = is_in_use
+		if(ishuman(usr))
+			var/mob/living/carbon/human/H = usr
+			if(!(usr in nearby))
+				if(usr.client && usr.machine==src)
+					if(H.dna.check_mutation(TK))
+						is_in_use = TRUE
+						ui_interact(usr)
+		if (is_in_use)
+			obj_flags |= IN_USE
+		else
+			obj_flags &= ~IN_USE
 
-/obj/proc/updateDialog()
+/obj/proc/updateDialog(update_viewers = TRUE,update_ais = TRUE)
 	// Check that people are actually using the machine. If not, don't update anymore.
-	if(in_use)
-		var/list/nearby = viewers(1, src)
-		var/is_in_use = 0
-		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
-				is_in_use = 1
-				src.interact(M)
-		var/ai_in_use = AutoUpdateAI(src)
+	if(obj_flags & IN_USE)
+		var/is_in_use = FALSE
+		if(update_viewers)
+			for(var/mob/M in viewers(1, src))
+				if ((M.client && M.machine == src))
+					is_in_use = TRUE
+					src.interact(M)
+		var/ai_in_use = FALSE
+		if(update_ais)
+			ai_in_use = AutoUpdateAI(src)
 
-		if(!ai_in_use && !is_in_use)
-			in_use = 0
+		if(update_viewers && update_ais) //State change is sure only if we check both
+			if(!ai_in_use && !is_in_use)
+				obj_flags &= ~IN_USE
 
-/obj/proc/interact(mob/user)
+
+/obj/attack_ghost(mob/user)
+	. = ..()
+	if(.)
+		return
+	ui_interact(user)
+
+/obj/proc/container_resist(mob/living/user)
 	return
 
 /obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
+	return
 
 /mob/proc/unset_machine()
 	if(machine)
@@ -168,12 +183,12 @@
 /atom/movable/proc/on_unset_machine(mob/user)
 	return
 
-/mob/proc/set_machine(var/obj/O)
+/mob/proc/set_machine(obj/O)
 	if(src.machine)
 		unset_machine()
 	src.machine = O
 	if(istype(O))
-		O.in_use = 1
+		O.obj_flags |= IN_USE
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
@@ -183,137 +198,58 @@
 /obj/proc/hide(h)
 	return
 
-
-/obj/proc/hear_talk(mob/M, list/message_pieces)
-	return
-
-/obj/proc/hear_message(mob/M as mob, text)
-
-/obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return "<b>NO MULTITOOL_MENU!</b>"
-
-/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
-	return 0
-
-/obj/proc/unlinkFrom(var/mob/user, var/obj/buffer)
-	return 0
-
-/obj/proc/canLink(var/obj/O, var/link/context)
-	return 0
-
-/obj/proc/isLinkedWith(var/obj/O)
-	return 0
-
-/obj/proc/getLink(var/idx)
-	return null
-
-/obj/proc/linkMenu(var/obj/O)
-	var/dat=""
-	if(canLink(O, list()))
-		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
-	return dat
-
-/obj/proc/format_tag(var/label,var/varname, var/act="set_tag")
-	var/value = vars[varname]
-	if(!value || value=="")
-		value="-----"
-	return "<b>[label]:</b> <a href=\"?src=[UID()];[act]=[varname]\">[value]</a>"
-
-
-/obj/proc/update_multitool_menu(mob/user as mob)
-	var/obj/item/multitool/P = get_multitool(user)
-
-	if(!istype(P))
-		return 0
-	var/dat = {"<html>
-	<head>
-		<title>[name] Configuration</title>
-		<style type="text/css">
-html,body {
-	font-family:courier;
-	background:#999999;
-	color:#333333;
-}
-
-a {
-	color:#000000;
-	text-decoration:none;
-	border-bottom:1px solid black;
-}
-		</style>
-	</head>
-	<body>
-		<h3>[name]</h3>
-"}
-	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
-		dat += multitool_menu(user,P)
-		if(Mtoollink)
-			if(P)
-				if(P.buffer)
-					var/id = null
-					if(istype(P.buffer, /obj/machinery/telecomms))
-						id=P.buffer:id
-					else if("id_tag" in P.buffer.vars)
-						id=P.buffer:id_tag
-					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
-
-					dat += linkMenu(P.buffer)
-
-					if(P.buffer)
-						dat += "<a href='?src=[UID()];flush=1'>\[Flush\]</a>"
-					dat += "</p>"
-				else
-					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=[UID()];buffer=1'>\[Add Machine\]</a></p>"
-	else
-		dat += "<b>ACCESS DENIED</a>"
-	dat += "</body></html>"
-	user << browse(dat, "window=mtcomputer")
-	user.set_machine(src)
-	onclose(user, "mtcomputer")
-
 /obj/singularity_pull(S, current_size)
-	if(anchored)
-		if(current_size >= STAGE_FIVE)
-			anchored = 0
-			step_towards(src,S)
-	else step_towards(src,S)
+	..()
+	if(!anchored || current_size >= STAGE_FIVE)
+		step_towards(src,S)
 
-/obj/proc/container_resist(var/mob/living)
-	return
+/obj/get_dumping_location(datum/component/storage/source,mob/user)
+	return get_turf(src)
 
 /obj/proc/CanAStarPass()
 	. = !density
 
-/obj/proc/empty_object_contents(burn = 0, new_loc = loc)
-	for(var/obj/item/Item in contents) //Empty out the contents
-		Item.forceMove(new_loc)
-		if(burn)
-			Item.fire_act() //Set them on fire, too
-
-/obj/proc/on_mob_move(dir, mob/user)
-	return
-
-/obj/proc/makeSpeedProcess()
-	if(speed_process)
-		return
-	speed_process = TRUE
-	STOP_PROCESSING(SSobj, src)
-	START_PROCESSING(SSfastprocess, src)
-
-/obj/proc/makeNormalProcess()
-	if(!speed_process)
-		return
-	speed_process = FALSE
-	START_PROCESSING(SSobj, src)
-	STOP_PROCESSING(SSfastprocess, src)
+/obj/proc/check_uplink_validity()
+	return 1
 
 /obj/vv_get_dropdown()
 	. = ..()
-	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
+	.["Delete all of type"] = "?_src_=vars;[HrefToken()];delall=[REF(src)]"
+	.["Osay"] = "?_src_=vars;[HrefToken()];osay[REF(src)]"
+	.["Modify armor values"] = "?_src_=vars;[HrefToken()];modarmor=[REF(src)]"
 
-/obj/proc/check_uplink_validity()
-	return 1
+/obj/examine(mob/user)
+	. = ..()
+	if(obj_flags & UNIQUE_RENAME)
+		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
+	if(unique_reskin && !current_skin)
+		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+
+/obj/AltClick(mob/user)
+	. = ..()
+	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+		reskin_obj(user)
+
+/obj/proc/reskin_obj(mob/M)
+	if(!LAZYLEN(unique_reskin))
+		return
+	to_chat(M, "<b>Reskin options for [name]:</b>")
+	for(var/V in unique_reskin)
+		var/output = icon2html(src, M, unique_reskin[V])
+		to_chat(M, "[V]: <span class='reallybig'>[output]</span>")
+
+	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in unique_reskin
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+		if(!unique_reskin[choice])
+			return
+		current_skin = choice
+		icon_state = unique_reskin[choice]
+		to_chat(M, "[src] is now skinned as '[choice].'")
+
+/obj/analyzer_act(mob/living/user, obj/item/I)
+	if(atmosanalyzer_scan(user, src))
+		return TRUE
+	return ..()
+
+/obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+	return

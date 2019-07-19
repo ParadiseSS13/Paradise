@@ -1,202 +1,150 @@
 /client/proc/create_poll()
-	set name = "Create Server Poll"
-	set category = "Server"
-	if(!check_rights(R_SERVER))	
+	set name = "Create Poll"
+	set category = "Special Verbs"
+	if(!check_rights(R_POLL))
 		return
-	if(!dbcon.IsConnected())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	create_poll_window()
-
-/client/proc/create_poll_window(var/errormessage = "")
-	if(!check_rights(R_SERVER))	
-		return
-	var/output={"<!DOCTYPE html>
-<html>
-<head>
-<script>
-var numoptions = 0;
-function update_vis() {
-	var polloptions = document.getElementById("polloptions");
-	var polltype = document.getElementById("polltype").value;
-	if(polltype == "[POLLTYPE_TEXT]") {
-		polloptions.style.display = "none";
-	} else {
-		polloptions.style.display = "block";
-	}
-	if(polltype == "[POLLTYPE_RATING]") {
-		for(var i = 0; i < numoptions; i++) {
-			document.getElementById("ratingoption" + i).style.display = "block";
-		}
-	} else {
-		for(var i = 0; i < numoptions; i++) {
-			document.getElementById("ratingoption" + i).style.display = "none";
-		}
-	}
-	if(polltype == "[POLLTYPE_MULTI]") {
-		document.getElementById("choiceamount").style.display = "block";
-	} else {
-		document.getElementById("choiceamount").style.display = "none";
-	}
-}
-function add_option() {
-	document.getElementById("polloptionsinner").innerHTML += "<div id='polloption"+numoptions+"' style='border:1px solid black;padding:10px'>"+
-	"Option name: <input type='text' name='createpolloption"+numoptions+"option' value='' style='width:300px'></input><br>"+
-	"<label><input type='checkbox' name='createpolloption"+numoptions+"percentagecalc' value='1' checked>Calculate options results as percentage?</label><br>"+
-	"<div id='ratingoption"+numoptions+"'>"+
-	"Minimum rating value: <input type='text' name='createpolloption"+numoptions+"minval' value='1'></input><br>"+
-	"Maximum rating value: <input type='text' name='createpolloption"+numoptions+"maxval' value='5'></input><br>"+
-	"Minimum rating description: <input type='text' name='createpolloption"+numoptions+"descmin' value='Terrible'></input><br>"+
-	"Median rating description: <input type='text' name='createpolloption"+numoptions+"descmid' value=''></input><br>"+
-	"Maximum rating description: <input type='text' name='createpolloption"+numoptions+"descmax' value='Great'></input>"+
-	"</div>";
-	numoptions++;
-	document.getElementById("createpollnumoptions").value = numoptions+"";
-	update_vis();
-}
-function del_option() {
-	if(numoptions <= 1) {
-		return;
-	}
-	numoptions--;
-	document.getElementById("polloptionsinner").removeChild(document.getElementById("polloption"+numoptions));
-	document.getElementById("createpollnumoptions").value = numoptions+"";
-	update_vis();
-}
-function onload() {
-	update_vis();
-	add_option();
-}
-</script>
-</head>
-<body onload="onload()">
-	<div style='text-align:center'><b>Create Player Poll</b></div><hr>
-	<div style='text-align:center'>[errormessage]</div>
-	<form name='createpoll' action='byond://' method='post' style='padding-left:30px;padding-right:30px;padding-top:10px'>
-		<input type='hidden' name='createpollnumoptions' id='createpollnumoptions' value='0'>
-		<table><tr><td style='width:50%' style="vertical-align:top"><div id='polloptions'><div id='polloptionsinner'>
-		
-		</div>
-		<input type='button' onclick='add_option()' value="Add Option"></input>
-		<input type='button' onclick='del_option()' value="Delete Option"></input>
-		</div></td><td style="vertical-align:top">
-		Select a poll type: <select name='createpoll' id='polltype' onchange="update_vis()">
-			<option value='[POLLTYPE_OPTION]'>POLLTYPE_OPTION</option>
-			<option value='[POLLTYPE_TEXT]'>POLLTYPE_TEXT</option>
-			<option value='[POLLTYPE_RATING]'>POLLTYPE_RATING</option>
-			<option value='[POLLTYPE_MULTI]'>POLLTYPE_MULTI</option>
-		</select><br>
-		For how many days should this poll run? <input type='text' name='createpollduration' value='7' style='width:50px'></input><br>
-		Enter your question: <input type='text' name='createpollquestion' value='' style='width:300px'></input><br>
-		<div id='choiceamount'>Up to how many options should be chosen? <input name='choiceamount' value='2' style='width:30px'></div>
-		<label><input type='checkbox' name='createpolladminonly' value='1'>Admin only?</label><br>
-		</td></tr><tr><td colspan=2 style='text-align:center'>
-		<input type='submit' value='Create poll'>
-		</td></tr></table>
-	</form>
-</body>
-</html>"}
-	src << browse(output, "window=createplayerpoll;size=950x500")
-
-/client/proc/create_poll_function(href_list)
-	if(!check_rights(R_SERVER))	
-		return
-	var/polltype = href_list["createpoll"]
-	if(polltype != POLLTYPE_OPTION && polltype != POLLTYPE_TEXT && polltype != POLLTYPE_RATING && polltype != POLLTYPE_MULTI)
-		create_poll_window("<font color='red'>Invalid poll type</font>")
-		return
+	var/polltype = input("Choose poll type.","Poll Type") as null|anything in list("Single Option","Text Reply","Rating","Multiple Choice", "Instant Runoff Voting")
 	var/choice_amount = 0
-	if(polltype == POLLTYPE_MULTI)
-		choice_amount = text2num(href_list["choiceamount"])
-		if(!isnum(choice_amount) || choice_amount < 1)
-			create_poll_window("<font color='red'>Invalid choice amount. Must be at least 1.</font>")
-			return
-	var/poll_len = text2num(href_list["createpollduration"])
-	if(!isnum(poll_len) || poll_len < 1)
-		create_poll_window("<font color='red'>Invalid poll duration. Must be at least 1.</font>")
+	switch(polltype)
+		if("Single Option")
+			polltype = POLLTYPE_OPTION
+		if("Text Reply")
+			polltype = POLLTYPE_TEXT
+		if("Rating")
+			polltype = POLLTYPE_RATING
+		if("Multiple Choice")
+			polltype = POLLTYPE_MULTI
+			choice_amount = input("How many choices should be allowed?","Select choice amount") as num|null
+			switch(choice_amount)
+				if(0)
+					to_chat(src, "Multiple choice poll must have at least one choice allowed.")
+					return
+				if(1)
+					polltype = POLLTYPE_OPTION
+				if(null)
+					return
+		if ("Instant Runoff Voting")
+			polltype = POLLTYPE_IRV
+		else
+			return 0
+	var/starttime = SQLtime()
+	var/endtime = input("Set end time for poll as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than starting time for obvious reasons.", "Set end time", SQLtime()) as text
+	if(!endtime)
 		return
-	var/adminonly = text2num(href_list["createpolladminonly"]) ? 1 : 0
+	endtime = sanitizeSQL(endtime)
+	var/datum/DBQuery/query_validate_time = SSdbcore.NewQuery("SELECT IF(STR_TO_DATE('[endtime]','%Y-%c-%d %T') > NOW(), STR_TO_DATE('[endtime]','%Y-%c-%d %T'), 0)")
+	if(!query_validate_time.warn_execute() || QDELETED(usr) || !src)
+		qdel(query_validate_time)
+		return
+	if(query_validate_time.NextRow())
+		var/checktime = text2num(query_validate_time.item[1])
+		if(!checktime)
+			to_chat(src, "Datetime entered is improperly formatted or not later than current server time.")
+			qdel(query_validate_time)
+			return
+		endtime = query_validate_time.item[1]
+	qdel(query_validate_time)
+	var/adminonly
+	switch(alert("Admin only poll?",,"Yes","No","Cancel"))
+		if("Yes")
+			adminonly = 1
+		if("No")
+			adminonly = 0
+		else
+			return
+	var/dontshow
+	switch(alert("Hide poll results from tracking until completed?",,"Yes","No","Cancel"))
+		if("Yes")
+			dontshow = 1
+		if("No")
+			dontshow = 0
+		else
+			return
 	var/sql_ckey = sanitizeSQL(ckey)
-	var/question = href_list["createpollquestion"]
+	var/question = input("Write your question","Question") as message|null
 	if(!question)
-		create_poll_window("<font color='red'>Question cannot be blank.</font>")
 		return
 	question = sanitizeSQL(question)
-	
-	var/starttime
-	var/endtime
-	var/DBQuery/query = dbcon.NewQuery("SELECT Now() AS starttime, ADDDATE(Now(), INTERVAL [poll_len] DAY) AS endtime")
-	query.Execute()
-	while(query.NextRow())
-		starttime = query.item[1]
-		endtime = query.item[2]
-	
-	var/pollquery = "INSERT INTO [format_table_name("poll_question")] (polltype, starttime, endtime, question, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip) VALUES ('[polltype]', '[starttime]', '[endtime]', '[question]', '[adminonly]', '[choice_amount]', '[sql_ckey]', '[address]')"
-	var/idquery = "SELECT id FROM [format_table_name("poll_question")] WHERE question = '[question]' AND starttime = '[starttime]' AND endtime = '[endtime]' AND createdby_ckey = '[sql_ckey]' AND createdby_ip = '[address]'"
-	var/list/option_queries = list()
-	if(polltype == POLLTYPE_MULTI || polltype == POLLTYPE_RATING || polltype == POLLTYPE_OPTION)
-		var/numoptions = text2num(href_list["createpollnumoptions"])
-		if(!numoptions)
-			create_poll_window("<font color='red'>Invalid number of options</font>")
-			return
-		for(var/I in 1 to numoptions)
-			var/option = href_list["createpolloption[I]option"]
+	var/list/sql_option_list = list()
+	if(polltype != POLLTYPE_TEXT)
+		var/add_option = 1
+		while(add_option)
+			var/option = input("Write your option","Option") as message|null
 			if(!option)
-				create_poll_window("<font color='red'>Invalid option name for option [I]</font>")
 				return
 			option = sanitizeSQL(option)
-			var/percentagecalc = 0
-			if(text2num(href_list["createpolloption[I]percentagecalc"]))
-				percentagecalc = 1
+			var/default_percentage_calc = 0
+			if(polltype != POLLTYPE_IRV)
+				switch(alert("Should this option be included by default when poll result percentages are generated?",,"Yes","No","Cancel"))
+					if("Yes")
+						default_percentage_calc = 1
+					if("No")
+						default_percentage_calc = 0
+					else
+						return
 			var/minval = 0
 			var/maxval = 0
 			var/descmin = ""
 			var/descmid = ""
 			var/descmax = ""
 			if(polltype == POLLTYPE_RATING)
-				minval = text2num(href_list["createpolloption[I]minval"])
-				if(!minval)
-					create_poll_window("<font color='red'>Invalid minimum value for option [I]</font>")
+				minval = input("Set minimum rating value.","Minimum rating") as num|null
+				if(minval)
+					minval = sanitizeSQL(minval)
+				else if(minval == null)
 					return
-				maxval = text2num(href_list["createpolloption[I]maxval"])
-				if(!maxval)
-					create_poll_window("<font color='red'>Invalid maximum value for option [I]</font>")
-					return
+				maxval = input("Set maximum rating value.","Maximum rating") as num|null
+				if(maxval)
+					maxval = sanitizeSQL(maxval)
 				if(minval >= maxval)
-					create_poll_window("<font color='red'>Minimum rating value can't be more than maximum rating value</font>")
+					to_chat(src, "Maximum rating value can't be less than or equal to minimum rating value")
+					continue
+				else if(maxval == null)
 					return
-				descmin = href_list["createpolloption[I]descmin"]
+				descmin = input("Optional: Set description for minimum rating","Minimum rating description") as message|null
 				if(descmin)
 					descmin = sanitizeSQL(descmin)
-				descmid = href_list["createpolloption[I]descmid"]
+				else if(descmin == null)
+					return
+				descmid = input("Optional: Set description for median rating","Median rating description") as message|null
 				if(descmid)
 					descmid = sanitizeSQL(descmid)
-				descmax = href_list["createpolloption[I]descmax"]
+				else if(descmid == null)
+					return
+				descmax = input("Optional: Set description for maximum rating","Maximum rating description") as message|null
 				if(descmax)
 					descmax = sanitizeSQL(descmax)
-			option_queries += "INSERT INTO [format_table_name("poll_option")] (pollid, text, percentagecalc, minval, maxval, descmin, descmid, descmax) VALUES ('{POLLID}', '[option]', '[percentagecalc]', '[minval]', '[maxval]', '[descmin]', '[descmid]', '[descmax]')"
-	
-	query = dbcon.NewQuery(pollquery)
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
-		log_game("SQL ERROR adding new poll question to table. Error : \[[err]\]\n")
+				else if(descmax == null)
+					return
+			sql_option_list += list(list("text" = "'[option]'", "minval" = "'[minval]'", "maxval" = "'[maxval]'", "descmin" = "'[descmin]'", "descmid" = "'[descmid]'", "descmax" = "'[descmax]'", "default_percentage_calc" = "'[default_percentage_calc]'"))
+			switch(alert(" ",,"Add option","Finish", "Cancel"))
+				if("Add option")
+					add_option = 1
+				if("Finish")
+					add_option = 0
+				else
+					return 0
+	var/m1 = "[key_name(usr)] has created a new server poll. Poll type: [polltype] - Admin Only: [adminonly ? "Yes" : "No"] - Question: [question]"
+	var/m2 = "[key_name_admin(usr)] has created a new server poll. Poll type: [polltype] - Admin Only: [adminonly ? "Yes" : "No"]<br>Question: [question]"
+	var/datum/DBQuery/query_polladd_question = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_question")] (polltype, starttime, endtime, question, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow) VALUES ('[polltype]', '[starttime]', '[endtime]', '[question]', '[adminonly]', '[choice_amount]', '[sql_ckey]', INET_ATON('[address]'), '[dontshow]')")
+	if(!query_polladd_question.warn_execute())
+		qdel(query_polladd_question)
 		return
-	var/pollid = 0
-	query = dbcon.NewQuery(idquery)
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
-		log_game("SQL ERROR obtaining id from poll_question table. Error : \[[err]\]\n")
-		return
-	if(query.NextRow())
-		pollid = text2num(query.item[1])
-	for(var/querytext in option_queries)
-		query = dbcon.NewQuery(replacetext(idquery, "{POLLID}", pollid))
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
-			log_game("SQL ERROR obtaining id from poll_question table. Error : \[[err]\]\n")
+	qdel(query_polladd_question)
+	if(polltype != POLLTYPE_TEXT)
+		var/pollid = 0
+		var/datum/DBQuery/query_get_id = SSdbcore.NewQuery("SELECT LAST_INSERT_ID()")
+		if(!query_get_id.warn_execute())
+			qdel(query_get_id)
 			return
-	create_poll_window("<font color='#008800'>Your poll has been successfully created</font>")
-	return pollid
+		if(query_get_id.NextRow())
+			pollid = query_get_id.item[1]
+		qdel(query_get_id)
+		for(var/list/i in sql_option_list)
+			i |= list("pollid" = "'[pollid]'")
+		SSdbcore.MassInsert(format_table_name("poll_option"), sql_option_list, warn = 1)
+	log_admin(m1)
+	message_admins(m2)

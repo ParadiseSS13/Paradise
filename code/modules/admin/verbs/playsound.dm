@@ -1,150 +1,163 @@
-var/list/sounds_cache = list()
-
-/client/proc/stop_global_admin_sounds()
-	set category = "Event"
-	set name = "Stop Global Admin Sounds"
-	if(!check_rights(R_SOUNDS))
-		return
-
-	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
-
-	log_admin("[key_name(src)] stopped admin sounds.")
-	message_admins("[key_name_admin(src)] stopped admin sounds.", 1)
-	for(var/mob/M in GLOB.player_list)
-		M << awful_sound
-
 /client/proc/play_sound(S as sound)
-	set category = "Event"
+	set category = "Fun"
 	set name = "Play Global Sound"
-	if(!check_rights(R_SOUNDS))	return
-
-	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
-	uploaded_sound.priority = 250
-
-	sounds_cache += S
-
-	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+	if(!check_rights(R_SOUND))
 		return
+
+	var/freq = 1
+	var/vol = input(usr, "What volume would you like the sound to play at?",, 100) as null|num
+	if(!vol)
+		return
+	vol = CLAMP(vol, 1, 100)
+
+	var/sound/admin_sound = new()
+	admin_sound.file = S
+	admin_sound.priority = 250
+	admin_sound.channel = CHANNEL_ADMIN
+	admin_sound.frequency = freq
+	admin_sound.wait = 1
+	admin_sound.repeat = 0
+	admin_sound.status = SOUND_STREAM
+	admin_sound.volume = vol
+
+	var/res = alert(usr, "Show the title of this song to the players?",, "Yes","No", "Cancel")
+	switch(res)
+		if("Yes")
+			to_chat(world, "<span class='boldannounce'>An admin played: [S]</span>")
+		if("Cancel")
+			return
 
 	log_admin("[key_name(src)] played sound [S]")
-	message_admins("[key_name_admin(src)] played sound [S]", 1)
-	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.sound & SOUND_MIDI)
-			M << uploaded_sound
+	message_admins("[key_name_admin(src)] played sound [S]")
 
-	feedback_add_details("admin_verb","PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.toggles & SOUND_MIDI)
+			var/user_vol = M.client.chatOutput.adminMusicVolume
+			if(user_vol)
+				admin_sound.volume = vol * (user_vol / 100)
+			SEND_SOUND(M, admin_sound)
+			admin_sound.volume = vol
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/proc/play_local_sound(S as sound)
-	set category = "Event"
+	set category = "Fun"
 	set name = "Play Local Sound"
-	if(!check_rights(R_SOUNDS))	return
+	if(!check_rights(R_SOUND))
+		return
 
 	log_admin("[key_name(src)] played a local sound [S]")
-	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
+	message_admins("[key_name_admin(src)] played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, 0, 0)
-	feedback_add_details("admin_verb","PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/play_server_sound()
-	set category = "Event"
-	set name = "Play Server Sound"
-	if(!check_rights(R_SOUNDS))	return
+/client/proc/play_web_sound()
+	set category = "Fun"
+	set name = "Play Internet Sound"
+	if(!check_rights(R_SOUND))
+		return
 
-	var/list/sounds = file2list("sound/serversound_list.txt");
-	sounds += sounds_cache
+	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
+	if(!ytdl)
+		to_chat(src, "<span class='boldwarning'>Youtube-dl was not configured, action unavailable</span>") //Check config.txt for the INVOKE_YOUTUBEDL value
+		return
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
-	if(!melody)	return
+	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via youtube-dl") as text|null
+	if(istext(web_sound_input))
+		var/web_sound_url = ""
+		var/stop_web_sounds = FALSE
+		var/list/music_extra_data = list()
+		if(length(web_sound_input))
 
-	play_sound(melody)
-	feedback_add_details("admin_verb","PSS") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
+			web_sound_input = trim(web_sound_input)
+			if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
+				to_chat(src, "<span class='boldwarning'>Non-http(s) URIs are not allowed.</span>")
+				to_chat(src, "<span class='warning'>For youtube-dl shortcuts like ytsearch: please use the appropriate full url from the website.</span>")
+				return
+			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
+			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height<=360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[shell_scrubbed_input]\"")
+			var/errorlevel = output[SHELLEO_ERRORLEVEL]
+			var/stdout = output[SHELLEO_STDOUT]
+			var/stderr = output[SHELLEO_STDERR]
+			if(!errorlevel)
+				var/list/data
+				try
+					data = json_decode(stdout)
+				catch(var/exception/e)
+					to_chat(src, "<span class='boldwarning'>Youtube-dl JSON parsing FAILED:</span>")
+					to_chat(src, "<span class='warning'>[e]: [stdout]</span>")
+					return
 
-/client/proc/play_intercomm_sound()
-	set category = "Event"
-	set name = "Play Sound via Intercomms"
-	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
-	if(!check_rights(R_SOUNDS))	return
+				if (data["url"])
+					web_sound_url = data["url"]
+					var/title = "[data["title"]]"
+					var/webpage_url = title
+					if (data["webpage_url"])
+						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
+					music_extra_data["start"] = data["start_time"]
+					music_extra_data["end"] = data["end_time"]
 
-	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
-	if(A != "Yep")	return
+					var/res = alert(usr, "Show the title of and link to this song to the players?\n[title]",, "No", "Yes", "Cancel")
+					switch(res)
+						if("Yes")
+							to_chat(world, "<span class='boldannounce'>An admin played: [webpage_url]</span>")
+						if("Cancel")
+							return
 
-	var/list/sounds = file2list("sound/serversound_list.txt");
-	sounds += sounds_cache
+					SSblackbox.record_feedback("nested tally", "played_url", 1, list("[ckey]", "[web_sound_input]"))
+					log_admin("[key_name(src)] played web sound: [web_sound_input]")
+					message_admins("[key_name(src)] played web sound: [web_sound_input]")
+			else
+				to_chat(src, "<span class='boldwarning'>Youtube-dl URL retrieval FAILED:</span>")
+				to_chat(src, "<span class='warning'>[stderr]</span>")
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
-	if(!melody)	return
+		else //pressed ok with blank
+			log_admin("[key_name(src)] stopped web sound")
+			message_admins("[key_name(src)] stopped web sound")
+			web_sound_url = null
+			stop_web_sounds = TRUE
 
-	var/cvol = 35
-	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
-	if(!inputvol)	return
-	if(inputvol && inputvol >= 1 && inputvol <= 70)
-		cvol = inputvol
+		if(web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
+			to_chat(src, "<span class='boldwarning'>BLOCKED: Content URL not using http(s) protocol</span>")
+			to_chat(src, "<span class='warning'>The media provider returned a content URL that isn't using the HTTP or HTTPS protocol</span>")
+			return
+		if(web_sound_url || stop_web_sounds)
+			for(var/m in GLOB.player_list)
+				var/mob/M = m
+				var/client/C = M.client
+				if((C.prefs.toggles & SOUND_MIDI) && C.chatOutput && !C.chatOutput.broken && C.chatOutput.loaded)
+					if(!stop_web_sounds)
+						C.chatOutput.sendMusic(web_sound_url, music_extra_data)
+					else
+						C.chatOutput.stopMusic()
 
-	//Allows for override to utilize intercomms on all z-levels
-	var/B = alert("Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
-	var/ignore_z = 0
-	if(B == "All")
-		ignore_z = 1
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 
-	//Allows for override to utilize incomplete and unpowered intercomms
-	var/C = alert("Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
-	var/ignore_power = 0
-	if(C == "Yep")
-		ignore_power = 1
+/client/proc/set_round_end_sound(S as sound)
+	set category = "Fun"
+	set name = "Set Round End Sound"
+	if(!check_rights(R_SOUND))
+		return
 
-	for(var/O in GLOB.global_intercoms)
-		var/obj/item/radio/intercom/I = O
-		if(!is_station_level(I.z) && !ignore_z)
-			continue
-		if(!I.on && !ignore_power)
-			continue
-		playsound(I, melody, cvol)
+	SSticker.SetRoundEndSound(S)
 
-/*
-/client/proc/cuban_pete()
-	set category = "Event"
-	set name = "Cuban Pete Time"
+	log_admin("[key_name(src)] set the round end sound to [S]")
+	message_admins("[key_name_admin(src)] set the round end sound to [S]")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Round End Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-	message_admins("[key_name_admin(usr)] has declared Cuban Pete Time!", 1)
-	for(var/mob/M in world)
+/client/proc/stop_sounds()
+	set category = "Debug"
+	set name = "Stop All Playing Sounds"
+	if(!src.holder)
+		return
+
+	log_admin("[key_name(src)] stopped all currently playing sounds.")
+	message_admins("[key_name_admin(src)] stopped all currently playing sounds.")
+	for(var/mob/M in GLOB.player_list)
 		if(M.client)
-			if(M.client.midis)
-				M << 'cubanpetetime.ogg'
-
-	for(var/mob/living/carbon/human/CP in world)
-		if(CP.real_name=="Cuban Pete" && CP.key!="Rosham")
-			C << "Your body can't contain the rhumba beat"
-			CP.gib()
-
-
-/client/proc/bananaphone()
-	set category = "Event"
-	set name = "Banana Phone"
-
-	message_admins("[key_name_admin(usr)] has activated Banana Phone!", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'bananaphone.ogg'
-
-
-client/proc/space_asshole()
-	set category = "Event"
-	set name = "Space Asshole"
-
-	message_admins("[key_name_admin(usr)] has played the Space Asshole Hymn.", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'sound/music/space_asshole.ogg'
-
-
-client/proc/honk_theme()
-	set category = "Event"
-	set name = "Honk"
-
-	message_admins("[key_name_admin(usr)] has creeped everyone out with Blackest Honks.", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'honk_theme.ogg'*/
+			SEND_SOUND(M, sound(null))
+			var/client/C = M.client
+			if(C && C.chatOutput && !C.chatOutput.broken && C.chatOutput.loaded)
+				C.chatOutput.stopMusic()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stop All Playing Sounds") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

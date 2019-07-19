@@ -1,50 +1,112 @@
-/datum/event/sentience
+GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
+	/mob/living/simple_animal/pet,
+	/mob/living/simple_animal/parrot,
+	/mob/living/simple_animal/hostile/lizard,
+	/mob/living/simple_animal/sloth,
+	/mob/living/simple_animal/mouse/brown/Tom,
+	/mob/living/simple_animal/hostile/retaliate/goat,
+	/mob/living/simple_animal/chicken,
+	/mob/living/simple_animal/cow,
+	/mob/living/simple_animal/hostile/retaliate/bat,
+	/mob/living/simple_animal/hostile/carp/cayenne,
+	/mob/living/simple_animal/butterfly,
+	/mob/living/simple_animal/hostile/retaliate/poison/snake,
+	/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+	/mob/living/simple_animal/bot/mulebot,
+	/mob/living/simple_animal/bot/secbot/beepsky
+)))
 
-/datum/event/sentience/start()
-	var/ghostmsg = "Do you want to awaken as a sentient being?"
-	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 1)
+/datum/round_event_control/sentience
+	name = "Random Human-level Intelligence"
+	typepath = /datum/round_event/ghost_role/sentience
+	weight = 10
+
+
+/datum/round_event/ghost_role/sentience
+	minimum_required = 1
+	role_name = "random animal"
+	var/animals = 1
+	var/one = "one"
+	fakeable = TRUE
+
+/datum/round_event/ghost_role/sentience/announce(fake)
+	var/sentience_report = ""
+
+	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]")
+	var/pets = pick("animals/bots", "bots/animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
+	var/strength = pick("human", "moderate", "lizard", "security", "command", "clown", "low", "very low", "\[REDACTED\]")
+
+	sentience_report += "Based on [data], we believe that [one] of the station's [pets] has developed [strength] level intelligence, and the ability to communicate."
+
+	priority_announce(sentience_report,"[command_name()] Medium-Priority Update")
+
+/datum/round_event/ghost_role/sentience/spawn_role()
+	var/list/mob/dead/observer/candidates
+	candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
+
+	// find our chosen mob to breathe life into
+	// Mobs have to be simple animals, mindless, on station, and NOT holograms.
+	// prioritize starter animals that people will recognise
+
+
 	var/list/potential = list()
-	var/sentience_type = SENTIENCE_ORGANIC
 
-	for(var/mob/living/simple_animal/L in GLOB.living_mob_list)
+	var/list/hi_pri = list()
+	var/list/low_pri = list()
+
+	for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L)
-		if (T.z != 1)
+		if(!T || !is_station_level(T.z))
 			continue
-		if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
-			potential += L
+		if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
+			continue
+		if(is_type_in_typecache(L, GLOB.high_priority_sentience))
+			hi_pri += L
+		else
+			low_pri += L
 
-	if(!candidates.len || !potential.len) //if there are no players or simple animals to choose from, then end
-		return FALSE
+	shuffle_inplace(hi_pri)
+	shuffle_inplace(low_pri)
 
-	var/mob/living/simple_animal/SA = pick(potential)
-	var/mob/SG = pick(candidates)
+	potential = hi_pri + low_pri
 
-	var/sentience_report = "<font size=3><b>[command_name()] Medium-Priority Update</b></font>"
+	if(!potential.len)
+		return WAITING_FOR_SOMETHING
+	if(!candidates.len)
+		return NOT_ENOUGH_PLAYERS
 
-	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]", "Steve")
-	var/pets = pick("animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
-	var/strength = pick("human", "skrell", "vox", "grey", "diona", "IPC", "tajaran", "vulpakanin", "kidan", "plasmaman", "drask",
-					 "slime", "monkey", "moderate", "lizard", "security", "command", "clown", "mime", "low", "very low", "greytide", "catgirl", "\[REDACTED\]")
+	var/spawned_animals = 0
+	while(spawned_animals < animals && candidates.len && potential.len)
+		var/mob/living/simple_animal/SA = popleft(potential)
+		var/mob/dead/observer/SG = pick_n_take(candidates)
 
-	sentience_report += "<br><br>Based on [data], we believe that one of the station's [pets] has developed [strength] level intelligence, and the ability to communicate."
+		spawned_animals++
 
+		SA.key = SG.key
 
+		SA.grant_all_languages(TRUE)
 
-	SA.key = SG.key
-	SA.universal_speak = 1
-	SA.sentience_act()
-	SA.can_collar = 1
-	SA.maxHealth = max(SA.maxHealth + 200)
-	SA.melee_damage_lower = max(SA.melee_damage_lower + 15)
-	SA.melee_damage_upper = max(SA.melee_damage_upper + 15)
-	SA.health = SA.maxHealth
-	SA.del_on_death = FALSE
-	greet_sentient(SA)
-	print_command_report(sentience_report, "[command_name()] Update")
+		SA.sentience_act()
 
-/datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='userdanger'>Hello world!</span>")
-	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
-	 						human level intelligence and the ability to speak and understand \
-							human language!</span>")
+		SA.maxHealth = max(SA.maxHealth, 200)
+		SA.health = SA.maxHealth
+		SA.del_on_death = FALSE
 
+		spawned_mobs += SA
+
+		to_chat(SA, "<span class='userdanger'>Hello world!</span>")
+		to_chat(SA, "<span class='warning'>Due to freak radiation and/or chemicals \
+			and/or lucky chance, you have gained human level intelligence \
+			and the ability to speak and understand human language!</span>")
+
+	return SUCCESSFUL_SPAWN
+
+/datum/round_event_control/sentience/all
+	name = "Station-wide Human-level Intelligence"
+	typepath = /datum/round_event/ghost_role/sentience/all
+	weight = 0
+
+/datum/round_event/ghost_role/sentience/all
+	one = "all"
+	animals = INFINITY // as many as there are ghosts and animals
+	// cockroach pride, station wide

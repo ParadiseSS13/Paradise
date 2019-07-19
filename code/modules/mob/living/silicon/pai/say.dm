@@ -1,16 +1,8 @@
-/mob/living/silicon/pai/say(var/msg)
-	if(silence_time)
-		to_chat(src, "<font color=green>Communication circuits remain uninitialized.</font>")
+/mob/living/silicon/pai/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	if(silent)
+		to_chat(src, "<span class='warning'>Communication circuits remain unitialized.</span>")
 	else
-		..(msg)
+		..(message)
 
-/mob/living/silicon/pai/get_whisper_loc()
-	if(loc == card)			// currently in its card?
-		var/atom/movable/whisper_loc = card
-		if(istype(card.loc, /obj/item/pda)) // Step up 1 level if in a PDA
-			whisper_loc = card.loc
-		if(istype(whisper_loc.loc, /mob/living))
-			return whisper_loc.loc	// allow a pai being held or in pocket to whisper
-		else
-			return whisper_loc		// allow a pai in its card to whisper
-	return ..()
+/mob/living/silicon/pai/binarycheck()
+	return 0

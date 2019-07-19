@@ -3,9 +3,9 @@
 /client/verb/keyDown(_key as text)
 	set instant = TRUE
 	set hidden = TRUE
+
 	keys_held[_key] = world.time
 	var/movement = SSinput.movement_keys[_key]
-	if (prefs.toggles & AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_sub & movement) && !keys_held["Ctrl"])
 		next_move_dir_add |= movement
 
@@ -17,13 +17,10 @@
 			if(keys_held["Ctrl"] && keys_held["Shift"]) // Is this command ever used?
 				winset(src, null, "command=.options")
 			else
-				adminhelp()
+				get_adminhelp()
 			return
 		if("F2") // Screenshot. Hold shift to choose a name and location to save in
-			ooc()
-			return
-		if("F4")
-			mob.me_verb()
+			winset(src, null, "command=.screenshot [!keys_held["shift"] ? "auto" : ""]")
 			return
 		if("F12") // Toggles minimal HUD
 			mob.button_pressed_F12()
@@ -37,9 +34,9 @@
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
 	set hidden = TRUE
+
 	keys_held -= _key
 	var/movement = SSinput.movement_keys[_key]
-	if (prefs.toggles & AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_add & movement))
 		next_move_dir_sub |= movement
 

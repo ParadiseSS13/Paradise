@@ -1,42 +1,37 @@
 /obj/effect/forcefield
 	desc = "A space wizard's magic wall."
 	name = "FORCEWALL"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
-	anchored = 1
+	anchored = TRUE
 	opacity = 0
-	density = 1
-	unacidable = 1
-	var/lifetime = 30 SECONDS
+	density = TRUE
+	CanAtmosPass = ATMOS_PASS_DENSITY
+	var/timeleft = 300 //Set to 0 for permanent forcefields (ugh)
 
-/obj/effect/forcefield/New()
-	..()
-	if(lifetime)
-		QDEL_IN(src, lifetime)
-
-/obj/effect/forcefield/CanAtmosPass(turf/T)
-	return !density
-
-/obj/effect/forcefield/wizard
-	var/mob/wizard
-
-/obj/effect/forcefield/wizard/Initialize(mapload, mob/summoner)
+/obj/effect/forcefield/Initialize()
 	. = ..()
-	wizard = summoner
+	if(timeleft)
+		QDEL_IN(src, timeleft)
 
-/obj/effect/forcefield/wizard/CanPass(atom/movable/mover, turf/target)
-	if(mover == wizard)
-		return TRUE
-	return FALSE
+/obj/effect/forcefield/singularity_pull()
+	return
+
+/obj/effect/forcefield/cult
+	desc = "An unholy shield that blocks all attacks."
+	name = "glowing wall"
+	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = "cultshield"
+	CanAtmosPass = ATMOS_PASS_NO
+	timeleft = 200
 
 ///////////Mimewalls///////////
 
 /obj/effect/forcefield/mime
-	icon_state = "empty"
+	icon_state = "nothing"
 	name = "invisible wall"
 	desc = "You have a bad feeling about this."
 
 /obj/effect/forcefield/mime/advanced
 	name = "invisible blockade"
-	desc = "You might be here a while."
-	lifetime = 60 SECONDS
+	desc = "You're gonna be here awhile."
+	timeleft = 600

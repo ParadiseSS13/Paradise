@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(timer)
 
 	flags = SS_TICKER|SS_NO_INIT
 
-	var/list/second_queue = list() //awe, yes, you've had first queue, but what about second queue?
+	var/list/datum/timedevent/second_queue = list() //awe, yes, you've had first queue, but what about second queue?
 	var/list/hashes = list()
 
 	var/head_offset = 0 //world.time of the first entry in the the bucket.
@@ -53,9 +53,9 @@ SUBSYSTEM_DEF(timer)
 			bucket_resolution = 0
 
 		log_world("Timer bucket reset. world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
-		for(var/i in 1 to length(bucket_list))
+		for (var/i in 1 to length(bucket_list))
 			var/datum/timedevent/bucket_head = bucket_list[i]
-			if(!bucket_head)
+			if (!bucket_head)
 				continue
 
 			log_world("Active timers at index [i]:")
@@ -74,17 +74,17 @@ SUBSYSTEM_DEF(timer)
 	var/next_clienttime_timer_index = 0
 	var/len = length(clienttime_timers)
 
-	for(next_clienttime_timer_index in 1 to len)
-		if(MC_TICK_CHECK)
+	for (next_clienttime_timer_index in 1 to len)
+		if (MC_TICK_CHECK)
 			next_clienttime_timer_index--
 			break
 		var/datum/timedevent/ctime_timer = clienttime_timers[next_clienttime_timer_index]
-		if(ctime_timer.timeToRun > REALTIMEOFDAY)
+		if (ctime_timer.timeToRun > REALTIMEOFDAY)
 			next_clienttime_timer_index--
 			break
 
 		var/datum/callback/callBack = ctime_timer.callBack
-		if(!callBack)
+		if (!callBack)
 			clienttime_timers.Cut(next_clienttime_timer_index,next_clienttime_timer_index+1)
 			CRASH("Invalid timer: [get_timer_debug_string(ctime_timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset], REALTIMEOFDAY: [REALTIMEOFDAY]")
 
@@ -99,50 +99,50 @@ SUBSYSTEM_DEF(timer)
 			qdel(ctime_timer)
 
 
-	if(next_clienttime_timer_index)
+	if (next_clienttime_timer_index)
 		clienttime_timers.Cut(1, next_clienttime_timer_index+1)
 
-	if(MC_TICK_CHECK)
+	if (MC_TICK_CHECK)
 		return
 
 	var/static/list/spent = list()
 	var/static/datum/timedevent/timer
-	if(practical_offset > BUCKET_LEN)
+	if (practical_offset > BUCKET_LEN)
 		head_offset += TICKS2DS(BUCKET_LEN)
 		practical_offset = 1
 		resumed = FALSE
 
-	if((length(bucket_list) != BUCKET_LEN) || (world.tick_lag != bucket_resolution))
+	if ((length(bucket_list) != BUCKET_LEN) || (world.tick_lag != bucket_resolution))
 		reset_buckets()
 		bucket_list = src.bucket_list
 		resumed = FALSE
 
 
-	if(!resumed)
+	if (!resumed)
 		timer = null
 
-	while(practical_offset <= BUCKET_LEN && head_offset + ((practical_offset-1)*world.tick_lag) <= world.time)
+	while (practical_offset <= BUCKET_LEN && head_offset + ((practical_offset-1)*world.tick_lag) <= world.time)
 		var/datum/timedevent/head = bucket_list[practical_offset]
-		if(!timer || !head || timer == head)
+		if (!timer || !head || timer == head)
 			head = bucket_list[practical_offset]
 			timer = head
-		while(timer)
+		while (timer)
 			var/datum/callback/callBack = timer.callBack
-			if(!callBack)
+			if (!callBack)
 				bucket_resolution = null //force bucket recreation
 				CRASH("Invalid timer: [get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
 
-			if(!timer.spent)
+			if (!timer.spent)
 				spent += timer
 				timer.spent = world.time
 				callBack.InvokeAsync()
 				last_invoke_tick = world.time
 
-			if(MC_TICK_CHECK)
+			if (MC_TICK_CHECK)
 				return
 
 			timer = timer.next
-			if(timer == head)
+			if (timer == head)
 				break
 
 
@@ -151,17 +151,17 @@ SUBSYSTEM_DEF(timer)
 		//we freed up a bucket, lets see if anything in second_queue needs to be shifted to that bucket.
 		var/i = 0
 		var/L = length(second_queue)
-		for(i in 1 to L)
+		for (i in 1 to L)
 			timer = second_queue[i]
-			if(timer.timeToRun >= TIMER_MAX)
+			if (timer.timeToRun >= TIMER_MAX)
 				i--
 				break
 
-			if(timer.timeToRun < head_offset)
+			if (timer.timeToRun < head_offset)
 				bucket_resolution = null //force bucket recreation
 				CRASH("[i] Invalid timer state: Timer in long run queue with a time to run less then head_offset. [get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
 
-				if(timer.callBack && !timer.spent)
+				if (timer.callBack && !timer.spent)
 					timer.callBack.InvokeAsync()
 					spent += timer
 					bucket_count++
@@ -169,10 +169,10 @@ SUBSYSTEM_DEF(timer)
 					qdel(timer)
 				continue
 
-			if(timer.timeToRun < head_offset + TICKS2DS(practical_offset-1))
+			if (timer.timeToRun < head_offset + TICKS2DS(practical_offset-1))
 				bucket_resolution = null //force bucket recreation
 				CRASH("[i] Invalid timer state: Timer in long run queue that would require a backtrack to transfer to short run queue. [get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
-				if(timer.callBack && !timer.spent)
+				if (timer.callBack && !timer.spent)
 					timer.callBack.InvokeAsync()
 					spent += timer
 					bucket_count++
@@ -184,26 +184,26 @@ SUBSYSTEM_DEF(timer)
 			var/bucket_pos = max(1, BUCKET_POS(timer))
 
 			var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
-			if(!bucket_head)
+			if (!bucket_head)
 				bucket_list[bucket_pos] = timer
 				timer.next = null
 				timer.prev = null
 				continue
 
-			if(!bucket_head.prev)
+			if (!bucket_head.prev)
 				bucket_head.prev = bucket_head
 			timer.next = bucket_head
 			timer.prev = bucket_head.prev
 			timer.next.prev = timer
 			timer.prev.next = timer
-		if(i)
+		if (i)
 			second_queue.Cut(1, i+1)
 
 		timer = null
 
 	bucket_count -= length(spent)
 
-	for(var/i in spent)
+	for (var/i in spent)
 		var/datum/timedevent/qtimer = i
 		if(QDELETED(qtimer))
 			bucket_count++
@@ -237,8 +237,8 @@ SUBSYSTEM_DEF(timer)
 	var/list/bucket_list = src.bucket_list
 	var/list/alltimers = list()
 	//collect the timers currently in the bucket
-	for(var/bucket_head in bucket_list)
-		if(!bucket_head)
+	for (var/bucket_head in bucket_list)
+		if (!bucket_head)
 			continue
 		var/datum/timedevent/bucket_node = bucket_head
 		do
@@ -255,50 +255,50 @@ SUBSYSTEM_DEF(timer)
 	bucket_resolution = world.tick_lag
 
 	alltimers += second_queue
-	if(!length(alltimers))
+	if (!length(alltimers))
 		return
 
 	sortTim(alltimers, .proc/cmp_timer)
 
 	var/datum/timedevent/head = alltimers[1]
 
-	if(head.timeToRun < head_offset)
+	if (head.timeToRun < head_offset)
 		head_offset = head.timeToRun
 
 	var/new_bucket_count
 	var/i = 1
-	for(i in 1 to length(alltimers))
+	for (i in 1 to length(alltimers))
 		var/datum/timedevent/timer = alltimers[i]
-		if(!timer)
+		if (!timer)
 			continue
 
 		var/bucket_pos = BUCKET_POS(timer)
-		if(timer.timeToRun >= TIMER_MAX)
+		if (timer.timeToRun >= TIMER_MAX)
 			i--
 			break
 
 
-		if(!timer.callBack || timer.spent)
+		if (!timer.callBack || timer.spent)
 			WARNING("Invalid timer: [get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
-			if(timer.callBack)
+			if (timer.callBack)
 				qdel(timer)
 			continue
 
 		new_bucket_count++
 		var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
-		if(!bucket_head)
+		if (!bucket_head)
 			bucket_list[bucket_pos] = timer
 			timer.next = null
 			timer.prev = null
 			continue
 
-		if(!bucket_head.prev)
+		if (!bucket_head.prev)
 			bucket_head.prev = bucket_head
 		timer.next = bucket_head
 		timer.prev = bucket_head.prev
 		timer.next.prev = timer
 		timer.prev.next = timer
-	if(i)
+	if (i)
 		alltimers.Cut(1, i+1)
 	second_queue = alltimers
 	bucket_count = new_bucket_count
@@ -331,17 +331,17 @@ SUBSYSTEM_DEF(timer)
 	src.flags = flags
 	src.hash = hash
 
-	if(flags & TIMER_CLIENT_TIME)
+	if (flags & TIMER_CLIENT_TIME)
 		timeToRun = REALTIMEOFDAY + wait
 	else
 		timeToRun = world.time + wait
 
-	if(flags & TIMER_UNIQUE)
+	if (flags & TIMER_UNIQUE)
 		SStimer.hashes[hash] = src
 
-	if(flags & TIMER_STOPPABLE)
+	if (flags & TIMER_STOPPABLE)
 		id = num2text(nextid, 100)
-		if(nextid >= SHORT_REAL_LIMIT)
+		if (nextid >= SHORT_REAL_LIMIT)
 			nextid += min(1, 2**round(nextid/SHORT_REAL_LIMIT))
 		else
 			nextid++
@@ -349,41 +349,41 @@ SUBSYSTEM_DEF(timer)
 
 	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], Flags: [jointext(bitfield2list(flags, list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")), ", ")], callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""])"
 
-	if((timeToRun < world.time || timeToRun < SStimer.head_offset) && !(flags & TIMER_CLIENT_TIME))
+	if ((timeToRun < world.time || timeToRun < SStimer.head_offset) && !(flags & TIMER_CLIENT_TIME))
 		CRASH("Invalid timer state: Timer created that would require a backtrack to run (addtimer would never let this happen): [SStimer.get_timer_debug_string(src)]")
 
-	if(callBack.object != GLOBAL_PROC && !QDESTROYING(callBack.object))
+	if (callBack.object != GLOBAL_PROC && !QDESTROYING(callBack.object))
 		LAZYADD(callBack.object.active_timers, src)
 
 	bucketJoin()
 
 /datum/timedevent/Destroy()
 	..()
-	if(flags & TIMER_UNIQUE && hash)
+	if (flags & TIMER_UNIQUE && hash)
 		SStimer.hashes -= hash
 
-	if(callBack && callBack.object && callBack.object != GLOBAL_PROC && callBack.object.active_timers)
+	if (callBack && callBack.object && callBack.object != GLOBAL_PROC && callBack.object.active_timers)
 		callBack.object.active_timers -= src
 		UNSETEMPTY(callBack.object.active_timers)
 
 	callBack = null
 
-	if(flags & TIMER_STOPPABLE)
+	if (flags & TIMER_STOPPABLE)
 		SStimer.timer_id_dict -= id
 
-	if(flags & TIMER_CLIENT_TIME)
-		if(!spent)
+	if (flags & TIMER_CLIENT_TIME)
+		if (!spent)
 			spent = world.time
 			SStimer.clienttime_timers -= src
 		return QDEL_HINT_IWILLGC
 
-	if(!spent)
+	if (!spent)
 		spent = world.time
 		bucketEject()
 	else
-		if(prev && prev.next == src)
+		if (prev && prev.next == src)
 			prev.next = next
-		if(next && next.prev == src)
+		if (next && next.prev == src)
 			next.prev = prev
 	next = null
 	prev = null
@@ -417,9 +417,9 @@ SUBSYSTEM_DEF(timer)
 /datum/timedevent/proc/bucketJoin()
 	var/list/L
 
-	if(flags & TIMER_CLIENT_TIME)
+	if (flags & TIMER_CLIENT_TIME)
 		L = SStimer.clienttime_timers
-	else if(timeToRun >= TIMER_MAX)
+	else if (timeToRun >= TIMER_MAX)
 		L = SStimer.second_queue
 
 	if(L)
@@ -436,11 +436,11 @@ SUBSYSTEM_DEF(timer)
 	var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
 	SStimer.bucket_count++
 	//empty bucket, we will just add ourselves
-	if(!bucket_head)
+	if (!bucket_head)
 		bucket_list[bucket_pos] = src
 		return
 	//other wise, lets do a simplified linked list add.
-	if(!bucket_head.prev)
+	if (!bucket_head.prev)
 		bucket_head.prev = bucket_head
 	next = bucket_head
 	prev = bucket_head.prev
@@ -449,19 +449,19 @@ SUBSYSTEM_DEF(timer)
 
 /datum/timedevent/proc/getcallingtype()
 	. = "ERROR"
-	if(callBack.object == GLOBAL_PROC)
+	if (callBack.object == GLOBAL_PROC)
 		. = "GLOBAL_PROC"
 	else
 		. = "[callBack.object.type]"
 
 /proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
-	if(!callback)
+	if (!callback)
 		CRASH("addtimer called without a callback")
 
-	if(wait < 0)
+	if (wait < 0)
 		stack_trace("addtimer called with a negative wait. Converting to [world.tick_lag]")
 
-	if(callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
+	if (callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
 		stack_trace("addtimer called with a callback assigned to a qdeleted object. In the future such timers will not be supported and may refuse to run or run with a 0 wait")
 
 	wait = max(CEILING(wait, world.tick_lag), world.tick_lag)
@@ -471,25 +471,25 @@ SUBSYSTEM_DEF(timer)
 
 	var/hash
 
-	if(flags & TIMER_UNIQUE)
+	if (flags & TIMER_UNIQUE)
 		var/list/hashlist
 		if(flags & TIMER_NO_HASH_WAIT)
-			hashlist = list(callback.object, "(\ref[callback.object])", callback.delegate, flags & TIMER_CLIENT_TIME)
+			hashlist = list(callback.object, "([REF(callback.object)])", callback.delegate, flags & TIMER_CLIENT_TIME)
 		else
-			hashlist = list(callback.object, "(\ref[callback.object])", callback.delegate, wait, flags & TIMER_CLIENT_TIME)
+			hashlist = list(callback.object, "([REF(callback.object)])", callback.delegate, wait, flags & TIMER_CLIENT_TIME)
 		hashlist += callback.arguments
 		hash = hashlist.Join("|||||||")
 
 		var/datum/timedevent/hash_timer = SStimer.hashes[hash]
 		if(hash_timer)
-			if(hash_timer.spent) //it's pending deletion, pretend it doesn't exist.
+			if (hash_timer.spent) //it's pending deletion, pretend it doesn't exist.
 				hash_timer.hash = null //but keep it from accidentally deleting us
 			else
-				if(flags & TIMER_OVERRIDE)
+				if (flags & TIMER_OVERRIDE)
 					hash_timer.hash = null //no need having it delete it's hash if we are going to replace it
 					qdel(hash_timer)
 				else
-					if(hash_timer.flags & TIMER_STOPPABLE)
+					if (hash_timer.flags & TIMER_STOPPABLE)
 						. = hash_timer.id
 					return
 	else if(flags & TIMER_OVERRIDE)
@@ -499,17 +499,17 @@ SUBSYSTEM_DEF(timer)
 	return timer.id
 
 /proc/deltimer(id)
-	if(!id)
+	if (!id)
 		return FALSE
-	if(id == TIMER_ID_NULL)
+	if (id == TIMER_ID_NULL)
 		CRASH("Tried to delete a null timerid. Use TIMER_STOPPABLE flag")
-	if(!istext(id))
-		if(istype(id, /datum/timedevent))
+	if (!istext(id))
+		if (istype(id, /datum/timedevent))
 			qdel(id)
 			return TRUE
 	//id is string
 	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
-	if(timer && !timer.spent)
+	if (timer && !timer.spent)
 		qdel(timer)
 		return TRUE
 	return FALSE

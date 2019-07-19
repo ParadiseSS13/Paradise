@@ -22,11 +22,11 @@
 	var/framestackamount = 2
 
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
+	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 30*I.toolspeed, target = src))
-			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+		I.play_tool_sound(src)
+		if(I.use_tool(src, user, 30))
+			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			deconstruct(TRUE)
 	else if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/P = I
@@ -52,10 +52,18 @@
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
 		if(do_after(user, 20, target = src) && G.use(1))
 			make_new_table(/obj/structure/table/glass)
+	else if(istype(I, /obj/item/stack/sheet/mineral/silver))
+		var/obj/item/stack/sheet/mineral/silver/S = I
+		if(S.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one silver sheet to do this!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start adding [S] to [src]...</span>")
+		if(do_after(user, 20, target = src) && S.use(1))
+			make_new_table(/obj/structure/table/optable)
 	else if(istype(I, /obj/item/stack/tile/carpet/black))
 		var/obj/item/stack/tile/carpet/black/C = I
 		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one black carpet sheet to do this!</span>")
+			to_chat(user, "<span class='warning'>You need one  black carpet sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
 		if(do_after(user, 20, target = src) && C.use(1))
@@ -68,6 +76,14 @@
 		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
 		if(do_after(user, 20, target = src) && C.use(1))
 			make_new_table(/obj/structure/table/wood/fancy)
+	else if(istype(I, /obj/item/stack/tile/bronze))
+		var/obj/item/stack/tile/bronze/B = I
+		if(B.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one bronze sheet to do this!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start adding [B] to [src]...</span>")
+		if(do_after(user, 20, target = src) && B.use(1))
+			make_new_table(/obj/structure/table/bronze)
 	else
 		return ..()
 
@@ -83,11 +99,11 @@
 	qdel(src)
 
 /obj/structure/table_frame/narsie_act()
-	new /obj/structure/table_frame/wood(loc)
+	new /obj/structure/table_frame/wood(src.loc)
 	qdel(src)
 
 /obj/structure/table_frame/ratvar_act()
-	new /obj/structure/table_frame/brass(loc)
+	new /obj/structure/table_frame/brass(src.loc)
 	qdel(src)
 
 /*
@@ -98,13 +114,13 @@
 	name = "wooden table frame"
 	desc = "Four wooden legs with four framing wooden rods for a wooden table. You could easily pass through this."
 	icon_state = "wood_frame"
-	framestack = /obj/item/stack/sheet/wood
+	framestack = /obj/item/stack/sheet/mineral/wood
 	framestackamount = 2
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/wood))
-		var/obj/item/stack/sheet/wood/W = I
+	if(istype(I, /obj/item/stack/sheet/mineral/wood))
+		var/obj/item/stack/sheet/mineral/wood/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one wood sheet to do this!</span>")
 			return
@@ -127,10 +143,17 @@
 	name = "brass table frame"
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
-	burn_state = FIRE_PROOF
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
+
+/obj/structure/table_frame/brass/Initialize()
+	. = ..()
+	change_construction_value(1)
+
+/obj/structure/table_frame/brass/Destroy()
+	change_construction_value(-1)
+	return ..()
 
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/brass))
@@ -150,3 +173,4 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)

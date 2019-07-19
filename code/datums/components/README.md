@@ -2,7 +2,7 @@
 
 ## Concept
 
-Loosely adapted from /vg/. This is an entity component system for adding behaviours to datums when inheritance doesn't quite cut it. By using signals and events instead of direct inheritance, you can inject behaviours without hacky overloads. It requires a different method of thinking, but is not hard to use correctly. If a behaviour can have application across more than one thing. Make it generic, make it a component. Atom/mob/obj event? Give it a signal, and forward it's arguments with a `SEND_SIGNAL` call. Now every component that want's to can also know about this happening.
+Loosely adapted from /vg/. This is an entity component system for adding behaviours to datums when inheritance doesn't quite cut it. By using signals and events instead of direct inheritance, you can inject behaviours without hacky overloads. It requires a different method of thinking, but is not hard to use correctly. If a behaviour can have application across more than one thing. Make it generic, make it a component. Atom/mob/obj event? Give it a signal, and forward it's arguments with a `SendSignal()` call. Now every component that want's to can also know about this happening.
 
 ### In the code
 
@@ -64,8 +64,6 @@ Stands have a lot of procs which mimic mob procs. Rather than inserting hooks fo
     * Returns a list of references to all components of component_type that exist in the datum
 1. `/datum/proc/GetExactComponent(component_type(type)) -> datum/component?` (public, final)
     * Returns a reference to a component whose type MATCHES component_type if that component exists in the datum, null otherwise
-1. `GET_COMPONENT(varname, component_type)` OR `GET_COMPONENT_FROM(varname, component_type, src)`
-    * Shorthand for `var/component_type/varname = src.GetComponent(component_type)`
 1. `SEND_SIGNAL(target, sigtype, ...)` (public, final)
     * Use to send signals to target datum
     * Extra arguments are to be specified in the signal definition

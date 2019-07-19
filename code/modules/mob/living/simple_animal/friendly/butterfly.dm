@@ -5,22 +5,30 @@
 	icon_living = "butterfly"
 	icon_dead = "butterfly_dead"
 	turns_per_move = 1
-	emote_see = list("flutters")
 	response_help = "shoos"
 	response_disarm = "brushes aside"
 	response_harm = "squashes"
-	speak_chance = 0
+	speak_emote = list("flutters")
 	maxHealth = 2
 	health = 2
 	harm_intent_damage = 1
 	friendly = "nudges"
-	density = 0
+	density = FALSE
+	movement_type = FLYING
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	gold_core_spawnable = FRIENDLY_SPAWN
+	verb_say = "flutters"
+	verb_ask = "flutters inquisitively"
+	verb_exclaim = "flutters intensely"
+	verb_yell = "flutters intensely"
 
-/mob/living/simple_animal/butterfly/New()
-	..()
-	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
+/mob/living/simple_animal/butterfly/Initialize()
+	. = ..()
+	var/newcolor = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
+	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
+
+/mob/living/simple_animal/butterfly/bee_friendly()
+	return TRUE //treaty signed at the Beeneeva convention

@@ -1,5 +1,5 @@
-body 
-{ 
+body
+{
 	padding: 0;
 	margin: 0;
 	background-color: #272727;
@@ -14,9 +14,9 @@ hr
 	height: 1px;
 }
 
-a, a:link, a:visited, a:active, .linkOn, .linkOff
-{ 
-	color: #ffffff; 
+a, button, a:link, a:visited, a:active, .linkOn, .linkOff
+{
+	color: #ffffff;
 	text-decoration: none;
 	background: #40628a;
 	border: 1px solid #161616;
@@ -25,31 +25,15 @@ a, a:link, a:visited, a:active, .linkOn, .linkOff
 	cursor:default;
 }
 
-a.nobg, a.nobg:link, a.nobg:visited, a.nobg:active
-{ 
-	color: #ffffff; 
-	text-decoration: none;
-	background: transparent;
-	border: none;
-	padding: 0px;
-	margin: 0px;
-	cursor:default;
-	font-weight:bold;
-}
-a.nobg:hover 
-{ 
-	color:#40628a;
-}
-
-a:hover 
-{ 
+a:hover
+{
 	color: #40628a;
 	background: #ffffff;
 }
 
 a.white, a.white:link, a.white:visited, a.white:active
-{ 
-	color: #40628a; 
+{
+	color: #40628a;
 	text-decoration: none;
 	background: #ffffff;
 	border: 1px solid #161616;
@@ -58,22 +42,22 @@ a.white, a.white:link, a.white:visited, a.white:active
 	cursor:default;
 }
 
-a.white:hover 
-{ 
+a.white:hover
+{
 	color: #ffffff;
 	background: #40628a;
 }
 
 .linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover
-{ 
-	color: #ffffff; 
+{
+	color: #ffffff;
 	background: #2f943c;
 	border-color: #24722e;
 }
 
 .linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff:hover
-{ 
-	color: #ffffff; 
+{
+	color: #ffffff;
 	background: #999999;
 	border-color: #666666;
 }
@@ -92,7 +76,6 @@ a.icon img, .linkOn.icon img
 	width: 18px;
 	height: 18px;
 }
-
 ul
 {
 	padding: 4px 0 0 10px;
@@ -105,15 +88,15 @@ li
 	padding: 0 0 2px 0;
 }
 
-img, a img 
-{ 
-	border-style:none; 
+img, a img
+{
+	border-style:none;
 }
 
 h1, h2, h3, h4, h5, h6
 {
 	margin: 0;
-	padding: 16px 0 8px 0; 
+	padding: 16px 0 8px 0;
 	color: #517087;
 }
 
@@ -142,7 +125,6 @@ h4
 
 	width: 100%;
 	height: 100%;
-	padding-top:32px;
 }
 
 .uiTitle
@@ -155,25 +137,6 @@ h4
 	font-size: 16px;
 }
 
-.uiTitleWrapper
- {
- 	position:fixed;
- 	top:0px;
- 	left:0px;
- 	right:0px;
- 	z-index: 10
- }
- 
- .uiTitleButtons
- {
- 	position:fixed;
- 	top:0px;
- 	right:0px;
- 	height:32px;
- 	z-index:11;
- }
-
-
 .uiTitle.icon
 {
 	padding: 6px 8px 6px 42px;
@@ -182,7 +145,7 @@ h4
 }
 
 .uiContent
-{	
+{
 	clear: both;
 	padding: 8px;
 	font-family: Verdana, Geneva, sans-serif;
@@ -225,7 +188,7 @@ h4
 }
 
 .notice.icon
-{	
+{
 	padding: 2px 4px 0 20px;
 }
 
@@ -340,27 +303,109 @@ div.notice
 	width: 100%;
 	clear: both;
 }
-.charPreview
-{
-	-ms-interpolation-mode: nearest-neighbor;
-	width: 64px;
-	height:64px;
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
 }
 
-.typing:after
-{
-	overflow: hidden;
-	display: inline-block;
-	vertical-align: bottom;
-	animation: ellipsis steps(4,end) 900ms infinite;
-	content: "\2026";
-	width: 0px;
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #383838;
+  transition: .4s;
 }
 
-@keyframes ellipsis
-{
-	to
-	{
-		width: 1.25em;
-	}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #98B0C3;
+  transition: .4s;
+}
+
+.slider.red:before {
+  background-color: #d6858b;
+}
+
+.slider.locked:before {
+  content: url("padlock.png");
+  background-color: #b4b4b4;
+}
+
+input:checked + .slider {
+  background-color: #40628a;
+}
+
+input:checked + .slider.red {
+  background-color: #a92621;
+}
+
+input:checked + .slider.locked {
+  background-color: #707070;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:focus + .slider.red {
+  box-shadow: 0 0 1px #f3212d;
+}
+
+input:focus + .slider.locked {
+  box-shadow: 0 0 1px #979797;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.switch span {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  margin-left: 60px;
+}
+
+ul.sparse {
+	padding-bottom:20px;
+}
+
+.sparse li {
+  margin-top: 2px;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.severity {
+	margin:0px;
+	padding: 1px 8px 1px 8px;
+	border-radius: 25px;
+	border: 1px solid #161616;
+	background: #40628a;
+	color: #ffffff;
+}
+
+.severity img {
+    display: inline-block;
+    vertical-align: middle;
 }

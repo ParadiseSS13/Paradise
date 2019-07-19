@@ -15,20 +15,17 @@
 
 	end_duration = 100
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
-	var/pre_maint_all_access
+
 	area_type = /area
-	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
-	target_trait = STATION_LEVEL
+	protected_areas = list(/area/maintenance, /area/ai_monitored/turret_protected/ai_upload, /area/ai_monitored/turret_protected/ai_upload_foyer,
+	/area/ai_monitored/turret_protected/ai, /area/storage/emergency/starboard, /area/storage/emergency/port, /area/shuttle)
+	target_trait = ZTRAIT_STATION
 
 	immunity_type = "rad"
 
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = maint_all_access
-	if(!maint_all_access)
-		make_maint_all_access()
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
@@ -36,29 +33,34 @@
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			if(!(RADIMMUNE in H.dna.species.species_traits))
-				if(prob(max(0, 100 - resist)))
-					randmuti(H) // Applies bad mutation
+			if(H.dna && !HAS_TRAIT(H, TRAIT_RADIMMUNE))
+				if(prob(max(0,100-resist)))
+					H.randmuti()
 					if(prob(50))
 						if(prob(90))
-							randmutb(H)
+							H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 						else
-							randmutg(H)
-					domutcheck(H, null, 1)
-
-		L.apply_effect(20, IRRADIATE, resist)
+							H.easy_randmut(POSITIVE)
+						H.domutcheck()
+		L.rad_act(20)
 
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	priority_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
+	priority_announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 	status_alarm(FALSE)
-	if(!pre_maint_all_access)
-		revoke_maint_all_access()
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
-	if(active)
-		post_status("alert", "radiation")
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
+	if(!frequency)
+		return
+
+	var/datum/signal/signal = new
+	if (active)
+		signal.data["command"] = "alert"
+		signal.data["picture_state"] = "radiation"
 	else
-		post_status("blank")
-		post_status("shuttle")
+		signal.data["command"] = "shuttle"
+
+	var/atom/movable/virtualspeaker/virt = new(null)
+	frequency.post_signal(virt, signal)

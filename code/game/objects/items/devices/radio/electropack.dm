@@ -1,113 +1,144 @@
-/obj/item/radio/electropack
+/obj/item/electropack
 	name = "electropack"
 	desc = "Dance my monkeys! DANCE!!!"
+	icon = 'icons/obj/radio.dmi'
 	icon_state = "electropack0"
 	item_state = "electropack"
-	frequency = AIRLOCK_FREQ
-	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	flags_1 = CONDUCT_1
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
+	var/on = TRUE
 	var/code = 2
+	var/frequency = FREQ_ELECTROPACK
+	var/shock_cooldown = 0
 
-	is_special = 1
+/obj/item/electropack/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] hooks [user.p_them()]self to the electropack and spams the trigger! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (FIRELOSS)
 
-/obj/item/radio/electropack/attack_hand(mob/user as mob)
-	if(src == user.back)
-		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
-		return 0
+/obj/item/electropack/Initialize()
 	. = ..()
+	SSradio.add_object(src, frequency, RADIO_SIGNALER)
 
-/obj/item/radio/electropack/Destroy()
-	if(istype(src.loc, /obj/item/assembly/shock_kit))
-		var/obj/item/assembly/shock_kit/S = src.loc
-		if(S.part1 == src)
-			S.part1 = null
-		else if(S.part2 == src)
-			S.part2 = null
-		master = null
+/obj/item/electropack/Destroy()
+	SSradio.remove_object(src, frequency)
 	return ..()
 
-/obj/item/radio/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/clothing/head/helmet))
-		if(!b_stat)
-			to_chat(user, "<span class='notice'>[src] is not ready to be attached!</span>")
+//ATTACK HAND IGNORING PARENT RETURN VALUE
+/obj/item/electropack/attack_hand(mob/user)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if(src == C.back)
+			to_chat(user, "<span class='warning'>You need help taking this off!</span>")
 			return
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit( user )
+	return ..()
+
+/obj/item/electropack/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/clothing/head/helmet))
+		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(user)
 		A.icon = 'icons/obj/assemblies.dmi'
 
-		if(!user.unEquip(W))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
+		if(!user.transferItemToLoc(W, A))
+			to_chat(user, "<span class='warning'>[W] is stuck to your hand, you cannot attach it to [src]!</span>")
 			return
-		W.loc = A
 		W.master = A
 		A.part1 = W
 
-		user.unEquip(src)
-		loc = A
+		user.transferItemToLoc(src, A, TRUE)
 		master = A
 		A.part2 = src
 
 		user.put_in_hands(A)
 		A.add_fingerprint(user)
-		if(src.flags & NODROP)
-			A.flags |= NODROP
+	else
+		return ..()
 
-/obj/item/radio/electropack/Topic(href, href_list)
-	if(..())
-		return 1
+/obj/item/electropack/Topic(href, href_list)
+	//..()
+	var/mob/living/carbon/C = usr
+	if(usr.stat || usr.restrained() || C.back == src)
+		return
+	if((ishuman(usr) && usr.contents.Find(src)) || usr.contents.Find(master) || (in_range(src, usr) && isturf(loc)))
+		usr.set_machine(src)
+		if(href_list["freq"])
+			SSradio.remove_object(src, frequency)
+			frequency = sanitize_frequency(frequency + text2num(href_list["freq"]))
+			SSradio.add_object(src, frequency, RADIO_SIGNALER)
+		else
+			if(href_list["code"])
+				code += text2num(href_list["code"])
+				code = round(code)
+				code = min(100, code)
+				code = max(1, code)
+			else
+				if(href_list["power"])
+					on = !( on )
+					icon_state = "electropack[on]"
+		if(!( master ))
+			if(ismob(loc))
+				attack_self(loc)
+			else
+				for(var/mob/M in viewers(1, src))
+					if(M.client)
+						attack_self(M)
+		else
+			if(ismob(master.loc))
+				attack_self(master.loc)
+			else
+				for(var/mob/M in viewers(1, master))
+					if(M.client)
+						attack_self(M)
+	else
+		usr << browse(null, "window=radio")
+		return
+	return
 
-	if(href_list["freq"])
-		var/new_frequency = sanitize_frequency(frequency + text2num(href_list["freq"]))
-		set_frequency(new_frequency)
-
-	else if(href_list["code"])
-		code += text2num(href_list["code"])
-		code = round(code)
-		code = Clamp(code, 1, 100)
-
-	else if(href_list["power"])
-		on = !on
-
-	add_fingerprint(usr)
-
-/obj/item/radio/electropack/receive_signal(datum/signal/signal)
-	if(!signal || signal.encryption != code)
+/obj/item/electropack/receive_signal(datum/signal/signal)
+	if(!signal || signal.data["code"] != code)
 		return
 
-	if(ismob(loc) && on)
-		var/mob/M = loc
-		var/turf/T = M.loc
-		if(istype(T, /turf))
-			if(!M.moved_recently && M.last_move)
-				M.moved_recently = 1
-				step(M, M.last_move)
-				sleep(50)
-				if(M)
-					M.moved_recently = 0
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, M)
+	if(isliving(loc) && on)
+		if(shock_cooldown != 0)
+			return
+		shock_cooldown = 1
+		addtimer(VARSET_CALLBACK(src, shock_cooldown, 0), 100)
+		var/mob/living/L = loc
+		step(L, pick(GLOB.cardinals))
 
-		M.Weaken(5)
+		to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+		s.set_up(3, 1, L)
+		s.start()
+
+		L.Paralyze(100)
 
 	if(master)
 		master.receive_signal()
 	return
 
+/obj/item/electropack/attack_self(mob/user)
 
-/obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "radio_electro.tmpl", "[name]", 400, 500)
-		ui.open()
-		ui.set_auto_update(1)
+	if(!ishuman(user))
+		return
+	user.set_machine(src)
+	var/dat = {"<TT>Turned [on ? "On" : "Off"] -
+<A href='?src=[REF(src)];power=1'>Toggle</A><BR>
+<B>Frequency/Code</B> for electropack:<BR>
+Frequency:
+<A href='byond://?src=[REF(src)];freq=-10'>-</A>
+<A href='byond://?src=[REF(src)];freq=-2'>-</A> [format_frequency(frequency)]
+<A href='byond://?src=[REF(src)];freq=2'>+</A>
+<A href='byond://?src=[REF(src)];freq=10'>+</A><BR>
 
-/obj/item/radio/electropack/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
-
-	data["power"] = on
-	data["freq"] = format_frequency(frequency)
-	data["code"] = code
-
-	return data
+Code:
+<A href='byond://?src=[REF(src)];code=-5'>-</A>
+<A href='byond://?src=[REF(src)];code=-1'>-</A> [code]
+<A href='byond://?src=[REF(src)];code=1'>+</A>
+<A href='byond://?src=[REF(src)];code=5'>+</A><BR>
+</TT>"}
+	user << browse(dat, "window=radio")
+	onclose(user, "radio")
+	return

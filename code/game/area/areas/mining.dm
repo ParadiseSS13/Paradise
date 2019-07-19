@@ -2,12 +2,11 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/mine/explored
 	name = "Mine"
 	icon_state = "explored"
-	music = null
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
@@ -15,16 +14,12 @@
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	ambientsounds = list('sound/ambience/ambimine.ogg')
-	flags = NONE
-
-/area/mine/dangerous/explored/golem
-	name = "Small Asteroid"
+	flags_1 = NONE
+	ambientsounds = MINING
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
-	music = null
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
@@ -32,8 +27,8 @@
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	ambientsounds = list('sound/ambience/ambimine.ogg')
-	flags = NONE
+	flags_1 = NONE
+	ambientsounds = MINING
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -60,19 +55,13 @@
 	name = "Mining Station Communications"
 
 /area/mine/cafeteria
-	name = "Mining station Cafeteria"
+	name = "Mining Station Cafeteria"
 
 /area/mine/hydroponics
-	name = "Mining station Hydroponics"
+	name = "Mining Station Hydroponics"
 
 /area/mine/sleeper
-	name = "Mining station Emergency Sleeper"
-
-/area/mine/north_outpost
-	name = "North Mining Outpost"
-
-/area/mine/west_outpost
-	name = "West Mining Outpost"
+	name = "Mining Station Emergency Sleeper"
 
 /area/mine/laborcamp
 	name = "Labor Camp"
@@ -80,9 +69,8 @@
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
+	ambientsounds = HIGHSEC
 
-/area/mine/podbay
-	name = "Mining Podbay"
 
 
 
@@ -90,31 +78,31 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
+	flags_1 = NONE
 
 /area/lavaland/surface
 	name = "Lavaland"
 	icon_state = "explored"
-	music = null
 	always_unpowered = TRUE
 	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
 	requires_power = TRUE
-	ambientsounds = list('sound/ambience/ambilava.ogg')
+	ambientsounds = MINING
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
 	icon_state = "unexplored"
-	music = null
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambientsounds = list('sound/ambience/ambilava.ogg')
+	ambientsounds = MINING
+
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"

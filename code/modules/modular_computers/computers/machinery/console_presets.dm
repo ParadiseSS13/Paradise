@@ -1,11 +1,11 @@
 /obj/machinery/modular_computer/console/preset
 	// Can be changed to give devices specific hardware
-	var/_has_id_slot = 0
-	var/_has_printer = 0
-	var/_has_battery = 0
-	var/_has_ai = 0
+	var/_has_id_slot = FALSE
+	var/_has_printer = FALSE
+	var/_has_battery = FALSE
+	var/_has_ai = FALSE
 
-/obj/machinery/modular_computer/console/preset/New()
+/obj/machinery/modular_computer/console/preset/Initialize()
 	. = ..()
 	if(!cpu)
 		return
@@ -29,8 +29,9 @@
 
 // ===== ENGINEERING CONSOLE =====
 /obj/machinery/modular_computer/console/preset/engineering
-	 console_department = "Engineering"
-	 desc = "A stationary computer. This one comes preloaded with engineering programs."
+	console_department = "Engineering"
+	name = "engineering console"
+	desc = "A stationary computer. This one comes preloaded with engineering programs."
 
 /obj/machinery/modular_computer/console/preset/engineering/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
@@ -40,9 +41,10 @@
 
 // ===== RESEARCH CONSOLE =====
 /obj/machinery/modular_computer/console/preset/research
-	 console_department = "Research"
-	 desc = "A stationary computer. This one comes preloaded with research programs."
-	 _has_ai = 1
+	console_department = "Research"
+	name = "research director's console"
+	desc = "A stationary computer. This one comes preloaded with research programs."
+	_has_ai = TRUE
 
 /obj/machinery/modular_computer/console/preset/research/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
@@ -54,21 +56,22 @@
 
 // ===== COMMAND CONSOLE =====
 /obj/machinery/modular_computer/console/preset/command
-	 console_department = "Command"
-	 desc = "A stationary computer. This one comes preloaded with command programs."
-	 _has_id_slot = 1
-	 _has_printer = 1
+	console_department = "Command"
+	name = "command console"
+	desc = "A stationary computer. This one comes preloaded with command programs."
+	_has_id_slot = TRUE
+	_has_printer = TRUE
 
 /obj/machinery/modular_computer/console/preset/command/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/card_mod())
-	hard_drive.store_file(new/datum/computer_file/program/comm())
 
 // ===== CIVILIAN CONSOLE =====
 /obj/machinery/modular_computer/console/preset/civilian
-	 console_department = "Civilian"
-	 desc = "A stationary computer. This one comes preloaded with generic programs."
+	console_department = "Civilian"
+	name = "civilian console"
+	desc = "A stationary computer. This one comes preloaded with generic programs."
 
 /obj/machinery/modular_computer/console/preset/civilian/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]

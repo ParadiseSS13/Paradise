@@ -1,34 +1,30 @@
-#define DISCONNECTED	0
-#define CLAMPED_OFF		1
-#define OPERATING		2
-
 // Powersink - used to drain station power
 
 /obj/item/powersink
-	name = "power sink"
 	desc = "A nulling power sink which drains energy from electrical systems."
+	name = "power sink"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink0"
 	item_state = "electronic"
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
+	flags_1 = CONDUCT_1
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
 	materials = list(MAT_METAL=750)
-	origin_tech = "powerstorage=5;syndicate=5"
 	var/drain_rate = 2000000	// amount of power to drain per tick
 	var/power_drained = 0 		// has drained this much power
 	var/max_power = 6e8		// maximum power that can be drained before exploding
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
 
-	var/obj/structure/cable/attached		// the attached cable
+	var/const/DISCONNECTED = 0
+	var/const/CLAMPED_OFF = 1
+	var/const/OPERATING = 2
 
-/obj/item/powersink/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	attached = null
-	return ..()
+	var/obj/structure/cable/attached		// the attached cable
 
 /obj/item/powersink/update_icon()
 	icon_state = "powersink[mode == OPERATING]"
@@ -63,35 +59,45 @@
 	update_icon()
 	set_light(0)
 
-/obj/item/powersink/attackby(obj/item/I, mob/user)
-	if(isscrewdriver(I))
+/obj/item/powersink/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc
 			if(isturf(T) && !T.intact)
 				attached = locate() in T
 				if(!attached)
-					to_chat(user, "No exposed cable here to attach to.")
-					return
+					to_chat(user, "<span class='warning'>This device must be placed over an exposed, powered cable node!</span>")
 				else
 					set_mode(CLAMPED_OFF)
-					visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
-					message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
+					user.visible_message( \
+						"[user] attaches \the [src] to the cable.", \
+						"<span class='notice'>You attach \the [src] to the cable.</span>",
+						"<span class='italics'>You hear some wires being connected to something.</span>")
 			else
-				to_chat(user, "Device must be placed over an exposed cable to attach to it.")
+				to_chat(user, "<span class='warning'>This device must be placed over an exposed, powered cable node!</span>")
 		else
 			set_mode(DISCONNECTED)
-			src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
+			user.visible_message( \
+				"[user] detaches \the [src] from the cable.", \
+				"<span class='notice'>You detach \the [src] from the cable.</span>",
+				"<span class='italics'>You hear some wires being disconnected from something.</span>")
 	else
 		return ..()
+
+/obj/item/powersink/attack_paw()
+	return
 
 /obj/item/powersink/attack_ai()
 	return
 
-/obj/item/powersink/attack_hand(var/mob/user)
+/obj/item/powersink/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
 	switch(mode)
 		if(DISCONNECTED)
 			..()
+
 		if(CLAMPED_OFF)
 			user.visible_message( \
 				"[user] activates \the [src]!", \
@@ -119,7 +125,7 @@
 
 		// found a powernet, so drain up to max power from it
 
-		var/drained = min (drain_rate, attached.newavail())
+		var/drained = min ( drain_rate, attached.newavail() )
 		attached.add_delayedload(drained)
 		power_drained += drained
 
@@ -140,14 +146,10 @@
 	if(power_drained > max_power * 0.98)
 		if (!admins_warned)
 			admins_warned = TRUE
-			message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
+			message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
 		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)
 		explosion(src.loc, 4,8,16,32)
 		qdel(src)
-
-#undef DISCONNECTED
-#undef CLAMPED_OFF
-#undef OPERATING

@@ -17,7 +17,6 @@
 
 /datum/powernet/New()
 	SSmachines.powernets += src
-	..()
 
 /datum/powernet/Destroy()
 	//Go away references, you suck!
@@ -97,6 +96,6 @@
 
 /datum/powernet/proc/get_electrocute_damage()
 	if(avail >= 1000)
-		return Clamp(20 + round(avail / 25000), 20, 195) + rand(-5, 5)
+		return CLAMP(20 + round(avail/25000), 20, 195) + rand(-5,5)
 	else
 		return 0

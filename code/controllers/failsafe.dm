@@ -56,14 +56,14 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 						if(4,5)
 							--defcon
 						if(3)
-							message_admins("<span class='adminnotice'>Notice: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5 - defcon) * processing_interval] ticks.</span>")
+							message_admins("<span class='adminnotice'>Notice: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5-defcon) * processing_interval] ticks.</span>")
 							--defcon
 						if(2)
-							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5 - defcon) * processing_interval] ticks. Automatic restart in [processing_interval] ticks.</span>")
+							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5-defcon) * processing_interval] ticks. Automatic restart in [processing_interval] ticks.</span>")
 							--defcon
 						if(1)
 
-							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has still not fired within the last [(5 - defcon) * processing_interval] ticks. Killing and restarting...</span>")
+							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has still not fired within the last [(5-defcon) * processing_interval] ticks. Killing and restarting...</span>")
 							--defcon
 							var/rtn = Recreate_MC()
 							if(rtn > 0)
@@ -84,8 +84,8 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 				else
 					defcon = min(defcon + 1,5)
 					master_iteration = Master.iteration
-			if(defcon <= 1)
-				sleep(processing_interval * 2)
+			if (defcon <= 1)
+				sleep(processing_interval*2)
 			else
 				sleep(processing_interval)
 		else

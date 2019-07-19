@@ -7,6 +7,11 @@
 	requires_ntnet = 0
 	available_on_ntnet = 0
 	available_on_syndinet = 1
+	tgui_id = "ntos_revelation"
+	ui_style = "syndicate"
+	ui_x = 400
+	ui_y = 250
+
 	var/armed = 0
 
 /datum/computer_file/program/revelation/run_program(var/mob/living/user)
@@ -27,18 +32,20 @@
 		if(battery_module && prob(25))
 			qdel(battery_module)
 			computer.visible_message("<span class='notice'>\The [computer]'s battery explodes in rain of sparks.</span>")
-			do_sparks(5, 0, computer.loc)
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
+			spark_system.start()
 
 		if(recharger && prob(50))
 			qdel(recharger)
 			computer.visible_message("<span class='notice'>\The [computer]'s recharger explodes in rain of sparks.</span>")
-			do_sparks(5, 0, computer.loc)
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
+			spark_system.start()
 
 
-/datum/computer_file/program/revelation/Topic(href, list/href_list)
+/datum/computer_file/program/revelation/ui_act(action, params)
 	if(..())
 		return 1
-	switch(href_list["action"])
+	switch(action)
 		if("PRG_arm")
 			armed = !armed
 		if("PRG_activate")
@@ -55,16 +62,6 @@
 	var/datum/computer_file/program/revelation/temp = ..()
 	temp.armed = armed
 	return temp
-
-/datum/computer_file/program/revelation/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		ui = new(user, src, ui_key, "revelation.tmpl", "Revelation Virus", 575, 250)
-		ui.set_auto_update(1)
-		ui.set_layout_key("program")
-		ui.open()
 
 /datum/computer_file/program/revelation/ui_data(mob/user)
 	var/list/data = get_header_data()

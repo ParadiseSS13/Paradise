@@ -3,31 +3,28 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler1"
 	item_state = "flight"
-	var/list/modes
-	var/mode
+	item_flags = NOBLUDGEON
+	var/paint_color = "grey"
 
-/obj/item/pipe_painter/New()
-	..()
-	modes = new()
-	for(var/C in pipe_colors)
-		modes += "[C]"
-	mode = pick(modes)
+	materials = list(MAT_METAL=5000, MAT_GLASS=2000)
 
-/obj/item/pipe_painter/afterattack(atom/A, mob/user as mob)
-	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(A,/obj/machinery/atmospherics/pipe/simple/insulated) || !in_range(user, A))
+/obj/item/pipe_painter/afterattack(atom/A, mob/user, proximity_flag)
+	. = ..()
+	//Make sure we only paint adjacent items
+	if(!proximity_flag)
 		return
+
+	if(!istype(A, /obj/machinery/atmospherics/pipe))
+		return
+
 	var/obj/machinery/atmospherics/pipe/P = A
+	if(P.paint(GLOB.pipe_paint_colors[paint_color]))
+		playsound(src, 'sound/machines/click.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
 
-	var/turf/T = P.loc
-	if(P.level < 2 && T.level==1 && isturf(T) && T.intact)
-		to_chat(user, "<span class='warning'>You must remove the plating first.</span>")
-		return
-
-	P.change_color(pipe_colors[mode])
-
-/obj/item/pipe_painter/attack_self(mob/user as mob)
-	mode = input("Which colour do you want to use?", "Pipe Painter", mode) in modes
+/obj/item/pipe_painter/attack_self(mob/user)
+	paint_color = input("Which colour do you want to use?","Pipe painter") in GLOB.pipe_paint_colors
 
 /obj/item/pipe_painter/examine(mob/user)
-	..(user)
-	to_chat(user, "It is in [mode] mode.")
+	. = ..()
+	. += "<span class='notice'>It is set to [paint_color].</span>"

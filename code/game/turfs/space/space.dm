@@ -1,59 +1,78 @@
-/turf/space
+/turf/open/space
 	icon = 'icons/turf/space.dmi'
-	name = "\proper space"
 	icon_state = "0"
+	name = "\proper space"
+	intact = 0
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = HEAT_CAPACITY_VACUUM
-
-	plane = PLANE_SPACE
-	layer = SPACE_LAYER
-	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	intact = FALSE
+	heat_capacity = 700000
 
 	var/destination_z
 	var/destination_x
 	var/destination_y
 
-/turf/space/Initialize(mapload)
-	if(!istype(src, /turf/space/transit))
-		icon_state = SPACE_ICON_STATE
+	var/global/datum/gas_mixture/immutable/space/space_gas = new
+	plane = PLANE_SPACE
+	layer = SPACE_LAYER
+	light_power = 0.25
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	bullet_bounce_sound = null
+
+/turf/open/space/basic/New()	//Do not convert to Initialize
+	//This is used to optimize the map loader
+	return
+
+/turf/open/space/Initialize()
+	icon_state = SPACE_ICON_STATE
+	air = space_gas
+	vis_contents.Cut() //removes inherited overlays
+	visibilityChanged()
+
+	if(flags_1 & INITIALIZED_1)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	flags_1 |= INITIALIZED_1
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
-		
+
+	if(requires_activation)
+		SSair.add_to_active(src)
+
 	if (light_power && light_range)
 		update_light()
 
 	if (opacity)
 		has_opaque_atom = TRUE
 
+	ComponentInitialize()
+
 	return INITIALIZE_HINT_NORMAL
 
-/turf/space/Destroy(force)
-	if(force)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
+//ATTACK GHOST IGNORING PARENT RETURN VALUE
+/turf/open/space/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)
 
-/turf/space/BeforeChange()
+/turf/open/space/Initalize_Atmos(times_fired)
+	return
+
+/turf/open/space/TakeTemperature(temp)
+
+/turf/open/space/RemoveLattice()
+	return
+
+/turf/open/space/AfterChange()
 	..()
-	var/datum/space_level/S = space_manager.get_zlev(z)
-	S.remove_from_transit(src)
-	if(light_sources) // Turn off starlight, if present
-		set_light(0)
+	atmos_overlay_types = null
 
-/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
-	..()
-	var/datum/space_level/S = space_manager.get_zlev(z)
-	S.add_to_transit(src)
-	S.apply_transition(src)
+/turf/open/space/Assimilate_Air()
+	return
 
-/turf/space/proc/update_starlight()
-	if(config.starlight)
+/turf/open/space/proc/update_starlight()
+	if(CONFIG_GET(flag/starlight))
 		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
@@ -62,8 +81,19 @@
 			return
 		set_light(0)
 
-/turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/open/space/attack_paw(mob/user)
+	return attack_hand(user)
+
+/turf/open/space/proc/CanBuildHere()
+	return TRUE
+
+/turf/open/space/handle_slip()
+	return
+
+/turf/open/space/attackby(obj/item/C, mob/user, params)
 	..()
+	if(!CanBuildHere())
+		return
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
@@ -80,13 +110,12 @@
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
 			return
 		if(R.use(1))
-			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
+			to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
-
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
@@ -95,171 +124,102 @@
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You build a floor.</span>")
-				ChangeTurf(/turf/simulated/floor/plating)
+				PlaceOnTop(/turf/open/floor/plating)
 			else
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
+/turf/open/space/Entered(atom/movable/A)
 	..()
-	if((!(A) || !(src in A.locs)))
+	if ((!(A) || src != A.loc))
 		return
 
-	if(destination_z && destination_x && destination_y)
-		A.forceMove(locate(destination_x, destination_y, destination_z))
+	if(destination_z && destination_x && destination_y && !(A.pulledby || !A.can_be_z_moved))
+		var/tx = destination_x
+		var/ty = destination_y
+		var/turf/DT = locate(tx, ty, destination_z)
+		var/itercount = 0
+		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
+			if (itercount++ >= 100)
+				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
+				break
+			if (tx < 128)
+				tx++
+			else
+				tx--
+			if (ty < 128)
+				ty++
+			else
+				ty--
+			DT = locate(tx, ty, destination_z)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.forceMove(T)
+		var/atom/movable/AM = A.pulling
+		A.forceMove(DT)
+		if(AM)
+			var/turf/T = get_step(A.loc,turn(A.dir, 180))
+			AM.can_be_z_moved = FALSE
+			AM.forceMove(T)
+			A.start_pulling(AM)
+			AM.can_be_z_moved = TRUE
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
+		stoplag()//Let a diagonal move finish, if necessary
 		A.newtonian_move(A.inertia_dir)
 
-/turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
-	var/cur_x
-	var/cur_y
-	var/next_x
-	var/next_y
-	var/target_z
-	var/list/y_arr
 
-	if(src.x <= 1)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
-			qdel(A)
-			return
-
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		next_x = (--cur_x||global_map.len)
-		y_arr = global_map[next_x]
-		target_z = y_arr[cur_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Target Z = [target_z]")
-		to_chat(world, "Next X = [next_x]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.x = world.maxx - 2
-			spawn (0)
-				if((A && A.loc))
-					A.loc.Entered(A)
-	else if(src.x >= world.maxx)
-		if(istype(A, /obj/effect/meteor))
-			qdel(A)
-			return
-
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		next_x = (++cur_x > global_map.len ? 1 : cur_x)
-		y_arr = global_map[next_x]
-		target_z = y_arr[cur_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Target Z = [target_z]")
-		to_chat(world, "Next X = [next_x]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.x = 3
-			spawn (0)
-				if((A && A.loc))
-					A.loc.Entered(A)
-	else if(src.y <= 1)
-		if(istype(A, /obj/effect/meteor))
-			qdel(A)
-			return
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		y_arr = global_map[cur_x]
-		next_y = (--cur_y||y_arr.len)
-		target_z = y_arr[next_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Next Y = [next_y]")
-		to_chat(world, "Target Z = [target_z]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.y = world.maxy - 2
-			spawn (0)
-				if((A && A.loc))
-					A.loc.Entered(A)
-
-	else if(src.y >= world.maxy)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
-			qdel(A)
-			return
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		y_arr = global_map[cur_x]
-		next_y = (++cur_y > y_arr.len ? 1 : cur_y)
-		target_z = y_arr[next_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Next Y = [next_y]")
-		to_chat(world, "Target Z = [target_z]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.y = 3
-			spawn (0)
-				if((A && A.loc))
-					A.loc.Entered(A)
+/turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
-/turf/space/singularity_act()
+/turf/open/space/singularity_act()
 	return
 
-/turf/space/can_have_cabling()
+/turf/open/space/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return 1
 	return 0
 
-/turf/space/proc/set_transition_north(dest_z)
-	destination_x = x
-	destination_y = TRANSITION_BORDER_SOUTH + 1
+/turf/open/space/is_transition_turf()
+	if(destination_x || destination_y || destination_z)
+		return 1
+
+
+/turf/open/space/acid_act(acidpwr, acid_volume)
+	return 0
+
+/turf/open/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE
+
+
+/turf/open/space/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	if(!CanBuildHere())
+		return FALSE
+
+	switch(the_rcd.mode)
+		if(RCD_FLOORWALL)
+			var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+			if(L)
+				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
+			else
+				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
+	return FALSE
+
+/turf/open/space/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_FLOORWALL)
+			to_chat(user, "<span class='notice'>You build a floor.</span>")
+			PlaceOnTop(/turf/open/floor/plating)
+			return TRUE
+	return FALSE
+
+/turf/open/space/ReplaceWithLattice()
+	var/dest_x = destination_x
+	var/dest_y = destination_y
+	var/dest_z = destination_z
+	..()
+	destination_x = dest_x
+	destination_y = dest_y
 	destination_z = dest_z
-
-/turf/space/proc/set_transition_south(dest_z)
-	destination_x = x
-	destination_y = TRANSITION_BORDER_NORTH - 1
-	destination_z = dest_z
-
-/turf/space/proc/set_transition_east(dest_z)
-	destination_x = TRANSITION_BORDER_WEST + 1
-	destination_y = y
-	destination_z = dest_z
-
-/turf/space/proc/set_transition_west(dest_z)
-	destination_x = TRANSITION_BORDER_EAST - 1
-	destination_y = y
-	destination_z = dest_z
-
-/turf/space/proc/remove_transitions()
-	destination_z = initial(destination_z)
-
-/turf/space/attack_ghost(mob/dead/observer/user)
-	if(destination_z)
-		var/turf/T = locate(destination_x, destination_y, destination_z)
-		user.forceMove(T)

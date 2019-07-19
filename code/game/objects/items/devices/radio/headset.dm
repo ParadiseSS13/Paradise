@@ -1,421 +1,344 @@
+// Used for translating channels to tokens on examination
+GLOBAL_LIST_INIT(channel_tokens, list(
+	RADIO_CHANNEL_COMMON = RADIO_KEY_COMMON,
+	RADIO_CHANNEL_SCIENCE = RADIO_TOKEN_SCIENCE,
+	RADIO_CHANNEL_COMMAND = RADIO_TOKEN_COMMAND,
+	RADIO_CHANNEL_MEDICAL = RADIO_TOKEN_MEDICAL,
+	RADIO_CHANNEL_ENGINEERING = RADIO_TOKEN_ENGINEERING,
+	RADIO_CHANNEL_SECURITY = RADIO_TOKEN_SECURITY,
+	RADIO_CHANNEL_CENTCOM = RADIO_TOKEN_CENTCOM,
+	RADIO_CHANNEL_SYNDICATE = RADIO_TOKEN_SYNDICATE,
+	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
+	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
+	MODE_BINARY = MODE_TOKEN_BINARY,
+	RADIO_CHANNEL_AI_PRIVATE = RADIO_TOKEN_AI_PRIVATE
+))
+
 /obj/item/radio/headset
 	name = "radio headset"
 	desc = "An updated, modular intercom that fits over the head. Takes encryption keys."
-	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
 	materials = list(MAT_METAL=75)
 	subspace_transmission = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_EARS
-	var/translate_binary = FALSE
-	var/translate_hive = FALSE
-	var/obj/item/encryptionkey/keyslot1 = null
+	slot_flags = ITEM_SLOT_EARS
 	var/obj/item/encryptionkey/keyslot2 = null
+	dog_fashion = null
 
-	var/ks1type = null
-	var/ks2type = null
+/obj/item/radio/headset/suicide_act(mob/living/carbon/user)
+	user.visible_message("<span class='suicide'>[user] begins putting \the [src]'s antenna up [user.p_their()] nose! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer!</span>")
+	return TOXLOSS
 
-/obj/item/radio/headset/New()
-	..()
-	internal_channels.Cut()
+/obj/item/radio/headset/examine(mob/user)
+	. = ..()
+
+	if(item_flags & IN_INVENTORY && loc == user)
+		// construction of frequency description
+		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
+		if(translate_binary)
+			avail_chans += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
+		if(length(channels))
+			for(var/i in 1 to length(channels))
+				if(i == 1)
+					avail_chans += "use [MODE_TOKEN_DEPARTMENT] or [GLOB.channel_tokens[channels[i]]] for [lowertext(channels[i])]"
+				else
+					avail_chans += "use [GLOB.channel_tokens[channels[i]]] for [lowertext(channels[i])]"
+		. += "<span class='notice'>A small screen on the headset displays the following available frequencies:\n[english_list(avail_chans)].</span>"
+
+		if(command)
+			. += "<span class='info'>Alt-click to toggle the high-volume mode.</span>"
+	else
+		. += "<span class='notice'>A small screen on the headset flashes, it's too small to read without holding or wearing the headset.</span>"
 
 /obj/item/radio/headset/Initialize()
-	..()
-
-	if(ks1type)
-		keyslot1 = new ks1type(src)
-		if(keyslot1.syndie)
-			syndiekey = keyslot1
-	if(ks2type)
-		keyslot2 = new ks2type(src)
-		if(keyslot2.syndie)
-			syndiekey = keyslot2
-
-	recalculateChannels(TRUE)
+	. = ..()
+	recalculateChannels()
 
 /obj/item/radio/headset/Destroy()
-	QDEL_NULL(keyslot1)
 	QDEL_NULL(keyslot2)
 	return ..()
 
-/obj/item/radio/headset/list_channels(var/mob/user)
-	return list_secure_channels()
-
-/obj/item/radio/headset/examine(mob/user, var/distance = -1)
-	if(!(..(user, 1) && radio_desc))
-		return
-
-	to_chat(user, "The following channels are available:")
-	to_chat(user, radio_desc)
-
-/obj/item/radio/headset/handle_message_mode(mob/living/M as mob, list/message_pieces, channel)
-	if(channel == "special")
-		if(translate_binary)
-			var/datum/language/binary = GLOB.all_languages["Robot Talk"]
-			binary.broadcast(M, strip_prefixes(multilingual_to_message(message_pieces)))
-			return RADIO_CONNECTION_NON_SUBSPACE
-		if(translate_hive)
-			var/datum/language/hivemind = GLOB.all_languages["Hivemind"]
-			hivemind.broadcast(M, strip_prefixes(multilingual_to_message(message_pieces)))
-			return RADIO_CONNECTION_NON_SUBSPACE
-		return RADIO_CONNECTION_FAIL
-
+/obj/item/radio/headset/talk_into(mob/living/M, message, channel, list/spans,datum/language/language)
+	if (!listening)
+		return ITALICS | REDUCE_RANGE
 	return ..()
 
-/obj/item/radio/headset/is_listening()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.l_ear == src || H.r_ear == src)
-			return ..()
-	else if(isanimal(loc) || isAI(loc))
-		return ..()
-
+/obj/item/radio/headset/can_receive(freq, level, AIuser)
+	if(ishuman(src.loc))
+		var/mob/living/carbon/human/H = src.loc
+		if(H.ears == src)
+			return ..(freq, level)
+	else if(AIuser)
+		return ..(freq, level)
 	return FALSE
 
-/obj/item/radio/headset/alt
-	name = "bowman headset"
-	desc = "An updated, modular intercom that fits over the head. Takes encryption keys. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
-	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
-
-/obj/item/radio/headset/syndicate
-	origin_tech = "syndicate=3"
-	ks1type = /obj/item/encryptionkey/syndicate/nukeops
+/obj/item/radio/headset/syndicate //disguised to look like a normal headset for stealth ops
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
-	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
-/obj/item/radio/headset/syndicate/syndteam
-	ks1type = /obj/item/encryptionkey/syndteam
+/obj/item/radio/headset/syndicate/alt/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
 
-/obj/item/radio/headset/syndicate/alt/syndteam
-	ks1type = /obj/item/encryptionkey/syndteam
+/obj/item/radio/headset/syndicate/alt/leader
+	name = "team leader headset"
+	command = TRUE
+
+/obj/item/radio/headset/syndicate/Initialize()
+	. = ..()
+	make_syndie()
 
 /obj/item/radio/headset/binary
-	origin_tech = "syndicate=3"
-	ks1type = /obj/item/encryptionkey/binary
+/obj/item/radio/headset/binary/Initialize()
+	. = ..()
+	qdel(keyslot)
+	keyslot = new /obj/item/encryptionkey/binary
+	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec
 	name = "security radio headset"
 	desc = "This is used by your elite security force."
 	icon_state = "sec_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_sec
+	keyslot = new /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_sec/alt/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."
 	icon_state = "eng_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_eng
+	keyslot = new /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_rob
 	name = "robotics radio headset"
-	desc = "Made specifically for the roboticists who cannot decide between departments."
+	desc = "Made specifically for the roboticists, who cannot decide between departments."
 	icon_state = "rob_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_rob
+	keyslot = new /obj/item/encryptionkey/headset_rob
 
 /obj/item/radio/headset/headset_med
 	name = "medical radio headset"
 	desc = "A headset for the trained staff of the medbay."
 	icon_state = "med_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_med
+	keyslot = new /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_sci
 	name = "science radio headset"
 	desc = "A sciency headset. Like usual."
 	icon_state = "sci_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_sci
+	keyslot = new /obj/item/encryptionkey/headset_sci
 
 /obj/item/radio/headset/headset_medsci
 	name = "medical research radio headset"
 	desc = "A headset that is a result of the mating between medical and science."
 	icon_state = "medsci_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_medsci
+	keyslot = new /obj/item/encryptionkey/headset_medsci
+
+/obj/item/radio/headset/headset_srvsec
+	name = "law and order headset"
+	desc = "In the criminal justice headset, the encryption key represents two separate but equally important groups. Sec, who investigate crime, and Service, who provide services. These are their comms."
+	icon_state = "srvsec_headset"
+	keyslot = new /obj/item/encryptionkey/headset_srvsec
 
 /obj/item/radio/headset/headset_com
 	name = "command radio headset"
 	desc = "A headset with a commanding channel."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_com
+	keyslot = new /obj/item/encryptionkey/headset_com
+
+/obj/item/radio/headset/heads
+	command = TRUE
 
 /obj/item/radio/headset/heads/captain
-	name = "captain's headset"
-	desc = "The headset of the boss."
+	name = "\proper the captain's headset"
+	desc = "The headset of the king."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/captain
+	keyslot = new /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/alt
 	name = "\proper the captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/heads/captain/alt/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
+
 /obj/item/radio/headset/heads/rd
-	name = "Research Director's headset"
-	desc = "Headset of the researching God."
+	name = "\proper the research director's headset"
+	desc = "Headset of the fellow who keeps society marching towards technological singularity."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/rd
+	keyslot = new /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/hos
-	name = "head of security's headset"
-	desc = "The headset of the man who protects your worthless lives."
+	name = "\proper the head of security's headset"
+	desc = "The headset of the man in charge of keeping order and protecting the station."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/hos
+	keyslot = new /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/alt
 	name = "\proper the head of security's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/heads/hos/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
+
 /obj/item/radio/headset/heads/ce
-	name = "chief engineer's headset"
-	desc = "The headset of the guy who is in charge of morons."
+	name = "\proper the chief engineer's headset"
+	desc = "The headset of the guy in charge of keeping the station powered and undamaged."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/ce
+	keyslot = new /obj/item/encryptionkey/heads/ce
 
 /obj/item/radio/headset/heads/cmo
-	name = "chief medical officer's headset"
+	name = "\proper the chief medical officer's headset"
 	desc = "The headset of the highly trained medical chief."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/cmo
+	keyslot = new /obj/item/encryptionkey/heads/cmo
 
 /obj/item/radio/headset/heads/hop
-	name = "head of personnel's headset"
+	name = "\proper the head of personnel's headset"
 	desc = "The headset of the guy who will one day be captain."
 	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/hop
+	keyslot = new /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
-	desc = "A headset used by the cargo department."
+	desc = "A headset used by the QM and his slaves."
 	icon_state = "cargo_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_cargo
+	keyslot = new /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_cargo/mining
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."
 	icon_state = "mine_headset"
+	keyslot = new /obj/item/encryptionkey/headset_mining
 
-/obj/item/radio/headset/headset_service
+/obj/item/radio/headset/headset_srv
 	name = "service radio headset"
 	desc = "Headset used by the service staff, tasked with keeping the station full, happy and clean."
 	icon_state = "srv_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/headset_service
+	keyslot = new /obj/item/encryptionkey/headset_service
 
-/obj/item/radio/headset/heads/ntrep
-	name = "nanotrasen representative's headset"
-	desc = "The headset of the Nanotrasen Representative."
-	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/ntrep
+/obj/item/radio/headset/headset_cent
+	name = "\improper CentCom headset"
+	desc = "A headset used by the upper echelons of Nanotrasen."
+	icon_state = "cent_headset"
+	keyslot = new /obj/item/encryptionkey/headset_com
+	keyslot2 = new /obj/item/encryptionkey/headset_cent
 
-/obj/item/radio/headset/heads/magistrate
-	name = "magistrate's headset"
-	desc = "The headset of the Magistrate."
-	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/magistrate
+/obj/item/radio/headset/headset_cent/empty
+	keyslot = null
+	keyslot2 = null
 
-/obj/item/radio/headset/heads/magistrate/alt
-	name = "\proper magistrate's bowman headset"
-	desc = "The headset of the Magistrate. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
-	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
+/obj/item/radio/headset/headset_cent/commander
+	keyslot = new /obj/item/encryptionkey/heads/captain
 
-/obj/item/radio/headset/heads/blueshield
-	name = "blueshield's headset"
-	desc = "The headset of the Blueshield."
-	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/blueshield
+/obj/item/radio/headset/headset_cent/alt
+	name = "\improper CentCom bowman headset"
+	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
+	icon_state = "cent_headset_alt"
+	item_state = "cent_headset_alt"
+	keyslot = null
 
-/obj/item/radio/headset/heads/blueshield/alt
-	name = "\proper blueshield's bowman headset"
-	desc = "The headset of the Blueshield. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
-	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
+/obj/item/radio/headset/headset_cent/alt/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
 
-/obj/item/radio/headset/ert
-	name = "emergency response team headset"
-	desc = "The headset of the boss's boss."
-	icon_state = "com_headset"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/ert
+/obj/item/radio/headset/silicon/pai
+	name = "\proper mini Integrated Subspace Transceiver "
+	subspace_transmission = FALSE
 
-/obj/item/radio/headset/ert/alt
-	name = "\proper emergency response team's bowman headset"
-	desc = "The headset of the boss. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
-	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
 
-/obj/item/radio/headset/centcom
-	name = "\proper centcom officer's bowman headset"
-	desc = "The headset of final authority. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
-	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
-	ks2type = /obj/item/encryptionkey/centcom
+/obj/item/radio/headset/silicon/ai
+	name = "\proper Integrated Subspace Transceiver "
+	keyslot2 = new /obj/item/encryptionkey/ai
+	command = TRUE
 
-/obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
-	name = "\improper AI subspace transceiver"
-	desc = "Integrated AI radio transceiver."
-	icon = 'icons/obj/robot_component.dmi'
-	icon_state = "radio"
-	item_state = "headset"
-	ks2type = /obj/item/encryptionkey/heads/ai_integrated
-	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
-	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
+/obj/item/radio/headset/silicon/can_receive(freq, level)
+	return ..(freq, level, TRUE)
 
-/obj/item/radio/headset/heads/ai_integrated/is_listening()
-	if(disabledAi)
-		return FALSE
-	return ..()
-
-/obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
 	user.set_machine(src)
-	if(!( istype(W, /obj/item/screwdriver) || (istype(W, /obj/item/encryptionkey/ ))))
-		return ..()
 
-	if(istype(W, /obj/item/screwdriver))
-		if(keyslot1 || keyslot2)
-
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(keyslot || keyslot2)
 			for(var/ch_name in channels)
-				SSradio.remove_object(src, SSradio.radiochannels[ch_name])
+				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
 
-			if(keyslot1)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot1.loc = T
-					keyslot1 = null
-			if(keyslot2)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot2.loc = T
+			var/turf/T = user.drop_location()
+			if(T)
+				if(keyslot)
+					keyslot.forceMove(T)
+					keyslot = null
+				if(keyslot2)
+					keyslot2.forceMove(T)
 					keyslot2 = null
 
 			recalculateChannels()
-			to_chat(user, "You pop out the encryption keys in the headset!")
-		else
-			to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
+			to_chat(user, "<span class='notice'>You pop out the encryption keys in the headset.</span>")
 
-	if(istype(W, /obj/item/encryptionkey/))
-		if(keyslot1 && keyslot2)
-			to_chat(user, "The headset can't hold another key!")
+		else
+			to_chat(user, "<span class='warning'>This headset doesn't have any unique encryption keys!  How useless...</span>")
+
+	else if(istype(W, /obj/item/encryptionkey))
+		if(keyslot && keyslot2)
+			to_chat(user, "<span class='warning'>The headset can't hold another key!</span>")
 			return
 
-		if(!keyslot1)
-			user.drop_item()
-			W.loc = src
-			keyslot1 = W
+		if(!keyslot)
+			if(!user.transferItemToLoc(W, src))
+				return
+			keyslot = W
+
 		else
-			user.drop_item()
-			W.loc = src
+			if(!user.transferItemToLoc(W, src))
+				return
 			keyslot2 = W
 
+
 		recalculateChannels()
-	return
+	else
+		return ..()
 
 
-/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = FALSE)
-	channels = list()
-	translate_binary = FALSE
-	translate_hive = FALSE
-	syndiekey = null
-
-	if(keyslot1)
-		for(var/ch_name in keyslot1.channels)
-			if(ch_name in channels)
-				continue
-			channels += ch_name
-			channels[ch_name] = keyslot1.channels[ch_name]
-
-		if(keyslot1.translate_binary)
-			translate_binary = TRUE
-
-		if(keyslot1.translate_hive)
-			translate_hive = TRUE
-
-		if(keyslot1.syndie)
-			syndiekey = keyslot1
-
+/obj/item/radio/headset/recalculateChannels()
+	..()
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
-			if(ch_name in channels)
-				continue
-			channels += ch_name
-			channels[ch_name] = keyslot2.channels[ch_name]
+			if(!(ch_name in src.channels))
+				channels[ch_name] = keyslot2.channels[ch_name]
 
 		if(keyslot2.translate_binary)
 			translate_binary = TRUE
-
-		if(keyslot2.translate_hive)
-			translate_hive = TRUE
-
 		if(keyslot2.syndie)
-			syndiekey = keyslot2
-
+			syndie = TRUE
+		if (keyslot2.independent)
+			independent = TRUE
 
 	for(var/ch_name in channels)
-		if(!SSradio)
-			name = "broken radio headset"
-			return
+		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
-		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
-
-	if(setDescription)
-		setupRadioDescription()
-
-	return
-
-/obj/item/radio/headset/proc/setupRadioDescription()
-	var/radio_text = ""
-	for(var/i = 1 to channels.len)
-		var/channel = channels[i]
-		var/key = get_radio_key_from_channel(channel)
-		radio_text += "[key] - [channel]"
-		if(i != channels.len)
-			radio_text += ", "
-
-	radio_desc = radio_text
-
-/obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
-	qdel(keyslot1)
-	keyslot1 = new /obj/item/encryptionkey/syndicate
-	syndiekey = keyslot1
-	recalculateChannels()
+/obj/item/radio/headset/AltClick(mob/living/user)
+	if(!istype(user) || !Adjacent(user) || user.incapacitated())
+		return
+	if (command)
+		use_command = !use_command
+		to_chat(user, "<span class='notice'>You toggle high-volume mode [use_command ? "on" : "off"].</span>")

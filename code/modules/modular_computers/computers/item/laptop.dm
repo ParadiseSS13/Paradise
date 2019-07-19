@@ -12,16 +12,23 @@
 	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_NORMAL
 
-	flags = HANDSLOW // No running around with open laptops in hands.
+	// No running around with open laptops in hands.
+	item_flags = SLOWS_WHILE_IN_HAND
 
 	screen_on = 0 		// Starts closed
-	var/start_open = 1	// unless this var is set to 1
+	var/start_open = TRUE	// unless this var is set to 1
 	var/icon_state_closed = "laptop-closed"
 	var/w_class_open = WEIGHT_CLASS_BULKY
-	var/slowdown_open = 1
+	var/slowdown_open = TRUE
 
-/obj/item/modular_computer/laptop/New()
-	..()
+/obj/item/modular_computer/laptop/examine(mob/user)
+	. = ..()
+	if(screen_on)
+		. += "<span class='notice'>Alt-click to close it.</span>"
+
+/obj/item/modular_computer/laptop/Initialize()
+	. = ..()
+
 	if(start_open && !screen_on)
 		toggle_open()
 
@@ -29,7 +36,7 @@
 	if(screen_on)
 		..()
 	else
-		overlays.Cut()
+		cut_overlays()
 		icon_state = icon_state_closed
 
 /obj/item/modular_computer/laptop/attack_self(mob/user)
@@ -46,36 +53,31 @@
 	try_toggle_open(usr)
 
 /obj/item/modular_computer/laptop/MouseDrop(obj/over_object, src_location, over_location)
+	. = ..()
 	if(over_object == usr || over_object == src)
 		try_toggle_open(usr)
-	if(ishuman(usr))
-		if(!isturf(loc) || !Adjacent(usr))
-			return
-		if(over_object && !usr.incapacitated())
-			if(!usr.canUnEquip(src))
-				to_chat(usr, "[src] appears stuck on you!")
+	else if(istype(over_object, /obj/screen/inventory/hand))
+		var/obj/screen/inventory/hand/H = over_object
+		var/mob/M = usr
+
+		if(!M.restrained() && !M.stat)
+			if(!isturf(loc) || !Adjacent(M))
 				return
-			switch(over_object.name)
-				if("r_hand")
-					usr.unEquip(src)
-					usr.put_in_r_hand(src)
-				if("l_hand")
-					usr.unEquip(src)
-					usr.put_in_l_hand(src)
+			M.put_in_hand(src, H.held_index)
 
 /obj/item/modular_computer/laptop/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
 	if(screen_on && isturf(loc))
 		return attack_self(user)
-
-	return ..()
-
 
 /obj/item/modular_computer/laptop/proc/try_toggle_open(mob/living/user)
 	if(issilicon(user))
 		return
 	if(!isturf(loc) && !ismob(loc)) // No opening it in backpack.
 		return
-	if(user.incapacitated() || !Adjacent(user))
+	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 
 	toggle_open(user)
@@ -104,4 +106,4 @@
 
 // Laptop frame, starts empty and closed.
 /obj/item/modular_computer/laptop/buildable
-	start_open = 0
+	start_open = FALSE

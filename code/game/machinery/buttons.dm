@@ -1,204 +1,286 @@
-
-//////////////////////////////////////
-//			Driver Button			//
-//////////////////////////////////////
-
-/obj/machinery/driver_button
-	name = "mass driver button"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "launcherbtt"
-	desc = "A remote control switch for a mass driver."
-	var/id_tag = "default"
-	var/active = 0
-	settagwhitelist = list("id_tag", "logic_id_tag")
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
-	var/range = 7
-
-	var/datum/radio_frequency/radio_connection
-	var/frequency = 0
-	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
-	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
-
-/obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
-	..()
-	switch(w_dir)
-		if(NORTH)
-			pixel_y = 25
-		if(SOUTH)
-			pixel_y = -25
-		if(EAST)
-			pixel_x = 25
-		if(WEST)
-			pixel_x = -25
-	if(SSradio)
-		set_frequency(frequency)
-
-/obj/machinery/driver_button/Initialize()
-	..()
-	set_frequency(frequency)
-
-/obj/machinery/driver_button/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
-	return
-
-/obj/machinery/driver_button/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
-
-/obj/machinery/driver_button/attack_ai(mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/driver_button/attack_ghost(mob/user)
-	if(user.can_advanced_admin_interact())
-		return attack_hand(user)
-
-/obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
-
-	if(istype(W, /obj/item/detective_scanner))
-		return
-
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/driver_button(get_turf(src))
-			qdel(src)
-		return 1
-
-	return attack_hand(user)
-
-/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<ul>
-	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag")]</li>
-	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
-	</ul>"}
-
-/obj/machinery/driver_button/attack_hand(mob/user as mob)
-
-	add_fingerprint(usr)
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(active)
-		return
-	add_fingerprint(user)
-
-	use_power(5)
-
-	launch_sequence()
-
-/obj/machinery/driver_button/proc/launch_sequence()
-	active = 1
-	icon_state = "launcheract"
-
-	if(logic_connect)
-		if(!radio_connection)		//can't output without this
-			return
-
-		if(logic_id_tag == null)	//Don't output to an undefined id_tag
-			return
-
-		var/datum/signal/signal = new
-		signal.transmission_method = 1	//radio signal
-		signal.source = src
-
-		signal.data = list(
-				"tag" = logic_id_tag,
-				"sigtype" = "logic",
-				"state" = LOGIC_FLICKER,	//Buttons are a FLICKER source, since they only register as ON when you press it, then turn OFF after you release
-		)
-
-		radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
-
-	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if(M.id_tag == id_tag && !M.protected)
-			spawn()
-				M.open()
-
-	sleep(20)
-
-	for(var/obj/machinery/mass_driver/M in range(src,range))
-		if(M.id_tag == id_tag)
-			M.drive()
-
-	sleep(50)
-
-	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if(M.id_tag == id_tag && !M.protected)
-			spawn()
-				M.close()
-				return
-
-	icon_state = "launcherbtt"
-	active = 0
-
-/obj/machinery/driver_button/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
-	..()
-	if("toggle_logic" in href_list)
-		logic_connect = !logic_connect
-
-//////////////////////////////////////
-//			Ignition Switch			//
-//////////////////////////////////////
-
-/obj/machinery/ignition_switch
-	name = "ignition switch"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "launcherbtt"
-	desc = "A remote control switch for a mounted igniter."
+/obj/machinery/button
+	name = "button"
+	desc = "A remote control switch."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "doorctrl"
+	var/skin = "doorctrl"
+	power_channel = ENVIRON
+	var/obj/item/assembly/device
+	var/obj/item/electronics/airlock/board
+	var/device_type = null
 	var/id = null
-	var/active = 0
-	anchored = 1.0
+	var/initialized_button = 0
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 70)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
-	active_power_usage = 4
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
-/obj/machinery/ignition_switch/attack_ai(mob/user)
-	return attack_hand(user)
+/obj/machinery/button/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/machinery/ignition_switch/attack_ghost(mob/user)
-	if(user.can_advanced_admin_interact())
+/obj/machinery/button/Initialize(mapload, ndir = 0, built = 0)
+	. = ..()
+	if(built)
+		setDir(ndir)
+		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
+		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		panel_open = TRUE
+		update_icon()
+
+
+	if(!built && !device && device_type)
+		device = new device_type(src)
+
+	src.check_access(null)
+
+	if(req_access.len || req_one_access.len)
+		board = new(src)
+		if(req_access.len)
+			board.accesses = req_access
+		else
+			board.one_access = 1
+			board.accesses = req_one_access
+
+
+/obj/machinery/button/update_icon()
+	cut_overlays()
+	if(panel_open)
+		icon_state = "button-open"
+		if(device)
+			add_overlay("button-device")
+		if(board)
+			add_overlay("button-board")
+
+	else
+		if(stat & (NOPOWER|BROKEN))
+			icon_state = "[skin]-p"
+		else
+			icon_state = skin
+
+/obj/machinery/button/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(panel_open || allowed(user))
+			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
+			update_icon()
+		else
+			to_chat(user, "<span class='danger'>Maintenance Access Denied</span>")
+			flick("[skin]-denied", src)
+		return
+
+	if(panel_open)
+		if(!device && istype(W, /obj/item/assembly))
+			if(!user.transferItemToLoc(W, src))
+				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
+				return
+			device = W
+			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
+
+		if(!board && istype(W, /obj/item/electronics/airlock))
+			if(!user.transferItemToLoc(W, src))
+				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
+				return
+			board = W
+			if(board.one_access)
+				req_one_access = board.accesses
+			else
+				req_access = board.accesses
+			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
+
+		if(!device && !board && W.tool_behaviour == TOOL_WRENCH)
+			to_chat(user, "<span class='notice'>You start unsecuring the button frame...</span>")
+			W.play_tool_sound(src)
+			if(W.use_tool(src, user, 40))
+				to_chat(user, "<span class='notice'>You unsecure the button frame.</span>")
+				transfer_fingerprints_to(new /obj/item/wallframe/button(get_turf(src)))
+				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+				qdel(src)
+
+		update_icon()
+		return
+
+	if(user.a_intent != INTENT_HARM && !(W.item_flags & NOBLUDGEON))
+		return attack_hand(user)
+	else
+		return ..()
+
+/obj/machinery/button/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	req_access = list()
+	req_one_access = list()
+	playsound(src, "sparks", 100, 1)
+	obj_flags |= EMAGGED
+
+/obj/machinery/button/attack_ai(mob/user)
+	if(!panel_open)
 		return attack_hand(user)
 
-/obj/machinery/ignition_switch/attackby(obj/item/W, mob/user, params)
-	return attack_hand(user)
+/obj/machinery/button/attack_robot(mob/user)
+	return attack_ai(user)
 
-/obj/machinery/ignition_switch/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+/obj/machinery/button/proc/setup_device()
+	if(id && istype(device, /obj/item/assembly/control))
+		var/obj/item/assembly/control/A = device
+		A.id = id
+	initialized_button = 1
+
+/obj/machinery/button/attack_hand(mob/user)
+	. = ..()
+	if(.)
 		return
-	if(active)
+	if(!initialized_button)
+		setup_device()
+	add_fingerprint(user)
+	if(panel_open)
+		if(device || board)
+			if(device)
+				device.forceMove(drop_location())
+				device = null
+			if(board)
+				board.forceMove(drop_location())
+				req_access = list()
+				req_one_access = list()
+				board = null
+			update_icon()
+			to_chat(user, "<span class='notice'>You remove electronics from the button frame.</span>")
+
+		else
+			if(skin == "doorctrl")
+				skin = "launcher"
+			else
+				skin = "doorctrl"
+			to_chat(user, "<span class='notice'>You change the button frame's front panel.</span>")
+		return
+
+	if((stat & (NOPOWER|BROKEN)))
+		return
+
+	if(device && device.next_activate > world.time)
+		return
+
+	if(!allowed(user))
+		to_chat(user, "<span class='danger'>Access Denied</span>")
+		flick("[skin]-denied", src)
 		return
 
 	use_power(5)
+	icon_state = "[skin]1"
 
-	active = 1
-	icon_state = "launcheract"
+	if(device)
+		device.pulsed()
 
-	for(var/obj/machinery/sparker/M in world)
-		if(M.id == id)
-			spawn( 0 )
-				M.spark()
+	addtimer(CALLBACK(src, .proc/update_icon), 15)
 
-	for(var/obj/machinery/igniter/M in world)
-		if(M.id == id)
-			use_power(50)
-			M.on = !( M.on )
-			M.icon_state = text("igniter[]", M.on)
+/obj/machinery/button/power_change()
+	..()
+	update_icon()
 
-	sleep(50)
 
-	icon_state = "launcherbtt"
-	active = 0
+/obj/machinery/button/door
+	name = "door button"
+	desc = "A door remote control switch."
+	var/normaldoorcontrol = FALSE
+	var/specialfunctions = OPEN // Bitflag, see assembly file
+	var/sync_doors = TRUE
+
+/obj/machinery/button/door/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/button/door/setup_device()
+	if(!device)
+		if(normaldoorcontrol)
+			var/obj/item/assembly/control/airlock/A = new(src)
+			A.specialfunctions = specialfunctions
+			device = A
+		else
+			var/obj/item/assembly/control/C = new(src)
+			C.sync_doors = sync_doors
+			device = C
+	..()
+
+/obj/machinery/button/door/incinerator_vent_toxmix
+	name = "combustion chamber vent control"
+	id = INCINERATOR_TOXMIX_VENT
+	req_access = list(ACCESS_TOX)
+
+/obj/machinery/button/door/incinerator_vent_atmos_main
+	name = "turbine vent control"
+	id = INCINERATOR_ATMOS_MAINVENT
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
+
+/obj/machinery/button/door/incinerator_vent_atmos_aux
+	name = "combustion chamber vent control"
+	id = INCINERATOR_ATMOS_AUXVENT
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
+
+/obj/machinery/button/door/incinerator_vent_syndicatelava_main
+	name = "turbine vent control"
+	id = INCINERATOR_SYNDICATELAVA_MAINVENT
+	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/button/door/incinerator_vent_syndicatelava_aux
+	name = "combustion chamber vent control"
+	id = INCINERATOR_SYNDICATELAVA_AUXVENT
+	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/button/massdriver
+	name = "mass driver button"
+	desc = "A remote control switch for a mass driver."
+	icon_state = "launcher"
+	skin = "launcher"
+	device_type = /obj/item/assembly/control/massdriver
+
+/obj/machinery/button/massdriver/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/button/ignition
+	name = "ignition switch"
+	desc = "A remote control switch for a mounted igniter."
+	icon_state = "launcher"
+	skin = "launcher"
+	device_type = /obj/item/assembly/control/igniter
+
+/obj/machinery/button/ignition/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/button/ignition/incinerator
+	name = "combustion chamber ignition switch"
+	desc = "A remote control switch for the combustion chamber's igniter."
+
+/obj/machinery/button/ignition/incinerator/toxmix
+	id = INCINERATOR_TOXMIX_IGNITER
+
+/obj/machinery/button/ignition/incinerator/atmos
+	id = INCINERATOR_ATMOS_IGNITER
+
+/obj/machinery/button/ignition/incinerator/syndicatelava
+	id = INCINERATOR_SYNDICATELAVA_IGNITER
+
+/obj/machinery/button/flasher
+	name = "flasher button"
+	desc = "A remote control switch for a mounted flasher."
+	icon_state = "launcher"
+	skin = "launcher"
+	device_type = /obj/item/assembly/control/flasher
+
+/obj/machinery/button/flasher/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/button/crematorium
+	name = "crematorium igniter"
+	desc = "Burn baby burn!"
+	icon_state = "launcher"
+	skin = "launcher"
+	device_type = /obj/item/assembly/control/crematorium
+	req_access = list()
+	id = 1
+
+/obj/machinery/button/crematorium/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/item/wallframe/button
+	name = "button frame"
+	desc = "Used for building buttons."
+	icon_state = "button"
+	result_path = /obj/machinery/button
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)

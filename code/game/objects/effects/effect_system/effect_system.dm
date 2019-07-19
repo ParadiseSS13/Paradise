@@ -5,26 +5,27 @@ it needs to create more trails.A beaker could have a steam_trail_follow system s
 would spawn and follow the beaker, even if it is carried or thrown.
 */
 
+
 /obj/effect/particle_effect
 	name = "particle effect"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	unacidable = TRUE //So effects are not targeted by alien acid.
 	pass_flags = PASSTABLE | PASSGRILLE
 	anchored = TRUE
 
-/obj/effect/particle_effect/New()
-	..()
-	if(SSticker)
-		cameranet.updateVisibility(src)
+/obj/effect/particle_effect/Initialize()
+	. = ..()
+	GLOB.cameranet.updateVisibility(src)
 
 /obj/effect/particle_effect/Destroy()
-	if(SSticker)
-		cameranet.updateVisibility(src)
+	GLOB.cameranet.updateVisibility(src)
 	return ..()
+
+/obj/effect/particle_effect/newtonian_move() // Prevents effects from getting registered for SSspacedrift
+	return TRUE
 
 /datum/effect_system
 	var/number = 3
-	var/cardinals = 0
+	var/cardinals = FALSE
 	var/turf/location
 	var/atom/holder
 	var/effect_type
@@ -36,7 +37,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	location = null
 	return ..()
 
-/datum/effect_system/proc/set_up(n = 3, c = 0, loca)
+/datum/effect_system/proc/set_up(n = 3, c = FALSE, loca)
 	if(n > 10)
 		n = 10
 	number = n
@@ -62,9 +63,9 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	total_effects++
 	var/direction
 	if(cardinals)
-		direction = pick(cardinal)
+		direction = pick(GLOB.cardinals)
 	else
-		direction = pick(alldirs)
+		direction = pick(GLOB.alldirs)
 	var/steps_amt = pick(1,2,3)
 	for(var/j in 1 to steps_amt)
 		sleep(5)

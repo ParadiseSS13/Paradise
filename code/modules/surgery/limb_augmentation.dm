@@ -1,57 +1,70 @@
-/datum/surgery/limb_augmentation
-	name = "Augment Limb"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/augment)
-	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
 
-/datum/surgery/limb_augmentation/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(!affected)
-			return 0
-		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
-			return 0
-		if(affected.is_robotic())
-			return 0
-		return 1
+/////AUGMENTATION SURGERIES//////
 
-/datum/surgery_step/augment
-	name = "augment limb with robotic part"
-	allowed_tools = list(/obj/item/robot_parts = 100)
+
+//SURGERY STEPS
+
+/datum/surgery_step/replace
+	name = "sever muscles"
+	implements = list(/obj/item/scalpel = 100, TOOL_WIRECUTTER = 55)
 	time = 32
 
-/datum/surgery_step/augment/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/robot_parts/p = tool
-	if(p.part)
-		if(!(target_zone in p.part))
-			to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
-			return 0
-	return 1
 
-/datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
+/datum/surgery_step/replace/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, "<span class='notice'>You begin to sever the muscles on [target]'s [parse_zone(user.zone_selected)]...</span>",
+		"[user] begins to sever the muscles on [target]'s [parse_zone(user.zone_selected)].",
+		"[user] begins an incision on [target]'s [parse_zone(user.zone_selected)].")
 
-/datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/robot_parts/L = tool
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\
-	"<span class='notice'>You augment [affected] with [tool].</span>")
+/datum/surgery_step/replace_limb
+	name = "replace limb"
+	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100)
+	time = 32
+	var/obj/item/bodypart/L = null // L because "limb"
 
-	if(L.part)
-		for(var/part_name in L.part)
-			if(!target.get_organ(part_name))
-				continue
-			affected.robotize(L.model_info, make_tough = 1, convert_all = 0)
-			if(L.sabotaged)
-				affected.sabotaged = 1
-			break
-	target.update_body()
-	target.updatehealth()
-	target.UpdateDamageIcon()
 
-	qdel(tool)
+/datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(tool, /obj/item/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
+		tool = tool.contents[1]
+	var/obj/item/bodypart/aug = tool
+	if(aug.status != BODYPART_ROBOTIC)
+		to_chat(user, "<span class='warning'>That's not an augment, silly!</span>")
+		return -1
+	if(aug.body_zone != target_zone)
+		to_chat(user, "<span class='warning'>[tool] isn't the right type for [parse_zone(target_zone)].</span>")
+		return -1
+	L = surgery.operated_bodypart
+	if(L)
+		display_results(user, target, "<span class='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
+			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
+			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
+	else
+		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
 
-	affected.open = 0
-	affected.germ_level = 0
-	return 1
+
+//ACTUAL SURGERIES
+
+/datum/surgery/augmentation
+	name = "Augmentation"
+	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/replace, /datum/surgery_step/saw, /datum/surgery_step/replace_limb)
+	target_mobtypes = list(/mob/living/carbon/human)
+	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
+	requires_real_bodypart = TRUE
+
+//SURGERY STEP SUCCESSES
+
+/datum/surgery_step/replace_limb/success(mob/user, mob/living/carbon/target, target_zone, obj/item/bodypart/tool, datum/surgery/surgery)
+	if(L)
+		if(istype(tool, /obj/item/organ_storage))
+			tool.icon_state = initial(tool.icon_state)
+			tool.desc = initial(tool.desc)
+			tool.cut_overlays()
+			tool = tool.contents[1]
+		if(istype(tool) && user.temporarilyRemoveItemFromInventory(tool))
+			tool.replace_limb(target, TRUE)
+		display_results(user, target, "<span class='notice'>You successfully augment [target]'s [parse_zone(target_zone)].</span>",
+			"[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!",
+			"[user] successfully augments [target]'s [parse_zone(target_zone)]!")
+		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] INTENT: [uppertext(user.a_intent)]")
+	else
+		to_chat(user, "<span class='warning'>[target] has no organic [parse_zone(target_zone)] there!</span>")
+	return TRUE

@@ -64,10 +64,6 @@ Existing varieties:
 
 		Choose a path to spawn.
 	
-	+ *Alt+Left click a turf, object, or mob*:
-
-		Select the type of the object clicked.
-	
 	+ *Left click a location* (requires chosen path):
 
 		Place an instance of the chosen path at the location.
@@ -102,40 +98,6 @@ Existing varieties:
 
 		Cancel region selection.
 
-+ Atmos
-
-	**Description**:
-
-	Fills a region with configurable atmos. By default, ignores unsimulated turfs, but is able to "overwrite" the atmos of unsimulated turfs with a special control input.
-
-	By default, fills a region with a breathable, standard atmosphere.
-
-	**Controls**:
-
-	+ *Right click on the mode selector icon*:
-
-		Set the following traits:
-
-		+ Total Pressure
-		+ Temperature
-		+ Partial Pressure Ratio (PPR) Oxygen
-		+ PPR Nitrogen
-		+ PPR Plasma
-		+ PPR CO2
-		+ PPR N2O
-
-	+ *Left click a region*:
-
-		Fill the region with the configured atmos.
-
-	+ *Control+Left click a region*:
-
-		As with the regular left click, but also "overwrites" the base atmos of any unsimulated turfs in the region - such as space turfs.
-	
-	+ *Right click during region selection*:
-
-		Cancel region selection.
-
 + Copy
 
 	**Description**:
@@ -153,28 +115,6 @@ Existing varieties:
 	+ *Left click a location* (Requires a selected object as template):
 
 		Place a duplicate of the template at the clicked location.
-
-+ Link
-
-	**Description**:
-
-	Form links between door control buttons and either airlocks or pod bay doors.
-
-	The selected button will be highlighted, and visible lines will be drawn between the doors it is linked to and itself.
-
-	**Controls**:
-
-	+ *Left click a door control button*:
-
-		Makes the button active, and show what doors it is linked to.
-
-	+ *Right click an airlock* (requires active button):
-
-		Links the airlock to the active button. Will remove all links from the button first, if the button is linked to pod bay doors.
-	
-	+ *Right click a pod bay door* (requires active button):
-
-		Links the pod bay door to the active button. Will remove all links from the button first, if the button is linked to regular airlocks.
 
 + Area Edit
 
@@ -237,28 +177,6 @@ Existing varieties:
 	+ *Left click two corners of an area*:
 
 		Use the generator to populate the region.
-
-	+ *Right click during region selection*:
-
-		Cancel region selection.
-
-+ Save
-
-	**Description**:
-
-	Captures a rectangular region in a `.dmm` format, which can be loaded back later using the "Place Map Template" debug verb.
-
-	Keep in mind this feature is somewhat experimental, and may not always work.
-
-	**Controls**:
-
-	+ *Right click on the mode selector*:
-
-		Configure whether to save in either JSON mode or not.
-	
-	+ *Left click two corners of an area*:
-
-		Save the region to a `.dmm` file. You will be prompted for where to save this - a copy will be saved in the `_maps/quicksave` folder.
 
 	+ *Right click during region selection*:
 
