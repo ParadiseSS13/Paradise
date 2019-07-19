@@ -75,16 +75,19 @@
 	assets.send(user)
 
 	var/data
-	if((!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
-		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
-		if(view)
-			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
-			onclose(usr, "[name]")
+	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
+	if(stars) //assuming all paper is written in common is better than hardcoded type checks
+		data = "[stars(info)][stamps]"
 	else
-		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
-		if(view)
-			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
-			onclose(usr, "[name]")
+		data = "<div id='markdown'>[infolinks ? info_links : info]</div>[stamps]"
+	if(view)
+		var/datum/browser/popup = new(user, name, , paper_width, paper_height)
+		popup.stylesheets = list()
+		popup.set_content(data)
+		if(!stars)
+			popup.add_script("marked.js", 'html/browser/marked.js')
+		popup.add_head_content("<title>[name]</title>")
+		popup.open()
 	return data
 
 /obj/item/paper/verb/rename()

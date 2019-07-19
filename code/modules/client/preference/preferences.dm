@@ -81,7 +81,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/exp
 	var/ooccolor = "#b82e00"
-	var/be_special = list()				//Special role selection
+	var/list/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
@@ -472,6 +472,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
@@ -2051,6 +2052,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
+				
+				if("ghost_pda")
+					toggles ^= CHAT_GHOSTPDA
 
 				if("ghost_anonsay")
 					ghost_anonsay = !ghost_anonsay
@@ -2303,7 +2307,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/close_load_dialog(mob/user)
 	user << browse(null, "window=saves")
 
-
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)
 		if("human")
@@ -2340,3 +2343,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			return
 		else
 			custom_names[name_id] = sanitized_name
+
+//Check if the user has ANY job selected.
+/datum/preferences/proc/check_any_job()
+	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)

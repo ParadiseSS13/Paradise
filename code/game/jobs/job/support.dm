@@ -160,8 +160,8 @@
 	title = "Shaft Miner"
 	flag = MINER
 	department_flag = SUPPORT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 6
+	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")

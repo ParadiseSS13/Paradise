@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - bugfix: "Stops projectiles using the legacy system such as emitters from hurting shield blobs due to an exploit where it would always hit or go through."
