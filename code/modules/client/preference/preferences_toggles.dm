@@ -273,4 +273,4 @@
 	prefs.toggles ^= CHAT_GHOSTPDA
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
 	prefs.save_preferences(src)
-	feedback_add_details("admin_verb","TGP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TGP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
