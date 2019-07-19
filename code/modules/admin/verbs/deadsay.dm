@@ -43,3 +43,7 @@
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "D") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/get_dead_say()
+	var/msg = input(src, null, "dsay \"text\"") as text
+	dsay(msg)

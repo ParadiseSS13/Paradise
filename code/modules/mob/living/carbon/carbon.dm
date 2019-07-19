@@ -216,56 +216,7 @@
 	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
-			var/mob/living/carbon/human/H = src
-			visible_message( \
-				text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
-				"<span class='notice'>You check yourself for injuries.</span>" \
-				)
-
-			var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/LB = X
-				missing -= LB.limb_name
-				var/status = ""
-				var/brutedamage = LB.brute_dam
-				var/burndamage = LB.burn_dam
-
-				if(brutedamage > 0)
-					status = "bruised"
-				if(brutedamage > 20)
-					status = "battered"
-				if(brutedamage > 40)
-					status = "mangled"
-				if(brutedamage > 0 && burndamage > 0)
-					status += " and "
-				if(burndamage > 40)
-					status += "peeling away"
-
-				else if(burndamage > 10)
-					status += "blistered"
-				else if(burndamage > 0)
-					status += "numb"
-				if(LB.status & ORGAN_MUTATED)
-					status = "weirdly shapen."
-				if(status == "")
-					status = "OK"
-				to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
-
-				for(var/obj/item/I in LB.embedded_objects)
-					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
-
-			for(var/t in missing)
-				to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
-
-			if(H.bleed_rate)
-				to_chat(src, "<span class='danger'>You are bleeding!</span>")
-			if(staminaloss)
-				if(staminaloss > 30)
-					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
-				else
-					to_chat(src, "<span class='info'>You feel fatigued.</span>")
-			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
-				H.play_xylophone()
+			check_self_for_injuries()
 		else
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
@@ -307,6 +258,58 @@
 							H.wear_suit.add_fingerprint(M)
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
+
+/mob/living/carbon/proc/check_self_for_injuries()
+	var/mob/living/carbon/human/H = src
+	visible_message( \
+		text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
+		"<span class='notice'>You check yourself for injuries.</span>" \
+		)
+
+	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+	for(var/X in H.bodyparts)
+		var/obj/item/organ/external/LB = X
+		missing -= LB.limb_name
+		var/status = ""
+		var/brutedamage = LB.brute_dam
+		var/burndamage = LB.burn_dam
+
+		if(brutedamage > 0)
+			status = "bruised"
+		if(brutedamage > 20)
+			status = "battered"
+		if(brutedamage > 40)
+			status = "mangled"
+		if(brutedamage > 0 && burndamage > 0)
+			status += " and "
+		if(burndamage > 40)
+			status += "peeling away"
+
+		else if(burndamage > 10)
+			status += "blistered"
+		else if(burndamage > 0)
+			status += "numb"
+		if(LB.status & ORGAN_MUTATED)
+			status = "weirdly shapen."
+		if(status == "")
+			status = "OK"
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+
+		for(var/obj/item/I in LB.embedded_objects)
+			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+	for(var/t in missing)
+		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
+
+	if(H.bleed_rate)
+		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+	if(staminaloss)
+		if(staminaloss > 30)
+			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
+		else
+			to_chat(src, "<span class='info'>You feel fatigued.</span>")
+	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+		H.play_xylophone()
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	. = ..()
@@ -972,6 +975,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
+	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
 	Weaken(weaken)
 	return 1

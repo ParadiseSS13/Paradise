@@ -185,3 +185,4 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		else
 			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present
+	

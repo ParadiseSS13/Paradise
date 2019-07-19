@@ -4,6 +4,9 @@
 
 #define RPD_COOLDOWN_TIME		4 //How long should we have to wait between dispensing pipes?
 #define RPD_WALLBUILD_TIME		40 //How long should drilling into a wall take?
+#define RPD_MENU_ROTATE "Rotate pipes" //Stuff for radial menu
+#define RPD_MENU_FLIP "Flip pipes" //Stuff for radial menu
+#define RPD_MENU_DELETE "Delete pipes" //Stuff for radial menu
 
 /obj/item/rpd
 	name = "rapid pipe dispenser"
@@ -172,6 +175,9 @@ var/list/pipemenu = list(
 		ui.open()
 		ui.set_auto_update(1)
 
+/obj/item/rpd/AltClick(mob/user)
+	radial_menu(user)
+
 /obj/item/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 	data["iconrotation"] = iconrotation
@@ -199,6 +205,44 @@ var/list/pipemenu = list(
 	else
 		return
 	SSnanoui.update_uis(src)
+
+//RPD radial menu
+
+/obj/item/rpd/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.incapacitated())
+		return
+	if(loc != user)
+		return
+	return TRUE
+
+/obj/item/rpd/proc/radial_menu(mob/user)
+	if(!check_menu(user))
+		to_chat(user, "<span class='notice'>You can't do that right now!</span>")
+		return
+	var/list/choices = list(
+		RPD_MENU_ROTATE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
+		RPD_MENU_FLIP = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_flip"),
+		RPD_MENU_DELETE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_delete"),
+		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
+	)
+	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	if(!check_menu(user))
+		return
+	if(selected_mode == "UI")
+		ui_interact(user)
+	else
+		switch(selected_mode)
+			if(RPD_MENU_ROTATE)
+				mode = RPD_ROTATE_MODE
+			if(RPD_MENU_FLIP)
+				mode = RPD_FLIP_MODE
+			if(RPD_MENU_DELETE)
+				mode = RPD_DELETE_MODE
+			else
+				return //Either nothing was selected, or an invalid mode was selected
+		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
@@ -236,3 +280,6 @@ var/list/pipemenu = list(
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME
+#undef RPD_MENU_ROTATE
+#undef RPD_MENU_FLIP
+#undef RPD_MENU_DELETE

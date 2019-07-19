@@ -15,12 +15,14 @@
 
 */
 
-/client/proc/SDQL2_query(query_text as message)
+/client/proc/SDQL2_query()
 	set category = "Debug"
 
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
+
+	var/query_text = input("SDQL2 query") as message
 
 	if(!query_text || length(query_text) < 1)
 		return
