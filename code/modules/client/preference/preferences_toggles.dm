@@ -201,6 +201,19 @@
 		to_chat(src, "You will no longer hear musical instruments.")
 	feedback_add_details("admin_verb","TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/Toggle_disco() //to toggle off heartbeat sounds, in case they get too annoying
+	set name = "Hear/Silence Dance Machine"
+	set category = "Preferences"
+	set desc = "Toggles hearing and dancing to the radiant dance machine"
+	prefs.sound ^= SOUND_DISCO
+	prefs.save_preferences(src)
+	if(prefs.sound & SOUND_DISCO)
+		to_chat(src, "You will now hear and dance to the radiant dance machine.")
+	else
+		to_chat(src, "You will no longer hear or dance to the radiant dance machine.")
+		usr.stop_sound_channel(CHANNEL_JUKEBOX)
+	feedback_add_details("admin_verb","Tdd") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/setup_character()
 	set name = "Game Preferences"
 	set category = "Preferences"
