@@ -130,7 +130,6 @@
 		armor_multiplier_applied = TRUE
 	cargo_hold = new/obj/item/storage(src)
 	S = cargo_hold.component_type
-	S.max_w_class = 5	//so you can put bags in
 	S.max_items = 0	//You need to install cargo modules to use it.
 	S.max_w_class = 5		//fit almost anything
 	S.max_combined_w_class = 0 //you can optimize your stash with larger items
@@ -140,9 +139,10 @@
 			qdel(I)
 
 	if(LAZYLEN(starting_equipment))
-		for(var/A in starting_equipment)
-			var/obj/item/spacepod_equipment/SE = new A
-			add_equipment(null, SE)
+		for(var/obj/item/spacepod_equipment/A in starting_equipment)
+			log_world("ATTEMPTING TO ADD [A] to [src]!")
+			equipment += A
+			log_world("SUCCESSFULLY ADDED [A]!")
 
 
 /obj/vehicle/sealed/spacepod/Destroy()
@@ -790,17 +790,17 @@
 	icon_state = "pod_civ"
 	pod_armor = /datum/pod_armor/civ
 	desc = "A sleek civilian space pod."
-	starting_equipment = list(/obj/item/spacepod_equipment/thruster)
+	starting_equipment = list(new /obj/item/spacepod_equipment/thruster)
 
 /obj/vehicle/sealed/spacepod/security
 	icon_state = "pod_mil"
 	pod_armor = /datum/pod_armor/security
-	starting_equipment = list(/obj/item/spacepod_equipment/thruster)
+	starting_equipment = list(new /obj/item/spacepod_equipment/thruster)
 
 /obj/vehicle/sealed/spacepod/syndicate
 	icon_state = "pod_synd"
 	pod_armor = /datum/pod_armor/syndicate
-	starting_equipment = list(/obj/item/spacepod_equipment/thruster, /obj/item/spacepod_equipment/action/cloaker, /obj/item/spacepod_equipment/weaponry/laser, /obj/item/spacepod_equipment/sec_cargo/back_seat)
+	starting_equipment = list(new /obj/item/spacepod_equipment/thruster, new /obj/item/spacepod_equipment/action/cloaker, new /obj/item/spacepod_equipment/weaponry/laser, new /obj/item/spacepod_equipment/sec_cargo/back_seat)
 	cell_type = /obj/item/stock_parts/cell/hyper
 
 
