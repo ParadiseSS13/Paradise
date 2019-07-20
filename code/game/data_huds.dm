@@ -226,8 +226,17 @@
 				if("*Execute*")
 					holder.icon_state = "hudexecute"
 					return
+				if("*Armed and dangerous*")
+					holder.icon_state = "hudwanted_armed"
+					return
 				if("*Arrest*")
 					holder.icon_state = "hudwanted"
+					return
+				if("Search")
+					holder.icon_state = "hudsearch"
+					return
+				if("Monitor")
+					holder.icon_state = "hudmonitor"
 					return
 				if("Incarcerated")
 					holder.icon_state = "hudprisoner"
