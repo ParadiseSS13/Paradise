@@ -267,6 +267,7 @@ CREATE TABLE `SS13_player` (
   `atklog` smallint(4) DEFAULT '0',
   `fuid` BIGINT(20) NULL DEFAULT NULL,
   `fupdate` SMALLINT(4) NULL DEFAULT 0,
+  `afk_watch` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
