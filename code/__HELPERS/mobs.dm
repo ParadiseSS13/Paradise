@@ -243,8 +243,14 @@ proc/age2agedescription(age)
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
 	switch(criminal_status)
+		if("armed_and_dangerous")
+			status = "*Armed and dangerous*"
 		if("arrest")
 			status = "*Arrest*"
+		if("search")
+			status = "Search"
+		if("monitor")
+			status = "Monitor"
 		if("none")
 			status = "None"
 		if("execute")
