@@ -216,7 +216,7 @@
 	max_combined_w_class = 21
 	storage_slots = 10
 	can_hold = list(/obj/item/roller,/obj/item/bonesetter,/obj/item/bonegel, /obj/item/scalpel, /obj/item/hemostat,
-		/obj/item/cautery, /obj/item/retractor, /obj/item/FixOVein, /obj/item/surgicaldrill, /obj/item/circular_saw)
+		/obj/item/cautery, /obj/item/retractor, /obj/item/FixOVein, /obj/item/surgicaldrill, /obj/item/circular_saw, /obj/item/stack/medical/bruise_pack/advanced)
 
 /obj/item/storage/firstaid/surgery/New()
 	..()
@@ -230,6 +230,7 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/circular_saw(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 /*
  * Pill Bottles

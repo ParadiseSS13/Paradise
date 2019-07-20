@@ -220,7 +220,7 @@
 	name = "Body Scanner Console"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscannerconsole"
-	density = 1
+	density = 0
 	anchored = 1
 	dir = WEST
 	idle_power_usage = 250

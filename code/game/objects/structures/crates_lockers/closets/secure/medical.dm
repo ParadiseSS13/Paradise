@@ -75,6 +75,39 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
+/obj/structure/closet/secure_closet/medical4
+	name = "surgeon's locker"
+	desc = "Everything you need to save a life. Or take one."
+	req_access = list(access_surgery)
+	icon_state = "securesurg1"
+	icon_closed = "securesurg"
+	icon_locked = "securesurg1"
+	icon_opened = "securesurgopen"
+	icon_broken = "securesurgbroken"
+	icon_off = "securesurgoff"
+
+/obj/structure/closet/secure_closet/medical4/New()
+	..()
+	switch(pick("green", "blue", "purple"))
+		if("green")
+			new /obj/item/clothing/under/rank/medical/green(src)
+			new /obj/item/clothing/head/surgery/green(src)
+		if("blue")
+			new /obj/item/clothing/under/rank/medical/blue(src)
+			new /obj/item/clothing/head/surgery/blue(src)
+		if("purple")
+			new /obj/item/clothing/under/rank/medical/purple(src)
+			new /obj/item/clothing/head/surgery/purple(src)
+
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/radio/headset/headset_med(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/shoes/sandal/white(src)
+	new /obj/item/reagent_containers/glass/bottle/antiviral(src)
+	new /obj/item/clothing/mask/surgical(src)
 
 //Exam Room
 /obj/structure/closet/secure_closet/exam

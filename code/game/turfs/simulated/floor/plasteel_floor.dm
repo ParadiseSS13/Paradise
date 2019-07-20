@@ -37,6 +37,8 @@
 	icon_state = "whitehall"
 /turf/simulated/floor/plasteel/white/corner
 	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/black
+	icon_state = "whiteblack"
 
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
