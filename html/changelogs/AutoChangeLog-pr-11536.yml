@@ -1,5 +1,0 @@
-author: "dovydas12345"
-delete-after: True
-changes: 
-  - bugfix: "Fixes cryopod removing ambulance, secway keys"
-  - bugfix: "Fixes cryopod recovering the invisible headpocket item"

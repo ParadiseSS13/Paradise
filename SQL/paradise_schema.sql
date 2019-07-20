@@ -254,7 +254,7 @@ CREATE TABLE `player` (
   `UI_style_alpha` smallint(4) DEFAULT '255',
   `be_role` mediumtext,
   `default_slot` smallint(4) DEFAULT '1',
-  `toggles` mediumint(8) DEFAULT '383',
+  `toggles` int(8) DEFAULT '383',
   `sound` mediumint(8) DEFAULT '31',
   `randomslot` tinyint(1) DEFAULT '0',
   `volume` smallint(4) DEFAULT '100',
@@ -267,7 +267,8 @@ CREATE TABLE `player` (
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
   `fuid` bigint(20) NULL DEFAULT NULL,
-  `fupdate` smallint(4) NULL DEFAULT 0,
+  `fupdate` smallint(4) NULL DEFAULT '0',
+  `afk_watch` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
