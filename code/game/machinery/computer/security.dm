@@ -73,8 +73,14 @@
 						switch(crimstat)
 							if("*Execute*")
 								background = "'background-color:#5E0A1A'"
+							if("*Armed and dangerous*")
+								background = "'background-color:#890E26'"
 							if("*Arrest*")
 								background = "'background-color:#890E26'"
+							if("Search")
+								background = "'background-color:#999900'"
+							if("Monitor")
+								background = "'background-color:#004C99'"
 							if("Incarcerated")
 								background = "'background-color:#743B03'"
 							if("Parolled")
@@ -464,7 +470,10 @@
 					if(istype(active2, /datum/data/record))
 						var/list/buttons = list()
 						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == "None" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "*Armed and dangerous*", "icon" = "lock", "href" = "criminal=armed_and_dangerous", "status" = (active2.fields["criminal"] == "*Armed and dangerous*" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == "*Arrest*" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Search", "icon" = "lock", "href" = "criminal=search", "status" = (active2.fields["criminal"] == "Search" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Monitor", "icon" = "lock", "href" = "criminal=monitor", "status" = (active2.fields["criminal"] == "Monitor" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == "Incarcerated" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == "*Execute*" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == "Parolled" ? "selected" : null))
