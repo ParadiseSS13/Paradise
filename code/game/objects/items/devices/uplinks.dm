@@ -17,6 +17,7 @@ var/list/world_uplinks = list()
 	var/list/nanoui_items	// List of items for NanoUI use
 	var/nanoui_menu = 0		// The current menu we are in
 	var/list/nanoui_data = new // Additional data for NanoUI use
+	var/gamemode
 
 	var/purchase_log = ""
 	var/uplink_owner = null//text-only
@@ -24,7 +25,10 @@ var/list/world_uplinks = list()
 
 	var/job = null
 	var/temp_category
-	var/uplink_type = "traitor"
+
+/obj/item/uplink/proc/set_gamemode(_gamemode)
+	gamemode = _gamemode
+	uplink_items = get_uplink_items(gamemode)
 
 /obj/item/uplink/nano_host()
 	return loc
@@ -33,7 +37,7 @@ var/list/world_uplinks = list()
 	..()
 	welcome = SSticker.mode.uplink_welcome
 	uses = SSticker.mode.uplink_uses
-	uplink_items = get_uplink_items()
+	uplink_items = get_uplink_items(gamemode)
 
 	world_uplinks += src
 
@@ -326,7 +330,7 @@ var/list/world_uplinks = list()
 /obj/item/radio/uplink/nuclear/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "nuclear"
+		hidden_uplink.set_gamemode(/datum/game_mode/nuclear)
 	GLOB.nuclear_uplink_list += src
 
 /obj/item/radio/uplink/nuclear/Destroy()
@@ -336,7 +340,7 @@ var/list/world_uplinks = list()
 /obj/item/radio/uplink/sst/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "sst"
+		hidden_uplink.gamemode = "sst"
 
 /obj/item/multitool/uplink/New()
 	hidden_uplink = new(src)

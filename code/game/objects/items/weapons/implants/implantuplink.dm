@@ -13,12 +13,12 @@
 /obj/item/implant/uplink/sit/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "sit"
+		hidden_uplink.gamemode = "sit"
 
 /obj/item/implant/uplink/admin/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "admin"
+		hidden_uplink.gamemode = "admin"
 
 /obj/item/implant/uplink/implant(mob/source)
 	var/obj/item/implant/imp_e = locate(src.type) in source
