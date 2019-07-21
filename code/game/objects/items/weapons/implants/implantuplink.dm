@@ -18,7 +18,12 @@
 /obj/item/implant/uplink/admin/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.gamemode = "admin"
+		hidden_uplink.set_gamemode(/datum/game_mode/traitor)
+
+/obj/item/implant/uplink/admin/nuclear/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.set_gamemode(/datum/game_mode/nuclear)
 
 /obj/item/implant/uplink/implant(mob/source)
 	var/obj/item/implant/imp_e = locate(src.type) in source

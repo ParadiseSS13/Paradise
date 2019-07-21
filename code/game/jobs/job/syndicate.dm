@@ -49,7 +49,10 @@
 
 	var/obj/item/implant/uplink/admin/U = new /obj/item/implant/uplink/admin(H)
 	U.implant(H)
-	U.hidden_uplink.uses = 500
+	U.hidden_uplink.uses = 350
+	var/obj/item/implant/uplink/admin/nuclear/N = new /obj/item/implant/uplink/admin/nuclear(H)
+	N.implant(H)
+	N.hidden_uplink.uses = 350
 	H.faction += "syndicate"
 	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)
