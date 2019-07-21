@@ -19,7 +19,6 @@ GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(machines, list())
-GLOBAL_LIST_INIT(processing_power_items, list()) //items that ask to be called every cycle
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
 
 GLOBAL_LIST_INIT(apcs, list())
@@ -47,3 +46,5 @@ GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jam
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 
 GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
+
+GLOBAL_LIST_EMPTY(explosive_walls)

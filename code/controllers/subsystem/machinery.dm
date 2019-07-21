@@ -64,23 +64,6 @@ SUBSYSTEM_DEF(machines)
 		if(MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/machines/proc/process_premachines(resumed = 0)
-	/* Literally exists as snowflake for fucking powersinks goddamnit */
-	if(!resumed)
-		src.currentrun = GLOB.processing_power_items.Copy()
-	//cache for sanid speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/item/I = currentrun[currentrun.len]
-		currentrun.len--
-		if(!QDELETED(I))
-			if(!I.pwr_drain())
-				GLOB.processing_power_items.Remove(I)
-		else
-			GLOB.processing_power_items.Remove(I)
-		if(MC_TICK_CHECK)
-			return
-
 /datum/controller/subsystem/machines/proc/process_machines(resumed = 0)
 	var/seconds = wait * 0.1
 	if(!resumed)
@@ -110,13 +93,6 @@ SUBSYSTEM_DEF(machines)
 
 	if(currentpart == SSMACHINES_POWERNETS || !resumed)
 		process_powernets(resumed)
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
-		currentpart = SSMACHINES_PREMACHINERY
-
-	if(currentpart == SSMACHINES_PREMACHINERY || !resumed)
-		process_premachines(resumed)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0

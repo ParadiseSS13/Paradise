@@ -19,7 +19,7 @@
 	spread_text = "The patient is in shock"
 	max_stages = 3
 	spread_flags = SPECIAL
-	cure_text = "Saline Solution"
+	cure_text = "Saline-Glucose Solution"
 	cures = list("salglu_solution")
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -80,7 +80,7 @@
 	spread_text = "The patient is having a cardiac emergency"
 	max_stages = 3
 	spread_flags = SPECIAL
-	cure_text = "Cardiac Stimulants"
+	cure_text = "Atropine or Epinephrine"
 	cures = list("atropine", "epinephrine")
 	cure_chance = 10
 	needs_all_cures = FALSE
@@ -91,6 +91,12 @@
 	required_organs = list(/obj/item/organ/internal/heart)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
+
+/datum/disease/critical/heart_failure/has_cure()
+	if(affected_mob.has_status_effect(STATUS_EFFECT_EXERCISED))
+		return TRUE
+
+	return ..()
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())

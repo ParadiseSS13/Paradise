@@ -131,13 +131,13 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 		else
 			penPlacement(usr, containedpen, FALSE)
 	else if(href_list["remove"])
-		var/obj/item/P = locate(href_list["remove"])
+		var/obj/item/P = locate(href_list["remove"]) in src
 		if(isPaperwork(P))
 			usr.put_in_hands(P)
 			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
 			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
 	else if(href_list["viewOrWrite"])
-		var/obj/item/P = locate(href_list["viewOrWrite"])
+		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
 		if(!isPaperwork(P))
 			return
 		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
@@ -148,7 +148,7 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 			var/obj/item/photo/Ph = P
 			Ph.show(usr)
 	else if(href_list["topPaper"])
-		var/obj/item/P = locate(href_list["topPaper"])
+		var/obj/item/P = locate(href_list["topPaper"]) in src
 		if(P == toppaper)
 			return
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")

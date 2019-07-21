@@ -89,7 +89,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/list/sprite_sheets = null
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/list/species_fit = null //This object has a different appearance when worn by these species
 
 	var/trip_verb = TV_TRIP
 	var/trip_chance = 0
@@ -99,6 +98,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/trip_any = FALSE
 	var/trip_walksafe = TRUE
 	var/trip_tiles = 0
+
+	//Tooltip vars
+	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
+	var/tip_timer = 0
 
 /obj/item/New()
 	..()
@@ -145,6 +148,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/blob_act()
 	qdel(src)
+
+/obj/item/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	extinguish()
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
@@ -340,11 +347,13 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
+	in_inventory = FALSE
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	in_inventory = TRUE
 	return TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
@@ -374,6 +383,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+	in_inventory = TRUE
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	return 1
@@ -532,6 +542,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(callback) //call the original callback
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
+	in_inventory = FALSE
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
@@ -579,3 +590,47 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
+
+/obj/item/proc/openTip(location, control, params, user)
+	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
+
+/obj/item/MouseEntered(location, control, params)
+	if(in_inventory)
+		var/timedelay = 8
+		var/user = usr
+		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+
+/obj/item/MouseExited()
+	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
+	closeToolTip(usr)
+
+/obj/item/proc/update_slot_icon()
+	if(!ismob(loc))
+		return
+	var/mob/owner = loc
+	var/flags = slot_flags
+	if(flags & SLOT_OCLOTHING)
+		owner.update_inv_wear_suit()
+	if(flags & SLOT_ICLOTHING)
+		owner.update_inv_w_uniform()
+	if(flags & SLOT_GLOVES)
+		owner.update_inv_gloves()
+	if(flags & SLOT_EYES)
+		owner.update_inv_glasses()
+	if(flags & SLOT_EARS)
+		owner.update_inv_ears()
+	if(flags & SLOT_MASK)
+		owner.update_inv_wear_mask()
+	if(flags & SLOT_HEAD)
+		owner.update_inv_head()
+	if(flags & SLOT_FEET)
+		owner.update_inv_shoes()
+	if(flags & SLOT_ID)
+		owner.update_inv_wear_id()
+	if(flags & SLOT_BELT)
+		owner.update_inv_belt()
+	if(flags & SLOT_BACK)
+		owner.update_inv_back()
+	if(flags & SLOT_PDA)
+		owner.update_inv_wear_pda()
+

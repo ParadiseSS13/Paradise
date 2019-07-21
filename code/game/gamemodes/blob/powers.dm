@@ -331,17 +331,13 @@
 
 /mob/camera/blob/verb/rally_spores_power()
 	set category = "Blob"
-	set name = "Rally Spores (5)"
+	set name = "Rally Spores"
 	set desc = "Rally the spores to move to your location."
 
 	var/turf/T = get_turf(src)
 	rally_spores(T)
 
 /mob/camera/blob/proc/rally_spores(var/turf/T)
-
-	if(!can_buy(5))
-		return
-
 	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
@@ -354,38 +350,38 @@
 			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)
 	return
 
-
 /mob/camera/blob/verb/split_consciousness()
 	set category = "Blob"
 	set name = "Split consciousness (100) (One use)"
 	set desc = "Expend resources to attempt to produce another sentient overmind."
 
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
 	if(split_used)
 		to_chat(src, "<span class='warning'>You have already produced an offspring.</span>")
 		return
 	if(is_offspring)
 		to_chat(src, "<span class='warning'>You cannot split as an offspring of another Blob.</span>")
 		return
-	if(!blob_nodes || !blob_nodes.len)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
-		return
-	var/obj/structure/blob/node/N = locate(/obj/structure/blob) in blob_nodes
+
+	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
 	if(!N)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
 		return
-	
+	if(!istype(N, /obj/structure/blob/node))
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		return
 	if(!can_buy(100))
 		return
 
 	split_used = TRUE
-	
 	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
 	qdel(N)
 
-	if(ticker && ticker.mode.name == "blob")
-		var/datum/game_mode/blob/BL = ticker.mode
+	if(SSticker && SSticker.mode.name == "blob")
+		var/datum/game_mode/blob/BL = SSticker.mode
 		BL.blobwincount += initial(BL.blobwincount)
-
 
 /mob/camera/blob/verb/blob_broadcast()
 	set category = "Blob"
@@ -399,7 +395,8 @@
 	else
 		to_chat(usr, "You broadcast with your minions, <B>[speak_text]</B>")
 	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
-		blob_minion.say(speak_text)
+		if(blob_minion.stat == CONSCIOUS)
+			blob_minion.say(speak_text)
 	return
 
 /mob/camera/blob/verb/create_storage()

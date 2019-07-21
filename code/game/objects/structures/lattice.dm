@@ -1,86 +1,83 @@
 /obj/structure/lattice
-	desc = "A lightweight support lattice."
 	name = "lattice"
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "latticefull"
-	density = 0
-	anchored = 1.0
+	desc = "A lightweight support lattice."
+	icon = 'icons/obj/smooth_structures/lattice.dmi'
+	icon_state = "lattice"
+	density = FALSE
+	anchored = TRUE
 	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	layer = 2.3 //under pipes
-	//	flags = CONDUCT
+	layer = LATTICE_LAYER //under pipes
+	plane = FLOOR_PLANE
+	var/number_of_rods = 1
+	canSmoothWith = list(/obj/structure/lattice,
+						/turf/simulated/floor,
+						/turf/simulated/wall,
+						/obj/structure/falsewall)
+	smooth = SMOOTH_MORE
 
-/obj/structure/lattice/New()
-	..()
-	if(!(istype(src.loc, /turf/space)))
-		qdel(src)
-	for(var/obj/structure/lattice/LAT in src.loc)
+/obj/structure/lattice/Initialize(mapload)
+	. = ..()
+	for(var/obj/structure/lattice/LAT in loc)
 		if(LAT != src)
-			qdel(LAT)
-	icon = 'icons/obj/smoothlattice.dmi'
-	icon_state = "latticeblank"
-	updateOverlays()
-	for(var/dir in cardinal)
-		var/obj/structure/lattice/L
-		if(locate(/obj/structure/lattice, get_step(src, dir)))
-			L = locate(/obj/structure/lattice, get_step(src, dir))
-			L.updateOverlays()
+			QDEL_IN(LAT, 0)
 
-/obj/structure/lattice/Destroy()
-	for(var/dir in cardinal)
-		var/obj/structure/lattice/L
-		if(locate(/obj/structure/lattice, get_step(src, dir)))
-			L = locate(/obj/structure/lattice, get_step(src, dir))
-			L.updateOverlays(src.loc)
-	return ..()
+/obj/structure/lattice/examine(mob/user)
+	..()
+	deconstruction_hints(user)
+
+/obj/structure/lattice/proc/deconstruction_hints(mob/user)
+	to_chat(user, "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>")
+
+/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	if(istype(C, /obj/item/wirecutters))
+		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+		deconstruct()
+	else
+		var/turf/T = get_turf(src)
+		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+
+/obj/structure/lattice/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/rods(get_turf(src), number_of_rods)
+	qdel(src)
 
 /obj/structure/lattice/blob_act()
 	qdel(src)
-	return
 
 /obj/structure/lattice/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-			return
-		if(2.0)
+		if(2)
 			qdel(src)
+		if(3)
 			return
-		if(3.0)
-			return
-		else
-	return
-
-/obj/structure/lattice/attackby(obj/item/C as obj, mob/user as mob, params)
-	if(istype(C, /obj/item/stack/tile/plasteel) || istype(C, /obj/item/stack/rods))
-		var/turf/T = get_turf(src)
-		T.attackby(C, user) //BubbleWrap - hand this off to the underlying turf instead
-		return
-	if(istype(C, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = C
-		if(WT.remove_fuel(0, user))
-			to_chat(user, "<span class='notice'>Slicing lattice joints...</span>")
-			new /obj/item/stack/rods(src.loc)
-			qdel(src)
-
-
-/obj/structure/lattice/proc/updateOverlays()
-	//if(!(istype(src.loc, /turf/space)))
-	//	qdel(src)
-	spawn(1)
-		overlays = list()
-
-		var/dir_sum = 0
-
-		for(var/direction in cardinal)
-			if(locate(/obj/structure/lattice, get_step(src, direction)))
-				dir_sum += direction
-			else
-				if(!(istype(get_step(src, direction), /turf/space)))
-					dir_sum += direction
-
-		icon_state = "lattice[dir_sum]"
-		return
 
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
 		qdel(src)
+
+/obj/structure/lattice/catwalk
+	name = "catwalk"
+	desc = "A catwalk for easier EVA maneuvering and cable placement."
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk"
+	number_of_rods = 2
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+
+/obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
+	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
+
+/obj/structure/lattice/catwalk/Move()
+	var/turf/T = loc
+	for(var/obj/structure/cable/C in T)
+		C.deconstruct()
+	..()
+
+/obj/structure/lattice/catwalk/deconstruct()
+	var/turf/T = loc
+	for(var/obj/structure/cable/C in T)
+		C.deconstruct()
+	..()

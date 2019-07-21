@@ -7,7 +7,7 @@
 	amount = 2
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ac" = (
 /obj/machinery/power/solar/fake,
 /turf/simulated/floor/plasteel/airless{
@@ -16,18 +16,18 @@
 /area/djstation/solars)
 "ad" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
-/area/space)
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
 "ae" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "af" = (
 /obj/machinery/power/solar/fake,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "ag" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -41,7 +41,7 @@
 	icon_state = "brokengrille"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aj" = (
 /obj/machinery/power/terminal,
 /turf/simulated/floor/plating,
@@ -55,7 +55,7 @@
 	amount = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "am" = (
 /obj/item/extinguisher,
 /turf/simulated/floor/plating,
@@ -77,7 +77,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "ao" = (
 /obj/structure/grille{
@@ -86,7 +86,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ap" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94,7 +94,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aq" = (
 /obj/structure/cable{
@@ -126,7 +126,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "at" = (
 /obj/structure/lattice,
@@ -135,12 +135,12 @@
 	icon_state = "brokengrille"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "au" = (
 /obj/structure/lattice,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "av" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -174,7 +174,7 @@
 /area/djstation)
 "az" = (
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "aA" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -313,7 +313,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "aR" = (
 /obj/structure/cable{
@@ -332,7 +332,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aS" = (
 /obj/structure/cable{
@@ -341,7 +341,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aT" = (
 /obj/structure/cable{
@@ -360,7 +360,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation/solars)
 "aU" = (
 /obj/item/storage/toolbox/mechanical{
@@ -387,7 +387,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/djstation)
 "aW" = (
 /turf/simulated/floor/plasteel{
@@ -511,7 +511,7 @@
 "bj" = (
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bk" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
@@ -577,7 +577,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bt" = (
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/derelict/arrival)
@@ -1257,7 +1257,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/space/nearstation)
 "cJ" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -1836,7 +1836,7 @@
 "ed" = (
 /obj/item/stack/rods,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ee" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -2282,7 +2282,7 @@
 "fa" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "fb" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -2510,7 +2510,7 @@
 /area/derelict/crew_quarters)
 "fC" = (
 /turf/simulated/wall/mineral/titanium/nodecon,
-/area/space)
+/area/space/nearstation)
 "fD" = (
 /obj/machinery/light_switch{
 	pixel_x = 32;
@@ -2708,7 +2708,7 @@
 "fZ" = (
 /obj/item/shard,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ga" = (
 /obj/structure/toilet{
 	dir = 8
@@ -3086,7 +3086,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gV" = (
 /obj/structure/coatrack,
 /turf/simulated/floor/plasteel{
@@ -3382,7 +3382,7 @@
 "hw" = (
 /obj/machinery/atmospherics/unary/passive_vent,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hx" = (
 /obj/structure/chair/wood/normal,
 /turf/simulated/floor/wood{
@@ -4417,7 +4417,7 @@
 	icon_state = "small"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ju" = (
 /obj/structure/chair{
 	dir = 4
@@ -4603,7 +4603,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "jL" = (
 /obj/structure/table/wood,
@@ -4876,7 +4876,7 @@
 "kp" = (
 /obj/item/stack/ore/uranium,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kq" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
@@ -5221,7 +5221,7 @@
 "kZ" = (
 /obj/item/stack/ore/iron,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "la" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5361,7 +5361,7 @@
 	invisibility = 100;
 	location = "SDNE"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "lq" = (
 /obj/structure/chair/office/light,
@@ -5392,7 +5392,7 @@
 	dir = 1
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "lu" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -5400,7 +5400,7 @@
 	icon_state = "swall_f6";
 	tag = "icon-swall_f6"
 	},
-/area/space)
+/area/space/nearstation)
 "lv" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -5415,7 +5415,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "lx" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -5423,11 +5423,11 @@
 	icon_state = "swall_f10";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "ly" = (
 /obj/item/stack/tile,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lz" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5454,25 +5454,25 @@
 	icon_state = "swall11";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "lC" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall7";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "lD" = (
 /turf/space,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
 "lE" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "lF" = (
 /turf/space,
 /area/syndicate_depot/perimeter)
@@ -5495,7 +5495,7 @@
 	},
 /area/syndicate_depot/outer)
 "lK" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "lL" = (
 /turf/simulated/floor/plating/airless,
@@ -5533,13 +5533,13 @@
 	icon_state = "swall_f9";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "lP" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "lQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5624,7 +5624,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_bot"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mc" = (
 /obj/machinery/light{
@@ -5652,11 +5652,11 @@
 /area/syndicate_depot/outer)
 "mf" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mg" = (
 /obj/machinery/light,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mh" = (
 /obj/machinery/light{
@@ -5673,7 +5673,7 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mj" = (
 /obj/machinery/navbeacon/invisible{
@@ -5681,7 +5681,7 @@
 	invisibility = 100;
 	location = "SDNW"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mk" = (
 /obj/structure/table,
@@ -5704,25 +5704,25 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "mo" = (
 /obj/item/shard,
 /obj/effect/mob_spawn/human/mime/corpse,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mp" = (
 /obj/item/broken_bottle,
 /obj/effect/mob_spawn/human/mime/corpse,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mq" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /obj/effect/mob_spawn/human/mime/corpse,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mr" = (
 /obj/structure/falsewall,
 /turf/simulated/floor/plasteel{
@@ -5774,15 +5774,15 @@
 	icon_state = "swall12";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "my" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_f9";
 	icon_state = "swall_f9";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "mz" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -5791,7 +5791,7 @@
 /obj/item/stack/ore/bananium,
 /obj/item/grenade/bananade,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5814,7 +5814,7 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5840,7 +5840,7 @@
 	tag = "icon-burst_r (WEST)"
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "mG" = (
 /obj/structure/shuttle/engine/heater{
 	tag = "icon-heater (EAST)";
@@ -5851,13 +5851,13 @@
 	dir = 8
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "mH" = (
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "mI" = (
-/turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "mJ" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -5871,7 +5871,7 @@
 "mL" = (
 /obj/machinery/door/unpowered/shuttle,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mM" = (
 /obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
@@ -5900,7 +5900,7 @@
 /obj/item/stack/ore/tranquillite,
 /obj/item/stack/ore/tranquillite,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mQ" = (
 /obj/structure/closet/crate,
 /obj/item/stack/ore/tranquillite,
@@ -5911,7 +5911,7 @@
 /obj/item/stack/ore/tranquillite,
 /obj/item/stack/ore/tranquillite,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mR" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5934,8 +5934,8 @@
 /area/syndicate_depot/core)
 "mT" = (
 /obj/item/shard,
-/turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "mU" = (
 /obj/structure/closet/crate,
 /obj/item/stack/ore/bananium,
@@ -5944,25 +5944,25 @@
 /obj/item/stack/ore/bananium,
 /obj/item/stack/ore/bananium,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mV" = (
 /obj/effect/mob_spawn/human/mime/corpse{
 	name = "Mime Pilot"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mW" = (
 /obj/structure/computerframe/HONKputer,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mX" = (
 /obj/effect/mob_spawn/human/corpse/clownmili,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mY" = (
 /obj/effect/mob_spawn/human/corpse/clownoff,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "mZ" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external,
 /turf/simulated/floor/plasteel{
@@ -5979,17 +5979,17 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "nb" = (
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "nc" = (
 /obj/item/stack/ore/bananium,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "nd" = (
 /obj/item/stack/sheet/metal{
 	layer = 4.1
@@ -6005,7 +6005,7 @@
 	tag = "icon-propulsion_l (WEST)"
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "nf" = (
 /obj/effect/spawner/random_spawners/syndicate/trap/mine,
 /obj/item/stack/sheet/metal{
@@ -6018,14 +6018,14 @@
 "ng" = (
 /obj/item/paper/clownship,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "nh" = (
 /obj/item/shard,
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "ni" = (
 /obj/machinery/light{
 	dir = 4;
@@ -6039,7 +6039,7 @@
 "nj" = (
 /obj/effect/mob_spawn/human/clown/corpse,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "nk" = (
 /obj/machinery/computer/syndicate_depot/teleporter,
 /turf/simulated/floor/plasteel{
@@ -6049,7 +6049,7 @@
 "nl" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "nm" = (
 /obj/structure/closet/crate,
 /obj/item/stack/ore/bananium,
@@ -6057,7 +6057,7 @@
 /obj/item/stack/ore/bananium,
 /obj/item/stack/ore/bananium,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "nn" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6080,7 +6080,7 @@
 	icon_state = "swall_f10";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "nq" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -6093,7 +6093,7 @@
 	tag = "icon-propulsion_l (WEST)"
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "nr" = (
 /obj/effect/decal/warning_stripes/red,
 /obj/structure/window/plasmareinforced{
@@ -6266,14 +6266,14 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "nO" = (
 /obj/effect/mob_spawn/human/clown/corpse{
 	name = "Clown Pilot"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "nP" = (
 /obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
@@ -6525,7 +6525,7 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "oy" = (
 /obj/structure/cable{
@@ -6694,7 +6694,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "oT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -6782,7 +6782,7 @@
 	invisibility = 100;
 	location = "SDSW"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "pe" = (
 /obj/machinery/power/apc/noalarm{
@@ -6817,7 +6817,7 @@
 	invisibility = 100;
 	location = "SDSE"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "pi" = (
 /obj/structure/sign/poster/official/obey,
@@ -6870,7 +6870,7 @@
 /area/syndicate_depot/core)
 "pq" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "pr" = (
 /obj/structure/closet/crate/can,
@@ -6936,13 +6936,13 @@
 "pw" = (
 /obj/item/candle,
 /obj/structure/table,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "px" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "py" = (
 /obj/structure/chair{
@@ -6972,7 +6972,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "pC" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/core)
 "pD" = (
 /obj/structure/falsewall,
@@ -7454,7 +7454,7 @@
 /obj/effect/landmark/burnturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "qI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7752,7 +7752,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rn" = (
 /obj/structure/cable{
@@ -7766,7 +7766,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "ro" = (
 /obj/structure/window/reinforced,
@@ -7994,7 +7994,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rG" = (
 /obj/structure/closet/crate/secure/loot,
@@ -8030,7 +8030,7 @@
 /area/derelict/crew_quarters)
 "rJ" = (
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "rK" = (
 /obj/machinery/power/tracker,
@@ -8047,7 +8047,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
 	icon_state = "swall_f10"
 	},
-/area/space)
+/area/space/nearstation)
 "rM" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
@@ -8273,7 +8273,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "si" = (
 /obj/structure/cable{
@@ -8965,7 +8965,7 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "tA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -9007,7 +9007,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "tF" = (
 /obj/structure/sign/greencross,
@@ -9041,7 +9041,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "tI" = (
 /obj/structure/cable{
@@ -9564,7 +9564,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "uJ" = (
 /turf/space,
@@ -9896,7 +9896,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "vn" = (
 /obj/item/shard{
@@ -10463,7 +10463,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wm" = (
 /obj/structure/cable{
@@ -10477,7 +10477,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wn" = (
 /obj/structure/closet/jcloset,
@@ -10503,7 +10503,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wp" = (
 /obj/structure/cable{
@@ -10522,7 +10522,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wq" = (
 /obj/structure/cable{
@@ -10541,7 +10541,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/turf/simulated/floor/plating/airless/catwalk,
+/obj/structure/lattice/catwalk,
 /area/derelict/solar_control)
 "wr" = (
 /obj/docking_port/stationary{
@@ -10583,7 +10583,7 @@
 "wz" = (
 /obj/item/stack/sheet/metal,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "wC" = (
 /obj/effect/landmark/burnturf,
 /obj/machinery/light/small{
@@ -11119,7 +11119,7 @@
 	name = "I PISS ON YOU!"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yo" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -11325,7 +11325,7 @@
 	max_amount = 30
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yS" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1501;
@@ -11489,7 +11489,7 @@
 	icon_state = "small"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "zt" = (
 /turf/simulated/wall,
 /area/derelict/teleporter)
@@ -11647,7 +11647,7 @@
 	icon_state = "swall_f5";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "zR" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/light/small{

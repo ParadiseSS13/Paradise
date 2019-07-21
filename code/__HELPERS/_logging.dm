@@ -150,7 +150,7 @@
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(var/message)
-	if(ticker && ticker.current_state > GAME_STATE_SETTING_UP)
+	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, "<span class='danger'>[message]</span>")
 		log_world(message)
 

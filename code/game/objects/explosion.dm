@@ -1,6 +1,6 @@
 //TODO: Flash range does nothing currently
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0 ,silent = 0, smoke = 1, cause = null, breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = null, breach = TRUE)
 	src = null	//so we don't abort once src is deleted
 	epicenter = get_turf(epicenter)
 

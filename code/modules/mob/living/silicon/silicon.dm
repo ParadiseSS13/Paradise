@@ -19,6 +19,7 @@
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
+	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
@@ -97,7 +98,7 @@
 	return 0
 
 /mob/living/silicon/IsAdvancedToolUser()
-	return 1
+	return TRUE
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
@@ -155,7 +156,6 @@
 /mob/living/silicon/Stat()
 	..()
 	if(statpanel("Status"))
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
 

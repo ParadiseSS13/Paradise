@@ -11,7 +11,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
@@ -22,6 +21,9 @@
 	var/obj/item/twohanded/shockpaddles/paddles
 	var/obj/item/stock_parts/cell/high/bcell = null
 	var/combat = 0 //can we revive through space suits?
+
+/obj/item/defibrillator/get_cell()
+	return bcell
 
 /obj/item/defibrillator/New() //starts without a cell for rnd
 	..()

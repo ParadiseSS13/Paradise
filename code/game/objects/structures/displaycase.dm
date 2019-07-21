@@ -2,17 +2,15 @@
 #define DISPLAYCASE_FRAME_SCREWDRIVER 1
 
 // List and hook used to set up the captain's print on their display case
-var/global/list/captain_display_cases = list()
+GLOBAL_LIST_INIT(captain_display_cases, list())
 
-/hook/captain_spawned/proc/displaycase(mob/living/carbon/human/captain)
-	if(!captain_display_cases.len)
-		return 1
+/proc/updateDisplaycase(mob/living/carbon/human/captain)
+	if(!GLOB.captain_display_cases.len)
+		return 
 	var/fingerprint = captain.get_full_print()
-	for(var/obj/structure/displaycase/D in captain_display_cases)
-		if(istype(D))
-			D.ue = fingerprint
-
-	return 1
+	for(var/item in GLOB.captain_display_cases)
+		var/obj/structure/displaycase/CASE = item
+		CASE.ue = fingerprint
 
 /obj/structure/displaycase_frame
 	name = "display case frame"
@@ -95,14 +93,14 @@ var/global/list/captain_display_cases = list()
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox20"
 	desc = "A display case for prized possessions. It taunts you to kick it."
-	density = 1
-	anchored = 1
-	unacidable = 1 //Dissolving the case would also delete the contents.
+	density = TRUE
+	anchored = TRUE
+	unacidable = TRUE //Dissolving the case would also delete the contents.
 	var/health = 30
 	var/obj/item/occupant = null
-	var/destroyed = 0
-	var/locked = 0
-	var/burglar_alarm = 0
+	var/destroyed = FALSE
+	var/locked = FALSE
+	var/burglar_alarm = FALSE
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/airlock_electronics/circuit
@@ -118,10 +116,14 @@ var/global/list/captain_display_cases = list()
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
-	burglar_alarm = 1
-	locked = 1
+	burglar_alarm = TRUE
+	locked = TRUE
 	req_access = list(access_captain)
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
+
+/obj/structure/displaycase/captains_laser/Initialize(mapload)
+	. = ..()
+	GLOB.captain_display_cases += src
 
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
@@ -136,7 +138,7 @@ var/global/list/captain_display_cases = list()
 	return ..()
 
 /obj/structure/displaycase/captains_laser/Destroy()
-	captain_display_cases -= src
+	GLOB.captain_display_cases -= src
 	return ..()
 
 /obj/structure/displaycase/examine(mob/user)
@@ -203,7 +205,7 @@ var/global/list/captain_display_cases = list()
 	return
 
 /obj/structure/displaycase/proc/burglar_alarm()
-	if(burglar_alarm)
+	if(burglar_alarm && is_station_contact(z))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
@@ -213,10 +215,10 @@ var/global/list/captain_display_cases = list()
 			sleep(74) // 7.4 seconds long
 
 /obj/structure/displaycase/update_icon()
-	if(src.destroyed)
-		src.icon_state = "glassbox2b"
+	if(destroyed)
+		icon_state = "glassbox2b"
 	else
-		src.icon_state = "glassbox2[locked]"
+		icon_state = "glassbox2[locked]"
 	overlays = 0
 	if(occupant)
 		var/icon/occupant_icon=getFlatIcon(occupant)

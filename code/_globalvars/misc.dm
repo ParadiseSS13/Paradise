@@ -1,6 +1,9 @@
 var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
 
+GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
+GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
+
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
 var/global/obj/item/radio/intercom/global_announcer = create_global_announcer()
 var/global/obj/item/radio/intercom/command/command_announcer = create_command_announcer()
@@ -81,3 +84,8 @@ GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 var/copier_items_printed = 0
 var/copier_max_items = 300
 var/copier_items_printed_logged = FALSE
+
+
+GLOBAL_VAR(map_name) // Self explanatory
+
+var/global/datum/datacore/data_core = null // Station datacore, manifest, etc

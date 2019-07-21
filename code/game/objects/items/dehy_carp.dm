@@ -22,6 +22,10 @@
 		owned = 0
 	return ..()
 
+/obj/item/toy/carpplushie/dehy_carp/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	if(volume >= 1)
+		Swell()
 
 /obj/item/toy/carpplushie/dehy_carp/afterattack(obj/O, mob/user,proximity)
 	if(!proximity) return
@@ -37,7 +41,7 @@
 	visible_message("<span class='notice'>[src] swells up!</span>")
 
 	// Animation
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)
 	// Wait for animation to end
 	sleep(6)

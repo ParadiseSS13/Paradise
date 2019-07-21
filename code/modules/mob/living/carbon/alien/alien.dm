@@ -5,18 +5,21 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = 1
-	nightvision = 1
+	alien_talk_understand = TRUE
+
+	var/nightvision = FALSE
+	see_in_dark = 4
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
-	var/has_fine_manipulation = 0
-	var/move_delay_add = 0 // movement delay to add
+	var/has_fine_manipulation = FALSE
+	var/move_delay_add = FALSE // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
 
-	var/large = 0
+	var/large = FALSE
 	var/heat_protection = 0.5
-	var/leaping = 0
+	var/leaping = FALSE
 	ventcrawler = 2
 	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
@@ -149,14 +152,16 @@
 
 	if(!nightvision)
 		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_MINIMUM
-		nightvision = 1
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		nightvision = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
-	else if(nightvision == 1)
-		see_in_dark = 4
-		see_invisible = 45
-		nightvision = 0
+	else if(nightvision)
+		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
+		nightvision = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
+
+	update_sight()
 
 
 /mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
@@ -264,3 +269,36 @@ Des: Removes all infected images from the alien.
 		return pick("xltrails_1", "xltrails_2")
 	else
 		return pick("xttrails_1", "xttrails_2")
+
+/mob/living/carbon/alien/update_sight()
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	sight = SEE_MOBS
+	if(nightvision)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	else
+		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
+		sight |= E.vision_flags
+		if(E.see_in_dark)
+			see_in_dark = max(see_in_dark, E.see_in_dark)
+		if(E.see_invisible)
+			see_invisible = min(see_invisible, E.see_invisible)
+		if(!isnull(E.lighting_alpha))
+			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

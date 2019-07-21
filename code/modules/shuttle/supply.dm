@@ -58,12 +58,10 @@
 
 		var/contcount
 		for(var/atom/A in T.contents)
-			if(istype(A,/atom/movable/lighting_overlay))
-				continue
-			if(istype(A,/obj/machinery/light))
-				continue //hacky but whatever, shuttles need three spots each for this shit
 			if(!A.simulated)
 				continue
+			if(istype(A, /obj/machinery/light))
+				continue //hacky but whatever, shuttles need three spots each for this shit
 			contcount++
 
 		if(contcount)
@@ -750,18 +748,6 @@
 
 	frequency.post_signal(src, status_signal)
 
-/**********
-    MISC
- **********/
-/area/supply/station
-	name = "Supply Shuttle"
-	icon_state = "shuttle3"
-	requires_power = 0
-
-/area/supply/dock
-	name = "Supply Shuttle"
-	icon_state = "shuttle3"
-	requires_power = 0
 
 #undef ORDER_SCREEN_WIDTH
 #undef ORDER_SCREEN_HEIGHT

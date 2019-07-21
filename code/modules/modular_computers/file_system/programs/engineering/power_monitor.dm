@@ -39,7 +39,7 @@
 	data["powermonitor"] = attached ? TRUE : FALSE
 
 	if(attached)
-		var/datum/powernet/powernet = attached.get_powernet()
+		var/datum/powernet/powernet = attached.powernet
 		data["poweravail"] = powernet.avail
 		data["powerload"] = powernet.viewload
 		data["powerdemand"] = powernet.load

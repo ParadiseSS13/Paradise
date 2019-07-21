@@ -20,7 +20,7 @@
 	},
 /area/awaymission/beach)
 "ad" = (
-/turf/unsimulated/floor/lava/dense,
+/turf/simulated/floor/plating/lava/smooth,
 /area/awaymission)
 "ae" = (
 /turf/unsimulated/wall/metal,
@@ -859,9 +859,6 @@
 	},
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach)
-"bD" = (
-/turf/unsimulated/floor/lava,
-/area/awaymission)
 "bE" = (
 /obj/effect/decal{
 	name = "rock";
@@ -1587,7 +1584,7 @@
 /turf/unsimulated/beach/coastline/dense,
 /area/awaymission/beach)
 "cO" = (
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission)
 "cP" = (
 /obj/effect/decal/snow/sand/edge{
@@ -1619,7 +1616,7 @@
 	requires_power = 0
 	})
 "cR" = (
-/obj/machinery/poolcontroller/seacontroller,
+/obj/machinery/poolcontroller/invisible/sea,
 /turf/unsimulated/wall/metal,
 /area/awaymission/undersea{
 	requires_power = 0
@@ -1828,7 +1825,7 @@
 	requires_power = 0
 	})
 "dk" = (
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1879,7 +1876,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_w"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1890,7 +1887,7 @@
 	light_color = "#ffffc0";
 	light_power = 2
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1906,7 +1903,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_e"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1949,7 +1946,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_n"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1965,7 +1962,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_e"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -1981,7 +1978,7 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock_side_n"
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -2049,7 +2046,7 @@
 	},
 /area/awaymission)
 "dF" = (
-/turf/unsimulated/floor/lava,
+/turf/simulated/floor/plating/lava/smooth,
 /area/awaymission{
 	name = "Snowland";
 	requires_power = 0
@@ -2062,12 +2059,6 @@
 	},
 /turf/unsimulated/beach/water/drop/dense,
 /area/awaymission/beach)
-"dH" = (
-/turf/unsimulated/floor/lava/dense,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
 "dI" = (
 /obj/machinery/light,
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -2113,30 +2104,30 @@
 	id = "turbinespace"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dQ" = (
 /turf/unsimulated/wall,
-/area/space)
+/area/space/nearstation)
 "dR" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows";
 	opacity = 0
 	},
-/area/space)
+/area/space/nearstation)
 "dS" = (
 /turf/unsimulated/wall/fakeglass{
 	icon_state = "fakewindows2";
 	dir = 8
 	},
-/area/space)
+/area/space/nearstation)
 "dT" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 4;
 	icon_state = "fakewindows";
 	opacity = 0
 	},
-/area/space)
+/area/space/nearstation)
 "dU" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -2409,7 +2400,7 @@
 	icon_state = "fakewindows";
 	dir = 1
 	},
-/area/space)
+/area/space/nearstation)
 "eC" = (
 /obj/machinery/light{
 	dir = 1
@@ -2425,7 +2416,7 @@
 	icon_state = "fakewindows2";
 	dir = 1
 	},
-/area/space)
+/area/space/nearstation)
 "eF" = (
 /obj/structure/closet/crate/can,
 /turf/unsimulated/floor/carpet,
@@ -2463,7 +2454,7 @@
 /area/awaymission/spacehotel)
 "eL" = (
 /turf/unsimulated/wall/fakeglass,
-/area/space)
+/area/space/nearstation)
 "eM" = (
 /turf/unsimulated/floor{
 	dir = 2;
@@ -2684,7 +2675,7 @@
 /turf/unsimulated/wall/fakeglass{
 	icon_state = "fakewindows3"
 	},
-/area/space)
+/area/space/nearstation)
 "fv" = (
 /obj/effect/landmark/map_loader/hotel_room{
 	dir = 1
@@ -3124,12 +3115,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/spacehotel/kitchen)
-"gE" = (
-/mob/living/carbon/human/interactive/away/hotel/chef,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/spacehotel/kitchen)
 "gF" = (
 /obj/machinery/camera{
 	c_tag = "Room 201";
@@ -3273,12 +3258,6 @@
 /area/awaymission/spacehotel)
 "gZ" = (
 /obj/machinery/vending/coffee,
-/turf/unsimulated/floor{
-	icon_state = "whiteyellowfull"
-	},
-/area/awaymission/spacehotel)
-"ha" = (
-/mob/living/carbon/human/interactive/away/hotel/bartender,
 /turf/unsimulated/floor{
 	icon_state = "whiteyellowfull"
 	},
@@ -3685,7 +3664,7 @@
 	dir = 1;
 	icon_state = "fakewindows2"
 	},
-/area/space)
+/area/space/nearstation)
 "if" = (
 /obj/effect/view_portal{
 	id = "hotel_13"
@@ -4134,12 +4113,6 @@
 	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
-"jm" = (
-/obj/effect/spawner/snpc_squad{
-	squad_type = /mob/living/carbon/human/interactive/away/hotel/guard
-	},
-/turf/unsimulated/floor/carpet,
-/area/awaymission/spacehotel)
 "jn" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
@@ -4489,7 +4462,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/mob/living/carbon/human/interactive/away/hotel/concierge,
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel/reception)
 "kk" = (
@@ -4510,12 +4482,6 @@
 /obj/item/clipboard,
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/turf/unsimulated/floor/carpet,
-/area/awaymission/spacehotel/reception)
-"kn" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel/reception)
 "ko" = (
@@ -4577,14 +4543,14 @@
 	dir = 10;
 	icon_state = "fakewindows"
 	},
-/area/space)
+/area/space/nearstation)
 "ky" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 4;
 	icon_state = "fakewindows";
 	opacity = 1
 	},
-/area/space)
+/area/space/nearstation)
 "kz" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
@@ -4596,13 +4562,13 @@
 	icon_state = "fakewindows";
 	dir = 8
 	},
-/area/space)
+/area/space/nearstation)
 "kB" = (
 /turf/unsimulated/wall/fakeglass{
 	icon_state = "fakewindows";
 	dir = 6
 	},
-/area/space)
+/area/space/nearstation)
 "kC" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_s6";
@@ -4656,19 +4622,19 @@
 	icon_state = "swall_s6";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "kL" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall12";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "kM" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_s10";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "kN" = (
 /turf/unsimulated/wall/fakeglass{
 	icon_state = "fakewindows3"
@@ -4726,22 +4692,22 @@
 	icon_state = "swallc4";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "kX" = (
 /turf/simulated/shuttle/wall/interior,
-/area/space)
+/area/space/nearstation)
 "kY" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3"
 	},
-/area/space)
+/area/space/nearstation)
 "kZ" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "propulsion"
 	},
 /turf/simulated/shuttle/plating,
-/area/space)
+/area/space/nearstation)
 "la" = (
 /obj/structure/chair{
 	dir = 8
@@ -4793,13 +4759,13 @@
 	icon_state = "swall_s5";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "li" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swallc1";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "lj" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_s9";
@@ -4811,7 +4777,7 @@
 	icon_state = "swall_s9";
 	dir = 2
 	},
-/area/space)
+/area/space/nearstation)
 "ll" = (
 /obj/machinery/shower{
 	dir = 8
@@ -4839,6 +4805,15 @@
 	icon_state = "cult"
 	},
 /area/awaymission/spacehotel)
+"VG" = (
+/obj/effect/decal{
+	name = "rock";
+	icon = 'icons/turf/mining.dmi';
+	icon_state = "rock_side_w"
+	},
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water/deep/dense,
+/area/awaymission/beach)
 
 (1,1,1) = {"
 aa
@@ -4867,15 +4842,15 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -4997,15 +4972,15 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5127,15 +5102,15 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5257,15 +5232,15 @@ aa
 dx
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5388,14 +5363,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5518,14 +5493,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5648,14 +5623,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5778,14 +5753,14 @@ dy
 dk
 dk
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -5908,14 +5883,14 @@ dw
 dk
 dk
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6038,14 +6013,14 @@ dk
 dk
 dF
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6168,14 +6143,14 @@ dk
 dF
 dF
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6298,14 +6273,14 @@ dk
 dF
 dF
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6428,14 +6403,14 @@ dk
 dk
 dF
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6558,14 +6533,14 @@ dw
 dk
 dk
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6688,14 +6663,14 @@ dw
 dk
 dk
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6818,14 +6793,14 @@ dw
 dk
 dk
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -6948,14 +6923,14 @@ dx
 dk
 dk
 dF
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -7078,14 +7053,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -7208,14 +7183,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -7338,14 +7313,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -7468,14 +7443,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -7598,14 +7573,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -7728,14 +7703,14 @@ aa
 dw
 dk
 dk
-dH
-dH
-dH
-dH
-dH
-dH
-dH
-dH
+dF
+dF
+dF
+dF
+dF
+dF
+dF
+dF
 ah
 ah
 ah
@@ -9762,7 +9737,7 @@ cl
 jF
 jT
 kj
-kn
+kj
 jT
 kv
 dS
@@ -10589,7 +10564,7 @@ dC
 dG
 dB
 dB
-dB
+VG
 ah
 ah
 ah
@@ -10655,7 +10630,7 @@ gh
 eb
 gp
 gw
-gE
+gD
 gN
 gT
 gD
@@ -11058,7 +11033,7 @@ cl
 iw
 iI
 eG
-jm
+eb
 jH
 jV
 cl
@@ -13299,24 +13274,24 @@ ad
 ad
 ad
 ad
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -13429,24 +13404,24 @@ ad
 ad
 ad
 ad
-bD
-bD
-bD
+ad
+ad
+ad
 bL
 cq
 cq
 cE
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -13559,8 +13534,8 @@ ad
 ad
 ad
 ad
-bD
-bD
+ad
+ad
 bL
 bV
 bV
@@ -13569,14 +13544,14 @@ bV
 cq
 cE
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -13689,7 +13664,7 @@ ad
 ad
 ad
 ad
-bD
+ad
 bL
 bV
 bV
@@ -13699,14 +13674,14 @@ bV
 bV
 cV
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -13819,7 +13794,7 @@ ad
 ad
 ad
 ad
-bD
+ad
 bM
 bV
 cf
@@ -13830,15 +13805,15 @@ cf
 bV
 cE
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -13949,7 +13924,7 @@ ad
 ad
 ad
 ad
-bD
+ad
 bM
 bV
 bV
@@ -13960,15 +13935,15 @@ bV
 bV
 cV
 cO
-bD
+ad
 bL
 dd
 dd
 cE
 cO
-bD
-bD
-bD
+ad
+ad
+ad
 dJ
 dL
 cO
@@ -14079,7 +14054,7 @@ ad
 ad
 ad
 ad
-bD
+ad
 bN
 bV
 bV
@@ -14093,7 +14068,7 @@ dd
 dd
 cP
 cO
-bD
+ad
 dE
 cO
 bL
@@ -14209,8 +14184,8 @@ ad
 ad
 ad
 ad
-bD
-bD
+ad
+ad
 bM
 bV
 bV
@@ -14220,15 +14195,15 @@ bV
 bV
 cV
 cO
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
 bN
 dd
 cP
 cO
-bD
+ad
 dJ
 dN
 cO
@@ -14339,8 +14314,8 @@ ad
 ad
 ad
 ad
-bD
-bD
+ad
+ad
 bM
 cf
 bV
@@ -14350,15 +14325,15 @@ cf
 bV
 cP
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -14469,8 +14444,8 @@ ad
 ad
 ad
 ad
-bD
-bD
+ad
+ad
 bM
 bV
 bV
@@ -14479,16 +14454,16 @@ bV
 bV
 cV
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -14599,8 +14574,8 @@ ad
 ad
 ad
 ad
-bD
-bD
+ad
+ad
 bN
 cg
 cg
@@ -14609,16 +14584,16 @@ bV
 bV
 cP
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -14729,26 +14704,26 @@ ad
 ad
 ad
 ad
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
 bN
 cg
 cP
 cO
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -14859,26 +14834,26 @@ ad
 ad
 ad
 ad
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
-bD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -18978,7 +18953,7 @@ dX
 gI
 gP
 gX
-ha
+gX
 hq
 cl
 hB

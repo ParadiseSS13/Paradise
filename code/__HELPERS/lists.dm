@@ -124,9 +124,13 @@
 			. += A
 
 //Like typesof() or subtypesof(), but returns a typecache instead of a list
-/proc/typecacheof(path, ignore_root_path)
+/proc/typecacheof(path, ignore_root_path, only_root_path = FALSE)
 	if(ispath(path))
-		var/list/types = ignore_root_path ? subtypesof(path) : typesof(path)
+		var/list/types = list()
+		if(only_root_path)
+			types = list(path)
+		else
+			types = ignore_root_path ? subtypesof(path) : typesof(path)
 		var/list/L = list()
 		for(var/T in types)
 			L[T] = TRUE
@@ -140,8 +144,11 @@
 					L[T] = TRUE
 		else
 			for(var/P in pathlist)
-				for(var/T in typesof(P))
-					L[T] = TRUE
+				if(only_root_path)
+					L[P] = TRUE
+				else
+					for(var/T in typesof(P))
+						L[T] = TRUE
 		return L
 
 //Removes any null entries from the list
@@ -346,12 +353,12 @@
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
-//Mergsorge: uses sortList() but uses the var's name specifically. This should probably be using mergeAtom() instead
+//Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sortNames(var/list/L)
 	var/list/Q = new()
 	for(var/atom/x in L)
 		Q[x.name] = x
-	return sortList(Q)
+	return sortAssoc(Q)
 
 /proc/mergeLists(var/list/L, var/list/R)
 	var/Li=1

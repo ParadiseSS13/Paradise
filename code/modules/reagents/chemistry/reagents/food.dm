@@ -9,7 +9,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!(M.mind in ticker.mode.vampires))
+	if(!(M.mind in SSticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
@@ -27,7 +27,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!(M.mind in ticker.mode.vampires))
+	if(!(M.mind in SSticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
@@ -815,7 +815,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(5))
 		if(prob(10))
-			update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
+			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
 		if(prob(7))
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
 			update_flags |= M.Stun(rand(2,5), FALSE)

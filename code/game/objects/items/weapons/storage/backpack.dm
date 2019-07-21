@@ -17,7 +17,6 @@
 	storage_slots = 21
 	burn_state = FLAMMABLE
 	burntime = 20
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
@@ -52,6 +51,7 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
+	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
@@ -112,7 +112,7 @@
 	..()
 	new /obj/item/clothing/under/rank/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
-	new /obj/item/clothing/mask/gas/voice/clown(src)
+	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
 	new /obj/item/storage/box/survival(src)
@@ -124,6 +124,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
+	new /obj/item/dnainjector/comic(src)
 
 /obj/item/storage/backpack/mime
 	name = "Parcel Parceaux"
@@ -156,6 +157,12 @@
 	icon_state = "engiepack"
 	item_state = "engiepack"
 	burn_state = FIRE_PROOF
+
+/obj/item/storage/backpack/explorer
+	name = "explorer bag"
+	desc = "A robust backpack for stashing your loot."
+	icon_state = "explorerpack"
+	item_state = "explorerpack"
 
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
@@ -233,6 +240,12 @@
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
 	burn_state = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel/explorer
+	name = "explorer satchel"
+	desc = "A robust satchel for stashing your loot."
+	icon_state = "satchel-explorer"
+	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
@@ -343,6 +356,21 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
+
+/obj/item/storage/backpack/duffel/mining_conscript/noid
+	name = "mining conscription kit"
+	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+
+/obj/item/storage/backpack/duffel/mining_conscript/noid/New()
+	..()
+	new /obj/item/pickaxe(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/encryptionkey/headset_cargo(src)
+	new /obj/item/clothing/mask/gas(src)
+
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
 	desc = "A large duffel bag, packed to the brim with C-20r magazines."

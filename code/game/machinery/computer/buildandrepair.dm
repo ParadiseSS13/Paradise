@@ -56,6 +56,17 @@
 /obj/item/circuitboard/machine
 	board_type = "machine"
 
+/obj/item/circuitboard/examine(mob/user)
+	..()
+	if(LAZYLEN(req_components))
+		var/list/nice_list = list()
+		for(var/B in req_components)
+			var/atom/A = B
+			if(!ispath(A))
+				continue
+			nice_list += list("[req_components[A]] [initial(A.name)]")
+		to_chat(user,"<span class='notice'>Required components: [english_list(nice_list)].</span>")
+
 /obj/item/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = /obj/machinery/computer/message_monitor
@@ -206,6 +217,10 @@
 /obj/item/circuitboard/powermonitor
 	name = "Circuit board (Power Monitor)"
 	build_path = /obj/machinery/computer/monitor
+	origin_tech = "programming=2;powerstorage=2"
+/obj/item/circuitboard/powermonitor/secret
+	name = "Circuit board (Outdated Power Monitor)"
+	build_path = /obj/machinery/computer/monitor/secret
 	origin_tech = "programming=2;powerstorage=2"
 /obj/item/circuitboard/olddoor
 	name = "Circuit board (DoorMex)"

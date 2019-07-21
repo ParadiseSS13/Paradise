@@ -46,16 +46,14 @@
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
 	icon_state = "apc0"
-	anchored = 1
 	use_power = NO_POWER_USE
 	req_access = list(access_engine_equip)
 	siemens_strength = 1
-	var/spooky=0
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
-	var/cell_type = 2500
+	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
 	var/shorted = 0
 	var/lighting = 3
@@ -101,7 +99,7 @@
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
 
-	var/report_power_alarm = 1
+	var/report_power_alarm = TRUE
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
@@ -118,9 +116,12 @@
 	lighting = 0
 	operating = 0
 
-
 /obj/machinery/power/apc/noalarm
-	report_power_alarm = 0
+	report_power_alarm = FALSE
+
+/obj/machinery/power/apc/syndicate //general syndicate access
+	req_access = list(access_syndicate)
+	report_power_alarm = FALSE
 
 /obj/item/apc_electronics
 	name = "power control module"
@@ -134,43 +135,41 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
+/obj/machinery/power/apc/get_cell()
+	return cell
+
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.
 	//The terminal is what the power computer looks for anyway.
-	if(!terminal)
-		make_terminal()
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building = 0)
 	if(!armor)
 		armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
-	wires = new(src)
 
+	wires = new(src)
 	// offset 24 pixels in direction of dir
 	// this allows the APC to be embedded in a wall, yet still inside an area
 	if(building)
-		dir = ndir
-	src.tdir = dir		// to fix Vars bug
-	dir = SOUTH
+		setDir(ndir)
+	tdir = dir		// to fix Vars bug
+	setDir(SOUTH)
 
 	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
 	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
-	if(building==0)
-		init()
-	else
+	if(building)
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
 		operating = 0
 		name = "[area.name] APC"
 		stat |= MAINT
-		src.update_icon()
-		spawn(5)
-			src.update()
+		update_icon()
+		addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs -= src
@@ -193,14 +192,17 @@
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.dir = tdir
+	terminal.setDir(tdir)
 	terminal.master = src
 
-/obj/machinery/power/apc/proc/init()
+/obj/machinery/power/apc/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		return
 	has_electronics = 2 //installed and secured
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		src.cell = new/obj/item/stock_parts/cell(src)
+		cell = new/obj/item/stock_parts/cell(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
@@ -219,12 +221,12 @@
 		area = get_area_name(areastring)
 		name = "\improper [area.name] APC"
 	area.apc |= src
+
 	update_icon()
 
 	make_terminal()
 
-	spawn(5)
-		src.update()
+	addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
 	if(..(user, 1))
@@ -251,9 +253,9 @@
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
-/obj/machinery/power/apc/update_icon()
+/obj/machinery/power/apc/update_icon(force_update = FALSE)
 
-	if(!status_overlays)
+	if(!status_overlays || force_update)
 		status_overlays = 1
 		status_overlays_lock = new
 		status_overlays_charging = new
@@ -294,10 +296,10 @@
 	var/update = check_updates() 		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
-	if(!update)
+	if(!update && !force_update)
 		return
 
-	if(update & 1) // Updating the icon state
+	if(force_update || update & 1) // Updating the icon state
 		if(update_state & UPSTATE_ALLGOOD)
 			icon_state = "apc0"
 		else if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
@@ -325,7 +327,7 @@
 
 
 
-	if(update & 2)
+	if(force_update || update & 2)
 
 		if(overlays.len)
 			overlays.len = 0
@@ -415,14 +417,17 @@
 			update_icon()
 			updating_icon = 0
 
-/obj/machinery/power/apc/proc/spookify()
-	if(spooky) return // Fuck you we're already spooky
-	spooky=1
-	update_icon()
-	spawn(10)
-		spooky=0
-		update_icon()
-
+/obj/machinery/power/apc/get_spooked(second_pass = FALSE)
+	if(opened || wiresexposed)
+		return
+	if(stat & (NOPOWER | BROKEN))
+		return
+	if(!second_pass) //The first time, we just cut overlays
+		addtimer(CALLBACK(src, .get_spooked, TRUE), 1)
+		cut_overlays()
+	else
+		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
+		addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
@@ -1084,14 +1089,9 @@
 	else
 		return 0
 
-//Returns 1 if the APC should attempt to charge
-/obj/machinery/power/apc/proc/attempt_charging()
-	return (chargemode && charging == 1 && operating)
-
-/obj/machinery/power/apc/draw_power(var/amount)
+/obj/machinery/power/apc/add_load(amount)
 	if(terminal && terminal.powernet)
-		return terminal.powernet.draw_power(amount)
-	return 0
+		terminal.add_load(amount)
 
 /obj/machinery/power/apc/avail()
 	if(terminal)
@@ -1100,7 +1100,6 @@
 		return 0
 
 /obj/machinery/power/apc/process()
-
 	if(stat & (BROKEN|MAINT))
 		return
 	if(!area.requires_power)
@@ -1136,18 +1135,21 @@
 
 	if(cell && !shorted)
 		// draw power from cell as before to power the area
-		var/cellused = min(cell.charge, CELLRATE * lastused_total)	// clamp deduction to a max, amount left in cell
+		var/cellused = min(cell.charge, GLOB.CELLRATE * lastused_total)	// clamp deduction to a max, amount left in cell
 		cell.use(cellused)
 
 		if(excess > lastused_total)		// if power excess recharge the cell
 										// by the same amount just used
-			var/draw = draw_power(cellused/CELLRATE) // draw the power needed to charge this cell
-			cell.give(draw * CELLRATE)
+			cell.give(cellused)
+			add_load(cellused/GLOB.CELLRATE)		// add the load used to recharge the cell
+
+
 		else		// no excess, and not enough per-apc
-			if( (cell.charge/CELLRATE + excess) >= lastused_total)		// can we draw enough from cell+grid to cover last usage?
-				var/draw = draw_power(excess)
-				cell.charge = min(cell.maxcharge, cell.charge + CELLRATE * draw)	//recharge with what we can
+			if((cell.charge/GLOB.CELLRATE + excess) >= lastused_total)		// can we draw enough from cell+grid to cover last usage?
+				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
+				add_load(excess)		// so draw what we can from the grid
 				charging = 0
+
 			else	// not enough power available to run the last tick!
 				charging = 0
 				chargecount = 0
@@ -1172,14 +1174,14 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.clearAlarm(loc, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
@@ -1187,7 +1189,7 @@
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
@@ -1195,19 +1197,17 @@
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 0
 
 		// now trickle-charge the cell
-
-		if(src.attempt_charging())
+		if(chargemode && charging == 1 && operating)
 			if(excess > 0)		// check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess*CELLRATE, cell.maxcharge*CHARGELEVEL)
-
-				ch = draw_power(ch/CELLRATE) // Removes the power we're taking from the grid
-				cell.give(ch*CELLRATE) // actually recharge the cell
+				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
+				add_load(ch/GLOB.CELLRATE) // Removes the power we're taking from the grid
+				cell.give(ch) // actually recharge the cell
 
 			else
 				charging = 0		// stop charging
@@ -1220,12 +1220,12 @@
 
 		if(chargemode)
 			if(!charging)
-				if(excess > cell.maxcharge*CHARGELEVEL)
+				if(excess > cell.maxcharge*GLOB.CHARGELEVEL)
 					chargecount++
 				else
 					chargecount = 0
 
-				if(chargecount >= 10)
+				if(chargecount == 10)
 
 					chargecount = 0
 					charging = 1
@@ -1253,7 +1253,7 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		if(report_power_alarm)
+		if(report_power_alarm && is_station_contact(z))
 			SSalarms.power_alarm.triggerAlarm(loc, src)
 		autoflag = 0
 
@@ -1292,9 +1292,13 @@
 	lighting = 0
 	equipment = 0
 	environ = 0
+	update_icon()
+	update()
 	spawn(600)
 		equipment = 3
 		environ = 3
+		update_icon()
+		update()
 	..()
 
 /obj/machinery/power/apc/ex_act(severity)

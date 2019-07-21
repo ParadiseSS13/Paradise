@@ -35,9 +35,16 @@
 	..()
 	name = "floor"
 
+/turf/simulated/floor/redgrid
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "rcircuit"
+
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+
+/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)	
+	return
 
 /turf/simulated/floor/beach/sand
 	name = "sand"
@@ -48,19 +55,26 @@
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
 
+/turf/simulated/floor/beach/coastline_t
+	name = "coastline"
+	desc = "Tide's high tonight. Charge your batons."
+	icon_state = "sandwater_t"
+
+/turf/simulated/floor/beach/coastline_b
+	name = "coastline"
+	icon_state = "sandwater_b"
+
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 
-/turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	return	//cannot pry off tiles of water
-
-
 /turf/simulated/floor/beach/water/New()
 	..()
-	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
+	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
+	overlay_image.plane = GAME_PLANE
+	overlays += overlay_image
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()

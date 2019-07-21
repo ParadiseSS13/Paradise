@@ -3,7 +3,7 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ac" = (
 /turf/simulated/mineral,
@@ -502,7 +502,7 @@
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/space/nearstation)
 "bI" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plasma,

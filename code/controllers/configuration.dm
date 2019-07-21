@@ -1,5 +1,7 @@
 /datum/configuration
 	var/server_name = null				// server name (for world name / status)
+	var/server_tag_line = null			// server tagline (for showing on hub entry)
+	var/server_extra_features = null		// server-specific extra features (for hub entry)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
 	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
@@ -53,7 +55,6 @@
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
-	var/hostedby = null
 	var/respawn = 0
 	var/guest_jobban = 1
 	var/usewhitelist = 0
@@ -63,11 +64,21 @@
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
+	var/medal_hub_address = null
+	var/medal_hub_password = null
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
+
+	// The AFK subsystem will not be activated if any of the below config values are equal or less than 0
+	var/warn_afk_minimum = 0 // How long till you get a warning while being AFK
+	var/auto_cryo_afk = 0 // How long till you get put into cryo when you're AFK
+	var/auto_despawn_afk = 0 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
+
+	var/auto_cryo_ssd_mins = 0
+	var/ssd_warning = 0
 
 	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
 	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
@@ -122,6 +133,18 @@
 	var/alien_delay = 0
 	var/slime_delay = 0
 	var/animal_delay = 0
+
+	//IP Intel vars
+	var/ipintel_email
+	var/ipintel_rating_bad = 1
+	var/ipintel_save_good = 12
+	var/ipintel_save_bad = 1
+	var/ipintel_domain = "check.getipintel.net"
+	var/ipintel_maxplaytime = 0
+	var/ipintel_whitelist = 0
+	var/ipintel_detailsurl = "https://iphub.info/?ip="
+
+	var/forum_link_url
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -213,9 +236,12 @@
 
 	// Automatic localhost admin disable
 	var/disable_localhost_admin = 0
-	
+
 	//Start now warning
 	var/start_now_confirmation = 0
+
+	// Lavaland
+	var/lavaland_budget = 60
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -293,6 +319,39 @@
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
 
+				if("warn_afk_minimum")
+					config.warn_afk_minimum = text2num(value)
+				if("auto_cryo_afk")
+					config.auto_cryo_afk = text2num(value)
+				if("auto_despawn_afk")
+					config.auto_despawn_afk = text2num(value)
+
+				if("auto_cryo_ssd_mins")
+					config.auto_cryo_ssd_mins = text2num(value)
+				if("ssd_warning")
+					config.ssd_warning = 1
+
+				if("ipintel_email")
+					if(value != "ch@nge.me")
+						config.ipintel_email = value
+				if("ipintel_rating_bad")
+					config.ipintel_rating_bad = text2num(value)
+				if("ipintel_domain")
+					config.ipintel_domain = value
+				if("ipintel_save_good")
+					config.ipintel_save_good = text2num(value)
+				if("ipintel_save_bad")
+					config.ipintel_save_bad = text2num(value)
+				if("ipintel_maxplaytime")
+					config.ipintel_maxplaytime = text2num(value)
+				if("ipintel_whitelist")
+					config.ipintel_whitelist = 1
+				if("ipintel_detailsurl")
+					config.ipintel_detailsurl = value
+
+				if("forum_link_url")
+					config.forum_link_url = value
+
 				if("log_ooc")
 					config.log_ooc = 1
 
@@ -306,7 +365,7 @@
 					config.log_admin = 1
 
 				if("log_debug")
-					config.log_debug = text2num(value)
+					config.log_debug = 1
 
 				if("log_game")
 					config.log_game = 1
@@ -358,10 +417,10 @@
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
-					
+
 				if("vote_autotransfer_initial")
 					config.vote_autotransfer_initial = text2num(value)
-					
+
 				if("vote_autotransfer_interval")
 					config.vote_autotransfer_interval = text2num(value)
 
@@ -386,6 +445,12 @@
 				if("servername")
 					config.server_name = value
 
+				if("server_tag_line")
+					config.server_tag_line = value
+
+				if("server_extra_features")
+					config.server_extra_features = value
+
 				if("serversuffix")
 					config.server_suffix = 1
 
@@ -394,9 +459,6 @@
 
 				if("nudge_script_path")
 					config.nudge_script_path = value
-
-				if("hostedby")
-					config.hostedby = value
 
 				if("server")
 					config.server = value
@@ -592,8 +654,7 @@
 					config.event_delay_upper[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
 
 				if("starlight")
-					var/vvalue = text2num(value)
-					config.starlight = vvalue >= 0 ? vvalue : 0
+					config.starlight = 1
 
 				if("player_reroute_cap")
 					var/vvalue = text2num(value)
@@ -629,10 +690,10 @@
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
 
 				if("medal_hub_address")
-					global.medal_hub = value
+					config.medal_hub_address = value
 
 				if("medal_hub_password")
-					global.medal_pass = value
+					config.medal_hub_password = value
 
 				if("disable_ooc_emoji")
 					config.disable_ooc_emoji = 1
@@ -645,7 +706,7 @@
 
 				if("disable_karma")
 					config.disable_karma = 1
-					
+
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
 
@@ -723,6 +784,8 @@
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
+				if("lavaland_budget")
+					config.lavaland_budget = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -774,7 +837,7 @@
 		config.sql_enabled = 0
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
-			if(ticker.current_state == GAME_STATE_PREGAME)
+			if(SSticker.current_state == GAME_STATE_PREGAME)
 				going = 0
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")

@@ -137,6 +137,10 @@
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
+
+/obj/mecha/get_cell()
+	return cell
+
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
@@ -1517,6 +1521,8 @@
 	if(occupant_sight_flags)
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
+
+	..()
 
 /obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
 	if(!no_effect)

@@ -81,11 +81,11 @@
 /turf/simulated/mineral,
 /area/ruin/unpowered)
 "ai" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aj" = (
 /obj/structure/flora/rock,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ak" = (
 /obj/structure/grille,
@@ -123,7 +123,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub{
 	will_burrow = 0
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aq" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -131,11 +131,11 @@
 /area/ruin/unpowered)
 "ar" = (
 /obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "as" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "at" = (
 /turf/simulated/wall/r_wall,
@@ -152,7 +152,7 @@
 "aw" = (
 /obj/structure/flora/rock,
 /obj/machinery/light,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ax" = (
 /obj/structure/table/reinforced,
@@ -315,7 +315,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -356,7 +356,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aR" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -414,7 +414,7 @@
 	},
 /area/ruin/unpowered)
 "aV" = (
-/obj/machinery/smartfridge/chemistry,
+/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -754,7 +754,7 @@
 "bK" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "bL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -781,7 +781,7 @@
 "bP" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bQ" = (
 /obj/machinery/shieldwallgen{
 	active = 2;
@@ -803,7 +803,7 @@
 	},
 /obj/structure/disposaloutlet,
 /turf/simulated/floor/plating,
-/area/space)
+/area/space/nearstation)
 "bS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -828,11 +828,11 @@
 "bV" = (
 /obj/machinery/shieldwallgen,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bW" = (
 /obj/item/shard,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 
 (1,1,1) = {"
 aa

@@ -2,7 +2,9 @@
 //"Ghosts" that are invisible and move like ghosts, cannot take damage while invsible
 //Don't hear deadchat and are NOT normal ghosts
 //Admin-spawn or random event
+
 #define INVISIBILITY_REVENANT 50
+#define REVENANT_NAME_FILE "revenant_names.json"
 
 /mob/living/simple_animal/revenant
 	name = "revenant"
@@ -18,7 +20,7 @@
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	universal_understand = 1
 	response_help   = "passes through"
 	response_disarm = "swings at"
@@ -51,7 +53,6 @@
 	var/draining = 0 //If the revenant is draining someone.
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
-	var/image/ghostimage = null //Visible to ghost with darkness off
 
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
@@ -91,13 +92,6 @@
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
-/mob/living/simple_animal/revenant/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
@@ -120,13 +114,18 @@
 /mob/living/simple_animal/revenant/New()
 	..()
 
-	ghostimage = image(src.icon,src,src.icon_state)
-	ghost_darkness_images |= ghostimage
-	updateallghostimages()
 	remove_from_all_data_huds()
+	random_revenant_name()
 
 	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
+/mob/living/simple_animal/revenant/proc/random_revenant_name()
+	var/built_name = ""
+	built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
+	built_name += " of "
+	built_name += pick(strings(REVENANT_NAME_FILE, "adjective"))
+	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
+	name = built_name
 
 /mob/living/simple_animal/revenant/proc/firstSetupAttempt()
 	if(mind)
@@ -172,7 +171,7 @@
 			objective2.owner = mind
 			mind.objectives += objective2
 			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
-			ticker.mode.traitors |= mind //Necessary for announcing
+			SSticker.mode.traitors |= mind //Necessary for announcing
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
@@ -196,8 +195,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	ghost_darkness_images -= ghostimage
-	updateallghostimages()
 
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
 	notransform = 1
@@ -419,7 +416,7 @@
 		player_mind.transfer_to(R)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
-		ticker.mode.traitors |= player_mind
+		SSticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
 		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")

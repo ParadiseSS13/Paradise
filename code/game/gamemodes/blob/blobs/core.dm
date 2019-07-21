@@ -105,7 +105,11 @@
 
 	spawn()
 		if(!new_overmind)
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			if(is_offspring)
+				candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			else
+				candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+
 			if(candidates.len)
 				C = pick(candidates)
 		else
@@ -123,7 +127,6 @@
 				if(is_offspring)
 					B.is_offspring = TRUE
 
-
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
 
@@ -136,3 +139,8 @@
 			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
 	else
 		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")
+
+/obj/structure/blob/core/onTransitZ(old_z, new_z)
+	if(overmind && is_station_level(new_z))
+		overmind.forceMove(get_turf(src))
+	return ..()

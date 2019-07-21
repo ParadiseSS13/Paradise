@@ -94,9 +94,8 @@ var/global/list/ts_spiderling_list = list()
 	// Vision
 	idle_vision_range = 10
 	aggro_vision_range = 10
-	see_in_dark = 10
-	nightvision = 1
-	see_invisible = 5
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_MOBS
 
 	// AI aggression settings
@@ -203,7 +202,7 @@ var/global/list/ts_spiderling_list = list()
 		var/obj/machinery/door/airlock/A = target
 		if(A.density)
 			try_open_airlock(A)
-	else if(isliving(target))
+	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/G = target
 		if(issilicon(G))
 			G.attack_animal(src)

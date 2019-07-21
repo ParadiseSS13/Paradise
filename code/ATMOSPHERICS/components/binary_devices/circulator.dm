@@ -15,8 +15,6 @@
 
 	var/obj/machinery/power/generator/generator
 
-	layer = 2.45 // Just above wires
-
 	anchored = 1
 	density = 1
 
@@ -112,6 +110,8 @@
 		..()
 
 /obj/machinery/atmospherics/binary/circulator/update_icon()
+	..()
+	
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 	else if(last_pressure_delta > 0)

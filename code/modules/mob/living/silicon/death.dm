@@ -42,3 +42,9 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 	QDEL_IN(animation, 15)
+
+/mob/living/silicon/death(gibbed)
+	. = ..()
+	if(!gibbed)
+		if(death_sound)
+			playsound(get_turf(src), death_sound, 200, 1)
