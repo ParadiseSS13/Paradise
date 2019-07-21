@@ -194,7 +194,7 @@
 
 /datum/design/reagentgrinder
 	name = "Machine Design (All-In-One Grinder)"
-	desc = "The circuit board for a chemical heater."
+	desc = "The circuit board for an All-In-One Grinder."
 	id = "reagentgrinder"
 	req_tech = list("biotech" = 2, "materials" = 2, "programming" = 2)
 	build_type = IMPRINTER
