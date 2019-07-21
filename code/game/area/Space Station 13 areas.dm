@@ -889,7 +889,7 @@ var/list/ghostteleportlocs = list()
 
 /area/atmos/control
  	name = "Atmospherics Control Room"
- 	icon_state = "atmos"
+ 	icon_state = "atmos_control"
 
 /area/atmos/distribution
  	name = "Atmospherics Distribution Loop"
@@ -962,11 +962,11 @@ var/list/ghostteleportlocs = list()
 
 /area/maintenance/incinerator
 	name = "\improper Incinerator"
-	icon_state = "disposal"
+	icon_state = "Incinerator"
 
 /area/maintenance/turbine
 	name = "\improper Turbine"
-	icon_state = "disposal"
+	icon_state = "atmos_turbine"
 
 /area/maintenance/disposal
 	name = "Waste Disposal"
@@ -999,6 +999,13 @@ var/list/ghostteleportlocs = list()
 /area/maintenance/consarea
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
+
+/area/maintenance/abandonedrobotics
+	name = "Abandoned Maintenance Robotics"
+	icon_state = "maintrobo"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
 
 
 //Hallway
@@ -1140,11 +1147,11 @@ var/list/ghostteleportlocs = list()
 
 /area/ntrep
 	name = "\improper Nanotrasen Representative's Office"
-	icon_state = "bluenew"
+	icon_state = "ntrep"
 
 /area/blueshield
 	name = "\improper Blueshield's Office"
-	icon_state = "blueold"
+	icon_state = "blueshield"
 
 /area/centcomdocks
 	name = "\improper Central Command Docks"
@@ -1380,11 +1387,11 @@ var/list/ghostteleportlocs = list()
 
 /area/engine/engineering
 	name = "Engineering"
-	icon_state = "engine_smes"
+	icon_state = "engine_hallway"
 
 /area/engine/break_room
-	name = "\improper Engineering Foyer"
-	icon_state = "engine"
+	name = "\improper Engineering Break Room"
+	icon_state = "engine_break"
 
 /area/engine/equipmentstorage
 	name = "\improper Engineering Equipment Storage"
@@ -1404,7 +1411,7 @@ var/list/ghostteleportlocs = list()
 
 /area/engine/chiefs_office
 	name = "\improper Chief Engineer's office"
-	icon_state = "engine_control"
+	icon_state = "engine_ce"
 
 /area/engine/mechanic_workshop
 	name = "\improper Mechanic Workshop"
@@ -1417,6 +1424,10 @@ var/list/ghostteleportlocs = list()
 /area/engine/supermatter
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
+
+/area/engine/foyer
+	name = "\improper Engineering Foyer"
+	icon_state = "engine_foyer"
 
 //Solars
 
@@ -1974,7 +1985,7 @@ var/list/ghostteleportlocs = list()
 
 /area/storage/secure
 	name = "Secure Storage"
-	icon_state = "storage"
+	icon_state = "securestorage"
 
 /area/storage/emergency
 	name = "Starboard Emergency Storage"
@@ -2133,7 +2144,7 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/constructionsite
 	name = "\improper Construction Site Shuttle"
-	icon_state = "yellow"
+	icon_state = "shuttle"
 
 /area/shuttle/constructionsite/station
 	name = "\improper Construction Site Shuttle"
@@ -2205,7 +2216,7 @@ var/list/ghostteleportlocs = list()
 
 /area/construction
 	name = "\improper Construction Area"
-	icon_state = "yellow"
+	icon_state = "construction"
 
 /area/mining_construction
 	name = "Auxillary Base Construction"
