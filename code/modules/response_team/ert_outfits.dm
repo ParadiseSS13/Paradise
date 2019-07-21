@@ -241,7 +241,8 @@
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
-		/obj/item/gun/energy/gun = 1
+		/obj/item/gun/energy/gun = 1,
+		/obj/item/holosign_creator/atmos = 1
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
@@ -260,7 +261,8 @@
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 3
+		/obj/item/rcd_ammo/large = 3,
+		/obj/item/holosign_creator/atmos = 1
 	)
 
 	cybernetic_implants = list(
