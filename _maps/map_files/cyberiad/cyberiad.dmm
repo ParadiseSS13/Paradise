@@ -27531,7 +27531,8 @@
 	},
 /obj/item/storage/belt/champion,
 /obj/machinery/camera/motion{
-	dir = 4
+	dir = 4;
+	name = "Vault"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -43640,7 +43641,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
 /obj/machinery/camera/motion{
-	dir = 8
+	dir = 8;
+	name = "Captain's Office"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
