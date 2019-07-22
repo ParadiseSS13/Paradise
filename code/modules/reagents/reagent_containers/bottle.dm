@@ -151,6 +151,12 @@
 	icon_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
 
+/obj/item/reagent_containers/glass/bottle/antiviral
+	name = "Spaceacillin Bottle"
+	desc = "A small bottle containing a commonly used antibiotic."
+	icon_state = "round_bottle"
+	list_reagents = list("spaceacillin" = 30)
+
 //Reagent bottles
 
 /obj/item/reagent_containers/glass/bottle/reagent

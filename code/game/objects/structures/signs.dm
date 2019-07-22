@@ -101,6 +101,12 @@
 	desc = "A guidance sign which reads 'EXAM ROOM'"
 	icon_state = "examroom"
 
+/obj/structure/sign/hygiene
+	name = "\improper HYGIENE"
+	desc = "A guidance sign which reads 'ALWAYS WASH YOUR HANDS BEFORE AND AFTER SURGERY! WEAR A STERILE MASK AT ALL TIMES TO PREVENT INFECTIONS!'"
+	icon_state = "hygiene"
+
+
 /obj/structure/sign/vacuum
 	name = "\improper HARD VACUUM AHEAD"
 	desc = "A warning sign which reads 'HARD VACUUM AHEAD'"
@@ -210,7 +216,7 @@
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
-/obj/structure/sign/science	
+/obj/structure/sign/science
 	name = "\improper SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"
 	icon_state = "science1"
