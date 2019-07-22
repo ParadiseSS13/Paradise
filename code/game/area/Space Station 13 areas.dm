@@ -1108,6 +1108,10 @@ var/list/ghostteleportlocs = list()
 	requires_power = FALSE //This area only covers the batteries and they deal with their own power
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
+/area/engine/foyer
+	name = "\improper Engineering Foyer"
+	icon_state = "engine_foyer"
+
 /area/engine/engineering
 	name = "Engineering"
 	icon_state = "engine_hallway"
