@@ -27530,7 +27530,7 @@
 	pixel_x = -28
 	},
 /obj/item/storage/belt/champion,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	dir = 4;
 	name = "Vault"
 	},
@@ -43640,7 +43640,7 @@
 "bCV" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	dir = 8;
 	name = "Captain's Office"
 	},
@@ -50853,17 +50853,6 @@
 	icon_state = "diagonalWall3"
 	},
 /area/shuttle/administration)
-"bPM" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_4)
 "bPN" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -52062,17 +52051,6 @@
 	icon_state = "wall3"
 	},
 /area/shuttle/administration)
-"bRH" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/pod_4)
 "bRI" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/east{
@@ -89343,6 +89321,17 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/starboard)
+"ddW" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/pod_4)
 "ddX" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -89356,6 +89345,17 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
+"ddY" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_4)
 "ddZ" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
@@ -129084,9 +129084,9 @@ dfR
 dcq
 dcq
 dcq
-bPM
+ddW
 doL
-bRH
+ddY
 dcq
 aaa
 aaa
