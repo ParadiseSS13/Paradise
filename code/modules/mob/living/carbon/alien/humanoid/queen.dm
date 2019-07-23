@@ -8,6 +8,7 @@
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
+	desc = "A bulky alien. This one seems to be a jack of all trades, its only drawback being its size."
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	create_reagents(100)
@@ -30,7 +31,7 @@
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()
-	. += 3
+	. += 2
 
 /mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
 	..() //-Yvarov

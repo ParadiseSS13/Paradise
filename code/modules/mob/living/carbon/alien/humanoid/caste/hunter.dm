@@ -4,6 +4,7 @@
 	maxHealth = 125
 	health = 125
 	icon_state = "alienh_s"
+	desc = "A strange alien. This one seems to be able to move really quickly."
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	create_reagents(100)

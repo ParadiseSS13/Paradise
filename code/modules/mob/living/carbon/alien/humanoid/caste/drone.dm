@@ -4,6 +4,7 @@
 	maxHealth = 100
 	health = 100
 	icon_state = "aliend_s"
+	desc = "A strange alien. This one seems to be less adept at fighting."
 
 /mob/living/carbon/alien/humanoid/drone/New()
 	create_reagents(100)

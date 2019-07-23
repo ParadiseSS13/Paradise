@@ -4,6 +4,7 @@
 	maxHealth = 150
 	health = 150
 	icon_state = "aliens_s"
+	desc = "A strange alien. This one has two green glowing sacs on its crest."
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"

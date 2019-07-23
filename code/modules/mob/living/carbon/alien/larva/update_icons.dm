@@ -7,8 +7,10 @@
 	var/state = 0
 	if(amount_grown > 150)
 		state = 2
+		desc = "A snake-like creature."
 	else if(amount_grown > 50)
 		state = 1
+		desc = "A small snake-like creature."
 
 	if(stat == DEAD)
 		icon_state = "larva[state]_dead"
