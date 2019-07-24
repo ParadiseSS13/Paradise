@@ -451,3 +451,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
+
+##Add a phrase beside it enable Administrative Challenge Phrases
+CHALLENGE_PHRASES

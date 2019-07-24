@@ -4,6 +4,7 @@
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
 	var/tos_consent = FALSE
+	var/challenge_phrase = FALSE //Secret phrase set in config for unbanned players to prove they have read the rules before being allowed to do things
 	universal_speak = 1
 
 	invisibility = 101
@@ -18,7 +19,7 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
-	if(handle_tos_consent())
+	if(handle_tos_consent() && challenge_phrase())
 		new_player_panel_proc()
 
 /mob/new_player/proc/handle_tos_consent()
@@ -39,6 +40,37 @@
 
 	privacy_consent()
 	return FALSE
+
+/mob/new_player/proc/challenge_phrase()
+	if(!config.challenge_phrase) //check the config if there is in fact a challenge phrase, if not then just return true
+		return TRUE
+	establish_db_connection()
+	if(!dbcon.IsConnected())
+		return TRUE
+	var/DBQuery/query = dbcon.NewQuery("SELECT challenge FROM [format_table_name("ban")] WHERE ckey = '[src.ckey]' AND challenge=1")
+	query.Execute()
+	
+	while(query.NextRow()) //Find a row that matches ckey where challenge is requested
+		challenge_phrase = TRUE // set var to TRUE to disallow other functions and recalling the original new_player_panel() if they fail
+		//sry for this input mess
+		var/given_phrase
+		var/ask_phrase = input(src, "The conditions of your unban require you to provide the hidden phrase within the rules to prove you have read them fully. You must complete this to join. Please type the phrase below.", "Administrative Code Phrase", given_phrase) as text //ask for the phrase
+		given_phrase = ask_phrase
+		if(cmptext(sanitize(given_phrase), config.challenge_phrase)) //see if the phrase matches the one in the config - cmptext makes it not caps sensitive
+			challenge_phrase = FALSE //remove the var lock on joining things
+			//create new thing to remove the phrase
+			var/DBQuery/new_query = dbcon.NewQuery("UPDATE [format_table_name("ban")] SET challenge = 0 FROM  WHERE ckey = '[src.ckey]'")
+			new_query.Execute()
+			to_chat(src, "<span class='warning'>Correct phrase. Functions unlocked. Welcome back to Paradise.</span>") //tell user they won
+			return TRUE //allow for new_player_panel to continue 
+		else
+			to_chat(src, "<span class='warning'>Incorrect phrase. Please completely read all of the rules, it is a set of words that let us know you have read the rules in full.</span>") //tell user to redo
+			sleep(1) //to avoid people overwhelming db connections
+			spawn(0) new_player_panel() //recall the thing so they arent in limbo
+			return FALSE //disallow new_player_panel from continuing, repeat process
+	
+	
+	
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
@@ -163,6 +195,10 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
+		if(challenge_phrase)
+			to_chat(usr, "<span class='warning'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			return FALSE
+
 		ready = !ready
 		new_player_panel_proc()
 
@@ -178,6 +214,10 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
+
+		if(challenge_phrase)
+			to_chat(usr, "<span class='warning'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			return FALSE
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)
@@ -216,6 +256,11 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
+		
+		if(challenge_phrase)
+			to_chat(usr, "<span class='warning'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			return FALSE
+			
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return

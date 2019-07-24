@@ -286,7 +286,10 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 			update_query.Execute()
 		if("unban")
 			if(alert("Unban [pckey]?", "Unban?", "Yes", "No") == "Yes")
-				DB_ban_unban_by_id(banid)
+				if(alert("Force challenge phrase?", "Challenge Phrase", "Yes", "No") == "No")
+					DB_ban_unban_by_id(banid)
+				else
+					DB_ban_unban_by_id(banid, challenge_phrase = TRUE)
 				if(job && length(job))
 					jobban_unban_client(pckey, job)
 				return
@@ -297,7 +300,7 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 			to_chat(usr, "Cancelled")
 			return
 
-datum/admins/proc/DB_ban_unban_by_id(var/id)
+datum/admins/proc/DB_ban_unban_by_id(var/id, var/challenge_phrase = FALSE)
 
 	if(!check_rights(R_BAN))	return
 
@@ -330,12 +333,20 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	var/unban_ckey = src.owner:ckey
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
+	
+	
+	if(!challenge_phrase)
+		var/sql_update = "UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey = '[unban_ckey]', unbanned_computerid = '[unban_computerid]', unbanned_ip = '[unban_ip]' WHERE id = [id]"
+		message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.",1)
+		var/DBQuery/query_update = dbcon.NewQuery(sql_update)
+		query_update.Execute()
+	else
+		var/sql_update = "UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey = '[unban_ckey]', unbanned_computerid = '[unban_computerid]', unbanned_ip = '[unban_ip]', challenge = 1 WHERE id = [id]"
+		message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban with challenge phrase.",1)
+		var/DBQuery/query_update = dbcon.NewQuery(sql_update)
+		query_update.Execute()
 
-	var/sql_update = "UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey = '[unban_ckey]', unbanned_computerid = '[unban_computerid]', unbanned_ip = '[unban_ip]' WHERE id = [id]"
-	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.",1)
 
-	var/DBQuery/query_update = dbcon.NewQuery(sql_update)
-	query_update.Execute()
 
 	flag_account_for_forum_sync(pckey)
 

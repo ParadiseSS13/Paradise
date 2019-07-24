@@ -18,6 +18,12 @@ var/global/admin_ooc_colour = "#b82e00"
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
 		return
 
+	if(isnewplayer(src))
+		var/mob/new_player/M = src
+		if(M.challenge_phrase == TRUE)
+			to_chat(src, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			return
+
 	if(!check_rights(R_ADMIN|R_MOD, 0))
 		if(!config.ooc_allowed)
 			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")

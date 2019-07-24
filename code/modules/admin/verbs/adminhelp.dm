@@ -11,6 +11,12 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
+	//
+	if(isnewplayer(src))
+		var/mob/new_player/M = src
+		if(M.challenge_phrase == TRUE)
+			to_chat(src, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			return
 
 	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
 
@@ -26,7 +32,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
-
+	
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	var/original_msg = msg

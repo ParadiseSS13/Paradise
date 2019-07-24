@@ -242,6 +242,9 @@
 
 	// Lavaland
 	var/lavaland_budget = 60
+	
+	//Administrative Challenge Phrases
+	var/challenge_phrase = FALSE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -709,6 +712,8 @@
 
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
+				if("challenge_phrase")
+					config.challenge_phrase = value
 
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)
