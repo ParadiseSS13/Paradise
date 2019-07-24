@@ -67,7 +67,7 @@
 			to_chat(M, "<span class='warning'>May the power of [src.deity_name] compel you to be healed!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
 		else
-			if(ishuman(M) && !istype(M:head, /obj/item/clothing/head/helmet))
+			if(ishuman(M))
 				M.adjustBrainLoss(10)
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			for(var/mob/O in viewers(M, null))
