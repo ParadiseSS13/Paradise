@@ -159,14 +159,25 @@
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
 	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
-	spawn(1)
-		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
-			for(var/i = 1 to 5)
-				U.adjustBruteLoss(-2)
-				U.adjustOxyLoss(-5)
-				U.adjustToxLoss(-2)
-				U.adjustFireLoss(-2)
-				sleep(35)
+
+/obj/effect/proc_holder/spell/vampire/self/vitalise
+	name = "Vitalise (20)"
+	desc= "Flush your system with spare blood to heal yourself."
+	action_icon_state = "fleshmend"
+	charge_max = 200
+	stat_allowed = 1
+	required_blood = 20
+
+/obj/effect/proc_holder/spell/vampire/self/vitalise/cast(list/targets, mob/user = usr)
+	var/mob/living/U = user
+
+	to_chat(user, "<span class='notice'>You flush your system with clean blood and heal your wounds.</span>")
+	for(var/i = 1 to 5)
+		U.adjustBruteLoss(-2)
+		U.adjustOxyLoss(-5)
+		U.adjustToxLoss(-2)
+		U.adjustFireLoss(-2)
+		sleep(25)
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise
 	name = "Hypnotise (20)"
@@ -525,9 +536,6 @@
 		user.forceMove(picked)
 		spawn(10)
 			qdel(animation)
-
-/datum/vampire_passive/regen
-	gain_desc = "Your rejuvination abilities have improved and will now heal you over time when used."
 
 /datum/vampire_passive/vision
 	gain_desc = "Your vampiric vision has improved."

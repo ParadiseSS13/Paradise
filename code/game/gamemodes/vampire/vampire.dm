@@ -213,7 +213,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		/obj/effect/proc_holder/spell/vampire/targetted/disease = 150,
 		/obj/effect/proc_holder/spell/vampire/bats = 200,
 		/obj/effect/proc_holder/spell/vampire/self/screech = 200,
-		/datum/vampire_passive/regen = 200,
+		/obj/effect/proc_holder/spell/vampire/self/vitalise = 200,
 		/obj/effect/proc_holder/spell/vampire/shadowstep = 250,
 		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
 		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
