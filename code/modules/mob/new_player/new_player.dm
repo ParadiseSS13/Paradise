@@ -65,7 +65,7 @@
 			return TRUE //allow for new_player_panel to continue 
 		else
 			to_chat(src, "<span class='warning'>Incorrect phrase. Please completely read all of the rules, it is a set of words that let us know you have read the rules in full.</span>") //tell user to redo
-			sleep(1) //to avoid people overwhelming db connections
+			sleep(10) //to avoid people overwhelming db connections
 			spawn(0) new_player_panel() //recall the thing so they arent in limbo
 			return FALSE //disallow new_player_panel from continuing, repeat process
 	
