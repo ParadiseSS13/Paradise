@@ -1,0 +1,1 @@
+ALTER TABLE `ban` ADD `challenge` BOOLEAN NOT NULL DEFAULT FALSE AFTER `unbanned_ip`;
