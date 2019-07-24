@@ -49,7 +49,6 @@
 		return TRUE
 	var/DBQuery/query = dbcon.NewQuery("SELECT challenge FROM [format_table_name("ban")] WHERE ckey = '[src.ckey]' AND challenge=1")
 	query.Execute()
-	
 	while(query.NextRow()) //Find a row that matches ckey where challenge is requested
 		challenge_phrase = TRUE // set var to TRUE to disallow other functions and recalling the original new_player_panel() if they fail
 		//sry for this input mess
@@ -59,16 +58,16 @@
 		if(cmptext(sanitize(given_phrase), config.challenge_phrase)) //see if the phrase matches the one in the config - cmptext makes it not caps sensitive
 			challenge_phrase = FALSE //remove the var lock on joining things
 			//create new thing to remove the phrase
-			var/DBQuery/new_query = dbcon.NewQuery("UPDATE [format_table_name("ban")] SET challenge = 0 FROM  WHERE ckey = '[src.ckey]'")
+			var/DBQuery/new_query = dbcon.NewQuery("UPDATE [format_table_name("ban")] SET challenge = 0  WHERE ckey = '[src.ckey]'")
 			new_query.Execute()
-			to_chat(src, "<span class='warning'>Correct phrase. Functions unlocked. Welcome back to Paradise.</span>") //tell user they won
+			to_chat(src, "<span class='danger'>Correct phrase. Functions unlocked. Welcome back to Paradise.</span>") //tell user they won
 			return TRUE //allow for new_player_panel to continue 
 		else
-			to_chat(src, "<span class='warning'>Incorrect phrase. Please completely read all of the rules, it is a set of words that let us know you have read the rules in full.</span>") //tell user to redo
+			to_chat(src, "<span class='danger'>Incorrect phrase. Please completely read all of the rules, it is a set of words that let us know you have read the rules in full.</span>") //tell user to redo
 			sleep(10) //to avoid people overwhelming db connections
 			spawn(0) new_player_panel() //recall the thing so they arent in limbo
 			return FALSE //disallow new_player_panel from continuing, repeat process
-	
+	return TRUE //if there is no challenge requested in DB then return true
 	
 	
 
@@ -196,7 +195,7 @@
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
 		if(challenge_phrase)
-			to_chat(usr, "<span class='warning'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			to_chat(usr, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
 			return FALSE
 
 		ready = !ready
@@ -216,7 +215,7 @@
 			return 0
 
 		if(challenge_phrase)
-			to_chat(usr, "<span class='warning'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			to_chat(usr, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
 			return FALSE
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
@@ -258,7 +257,7 @@
 			return 0
 		
 		if(challenge_phrase)
-			to_chat(usr, "<span class='warning'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
+			to_chat(usr, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
 			return FALSE
 			
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)

@@ -244,7 +244,7 @@
 	var/lavaland_budget = 60
 	
 	//Administrative Challenge Phrases
-	var/challenge_phrase = FALSE
+	var/challenge_phrase = ""
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))

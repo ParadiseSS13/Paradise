@@ -12,8 +12,8 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
 	//
-	if(isnewplayer(src))
-		var/mob/new_player/M = src
+	if(isnewplayer(mob))
+		var/mob/new_player/M = mob
 		if(M.challenge_phrase == TRUE)
 			to_chat(src, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
 			return
