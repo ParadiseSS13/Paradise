@@ -64,8 +64,7 @@
 			return TRUE //allow for new_player_panel to continue 
 		else
 			to_chat(src, "<span class='danger'>Incorrect phrase. Please completely read all of the rules, it is a set of words that let us know you have read the rules in full.</span>") //tell user to redo
-			sleep(10) //to avoid people overwhelming db connections
-			spawn(0) new_player_panel() //recall the thing so they arent in limbo
+			spawn(20) new_player_panel() //recall the thing so they arent in limbo with delay of 2 seconds so no DB overwhelm
 			return FALSE //disallow new_player_panel from continuing, repeat process
 	return TRUE //if there is no challenge requested in DB then return true
 	
