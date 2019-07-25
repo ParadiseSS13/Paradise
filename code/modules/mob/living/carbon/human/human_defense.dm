@@ -413,22 +413,22 @@ emp_act
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(damage, BRUTE, affecting, armor_block)
-			if(damage >= 25)
+			if(damage >= 26) // Small chance of a critical hit.
 				visible_message("<span class='danger'>[M] has wounded [src]!</span>", \
  					"<span class='userdanger'>[M] has wounded [src]!</span>")
-				apply_effect(4, WEAKEN, armor_block)
+				apply_effect(5, WEAKEN, armor_block)
 				add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
 		if(M.a_intent == INTENT_DISARM)
-			if(prob(80))
+			if(prob(55))
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
+				apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 			else
-				if(prob(99)) //this looks fucking stupid but it was previously 'var/randn = rand(1, 100); if(randn <= 99)'
+				if(prob(80))
 					playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 					drop_item()
 					visible_message("<span class='danger'>[M] disarmed [src]!</span>")

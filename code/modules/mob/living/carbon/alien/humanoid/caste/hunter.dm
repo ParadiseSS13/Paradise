@@ -4,14 +4,22 @@
 	maxHealth = 125
 	health = 125
 	icon_state = "alienh_s"
+	desc = "A strange alien. This one seems to be able to move really quickly."
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	create_reagents(100)
-	if(name == "alien hunter")
-		name = text("alien hunter ([rand(1, 1000)])")
+	handlename()
 	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
+
+/mob/living/carbon/alien/humanoid/hunter/proc/handlename()
+	spawn(5)
+	if(name == "alien hunter")
+		if(idtag)
+			name = "alien hunter ([idtag])"
+		else
+			name = "alien hunter ([rand(1, 1000)])"
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
 	. = -1		//hunters are sanic

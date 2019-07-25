@@ -1,5 +1,6 @@
 /mob/living/carbon/alien/larva
 	name = "alien larva"
+	desc = "A small snake-like creature. It's covered in blood..."
 	real_name = "alien larva"
 	icon_state = "larva0"
 	pass_flags = PASSTABLE | PASSMOB
@@ -18,8 +19,9 @@
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
 	create_reagents(100)
+	idtag = rand(1, 1000) // Create a random tag
 	if(name == "alien larva")
-		name = "alien larva ([rand(1, 1000)])"
+		name = "alien larva ([idtag])" // Apply the tag, which will be used later when it evolves
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")

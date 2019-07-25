@@ -1,13 +1,14 @@
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 	caste = "q"
-	maxHealth = 250
-	health = 250
+	maxHealth = 265
+	health = 265
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
+	desc = "A bulky alien. This one appears to be the source of the aliens."
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	create_reagents(100)
@@ -38,9 +39,9 @@
 	if(healths)
 		if(stat != DEAD)
 			switch(health)
-				if(250 to INFINITY)
+				if(265 to INFINITY)
 					healths.icon_state = "health0"
-				if(175 to 250)
+				if(175 to 265)
 					healths.icon_state = "health1"
 				if(100 to 175)
 					healths.icon_state = "health2"

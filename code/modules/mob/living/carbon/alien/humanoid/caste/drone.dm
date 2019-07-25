@@ -4,16 +4,24 @@
 	maxHealth = 100
 	health = 100
 	icon_state = "aliend_s"
+	desc = "A strange alien. This one seems to be less adept at fighting."
 
 /mob/living/carbon/alien/humanoid/drone/New()
 	create_reagents(100)
-	if(src.name == "alien drone")
-		src.name = text("alien drone ([rand(1, 1000)])")
+	handlename()
 	src.real_name = src.name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
+
+/mob/living/carbon/alien/humanoid/drone/proc/handlename()
+	spawn(5)
+	if(name == "alien drone")
+		if(idtag)
+			name = "alien drone ([idtag])"
+		else
+			name = "alien drone ([rand(1, 1000)])"
 
 //Drones use the same base as generic humanoids.
 //Drone verbs

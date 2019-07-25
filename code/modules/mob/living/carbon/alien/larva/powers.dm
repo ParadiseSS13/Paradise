@@ -47,6 +47,7 @@
 		else
 			new_xeno.key = key
 		new_xeno.mind.name = new_xeno.name
+		new_xeno.idtag = idtag
 		qdel(src)
 		return
 	else

@@ -4,6 +4,7 @@
 	maxHealth = 150
 	health = 150
 	icon_state = "aliens_s"
+	desc = "A strange alien. This one has two green glowing sacs on its crest."
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
@@ -34,13 +35,20 @@
 
 /mob/living/carbon/alien/humanoid/sentinel/New()
 	create_reagents(100)
-	if(name == "alien sentinel")
-		name = text("alien sentinel ([rand(1, 1000)])")
+	handlename()
 	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
+
+/mob/living/carbon/alien/humanoid/sentinel/proc/handlename()
+	spawn(5)
+	if(name == "alien sentinel")
+		if(idtag)
+			name = "alien sentinel ([idtag])"
+		else
+			name = "alien sentinel ([rand(1, 1000)])"
 
 /mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()
 	..() //-Yvarov

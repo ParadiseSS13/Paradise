@@ -24,6 +24,7 @@
 	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
+	var/idtag = null // the tag next to their name to identify them
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/verb/mob_sleep
