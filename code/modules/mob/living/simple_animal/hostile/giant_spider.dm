@@ -60,6 +60,9 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	venom_per_bite = 30
+
+	ai_wake_ignores_distance = TRUE
+
 	var/atom/cocoon_target
 	var/fed = 0
 
