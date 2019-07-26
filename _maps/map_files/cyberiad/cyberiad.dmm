@@ -838,10 +838,6 @@
 /obj/machinery/magnetic_module,
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"aci" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/security/main)
 "acj" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
@@ -955,12 +951,27 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/security/main)
 "acy" = (
 /obj/item/soap/nanotrasen,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1022,6 +1033,11 @@
 	},
 /obj/structure/mirror{
 	pixel_x = -28
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1408,14 +1424,15 @@
 	name = "Bathroom";
 	req_access_txt = "0"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/security/main)
-"adq" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/security/hos)
 "adr" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1629,6 +1646,11 @@
 	dir = 1;
 	on = 1
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1637,6 +1659,11 @@
 /obj/structure/table/wood,
 /obj/machinery/recharger{
 	pixel_y = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2482,6 +2509,11 @@
 	pixel_x = -28;
 	pixel_y = 17;
 	req_access_txt = "58"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
@@ -6533,6 +6565,11 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -6618,6 +6655,11 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7091,6 +7133,11 @@
 	initialize_directions = 10;
 	level = 1
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "amv" = (
@@ -7458,6 +7505,11 @@
 	},
 /obj/effect/landmark/start{
 	name = "Head of Security"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
@@ -96441,6 +96493,34 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"fSs" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/hos)
+"gxB" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/hos)
 "gMZ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -96548,6 +96628,26 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"kiO" = (
+/obj/structure/sink{
+	dir = 8;
+	icon_state = "sink";
+	pixel_x = -12;
+	pixel_y = 0
+	},
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/security/main)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
@@ -96555,6 +96655,16 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"lBa" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/security/main)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -96609,6 +96719,14 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
+"qvq" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
@@ -129413,7 +129531,7 @@ aaa
 abM
 akB
 anH
-anA
+anH
 anA
 anA
 anA
@@ -129670,7 +129788,7 @@ aaa
 aaa
 aaa
 aab
-anA
+anH
 acw
 acD
 acS
@@ -129927,7 +130045,7 @@ aaa
 aaa
 aaa
 aaa
-aci
+amq
 acy
 anA
 anA
@@ -130184,10 +130302,10 @@ aaa
 aaa
 aaa
 aaa
-aci
+amq
 acx
 acE
-acE
+kiO
 anA
 aoJ
 alq
@@ -130441,12 +130559,12 @@ aaa
 aaa
 aaa
 aaa
-anA
+anH
 acB
 acB
-acw
+lBa
 adp
-aoJ
+qvq
 alu
 amn
 amO
@@ -130698,9 +130816,9 @@ aaa
 aaa
 aaa
 aaa
-anA
-anA
-anA
+anH
+anH
+anH
 anA
 anA
 aoJ
@@ -130957,7 +131075,7 @@ aaa
 aaa
 aaa
 aab
-anA
+anH
 acV
 anH
 akI
@@ -131214,8 +131332,8 @@ aaa
 aaa
 aaa
 aab
-anA
-anA
+anH
+anH
 anH
 akH
 alC
@@ -131987,9 +132105,9 @@ aaa
 aaa
 aaa
 aaa
-adq
+akH
 adI
-aiY
+gxB
 ajV
 anb
 ajV
@@ -132244,9 +132362,9 @@ aaa
 aaa
 aaa
 aaa
-adq
+akH
 adH
-aiY
+fSs
 afM
 aeC
 ahm
