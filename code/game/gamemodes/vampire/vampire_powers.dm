@@ -163,6 +163,7 @@
 /obj/effect/proc_holder/spell/vampire/self/vitalise
 	name = "Vitalise (20)"
 	desc= "Flush your system with spare blood to heal yourself."
+	gain_desc = "You have gained the Vitalise ability, at the cost of stored blood you can heal damge you've sustained."
 	action_icon_state = "fleshmend"
 	charge_max = 200
 	stat_allowed = 1
@@ -170,14 +171,23 @@
 
 /obj/effect/proc_holder/spell/vampire/self/vitalise/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
-
-	to_chat(user, "<span class='notice'>You flush your system with clean blood and heal your wounds.</span>")
-	for(var/i = 1 to 5)
-		U.adjustBruteLoss(-2)
-		U.adjustOxyLoss(-5)
-		U.adjustToxLoss(-2)
-		U.adjustFireLoss(-2)
-		sleep(25)
+	var/healing_power = 40
+	var/healing_ticks = 5
+	var/missing_health = U.getBruteLoss() + U.getToxLoss() + U.getFireLoss()
+	if (missing_health > 0)
+		var/brute_loss_percentage = U.getBruteLoss() / missing_health
+		var/tox_loss_percentage = U.getToxLoss() / missing_health
+		var/fire_loss_percentage = U.getFireLoss() / missing_health
+		to_chat(user, "<span class='notice'>You flush your system with clean blood and heal your wounds.</span>")
+		for(var/i = 1 to healing_ticks)
+			U.adjustBruteLoss(-brute_loss_percentage * healing_power / healing_ticks)
+			U.adjustOxyLoss(-5)
+			U.adjustToxLoss(-tox_loss_percentage * healing_power / healing_ticks)
+			U.adjustFireLoss(-fire_loss_percentage * healing_power / healing_ticks)
+			sleep(25)
+	else
+		revert_cast(user)
+		to_chat(user, "<span class='notice'>You have no wounds to heal!</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise
 	name = "Hypnotise (20)"
