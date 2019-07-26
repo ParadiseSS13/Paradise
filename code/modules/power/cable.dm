@@ -171,6 +171,13 @@ By design, d1 is the smallest direction and d2 is the highest
 		deconstruct()
 		return
 
+	else if(istype(W, /obj/item/shard))
+		if(shock(user, 50))
+			return
+		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		deconstruct()
+		return
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
