@@ -82,6 +82,7 @@
 	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
 	var/can_have_ai = TRUE //once we have become sentient, we can never go back
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
+	var/ai_wake_ignores_distance = FALSE // If set to true, AI will never sleep as long as any living player is on the same zlevel as them
 
 
 /mob/living/simple_animal/Initialize()
@@ -448,7 +449,7 @@
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 	next_scan_time = world.time + 400
-	
+
 	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0
@@ -590,7 +591,7 @@
 	. = ..()
 	if(!ckey && !stat)//Not unconscious
 		if(AIStatus == AI_IDLE)
-			toggle_ai(AI_ON) 
+			toggle_ai(AI_ON)
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))
@@ -613,7 +614,7 @@
 	..()
 	if(AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
-		toggle_ai(initial(AIStatus)) 
+		toggle_ai(initial(AIStatus))
 
 // Simple animals will not be given night vision upon death, as that would result in issues when they are revived.
 /mob/living/simple_animal/grant_death_vision()

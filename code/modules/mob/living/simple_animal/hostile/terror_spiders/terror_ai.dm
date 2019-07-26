@@ -344,22 +344,6 @@
 			vturfs += T
 	return vturfs
 
-/mob/living/simple_animal/hostile/poison/terror_spider/consider_wakeup()
-	// This is not allowed to call ..() at any point, because that triggers aggro bugs.
-
-	if(pulledby || shouldwakeup)
-		toggle_ai(AI_ON)
-		return
-
-	var/turf/T = get_turf(src)
-	if(!T)
-		return
-
-	if(!length(SSmobs.clients_by_zlevel[T.z]))
-		toggle_ai(AI_Z_OFF)
-		return
-	toggle_ai(AI_ON)
-
 /mob/living/simple_animal/hostile/poison/terror_spider/DestroySurroundings()
 	if(!target)
 		return

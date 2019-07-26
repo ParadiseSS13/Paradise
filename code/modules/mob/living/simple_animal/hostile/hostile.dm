@@ -431,6 +431,10 @@
 		toggle_ai(AI_Z_OFF)
 		return
 
+	if(ai_wake_ignores_distance)
+		toggle_ai(AI_ON)
+		return
+
 	var/cheap_search = isturf(T) && !is_station_level(T.z)
 	if(cheap_search)
 		tlist = ListTargetsLazy(T.z)
