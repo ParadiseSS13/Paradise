@@ -154,16 +154,15 @@
 	else if(istype(W, /obj/item/stack/packageWrap))
 		return
 	else if(istype(W, /obj/item/stack/cable_coil))
-		if(isrobot(user))
-			return
+		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
 			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
 			return
-		to_chat(user, "<span class='notice'>You rig [src].</span>")
-		user.drop_item()
-		qdel(W)
-		rigged = 1
-		return
+		if(C.use(15))
+			to_chat(user, "<span class='notice'>You rig [src].</span>")
+			rigged = 1
+		else 
+			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
 	else if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
