@@ -1930,7 +1930,7 @@
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
-				evilcookie.flags = NODROP
+				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a mutagen cookie."
@@ -1939,7 +1939,7 @@
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
-				evilcookie.flags = NODROP
+				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
