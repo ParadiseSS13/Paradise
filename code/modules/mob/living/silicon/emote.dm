@@ -13,7 +13,7 @@
 		//Cooldown-inducing emotes
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
-		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no", "buzz2")
+		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no", "buzz2","alert","sad")
 			//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
@@ -25,6 +25,19 @@
 	//--FalseIncarnate
 
 	switch(act)
+		if("alert")
+			var/M = handle_emote_param(param)
+			
+			message = "<B>[src]</B> emits an alert[M ? " at [M]" : ""]!"
+			playsound(src, 'sound/machines/buzz-alert.ogg', 50, 0)
+			m_type = 2
+		if("sad")
+			var/M = handle_emote_param(param)
+			
+			message = "<B>[src]</B> emits a saddening beep[M ? " at [M]" : ""]."
+			playsound(src, 'sound/machines/buzz-sad.ogg', 50, 0)
+			m_type = 2
+
 		if("ping","pings")
 			var/M = handle_emote_param(param)
 
