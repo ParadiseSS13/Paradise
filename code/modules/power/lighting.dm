@@ -346,6 +346,26 @@
 
 	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
+		//color the light with a spraycan
+		if(istype(W, /obj/item/toy/crayon/spraycan) && do_after(user, 30, target = src))
+			var/obj/item/toy/crayon/spraycan/O = W
+			brightness_color =  O.colour
+			color = O.colour
+			visible_message("<span class='warning'>[user] paints the [src]!</span>")
+			update()
+			user.do_attack_animation(src)
+			return
+
+		//clean the light
+		if(istype(W, /obj/item/soap) && do_after(user, 40, target = src))
+			brightness_color = "#a0a080"
+			color = null
+			visible_message("<span class='warning'>[user] cleans the [src]!</span>")
+			update()
+			user.do_attack_animation(src)
+			return
+			
+
 		user.do_attack_animation(src)
 		if(prob(1+W.force * 5))
 
