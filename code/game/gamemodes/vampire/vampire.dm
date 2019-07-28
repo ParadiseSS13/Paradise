@@ -297,19 +297,27 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			to_chat(owner, "<span class='warning'>They've got no blood left to give.</span>")
 			break
 		if(H.stat < DEAD)
-			blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
-			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
-			bloodusable += blood / 2
+			if(!issmall(H) || H.ckey)
+				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
+				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+				bloodusable += blood / 2
 		else
-			blood = min(5, H.blood_volume)	// The dead only give 5 blood
-			bloodtotal += blood
+			if(!issmall(H) || H.ckey)
+				blood = min(5, H.blood_volume)	// The dead only give 5 blood
+				bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
-			to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
+			if(!issmall(H) || H.ckey) // not small OR has a ckey, monkeys with ckeys can be sucked, humanized monkeys can be sucked monkeys without ckeys cannot be sucked
+				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
+			if(issmall(H) && !H.ckey)
+				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your hunger, but you get no usable blood from it.</b></span>")
+				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5)
+			else
+				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
+
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
@@ -402,11 +410,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(!hud.vampire_blood_display)
 			hud.vampire_blood_display = new /obj/screen()
 			hud.vampire_blood_display.name = "Usable Blood"
-			hud.vampire_blood_display.icon_state = "power_display"
+			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[bloodusable]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))
 		check_sun()
