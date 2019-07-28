@@ -169,6 +169,14 @@
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
 		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(BANTYPE_PERMA)
+			add_note(banckey, "Permanently Banned - [banreason]", null, usr.ckey, 0)
+		else if(BANTYPE_TEMP)
+			add_note(banckey, "Banned for [banduration] minutes - [banreason]", null, usr.ckey, 0)
+		else if(BANTYPE_JOB_PERMA)
+			add_note(banckey, "Banned from [banjob] - [banreason]", null, usr.ckey, 0)
+		else
+			add_note(banckey, "[banreason]", null, usr.ckey, 0)
 
 
 	else if(href_list["editrights"])
@@ -1007,14 +1015,14 @@
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
-				to_chat(M, "<span class='warning'>This is a permanent ban.</span>")
+				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This is a permanent ban.")
-				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
-				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.</span>")
+				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
+				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
@@ -2776,7 +2784,7 @@
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
-				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining asteroid")
+				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")

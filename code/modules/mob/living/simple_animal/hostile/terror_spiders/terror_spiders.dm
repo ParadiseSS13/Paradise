@@ -202,7 +202,7 @@ var/global/list/ts_spiderling_list = list()
 		var/obj/machinery/door/airlock/A = target
 		if(A.density)
 			try_open_airlock(A)
-	else if(isliving(target))
+	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/G = target
 		if(issilicon(G))
 			G.attack_animal(src)

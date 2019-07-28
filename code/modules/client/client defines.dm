@@ -1,4 +1,8 @@
 /client
+		//////////////////////
+		//BLACK MAGIC THINGS//
+		//////////////////////
+	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
 		////////////////
@@ -24,7 +28,7 @@
 
 	var/adminhelped = 0
 
-	var/gc_destroyed //Time when this object was destroyed.
+	// var/gc_destroyed //Time when this object was destroyed. [Inherits from datum]
 
 #ifdef TESTING
 	var/running_find_references
@@ -72,6 +76,8 @@
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
+	var/ip_intel = "Disabled"
+
 	var/datum/click_intercept/click_intercept = null
 
 	//datum that controls the displaying and hiding of tooltips
@@ -87,5 +93,5 @@
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 
-	// Has the client been varedited by an admin?
-	var/var_edited = FALSE
+	// Has the client been varedited by an admin? [Inherits from datum now]
+	// var/var_edited = FALSE

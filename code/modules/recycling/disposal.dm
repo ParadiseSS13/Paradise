@@ -246,7 +246,7 @@
 		return
 
 	// Clumsy folks can only flush it.
-	if(user.IsAdvancedToolUser(1))
+	if(user.IsAdvancedToolUser())
 		ui_interact(user)
 	else
 		flush = !flush
@@ -692,11 +692,9 @@
 // pipe is deleted
 // ensure if holder is present, it is expelled
 /obj/structure/disposalpipe/Destroy()
-	var/obj/structure/disposalholder/H = locate() in src
-	if(H)
-		// holder was present
+	for(var/obj/structure/disposalholder/H in contents)
 		H.active = 0
-		var/turf/T = src.loc
+		var/turf/T = loc
 		if(T.density)
 			// deleting pipe is inside a dense turf (wall)
 			// this is unlikely, but just dump out everything into the turf in case
@@ -709,8 +707,7 @@
 			return
 
 		// otherwise, do normal expel from turf
-		if(H)
-			expel(H, T, 0)
+		expel(H, T, 0)
 	return ..()
 
 /obj/structure/disposalpipe/singularity_pull(S, current_size)

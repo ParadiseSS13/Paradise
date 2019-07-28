@@ -1400,10 +1400,12 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
+	can_get_auto_cryod = FALSE
 
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
+	can_get_auto_cryod = FALSE
 
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
@@ -1432,14 +1434,17 @@ var/list/ghostteleportlocs = list()
 /area/security/execution
 	name = "\improper Execution"
 	icon_state = "execution"
+	can_get_auto_cryod = FALSE
 
 /area/security/processing
 	name = "\improper Prisoner Processing"
 	icon_state = "prisonerprocessing"
+	can_get_auto_cryod = FALSE
 
 /area/security/interrogation
 	name = "\improper Interrogation"
 	icon_state = "interrogation"
+	can_get_auto_cryod = FALSE
 
 /area/security/seceqstorage
 	name = "\improper Security Equipment Storage"
@@ -1456,6 +1461,7 @@ var/list/ghostteleportlocs = list()
 /area/security/interrogationobs
 	name = "\improper Interrogation Observation"
 	icon_state = "security"
+	can_get_auto_cryod = FALSE
 
 /area/security/evidence
 	name = "\improper Evidence Room"
@@ -1464,6 +1470,7 @@ var/list/ghostteleportlocs = list()
 /area/security/prisonlockers
 	name = "\improper Prisoner Lockers"
 	icon_state = "sec_prison_lockers"
+	can_get_auto_cryod = FALSE
 
 /area/security/medbay
 	name = "\improper Security Medbay"
@@ -1472,6 +1479,7 @@ var/list/ghostteleportlocs = list()
 /area/security/prisonershuttle
 	name = "\improper Security Prisoner Shuttle"
 	icon_state = "security"
+	can_get_auto_cryod = FALSE
 
 /area/security/warden
 	name = "\improper Warden's Office"
@@ -1964,7 +1972,7 @@ var/list/ghostteleportlocs = list()
 /area/traitor
 	name = "\improper Syndicate Base"
 	icon_state = "syndie_hall"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
@@ -2134,7 +2142,7 @@ var/list/ghostteleportlocs = list()
 /area/awaymission
 	name = "\improper Strange Location"
 	icon_state = "away"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/example
 	name = "\improper Strange Station"
@@ -2160,7 +2168,7 @@ var/list/ghostteleportlocs = list()
 
 /area/awaycontent
 	name = "space"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaycontent/a1
 	icon_state = "awaycontent1"

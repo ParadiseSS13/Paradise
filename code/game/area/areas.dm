@@ -19,9 +19,9 @@
 
 	var/eject = null
 
-	var/debug = 0
+	var/debug = FALSE
 	var/requires_power = TRUE
-	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
+	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
 
 	var/power_equip = TRUE
 	var/power_light = TRUE
@@ -33,7 +33,7 @@
 	var/static_equip
 	var/static_light = FALSE
 	var/static_environ
-
+	
 	var/has_gravity = TRUE
 	var/list/apc = list()
 	var/no_air = null
@@ -64,6 +64,7 @@
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
 	var/fast_despawn = FALSE
+	var/can_get_auto_cryod = TRUE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -128,10 +129,11 @@
 
 
 /area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
-	if(danger_level == ATMOS_ALARM_NONE)
-		SSalarms.atmosphere_alarm.clearAlarm(src, alarm_source)
-	else
-		SSalarms.atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
+	if(report_alerts)
+		if(danger_level == ATMOS_ALARM_NONE)
+			SSalarms.atmosphere_alarm.clearAlarm(src, alarm_source)
+		else
+			SSalarms.atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
 	for(var/obj/machinery/alarm/AA in src)

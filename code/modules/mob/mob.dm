@@ -2,6 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.living_mob_list -= src
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,6 +31,7 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.living_mob_list += src
+	set_focus(src)
 	prepare_huds()
 	..()
 
@@ -49,7 +51,6 @@
 
 /mob/proc/GetAltName()
 	return ""
-
 
 /mob/proc/Cell()
 	set category = "Admin"
@@ -173,6 +174,7 @@
 	return 0
 
 /mob/proc/Life(seconds, times_fired)
+	set waitfor = FALSE
 	if(forced_look)
 		if(!isnum(forced_look))
 			var/atom/A = locateUID(forced_look)
@@ -691,9 +693,13 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-
-	if(mind)
+	
+	var/combined = length(memory + msg)
+	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
+	else if(combined >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "Your brain can't hold that much information!")
+		return
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
@@ -965,13 +971,6 @@ var/list/slot_equipment_priority = list( \
 
 
 	if(is_admin(src))
-		if(statpanel("DI"))	//not looking at that panel
-			stat("Loc", "([x], [y], [z]) [loc]")
-			stat("CPU", "[world.cpu]")
-			stat("Instances", "[world.contents.len]")
-
-			if(processScheduler)
-				processScheduler.statProcesses()
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
@@ -995,6 +994,9 @@ var/list/slot_equipment_priority = list( \
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
+	if(client && client.statpanel == "Status" && SSticker)
+		show_stat_station_time()
+
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
 	stat(null, "Round Time: [worldtime2text()]")
@@ -1017,7 +1019,7 @@ var/list/slot_equipment_priority = list( \
 				var/atom/A = foo
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see))
+				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
@@ -1075,7 +1077,7 @@ var/list/slot_equipment_priority = list( \
 
 
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
-	return 0
+	return FALSE
 
 /mob/proc/swap_hand()
 	return
@@ -1336,6 +1338,29 @@ var/list/slot_equipment_priority = list( \
 		spintime -= speed
 
 /mob/proc/is_literate()
+	return FALSE
+
+/mob/proc/faction_check_mob(mob/target, exact_match)
+	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
+		var/list/faction_src = faction.Copy()
+		var/list/faction_target = target.faction.Copy()
+		if(!("\ref[src]" in faction_target)) //if they don't have our ref faction, remove it from our factions list.
+			faction_src -= "\ref[src]" //if we don't do this, we'll never have an exact match.
+		if(!("\ref[target]" in faction_src))
+			faction_target -= "\ref[target]" //same thing here.
+		return faction_check(faction_src, faction_target, TRUE)
+	return faction_check(faction, target.faction, FALSE)
+
+/proc/faction_check(list/faction_A, list/faction_B, exact_match)
+	var/list/match_list
+	if(exact_match)
+		match_list = faction_A & faction_B //only items in both lists
+		var/length = LAZYLEN(match_list)
+		if(length)
+			return (length == LAZYLEN(faction_A)) //if they're not the same len(gth) or we don't have a len, then this isn't an exact match.
+	else
+		match_list = faction_A & faction_B
+		return LAZYLEN(match_list)
 	return FALSE
 
 /mob/proc/update_sight()

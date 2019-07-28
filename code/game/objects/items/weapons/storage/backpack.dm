@@ -17,7 +17,6 @@
 	storage_slots = 21
 	burn_state = FLAMMABLE
 	burntime = 20
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
@@ -159,6 +158,12 @@
 	item_state = "engiepack"
 	burn_state = FIRE_PROOF
 
+/obj/item/storage/backpack/explorer
+	name = "explorer bag"
+	desc = "A robust backpack for stashing your loot."
+	icon_state = "explorerpack"
+	item_state = "explorerpack"
+
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
 	desc = "It's a backpack made of all-natural fibers."
@@ -235,6 +240,12 @@
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
 	burn_state = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel/explorer
+	name = "explorer satchel"
+	desc = "A robust satchel for stashing your loot."
+	icon_state = "satchel-explorer"
+	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
@@ -345,6 +356,21 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
+
+/obj/item/storage/backpack/duffel/mining_conscript/noid
+	name = "mining conscription kit"
+	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+
+/obj/item/storage/backpack/duffel/mining_conscript/noid/New()
+	..()
+	new /obj/item/pickaxe(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/encryptionkey/headset_cargo(src)
+	new /obj/item/clothing/mask/gas(src)
+
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
 	desc = "A large duffel bag, packed to the brim with C-20r magazines."

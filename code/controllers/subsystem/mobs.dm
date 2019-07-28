@@ -6,12 +6,14 @@ SUBSYSTEM_DEF(mobs)
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]
+	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when z2 is created and new_players can login before that.
 
 /datum/controller/subsystem/mobs/stat_entry()
 	..("P:[GLOB.mob_list.len]")
 
 /datum/controller/subsystem/mobs/Initialize(start_timeofday)
 	clients_by_zlevel = new /list(world.maxz,0)
+	dead_players_by_zlevel = new /list(world.maxz,0)
 	return ..()
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
