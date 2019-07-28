@@ -122,6 +122,9 @@
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
 			on_CD = handle_emote_CD()
+			
+		if("medic")
+			on_CD = handle_emote_CD(600) //longer cooldown
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = FALSE	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -133,6 +136,16 @@
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
+													
+		if("medic")
+			if(gender == FEMALE)
+				if(dna.species.female_medic_sounds)
+					playsound(src, pick(dna.species.female_medic_sounds), 120)
+					message = "<B>[src] calls for a medic!</B>"
+			else
+				if(dna.species.male_medic_sounds)
+					playsound(src, pick(dna.species.male_medic_sounds), 120)
+					message = "<B>[src] calls for a medic!</B>"
 
 		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).

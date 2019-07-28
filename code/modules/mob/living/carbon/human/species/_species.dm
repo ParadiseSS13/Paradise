@@ -117,7 +117,9 @@
 	var/female_cough_sounds = list('sound/effects/mob_effects/f_cougha.ogg','sound/effects/mob_effects/f_coughb.ogg')
 	var/male_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg'
 	var/female_sneeze_sound = 'sound/effects/mob_effects/f_sneeze.ogg'
-
+	var/male_medic_sounds = list() 
+	var/female_medic_sounds = list()
+	
 	//Default hair/headacc style vars.
 	var/default_hair				//Default hair style for newly created humans unless otherwise set.
 	var/default_hair_colour
