@@ -63,6 +63,30 @@
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
 	shoe_sound = "clownstep"
+	var/enabled_waddle = TRUE
+	var/datum/component/waddle
+
+/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		user.AddComponent(/datum/component/waddling)
+
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
+	. = ..()
+	QDEL_NULL(waddle)
+
+/obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold the [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
