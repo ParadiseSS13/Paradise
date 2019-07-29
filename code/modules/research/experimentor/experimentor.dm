@@ -29,6 +29,7 @@
 	var/base_flex_cost = 10
 	var/precise_scanner = 0
 	var/spareparts = 0
+	var/obj/experimentor/loot_definer/LootDefiner = new/obj/experimentor/loot_definer()
 
 /obj/machinery/r_n_d/experimentor/New()
 	..()
@@ -183,7 +184,7 @@
 			updateUsrDialog() //Set the interface to unloaded mode
 			to_chat(usr, "<span class='warning'>[src] is not currently loaded!</span>")
 			return
-		// Balanced assuming an average of ~5 actions, growing to ~10 with upgrade level. It's harder to raise innovation.
+		//It's harder to raise innovation.
 		var/adjusted_flex_cost = base_flex_cost - (round(T.stability/20,1)-2)
 		if(text2num(scantype) == SCANTYPE_POKE)
 			T.adjuststability(rand(2,10))
@@ -300,9 +301,7 @@
 	if (prob(min(((T.vrare_weighting*T.innovation/100+1)*T.vrare_base), 100)))
 		rarity = RARITY_VERYRARE
 
-	var/obj/item/discovered_tech/D = new/obj/item/discovered_tech()
-	D.define(T.stability, T.potency, T.unpacked_name, rarity)
-	return D
+	return LootDefiner.define(T.stability, T.potency, T.unpacked_name, rarity, T.containedtype)
 
 #undef SCANTYPE_POKE
 #undef SCANTYPE_IRRADIATE

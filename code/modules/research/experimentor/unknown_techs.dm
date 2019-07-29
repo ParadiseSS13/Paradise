@@ -10,11 +10,19 @@
 // scanning module is installed, exact stats are shown, otherwise stats are shown on a continuuum from
 // very low (less than 20), low (21-40), average (41-60), high (61-80) and very high (80+).
 //
-// Stability - Determines failure rate of activated objects. Low stability may cause catastrophic failure on activation, destroying the object.
-// Potency - How good the object is at doing what it does. Amplifies positive/negative effects.
-// Innovation - How likely the object is to be a rarer and more powerful variety.
-// Flexibility - The "currency" used to tweak the item's stats in the experimentor. An upgraded experimentor uses slightly less flexibility for each tweak.
-
+// Relevant Vars (for future expansion)
+// unpacked_name - This is used for the first part of the unpacked device name, i.e "Alien Whatever Whatever"
+// stability - Determines failure rate of activated objects. Low stability may cause catastrophic failure on activation, destroying the object.
+// potency - How good the object is at doing what it does. Amplifies positive/negative effects.
+// innovation - How likely the object is to be a rarer and more powerful variety.
+// flexibility - The "currency" used to tweak the item's stats in the experimentor. An upgraded experimentor uses slightly less flexibility for each tweak.
+// typelist - The possible types of the object. Types serve as loot lists, just bear in mind that the type is chosen on spawn from the available ones, not combined.
+// iconlist - Available icons for the object.
+// [stat]_standarddeviation - The flex of each stat. The higher this is, the higher the variance.
+// [stat]_mean - Where the stat average will fall.
+// NB: Flexibility is a linear distribution between flexibility_min and flexibility_max.
+// [rarity]_weighting - Adds x% of the base percentage to the adjusted percentage for each point of innovation.
+// [rarity]_base - Chance (In %) for a rarity roll to roll that type. Each tier is rolled independently, with the higher tiers overwriting the lower. 
 
 /obj/item/unknown_tech
 	name = "Unknown Tech"
@@ -29,8 +37,6 @@
 	var/containedtype
 	var/list/typelist = list("Device", "Device", "Device")
 	var/list/iconlist = list("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
-    // Determines how the base stat bell curve shakes out. Applies to each stat except flexibility, which is linearly distributed between a range.
-    // A mean of 50 and a sd of 10 mean that most points will come out around 40-60 and will rarely go between 20-80.
 	var/stability_standardeviation = 10
 	var/stability_mean = 50
 	var/potency_standardeviation = 10
@@ -46,7 +52,7 @@
     // Base probability percentage for each rarity tier (common rarity is determined by the remainder out of 100%, 80% by default).
 	var/uncommon_base = 14
 	var/rare_base = 5
-	var/vrare_base = 1
+	var/vrare_base = 0.5
 
 // Basically rolls 2d6 to approximate a normal distribution with a standard deviation of sigma and a mean of mu. Rounds to the nearest integer.
 /obj/item/unknown_tech/proc/NormDistRand(var/sigma, var/mu)
@@ -96,6 +102,13 @@
 	stability = NormDistRand(stability_standardeviation, stability_mean)
 	potency = NormDistRand(potency_standardeviation, potency_mean)
 	innovation = NormDistRand(innovation_standardeviation, innovation_mean)
+
+
+//////////////////////////////////////////// ACTUAL OBJECT DEFINITIONS /////////////////////////////////////////////////////
+// This is the stuff that spawns in.
+// Use var/typelist to define the available types (and therefore loot lists). 
+// Make new loot lists in _loot_definer.dm if you want further customization.
+// 
 
 /obj/item/unknown_tech/proto_tech/
 	name = "Prototype Technology"

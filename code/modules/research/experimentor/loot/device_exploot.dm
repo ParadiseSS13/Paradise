@@ -1,12 +1,6 @@
-#define RARITY_COMMON 0
-#define RARITY_UNCOMMON 1
-#define RARITY_RARE 2
-#define RARITY_VERYRARE 3
-
-//////////////////////////////TECH PRIZE DEFINITIONS////////////////////////////////
+//////////////////////////////DEVICE DEFINITION////////////////////////////////
 // Re-implements the old strange object code in order to finish the proof of concept.
-//
-//
+// Loot and name lists are defined in _loot_definer.dm for each object type.
 
 /obj/item/discovered_tech
 	name = "Discovered Technology"
@@ -21,6 +15,14 @@
 	var/potency = 0
 	var/raritylevel = 0
 	var/base_name = "Unknown"
+
+/obj/item/discovered_tech/New(var/stability_in, var/potency_in, var/rare_level, var/item_type)
+	stability = stability_in
+	potency = potency_in
+	raritylevel = rare_level
+	techProc = item_type
+	icon_state = pick(iconlist)
+	cooldownMax = choosecooldown()	
 
 /obj/item/discovered_tech/attack_self(mob/user)
 	if(cooldown)
@@ -37,58 +39,24 @@
 	stability = stability_in
 	potency = potency_in
 	raritylevel = rare_level
-	icon_state = pick(iconlist)
-	var/list/second_name = new/list
-	switch(rare_level)
-		if(RARITY_COMMON)
-			techProc = pick("rapiddupe")
-			second_name.Add("Electric ", "Elastic ", "Fluidic ", "Cellular ", "Superficial ", "Stringy ", "Simple ", "Flexible ", "Basic ", "Voltaic ", "Thermal ", "Deformed ")
-		if(RARITY_UNCOMMON)
-			techProc = pick("teleport", "rapiddupe")
-			second_name.Add("Spun ", "Gradiated ", "Neutron ", "Force-", "Kepler ", "Ionic ", "Flux ", "Magnetic ", "Vacuum ", "Meson ", "Edison ", "Pulse ", "Elementary ", "Focused ")
-		if(RARITY_RARE)
-			techProc = pick("clean", "teleport", "rapiddupe")
-			second_name.Add("Harmonic ", "Tesla ", "Quantum ", "Massive ", "Lunar ", "Gravitic ", "Schottky ", "Alpha-", "Beta-", "Gamma-", "Fusion ", "Dynamic ", "Plasma ")
-		if(RARITY_VERYRARE)
-			techProc = pick("flash", "teleport", "clean")
-			second_name.Add("Singulo-", "Bluespace ", "Omega-", "Stellar ", "Cosmic ", "Euler ", "Dark ", "Entropy ", "Hydron ")
-	// Name format: "Prototype Descartes Shuffler". First word is the type of "box" it came from. Second is chosen based on rarity. Third is chosed based on function.
-	name = "[base_name] " + pick(second_name) + choosethirdname()
-	cooldownMax = choosecooldown()
 
-#undef RARITY_COMMON
-#undef RARITY_UNCOMMON
-#undef RARITY_RARE
-#undef RARITY_VERYRARE
-
-// Split off from define to keep it simple-ish once more functions are added. Give each possible item at least 3 names.
-// Giving the same name to multiple devices is welcomed and encouraged.
-/obj/item/discovered_tech/proc/choosethirdname()
-	switch(techProc)
-		if("rapiddupe")
-			return pick("Splitter", "Multitron", "Fast-Breeder")
-		if("teleport")
-			return pick("Zanziptomizer", "Teletron", "Dimensional Porta-Potty")
-		if("clean")
-			return pick("Janitron", "Scourer", "Obliterator")
-		if("flash")
-			return pick("Mesmertron", "Photon Channeller", "Eye-Melter")
 
 // Choose the cooldown timer for the device. Add multipliers here.
 /obj/item/discovered_tech/proc/choosecooldown()
 	switch(techProc)
 		if("rapiddupe")
-			//			|Base CD	|Rarity Multiplier	 |Stability Multiplier
-			return round(rand(10,30)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
+			//			 |Base CD	  |Rarity Multiplier	|Stability Multiplier
+			return round(rand(30,60)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
 		if("teleport")
 			return round(rand(30,60)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
 		if("clean")
-			return round(rand(20,60)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
+			return round(rand(30,60)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
 		if("flash")
-			return round(rand(10,40)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
+			return round(rand(30,60)*(1.4-0.2*raritylevel)*(1.4-0.2*(stability/20)),1)
 
 ///////////////////////////////DEVICE FUNCTION PROCS/////////////////////////////////////////////
 // Mostly borrowed from the old relics for testing purposes.
+
 /obj/item/discovered_tech/proc/nothing(mob/user)
 	to_chat(user, "<span class='notice'>The [src] does nothing of note.</span>")
 
