@@ -168,6 +168,7 @@
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define ishumanbasic(A) (is_species(A, /datum/species/human))
 #define isunathi(A) (is_species(A, /datum/species/unathi))
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 #define istajaran(A) (is_species(A, /datum/species/tajaran))
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))

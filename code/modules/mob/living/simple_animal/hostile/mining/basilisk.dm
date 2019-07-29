@@ -35,11 +35,12 @@
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
-	damage = 0
+	damage = 3
 	damage_type = BURN
-	nodamage = 1
+	nodamage = 0
 	flag = "energy"
-	temperature = 50
+	temperature = 225
+	speed = 1.6
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(var/new_target)
 	if(..()) //we have a target
@@ -68,8 +69,8 @@
 	icon_dead = "watcher_dead"
 	pixel_x = -10
 	throw_message = "bounces harmlessly off of"
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 8
+	melee_damage_upper = 13
 	attacktext = "impales"
 	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
@@ -118,7 +119,7 @@
 /obj/item/projectile/temp/basilisk/magmawing
 	name = "scorching blast"
 	icon_state = "lava"
-	damage = 5
+	damage = 10
 	damage_type = BURN
 	nodamage = FALSE
 	temperature = 500 //Heats you up!
@@ -132,9 +133,10 @@
 			L.IgniteMob()
 
 /obj/item/projectile/temp/basilisk/icewing
-	damage = 5
+	damage = 7
 	damage_type = BURN
 	nodamage = FALSE
+	temperature = 50 // Actual freeze beam
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
 	fromtendril = TRUE

@@ -110,10 +110,12 @@
 	name_plural = "Ash Walkers"
 
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
-	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners." 
+	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
 
 	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"
 
-	slowdown = -0.80
+	slowdown = -0.90
 	species_traits = list(NO_BREATHE, NOGUNS)
+	brute_mod = 0.8
+	burn_mod = 0.8

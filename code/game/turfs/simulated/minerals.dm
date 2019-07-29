@@ -48,6 +48,14 @@
 	setDir(angle2dir(rotation + dir2angle(dir)))
 	queue_smooth(src)
 
+/turf/simulated/mineral/attack_hand(mob/living/carbon/human/M)
+	if(isashwalker(M)) // Ash walkers can dig without a pickaxe
+		to_chat(M, "<span class='notice'>You start digging into the rock...</span>")
+		playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
+		if(do_after(M, 80, target = src)) // But it takes longer
+			to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
+			gets_drilled()
+
 /turf/simulated/mineral/attackby(var/obj/item/pickaxe/P as obj, mob/user as mob, params)
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")

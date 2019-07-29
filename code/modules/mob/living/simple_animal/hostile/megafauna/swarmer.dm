@@ -247,6 +247,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	check_friendly_fire = TRUE //you're supposed to protect the resource swarmers, you poop
 	retreat_distance = 3
 	minimum_distance = 3
+	speed = 1
 
 /mob/living/simple_animal/hostile/swarmer/ai/ranged_combat/Aggro()
 	..()
@@ -260,6 +261,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	health = 60
 	maxHealth = 60
 	ranged = FALSE
+	speed = 1
 
 /mob/living/simple_animal/hostile/swarmer/ai/melee_combat/Aggro()
 	..()
