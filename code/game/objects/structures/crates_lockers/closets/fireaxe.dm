@@ -55,15 +55,14 @@
 		if(!fireaxe)
 			var/obj/item/twohanded/fireaxe/F = O
 			if(F.wielded)
-				to_chat(user, "<span class='warning'>Unwield the axe first.</span>")
+				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
 				return
-			if(!user.canUnEquip(F, FALSE))
-				to_chat(user, "<span class='warning'>\The [src] stays stuck to your hands!</span>")
+			if(!user.unEquip(F, FALSE))
+				to_chat(user, "<span class='warning'>\The [F] stays stuck to your hands!</span>")
 				return
 			fireaxe = F
-			user.drop_item(F)
 			contents += F
-			to_chat(user, "<span class='notice'>You place the fire axe back in the [name].</span>")
+			to_chat(user, "<span class='notice'>You place \the [F] back in the [name].</span>")
 			update_icon()
 		else
 			if(smashed)
@@ -103,8 +102,9 @@
 	if(localopened)
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
+			to_chat(user, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
 			fireaxe = null
-			to_chat(user, "<span class='notice'>You take the fire axe from the [name].</span>")
+			
 			add_fingerprint(user)
 			update_icon()
 		else
@@ -127,7 +127,7 @@
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user as mob)
 	if(localopened && fireaxe)
 		fireaxe.forceMove(loc)
-		to_chat(user, "<span class='notice'>You telekinetically remove the fire axe.</span>")
+		to_chat(user, "<span class='notice'>You telekinetically remove \the [fireaxe].</span>")
 		fireaxe = null
 		update_icon()
 		return
@@ -157,12 +157,12 @@
 	if(localopened)
 		if(fireaxe)
 			usr.put_in_hands(fireaxe)
+			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
 			fireaxe = null
-			to_chat(usr, "<span class='notice'>You take the Fire axe from the [name].</span>")
 		else
-			to_chat(usr, "<span class='notice'>The [name] is empty.</span>")
+			to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
 	else
-		to_chat(usr, "<span class='notice'>The [name] is closed.</span>")
+		to_chat(usr, "<span class='notice'>The [src] is closed.</span>")
 	update_icon()
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
