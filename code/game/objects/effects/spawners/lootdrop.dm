@@ -122,6 +122,7 @@
 				/obj/item/wirecutters = 10,
 				/obj/item/wrench = 40,
 				/obj/item/unknown_tech/proto_tech = 35,
+				/obj/item/unknown_tech/myst_tech = 5,
 				/obj/item/weaponcrafting/receiver = 2,
 				/obj/item/clothing/shoes/brown = 30,
 				/obj/item/seeds/ambrosia/deus = 10,

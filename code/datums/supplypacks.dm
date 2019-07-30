@@ -951,7 +951,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/science/prototype
 	name = "Machine Prototype Crate"
-	contains = list(/obj/item/machineprototype)
+	contains = list(/obj/item/unknown_tech/machineprototype)
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "machine prototype crate"

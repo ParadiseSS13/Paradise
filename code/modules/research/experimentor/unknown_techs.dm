@@ -28,7 +28,6 @@
 	name = "Unknown Tech"
 	desc = "An unknown piece of technology. You get a strong feeling that this a glitch in the universe and shouldn't exist."
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 	var/unpacked_name = "Unknown"
 	var/stability
 	var/potency
@@ -51,7 +50,7 @@
 	var/vrare_weighting = 0.5
     // Base probability percentage for each rarity tier (common rarity is determined by the remainder out of 100%, 80% by default).
 	var/uncommon_base = 14
-	var/rare_base = 5
+	var/rare_base = 4
 	var/vrare_base = 0.5
 
 // Basically rolls 2d6 to approximate a normal distribution with a standard deviation of sigma and a mean of mu. Rounds to the nearest integer.
@@ -115,22 +114,49 @@
 	desc = "An unknown piece of technology stamped with the NanoTrasen logo. Clearly not production ready, it was probably left by a previous shift."
 	unpacked_name = "Prototype"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 
+// Spawns rarely in maintenance. TODO - Once weapons/armor start showing up, weight the type list to favor them.
 /obj/item/unknown_tech/myst_tech/
 	name = "Mysterious Technology"
 	desc = "An unknown piece of technology stamped only with a strange barcode. The tooling is clearly different from in-house."
 	unpacked_name = "Mysterious"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 	rare_weighting = 4
 	vrare_weighting = 2
+	stability_standardeviation = 10
+	stability_mean = 40
+	potency_standardeviation = 10
+	potency_mean = 60
+	innovation_standardeviation = 10
+	innovation_mean = 60
+	flexibility_min = 50
+	flexibility_max = 100
 
+// TODO - Once the crashed alien ship in lavaland is PR'd in, throw one of these in there. 
 /obj/item/unknown_tech/alien_tech/
 	name = "Alien Technology"
 	desc = "An unknown piece of technology stamped with lettering in no recognizable language. The make is unlike any you've ever seen."
 	unpacked_name = "Alien"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 	rare_weighting = 10
 	vrare_weighting = 20
+	stability_standardeviation = 10
+	stability_mean = 70
+	potency_standardeviation = 10
+	potency_mean = 70
+	innovation_standardeviation = 10
+	innovation_mean = 50
+	flexibility_min = 70
+	flexibility_max = 100
+
+// The machine prototype from cargo. It can still be used for engineering levels but also serves as unknown tech, 
+// albeit with worse stats and scaling.
+/obj/item/unknown_tech/machineprototype
+	name = "Machine Prototype"
+	desc = "An incredibly complex machine prototype from one of NanoTrasen's many other R&D facilities. It doesn't seem functional."
+	unpacked_name = "Prototype"
+	icon = 'icons/obj/machineprototype.dmi'
+	iconlist = list("machineprototype")
+	icon_state = "machineprototype"
+	materials = list(MAT_METAL=1000, MAT_GLASS=500)
+	origin_tech = "engineering=6"
