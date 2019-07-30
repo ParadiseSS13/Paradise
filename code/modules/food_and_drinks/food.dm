@@ -12,7 +12,7 @@
 	var/apply_method = "swallow"
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
-	var/taste = TRUE//whether you can taste eating from this
+	var/can_taste = TRUE//whether you can taste eating from this
 	var/antable = TRUE // Will ants come near it?
 	var/ant_location = null
 	var/ant_timer = null

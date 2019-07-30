@@ -4,7 +4,7 @@
 	description = "Floor paint is used to color floor tiles."
 	reagent_state = LIQUID
 	color = "#808080"
-	taste_message = "paint"
+	taste_description = "paint"
 
 /datum/reagent/paint/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))
@@ -55,7 +55,7 @@
 	description = "Paint remover is used to remove floor paint from floor tiles."
 	reagent_state = LIQUID
 	color = "#808080"
-	taste_message = "alcohol"
+	taste_description = "alcohol"
 
 /datum/reagent/paint_remover/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))

@@ -914,44 +914,6 @@
 	if(pulling && !(pulling in orange(1)))
 		stop_pulling()
 
-/mob/living/proc/get_taste_sensitivity()
-	return 1
-
-/mob/living/proc/taste_reagents(datum/reagents/tastes)
-	if(!get_taste_sensitivity())//this also works for IPCs and stuff that returns 0 here
-		return
-
-	var/do_not_taste_at_all = 1//so we don't spam with recent tastes
-
-	var/taste_sum = 0
-	var/list/taste_list = list()//associative list so we can stack stuff that tastes the same
-	var/list/final_taste_list = list()//final list of taste strings
-
-	for(var/datum/reagent/R in tastes.reagent_list)
-		taste_sum += R.volume * R.taste_strength
-		if(!R.taste_message)//set to null; no taste, like water
-			continue
-		taste_list[R.taste_message] += R.volume * R.taste_strength
-
-	for(var/R in taste_list)
-		if(recent_tastes[R] && (world.time - recent_tastes[R] < 12 SECONDS))
-			continue
-
-		do_not_taste_at_all = 0//something was fresh enough to taste; could still be bland enough to be unrecognizable
-
-		if(taste_list[R] / taste_sum >= 0.15 / get_taste_sensitivity())//we return earlier if the proc returns a 0; won't break the universe
-			final_taste_list += R
-			recent_tastes[R] = world.time
-
-	if(do_not_taste_at_all)
-		return //no message spam
-
-	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
-		return
-
-	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
-
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
 	if(registered_z != new_z)
 		if(registered_z)

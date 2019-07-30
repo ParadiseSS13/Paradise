@@ -785,6 +785,51 @@ var/const/INGEST = 2
 		trans_data["viruses"] = temp
 	return trans_data
 
+/datum/reagents/proc/generate_taste_message(minimum_percent=15)
+// the lower the minimum percent, the more sensitive the message is.
+	var/list/out = list()
+	var/list/tastes = list() //descriptor = strength
+	if(minimum_percent <= 100)
+		for(var/datum/reagent/R in reagent_list)
+			if(!R.taste_mult)
+				continue
+
+			if(istype(R, /datum/reagent/consumable/nutriment))
+				var/list/taste_data = R.data
+				for(var/taste in taste_data)
+					var/ratio = taste_data[taste]
+					var/amount = ratio * R.taste_mult * R.volume
+					if(taste in tastes)
+						tastes[taste] += amount
+					else
+						tastes[taste] = amount
+			else
+				var/taste_desc = R.taste_description
+				var/taste_amount = R.volume * R.taste_mult
+				if(taste_desc in tastes)
+					tastes[taste_desc] += taste_amount
+				else
+					tastes[taste_desc] = taste_amount
+		//deal with percentages
+		// TODO it would be great if we could sort these from strong to weak
+		var/total_taste = counterlist_sum(tastes)
+		if(total_taste > 0)
+			for(var/taste_desc in tastes)
+				var/percent = tastes[taste_desc]/total_taste * 100
+				if(percent < minimum_percent)
+					continue
+				var/intensity_desc = "a hint of"
+				if(percent > minimum_percent * 2 || percent == 100)
+					intensity_desc = ""
+				else if(percent > minimum_percent * 3)
+					intensity_desc = "the strong flavor of"
+				if(intensity_desc != "")
+					out += "[intensity_desc] [taste_desc]"
+				else
+					out += "[taste_desc]"
+
+	return english_list(out, "something indescribable")
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 

@@ -18,7 +18,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	taste_message = null
+	taste_description = null
 	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
@@ -36,7 +36,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
-	taste_message = "cherry"
+	taste_description = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -49,7 +49,7 @@
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
-	taste_message = "floor cleaner"
+	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(is_cleanable(O))
@@ -123,7 +123,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
-	taste_message = "<span class='warning'>blood</span>"
+	taste_description = "<span class='warning'>blood</span>"
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
@@ -205,7 +205,7 @@
 	name = "Vaccine"
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
-	taste_message = "antibodies"
+	taste_description = "antibodies"
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(islist(data) && (method == INGEST))
@@ -225,7 +225,7 @@
 	description = "Smelly water from a fish tank. Gross!"
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_message = "puke"
+	taste_description = "puke"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -245,7 +245,7 @@
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_message = "puke"
+	taste_description = "puke"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
 	return
@@ -260,7 +260,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	taste_message = null
+	taste_description = null
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -361,7 +361,7 @@
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
-	taste_message = "sulfur"
+	taste_description = "sulfur"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -390,7 +390,7 @@
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
 	can_synth = FALSE
-	taste_message = "admin abuse"
+	taste_description = "admin abuse"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -407,7 +407,7 @@
 	color = "#FF9966"
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
-	taste_message = "meat"
+	taste_description = "meat"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
@@ -420,7 +420,7 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_message = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
+	taste_description = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
@@ -428,7 +428,7 @@
 	description = "Can be used to dry things."
 	reagent_state = LIQUID
 	color = "#A70FFF"
-	taste_message = "dry mouth"
+	taste_description = "dry mouth"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T) && T.wet)

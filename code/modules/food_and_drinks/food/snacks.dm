@@ -16,9 +16,22 @@
 	var/cooktype[0]
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
+	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
+/obj/item/reagent_containers/food/snacks/add_initial_reagents()
+	if(!list_reagents)
+		return
+	if(!tastes || !tastes.len)
+		return ..()
+	var/list/nutritious_reagents = list("nutriment", "protein", "plantmatter")
+	for(var/reagent_id in list_reagents)
+		var/amount = list_reagents[reagent_id]
+		if(reagent_id in nutritious_reagents)
+			reagents.add_reagent(reagent_id, amount, tastes.Copy())
+		else
+			reagents.add_reagent(reagent_id, amount)
 
-	//Placeholder for effect that trigger on eating that aren't tied to reagents.
+//Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
@@ -153,11 +166,13 @@
 				C.adjustFireLoss(-5)
 				qdel(src)
 				G.last_eaten = world.time
+				G.taste(reagents)
 			else
 				M.visible_message("[M] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
 				G.last_eaten = world.time
+				G.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
@@ -166,6 +181,7 @@
 			//N.emote("nibbles away at the [src]")
 			N.adjustBruteLoss(-1)
 			N.adjustFireLoss(-1)
+			N.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()

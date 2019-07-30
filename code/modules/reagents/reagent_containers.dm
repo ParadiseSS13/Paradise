@@ -35,6 +35,9 @@
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
+	add_initial_reagents()
+
+obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
