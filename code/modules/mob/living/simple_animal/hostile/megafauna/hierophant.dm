@@ -498,6 +498,7 @@ Difficulty: Hard
 	name = "vortex blast"
 	luminosity = 1
 	desc = "Get out of the way!"
+	layer = BELOW_OBJ_LAYER
 	duration = 9
 	var/damage = 10 //how much damage do we do?
 	var/list/hit_things = list() //we hit these already, ignore them
