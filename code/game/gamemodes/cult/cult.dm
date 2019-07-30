@@ -4,28 +4,21 @@ var/global/list/all_cults = list()
 	var/list/datum/mind/cult = list()
 
 /proc/iscultist(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
+	return istype(M) && M.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
 
 
-/proc/is_convertable_to_cult(datum/mind/mind)
-	if(!mind)
+/proc/is_convertable_to_cult(mob/living/M)
+	if(!istype(M))
 		return 0
-	if(!mind.current)
-		return 0
-	if(iscultist(mind.current))
-		return 1 //If they're already in the cult, assume they are convertable
-	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))
-		return 0
-	if(ishuman(mind.current))
-		var/mob/living/carbon/human/H = mind.current
-		if(ismindshielded(H))
+	if(M.mind)
+		if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
 			return 0
-	if(issilicon(mind.current))
-		return 0 //can't convert machines, that's ratvar's thing
-	if(isguardian(mind.current))
-		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(!iscultist(G.summoner))
-			return 0 //can't convert it unless the owner is converted
+		if(is_sacrifice_target(M.mind))
+			return 0
+	else
+		return 0
+	if(ismindshielded(M) || issilicon(M) || isbot(M))
+		return 0 //can't convert machines, shielded
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)
@@ -47,7 +40,6 @@ var/global/list/all_cults = list()
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
-
 
 	var/list/objectives = list()
 
@@ -97,8 +89,8 @@ var/global/list/all_cults = list()
 		var/datum/mind/cultist = pick(cultists_possible)
 		cultists_possible -= cultist
 		cult += cultist
-		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
+		cultist.restricted_roles = restricted_jobs
 	..()
 	return (cult.len>0)
 
@@ -106,7 +98,6 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
 	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
-
 	if(!summon_spots.len)
 		while(summon_spots.len < SUMMON_POSSIBILITIES)
 			var/area/summon = pick(return_sorted_areas() - summon_spots)
@@ -114,13 +105,7 @@ var/global/list/all_cults = list()
 				summon_spots += summon
 
 	for(var/datum/mind/cult_mind in cult)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
-		equip_cultist(cult_mind.current)
-		cult_mind.current.faction |= "cult"
-		var/datum/action/innate/cultcomm/C = new()
-		C.Grant(cult_mind.current)
-		update_cult_icons_added(cult_mind)
-		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
+		add_cultist(cult_mind, TRUE)
 
 	first_phase()
 
@@ -148,65 +133,20 @@ var/global/list/all_cults = list()
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
 
-/datum/game_mode/proc/equip_cultist(mob/living/carbon/human/mob)
-	if(!istype(mob))
-		return
-
-	if(mob.mind)
-		if(mob.mind.assigned_role == "Clown")
-			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			mob.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(mob)
-	var/obj/item/paper/talisman/supply/T = new(mob)
-	var/list/slots = list (
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
-	)
-	var/where = mob.equip_in_one_of_slots(T, slots)
-	if(!where)
-		to_chat(mob, "<span class='danger'>Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.</span>")
-	else
-		to_chat(mob, "<span class='cult'>You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.</span>")
-		mob.update_icons()
-		return 1
-
-
-/datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
+/datum/game_mode/proc/add_cultist(datum/mind/cult_mind, equip = FALSE) //BASE
 	if(!istype(cult_mind))
 		return 0
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
-		cult += cult_mind
-		cult_mind.current.faction |= "cult"
-		var/datum/action/innate/cultcomm/C = new()
-		C.Grant(cult_mind.current)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
-		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
-		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
-			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
-		update_cult_icons_added(cult_mind)
-		cult_mode.memorize_cult_objectives(cult_mind)
-		if(GAMEMODE_IS_CULT)
-			cult_mode.check_numbers()
-		return 1
+	var/datum/antagonist/cult/C = new()
+	C.talisman = equip
+	if(cult_mind.add_antag_datum(C))
+		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
-	if(cult_mind in cult)
-		cult -= cult_mind
-		to_chat(cult_mind.current, "<span class='danger'>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</span>")
-		cult_mind.current.faction -= "cult"
-		cult_mind.memory = ""
-		cult_mind.special_role = null
-		for(var/datum/action/innate/cultcomm/C in cult_mind.current.actions)
-			qdel(C)
-		update_cult_icons_removed(cult_mind)
-		if(show_message)
-			for(var/mob/M in viewers(cult_mind.current))
-				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")
+	if(cult_mind)
+		var/datum/antagonist/cult/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/cult, TRUE)
+		if(!cult_datum)
+			return FALSE
+		cult_datum.on_removal()
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
@@ -219,10 +159,6 @@ var/global/list/all_cults = list()
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, null)
-
-/datum/game_mode/proc/update_cult_comms_added(datum/mind/cult_mind)
-	var/datum/action/innate/cultcomm/C = new()
-	C.Grant(cult_mind.current)
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()

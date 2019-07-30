@@ -211,7 +211,7 @@
 	. = _memory_edit_header("cult")
 	if(ismindshielded(H))
 		. += "<B>NO</B>|cultist"
-	else if(src in SSticker.mode.cult)
+	else if(has_antag_datum(/datum/antagonist/cult))
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 		. += "<br>Give <a href='?src=[UID()];cult=tome'>tome</a>|<a href='?src=[UID()];cult=equip'>equip</a>."
 	else
@@ -695,7 +695,7 @@
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
 					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
-				if(src in SSticker.mode.cult)
+				if(has_antag_datum(/datum/antagonist/cult))
 					SSticker.mode.cult -= src
 					SSticker.mode.update_cult_icons_removed(src)
 					special_role = null
@@ -811,16 +811,13 @@
 	else if(href_list["cult"])
 		switch(href_list["cult"])
 			if("clear")
-				if(src in SSticker.mode.cult)
-					SSticker.mode.remove_cultist(src)
-					special_role = null
+				if(has_antag_datum(/datum/antagonist/cult))
+					remove_antag_datum(/datum/antagonist/cult)
 					log_admin("[key_name(usr)] has de-culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
-				if(!(src in SSticker.mode.cult))
-					SSticker.mode.add_cultist(src)
-					special_role = SPECIAL_ROLE_CULTIST
-					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
+				if(!has_antag_datum(/datum/antagonist/cult))
+					add_antag_datum(/datum/antagonist/cult)
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
@@ -851,7 +848,8 @@
 						message_admins("[key_name_admin(usr)] has spawned a tome for [key_name_admin(current)]")
 
 			if("equip")
-				if(!SSticker.mode.equip_cultist(current))
+				var/datum/antagonist/cult/C = new()
+				if(!C.equip_cultist(src))
 					to_chat(usr, "<span class='warning'>Spawning equipment failed!</span>")
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a cultist")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
@@ -1338,7 +1336,7 @@
 		if(!istype(A))
 			return
 	else
-		A = new datum_type_or_instance()
+		A = new datum_type_or_instance(src)
 	//Choose snowflake variation if antagonist handles it
 	var/datum/antagonist/S = A.specialization(src)
 	if(S && S != A)
@@ -1354,6 +1352,7 @@
 	if(antag_team)
 		antag_team.add_member(src)
 	A.on_gain()
+	log_game("[key_name(src)] has gained antag datum [A.name]([A.type])")
 	return A
 
 /datum/mind/proc/remove_antag_datum(datum_type)

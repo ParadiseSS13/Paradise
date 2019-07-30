@@ -1578,7 +1578,7 @@
 			return
 
 		for(var/datum/mind/H in SSticker.mode.cult)
-			if (H.current)
+			if(H.current)
 				to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)

@@ -372,9 +372,9 @@ var/list/teleport_runes = list()
 
 	new_cultist.visible_message("<span class='warning'>[new_cultist] writhes in pain as the markings below them glow a bloody red!</span>", \
 					  			"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
-	SSticker.mode.add_cultist(new_cultist.mind, 1)
+	SSticker.mode.add_cultist(new_cultist.mind)
 	new /obj/item/tome(get_turf(src))
-	new_cultist.mind.special_role = "Cultist"
+	new_cultist.mind.special_role = SPECIAL_ROLE_CULTIST
 	to_chat(new_cultist, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 	and something evil takes root.</b></span>")
 	to_chat(new_cultist, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.\

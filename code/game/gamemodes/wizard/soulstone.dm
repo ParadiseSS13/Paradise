@@ -273,11 +273,7 @@
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
-							if(SSticker.mode.name == "cult")
-								SSticker.mode:add_cultist(Z.mind)
-							else
-								SSticker.mode.cult+=Z.mind
-							SSticker.mode.update_cult_icons_added(Z.mind)
+							Z.mind.add_antag_datum(/datum/antagonist/cult)
 						qdel(T)
 						to_chat(Z, "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>")
 						to_chat(Z, "<B>You are still bound to serve your creator, follow [U.p_their()] orders and help [U.p_them()] complete [U.p_their()] goals at all costs.</B>")
@@ -289,10 +285,7 @@
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
-							if(SSticker.mode.name == "cult")
-								SSticker.mode:add_cultist(Z.mind)
-							else
-								SSticker.mode.cult+=Z.mind
+							Z.mind.add_antag_datum(/datum/antagonist/cult)
 							SSticker.mode.update_cult_icons_added(Z.mind)
 						qdel(T)
 						to_chat(Z, "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>")
@@ -305,11 +298,7 @@
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
-							if(SSticker.mode.name == "cult")
-								SSticker.mode:add_cultist(Z.mind)
-							else
-								SSticker.mode.cult+=Z.mind
-							SSticker.mode.update_cult_icons_added(Z.mind)
+							Z.mind.add_antag_datum(/datum/antagonist/cult)
 						qdel(T)
 						to_chat(Z, "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>")
 						to_chat(Z, "<B>You are still bound to serve your creator, follow [U.p_their()] orders and help [U.p_them()] complete [U.p_their()] goals at all costs.</B>")
@@ -326,11 +315,7 @@
 	newstruct.faction |= "\ref[stoner]"
 	newstruct.key = target.key
 	if(stoner && iscultist(stoner) || cultoverride)
-		if(SSticker.mode.name == "cult")
-			SSticker.mode:add_cultist(newstruct.mind)
-		else
-			SSticker.mode.cult+=newstruct.mind
-		SSticker.mode.update_cult_icons_added(newstruct.mind)
+		newstruct.mind.add_antag_datum(/datum/antagonist/cult)
 	if(stoner && iswizard(stoner))
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow [stoner.p_their()] orders and help [stoner.p_them()] complete [stoner.p_their()] goals at all costs.</B>")
 	else if(stoner && iscultist(stoner))

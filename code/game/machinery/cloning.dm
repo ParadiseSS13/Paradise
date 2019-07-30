@@ -420,10 +420,6 @@
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
-	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.add_cultist(occupant.mind)
-		SSticker.mode.update_cult_icons_added() //So the icon actually appears
-		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
 	if((H.mind in SSticker.mode.implanter) || (H.mind in SSticker.mode.implanted))
 		SSticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(H.mind.vampire)

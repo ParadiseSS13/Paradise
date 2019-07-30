@@ -26,10 +26,6 @@
 		if("sacrifice")
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
-	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
-
 /datum/game_mode/cult/proc/bypass_phase()
 
 	switch(objectives[current_objective])
@@ -169,13 +165,13 @@
 	if(!spilled_blood && (bloody_floors.len < spilltarget))
 		possible_objectives |= "bloodspill"
 
-	if(!sacrificed.len)
+/* 	if(!sacrificed.len)
 		var/list/possible_targets = get_possible_sac_targets()
 		if(possible_targets.len > 0)
 			sacrifice_target = pick(possible_targets)
 			possible_objectives |= "sacrifice"
 		else
-			log_runtime(EXCEPTION("Didn't find a suitable sacrifice target...what the hell? Shout at a coder."))
+			log_runtime(EXCEPTION("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")) */
 
 	if(!mass_convert)
 		var/living_crew = 0

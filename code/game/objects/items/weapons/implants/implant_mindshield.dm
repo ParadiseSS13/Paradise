@@ -26,7 +26,7 @@
 			return -1
 		if(target.mind in SSticker.mode.revolutionaries)
 			SSticker.mode.remove_revolutionary(target.mind)
-		if(target.mind in SSticker.mode.cult)
+		if(target.mind.has_antag_datum(/datum/antagonist/cult))
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		else
 			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")

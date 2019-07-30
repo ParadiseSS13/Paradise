@@ -15,6 +15,8 @@
 	sharedSoullinks = null
 	return ..()
 
+/mob/living/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
+	return
 //Keeps track of a Mob->Mob (potentially Player->Player) connection
 //Can be used to trigger actions on one party when events happen to another
 //Eg: shared deaths

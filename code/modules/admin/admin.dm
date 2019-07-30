@@ -804,7 +804,7 @@ var/global/nologevent = 0
 		if(SSticker.mode.config_tag == "revolution")
 			return 2
 		return 1
-	if(M.mind in SSticker.mode.cult)
+	if(M.mind.has_antag_datum(/datum/antagonist/cult))
 		if(SSticker.mode.config_tag == "cult")
 			return 2
 		return 1

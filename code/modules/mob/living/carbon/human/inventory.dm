@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
+/mob/living/carbon/human/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
 	for(var/slot in slots)
 		if(equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
 			return slot
