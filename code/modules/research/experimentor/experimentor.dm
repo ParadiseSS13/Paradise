@@ -244,6 +244,7 @@
 			to_chat(usr, "<span class='notice'>The E.X.P.E.R.I-MENTOR beeps and assembles a new prototype from the spare parts reserve!</span>")
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			loaded_item = new/obj/item/unknown_tech/proto_tech()
+			spareparts -= 100
 			ejectItem()
 	src.updateUsrDialog()
 	return

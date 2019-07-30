@@ -12,8 +12,8 @@
 //
 // Relevant Vars (for future expansion)
 // unpacked_name - This is used for the first part of the unpacked device name, i.e "Alien Whatever Whatever"
-// stability - Determines failure rate of activated objects. Low stability may cause catastrophic failure on activation, destroying the object.
-// potency - How good the object is at doing what it does. Amplifies positive/negative effects.
+// stability - Improves the lower bound for objects with randomly determined effects. Also affects failure rate if any, cooldown time and tweak flex cost.
+// potency - Improves the upper bound for objects with randomly determined effects. Can also increase/decrease damage and other numerical power.
 // innovation - How likely the object is to be a rarer and more powerful variety.
 // flexibility - The "currency" used to tweak the item's stats in the experimentor. An upgraded experimentor uses slightly less flexibility for each tweak.
 // typelist - The possible types of the object. Types serve as loot lists, just bear in mind that the type is chosen on spawn from the available ones, not combined.
@@ -37,11 +37,11 @@
 	var/containedtype
 	var/list/typelist = list("Device", "Device", "Device")
 	var/list/iconlist = list("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
-	var/stability_standardeviation = 10
+	var/stability_standardeviation = 15
 	var/stability_mean = 50
-	var/potency_standardeviation = 10
+	var/potency_standardeviation = 15
 	var/potency_mean = 50
-	var/innovation_standardeviation = 10
+	var/innovation_standardeviation = 15
 	var/innovation_mean = 50
 	var/flexibility_min = 20
 	var/flexibility_max = 100

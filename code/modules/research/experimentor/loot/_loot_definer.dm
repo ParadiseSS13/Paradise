@@ -59,8 +59,9 @@
     // define the item to be granted as loot.
 	loot_item = definitionByType()
 	// name and describe the item unless the definition says not to.
-	if(loot_named)
+	if(loot_named && loot_item != null)
 		loot_item.name = box_type + " [generateSecondName()][generateThirdName()]"
+	if(loot_described && loot_item != null)
 		loot_item.desc = generateDescription()
 	return loot_item
 
@@ -75,13 +76,13 @@
         if("Device")
             // Lists by rarity.
             if(raritylevel == RARITY_COMMON)
-                return pick("rapiddupe")
+                return pick("rapiddupe", "throwSmoke", "floofcannon", "teleport", "nothing")
             if(raritylevel == RARITY_UNCOMMON)
-                return pick("teleport", "rapiddupe")
+                return pick("teleport", "rapiddupe", "explode", "petSpray", "flash", "clean")
             if(raritylevel == RARITY_RARE)
-                return pick("clean", "teleport", "flash")
+                return pick("explode", "petSpray", "rapiddupe", "flash", "teleport")
             if(raritylevel == RARITY_VERYRARE)
-                return pick("flash", "teleport", "clean")
+                return pick("teleport", "explode", "rapiddupe")
     return
 
 
@@ -96,12 +97,24 @@
     // Try to keep your loot and device types in alphabetical order.
     switch(item_category)
         if("Device")
-            switch(loot_keywords)
+            switch(item_type)
                 if("clean")
                     loot_keywords.Add("destruction")
                     return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
+                if("explode")
+                    loot_keywords.Add("destruction", "sound")
+                    return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
                 if("flash")
                     loot_keywords.Add("stun", "light", "sound")
+                    return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
+                if("floofcannon")
+                    loot_keywords.Add("animals", "replication")
+                    return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
+                if("nothing")
+                    loot_keywords.Add("clowns")
+                    return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
+                if("petSpray")
+                    loot_keywords.Add("animals", "replication")
                     return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
                 if("rapiddupe")
                     loot_keywords.Add("replication")
@@ -109,6 +122,9 @@
                     return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
                 if("teleport")
                     loot_keywords.Add("teleportation", "bluespace")
+                    return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
+                if("throwSmoke")
+                    loot_keywords.Add("destruction", "light")
                     return new/obj/item/discovered_tech(stability, potency, raritylevel, item_type)
 
 
@@ -177,6 +193,11 @@
                 possiblenames.Add("Blaster")
             if("light")
                 possiblenames.Add("Photon Manipulator", "Modulator", "Strobe")
+            if("animals")
+                possiblenames.Add("Bio-Invigorator", "Cloner")
+    //If there are no names available for the chosen keyword, pick a generic name instead.
+    if(possiblenames.len<1)
+        return pick("Doohickey", "Thingummywhatsit", "Machine", "Tech")
     return pick(possiblenames)
 
 //////////////////////// IV. DESCRIPTION //////////////////////////
