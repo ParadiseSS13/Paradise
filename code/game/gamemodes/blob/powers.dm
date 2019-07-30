@@ -234,7 +234,7 @@
 	blobber.overmind = src
 	blob_mobs.Add(blobber)
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1)
+		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 150)
 		if(candidates.len)
 			var/mob/C = pick(candidates)
 			if(C)

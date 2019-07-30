@@ -184,8 +184,8 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
 		if (locate(/obj/structure/blob) in get_turf(src))
-			adjustBruteLoss(-0.5)
-			adjustFireLoss(-0.5)
+			adjustBruteLoss(-0.25)
+			adjustFireLoss(-0.25)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return
