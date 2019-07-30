@@ -70,30 +70,30 @@
 
 /obj/item/unknown_tech/proc/adjuststability(var/statchange)
 	stability += statchange
-	if (stability > 100)
+	if(stability > 100)
 		stability = 100
-	if (stability < 0)
+	if(stability < 0)
 		stability = 0
 
 /obj/item/unknown_tech/proc/adjustinnovation(var/statchange)
 	innovation += statchange
-	if (innovation > 100)
+	if(innovation > 100)
 		innovation = 100
-	if (innovation < 0)
+	if(innovation < 0)
 		innovation = 0
 
 /obj/item/unknown_tech/proc/adjustpotency(var/statchange)
 	potency += statchange
-	if (potency > 100)
+	if(potency > 100)
 		potency = 100
-	if (potency < 0)
+	if(potency < 0)
 		potency = 0
 
 /obj/item/unknown_tech/proc/adjustflexibility(var/statchange)
 	flexibility += statchange
-	if (flexibility > 100)
+	if(flexibility > 100)
 		flexibility = 100
-	if (flexibility < 0)
+	if(flexibility < 0)
 		flexibility = 0
 
 /obj/item/unknown_tech/proc/reroll()

@@ -22,14 +22,14 @@
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	desc = "A marvel of technology, the onboard AI is capable of turning compatible material into brand-new contraptions... sometimes."
 	icon_state = "h_lathe"
-	var/list/allowedobjects = list(/obj/item/discovered_tech)
+	var/list/allowedobjects = list(/obj/item/discovered_tech, /obj/item/unknown_tech)
 	density = 1
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	var/base_flex_cost = 10
 	var/precise_scanner = 0
 	var/spareparts = 0
-	var/obj/experimentor/loot_definer/LootDefiner = new/obj/experimentor/loot_definer()
+	var/datum/experimentor/loot_definer/LootDefiner = new/datum/experimentor/loot_definer()
 
 /obj/machinery/r_n_d/experimentor/New()
 	..()
@@ -75,7 +75,7 @@
 		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
 
-	if(istype(O, /obj/item/unknown_tech) || (O != null && O.type in allowedobjects))
+	if(O != null && (istype(O, /obj/item/unknown_tech) || istype(O, /obj/item/discovered_tech)))
 		if(!user.drop_item())
 			return
 		loaded_item = O
@@ -104,15 +104,15 @@
 
 //Returns a string based on the level of the checked stat.
 /obj/machinery/r_n_d/experimentor/proc/getvaguestat(var/stat)
-	if (stat<21)
+	if(stat<21)
 		return "Very Low"
-	if (stat>20 && stat<41)
+	if(stat>20 && stat<41)
 		return "Low"
-	if (stat>40 && stat<61)
+	if(stat>40 && stat<61)
 		return "Average"
-	if (stat>60 && stat<81)
+	if(stat>60 && stat<81)
 		return "High"
-	if (stat>80)
+	if(stat>80)
 		return "Very High"
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
@@ -121,10 +121,10 @@
 	if(istype(loaded_item, /obj/item/unknown_tech))
 		var/obj/item/unknown_tech/T = loaded_item
 		dat += "<b>Loaded Item:</b> [T.name]<br>"
-		if (precise_scanner>=2)
+		if(precise_scanner>=2)
 			dat += "<b>Item Type:</b> [T.containedtype]<br>"
 		dat += "<br>"
-		if (precise_scanner>=3)
+		if(precise_scanner>=3)
 			dat += "<b>Stability:</b> [T.stability]<br>"
 			dat += "<b>Potency:</b> [T.potency]<br>"
 			dat += "<b>Innovation:</b> [T.innovation]<br>"
@@ -135,7 +135,7 @@
 			dat += "<b>Innovation:</b> [getvaguestat(T.innovation)]<br>"
 			dat += "<b>Flexibility:</b> [getvaguestat(T.flexibility)]<br>"
 
-		if (precise_scanner >= 4)
+		if(precise_scanner >= 4)
 			dat += "<br><b>Odds:</b>"
 			dat += "<br>Uncommon: [min(((T.uncommon_weighting*T.innovation/100+1)*T.uncommon_base), 100)]%"
 			dat += "<br>Rare: [min(((T.rare_weighting*T.innovation/100+1)*T.rare_base), 100)]%"
@@ -151,7 +151,7 @@
 		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b>"
 		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Scramble</A></b><br>"
 		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</A>"
-	else if (loaded_item != null)
+	else if(loaded_item != null)
 		dat += "<b>Loaded Item:</b> [loaded_item.name]<br>"
 		dat += "<br>Available actions:"
 		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_RECYCLE]'>Recycle</A></b><br>"
@@ -188,33 +188,33 @@
 		var/adjusted_flex_cost = base_flex_cost - (round(T.stability/20,1)-2)
 		if(text2num(scantype) == SCANTYPE_POKE)
 			T.adjuststability(rand(2,10))
-			T.adjustinnovation(0-rand(0,6))
-			T.adjustflexibility(0-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
+			T.adjustinnovation(-rand(0,6))
+			T.adjustflexibility(-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
 			to_chat(usr, "<span class='notice'>Mechanical arms carefully grease and work the [T.name] as lasers prune away excess weight.</span>")
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		if(text2num(scantype) == SCANTYPE_IRRADIATE)
 			T.adjustinnovation(rand(2,6))
-			T.adjuststability(0-rand(0,4))
-			T.adjustpotency(0-rand(0,4))
-			T.adjustflexibility(0-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
+			T.adjuststability(-rand(0,4))
+			T.adjustpotency(-rand(0,4))
+			T.adjustflexibility(-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
 			to_chat(usr, "<span class='notice'>The E.X.P.E.R.I-MENTOR removes a single part from the [T.name], replacing it with a different one.</span>")
 			playsound(src.loc, 'sound/weapons/gun_interactions/pistol_magin.ogg', 50, 1)
 		if(text2num(scantype) == SCANTYPE_GAS)
 			T.adjustpotency(rand(2,10))
-			T.adjustinnovation(0-rand(0,6))
-			T.adjustflexibility(0-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
+			T.adjustinnovation(-rand(0,6))
+			T.adjustflexibility(-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
 			to_chat(usr, "<span class='notice'>The E.X.P.E.R.I-MENTOR replaces some of the more delicate components in the [T.name] with more rugged equivalents.</span>")
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		if(text2num(scantype) == SCANTYPE_HEAT)
 			T.adjustpotency(rand(2,8))
-			T.adjuststability(0-rand(0,6))
-			T.adjustflexibility(0-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
+			T.adjuststability(-rand(0,6))
+			T.adjustflexibility(-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
 			to_chat(usr, "<span class='notice'>The [T.name] glows ever so slightly as its core clock speed increases.</span>")
 			playsound(loc, "sparks", 75, 1, -1)
 		if(text2num(scantype) == SCANTYPE_COLD)
 			T.adjuststability(rand(2,8))
-			T.adjustpotency(0-rand(0,6))
-			T.adjustflexibility(0-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
+			T.adjustpotency(-rand(0,6))
+			T.adjustflexibility(-rand(adjusted_flex_cost, adjusted_flex_cost + 5))
 			to_chat(usr, "<span class='notice'>The E.X.P.E.R.I-MENTOR adds a new coolant cell and some tubing to the [T.name].</span>")
 			playsound(loc, 'sound/items/welder.ogg', 50, 1)
 		if(text2num(scantype) == SCANTYPE_DISCOVER)
@@ -224,7 +224,7 @@
 			playsound(src.loc, 'sound/items/rped.ogg', 50, 1)
 		if(text2num(scantype) == SCANTYPE_OBLITERATE)
 			T.reroll()
-			T.adjustflexibility(0-rand(adjusted_flex_cost*2+5, adjusted_flex_cost*3+5))
+			T.adjustflexibility(-5+rand(adjusted_flex_cost*2, adjusted_flex_cost*3))
 			to_chat(usr, "<span class='notice'>The [T.name] is carefully taken apart and reassembled in a brand-new configuration by the tiny manipulators.</span>")
 			playsound(src.loc, 'sound/items/rped.ogg', 50, 1)
 		if(text2num(scantype) == SCANTYPE_RECYCLE)
@@ -240,7 +240,7 @@
 				to_chat(usr, "<span class='warning'>The [T.name] cannot handle the adjustment and breaks apart!</span>")
 				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 				criticalfailure()
-		if (spareparts >= 100)
+		if(spareparts >= 100)
 			to_chat(usr, "<span class='notice'>The E.X.P.E.R.I-MENTOR beeps and assembles a new prototype from the spare parts reserve!</span>")
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			loaded_item = new/obj/item/unknown_tech/proto_tech()
@@ -250,8 +250,7 @@
 	return
 
 /obj/machinery/r_n_d/experimentor/proc/criticalfailure()
-	var/failuretype = rand(1,8)
-	switch(failuretype)
+	switch(rand(1,10))
 		if(1)
 			visible_message("<span class='danger'>Nearby people are hit by debris!</span>")
 			for(var/mob/living/m in oview(1, src))
@@ -288,6 +287,10 @@
 				if(!AM.anchored)
 					spawn(0)
 						AM.throw_at(src,10,1)
+		if(7)
+			var/mobtype = pick(/mob/living/simple_animal/hostile/bear,/mob/living/simple_animal/hostile/poison/bees,/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/pet/pug)
+			new mobtype(get_turf(src))
+			visible_message("<span class='danger'>The damaged device opens a rift in space, and something falls out!</span>")
 
 
 
@@ -295,11 +298,11 @@
 /obj/machinery/r_n_d/experimentor/proc/discover(var/obj/item/unknown_tech/T)
 	//Rarity Roll - Starts common. Better tiers overwrite if they crop up.
 	var/rarity = RARITY_COMMON
-	if (prob(min(((T.uncommon_weighting*T.innovation/100+1)*T.uncommon_base), 100)))
+	if(prob((T.uncommon_weighting*T.innovation/100+1)*T.uncommon_base))
 		rarity = RARITY_UNCOMMON
-	if (prob(min(((T.rare_weighting*T.innovation/100+1)*T.rare_base), 100)))
+	if(prob((T.rare_weighting*T.innovation/100+1)*T.rare_base))
 		rarity = RARITY_RARE
-	if (prob(min(((T.vrare_weighting*T.innovation/100+1)*T.vrare_base), 100)))
+	if(prob((T.vrare_weighting*T.innovation/100+1)*T.vrare_base))
 		rarity = RARITY_VERYRARE
 
 	return LootDefiner.define(T.stability, T.potency, T.unpacked_name, rarity, T.containedtype)
