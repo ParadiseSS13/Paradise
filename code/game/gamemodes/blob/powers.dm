@@ -207,7 +207,7 @@
 
 /mob/camera/blob/verb/create_blobbernaut()
 	set category = "Blob"
-	set name = "Create Blobbernaut (20)"
+	set name = "Create Blobbernaut (40)"
 	set desc = "Create a powerful blob-being, a Blobbernaut"
 
 	var/turf/T = get_turf(src)
@@ -224,7 +224,7 @@
 		to_chat(src, "Unable to use this blob, find a factory blob.")
 		return
 
-	if(!can_buy(20))
+	if(!can_buy(40))
 		return
 
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
@@ -233,6 +233,13 @@
 	blobber.color = blob_reagent_datum.complementary_color
 	blobber.overmind = src
 	blob_mobs.Add(blobber)
+	spawn()
+		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1)
+		if(candidates.len)
+			var/mob/C = pick(candidates)
+			if(C)
+				blobber.key = C.key
+				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
 	return
 
 

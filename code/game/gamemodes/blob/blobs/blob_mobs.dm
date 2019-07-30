@@ -163,10 +163,10 @@
 	icon_state = "blobbernaut"
 	icon_living = "blobbernaut"
 	icon_dead = "blobbernaut_dead"
-	health = 240
-	maxHealth = 240
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	health = 200
+	maxHealth = 200
+	melee_damage_lower = 10
+	melee_damage_upper = 15
 	obj_damage = 60
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
@@ -175,14 +175,25 @@
 	maxbodytemp = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
-	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
+/mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
+	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
+		if (locate(/obj/structure/blob) in get_turf(src))
+			adjustBruteLoss(-0.5)
+			adjustFireLoss(-0.5)
+
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/New()
+	..()
+	if(name == "blobbernaut")
+		name = text("blobbernaut ([rand(1, 1000)])")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died
@@ -190,3 +201,19 @@
 	if(!.)
 		return FALSE
 	flick("blobbernaut_death", src)
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/verb/communicate_overmind()
+	set category = "Blobbernaut"
+	set name = "Blob Telepathy"
+	set desc = "Send a message to the Overmind"
+
+	if(stat != DEAD)
+		blob_talk()
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
+	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	if(message)
+		for(var/mob/M in GLOB.mob_list)
+			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
+				M.show_message(rendered, 2)
