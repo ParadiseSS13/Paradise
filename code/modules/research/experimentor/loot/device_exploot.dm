@@ -32,7 +32,6 @@
 	cooldownMax = choosecooldown()
 	if(techProc != null)
 		initializeProc()
-	warn_admins_creation()
 
 /obj/item/discovered_tech/attack_self(mob/user)
 	if(cooldown)
