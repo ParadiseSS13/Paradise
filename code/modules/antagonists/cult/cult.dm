@@ -4,9 +4,32 @@
 	job_rank = ROLE_CULTIST
 	var/datum/action/innate/cultcomm/communion = new()
 	var/talisman = FALSE // to give starting cultists supply talismans
+	var/datum/team/cult/cult_team
+
+/datum/antagonist/cult/get_team()
+	return cult_team
+
+/datum/antagonist/cult/create_team(datum/team/cult/new_team)
+	if(!new_team)
+		for(var/datum/antagonist/cult/H in GLOB.antagonists)
+			if(!H.owner)
+				continue
+			if(H.cult_team)
+				cult_team = H.cult_team
+				return
+		cult_team = new /datum/team/cult
+		cult_team.setup_objectives()
+		return
+	if(!istype(new_team))
+		stack_trace("Wrong team type passed to [type] initialization.")
+	cult_team = new_team
+
+/datum/antagonist/cult/proc/add_objectives()
+	objectives |= cult_team.objectives
+	owner.objectives |= objectives
 
 /datum/antagonist/cult/Destroy()
-	qdel(communion)
+	QDEL_NULL(communion)
 	return ..()
 
 /datum/antagonist/cult/can_be_owned(datum/mind/new_owner)
@@ -47,16 +70,15 @@
 			return 1
 
 /datum/antagonist/cult/on_gain()
+	. = ..()
 	if(SSticker && SSticker.mode && owner)
+		add_objectives()
 		SSticker.mode.cult += owner
 		SSticker.mode.update_cult_icons_added(owner)
-		var/datum/game_mode/cult/cult_mode = SSticker.mode
-		cult_mode.memorize_cult_objectives(owner)
 		if(jobban_isbanned(owner, ROLE_CULTIST))
 			addtimer(SSticker.mode, "replace_jobbaned_player", 0, FALSE, owner, ROLE_CULTIST, ROLE_CULTIST)
 	equip_cultist(owner)
 	owner.current.create_attack_log("<span class='cult'>Has been converted to the cult of Nar'Sie!</span>")
-	..()
 
 /datum/antagonist/cult/apply_innate_effects()
 	owner.faction |= "cult"
@@ -77,3 +99,34 @@
 	owner.current.create_attack_log("<span class='cult'>Has renounced the cult of Nar'Sie!</span>")
 	owner.current.visible_message("<span class='big'>[owner] looks like they just reverted to their old faith!</span>")
 	..()
+
+/datum/team/cult
+	name = "Cult"
+
+/datum/team/cult/proc/setup_objectives()
+
+	var/datum/objective/sacrifice/sac_objective = new()
+	sac_objective.team = src
+	objectives += sac_objective
+
+
+	if(prob(20))
+		var/datum/objective/convert/bookclub_objective = new()
+		bookclub_objective.team = src
+		objectives += bookclub_objective
+
+	if(prob(40))
+		var/datum/objective/eldergod/summon_objective = new()
+		summon_objective.team = src
+		objectives += summon_objective
+	else
+		var/datum/objective/demon/demon_objective = new()
+		demon_objective.team = src
+		objectives += demon_objective
+
+
+/datum/team/cult/proc/check_cult_victory()
+	for(var/datum/objective/O in objectives)
+		if(!O.check_completion())
+			return FALSE
+	return TRUE 

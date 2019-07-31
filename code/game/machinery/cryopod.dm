@@ -362,24 +362,23 @@
 		else
 			I.forceMove(loc)
 
-	// Skip past any cult sacrifice objective using this person
-	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
-		var/datum/game_mode/cult/cult_mode = SSticker.mode
-		var/list/p_s_t = cult_mode.get_possible_sac_targets()
-		if(p_s_t.len)
-			cult_mode.sacrifice_target = pick(p_s_t)
-			for(var/datum/mind/H in SSticker.mode.cult)
-				if(H.current)
-					to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
-		else
-			cult_mode.bypass_phase()
-
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
 			qdel(O)
+		else if(istype(O, /datum/objective/sacrifice))
+			if(O.target && istype(O.target,/datum/mind))
+				if(O.owner && O.owner.current)
+					var/datum/game_mode/cult/cult_mode = SSticker.mode
+					var/list/p_s_t = cult_mode.get_possible_sac_targets()
+					if(p_s_t.len)
+						O.target = pick(p_s_t)
+						O.update_explanation_text()
+						for(var/datum/mind/H in SSticker.mode.cult)
+							if(H.current)
+								to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [O.target] instead...</span></span>")
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
 				if(O.owner && O.owner.current)

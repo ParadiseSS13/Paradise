@@ -494,10 +494,6 @@
 		if(SSticker.mode.cult.len)
 			dat += check_role_table("Cultists", SSticker.mode.cult, 0)
 			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
-			if(GAMEMODE_IS_CULT)
-				var/datum/game_mode/cult/cult_round = SSticker.mode
-				if(!cult_round.narsie_condition_cleared)
-					dat += "<br><a href='?src=[UID()];cult_nextobj=[UID()]'>complete objective (debug)</a>"
 
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)

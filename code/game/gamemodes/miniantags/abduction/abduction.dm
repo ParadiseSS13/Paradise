@@ -226,7 +226,6 @@
 // OBJECTIVES
 /datum/objective/experiment
 	target_amount = 6
-	var/team
 
 /datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans."

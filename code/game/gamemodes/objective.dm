@@ -4,12 +4,23 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
+	var/datum/team/team       			//An alternative to 'owner': a team. Use this when writing new code.
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
+	var/team_explanation_text			//For when there are multiple owners.
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
+/datum/objective/proc/get_owners() // Combine owner and team into a single list.
+	. = (team && team.members) ? team.members.Copy() : list()
+	if(owner)
+		. += owner
+
+/datum/objective/proc/update_explanation_text()
+	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
+		explanation_text = team_explanation_text
+		
 /datum/objective/New(var/text)
 	all_objectives |= src
 	if(text)

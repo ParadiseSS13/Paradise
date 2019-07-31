@@ -701,7 +701,7 @@
 					special_role = null
 					var/datum/game_mode/cult/cult = SSticker.mode
 					if(istype(cult))
-						cult.memorize_cult_objectives(src)
+						cult.remove_cultist(src)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>The nanobots in the mindshield implant remove all thoughts about being in a cult.  Have a productive day!</B></FONT></span>")
 					memory = ""
 

@@ -8,7 +8,7 @@
 	target_amount = pick(6, 7, 8)
 	update_explanation_text()
 
-/datum/objective/devil/proc/update_explanation_text()
+/datum/objective/devil/update_explanation_text()
 	//Intentionally empty
 
 /datum/objective/devil/soulquantity/update_explanation_text()

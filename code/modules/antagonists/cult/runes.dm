@@ -349,36 +349,46 @@ var/list/teleport_runes = list()
 	return
 
 /obj/effect/rune/convert/invoke(var/list/invokers)
-	var/list/convertees = list()
-	var/turf/T = get_turf(src)
-
-	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !ismindshielded(M) && !isgolem(M) && ishuman(M))
-			convertees.Add(M)
-	if(!convertees.len)
-		fail_invoke()
-		log_game("Convert rune failed - no eligible convertees")
+	if(rune_in_use)
 		return
-	var/mob/living/new_cultist = pick(convertees)
-	if(!is_convertable_to_cult(new_cultist.mind) || new_cultist.null_rod_check())
+	var/list/myriad_targets = list()
+	var/turf/T = get_turf(src)
+	for(var/mob/living/carbon/human/M in T)
+		if(!iscultist(M))
+			myriad_targets |= M
+	if(!myriad_targets.len)
+		fail_invoke()
+		log_game("Convert rune failed - no eligible targets")
+		return
+	rune_in_use = TRUE
+	visible_message("<span class='warning'>[src] pulses blood red!</span>")
+
+	var/mob/living/carbon/human/L = pick(myriad_targets)
+
+	var/mob/living/F = invokers[1]
+	var/datum/antagonist/cult/C = F.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
+
+
+	if(!is_convertable_to_cult(L, C.cult_team) || L.null_rod_check())
 		for(var/M in invokers)
-			to_chat(M, "<span class='warning'>Something is shielding [new_cultist]'s mind!</span>")
-			if(is_sacrifice_target(new_cultist.mind))
+			to_chat(M, "<span class='warning'>Something is shielding [L]'s mind!</span>")
+			if(C.cult_team.is_sacrifice_target(L))
 				to_chat(M, "<span class='cultlarge'>\"I desire this one for myself. <i>SACRIFICE THEM!</i>\"</span>")
 		fail_invoke()
 		log_game("Convert rune failed - convertee could not be converted")
 		return
 	..()
 
-	new_cultist.visible_message("<span class='warning'>[new_cultist] writhes in pain as the markings below them glow a bloody red!</span>", \
+	L.visible_message("<span class='warning'>[L] writhes in pain as the markings below them glow a bloody red!</span>", \
 					  			"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
-	SSticker.mode.add_cultist(new_cultist.mind)
+	SSticker.mode.add_cultist(L.mind)
 	new /obj/item/tome(get_turf(src))
-	new_cultist.mind.special_role = SPECIAL_ROLE_CULTIST
-	to_chat(new_cultist, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
+	L.mind.special_role = ROLE_CULTIST
+	to_chat(L, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 	and something evil takes root.</b></span>")
-	to_chat(new_cultist, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.\
+	to_chat(L, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.\
 	</b></span>")
+	rune_in_use = FALSE
 
 //Rite of Tribute: Sacrifices a crew member to Nar-Sie. Places them into a soul shard if they're in their body.
 /obj/effect/rune/sacrifice
@@ -396,8 +406,11 @@ var/list/teleport_runes = list()
 /obj/effect/rune/sacrifice/invoke(var/list/invokers)
 	if(rune_in_use)
 		return
-	rune_in_use = 1
+	rune_in_use = TRUE
 	var/mob/living/user = invokers[1] //the first invoker is always the user
+	var/datum/antagonist/cult/C = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	if(!C)
+		return
 	var/turf/T = get_turf(src)
 	var/list/possible_targets = list()
 	for(var/mob/living/M in T.contents)
@@ -416,7 +429,7 @@ var/list/teleport_runes = list()
 	if(!offering)
 		rune_in_use = 0
 		return
-	if(((ishuman(offering) || isrobot(offering)) && offering.stat != DEAD) || is_sacrifice_target(offering.mind)) //Requires three people to sacrifice living targets
+	if(((ishuman(offering) || isrobot(offering)) && offering.stat != DEAD) || C.cult_team.is_sacrifice_target(offering.mind)) //Requires three people to sacrifice living targets
 		if(invokers.len < 3)
 			for(var/M in invokers)
 				to_chat(M, "<span class='cultitalic'>[offering] is too greatly linked to the world! You need three acolytes!</span>")
@@ -432,7 +445,8 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/sacrifice/proc/sac(var/list/invokers, mob/living/T)
 	var/sacrifice_fulfilled
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
+	var/mob/living/user = invokers[1] //the first invoker is always the user
+	var/datum/antagonist/cult/C = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(T)
 		if(istype(T, /mob/living/simple_animal/pet/corgi))
 			for(var/M in invokers)
@@ -442,16 +456,16 @@ var/list/teleport_runes = list()
 					L.reagents.add_reagent("hell_water", 2)
 		if(T.mind)
 			sacrificed.Add(T.mind)
-			if(is_sacrifice_target(T.mind))
-				sacrifice_fulfilled = 1
+			if(C.cult_team.is_sacrifice_target(T.mind))
+				for(var/datum/objective/sacrifice/sac_objective in C.cult_team.objectives)
+					if(sac_objective.target == T.mind)
+						sac_objective.sacced = TRUE
+						sac_objective.update_explanation_text()
+						sacrifice_fulfilled = 1
 		new /obj/effect/temp_visual/cult/sac(loc)
-		if(SSticker && SSticker.mode && SSticker.mode.name == "cult")
-
-			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
-				cult_mode.additional_phase()
 			else
 				if(ishuman(T) || isrobot(T))
 					to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
@@ -508,21 +522,26 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(CULT_ELDERGOD in cult_mode.objectives))
+	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/objective/eldergod/summon_objective = locate() in user_antag.cult_team.objectives
+	var/area/place = get_area(src)
+	if(!(summon_objective))
 		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
 		burn_invokers(invokers)
-		log_game("Summon Nar-Sie rune failed - improper objective")
+		log_game("Summon God rune failed - improper objective")
+		return
+	if(!(place in summon_objective.summon_spots))
+		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
 		return
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		burn_invokers(invokers)
-		log_game("Summon Nar-Sie rune failed - off station Z level")
+		log_game("Summon God rune failed - off station Z level")
 		return
-	if(!cult_mode.eldergod)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list)
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>[SSticker.cultdat.entity_name] is already on this plane!</span>")
-		log_game("Summon god rune failed - already summoned")
+		log_game("Summon God rune failed - already summoned")
 		return
 	//BEGIN THE SUMMONING
 	used = 1
@@ -534,7 +553,6 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
-	cult_mode.eldergod = 0
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/tome) && iscultist(user)))
@@ -593,16 +611,22 @@ var/list/teleport_runes = list()
 /obj/effect/rune/slaughter/invoke(var/list/invokers)
 	if(used)
 		return
-	var/mob/living/user = invokers[1]
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(CULT_SLAUGHTER in cult_mode.objectives))
+	var/mob/living/user = invokers[1]
+	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/objective/demon/summon_objective = locate() in user_antag.cult_team.objectives
+	var/area/place = get_area(src)
+	if(!(summon_objective))
 		message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
 		burn_invokers(invokers)
 		log_game("Summon Demons rune failed - improper objective")
 		return
+	if(!(place in summon_objective.summon_spots))
+		to_chat(user, "<span class='cultlarge'>Demons can only be summoned where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
+		return
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon demons off station")
-		burn_invokers(invokers)
+		burn_invokers(invokers)//yes i know its restricted..but some people..
 		log_game("Summon demons rune failed - off station Z level")
 		return
 	if(cult_mode.demons_summoned)
@@ -626,9 +650,13 @@ var/list/teleport_runes = list()
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
 	cult_mode.demons_summoned = 1
+
+	var/datum/objective/harvest/harvest_objective = new()
+	harvest_objective.team = user_antag.cult_team
+	user_antag.cult_team.objectives += harvest_objective
+
 	SSshuttle.emergency.request(null, 0.5,null)
 	SSshuttle.emergency.canRecall = FALSE
-	cult_mode.third_phase()
 	qdel(src)
 
 

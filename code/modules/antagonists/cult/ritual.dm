@@ -205,17 +205,11 @@
 	var/area/A = get_area(src)
 	if(GAMEMODE_IS_CULT)
 		if(!canbypass)//not an admin-tome, check things
-			if(!cult_mode.narsie_condition_cleared)
-				to_chat(user, "<span class='warning'>There is still more to do before unleashing [SSticker.cultdat.entity_name] power!</span>")
-				return 0
-			if(!cult_mode.eldergod)
+			if(locate(/obj/singularity/narsie) in GLOB.poi_list)
 				to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 				return 0
 			if(cult_mode.demons_summoned)
 				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
-				return 0
-			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
-				to_chat(user, "<span class='warning'>[SSticker.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
 			if(!(A in summon_spots))
 				to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
