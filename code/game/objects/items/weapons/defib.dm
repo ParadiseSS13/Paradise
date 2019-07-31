@@ -419,6 +419,7 @@
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
+						H.adjustCritLoss(tobehealed)
 						H.adjustToxLoss(tobehealed)
 						H.adjustFireLoss(tobehealed)
 						H.adjustBruteLoss(tobehealed)
