@@ -53,6 +53,13 @@
 					{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
 					<div class="statusValue">{{:helper.smoothRound(data.occupant.fireLoss)}}</div>
 				</div>
+
+				<div class="line">
+					<div class="statusLabel"><i class="fa fa-arrow-right"></i>Critical Damage:</div>
+					{{:helper.displayBar(data.occupant.critLoss, 0, data.occupant.maxHealth, 'bad')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.critLoss)}}</div>
+				</div>
+
 			{{/if}}
 		{{/if}}
 		<br>

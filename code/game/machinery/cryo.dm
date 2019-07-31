@@ -214,6 +214,7 @@
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
+		occupantData["critLoss"] = occupant.getCritLoss()
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData;
 

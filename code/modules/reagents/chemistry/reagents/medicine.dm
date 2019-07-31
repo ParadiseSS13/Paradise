@@ -117,6 +117,7 @@
 	if(M.bodytemperature < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
+		update_flags |= M.adjustCritLoss(-3, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
 		update_flags |= M.adjustBruteLoss(-12, FALSE)
 		update_flags |= M.adjustFireLoss(-12, FALSE)
@@ -294,6 +295,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustCritLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(50))
@@ -468,6 +470,7 @@
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustCritLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/M, severity)
@@ -593,6 +596,7 @@
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 		update_flags |= M.adjustBruteLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustCritLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	else if(M.health > -60)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	M.reagents.remove_reagent("sarin", 20)
@@ -629,6 +633,7 @@
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustCritLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/M, severity)
@@ -694,6 +699,7 @@
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
+					M.setCritLoss(0)
 					M.adjustBruteLoss(rand(0, 15))
 					M.adjustToxLoss(rand(0, 15))
 					M.adjustFireLoss(rand(0, 15))
@@ -784,6 +790,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(volume > 5)
 		update_flags |= M.adjustOxyLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustCritLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -822,6 +829,7 @@
 	M.status_flags |= GOTTAGOFAST
 	if(M.health < 50 && M.health > 0)
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustCritLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -940,6 +948,7 @@
 	update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE) //A ton of healing - this is a 50 telecrystal investment.
 	update_flags |= M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustOxyLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustCritLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 	update_flags |= M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBrainLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustCloneLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -959,6 +968,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustCritLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags

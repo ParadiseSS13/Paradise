@@ -59,6 +59,12 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				</div>
 
 				<div class="line">
+					<div class="statusLabel">Critical Damage:</div>
+					{{:helper.displayBar(data.occupant.critLoss, 0, data.occupant.maxHealth, 'bad')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.critLoss)}}</div>
+				</div>
+
+				<div class="line">
 					<div class="statusLabel">Patient Temperature:</div>
 					{{if data.occupant.temperatureSuitability == -3}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}

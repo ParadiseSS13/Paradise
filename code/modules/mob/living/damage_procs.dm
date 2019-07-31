@@ -100,6 +100,41 @@
 	if(jitter) 		apply_effect(jitter, JITTER, blocked)
 	return 1
 
+/mob/living/carbon/getCritLoss()
+	return critloss
+
+/mob/living/proc/getCritLoss()
+	return FALSE
+
+/mob/living/proc/adjustCritLoss(amount, updating_health = TRUE)
+	return FALSE
+
+/mob/living/carbon/adjustCritLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)// if they breathe don't stack crit damage
+		return FALSE //godmode
+	var/old_critloss = critloss
+	critloss = max(critloss + amount, 0)
+	if(old_critloss == critloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth("adjustCritLoss")	
+
+/mob/living/proc/setCritLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		critloss = 0
+		return FALSE	//godmode
+	var/old_critloss = critloss
+	critloss = amount
+	if(old_critloss == critloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth("setCritLoss")
 
 /mob/living/proc/getBruteLoss()
 	return bruteloss

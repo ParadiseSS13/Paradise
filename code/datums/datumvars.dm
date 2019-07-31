@@ -130,6 +130,7 @@
 					CLONE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=clone'>[L.getCloneLoss()]</a>
 					BRAIN:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brain'>[L.getBrainLoss()]</a>
 					STAMINA:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=stamina'>[L.getStaminaLoss()]</a>
+					CRIT:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=crit'>[L.getCritLoss()]</a>
 				</font>
 			"}
 		else
@@ -1254,6 +1255,8 @@
 				L.adjustCloneLoss(amount)
 			if("stamina") 
 				L.adjustStaminaLoss(amount)
+			if("crit")
+				L.adjustCritLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 				return

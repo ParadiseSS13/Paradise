@@ -375,7 +375,7 @@
 		occupantData["oxyLoss"] = H.getOxyLoss()
 		occupantData["toxLoss"] = H.getToxLoss()
 		occupantData["fireLoss"] = H.getFireLoss()
-
+		occupantData["critLoss"] = H.getCritLoss()
 		occupantData["radLoss"] = H.radiation
 		occupantData["cloneLoss"] = H.getCloneLoss()
 		occupantData["brainLoss"] = H.getBrainLoss()

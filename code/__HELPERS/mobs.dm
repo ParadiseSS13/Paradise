@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 			if(DEAD)
 				status = "<font color='red'><b>Dead</b></font>"
 		health_description = "Status = [status]"
-		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
+		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()] - Crit: [L.getCritLoss()]"
 	else
 		health_description = "This mob type has no health to speak of."
 

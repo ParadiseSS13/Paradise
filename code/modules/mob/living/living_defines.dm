@@ -7,6 +7,7 @@
 
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
+	var/critloss = 0 // New critical damage, to handle things like nobreathe races and the like instead of giving them brute.
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
 	var/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
 	var/toxloss = 0	//Toxic damage caused by being poisoned or radiated

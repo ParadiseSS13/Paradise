@@ -298,7 +298,7 @@
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
-			H.adjustBruteLoss(1)
+			H.adjustCritLoss(1)
 	return
 
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here

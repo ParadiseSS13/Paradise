@@ -268,7 +268,7 @@
 		health = maxHealth
 		stat = CONSCIOUS
 		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss() - getCritLoss()
 
 	update_stat("updatehealth([reason])")
 	handle_hud_icons_health()
@@ -411,6 +411,7 @@
 	setCloneLoss(0)
 	setBrainLoss(0)
 	setStaminaLoss(0)
+	setCritLoss(0)
 	SetSleeping(0)
 	SetParalysis(0, 1, 1)
 	SetStunned(0, 1, 1)

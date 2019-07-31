@@ -57,6 +57,12 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 				<div class="statusValue">{{:helper.smoothRound(data.occupant.fireLoss)}}</div>
 			</div>
 
+			<div class="line">
+				<div class="statusLabel">=&gt; Critical Damage:</div>
+				{{:helper.displayBar(data.occupant.critLoss, 0, data.occupant.maxHealth, 'bad')}}
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.critLoss)}}</div>
+			</div>
+
 			<br>
 			<div class="line">
 			<!--

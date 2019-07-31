@@ -253,6 +253,8 @@
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
 		..()
+	else if(getCritLoss() && health > HEALTH_THRESHOLD_CRIT) // if they're a breathless race and have crit damage take away some when they'd normally breathe
+		adjustCritLoss(-5)
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 

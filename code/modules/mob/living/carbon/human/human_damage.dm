@@ -12,7 +12,7 @@
 		total_brute += O.brute_dam //calculates health based on organ brute and burn
 		total_burn += O.burn_dam
 
-	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
+	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - getCritLoss() - total_burn - total_brute
 
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)

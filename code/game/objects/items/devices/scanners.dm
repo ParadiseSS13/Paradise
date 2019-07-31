@@ -153,13 +153,14 @@ REAGENT SCANNER
 	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
 	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
+	var/CR = H.getCritLoss() > 50	?	"<b>[H.getCritLoss()]</b>"		: H.getCritLoss()
 	if(H.status_flags & FAKEDEATH)
 		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 		user.show_message("<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: dead</span>")
 	else
 		user.show_message("<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [H.stat > 1 ? "dead" : "[H.health]% healthy"]</span>")
-	user.show_message("\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>", 1)
-	user.show_message("\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
+	user.show_message("\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>/<font color='purple'>Crit</font>", 1)
+	user.show_message("\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font> - <font color='purple'>[CR]</font>")
 	user.show_message("<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(H.timeofdeath && (H.stat == DEAD || (H.status_flags & FAKEDEATH)))
 		user.show_message("<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>")
