@@ -202,6 +202,9 @@
 
 /obj/item/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
+	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/objective/eldergod/summon_objective = locate() in user_antag.cult_team.objectives
+	var/datum/objective/sacrifice/sacrifice_objective = locate() in user_antag.cult_team.objectives // check if they sacrificed first too
 	var/area/A = get_area(src)
 	if(GAMEMODE_IS_CULT)
 		if(!canbypass)//not an admin-tome, check things
@@ -211,8 +214,11 @@
 			if(cult_mode.demons_summoned)
 				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 				return 0
-			if(!(A in summon_spots))
-				to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
+			if(!sacrifice_objective.sacced)
+				to_chat(user, "<span class='cultlarge'>\"You have not yet sacrificed [sacrifice_objective.target]! Pay your tribute to [SSticker.cultdat.entity_name] or you SHALL be punished!\"</span>")
+				return 0
+			if(!A in summon_objective.summon_spots)
+				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
 				return 0
 		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
@@ -235,6 +241,8 @@
 	var/chosen_keyword
 	var/obj/effect/rune/rune_to_scribe
 	var/entered_rune_name
+	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/objective/eldergod/summon_objective = locate() in user_antag.cult_team.objectives
 	var/list/possible_runes = list()
 	var/list/shields = list()
 	var/area/A = get_area(src)
@@ -272,8 +280,8 @@
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
 		if(finale_runes_ok(user,rune_to_scribe))
 			A = get_area(src)
-			if(!(A in summon_spots))  // Check again to make sure they didn't move
-				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_spots)]!</span>")
+			if(!(A in summon_objective.summon_spots))  // Check again to make sure they didn't move
+				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
 				return
 			command_announcement.Announce("Figments from an eldritch god are being summoned somewhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))

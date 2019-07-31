@@ -48,7 +48,6 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 	var/speech_span // What span any body this mind has talks in.
-	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
@@ -150,6 +149,7 @@
 	. = ""
 	var/obj_count = 1
 	for(var/datum/objective/objective in objectives)
+		objective.update_explanation_text()
 		. += "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
 		if(admin)
 			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
@@ -821,11 +821,6 @@
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
-					if(!summon_spots.len)
-						while(summon_spots.len < SUMMON_POSSIBILITIES)
-							var/area/summon = pick(return_sorted_areas() - summon_spots)
-							if(summon && is_station_level(summon.z) && summon.valid_territory)
-								summon_spots += summon
 			if("tome")
 				var/mob/living/carbon/human/H = current
 				if(istype(H))

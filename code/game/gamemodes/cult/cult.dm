@@ -15,6 +15,8 @@ var/global/list/all_cults = list()
 			return 0
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
 			return 0
+		if(iscultist(M))
+			return 0
 	else
 		return 0
 	if(ismindshielded(M) || issilicon(M) || isbot(M))

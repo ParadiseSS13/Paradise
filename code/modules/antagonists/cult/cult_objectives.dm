@@ -28,7 +28,7 @@
 	return sacced || completed
 
 /datum/objective/sacrifice/update_explanation_text()
-	if(target)
+	if(!sacced)
 		explanation_text = "We need to sacrifice [target.name], the [target.assigned_role], for [target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 	else
 		explanation_text = "The veil has already been weakened here, proceed to the next objective."

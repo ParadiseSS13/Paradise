@@ -75,19 +75,19 @@
 		add_objectives()
 		SSticker.mode.cult += owner
 		SSticker.mode.update_cult_icons_added(owner)
-		if(jobban_isbanned(owner, ROLE_CULTIST))
+		if(jobban_isbanned(owner.current, ROLE_CULTIST))
 			addtimer(SSticker.mode, "replace_jobbaned_player", 0, FALSE, owner, ROLE_CULTIST, ROLE_CULTIST)
 	equip_cultist(owner)
 	owner.current.create_attack_log("<span class='cult'>Has been converted to the cult of Nar'Sie!</span>")
 
 /datum/antagonist/cult/apply_innate_effects()
-	owner.faction |= "cult"
-	communion.Grant(owner)
-	..()
+	. = ..()
+	owner.current.faction += "cult"
+	communion.Grant(owner.current)
 
 /datum/antagonist/cult/remove_innate_effects()
-	owner.faction -= "cult"
-	..()
+	. = ..()
+	owner.current.faction -= "cult"
 
 /datum/antagonist/cult/on_removal()
 	if(SSticker && SSticker.mode && owner)
@@ -98,7 +98,7 @@
 	owner.memory = ""
 	owner.current.create_attack_log("<span class='cult'>Has renounced the cult of Nar'Sie!</span>")
 	owner.current.visible_message("<span class='big'>[owner] looks like they just reverted to their old faith!</span>")
-	..()
+	. = ..()
 
 /datum/team/cult
 	name = "Cult"
