@@ -96,7 +96,7 @@
 		return
 	head_organ.h_style = "Bald"
 	head_organ.f_style = "Shaved"
-	H.setCritLoss(0) // reset their crit damage to 0 upon death as they can't be healed with chemicals or defibs
+	H.setCritLoss(0, FALSE) // reset their crit damage to 0 upon death as they can't be healed with chemicals or defibs
 	spawn(100)
 		if(H && head_organ)
 			H.update_hair()
