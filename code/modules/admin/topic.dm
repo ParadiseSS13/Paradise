@@ -1966,7 +1966,7 @@
 					kill_objective.target = H.mind
 					kill_objective.explanation_text = "Assassinate [H.real_name], the [H.mind.assigned_role]."
 					newtraitormind.objectives += kill_objective
-					SSticker.mode.equip_traitor(newtraitor)
+					newtraitor.mind.add_antag_datum(/datum/antagonist/traitor/custom)
 					SSticker.mode.traitors |= newtraitor.mind
 					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 					to_chat(newtraitor, "<B>You are now a traitor.</B>")
@@ -2667,28 +2667,16 @@
 					return
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","TA([objective])")
+
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
-					SSticker.mode.traitors += H.mind
-					H.mind.special_role = SPECIAL_ROLE_TRAITOR
-					var/datum/objective/new_objective = new
-					new_objective.owner = H
-					new_objective.explanation_text = objective
-					H.mind.objectives += new_objective
-					SSticker.mode.greet_traitor(H.mind)
-					//ticker.mode.forge_traitor_objectives(H.mind)
-					SSticker.mode.finalize_traitor(H.mind)
+					H.mind.add_antag_datum(/datum/antagonist/traitor)
+
 				for(var/mob/living/silicon/A in GLOB.player_list)
-					SSticker.mode.traitors += A.mind
-					A.mind.special_role = SPECIAL_ROLE_TRAITOR
-					var/datum/objective/new_objective = new
-					new_objective.owner = A
-					new_objective.explanation_text = objective
-					A.mind.objectives += new_objective
-					SSticker.mode.greet_traitor(A.mind)
-					SSticker.mode.finalize_traitor(A.mind)
+					A.mind.add_antag_datum(/datum/antagonist/traitor)
+
 				message_admins("<span class='notice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective]</span>", 1)
 				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
 

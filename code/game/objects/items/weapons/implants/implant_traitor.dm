@@ -64,8 +64,8 @@
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
 
-			SSticker.mode.update_traitor_icons_added(user.mind)
-			SSticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
+			user.mind.add_antag_datum(/datum/antagonist/traitor)
+			H.mind.add_antag_datum(/datum/antagonist/traitor) //handles datahuds/observerhuds
 
 			if(user.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
 				var/datum/mindslaves/slaved = user.mind.som
@@ -83,6 +83,6 @@
 
 /obj/item/implant/traitor/removed(mob/target)
 	if(..())
-		SSticker.mode.remove_traitor_mind(target.mind)
+		target.mind.remove_antag_datum(/datum/antagonist/traitor)
 		return 1
 	return 0

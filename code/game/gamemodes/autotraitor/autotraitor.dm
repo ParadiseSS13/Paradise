@@ -128,21 +128,11 @@
 				var/mob/living/newtraitor = newtraitormind.current
 				//message_admins("[newtraitor.real_name] is the new Traitor.")
 
-				forge_traitor_objectives(newtraitor.mind)
+				newtraitor.mind.add_antag_datum(/datum/antagonist/traitor)
+				// traitors += newtraitor.mind - Do we need this?
 
-				if(istype(newtraitor, /mob/living/silicon))
-					SEND_SOUND(newtraitor, 'sound/ambience/antag/malf.ogg')
-					add_law_zero(newtraitor)
-				else
-					SEND_SOUND(newtraitor, 'sound/ambience/antag/tatoralert.ogg')
-					equip_traitor(newtraitor)
-
-				traitors += newtraitor.mind
 				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 				to_chat(newtraitor, "<B>You are now a traitor.</B>")
-				newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
-				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
-				tatorhud.join_hud(newtraitor)
 				set_antag_hud(newtraitor, "hudsyndicate")
 
 				var/obj_count = 1

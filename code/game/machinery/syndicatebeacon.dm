@@ -57,9 +57,7 @@
 				return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
-			SSticker.mode.equip_traitor(N)
-			SSticker.mode.traitors += N.mind
-			N.mind.special_role = SPECIAL_ROLE_TRAITOR
+			N.mind.add_antag_datum(/datum/antagonist/traitor/custom)
 			var/objective = "Free Objective"
 			switch(rand(1,100))
 				if(1 to 50)
@@ -74,14 +72,10 @@
 					objective = "Kill all monkeys aboard the station."
 				else
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
-			var/datum/objective/custom_objective = new(objective)
-			custom_objective.owner = N.mind
-			N.mind.objectives += custom_objective
-
-			var/datum/objective/escape/escape_objective = new
-			escape_objective.owner = N.mind
-			N.mind.objectives += escape_objective
-
+			
+			// var/datum/objective/escape/escape_objective = new
+			// N.add_objective(escape_objective)
+	
 
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")
 
