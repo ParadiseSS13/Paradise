@@ -49,8 +49,8 @@
 
 /obj/screen/blob/Blobbernaut
 	icon_state = "ui_blobbernaut"
-	name = "Produce Blobbernaut (40)"
-	desc = "Produces a strong, intelligent blobbernaut from a factory blob for 40 resources.<br>The factory blob will be destroyed in the process."
+	name = "Produce Blobbernaut (60)"
+	desc = "Produces a strong, intelligent blobbernaut from a factory blob for 60 resources.<br>The factory blob will be destroyed in the process."
 
 /obj/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))

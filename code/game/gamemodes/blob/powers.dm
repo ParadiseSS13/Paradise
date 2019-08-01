@@ -207,7 +207,7 @@
 
 /mob/camera/blob/verb/create_blobbernaut()
 	set category = "Blob"
-	set name = "Create Blobbernaut (40)"
+	set name = "Create Blobbernaut (60)"
 	set desc = "Create a powerful blob-being, a Blobbernaut"
 
 	var/turf/T = get_turf(src)
@@ -224,7 +224,7 @@
 		to_chat(src, "Unable to use this blob, find a factory blob.")
 		return
 
-	if(!can_buy(40))
+	if(!can_buy(60))
 		return
 
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
