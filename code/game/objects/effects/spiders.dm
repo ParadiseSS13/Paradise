@@ -227,17 +227,29 @@
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			if(player_spiders && !selecting_player)
+			if(player_spiders && !selecting_player) // If the spider who laid the eggs was a player
 				selecting_player = 1
 				spawn()
-					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_GSPIDER, 1)
+					var/list/candidates = pollCandidates("Do you want to play as a giant spider?", ROLE_GSPIDER, 1, 150)
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)
 						if(C)
 							S.key = C.key
-							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+							if(S.master_commander) // Born from a servant sentient spider, gotta follow the commander's orders.
+								to_chat(S, "<span class='biggerdanger'>You are a giant spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+							else // Born from a sentient spider who isn't loyal to anybody, do the thing giant spiders do.
+								to_chat(S, "<span class='biggerdanger'>You are a smart giant spider! Use your sentiency to your advantage, and help the spiders take over!</span>")
+			else if((prob(10)) && !selecting_player && !player_spiders) // If the spider who laid the eggs was a NPC there's a 10% one of the spiderlings will become sentient.
+				selecting_player = 1
+				spawn()
+					var/list/candidates = pollCandidates("Do you want to play as a giant spider?", ROLE_GSPIDER, 1, 150)
+
+					if(candidates.len)
+						var/mob/C = pick(candidates)
+						if(C)
+							S.key = C.key
+							to_chat(S, "<span class='biggerdanger'>You are a smart giant spider! Use your sentiency to your advantage, and help the spiders take over!</span>")
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains
