@@ -12,6 +12,7 @@
 	desc = "It's placeholder flavored. This shouldn't be seen."
 	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "candy"
+	tastes = list("candy" = 1)
 
 // ***********************************************************
 // Candy Ingredients / Flavorings / Byproduct
@@ -23,6 +24,7 @@
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
+	tastes = list("chocolate" = 1)
 
 /obj/item/reagent_containers/food/snacks/candy/caramel
 	name = "caramel"
@@ -107,6 +109,7 @@
 	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
 	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("candy corn" = 1)
 
 // ***********************************************************
 // Candy Products (plain / unflavored)
@@ -130,6 +133,7 @@
 	bitesize = 3
 	junkiness = 25
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
+	tastes = list("chocolate" = 1)
 
 
 /obj/item/reagent_containers/food/snacks/candy/candycane
@@ -177,6 +181,8 @@
 	icon_state = "candy_cash"
 	filling_color = "#302000"
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
+	tastes = list("chocolate" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/candy/coin
 	name = "chocolate coin"
@@ -185,6 +191,8 @@
 	filling_color = "#302000"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
+	tastes = list("chocolate" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/candy/gum
 	name = "bubblegum"

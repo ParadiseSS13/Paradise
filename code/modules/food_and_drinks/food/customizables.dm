@@ -89,6 +89,7 @@
 	basename = "personal pizza"
 	snack_overlays = 0
 	top = 0
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/pasta
 	name = "spaghetti"
@@ -107,6 +108,7 @@
 	basename = "bread"
 	snack_overlays = 0
 	top = 0
+	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/pie
 	name = "pie"
@@ -116,6 +118,7 @@
 	basename = "pie"
 	snack_overlays = 0
 	top = 0
+	tastes = list("pie" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/cake
 	name = "cake"
@@ -125,6 +128,7 @@
 	basename = "cake"
 	snack_overlays = 0
 	top = 0
+	tastes = list("cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/jelly
 	name = "jelly"
@@ -152,6 +156,7 @@
 	basename = "kebab"
 	snack_overlays = 0
 	top = 0
+	tastes = list("meat" = 3, "metal" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/salad
 	name = "salad"
@@ -161,6 +166,7 @@
 	basename = "salad"
 	snack_overlays = 0
 	top = 0
+	tastes = list("leaves" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/waffles
 	name = "waffles"
@@ -170,6 +176,7 @@
 	basename = "waffles"
 	snack_overlays = 0
 	top = 0
+	tastes = list("waffles" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cookie
 	name = "cookie"
@@ -179,6 +186,7 @@
 	basename = "cookie"
 	snack_overlays = 0
 	top = 0
+	tastes = list("cookie" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cotton
 	name = "flavored cotton candy"
@@ -308,6 +316,7 @@
 	snack_overlays = 0
 	trash = /obj/item/trash/bowl
 	top = 0
+	tastes = list("soup" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/burger
 	name = "burger bun"
@@ -316,6 +325,7 @@
 	baseicon = "burgercustom"
 	basename = "burger"
 	toptype = new /obj/item/reagent_containers/food/snacks/bun()
+	tastes = list("bun" = 4)
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(contents.len > sandwich_limit)

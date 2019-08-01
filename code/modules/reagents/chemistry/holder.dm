@@ -785,7 +785,7 @@ var/const/INGEST = 2
 		trans_data["viruses"] = temp
 	return trans_data
 
-/datum/reagents/proc/generate_taste_message(minimum_percent=15)
+/datum/reagents/proc/generate_0(minimum_percent=15)
 // the lower the minimum percent, the more sensitive the message is.
 	var/list/out = list()
 	var/list/tastes = list() //descriptor = strength
