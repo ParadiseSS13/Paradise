@@ -611,7 +611,6 @@ var/list/teleport_runes = list()
 /obj/effect/rune/slaughter/invoke(var/list/invokers)
 	if(used)
 		return
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	var/mob/living/user = invokers[1]
 	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	var/datum/objective/demon/summon_objective = locate() in user_antag.cult_team.objectives
@@ -629,7 +628,7 @@ var/list/teleport_runes = list()
 		burn_invokers(invokers)//yes i know its restricted..but some people..
 		log_game("Summon demons rune failed - off station Z level")
 		return
-	if(cult_mode.demons_summoned)
+	if(summon_objective.summoned)
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
 			log_game("Summon Demons rune failed - already summoned")
@@ -649,7 +648,7 @@ var/list/teleport_runes = list()
 	new /mob/living/simple_animal/slaughter/cult(T)
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
-	cult_mode.demons_summoned = 1
+	summon_objective.summoned = TRUE
 
 	var/datum/objective/harvest/harvest_objective = new()
 	harvest_objective.team = user_antag.cult_team
@@ -884,9 +883,9 @@ var/list/teleport_runes = list()
 /obj/effect/rune/summon/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
-	for(var/datum/mind/M in SSticker.mode.cult)
-		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
-			cultists |= M.current
+	for(var/datum/antagonist/cult/M in GLOB.antagonists)
+		if(!(M.owner.current in invokers) && M.owner.current && M.owner.current.stat != DEAD)
+			cultists |= M.owner.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [SSticker.cultdat.entity_title3]") as null|anything in cultists
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return

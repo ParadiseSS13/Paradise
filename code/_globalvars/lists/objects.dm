@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(global_intercoms, list())			//list of all intercomms, across al
 GLOBAL_LIST_INIT(global_radios, list())				//list of all radios, across all z-levels
 
 GLOBAL_LIST_INIT(meteor_list, list())				//list of all meteors
+GLOBAL_LIST_INIT(bloody_floors,list())
 GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/follow
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
 

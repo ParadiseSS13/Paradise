@@ -1,4 +1,4 @@
-/datum/game_mode/cult/proc/get_possible_sac_targets()
+/datum/antagonist/cult/proc/get_possible_sac_targets()
 	var/list/possible_sac_targets = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
@@ -20,8 +20,8 @@
 /datum/objective/sacrifice/New()
 	..()
 	team = src
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	target = pick(cult_mode.get_possible_sac_targets())
+	var/datum/antagonist/cult/C = new()
+	target = pick(C.get_possible_sac_targets())
 	update_explanation_text()
 
 /datum/objective/sacrifice/check_completion()
@@ -31,7 +31,7 @@
 	if(!sacced)
 		explanation_text = "We need to sacrifice [target.name], the [target.assigned_role], for [target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 	else
-		explanation_text = "The veil has already been weakened here, proceed to the next objective."
+		explanation_text = "We have sacrificed [target.name], the [target.assigned_role] and the veil has been weakened here, proceed to the next objective."
 
 /datum/objective/eldergod
 	var/summoned = FALSE
@@ -75,20 +75,45 @@
 
 /datum/objective/convert
 	var/hasbookclub = FALSE
+	var/convert_target
 
 /datum/objective/convert/New()
 	..()
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	cult_mode.convert_target = rand(9,15)
+	convert_target = rand(9,15)
 	update_explanation_text()
 
 /datum/objective/convert/update_explanation_text()
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	explanation_text = "We must increase our influence before we can summon [SSticker.cultdat.entity_name], Convert [cult_mode.convert_target] crew members. Take it slowly to avoid raising suspicions."
-
+	if(!hasbookclub)
+		explanation_text = "We must increase our influence before we can summon [SSticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
+	else
+		explanation_text = "We have converted [convert_target] crew members. We may continue."
 /datum/objective/convert/check_completion()
 	return hasbookclub || completed
 
+/datum/objective/bloodspill
+	var/bloodystation = FALSE
+	var/list/bloody_floors = list()
+	var/spilltarget
+
+/datum/objective/bloodspill/proc/blood_check()
+	if((GLOB.bloody_floors.len >= spilltarget) && !bloodystation)
+		bloodystation = TRUE
+	update_explanation_text()
+
+/datum/objective/bloodspill/New()
+	..()
+	spilltarget = 100 + rand(0, GLOB.player_list.len * 3)
+	update_explanation_text()
+
+/datum/objective/bloodspill/update_explanation_text()
+	if(!bloodystation)
+		explanation_text = "We must prepare this place for [SSticker.cultdat.entity_title1]'s coming. Spread blood and gibs over [spilltarget] of the Station's floor tiles. You have currently spread [GLOB.bloody_floors.len] tiles of blood"
+	else
+		explanation_text = "We have spread blood and gibs over [GLOB.bloody_floors.len] tiles."
+
+/datum/objective/bloodspill/check_completion()
+	return bloodystation || completed
+	
 /datum/objective/harvest
 
 /datum/objective/harvest/update_explanation_text()

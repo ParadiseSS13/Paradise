@@ -201,38 +201,33 @@
 	return 1
 
 /obj/item/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/objective/demon/demon_objective = locate() in user_antag.cult_team.objectives
 	var/datum/objective/eldergod/summon_objective = locate() in user_antag.cult_team.objectives
 	var/datum/objective/sacrifice/sacrifice_objective = locate() in user_antag.cult_team.objectives // check if they sacrificed first too
 	var/area/A = get_area(src)
-	if(GAMEMODE_IS_CULT)
-		if(!canbypass)//not an admin-tome, check things
-			if(locate(/obj/singularity/narsie) in GLOB.poi_list)
-				to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
-				return 0
-			if(cult_mode.demons_summoned)
-				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
-				return 0
-			if(!sacrifice_objective.sacced)
-				to_chat(user, "<span class='cultlarge'>\"You have not yet sacrificed [sacrifice_objective.target]! Pay your tribute to [SSticker.cultdat.entity_name] or you SHALL be punished!\"</span>")
-				return 0
-			if(!A in summon_objective.summon_spots)
-				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
-				return 0
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
-		if(confirm_final == "No" || confirm_final == null)
-			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+	if(!canbypass)//not an admin-tome, check things
+		if(locate(/obj/singularity/narsie) in GLOB.poi_list)
+			to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 			return 0
-		else
-			return 1
-	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
-		if(confirm_final == "No" || confirm_final == null)
-			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+		if(demon_objective.summoned)
+			to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 			return 0
-		else
-			return 1
+		if(sacrifice_objective && !sacrifice_objective.sacced) // if they had a sacrifice objective that they didn't complete don't let them summon
+			to_chat(user, "<span class='cultlarge'>\"You have not yet sacrificed [sacrifice_objective.target]! Pay your tribute to [SSticker.cultdat.entity_name] or you SHALL be punished!\"</span>")
+			return 0
+		if(summon_objective && !A in summon_objective.summon_spots)
+			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
+			return 0
+		if(demon_objective && !A in demon_objective.summon_spots)
+			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(demon_objective.summon_spots)]!</span>")
+			return 0
+	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+	if(confirm_final == "No" || confirm_final == null)
+		to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+		return 0
+	else
+		return 1
 
 /obj/item/tome/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)

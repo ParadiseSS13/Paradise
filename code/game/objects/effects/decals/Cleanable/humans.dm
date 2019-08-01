@@ -26,6 +26,18 @@ var/global/list/image/splatter_cache = list()
 /obj/effect/decal/cleanable/blood/Initialize()
 	. = ..()
 	update_icon()
+	var/list/cult_teams = get_all_teams(/datum/antagonist/cult)
+	if(LAZYLEN(cult_teams))
+		for(var/datum/team/cult/teams in cult_teams)
+			var/datum/objective/bloodspill/BO = locate() in teams.objectives
+			if(!BO)
+				continue
+			var/turf/T = get_turf(src)
+			if(T && (is_station_level(T.z)))//F I V E   T I L E S
+				if(!(T in BO.bloody_floors))
+					BO.bloody_floors += T
+					BO.bloody_floors[T] = T
+					BO.blood_check()
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(type == /obj/effect/decal/cleanable/blood)
@@ -38,6 +50,16 @@ var/global/list/image/splatter_cache = list()
 	dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
+	var/list/cult_teams = get_all_teams(/datum/antagonist/cult)
+	if(LAZYLEN(cult_teams))
+		for(var/datum/team/cult/teams in cult_teams)
+			var/datum/objective/bloodspill/BO = locate() in teams.objectives
+			if(!BO)
+				continue
+			var/turf/T = get_turf(src)
+			if(T && (is_station_level(T.z)))
+				BO.bloody_floors -= T
+				BO.blood_check()
 	if(dry_timer)
 		deltimer(dry_timer)
 	return ..()

@@ -95,7 +95,6 @@
 		SSticker.mode.update_cult_icons_removed(owner)
 		owner.special_role = null
 	owner << "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of the Dark One and all your memories as its servant.</span>"
-	owner.memory = ""
 	owner.current.create_attack_log("<span class='cult'>Has renounced the cult of Nar'Sie!</span>")
 	owner.current.visible_message("<span class='big'>[owner] looks like they just reverted to their old faith!</span>")
 	. = ..()
@@ -104,16 +103,25 @@
 	name = "Cult"
 
 /datum/team/cult/proc/setup_objectives()
+	var/living_crew = 0
+
+	for(var/mob/living/L in GLOB.player_list)
+		if(L.stat != DEAD)
+			if(ishuman(L))
+				living_crew++
+
+	if(prob(20) && living_crew >= 15)
+		var/datum/objective/convert/bookclub_objective = new()
+		bookclub_objective.team = src
+		objectives += bookclub_objective
+	else if(prob(20) && GAMEMODE_IS_CULT)
+		var/datum/objective/bloodspill/blood_objective = new()
+		blood_objective.team = src
+		objectives += blood_objective
 
 	var/datum/objective/sacrifice/sac_objective = new()
 	sac_objective.team = src
 	objectives += sac_objective
-
-
-	if(prob(20))
-		var/datum/objective/convert/bookclub_objective = new()
-		bookclub_objective.team = src
-		objectives += bookclub_objective
 
 	if(prob(40))
 		var/datum/objective/eldergod/summon_objective = new()

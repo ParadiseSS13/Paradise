@@ -38,33 +38,14 @@ var/global/list/all_cults = list()
 	required_enemies = 3
 	recommended_enemies = 4
 	free_golems_disabled = TRUE
-
-	var/datum/mind/sacrifice_target = null
-	var/finished = 0
-
-	var/list/objectives = list()
-
-	var/eldergod = 1 //for the summon god objective
-	var/demons_summoned = 0
-
-	var/acolytes_needed = 4 //for the survive objective - base number of acolytes, increased by 1 for every 10 players
+	var/acolytes_survived = 0	
 	var/const/min_cultists_to_start = 3
 	var/const/max_cultists_to_start = 4
-	var/acolytes_survived = 0
 	var/datum/team/cult/main_cult
-
-	var/convert_target = 9	//how many members the cult needs to reach to complete the convert objective
-
-	var/list/sacrificed = list()	//contains the mind of the sacrifice target ONCE the sacrifice objective has been completed
-
-	var/escaped_shuttle = 0
-	var/escaped_pod = 0
-	var/survivors = 0
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
 	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.</B>")
-
 
 /datum/game_mode/cult/pre_setup()
 	if(config.protect_roles_from_antagonist)
@@ -86,7 +67,6 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
-	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
 	for(var/datum/mind/cult_mind in cult)
 		add_cultist(cult_mind, TRUE)
 		if(!main_cult)
@@ -132,18 +112,13 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/cult/proc/check_survive()
 	acolytes_survived = 0
-	for(var/datum/mind/cult_mind in cult)
-		if(cult_mind.current && cult_mind.current.stat!=2)
-			var/area/A = get_area(cult_mind.current )
-			if( is_type_in_list(A, centcom_areas))
+	for(var/datum/antagonist/cult/H in GLOB.antagonists)
+		if(H.owner.current && H.owner.current.stat != DEAD)
+			var/area/A = get_area(H.owner.current)
+			if(is_type_in_list(A, centcom_areas))
 				acolytes_survived++
 			else if(A == SSshuttle.emergency.areaInstance && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
 				acolytes_survived++
-
-	if(acolytes_survived>=acolytes_needed)
-		return 0
-	else
-		return 1
 
 
 /atom/proc/cult_log(var/message)
@@ -153,6 +128,7 @@ var/global/list/all_cults = list()
 	return main_cult.check_cult_victory()
 
 /datum/game_mode/cult/declare_completion()
+	check_survive()
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","cult win - cult win")
 		feedback_set("round_end_result",acolytes_survived)
@@ -164,10 +140,10 @@ var/global/list/all_cults = list()
 
 	var/parts = "<b>Cultists escaped:</b> [acolytes_survived]"
 
-	if(objectives.len)
+	if(main_cult.objectives.len)
 		parts += "<b>The cultists' objectives were:</b>"
 		var/count = 1
-		for(var/datum/objective/objective in objectives)
+		for(var/datum/objective/objective in main_cult.objectives)
 			if(objective.check_completion())
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 			else
