@@ -128,6 +128,7 @@
 	anchored = 0
 	layer = 2.75
 	health = 3
+	var/eventspiderling = FALSE // Spawned by the random event? If TRUE, said spiderling cannot be considered to become randomly sentient.
 	var/amount_grown = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
@@ -227,7 +228,7 @@
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			if(player_spiders && !selecting_player) // If the spider who laid the eggs was a player
+			if((prob(15)) && player_spiders && !selecting_player && !eventspiderling) // If the spider who laid the eggs was a player, slightly better chance.
 				selecting_player = 1
 				spawn()
 					var/list/candidates = pollCandidates("Do you want to play as a giant spider?", ROLE_GSPIDER, 1, 150)
@@ -240,7 +241,7 @@
 								to_chat(S, "<span class='biggerdanger'>You are a giant spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 							else // Born from a sentient spider who isn't loyal to anybody, do the thing giant spiders do.
 								to_chat(S, "<span class='biggerdanger'>You are a smart giant spider! Use your sentiency to your advantage, and help the spiders take over!</span>")
-			else if((prob(10)) && !selecting_player && !player_spiders) // If the spider who laid the eggs was a NPC there's a 10% one of the spiderlings will become sentient.
+			else if((prob(10)) && !selecting_player && !player_spiders && !eventspiderling) // If the spider who laid the eggs was a NPC there's a 10% one of the spiderlings will become sentient.
 				selecting_player = 1
 				spawn()
 					var/list/candidates = pollCandidates("Do you want to play as a giant spider?", ROLE_GSPIDER, 1, 150)

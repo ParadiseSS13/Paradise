@@ -23,6 +23,7 @@
 	while((spawncount >= 1) && vents.len)
 		var/obj/vent = pick(vents)
 		var/obj/structure/spider/spiderling/S = new(vent.loc)
+		S.eventspiderling = TRUE
 		if(prob(66))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 		vents -= vent
