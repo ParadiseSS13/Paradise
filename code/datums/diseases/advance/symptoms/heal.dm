@@ -79,17 +79,17 @@
 	if(M.getToxLoss() && prob(5))
 		to_chat(M, "<span class='notice'>Your skin tingles as the starlight seems to heal you.</span>")
 
-	M.adjustToxLoss(-(4 * heal_amt)) //most effective on toxins
+	M.adjustToxLoss(-4 * heal_amt) //most effective on toxins
 
 	var/list/parts = M.get_damaged_organs(1, 1)
 
-	if(!parts.len)
+	if(!LAZYLEN(parts))
 		return
 
 	for(var/obj/item/organ/external/L in parts)
 		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, TRUE))
 			M.UpdateDamageIcon()
-	return 1
+	return TRUE
 
 /datum/symptom/heal/starlight/passive_message_condition(mob/living/M)
 	if(M.getBruteLoss() || M.getFireLoss() || M.getToxLoss())
@@ -123,7 +123,7 @@
 			M.nutrition = M.nutrition + 0.3
 		if(prob(2))
 			to_chat(M, "<span class='notice'>You feel a mild warmth as your blood purifies itself.</span>")
-	return 1
+	return TRUE
 
 /datum/symptom/heal/darkness
 	name = "Nocturnal Regeneration"
@@ -156,7 +156,7 @@
 
 	var/list/parts = M.get_damaged_organs(1, 1)
 
-	if(!parts.len)
+	if(!LAZYLEN(parts))
 		return
 
 	if(prob(5))
@@ -165,7 +165,7 @@
 	for(var/obj/item/organ/external/L in parts)
 		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len * 0.5, null, TRUE)) //more effective on brute
 			M.UpdateDamageIcon()
-	return 1
+	return TRUE
 
 /datum/symptom/heal/darkness/passive_message_condition(mob/living/M)
 	if(M.getBruteLoss() || M.getFireLoss())
@@ -211,7 +211,7 @@
 
 	var/list/parts = M.get_damaged_organs(1, 1) //more effective on burns
 
-	if(!parts.len)
+	if(!LAZYLEN(parts))
 		return
 
 	if(prob(5))
@@ -221,7 +221,7 @@
 		if(L.heal_damage(heal_amt/parts.len * 0.5, heal_amt/parts.len, null, TRUE))
 			M.UpdateDamageIcon()
 
-	return 1
+	return TRUE
 
 /datum/symptom/heal/water/passive_message_condition(mob/living/M)
 	if(M.getBruteLoss() || M.getFireLoss())
@@ -277,7 +277,7 @@
 
 	var/list/parts = M.get_damaged_organs(1, 1)
 
-	if(!parts.len)
+	if(!LAZYLEN(parts))
 		return
 
 	if(prob(4))
@@ -286,4 +286,4 @@
 	for(var/obj/item/organ/external/L in parts)
 		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, 1))
 			M.UpdateDamageIcon()
-	return 1
+	return TRUE

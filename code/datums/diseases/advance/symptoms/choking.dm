@@ -129,19 +129,19 @@ Bonus
 	return
 
 /datum/symptom/asphyxiation/proc/Asphyxiate_stage_3_4(mob/living/M, datum/disease/advance/A)
-	var/get_damage = rand(10,15) * power
+	var/get_damage = rand(10, 15) * power
 	M.adjustOxyLoss(get_damage)
 	return 1
 
 /datum/symptom/asphyxiation/proc/Asphyxiate(mob/living/M, datum/disease/advance/A)
-	var/get_damage = rand(15,21) * power
+	var/get_damage = rand(15, 21) * power
 	M.adjustOxyLoss(get_damage)
 	if(paralysis)
 		M.reagents.add_reagent_list(list("pancuronium" = 3, "sodium_thiopental" = 3))
 	return 1
 
 /datum/symptom/asphyxiation/proc/Asphyxiate_death(mob/living/M, datum/disease/advance/A)
-	var/get_damage = rand(25,35) * power
+	var/get_damage = rand(25, 35) * power
 	M.adjustOxyLoss(get_damage)
 	M.adjustBrainLoss(get_damage/2)
 	return 1

@@ -49,7 +49,7 @@ Bonus
 			sleep_level = 0
 			sleepy_ticks = 0
 
-	if(sleepy_ticks && A.stage>=5)
+	if(sleepy_ticks && A.stage >= 5)
 		sleep_level++
 		sleepy_ticks--
 	else
@@ -82,7 +82,7 @@ Bonus
 					M.adjustStaminaLoss(20)
 		if(5)
 			if(prob(25))
-				to_chat(M, "<span class='warning'>[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]</span>")
+				to_chat(M, "<span class='warning'>[pick("So tired...", "You feel very sleepy.", "You have a hard time keeping your eyes open.", "You try to stay awake.")]</span>")
 				M.drowsyness = max(M.drowsyness, 2)
 				sleepy_ticks += rand(10,14)
 				if(stamina)

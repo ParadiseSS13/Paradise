@@ -46,23 +46,22 @@ Bonus
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
-		if(2,3)
+		if(2, 3)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
-		if(4,5)
+		if(4, 5)
 			to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
 			Flesheat(M, A)
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
-	var/get_damage = rand(15,25) * power
+	var/get_damage = rand(15, 25) * power
 	M.take_overall_damage(brute = get_damage)
 	if(pain)
 		M.adjustStaminaLoss(get_damage * 2)
-	if(bleed)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.bleed_rate += 5 * power
-	return 1
+	if(bleed && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.bleed_rate += 5 * power
+	return TRUE
 
 /*
 //////////////////////////////////////
@@ -112,19 +111,19 @@ Bonus
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
-		if(2,3)
+		if(2, 3)
 			if(prob(base_message_chance) && !suppress_warning)
 				to_chat(M, "<span class='warning'>[pick("You feel your body break apart.", "Your skin rubs off like dust.")]</span>")
-		if(4,5)
+		if(4, 5)
 			if(prob(base_message_chance / 2)) //reduce spam
 				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
 			Flesh_death(M, A)
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
-	var/get_damage = rand(6,10)
+	var/get_damage = rand(6, 10)
 	M.take_overall_damage(brute = get_damage)
 	if(chems)
 		M.reagents.add_reagent_list(list("heparin" = 2, "lipocide" = 2))
 	//if(zombie)
 		//M.reagents.add_reagent(/datum/reagent/romerol, 1) uncomment this once we have romerol(if its merged)
-	return 1
+	return TRUE

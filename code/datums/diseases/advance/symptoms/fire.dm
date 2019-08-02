@@ -74,7 +74,7 @@ Bonus
 
 /datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(3 * power)
-	M.take_overall_damage(0,burn = 5 * power)
+	M.take_overall_damage(0, burn = 5 * power)
 	if(infective)
 		A.spread(4)
 	return 1
@@ -148,7 +148,7 @@ Bonus
 			M.emote("scream")
 			if(M.fire_stacks < 0)
 				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
-				explosion(get_turf(M),0,0,2 * explosion_power)
+				explosion(get_turf(M), 0, 0, 2 * explosion_power)
 				Alkali_fire_stage_5(M, A)
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
@@ -157,7 +157,7 @@ Bonus
 	M.take_overall_damage(burn = get_stacks / 2)
 	if(chems)
 		M.reagents.add_reagent("clf3", 2 * power)
-	return 1
+	return TRUE
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_5(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 8 * power
@@ -165,4 +165,4 @@ Bonus
 	M.take_overall_damage(burn = get_stacks)
 	if(chems)
 		M.reagents.add_reagent_list(list("napalm" = 4 * power, "clf3" = 4 * power))
-	return 1
+	return TRUE

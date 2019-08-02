@@ -49,9 +49,7 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)
-	if(neutered)
-		return FALSE
-	return TRUE
+	return !neutered
 
 /datum/symptom/proc/Activate(datum/disease/advance/A)
 	if(neutered)

@@ -63,7 +63,7 @@ var/list/advance_cures = 	list(
 	return
 
 /datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
-	if (!infectee.viruses.len)
+	if (!LAZYLEN(infectee.viruses))
 		infectee.ForceContractDisease(src)
 		return TRUE
 	//see if we are more transmittable than enough diseases to replace them
@@ -276,12 +276,11 @@ var/list/advance_cures = 	list(
 
 // Randomly neuter a symptom.
 /datum/disease/advance/proc/Neuter()
-	if(symptoms.len)
+	if(LAZYLEN(symptoms))
 		var/s = safepick(symptoms)
 		if(s)
 			NeuterSymptom(s)
 			Refresh(TRUE)
-	return
 
 // Randomly remove a symptom.
 /datum/disease/advance/proc/Devolve()
