@@ -41,6 +41,8 @@
 		if(E)
 			engname = E
 			issuccessful = TRUE
+		else
+			return
 	if(!engname)
 		engname = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
 	switch(engname)
@@ -52,8 +54,8 @@
 			issuccessful = TRUE
 
 	if(issuccessful)
-		clearturf(T) //qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
-		new G(T)	//Spawns the switch-selected engine on the chosen beacon's turf
+		clearturf(T) 	//qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
+		new G(T)		//Spawns the switch-selected engine on the chosen beacon's turf
 
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
