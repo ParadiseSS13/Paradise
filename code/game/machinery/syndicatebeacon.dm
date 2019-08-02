@@ -74,8 +74,6 @@
 			
 			var/datum/antagonist/traitor/T = new()
 			T.give_objectives = FALSE
-			T.forge_single_custom_objective(null, objective)
-			T.forge_single_custom_objective(null, "Escape on the shuttle or an escape pod alive and free.")
 			N.mind.add_antag_datum(T)
 	
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")

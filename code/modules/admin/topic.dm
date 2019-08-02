@@ -1959,19 +1959,18 @@
 						if(ismindshielded(player.current))
 							possible_traitors -= player
 				if(possible_traitors.len)
-					message_admins("Calling crew traitor")
 					var/datum/mind/newtraitormind = pick(possible_traitors)
 					var/mob/living/newtraitor = newtraitormind.current
-					var/datum/antagonist/traitor/T = new()			
-					T.give_objectives = FALSE
-					T.should_give_codewords = FALSE			
-					T.should_equip = FALSE
-					// Stuck calling the proc below, doesnt matter if it goes after add_antag_datum(T) or not
-					T.forge_single_custom_objective(H.mind, "Assassinate [H.real_name], the [H.mind.assigned_role].")
-					newtraitor.mind.add_antag_datum(T)
+					var/datum/antagonist/traitor/custom/C = new()
+					C.should_equip = TRUE
+					newtraitor.mind.add_antag_datum(C)
+					var/datum/objective/assassinate/kill_objective = new
+					kill_objective.target = H.mind
+					kill_objective.owner = newtraitor.mind
+					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
+					C.add_objective(kill_objective)
 					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 					to_chat(newtraitor, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
-					message_admins("Success")
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return

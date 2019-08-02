@@ -1617,12 +1617,8 @@
 	special_role = "traitor"
 	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
 	
-	var/datum/antagonist/traitor/T = new()
-	T.give_objectives = FALSE
-	T.should_equip = FALSE
-	T.should_give_codewords = FALSE
-	T.forge_single_custom_objective(src, "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)].")
-	add_antag_datum(/datum/antagonist/traitor)
+	var/datum/antagonist/traitor/custom/C = new()
+	add_antag_datum(C)
 
 	if(missionary.mind.som)
 		var/datum/mindslaves/slaved = missionary.mind.som

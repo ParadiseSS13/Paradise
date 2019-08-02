@@ -15,6 +15,21 @@
 	var/list/assigned_targets = list()
 
 
+// Crew traitors, Hunters, Apprentices, Syndicate beacon traitors, Mindslaves, Zealots etc. are all handled by this
+/datum/antagonist/traitor/custom
+	give_objectives = FALSE
+	should_give_codewords = FALSE
+	should_equip = FALSE
+
+
+/datum/antagonist/traitor/custom/on_gain()
+	SSticker.mode.traitors += owner
+	owner.special_role = special_role
+	greet()
+	update_traitor_icons_added()
+	finalize_traitor()
+
+
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
@@ -141,15 +156,6 @@
 			return forge_single_AI_objective()
 		else
 			return forge_single_human_objective()
-
-
-// Used for situations when you want to give someone only one objective. Apprentices, mindslaves, missionary staff slaves, crew traitors, syndicate beacon traitors.
-/datum/antagonist/traitor/proc/forge_single_custom_objective(var/objective_target, var/explanation)
-	var/datum/objective/assassinate/kill_objective = new
-	kill_objective.owner = owner
-	kill_objective.target = objective_target
-	kill_objective.explanation_text = explanation
-	add_objective(kill_objective)
 
 
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
