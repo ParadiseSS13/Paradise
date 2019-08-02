@@ -94,8 +94,8 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("hiss", "hisses")
-			if(isunathi(src)) //Only Unathi can hiss.
+		if("hiss", "hisses", "flick", "flicks")
+			if(isunathi(src)) //Only Unathi can hiss and flick their tongue.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -219,6 +219,10 @@
 			else
 				message = "<B>[src]</B> makes a weak hissing noise."
 				m_type = 2
+
+		if("flick", "flicks")
+			message = "<B>[src]</B> flicks [p_their()] forked tongue in the air."
+			m_type = 1
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
@@ -910,7 +914,7 @@
 				if("Kidan")
 					emotelist += "\nKidan specific emotes :- click(s), clack(s)"
 				if("Unathi")
-					emotelist += "\nUnathi specific emotes :- hiss(es)"
+					emotelist += "\nUnathi specific emotes :- hiss(es), flick(s)"
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
 				if("Vox")
