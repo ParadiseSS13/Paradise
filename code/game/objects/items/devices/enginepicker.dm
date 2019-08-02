@@ -12,15 +12,25 @@
 	icon_state = "enginepicker"
 
 	var/list/list_enginebeacons = list()
+	var/isactive = FALSE
 
 /obj/item/enginepicker/attack_self(mob/living/carbon/user)
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
+
+	if(!isactive)
+		isactive = TRUE	//Self-attack spam exploit prevention
+	else
+		return
+
 	locatebeacons()
 	var/default = null
 	var/E = input("Select the station's Engine:", "[src]", default) as null|anything in list_enginebeacons
 	if(E)
 		processchoice(E, user)
+	else
+		isactive = FALSE
+		return
 
 //This proc finds all of the '/obj/item/radio/beacon/engine' in the world and assigns them to a list
 /obj/item/enginepicker/proc/locatebeacons()
@@ -42,6 +52,7 @@
 			engname = E
 			issuccessful = TRUE
 		else
+			isactive = FALSE
 			return
 	if(!engname)
 		engname = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
@@ -68,6 +79,7 @@
 		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.
 	else
 		visible_message("<span class='notice'>\The [src] buzzes! No beacon found or selected!</span>")
+		isactive = FALSE
 		return
 
 //Deletes objects and mobs from the beacon's turf.
