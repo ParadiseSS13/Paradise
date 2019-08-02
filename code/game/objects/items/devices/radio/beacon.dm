@@ -88,16 +88,20 @@
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
+	anchored = 1		//Let's not move these around. Some folk might get the idea to use these for assassinations
 	var/list/enginetype = list()
+
+/obj/item/radio/beacon/engine/Initialize()
+	LAZYADD(GLOB.engine_beacon_list, src)
 
 /obj/item/radio/beacon/engine/tesling
 	name = "Engine Beacon for Tesla and Singularity"
-	enginetype = list("Singularity", "Tesla")
+	enginetype = list(ENGTYPE_TESLA, ENGTYPE_SING)
 
 /obj/item/radio/beacon/engine/tesla
 	name = "Engine Beacon for Tesla"
-	enginetype = list("Tesla")
+	enginetype = list(ENGTYPE_TESLA)
 
 /obj/item/radio/beacon/engine/sing
 	name = "Engine Beacon for Singularity"
-	enginetype = list("Singularity")
+	enginetype = list(ENGTYPE_SING)

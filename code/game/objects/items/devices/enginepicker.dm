@@ -7,7 +7,7 @@
 
 /obj/item/enginepicker
 	name = "Bluespace Engine Delivery Device"
-	desc = "With all of the innovations in power-generating science, Nanotrasen has decided to invent a per-station bluespace-based delivery system for a unique engine of the Chief Engineer's choice. Only one choice can be made. Device self-destructs on use."
+	desc = "A per-station bluespace-based delivery system for a unique engine Engineering Department's choice. Only one option can be chosen. Device self-destructs on use."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "enginepicker"
 
@@ -25,7 +25,7 @@
 //This proc finds all of the '/obj/item/radio/beacon/engine' in the world and assigns them to a list
 /obj/item/enginepicker/proc/locatebeacons()
 	LAZYCLEARLIST(list_enginebeacons)
-	for(var/obj/item/radio/beacon/engine/B in world)
+	for(var/obj/item/radio/beacon/engine/B in GLOB.engine_beacon_list)
 		if(B && !QDELETED(B))
 			list_enginebeacons += B
 
@@ -46,10 +46,10 @@
 	if(!engname)
 		engname = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
 	switch(engname)
-		if("Tesla")
+		if(ENGTYPE_TESLA)
 			G = /obj/machinery/the_singularitygen/tesla
 			issuccessful = TRUE
-		if("Singularity")
+		if(ENGTYPE_SING)
 			G = /obj/machinery/the_singularitygen
 			issuccessful = TRUE
 
@@ -62,7 +62,7 @@
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
-			announcer.say(";Engine delivery detected. Type: " + engname + ".")	//Let's announce the terrible choice to everyone
+			announcer.say(";Engine delivery detected. Type: [engname].")	//Let's announce the terrible choice to everyone
 
 		visible_message("<span class='notice'>\The [src] begins to violently vibrate and hiss, then promptly disintegrates!</span>")
 		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.

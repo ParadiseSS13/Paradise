@@ -394,3 +394,8 @@
 
 // Cult summon possibilities
 #define SUMMON_POSSIBILITIES 3
+
+//Engine types
+#define ENGTYPE_SING 		"Singularity"
+#define ENGTYPE_SM 			"Supermatter"
+#define ENGTYPE_TESLA		"Tesla"
