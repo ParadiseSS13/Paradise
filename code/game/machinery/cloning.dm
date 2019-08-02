@@ -425,7 +425,8 @@
 		SSticker.mode.update_cult_icons_added() //So the icon actually appears
 		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
 	if((H.mind in SSticker.mode.implanter) || (H.mind in SSticker.mode.implanted))
-		H.mind.add_antag_datum(/datum/antagonist/traitor) //So the icon actually appears
+		var/datum/antagonist/traitor/T = new()  // not sure if this actually works
+		T.update_traitor_icons_added(H.mind)  //So the icon actually appears
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))

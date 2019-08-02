@@ -1,11 +1,11 @@
 /datum/game_mode
 	// this includes admin-appointed traitors and multitraitors. Easy!
 	var/list/datum/mind/traitors = list()
-	var/list/datum/mind/implanter = list()
-	var/list/datum/mind/implanted = list()
+	// var/list/datum/mind/implanter = list()
+	// var/list/datum/mind/implanted = list()
 
-	var/datum/mind/exchange_red
-	var/datum/mind/exchange_blue
+	// var/datum/mind/exchange_red
+	// var/datum/mind/exchange_blue
 
 /datum/game_mode/traitor
 	name = "traitor"

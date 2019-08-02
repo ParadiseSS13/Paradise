@@ -324,10 +324,10 @@
 
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
-	if(src in SSticker.mode.traitors)
+	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		if(objectives.len==0)
-			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize</a>!"
+			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
 
@@ -349,7 +349,7 @@
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
 	if(ishuman(current) && ((src in SSticker.mode.head_revolutionaries) || \
-		(src in SSticker.mode.traitors) || \
+		(has_antag_datum(/datum/antagonist/traitor)) || \
 		(src in SSticker.mode.syndicates)))
 		. = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
 		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
@@ -800,7 +800,8 @@
 				qdel(flash)
 				take_uplink()
 				var/fail = 0
-				fail |= !current.mind.add_antag_datum(/datum/antagonist/traitor)
+				var/datum/antagonist/traitor/T = current
+				fail |= !T.equip_traitor(src)
 				fail |= !SSticker.mode.equip_revolutionary(current)
 				if(fail)
 					to_chat(usr, "<span class='warning'>Reequipping revolutionary goes wrong!</span>")
@@ -1139,37 +1140,25 @@
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
-				if(src in SSticker.mode.traitors)
-					SSticker.mode.traitors -= src
-					special_role = null
+				if(has_antag_datum(/datum/antagonist/traitor))
+					remove_antag_datum(/datum/antagonist/traitor)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
-					if(isAI(current))
-						var/mob/living/silicon/ai/A = current
-						A.set_zeroth_law("")
-						A.show_laws()
-						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-						A.malf_picker.remove_verbs(A)
-						qdel(A.malf_picker)
-					src.remove_antag_datum(/datum/antagonist/traitor)
-
-
+					
 			if("traitor")
-				if(!(src in SSticker.mode.traitors))
-					src.add_antag_datum(/datum/antagonist/traitor/custom)
-					to_chat(current, "<span class='danger'>You are a traitor!</span>")
+				if(!(has_antag_datum(/datum/antagonist/traitor)))
+					var/datum/antagonist/traitor/T = new()
+					T.give_objectives = FALSE
+					T.should_give_codewords = FALSE
+					T.should_equip = FALSE
+					add_antag_datum(T)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
-					if(isAI(current))
-						var/mob/living/silicon/ai/A = current
-						A.mind.add_antag_datum(/datum/antagonist/traitor)
-						SEND_SOUND(current, 'sound/ambience/antag/malf.ogg')
-					else
-						SEND_SOUND(current, 'sound/ambience/antag/tatoralert.ogg')
 
 			if("autoobjectives")
-				src.add_antag_datum(/datum/antagonist/traitor)
+				var/datum/antagonist/traitor/T = new()
+				T.forge_traitor_objectives(src)
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
@@ -1308,9 +1297,12 @@
 							log_admin("[key_name(usr)] has set [key_name(current)]'s telecrystals to [crystals]")
 							message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s telecrystals to [crystals]")
 			if("uplink")
-				if(!src.add_antag_datum(/datum/antagonist/traitor))
-					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
-					return
+				if(has_antag_datum(/datum/antagonist/traitor))
+					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
+					T.give_codewords()
+					if(!T.equip_traitor(src))
+						to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
@@ -1394,9 +1386,12 @@
 		qdel(H)
 
 /datum/mind/proc/make_Traitor()
-	if(!(src in SSticker.mode.traitors))
-		SSticker.mode.traitors += src
-		src.add_antag_datum(/datum/antagonist/traitor)
+	if(!has_antag_datum(/datum/antagonist/traitor))
+		var/datum/antagonist/traitor/T = new()
+		T.give_objectives = FALSE
+		T.should_equip = FALSE
+		T.should_give_codewords = FALSE
+		add_antag_datum(T)
 
 /datum/mind/proc/make_Nuke()
 	if(!(src in SSticker.mode.syndicates))
@@ -1611,36 +1606,25 @@
 	if(G)
 		G.reenter_corpse()
 
+
+// Rework this whole fucking thing to use the traitor datum, or maybe have a seperate mindslave datum?
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 6000, team_color = "red")
-	if(!missionary || !istype(missionary))		//better provide a proper missionary or the rest of this is gonna break
+
+	// User should be a traitor, otherwise dont let them slave people
+	if(!missionary.mind.has_antag_datum(/datum/antagonist/traitor))
 		return 0
 
-	zealot_master = missionary
-
-	var/list/implanters
-	var/ref = "\ref[missionary.mind]"
-	if(!(missionary.mind in SSticker.mode.implanter))
-		SSticker.mode.implanter[ref] = list()
-	implanters = SSticker.mode.implanter[ref]
-	implanters.Add(src)
-	SSticker.mode.implanted.Add(src)
-	SSticker.mode.implanted[src] = missionary.mind
-	//ticker.mode.implanter[missionary.mind] += src
-	SSticker.mode.implanter[ref] = implanters
-	SSticker.mode.traitors += src
 	special_role = "traitor"
 	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
-	var/datum/objective/protect/mindslave/MS = new
-	MS.owner = src
-	MS.target = missionary.mind
-	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
-	objectives += MS
-	for(var/datum/objective/objective in objectives)
-		to_chat(current, "<B>Objective #1</B>: [objective.explanation_text]")
+	
+	var/datum/antagonist/traitor/T = new()
+	T.give_objectives = FALSE
+	T.should_equip = FALSE
+	T.should_give_codewords = FALSE
+	T.forge_single_custom_objective(src, "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)].")
+	add_antag_datum(/datum/antagonist/traitor)
 
-	missionary.mind.add_antag_datum(/datum/antagonist/traitor/custom)
-
-	if(missionary.mind.som)//do not add if not a traitor..and you just picked up a robe and staff in the hall...
+	if(missionary.mind.som)
 		var/datum/mindslaves/slaved = missionary.mind.som
 		som = slaved
 		slaved.serv += current
@@ -1656,13 +1640,13 @@
 			H.update_inv_w_uniform(0,0)
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(CALLBACK(src, missionary.mind.remove_antag_datum(/datum/antagonist/traitor/custom), jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, missionary.mind.remove_antag_datum(/datum/antagonist/traitor/), jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
-	src.remove_antag_datum(/datum/antagonist/traitor/custom)
+	remove_antag_datum(/datum/antagonist/traitor/)
 	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 

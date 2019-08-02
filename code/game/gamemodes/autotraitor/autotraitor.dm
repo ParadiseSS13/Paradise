@@ -128,18 +128,8 @@
 				var/mob/living/newtraitor = newtraitormind.current
 				//message_admins("[newtraitor.real_name] is the new Traitor.")
 
-				newtraitor.mind.add_antag_datum(/datum/antagonist/traitor)
-				// traitors += newtraitor.mind - Do we need this?
-
 				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-				to_chat(newtraitor, "<B>You are now a traitor.</B>")
-				set_antag_hud(newtraitor, "hudsyndicate")
-
-				var/obj_count = 1
-				to_chat(newtraitor, "<span class='notice'>Your current objectives:</span>")
-				for(var/datum/objective/objective in newtraitor.mind.objectives)
-					to_chat(newtraitor, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-					obj_count++
+				newtraitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			//else
 				//message_admins("No new traitor being added.")
 		//else

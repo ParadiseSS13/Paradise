@@ -435,9 +435,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	switch(new_character.mind.special_role)
 		if("traitor")
-			SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
-			SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)
-			new_character.mind.add_antag_datum(/datum/antagonist/traitor)
+			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
+				var/datum/antagonist/traitor/T = new()
+				T.equip_traitor(src)
+			else
+				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
 			new_character.loc = pick(wizardstart)
 			//ticker.mode.learn_basic_spells(new_character)

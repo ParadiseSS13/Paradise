@@ -57,7 +57,6 @@
 				return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
-			N.mind.add_antag_datum(/datum/antagonist/traitor/custom)
 			var/objective = "Free Objective"
 			switch(rand(1,100))
 				if(1 to 50)
@@ -73,18 +72,15 @@
 				else
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
 			
-			// var/datum/objective/escape/escape_objective = new
-			// N.add_objective(escape_objective)
+			var/datum/antagonist/traitor/T = new()
+			T.give_objectives = FALSE
+			T.forge_single_custom_objective(null, objective)
+			T.forge_single_custom_objective(null, "Escape on the shuttle or an escape pod alive and free.")
+			N.mind.add_antag_datum(T)
 	
-
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")
-
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
-			var/obj_count = 1
-			for(var/datum/objective/OBJ in M.mind.objectives)
-				to_chat(M, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-				obj_count++
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()

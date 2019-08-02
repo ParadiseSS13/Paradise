@@ -1220,7 +1220,7 @@
 #include "code\modules\antagonists\_common\antag_hud.dm"
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\modules\antagonists\_common\antag_team.dm"
-#include "code\modules\antagonists\_common\traitor.dm"
+#include "code\modules\antagonists\traitor\traitor.dm"
 #include "code\modules\antagonists\wishgranter\wishgranter.dm"
 #include "code\modules\arcade\arcade_base.dm"
 #include "code\modules\arcade\arcade_prize.dm"

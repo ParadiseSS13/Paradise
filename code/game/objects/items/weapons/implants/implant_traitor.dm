@@ -64,6 +64,7 @@
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
 
+			// rework all this implanters crap to use datum
 			user.mind.add_antag_datum(/datum/antagonist/traitor)
 			H.mind.add_antag_datum(/datum/antagonist/traitor) //handles datahuds/observerhuds
 

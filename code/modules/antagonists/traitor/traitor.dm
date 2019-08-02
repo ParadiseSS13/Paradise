@@ -13,16 +13,7 @@
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/list/assigned_targets = list()
-	//can_hijack = HIJACK_HIJACKER
 
-
-// This is for dealing with antags like wizard apprentices and missionaries
-// We dont want to give these traitors codewords, uplinks or the normal assasinate or theft objectives
-/datum/antagonist/traitor/custom
-	give_objectives = FALSE
-	should_give_codewords = FALSE
-	should_equip = FALSE
-	
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
@@ -35,7 +26,7 @@
 	greet()
 	update_traitor_icons_added()
 	finalize_traitor()
-
+	
 
 /datum/antagonist/traitor/apply_innate_effects()
 	if(owner.assigned_role == "Clown")
@@ -58,11 +49,12 @@
 	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.set_zeroth_law("")
+		A.showLaws()
 		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
 		qdel(A.malf_picker)
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
-		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")
+		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
 	owner.special_role = null
 	..()
 
@@ -83,7 +75,7 @@
 
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	var/is_hijacker = FALSE
-	if(GLOB.player_list.len >= 30) // Less murderboning on lowpop thanks
+	if(GLOB.player_list.len >= 30)
 		is_hijacker = prob(10)
 	var/martyr_chance = prob(20)
 	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
@@ -151,8 +143,17 @@
 			return forge_single_human_objective()
 
 
+// Used for situations when you want to give someone only one objective. Apprentices, mindslaves, missionary staff slaves, crew traitors, syndicate beacon traitors.
+/datum/antagonist/traitor/proc/forge_single_custom_objective(var/objective_target, var/explanation)
+	var/datum/objective/assassinate/kill_objective = new
+	kill_objective.owner = owner
+	kill_objective.target = objective_target
+	kill_objective.explanation_text = explanation
+	add_objective(kill_objective)
+
+
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
-	.=1
+	. = 1
 	if(prob(50))
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.player_list.len))
@@ -184,7 +185,7 @@
 
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
-	.=1
+	. = 1
 	var/special_pick = rand(1,2)
 	switch(special_pick)
 		if(1)
@@ -206,8 +207,11 @@
 
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role].</span>")
-	owner.announce_objectives()
+	to_chat(owner.current, "<B><font size=3 color=red>You are a [owner.special_role]!</font></B>")
+	if(owner.objectives.len == 0)
+		to_chat(owner.current, "<span>You don't have any objectives right now.</span>")
+	else
+		owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
 
@@ -231,7 +235,7 @@
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
 		if(TRAITOR_HUMAN)
 			if(should_equip)
-				equip_traitor(silent)
+				equip_traitor()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 
 
@@ -254,14 +258,13 @@
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='blue'>[phrases]</span>")
-	to_chat(traitor_mob, "<B>Code Response</B>: <span class='red'>[responses]</span>")
+	to_chat(traitor_mob, "<B>Code Phrase: <span class='danger'>[phrases]</span></B>")
+	to_chat(traitor_mob, "<B>Code Response: <span class='danger'>[responses]</span></B>")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='blue'>[phrases]</span><br>"
+	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
 	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(traitor_mob, "<span class='alertwarning'>You memorize the codewords, allowing you to recognise them when heard.</span>")
 
 
 /datum/antagonist/traitor/proc/add_law_zero()
@@ -313,8 +316,8 @@
 				target_radio.hidden_uplink = T
 				T.uplink_owner = "[traitor_mob.key]"
 				target_radio.traitor_frequency = freq
-				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
-				traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
+				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
+				traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name]).")
 			else if(istype(R, /obj/item/pda))
 				// generate a passcode if the uplink is hidden in a PDA
 				var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
@@ -325,8 +328,8 @@
 				var/obj/item/pda/P = R
 				P.lock_code = pda_pass
 
-				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
-				traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
+				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
+				traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name].")
 	return 1
 
 
