@@ -39,27 +39,17 @@
 		var/default = null
 		var/E = input("You have selected a combined beacon, which option would you prefer?", "[src]", default) as null|anything in choice.enginetype
 		if(E)
-			switch(E)
-				if("Singularity")
-					G = /obj/machinery/the_singularitygen
-					issuccessful = TRUE
-					engname = E
-				if("Tesla")
-					G = /obj/machinery/the_singularitygen/tesla
-					issuccessful = TRUE
-					engname = E
-	else	//If the beacon has only one
-		var/E = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
-		if(E)
-			switch(E)
-				if("Tesla")
-					G = /obj/machinery/the_singularitygen/tesla
-					issuccessful = TRUE
-					engname = E
-				if("Singularity")
-					G = /obj/machinery/the_singularitygen
-					issuccessful = TRUE
-					engname = E
+			engname = E
+			issuccessful = TRUE
+	if(!engname)
+		engname = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
+	switch(engname)
+		if("Tesla")
+			G = /obj/machinery/the_singularitygen/tesla
+			issuccessful = TRUE
+		if("Singularity")
+			G = /obj/machinery/the_singularitygen
+			issuccessful = TRUE
 
 	if(issuccessful)
 		clearturf(T) //qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
