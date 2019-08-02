@@ -1950,8 +1950,8 @@
 			if("Crew Traitor")
 				var/list/possible_traitors = list()
 				for(var/mob/living/player in GLOB.living_mob_list)
-					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
-						if(ishuman(player))
+					if(player.client && player.mind && player.stat != DEAD && player != H)
+						if(ishuman(player) && !player.mind.special_role)
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 								possible_traitors += player.mind
 				for(var/datum/mind/player in possible_traitors)
@@ -1960,17 +1960,16 @@
 							possible_traitors -= player
 				if(possible_traitors.len)
 					var/datum/mind/newtraitormind = pick(possible_traitors)
-					var/mob/living/newtraitor = newtraitormind.current
 					var/datum/antagonist/traitor/custom/C = new()
 					C.should_equip = TRUE
-					newtraitor.mind.add_antag_datum(C)
-					var/datum/objective/assassinate/kill_objective = new
+					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
-					kill_objective.owner = newtraitor.mind
+					kill_objective.owner = newtraitormind
 					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
 					C.add_objective(kill_objective)
-					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitor, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
+					newtraitor.mind.add_antag_datum(C)					
+					to_chat(newtraitor.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitor.current, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return

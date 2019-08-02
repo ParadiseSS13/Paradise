@@ -129,7 +129,12 @@
 	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
 	output += memory
 
-	if(objectives.len)
+	var/list/all_objectives = objectives
+	for(var/datum/antagonist/A in antag_datums)
+		output += A.antag_memory
+		all_objectives |= A.objectives
+
+	if(LAZYLEN(all_objectives))
 		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
@@ -146,9 +151,16 @@
 	else
 		to_chat(recipient, "<i>[output]</i>")
 
+/datum/mind/proc/get_all_objectives()
+	var/list/all_objectives = list()
+	for(var/datum/antagonist/A in antag_datums)
+		all_objectives |= A.objectives
+	return all_objectives
+
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
+	objectives = get_all_objectives()
 	for(var/datum/objective/objective in objectives)
 		. += "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
 		if(admin)

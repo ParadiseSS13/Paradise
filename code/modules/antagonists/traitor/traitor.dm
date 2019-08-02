@@ -214,7 +214,7 @@
 
 /datum/antagonist/traitor/greet()
 	to_chat(owner.current, "<B><font size=3 color=red>You are a [owner.special_role]!</font></B>")
-	if(owner.objectives.len == 0)
+	if(LAZYLEN(objectives))
 		to_chat(owner.current, "<span>You don't have any objectives right now.</span>")
 	else
 		owner.announce_objectives()
