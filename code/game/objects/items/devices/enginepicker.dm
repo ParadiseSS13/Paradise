@@ -73,8 +73,8 @@
 //Deletes objects and mobs from the beacon's turf.
 /obj/item/enginepicker/proc/clearturf(var/turf/T)
 	for(var/obj/item/I in T)
-		visible_message("\The [I] gets crushed to dust!")
+		I.visible_message("\The [I] gets crushed to dust!")
 		qdel(I)
 	for(var/mob/living/M in T)
-		visible_message("\The [M] gets obliterated!")
+		M.visible_message("\The [M] gets obliterated!")
 		M.gib()
