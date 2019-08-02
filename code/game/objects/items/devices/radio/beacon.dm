@@ -85,3 +85,19 @@
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
 	return
+
+/obj/item/radio/beacon/engine
+	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
+	var/list/enginetype = list()
+
+/obj/item/radio/beacon/engine/tesling
+	name = "Engine Beacon for Tesla and Singularity"
+	enginetype = list("Singularity", "Tesla")
+
+/obj/item/radio/beacon/engine/tesla
+	name = "Engine Beacon for Tesla"
+	enginetype = list("Tesla")
+
+/obj/item/radio/beacon/engine/sing
+	name = "Engine Beacon for Singularity"
+	enginetype = list("Singularity")

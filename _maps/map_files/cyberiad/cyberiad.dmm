@@ -27920,6 +27920,9 @@
 /obj/item/storage/fancy/cigarettes,
 /obj/item/lighter/zippo,
 /obj/item/pen/multi,
+/obj/item/enginepicker{
+	layer = 3.1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -93262,20 +93265,15 @@
 	name = "\improper AI Satellite Service"
 	})
 "dle" = (
-/obj/machinery/the_singularitygen{
-	anchored = 1
-	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
-"dlf" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"dlf" = (
+/obj/item/radio/beacon/engine/tesling,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "dlg" = (
-/obj/machinery/the_singularitygen/tesla{
-	anchored = 1
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
