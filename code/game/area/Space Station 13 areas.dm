@@ -1938,7 +1938,7 @@ var/list/ghostteleportlocs = list()
 
 /area/construction
 	name = "\improper Construction Area"
-	icon_state = "yellow"
+	icon_state = "construction"
 
 /area/mining_construction
 	name = "Auxillary Base Construction"
