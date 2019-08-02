@@ -13,7 +13,7 @@ assignees: ''
 
 **What happened instead**:
 
-**Why is this bad/What are the consequences:**
+**Why is this bad/What are the consequences**:
 
 **Steps to reproduce the problem**:
 
