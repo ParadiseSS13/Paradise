@@ -1948,23 +1948,29 @@
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")
+				if(!H.mind)
+					to_chat(usr, "<span class='warning'><i>This mob has no mind!</i></span>")
+					return
+
 				var/list/possible_traitors = list()
 				for(var/mob/living/player in GLOB.living_mob_list)
 					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
 						if(ishuman(player))
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 								possible_traitors += player.mind
+
 				for(var/datum/mind/player in possible_traitors)
 					if(player.current)
 						if(ismindshielded(player.current))
 							possible_traitors -= player
+
 				if(possible_traitors.len)
 					var/datum/mind/newtraitormind = pick(possible_traitors)
 					var/mob/living/newtraitor = newtraitormind.current
-					var/datum/antagonist/traitor/custom/C = new()
+					var/datum/antagonist/traitor/custom/C = new
 					C.should_equip = TRUE
 					newtraitor.mind.add_antag_datum(C)
-					var/datum/objective/assassinate/kill_objective = new
+					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
 					kill_objective.owner = newtraitor.mind
 					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
@@ -1975,6 +1981,7 @@
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
 				logmsg = "crew traitor."
+
 			if("Floor Cluwne")
 				var/turf/T = get_turf(M)
 				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)

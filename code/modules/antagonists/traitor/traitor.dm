@@ -69,6 +69,7 @@
 		qdel(A.malf_picker)
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
+		antag_memory = ""
 		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
 	owner.special_role = null
 	..()
@@ -335,7 +336,7 @@
 				P.lock_code = pda_pass
 
 				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
-				traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name].")
+				antag_memory += ("<B>Uplink Passcode:</B> [pda_pass] ([R.name].")
 	return 1
 
 
