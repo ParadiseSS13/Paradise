@@ -18,6 +18,7 @@ In all, this is a lot like the monkey code. /N
 		if(INTENT_HELP)
 			set_resting(FALSE)
 			AdjustStun(-60)
+			AdjustKnockdown(-60)
 			AdjustImmobilized(-60)
 			AdjustParalyzed(-60)
 			AdjustUnconscious(-60)

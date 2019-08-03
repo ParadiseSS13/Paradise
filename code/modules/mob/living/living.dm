@@ -877,7 +877,8 @@
 				. += config.run_speed
 			if(MOVE_INTENT_WALK)
 				. += config.walk_speed
-
+	if(!(mobility_flags & MOBILITY_STAND))
+		. += CRAWLING_ADD_SLOWDOWN
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))

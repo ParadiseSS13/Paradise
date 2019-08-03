@@ -3,8 +3,6 @@
 	. += ..()
 	. += config.human_delay
 	. += dna.species.movement_delay(src)
-	if(!(mobility_flags & MOBILITY_STAND))
-		. += CRAWLING_ADD_SLOWDOWN
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
