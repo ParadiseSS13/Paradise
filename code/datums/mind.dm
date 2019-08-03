@@ -1293,7 +1293,8 @@
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")
 				take_uplink()
-				memory = null//Remove any memory they may have had.
+				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
+				T.antag_memory = "" //Remove any antag memory they may have had (uplink codes, code phrases)
 				log_admin("[key_name(usr)] has taken [key_name(current)]'s uplink")
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
@@ -1399,11 +1400,7 @@
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
-		var/datum/antagonist/traitor/T = new()
-		T.give_objectives = FALSE
-		T.should_equip = FALSE
-		T.should_give_codewords = FALSE
-		add_antag_datum(T)
+		add_antag_datum(/datum/antagonist/traitor)
 
 /datum/mind/proc/make_Nuke()
 	if(!(src in SSticker.mode.syndicates))
@@ -1619,17 +1616,18 @@
 		G.reenter_corpse()
 
 
-// Rework this whole fucking thing to use the traitor datum, or maybe have a seperate mindslave datum?
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 6000, team_color = "red")
-
-	// User should be a traitor, otherwise dont let them slave people
-	if(!missionary.mind.has_antag_datum(/datum/antagonist/traitor))
-		return 0
 
 	special_role = "traitor"
 	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
 	
 	var/datum/antagonist/traitor/custom/C = new()
+	C.should_greet = FALSE
+	var/datum/objective/protect/zealot_objective = new
+	zealot_objective.target = missionary.mind
+	zealot_objective.owner = src
+	zealot_objective.explanation_text = "You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost."
+	C.add_objective(zealot_objective)
 	add_antag_datum(C)
 
 	if(missionary.mind.som)
@@ -1648,7 +1646,7 @@
 			H.update_inv_w_uniform(0,0)
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(CALLBACK(src, missionary.mind.remove_antag_datum(/datum/antagonist/traitor/), jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, remove_antag_datum(/datum/antagonist/traitor/), jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)

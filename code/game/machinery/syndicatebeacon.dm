@@ -58,7 +58,6 @@
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
 			var/objective = "Free Objective"
-			var/datum/objective/O = new()
 			switch(rand(1,100))
 				if(1 to 50)
 					objective = "Steal [pick("a hand teleporter", "the Captain's antique laser gun", "a jetpack", "the Captain's ID", "the Captain's jumpsuit")]."
@@ -72,10 +71,12 @@
 					objective = "Kill all monkeys aboard the station."
 				else
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
-			O.explanation_text = objective
+
+			var/datum/objective/custom_objective = new(objective)
 			var/datum/antagonist/traitor/T = new()
 			T.give_objectives = FALSE
-			T.add_objective(O)
+			T.add_objective(custom_objective)
+			T.add_objective(/datum/objective/escape)
 			N.mind.add_antag_datum(T)
 	
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")

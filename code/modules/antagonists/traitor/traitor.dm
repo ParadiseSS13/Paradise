@@ -11,23 +11,16 @@
 	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
+	var/should_greet = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/list/assigned_targets = list()
 
 
-// Crew traitors, Hunters, Apprentices, Syndicate beacon traitors, Mindslaves, Zealots etc. are all handled by this
+// Crew traitors, Apprentices, Syndicate beacon traitors, Mindslaves, Zealots etc. are all handled by this
 /datum/antagonist/traitor/custom
 	give_objectives = FALSE
 	should_give_codewords = FALSE
 	should_equip = FALSE
-
-
-/datum/antagonist/traitor/custom/on_gain()
-	SSticker.mode.traitors += owner
-	owner.special_role = special_role
-	greet()
-	update_traitor_icons_added()
-	finalize_traitor()
 
 
 /datum/antagonist/traitor/on_gain()
@@ -38,25 +31,10 @@
 	owner.special_role = special_role
 	if(give_objectives)
 		forge_traitor_objectives()
-	greet()
+	if(should_greet)
+		greet()
 	update_traitor_icons_added()
 	finalize_traitor()
-	
-
-/datum/antagonist/traitor/apply_innate_effects()
-	if(owner.assigned_role == "Clown")
-		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob && istype(traitor_mob))
-			if(!silent)
-				to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			traitor_mob.mutations.Add(CLUMSY)
-
-
-/datum/antagonist/traitor/remove_innate_effects()
-	if(owner.assigned_role == "Clown")
-		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob && istype(traitor_mob))
-			traitor_mob.mutations.Remove(CLUMSY) 
 
 
 /datum/antagonist/traitor/on_removal()
@@ -73,6 +51,22 @@
 		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
 	owner.special_role = null
 	..()
+
+
+/datum/antagonist/traitor/apply_innate_effects()
+	if(owner.assigned_role == "Clown")
+		var/mob/living/carbon/human/traitor_mob = owner.current
+		if(traitor_mob && istype(traitor_mob))
+			if(!silent)
+				to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			traitor_mob.mutations.Add(CLUMSY)
+
+
+/datum/antagonist/traitor/remove_innate_effects()
+	if(owner.assigned_role == "Clown")
+		var/mob/living/carbon/human/traitor_mob = owner.current
+		if(traitor_mob && istype(traitor_mob))
+			traitor_mob.mutations.Remove(CLUMSY) 
 
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)

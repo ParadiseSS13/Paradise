@@ -1968,14 +1968,15 @@
 					var/datum/mind/newtraitormind = pick(possible_traitors)
 					var/datum/antagonist/traitor/custom/C = new()
 					C.should_equip = TRUE
+					C.should_greet = FALSE
 					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
 					kill_objective.owner = newtraitormind
 					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
 					C.add_objective(kill_objective)
-					newtraitor.mind.add_antag_datum(C)
-					to_chat(newtraitor.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitor.current, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
+					to_chat(newtraitormind, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitormind, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
+					newtraitormind.add_antag_datum(C)
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return

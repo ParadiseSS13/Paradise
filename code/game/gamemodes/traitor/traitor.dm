@@ -18,10 +18,7 @@
 
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
-	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
-	var/traitors_required = TRUE //Will allow no traitors
-
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")

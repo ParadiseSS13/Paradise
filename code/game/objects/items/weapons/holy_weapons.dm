@@ -619,6 +619,12 @@
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 6000		//10 min
+
+	// User should be some form of antagonist, otherwise dont let them use the staff
+	if(!missionary.mind.has_antag_datum(/datum/antagonist))
+		to_chat("<span class='warning'><i>You're not quite sure how to use this staff...</i></span>")
+		return
+
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
