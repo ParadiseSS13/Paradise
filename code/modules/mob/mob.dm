@@ -695,9 +695,13 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-
-	if(mind)
+	
+	var/combined = length(memory + msg)
+	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
+	else if(combined >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "Your brain can't hold that much information!")
+		return
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
