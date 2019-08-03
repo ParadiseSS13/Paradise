@@ -104,7 +104,7 @@
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.apply_effect(100, KNOCKDOWN, H.run_armor_check(null, "melee"))
+					H.apply_effect(100, PARALYZE, H.run_armor_check(null, "melee"))
 				else
 					L.Paralyze(100)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)

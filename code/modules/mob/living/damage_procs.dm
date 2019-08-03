@@ -64,7 +64,7 @@
 		if(STUN)
 			Stun(effect * blocked)
 		if(KNOCKDOWN)
-			Paralyze(effect * blocked)
+			Knockdown(effect * blocked)
 		if(PARALYZE)
 			Paralyze(effect * blocked)
 		if(IMMOBILIZE)

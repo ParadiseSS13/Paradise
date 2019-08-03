@@ -384,7 +384,7 @@
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has knocked [target] down!</span>", \
 							"<span class='userdanger'>[user] has knocked [target] down!</span>")
-			target.apply_effect(80, KNOCKDOWN, armor_block)
+			target.apply_effect(80, PARALYZE, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)

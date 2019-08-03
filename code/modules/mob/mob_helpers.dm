@@ -401,8 +401,8 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 	if(!resting)
 		set_resting(TRUE, FALSE)
-	else
-		if(do_after(src, 10, target = src, null, null, null, MOBILITY_MOVE))
+	else if(resting)
+		if(do_after(src, 10, 0, src, 1, null, MOBILITY_MOVE))
 			set_resting(FALSE, FALSE)
 		else
 			to_chat(src, "<span class='notice'>You fail to get up.</span>")

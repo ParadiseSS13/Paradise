@@ -38,7 +38,7 @@
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(200,KNOCKDOWN,armor_block)
+			D.apply_effect(200,PARALYZE,armor_block)
 			D.SetSleeping(100)
 			D.forcesay(GLOB.hit_appends)
 		else if(!(D.mobility_flags & MOBILITY_STAND))
@@ -97,7 +97,7 @@
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(200,KNOCKDOWN,armor_block)
+			D.apply_effect(200,PARALYZE,armor_block)
 			D.Unconscious(100)
 			D.forcesay(GLOB.hit_appends)
 		else if(!(D.mobility_flags & MOBILITY_STAND))

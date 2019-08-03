@@ -303,7 +303,7 @@ This is always put in the attack log.
 
 	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
-/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
+/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null, required_mobility_flags = MOBILITY_STAND)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -321,6 +321,9 @@ This is always put in the attack log.
 
 	var/endtime = world.time+time
 	var/starttime = world.time
+	var/mob/living/L
+	if(isliving(user))
+		L = user
 	. = 1
 	while(world.time < endtime)
 		sleep(1)
@@ -336,6 +339,10 @@ This is always put in the attack log.
 			drifting = 0
 			user_loc = user.loc
 
+		if(L && !CHECK_MULTIPLE_BITFIELDS(L.mobility_flags, required_mobility_flags))
+			. = 0
+			break
+			
 		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break

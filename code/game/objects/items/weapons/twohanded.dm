@@ -607,7 +607,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(20, KNOCKDOWN, 0)
+			H.apply_effect(20, PARALYZE, 0)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
