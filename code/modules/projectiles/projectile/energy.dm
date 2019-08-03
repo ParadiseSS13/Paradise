@@ -47,7 +47,7 @@
 	icon_state = "toxin"
 	damage = 5
 	damage_type = TOX
-	knockdown = 100
+	paralyze = 100
 	range = 7
 
 /obj/item/projectile/energy/shuriken
@@ -55,7 +55,7 @@
 	icon_state = "toxin"
 	damage = 10
 	damage_type = TOX
-	knockdown = 100
+	paralyze = 100
 	stutter = 5
 
 /obj/item/projectile/energy/bolt
@@ -64,7 +64,7 @@
 	damage = 15
 	damage_type = TOX
 	nodamage = 0
-	knockdown = 100
+	paralyze = 100
 	stutter = 5
 
 /obj/item/projectile/energy/bolt/large

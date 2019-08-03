@@ -55,7 +55,7 @@
 	interact(user)
 
 /obj/item/camera_bug/check_eye(var/mob/user as mob)
-	if(user.stat || loc != user || !user.canmove || !user.has_vision() || !current)
+	if(loc != user || user.incapacitated() || !user.has_vision() || !current)
 		user.reset_perspective(null)
 		user.unset_machine()
 		return null
@@ -170,9 +170,9 @@
 			else
 				names[M.name] = 1
 				dat += "[M.name]"
-			if(M.buckled && !M.lying)
+			if(M.buckled && !(M.mobility_flags & MOBILITY_STAND))
 				dat += " (Sitting)"
-			if(M.lying)
+			if(!(M.mobility_flags & MOBILITY_STAND))
 				dat += " (Laying down)"
 			dat += " <a href='?src=[UID()];track=\ref[M]'>\[Track\]</a><br>"
 		if(length(dat) == 0)

@@ -389,7 +389,7 @@
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Knockdown(100)
+		T.Paralyze(100)
 		return
 	..()
 

@@ -36,7 +36,7 @@
 	set name = "Activate Electric Chair"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if(last_time + delay_time > world.time)
 		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")

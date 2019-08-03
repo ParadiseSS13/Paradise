@@ -17,7 +17,7 @@
 		user.timeofdeath = world.time
 	user.status_flags |= FAKEDEATH		//play dead
 	user.update_stat("fakedeath sting")
-	user.update_canmove()
+	user.update_mobility()
 	user.med_hud_set_health()
 	user.handle_hud_icons_health()
 	user.med_hud_set_status()

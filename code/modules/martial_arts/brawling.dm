@@ -41,7 +41,7 @@
 			D.apply_effect(200,KNOCKDOWN,armor_block)
 			D.SetSleeping(100)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
+		else if(!(D.mobility_flags & MOBILITY_STAND))
 			D.forcesay(GLOB.hit_appends)
 	return 1
 
@@ -100,6 +100,6 @@
 			D.apply_effect(200,KNOCKDOWN,armor_block)
 			D.Unconscious(100)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
+		else if(!(D.mobility_flags & MOBILITY_STAND))
 			D.forcesay(GLOB.hit_appends)
 	return 1

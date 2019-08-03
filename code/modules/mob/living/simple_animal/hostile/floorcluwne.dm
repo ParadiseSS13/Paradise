@@ -317,7 +317,7 @@
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
-				H.Knockdown(600)
+				H.Paralyze(600)
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)

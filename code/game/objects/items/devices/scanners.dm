@@ -278,6 +278,9 @@ REAGENT SCANNER
 	set name = "Switch Verbosity"
 	set category = "Object"
 
+	if(usr.incapacitated())
+		return
+		
 	mode = !mode
 	switch(mode)
 		if(1)

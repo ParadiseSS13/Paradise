@@ -137,7 +137,7 @@
 	if(status && (CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		user.Knockdown(stunforce*3)
+		user.Paralyze(stunforce*3)
 		deductcharge(hitcost)
 		return
 
@@ -184,7 +184,7 @@
 		C.shock_internal_organs(33)
 
 	L.Stun(stunforce)
-	L.Knockdown(stunforce)
+	L.Paralyze(stunforce)
 	L.apply_effect(STUTTER, stunforce)
 
 	if(user)
@@ -211,7 +211,7 @@
 		if(bcell.charge > 0 && status == 1)
 			flick("baton_active", source)
 			user.Stun(stunforce)
-			user.Knockdown(stunforce)
+			user.Paralyze(stunforce)
 			user.stuttering = stunforce
 			deductcharge(hitcost)
 			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \

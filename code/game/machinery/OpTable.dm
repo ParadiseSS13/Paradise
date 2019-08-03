@@ -117,8 +117,7 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	C.resting = 1
-	C.update_canmove()
+	C.set_resting(TRUE)
 	C.forceMove(loc)
 	if(user.pulling == C)
 		user.stop_pulling()

@@ -108,6 +108,8 @@
 		M.SetUnconscious(0)
 		M.SetStun(0)
 		M.SetKnockdown(0)
+		M.SetImmobilized(0)
+		M.SetParalyzed(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
@@ -480,7 +482,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	user.lastattacked = L
 	L.lastattacker = user
 
-	L.Knockdown(140)
+	L.Paralyze(140)
 	L.Stun(140)
 	L.apply_effect(STUTTER, 7)
 

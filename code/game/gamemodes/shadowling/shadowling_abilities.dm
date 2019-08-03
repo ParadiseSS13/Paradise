@@ -290,7 +290,7 @@
 					to_chat(user, "<span class='notice'>You begin preparing [target]'s mind as a blank slate...</span>")
 					user.visible_message("<span class='warning'>[user]'s palms flare a bright red against [target]'s temples!</span>")
 					to_chat(target, "<span class='danger'>A terrible red light floods your mind. You collapse as conscious thought is wiped away.</span>")
-					target.Knockdown(240)
+					target.Paralyze(240)
 					sleep(20)
 					if(ismindshielded(target))
 						to_chat(user, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
@@ -515,7 +515,7 @@
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Knockdown(120)
+				S.Paralyze(120)
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))
 
@@ -627,7 +627,7 @@
 				playsound(thrallToRevive, 'sound/weapons/egloves.ogg', 50, 1)
 				playsound(thrallToRevive, 'sound/machines/defib_zap.ogg', 50, 1)
 				user.Beam(thrallToRevive,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
-				thrallToRevive.Knockdown(100)
+				thrallToRevive.Paralyze(100)
 				thrallToRevive.visible_message("<span class='warning'><b>[thrallToRevive] collapses, [thrallToRevive.p_their()] skin and face distorting!</span>", \
 											   "<span class='userdanger'><i>AAAAAAAAAAAAAAAAAAAGH-</i></span>")
 				sleep(20)
@@ -663,7 +663,7 @@
 				if(thrallToRevive.revive())
 					thrallToRevive.visible_message("<span class='boldannounce'>[thrallToRevive] heaves in breath, dim red light shining in [thrallToRevive.p_their()] eyes.</span>", \
 											   "<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
-					thrallToRevive.Knockdown(80)
+					thrallToRevive.Paralyze(80)
 					thrallToRevive.emote("gasp")
 					playsound(thrallToRevive, "bodyfall", 50, 1)
 			else
@@ -852,7 +852,7 @@
 				continue
 			to_chat(target, "<span class='userdanger'>You are struck by a bolt of lightning!</span>")
 			playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
-			target.Knockdown(160)
+			target.Paralyze(160)
 			target.take_organ_damage(0,50)
 			user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 

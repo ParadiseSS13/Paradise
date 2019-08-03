@@ -46,8 +46,6 @@
 	var/sec_record = ""
 	var/gen_record = ""
 	var/bhunger = 0			//Carbon
-	var/lying = 0
-	var/lying_prev = 0
 	var/lastpuke = 0
 	var/unacidable = 0
 	var/can_strip = 1
@@ -60,7 +58,8 @@
 	var/timeofdeath = 0.0//Living
 	var/cpr_time = 1.0//Carbon
 
-
+	var/lying = 0			//number of degrees. DO NOT USE THIS IN CHECKS. CHECK FOR MOBILITY FLAGS INSTEAD!!
+	var/lying_prev = 0		//last value of lying on update_mobility
 	var/bodytemperature = 310.055	//98.7 F
 	var/flying = 0
 	var/charges = 0.0

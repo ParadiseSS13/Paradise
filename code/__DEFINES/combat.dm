@@ -13,12 +13,17 @@
 #define STUN		"stun"
 #define KNOCKDOWN   "knockdown"
 #define UNCONSCIOUS "unconscious"
+#define PARALYZE	"paralyze"
+#define IMMOBILIZE	"immobilize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
 #define SLUR		"slur"
 #define EYE_BLUR	"eye_blur"
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
+
+//slowdown when crawling
+#define CRAWLING_ADD_SLOWDOWN 2
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1

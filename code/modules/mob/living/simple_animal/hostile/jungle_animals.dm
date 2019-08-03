@@ -42,7 +42,7 @@
 	var/mob/living/L = .
 	if(istype(L))
 		if(prob(15))
-			L.Knockdown(60)
+			L.Paralyze(60)
 			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
 
 //*******//

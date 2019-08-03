@@ -2157,7 +2157,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair (character.loc)
 		character.buckled = W
-		character.update_canmove()
+		character.update_mobility()
 		W.dir = character.dir
 		W.buckled_mob = character
 		W.add_fingerprint(character)

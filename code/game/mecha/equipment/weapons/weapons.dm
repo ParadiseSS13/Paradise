@@ -213,7 +213,7 @@
 		M.SetSleeping(0)
 		M.Stuttering(20)
 		M.MinimumDeafTicks(30)
-		M.Knockdown(60)
+		M.Paralyze(60)
 		if(prob(30))
 			M.Stun(200)
 			M.Unconscious(80)

@@ -1,6 +1,9 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
+//check if all bitflags specified are present
+#define CHECK_MULTIPLE_BITFIELDS(flagvar, flags) ((flagvar & (flags)) == flags)
+
 // for /datum/var/datum_flags
 #define DF_USE_TAG		(1<<0)
 
@@ -86,6 +89,18 @@
 #define DIET_OMNI		2
 #define DIET_HERB		4
 
+
+//Mob mobility var flags
+#define MOBILITY_MOVE			(1<<0)		//can move
+#define MOBILITY_STAND			(1<<1)		//can, and is, standing up
+#define MOBILITY_PICKUP			(1<<2)		//can pickup items
+#define MOBILITY_USE			(1<<3)		//can hold and use items
+#define MOBILITY_UI				(1<<4)		//can use interfaces like machinery
+#define MOBILITY_STORAGE		(1<<5)		//can use storage item
+#define MOBILITY_PULL			(1<<6)		//can pull things
+
+#define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
+#define MOBILITY_FLAGS_INTERACTION (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_UI | MOBILITY_STORAGE)
 
 //bitflags for door switches.
 #define OPEN	1

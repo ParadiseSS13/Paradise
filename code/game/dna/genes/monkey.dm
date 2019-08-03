@@ -21,7 +21,7 @@
 
 	H.regenerate_icons()
 	H.SetStun(20)
-	H.canmove = 0
+	H.mobility_flags &= ~MOBILITY_MOVE
 	H.icon = null
 	H.invisibility = 101
 	var/has_primitive_form = H.dna.species.primitive_form // cache this
@@ -63,7 +63,7 @@
 		H.unEquip(W)
 	H.regenerate_icons()
 	H.SetStun(20)
-	H.canmove = 0
+	H.mobility_flags &= ~MOBILITY_MOVE
 	H.icon = null
 	H.invisibility = 101
 	var/has_greater_form = H.dna.species.greater_form //cache this

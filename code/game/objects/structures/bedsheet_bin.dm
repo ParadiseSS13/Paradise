@@ -277,6 +277,10 @@ LINEN BINS
 
 
 /obj/structure/bedsheetbin/attack_hand(mob/user as mob)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(!(L.mobility_flags & MOBILITY_PICKUP))
+			return
 	if(amount >= 1)
 		amount--
 

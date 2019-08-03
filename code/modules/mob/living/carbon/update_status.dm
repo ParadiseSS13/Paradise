@@ -23,7 +23,7 @@
 		var/total_health = (health - staminaloss)
 		if(total_health <= HEALTH_THRESHOLD_CRIT && !stat)
 			to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-			Knockdown(100)
+			Paralyze(100)
 			setStaminaLoss(health - 2)
 			handle_hud_icons_health()
 			return

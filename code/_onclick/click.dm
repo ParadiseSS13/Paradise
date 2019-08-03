@@ -99,7 +99,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
+	if(incapacitated(ignore_restraints = 1, ignore_grab = 1))
 		return
 
 	face_atom(A)

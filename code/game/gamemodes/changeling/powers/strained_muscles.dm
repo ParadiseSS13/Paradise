@@ -21,7 +21,7 @@
 		to_chat(user, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 10)
 			to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
-			user.Knockdown(60)
+			user.Paralyze(60)
 			user.emote("gasp")
 
 	while(enabled)
@@ -30,7 +30,7 @@
 			enabled = 0 //Let's use something exact instead of !enabled where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
 			user.status_flags &= ~GOTTAGOFAST
-			user.Knockdown(40)
+			user.Paralyze(40)
 			user.emote("gasp")
 			break
 

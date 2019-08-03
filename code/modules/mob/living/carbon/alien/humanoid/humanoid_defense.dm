@@ -35,7 +35,7 @@
 					visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
 			if(INTENT_DISARM)
-				if(!lying)
+				if (!(mobility_flags & MOBILITY_STAND))
 					if(prob(5))//Very small chance to push an alien down.
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)

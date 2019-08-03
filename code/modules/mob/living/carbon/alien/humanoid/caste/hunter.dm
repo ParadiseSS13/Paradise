@@ -66,6 +66,8 @@
 #define MAX_ALIEN_LEAP_DIST 7
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_at(var/atom/A)
+	if((mobility_flags & (MOBILITY_MOVE | MOBILITY_STAND)) != (MOBILITY_MOVE | MOBILITY_STAND))
+		return
 	if(pounce_cooldown > world.time)
 		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
 		return
@@ -77,9 +79,6 @@
 		to_chat(src, "<span class='alertalien'>It is unsafe to leap without gravity!</span>")
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
-	if(lying)
-		return
-
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
 		leaping = 1
 		update_icons()
@@ -107,22 +106,22 @@
 					var/mob/living/carbon/human/H = L
 					H.apply_effect(100, KNOCKDOWN, H.run_armor_check(null, "melee"))
 				else
-					L.Knockdown(100)
+					L.Paralyze(100)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				Knockdown(40, 1, 1)
+				Paralyze(40, 1, 1)
 
 			toggle_leap(0)
 			pounce_cooldown = world.time + pounce_cooldown_time
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			Knockdown(40, 1, 1)
+			Paralyze(40, 1, 1)
 
 		if(leaping)
 			leaping = 0
 			update_icons()
-			update_canmove()
+			update_mobility()
 
 
 /mob/living/carbon/alien/humanoid/float(on)

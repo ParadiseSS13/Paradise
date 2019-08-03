@@ -290,7 +290,7 @@
 	if(prob(50))
 		update_flags |= M.AdjustUnconscious(-20, FALSE)
 		update_flags |= M.AdjustStun(-20, FALSE)
-		update_flags |= M.AdjustKnockdown(-20, FALSE)
+		update_flags |= M.AdjustParalyzed(-20, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)

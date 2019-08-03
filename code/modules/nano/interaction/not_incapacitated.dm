@@ -20,6 +20,6 @@
 /datum/topic_state/not_incapacitated_state/can_use_topic(src_object, mob/user)
 	if(user.stat)
 		return STATUS_CLOSE
-	if(user.incapacitated() || user.lying || (turf_check && !isturf(user.loc)))
+	if(user.incapacitated()|| (turf_check && !isturf(user.loc)))
 		return STATUS_DISABLED
 	return STATUS_INTERACTIVE

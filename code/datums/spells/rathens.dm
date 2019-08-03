@@ -24,14 +24,14 @@
 				A.throw_at(get_edge_target_turf(H, pick(alldirs)), rand(1, 10), 5)
 			H.visible_message("<span class='danger'>[H]'s [A.name] flies out of their body in a magical explosion!</span>",\
 							  "<span class='danger'>Your [A.name] flies out of your body in a magical explosion!</span>")
-			H.Knockdown(40)
+			H.Paralyze(40)
 		else
 			var/obj/effect/decal/cleanable/blood/gibs/G = new/obj/effect/decal/cleanable/blood/gibs(get_turf(H))
 			spawn()
 				G.throw_at(get_edge_target_turf(H, pick(alldirs)), rand(1, 10), 5)
 			H.apply_damage(10, BRUTE, "chest")
 			to_chat(H, "<span class='userdanger'>You have no appendix, but something had to give! Holy shit, what was that?</span>")
-			H.Knockdown(60)
+			H.Paralyze(60)
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				if(istype(E, /obj/item/organ/external/head))
 					continue

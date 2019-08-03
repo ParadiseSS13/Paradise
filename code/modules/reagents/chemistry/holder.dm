@@ -300,7 +300,7 @@ var/const/INGEST = 2
 		// update_stat is called in updatehealth
 		M.update_stat("reagent metabolism")
 	if(update_flags & STATUS_UPDATE_CANMOVE)
-		M.update_canmove()
+		M.update_mobility()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.handle_hud_icons_health()
 		M.update_stamina()

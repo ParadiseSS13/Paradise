@@ -51,7 +51,7 @@
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
-		victim.Knockdown(stun_time)
+		victim.Paralyze(stun_time)
 
 /obj/effect/mine/depot
 	name = "sentry mine"

@@ -217,7 +217,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if(findtext(message, weaken_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Knockdown(60 * power_multiplier)
+			L.Paralyze(60 * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//SLEEP
@@ -397,11 +397,12 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if((findtext(message, getup_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			if(L.resting)
-				L.lay_down() //aka get up
+			L.set_resting(FALSE)
 			L.SetStun(0)
 			L.SetKnockdown(0)
 			L.SetUnconscious(0) //i said get up i don't care if you're being tazed
+			L.SetParalyzed(0)
+			L.SetImmobilized(0)
 		next_command = world.time + cooldown_damage
 
 	//SIT

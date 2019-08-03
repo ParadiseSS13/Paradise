@@ -69,3 +69,5 @@
 	var/deathgasp_on_death = FALSE
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
+
+	var/mobility_flags = MOBILITY_FLAGS_DEFAULT

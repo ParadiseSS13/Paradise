@@ -32,7 +32,7 @@
 		if(!user.mind || !user.mind.isholy)
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
-			user.Knockdown(100)
+			user.Paralyze(100)
 			user.unEquip(src, 1)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")

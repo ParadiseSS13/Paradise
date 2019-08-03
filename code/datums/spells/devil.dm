@@ -187,7 +187,7 @@
 		for(var/datum/objective/sintouched/A in H.mind.objectives)
 			continue
 		H.influenceSin()
-		H.Knockdown(40)
+		H.Paralyze(40)
 		H.Stun(40)
 
 /obj/effect/proc_holder/spell/targeted/summon_dancefloor

@@ -45,7 +45,7 @@
 		if(affected_mob.notransform)
 			return
 		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		affected_mob.mobility_flags = NONE
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101

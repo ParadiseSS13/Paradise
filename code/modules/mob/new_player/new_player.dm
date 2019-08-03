@@ -10,7 +10,6 @@
 
 	density = 0
 	stat = 2
-	canmove = 0
 
 /mob/new_player/New()
 	GLOB.mob_list += src

@@ -92,7 +92,7 @@
 
 	var/mob/user = usr
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || !in_range(loc, usr))
 		usr << browse(null, "window=hscan")
 		onclose(usr, "hscan")
 		return

@@ -1,19 +1,22 @@
-/mob/CanPass(atom/movable/mover, turf/target, height=0)
+mob/CanPass(atom/movable/mover, turf/target)
+	return TRUE				//There's almost no cases where non /living mobs should be used in game as actual mobs, other than ghosts.
+
+/mob/living/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile) || mover.throwing)
-		return (!density || lying)
+		return (!density || !(mobility_flags & MOBILITY_STAND))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
 		return 1
-	if(ismob(mover))
-		var/mob/moving_mob = mover
+	if(isliving(mover))
+		var/mob/living/moving_mob = mover
 		if((other_mobs && moving_mob.other_mobs))
 			return 1
 		if(mover == buckled_mob)
 			return 1
-	return (!mover.density || !density || lying)
+	return (!mover.density || !density || !(mobility_flags & MOBILITY_STAND))
 
 
 /client/verb/toggle_throw_mode()
@@ -88,6 +91,8 @@
 
 	if(isliving(mob))
 		var/mob/living/L = mob
+		if(!(L.mobility_flags & MOBILITY_MOVE))
+			return
 		if(L.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
 			return
@@ -107,9 +112,6 @@
 
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
-
-	if(!mob.canmove)
-		return
 
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
@@ -358,7 +360,7 @@
 	return 0
 
 /mob/proc/Move_Pulled(atom/A)
-	if(!canmove || restrained() || !pulling)
+	if(incapacitated() || !pulling)
 		return
 	if(pulling.anchored)
 		return

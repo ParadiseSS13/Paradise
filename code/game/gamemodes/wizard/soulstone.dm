@@ -161,7 +161,7 @@
 		if("Summon")
 			for(var/mob/living/simple_animal/shade/A in src)
 				A.status_flags &= ~GODMODE
-				A.canmove = 1
+				A.mobility_flags = MOBILITY_FLAGS_DEFAULT
 				A.forceMove(get_turf(usr))
 				A.cancel_camera()
 				icon_state = "soulstone"
@@ -255,7 +255,7 @@
 					else
 						T.loc = C //put shade in stone
 						T.status_flags |= GODMODE
-						T.canmove = 0
+						T.mobility_flags &= ~MOBILITY_MOVE
 						T.health = T.maxHealth
 						T.faction |= "\ref[U]"
 						C.icon_state = "soulstone2"
@@ -350,7 +350,7 @@
 	qdel(animation)
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	S.canmove = 0//Can't move out of the soul stone
+	S.mobility_flags &= ~MOBILITY_MOVE//Can't move out of the soul stone
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = T.key

@@ -281,7 +281,7 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	knockdown = 100
+	paralyze = 100
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
 	if(isalien(target))

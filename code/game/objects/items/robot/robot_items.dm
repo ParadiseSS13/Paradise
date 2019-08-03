@@ -21,7 +21,7 @@
 			return
 
 	user.do_attack_animation(M)
-	M.Knockdown(100)
+	M.Paralyze(100)
 	M.apply_effect(STUTTER, 5)
 	M.Stun(100)
 

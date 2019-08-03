@@ -1,6 +1,6 @@
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)
 	if(!skipcatch)
-		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
+		if(in_throw_mode && (mobility_flags & MOBILITY_MOVE) && !restrained())  //Makes sure player is in throw mode
 			if(!istype(AM,/obj/item) || !isturf(AM.loc))
 				return FALSE
 			if(get_active_hand())
@@ -20,7 +20,7 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(lying && surgeries.len)
+	if(!(mobility_flags & MOBILITY_STAND) && surgeries.len)
 		if(user != src && user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
@@ -41,7 +41,7 @@
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
 
-	if(lying && surgeries.len)
+	if(!(mobility_flags & MOBILITY_STAND) && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
@@ -51,7 +51,7 @@
 /mob/living/carbon/attack_slime(mob/living/carbon/slime/M)
 	if(..())
 		var/power = M.powerlevel + rand(0,3)
-		Knockdown(power * 20)
+		Paralyze(power * 20)
 		Stuttering(power)
 		Stun(power * 20)
 		var/stunprob = M.powerlevel * 7 + 10

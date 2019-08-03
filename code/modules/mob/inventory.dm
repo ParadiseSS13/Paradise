@@ -72,10 +72,13 @@
 	return 0
 
 /mob/proc/put_in_hand_check(var/obj/item/W)
-	if(lying && !(W.flags & ABSTRACT))	return 0
-	if(!istype(W))	return 0
-	return 1
+	return FALSE //nonliving mobs don't have hands
 
+/mob/living/put_in_hand_check(obj/item/W)
+	if(!(mobility_flags & MOBILITY_PICKUP) || !istype(W))
+		return FALSE
+	return TRUE
+	
 //Puts the item into our active hand if possible. returns 1 on success.
 /mob/proc/put_in_active_hand(var/obj/item/W)
 	if(hand)	return put_in_l_hand(W)

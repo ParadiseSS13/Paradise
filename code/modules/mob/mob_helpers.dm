@@ -400,12 +400,24 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	set category = "IC"
 
 	if(!resting)
-		client.move_delay = world.time + 20
-		to_chat(src, "<span class='notice'>You are now resting.</span>")
-		StartResting()
-	else if(resting)
-		to_chat(src, "<span class='notice'>You are now getting up.</span>")
-		StopResting()
+		set_resting(TRUE, FALSE)
+	else
+		if(do_after(src, 10, target = src, null, null, null, MOBILITY_MOVE))
+			set_resting(FALSE, FALSE)
+		else
+			to_chat(src, "<span class='notice'>You fail to get up.</span>")
+
+/mob/living/proc/set_resting(rest, silent = TRUE)
+	if(!silent)
+		if(rest)
+			to_chat(src, "<span class='notice'>You are now resting.</span>")
+		else
+			to_chat(src, "<span class='notice'>You get up.</span>")
+	resting = rest
+	update_resting()
+
+/mob/living/proc/update_resting()
+	update_mobility()
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -499,7 +511,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !incapacitated()))
 		return 0
 	check_eye(src)
 	return 1

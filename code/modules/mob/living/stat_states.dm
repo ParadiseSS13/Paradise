@@ -12,7 +12,7 @@
 	if(updating)
 		update_sight()
 		update_blind_effects()
-		update_canmove()
+		update_mobility()
 	return 1
 
 /mob/living/proc/WakeUp(updating = 1)
@@ -27,7 +27,7 @@
 	if(updating)
 		update_sight()
 		update_blind_effects()
-		update_canmove()
+		update_mobility()
 	return 1
 
 /mob/living/proc/can_be_revived()
@@ -53,7 +53,7 @@
 		GLOB.respawnable_list -= src
 	timeofdeath = null
 	if(updating)
-		update_canmove()
+		update_mobility()
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")

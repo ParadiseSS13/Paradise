@@ -181,7 +181,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/xeno/throw_impact(A)
 	update_icon("alienh_pounce")
 	if(A == target)
-		target.Knockdown(100)
+		target.Paralyze(100)
 		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
 
 /obj/effect/hallucination/xeno_attack
@@ -300,7 +300,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			shake_camera(target, 2, 1)
 			if(bubblegum.Adjacent(target) && !charged)
 				charged = TRUE
-				target.Knockdown(80)
+				target.Paralyze(80)
 				target.adjustStaminaLoss(40)
 				step_away(target, bubblegum)
 				shake_camera(target, 4, 3)

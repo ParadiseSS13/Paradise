@@ -87,7 +87,7 @@
 	add_attack_logs(user, M, "Flashed with [src]")
 	if(user && targeted)
 		if(M.weakeyes)
-			M.Knockdown(60) //quick weaken bypasses eye protection but has no eye flash
+			M.Paralyze(60) //quick weaken bypasses eye protection but has no eye flash
 		if(M.flash_eyes(1, 1))
 			M.AdjustConfused(power)
 			terrible_conversion_proc(M, user)
@@ -129,7 +129,7 @@
 						return 1
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
-			M.Knockdown(rand(100,200))
+			M.Paralyze(rand(100,200))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
 		return 1
 

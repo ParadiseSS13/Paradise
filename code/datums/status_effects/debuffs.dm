@@ -11,11 +11,11 @@
 	. = ..()
 	if(.)
 		if(updating_canmove)
-			owner.update_canmove()
+			owner.update_mobility()
 			owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
-	owner.update_canmove()
+	owner.update_mobility()
 	owner.update_stat()
 
 //SLEEPING
@@ -83,22 +83,27 @@
 
 /obj/screen/alert/status_effect/knockdown
 	name = "Knocked down"
-	desc = "You can't move!"
+	desc = "You've fallen over!"
 	icon_state = "paralysis"
 
 //STUN
 /datum/status_effect/incapacitating/stun
 	id = "stun"
-	alert_type = /obj/screen/alert/status_effect/stunned
 
 //KNOCKDOWN
 /datum/status_effect/incapacitating/knockdown
 	id = "knockdown"
-	alert_type = /obj/screen/alert/status_effect/knockdown
 
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
+
+//IMMOBILIZED
+/datum/status_effect/incapacitating/immobilized
+	id = "immobilized"
+//PARALYZED
+/datum/status_effect/incapacitating/paralyzed
+	id = "paralyzed"
 
 //OTHER DEBUFFS
 

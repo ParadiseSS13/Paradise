@@ -99,19 +99,16 @@
 	if(prob(1))
 		custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 		icon_state = "[icon_living]_rest"
-		resting = 1
-		update_canmove()
+		set_resting(TRUE)
 	else if (prob(1))
 		custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 		icon_state = "[icon_living]_sit"
-		resting = 1
-		update_canmove()
+		set_resting(TRUE)
 	else if (prob(1))
 		if (resting)
 			custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
 			icon_state = "[icon_living]"
-			resting = 0
-			update_canmove()
+			set_resting(FALSE)
 		else
 			custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 

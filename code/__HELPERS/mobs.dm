@@ -336,13 +336,13 @@ This is always put in the attack log.
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || (extra_checks && !extra_checks.Invoke()))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 	if(progress)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null, required_mobility_flags = MOBILITY_STAND)
 	if(!user)
 		return 0
 	var/atom/Tloc = null
@@ -367,6 +367,9 @@ This is always put in the attack log.
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
+	var/mob/living/L
+	if(isliving(user))
+		L = user
 	. = 1
 	while(world.time < endtime)
 		sleep(1)
@@ -377,7 +380,11 @@ This is always put in the attack log.
 			drifting = 0
 			Uloc = user.loc
 
-		if(!user || user.stat || user.IsKnockdown() || user.IsStun()  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
+		if(L && !CHECK_MULTIPLE_BITFIELDS(L.mobility_flags, required_mobility_flags))
+			. = 0
+			break
+			
+		if(!user || user.stat || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 

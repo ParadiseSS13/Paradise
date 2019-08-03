@@ -49,7 +49,7 @@
 				walk_away(src,L,2,1)
 		else if(prob(25))
 			visible_message("<span class='danger'>[src] pounces on [L]!</span>")
-			L.Knockdown(100)
+			L.Paralyze(100)
 			L.Stun(100)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this

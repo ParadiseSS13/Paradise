@@ -339,9 +339,9 @@ obj/item/gun/proc/newshot()
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
 
-/obj/item/gun/proc/rename_gun(mob/M)
+/obj/item/gun/proc/rename_gun(mob/living/M)
 	var/input = stripped_input(M,"What do you want to name the gun?", ,"", MAX_NAME_LEN)
-	if(src && input && !M.stat && in_range(M,src) && !M.restrained() && M.canmove)
+	if(src && input && !M.stat && in_range(M,src) && !M.restrained() && (M.mobility_flags & MOBILITY_MOVE))
 		name = input
 		to_chat(M, "You name the gun [input]. Say hello to your new friend.")
 		return

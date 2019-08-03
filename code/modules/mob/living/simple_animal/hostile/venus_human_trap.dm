@@ -85,7 +85,7 @@
 				if(prob(grasp_pull_chance))
 					dir = get_dir(src,L) //staaaare
 					step(L,get_dir(L,src)) //reel them in
-					L.Knockdown(60) //you can't get away now~
+					L.Paralyze(60) //you can't get away now~
 
 		if(grasping.len < max_grasps)
 			grasping:

@@ -337,8 +337,8 @@
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
-
-	if(user.incapacitated() || user.lying || get_dist(user, src) > 1)
+	var/mob/living/L
+	if(user.incapacitated() || (istype(L) && !(L.mobility_flags & MOBILITY_STAND)) || get_dist(user, src) > 1)
 		return
 
 	if(!istype(AM))
@@ -698,7 +698,7 @@
 					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
 					M.stop_pulling()
 					M.Stun(160)
-					M.Knockdown(100)
+					M.Paralyze(100)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)

@@ -14,6 +14,8 @@
 	user.SetUnconscious(0, FALSE)
 	user.SetStun(0, FALSE)
 	user.SetKnockdown(0, FALSE)
+	user.SetImmobilized(0, FALSE)
+	user.SetParalyzed(0, FALSE)
 	user.radiation = 0
 	user.SetEyeBlind(0, FALSE)
 	user.SetEyeBlurry(0, FALSE)

@@ -1393,7 +1393,7 @@ Standard way to write links -Sayu
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!ismob(target) || target.lying)
+	if(!ismob(target) || !(target.mobility_flags & MOBILITY_STAND))
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FACING_FAILED
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -1484,7 +1484,6 @@ var/mob/dview/dview_mob = new
 	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-	canmove = FALSE
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
@@ -1534,18 +1533,18 @@ var/mob/dview/dview_mob = new
 //If one of them is a match, then A is facing B
 /proc/is_A_facing_B(atom/A, atom/B)
 	if(!istype(A) || !istype(B))
-		return 0
+		return FALSE
 	if(isliving(A))
 		var/mob/living/LA = A
-		if(LA.lying)
-			return 0
+		if(!(LA.mobility_flags & MOBILITY_STAND))
+			return FALSE
 	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
 	var/clockwise_A_dir = get_clockwise_dir(A.dir)
 	var/anticlockwise_A_dir = get_anticlockwise_dir(B.dir)
 
 	if(A.dir == goal_dir || clockwise_A_dir == goal_dir || anticlockwise_A_dir == goal_dir)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //This is just so you can stop an orbit.
 //orbit() can run without it (swap orbiting for A)

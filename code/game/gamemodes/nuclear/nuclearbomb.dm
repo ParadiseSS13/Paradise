@@ -217,7 +217,7 @@ var/bomb_set
 	set name = "Make Deployable"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(deployable)

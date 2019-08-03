@@ -5,7 +5,7 @@
 		return FALSE
 	// hide and freeze for the GC
 	notransform = 1
-	canmove = 0
+	mobility_flags &= ~MOBILITY_MOVE
 	icon = null
 	invisibility = 101
 
@@ -23,7 +23,7 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
 	notransform = 1
-	canmove = 0
+	mobility_flags &= ~MOBILITY_MOVE
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -34,7 +34,7 @@
 		return FALSE
 	// hide and freeze them while they get GC'd
 	notransform = 1
-	canmove = 0
+	mobility_flags &= ~MOBILITY_MOVE
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -78,7 +78,7 @@
 		S.sharerDies(gibbed, src)
 
 	if(!gibbed)
-		update_canmove()
+		update_mobility()
 
 	timeofdeath = world.time
 
@@ -98,6 +98,6 @@
 
 /mob/living/proc/delayed_gib()
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-	Knockdown(300)
+	Paralyze(300)
 	do_jitter_animation(1000, -1)
 	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))

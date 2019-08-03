@@ -17,7 +17,6 @@
 	var/moved_recently = 0
 	var/mob/pulledby = null
 	var/atom/movable/pulling
-	var/canmove = 1
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -100,7 +99,7 @@
 		pulledby = null
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
-			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+			L.update_mobility()// mob gets up if it was lyng down in a chokehold
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -279,7 +278,7 @@
 	. = ..()
 	if(client)
 		reset_perspective(destination)
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+	update_mobility() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space

@@ -307,18 +307,18 @@
 		to_chat(target, "<span class='shadowling'><b><i>NOT LIKE THIS!</i></b></span>")
 		user.visible_message("<span class='warning'>[target] suddenly slams upward and knocks down [user]!</span>", \
 							 "<span class='userdanger'>[target] suddenly bolts up and slams you with tremendous force!</span>")
-		user.StopResting() //Remove all stuns
+		user.set_resting(FALSE)
 		user.SetSleeping(0)
 		user.SetStun(0)
 		user.SetKnockdown(0)
 		user.SetUnconscious(0)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
-			C.Knockdown(120)
+			C.Paralyze(120)
 			C.apply_damage(20, BRUTE, "chest")
 		else if(issilicon(user))
 			var/mob/living/silicon/S = user
-			S.Knockdown(160)
+			S.Paralyze(160)
 			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0

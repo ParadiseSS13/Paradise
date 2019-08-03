@@ -110,7 +110,7 @@
 				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					buckled_mob.Stun(140)
-					buckled_mob.Knockdown(140)
+					buckled_mob.Paralyze(140)
 					unbuckle_mob()
 					step(src, dir)
 

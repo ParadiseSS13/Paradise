@@ -178,7 +178,7 @@
 	set name = "pAI Suicide"
 	var/answer = input("REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
 	if(answer == "Yes")
-		if(canmove || resting)
+		if((mobility_flags & MOBILITY_MOVE) || resting)
 			close_up()
 		var/obj/item/paicard/card = loc
 		card.removePersonality()

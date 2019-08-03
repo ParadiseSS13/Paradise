@@ -552,7 +552,7 @@
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(0, src, 1, TRUE, TRUE)
 			if(isrobot(L) || L.isSynthetic())
-				L.Knockdown(100)
+				L.Paralyze(100)
 			qdel(src)
 	..()
 

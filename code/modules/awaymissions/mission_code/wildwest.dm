@@ -189,7 +189,7 @@
 		C.reagents.clear_reagents()
 		to_chat(C, "<span class='notice'>You have regenerated.</span>")
 		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
-		C.update_canmove()
+		C.update_mobility()
 	return 1
 
 /obj/item/wildwest_communicator

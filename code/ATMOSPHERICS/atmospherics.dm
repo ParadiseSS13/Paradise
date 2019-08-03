@@ -274,9 +274,9 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
-	user.canmove = 0
+	user.mobility_flags = NONE
 	spawn(1)
-		user.canmove = 1
+		user.mobility_flags = ALL
 
 /obj/machinery/atmospherics/AltClick(var/mob/living/L)
 	if(is_type_in_list(src, ventcrawl_machinery))

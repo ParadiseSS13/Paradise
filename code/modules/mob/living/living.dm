@@ -224,7 +224,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated(ignore_lying = TRUE))
+	if(incapacitated())
 		return FALSE
 	if(status_flags & FAKEDEATH)
 		return FALSE
@@ -415,6 +415,8 @@
 	SetUnconscious(0)
 	SetStun(0)
 	SetKnockdown(0)
+	SetImmobilized(0)
+	SetParalyzed(0)
 	SetSlowed(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
@@ -446,7 +448,7 @@
 		buckled.buckled_mob = null
 		buckled = null
 		anchored = initial(anchored)
-		update_canmove()
+		update_mobility()
 		clear_alert("buckled")
 		post_buckle_mob(src)
 
@@ -531,7 +533,7 @@
 			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+					if(!(M.mobility_flags & MOBILITY_STAND) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 						M.makeTrail(T)
 				pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
 				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
@@ -627,7 +629,7 @@
 		var/obj/C = loc
 		C.container_resist(src)
 
-	else if(canmove)
+	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
 		else if(last_special <= world.time)
@@ -684,7 +686,7 @@
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-	Knockdown(100)
+	Paralyze(100)
 
 /mob/living/proc/get_visible_name()
 	return name
@@ -888,7 +890,7 @@
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
-	if(incapacitated())
+	if(!(mobility_flags & MOBILITY_PULL))
 		return
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)

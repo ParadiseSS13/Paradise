@@ -64,7 +64,11 @@
 		if(STUN)
 			Stun(effect * blocked)
 		if(KNOCKDOWN)
-			Knockdown(effect * blocked)
+			Paralyze(effect * blocked)
+		if(PARALYZE)
+			Paralyze(effect * blocked)
+		if(IMMOBILIZE)
+			Immobilize(effect * blocked)
 		if(UNCONSCIOUS)
 			Unconscious(effect * blocked)
 		if(IRRADIATE)
@@ -86,11 +90,13 @@
 	updatehealth("apply effect")
 	return 1
 
-/mob/living/proc/apply_effects(var/stun = 0, var/knockdown = 0, var/unconscious = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
+/mob/living/proc/apply_effects(var/stun = 0, var/knockdown = 0, var/unconscious = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0, var/paralyze = 0, var/immobilize = 0)
 	if(blocked >= 100)	return 0
 	if(stun)		apply_effect(stun, STUN, blocked)
 	if(knockdown)		apply_effect(knockdown, KNOCKDOWN, blocked)
 	if(unconscious)	apply_effect(unconscious, UNCONSCIOUS, blocked)
+	if(paralyze)	apply_effect(paralyze, PARALYZE, blocked)
+	if(immobilize)	apply_effect(immobilize, IMMOBILIZE, blocked)
 	if(irradiate)	apply_effect(irradiate, IRRADIATE, blocked)
 	if(slur) 		apply_effect(slur, SLUR, blocked)
 	if(stutter)		apply_effect(stutter, STUTTER, blocked)

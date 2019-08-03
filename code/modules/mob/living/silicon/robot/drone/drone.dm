@@ -339,7 +339,7 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
+/mob/living/silicon/robot/drone/update_mobility()
 	. = ..()
 	if(emagged)
 		density = 1

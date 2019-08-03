@@ -313,7 +313,7 @@ obj/structure/windoor_assembly/Destroy()
 	set name = "Rotate Windoor Assembly"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if(anchored)
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
@@ -345,9 +345,14 @@ obj/structure/windoor_assembly/Destroy()
 	set name = "Flip Windoor Assembly"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 
+	if(isliving(usr))
+		var/mob/living/L = usr
+		if(!(L.mobility_flags & MOBILITY_USE))
+			return
+			
 	if(facing == "l")
 		to_chat(usr, "The windoor will now slide to the right.")
 		facing = "r"

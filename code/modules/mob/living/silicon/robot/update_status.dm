@@ -1,6 +1,6 @@
 // No args for restraints because robots don't have those
-/mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || lockcharge || IsKnockdown() || IsStun() || IsUnconscious() || !is_component_functioning("actuator"))
+/mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
+	if(stat || lockcharge || IsKnockdown() || IsParalyzed() || IsStun() || IsUnconscious() || !is_component_functioning("actuator"))
 		return TRUE
 
 /mob/living/silicon/robot/has_vision(information_only = FALSE)

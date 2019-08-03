@@ -427,13 +427,13 @@
 
 					spawn(0)
 						if(user)
-							canmove = 0
+							mobility_flags &= ~MOBILITY_MOVE
 							step_away(src, user)
 							if(prob(25 + W.force))
 								sleep(2)
 								if(user)
 									step_away(src, user)
-								canmove = 1
+								mobility_flags = MOBILITY_FLAGS_DEFAULT
 
 		else
 			if(prob(10 + W.force*2))
@@ -452,13 +452,13 @@
 
 					spawn(0)
 						if(user)
-							canmove = 0
+							mobility_flags &= ~MOBILITY_MOVE
 							step_away(src, user)
 							if(prob(25 + W.force*4))
 								sleep(2)
 								if(user)
 									step_away(src, user)
-							canmove = 1
+							mobility_flags = MOBILITY_FLAGS_DEFAULT
 	..()
 
 /mob/living/carbon/slime/restrained()

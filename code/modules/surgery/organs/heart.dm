@@ -206,7 +206,7 @@
 		owner.AdjustDrowsy(-4 * boost)
 		owner.AdjustUnconscious(-20 * boost)
 		owner.AdjustStun(-20 * boost)
-		owner.AdjustKnockdown(-20 * boost)
+		owner.AdjustParalyzed(-20 * boost)
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-1 * boost)
 

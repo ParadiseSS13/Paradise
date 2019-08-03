@@ -89,7 +89,7 @@
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
-		climber.Knockdown(40)
+		climber.Paralyze(40)
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
 
 /obj/structure/table/attack_tk() // no telehulk sorry
@@ -134,8 +134,8 @@
 	if(get_turf(P.original) == cover)
 		var/chance = 20
 		if(ismob(P.original))
-			var/mob/M = P.original
-			if(M.lying)
+			var/mob/living/M = P.original
+			if(!(M.mobility_flags & MOBILITY_STAND))
 				chance += 20				//Lying down lets you catch less bullets
 		if(flipped)
 			if(get_dir(loc, from) == dir)	//Flipped tables catch mroe bullets
@@ -191,7 +191,7 @@
 			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
-		G.affecting.Knockdown(40)
+		G.affecting.Paralyze(40)
 		item_placed(G.affecting)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
@@ -411,7 +411,7 @@
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
-	L.Knockdown(100)
+	L.Paralyze(100)
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
@@ -688,7 +688,7 @@
 	return
 
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.IsKnockdown() || user.resting || user.lying)
+	if(!(user.mobility_flags & MOBILITY_STAND) || user.get_num_legs() < 2)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)

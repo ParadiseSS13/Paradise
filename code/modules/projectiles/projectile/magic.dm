@@ -158,7 +158,7 @@
 /proc/wabbajack(mob/living/M)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
-		M.canmove = FALSE
+		M.mobility_flags = NONE
 		M.icon = null
 		M.overlays.Cut()
 		M.invisibility = 101
@@ -336,6 +336,6 @@
 		var/mob/M = target
 		if(!M.IsStun())
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			M.Knockdown(slip_weaken)
+			M.Paralyze(slip_weaken)
 			M.Stun(slip_stun)
 	. = ..()

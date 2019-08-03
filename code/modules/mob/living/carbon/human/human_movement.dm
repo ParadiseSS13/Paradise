@@ -3,6 +3,8 @@
 	. += ..()
 	. += config.human_delay
 	. += dna.species.movement_delay(src)
+	if(!(mobility_flags & MOBILITY_STAND))
+		. += CRAWLING_ADD_SLOWDOWN
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
@@ -38,7 +40,7 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
 	if(.) // did we actually move?
-		if(!lying && !buckled && !throwing)
+		if((mobility_flags & MOBILITY_STAND) && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
 
@@ -116,7 +118,7 @@
 				if(!has_organ("l_foot") && !has_organ("r_foot"))
 					return 0 //no feet no footsteps
 
-				if(buckled || lying || throwing)
+				if(!(mobility_flags & MOBILITY_STAND))
 					return 0 //people flying, lying down or sitting do not step
 
 				if(!has_gravity(src))

@@ -654,7 +654,7 @@
 		return 0
 
 	if(href_list["toggle_piece"])
-		if(ishuman(usr) && (usr.stat || usr.IsStun() || usr.lying))
+		if(ishuman(usr) && usr.incapacitated())
 			return 0
 		toggle_piece(href_list["toggle_piece"], usr)
 	else if(href_list["toggle_seals"])
@@ -973,7 +973,7 @@
 		return
 
 	//This is sota the goto stop mobs from moving var
-	if(wearer.notransform || !wearer.canmove)
+	if(wearer.notransform || !(wearer.mobility_flags & MOBILITY_MOVE))
 		return
 
 	if(!wearer.lastarea)
@@ -993,9 +993,9 @@
 
 	if(isturf(wearer.loc))
 		if(wearer.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/M in range(wearer, 1))
+			for(var/mob/living/M in range(wearer, 1))
 				if(M.pulling == wearer)
-					if(!M.restrained() && M.stat == 0 && M.canmove && wearer.Adjacent(M))
+					if(!M.restrained() && M.stat == 0 && (M.mobility_flags & MOBILITY_MOVE) && wearer.Adjacent(M))
 						to_chat(user, "<span class='notice'>Your host is restrained! They can't move!</span>")
 						return 0
 					else

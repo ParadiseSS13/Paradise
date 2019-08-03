@@ -330,7 +330,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			if(L.stat == CONSCIOUS)
 				L.emote("scream")
-			L.Knockdown(100)
+			L.Paralyze(100)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)

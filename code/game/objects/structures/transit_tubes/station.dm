@@ -60,7 +60,7 @@
 									AM.loc = get_turf(user)
 									if(ismob(AM))
 										var/mob/M = AM
-										M.Knockdown(100)
+										M.Paralyze(100)
 
 					else
 						close_animation()
@@ -75,7 +75,7 @@
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into the [pod]!</span>")
 				if(do_after(user, 60, target = GM) && GM && G && G.affecting == GM)
-					GM.Knockdown(100)
+					GM.Paralyze(100)
 					src.Bumped(GM)
 					qdel(G)
 				break

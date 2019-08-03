@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(M.a_intent == INTENT_DISARM)
-		if(!lying)
+		if(mobility_flags & MOBILITY_STAND)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			if(prob(85))
 				Stun(140)

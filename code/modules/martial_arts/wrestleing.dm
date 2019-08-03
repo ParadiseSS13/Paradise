@@ -27,7 +27,7 @@
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, "melee")
 	D.apply_damage(30, BRUTE, null, armor_block)
-	D.apply_effect(120, KNOCKDOWN, armor_block)
+	D.apply_effect(120, PARALYZE, armor_block)
 	add_attack_logs(A, D, "Melee attacked with [src] (SUPLEX)")
 
 	A.SpinAnimation(10,1)
@@ -35,7 +35,7 @@
 	D.SpinAnimation(10,1)
 	spawn(3)
 		armor_block = A.run_armor_check(null, "melee")
-		A.apply_effect(80, KNOCKDOWN, armor_block)
+		A.apply_effect(80, PARALYZE, armor_block)
 	return
 
 /datum/martial_art/wrestling/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

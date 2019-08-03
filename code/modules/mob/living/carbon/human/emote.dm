@@ -377,13 +377,13 @@
 					M = null
 
 				if(M)
-					if(lying)
+					if(!(mobility_flags & MOBILITY_STAND))
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || IsKnockdown())
+					if(!(mobility_flags & MOBILITY_STAND) || IsKnockdown())
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
@@ -404,7 +404,7 @@
 								message = "<B>[src]</B> attempts a flip and crashes to the floor!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Knockdown(40)
+								Paralyze(40)
 							else
 								message = "<B>[src]</B> does a flip!"
 								SpinAnimation(5,1)
@@ -784,10 +784,10 @@
 		if("handshake")
 			m_type = 1
 			if(!restrained() && !r_hand)
-				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
+				var/mob/living/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
 				if(M)
-					if(M.canmove && !M.r_hand && !M.restrained())
+					if((M.mobility_flags & MOBILITY_MOVE) && !M.r_hand && !M.restrained())
 						message = "<B>[src]</B> shakes hands with [M]."
 					else
 						message = "<B>[src]</B> holds out [p_their()] hand to [M]."

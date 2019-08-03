@@ -50,7 +50,7 @@
 	M.buckled = src
 	M.dir = dir
 	buckled_mob = M
-	M.update_canmove()
+	M.update_mobility()
 	post_buckle_mob(M)
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled, new_master = src)
 	return 1
@@ -67,7 +67,7 @@
 		. = buckled_mob
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)
-		buckled_mob.update_canmove()
+		buckled_mob.update_mobility()
 		buckled_mob.clear_alert("buckled")
 		buckled_mob = null
 

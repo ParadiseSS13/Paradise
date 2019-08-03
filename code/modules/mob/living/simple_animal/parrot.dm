@@ -148,7 +148,7 @@
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 
 	//Can the usr physically do this?
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(!usr.incapacitated() || !in_range(loc, usr))
 		return
 
 	//Is the usr's mob type able to do this?
@@ -301,7 +301,7 @@
 		parrot_state = PARROT_WANDER
 		return
 
-	if(!isturf(src.loc) || !canmove || buckled)
+	if(!isturf(src.loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
 		return //If it can't move, dont let it move. (The buckled check probably isn't necessary thanks to canmove)
 
 

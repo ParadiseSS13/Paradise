@@ -111,5 +111,5 @@
 		M.AdjustEyeBlurry(force/7)
 		if(prob(20))
 			M.Unconscious(20 * force / 6)
-			M.Knockdown(20 * force / 15)
+			M.Paralyze(20 * force / 15)
 		M.drop_item()

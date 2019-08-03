@@ -444,7 +444,7 @@
 		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	update_icons()
-	update_canmove()
+	update_mobility()
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -521,7 +521,7 @@
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE
 
-/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
+/mob/living/silicon/pai/update_mobility()
 	. = ..()
 	density = 0 //this is reset every canmove update otherwise
 

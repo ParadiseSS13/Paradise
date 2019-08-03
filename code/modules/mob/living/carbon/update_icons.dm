@@ -9,8 +9,8 @@
 	var/changed = 0
 	if(lying != lying_prev)
 		changed++
-		ntransform.TurnTo(lying_prev,lying)
-		if(lying == 0) //Lying to standing
+		ntransform.TurnTo(lying_prev, lying)
+		if(!lying) //Lying to standing
 			final_pixel_y = get_standard_pixel_y_offset()
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying

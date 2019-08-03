@@ -255,7 +255,7 @@
 		owner.SetSleeping(0)
 		owner.Stuttering(20)
 		owner.MinimumDeafTicks(30)
-		owner.Knockdown(60)
+		owner.Paralyze(60)
 		owner << 'sound/items/airhorn.ogg'
 		if(prob(30))
 			owner.Stun(200)

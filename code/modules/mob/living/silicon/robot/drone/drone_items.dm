@@ -56,11 +56,10 @@
 		H = target
 		if(H.lying)
 			H.AdjustSleeping(-100)
-			if(!H.IsSleeping())
-				H.StopResting()
+			H.set_resting(FALSE)
 			H.AdjustUnconscious(-60)
 			H.AdjustStun(-60)
-			H.AdjustKnockdown(-60)
+			H.AdjustParalyzed(-60)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\

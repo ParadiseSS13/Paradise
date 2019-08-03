@@ -65,7 +65,7 @@
 
 			H.AdjustUnconscious(60)
 			H.AdjustStun(100)
-			H.AdjustKnockdown(100)
+			H.AdjustParalyzed(100)
 			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			H.shock_internal_organs(100)

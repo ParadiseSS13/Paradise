@@ -2,7 +2,7 @@
 	death(1)
 	var/atom/movable/overlay/animation = null
 	notransform = 1
-	canmove = 0
+	mobility_flags &= ~MOBILITY_MOVE
 	icon = null
 	invisibility = 101
 
@@ -25,7 +25,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = 1
-	canmove = 0
+	mobility_flags &= ~MOBILITY_MOVE
 	icon = null
 	invisibility = 101
 	dust_animation()

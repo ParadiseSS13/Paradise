@@ -409,11 +409,11 @@
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Stun(100)
-		M.Knockdown(100)
+		M.Paralyze(100)
 
 	else if(istype(M,/mob/living/carbon/human/))
 		M.Stun(40)
-		M.Knockdown(40)
+		M.Paralyze(40)
 
 
 	to_chat(M, "Gravity!")

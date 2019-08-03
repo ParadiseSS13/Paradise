@@ -67,20 +67,24 @@
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
-		return 0
+		return FALSE
 	if(check_flags & AB_CHECK_RESTRAINED)
 		if(owner.restrained())
-			return 0
+			return FALSE
 	if(check_flags & AB_CHECK_STUN)
-		if(owner.IsStun() || owner.IsKnockdown())
-			return 0
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(L.IsParalyzed() || L.IsStun())
+				return FALSE
 	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return 0
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(!(L.mobility_flags & MOBILITY_STAND))
+				return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /datum/action/proc/UpdateButtonIcon()
 	if(button)

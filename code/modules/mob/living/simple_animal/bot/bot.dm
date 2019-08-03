@@ -179,11 +179,10 @@
 /mob/living/simple_animal/bot/med_hud_set_status()
 	return //we use a different hud
 
-/mob/living/simple_animal/bot/update_canmove(delay_action_updates = 0)
+/mob/living/simple_animal/bot/update_mobility(delay_action_updates = 0)
 	. = ..()
 	if(!on)
-		. = 0
-	canmove = .
+		mobility_flags = NONE
 
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)

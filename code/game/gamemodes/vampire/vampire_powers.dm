@@ -184,7 +184,7 @@
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Knockdown(200)
+				target.Paralyze(200)
 				target.Stun(200)
 				target.stuttering = 10
 		else
@@ -224,7 +224,7 @@
 		if(!affects(target))
 			continue
 		target.Stun(100)
-		target.Knockdown(100)
+		target.Paralyze(100)
 		target.stuttering = 20
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
@@ -266,7 +266,7 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Knockdown(80)
+		C.Paralyze(80)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
 		C.Stun(80)
@@ -442,7 +442,7 @@
 		animation.loc = mobloc
 		steam.location = mobloc
 		steam.start()
-		user.canmove = 0
+		U.mobility_flags &= ~MOBILITY_MOVE
 		sleep(20)
 		flick("reappear",animation)
 		sleep(5)
@@ -452,7 +452,7 @@
 				if(T)
 					if(user.Move(T))
 						break
-		user.canmove = 1
+		U.mobility_flags |= MOBILITY_MOVE
 		user.client.eye = user
 		qdel(animation)
 		qdel(holder)
@@ -586,7 +586,7 @@
 			adjustBrainLoss(60)
 		else
 			visible_message("<span class='warning'>[src] looks to be stunned by the energy!</span>")
-			Knockdown(400)
+			Paralyze(400)
 		return
 	for(var/obj/item/implant/mindshield/L in src)
 		if(L && L.implanted)
@@ -603,4 +603,4 @@
 	add_attack_logs(M, src, "Vampire-sired")
 	mind.make_Vampire()
 	revive()
-	Knockdown(400)
+	Paralyze(400)

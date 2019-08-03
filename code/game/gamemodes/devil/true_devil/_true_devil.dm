@@ -173,13 +173,13 @@
 				add_attack_logs(M, src, "attacked")
 				updatehealth()
 			if(INTENT_DISARM)
-				if(!lying && !ascended) //No stealing the arch devil's pitchfork.
+				if(!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
 					if(prob(5))
 						// Weaken knocks people over
 						// Paralyse knocks people out
 						// It's Paralyse for parity though
-						// Knockdown(40)
-						Knockdown(40)
+						// Paralyze(40)
+						Paralyze(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "pushed")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \

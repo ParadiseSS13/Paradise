@@ -109,7 +109,7 @@
 
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
-				if(H.lying)
+				if(!(H.mobility_flags & MOBILITY_STAND))
 					H.apply_damage(trap_damage, BRUTE,"chest")
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
@@ -171,7 +171,7 @@
 		C.update_inv_legcuffed()
 		feedback_add_details("handcuffs","B")
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
-		C.Knockdown(knockdown)
+		C.Paralyze(knockdown)
 		playsound(loc, hitsound, 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant

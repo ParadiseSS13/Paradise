@@ -37,6 +37,8 @@
 	M.SetKnockdown(0, FALSE)
 	M.SetStun(0, FALSE)
 	M.SetUnconscious(0, FALSE)
+	M.SetParalyzed(0, FALSE)
+	M.SetImmobilized(0, FALSE)
 	M.SetSilence(0, FALSE)
 	M.SetHallucinate(0)
 	M.SetDizzy(0)

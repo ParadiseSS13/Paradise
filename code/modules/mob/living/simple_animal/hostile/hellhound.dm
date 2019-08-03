@@ -48,13 +48,11 @@
 			custom_emote(1, "growls, and gets up.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
 			icon_state = "[icon_living]"
-			resting = 0
-			update_canmove()
+			set_resting(FALSE)
 	else if(wants_to_rest())
 		custom_emote(1, "lays down, and starts to lick their wounds.")
 		icon_state = "[icon_resting]"
-		resting = 1
-		update_canmove()
+		set_resting(TRUE)
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()

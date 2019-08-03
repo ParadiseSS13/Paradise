@@ -48,7 +48,7 @@
 /mob/living/carbon/slime/proc/Feedon(var/mob/living/M)
 	Victim = M
 	forceMove(M.loc)
-	canmove = 0
+	mobility_flags &= ~MOBILITY_MOVE
 	anchored = 1
 	var/lastnut = nutrition
 	var/fed_succesfully = 0
@@ -61,7 +61,7 @@
 	if(isanimal(Victim))
 		health_minimum = 0
 	while(Victim && Victim.health > health_minimum && stat != DEAD)
-		canmove = 0
+		mobility_flags &= ~MOBILITY_MOVE
 
 		if(Adjacent(Victim))
 			forceMove(M.loc)
@@ -121,12 +121,12 @@
 		else
 			icon_state = "[colour] baby slime"
 
-	canmove = 1
+	mobility_flags = MOBILITY_FLAGS_DEFAULT
 	anchored = 0
 
 	if(M)
 		if(M.health <= health_minimum)
-			M.canmove = 0
+			M.mobility_flags &= ~MOBILITY_MOVE
 			if(!client)
 				if(Victim && !rabid && !attacked)
 					if(Victim.LAssailant && Victim.LAssailant != Victim)
@@ -145,7 +145,7 @@
 			if(client)
 				to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 		else
-			M.canmove = 1
+			M.mobility_flags = MOBILITY_FLAGS_DEFAULT
 			if(client)
 				to_chat(src, "<i>I have stopped feeding...</i>")
 	else

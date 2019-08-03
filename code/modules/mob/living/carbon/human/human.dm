@@ -5,7 +5,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
-	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
+	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_mobility() call.
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
@@ -302,7 +302,7 @@
 	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!prob(martial_art.deflection_chance))
 			return ..()
-		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
+		if(!(mobility_flags & MOBILITY_STAND) && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return 0
 	..()
@@ -599,7 +599,7 @@
 	. = ..(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.incapacitated() && in_range(src, usr))
 		var/thief_mode = 0
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr

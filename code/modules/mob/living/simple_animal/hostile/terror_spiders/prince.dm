@@ -38,7 +38,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	if(prob(15))
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
-		L.Knockdown(100)
+		L.Paralyze(100)
 		L.Stun(100)
 	else
 		..()

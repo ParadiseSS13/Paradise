@@ -545,7 +545,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Knockdown(80)
+			target.Paralyze(80)
 			..()
 		return
 	else

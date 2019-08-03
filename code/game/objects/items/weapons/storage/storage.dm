@@ -39,7 +39,7 @@
 			return
 
 		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
-			&& contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && over_object.Adjacent(usr) \
+			&& contents.len && loc == usr && !usr.incapacitated() && over_object.Adjacent(usr) \
 			&& !istype(src, /obj/item/storage/lockbox))
 			var/turf/T = get_turf(over_object)
 			if(istype(over_object, /turf/simulated/floor))
@@ -47,7 +47,7 @@
 					return // Can only empty containers onto the floor under you
 				if("Yes" != alert(usr,"Empty \the [src] onto \the [T]?","Confirm","Yes","No"))
 					return
-				if(!(usr && over_object && contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && get_turf(usr) == T))
+				if(!(usr && over_object && contents.len && loc == usr && !usr.incapacitated() && get_turf(usr) == T))
 					return // Something happened while the player was thinking
 			hide_from(usr)
 			usr.face_atom(over_object)

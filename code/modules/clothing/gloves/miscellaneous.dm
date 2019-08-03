@@ -100,7 +100,7 @@
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Stun(stun_strength)
-				C.Knockdown(stun_strength)
+				C.Paralyze(stun_strength)
 				C.apply_effect(STUTTER, stun_strength)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")

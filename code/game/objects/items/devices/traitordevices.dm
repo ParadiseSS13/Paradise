@@ -47,7 +47,7 @@ effective or pretty fucking useless.
 
 	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
-			M.Knockdown(rand(80,140))
+			M.Paralyze(rand(80,140))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else

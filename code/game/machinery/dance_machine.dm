@@ -397,8 +397,7 @@
 		sleep(speed)
 		for(var/i in 1 to speed)
 			M.setDir(pick(cardinal))
-			M.resting = !M.resting
-			M.update_canmove()
+			M.set_resting(!M.resting, TRUE)
 		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
@@ -463,7 +462,11 @@
 			if(!(M in rangers))
 				rangers[M] = TRUE
 				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
-			if(prob(5+(allowed(M) * 4)) && M.canmove && isliving(M))
+			if(prob(5+(allowed(M)*4)))
+				if(isliving(M))
+					var/mob/living/L = M
+					if(!(L.mobility_flags & MOBILITY_MOVE))
+						continue
 				dance(M)
 		for(var/mob/L in rangers)
 			if(get_dist(src, L) > 10)

@@ -142,11 +142,11 @@
 
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
-	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
+	if(locate(/obj/machinery/optable, M.loc) && !(M.mobility_flags & MOBILITY_STAND))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsKnockdown() || M.IsStun() || M.IsUnconscious() || M.IsSleeping() || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (M.buckled || !(M.mobility_flags & MOBILITY_STAND) || M.IsKnockdown() || M.IsStun() || M.IsUnconscious() || M.IsSleeping() || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsKnockdown() || M.IsStun() || M.IsUnconscious() || M.IsSleeping() || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (!(M.mobility_flags & MOBILITY_STAND) || M.IsKnockdown() || M.IsStun() || M.IsUnconscious() || M.IsSleeping() || M.stat))
 		return TRUE
 	return FALSE
 

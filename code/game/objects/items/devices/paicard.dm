@@ -274,7 +274,7 @@
 				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
-					if(P.resting || P.canmove)
+					if(P.resting || (P.mobility_flags & MOBILITY_MOVE))
 						P.close_up()
 				M.death(0, 1)
 			removePersonality()

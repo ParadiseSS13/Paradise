@@ -163,7 +163,7 @@
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Knockdown(60) //This is being left in the code as an example of adding a new variable to do something in grab code.
+				affecting.Paralyze(60) //This is being left in the code as an example of adding a new variable to do something in grab code.
 
 */
 
@@ -178,7 +178,7 @@
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
 		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Knockdown(100)	//Should keep you down unless you get help.
+		affecting.Paralyze(100)	//Should keep you down unless you get help.
 		if(!breathing_tube)
 			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 
@@ -241,7 +241,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!assailant.canmove || assailant.lying)
+	if(!(assailant.mobility_flags & MOBILITY_MOVE) || !(assailant.mobility_flags & MOBILITY_STAND))
 		qdel(src)
 		return
 
@@ -255,7 +255,7 @@
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
-			affecting.Knockdown(60)
+			affecting.Paralyze(60)
 			step_to(assailant, affecting)
 			assailant.setDir(EAST) //face the victim
 			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
@@ -372,7 +372,7 @@
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
 						force_down = 1
-						affecting.Knockdown(60)
+						affecting.Paralyze(60)
 						affecting.lying = 1
 						step_to(assailant, affecting)
 						assailant.setDir(EAST) //face the victim

@@ -134,6 +134,10 @@
 		owner.SetStun(STUN_SET_AMOUNT)
 	if(owner.AmountKnockdown() > STUN_SET_AMOUNT)
 		owner.SetKnockdown(STUN_SET_AMOUNT)
+	if(owner.AmountParalyzed() > STUN_SET_AMOUNT)
+		owner.SetParalyzed(STUN_SET_AMOUNT)
+	if(owner.AmountImmobilized() > STUN_SET_AMOUNT)
+		owner.SetImmobilized(STUN_SET_AMOUNT)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	if(crit_fail || emp_proof)

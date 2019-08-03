@@ -24,7 +24,7 @@
 	overlays.Cut()
 	if(stat == DEAD)
 		icon_state = "prat_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || !(mobility_flags & MOBILITY_STAND) || resting)
 		icon_state = "prat_sleep"
 	else
 		icon_state = "prat_s"

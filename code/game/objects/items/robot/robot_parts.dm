@@ -312,7 +312,7 @@
 
 			if(!locomotion)
 				O.lockcharge = 1
-				O.update_canmove()
+				O.update_mobility()
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else
@@ -335,7 +335,7 @@
 			popup.open()
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
-	if(usr.lying || usr.stat || usr.IsStun() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
 	var/mob/living/living_user = usr

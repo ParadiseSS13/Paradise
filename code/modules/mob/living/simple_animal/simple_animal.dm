@@ -151,7 +151,7 @@
 
 /mob/living/simple_animal/proc/handle_automated_movement()
 	if(!stop_automated_movement && wander)
-		if(isturf(src.loc) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
+		if(isturf(loc) && (mobility_flags & MOBILITY_MOVE))		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
@@ -440,7 +440,7 @@
 	health = maxHealth
 	icon_state = icon_living
 	density = initial(density)
-	update_canmove()
+	update_mobility()
 
 
 
@@ -480,19 +480,20 @@
 
 	return verb
 
-/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(IsUnconscious() || IsStun() || IsKnockdown() || stat || resting)
+/mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
+	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
-		canmove = 0
+		mobility_flags = NONE
 	else if(buckled)
-		canmove = 0
+		mobility_flags = MOBILITY_FLAGS_INTERACTION
 	else
-		canmove = 1
+		if(value_otherwise)
+			mobility_flags = MOBILITY_FLAGS_DEFAULT
+		else
+			mobility_flags = NONE
 	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
+	update_action_buttons_icon()
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

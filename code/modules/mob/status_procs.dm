@@ -209,6 +209,7 @@
 
 /mob/proc/AmountKnockdown()
 	return
+	
 /mob/proc/Knockdown()
 	return
 
@@ -218,6 +219,34 @@
 /mob/proc/AdjustKnockdown()
 	return
 
+/mob/proc/IsParalyzed()
+	return
+
+/mob/proc/AmountParalyzed()
+	return
+
+/mob/proc/SetParalyzed()
+	return
+
+/mob/proc/Paralyze()
+	return
+	
+/mob/proc/AdjustParalyzed()
+	return	
+/mob/proc/IsImmobilized()
+	return
+
+/mob/proc/AmountImmobilized()
+	return
+
+/mob/proc/SetImmobilized()
+	return
+
+/mob/proc/AdjustImmobilized()
+	return
+
+/mob/proc/Immobilize()
+	return
 /mob/proc/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
 		bodytemperature = Clamp(bodytemperature + amount, min_temp, max_temp)

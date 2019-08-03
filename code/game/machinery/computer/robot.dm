@@ -108,8 +108,8 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("<span class='notice'>[key_name_admin(usr)] [target.canmove ? "locked down" : "released"] [key_name_admin(target)]!</span>")
-		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [key_name(target)]!")
+		message_admins("<span class='notice'>[key_name_admin(usr)] [(target.mobility_flags & MOBILITY_MOVE) ? "locked down" : "released"] [key_name_admin(target)]!</span>")
+		log_game("[key_name(usr)] [(target.mobility_flags & MOBILITY_MOVE) ? "locked down" : "released"] [key_name(target)]!")
 		target.SetLockdown(!target.lockcharge)
 		to_chat(target, "[!target.lockcharge ? "<span class='notice'>Your lockdown has been lifted!</span>" : "<span class='alert'>You have been locked down!</span>"]")
 		if(target.connected_ai)
@@ -197,7 +197,7 @@
 		robot["name"] = R.name
 		if(R.stat)
 			robot["status"] = "Not Responding"
-		else if(!R.canmove)
+		else if(!(R.mobility_flags & MOBILITY_MOVE))
 			robot["status"] = "Lockdown"
 		else
 			robot["status"] = "Operational"

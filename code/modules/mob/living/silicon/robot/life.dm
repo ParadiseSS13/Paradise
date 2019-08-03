@@ -165,15 +165,13 @@
 			weapon_lock = 0
 			weaponlock_time = 120
 
-/mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(IsUnconscious() || IsStun() || IsKnockdown() || buckled || lockcharge || stat)
-		canmove = 0
+/mob/living/silicon/robot/update_mobility()
+	if(stat || buckled || lockcharge)
+		mobility_flags &= ~MOBILITY_MOVE
 	else
-		canmove = 1
+		mobility_flags = MOBILITY_FLAGS_DEFAULT
 	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
+	update_action_buttons_icon()
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

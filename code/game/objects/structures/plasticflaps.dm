@@ -79,7 +79,7 @@
 
 	var/mob/living/M = A
 	if(istype(M))
-		if(M.lying)
+		if(!(M.mobility_flags & MOBILITY_STAND))	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return ..()
 		for(var/mob_type in mobs_can_pass)
 			if(istype(A, mob_type))

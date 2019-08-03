@@ -75,9 +75,9 @@
 			continue
 
 		if(L.flash_eyes(affect_silicon = 1))
-			L.Knockdown(strength)
+			L.Paralyze(strength)
 			if(L.weakeyes)
-				L.Knockdown(strength * 1.5)
+				L.Paralyze(strength * 1.5)
 				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
 
 /obj/machinery/flasher/emp_act(severity)

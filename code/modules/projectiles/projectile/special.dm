@@ -139,7 +139,7 @@
 		if(IS_PLANT in H.dna.species.species_traits)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
-				M.Knockdown(100)
+				M.Paralyze(100)
 				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 			if(prob(35))
 				if(prob(80))
@@ -229,7 +229,7 @@
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
 	damage = 25
-	knockdown = 100
+	paralyze = 100
 	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)

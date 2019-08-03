@@ -19,7 +19,7 @@
 	icon_state = "broom"
 	item_state = "broom0"
 
-/obj/item/twohanded/staff/broom/attack_self(mob/user as mob)
+/obj/item/twohanded/staff/broom/attack_self(mob/living/user as mob)
 	..()
 	item_state = "broom[wielded ? 1 : 0]"
 	force = wielded ? 5 : 3
@@ -37,7 +37,7 @@
 				animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
 				animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 				animate(user)
-				if(user.lying)//aka. if they have just been stunned
+				if(!(user.mobility_flags & MOBILITY_STAND))//aka. if they have just been stunned
 					user.pixel_y -= 6
 		else
 			if(wielded)

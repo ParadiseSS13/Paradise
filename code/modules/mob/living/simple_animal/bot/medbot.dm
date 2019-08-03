@@ -134,7 +134,7 @@
 		skin = new_skin
 	update_icon()
 
-/mob/living/simple_animal/bot/medbot/update_canmove()
+/mob/living/simple_animal/bot/medbot/update_mobility()
 	. = ..()
 	update_icon()
 
@@ -308,7 +308,7 @@
 	if(mode == BOT_HEALING)
 		return
 
-	if(IsStun())
+	if(IsStun() || IsParalyzed())
 		oldpatient = patient
 		patient = null
 		mode = BOT_IDLE

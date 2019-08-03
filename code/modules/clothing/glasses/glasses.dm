@@ -567,7 +567,7 @@
 	toggle_veil()
 
 /obj/item/clothing/glasses/proc/toggle_veil()
-	if(usr.canmove && !usr.incapacitated())
+	if(!usr.incapacitated())
 		if(up)
 			up = !up
 			tint = initial(tint)

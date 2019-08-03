@@ -47,7 +47,7 @@
     if(!.)
         return
     if(!buckled)
-        Knockdown(60)
+        Paralyze(60)
 
 // After docking //
 /atom/proc/postDock(obj/docking_port/S1)

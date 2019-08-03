@@ -155,7 +155,7 @@
 		to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 		M.visible_message("<span class='warning'>[M] gags and retches!</span>")
 		update_flags |= M.Stun(rand(40,80), FALSE)
-		update_flags |= M.Knockdown(rand(40,80), FALSE)
+		update_flags |= M.Paralyze(rand(40,80), FALSE)
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
 	if(prob(5))
@@ -180,8 +180,7 @@
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
 		return
-	if(M.resting)
-		M.StopResting()
+	M.set_resting(FALSE)
 	M.status_flags &= ~(FAKEDEATH)
 	M.update_stat("fakedeath reagent end")
 	M.med_hud_set_status()

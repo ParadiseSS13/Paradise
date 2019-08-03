@@ -29,7 +29,7 @@
 
 /datum/martial_art/adminfu/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	A.do_attack_animation(D)
-	D.Knockdown(25)
+	D.Paralyze(25)
 	D.Stun(500)
 	return 1
 

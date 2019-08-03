@@ -211,7 +211,7 @@
 					autopsy_damage = 2
 					if(prob(5))
 						radiation = max(radiation-5, 0)
-						Knockdown(60)
+						Paralyze(60)
 						to_chat(src, "<span class='danger'>You feel weak.</span>")
 						emote("collapse")
 
@@ -812,7 +812,7 @@
 
 		if(getBrainLoss() >= 100) // braindeath
 			AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
-			Knockdown(600)
+			Paralyze(600)
 
 		if(!check_death_method())
 			if(health <= HEALTH_THRESHOLD_DEAD)
@@ -858,7 +858,7 @@
 							ForceContractDisease(D)
 						if(prob(6))
 							to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-							Knockdown(60)
+							Paralyze(60)
 						if(prob(3))
 							Unconscious(40)
 					if(-49 to 0)
@@ -868,7 +868,7 @@
 							ForceContractDisease(D)
 						if(prob(5))
 							to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-							Knockdown(60)
+							Paralyze(60)
 
 	else //dead
 		SetSilence(0)
@@ -1111,7 +1111,7 @@
 		adjustBrainLoss(3)
 	else if(prob(10))
 		adjustBrainLoss(1)
-	Knockdown(100)
+	Paralyze(100)
 	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
 	adjustOxyLoss(20)
 
