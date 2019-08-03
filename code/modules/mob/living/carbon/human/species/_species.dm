@@ -405,6 +405,7 @@
 		var/randn = rand(1, 100)
 		if(randn <= 25)
 			target.apply_effect(80, KNOCKDOWN, target.run_armor_check(affecting, "melee"))
+			target.drop_item()
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)

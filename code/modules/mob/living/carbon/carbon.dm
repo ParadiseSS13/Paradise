@@ -230,7 +230,7 @@
 				AdjustUnconscious(-60)
 				AdjustStun(-60)
 				AdjustParalyzed(-60)
-				AdjustParalyzed(-60)
+				AdjustKnockdown(-60)
 				AdjustImmobilized(-60)
 				set_resting(FALSE)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
