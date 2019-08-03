@@ -32,37 +32,40 @@
 		isactive = FALSE
 		return
 
-//This proc finds all of the '/obj/item/radio/beacon/engine' in the world and assigns them to a list
+//This proc re-assigns all of engine beacons in the global list to a local list.
 /obj/item/enginepicker/proc/locatebeacons()
 	LAZYCLEARLIST(list_enginebeacons)
 	for(var/obj/item/radio/beacon/engine/B in GLOB.engine_beacon_list)
-		if(B && !QDELETED(B))
+		if(B && !QDELETED(B))	//This ensures that the input pop-up won't have any qdeleted beacons
 			list_enginebeacons += B
 
 //Spawns and logs / announces the appropriate engine based on the choice made
 /obj/item/enginepicker/proc/processchoice(var/obj/item/radio/beacon/engine/choice, mob/living/carbon/user)
-	var/issuccessful = FALSE
-	var/engname
-	var/G
+	var/issuccessful = FALSE	//Check for a successful choice
+	var/engtype					//Engine type
+	var/G						//Generator that will be spawned
 	var/turf/T = get_turf(choice)
+
 	if(choice.enginetype.len > 1)	//If the beacon has multiple engine types
 		var/default = null
 		var/E = input("You have selected a combined beacon, which option would you prefer?", "[src]", default) as null|anything in choice.enginetype
 		if(E)
-			engname = E
+			engtype = E
 			issuccessful = TRUE
 		else
 			isactive = FALSE
 			return
-	if(!engname)
-		engname = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
-	switch(engname)
+
+	if(!engtype)				//If it has only one type
+		engtype = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
+	switch(engtype)
 		if(ENGTYPE_TESLA)
 			G = /obj/machinery/the_singularitygen/tesla
-			issuccessful = TRUE
 		if(ENGTYPE_SING)
 			G = /obj/machinery/the_singularitygen
-			issuccessful = TRUE
+
+	if(G)	//This can only be not-null if the switch operation was successful
+		issuccessful = TRUE
 
 	if(issuccessful)
 		clearturf(T) 	//qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
@@ -73,7 +76,7 @@
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
-			announcer.say(";Engine delivery detected. Type: [engname].")	//Let's announce the terrible choice to everyone
+			announcer.say(";Engine delivery detected. Type: [engtype].")	//Let's announce the terrible choice to everyone
 
 		visible_message("<span class='notice'>\The [src] begins to violently vibrate and hiss, then promptly disintegrates!</span>")
 		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.
@@ -87,6 +90,7 @@
 	for(var/obj/item/I in T)
 		I.visible_message("\The [I] gets crushed to dust!")
 		qdel(I)
+
 	for(var/mob/living/M in T)
 		M.visible_message("\The [M] gets obliterated!")
 		M.gib()
