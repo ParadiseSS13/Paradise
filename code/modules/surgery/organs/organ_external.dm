@@ -292,7 +292,7 @@
 
 //Checks disabled status thresholds
 /obj/item/organ/external/proc/check_disabled()
-	if(!disabled && (total_damage(TRUE) >= max_damage))
+	if(!disabled && (total_damage(TRUE) >= max_damage) && !is_robotic())
 		set_disabled(TRUE)
 	else if(disabled && (total_damage(TRUE) <= (max_damage * 0.5)))
 		set_disabled(FALSE)
