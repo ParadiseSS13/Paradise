@@ -102,7 +102,7 @@
 	icon_state = "spidermeat"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
-	tastes = list("cobwebs" = 1))
+	tastes = list("cobwebs" = 1)
 
 /obj/item/reagent_containers/food/snacks/lizardmeat
 	name = "mutant lizard meat"
@@ -112,7 +112,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3)
 
-/obj/item/reagent_containers/food/snacks/spiderleg
+tastes = list("berry" = 1)/obj/item/reagent_containers/food/snacks/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"

@@ -210,7 +210,8 @@
 	desc = "A slice of heavenly cake."
 	icon_state = "applecakeslice"
 	trash = /obj/item/trash/plate
-	filling_color = "#EBF5B8"tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
+	filling_color = "#EBF5B8"
+	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 
 
 //////////////////////
