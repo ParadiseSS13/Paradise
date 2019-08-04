@@ -141,6 +141,7 @@
 	reagent_state = LIQUID
 	color = "#7A2B94"
 	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
@@ -407,6 +408,7 @@
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
 	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)

@@ -4,6 +4,7 @@
 	description = "A Toxic chemical."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
+	taste_mult = 1.2
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -42,6 +43,7 @@
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
 	taste_description = "slimes"
+	taste_mult = 1.3
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -94,6 +96,7 @@
 	metabolization_rate = 0.2
 	penetrates_skin = TRUE
 	taste_description = "metal"
+	taste_mult = 0 // elemental mercury is tasteless
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -156,6 +159,7 @@
 	reagent_state = LIQUID
 	color = "#04DF27"
 	metabolization_rate = 0.3
+	taste_mult = 0.9
 
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(!..())
@@ -681,6 +685,7 @@
 	color = "#1E4664"
 	metabolization_rate = 0.2
 	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

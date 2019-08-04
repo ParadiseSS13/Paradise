@@ -21,6 +21,7 @@
 	icon_state = "carrot"
 	filling_color = "#FFA500"
 	bitesize_mod = 2
+	tastes = list("carrot" = 1)
 	wine_power = 0.3
 
 /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
@@ -60,16 +61,17 @@
 	desc = "Closely related to carrots."
 	icon_state = "parsnip"
 	bitesize_mod = 2
+	tastes = list("parsnip" = 1)
 	wine_power = 0.35
 
 
 // White-Beet
 /obj/item/seeds/whitebeet
-	name = "pack of white-beet seeds"
+	name = "pack of white beet seeds"
 	desc = "These seeds grow into sugary beet producing plants."
 	icon_state = "seed-whitebeet"
 	species = "whitebeet"
-	plantname = "White-Beet Plants"
+	plantname = "White Beet Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/whitebeet
 	lifespan = 60
 	endurance = 50
@@ -81,20 +83,21 @@
 
 /obj/item/reagent_containers/food/snacks/grown/whitebeet
 	seed = /obj/item/seeds/whitebeet
-	name = "white-beet"
-	desc = "You can't beat white-beet."
+	name = "white beet"
+	desc = "You can't beat white beet."
 	icon_state = "whitebeet"
 	filling_color = "#F4A460"
 	bitesize_mod = 2
+	tastes = list("white beet" = 1)
 	wine_power = 0.4
 
 // Red Beet
 /obj/item/seeds/redbeet
 	name = "pack of redbeet seeds"
 	desc = "These seeds grow into red beet producing plants."
-	icon_state = "seed-redbeet"
+	icon_state = "seedredbeet"
 	species = "redbeet"
-	plantname = "Red-Beet Plants"
+	plantname = "Red Beet Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/redbeet
 	lifespan = 60
 	endurance = 50
@@ -109,5 +112,6 @@
 	name = "red beet"
 	desc = "You can't beat red beet."
 	icon_state = "redbeet"
+	tastes = list("red beet" = 1)
 	bitesize_mod = 2
 	wine_power = 0.6

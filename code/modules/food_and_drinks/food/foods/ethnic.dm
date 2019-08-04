@@ -105,7 +105,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#F0F2E4"
 	list_reagents = list("nutriment" = 5)
-	taste = list("custard" = 1)
+	tastes = list("custard" = 1)
 
 /obj/item/reagent_containers/food/snacks/yakiimo
 	name = "yaki imo"

@@ -124,6 +124,7 @@
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
 	taste_description = "<span class='warning'>blood</span>"
+	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])

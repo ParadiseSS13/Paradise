@@ -197,7 +197,7 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
-	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1))
+	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon
 	name = "smoked salmon sushi"

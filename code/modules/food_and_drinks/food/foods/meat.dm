@@ -111,12 +111,14 @@
 	filling_color = "#43DE18"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3)
+	tastes = list("tough meat" = 1)
 
-tastes = list("berry" = 1)/obj/item/reagent_containers/food/snacks/spiderleg
+/obj/item/reagent_containers/food/snacks/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
+	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
 /obj/item/reagent_containers/food/snacks/raw_bacon
 	name = "raw bacon"
@@ -130,13 +132,14 @@ tastes = list("berry" = 1)/obj/item/reagent_containers/food/snacks/spiderleg
 	desc = "A cluster of juicy spider eggs. A great side dish for when you don't care about your health."
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
-	tastes = list("cobwebs" = 1)
+	tastes = list("cobwebs" = 1, "spider juice" = 1)
 
 /obj/item/reagent_containers/food/snacks/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
 	list_reagents = list("protein" = 3, "toxin" = 5)
+	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/goliath/burn()
 	visible_message("[src] finishes cooking!")

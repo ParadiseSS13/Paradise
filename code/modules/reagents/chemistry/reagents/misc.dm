@@ -39,6 +39,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/nitrogen
 	name = "Nitrogen"
@@ -47,6 +48,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/hydrogen
 	name = "Hydrogen"
@@ -55,6 +57,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/potassium
 	name = "Potassium"
