@@ -289,6 +289,8 @@
 			status += "blistered"
 		else if(burndamage > 0)
 			status += "numb"
+		if(LB.disabled)
+			status = "limp"
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen."
 		if(status == "")

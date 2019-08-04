@@ -72,7 +72,14 @@
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
-		owner.drop_item()
+		owner.drop_l_hand()
+
+/obj/item/organ/external/arm/right/set_disabled(new_disabled = TRUE)
+	..()
+	if(disabled)
+		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		owner.emote("scream")
+		owner.drop_r_hand()
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -169,7 +176,14 @@
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
-		owner.drop_item()
+		owner.drop_l_hand()
+
+/obj/item/organ/external/hand/right/set_disabled(new_disabled = TRUE)
+	..()
+	if(disabled)
+		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		owner.emote("scream")
+		owner.drop_r_hand()
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
