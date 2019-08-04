@@ -16,7 +16,7 @@
 
 /mob/living/carbon/human/proc/has_organ(name, check_disabled = FALSE)
 	var/obj/item/organ/external/O = bodyparts_by_name[name]
-	if(check_disabled && O.disabled)
+	if(check_disabled && O && O.disabled)
 		return FALSE
 	return O
 

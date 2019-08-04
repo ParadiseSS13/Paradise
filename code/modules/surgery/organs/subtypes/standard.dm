@@ -195,7 +195,7 @@
 	icon_name = "head"
 	name = "head"
 	max_damage = 75
-	max_stamina_damage = 75
+	max_stamina_damage = 100 // so you can put people in stamina crit by aiming for the head
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
