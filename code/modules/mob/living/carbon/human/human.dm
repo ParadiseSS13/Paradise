@@ -1378,7 +1378,7 @@
 					var/burn = part[3]
 					var/IB = part[4]
 					//Deal the damage to the new organ and then delete the entry to prevent duplicate checks
-					E.receive_damage(brute, burn, ignore_resists = TRUE)
+					E.receive_damage(brute, burn, 0, ignore_resists = TRUE)
 					E.internal_bleeding = IB
 					qdel(part)
 
@@ -1698,7 +1698,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
-	if(get_num_arms() >= 2)
+	if(get_num_arms(FALSE) >= 2)
 		return TRUE
 	else
 		return FALSE

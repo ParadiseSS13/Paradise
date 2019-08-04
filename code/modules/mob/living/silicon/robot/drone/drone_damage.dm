@@ -19,7 +19,7 @@
 	take_overall_damage(brute,burn, updating_health, null, sharp)
 
 /mob/living/silicon/robot/drone/heal_organ_damage(brute, burn, updating_health = TRUE)
-	heal_overall_damage(brute,burn, updating_health)
+	heal_overall_damage(brute, burn, updating_health)
 
 /mob/living/silicon/robot/drone/getFireLoss()
 	return fireloss

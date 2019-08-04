@@ -476,7 +476,7 @@
 			M.Stun(3)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)
+		update_flags |= M.heal_organ_damage(2, 2, 0, updating_health = FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 	return ..() | update_flags

@@ -13,6 +13,16 @@
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
+/mob/living/proc/get_bodypart(zone)
+	return
+	
+/mob/living/carbon/human/get_bodypart(zone)
+	if(!zone)
+		zone = BODY_ZONE_CHEST
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/L = X
+		if(L.limb_name == zone)
+			return L
 
 /mob/living/carbon/get_organs_zone(zone, var/subzones = 0)
 	var/list/returnorg = list()
@@ -49,8 +59,8 @@
 /mob/proc/has_left_hand()
 	return TRUE
 
-/mob/living/carbon/human/has_left_hand()
-	if(has_organ("l_hand"))
+/mob/living/carbon/human/has_left_hand(check_disabled = FALSE)
+	if(has_organ("l_hand", check_disabled))
 		return TRUE
 	return FALSE
 
@@ -58,11 +68,32 @@
 /mob/proc/has_right_hand()
 	return TRUE
 
-/mob/living/carbon/human/has_right_hand()
-	if(has_organ("r_hand"))
+/mob/living/carbon/human/has_right_hand(check_disabled = FALSE)
+	if(has_organ("r_hand", check_disabled))
 		return TRUE
 	return FALSE
 
+/mob/living/proc/get_disabled_limbs()
+	return list()
+
+/mob/living/carbon/get_disabled_limbs()
+	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+	var/list/disabled = list()
+	for(var/zone in full)
+		var/obj/item/organ/external/affecting = get_bodypart(zone)
+		if(affecting && affecting.disabled)
+			disabled += zone
+	return disabled
+
+/mob/living/proc/get_missing_limbs()
+	return list()
+
+/mob/living/carbon/get_missing_limbs()
+	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+	for(var/zone in full)
+		if(get_bodypart(zone))
+			full -= zone
+	return full
 
 //Limb numbers
 /mob/proc/get_num_arms()
@@ -110,13 +141,3 @@
 		if(J.on == 1)
 			return TRUE
 	return FALSE
-
-/mob/living/proc/get_missing_limbs()
-	return list()
-
-/mob/living/carbon/human/get_missing_limbs()
-	var/list/full = list("head", "chest", "r_arm", "l_arm", "r_leg", "l_leg")
-	for(var/zone in full)
-		if(has_organ(zone))
-			full -= zone
-	return full

@@ -113,7 +113,7 @@
 					H.apply_damage(trap_damage, BRUTE,"chest")
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+				if(!H.legcuffed && H.get_num_legs(FALSE) >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
 					forceMove(H)
 					H.update_inv_legcuffed()
@@ -164,7 +164,7 @@
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
 		return//abort
 	var/mob/living/carbon/C = hit_atom
-	if(!C.legcuffed && C.get_num_legs() >= 2)
+	if(!C.legcuffed && C.get_num_legs(FALSE) >= 2)
 		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
 		C.legcuffed = src
 		forceMove(C)

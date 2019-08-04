@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
 				use(1)
 				cable_used += 1
-				E.heal_damage(0, HEALPERCABLE, 0, 1)
+				E.heal_damage(0, HEALPERCABLE, 0, 0, 1)
 			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
 		return 1
 

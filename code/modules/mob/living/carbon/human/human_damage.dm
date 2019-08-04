@@ -7,13 +7,14 @@
 
 	var/total_burn  = 0
 	var/total_brute = 0
-
+	var/total_stamina = 0
 	for(var/obj/item/organ/external/O in bodyparts)	//hardcoded to streamline things a bit
-		total_brute += O.brute_dam //calculates health based on organ brute and burn
-		total_burn += O.burn_dam
+		total_brute	+= (O.brute_dam * O.body_damage_coeff)
+		total_burn	+= (O.burn_dam * O.body_damage_coeff)
+		total_stamina += (O.stamina_dam * O.body_damage_coeff)
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
-
+	staminaloss = total_stamina
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
@@ -86,9 +87,9 @@
 	if(amount > 0)
 		if(dna.species)
 			amount = amount * dna.species.brute_mod
-		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
+		take_overall_damage(amount, 0, 0, updating_health, used_weapon = damage_source)
 	else
-		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
+		heal_overall_damage(-amount, 0, 0, updating_health, FALSE, robotic)
 	// brainless default for now
 	return STATUS_UPDATE_HEALTH
 
@@ -96,9 +97,9 @@
 	if(amount > 0)
 		if(dna.species)
 			amount = amount * dna.species.burn_mod
-		take_overall_damage(0, amount, updating_health, used_weapon = damage_source)
+		take_overall_damage(0, amount, 0, updating_health, used_weapon = damage_source)
 	else
-		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
+		heal_overall_damage(0, -amount, 0, updating_health, FALSE, robotic)
 	// brainless default for now
 	return STATUS_UPDATE_HEALTH
 
@@ -109,10 +110,10 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, list(), FALSE, updating_health)
+			O.receive_damage(amount, 0, 0,  sharp=is_sharp(damage_source), used_weapon=damage_source, list(), FALSE, updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
-			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
+			O.heal_damage(-amount, 0, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
@@ -123,10 +124,10 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
+			O.receive_damage(0, amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
-			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
+			O.heal_damage(0, -amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
 
@@ -205,10 +206,10 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_ORGANS)
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, stamina, flags = AFFECT_ALL_ORGANS)
 	var/list/obj/item/organ/external/parts = list()
 	for(var/obj/item/organ/external/O in bodyparts)
-		if((brute && O.brute_dam) || (burn && O.burn_dam))
+		if((brute && O.brute_dam) || (burn && O.burn_dam) || (stamina && O.stamina_dam))
 			if(!(flags & AFFECT_ROBOTIC_ORGAN) && O.is_robotic())
 				continue
 			if(!(flags & AFFECT_ORGANIC_ORGAN) && !O.is_robotic())
@@ -227,69 +228,74 @@
 //Heals ONE external organ, organ gets randomly selected from damaged ones.
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
-/mob/living/carbon/human/heal_organ_damage(brute, burn, updating_health = TRUE)
-	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
+/mob/living/carbon/human/heal_organ_damage(brute, burn, stamina,  updating_health = TRUE)
+	var/list/obj/item/organ/external/parts = get_damaged_organs(brute, burn, stamina)
 	if(!parts.len)
 		return
 	var/obj/item/organ/external/picked = pick(parts)
-	if(picked.heal_damage(brute,burn, updating_health))
+	if(picked.heal_damage(brute, burn, stamina, updating_health))
 		UpdateDamageIcon()
 
 //Damages ONE external organ, organ gets randomly selected from damagable ones.
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
-/mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_organ_damage(brute, burn, stamina, updating_health = TRUE, sharp = 0, edge = 0)
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 	if(!parts.len)
 		return
 	var/obj/item/organ/external/picked = pick(parts)
-	if(picked.receive_damage(brute, burn, sharp, updating_health))
+	if(picked.receive_damage(brute, burn, stamina, sharp, updating_health))
 		UpdateDamageIcon()
 
 
 //Heal MANY external organs, in random order
-/mob/living/carbon/human/heal_overall_damage(brute, burn, updating_health = TRUE, internal=0, robotic=0)
+/mob/living/carbon/human/heal_overall_damage(brute, burn, stamina, updating_health = TRUE, internal=0, robotic=0)
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
 
 	var/update = 0
-	while(parts.len && ( brute > 0 || burn > 0) )
+	while(parts.len && ( brute > 0 || burn > 0 || stamina > 0) )
 		var/obj/item/organ/external/picked = pick(parts)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
+		var/stamina_was = picked.stamina_dam
 
-		update |= picked.heal_damage(brute,burn, internal, robotic, updating_health = FALSE)
+		update |= picked.heal_damage(brute, burn, stamina, internal, robotic, updating_health = FALSE)
 
 		brute -= (brute_was-picked.brute_dam)
 		burn -= (burn_was-picked.burn_dam)
+		stamina -= (stamina_was-picked.stamina_dam)
 
 		parts -= picked
 
 	if(updating_health)
 		updatehealth("heal overall damage")
+		update_stamina()
 	if(update)
 		UpdateDamageIcon()
 
 // damage MANY external organs, in random order
-/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_overall_damage(brute, burn, stamina, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
 	if(status_flags & GODMODE)
 		return	//godmode
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
 	var/update = 0
-	while(parts.len && (brute>0 || burn>0) )
+	while(parts.len && (brute>0 || burn>0 || stamina>0) )
 		var/obj/item/organ/external/picked = pick(parts)
 		var/brute_per_part = brute/parts.len
 		var/burn_per_part = burn/parts.len
+		var/stamina_per_part = stamina/parts.len
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
+		var/stamina_was = picked.stamina_dam
 
-
-		update |= picked.receive_damage(brute_per_part, burn_per_part, sharp, used_weapon, list(), FALSE, FALSE)
+		update |= picked.receive_damage(brute_per_part, burn_per_part, stamina_per_part, sharp, used_weapon, list(), FALSE, FALSE)
 
 		brute	-= (picked.brute_dam - brute_was)
 		burn	-= (picked.burn_dam - burn_was)
+		stamina -= (picked.stamina_dam - stamina_was)
 
 		parts -= picked
 
@@ -309,10 +315,10 @@ This function restores all organs.
 	for(var/obj/item/organ/external/current_organ in bodyparts)
 		current_organ.rejuvenate()
 
-/mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
+/mob/living/carbon/human/proc/HealDamage(zone, brute, burn, stamina)
 	var/obj/item/organ/external/E = get_organ(zone)
 	if(istype(E, /obj/item/organ/external))
-		if(E.heal_damage(brute, burn))
+		if(E.heal_damage(brute, burn, stamina))
 			UpdateDamageIcon()
 	else
 		return 0
@@ -328,7 +334,7 @@ This function restores all organs.
 
 /mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
 	//Handle other types of damage
-	if((damagetype != BRUTE) && (damagetype != BURN))
+	if((damagetype != BRUTE) && (damagetype != BURN) && (damagetype != STAMINA))
 		..(damage, damagetype, def_zone, blocked)
 		return 1
 
@@ -357,7 +363,7 @@ This function restores all organs.
 			if(dna.species)
 				damage = damage * dna.species.brute_mod
 
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
+			if(organ.receive_damage(damage, 0, 0, sharp, used_weapon))
 				UpdateDamageIcon()
 
 			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
@@ -381,7 +387,10 @@ This function restores all organs.
 			if(dna.species)
 				damage = damage * dna.species.burn_mod
 
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
+			if(organ.receive_damage(0, damage, 0, sharp, used_weapon))
+				UpdateDamageIcon()
+		if(STAMINA)
+			if(organ.receive_damage(0,0,damage, sharp, used_weapon))
 				UpdateDamageIcon()
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().

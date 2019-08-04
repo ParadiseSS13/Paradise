@@ -45,7 +45,7 @@
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
 		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning())
 			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
-		else if(E.is_broken() || !E.is_usable())
+		else if(E.is_broken() || !E.is_usable() || E.disabled)
 			stance_damage += 1
 
 	// Canes and crutches help you stand (if the latter is ever added)

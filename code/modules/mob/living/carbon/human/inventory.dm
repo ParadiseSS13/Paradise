@@ -14,8 +14,10 @@
 	return 0
 
 
-/mob/living/carbon/human/proc/has_organ(name)
+/mob/living/carbon/human/proc/has_organ(name, check_disabled = FALSE)
 	var/obj/item/organ/external/O = bodyparts_by_name[name]
+	if(check_disabled && O.disabled)
+		return FALSE
 	return O
 
 /mob/living/carbon/human/proc/has_organ_for_slot(slot)
@@ -29,9 +31,9 @@
 		if(slot_legcuffed)
 			return has_organ("l_leg") && has_organ("r_leg")
 		if(slot_l_hand)
-			return has_organ("l_hand")
+			return has_organ("l_hand", TRUE)
 		if(slot_r_hand)
-			return has_organ("r_hand")
+			return has_organ("r_hand", TRUE)
 		if(slot_belt)
 			return has_organ("chest")
 		if(slot_wear_id)

@@ -10,20 +10,24 @@
 
 	var/brute_mod = 1
 	var/burn_mod = 1
-
+	var/stam_damage_coeff = 0 // if we want certain limbs to be counted more or less for total stamina damage
+	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
+	var/max_stamina_damage = 0
+	var/stam_heal_tick = 3		//per Life().
 	var/icon_name = null
 	var/body_part = null
 	var/icon_position = 0
-
+	var/needs_processing = FALSE
 	var/model
 	var/force_icon
 
 	var/icobase = 'icons/mob/human_races/r_human.dmi'		// Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi'	// Mutated icon set.
-
+	var/disabled = FALSE
 	var/damage_state = "00"
 	var/brute_dam = 0
 	var/burn_dam = 0
+	var/stamina_dam = 0
 	var/max_size = 0
 	var/icon/mob_icon
 	var/gendered_icon = 0
@@ -71,6 +75,21 @@
 		owner.update_body(update_sprite)
 		if(vital)
 			owner.death()
+
+
+/obj/item/organ/external/proc/consider_processing()
+	if(stamina_dam > 0)
+		. = TRUE
+	//else if.. else if.. so on.
+	else
+		. = FALSE
+	needs_processing = .
+
+//Return TRUE to get whatever mob this is in to update health.
+/obj/item/organ/external/on_life()
+	if(stamina_dam > 0)					//DO NOT update health here, it'll be done in the carbon's life.
+		if(heal_damage(brute = 0, burn = 0, stamina = stam_heal_tick, internal = FALSE, robo_repair = FALSE, updating_health = FALSE))
+			. |= BODYPART_LIFE_UPDATE_HEALTH
 
 /obj/item/organ/external/Destroy()
 	if(parent && parent.children)
@@ -140,12 +159,12 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+/obj/item/organ/external/receive_damage(brute, burn, stamina, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
 
-	if((brute <= 0) && (burn <= 0))
+	if((brute <= 0) && (burn <= 0) && (stamina <= 0))
 		return 0
 
 	if(!ignore_resists)
@@ -185,7 +204,7 @@
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
-		var/can_inflict = max_damage - (brute_dam + burn_dam)
+		var/can_inflict = max_damage - total_damage()
 		if(can_inflict)
 			if(brute > 0)
 				//Inflict all burte damage we can
@@ -217,13 +236,18 @@
 			if(possible_points.len)
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
-				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
+				target.receive_damage(brute, burn, stamina, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
 
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
-
+	//We've dealt the physical damages, if there's room lets apply the stamina damage.
+	var/current_damage = brute_dam + burn_dam + stamina_dam		//This time around, count stamina loss too.
+	var/available_damage = max_damage - current_damage
+	stamina_dam += Clamp(stamina, 0, min(max_stamina_damage - stamina_dam, available_damage))
 	// See if bones need to break
 	check_fracture(brute)
+	consider_processing()
+	check_disabled()
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
@@ -234,18 +258,21 @@
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
+		if(stamina)
+			owner_old.update_stamina()
 	return update_icon()
 
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB
 
-/obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0, updating_health = TRUE)
+/obj/item/organ/external/proc/heal_damage(brute, burn, stamina, internal = 0, robo_repair = 0, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
 		return
 
 	brute_dam = max(brute_dam - brute, 0)
 	burn_dam  = max(burn_dam - burn, 0)
+	stamina_dam = max(stamina_dam - stamina, 0)
 
 	if(internal)
 		status &= ~ORGAN_BROKEN
@@ -253,15 +280,37 @@
 
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
-
+	consider_processing()
+	check_disabled()
 	return update_icon()
 
+/obj/item/organ/external/proc/total_damage(include_stamina = FALSE)
+	var/total = brute_dam + burn_dam
+	if(include_stamina)
+		total += stamina_dam
+	return total
+
+//Checks disabled status thresholds
+/obj/item/organ/external/proc/check_disabled()
+	if(!disabled && (total_damage(TRUE) >= max_damage))
+		set_disabled(TRUE)
+	else if(disabled && (total_damage(TRUE) <= (max_damage * 0.5)))
+		set_disabled(FALSE)
+
+/obj/item/organ/external/proc/set_disabled(new_disabled = TRUE)
+	if(disabled == new_disabled)
+		return
+	disabled = new_disabled
+	owner.dna.species.handle_hud_icons(owner)
+	owner.update_body()
+	owner.update_canmove()
 /*
 This function completely restores a damaged organ to perfect condition.
 */
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
+	check_disabled()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
 	else
@@ -270,10 +319,11 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
+	stamina_dam = 0
 	open = 0 //Closing all wounds.
 	internal_bleeding = FALSE
 	disfigured = FALSE
-
+	check_disabled()
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
@@ -495,7 +545,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/external/E in children) //Factor in the children's brute and burn into how much will transfer
 				total_brute += E.brute_dam
 				total_burn += E.burn_dam
-			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
+			parent.receive_damage(total_brute * body_damage_coeff, total_burn * body_damage_coeff, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
 		dir = 2

@@ -247,12 +247,12 @@
 		if("brute")
 			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
-			affected.heal_damage(rand(30,50),0,1,1)
+			affected.heal_damage(rand(30,50),0,0,1,1)
 			affected.disfigured = FALSE
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
-			affected.heal_damage(0,rand(30,50),1,1)
+			affected.heal_damage(0,rand(30,50), 0, 1,1)
 		if("finish")
 			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")

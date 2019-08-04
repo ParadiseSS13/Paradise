@@ -38,6 +38,7 @@
 				continue
 			O.brute_dam = 0
 			O.burn_dam = 0
+			O.stamina_dam = 0
 			O.damage_state = "00"
 			O.germ_level = 0
 			QDEL_NULL(O.hidden)

@@ -456,7 +456,7 @@
 					break
 				playsound(src.loc, usesound, 50, 1)
 				nrembrute = max(rembrute - E.brute_dam, 0)
-				E.heal_damage(rembrute,0,0,1)
+				E.heal_damage(rembrute,0,0,0,1)
 				rembrute = nrembrute
 				user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [E.name] with \the [src].</span>")
 			if(H.bleed_rate && H.isSynthetic())

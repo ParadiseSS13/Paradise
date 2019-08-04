@@ -43,6 +43,9 @@
 /obj/item/organ/proc/update_health()
 	return
 
+/obj/item/organ/proc/on_life()
+	return
+
 /obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
 	..(holder)
 	if(!max_damage)

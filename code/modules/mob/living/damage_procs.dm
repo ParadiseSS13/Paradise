@@ -237,37 +237,6 @@
 /mob/living/proc/setBrainLoss(amount, updating = TRUE)
 	return STATUS_UPDATE_NONE
 
-/mob/living/proc/getStaminaLoss()
-	return staminaloss
-
-/mob/living/proc/adjustStaminaLoss(amount, updating = TRUE)
-	if(status_flags & GODMODE)
-		return FALSE
-	var/old_stamloss = staminaloss
-	staminaloss = max(staminaloss + amount, 0)
-	if(old_stamloss == staminaloss)
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	else
-		. = STATUS_UPDATE_STAMINA
-	if(updating)
-		handle_hud_icons_health()
-		update_stamina()
-
-/mob/living/proc/setStaminaLoss(amount, updating = TRUE)
-	if(status_flags & GODMODE)
-		return FALSE
-	var/old_stamloss = staminaloss
-	staminaloss = amount
-	if(old_stamloss == staminaloss)
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	else
-		. = STATUS_UPDATE_STAMINA
-	if(updating)
-		handle_hud_icons_health()
-		update_stamina()
-
 /mob/living/proc/getMaxHealth()
 	return maxHealth
 
@@ -277,36 +246,72 @@
 
 
 // heal ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/heal_organ_damage(brute, burn, updating_health = TRUE)
+/mob/living/proc/heal_organ_damage(brute, burn, stamina, updating_health = TRUE)
 	adjustBruteLoss(-brute, FALSE)
 	adjustFireLoss(-burn, FALSE)
+	adjustStaminaLoss(-stamina, FALSE)
 	if(updating_health)
 		updatehealth("heal organ damage")
+		update_stamina()
 
 // damage ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/take_organ_damage(brute, burn, updating_health = TRUE)
+/mob/living/proc/take_organ_damage(brute, burn, stamina, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	adjustBruteLoss(brute, FALSE)
 	adjustFireLoss(burn, FALSE)
+	adjustStaminaLoss(stamina, FALSE)
 	if(updating_health)
 		updatehealth("take organ damage")
+		update_stamina()
 
 // heal MANY external organs, in random order
-/mob/living/proc/heal_overall_damage(brute, burn, updating_health = TRUE)
+/mob/living/proc/heal_overall_damage(brute, burn, stamina, updating_health = TRUE)
 	adjustBruteLoss(-brute, FALSE)
 	adjustFireLoss(-burn, FALSE)
+	adjustStaminaLoss(-stamina, FALSE)
 	if(updating_health)
 		updatehealth("heal overall damage")
+		update_stamina()
 
 // damage MANY external organs, in random order
-/mob/living/proc/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null)
+/mob/living/proc/take_overall_damage(brute, burn, stamina, updating_health = TRUE, used_weapon = null)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	adjustBruteLoss(brute, FALSE)
 	adjustFireLoss(burn, FALSE)
+	adjustStaminaLoss(stamina, FALSE)
 	if(updating_health)
 		updatehealth("take overall damage")
-
+		update_stamina()
+		
 /mob/living/proc/has_organic_damage()
 	return (maxHealth - health)
+
+/mob/living/carbon/human/getStaminaLoss()
+	. = 0
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/BP = X
+		. += BP.stamina_dam
+
+/mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
+	return
+/mob/living/proc/setStaminaLoss(amount, updating = TRUE)
+	return
+/mob/living/proc/getStaminaLoss()
+	return
+/mob/living/carbon/human/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
+	if(!forced && (status_flags & GODMODE))
+		return FALSE
+	if(amount > 0)
+		take_overall_damage(0, 0, amount, updating_health)
+	else
+		heal_overall_damage(0, 0, amount, FALSE, FALSE, updating_health)
+	return amount
+
+/mob/living/carbon/human/setStaminaLoss(amount, updating = TRUE, forced = FALSE)
+	var/current = getStaminaLoss()
+	var/diff = amount - current
+	if(!diff)
+		return
+	adjustStaminaLoss(diff, updating, forced)

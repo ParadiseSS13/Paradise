@@ -18,15 +18,14 @@
 				create_debug_log("woke up, trigger reason: [reason]")
 
 /mob/living/carbon/update_stamina()
-	..()
-	if(staminaloss)
-		var/total_health = (health - staminaloss)
+	var/stam = getStaminaLoss()
+	if(stam)
+		var/total_health = (health - stam)
 		if(total_health <= HEALTH_THRESHOLD_CRIT && !stat)
-			to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-			Weaken(5)
-			setStaminaLoss(health - 2)
+			if(!weakened)
+				to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+			Weaken(7)
 			handle_hud_icons_health()
-			return
 
 /mob/living/carbon/can_hear()
 	. = FALSE

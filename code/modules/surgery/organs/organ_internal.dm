@@ -82,7 +82,7 @@
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return
 
-/obj/item/organ/internal/proc/on_life()
+/obj/item/organ/internal/on_life()
 	return
 
 //abstract proc called by carbon/death()

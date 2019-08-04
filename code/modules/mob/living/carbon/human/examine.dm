@@ -214,7 +214,14 @@
 
 				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
-
+			if(E.disabled)
+				var/damage_text
+				if(!(E.get_damage(include_stamina = FALSE) >= E.max_damage)) //Stamina is disabling the limb
+					damage_text = "limp and lifeless"
+				else
+					var/more_brute = E.brute_dam >= E.burn_dam
+					damage_text = more_brute ? "broken and mangled" : "burnt and blistered"
+				msg += "<B>[p_their(TRUE)] [E.name] is [damage_text]!</B>\n"
 			for(var/obj/item/I in E.embedded_objects)
 				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
 

@@ -13,6 +13,12 @@
 		for(var/obj/item/organ/internal/O in internal_organs)
 			O.on_life()
 
+	if(stat != DEAD)
+		var/bprv = handle_bodyparts()
+		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
+			updatehealth()
+			update_stamina()
+
 	handle_changeling()
 	handle_wetness(times_fired)
 
@@ -204,6 +210,15 @@
 /mob/living/carbon/proc/handle_blood()
 	return
 
+/mob/living/carbon/proc/handle_bodyparts()
+	return
+
+/mob/living/carbon/human/handle_bodyparts()
+	for(var/I in bodyparts)
+		var/obj/item/organ/external/BP = I
+		if(BP.needs_processing)
+			. |= BP.on_life()
+
 /mob/living/carbon/proc/handle_changeling()
 	return
 
@@ -258,8 +273,6 @@
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
-
-	setStaminaLoss(max((staminaloss - 3), 0))
 
 	var/restingpwr = 1 + 4 * resting
 

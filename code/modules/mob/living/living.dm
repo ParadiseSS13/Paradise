@@ -269,7 +269,7 @@
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
+	staminaloss = getStaminaLoss()
 	update_stat("updatehealth([reason])")
 	handle_hud_icons_health()
 	med_hud_set_health()
@@ -437,7 +437,7 @@
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	RestoreEars()
-	heal_overall_damage(1000, 1000)
+	heal_overall_damage(INFINITY, INFINITY, INFINITY, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
 	ExtinguishMob()
 	fire_stacks = 0
 	on_fire = 0

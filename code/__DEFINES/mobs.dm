@@ -7,6 +7,9 @@
 #define ORGAN_DEAD       8
 #define ORGAN_MUTATED    16
 
+// /obj/item/bodypart on_mob_life() retval flag
+#define BODYPART_LIFE_UPDATE_HEALTH (1<<0)
+
 #define PROCESS_ACCURACY 10
 
 #define DROPLIMB_SHARP 0

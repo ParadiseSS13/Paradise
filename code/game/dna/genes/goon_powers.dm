@@ -265,7 +265,7 @@
 			affecting = H.bodyparts_by_name[name]
 			if(!istype(affecting, /obj/item/organ/external))
 				continue
-			affecting.heal_damage(4, 0, updating_health = FALSE)
+			affecting.heal_damage(4, 0, 0, updating_health = FALSE)
 		H.UpdateDamageIcon()
 		H.updatehealth()
 

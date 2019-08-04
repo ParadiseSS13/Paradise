@@ -14,6 +14,7 @@
 	amputation_point = "spine"
 	gendered_icon = 1
 	parent_organ = null
+	max_stamina_damage = 100
 	encased = "ribcage"
 	var/fat = FALSE
 	convertable_children = list(/obj/item/organ/external/groin)
@@ -41,6 +42,7 @@
 	limb_name = "groin"
 	icon_name = "groin"
 	max_damage = 100
+	max_stamina_damage = 100
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
@@ -55,12 +57,22 @@
 	icon_name = "l_arm"
 	max_damage = 50
 	min_broken_damage = 30
+	body_damage_coeff = 0.75
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = ARM_LEFT
 	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
+	stam_heal_tick = 2
+	max_stamina_damage = 50
+
+/obj/item/organ/external/arm/set_disabled(new_disabled = TRUE)
+	..()
+	if(disabled)
+		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		owner.emote("scream")
+		owner.drop_item()
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -76,6 +88,7 @@
 	icon_name = "l_leg"
 	max_damage = 50
 	min_broken_damage = 30
+	body_damage_coeff = 0.75
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = LEG_LEFT
 	icon_position = LEFT
@@ -83,6 +96,14 @@
 	amputation_point = "left hip"
 	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
+	stam_heal_tick = 2
+	max_stamina_damage = 50
+
+/obj/item/organ/external/leg/set_disabled(new_disabled = TRUE)
+	..()
+	if(disabled)
+		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		owner.emote("scream")
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -99,12 +120,21 @@
 	icon_name = "l_foot"
 	max_damage = 30
 	min_broken_damage = 15
+	body_damage_coeff = 0.50
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = FOOT_LEFT
 	icon_position = LEFT
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
 	can_stand = 1
+	stam_heal_tick = 2
+	max_stamina_damage = 30
+
+/obj/item/organ/external/foot/set_disabled(new_disabled = TRUE)
+	..()
+	if(disabled)
+		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		owner.emote("scream")
 
 /obj/item/organ/external/foot/remove()
 	if(owner && owner.shoes) owner.unEquip(owner.shoes)
@@ -125,11 +155,21 @@
 	icon_name = "l_hand"
 	max_damage = 30
 	min_broken_damage = 15
+	body_damage_coeff = 0.50
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = HAND_LEFT
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
+	stam_heal_tick = 2
+	max_stamina_damage = 30
+
+/obj/item/organ/external/hand/set_disabled(new_disabled = TRUE)
+	..()
+	if(disabled)
+		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		owner.emote("scream")
+		owner.drop_item()
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
@@ -155,6 +195,7 @@
 	icon_name = "head"
 	name = "head"
 	max_damage = 75
+	max_stamina_damage = 75
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
@@ -204,8 +245,8 @@
 	name = limb_name
 	..()
 
-/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
-	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
+/obj/item/organ/external/head/receive_damage(brute, burn, stamina, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+	..(brute, burn, stamina, sharp, used_weapon, forbidden_limbs, ignore_resists)
 	if(!disfigured)
 		if(brute_dam + burn_dam > 50)
 			disfigure()
