@@ -70,10 +70,8 @@
 			MS.target = user.mind
 			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role == user.mind.special_role ? (user.mind.special_role) : (user.mind.assigned_role)]."
 			var/datum/antagonist/traitor/custom/C = new()
-			C.should_greet = FALSE
-			mindslave_target.mind.add_antag_datum(C)
 			C.add_objective(MS)
-			mindslave_target.mind.announce_objectives()
+			mindslave_target.mind.add_antag_datum(C)
 
 			var/datum/mindslaves/slaved = user.mind.som
 			mindslave_target.mind.som = slaved

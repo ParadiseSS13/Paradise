@@ -1968,7 +1968,7 @@
 					var/datum/mind/newtraitormind = pick(possible_traitors)
 					var/datum/antagonist/traitor/custom/C = new()
 					C.should_equip = TRUE
-					C.should_greet = FALSE
+					C.silent = TRUE
 					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
 					kill_objective.owner = newtraitormind
