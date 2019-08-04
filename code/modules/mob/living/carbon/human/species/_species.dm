@@ -461,6 +461,9 @@
 		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
+		if(temp && temp.disabled)
+			to_chat(M, "<span class='warning'> Your [temp.name] is disabled!</span>")
+			return
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return

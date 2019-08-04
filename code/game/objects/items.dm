@@ -220,6 +220,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
 			return 0
+		if(temp && temp.disabled)
+			to_chat(user, "<span class='warning'> Your [temp.name] is disabled!</span>")
+			return 0
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
@@ -433,14 +436,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!isturf(loc)) //Object is on a turf
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
-	if(ishuman(usr)) // check if hands or arms are disabled
-		var/mob/living/carbon/human/H = usr
-		if(!H.has_organ(BODY_ZONE_PRECISE_R_HAND, TRUE) || !H.has_organ(BODY_ZONE_R_ARM, TRUE))
-			to_chat(usr, "<span class='warning'>Your right hand is disabled!</span>")
-			return
-		if(!H.has_organ(BODY_ZONE_PRECISE_L_HAND, TRUE) || !H.has_organ(BODY_ZONE_L_ARM))
-			to_chat(usr, "<span class='warning'>Your left hand is disabled!</span>")
-			return
 	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
 

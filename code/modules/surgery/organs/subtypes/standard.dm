@@ -72,14 +72,10 @@
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
-		owner.drop_l_hand()
-
-/obj/item/organ/external/arm/right/set_disabled(new_disabled = TRUE)
-	..()
-	if(disabled)
-		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-		owner.emote("scream")
-		owner.drop_r_hand()
+		if(body_part == ARM_LEFT)
+			owner.drop_l_hand()
+		else
+			owner.drop_r_hand()
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -172,18 +168,20 @@
 	max_stamina_damage = 30
 
 /obj/item/organ/external/hand/set_disabled(new_disabled = TRUE)
-	..()
+	. = ..()
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
-		owner.drop_l_hand()
-
-/obj/item/organ/external/hand/right/set_disabled(new_disabled = TRUE)
-	..()
-	if(disabled)
-		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-		owner.emote("scream")
-		owner.drop_r_hand()
+		if(body_part == HAND_LEFT)
+			owner.drop_l_hand()
+		else
+			owner.drop_r_hand()
+		if(owner.hud_used)
+			var/obj/screen/inventory/hand/L = owner.hud_used.inv_slots[slot_l_hand]
+			var/obj/screen/inventory/hand/R = owner.hud_used.inv_slots[slot_r_hand]
+			if(L && R)
+				L.update_icon()
+				R.update_icon()
 
 /obj/item/organ/external/hand/remove()
 	if(owner)

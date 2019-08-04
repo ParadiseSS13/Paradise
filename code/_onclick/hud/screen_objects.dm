@@ -375,6 +375,7 @@
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
+	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
 
 /obj/screen/inventory/hand/update_icon()
 	..()
@@ -388,9 +389,13 @@
 
 	if(hud && hud.mymob)
 		if(iscarbon(hud.mymob))
-			var/mob/living/carbon/C = hud.mymob
+			var/mob/living/carbon/human/C = hud.mymob
 			if(C.handcuffed)
 				overlays += handcuff_overlay
+			if(slot_id == slot_l_hand && !C.has_organ(BODY_ZONE_PRECISE_L_HAND, TRUE))
+				overlays += blocked_overlay
+			else if(slot_id == slot_r_hand && !C.has_organ(BODY_ZONE_PRECISE_R_HAND, TRUE))
+				overlays += blocked_overlay
 
 		if(slot_id == slot_l_hand && hud.mymob.hand)
 			overlays += active_overlay

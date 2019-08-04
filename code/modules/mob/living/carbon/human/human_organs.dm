@@ -77,7 +77,24 @@
 		if(!E || !E.can_grasp || (E.status & ORGAN_SPLINTED))
 			continue
 
-		if(E.is_broken())
+		if(E.disabled) // disabled arms still allow you to use your hands but drop items
+			if(E.body_part == ARM_LEFT)
+				if(!l_hand)
+					continue
+				if(!unEquip(l_hand))
+					continue
+			else if(E.body_part == ARM_RIGHT)
+				if(!r_hand)
+					continue
+				if(!unEquip(r_hand))
+					continue
+			else
+				continue
+
+			var/emote_scream = pick("loses their grip and ", "lets out a sharp cry and ", "cries out and ")
+			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+
+		else if(E.is_broken())
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
