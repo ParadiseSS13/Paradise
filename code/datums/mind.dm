@@ -1622,7 +1622,7 @@
 	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
 	
 	var/datum/antagonist/traitor/custom/C = new()
-	C.should_greet = FALSE
+	C.silent = TRUE
 	var/datum/objective/protect/zealot_objective = new
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src

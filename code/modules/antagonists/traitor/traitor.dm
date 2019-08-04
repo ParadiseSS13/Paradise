@@ -11,7 +11,6 @@
 	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
-	var/should_greet = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/list/assigned_targets = list()
 
@@ -27,11 +26,14 @@
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
 
+	var/datum/mindslaves/slaved = new()
+	slaved.masters += owner
+	owner.som = slaved //we MIGHT want to mindslave someone
 	SSticker.mode.traitors += owner
 	owner.special_role = special_role
 	if(give_objectives)
 		forge_traitor_objectives()
-	if(should_greet)
+	if(!silent)
 		greet()
 	update_traitor_icons_added()
 	finalize_traitor()
@@ -59,14 +61,14 @@
 		if(traitor_mob && istype(traitor_mob))
 			if(!silent)
 				to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			traitor_mob.mutations.Add(CLUMSY)
+			traitor_mob.mutations.Remove(CLUMSY)
 
 
 /datum/antagonist/traitor/remove_innate_effects()
 	if(owner.assigned_role == "Clown")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
-			traitor_mob.mutations.Remove(CLUMSY) 
+			traitor_mob.mutations.Add(CLUMSY) 
 
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
@@ -209,7 +211,7 @@
 
 /datum/antagonist/traitor/greet()
 	to_chat(owner.current, "<B><font size=3 color=red>You are a [owner.special_role]!</font></B>")
-	if(LAZYLEN(objectives))
+	if(!LAZYLEN(objectives))
 		to_chat(owner.current, "<span>You don't have any objectives right now.</span>")
 	else
 		owner.announce_objectives()
