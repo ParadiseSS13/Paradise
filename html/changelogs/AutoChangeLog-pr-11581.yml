@@ -1,5 +1,0 @@
-author: "uc_guy"
-delete-after: True
-changes: 
-  - bugfix: "Theft objective locations hints now ignore the Centcomm Z level."
-  - bugfix: "Adv. Pinpointer no longer targets items in Centcom Z level."

@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - bugfix: "Manual bans now auto-note"
