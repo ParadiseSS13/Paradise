@@ -164,7 +164,7 @@
 // Virology Medical Smartfridge
 // ----------------------------
 /obj/machinery/smartfridge/secure/chemistry/virology
-	name = "smart virus storage"
+	name = "Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
 	req_access_txt = "39"
 	spawn_meds = list(/obj/item/reagent_containers/syringe/antiviral = 4,
@@ -387,7 +387,8 @@
 	return data
 
 /obj/machinery/smartfridge/Topic(href, href_list)
-	if(..()) return 0
+	if(..()) 
+		return FALSE
 
 	var/mob/user = usr
 	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
@@ -397,7 +398,7 @@
 	if(href_list["close"])
 		user.unset_machine()
 		ui.close()
-		return 0
+		return FALSE
 
 	if(href_list["vend"])
 		var/index = text2num(href_list["vend"])
@@ -410,17 +411,26 @@
 			item_quants[K] = max(count - amount, 0)
 
 			var/i = amount
-			for(var/obj/O in contents)
-				if(O.name == K)
-					O.forceMove(loc)
-					adjust_item_drop_location(O)
-					update_icon()
-					i--
-					if(i <= 0)
-						return 1
-
-		return 1
-	return 0
+			if(i == 1 && Adjacent(user) && !issilicon(user))
+				for(var/obj/O in contents)
+					if(O.name == K)
+						if(!user.put_in_hands(O))
+							O.forceMove(loc)
+							adjust_item_drop_location(O)
+						update_icon()
+						break
+				return TRUE
+			else
+				for(var/obj/O in contents)
+					if(O.name == K)
+						O.forceMove(loc)
+						adjust_item_drop_location(O)
+						update_icon()
+						i--
+						if(i <= 0)
+							return TRUE
+		return TRUE
+	return FALSE
 
 /obj/machinery/smartfridge/proc/throw_item()
 	var/obj/throw_item = null

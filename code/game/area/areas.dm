@@ -64,6 +64,7 @@
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
 	var/fast_despawn = FALSE
+	var/can_get_auto_cryod = TRUE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
