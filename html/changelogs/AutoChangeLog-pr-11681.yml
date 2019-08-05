@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - bugfix: "codephrase names no longer appear blank"
