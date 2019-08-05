@@ -1,5 +1,3 @@
-#define MEDAL_PREFIX "Bubblegum"
-
 /*
 
 BUBBLEGUM
@@ -46,7 +44,7 @@ Difficulty: Hard
 	del_on_death = 1
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
 	var/charging = 0
-	medal_type = MEDAL_PREFIX
+	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
@@ -389,5 +387,3 @@ Difficulty: Hard
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum))
 		return 1
 	return 0
-
-#undef MEDAL_PREFIX

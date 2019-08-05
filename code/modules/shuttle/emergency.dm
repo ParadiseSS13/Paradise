@@ -358,7 +358,7 @@
 	dwidth = 1
 	width = 3
 	height = 4
-	var/target_area = /area/mine/dangerous/unexplored
+	var/target_area = /area/mine/unexplored
 
 /obj/docking_port/stationary/random/Initialize()
 	..()

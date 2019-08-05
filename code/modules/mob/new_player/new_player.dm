@@ -136,8 +136,6 @@
 	..()
 
 	statpanel("Status")
-	if(client.statpanel == "Status" && SSticker)
-		show_stat_station_time()
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -182,7 +180,8 @@
 			return 0
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
-			if(!client)	return 1
+			if(!client)
+				return 1
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
@@ -220,7 +219,6 @@
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
-
 		if(client.prefs.species in GLOB.whitelisted_species)
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -377,8 +375,9 @@
 	else
 		data_core.manifest_inject(character)
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		AnnounceArrival(character, rank, join_message)
-		AddEmploymentContract(character)
+		if(!IsAdminJob(rank))
+			AnnounceArrival(character, rank, join_message)
+			AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob

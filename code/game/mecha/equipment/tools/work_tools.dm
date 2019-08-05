@@ -232,7 +232,7 @@
 				occupant_message("Deconstructing [target]...")
 				if(do_after_cooldown(F))
 					chassis.spark_system.start()
-					F.ChangeTurf(/turf/space)
+					F.ChangeTurf(F.baseturf)
 					F.air_update_turf()
 					playsound(F, usesound, 50, 1)
 			else if(istype(target, /obj/machinery/door/airlock))

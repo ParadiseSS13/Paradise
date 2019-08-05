@@ -160,8 +160,8 @@
 	title = "Shaft Miner"
 	flag = MINER
 	department_flag = SUPPORT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 6
+	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
@@ -175,21 +175,23 @@
 	name = "Shaft Miner"
 	jobtype = /datum/job/mining
 
-	uniform = /obj/item/clothing/under/rank/miner
-	gloves = /obj/item/clothing/gloves/fingerless
-	shoes = /obj/item/clothing/shoes/workboots
+	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/workboots/mining
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	id = /obj/item/card/id/supply
-	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
+	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
-		/obj/item/mining_voucher = 1,
-		/obj/item/storage/bag/ore = 1
+		/obj/item/storage/bag/ore=1,\
+		/obj/item/kitchen/knife/combat/survival=1,\
+		/obj/item/mining_voucher=1,\
+		/obj/item/stack/marker_beacon/ten=1
 	)
-
-	backpack = /obj/item/storage/backpack/industrial
-	satchel = /obj/item/storage/backpack/satchel_eng
+	
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/explorer
 
 
 

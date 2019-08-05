@@ -738,7 +738,7 @@
 		break
 	if(!throw_item)
 		return
-	throw_item.throw_at(target, 16, 3, src)
+	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 
 /obj/machinery/vending/onTransitZ()
@@ -805,6 +805,9 @@
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	refill_canister = /obj/item/vending_refill/boozeomat
+
+/obj/machinery/vending/boozeomat/syndicate_access
+	req_access = list(access_syndicate)
 
 /obj/machinery/vending/assist
 	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
@@ -1008,6 +1011,33 @@
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
+
+/obj/machinery/vending/toyliberationstation
+	name = "\improper Syndicate Donksoft Toy Vendor"
+	desc = "An ages 8 and up approved vendor that dispenses toys. If you were to find the right wires, you can unlock the adult mode setting!"
+	icon_state = "syndi"
+	product_slogans = "Get your cool toys today!;Trigger a valid hunter today!;Quality toy weapons for cheap prices!;Give them to HoPs for all access!;Give them to HoS to get permabrigged!"
+	product_ads = "Feel robust with your toys!;Express your inner child today!;Toy weapons don't kill people, but valid hunters do!;Who needs responsibilities when you have toy weapons?;Make your next murder FUN!"
+	vend_reply = "Come back for more!"
+	products = list(/obj/item/gun/projectile/automatic/toy = 10,
+					/obj/item/gun/projectile/automatic/toy/pistol= 10,
+					/obj/item/gun/projectile/shotgun/toy = 10,
+					/obj/item/toy/sword = 10,
+					/obj/item/ammo_box/foambox = 20,
+					/obj/item/toy/foamblade = 10,
+					/obj/item/toy/syndicateballoon = 10,
+					/obj/item/clothing/suit/syndicatefake = 5,
+					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
+	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow= 10,   //Congrats, you unlocked the +18 setting!
+					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					  /obj/item/ammo_box/foambox/riot = 20,
+					  /obj/item/toy/katana = 10,
+					  /obj/item/twohanded/dualsaber/toy = 5,
+					  /obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
 	desc = "If you want to get cancer, might as well do it in style."
@@ -1023,6 +1053,36 @@
 
 /obj/machinery/vending/cigarette/free
 	prices = list()
+
+/obj/machinery/vending/cigarette/syndicate
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
+					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
+					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
+					/obj/item/storage/box/matches = 10,
+					/obj/item/lighter/zippo = 4,
+					/obj/item/storage/fancy/rollingpapers = 5)
+
+/obj/machinery/vending/cigarette/syndicate/free
+	prices = list()
+
+/obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
+	name = "\improper ShadyCigs Ultra"
+	desc = "Now with extra premium products!"
+	product_ads = "Probably not bad for you!;Dope will get you through times of no money better than money will get you through times of no dope!;It's good for you!"
+	product_slogans = "Turn on, tune in, drop out!;Better living through chemistry!;Toke!;Don't forget to keep a smile on your lips and a song in your heart!"
+	products = list(/obj/item/storage/fancy/cigarettes = 5,
+					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
+					/obj/item/storage/box/matches = 10,
+					/obj/item/lighter/random = 4,
+					/obj/item/storage/fancy/rollingpapers = 5)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+				   /obj/item/lighter/zippo = 3)
 
 /obj/machinery/vending/cigarette/New()
 	..()
@@ -1053,6 +1113,10 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
+/obj/machinery/vending/medical/syndicate_access
+	name = "\improper SyndiMed Plus"
+	req_access = list(access_syndicate)
+
 //This one's from bay12
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
@@ -1067,10 +1131,10 @@
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?"
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access_txt = "5"
-	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
+	req_access = list(access_medical)
+	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
 /obj/machinery/vending/wallmed2
@@ -1078,10 +1142,10 @@
 	desc = "Wall-mounted Medical Equipment dispenser."
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access_txt = "5"
-	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5,/obj/item/reagent_containers/syringe/charcoal = 3,/obj/item/stack/medical/bruise_pack = 3,
-					/obj/item/stack/medical/ointment =3,/obj/item/healthanalyzer = 3)
+	req_access = list(access_medical)
+	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/syringe/charcoal = 3, /obj/item/stack/medical/bruise_pack = 3,
+					/obj/item/stack/medical/ointment = 3, /obj/item/healthanalyzer = 3)
 	contraband = list(/obj/item/reagent_containers/food/pill/tox = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
@@ -1228,7 +1292,8 @@
 					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1,
 					/obj/item/clothing/under/victdress = 1, /obj/item/clothing/under/victdress/red = 1, /obj/item/clothing/suit/victcoat = 1, /obj/item/clothing/suit/victcoat/red = 1,
 					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1,
-					/obj/item/clothing/suit/draculacoat = 1, /obj/item/clothing/head/zepelli = 1)
+					/obj/item/clothing/suit/draculacoat = 1, /obj/item/clothing/head/zepelli = 1,
+					/obj/item/clothing/under/redhawaiianshirt = 1, /obj/item/clothing/under/pinkhawaiianshirt = 1, /obj/item/clothing/under/bluehawaiianshirt = 1, /obj/item/clothing/under/orangehawaiianshirt = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe

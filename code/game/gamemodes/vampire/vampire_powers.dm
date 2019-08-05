@@ -156,6 +156,7 @@
 	user.SetWeakened(0)
 	user.SetStunned(0)
 	user.SetParalysis(0)
+	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
 	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
@@ -260,8 +261,10 @@
 	for(var/mob/living/carbon/C in hearers(4))
 		if(C == user)
 			continue
-		if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs))
-			continue
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+				continue
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")

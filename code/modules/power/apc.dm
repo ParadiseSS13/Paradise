@@ -49,7 +49,6 @@
 	use_power = NO_POWER_USE
 	req_access = list(access_engine_equip)
 	siemens_strength = 1
-	var/spooky=0
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
@@ -100,7 +99,7 @@
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
 
-	var/report_power_alarm = 1
+	var/report_power_alarm = TRUE
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
@@ -117,9 +116,12 @@
 	lighting = 0
 	operating = 0
 
-
 /obj/machinery/power/apc/noalarm
-	report_power_alarm = 0
+	report_power_alarm = FALSE
+
+/obj/machinery/power/apc/syndicate //general syndicate access
+	req_access = list(access_syndicate)
+	report_power_alarm = FALSE
 
 /obj/item/apc_electronics
 	name = "power control module"
@@ -132,6 +134,9 @@
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
+
+/obj/machinery/power/apc/get_cell()
+	return cell
 
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.
@@ -248,9 +253,9 @@
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
-/obj/machinery/power/apc/update_icon()
+/obj/machinery/power/apc/update_icon(force_update = FALSE)
 
-	if(!status_overlays)
+	if(!status_overlays || force_update)
 		status_overlays = 1
 		status_overlays_lock = new
 		status_overlays_charging = new
@@ -291,10 +296,10 @@
 	var/update = check_updates() 		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
-	if(!update)
+	if(!update && !force_update)
 		return
 
-	if(update & 1) // Updating the icon state
+	if(force_update || update & 1) // Updating the icon state
 		if(update_state & UPSTATE_ALLGOOD)
 			icon_state = "apc0"
 		else if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
@@ -322,7 +327,7 @@
 
 
 
-	if(update & 2)
+	if(force_update || update & 2)
 
 		if(overlays.len)
 			overlays.len = 0
@@ -412,14 +417,17 @@
 			update_icon()
 			updating_icon = 0
 
-/obj/machinery/power/apc/proc/spookify()
-	if(spooky) return // Fuck you we're already spooky
-	spooky=1
-	update_icon()
-	spawn(10)
-		spooky=0
-		update_icon()
-
+/obj/machinery/power/apc/get_spooked(second_pass = FALSE)
+	if(opened || wiresexposed)
+		return
+	if(stat & (NOPOWER | BROKEN))
+		return
+	if(!second_pass) //The first time, we just cut overlays
+		addtimer(CALLBACK(src, .get_spooked, TRUE), 1)
+		cut_overlays()
+	else
+		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
+		addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
@@ -1166,14 +1174,14 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.clearAlarm(loc, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
@@ -1181,7 +1189,7 @@
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
@@ -1189,7 +1197,7 @@
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 0
 
@@ -1245,7 +1253,7 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		if(report_power_alarm)
+		if(report_power_alarm && is_station_contact(z))
 			SSalarms.power_alarm.triggerAlarm(loc, src)
 		autoflag = 0
 

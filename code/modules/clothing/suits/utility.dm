@@ -33,7 +33,7 @@
 /obj/item/clothing/suit/fire/firefighter
 	icon_state = "firesuit"
 	item_state = "firefighter"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -52,7 +52,7 @@
 	icon_state = "atmos_firesuit"
 	item_state = "firesuit_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -75,7 +75,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -101,7 +101,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -129,7 +129,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -152,7 +152,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)

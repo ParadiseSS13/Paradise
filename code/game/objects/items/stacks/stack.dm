@@ -111,16 +111,11 @@
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(src.amount / R.req_amount)
+			var/max_multiplier = round(amount / R.req_amount)
 			var/title
 			var/can_build = 1
 			can_build = can_build && (max_multiplier > 0)
-			/*
-			if(R.one_per_turf)
-				can_build = can_build && !(locate(R.result_type) in usr.loc)
-			if(R.on_floor)
-				can_build = can_build && istype(usr.loc, /turf/simulated/floor)
-			*/
+
 			if(R.res_amount > 1)
 				title += "[R.res_amount]x [R.title]\s"
 			else
@@ -131,12 +126,13 @@
 			else
 				t1 += "[title]"
 				continue
-			if(R.max_res_amount>1 && max_multiplier>1)
+			if(R.max_res_amount > 1 && max_multiplier > 1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
 				t1 += " |"
-				var/list/multipliers = list(5,10,25)
+				
+				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
-					if(max_multiplier>=n)
+					if(max_multiplier >= n)
 						t1 += " <A href='?src=[UID()];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
 				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
@@ -165,7 +161,7 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if(!multiplier)
+		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
 			multiplier = 1
 
 		if(amount < R.req_amount * multiplier)

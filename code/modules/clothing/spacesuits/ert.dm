@@ -9,7 +9,7 @@
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
-	species_fit = list("Grey", "Vox")
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
@@ -42,7 +42,7 @@
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun/energy/laser, /obj/item/gun/energy/pulse, \
 	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun, /obj/item/gun/projectile/automatic/lasercarbine, /obj/item/gun/energy/gun/blueshield, /obj/item/gun/energy/immolator/multi)
 	strip_delay = 130
-	species_fit = list("Drask", "Vox")
+
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -61,7 +61,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammacommander"
 	item_color = "gammacommander"
-	species_fit = null
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
@@ -73,7 +72,6 @@
 	name = "elite emergency response team commander suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gcommander"
-	species_fit = null
 
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security
@@ -88,7 +86,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammasecurity"
 	item_color = "gammasecurity"
-	species_fit = null
 
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
@@ -100,7 +97,6 @@
 	name = "elite emergency response team security suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gsecurity"
-	species_fit = null
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
@@ -116,7 +112,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
-	species_fit = null
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
@@ -128,7 +123,6 @@
 	name = "elite emergency response team engineer suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gengineer"
-	species_fit = null
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
@@ -142,7 +136,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammamedical"
 	item_color = "gammamedical"
-	species_fit = null
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
@@ -153,7 +146,6 @@
 	name = "elite emergency response team medical suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gmedical"
-	species_fit = null
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
@@ -167,8 +159,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammajanitor"
 	item_color = "gammajanitor"
-	species_fit = null
-
 /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	name = "emergency response team janitor suit"
 	desc = "A suit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant."
@@ -178,7 +168,6 @@
 	name = "elite emergency response team janitor suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gjanitor"
-	species_fit = null
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal

@@ -11,7 +11,7 @@
 	var/mute = MUZZLE_MUTE_ALL
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
 		)
@@ -89,7 +89,7 @@
 	resist_time = 150
 	mute = MUZZLE_MUTE_MUFFLE
 	flags = DROPDEL
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -110,11 +110,22 @@
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
 	desc = "A muzzle designed to prevent biting."
-	resist_time = 600
+	icon_state = "muzzle_secure"
+	item_state = "muzzle_secure"
+	resist_time = 0
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
 	locked = FALSE
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		)
 
 /obj/item/clothing/mask/muzzle/safety/shock
 	name = "shock muzzle"
@@ -197,7 +208,7 @@
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
 	actions_types = list(/datum/action/item_action/adjust)
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -216,7 +227,7 @@
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
 	actions_types = list(/datum/action/item_action/pontificate)
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -295,7 +306,7 @@
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/mask.dmi'
 	)
@@ -390,7 +401,7 @@
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
-	species_fit = list("Vox")
+
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
@@ -403,7 +414,7 @@
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
