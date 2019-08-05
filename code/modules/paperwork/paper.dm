@@ -54,8 +54,6 @@
 
 /obj/item/paper/update_icon()
 	..()
-	if(istype(src, /obj/item/paper/talisman))//let's not override talisman sprites, tyvm
-		return
 	if(info)
 		icon_state = "paper_words"
 		return

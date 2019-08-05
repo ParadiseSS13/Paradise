@@ -8,6 +8,9 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the talisman
 
+/obj/item/paper/talisman/update_icon()//overriding this so the update_icon doesn't turn them into normal looking paper
+	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
+
 /obj/item/paper/talisman/examine(mob/user)
 	if(iscultist(user) || user.stat == DEAD)
 		to_chat(user, "<b>Name:</b> [cultist_name]")
