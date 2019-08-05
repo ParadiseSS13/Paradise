@@ -1,4 +1,0 @@
-author: "Improvedname"
-delete-after: True
-changes: 
-  - tweak: "Cargo miner starter kit crate will no longer include a ID"

@@ -12,6 +12,8 @@
 	var/open = FALSE
 	var/brightness_on = 14
 
+/obj/machinery/floodlight/get_cell()
+	return cell
 
 /obj/machinery/floodlight/Initialize()
 	. = ..()

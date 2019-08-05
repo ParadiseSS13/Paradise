@@ -56,10 +56,14 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
-	else if(istype(C, /obj/item/weldingtool))
+	else if(iswelder(C))
 		var/obj/item/weldingtool/welder = C
-		if(welder.isOn() && (broken || burnt))
-			if(welder.remove_fuel(0, user))
+		if(welder.isOn())
+			if(!welder.remove_fuel(0, user))
+				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
+				return TRUE
+
+			if(broken || burnt)
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
 				overlays -= current_overlay
@@ -67,7 +71,22 @@
 				burnt = FALSE
 				broken = FALSE
 				update_icon()
+			else
+				to_chat(user, "<span class='notice'>You start removing [src].</span>")
+				playsound(src, welder.usesound, 100, 1)
+				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
+					to_chat(user, "<span class='notice'>You remove [src].</span>")
+					new /obj/item/stack/tile/plasteel(get_turf(src))
+					remove_plating(user)
+					return TRUE
+
 			return TRUE
+
+/turf/simulated/floor/plating/proc/remove_plating(mob/user)
+	if(baseturf == /turf/space)
+		ReplaceWithLattice()
+	else
+		TerraformTurf(baseturf)
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
@@ -208,12 +227,18 @@
 	..()
 	icon_state = "ironsand[rand(1,15)]"
 
+/turf/simulated/floor/plating/ironsand/remove_plating()
+	return
+
 /turf/simulated/floor/plating/snow
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
+	return
+
+/turf/simulated/floor/plating/snow/remove_plating()
 	return
 
 /turf/simulated/floor/snow
