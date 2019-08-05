@@ -58,13 +58,17 @@
 		pulledby = null
 	return ..()
 
+//Returns an atom's power cell, if it has one. Overload for individual items.
+/atom/movable/proc/get_cell()
+	return
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
 
-	// If we're pulling something then drop what we're currently pulling and pull this instead.
+	// if we're pulling something then drop what we're currently pulling and pull this instead.
 	if(pulling)
 		if(state == 0)
 			stop_pulling()
@@ -114,7 +118,9 @@
 		if(pulling.anchored)
 			stop_pulling()
 			return
-
+	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
+		pulledby.stop_pulling()
+		
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
 		return FALSE
@@ -137,36 +143,55 @@
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
-			if(direct & 1)
-				if(direct & 4)
-					if(step(src, NORTH))
+			var/first_step_dir
+			// The `&& moving_diagonally` checks are so that a forceMove taking
+			// place due to a Crossed, Bumped, etc. call will interrupt
+			// the second half of the diagonal movement, or the second attempt
+			// at a first half if step() fails because we hit something.
+			if(direct & NORTH)
+				if(direct & EAST)
+					if(step(src, NORTH) && moving_diagonally)
+						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, EAST)
-					else if(step(src, EAST))
+					else if(moving_diagonally && step(src, EAST))
+						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, NORTH)
-				else if(direct & 8)
-					if(step(src, NORTH))
+				else if(direct & WEST)
+					if(step(src, NORTH) && moving_diagonally)
+						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, WEST)
-					else if(step(src, WEST))
+					else if(moving_diagonally && step(src, WEST))
+						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, NORTH)
-			else if(direct & 2)
-				if(direct & 4)
-					if(step(src, SOUTH))
+			else if(direct & SOUTH)
+				if(direct & EAST)
+					if(step(src, SOUTH) && moving_diagonally)
+						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, EAST)
-					else if(step(src, EAST))
+					else if(moving_diagonally && step(src, EAST))
+						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
-				else if(direct & 8)
-					if(step(src, SOUTH))
+				else if(direct & WEST)
+					if(step(src, SOUTH) && moving_diagonally)
+						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, WEST)
-					else if(step(src, WEST))
+					else if(moving_diagonally && step(src, WEST))
+						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
+			if(moving_diagonally == SECOND_DIAG_STEP)
+				if(!.)
+					setDir(first_step_dir)
+				else if(!inertia_moving)
+					inertia_next_move = world.time + inertia_move_delay
+					newtonian_move(direct)
 			moving_diagonally = 0
 			return
 
@@ -187,7 +212,7 @@
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
-	if (!inertia_moving)
+	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	return TRUE
@@ -210,6 +235,7 @@
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
 	loc = destination
+	moving_diagonally = 0
 
 	if(old_loc)
 		old_loc.Exited(src, destination)
@@ -239,7 +265,7 @@
 	return 1
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
-	for(var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
+	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
 		var/atom/movable/AM = item
 		AM.onTransitZ(old_z,new_z)
 
@@ -375,30 +401,28 @@
 	SSthrowing.processing[src] = TT
 	TT.tick()
 
+	return TRUE
 
 //Overlays
 /atom/movable/overlay
 	var/atom/master = null
-	anchored = 1
+	anchored = TRUE
+	simulated = FALSE
 
 /atom/movable/overlay/New()
 	verbs.Cut()
 	return
 
 /atom/movable/overlay/attackby(a, b, c)
-	if(src.master)
-		return src.master.attackby(a, b, c)
-	return
-
+	if(master)
+		return master.attackby(a, b, c)
 
 /atom/movable/overlay/attack_hand(a, b, c)
-	if(src.master)
-		return src.master.attack_hand(a, b, c)
-	return
+	if(master)
+		return master.attack_hand(a, b, c)
 
-
-/atom/movable/proc/water_act(var/volume, var/temperature, var/source) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
-	return 1
+/atom/movable/proc/water_act(volume, temperature, source, method = TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	if(!buckled_mob.Move(newloc, direct))

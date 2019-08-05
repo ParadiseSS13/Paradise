@@ -12,7 +12,7 @@
 	var/last_bumped = 0
 	var/pass_flags = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
-	var/simulated = 1 //filter for actions - used by lighting overlays
+	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
@@ -48,6 +48,9 @@
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
 
+	var/list/atom_colours	 //used to store the different colors on an atom
+						//its inherent color, the colored paint applied on it, special color effect etc...
+
 /atom/New(loc, ...)
 	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		_preloader.load(src)
@@ -80,6 +83,9 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(color)
+		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
 	if(light_power && light_range)
 		update_light()
@@ -337,6 +343,9 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+/atom/proc/get_spooked()
+	return
+
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return
 	if(isnull(M.key)) return
@@ -352,7 +361,7 @@
 				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []",H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return 0
-		if(!( fingerprints ))
+		if(!fingerprints)
 			if(fingerprintslast != H.ckey)
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
@@ -655,7 +664,7 @@ var/list/blood_splatter_icons = list()
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)
 				return
-			
+
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
 
 		// Make toxins vomit look different
@@ -734,6 +743,8 @@ var/list/blood_splatter_icons = list()
 	switch(var_name)
 		if("light_power", "light_range", "light_color")
 			update_light()
+		if("color")
+			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 
 
 /atom/vv_get_dropdown()
@@ -764,3 +775,52 @@ var/list/blood_splatter_icons = list()
 
 /atom/Exited(atom/movable/AM, atom/newLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+
+/*
+	Adds an instance of colour_type to the atom's atom_colours list
+*/
+/atom/proc/add_atom_colour(coloration, colour_priority)
+	if(!atom_colours || !atom_colours.len)
+		atom_colours = list()
+		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+	if(!coloration)
+		return
+	if(colour_priority > atom_colours.len)
+		return
+	atom_colours[colour_priority] = coloration
+	update_atom_colour()
+
+
+/*
+	Removes an instance of colour_type from the atom's atom_colours list
+*/
+/atom/proc/remove_atom_colour(colour_priority, coloration)
+	if(!atom_colours)
+		atom_colours = list()
+		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+	if(colour_priority > atom_colours.len)
+		return
+	if(coloration && atom_colours[colour_priority] != coloration)
+		return //if we don't have the expected color (for a specific priority) to remove, do nothing
+	atom_colours[colour_priority] = null
+	update_atom_colour()
+
+
+/*
+	Resets the atom's color to null, and then sets it to the highest priority
+	colour available
+*/
+/atom/proc/update_atom_colour()
+	if(!atom_colours)
+		atom_colours = list()
+		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+	color = null
+	for(var/C in atom_colours)
+		if(islist(C))
+			var/list/L = C
+			if(L.len)
+				color = L
+				return
+		else if(C)
+			color = C
+			return

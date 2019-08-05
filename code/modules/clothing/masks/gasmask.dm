@@ -10,14 +10,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -61,6 +61,34 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+/obj/item/clothing/mask/gas/explorer
+	name = "explorer gas mask"
+	desc = "A military-grade gas mask that can be connected to an air supply."
+	icon_state = "gas_mining"
+	actions_types = list(/datum/action/item_action/adjust)
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0)
+	resistance_flags = FIRE_PROOF
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		)
+
+/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+	adjustmask(user)
+
+/obj/item/clothing/mask/gas/explorer/adjustmask(user)
+	..()
+	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+	. = ..()
+	adjustmask()
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask

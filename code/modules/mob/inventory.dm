@@ -6,6 +6,14 @@
 	if(hand)	return l_hand
 	else		return r_hand
 
+/mob/verb/quick_equip()
+	set name = "quick-equip"
+	set hidden = 1
+
+	var/obj/item/I = get_active_hand()
+	if(I)
+		I.equip_to_best_slot(src)
+
 /mob/proc/is_in_active_hand(obj/item/I)
 	var/obj/item/item_to_test = get_active_hand()
 
@@ -245,8 +253,13 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
+		if(slot_wear_mask)
+			return wear_mask
+		if(slot_back)
+			return back
 		if(slot_l_hand)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
 	return null
+

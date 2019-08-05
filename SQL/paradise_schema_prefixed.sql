@@ -253,7 +253,7 @@ CREATE TABLE `SS13_player` (
   `UI_style_alpha` smallint(4) DEFAULT '255',
   `be_role` mediumtext,
   `default_slot` smallint(4) DEFAULT '1',
-  `toggles` mediumint(8) DEFAULT '383',
+  `toggles` int(8) DEFAULT '383',
   `sound` mediumint(8) DEFAULT '31',
   `randomslot` tinyint(1) DEFAULT '0',
   `volume` smallint(4) DEFAULT '100',
@@ -265,6 +265,9 @@ CREATE TABLE `SS13_player` (
   `exp` mediumtext,
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
+  `fuid` BIGINT(20) NULL DEFAULT NULL,
+  `fupdate` SMALLINT(4) NULL DEFAULT 0,
+  `afk_watch` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
@@ -522,15 +525,27 @@ CREATE TABLE `SS13_memo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `SS13_discord`
+-- Table structure for table `SS13_ipintel`
 --
-DROP TABLE IF EXISTS `SS13_discord`;
+DROP TABLE IF EXISTS `SS13_ipintel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `SS13_discord` (
-  `ckey` varchar(32) NOT NULL,
-  `discord_id` bigint(20) NOT NULL,
-  `notify` int(11) NOT NULL,
-  PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE  `SS13_ipintel` (
+`ip` INT UNSIGNED NOT NULL ,
+`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL ,
+`intel` REAL NOT NULL DEFAULT  '0',
+PRIMARY KEY (  `ip` )
+) ENGINE = INNODB;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `SS13_vpn_whitelist`
+--
+DROP TABLE IF EXISTS `SS13_vpn_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SS13_vpn_whitelist` (
+  `ckey` VARCHAR(32) NOT NULL,
+  `reason` text,
+  PRIMARY KEY (`ckey`)
+) ENGINE=INNODB;

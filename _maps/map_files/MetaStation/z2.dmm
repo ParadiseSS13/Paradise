@@ -1498,7 +1498,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena_source)
 "eb" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "ec" = (
@@ -5805,7 +5805,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena)
 "qu" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "qv" = (
@@ -6351,6 +6351,10 @@
 /obj/structure/bed/abductor,
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"Ur" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/centcom/holding)
 
 (1,1,1) = {"
 aa
@@ -35864,7 +35868,7 @@ tv
 tu
 tu
 tQ
-tU
+Ur
 th
 ab
 ab

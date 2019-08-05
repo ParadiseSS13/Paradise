@@ -29,7 +29,7 @@ client/proc/one_click_antag()
   // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
 	if(jobban_isbanned(M, "Syndicate"))
 		return FALSE
-	if(M.stat || !M.mind || M.mind.special_role)
+	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
 	if(temp)
 		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.species in temp.protected_species))

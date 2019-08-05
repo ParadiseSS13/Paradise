@@ -45,6 +45,16 @@
 							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
 							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
 
+/mob/living/simple_animal/hostile/morph/wizard
+	name = "magical morph"
+	real_name = "magical morph"
+	desc = "A revolting, pulsating pile of flesh. This one looks somewhat.. magical."
+
+/mob/living/simple_animal/hostile/morph/wizard/New()
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
+	
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
 		if(form)

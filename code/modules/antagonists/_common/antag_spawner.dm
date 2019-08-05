@@ -167,7 +167,7 @@
 	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
-	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a demon from the Den..
+	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 
@@ -177,7 +177,10 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
-	var/list/candidates = pollCandidates("Do you want to play as a slaughter demon summoned by [user.real_name]?", ROLE_DEMON, 1, 100)
+	var/type = "slaughter"
+	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
+		type = "laughter"
+	var/list/candidates = pollCandidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, 1, 100)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
@@ -208,7 +211,6 @@
 	KillDaCrew.owner = S.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	S.mind.objectives += KillDaCrew
-	S.mind.objectives += KillDaCrew
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
 
@@ -220,7 +222,7 @@
 	color = "#FF69B4" // HOT PINK
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
-	objective_verb = "Hug and Tickle"
+	objective_verb = "Hug and tickle"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
 
 ///////////MORPH
@@ -248,7 +250,7 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
 
-	var/list/candidates = pollCandidates("Do you want to play as a morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
+	var/list/candidates = pollCandidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
@@ -262,7 +264,7 @@
 		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/M = new /mob/living/simple_animal/hostile/morph(pick(xeno_spawn))
+	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(xeno_spawn))
 	M.key = C.key
 	M.mind.assigned_role = SPECIAL_ROLE_MORPH
 	M.mind.special_role = SPECIAL_ROLE_MORPH

@@ -43,6 +43,7 @@
 	M.actions += src
 	if(M.client)
 		M.client.screen += button
+		button.locked = TRUE
 	M.update_action_buttons()
 
 /datum/action/proc/Remove(mob/M)
@@ -52,6 +53,7 @@
 	if(M.client)
 		M.client.screen -= button
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
+	button.locked = FALSE
 	M.actions -= src
 	M.update_action_buttons()
 
@@ -385,6 +387,13 @@
 
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
+
+// Jump boots
+/datum/action/item_action/bhop
+	name = "Activate Jump Boots"
+	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "jetboot"
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
