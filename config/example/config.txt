@@ -85,6 +85,16 @@ LOG_WORLD_OUTPUT
 ## log admin warning messages
 LOG_ADMINWARN
 
+
+## Amount of minutes that a person has to be AFK before he will be warned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
+WARN_AFK_MINIMUM 0
+
+## Amount of minutes that a person has to be AFK before he will be cryod by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
+AUTO_CRYO_AFK 0
+
+## Amount of minutes that a person has to be AFK before he will be despawned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
+AUTO_DESPAWN_AFK 0
+
 ## probablities for game modes chosen in "secret" and "random" modes
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked

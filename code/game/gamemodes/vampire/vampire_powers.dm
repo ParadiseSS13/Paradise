@@ -259,8 +259,10 @@
 	for(var/mob/living/carbon/C in hearers(4))
 		if(C == user)
 			continue
-		if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs))
-			continue
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+				continue
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")

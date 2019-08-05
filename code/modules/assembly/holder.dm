@@ -116,7 +116,7 @@
 		a_right.holder_movement()
 
 /obj/item/assembly_holder/Move()
-	..()
+	. = ..()
 	process_movement()
 	return
 
