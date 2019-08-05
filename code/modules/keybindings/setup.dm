@@ -43,4 +43,4 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-\ref[key]", "parent=[setname];name=[key];command=[command]")
-	winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
+	winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
