@@ -49,6 +49,19 @@
 		else
 			to_chat(user, "You can't build a golem out of this kind of material.")
 
+/obj/item/golem_shell/attackby(/obj/item/slimepotion/transference, mob/user, params)
+	if(can_transfer)
+		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		if(transfer_choice != "Yes")
+			return
+		if(QDELETED(src) || uses <= 0)
+			return
+		log_game("[key_name(user)] golem-swapped into [src]")
+		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		create(ckey = user.ckey, name = user.real_name)
+		user.death()
+		return
+
 /obj/effect/mob_spawn/human/golem
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
