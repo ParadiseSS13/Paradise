@@ -975,6 +975,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
+	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
 	Weaken(weaken)
 	return 1
