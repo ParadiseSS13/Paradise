@@ -77,6 +77,11 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
+	// The AFK subsystem will not be activated if any of the below config values are equal or less than 0
+	var/warn_afk_minimum = 0 // How long till you get a warning while being AFK
+	var/auto_cryo_afk = 0 // How long till you get put into cryo when you're AFK
+	var/auto_despawn_afk = 0 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
+
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
 
@@ -318,6 +323,13 @@
 
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
+
+				if("warn_afk_minimum")
+					config.warn_afk_minimum = text2num(value)
+				if("auto_cryo_afk")
+					config.auto_cryo_afk = text2num(value)
+				if("auto_despawn_afk")
+					config.auto_despawn_afk = text2num(value)
 
 				if("auto_cryo_ssd_mins")
 					config.auto_cryo_ssd_mins = text2num(value)
