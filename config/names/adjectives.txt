@@ -76,6 +76,7 @@ expensive
 famous
 fragile
 frail
+flaming
 gifted
 helpful
 helpless
