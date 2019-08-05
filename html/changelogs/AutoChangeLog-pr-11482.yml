@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - tweak: "Sling glare popup no longer lists invalid targets for glaring"
