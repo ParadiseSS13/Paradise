@@ -453,7 +453,6 @@
 /obj/screen/healths/corgi
 	icon = 'icons/mob/screen_corgi.dmi'
 
-
 /obj/screen/healths/guardian
 	name = "summoner health"
 	icon = 'icons/mob/guardian.dmi'
@@ -467,9 +466,13 @@
 	screen_loc = ui_healthdoll
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
 
+/obj/screen/healthdoll/Click()
+	if(ishuman(usr))
+		var/mob/living/carbon/H = usr
+		H.check_self_for_injuries()
+
 /obj/screen/component_button
 	var/obj/screen/parent
-
 
 /obj/screen/component_button/Initialize(mapload, obj/screen/new_parent)
 	. = ..()

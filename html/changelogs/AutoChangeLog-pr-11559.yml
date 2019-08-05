@@ -1,8 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - tweak: "Upon purchasing Augmented Eyesight changeling ability, changeling immediately receives passive version of the ability"
-  - tweak: "Changelings in the lesser form can now toggle Augmented Eyesight ability"
-  - bugfix: "Changelings are now removed properly via Traitor Panel"
-  - bugfix: "Changelings do not get their action buttons bugged when using Swap Forms ability now"
-  - bugfix: "Action buttons should update their cooldown statuses more reliably"
