@@ -189,6 +189,7 @@
 	if(!client)	return 0
 
 	handle_vision()
+	handle_darksight() //Adjust transparency of darksight overlay relative to turf luminosity.
 	handle_hud_icons()
 
 	return 1
@@ -205,6 +206,25 @@
 	else
 		if(!remote_view && !client.adminobs)
 			reset_perspective(null)
+
+/* Adjust eyes to the dark by manipulating opacity of the darksight overlay. The darker an turf is the more your eyes will adjust and the better you'll be able to see.
+The darksight overlay starts fully opaque and becomes more transparent relative to the luminosity of the owner's turf. Full darksightedness is achieved in total darkness.
+This is a port from Polaris minus alpha scaling (caps transparency of the darksight overlay relative to darksight level, 1-8) since we have specific overlays for that value. */
+/mob/living/proc/handle_darksight()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(!S)
+		return
+	var/current = S.alpha / 255		//Our current adjustedness.
+	var/brightness = 0.0 			//We'll assume it's superdark if we can't find something else..
+	if(isturf(loc))
+		var/turf/T = loc			//Will be true 99% of the time, thus avoiding the whole elif chain.
+		brightness = T.get_lumcount()
+	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
+	var/distance = abs(current - darkness) //Used for how long to animate for.
+	if(distance < 0.01)				//We're already all set.
+		return
+
+	animate(S, alpha = (darkness * 255), time = (distance * 10 SECONDS)) //Vite in umbra!
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
