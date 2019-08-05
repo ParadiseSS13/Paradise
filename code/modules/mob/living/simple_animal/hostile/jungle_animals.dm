@@ -21,6 +21,7 @@
 	maxHealth = 50
 	health = 50
 	pixel_x = -16
+	see_in_dark = 8
 
 	harm_intent_damage = 8
 	melee_damage_lower = 15

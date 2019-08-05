@@ -198,6 +198,7 @@
 #include "code\controllers\master.dm"
 #include "code\controllers\subsystem.dm"
 #include "code\controllers\verbs.dm"
+#include "code\controllers\subsystem\afk.dm"
 #include "code\controllers\subsystem\air.dm"
 #include "code\controllers\subsystem\alarm.dm"
 #include "code\controllers\subsystem\assets.dm"
