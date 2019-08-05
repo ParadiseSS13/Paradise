@@ -162,8 +162,6 @@
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
-	show_stat_station_time()
-
 	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
@@ -1486,19 +1484,22 @@
 
 	if(usr != src)
 		return 0 //something is terribly wrong
-
+	if(incapacitated())
+		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
+		return
 	if(!bloody_hands)
 		verbs -= /mob/living/carbon/human/proc/bloody_doodle
 
-	if(src.gloves)
-		to_chat(src, "<span class='warning'>Your [src.gloves] are getting in the way.</span>")
+	if(gloves)
+		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")
 		return
 
-	var/turf/simulated/T = src.loc
+	var/turf/simulated/T = loc
 	if(!istype(T)) //to prevent doodling out of mechs and lockers
 		to_chat(src, "<span class='warning'>You cannot reach the floor.</span>")
 		return
 
+	var/turf/origin = T
 	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
@@ -1516,7 +1517,9 @@
 	var/max_length = bloody_hands * 30 //tweeter style
 
 	var/message = stripped_input(src,"Write a message. It cannot be longer than [max_length] characters.","Blood writing", "")
-
+	if(origin != loc)
+		to_chat(src, "<span class='notice'>Stay still while writing!</span>")
+		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
 		bloody_hands = max(0, bloody_hands - used_blood_amount) //use up some blood
@@ -1524,7 +1527,8 @@
 		if(length(message) > max_length)
 			message += "-"
 			to_chat(src, "<span class='warning'>You ran out of blood to write with!</span>")
-
+		else
+			to_chat(src, "<span class='notice'>You daub '[message]' on [T] in shiny red lettering.</span>")
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
 		W.message = message
 		W.add_fingerprint(src)
@@ -1941,7 +1945,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
 	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
-	.["Make Mask of Nar'sie"] = "?_src_=vars;makemask=[UID()]"
 	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
 	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
 	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
