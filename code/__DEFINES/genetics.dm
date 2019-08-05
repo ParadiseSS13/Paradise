@@ -147,3 +147,4 @@
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
 #define CAN_WINGDINGS	19
+#define TRIBAL			20

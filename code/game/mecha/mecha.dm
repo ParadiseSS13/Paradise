@@ -1122,6 +1122,11 @@
 		return
 	if(user != M)
 		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(TRIBAL in H.dna.species.species_traits)
+			to_chat(user, "<span class='warning'>You can't figure out how to enter [src].</span>")
+			return
 	log_message("[user] tries to move in.")
 	if(occupant)
 		to_chat(user, "<span class='warning'>The [src] is already occupied!</span>")

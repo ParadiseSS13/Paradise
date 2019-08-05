@@ -357,6 +357,9 @@ Class Procs:
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+		if(TRIBAL in H.dna.species.species_traits)
+			to_chat(user, "<span class='warning'>You can't figure out how to use [src].</span>")
+			return TRUE
 		if(H.getBrainLoss() >= 60)
 			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
 			return TRUE
