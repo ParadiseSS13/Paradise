@@ -671,9 +671,9 @@
 			if(!restrained())
 				var/t1 = round(text2num(param))
 				if(isnum(t1))
-					if(t1 <= 5 && (!r_hand || !l_hand))
+					if(t1 <= 5 && t1 >= 1 && (!r_hand || !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
-					else if(t1 <= 10 && (!r_hand && !l_hand))
+					else if(t1 <= 10 && t1 >= 1 && (!r_hand && !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 			m_type = 1
 
