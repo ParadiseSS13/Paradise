@@ -29,7 +29,7 @@
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper_s"
 	flavour_text = "<span class='big bold'>Eres un agente del sindicato,</span><b> empleado para desarrollar armas biol√≥gicas en una estaci√≥n de investigaci√≥n secreta. Deasfortunadamente, tu detestable enemigo, Nanotrasen, ha comenzado a minar en este sector. <b>Contin√∫a con tu trabajo lo mejor que puedas, manteniendo un bajo perfil. La base est√° cargada con explosivos, no dejes que caiga en manos del enemigo ni la abandones.</b> \
-	<br><i>Eres libre de atacar a cualquiera que no est√© alineado en las cercan√≠as alrededor de la base. <font size=6>NO</font> trabajes con agentes del sindicator (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=6>NO</font> abandones la base sin permiso de un admin.</i>"
+	<br><i>Eres libre de atacar a cualquiera que no est√© alineado en las cercan√≠as alrededor de la base. <font size=4>NO</font> trabajes en contra de agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 
@@ -57,13 +57,13 @@
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent sleeper"
 	mob_name = "Syndicate Comms Agent"
-	flavour_text = "<span class='big bold'>Eres un agente del sindicato,</span><b> empleado para desarrollar armas biolÛgicas en una estaciÛn de investigaciÛn secreta. Deasfortunadamente, tu detestable enemigo, Nanotrasen, ha comenzado a minar en este sector.<b>Tu trabajo es monitorear las comunicaciones enemigas lo mejor que puedas. NO abandones la base.</b> Usa el equipo de comunicaciones para apoyar agentes en el campo, recopilar inteligencia, y emitir desinformaciÛn para engaÒar a Nanotrasen. No dejes que la base caiga en manos enemigas!</b> \
-	<br><i>Eres libre de atacar a cualquiera que no estÈ alineado en las cercanÌas alrededor de la base. <font size=4>NO</font> trabajes en contra de agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
+	flavour_text = "<span class='big bold'>Eres un agente del sindicato,</span><b> empleado para desarrollar armas biol√≥gicas en una estaci√≥n de investigaci√≥n secreta. Deasfortunadamente, tu detestable enemigo, Nanotrasen, ha comenzado a minar en este sector.<b>Tu trabajo es monitorear las comunicaciones enemigas lo mejor que puedas. NO abandones la base.</b> Usa el equipo de comunicaciones para apoyar agentes en el campo, recopilar inteligencia, y emitir desinformaci√≥n para enga√±ar a Nanotrasen. No dejes que la base caiga en manos enemigas!</b> \
+	<br><i>Eres libre de atacar a cualquiera que no est√© alineado en las cercan√≠as alrededor de la base. <font size=4>NO</font> trabajes en contra de agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
 	outfit = /datum/outfit/lavaland_syndicate/comms
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space
-	flavour_text = "<span class='big bold'>Eres un agente del sindicato,</span><b> asignado a un pequeÒo puesto de escucha cerca de una estaciÛn enemiga, Hispania. <b>Tu trabajo es monitorear las comunicaciones enemigas lo mejor que puedas. NO abandones la base.</b> Usa el equipo de comunicaciones para apoyar agentes en el campo y recopilar inteligencia, y emitir desinformaciÛn para engaÒar a Nanotrasen. No dejes que la base caiga en manos enemigas!</b>\
-	<br><i>Eres libre de atacar a cualquiera que no estÈ alineado en las cercanÌas alrededor de la base. <font size=4>NO</font> trabajes en contra agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
+	flavour_text = "<span class='big bold'>Eres un agente del sindicato,</span><b> asignado a un peque√±o puesto de escucha cerca de una estaci√≥n enemiga, Hispania. <b>Tu trabajo es monitorear las comunicaciones enemigas lo mejor que puedas. NO abandones la base.</b> Usa el equipo de comunicaciones para apoyar agentes en el campo y recopilar inteligencia, y emitir desinformaci√≥n para enga√±ar a Nanotrasen. No dejes que la base caiga en manos enemigas!</b>\
+	<br><i>Eres libre de atacar a cualquiera que no est√© alineado en las cercan√≠as alrededor de la base. <font size=4>NO</font> trabajes en contra agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize(mapload)
 	. = ..()
