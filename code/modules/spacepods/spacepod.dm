@@ -741,34 +741,39 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 
 /obj/spacepod/proc/enter_pod(mob/user)
 	if(usr.stat != CONSCIOUS)
-		return 0
+		return FALSE
 
 	if(equipment_system.lock_system && !unlocked)
 		to_chat(user, "<span class='warning'>[src]'s doors are locked!</span>")
-		return 0
+		return FALSE
 
 	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
 		to_chat(usr, "They are too far away to put inside")
-		return 0
+		return FALSE
 
 	if(!istype(user))
-		return 0
+		return FALSE
 
 	var/fukkendisk = user.GetTypeInAllContents(/obj/item/disk/nuclear)
 
 	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
-		return 0
+		return FALSE
 	if(!ishuman(user))
-		return 0
+		return FALSE
+
+	var/mob/living/carbon/human/H = user
+	if(TRIBAL in H.dna.species.species_traits)
+		to_chat(user, "<span class='warning'>You can't figure out how to enter [src].</span>")
+		return FALSE
 
 	if(fukkendisk)
 		to_chat(user, "<span class='danger'><B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b></span>")
-		return 0
+		return FALSE
 
 	for(var/mob/living/carbon/slime/S in range(1,usr))
 		if(S.Victim == user)
 			to_chat(user, "You're too busy getting your life sucked out of you.")
-			return 0
+			return FALSE
 
 	move_inside(user)
 
