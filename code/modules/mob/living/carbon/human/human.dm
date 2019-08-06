@@ -1823,10 +1823,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
-	if(TRIBAL in dna.species.species_traits)
-		to_chat(src, "<span class='warning'>You can't figure out how to use this weapon!</span>")
-		return 0
-
 	if(martial_art && martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 0
@@ -2004,6 +2000,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/fakefireextinguish()
 	overlays_standing[FIRE_LAYER] = null
 	update_icons()
+
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
 		dna.SetSEState(block, FALSE, TRUE)
@@ -2021,3 +2018,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(O && O.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+
+/mob/living/carbon/human/can_use_machinery()
+	if(!IsAdvancedToolUser())
+		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return FALSE
+	if(NO_MACHINES in dna.species.species_traits)
+		to_chat(src, "<span class='warning'>You can't figure out how to do this!</span>")
+		return FALSE
+	return TRUE

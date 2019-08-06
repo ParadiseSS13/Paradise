@@ -116,4 +116,4 @@
 	default_language = "Sinta'unathi"
 
 	slowdown = -0.80
-	species_traits = list(NO_BREATHE, TRIBAL)
+	species_traits = list(NO_BREATHE, NOGUNS, NO_MACHINES)

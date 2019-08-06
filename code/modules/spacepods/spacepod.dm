@@ -761,9 +761,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 	if(!ishuman(user))
 		return FALSE
 
-	var/mob/living/carbon/human/H = user
-	if(TRIBAL in H.dna.species.species_traits)
-		to_chat(user, "<span class='warning'>You can't figure out how to enter [src].</span>")
+	if(!user.can_use_machinery())
 		return FALSE
 
 	if(fukkendisk)

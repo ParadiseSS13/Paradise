@@ -176,12 +176,8 @@
 	interact(user)
 
 /obj/machinery/syndicatebomb/attack_hand(mob/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(TRIBAL in H.dna.species.species_traits)
-			to_chat(user, "<span class='warning'>You can't figure out how to use [src].</span>")
-			return TRUE
-	interact(user)
+	if(user.can_use_machinery())
+		interact(user)
 
 /obj/machinery/syndicatebomb/attack_ai()
 	return
