@@ -48,10 +48,6 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/suit/armor/abductor/vest/dropped()
-	. = ..()
-	flags &= ~NODROP
-
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == slot_wear_suit) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return 1
