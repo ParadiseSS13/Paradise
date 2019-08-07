@@ -10,8 +10,3 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-	
-/obj/item/clothing/shoes/space_ninja/dropped()
-	. = ..()
-	flags &= ~NODROP 
-	
