@@ -1169,7 +1169,7 @@
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 
 			if("autoobjectives")
-				var/datum/antagonist/traitor/T = new()
+				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 				T.forge_traitor_objectives(src)
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
@@ -1618,24 +1618,37 @@
 
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 6000, team_color = "red")
 
-	special_role = "traitor"
-	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
+	zealot_master = missionary
+
+	var/list/implanters
+	if(!(missionary.mind in SSticker.mode.implanter))
+		SSticker.mode.implanter[missionary.mind] = list()
+	implanters = SSticker.mode.implanter[missionary.mind]
+	implanters.Add(src)
+	SSticker.mode.implanted.Add(src)
+	SSticker.mode.implanted[src] = missionary.mind
+	SSticker.mode.implanter[missionary.mind] = implanters
+	SSticker.mode.traitors += src
+
 	
-	var/datum/antagonist/traitor/custom/C = new()
-	C.silent = TRUE
 	var/datum/objective/protect/zealot_objective = new
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src
-	zealot_objective.explanation_text = "You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost."
+	zealot_objective.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
+	var/datum/antagonist/traitor/custom/C = new()
 	C.add_objective(zealot_objective)
 	add_antag_datum(C)
 
-	if(missionary.mind.som)
-		var/datum/mindslaves/slaved = missionary.mind.som
-		som = slaved
-		slaved.serv += current
-		slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
-		slaved.add_serv_hud(src, "mindslave")
+	var/datum/antagonist/traitor/T = missionary.mind.has_antag_datum(/datum/antagonist)
+	T.update_traitor_icons_added(missionary.mind)
+
+	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
+
+	var/datum/mindslaves/slaved = missionary.mind.som
+	som = slaved
+	slaved.serv += current
+	slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
+	slaved.add_serv_hud(src, "mindslave")
 
 	var/obj/item/clothing/under/jumpsuit = null
 	if(ishuman(current))		//only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
@@ -1646,13 +1659,13 @@
 			H.update_inv_w_uniform(0,0)
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(CALLBACK(src, remove_antag_datum(/datum/antagonist/traitor/), jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
-	remove_antag_datum(/datum/antagonist/traitor/)
+	remove_antag_datum(/datum/antagonist/traitor/custom)
 	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 
@@ -1662,8 +1675,8 @@
 			var/mob/living/carbon/human/H = current
 			H.update_inv_w_uniform(0,0)
 
-	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
-	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
+	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
+	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")
 
 /datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
 	if(damnation_type)

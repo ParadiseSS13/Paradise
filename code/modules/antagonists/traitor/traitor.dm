@@ -1,7 +1,7 @@
 #define TRAITOR_HUMAN "human"
 #define TRAITOR_AI	  "AI"
 
-// "Actual traitors"
+// For "Actual traitors"
 /datum/antagonist/traitor
 	name = "Traitor"
 	roundend_category = "traitors"
@@ -11,15 +11,8 @@
 	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
-	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
-	var/list/assigned_targets = list()
-
-
-// Crew traitors, Apprentices, Syndicate beacon traitors, Mindslaves, Zealots etc. are all handled by this
-/datum/antagonist/traitor/custom
-	give_objectives = FALSE
-	should_give_codewords = FALSE
-	should_equip = FALSE
+	var/traitor_kind = TRAITOR_HUMAN
+	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
 
 /datum/antagonist/traitor/on_gain()
@@ -31,6 +24,7 @@
 	owner.som = slaved //we MIGHT want to mindslave someone
 	SSticker.mode.traitors += owner
 	owner.special_role = special_role
+
 	if(give_objectives)
 		forge_traitor_objectives()
 	if(!silent)
@@ -47,28 +41,51 @@
 		A.showLaws()
 		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
 		qdel(A.malf_picker)
+
+	if(owner.som)
+		var/datum/mindslaves/slaved = owner.som
+		slaved.masters -= owner
+		slaved.serv -= owner
+		owner.som = null
+		slaved.leave_serv_hud(owner)
+
 	SSticker.mode.traitors -= owner
+	owner.special_role = null
+
 	if(!silent && owner.current)
 		antag_memory = ""
 		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
-	owner.special_role = null
 	..()
 
 
+// For Mindslaves and Zealots
+/datum/antagonist/traitor/custom
+	give_objectives = FALSE
+	should_give_codewords = FALSE
+	should_equip = FALSE
+	silent = TRUE
+
+/datum/antagonist/traitor/custom/on_gain()
+	owner.announce_objectives()
+
+
 /datum/antagonist/traitor/apply_innate_effects()
+	. = ..()
 	if(owner.assigned_role == "Clown")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
-			if(!silent)
-				to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			traitor_mob.mutations.Remove(CLUMSY)
+	update_traitor_icons_added()
 
 
 /datum/antagonist/traitor/remove_innate_effects()
+	. = ..()
 	if(owner.assigned_role == "Clown")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
-			traitor_mob.mutations.Add(CLUMSY) 
+			traitor_mob.mutations.Add(CLUMSY)
+	update_traitor_icons_added()
 
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
@@ -76,6 +93,7 @@
 
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
+
 
 /datum/antagonist/traitor/proc/forge_traitor_objectives()
 	switch(traitor_kind)
@@ -86,9 +104,7 @@
 
 
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	var/is_hijacker = FALSE
-	if(GLOB.player_list.len >= 30)
-		is_hijacker = prob(10)
+	var/is_hijacker = prob(10)
 	var/martyr_chance = prob(20)
 	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= 8) 	//Set up an exchange if there are enough traitors
@@ -99,17 +115,19 @@
 			assign_exchange_role(SSticker.mode.exchange_red)
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
-	var/toa = config.traitor_objectives_amount
-	for(var/i = objective_count, i < toa, i++)
-		forge_single_objective()
 
-	if(is_hijacker && objective_count <= toa) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+
+	var/objective_amount = config.traitor_objectives_amount
+	
+	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
 			add_objective(hijack_objective)
 			return
 
+	for(var/i = objective_count, i < objective_amount)
+		i += forge_single_objective()
 
 	var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
 	for(var/datum/objective/O in objectives)
@@ -132,6 +150,7 @@
 
 /datum/antagonist/traitor/proc/forge_ai_objectives()
 	var/objective_count = 0
+	var/try_again = TRUE
 
 	if(prob(30))
 		objective_count += forge_single_objective()
@@ -140,6 +159,17 @@
 		var/datum/objective/assassinate/kill_objective = new
 		kill_objective.owner = owner
 		kill_objective.find_target()
+		// This bit of code will usually only come into play during very very low pop rounds
+		if(assigned_targets.Find(kill_objective.target))	// In the rare case the game can't find a target for the AI thats not a duplicate
+			if(try_again)									// It will attempt to location another target ONCE
+				try_again = FALSE			
+			else
+				var/datum/objective/survive/free_objective = new		// If the game still can't find a non duplicate target												
+				free_objective.owner = owner							// Give them a free objective. If they survive the round, it will complete
+				free_objective.explanation_text = "Free Objective"
+				add_objective(free_objective)
+			continue
+		assigned_targets.Add(kill_objective.target)
 		add_objective(kill_objective)
 
 	var/datum/objective/survive/survive_objective = new
@@ -155,7 +185,7 @@
 			return forge_single_human_objective()
 
 
-/datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
+/datum/antagonist/traitor/proc/forge_single_human_objective() // Returns how many objectives are added
 	. = 1
 	if(prob(50))
 		var/list/active_ais = active_ais()
@@ -163,50 +193,75 @@
 			var/datum/objective/destroy/destroy_objective = new
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
+			if(assigned_targets.Find(destroy_objective.target))	 // Is this target already in their list of assigned targets? If so, don't add this objective and return
+				return 0										 
+			if(destroy_objective.target)						 // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
+				assigned_targets.Add(destroy_objective.target)	 // This logic is applied to all traitor objectives including steal objectives
 			add_objective(destroy_objective)
+
+		else if(prob(5))
+			var/datum/objective/debrain/debrain_objective = new
+			debrain_objective.owner = owner
+			debrain_objective.find_target()
+			if(assigned_targets.Find(debrain_objective.target))
+				return 0
+			if(debrain_objective.target)
+				assigned_targets.Add(debrain_objective.target)
+			add_objective(debrain_objective)
+
 		else if(prob(30))
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
 			maroon_objective.find_target()
+			if(assigned_targets.Find(maroon_objective.target))
+				return 0
+			if(maroon_objective.target)
+				assigned_targets.Add(maroon_objective.target)
 			add_objective(maroon_objective)
+
 		else
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = owner
 			kill_objective.find_target()
+			if(assigned_targets.Find(kill_objective.target))
+				return 0
+			if(kill_objective.target)
+				assigned_targets.Add(kill_objective.target)
 			add_objective(kill_objective)
+		
 	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list("Research Director", "Scientist", "Roboticist")))
-			var/datum/objective/download/download_objective = new
-			download_objective.owner = owner
-			download_objective.gen_amount_goal()
-			add_objective(download_objective)
-		else
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = owner
-			steal_objective.find_target()
-			add_objective(steal_objective)
-
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.owner = owner
+		steal_objective.find_target()
+		if(assigned_targets.Find(steal_objective.steal_target))
+			return 0
+		if(steal_objective.steal_target)
+			assigned_targets.Add(steal_objective.steal_target)
+		add_objective(steal_objective)
+		
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	. = 1
 	var/special_pick = rand(1,2)
 	switch(special_pick)
-		if(1)
+		if(1) // AI hijack
 			var/datum/objective/block/block_objective = new
 			block_objective.owner = owner
 			add_objective(block_objective)
-		if(2) //Protect and strand a target
-			var/datum/objective/protect/yandere_one = new
+		if(2) // Protect and strand a target			
+			var/datum/objective/protect/yandere_one = new	
 			yandere_one.owner = owner
 			yandere_one.find_target()
+
+			if(yandere_one.target)
+				assigned_targets.Add(yandere_one.target)
+				
 			add_objective(yandere_one)
-			
-			// var/datum/objective/maroon/yandere_two = new 		TODO: Fix this
-			// yandere_two.owner = owner
-			// yandere_two.target = yandere_one.target
-			// yandere_two.update_explanation_text() // normally called in find_target()
-			// add_objective(yandere_two)
-			// .=2
+			var/datum/objective/maroon/yandere_two = new
+			yandere_two.owner = owner
+			yandere_two.target = yandere_one.target
+			yandere_two.explanation_text = "Prevent [yandere_one.target], the [yandere_one.target.assigned_role] from escaping alive."
+			add_objective(yandere_two)
 
 
 /datum/antagonist/traitor/greet()
@@ -221,13 +276,13 @@
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
-	traitorhud.join_hud(owner.current)
-	set_antag_hud(owner.current, "traitor")
+	traitorhud.join_hud(owner.current, null)
+	set_antag_hud(owner.current, "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
-	traitorhud.leave_hud(owner.current)
+	traitorhud.leave_hud(owner.current, null)
 	set_antag_hud(owner.current, null)
 
 
@@ -240,16 +295,6 @@
 			if(should_equip)
 				equip_traitor()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
-
-
-/datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	update_traitor_icons_added()
-	
-
-/datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	update_traitor_icons_removed()
 	
 
 /datum/antagonist/traitor/proc/give_codewords()
@@ -286,13 +331,7 @@
 
 	if(traitor_kind == TRAITOR_HUMAN)
 		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob.mind.assigned_role == "Clown")
-			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			traitor_mob.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(traitor_mob)
-
-
+		
 		// find a radio! toolbox(es), backpack, belt, headset
 		var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!R)

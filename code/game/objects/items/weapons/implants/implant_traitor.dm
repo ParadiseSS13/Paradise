@@ -89,5 +89,6 @@
 /obj/item/implant/traitor/removed(mob/target)
 	if(..())
 		target.mind.remove_antag_datum(/datum/antagonist/traitor/custom)
+		to_chat(target, "<span class='warning'>You are no longer a mindslave: you have complete and free control of your own faculties, once more!</span>")
 		return 1
 	return 0

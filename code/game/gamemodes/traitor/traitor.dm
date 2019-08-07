@@ -65,6 +65,19 @@
 	..()
 
 
+/datum/game_mode/traitor/declare_completion()
+	..()
+	return//Traitors will be checked as part of check_extra_completion. Leaving this here as a reminder.
+
+/datum/game_mode/traitor/process()
+	// Make sure all objectives are processed regularly, so that objectives
+	// which can be checked mid-round are checked mid-round.
+	for(var/datum/mind/traitor_mind in traitors)
+		for(var/datum/objective/objective in traitor_mind.objectives)
+			objective.check_completion()
+	return 0
+
+
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"

@@ -62,6 +62,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
+	return target
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
