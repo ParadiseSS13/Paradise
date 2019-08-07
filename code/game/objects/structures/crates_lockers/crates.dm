@@ -163,6 +163,7 @@
 			rigged = 1
 		else 
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			return
 	else if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
