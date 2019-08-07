@@ -87,7 +87,3 @@ Contents:
 		suitOccupant = null
 
 		return 1
-		
-/obj/item/clothing/suit/space/space_ninja/dropped()
-	. = ..()
-	flags &= ~NODROP 
