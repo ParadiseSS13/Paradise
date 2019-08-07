@@ -81,6 +81,7 @@ var/bomb_set
 		if(extended)
 			if(O.flags & NODROP)
 				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand!</span>")
+				return
 			usr.drop_item()
 			O.loc = src
 			auth = O
@@ -88,6 +89,7 @@ var/bomb_set
 			return attack_hand(user)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
+			return
 
 	if(anchored)
 		switch(removal_stage)
