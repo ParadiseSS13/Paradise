@@ -1388,4 +1388,7 @@ var/list/slot_equipment_priority = list( \
 		S.icon_state = "[initial(S.icon_state)][suffix]"
 
 /mob/proc/can_use_machinery()
-	return FALSE
+	if(!IsAdvancedToolUser())
+		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return FALSE
+	return TRUE

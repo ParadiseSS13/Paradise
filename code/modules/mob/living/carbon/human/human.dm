@@ -2020,10 +2020,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
 /mob/living/carbon/human/can_use_machinery()
-	if(!IsAdvancedToolUser())
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
 	if(NO_MACHINES in dna.species.species_traits)
 		to_chat(src, "<span class='warning'>You can't figure out how to do this!</span>")
 		return FALSE
-	return TRUE
+	. = ..()
