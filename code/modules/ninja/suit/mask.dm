@@ -29,7 +29,3 @@ Contents:
 /obj/item/clothing/mask/gas/space_ninja/Destroy()
 	QDEL_NULL(voice_changer)
 	return ..()
-	
-/obj/item/clothing/mask/gas/voice/space_ninja/dropped()
-	. = ..()
-	flags &= ~NODROP 
