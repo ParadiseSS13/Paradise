@@ -110,7 +110,7 @@
 		var/is_hijacker = prob(10)
 		var/martyr_chance = prob(20)
 		var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
-		if(!exchange_blue && traitors.len >= 8 && !locate(/datum/objective/steal/exchange) in traitor.objectives) 	//Set up an exchange if there are enough traitors
+		if(!exchange_blue && traitors.len >= 8) 	//Set up an exchange if there are enough traitors
 			if(!exchange_red)
 				exchange_red = traitor
 			else
