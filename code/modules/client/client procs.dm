@@ -883,4 +883,11 @@
 	to_chat(src, "Interacting with SSD players is against server rules unless you've ahelped first for permission. If you have, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</A> and proceed.")
 	return TRUE
 
+/client/verb/show_notes()
+	set name = "Show Admin Notes"
+	set category = "OOC"
+	set desc = "View the notes that admins have written about you"
+
+	show_note(ckey, null, 1)
+
 #undef SSD_WARNING_TIMER

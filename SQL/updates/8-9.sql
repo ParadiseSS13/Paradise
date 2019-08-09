@@ -1,0 +1,1 @@
+ALTER TABLE `feedback`.`notes` ADD COLUMN `secret` TINYINT(1) NOT NULL DEFAULT '1'  AFTER `server`

@@ -170,14 +170,13 @@
 
 		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
 		if(BANTYPE_PERMA)
-			add_note(banckey, "Permanently Banned - [banreason]", null, usr.ckey, 0)
+			add_note(banckey, "Permanently Banned - [banreason]", null, usr.ckey, 0, 0)
 		else if(BANTYPE_TEMP)
-			add_note(banckey, "Banned for [banduration] minutes - [banreason]", null, usr.ckey, 0)
+			add_note(banckey, "Banned for [banduration] minutes - [banreason]", null, usr.ckey, 0, 0)
 		else if(BANTYPE_JOB_PERMA)
-			add_note(banckey, "Banned from [banjob] - [banreason]", null, usr.ckey, 0)
+			add_note(banckey, "Banned from [banjob] - [banreason]", null, usr.ckey, 0, 0)
 		else
-			add_note(banckey, "[banreason]", null, usr.ckey, 0)
-
+			add_note(banckey, "[banreason]", null, usr.ckey, 0, 0)
 
 	else if(href_list["editrights"])
 		if(!check_rights(R_PERMISSIONS))
@@ -476,7 +475,7 @@
 				feedback_inc("ban_appearance",1)
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
+				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0, 0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] appearance banned [key_name_admin(M)]</span>", 1)
 				to_chat(M, "<span class='warning'><BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -843,7 +842,7 @@
 							msg = job
 						else
 							msg += ", [job]"
-					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -864,7 +863,7 @@
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 							if(!msg)	msg = job
 							else		msg += ", [job]"
-						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -923,6 +922,11 @@
 
 	else if(href_list["addnoteempty"])
 		add_note()
+
+
+	else if(href_list["secretnote"])
+		var/note_id = href_list["secretnote"]
+		toggle_note_secrecy(note_id)
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
