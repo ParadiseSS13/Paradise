@@ -319,6 +319,8 @@
 
 	else if(href_list["create"])
 		var/amount = (text2num(href_list["amount"]))
+		//Can't be outside these (if you change this keep a sane limit)
+		amount = Clamp(amount, 1, 10)
 		var/datum/design/D = locate(href_list["create"])
 		create_product(D, amount)
 		updateUsrDialog()

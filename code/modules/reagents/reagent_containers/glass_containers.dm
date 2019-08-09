@@ -73,7 +73,7 @@
 		if(user.a_intent == INTENT_HARM)
 			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
 							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
-			add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -90,11 +90,12 @@
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
 				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
-				add_attack_logs(M, user, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+				add_attack_logs(user, M, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 
-			reagents.reaction(M, INGEST)
+			var/fraction = min(5 / reagents.total_volume, 1)
+			reagents.reaction(M, INGEST, fraction)
 			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	else

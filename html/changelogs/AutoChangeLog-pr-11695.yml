@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "All remaining Lavaland ruins have been ported over from /tg/."

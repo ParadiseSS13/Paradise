@@ -23,6 +23,7 @@
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	var/mob/living/carbon/occupant = null
@@ -137,6 +138,10 @@
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
+
+/obj/mecha/get_cell()
+	return cell
+
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank

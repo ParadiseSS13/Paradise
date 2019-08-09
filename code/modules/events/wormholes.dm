@@ -41,14 +41,14 @@
 	icon_state = "anom"
 	failchance = 0
 
+/obj/effect/portal/wormhole/can_teleport(atom/movable/M)
+	. = ..()
+
+	if(istype(M, /obj/singularity))
+		. = FALSE
+
 /obj/effect/portal/wormhole/teleport(atom/movable/M)
-	if(!istype(M))
-		return FALSE
-
-	if(!M.simulated || iseffect(M))
-		return FALSE
-
-	if(M.anchored && ismecha(M))
+	if(!can_teleport(M))
 		return FALSE
 
 	var/turf/target
