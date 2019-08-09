@@ -193,7 +193,38 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/explorer
 
+/datum/outfit/job/mining/equipped
+	name = "Shaft Miner"
 
+	suit = /obj/item/clothing/suit/hooded/explorer
+	mask = /obj/item/clothing/mask/gas/explorer
+	glasses = /obj/item/clothing/glasses/meson
+	suit_store = /obj/item/tank/emergency_oxygen
+	internals_slot = slot_s_store
+	backpack_contents = list(
+		/obj/item/flashlight/seclite=1,\
+		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/mining_voucher=1,
+		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
+		/obj/item/gun/energy/kinetic_accelerator=1,\
+		/obj/item/stack/marker_beacon/ten=1
+	)
+
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/explorer
+
+/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
+		var/obj/item/clothing/suit/hooded/S = H.wear_suit
+		S.ToggleHood()
+
+/datum/outfit/job/miner/equipped/hardsuit
+	name = "Shaft Miner (Equipment + Hardsuit)"
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	mask = /obj/item/clothing/mask/breath
 
 //Griff //BS12 EDIT
 
