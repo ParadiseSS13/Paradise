@@ -5927,7 +5927,7 @@
 	desc = "Oh no, seven years of bad luck!";
 	icon_state = "mirror_broke";
 	pixel_x = 28;
-	shattered = 1
+	broken = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

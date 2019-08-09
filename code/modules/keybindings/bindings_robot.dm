@@ -10,6 +10,11 @@
 			cycle_modules()
 			return
 		if("Q")
-			uneq_active()
-			return
+			if(!(client.prefs.toggles & AZERTY))
+				uneq_active()
+				return
+		if("A")
+			if(client.prefs.toggles & AZERTY)
+				uneq_active()
+				return
 	return ..()
