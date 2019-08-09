@@ -208,6 +208,7 @@
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
+	sharp_when_wielded = FALSE // It's a toy
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction()
 	return 0
