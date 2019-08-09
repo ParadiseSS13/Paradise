@@ -344,6 +344,12 @@
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
+	// Mindslave
+	. += "<br><b><i>mindslaved</i></b>: "
+	if(has_antag_datum(/datum/antagonist/mindslave))
+		. += "<b><font color='red'>MINDSLAVE</font></b>|<a href='?src=[UID()];mindslave=clear'>no</a>"
+	else
+		. += "mindslave|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
@@ -812,7 +818,7 @@
 				qdel(flash)
 				take_uplink()
 				var/fail = 0
-				var/datum/antagonist/traitor/T = current
+				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 				fail |= !T.equip_traitor(src)
 				fail |= !SSticker.mode.equip_revolutionary(current)
 				if(fail)
@@ -1174,6 +1180,19 @@
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
+	else if(href_list["mindslave"])
+		switch(href_list["mindslave"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/mindslave))
+					var/mob/living/carbon/human/H = current
+					for(var/i in H.contents)
+						if(istype(i, /obj/item/implant/traitor))
+							qdel(i)
+							break
+					remove_antag_datum(/datum/antagonist/mindslave)
+					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
 
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])
@@ -1635,9 +1654,9 @@
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src
 	zealot_objective.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
-	var/datum/antagonist/traitor/custom/C = new()
-	C.add_objective(zealot_objective)
-	add_antag_datum(C)
+	var/datum/antagonist/mindslave/S = new()
+	S.add_objective(zealot_objective)
+	add_antag_datum(S)
 
 	var/datum/antagonist/traitor/T = missionary.mind.has_antag_datum(/datum/antagonist)
 	T.update_traitor_icons_added(missionary.mind)
@@ -1665,7 +1684,7 @@
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
-	remove_antag_datum(/datum/antagonist/traitor/custom)
+	remove_antag_datum(/datum/antagonist/mindslave)
 	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 

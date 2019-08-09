@@ -51,22 +51,12 @@
 
 	SSticker.mode.traitors -= owner
 	owner.special_role = null
+	update_traitor_icons_removed()
 
 	if(!silent && owner.current)
 		antag_memory = ""
 		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
 	..()
-
-
-// For Mindslaves and Zealots
-/datum/antagonist/traitor/custom
-	give_objectives = FALSE
-	should_give_codewords = FALSE
-	should_equip = FALSE
-	silent = TRUE
-
-/datum/antagonist/traitor/custom/on_gain()
-	owner.announce_objectives()
 
 
 /datum/antagonist/traitor/apply_innate_effects()
@@ -76,7 +66,6 @@
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			traitor_mob.mutations.Remove(CLUMSY)
-	update_traitor_icons_added()
 
 
 /datum/antagonist/traitor/remove_innate_effects()
@@ -85,7 +74,6 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			traitor_mob.mutations.Add(CLUMSY)
-	update_traitor_icons_added()
 
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)

@@ -10,6 +10,7 @@
 // justice if someone's abusing your role
 #define ROLE_SYNDICATE			"Syndicate"
 #define ROLE_TRAITOR			"traitor"
+#define ROLE_MINDSLAVE			"mindslave"
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"
 #define ROLE_WIZARD				"wizard"

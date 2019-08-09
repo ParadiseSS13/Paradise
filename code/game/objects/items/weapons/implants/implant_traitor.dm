@@ -20,11 +20,11 @@
 
 	if(!user.mind.has_antag_datum(/datum/antagonist))  // if the user isnt an antagonist at all, don't let them use it
 		to_chat(user, "<span class='warning'><i>You lack the training required to use this type of implant.</i></span>")
-		return
+		return 0
 	
 	if(!M.mind)  // If the target is catatonic or doesn't have a mind, don't let them use it
 		to_chat(user, "<span class='warning'><i>This person doesn't have a mind for you to slave!</i></span>")
-		return
+		return 0
 
 	if(!activated) //So you can't just keep taking it out and putting it back into other people.
 		var/mob/living/carbon/human/mindslave_target = M
@@ -69,9 +69,10 @@
 			MS.owner = mindslave_target.mind
 			MS.target = user.mind
 			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role == user.mind.special_role ? (user.mind.special_role) : (user.mind.assigned_role)]."
-			var/datum/antagonist/traitor/custom/C = new()
-			C.add_objective(MS)
-			mindslave_target.mind.add_antag_datum(C)
+			
+			var/datum/antagonist/mindslave/S = new()
+			S.add_objective(MS)
+			mindslave_target.mind.add_antag_datum(S)
 
 			var/datum/mindslaves/slaved = user.mind.som
 			mindslave_target.mind.som = slaved
@@ -88,7 +89,7 @@
 
 /obj/item/implant/traitor/removed(mob/target)
 	if(..())
-		target.mind.remove_antag_datum(/datum/antagonist/traitor/custom)
+		target.mind.remove_antag_datum(/datum/antagonist/mindslave)
 		to_chat(target, "<span class='warning'>You are no longer a mindslave: you have complete and free control of your own faculties, once more!</span>")
 		return 1
 	return 0
