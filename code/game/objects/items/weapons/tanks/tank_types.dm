@@ -189,7 +189,7 @@ obj/item/tank/emergency_oxygen/double/empty/New()
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
-
+	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/back.dmi') //Do it for Big Bird.
 
 /obj/item/tank/nitrogen/New()
 	..()
@@ -206,6 +206,7 @@ obj/item/tank/emergency_oxygen/double/empty/New()
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
 	volume = 25
+	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/belt.dmi') //Do it for Big Bird.
 
 /obj/item/tank/emergency_oxygen/vox/New()
 	..()

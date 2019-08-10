@@ -14,7 +14,7 @@
 	desc = "Unce unce unce unce."
 	var/on = 0
 	icon_state = "headphones0"
-	item_state = "earmuffs"
+	item_state = null
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	burn_state = FLAMMABLE
 
