@@ -64,6 +64,7 @@
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
 	var/fast_despawn = FALSE
+	var/can_get_auto_cryod = TRUE
 	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
 
 /area/Initialize(mapload)

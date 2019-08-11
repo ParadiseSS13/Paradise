@@ -1,6 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "The Syndicate will no longer hire golems as agents."
-  - tweak: "Banana juice and Banana honk will now heal everyone with the Comic Sans mutation instead of checking for the clown job"
-  - tweak: "Nothing will now check if the player has an active vow of silence instead of checking for the mime job"
