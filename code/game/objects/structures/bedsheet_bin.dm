@@ -87,6 +87,12 @@ LINEN BINS
 	dream_messages = list("yellow")
 	nightmare_messages = list("locker full of banana peels")
 
+/obj/item/bedsheet/black
+	icon_state = "sheetblack"
+	item_color = "sheetblack"
+	dream_messages = list("black")
+	nightmare_messages = list("the void of space")
+
 /obj/item/bedsheet/mime
 	name = "mime's blanket"
 	desc = "A very soothing striped blanket.  All the noise just seems to fade out when you're under the covers in this."
@@ -245,7 +251,7 @@ LINEN BINS
 		else				icon_state = "linenbin-full"
 
 
-/obj/structure/bedsheetbin/fire_act()
+/obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!amount)
 		return
 	..()

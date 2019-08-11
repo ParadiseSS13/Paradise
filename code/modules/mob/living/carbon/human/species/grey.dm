@@ -8,10 +8,10 @@
 	butt_sprite = "grey"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/grey,
+		"lungs" =    /obj/item/organ/internal/lungs/grey,
 		"liver" =    /obj/item/organ/internal/liver/grey,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"kidneys" =  /obj/item/organ/internal/kidneys/grey,
 		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
@@ -27,6 +27,7 @@
 	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
+	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
@@ -35,10 +36,38 @@
 	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(REMOTETALKBLOCK)
 
-/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source)
-	..()
-	H.take_organ_damage(5, min(volume, 20))
-	H.emote("scream")
+/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = TOUCH)
+	. = ..()
+
+	if(method == TOUCH)
+		if(volume > 25)
+			if(H.wear_mask)
+				to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+				return
+
+			if(H.head)
+				to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+				return
+
+			if(prob(75))
+				H.take_organ_damage(5, 10)
+				H.emote("scream")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
+				if(affecting)
+					affecting.disfigure()
+			else
+				H.take_organ_damage(5, 10)
+		else
+			H.take_organ_damage(5, 10)
+	else
+		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.emote("scream")
+			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
@@ -56,6 +85,9 @@
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")
-		H.reagents.del_reagent(R.id)
-		return 0
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return FALSE
+	if(R.id == "water")
+		H.adjustFireLoss(1)
+		return TRUE
 	return ..()

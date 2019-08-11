@@ -354,8 +354,8 @@ var/bomb_set
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
-	if(ticker && ticker.mode)
-		ticker.mode.explosion_in_progress = 1
+	if(SSticker && SSticker.mode)
+		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
 
 	enter_allowed = 0
@@ -368,17 +368,17 @@ var/bomb_set
 	else
 		off_station = 2
 
-	if(ticker)
-		if(ticker.mode && ticker.mode.name == "nuclear emergency")
+	if(SSticker)
+		if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
 			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
 			if(syndie_shuttle)
-				ticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
-			ticker.mode:nuke_off_station = off_station
-		ticker.station_explosion_cinematic(off_station,null)
-		if(ticker.mode)
-			ticker.mode.explosion_in_progress = 0
-			if(ticker.mode.name == "nuclear emergency")
-				ticker.mode:nukes_left --
+				SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
+			SSticker.mode:nuke_off_station = off_station
+		SSticker.station_explosion_cinematic(off_station,null)
+		if(SSticker.mode)
+			SSticker.mode.explosion_in_progress = 0
+			if(SSticker.mode.name == "nuclear emergency")
+				SSticker.mode:nukes_left --
 			else if(off_station == 1)
 				to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
 			else if(off_station == 2)
@@ -386,10 +386,10 @@ var/bomb_set
 			else
 				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
 
-			ticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
+			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
-			if(!ticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
+			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
 				world.Reboot("Station destroyed by Nuclear Device.", "end_error", "nuke - unhandled ending")
 				return
 	return
@@ -402,18 +402,33 @@ var/bomb_set
 	icon_state = "nucleardisk"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
 
+/obj/item/disk/nuclear/unrestricted
+	desc = "Seems to have been stripped of its safeties, you better not lose it."
+
 /obj/item/disk/nuclear/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
-	var/turf/disk_loc = get_turf(src)
-	if(!is_secure_level(disk_loc.z))
+	if(!check_disk_loc())
 		var/holder = get(src, /mob)
 		if(holder)
 			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
 		qdel(src)
+
+ //station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
+/obj/item/disk/nuclear/proc/check_disk_loc()
+	var/turf/T = get_turf(src)
+	var/area/A = get_area(src)
+	if(is_station_level(T.z))
+		return TRUE
+	if(A.nad_allowed)
+		return TRUE
+	return FALSE
+
+/obj/item/disk/nuclear/unrestricted/check_disk_loc()
+	return TRUE
 
 /obj/item/disk/nuclear/Destroy(force)
 	var/turf/diskturf = get_turf(src)
@@ -422,7 +437,7 @@ var/bomb_set
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
 		GLOB.poi_list.Remove(src)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return ..()
 
 	if(blobstart.len > 0)

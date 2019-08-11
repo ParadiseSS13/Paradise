@@ -87,6 +87,7 @@
 					yandere_one.owner = traitor
 					traitor.objectives += yandere_one
 					yandere_one.find_target()
+					traitor.targets += yandere_one.target
 					objective_count++
 					var/datum/objective/maroon/yandere_two = new
 					yandere_two.owner = traitor
@@ -99,6 +100,7 @@
 			kill_objective.owner = traitor
 			kill_objective.find_target()
 			traitor.objectives += kill_objective
+			traitor.targets += kill_objective.target
 
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
@@ -124,26 +126,31 @@
 					destroy_objective.owner = traitor
 					destroy_objective.find_target()
 					traitor.objectives += destroy_objective
+					traitor.targets += destroy_objective.target
 				else if(prob(5))
 					var/datum/objective/debrain/debrain_objective = new
 					debrain_objective.owner = traitor
 					debrain_objective.find_target()
 					traitor.objectives += debrain_objective
+					traitor.targets += debrain_objective.target
 				else if(prob(30))
 					var/datum/objective/maroon/maroon_objective = new
 					maroon_objective.owner = traitor
 					maroon_objective.find_target()
 					traitor.objectives += maroon_objective
+					traitor.targets += maroon_objective.target
 				else
 					var/datum/objective/assassinate/kill_objective = new
 					kill_objective.owner = traitor
 					kill_objective.find_target()
 					traitor.objectives += kill_objective
+					traitor.targets += kill_objective.target
 			else
 				var/datum/objective/steal/steal_objective = new
 				steal_objective.owner = traitor
 				steal_objective.find_target()
 				traitor.objectives += steal_objective
+				traitor.targets += steal_objective.steal_target
 
 		if(is_hijacker && objective_count <= config.traitor_objectives_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 			if(!(locate(/datum/objective/hijack) in traitor.objectives))
@@ -208,11 +215,11 @@
 
 /datum/game_mode/proc/give_codewords(mob/living/traitor_mob)
 	to_chat(traitor_mob, "<U><B>The Syndicate provided you with the following information on how to identify their agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='danger'>[syndicate_code_phrase]</span>")
-	to_chat(traitor_mob, "<B>Code Response</B>: <span class='danger'>[syndicate_code_response]</span>")
+	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='danger'>[GLOB.syndicate_code_phrase]</span>")
+	to_chat(traitor_mob, "<B>Code Response</B>: <span class='danger'>[GLOB.syndicate_code_response]</span>")
 
-	traitor_mob.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
-	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
+	traitor_mob.mind.store_memory("<b>Code Phrase</b>: [GLOB.syndicate_code_phrase]")
+	traitor_mob.mind.store_memory("<b>Code Response</b>: [GLOB.syndicate_code_response]")
 
 	to_chat(traitor_mob, "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 
@@ -299,6 +306,9 @@
 		if(traitor_mob.mind.assigned_role == "Clown")
 			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			traitor_mob.mutations.Remove(CLUMSY)
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(traitor_mob)
+
 
 	// find a radio! toolbox(es), backpack, belt, headset
 	var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
@@ -345,14 +355,14 @@
 
 /datum/game_mode/proc/remove_traitor(datum/mind/traitor_mind)
 	if(traitor_mind in traitors)
-		ticker.mode.traitors -= traitor_mind
+		SSticker.mode.traitors -= traitor_mind
 		traitor_mind.special_role = null
 		traitor_mind.current.create_attack_log("<span class='danger'>De-traitored</span>")
 		if(issilicon(traitor_mind.current))
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a traitor.</span>")
 		else
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a traitor.</span>")
-		ticker.mode.update_traitor_icons_removed(traitor_mind)
+		SSticker.mode.update_traitor_icons_removed(traitor_mind)
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]

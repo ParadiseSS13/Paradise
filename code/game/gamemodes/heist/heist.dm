@@ -53,6 +53,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = SPECIAL_ROLE_RAIDER
 		raider.special_role = SPECIAL_ROLE_RAIDER
+		raider.offstation_role = TRUE
 	..()
 	return 1
 
@@ -311,5 +312,5 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	message_admins("[key_name_admin(user)] has pressed the vox win button.")
 	log_admin("[key_name(user)] pressed the vox win button during a vox round.")
 
-	var/datum/game_mode/heist/H = ticker.mode
+	var/datum/game_mode/heist/H = SSticker.mode
 	H.win_button_triggered = 1

@@ -4,22 +4,21 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
-
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)
 		overlays.Cut()
 		for(var/obj/item/I in contents)
 			overlays += "[I.name]"
-
 	..()
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
-
 
 /obj/item/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
@@ -68,7 +67,7 @@
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
-	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
+	new /obj/item/stack/cable_coil/random(src, 30)
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/New()
@@ -99,7 +98,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
+	new /obj/item/stack/cable_coil/random(src, 30)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
@@ -112,6 +111,7 @@
 	icon_state = "medicalbelt"
 	item_state = "medical"
 	use_item_overlays = 1
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
@@ -133,6 +133,7 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/handheld_defibrillator
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -182,7 +183,6 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	update_icon()
 
-
 /obj/item/storage/belt/botany
 	name = "botanist belt"
 	desc = "Can hold various botanical supplies."
@@ -204,7 +204,6 @@
 		/obj/item/wirecutters,
         /obj/item/wrench,
 	)
-
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -386,7 +385,8 @@
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
-		/obj/item/holosign_creator
+		/obj/item/holosign_creator,
+		/obj/item/melee/flyswatter,
 		)
 
 /obj/item/storage/belt/janitor/full/New()
@@ -397,6 +397,7 @@
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
+	new /obj/item/melee/flyswatter(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus
@@ -470,7 +471,6 @@
 	..()
 	update_icon()
 
-
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
 	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
@@ -507,7 +507,6 @@
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
 	update_icon()
-
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -597,7 +596,6 @@
 //     Bluespace Belt
 // -------------------------------------
 
-
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
 	desc = "The greatest in pants-supporting technology."
@@ -630,8 +628,6 @@
 	var/bolacount = 0
 	var/cooldown = 0
 
-
-
 /obj/item/storage/belt/bluespace/owlman/New()
 	..()
 	new /obj/item/grenade/smokebomb(src)
@@ -640,8 +636,12 @@
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/restraints/legcuffs/bola(src)
 	new /obj/item/restraints/legcuffs/bola(src)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	cooldown = world.time
+
+/obj/item/storage/belt/bluespace/owlman/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/storage/belt/bluespace/owlman/process()
 	if(cooldown < world.time - 600)
@@ -725,3 +725,52 @@
 
 	new /obj/item/analyzer(src)
 	new /obj/item/healthanalyzer(src)
+
+/obj/item/storage/belt/mining
+	name = "explorer's webbing"
+	desc = "A versatile chest rig, cherished by miners and hunters alike."
+	icon_state = "explorer1"
+	item_state = "explorer1"
+	storage_slots = 6
+	max_w_class = WEIGHT_CLASS_BULKY
+	use_item_overlays = 0
+	can_hold = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/analyzer,
+		/obj/item/extinguisher/mini,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/resonator,
+		/obj/item/mining_scanner,
+		/obj/item/pickaxe,
+		/obj/item/stack/sheet/animalhide,
+		/obj/item/stack/sheet/sinew,
+		/obj/item/stack/sheet/bone,
+		/obj/item/lighter,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/stack/medical,
+		/obj/item/kitchen/knife,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/gps,
+		/obj/item/storage/bag/ore,
+		/obj/item/survivalcapsule,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/stack/ore,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/organ/internal/hivelord_core,
+		/obj/item/wormhole_jaunter,
+		/obj/item/storage/bag/plants,
+		/obj/item/stack/marker_beacon)
+
+/obj/item/storage/belt/mining/New()
+	..()
+	new /obj/item/survivalcapsule(src)

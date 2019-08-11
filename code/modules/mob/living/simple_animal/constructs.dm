@@ -29,21 +29,21 @@
 
 /mob/living/simple_animal/hostile/construct/New()
 	..()
-	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[const_type] ([rand(1, 1000)])"
 		real_name = const_type
 		icon_living = const_type
 		icon_state = const_type
 	else
-		name = "[ticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
-		real_name = ticker.cultdat.get_name(const_type)
-		icon_living = ticker.cultdat.get_icon(const_type)
-		icon_state = ticker.cultdat.get_icon(const_type)
+		name = "[SSticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
+		real_name = SSticker.cultdat.get_name(const_type)
+		icon_living = SSticker.cultdat.get_icon(const_type)
+		icon_state = SSticker.cultdat.get_icon(const_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(ticker.cultdat.theme == "blood")
+	if(SSticker.cultdat.theme == "blood")
 		updateglow()
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
@@ -85,6 +85,9 @@
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
+/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE
+
 /////////////////Juggernaut///////////////
 
 
@@ -110,7 +113,7 @@
 	status_flags = 0
 	const_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
@@ -165,10 +168,10 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
-	see_in_dark = 7
+	see_in_dark = 8
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	const_type = "wraith"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
@@ -199,7 +202,8 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	const_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon,
@@ -308,7 +312,8 @@
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/targeted/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier

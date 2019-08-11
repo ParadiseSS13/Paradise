@@ -121,7 +121,7 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += text({"
-<TT><B>Securitron v1.6 controls</B></TT><BR><BR>
+<TT><B>[window_name]</B></TT><BR><BR>
 Status: []<BR>
 Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 Maintenance panel panel is [open ? "opened" : "closed"]"},
@@ -231,9 +231,10 @@ Auto Patrol: []"},
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	spawn(60)
-		if( !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
-			return
+	INVOKE_ASYNC(src, .proc/cuff_callback, C)
+			
+/mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
+	if(do_after(src, 60, target = C))
 		if(!C.handcuffed)
 			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 			C.update_handcuffed()
@@ -417,23 +418,18 @@ Auto Patrol: []"},
 	return 0
 
 /mob/living/simple_animal/bot/secbot/explode()
-
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
-
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
-
 	if(prob(50))
-		new /obj/item/robot_parts/l_arm(Tsec)
-
+		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)
-
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
@@ -443,7 +439,7 @@ Auto Patrol: []"},
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
 	if(ismob(AM) && target)
 		var/mob/living/carbon/C = AM
 		if(!istype(C) || !C || in_range(src, target))

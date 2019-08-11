@@ -12,6 +12,8 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
+	sentience_type = SENTIENCE_OTHER
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
@@ -20,6 +22,7 @@
 
 /mob/living/simple_animal/hostile/blob/blob_act()
 	return
+
 
 ////////////////
 // BLOB SPORE //
@@ -42,11 +45,10 @@
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/is_zombie = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
-/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	adjustBruteLoss(Clamp(0.01 * exposed_temperature, 1, 5))
 
@@ -65,15 +67,17 @@
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
 	if(!is_zombie && isturf(src.loc))
-		for(var/mob/living/carbon/human/H in oview(src,1)) //Only for corpse right next to/on same tile
-			if(H.stat == DEAD)
+		for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
+			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 				Zombify(H)
 				break
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(var/mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
+	if(!H.check_death_method())
+		H.death()
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	is_zombie = 1
+	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
 		if(A.armor && A.armor["melee"])
@@ -87,14 +91,15 @@
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	head_organ.h_style = null
+	if(head_organ)
+		head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays
 	update_icons()
-	H.loc = src
+	H.forceMove(src)
 	pressure_resistance = 20  //5 kPa difference required to push lowered
 	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
-	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// Only execute the below if we successfuly died
@@ -113,9 +118,8 @@
 	else
 		reagents.add_reagent("spore", 8)
 
-	// Attach the smoke spreader and setup/start it.
-	S.attach(location)
-	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
+	// Setup up the smoke spreader and start it.
+	S.set_up(reagents, location, TRUE)
 	S.start()
 	qdel(src)
 
@@ -133,9 +137,9 @@
 	..()
 
 	if(overmind && overmind.blob_reagent_datum)
-		adjustcolors(overmind.blob_reagent_datum.color)
+		adjustcolors(overmind.blob_reagent_datum.complementary_color)
 	else
-		adjustcolors(color) //to ensure zombie/other overlays update
+		adjustcolors(overmind.blob_reagent_datum.complementary_color) //to ensure zombie/other overlays update
 
 
 /mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
@@ -145,8 +149,8 @@
 		overlays.Cut()
 		overlays = human_overlays
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
-		I.color = color
-		color = initial(color)//looks better.
+		I.color = overmind.blob_reagent_datum.complementary_color
+		color = initial(overmind.blob_reagent_datum.complementary_color)//looks better.
 		overlays += I
 
 /////////////////
@@ -172,10 +176,10 @@
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
-
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return

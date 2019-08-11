@@ -107,6 +107,7 @@
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
 
 /turf/simulated/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -246,6 +247,9 @@
 /turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
 	return
 
+/turf/simulated/wall/mineral/titanium/nodecon/burn_down()
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
@@ -270,6 +274,36 @@
 /turf/simulated/wall/mineral/plastitanium/overspace
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
+
+/turf/simulated/wall/mineral/plastitanium/coated
+	name = "coated wall"
+	max_temperature = INFINITY
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/plastitanium/coated/Initialize(mapload)
+	. = ..()
+	desc += " It seems to have additional plating to protect against heat."
+
+/turf/simulated/wall/mineral/plastitanium/explosive
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	GLOB.explosive_walls += src
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Destroy()
+	GLOB.explosive_walls -= src
+	return ..()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/proc/self_destruct()
+	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
+	bombcore.detonate()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity)
+	return
 
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)

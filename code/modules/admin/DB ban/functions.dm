@@ -70,6 +70,11 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		if(banned_mob.client)
 			computerid = banned_mob.client.computer_id
 			ip = banned_mob.client.address
+		else
+			if(banned_mob.lastKnownIP)
+				ip = banned_mob.lastKnownIP
+			if(banned_mob.computer_id)
+				computerid = banned_mob.computer_id
 	else if(banckey)
 		ckey = ckey(banckey)
 		computerid = bancid
@@ -145,6 +150,8 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 
 	if(isjobban)
 		jobban_client_fullban(ckey, job)
+	else
+		flag_account_for_forum_sync(ckey)
 
 datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
@@ -223,6 +230,8 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 	DB_ban_unban_by_id(ban_id)
 	if(isjobban)
 		jobban_unban_client(ckey, job)
+	else
+		flag_account_for_forum_sync(ckey)
 
 datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 
@@ -327,6 +336,8 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 
 	var/DBQuery/query_update = dbcon.NewQuery(sql_update)
 	query_update.Execute()
+
+	flag_account_for_forum_sync(pckey)
 
 
 /client/proc/DB_ban_panel()
@@ -562,3 +573,11 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 			output += "</table></div>"
 
 	usr << browse(output,"window=lookupbans;size=900x700")
+
+/proc/flag_account_for_forum_sync(ckey)
+	if(!dbcon)
+		return
+	var/skey = sanitizeSQL(ckey)
+	var/sql = "UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey = '[skey]'"
+	var/DBQuery/adm_query = dbcon.NewQuery(sql)
+	adm_query.Execute()

@@ -10,7 +10,6 @@ var/datum/atom_hud/huds = list( \
 	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(), \
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
-	GAME_HUD_NATIONS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(), \
@@ -22,7 +21,9 @@ var/datum/atom_hud/huds = list( \
 	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),\
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),\
-	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden()\
+	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()\
  	)
 
 /datum/atom_hud
@@ -93,8 +94,8 @@ var/datum/atom_hud/huds = list( \
 	//		gang_huds += G.ganghud
 
 	var/serv_huds = list()//mindslaves and/or vampire thralls
-	if(ticker.mode)
-		for(var/datum/mindslaves/serv in (ticker.mode.vampires | ticker.mode.traitors))
+	if(SSticker.mode)
+		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
 
 

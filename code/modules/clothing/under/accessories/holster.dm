@@ -3,7 +3,7 @@
 	desc = "A handgun holster."
 	icon_state = "holster"
 	item_color = "holster"
-	slot = "utility"
+	slot = ACCESSORY_SLOT_UTILITY
 	var/holster_allow = /obj/item/gun
 	var/obj/item/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)

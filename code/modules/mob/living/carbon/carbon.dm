@@ -72,7 +72,7 @@
 
 			if(prob(src.getBruteLoss() - 50))
 				for(var/atom/movable/A in stomach_contents)
-					A.loc = loc
+					A.forceMove(drop_location())
 					stomach_contents.Remove(A)
 				src.gib()
 
@@ -109,7 +109,7 @@
 					adjustBruteLoss(3)
 			else
 				if(T)
-					T.add_vomit_floor(src)
+					T.add_vomit_floor()
 				nutrition -= lost_nutrition
 				if(stun)
 					adjustToxLoss(-3)
@@ -134,42 +134,48 @@
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
+/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(status_flags & GODMODE)	//godmode
-		return 0
+		return FALSE
 	if(NO_SHOCK in mutations) //shockproof
-		return 0
+		return FALSE
 	if(tesla_shock && tesla_ignore)
 		return FALSE
 	shock_damage *= siemens_coeff
-	if(shock_damage<1 && !override)
-		return 0
+	if(dna && dna.species)
+		shock_damage *= dna.species.siemens_coeff
+	if(shock_damage < 1 && !override)
+		return FALSE
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
+	if(illusion)
+		adjustStaminaLoss(shock_damage)
+	else
+		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
+		shock_internal_organs(shock_damage)
 	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack.</span>" \
-	)
+		"<span class='danger'>[src] was shocked by \the [source]!</span>",
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
+		"<span class='italics'>You hear a heavy electrical crack.</span>")
 	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
 		Stun(2)
 	spawn(20)
 		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
 			Stun(3)
 			Weaken(3)
 	if(shock_damage > 200)
 		src.visible_message(
-			"<span class='danger'>[src] was arc flashed by the [source]!</span>", \
-			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
-			"<span class='italics'>You hear a lightning-like crack!</span>" \
-		)
+			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
+			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
+			"<span class='italics'>You hear a lightning-like crack!</span>")
 		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(src.loc,-1,0,2,2)
+		explosion(loc, -1, 0, 2, 2)
+
 	if(override)
 		return override
 	else
@@ -208,58 +214,9 @@
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-	if(health >= config.health_threshold_crit)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
-			var/mob/living/carbon/human/H = src
-			visible_message( \
-				text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
-				"<span class='notice'>You check yourself for injuries.</span>" \
-				)
-
-			var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/LB = X
-				missing -= LB.limb_name
-				var/status = ""
-				var/brutedamage = LB.brute_dam
-				var/burndamage = LB.burn_dam
-
-				if(brutedamage > 0)
-					status = "bruised"
-				if(brutedamage > 20)
-					status = "battered"
-				if(brutedamage > 40)
-					status = "mangled"
-				if(brutedamage > 0 && burndamage > 0)
-					status += " and "
-				if(burndamage > 40)
-					status += "peeling away"
-
-				else if(burndamage > 10)
-					status += "blistered"
-				else if(burndamage > 0)
-					status += "numb"
-				if(LB.status & ORGAN_MUTATED)
-					status = "weirdly shapen."
-				if(status == "")
-					status = "OK"
-				to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
-
-				for(var/obj/item/I in LB.embedded_objects)
-					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
-
-			for(var/t in missing)
-				to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
-
-			if(H.bleed_rate)
-				to_chat(src, "<span class='danger'>You are bleeding!</span>")
-			if(staminaloss)
-				if(staminaloss > 30)
-					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
-				else
-					to_chat(src, "<span class='info'>You feel fatigued.</span>")
-			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
-				H.play_xylophone()
+			check_self_for_injuries()
 		else
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
@@ -302,6 +259,58 @@
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
+/mob/living/carbon/proc/check_self_for_injuries()
+	var/mob/living/carbon/human/H = src
+	visible_message( \
+		text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
+		"<span class='notice'>You check yourself for injuries.</span>" \
+		)
+
+	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+	for(var/X in H.bodyparts)
+		var/obj/item/organ/external/LB = X
+		missing -= LB.limb_name
+		var/status = ""
+		var/brutedamage = LB.brute_dam
+		var/burndamage = LB.burn_dam
+
+		if(brutedamage > 0)
+			status = "bruised"
+		if(brutedamage > 20)
+			status = "battered"
+		if(brutedamage > 40)
+			status = "mangled"
+		if(brutedamage > 0 && burndamage > 0)
+			status += " and "
+		if(burndamage > 40)
+			status += "peeling away"
+
+		else if(burndamage > 10)
+			status += "blistered"
+		else if(burndamage > 0)
+			status += "numb"
+		if(LB.status & ORGAN_MUTATED)
+			status = "weirdly shapen."
+		if(status == "")
+			status = "OK"
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+
+		for(var/obj/item/I in LB.embedded_objects)
+			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+	for(var/t in missing)
+		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
+
+	if(H.bleed_rate)
+		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+	if(staminaloss)
+		if(staminaloss > 30)
+			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
+		else
+			to_chat(src, "<span class='info'>You feel fatigued.</span>")
+	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+		H.play_xylophone()
+
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
@@ -317,8 +326,8 @@
 			return
 
 		var/extra_darkview = 0
-		if(E.dark_view)
-			extra_darkview = max(E.dark_view - 2, 0)
+		if(E.see_in_dark)
+			extra_darkview = max(E.see_in_dark - 2, 0)
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
@@ -439,6 +448,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
 			if(!do_after(src, 45, target = src))
+				return
+
+			if(buckled)
+				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
 				return
 
 			if(!client)
@@ -702,16 +715,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			return back
 		if(slot_wear_mask)
 			return wear_mask
-		if(slot_handcuffed)
-			return handcuffed
-		if(slot_legcuffed)
-			return legcuffed
+		if(slot_wear_suit)
+			return wear_suit
 		if(slot_l_hand)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
+		if(slot_handcuffed)
+			return handcuffed
+		if(slot_legcuffed)
+			return legcuffed
 	return null
-
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse(var/method)	//method 0 is for hands, 1 is for machines, more accurate
@@ -823,7 +837,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.loc = loc
+				handcuffed.forceMove(drop_location())
 				handcuffed.dropped(src)
 				handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
@@ -831,7 +845,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				update_handcuffed()
 				return
 			if(I == legcuffed)
-				legcuffed.loc = loc
+				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
 				update_inv_legcuffed()
@@ -925,7 +939,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(client)
 			client.screen -= W
 		if(W)
-			W.loc = loc
+			W.forceMove(drop_location())
 			W.dropped(src)
 			if(W)
 				W.layer = initial(W.layer)
@@ -937,7 +951,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(client)
 			client.screen -= W
 		if(W)
-			W.loc = loc
+			W.forceMove(drop_location())
 			W.dropped(src)
 			if(W)
 				W.layer = initial(W.layer)
@@ -961,6 +975,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
+	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
 	Weaken(weaken)
 	return 1
@@ -1116,3 +1131,42 @@ so that different stomachs can handle things in different ways VB*/
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()
+
+/mob/living/carbon/proc/shock_internal_organs(intensity)
+	for(var/obj/item/organ/O in internal_organs)
+		O.shock_organ(intensity)
+
+/mob/living/carbon/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
+		sight |= E.vision_flags
+		if(E.see_in_dark)
+			see_in_dark = max(see_in_dark, E.see_in_dark)
+		if(E.see_invisible)
+			see_invisible = min(see_invisible, E.see_invisible)
+		if(!isnull(E.lighting_alpha))
+			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(XRAY in mutations)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()

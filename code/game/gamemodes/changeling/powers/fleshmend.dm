@@ -1,7 +1,8 @@
-/obj/effect/proc_holder/changeling/fleshmend
+/datum/action/changeling/fleshmend
 	name = "Fleshmend"
-	desc = "Our flesh rapidly regenerates, healing our wounds."
-	helptext = "Heals a moderate amount of damage over a short period of time. Can be used while unconscious."
+	desc = "Our flesh rapidly regenerates, healing our burns, bruises, and shortness of breath. Costs 20 chemicals."
+	helptext = "If we are on fire, the healing effect will not function. Does not regrow limbs or restore lost blood. Functions while unconscious."
+	button_icon_state = "fleshmend"
 	chemical_cost = 20
 	dna_cost = 2
 	req_stat = UNCONSCIOUS
@@ -11,20 +12,20 @@
 	// divided by healing_ticks to get heal/tick
 	var/total_healing = 100
 
-/obj/effect/proc_holder/changeling/fleshmend/New()
+/datum/action/changeling/fleshmend/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
-/obj/effect/proc_holder/changeling/fleshmend/Destroy()
-	processing_objects.Remove(src)
+/datum/action/changeling/fleshmend/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/proc_holder/changeling/fleshmend/process()
+/datum/action/changeling/fleshmend/process()
 	if(recent_uses > 1)
 		recent_uses = max(1, recent_uses - (1 / healing_ticks))
 
 //Starts healing you every second for 10 seconds. Can be used whilst unconscious.
-/obj/effect/proc_holder/changeling/fleshmend/sting_action(var/mob/living/user)
+/datum/action/changeling/fleshmend/sting_action(var/mob/living/user)
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	if(recent_uses > 1)
 		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
@@ -35,14 +36,11 @@
 	feedback_add_details("changeling_powers","RR")
 	return TRUE
 
-/obj/effect/proc_holder/changeling/fleshmend/proc/fleshmend(mob/living/user)
+/datum/action/changeling/fleshmend/proc/fleshmend(mob/living/user)
 
 	// The healing itself - doesn't heal toxin damage
 	// (that's anatomic panacea) and the effectiveness decreases with
 	// each use in a short timespan
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.shock_stage = 0
 	for(var/i in 1 to healing_ticks)
 		if(user)
 			var/healpertick = -(total_healing / healing_ticks)

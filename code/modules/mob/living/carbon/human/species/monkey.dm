@@ -59,6 +59,8 @@
 		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
+	if(!user.has_organ_for_slot(slot))
+		return 2
 	switch(slot)
 		if(slot_l_hand)
 			if(user.l_hand)
@@ -108,11 +110,11 @@
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/tajaran,
+		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
 		"liver" =    /obj/item/organ/internal/liver/tajaran,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
+		"brain" =    /obj/item/organ/internal/brain/tajaran,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
@@ -132,11 +134,11 @@
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
+		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
 		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
+		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
@@ -156,6 +158,16 @@
 	reagent_tag = PROCESS_ORG
 	tail = null
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/skrell,
+		"lungs" =    /obj/item/organ/internal/lungs/skrell,
+		"liver" =    /obj/item/organ/internal/liver/skrell,
+		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
+		"brain" =    /obj/item/organ/internal/brain/skrell,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		)
+
 /datum/species/monkey/unathi
 	name = "Stok"
 	name_plural = "Stok"
@@ -171,3 +183,13 @@
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = HAS_TAIL
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)

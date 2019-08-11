@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	else if(still_stuff_to_move && !speed_process)
 		makeSpeedProcess()
 
-/obj/machinery/conveyor/Crossed(atom/movable/AM)
+/obj/machinery/conveyor/Crossed(atom/movable/AM, oldloc)
 	if(!speed_process && !AM.anchored)
 		makeSpeedProcess()
 	..()
@@ -312,21 +312,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		to_chat(user,"<span class='notice'>You detach the conveyor switch.</span>")
 		qdel(src)
 	else if(ismultitool(I))
-		update_multitool_menu(user)
+		one_way = !one_way
+		to_chat(user, "<span class='notice'>[src] will now go [one_way ? "forwards only" : "both forwards and backwards"].</span>")
 	else
 		return ..()
-
-/obj/machinery/conveyor_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
-	..()
-	if("toggle_logic" in href_list)
-		one_way = !one_way
-		update_multitool_menu(user)
-
-/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
- 	<ul>
- 	<li><b>One direction only:</b> <a href='?src=[UID()];toggle_logic=1'>[one_way ? "On" : "Off"]</a></li>
- 	</ul>"}
 
 /obj/machinery/conveyor_switch/power_change()
 	..()

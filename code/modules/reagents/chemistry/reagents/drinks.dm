@@ -8,7 +8,7 @@
 	drink_desc = "Vitamins! Yay!"
 	taste_message = "orange juice"
 
-/datum/reagent/consumable/drink/orangejuicde/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/orangejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -89,7 +89,7 @@
 	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 	taste_message = "healthy dietary choices"
 
-/datum/reagent/consumable/drink/doctors_delight/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/doctor_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -178,7 +178,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
+	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -194,7 +194,7 @@
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.job in list("Mime"))
+	if(ishuman(M) && M.mind && M.mind.miming)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -308,7 +308,7 @@
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Coffee"
 	drink_desc = "A drink to perk you up and refresh you!"
-	taste_message = "coffee"
+	taste_message = "refreshingly cold coffee"
 
 /datum/reagent/consumable/drink/coffee/soy_latte
 	name = "Soy Latte"
@@ -320,6 +320,7 @@
 	drink_icon = "soy_latte"
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
+	taste_message = "fake milky coffee"
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -338,6 +339,7 @@
 	drink_icon = "cafe_latte"
 	drink_name = "Cafe Latte"
 	drink_desc = "A nice, strong and refreshing beverage while you are reading."
+	taste_message = "milky coffee"
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -353,6 +355,7 @@
 	color = "#673629"
 	drink_name = "Cafe Mocha"
 	drink_desc = "The perfect blend of coffe, milk, and chocolate."
+	taste_message = "chocolatey coffee"
 
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
@@ -385,20 +388,21 @@
 	drink_icon = "icetea"
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
+	taste_message = "cold tea"
 
 /datum/reagent/consumable/drink/bananahonk
-	name = "Banana Mama"
+	name = "Banana Honk"
 	id = "bananahonk"
 	description = "A drink from Clown Heaven."
 	color = "#664300" // rgb: 102, 67, 0
 	drink_icon = "bananahonkglass"
 	drink_name = "Banana Honk"
 	drink_desc = "A drink from Banana Heaven."
-	taste_message = "honks"
+	taste_message = "HONK"
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
+	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -462,7 +466,7 @@
 	drink_icon = "bluecherryshake"
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
-	taste_message = "cherry milkshake"
+	taste_message = "blues"
 
 /datum/reagent/consumable/drink/pumpkin_latte
 	name = "Pumpkin Latte"

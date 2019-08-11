@@ -6,6 +6,7 @@
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"
+	layer = GAS_SCRUBBER_LAYER
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -40,6 +41,11 @@
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on
+	on = TRUE
+	scrub_N2O = TRUE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
 	icon = null
@@ -53,8 +59,8 @@
 	if(initial_loc && frequency == ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
@@ -91,6 +97,10 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
+	..()
+	
+	plane = FLOOR_PLANE
+
 	if(!check_icon_cache())
 		return
 
@@ -127,9 +137,9 @@
 				add_underlay(T,, dir)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, radio_filter_in)
+	radio_connection = SSradio.add_object(src, frequency, radio_filter_in)
 	if(frequency != ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag

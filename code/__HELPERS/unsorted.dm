@@ -216,6 +216,23 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			line+=locate(px,py,M.z)
 	return line
 
+//Same as the thing below just for density and without support for atoms.
+/proc/can_line(atom/source, atom/target, length = 5)
+	var/turf/current = get_turf(source)
+	var/turf/target_turf = get_turf(target)
+	var/steps = 0
+
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(!current)
+			return FALSE
+		if(current.density)
+			return FALSE
+		current = get_step_towards(current, target_turf)
+		steps++
+	return TRUE
+
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
@@ -570,13 +587,14 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return 1
 
-/proc/is_blocked_turf(var/turf/T)
-	var/cant_pass = 0
-	if(T.density) cant_pass = 1
-	for(var/atom/A in T)
-		if(A.density)//&&A.anchored
-			cant_pass = 1
-	return cant_pass
+proc/is_blocked_turf(turf/T, exclude_mobs)
+	if(T.density)
+		return 1
+	for(var/i in T)
+		var/atom/A = i
+		if(A.density && (!exclude_mobs || !ismob(A)))
+			return 1
+	return 0
 
 /proc/get_step_towards2(var/atom/ref , var/atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
@@ -791,7 +809,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 					if(turftoleave)
 						fromupdate += T.ChangeTurf(turftoleave)
 					else
-						T.ChangeTurf(/turf/space)
+						T.ChangeTurf(T.baseturf)
 
 					refined_src -= T
 					refined_trg -= B
@@ -1165,7 +1183,7 @@ var/global/list/common_tools = list(
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/O = W
 		if(O.isOn())
-			return 3800
+			return 2500
 		else
 			return 0
 	if(istype(W, /obj/item/lighter))
@@ -1207,7 +1225,7 @@ var/global/list/common_tools = list(
 		else
 			return 0
 	if(istype(W, /obj/item/assembly/igniter))
-		return 1000
+		return 20000
 	else
 		return 0
 
@@ -1296,31 +1314,6 @@ proc/get_angle(atom/a, atom/b)
 proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
-
-proc/rotate_icon(file, state, step = 1, aa = FALSE)
-	var icon/base = icon(file, state)
-
-	var w, h, w2, h2
-
-	if(aa)
-		aa++
-		w = base.Width()
-		w2 = w * aa
-		h = base.Height()
-		h2 = h * aa
-
-	var icon{result = icon(base); temp}
-
-	for(var/angle in 0 to 360 step step)
-		if(angle == 0  ) continue
-		if(angle == 360)   continue
-		temp = icon(base)
-		if(aa) temp.Scale(w2, h2)
-		temp.Turn(angle)
-		if(aa) temp.Scale(w,   h)
-		result.Insert(temp, "[angle]")
-
-	return result
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
@@ -1487,10 +1480,11 @@ var/mob/dview/dview_mob = new
 /mob/dview
 	invisibility = 101
 	density = 0
-
+	move_force = 0
+	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-
+	canmove = FALSE
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
@@ -1724,8 +1718,8 @@ var/mob/dview/dview_mob = new
 /proc/turf_clear(turf/T)
 	for(var/atom/A in T)
 		if(A.simulated)
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1910,17 +1904,27 @@ var/mob/dview/dview_mob = new
 	return matches
 
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
-/proc/stoplag()
-	. = 1
-	sleep(world.tick_lag)
-	if(world.tick_usage > TICK_LIMIT_TO_RUN) //woke up, still not enough tick, sleep for more.
-		. += 2
-		sleep(world.tick_lag*2)
-		if(world.tick_usage > TICK_LIMIT_TO_RUN) //woke up, STILL not enough tick, sleep for more.
-			. += 4
-			sleep(world.tick_lag*4)
-			//you might be thinking of adding more steps to this, or making it use a loop and a counter var
-			//	not worth it.
+
+//Increases delay as the server gets more overloaded,
+//as sleeps aren't cheap and sleeping only to wake up and sleep again is wasteful
+#define DELTA_CALC max(((max(TICK_USAGE, world.cpu) / 100) * max(Master.sleep_delta-1,1)), 1)
+
+//returns the number of ticks slept
+/proc/stoplag(initial_delay)
+	if(!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
+		sleep(world.tick_lag)
+		return 1
+	if(!initial_delay)
+		initial_delay = world.tick_lag
+	. = 0
+	var/i = DS2TICKS(initial_delay)
+	do
+		. += CEILING(i*DELTA_CALC, 1)
+		sleep(i*world.tick_lag*DELTA_CALC)
+		i *= 2
+	while(TICK_USAGE > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
+
+#undef DELTA_CALC
 
 // This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
 /proc/getpois(mobs_only=0,skip_mindless=0)
@@ -2036,3 +2040,26 @@ var/mob/dview/dview_mob = new
 
 /proc/pass()
 	return
+
+/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+	var/initialpixelx = pixel_x
+	var/initialpixely = pixel_y
+	var/shiftx = rand(-pixelshiftx,pixelshiftx)
+	var/shifty = rand(-pixelshifty,pixelshifty)
+	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
+	pixel_x = initialpixelx
+	pixel_y = initialpixely
+
+/proc/params2turf(scr_loc, turf/origin, client/C)
+	if(!scr_loc)
+		return null
+	var/tX = splittext(scr_loc, ",")
+	var/tY = splittext(tX[2], ":")
+	var/tZ = origin.z
+	tY = tY[1]
+	tX = splittext(tX[1], ":")
+	tX = tX[1]
+	var/list/actual_view = getviewsize(C ? C.view : world.view)
+	tX = Clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
+	tY = Clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
+	return locate(tX, tY, tZ)

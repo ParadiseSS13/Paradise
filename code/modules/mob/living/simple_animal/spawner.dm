@@ -7,7 +7,7 @@
 	var/max_mobs = 5
 	var/spawn_delay = 0
 	var/spawn_time = 300 //30 seconds default
-	var/mob_type = /mob/living/simple_animal/hostile/carp
+	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
 	var/spawn_text = "emerges from"
 	status_flags = 0
 	move_resist = MOVE_FORCE_VERY_STRONG
@@ -29,7 +29,7 @@
 	spawned_mobs = null
 	return ..()
 
-/mob/living/simple_animal/hostile/spawner/process_ai()
+/mob/living/simple_animal/hostile/spawner/Life()
 	..()
 	spawn_mob()
 
@@ -39,7 +39,8 @@
 	if(spawn_delay > world.time)
 		return 0
 	spawn_delay = world.time + spawn_time
-	var/mob/living/simple_animal/L = new mob_type(src.loc)
+	var/chosen_type = pick(mob_types)
+	var/mob/living/simple_animal/L = new chosen_type(loc)
 	L.admin_spawned = admin_spawned	//If we were admin spawned, lets have our children count as that as well.
 	spawned_mobs += L
 	L.nest = src
@@ -51,12 +52,12 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 	spawn_text = "warps in from"
-	mob_type = /mob/living/simple_animal/hostile/syndicate/ranged
+	mob_types = list(/mob/living/simple_animal/hostile/syndicate/ranged)
 	faction = list("syndicate")
 
 /mob/living/simple_animal/hostile/spawner/mining
 	name = "monster den"
-	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining asteroids."
+	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining areas."
 	icon_state = "hole"
 	icon_living = "hole"
 	health = 200
@@ -64,21 +65,21 @@
 	max_mobs = 3
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls out of"
-	mob_type = /mob/living/simple_animal/hostile/asteroid/goldgrub
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("mining")
 
 /mob/living/simple_animal/hostile/spawner/mining/goliath
 	name = "goliath den"
 	desc = "A den housing a nest of goliaths, oh god why?"
-	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath)
 
 /mob/living/simple_animal/hostile/spawner/mining/hivelord
 	name = "hivelord den"
 	desc = "A den housing a nest of hivelords."
-	mob_type = /mob/living/simple_animal/hostile/asteroid/hivelord
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
 
 /mob/living/simple_animal/hostile/spawner/mining/basilisk
 	name = "basilisk den"
 	desc = "A den housing a nest of basilisks, bring a coat."
-	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk)

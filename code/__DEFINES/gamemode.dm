@@ -4,15 +4,17 @@
 #define TARGET_INVALID_DEAD			3
 #define TARGET_INVALID_NOCKEY		4
 #define TARGET_INVALID_UNREACHABLE	5
+#define TARGET_INVALID_GOLEM		6
+#define TARGET_INVALID_EVENT		7
+#define TARGET_INVALID_IS_TARGET	8
 
 //gamemode istype helpers
-#define GAMEMODE_IS_BLOB		(ticker && istype(ticker.mode, /datum/game_mode/blob))
-#define GAMEMODE_IS_CULT		(ticker && istype(ticker.mode, /datum/game_mode/cult))
-#define GAMEMODE_IS_HEIST		(ticker && istype(ticker.mode, /datum/game_mode/heist))
-#define GAMEMODE_IS_NATIONS		(ticker && istype(ticker.mode, /datum/game_mode/nations))
-#define GAMEMODE_IS_NUCLEAR		(ticker && istype(ticker.mode, /datum/game_mode/nuclear))
-#define GAMEMODE_IS_REVOLUTION	(ticker && istype(ticker.mode, /datum/game_mode/revolution))
-#define GAMEMODE_IS_WIZARD		(ticker && istype(ticker.mode, /datum/game_mode/wizard))
+#define GAMEMODE_IS_BLOB		(SSticker && istype(SSticker.mode, /datum/game_mode/blob))
+#define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
+#define GAMEMODE_IS_HEIST		(SSticker && istype(SSticker.mode, /datum/game_mode/heist))
+#define GAMEMODE_IS_NUCLEAR		(SSticker && istype(SSticker.mode, /datum/game_mode/nuclear))
+#define GAMEMODE_IS_REVOLUTION	(SSticker && istype(SSticker.mode, /datum/game_mode/revolution))
+#define GAMEMODE_IS_WIZARD		(SSticker && istype(SSticker.mode, /datum/game_mode/wizard))
 
 //special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
@@ -51,3 +53,4 @@
 #define SPECIAL_ROLE_XENOMORPH_DRONE "Xenomorph Drone"
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
+#define SPECIAL_ROLE_EVENTMISC "Event Role"

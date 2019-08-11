@@ -38,8 +38,21 @@
 	..()
 	for(var/atom/movable/AM in src)
 		Entered(AM)
-	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	if(smooth && SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		queue_smooth(src)
+
+/turf/Initialize(mapload)
+	. = ..()
+	
+	var/area/A = loc
+	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
+		add_overlay(/obj/effect/fullbright)
+
+	if(light_power && light_range)
+		update_light()
+
+	if (opacity)
+		has_opaque_atom = TRUE
 
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
@@ -167,17 +180,21 @@
 	if(L)
 		qdel(L)
 
+/turf/proc/TerraformTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
+
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	if(!path)
 		return
 	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
+
 	set_light(0)
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/old_affecting_lights = affecting_lights
-	var/old_lighting_overlay = lighting_overlay
+	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
 	var/old_corners = corners
@@ -185,28 +202,34 @@
 	BeforeChange()
 	if(SSair)
 		SSair.remove_from_active(src)
+
+	var/old_baseturf = baseturf
 	var/turf/W = new path(src)
+	W.baseturf = old_baseturf
+	
 	if(!defer_change)
-		W.AfterChange()
-
+		W.AfterChange(ignore_air)
 	W.blueprint_data = old_blueprint_data
-
-	for(var/turf/space/S in range(W,1))
-		S.update_starlight()
 
 	recalc_atom_opacity()
 
-	if(lighting_overlays_initialised)
-		lighting_overlay = old_lighting_overlay
+	if(SSlighting.initialized)
+		recalc_atom_opacity()
+		lighting_object = old_lighting_object
+
 		affecting_lights = old_affecting_lights
 		corners = old_corners
-		if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
+		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
 			reconsider_lights()
+
 		if(dynamic_lighting != old_dynamic_lighting)
-			if(dynamic_lighting)
+			if(IS_DYNAMIC_LIGHTING(src))
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+
+		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+			S.update_starlight()
 
 	obscured = old_obscured
 
@@ -266,8 +289,8 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	src.ChangeTurf(/turf/space)
-	new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+	ChangeTurf(baseturf)
+	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
@@ -281,6 +304,13 @@
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
+
+/turf/get_spooked()
+	for(var/atom/movable/AM in contents)
+		AM.get_spooked()
+
+/turf/proc/burn_down()
+	return
 
 /////////////////////////////////////////////////////////////////////////
 // Navigation procs
@@ -396,11 +426,11 @@
 				continue
 			if(O.invisibility == 101)
 				O.singularity_act()
-	ChangeTurf(/turf/space)
+	ChangeTurf(baseturf)
 	return(2)
 
 /turf/proc/visibilityChanged()
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
@@ -453,7 +483,7 @@
 	blueprint_data += I
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type=/turf/space)
@@ -461,13 +491,13 @@
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X
+		if(!A.simulated)
+			continue
 		if(istype(A, /mob/dead))
 			continue
 		if(istype(A, /obj/effect/landmark))
 			continue
 		if(istype(A, /obj/docking_port))
-			continue
-		if(!A.simulated)
 			continue
 		qdel(A, force=TRUE)
 
@@ -479,3 +509,7 @@
 
 /turf/AllowDrop()
 	return TRUE
+
+/turf/proc/water_act(volume, temperature, source)
+	for(var/mob/living/carbon/slime/M in src)
+		M.apply_water()

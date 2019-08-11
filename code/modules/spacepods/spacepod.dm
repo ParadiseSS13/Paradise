@@ -92,6 +92,8 @@
 		has_paint = 1
 	update_icons()
 
+/obj/spacepod/get_cell()
+	return battery
 
 /obj/spacepod/New()
 	. = ..()
@@ -152,7 +154,7 @@
 	if(src.empcounter > 0)
 		src.empcounter--
 	else
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
@@ -286,7 +288,7 @@
 	deal_damage(80 / severity)
 	if(empcounter < (40 / severity))
 		empcounter = 40 / severity
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 	switch(severity)
 		if(1)
@@ -1035,7 +1037,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 		return stop()
 
 /obj/spacepod/relaymove(mob/user, direction)
-	if(usr != src.pilot)
+	if(user != src.pilot)
 		return
 	handlerelaymove(user, direction)
 

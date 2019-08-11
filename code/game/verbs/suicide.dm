@@ -1,7 +1,7 @@
 /mob/var/suiciding = 0
 
 /mob/living/carbon/human/proc/do_suicide(damagetype, byitem)
-	var/threshold = (config.health_threshold_crit + config.health_threshold_dead) / 2
+	var/threshold = check_death_method() ? ((HEALTH_THRESHOLD_CRIT + HEALTH_THRESHOLD_DEAD) / 2) : (HEALTH_THRESHOLD_DEAD - 50)
 	var/dmgamt = maxHealth - threshold
 
 	var/damage_mod = 1
@@ -52,11 +52,14 @@
 /mob/living/carbon/human/verb/suicide()
 	set hidden = 1
 
+	be_suicidal()
+
+/mob/living/carbon/human/proc/be_suicidal(forced = FALSE)
 	if(stat == DEAD)
 		to_chat(src, "You're already dead!")
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 
@@ -69,20 +72,39 @@
 		to_chat(src, "You're already committing suicide! Be patient!")
 		return
 
-	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
-	if(confirm == "Yes")
-		suiciding = 1
+	var/confirm = null
+	if(!forced)
+		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+
+	if(forced || (confirm == "Yes"))
+		suiciding = TRUE
 		var/obj/item/held_item = get_active_hand()
 		if(held_item)
 			var/damagetype = held_item.suicide_act(src)
 			if(damagetype)
 				if(damagetype & SHAME)
 					adjustStaminaLoss(200)
-					suiciding = 0
+					suiciding = FALSE
+					return
+				if(damagetype & OBLITERATION) // Does it gib or something? Don't deal damage
 					return
 				do_suicide(damagetype, held_item)
 				return
+		else
+			for(var/obj/O in orange(1, src))
+				if(O.suicidal_hands)
+					continue
+				var/damagetype = O.suicide_act(src)
+				if(damagetype)
+					if(damagetype & SHAME)
+						adjustStaminaLoss(200)
+						suiciding = FALSE
+						return
+					if(damagetype & OBLITERATION)
+						return
+					do_suicide(damagetype, O)
+					return
 
 		to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
 		do_suicide(0)
@@ -94,7 +116,7 @@
 		to_chat(src, "You're already dead!")
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 

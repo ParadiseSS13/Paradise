@@ -44,12 +44,12 @@
 /datum/game_mode/proc/declare_job_completion()
 	var/text = "<hr><b><u>Job Completion</u></b>"
 
-	for(var/datum/mind/employee in ticker.minds)
+	for(var/datum/mind/employee in SSticker.minds)
 
 		if(!employee.job_objectives.len)//If the employee had no objectives, don't need to process this.
 			continue
 
-		if(employee.assigned_role == employee.special_role) //If the character is an offstation character, skip them.
+		if(employee.assigned_role == employee.special_role || employee.offstation_role) //If the character is an offstation character, skip them.
 			continue
 
 		var/tasks_completed=0

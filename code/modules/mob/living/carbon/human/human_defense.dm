@@ -157,7 +157,7 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/check_block()
+/mob/living/carbon/human/proc/check_block()
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
@@ -220,6 +220,10 @@ emp_act
 		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
 			return 0
 
+	if(check_block())
+		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+		return FALSE
+
 	if(istype(I,/obj/item/card/emag))
 		emag_act(user, affecting)
 
@@ -263,7 +267,7 @@ emp_act
 							apply_effect(5, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
-							ticker.mode.remove_revolutionary(mind)
+							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
@@ -502,9 +506,9 @@ emp_act
 			return 0
 	..()
 
-/mob/living/carbon/human/water_act(volume, temperature, source)
-	..()
-	dna.species.water_act(src,volume,temperature,source)
+/mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	dna.species.water_act(src, volume, temperature, source, method)
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
@@ -513,3 +517,12 @@ emp_act
 		return TRUE
 	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return TRUE
+
+/mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
+	if(wear_mask)
+		to_chat(src, "<span class='danger'>Your [wear_mask.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	if(head)
+		to_chat(src, "<span class='danger'>Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	return TRUE

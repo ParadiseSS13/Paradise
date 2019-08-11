@@ -28,6 +28,11 @@
 		W.setDir(dir)
 		qdel(src)
 
+/obj/structure/chair/ratvar_act()
+	var/obj/structure/chair/brass/B = new(get_turf(src))
+	B.setDir(dir)
+	qdel(src)
+
 /obj/structure/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
@@ -80,7 +85,7 @@
 
 /obj/structure/chair/proc/handle_layer()
 	if(buckled_mob && dir == NORTH)
-		layer = FLY_LAYER
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
@@ -146,35 +151,38 @@
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
-	color = rgb(255,255,255)
+	color = rgb(255, 255, 255)
 	burn_state = FLAMMABLE
 	burntime = 30
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
 
-/obj/structure/chair/comfy/New()
-	armrest = image("icons/obj/chairs.dmi", "comfychair_armrest")
+/obj/structure/chair/comfy/Initialize(mapload)
+	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
+
+/obj/structure/chair/comfy/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
 	return ..()
 
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays += armrest
-	else
-		overlays -= armrest
+	. = ..()
+	update_armrest()
 
 /obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays -= armrest
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/comfy/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
 	else
-		overlays += armrest
+		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
 	color = rgb(141,70,0)
@@ -208,6 +216,14 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+
+/obj/structure/chair/comfy/shuttle
+	name = "shuttle seat"
+	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
+	icon_state = "shuttle_chair"
+
+/obj/structure/chair/comfy/shuttle/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
@@ -416,3 +432,41 @@
 	desc = "You sit in this. Either by will or force. Looks REALLY uncomfortable."
 	icon_state = "chairold"
 	item_chair = null
+
+// Brass chair
+/obj/structure/chair/brass
+	name = "brass chair"
+	desc = "A spinny chair made of brass. It looks uncomfortable."
+	icon_state = "brass_chair"
+	max_integrity = 150
+	buildstacktype = /obj/item/stack/tile/brass
+	buildstackamount = 1
+	item_chair = null
+	var/turns = 0
+
+/obj/structure/chair/brass/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	. = ..()
+
+/obj/structure/chair/brass/process()
+	setDir(turn(dir,-90))
+	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
+	turns++
+	if(turns >= 8)
+		STOP_PROCESSING(SSfastprocess, src)
+
+/obj/structure/chair/brass/ratvar_act()
+	return
+
+/obj/structure/chair/brass/AltClick(mob/living/user)
+	turns = 0
+	if(!istype(user) || user.incapacitated() || !in_range(src, user))
+		return
+	if(!isprocessing)
+		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
+		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
+		START_PROCESSING(SSfastprocess, src)
+	else
+		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
+		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
+		STOP_PROCESSING(SSfastprocess, src)

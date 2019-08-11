@@ -229,7 +229,7 @@
 	id = "flamingmoe"
 	result = "flamingmoe"
 	required_reagents = list("vodka" = 1, "gin" = 1, "cognac" = 1, "tequila" = 1, "salglu_solution" = 1) //Close enough
-	min_temp = 374 //Fire makes it good!
+	min_temp = T0C + 100 //Fire makes it good!
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 	mix_message = "The concoction bursts into flame!"
@@ -701,7 +701,7 @@
 	id = "applejack"
 	result = "applejack"
 	required_reagents = list("cider" = 2)
-	max_temp = 270
+	max_temp = T0C
 	result_amount = 1
 	mix_message = "The drink darkens as the water freezes, leaving the concentrated cider behind."
 	mix_sound = null
@@ -852,3 +852,19 @@
 	result_amount = 15
 	mix_message = "The eggs nog together. Pretend that \"nog\" is a verb."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/hooch
+	name = "Hooch"
+	id = "hooch"
+	result = "hooch"
+	required_reagents = list("ethanol" = 2, "fuel" = 1)
+	result_amount = 3
+	required_catalysts = list("enzyme" = 1)
+
+/datum/chemical_reaction/bacchus_blessing
+	name = "Bacchus' Blessing"
+	id = "bacchus_blessing"
+	result = "bacchus_blessing"
+	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
+	result_amount = 4
+	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"

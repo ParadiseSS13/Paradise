@@ -10,16 +10,16 @@
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	var/squeak_sound = 'sound/effects/mousesqueek.ogg'
+	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "stamps on the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stamps on"
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -35,8 +35,9 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/mouse/Initialize()
+/mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -54,10 +55,9 @@
 		else if(prob(5))
 			emote("snuffles")
 
-/mob/living/simple_animal/mouse/process_ai()
+/mob/living/simple_animal/mouse/Life()
 	..()
-
-	if(prob(0.5))
+	if(prob(0.5) && !ckey)
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
@@ -74,7 +74,6 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
-	playsound(src, squeak_sound, 40, 1)
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
@@ -92,16 +91,16 @@
 	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
 	return
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
+/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
-		if(stat == CONSCIOUS)
+		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-			SEND_SOUND(M, squeak_sound)
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
+	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
@@ -109,7 +108,7 @@
 	if(client)
 		client.time_died_as_mouse = world.time
 
-/mob/living/simple_animal/mouse/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -121,12 +120,12 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
 
 	switch(act)
 		if("squeak")
-			message = "<B>\The [src]</B> squeaks!"
+			message = "<B>\The [src]</B> [pick(emote_hear)]!"
 			m_type = 2 //audible
 			playsound(src, squeak_sound, 40, 1)
 		if("help")

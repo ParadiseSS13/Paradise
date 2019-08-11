@@ -6,10 +6,10 @@
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, VIRUSIMMUNE, NOGUNS)
+	dies_at_threshold = TRUE
 	brute_mod = 0.45 //55% damage reduction
 	burn_mod = 0.45
 	tox_mod = 0.45
-	oxy_mod = 0
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
@@ -87,6 +87,19 @@
 	H.regenerate_icons()
 	to_chat(H, info_text)
 
+/datum/species/golem/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(istype(H.w_uniform, /obj/item/clothing/under/golem)) // Doing these if checks here just in case the golem is somehow wearing something other than their golem shell, which should be impossible but you never know.
+		qdel(H.w_uniform)
+	if(istype(H.wear_suit, /obj/item/clothing/suit/golem))
+		qdel(H.wear_suit)
+	if(istype(H.shoes, /obj/item/clothing/shoes/golem))
+		qdel(H.shoes)
+	if(istype(H.wear_mask, /obj/item/clothing/mask/gas/golem))
+		qdel(H.wear_mask)
+	if(istype(H.gloves, /obj/item/clothing/gloves/golem))
+		qdel(H.gloves)
+
 //Random Golem
 
 /datum/species/golem/random
@@ -150,6 +163,8 @@
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
 		explosion(get_turf(H), 1, 2, 4, flame_range = 5)
+		msg_admin_attack("Plasma Golem ([H.name]) exploded with radius 1, 2, 4 (flame_range: 5) at ([H.x],[H.y],[H.z]). User Ckey: [key_name_admin(H)]", ATKLOG_FEW)
+		log_game("Plasma Golem ([H.name]) exploded with radius 1, 2, 4 (flame_range: 5) at ([H.x],[H.y],[H.z]). User Ckey: [key_name_admin(H)]", ATKLOG_FEW)
 		if(H)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable
@@ -520,23 +535,26 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
+	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
 	var/tele_range = 6
 
 /datum/action/innate/unstable_teleport/IsAvailable()
 	if(..())
-		if(world.time > last_teleport + cooldown)
+		if(world.time > last_teleport + cooldown && !activated)
 			return 1
 		return 0
 
 /datum/action/innate/unstable_teleport/Activate()
+	activated = TRUE
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] starts vibrating!</span>", "<span class='danger'>You start charging your bluespace core...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
+	activated = FALSE
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
@@ -589,7 +607,6 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.job = "Clown"
 	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
@@ -664,7 +681,6 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.job = "Mime"
 	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), slot_head)
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)

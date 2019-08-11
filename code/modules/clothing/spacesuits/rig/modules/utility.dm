@@ -269,14 +269,13 @@
 /obj/item/rig_module/voice/New()
 	..()
 	voice_holder = new(src)
-	voice_holder.active = 0
+	voice_holder.active = FALSE
 
 /obj/item/rig_module/voice/installed()
 	..()
 	holder.speech = src
 
 /obj/item/rig_module/voice/engage()
-
 	if(!..())
 		return 0
 
@@ -287,17 +286,17 @@
 
 	switch(choice)
 		if("Enable")
-			active = 1
-			voice_holder.active = 1
+			active = TRUE
+			voice_holder.active = TRUE
 			to_chat(usr, "<font color='blue'>You enable the speech synthesiser.</font>")
 		if("Disable")
-			active = 0
-			voice_holder.active = 0
+			active = FALSE
+			voice_holder.active = FALSE
 			to_chat(usr, "<font color='blue'>You disable the speech synthesiser.</font>")
 		if("Set Name")
 			var/raw_choice = sanitize(input(usr, "Please enter a new name.")  as text|null, MAX_NAME_LEN)
 			if(!raw_choice)
-				return 0
+				return FALSE
 			voice_holder.voice = raw_choice
 			to_chat(usr, "<font color='blue'>You are now mimicking <B>[voice_holder.voice]</B>.</font>")
 	return 1

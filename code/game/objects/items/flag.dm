@@ -21,7 +21,7 @@
 	user.visible_message("<span class='notice'>[user] [rolled ? "rolls up" : "unfurls"] [src].</span>", "<span class='notice'>You [rolled ? "roll up" : "unfurl"] [src].</span>", "<span class='warning'>You hear fabric rustling.</span>")
 	update_icon()
 
-/obj/item/flag/fire_act(global_overlay = FALSE)
+/obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
 	..()
 	update_icon()
 
@@ -63,11 +63,6 @@
 	name = "Mime Revolution flag"
 	desc = "The banner of the glorious revolutionary forces fighting the oppressors on Clown Planet."
 	icon_state = "mimeflag"
-
-/obj/item/flag/pony
-	name = "Equestria flag"
-	desc = "The flag of the independent, sovereign nation of Equestria, whatever the fuck that is."
-	icon_state = "ponyflag"
 
 /obj/item/flag/ian
 	name = "Ian flag"
@@ -170,8 +165,8 @@
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "Commandzikstan flag"
-	desc = "The flag of the independent, sovereign nation of Commandzikstan."
+	name = "Command flag"
+	desc = "The flag of the independent, sovereign nation of Command."
 	icon_state = "ntflag"
 
 //Antags

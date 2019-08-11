@@ -16,6 +16,7 @@
 var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("chair", /obj/structure/chair, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("shuttle seat", /obj/structure/chair/comfy/shuttle, 2, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, one_per_turf = 1, on_floor = 1),
@@ -105,6 +106,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
+	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -151,6 +153,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
+	point_value = 23
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
@@ -214,6 +217,8 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1), \
 	new/datum/stack_recipe("black gloves", /obj/item/clothing/gloves/color/black, 3), \
+	null, \
+	new/datum/stack_recipe("blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3), \
 	)
 
 /obj/item/stack/sheet/cloth
@@ -240,6 +245,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
+	new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
 	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
 	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
 	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
@@ -332,10 +338,13 @@ var/global/list/datum/stack_recipe/cult = list ( \
  * Brass
  */
 var/global/list/datum/stack_recipe/brass_recipes = list (\
+	new/datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
+	null,
 	new/datum/stack_recipe/window("brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE), \
 	null,
 	new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
 	)
 
@@ -384,8 +393,8 @@ var/global/list/datum/stack_recipe/brass_recipes = list (\
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
-	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/empty), \
-	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
+	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \

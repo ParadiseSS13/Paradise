@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Empty beaker button from the PANDEMIC is now replaced with Empty and eject beaker"

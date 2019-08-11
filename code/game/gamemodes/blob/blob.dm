@@ -3,6 +3,8 @@ var/list/blobs = list()
 var/list/blob_cores = list()
 var/list/blob_nodes = list()
 
+/datum/game_mode
+	var/list/blob_overminds = list()
 
 /datum/game_mode/blob
 	name = "blob"
@@ -41,9 +43,11 @@ var/list/blob_nodes = list()
 	for(var/j = 0, j < cores_to_spawn, j++)
 		if(!possible_blobs.len)
 			break
+
 		var/datum/mind/blob = pick(possible_blobs)
 		infected_crew += blob
 		blob.special_role = SPECIAL_ROLE_BLOB
+		update_blob_icons_added(blob)
 		blob.restricted_roles = restricted_jobs
 		log_game("[key_name(blob)] has been selected as a Blob")
 		possible_blobs -= blob
@@ -65,8 +69,11 @@ var/list/blob_nodes = list()
 	var/datum/mind/blobmind = blob.mind
 	if(!istype(blobmind))
 		return 0
+
 	infected_crew += blobmind
 	blobmind.special_role = SPECIAL_ROLE_BLOB
+	update_blob_icons_added(blobmind)
+
 	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
@@ -184,16 +191,21 @@ var/list/blob_nodes = list()
 	return ..()
 
 /datum/game_mode/blob/proc/stage(var/stage)
-
 	switch(stage)
 		if(0)
 			send_intercept(1)
 			declared = 1
-
 		if(1)
 			event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
-
 		if(2)
 			send_intercept(2)
 
-	return
+/datum/game_mode/proc/update_blob_icons_added(datum/mind/mob_mind)
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_BLOB]
+	antaghud.join_hud(mob_mind.current)
+	set_antag_hud(mob_mind.current, "hudblob")
+
+/datum/game_mode/proc/update_blob_icons_removed(datum/mind/mob_mind)
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_BLOB]
+	antaghud.leave_hud(mob_mind.current)
+	set_antag_hud(mob_mind.current, null)

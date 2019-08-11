@@ -99,9 +99,9 @@
 				new_objective:target = H:mind
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
-				ticker.mode.traitors += M.mind
+				SSticker.mode.traitors += M.mind
 				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-				ticker.mode.update_wiz_icons_added(M.mind)
+				SSticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
 			else
 				used = 0
@@ -153,8 +153,12 @@
 	src.spawn_amt_left = spawn_amt
 	src.desc = desc
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	//return
+
+/obj/effect/rend/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/effect/rend/process()
 	for(var/mob/M in loc)
@@ -279,7 +283,7 @@ var/global/list/multiverse = list()
 					usr.mind.objectives += hijack_objective
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					to_chat(usr, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
-					ticker.mode.traitors += usr.mind
+					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
@@ -289,7 +293,7 @@ var/global/list/multiverse = list()
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					to_chat(usr, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 					usr.mind.objectives += new_objective
-					ticker.mode.traitors += usr.mind
+					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
 		else
@@ -633,9 +637,9 @@ var/global/list/multiverse = list()
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
-
-	if(!M.mind || !M.client)
-		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
+		
+	if((!M.mind || !M.client) && !M.grab_ghost())
+		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
 	check_spooky()//clean out/refresh the list
@@ -648,6 +652,7 @@ var/global/list/multiverse = list()
 	else
 		M.set_species(/datum/species/skeleton)
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
+		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
 		equip_skeleton(M)
 	spooky_scaries |= M
@@ -728,9 +733,8 @@ var/global/list/multiverse = list()
 
 	H.update_dna()
 	H.update_body()
-
+	H.grab_ghost()
 	H.revive()
-
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
@@ -868,7 +872,7 @@ var/global/list/multiverse = list()
 		var/area/A = get_area(src)
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
-/obj/item/voodoo/fire_act()
+/obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(target)
 		target.adjust_fire_stacks(20)
 		target.IgniteMob()

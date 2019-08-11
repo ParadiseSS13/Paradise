@@ -1,4 +1,3 @@
-#define MEDAL_PREFIX "Hierophant"
 /*
 
 The Hierophant
@@ -66,8 +65,8 @@ Difficulty: Hard
 	var/did_reset = TRUE //if we timed out, returned to our rune, and healed some
 	//var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...")
 	//var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
-	medal_type = MEDAL_PREFIX
-	score_type = BIRD_SCORE
+	medal_type = BOSS_MEDAL_HIEROPHANT
+	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 
@@ -527,7 +526,7 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
+/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(bursting)
 		do_damage(get_turf(src))
@@ -591,24 +590,3 @@ Difficulty: Hard
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."
 	invisibility = 100
-
-/turf/simulated/indestructible/hierophant
-	icon_state = "hierophant1"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	desc = "A floor with a square pattern. It's faintly cool to the touch."
-
-/turf/simulated/indestructible/hierophant/New()
-	..()
-	if(prob(50))
-		icon_state = "hierophant2"
-
-/turf/simulated/indestructible/riveted/hierophant
-	name = "wall"
-	desc = "A wall made out of smooth, cold stone."
-	icon = 'icons/turf/walls/hierophant_wall.dmi'
-	icon_state = "hierophant"
-	smooth = SMOOTH_TRUE
-
-#undef MEDAL_PREFIX

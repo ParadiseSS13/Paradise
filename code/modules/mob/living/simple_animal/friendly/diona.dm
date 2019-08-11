@@ -32,7 +32,7 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/misc/nymphchirp.ogg' //used in emote
+	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
 	speed = 0
 	stop_automated_movement = 0
@@ -60,7 +60,7 @@
 /datum/action/innate/diona/merge/Activate()
 	var/mob/living/simple_animal/diona/user = owner
 	user.merge()
-	
+
 /datum/action/innate/diona/evolve
 	name = "Evolve"
 	icon_icon = 'icons/obj/cloning.dmi'
@@ -72,8 +72,8 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Steal blood"
-	icon_icon = 'icons/obj/bloodpack.dmi'
-	button_icon_state = "full"
+	icon_icon = 'icons/goonstation/objects/iv.dmi'
+	button_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -109,6 +109,8 @@
 			forceMove(M)
 		else
 			get_scooped(M)
+	else
+		..()
 
 /mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)
@@ -149,7 +151,7 @@
 	to_chat(loc, "You feel a pang of loss as [src] splits away from your biomass.")
 	to_chat(src, "You wiggle out of the depths of [loc]'s biomass and plop to the ground.")
 	forceMove(T)
-	
+
 	var/hasMobs = FALSE
 	for(var/atom/A in D.contents)
 		if(istype(A, /mob/) || istype(A, /obj/item/holder))
@@ -161,9 +163,9 @@
 	return TRUE
 
 /mob/living/simple_animal/diona/proc/evolve()
-	if(stat != CONSCIOUS)		
+	if(stat != CONSCIOUS)
 		return FALSE
-	
+
 	if(donors.len < evolve_donors)
 		to_chat(src, "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>")
 		return FALSE
@@ -174,7 +176,7 @@
 
 	if(isdiona(loc) && !split()) //if it's merged with diona, needs to able to split before evolving
 		return FALSE
-	
+
 	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
@@ -200,14 +202,14 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/simple_animal/diona/proc/steal_blood() 
-	if(stat != CONSCIOUS)		
+/mob/living/simple_animal/diona/proc/steal_blood()
+	if(stat != CONSCIOUS)
 		return FALSE
-	
+
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in oview(1,src))
 		if(Adjacent(H) && H.dna && !(NO_BLOOD in H.dna.species.species_traits))
-			choices += H		
+			choices += H
 
 	if(!choices.len)
 		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
@@ -258,7 +260,7 @@
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
 
-/mob/living/simple_animal/diona/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/diona/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -270,7 +272,7 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
 
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
@@ -278,5 +280,7 @@
 			message = "<B>\The [src]</B> chirps!"
 			m_type = 2 //audible
 			playsound(src, chirp_sound, 40, 1, 1)
+		if("help")
+			to_chat(src, "scream, chirp")
 
-	..(act, m_type, message)
+	..()

@@ -69,6 +69,7 @@
 		qdel(src)
 
 /obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()
@@ -106,7 +107,7 @@
 	..()
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
 	amount_grown += rand(0,2)
@@ -139,10 +140,10 @@
 	..()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/spiderling/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	entry_vent = null
 	return ..()
 

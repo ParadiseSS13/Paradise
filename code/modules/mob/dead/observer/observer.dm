@@ -1,33 +1,38 @@
 #define GHOST_CAN_REENTER 1
 #define GHOST_IS_OBSERVER 2
 
-var/list/image/ghost_darkness_images = list() //this is a list of images for things ghosts should still be able to see when they toggle darkness
+var/list/image/ghost_images = list()
+
+GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer
 	name = "ghost"
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
-	layer = 4
+	layer = GHOST_LAYER
 	stat = DEAD
-	density = 0
-	canmove = 0
+	density = FALSE
+	canmove = FALSE
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
-	var/bootime = 0
+	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
-	universal_speak = 1
+	universal_speak = TRUE
 	var/atom/movable/following = null
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
-	var/ghostvision = 1 //is the ghost able to see things humans can't?
-	var/seedarkness = 1
+	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	var/seedarkness = TRUE
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
+	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
+	set_invisibility(GLOB.observer_default_invisibility)
+
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
@@ -49,7 +54,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -69,7 +74,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	ghostimage.appearance_flags |= KEEP_TOGETHER
 	ghostimage.alpha = alpha
 	appearance_flags |= KEEP_TOGETHER
-	ghost_darkness_images |= ghostimage
+	ghost_images |= ghostimage
 	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
@@ -85,10 +90,15 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		M.following_mobs -= src
 	following = null
 	if(ghostimage)
-		ghost_darkness_images -= ghostimage
+		ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
+
+/mob/dead/observer/examine(mob/user)
+	..()
+	if(!invisibility)
+		to_chat(user, "It seems extremely obvious.")
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -139,15 +149,14 @@ Works together with spawning an observer, noted above.
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		//C.images += target.hud_list[NATIONS_HUD]
 	for(var/mob/living/silicon/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		//C.images += target.hud_list[NATIONS_HUD]
-
 	return 1
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
 	if(key)
+		if(player_logged) //if they have disconnected we want to remove their SSD overlay
+			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
@@ -177,30 +186,44 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
-		// If it's not too early, we'll skip straight to ghosting out without penalty
 	else if(suiciding && TOO_EARLY_TO_GHOST)
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
+		if(isAI(src))
+			warningmsg = "You are a living AI! You should probably use OOC -> Wipe Core instead."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
 
-	if(!warningmsg)
-		ghostize(1)
-	else
+	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
-			return	//didn't want to ghost after-all
-		StartResting()
-		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
-		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
+			return
+
+	if(stat == CONSCIOUS)
+		if(!is_admin_level(z))
+			player_ghosted = 1
+		if(mind && mind.special_role)
+			message_admins("[key_name_admin(src)] has ghosted while alive, with special_role: [mind.special_role]")
+
+	if(warningmsg)
+		// Not respawnable
+		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+	else
+		// Respawnable
+		ghostize(1)
+
+	// If mob in morgue tray, update tray
 	var/obj/structure/morgue/Morgue = locate() in M.loc
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
+
+	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
@@ -208,35 +231,31 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			P.despawn_occupant()
 	return
 
+// Ghosts have no momentum, being massless ectoplasm
+/mob/dead/observer/Process_Spacemove(movement_dir)
+	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
-	dir = direct
-	ghostimage.dir = dir
+	setDir(direct)
+	ghostimage.setDir(dir)
+
+	var/oldloc = loc
+
 	if(NewLoc)
 		forceMove(NewLoc)
-		return
-	forceMove(get_turf(src)) //Get out of closets and such as a ghost
-	if((direct & NORTH) && y < world.maxy)
-		y++
-	else if((direct & SOUTH) && y > 1)
-		y--
-	if((direct & EAST) && x < world.maxx)
-		x++
-	else if((direct & WEST) && x > 1)
-		x--
+	else
+		forceMove(get_turf(src))  //Get out of closets and such as a ghost
+		if((direct & NORTH) && y < world.maxy)
+			y++
+		else if((direct & SOUTH) && y > 1)
+			y--
+		if((direct & EAST) && x < world.maxx)
+			x++
+		else if((direct & WEST) && x > 1)
+			x--
 
-	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
-		S.Crossed(src)
-
-	var/area/A = get_area(src)
-	if(A)
-		A.Entered(src)
-
-	..()
-
-/mob/dead/observer/experience_pressure_difference()
-	return 0
+	Moved(oldloc, direct)
 
 /mob/dead/observer/can_use_hands()	return 0
 
@@ -244,7 +263,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 	statpanel("Status")
 	if(client.statpanel == "Status")
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
 
@@ -374,7 +392,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "AntagHud Toggled OFF")
 		M.antagHUD = 0
 
-/mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
+/mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
 	set name = "Teleport"
 	set desc= "Teleport to a location"
@@ -383,12 +401,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 
-	usr.verbs -= /mob/dead/observer/proc/dead_tele
-	spawn(30)
-		usr.verbs += /mob/dead/observer/proc/dead_tele
+	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", ghostteleportlocs)
+	A.on_close(CALLBACK(src, .proc/teleport))
 
-	var/area/thearea = ghostteleportlocs[A]
-	if(!thearea)	return
+/mob/dead/observer/proc/teleport(area/thearea)
+	if(!thearea)
+		return
 
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(thearea.type))
@@ -396,18 +414,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!L || !L.len)
 		to_chat(usr, "<span class='warning'>No area available.</span>")
+		return
 
 	usr.forceMove(pick(L))
 	following = null
 
-/mob/dead/observer/verb/follow(input in getmobs())
+/mob/dead/observer/verb/follow()
 	set category = "Ghost"
-	set name = "Follow" // "Haunt"
-	set desc = "Follow and haunt a mob."
+	set name = "Orbit" // "Haunt"
+	set desc = "Follow and orbit a mob."
 
-	var/target = getmobs()[input]
-	if(!target) return
-	ManualFollow(target)
+	var/list/mobs = getpois(skip_mindless=1)
+	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
+	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
@@ -420,22 +439,37 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(target != src)
 		if(following && following == target)
 			return
+
+		var/icon/I = icon(target.icon,target.icon_state,target.dir)
+
+		var/orbitsize = (I.Width()+I.Height())*0.5
+
+		if(orbitsize == 0)
+			orbitsize = 40
+
+		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+
+		var/rot_seg
+
+		switch(ghost_orbit)
+			if(GHOST_ORBIT_TRIANGLE)
+				rot_seg = 3
+			if(GHOST_ORBIT_SQUARE)
+				rot_seg = 4
+			if(GHOST_ORBIT_PENTAGON)
+				rot_seg = 5
+			if(GHOST_ORBIT_HEXAGON)
+				rot_seg = 6
+			else //Circular
+				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+
 		following = target
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		if(ismob(target))
-			forceMove(get_turf(target))
-			var/mob/M = target
-			M.following_mobs += src
-		else
-			spawn(0)
-				while(target && following == target && client)
-					var/turf/T = get_turf(target)
-					if(!T)
-						break
-					// To stop the ghost flickering.
-					if(loc != T)
-						forceMove(T)
-					sleep(15)
+		orbit(target,orbitsize, FALSE, 20, rot_seg)
+
+/mob/dead/observer/orbit()
+	setDir(2)//reset dir so the right directional sprites show up
+	return ..()
 
 /mob/proc/update_following()
 	. = get_turf(src)
@@ -459,25 +493,26 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_following()
 	return ..()
 
-/mob/dead/observer/verb/jumptomob(target in getmobs()) //Moves the ghost instead of just changing the ghosts's eye -Nodrak
+/mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
 	set name = "Jump to Mob"
 	set desc = "Teleport to a mob"
 
-	if(istype(usr, /mob/dead/observer)) //Make sure they're an observer!
+	if(isobserver(usr)) //Make sure they're an observer!		
+		var/list/dest = getpois(mobs_only=1) //Fill list, prompt user with list
+		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
+		A.on_close(CALLBACK(src, .proc/jump_to_mob))
 
-		if(!target)//Make sure we actually have a target
-			return
-		else
-			var/mob/M = getmobs()[target] //Destination mob
-			var/turf/T = get_turf(M) //Turf of the destination mob
+/mob/dead/observer/proc/jump_to_mob(mob/M)
+	if(!M)
+		return
+	var/mob/A = src			 //Source mob
+	var/turf/T = get_turf(M) //Turf of the destination mob
 
-			if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-				forceMove(T)
-				following = null
-			else
-				to_chat(src, "This mob is not located in the game world.")
-
+	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
+		A.forceMove(T)
+		return
+	to_chat(A, "This mob is not located in the game world.")
 
 /* Now a spell.  See spells.dm
 /mob/dead/observer/verb/boo()
@@ -641,14 +676,32 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
 	set category = "Ghost"
 	ghostvision = !(ghostvision)
-	updateghostsight()
+	update_sight()
 	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
 
 /mob/dead/observer/verb/toggle_darkness()
 	set name = "Toggle Darkness"
 	set category = "Ghost"
-	seedarkness = !(seedarkness)
-	updateghostsight()
+	switch(lighting_alpha)
+		if (LIGHTING_PLANE_ALPHA_VISIBLE)
+			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
+			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+		else
+			lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+
+	update_sight()
+
+/mob/dead/observer/update_sight()
+	if (!ghostvision)
+		see_invisible = SEE_INVISIBLE_LIVING
+	else
+		see_invisible = SEE_INVISIBLE_OBSERVER
+
+	updateghostimages()
+	. = ..()
 
 /mob/dead/observer/proc/updateghostsight()
 	if(!seedarkness)
@@ -656,7 +709,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		if(!ghostvision)
-			see_invisible = SEE_INVISIBLE_LIVING;
+			see_invisible = SEE_INVISIBLE_LIVING
+
 	updateghostimages()
 
 /proc/updateallghostimages()
@@ -667,10 +721,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	if(seedarkness || !ghostvision)
-		client.images -= ghost_darkness_images
+		client.images -= ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now
-		client.images |= ghost_darkness_images
+		client.images |= ghost_images
 		if(ghostimage)
 			client.images -= ghostimage //remove ourself
 
@@ -717,6 +771,26 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/is_literate()
 	return TRUE
+
+/mob/dead/observer/proc/set_invisibility(value)
+	invisibility = value
+	if(!value)
+		set_light(1, 2)
+	else
+		set_light(0, 0)
+
+/mob/dead/observer/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(var_name == "invisibility")
+		set_invisibility(invisibility) // updates light
+
+/proc/set_observer_default_invisibility(amount, message=null)
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.set_invisibility(amount)
+		if(message)
+			to_chat(G, message)
+	GLOB.observer_default_invisibility = amount
+
 /mob/dead/observer/proc/open_spawners_menu()
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"

@@ -204,7 +204,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
 	burn_state = LAVA_PROOF
@@ -380,6 +380,10 @@
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	burn_state = FIRE_PROOF
+
+/obj/item/clothing/under/gladiator/ash_walker
+	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+	has_sensor = FALSE
 
 //dress
 
@@ -802,6 +806,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
 
 /obj/item/clothing/under/victdress
@@ -852,3 +857,36 @@
 	icon_state = "burial"
 	item_state = "burial"
 	item_color = "burial"
+
+/obj/item/clothing/under/redhawaiianshirt
+	name = "red hawaiian shirt"
+	desc = "a floral shirt worn to most vacation destinations."
+	icon_state = "hawaiianred"
+	item_state = "hawaiianred"
+	item_color = "hawaiianred"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/pinkhawaiianshirt
+	name = "pink hawaiian shirt"
+	desc = "a pink floral shirt the material feels cool and comfy."
+	icon_state = "hawaiianpink"
+	item_state = "hawaiianpink"
+	item_color = "hawaiianpink"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/orangehawaiianshirt
+	name = "orange hawaiian shirt"
+	desc = "a orange floral shirt for a relaxing day in space."
+	icon_state = "hawaiianorange"
+	item_state = "hawaiianorange"
+	item_color = "hawaiianorange"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/bluehawaiianshirt
+	name = "blue hawaiian shirt"
+	desc = "a blue floral shirt it has a oddly colored pink flower on it."
+	icon_state = "hawaiianblue"
+	item_state = "hawaiianblue"
+	item_color = "hawaiianblue"
+	flags_size = ONESIZEFITSALL
+

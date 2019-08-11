@@ -128,7 +128,7 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = null
+	taste_message = "metal"
 
 
 /datum/reagent/silicon
@@ -162,7 +162,7 @@
 		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
-	..()
+	return ..()
 
 /datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
@@ -176,7 +176,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
-	taste_message = null
+	taste_message = "extreme discomfort"
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -205,6 +205,18 @@
 	taste_message = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C + 600)
+		var/turf/T = get_turf(holder.my_atom)
+		holder.my_atom.visible_message("<b>The oil burns!</b>")
+		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/effect_system/smoke_spread/bad/BS = new
+		BS.set_up(1, 0, T)
+		BS.start()
+		if(holder)
+			holder.add_reagent("ash", round(volume * 0.5))
+			holder.del_reagent(id)
+
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
 		new /obj/effect/decal/cleanable/blood/oil(T)
@@ -215,7 +227,7 @@
 	description = "A purple gaseous element."
 	reagent_state = GAS
 	color = "#493062"
-	taste_message = null
+	taste_message = "chemtrail resistance"
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -261,7 +273,7 @@
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
-	taste_message = null
+	taste_message = "nail polish remover"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -274,7 +286,7 @@
 	description = "Volatile."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	taste_message = null
+	taste_message = "one third of an explosion"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -534,7 +546,7 @@
 	description = "Finely ground Coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	taste_message = "bitterness"
+	taste_message = "waste"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -542,7 +554,7 @@
 	description = "Finely shredded Tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
-	taste_message = "bitterness"
+	taste_message = "the future"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -566,6 +578,7 @@
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
+	taste_message = "obscurity and toil"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
@@ -573,6 +586,7 @@
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	tox_prob = 25
+	taste_message = "evolution"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
@@ -580,6 +594,7 @@
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
+	taste_message = "bountifulness"
 
 ///Alchemical Reagents
 
@@ -617,3 +632,50 @@
 	description = "Ewwwwwwwww."
 	reagent_state = LIQUID
 	color = "#857400"
+
+/datum/reagent/spraytan
+	name = "Spray Tan"
+	id = "spraytan"
+	description = "A substance applied to the skin to darken the skin."
+	color = "#FFC080" // rgb: 255, 196, 128  Bright orange
+	metabolization_rate = 10 * REAGENTS_METABOLISM // very fast, so it can be applied rapidly.  But this changes on an overdose
+	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
+	taste_message = "sour oranges"
+
+/datum/reagent/spraytan/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	if(ishuman(M))
+		if(method == TOUCH)
+			var/mob/living/carbon/human/N = M
+			set_skin_color(N)
+
+		if(method == INGEST)
+			if(show_message)
+				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+	..()
+
+/datum/reagent/spraytan/overdose_process(mob/living/M)
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+
+	if(ishuman(M) && is_species(M, /datum/species/human))
+		var/mob/living/carbon/human/N = M
+		N.change_hair("Spiky")
+		N.change_facial_hair("Shaved")
+		N.change_hair_color("#000000")
+		N.change_facial_hair_color("#000000")
+		set_skin_color(N)
+		if(prob(7))
+			if(N.w_uniform)
+				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
+			else
+				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
+	if(prob(10))
+		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don’t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."))
+
+	return list(0, STATUS_UPDATE_NONE)
+
+/datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
+	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
+		H.change_skin_tone(-30)
+
+	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		H.change_skin_color("#9B7653")

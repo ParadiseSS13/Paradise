@@ -20,9 +20,9 @@
 	update_pressure()
 
 /obj/mecha/working/ripley/Destroy()
-	while(damage_absorption.["brute"] < 0.6)
-		new /obj/item/asteroid/goliath_hide(loc)
-		damage_absorption.["brute"] = damage_absorption.["brute"] + 0.1 //If a goliath-plated ripley gets killed, all the plates drop
+	while(damage_absorption["brute"] < 0.6)
+		new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
+		damage_absorption["brute"] = damage_absorption["brute"] + 0.1 //If a goliath-plated ripley gets killed, all the plates drop
 	for(var/atom/movable/A in cargo)
 		A.forceMove(loc)
 		step_rand(A)
@@ -31,28 +31,28 @@
 
 /obj/mecha/working/ripley/go_out()
 	..()
-	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
+	if(damage_absorption["brute"] < 0.6 && damage_absorption["brute"] > 0.3)
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-open")
-	else if(damage_absorption.["brute"] == 0.3)
+	else if(damage_absorption["brute"] == 0.3)
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full-open")
 
 /obj/mecha/working/ripley/moved_inside(var/mob/living/carbon/human/H as mob)
 	..()
-	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
+	if(damage_absorption["brute"] < 0.6 && damage_absorption["brute"] > 0.3)
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
-	else if(damage_absorption.["brute"] == 0.3)
+	else if(damage_absorption["brute"] == 0.3)
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 
 /obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	..()
-	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
+	if(damage_absorption["brute"] < 0.6 && damage_absorption["brute"] > 0.3)
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
-	else if(damage_absorption.["brute"] == 0.3)
+	else if(damage_absorption["brute"] == 0.3)
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 

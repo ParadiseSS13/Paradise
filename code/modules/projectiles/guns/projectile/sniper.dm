@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
-	desc = "the kind of gun that will leave you crying for mummy before you even realise your leg's missing"
+	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2
@@ -20,24 +20,37 @@
 	slot_flags = SLOT_BACK
 	actions_types = list()
 
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate
+	name = "syndicate sniper rifle"
+	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
+	origin_tech = "combat=7;syndicate=6"
+
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
+	name = "syndicate penetrator sniper rifle"
+
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
+	. = ..()
+	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
+
+	QDEL_NULL(magazine)
+	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
 		icon_state = "sniper"
 
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	name = "syndicate sniper rifle"
-	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
-	origin_tech = "combat=7;syndicate=6"
-
-/obj/item/gun/projectile/automatic/sniper_rifle/soporific
-	name = "Soporific sniper rifle"
-	desc = "A sniper rifle that's primarily used to fire non-lethal soporific rounds."
-	origin_tech = "combat=7;syndicate=6"
-	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	can_unsuppress = 0
-	can_suppress = 0
+/obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
+	name = "compact sniper rifle"
+	desc = "a compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
+	recoil = 0
+	weapon_weight = WEAPON_LIGHT
+	fire_delay = 0
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	can_unsuppress = FALSE
+	can_suppress = FALSE
+	zoomable = FALSE
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
@@ -159,3 +172,39 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+
+//compact ammo
+/obj/item/ammo_box/magazine/sniper_rounds/compact
+	name = "sniper rounds (compact)"
+	desc = "An extremely powerful round capable of inflicting massive damage on a target."
+	ammo_type = /obj/item/ammo_casing/compact
+	max_ammo = 4
+
+/obj/item/ammo_casing/compact
+	desc = "A .50 caliber compact round casing."
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	icon_state = ".50"
+
+/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+	dismemberment = 0
+	breakthings = FALSE
+
+//toy magazine
+/obj/item/ammo_box/magazine/toy/sniper_rounds
+	name = "donksoft Sniper magazine"
+	icon_state = ".50mag"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	max_ammo = 6
+	caliber = "foam_force_sniper"
+
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon()
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+	else if(ammo)
+		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
+	else
+		icon_state = "[initial(icon_state)]"

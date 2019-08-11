@@ -49,12 +49,8 @@
 		tforce = O.throwforce
 	take_damage(tforce, BRUTE, "melee", 1, get_dir(src, AM))
 
-/obj/ex_act(severity, target)
+/obj/ex_act(severity)
 	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	if(target == src)
-		obj_integrity = 0
-		qdel(src)
 		return
 	switch(severity)
 		if(1)
@@ -69,7 +65,8 @@
 	. = ..()
 	playsound(src, P.hitsound, 50, 1)
 	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
-	take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
+	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
+		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
 /obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor
@@ -93,7 +90,7 @@
 /obj/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	collision_damage(pusher, force, direction)
 	return TRUE
-	
+
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
@@ -163,14 +160,15 @@
 
 //// FIRE
 
-/obj/fire_act(global_overlay=1)
+/obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	if(!burn_state)
 		burn_state = ON_FIRE
 		SSfires.processing[src] = src
 		burn_world_time = world.time + burntime*rand(10,20)
 		if(global_overlay)
 			overlays += fire_overlay
-		return 1
+		return TRUE
 
 /obj/proc/burn()
 	empty_object_contents(1, loc)

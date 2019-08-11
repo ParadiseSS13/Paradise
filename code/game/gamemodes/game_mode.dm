@@ -35,6 +35,7 @@
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
+	var/list/datum/mind/eventmiscs = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
@@ -74,8 +75,8 @@
 		display_roundstart_logout_report()
 
 	feedback_set_details("round_start","[time2text(world.realtime)]")
-	if(ticker && ticker.mode)
-		feedback_set_details("game_mode","[ticker.mode]")
+	if(SSticker && SSticker.mode)
+		feedback_set_details("game_mode","[SSticker.mode]")
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
@@ -87,7 +88,7 @@
 
 ///process()
 ///Called by the gameticker
-/datum/game_mode/proc/process()
+/datum/game_mode/process()
 	return 0
 
 //Called by the gameticker
@@ -227,7 +228,7 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready)
+		if(player.client && player.ready && player.has_valid_preferences())
 			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
@@ -245,7 +246,7 @@
 
 	// If we don't have enough antags, draft people who voted for the round.
 	if(candidates.len < recommended_enemies)
-		for(var/key in round_voters)
+		for(var/key in SSvote.round_voters)
 			for(var/mob/new_player/player in players)
 				if(player.ckey == key)
 					player_draft_log += "[player.key] voted for this round, so we are drafting them."
@@ -356,7 +357,7 @@ proc/display_roundstart_logout_report()
 			if(L.stat)
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
-					job_master.FreeRole(L.job)
+					SSjobs.FreeRole(L.job)
 					message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
 				if(L.stat == UNCONSCIOUS)
@@ -382,7 +383,7 @@ proc/display_roundstart_logout_report()
 						continue //Lolwhat
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
-						job_master.FreeRole(L.job)
+						SSjobs.FreeRole(L.job)
 						message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
 
@@ -454,6 +455,20 @@ proc/display_roundstart_logout_report()
 		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
 	return text
 
+/proc/printeventplayer(datum/mind/ply)
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
+	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
+		text += " the [ply.special_role]"
+	text += " and"
+	if(ply.current)
+		if(ply.current.stat == DEAD)
+			text += " <b>died</b>"
+		else
+			text += " <b>survived</b>"
+	else
+		text += " <b>had [ply.p_their()] body destroyed</b>"
+	return text
+
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
 	var/count = 1
@@ -503,3 +518,13 @@ proc/display_roundstart_logout_report()
 		for(var/obj/effect/landmark/free_golem_spawn/L in GLOB.landmarks_list)
 			if(isturf(L.loc))
 				new /obj/effect/mob_spawn/human/golem/adamantine(L.loc)
+
+/datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	antaghud.join_hud(mob_mind.current)
+	set_antag_hud(mob_mind.current, "hudevent")
+
+/datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	antaghud.leave_hud(mob_mind.current)
+	set_antag_hud(mob_mind.current, null)

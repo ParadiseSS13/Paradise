@@ -63,6 +63,7 @@
 	var/new_destination		// pending new destination (waiting for beacon response)
 	var/destination			// destination description tag
 	var/next_destination	// the next destination in the patrol route
+	var/robot_arm = /obj/item/robot_parts/r_arm
 
 	var/blockcount = 0		//number of times retried a blocked path
 	var/awaiting_beacon	= 0	// count of pticks awaiting a beacon response
@@ -155,8 +156,8 @@
 
 	bot_core = new bot_core_type(src)
 	spawn(30)
-		if(radio_controller && bot_filter)
-			radio_controller.add_object(bot_core, control_freq, bot_filter)
+		if(SSradio && bot_filter)
+			SSradio.add_object(bot_core, control_freq, bot_filter)
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
@@ -196,8 +197,8 @@
 	if(reset_access_timer_id)
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
-	if(radio_controller && bot_filter)
-		radio_controller.remove_object(bot_core, control_freq)
+	if(SSradio && bot_filter)
+		SSradio.remove_object(bot_core, control_freq)
 	QDEL_NULL(bot_core)
 	return ..()
 
@@ -746,7 +747,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/post_signal_multiple(var/freq, var/list/keyval)
 	if(z != 1) //Bot control will only work on station.
 		return
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(freq)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)
 	if(!frequency)
 		return
 
@@ -1106,3 +1107,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(I)
 		I.icon = null
 	path.Cut(1, 2)
+
+/mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
+	new drop_item(dropzone)

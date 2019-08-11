@@ -51,7 +51,7 @@
 				continue
 			M.loc = null
 			qdel(M, TRUE)
-		T.ChangeTurf(/turf/space)
+		T.ChangeTurf(T.baseturf)
 	var/datum/space_chunk/last_empty_parent = C
 	while(last_empty_parent.parent && last_empty_parent.parent.is_empty)
 		last_empty_parent = last_empty_parent.parent

@@ -13,6 +13,8 @@
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks", "woofs", "yaps","pants")
 	emote_see = list("shakes its head", "shivers")
+	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
+	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	speak_chance = 1
 	turns_per_move = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3)
@@ -20,8 +22,8 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	see_in_dark = 5
-	childtype = /mob/living/simple_animal/pet/corgi/puppy
-	simplespecies = /mob/living/simple_animal/pet/corgi
+	childtype = list(/mob/living/simple_animal/pet/corgi)
+	animal_species = /mob/living/simple_animal/pet/corgi
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/shaved = 0
 	var/obj/item/inventory_head
@@ -161,6 +163,7 @@
 					//The objects that corgis can wear on their backs.
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
+						/obj/item/clothing/suit/armor/vest/blueshield,
 						/obj/item/clothing/suit/space/deathsquad,
 						/obj/item/clothing/suit/space/hardsuit/engineering,
 						/obj/item/radio,
@@ -366,6 +369,12 @@
 				desc = "That's Definitely Not [real_name]"
 				valid = 1
 
+			if(/obj/item/clothing/head/beret/centcom/officer, /obj/item/clothing/head/beret/centcom/officer/navy)
+				name = "Blueshield [real_name]"
+				desc = "Will stand by you until the bitter end."
+				emote_see = list("stands with pride.", "growls heroically.")
+				valid = 1
+
 	if(valid)
 		if(user && !user.drop_item())
 			to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
@@ -394,6 +403,40 @@
 
 	return valid
 
+/mob/living/simple_animal/pet/corgi/death(gibbed)
+	playsound(src, yelp_sound, 75, 1)
+	..()
+
+/mob/living/simple_animal/pet/corgi/emote(act, m_type = 1, message = null, force)
+	if(stat != CONSCIOUS)
+		return
+
+	var/on_CD = 0
+	act = lowertext(act)
+	switch(act)
+		if("bark")
+			on_CD = handle_emote_CD()
+		if("growl")
+			on_CD = handle_emote_CD()
+		else
+			on_CD = 0
+
+	if(!force && on_CD == 1)
+		return
+
+	switch(act)
+		if("bark")
+			message = "<B>[src]</B> [pick(src.speak_emote)]!"
+			m_type = 2 //audible
+			playsound(src, pick(src.bark_sound), 50, 0.85)
+		if("growl")
+			message = "<B>[src]</B> growls!"
+			m_type = 2 //audible
+		if("help")
+			to_chat(src, "scream, bark, growl")
+
+	..()
+
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/corgi/Ian
@@ -408,7 +451,7 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/pet/corgi/Ian/process_ai()
+/mob/living/simple_animal/pet/corgi/Ian/Life()
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
@@ -535,7 +578,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/pet/corgi/Lisa/process_ai()
+/mob/living/simple_animal/pet/corgi/Lisa/Life()
 	..()
 
 	make_babies()
@@ -567,6 +610,8 @@
 	desc = "It's a borgi."
 	icon_state = "borgi"
 	icon_living = "borgi"
+	bark_sound = null	//No robo-bjork...
+	yelp_sound = null	//Or robo-Yelp.
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

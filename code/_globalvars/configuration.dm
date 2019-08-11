@@ -3,7 +3,7 @@ var/datum/configuration/config = null
 var/host = null
 var/join_motd = null
 GLOBAL_VAR(join_tos)
-var/game_version = "Custom ParaCode"
+var/game_version = "ParaCode"
 var/changelog_hash = md5('html/changelog.html') //used to check if the CL changed
 var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
 
@@ -43,8 +43,3 @@ var/eventchance = 10 //% per 5 mins
 var/event = 0
 var/hadevent = 0
 var/blobevent = 0
-
-//Medals hub related variables
-var/global/medal_hub = null
-var/global/medal_pass = " "
-var/global/medals_enabled = TRUE	//will be auto set to false if the game fails contacting the medal hub to prevent unneeded calls.

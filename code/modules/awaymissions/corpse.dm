@@ -28,13 +28,13 @@
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
 	var/assignedrole
-	var/banType = "lavaland"
+	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
-
+	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
-	if(ticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
+	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
@@ -111,6 +111,7 @@
 				MM.objectives += new/datum/objective(objective)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
+		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -204,7 +205,7 @@
 			var/T = vars[slot]
 			if(!isnum(T))
 				outfit.vars[slot] = T
-		H.equipOutfit(outfit, TRUE)
+		H.equipOutfit(outfit)
 		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
@@ -431,6 +432,8 @@
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
+/obj/effect/mob_spawn/human/miner/explorer
+	outfit = /datum/outfit/job/mining/equipped
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
@@ -448,6 +451,13 @@
 	icon_state = "sleeper"
 	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
 	assignedrole = "Space Bartender"
+
+/obj/effect/mob_spawn/human/beach/alive/lifeguard
+	flavour_text = "<span class='big bold'>You're a spunky lifeguard!</span><b> It's up to you to make sure nobody drowns or gets eaten by sharks and stuff.</b>"
+	mob_gender = "female"
+	name = "lifeguard sleeper"
+	id_job = "Lifeguard"
+	uniform = /obj/item/clothing/under/shorts/red
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"

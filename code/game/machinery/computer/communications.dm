@@ -156,7 +156,7 @@
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
 			if(!input || ..() || !is_authenticated(usr))
 				SSnanoui.update_uis(src)
 				return
@@ -217,11 +217,11 @@
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
+			stat_msg1 = clean_input("Line 1", "Enter Message Text", stat_msg1)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
+			stat_msg2 = clean_input("Line 2", "Enter Message Text", stat_msg2)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -439,7 +439,7 @@
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>")
 		return
 
-	if(ticker.mode.name == "blob")
+	if(SSticker.mode.name == "blob")
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
 		return
 
@@ -464,7 +464,7 @@
 			to_chat(user, "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again.")
 			return
 
-		if(ticker.mode.name == "epidemic")
+		if(SSticker.mode.name == "epidemic")
 			to_chat(user, "Under directive 7-10, [station_name()] is quarantined until further notice.")
 			return
 
@@ -481,7 +481,7 @@
 
 
 /proc/cancel_call_proc(var/mob/user)
-	if(ticker.mode.name == "meteor")
+	if(SSticker.mode.name == "meteor")
 		return
 
 	if(SSshuttle.cancelEvac(user))
@@ -494,7 +494,7 @@
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 

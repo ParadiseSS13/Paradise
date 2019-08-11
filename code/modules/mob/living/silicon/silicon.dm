@@ -19,13 +19,14 @@
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
+	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
 	var/next_alarm_notice
 	var/list/datum/alarm/queued_alarms = new()
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD,NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
@@ -71,6 +72,9 @@
 /mob/living/silicon/drop_item()
 	return
 
+/mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE //So borgs they don't die trying to fix wiring
+
 /mob/living/silicon/emp_act(severity)
 	switch(severity)
 		if(1)
@@ -94,7 +98,7 @@
 	return 0
 
 /mob/living/silicon/IsAdvancedToolUser()
-	return 1
+	return TRUE
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
@@ -152,7 +156,6 @@
 /mob/living/silicon/Stat()
 	..()
 	if(statpanel("Status"))
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
 

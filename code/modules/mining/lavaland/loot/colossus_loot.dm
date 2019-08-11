@@ -5,8 +5,6 @@
 	desc = "A completely indestructible chunk of crystal, rumoured to predate the start of this universe. It looks like you could store things inside it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blackbox"
-	icon_on = "blackbox"
-	icon_off = "blackbox"
 	luminosity = 8
 	max_n_of_items = INFINITY
 	unacidable = 1
@@ -38,7 +36,7 @@
 
 /obj/machinery/smartfridge/black_box/process()
 	..()
-	if(!memory_saved && ticker.current_state == GAME_STATE_FINISHED)
+	if(!memory_saved && SSticker.current_state == GAME_STATE_FINISHED)
 		WriteMemory()
 
 /obj/machinery/smartfridge/black_box/proc/WriteMemory()
@@ -165,7 +163,7 @@
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.unEquip(W)
-		var/datum/job/clown/C = job_master.GetJob("Clown")
+		var/datum/job/clown/C = SSjobs.GetJob("Clown")
 		C.equip(H)
 		affected_targets.Add(H)
 
@@ -189,7 +187,7 @@
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
 		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
-			NewTerrainFloors = /turf/simulated/floor/basalt // Needs to be updated after turf update
+			NewTerrainFloors = /turf/simulated/floor/plating/asteroid/basalt // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/cult
 			NewFlora = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
 			florachance = 1
@@ -436,7 +434,7 @@
 	..()
 	if(isanimal(loc))
 		holder_animal = loc
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/stasis/Entered(atom/A)
 	if(isliving(A) && holder_animal)
@@ -450,7 +448,7 @@
 		holder_animal.verbs -= /mob/living/verb/pulled
 
 /obj/structure/closet/stasis/dump_contents(var/kill = 1)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		L.disabilities &= ~MUTE
 		L.status_flags &= ~GODMODE

@@ -2,6 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.living_mob_list -= src
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,6 +31,7 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.living_mob_list += src
+	set_focus(src)
 	prepare_huds()
 	..()
 
@@ -49,7 +51,6 @@
 
 /mob/proc/GetAltName()
 	return ""
-
 
 /mob/proc/Cell()
 	set category = "Admin"
@@ -173,6 +174,7 @@
 	return 0
 
 /mob/proc/Life(seconds, times_fired)
+	set waitfor = FALSE
 	if(forced_look)
 		if(!isnum(forced_look))
 			var/atom/A = locateUID(forced_look)
@@ -580,6 +582,10 @@ var/list/slot_equipment_priority = list( \
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
+	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
+	if(client)
+		client.update_description_holders(A, is_antag)
+
 	face_atom(A)
 	A.examine(src)
 
@@ -687,9 +693,13 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-
-	if(mind)
+	
+	var/combined = length(memory + msg)
+	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
+	else if(combined >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "Your brain can't hold that much information!")
+		return
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
@@ -741,7 +751,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
-	if(stat != DEAD || !ticker)
+	if(stat != DEAD || !SSticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
@@ -897,13 +907,18 @@ var/list/slot_equipment_priority = list( \
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
-	if(isliving(M)) // Ewww
+	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
 			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip) return
-	if(usr == src) return
-	if(!Adjacent(usr)) return
+	if(!M.can_strip)
+		return
+	if(usr == src)
+		return
+	if(!Adjacent(usr))
+		return
+	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
+		return
 	show_inv(usr)
 
 /mob/proc/can_use_hands()
@@ -921,7 +936,7 @@ var/list/slot_equipment_priority = list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+	if(!istype(A, /area/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -947,9 +962,6 @@ var/list/slot_equipment_priority = list( \
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 
-	if(mind && mind.changeling)
-		add_stings_to_statpanel(mind.changeling.purchasedpowers)
-
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
 			add_spell_to_statpanel(S)
@@ -959,19 +971,13 @@ var/list/slot_equipment_priority = list( \
 
 
 	if(is_admin(src))
-		if(statpanel("DI"))	//not looking at that panel
-			stat("Loc", "([x], [y], [z]) [loc]")
-			stat("CPU", "[world.cpu]")
-			stat("Instances", "[world.contents.len]")
-
-			if(processScheduler)
-				processScheduler.statProcesses()
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[world.cpu]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
+			stat("Server Time:", time_stamp())
 			stat(null)
 			if(Master)
 				Master.stat_entry()
@@ -987,6 +993,9 @@ var/list/slot_equipment_priority = list( \
 					SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
+
+	if(client && client.statpanel == "Status" && SSticker)
+		show_stat_station_time()
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -1010,16 +1019,10 @@ var/list/slot_equipment_priority = list( \
 				var/atom/A = foo
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see))
+				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
-
-
-/mob/proc/add_stings_to_statpanel(var/list/stings)
-	for(var/obj/effect/proc_holder/changeling/S in stings)
-		if(S.chemical_cost >=0 && S.can_be_used_by(src))
-			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
 
 /mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
@@ -1029,7 +1032,6 @@ var/list/slot_equipment_priority = list( \
 			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
 		if("holdervar")
 			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
-
 
 // facing verbs
 /mob/proc/canface()
@@ -1075,7 +1077,7 @@ var/list/slot_equipment_priority = list( \
 
 
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
-	return 0
+	return FALSE
 
 /mob/proc/swap_hand()
 	return
@@ -1091,7 +1093,7 @@ var/list/slot_equipment_priority = list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!ticker || ticker.current_state < 3)
+	if(!SSticker || SSticker.current_state < 3)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
@@ -1172,12 +1174,11 @@ var/list/slot_equipment_priority = list( \
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			new /obj/effect/decal/cleanable/vomit/green(location)
+			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
 				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
-			location.add_vomit_floor(src, 1)
-		playsound(location, 'sound/effects/splat.ogg', 50, 1)
+			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
@@ -1295,6 +1296,7 @@ var/list/slot_equipment_priority = list( \
 	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
 
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
@@ -1337,3 +1339,50 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/is_literate()
 	return FALSE
+
+/mob/proc/faction_check_mob(mob/target, exact_match)
+	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
+		var/list/faction_src = faction.Copy()
+		var/list/faction_target = target.faction.Copy()
+		if(!("\ref[src]" in faction_target)) //if they don't have our ref faction, remove it from our factions list.
+			faction_src -= "\ref[src]" //if we don't do this, we'll never have an exact match.
+		if(!("\ref[target]" in faction_src))
+			faction_target -= "\ref[target]" //same thing here.
+		return faction_check(faction_src, faction_target, TRUE)
+	return faction_check(faction, target.faction, FALSE)
+
+/proc/faction_check(list/faction_A, list/faction_B, exact_match)
+	var/list/match_list
+	if(exact_match)
+		match_list = faction_A & faction_B //only items in both lists
+		var/length = LAZYLEN(match_list)
+		if(length)
+			return (length == LAZYLEN(faction_A)) //if they're not the same len(gth) or we don't have a len, then this isn't an exact match.
+	else
+		match_list = faction_A & faction_B
+		return LAZYLEN(match_list)
+	return FALSE
+
+/mob/proc/update_sight()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+
+/mob/proc/sync_lighting_plane_alpha()
+	if(hud_used)
+		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		if(L)
+			L.alpha = lighting_alpha
+
+	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
+
+/mob/proc/sync_nightvision_screen()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(S)
+		var/suffix = ""
+		switch(see_in_dark)
+			if(3 to 8)
+				suffix = "_[see_in_dark]"
+			if(8 to INFINITY)
+				suffix = "_8"
+
+		S.icon_state = "[initial(S.icon_state)][suffix]"

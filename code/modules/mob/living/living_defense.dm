@@ -55,8 +55,22 @@
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
-/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0)
-	  return 0 //only carbon liveforms have this proc
+/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+	if(status_flags & GODMODE)	//godmode
+		return FALSE
+	if(NO_SHOCK in mutations) //shockproof
+		return FALSE
+	if(tesla_shock && tesla_ignore)
+		return FALSE
+	if(shock_damage > 0)
+		if(!illusion)
+			adjustFireLoss(shock_damage)
+		visible_message(
+			"<span class='danger'>[src] was shocked by \the [source]!</span>",
+			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
+			"<span class='italics'>You hear a heavy electrical crack.</span>")
+		return shock_damage
 
 /mob/living/emp_act(severity)
 	var/list/L = src.get_contents()
@@ -179,7 +193,8 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
 
-/mob/living/fire_act()
+/mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	adjust_fire_stacks(3)
 	IgniteMob()
 
@@ -201,13 +216,9 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-//Mobs on Fire end
-
-/mob/living/water_act(volume, temperature)
-	if(volume >= 20)	fire_stacks -= 0.5
-	if(volume >= 50)	fire_stacks -= 1
-
-
+/mob/living/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	adjust_fire_stacks(-(volume * 0.2))
 
 //This is called when the mob is thrown into a dense turf
 /mob/living/proc/turf_collision(var/turf/T, var/speed)
@@ -264,7 +275,7 @@
 	return G
 
 /mob/living/attack_slime(mob/living/carbon/slime/M)
-	if(!ticker)
+	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
@@ -337,7 +348,3 @@
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
-
-//defined here, overridden for humans in human_defense. By default, living mobs don't get to block anything
-/mob/living/proc/check_block()
-	return FALSE

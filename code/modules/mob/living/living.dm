@@ -246,17 +246,18 @@
 	set hidden = 1
 	if(InCritical())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		adjustOxyLoss(health - config.health_threshold_dead)
+		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
 		for(var/i = 1 to 5)
-			if(health < config.health_threshold_dead)
+			if(health < HEALTH_THRESHOLD_DEAD)
 				break
-			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
+			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 /mob/living/proc/InCritical()
-	return (health < 0 && health > -95.0 && stat == UNCONSCIOUS)
+	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 /mob/living/ex_act(severity)
 	..()
@@ -462,7 +463,6 @@
 			human_mob = src
 			human_mob.set_heartattack(FALSE)
 			human_mob.restore_blood()
-			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
 
@@ -519,7 +519,6 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
-		SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED)
 		handle_footstep(loc)
 		step_count++
 
@@ -529,7 +528,7 @@
 				return
 
 			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
+			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
 					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
@@ -691,7 +690,7 @@
 	return name
 
 /mob/living/update_gravity(has_gravity)
-	if(!ticker)
+	if(!SSticker)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
@@ -759,7 +758,7 @@
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who))
+			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
 				add_attack_logs(src, who, "Equipped [what]")
@@ -786,11 +785,11 @@
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/proc/do_jitter_animation(jitteriness)
+/mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
 	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -953,6 +952,27 @@
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
 
+/mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
+	if(registered_z != new_z)
+		if(registered_z)
+			SSmobs.clients_by_zlevel[registered_z] -= src
+		if(client)
+			if(new_z)
+				SSmobs.clients_by_zlevel[new_z] += src
+				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
+					if (SA)
+						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
+					else
+						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+			registered_z = new_z
+		else
+			registered_z = null
+
+/mob/living/onTransitZ(old_z,new_z)
+	..()
+	update_z(new_z)
+
 /mob/living/proc/owns_soul()
 	if(mind)
 		return mind.soulOwner == mind
@@ -992,3 +1012,29 @@
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			A.extinguish_light()
+
+/mob/living/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("stat")
+			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
+				GLOB.dead_mob_list -= src
+				GLOB.living_mob_list += src
+			if((stat < DEAD) && (var_value == DEAD))//Kill he
+				GLOB.living_mob_list -= src
+				GLOB.dead_mob_list += src
+	. = ..()
+	switch(var_name)
+		if("weakened")
+			SetWeakened(var_value)
+		if("stunned")
+			SetStunned(var_value)
+		if("paralysis")
+			SetParalysis(var_value)
+		if("sleeping")
+			SetSleeping(var_value)
+		if("maxHealth")
+			updatehealth()
+		if("resize")
+			update_transform()
+		if("lighting_alpha")
+			sync_lighting_plane_alpha()

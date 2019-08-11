@@ -37,7 +37,7 @@
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE
-	var/datum/job/clown/J = new/datum/job/clown
+	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
@@ -278,16 +278,15 @@
 			else
 				continue
 
-/mob/living/simple_animal/bot/honkbot/explode()
+/mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	walk_to(src, 0)
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
-	//doesn't drop cardboard nor its assembly, since its a very frail material.
+	new /obj/item/bikehorn(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 	if(prob(50))
-		new /obj/item/robot_parts/r_arm(Tsec)
-		new /obj/item/bikehorn(Tsec)
-		new /obj/item/assembly/prox_sensor(Tsec)
-
+		drop_part(robot_arm, Tsec)
+	new /obj/effect/decal/cleanable/blood/oil(loc)
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(3, 1, src)
 	s.start()
@@ -299,7 +298,7 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
 	if(ismob(AM) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM

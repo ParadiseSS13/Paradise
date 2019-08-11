@@ -11,6 +11,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
 	burn_state = FIRE_PROOF
+	antable = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -105,17 +106,6 @@
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
 
 	return FALSE
-
-/obj/item/reagent_containers/food/drinks/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return FALSE
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
-	else
-		return ..()
 
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
 	if(!..(user, 1))
@@ -363,31 +353,6 @@
 	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
 	icon_state = "goonbag"
 	list_reagents = list("wine" = 70)
-
-/obj/item/reagent_containers/food/drinks/waterbottle
-	name = "bottle of water"
-	desc = "A bottle of water filled at an old Earth bottling facility."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "smallbottle"
-	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_GLASS = 0)
-	volume = 50
-	amount_per_transfer_from_this = 10
-
-/obj/item/reagent_containers/food/drinks/waterbottle/empty
-	list_reagents = list()
-
-/obj/item/reagent_containers/food/drinks/waterbottle/large
-	desc = "A fresh commercial-sized bottle of water."
-	icon_state = "largebottle"
-	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
-	volume = 100
-	amount_per_transfer_from_this = 20
-
-/obj/item/reagent_containers/food/drinks/waterbottle/large/empty
-	list_reagents = list()
 
 /obj/item/reagent_containers/food/drinks/oilcan
 	name = "oil can"

@@ -24,12 +24,12 @@
 	spawn(3 + metal*3)
 		process()
 	spawn(120)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		sleep(30)
 
 		if(metal)
 			var/turf/T = get_turf(src)
-			if(istype(T, /turf/space))
+			if(istype(T, /turf/space) && !istype(T, /turf/space/transit))
 				T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 				var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
 				MF.metal = metal
@@ -76,22 +76,25 @@
 		F = new /obj/effect/particle_effect/foam(T, metal)
 		F.amount = amount
 		if(!metal)
-			F.create_reagents(15)
+			F.create_reagents(25)
 			if(reagents)
 				for(var/datum/reagent/R in reagents.reagent_list)
-					F.reagents.add_reagent(R.id, min(R.volume, 3), R.data, reagents.chem_temp)
+					F.reagents.add_reagent(R.id, min(R.volume, 5), R.data, reagents.chem_temp)
 				F.color = mix_color_from_reagents(reagents.reagent_list)
 
 // foam disolves when heated
 // except metal foams
-/obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/particle_effect/foam/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE) //Don't heat the reagents inside
+	return
+
+/obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume) // overriden to prevent weird behaviors with heating reagents inside
 	if(!metal && prob(max(0, exposed_temperature - 475)))
 		flick("[icon_state]-disolve", src)
 
 		spawn(5)
 			qdel(src)
 
-/obj/effect/particle_effect/foam/Crossed(atom/movable/AM)
+/obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
 	if(metal)
 		return
 
@@ -146,14 +149,14 @@
 		F.amount = amount
 
 		if(!metal)			// don't carry other chemicals if a metal foam
-			F.create_reagents(15)
+			F.create_reagents(25)
 
 			if(carried_reagents)
 				for(var/id in carried_reagents)
 					if(banned_reagents.Find("[id]"))
 						continue
 					var/datum/reagent/reagent_volume = carried_reagents[id]
-					F.reagents.add_reagent(id, min(reagent_volume, 3), null, temperature)
+					F.reagents.add_reagent(id, min(reagent_volume, 5), null, temperature)
 				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 			else
 				F.reagents.add_reagent("cleaner", 1)
@@ -178,8 +181,9 @@
 	air_update_turf(1)
 
 /obj/structure/foamedmetal/Destroy()
-	air_update_turf(1)
-	return ..()
+	var/turf/T = get_turf(src)
+	. = ..()
+	T.air_update_turf(TRUE)
 
 /obj/structure/foamedmetal/Move()
 	var/turf/T = loc

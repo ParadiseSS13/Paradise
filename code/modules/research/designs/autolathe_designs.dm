@@ -447,6 +447,14 @@
 	build_path = /obj/item/healthanalyzer
 	category = list("initial", "Medical")
 
+/datum/design/pillbottle
+	name = "Pill Bottle"
+	id = "pillbottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 80, MAT_GLASS = 20)
+	build_path = /obj/item/storage/pill_bottle
+	category = list("initial", "Medical")
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
@@ -623,6 +631,14 @@
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Miscellaneous")
 
+/datum/design/foam_dart_sniper
+	name = "Box of Sniper Foam Darts"
+	id = "foam_dart_sniper"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 900)
+	build_path = /obj/item/ammo_box/foambox/sniper
+	category = list("initial", "Miscellaneous")
+
 //hacked autolathe recipes
 /datum/design/flamethrower
 	name = "Flamethrower"
@@ -728,12 +744,28 @@
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
 	category = list("hacked", "Security")
 
+/datum/design/riot_dart_sniper
+	name = "Foam riot sniper dart"
+	id = "riot_dart_sniper"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1800) //Discount for making individually - no box = less metal!
+	build_path = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	category = list("hacked", "Security")
+
 /datum/design/riot_darts
 	name = "Foam riot dart box"
 	id = "riot_darts"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50000) //Comes with 40 darts
 	build_path = /obj/item/ammo_box/foambox/riot
+	category = list("hacked", "Security")
+
+/datum/design/riot_darts_sniper
+	name = "Foam riot sniper dart box"
+	id = "riot_darts_sniper"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 90000) //Comes with 40 darts
+	build_path = /obj/item/ammo_box/foambox/sniper/riot
 	category = list("hacked", "Security")
 
 /datum/design/a357

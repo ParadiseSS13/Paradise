@@ -93,6 +93,9 @@
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
 	return
 
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+	return FALSE
+
 /* Commented out because it's duplicated in life.dm
 /mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
 	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.

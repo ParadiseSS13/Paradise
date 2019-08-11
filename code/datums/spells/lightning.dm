@@ -88,7 +88,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	var/mob/living/current = target
 	if(bounces < 1)
 		if(damaging)
-			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
 		else
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)
@@ -99,7 +99,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
 		if(damaging)
-			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
 		else
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)

@@ -12,7 +12,7 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 
-/obj/item/paper_bin/fire_act()
+/obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!amount)
 		return
 	..()
@@ -72,7 +72,7 @@
 			papers.Remove(P)
 		else
 			P = new /obj/item/paper
-			if(holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS])
+			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
 					P.rigged = 1

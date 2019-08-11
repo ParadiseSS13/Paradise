@@ -17,6 +17,35 @@
 	#include "map_files\RandomZLevels\wildwest.dmm"
 
 
+	// Lavaland Ruins
+	#include "map_files\RandomRuins\LavaRuins\lavaland_biodome_beach.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_animal_hospital.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_ash_walker1.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk1.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk2.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk3.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_cube.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_cultaltar.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_dead_ratvar.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_envy.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_fountain_hall.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_gluttony.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_greed.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_hermit.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_hierophant.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_pizzaparty.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_pride.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_puzzle.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_random_ripley.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_seed_vault.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_sloth.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_survivalpod.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_swarmer_crash.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_syndicate_base1.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_ufo_crash.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_xeno_nest.dmm"
+	
+
 	// Space Ruins
 	#include "map_files\RandomRuins\SpaceRuins\abandonedzoo.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\asteroid1.dmm"

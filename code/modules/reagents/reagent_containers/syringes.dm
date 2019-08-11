@@ -31,7 +31,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/syringe/pickup(mob/user)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/syringe/dropped(mob/user)
@@ -197,7 +197,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/ld50_syringe/pickup(mob/user)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/ld50_syringe/dropped(mob/user)
@@ -289,12 +289,6 @@
 		icon_state = "[rounded_vol]"
 	item_state = "syringe_[rounded_vol]"
 
-
-////////////////////////////////////////////////////////////////////////////////
-/// Syringes. END
-////////////////////////////////////////////////////////////////////////////////
-
-
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -318,7 +312,19 @@
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
 
+/obj/item/reagent_containers/syringe/calomel
+	name = "Syringe (calomel)"
+	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
+	list_reagents = list("calomel" = 15)
+
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
 	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
+
+/obj/item/reagent_containers/syringe/gluttony
+	name = "Gluttony's Blessing"
+	desc = "A syringe recovered from a dread place. It probably isn't wise to use."
+	amount_per_transfer_from_this = 1
+	volume = 1
+	list_reagents = list("gluttonytoxin" = 1)

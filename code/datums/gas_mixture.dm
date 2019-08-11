@@ -117,7 +117,7 @@ What are the archived variables for?
 
 					trace_gas.moles -= reaction_rate*0.05
 
-					temperature -= (reaction_rate*20000)/heat_capacity()
+					temperature += (reaction_rate*20000)/heat_capacity()
 
 					reacting = 1
 
@@ -202,6 +202,10 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
 	//Copies variables from sample
+
+/datum/gas_mixture/proc/copy_from_turf(turf/model)
+	//Copies all gas info from the turf into the gas list along with temperature
+	//Returns: 1 if we are mutable, 0 otherwise
 
 /datum/gas_mixture/proc/share(datum/gas_mixture/sharer)
 	//Performs air sharing calculations between two gas_mixtures assuming only 1 boundary length
@@ -340,6 +344,19 @@ What are the archived variables for?
 		corresponding.moles = trace_gas.moles
 
 	temperature = sample.temperature
+
+	return 1
+
+/datum/gas_mixture/copy_from_turf(turf/model)
+	oxygen = model.oxygen
+	carbon_dioxide = model.carbon_dioxide
+	nitrogen = model.nitrogen
+	toxins = model.toxins
+
+	//acounts for changes in temperature
+	var/turf/model_parent = model.parent_type
+	if(model.temperature != initial(model.temperature) || model.temperature != initial(model_parent.temperature))
+		temperature = model.temperature
 
 	return 1
 

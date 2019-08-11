@@ -232,6 +232,9 @@
 			on = FALSE
 	return
 
+/obj/machinery/light/get_spooked()
+	flicker()
+
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(var/trigger = TRUE)
 	switch(status)
@@ -353,7 +356,7 @@
 				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 			if(on && (W.flags & CONDUCT))
 				if(prob(12))
-					electrocute_mob(user, get_area(src), src, 0.3)
+					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 			broken()
 
 		else
@@ -387,7 +390,7 @@
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
 			if(prob(75))
-				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
+				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 
 
 // returns whether this light has power
@@ -586,6 +589,7 @@
 // called when on fire
 
 /obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		broken()
 
