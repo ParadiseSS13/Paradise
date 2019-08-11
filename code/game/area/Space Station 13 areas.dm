@@ -50,6 +50,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	hide_attacklogs = TRUE
 
 
 /area/adminconstruction
@@ -57,6 +58,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	hide_attacklogs = TRUE
 
 /area/space
 	icon_state = "space"
@@ -522,6 +524,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "thunder"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	hide_attacklogs = TRUE
 
 
 /area/tdome/arena_source
