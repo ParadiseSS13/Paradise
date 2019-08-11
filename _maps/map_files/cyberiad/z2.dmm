@@ -3632,13 +3632,13 @@
 	},
 /area/syndicate_mothership)
 "jt" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -3653,13 +3653,13 @@
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "jw" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (WEST)";
 	icon_state = "bulb1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -7369,9 +7369,8 @@
 	},
 /area/centcom/evac)
 "sn" = (
-/obj/structure/chair{
-	dir = 4;
-	name = "Defense"
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
@@ -12217,6 +12216,12 @@
 "DX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
+"EC" = (
+/obj/structure/chair/sofa/corner,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
 "FL" = (
 /turf/simulated/wall/r_wall,
 /area/adminconstruction)
@@ -12373,6 +12378,13 @@
 	icon_state = "floor"
 	},
 /area/tdome/tdomeadmin)
+"Jj" = (
+/obj/structure/chair{
+	dir = 4;
+	name = "Defense"
+	},
+/turf/simulated/shuttle/floor,
+/area/centcom/evac)
 "JC" = (
 /obj/structure/chair/stool,
 /obj/item/clothing/head/bandana{
@@ -12444,25 +12456,25 @@
 /turf/unsimulated/floor/vox,
 /area/vox_station)
 "KR" = (
-/obj/structure/chair{
+/obj/machinery/light/small,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "KW" = (
-/obj/structure/chair,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "KX" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -12470,7 +12482,7 @@
 	},
 /area/shuttle/assault_pod)
 "KY" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -12527,6 +12539,17 @@
 	name = "plating"
 	},
 /area/centcom/control)
+"OI" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
 "OP" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -12654,6 +12677,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/specops)
+"UZ" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor,
+/area/centcom/evac)
 "Vc" = (
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
@@ -12739,7 +12768,7 @@
 	},
 /area/centcom/evac)
 "WI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -12748,12 +12777,6 @@
 /obj/structure/chair,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
-"Xa" = (
-/obj/structure/chair/sofa/corner,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/escape)
 "Xj" = (
 /obj/structure/bed,
 /turf/unsimulated/floor{
@@ -41706,7 +41729,7 @@ sq
 aN
 aN
 nV
-Xa
+EC
 og
 og
 og
@@ -55361,7 +55384,7 @@ sL
 zQ
 zX
 rT
-WI
+UZ
 yM
 Bi
 tI
@@ -55875,7 +55898,7 @@ rZ
 yM
 AM
 rT
-sn
+Jj
 yM
 Bk
 tI
@@ -59644,7 +59667,7 @@ aN
 nj
 gx
 iv
-KY
+OI
 iS
 jw
 iS
@@ -59904,7 +59927,7 @@ iQ
 iv
 KY
 iS
-iS
+KY
 iv
 kh
 jJ
