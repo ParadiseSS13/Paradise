@@ -89,7 +89,7 @@
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
 		set_typing(C, TRUE)
-		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -109,6 +109,8 @@
 		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 		if(!msg)
 			return
+	else
+		msg = pencode_to_html(msg)
 
 	var/recieve_span = "playerreply"
 	var/send_pm_type = " "
@@ -147,7 +149,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = input(C, msg,"[recieve_pm_type] [type] from-[sendername]", "") as text|null		//show message and await a reply
+				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -216,7 +218,7 @@
 		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
 		return
 
-	var/msg = input(src,"Message:", "Private message to admins on IRC / 400 character limit") as text|null
+	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src) as text|null
 
 	if(!msg)
 		return
@@ -279,6 +281,9 @@
 /datum/pm_tracker/proc/add_message(client/title, client/sender, message, mob/user)
 	if(!pms[title.key])
 		pms[title.key] = new /datum/pm_convo(title)
+	else if(!pms[title.key].client)
+		// If they DCed earlier, we need to add the client reference back
+		pms[title.key].client = title
 	pms[title.key].add(sender, message)
 
 	if(!open)
@@ -308,16 +313,25 @@
 		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	var/datum/pm_convo/convo = pms[current_title]
+	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
 	if(convo)
+		popup.add_head_content(@{"<script type='text/javascript'>
+			window.onload = function () {
+				var msgs = document.getElementById('msgs');
+				msgs.scrollTop = msgs.scrollHeight;
+			}
+			</script>"})
 		convo.read = TRUE
 		dat += "<h2>[check_rights(R_ADMIN, FALSE, user) ? fancy_title(current_title) : current_title]</h2>"
 		dat += "<h4>"
-		dat += "<table style='width:950px; border: 3px solid;'>"
+		dat += "<div id='msgs' style='width:950px; border: 3px solid; overflow-y: scroll; height: 350px;'>"
+		dat += "<table>"
 
 		for(var/message in convo.messages)
 			dat += "<tr><td>[message]</td></tr>"
 
 		dat += "</table>"
+		dat += "</div>"
 		if(convo.typing)
 			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
 		dat += "<br>"
@@ -327,16 +341,22 @@
 		if(check_rights(R_ADMIN, FALSE, user))
 			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
 
-	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
 	popup.set_content(dat)
 	popup.open()
 	open = TRUE
 
 /datum/pm_tracker/proc/fancy_title(title)
-	var/client/C = pms[title].client
+	var/client/C = pms[title].client || update_client(title)
 	if(!C)
 		return "[title] (Disconnected)"
 	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>)"
+
+/datum/pm_tracker/proc/update_client(title)
+	var/client/C = GLOB.directory[ckey(title)]
+	if(C)
+		pms[title].client = C
+		return C
+	return null
 
 /datum/pm_tracker/Topic(href, href_list)
 	if(href_list["archive"])

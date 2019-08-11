@@ -1366,7 +1366,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Shaft Miner Starter Kit"
 	cost = 30
 	access = access_qm
-	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
+	contains = list(/obj/item/storage/backpack/duffel/mining_conscript/noid)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
 
