@@ -205,7 +205,12 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 	else
 		..()
 
-//Step two - washing..... it's actually in washing machine code.
+//Step two - washing (also handled by water reagent code and washing machine code)
+/obj/item/stack/sheet/hairlesshide/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	if(volume >= 10)
+		new /obj/item/stack/sheet/wetleather(get_turf(src), amount)
+		qdel(src)
 
 //Step three - drying
 /obj/item/stack/sheet/wetleather/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)

@@ -5,8 +5,6 @@
 	desc = "A completely indestructible chunk of crystal, rumoured to predate the start of this universe. It looks like you could store things inside it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blackbox"
-	icon_on = "blackbox"
-	icon_off = "blackbox"
 	luminosity = 8
 	max_n_of_items = INFINITY
 	unacidable = 1

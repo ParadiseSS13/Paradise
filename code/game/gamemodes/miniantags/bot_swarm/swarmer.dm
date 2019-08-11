@@ -181,8 +181,18 @@
 	S.Integrate(src)
 	return FALSE
 
-/atom/movable/lighting_object/swarmer_act()
+/atom/movable/swarmer_act()
+	if(!simulated)
+		return FALSE
+	return ..()
+
+/obj/effect/swarmer_act()
 	return FALSE
+
+/obj/effect/decal/cleanable/robot_debris/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S.DisIntegrate(src)
+	qdel(src)
+	return TRUE
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
 	return FALSE
@@ -342,6 +352,10 @@
 
 /obj/structure/lattice/catwalk/swarmer_catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>We have created these for our own benefit. Aborting.</span>")
+	return FALSE	
+
+/obj/structure/shuttle/engine/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>This shuttle may be important to us later. Aborting.</span>")
 	return FALSE	
 
 ////END CTRL CLICK FOR SWARMERS////

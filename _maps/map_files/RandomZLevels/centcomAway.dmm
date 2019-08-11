@@ -5193,7 +5193,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "mE" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "floor"
 	},

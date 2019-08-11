@@ -209,7 +209,6 @@
 	
 	if(!defer_change)
 		W.AfterChange(ignore_air)
-
 	W.blueprint_data = old_blueprint_data
 
 	recalc_atom_opacity()
@@ -492,15 +491,13 @@
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X
+		if(!A.simulated)
+			continue
 		if(istype(A, /mob/dead))
 			continue
 		if(istype(A, /obj/effect/landmark))
 			continue
 		if(istype(A, /obj/docking_port))
-			continue
-		if(istype(A, /atom/movable/lighting_object))
-			continue
-		if(!A.simulated)
 			continue
 		qdel(A, force=TRUE)
 
@@ -512,3 +509,7 @@
 
 /turf/AllowDrop()
 	return TRUE
+
+/turf/proc/water_act(volume, temperature, source)
+	for(var/mob/living/carbon/slime/M in src)
+		M.apply_water()

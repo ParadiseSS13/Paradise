@@ -86,8 +86,8 @@
 	var/frequency = ATMOS_VENTSCRUB
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
-	var/remote_control = 0
-	var/rcon_setting = 2
+	var/remote_control = TRUE
+	var/rcon_setting = RCON_AUTO
 	var/rcon_time = 0
 	var/locked = 1
 	var/datum/wires/alarm/wires = null
@@ -98,7 +98,7 @@
 
 	// Waiting on a device to respond.
 	// Specifies an id_tag.  NULL means we aren't waiting.
-	var/waiting_on_device=null
+	var/waiting_on_device = null
 
 	var/mode = AALARM_MODE_SCRUBBING
 	var/preset = AALARM_PRESET_HUMAN
@@ -117,16 +117,18 @@
 
 	var/list/TLV = list()
 
-	var/report_danger_level = 1
+	var/report_danger_level = TRUE
 
-	var/automatic_emergency = 1 //Does the alarm automaticly respond to an emergency condition
+	var/automatic_emergency = TRUE //Does the alarm automaticly respond to an emergency condition
 
 /obj/machinery/alarm/monitor
-	report_danger_level = 0
+	report_danger_level = FALSE
 
 /obj/machinery/alarm/syndicate //general syndicate access
-	report_danger_level = 0
+	report_danger_level = FALSE
+	remote_control = FALSE
 	req_access = list(access_syndicate)
+	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER

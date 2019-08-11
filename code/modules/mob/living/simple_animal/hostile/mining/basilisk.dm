@@ -77,7 +77,6 @@
 	stat_attack = 1
 	flying = TRUE
 	robust_searching = 1
-	var/fromtendril = FALSE
 	loot = list()
 	crusher_drop_mod = 25
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing

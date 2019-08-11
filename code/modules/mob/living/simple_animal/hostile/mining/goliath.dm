@@ -10,7 +10,7 @@
 	attack_sound = 'sound/weapons/punch4.ogg'
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 40
-	ranged = 1
+	ranged = TRUE
 	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
 	ranged_cooldown_time = 120
 	friendly = "wails at"
@@ -31,12 +31,12 @@
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
-	var/pre_attack = 0
+	var/pre_attack = FALSE
 	var/pre_attack_icon = "Goliath_preattack"
-	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide{layer = 4.1})
+	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
-	..()
+	. = ..()
 	handle_preattack()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/handle_preattack()
@@ -56,11 +56,10 @@
 	var/tturf = get_turf(target)
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
-		new /obj/effect/goliath_tentacle/original(tturf, src)
+		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
-		pre_attack = 0
-	return
+		pre_attack = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(damage)
 	ranged_cooldown--
@@ -72,46 +71,105 @@
 	handle_preattack()
 	if(icon_state != icon_aggro)
 		icon_state = icon_aggro
-	return
 
-/obj/effect/goliath_tentacle
-	name = "Goliath tentacle"
+// Lavaland Goliath
+/mob/living/simple_animal/hostile/asteroid/goliath/beast
+	name = "goliath"
+	desc = "A hulking, armor-plated beast with long tendrils arching from its back."
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "goliath"
+	icon_living = "goliath"
+	icon_aggro = "goliath"
+	icon_dead = "goliath_dead"
+	throw_message = "does nothing to the tough hide of the"
+	pre_attack_icon = "goliath2"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
+	loot = list()
+	stat_attack = TRUE
+	robust_searching = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize()
+	. = ..()
+	if(prob(1))
+		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
+		return INITIALIZE_HINT_QDEL
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
+	name = "ancient goliath"
+	desc = "Goliaths are biologically immortal, and rare specimens have survived for centuries. This one is clearly ancient, and its tentacles constantly churn the earth around it."
+	icon_state = "Goliath"
+	icon_living = "Goliath"
+	icon_aggro = "Goliath_alert"
+	icon_dead = "Goliath_dead"
+	maxHealth = 400
+	health = 400
+	speed = 4
+	pre_attack_icon = "Goliath_preattack"
+	throw_message = "does nothing to the rocky hide of the"
+	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/goliath = 2, /obj/item/stack/sheet/bone = 2)
+	wander = FALSE
+	var/list/cached_tentacle_turfs
+	var/turf/last_location
+	var/tentacle_recheck_cooldown = 100
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
+	. = ..()
+	if(!.) // dead
+		return
+	if(isturf(loc))
+		if(!LAZYLEN(cached_tentacle_turfs) || loc != last_location || tentacle_recheck_cooldown <= world.time)
+			LAZYCLEARLIST(cached_tentacle_turfs)
+			last_location = loc
+			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
+			for(var/turf/simulated/floor/T in orange(4, loc))
+				LAZYADD(cached_tentacle_turfs, T)
+		for(var/t in cached_tentacle_turfs)
+			if(isfloorturf(t))
+				if(prob(10))
+					new /obj/effect/temp_visual/goliath_tentacle(t, src)
+			else
+				cached_tentacle_turfs -= t
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
+	fromtendril = TRUE
+
+// Tentacles
+/obj/effect/temp_visual/goliath_tentacle
+	name = "goliath tentacle"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath_tentacle_spawn"
 	layer = BELOW_MOB_LAYER
 	var/mob/living/spawner
-	var/timerid
 
-/obj/effect/goliath_tentacle/New(var/loc, mob/living/new_spawner)
+/obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)
 	. = ..()
-	for(var/obj/effect/goliath_tentacle/T in loc)
+	for(var/obj/effect/temp_visual/goliath_tentacle/T in loc)
 		if(T != src)
 			return INITIALIZE_HINT_QDEL
-
 	if(!QDELETED(new_spawner))
 		spawner = new_spawner
-
 	if(ismineralturf(loc))
 		var/turf/simulated/mineral/M = loc
 		M.gets_drilled()
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, .proc/tripanim), 7, TIMER_STOPPABLE)
 
-/obj/effect/goliath_tentacle/original/New(var/loc, mob/living/new_spawner)
+/obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
 	. = ..()
 	var/list/directions = cardinal.Copy()
 	for(var/i in 1 to 3)
 		var/spawndir = pick_n_take(directions)
 		var/turf/T = get_step(src, spawndir)
 		if(T)
-			new /obj/effect/goliath_tentacle(T, spawner)
+			new /obj/effect/temp_visual/goliath_tentacle(T, spawner)
 
-/obj/effect/goliath_tentacle/proc/tripanim()
+/obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, .proc/trip), 3, TIMER_STOPPABLE)
 
-/obj/effect/goliath_tentacle/proc/trip()
+/obj/effect/temp_visual/goliath_tentacle/proc/trip()
 	var/latched = FALSE
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
@@ -126,10 +184,10 @@
 		deltimer(timerid)
 		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
 
-/obj/effect/goliath_tentacle/proc/retract()
+/obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
-	timerid = QDEL_IN(src, 7)
+	timerid = QDEL_IN(src, 5)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
 	name = "goliath"

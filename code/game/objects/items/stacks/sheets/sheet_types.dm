@@ -105,6 +105,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
+	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -151,6 +152,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
+	point_value = 23
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
@@ -385,8 +387,8 @@ var/global/list/datum/stack_recipe/brass_recipes = list (\
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
-	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/empty), \
-	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
+	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \

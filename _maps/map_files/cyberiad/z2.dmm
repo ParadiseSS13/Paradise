@@ -3499,7 +3499,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena)
 "jb" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "jc" = (
@@ -4426,7 +4426,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena_source)
 "lD" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "lE" = (
@@ -12566,6 +12566,10 @@
 /obj/effect/landmark/ai_multicam_room,
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
+"Qt" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/ninja/holding)
 "QE" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/shuttle/floor{
@@ -54450,7 +54454,7 @@ fI
 fH
 fH
 he
-hv
+Qt
 fg
 aN
 aN

@@ -95,6 +95,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		updateallghostimages()
 	return ..()
 
+/mob/dead/observer/examine(mob/user)
+	..()
+	if(!invisibility)
+		to_chat(user, "It seems extremely obvious.")
+
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
 // You might recognize these things as "fucking ridiculous to put in an appearance"
@@ -258,7 +263,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 	statpanel("Status")
 	if(client.statpanel == "Status")
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
 
@@ -397,9 +401,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 
-	var/area/A  = input("Area to jump to", "BOOYEA") as null|anything in ghostteleportlocs
-	var/area/thearea = ghostteleportlocs[A]
+	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", ghostteleportlocs)
+	A.on_close(CALLBACK(src, .proc/teleport))
 
+/mob/dead/observer/proc/teleport(area/thearea)
 	if(!thearea)
 		return
 
@@ -420,9 +425,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Follow and orbit a mob."
 
 	var/list/mobs = getpois(skip_mindless=1)
-	var/input = input("Please, select a mob!", "Haunt", null, null) as null|anything in mobs
-	var/mob/target = mobs[input]
-	ManualFollow(target)
+	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
+	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
@@ -494,25 +498,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Jump to Mob"
 	set desc = "Teleport to a mob"
 
-	if(isobserver(usr)) //Make sure they're an observer!
-		var/list/dest = list() //List of possible destinations (mobs)
-		var/target = null	   //Chosen target.
+	if(isobserver(usr)) //Make sure they're an observer!		
+		var/list/dest = getpois(mobs_only=1) //Fill list, prompt user with list
+		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
+		A.on_close(CALLBACK(src, .proc/jump_to_mob))
 
-		dest += getpois(mobs_only=1) //Fill list, prompt user with list
-		target = input("Please, select a mob!", "Jump to Mob", null, null) as null|anything in dest
+/mob/dead/observer/proc/jump_to_mob(mob/M)
+	if(!M)
+		return
+	var/mob/A = src			 //Source mob
+	var/turf/T = get_turf(M) //Turf of the destination mob
 
-		if(!target) //Make sure we actually have a target
-			return
-		else
-			var/mob/M = dest[target] //Destination mob
-			var/mob/A = src			 //Source mob
-			var/turf/T = get_turf(M) //Turf of the destination mob
-
-			if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-				A.forceMove(T)
-			else
-				to_chat(A, "This mob is not located in the game world.")
-
+	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
+		A.forceMove(T)
+		return
+	to_chat(A, "This mob is not located in the game world.")
 
 /* Now a spell.  See spells.dm
 /mob/dead/observer/verb/boo()

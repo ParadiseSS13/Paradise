@@ -93,14 +93,14 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox20"
 	desc = "A display case for prized possessions. It taunts you to kick it."
-	density = 1
-	anchored = 1
-	unacidable = 1 //Dissolving the case would also delete the contents.
+	density = TRUE
+	anchored = TRUE
+	unacidable = TRUE //Dissolving the case would also delete the contents.
 	var/health = 30
 	var/obj/item/occupant = null
-	var/destroyed = 0
-	var/locked = 0
-	var/burglar_alarm = 0
+	var/destroyed = FALSE
+	var/locked = FALSE
+	var/burglar_alarm = FALSE
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/airlock_electronics/circuit
@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	return
 
 /obj/structure/displaycase/proc/burglar_alarm()
-	if(burglar_alarm)
+	if(burglar_alarm && is_station_contact(z))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
@@ -221,10 +221,10 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 			sleep(74) // 7.4 seconds long
 
 /obj/structure/displaycase/update_icon()
-	if(src.destroyed)
-		src.icon_state = "glassbox2b"
+	if(destroyed)
+		icon_state = "glassbox2b"
 	else
-		src.icon_state = "glassbox2[locked]"
+		icon_state = "glassbox2[locked]"
 	overlays = 0
 	if(occupant)
 		var/icon/occupant_icon=getFlatIcon(occupant)

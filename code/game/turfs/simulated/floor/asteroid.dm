@@ -27,6 +27,9 @@
 /turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)
 	return
 
+/turf/simulated/floor/plating/asteroid/remove_plating()
+	return
+
 /turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	switch(severity)
 		if(3)
@@ -58,18 +61,21 @@
 			gets_dug()
 			return
 
-	if(istype(W,/obj/item/storage/bag/ore))
+	else if(istype(W,/obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = W
 		if(S.collection_mode == 1)
 			for(var/obj/item/stack/ore/O in src.contents)
 				O.attackby(W,user)
 				return
 
-	if(istype(W, /obj/item/stack/tile))
+	else if(istype(W, /obj/item/stack/tile))
 		var/obj/item/stack/tile/Z = W
 		if(!Z.use(1))
 			return
-		ChangeTurf(Z.turf_type)
+		if(istype(Z, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
+			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+		else
+			ChangeTurf(Z.turf_type, keep_icon = FALSE)
 		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 
 /turf/simulated/floor/plating/asteroid/gets_drilled()
@@ -87,12 +93,6 @@
 	icon_plating = "[environment_type]_dug"
 	icon_state = "[environment_type]_dug"
 	slowdown = 0
-	return
-
-/turf/simulated/floor/plating/asteroid/singularity_act()
-	return
-
-/turf/simulated/floor/plating/asteroid/singularity_pull(S, current_size)
 	return
 
 /turf/simulated/floor/plating/asteroid/basalt
@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
-	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast = 50, /mob/living/simple_animal/hostile/spawner/lavaland/goliath = 3, \
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /mob/living/simple_animal/hostile/spawner/lavaland/goliath = 3, \
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 40, /mob/living/simple_animal/hostile/spawner/lavaland = 2, \
 		/mob/living/simple_animal/hostile/asteroid/hivelord/legion = 30, /mob/living/simple_animal/hostile/spawner/lavaland/legion = 3, \
 		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10)

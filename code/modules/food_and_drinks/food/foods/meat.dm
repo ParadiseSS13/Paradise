@@ -129,7 +129,7 @@
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
-	list_reagents = list("nutriment" = 3, "toxin" = 5)
+	list_reagents = list("protein" = 3, "toxin" = 5)
 
 /obj/item/reagent_containers/food/snacks/goliath/burn()
 	visible_message("[src] finishes cooking!")
@@ -222,6 +222,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "goliathsteak"
 	trash = null
+	list_reagents = list("protein" = 6, "vitamin" = 2)
 
 //////////////////////
 //		Cubes		//
@@ -237,8 +238,9 @@
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 
-/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
-	if(volume >= 5)
+/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	if(volume >= 1)
 		return Expand()
 
 /obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
