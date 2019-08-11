@@ -388,7 +388,7 @@
 	overlays.Cut()
 
 	if(hud && hud.mymob)
-		if(iscarbon(hud.mymob))
+		if(ishuman(hud.mymob))
 			var/mob/living/carbon/human/C = hud.mymob
 			if(C.handcuffed)
 				overlays += handcuff_overlay

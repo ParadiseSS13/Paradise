@@ -578,10 +578,7 @@
 		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healthdoll.icon_state = "healthdoll_DEAD"
 		else
-/* 			var/list/new_overlays = list()
-			var/list/cached_overlays = H.healthdoll.cached_healthdoll_overlays */
-			// Use the dead health doll as the base, since we have proper "healthy" overlays now
-			H.healthdoll.icon_state = "healthdoll_OVERLAY"
+			H.healthdoll.icon_state = "healthdoll_OVERLAY" // use the healthy overlay as base
 			for(var/obj/item/organ/external/O in H.bodyparts)
 				var/damage = O.burn_dam + O.brute_dam
 				var/comparison = (O.max_damage/5)
@@ -602,9 +599,6 @@
 				H.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]6"))
 			for(var/t in H.get_disabled_limbs()) //Disabled limbs
 				H.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]7"))
-/* 			H.healthdoll.overlays += (new_overlays - cached_overlays)
-			H.healthdoll.overlays -= (cached_overlays - new_overlays)
-			H.healthdoll.cached_healthdoll_overlays = new_overlays */
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
 	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
