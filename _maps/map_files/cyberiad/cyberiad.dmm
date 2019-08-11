@@ -96555,9 +96555,7 @@
 /area/shuttle/escape)
 "lwQ" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 8;
-	step_x = 0;
-	step_y = 0
+	dir = 8
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
@@ -97051,9 +97049,7 @@
 "wkx" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
-	dir = 8;
-	step_x = 0;
-	step_y = 0
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
