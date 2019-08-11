@@ -49,6 +49,7 @@
 /mob/living/simple_animal/hostile/mining_drone/New()
 	..()
 	stored_gun = new(src)
+	zone_sel = new /obj/screen/zone_sel(src) //Gross, but necessary TO-DO; remove this.
 	toggle_light_action = new()
 	toggle_light_action.Grant(src)
 	toggle_meson_vision_action = new()
