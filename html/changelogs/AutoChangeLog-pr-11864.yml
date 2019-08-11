@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Moving through portals very quickly no longer breaks movement."
