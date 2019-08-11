@@ -247,9 +247,9 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM)
+/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
 	if(assembly)
-		assembly.Crossed(AM)
+		assembly.Crossed(AM, oldloc)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)

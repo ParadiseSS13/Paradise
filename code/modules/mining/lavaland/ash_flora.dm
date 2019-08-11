@@ -148,7 +148,7 @@
 	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
-/obj/structure/flora/ash/cacti/Crossed(mob/AM)
+/obj/structure/flora/ash/cacti/Crossed(mob/AM, oldloc)
 	if(ishuman(AM) && has_gravity(loc) && prob(70))
 		var/mob/living/carbon/human/H = AM
 		if(!H.shoes && !H.lying) //ouch, my feet.

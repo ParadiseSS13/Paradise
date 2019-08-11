@@ -187,9 +187,9 @@
 	if(rig)
 		rig.HasProximity(AM)
 
-/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM)
+/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM, oldloc)
 	if(rig)
-		rig.Crossed(AM)
+		rig.Crossed(AM, oldloc)
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
 	if(rig)

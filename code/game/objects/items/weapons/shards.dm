@@ -67,7 +67,7 @@
 	else
 		return ..()
 
-/obj/item/shard/Crossed(AM as mob|obj)
+/obj/item/shard/Crossed(AM as mob|obj, oldloc)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(M.incorporeal_move || M.flying || M.throwing)//you are incorporal or flying or being thrown ..no shard stepping!

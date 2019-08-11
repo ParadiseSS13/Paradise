@@ -31,7 +31,7 @@
 		else if(W.isOn())
 			to_chat(user, "<span class='info'>Not enough fuel to smelt [src].</span>")
 
-/obj/item/stack/ore/Crossed(atom/movable/AM)
+/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
 	var/obj/item/storage/bag/ore/OB
 	var/turf/simulated/floor/F = get_turf(src)
 	if(loc != F)
