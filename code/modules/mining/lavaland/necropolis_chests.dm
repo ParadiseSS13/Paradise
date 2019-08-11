@@ -12,8 +12,11 @@
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/New()
+/obj/structure/closet/crate/necropolis/tendril/New(add_loot = TRUE)
 	..()
+	if(!add_loot)
+		return
+
 	var/loot = rand(1,25)
 	switch(loot) 
 		if(1)
@@ -35,7 +38,7 @@
 		if(8)
 			new /obj/item/organ/internal/brain/xeno(src)
 		if(9)
-			new /obj/item/organ/internal/heart/cursed(src)
+			new /obj/item/organ/internal/heart/cursed/wizard(src)
 		if(10)
 			new /obj/item/ship_in_a_bottle(src)
 		if(11)
@@ -71,3 +74,18 @@
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(25)
 			new /obj/item/book_of_babel(src)
+
+/obj/structure/closet/crate/necropolis/puzzle
+	name = "puzzling chest"
+
+/obj/structure/closet/crate/necropolis/puzzle/New()
+	..(FALSE)
+
+	var/loot = rand(1,3)
+	switch(loot)
+		if(1)
+			new /obj/item/soulstone/anybody(src)
+		if(2)
+			new /obj/item/wisp_lantern(src)
+		if(3)
+			new /obj/item/prisoncube(src)

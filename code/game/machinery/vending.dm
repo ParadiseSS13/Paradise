@@ -1083,6 +1083,7 @@
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				   /obj/item/lighter/zippo = 3)
+	prices = list()
 
 /obj/machinery/vending/cigarette/New()
 	..()

@@ -453,7 +453,7 @@
 	popup.open()
 
 
-/mob/living/carbon/human/Crossed(atom/movable/AM)
+/mob/living/carbon/human/Crossed(atom/movable/AM, oldloc)
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	if(istype(MB))
 		MB.RunOver(src)

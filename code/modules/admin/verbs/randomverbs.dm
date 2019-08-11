@@ -54,7 +54,7 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
+	var/msg = clean_input("Message:", text("Subtle PM to [M.key]"))
 
 	if(!msg)
 		return
@@ -109,10 +109,11 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text
+	var/msg = clean_input("Message:", text("Enter the text you wish to appear to everyone:"))
 
 	if(!msg)
 		return
+	msg = pencode_to_html(msg)
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
@@ -131,10 +132,11 @@
 	if(!M)
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to your target:")) as text
+	var/msg = clean_input("Message:", text("Enter the text you wish to appear to your target:"))
 
 	if( !msg )
 		return
+	msg = pencode_to_html(msg)
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
@@ -169,7 +171,7 @@
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "") as text|null
+	var/input = clean_input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "")
 	if(!input)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return
@@ -550,7 +552,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_EVENT))
 		return
 
-	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
+	var/input = clean_input("Please enter anything you want the AI to do. Anything. Serious.", "What?", "")
 	if(!input)
 		return
 
@@ -603,14 +605,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 
 	if(type == "Custom")
-		type = input(usr, "What would you like the report type to be?", "Report Type", "Encrypted Transmission") as text|null
+		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	var/customname = clean_input("Pick a title for the report.", "Title", MsgType[type])
 	if(!customname)
 		return
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
 	if(!input)
 		return
+	input = pencode_to_html(html_encode(input))
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 		if("Yes")

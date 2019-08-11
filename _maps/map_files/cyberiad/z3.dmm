@@ -764,8 +764,7 @@
 /area/shuttle/freegolem)
 "bS" = (
 /obj/machinery/light,
-/obj/structure/chair/comfy/purp{
-	icon_state = "comfychair";
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/purple,
