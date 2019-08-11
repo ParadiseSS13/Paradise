@@ -475,7 +475,7 @@ var/list/admin_verbs_ticket = list(
 		if(holder.fakekey)
 			holder.fakekey = null
 		else
-			var/new_key = ckeyEx(input("Enter your desired display name.", "Fake Key", key) as text|null)
+			var/new_key = ckeyEx(clean_input("Enter your desired display name.", "Fake Key", key))
 			if(!new_key)	return
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
@@ -497,7 +497,7 @@ var/list/admin_verbs_ticket = list(
 			holder.fakekey = null
 			holder.big_brother = 0
 		else
-			var/new_key = ckeyEx(input("Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", key) as text|null)
+			var/new_key = ckeyEx(clean_input("Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", key))
 			if(!new_key)
 				return
 			if(length(new_key) >= 26)
@@ -638,7 +638,7 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	if(O)
-		var/message = input("What do you want the message to be?", "Make Sound") as text|null
+		var/message = clean_input("What do you want the message to be?", "Make Sound")
 		if(!message)
 			return
 		for(var/mob/V in hearers(O))
