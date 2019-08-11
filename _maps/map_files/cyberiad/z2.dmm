@@ -12210,18 +12210,23 @@
 	},
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
+"CN" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
 "Dv" = (
 /turf/space,
 /area/admin)
 "DX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
-"EC" = (
-/obj/structure/chair/sofa/corner,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/escape)
 "FL" = (
 /turf/simulated/wall/r_wall,
 /area/adminconstruction)
@@ -12378,13 +12383,6 @@
 	icon_state = "floor"
 	},
 /area/tdome/tdomeadmin)
-"Jj" = (
-/obj/structure/chair{
-	dir = 4;
-	name = "Defense"
-	},
-/turf/simulated/shuttle/floor,
-/area/centcom/evac)
 "JC" = (
 /obj/structure/chair/stool,
 /obj/item/clothing/head/bandana{
@@ -12539,17 +12537,6 @@
 	name = "plating"
 	},
 /area/centcom/control)
-"OI" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/assault_pod)
 "OP" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -12677,12 +12664,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/specops)
-"UZ" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor,
-/area/centcom/evac)
 "Vc" = (
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
@@ -12752,7 +12733,7 @@
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "Wk" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -12760,7 +12741,7 @@
 	},
 /area/centcom/evac)
 "Wl" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -12774,7 +12755,7 @@
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "WU" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "Xj" = (
@@ -41729,7 +41710,7 @@ sq
 aN
 aN
 nV
-EC
+og
 og
 og
 og
@@ -55384,7 +55365,7 @@ sL
 zQ
 zX
 rT
-UZ
+WI
 yM
 Bi
 tI
@@ -55898,7 +55879,7 @@ rZ
 yM
 AM
 rT
-Jj
+sn
 yM
 Bk
 tI
@@ -59667,7 +59648,7 @@ aN
 nj
 gx
 iv
-OI
+CN
 iS
 jw
 iS
