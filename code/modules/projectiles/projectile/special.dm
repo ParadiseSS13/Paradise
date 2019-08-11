@@ -245,18 +245,6 @@
 	range = 3
 	dismemberment = 20
 
-/obj/item/projectile/plasma/New()
-	var/turf/proj_turf = get_turf(src)
-	if(!istype(proj_turf, /turf))
-		return
-	var/datum/gas_mixture/environment = proj_turf.return_air()
-	if(environment)
-		var/pressure = environment.return_pressure()
-		if(pressure < 30)
-			name = "full strength plasma blast"
-			damage *= 3
-	..()
-
 /obj/item/projectile/plasma/on_hit(atom/target)
 	. = ..()
 	if(ismineralturf(target))
@@ -267,7 +255,8 @@
 		forcedodge = 0
 
 /obj/item/projectile/plasma/adv
-	range = 6
+	damage = 7
+	range = 5
 
 /obj/item/projectile/plasma/adv/mech
 	damage = 10

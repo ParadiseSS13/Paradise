@@ -20,6 +20,8 @@
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
 
+	var/recharge_timerid
+
 	var/empty_state = "kineticgun_empty"
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
@@ -30,20 +32,20 @@
 				var/obj/item/borg/upgrade/modkit/M = A
 				to_chat(user, "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>")
 
-/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/crowbar))
+/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
+	if(iscrowbar(I))
 		if(modkits.len)
 			to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
-			playsound(loc, A.usesound, 100, 1)
+			playsound(loc, I.usesound, 100, 1)
 			for(var/obj/item/borg/upgrade/modkit/M in modkits)
 				M.uninstall(src)
 		else
 			to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
-	else if(istype(A, /obj/item/borg/upgrade/modkit))
-		var/obj/item/borg/upgrade/modkit/MK = A
+	else if(istype(I, /obj/item/borg/upgrade/modkit))
+		var/obj/item/borg/upgrade/modkit/MK = I
 		MK.install(src, user)
 	else
-		..()
+		return ..()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/get_remaining_mod_capacity()
 	var/current_capacity_used = 0
@@ -58,6 +60,7 @@
 		. += A
 
 /obj/item/gun/energy/kinetic_accelerator/proc/modify_projectile(obj/item/projectile/kinetic/K)
+	K.kinetic_gun = src //do something special on-hit, easy!
 	for(var/A in get_modkits())
 		var/obj/item/borg/upgrade/modkit/M = A
 		M.modify_projectile(K)
@@ -66,6 +69,12 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	max_mod_capacity = 80
+
+/obj/item/gun/energy/kinetic_accelerator/minebot
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	overheat_time = 20
+	holds_charge = TRUE
+	unique_frequency = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/New()
 	. = ..()
@@ -83,7 +92,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/dropped()
 	. = ..()
-	if(!holds_charge)
+	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
 		// calls dropped().
 		spawn(2)
@@ -97,24 +106,25 @@
 	power_supply.use(500)
 	update_icon()
 
-/obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload()
+/obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(recharge_time)
 	if(overheat)
 		return
+	if(!recharge_time)
+		recharge_time = overheat_time
 	overheat = TRUE
 
 	var/carried = 0
 	if(!unique_frequency)
-		for(var/obj/item/gun/energy/kinetic_accelerator/K in \
-			loc.GetAllContents())
-
-			carried++
+		for(var/obj/item/gun/energy/kinetic_accelerator/K in loc.GetAllContents())
+			if(!K.unique_frequency)
+				carried++
 
 		carried = max(carried, 1)
 	else
 		carried = 1
 
-	spawn(overheat_time * carried)
-		reload()
+	deltimer(recharge_timerid)
+	recharge_timerid = addtimer(CALLBACK(src, .proc/reload), recharge_time * carried, TIMER_STOPPABLE)
 
 /obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
@@ -161,16 +171,6 @@
 		var/obj/item/gun/energy/kinetic_accelerator/KA = loc
 		KA.modify_projectile(BB)
 
-	var/turf/proj_turf = get_turf(BB)
-	if(!isturf(proj_turf))
-		return
-	var/datum/gas_mixture/environment = proj_turf.return_air()
-	var/pressure = environment.return_pressure()
-	if(pressure > 50)
-		BB.name = "weakened [BB.name]"
-		var/obj/item/projectile/kinetic/K = BB
-		K.damage *= K.pressure_decrease
-
 
 //Projectiles
 /obj/item/projectile/kinetic
@@ -181,10 +181,9 @@
 	flag = "bomb"
 	range = 3
 
+	var/pressure_decrease_active = FALSE
 	var/pressure_decrease = 0.25
-	var/turf_aoe = FALSE
-	var/mob_aoe = FALSE
-	var/list/hit_overlays = list()
+	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
 
 /obj/item/projectile/kinetic/pod
 	range = 4
@@ -193,9 +192,22 @@
 	damage = 50
 	pressure_decrease = 0.5
 
-/obj/item/projectile/kinetic/pod/enhanced
-	turf_aoe = TRUE
-	mob_aoe = TRUE
+/obj/item/projectile/kinetic/Destroy()
+	kinetic_gun = null
+	return ..()
+
+/obj/item/projectile/kinetic/prehit(atom/target)
+	. = ..()
+	if(.)
+		if(kinetic_gun)
+			var/list/mods = kinetic_gun.get_modkits()
+			for(var/obj/item/borg/upgrade/modkit/M in mods)
+				M.projectile_prehit(src, target, kinetic_gun)
+		if(!lavaland_equipment_pressure_check(get_turf(target)))
+			name = "weakened [name]"
+			damage = damage * pressure_decrease
+			pressure_decrease_active = TRUE
+
 
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()
@@ -209,30 +221,22 @@
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		target_turf = get_turf(src)
+	if(kinetic_gun) //hopefully whoever shot this was not very, very unfortunate.
+		var/list/mods = kinetic_gun.get_modkits()
+		for(var/obj/item/borg/upgrade/modkit/M in mods)
+			M.projectile_strike_predamage(src, target_turf, target, kinetic_gun)
+		for(var/obj/item/borg/upgrade/modkit/M in mods)
+			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		var/turf/simulated/mineral/M = target_turf
 		M.gets_drilled(firer)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
-	for(var/type in hit_overlays)
-		new type(target_turf)
-	if(turf_aoe)
-		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
-			if(ismineralturf(T))
-				var/turf/simulated/mineral/M = T
-				M.gets_drilled(firer)
-	if(mob_aoe)
-		for(var/mob/living/L in range(1, target_turf) - firer - target)
-			var/armor = L.run_armor_check(def_zone, flag, "", "", armour_penetration)
-			L.apply_damage(damage*mob_aoe, damage_type, def_zone, armor)
-			L.visible_message("<span class='danger'>[L] is hit by \a [src]!</span>",
-								"<span class='userdanger'>You are hit by \a [src]!</span>")
-			add_attack_logs(firer, L, "Shot with a [type]")
 
 
 //Modkits
 /obj/item/borg/upgrade/modkit
-	name = "modification kit"
+	name = "kinetic accelerator modification kit"
 	desc = "An upgrade for kinetic accelerators."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
@@ -244,6 +248,8 @@
 	var/maximum_of_type = 1
 	var/cost = 30
 	var/modifier = 1 //For use in any mod kit that has numerical modifiers
+	var/minebot_upgrade = TRUE
+	var/minebot_exclusive = FALSE
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	if(..(user, 1))
@@ -253,7 +259,7 @@
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
 		install(A, user)
 	else
-		..()
+		return ..()
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
 	if(..())
@@ -264,6 +270,13 @@
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
+	if(minebot_upgrade)
+		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
+			return FALSE
+	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
+		return FALSE
 	if(denied_type)
 		var/number_of_denied = 0
 		for(var/A in KA.get_modkits())
@@ -292,6 +305,12 @@
 
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
 
+//use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure
+/obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+//use this one for effects you want to trigger before mods that do damage
+/obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+//and this one for things that don't need to trigger before other damage-dealing mods
+/obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 
 //Range
 /obj/item/borg/upgrade/modkit/range
@@ -317,8 +336,9 @@
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
 	name = "cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator."
-	modifier = 2.5
+	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
+	modifier = 3.2
+	minebot_upgrade = FALSE
 
 /obj/item/borg/upgrade/modkit/cooldown/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
@@ -329,25 +349,61 @@
 	KA.overheat_time += modifier
 	..()
 
+/obj/item/borg/upgrade/modkit/cooldown/minebot
+	name = "minebot cooldown decrease"
+	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for minebot use."
+	icon_state = "door_electronics"
+	icon = 'icons/obj/module.dmi'
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
+	modifier = 10
+	cost = 0
+	minebot_upgrade = TRUE
+	minebot_exclusive = TRUE
 
 //AoE blasts
 /obj/item/borg/upgrade/modkit/aoe
 	modifier = 0
+	var/turf_aoe = FALSE
+	var/stats_stolen = FALSE
 
-/obj/item/borg/upgrade/modkit/aoe/modify_projectile(obj/item/projectile/kinetic/K)
-	K.name = "kinetic explosion"
-	if(!K.turf_aoe && !K.mob_aoe)
-		K.hit_overlays += /obj/effect/temp_visual/explosion/fast
-	K.mob_aoe += modifier
+/obj/item/borg/upgrade/modkit/aoe/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	if(..())
+		return
+	for(var/obj/item/borg/upgrade/modkit/aoe/AOE in KA.modkits) //make sure only one of the aoe modules has values if somebody has multiple
+		if(AOE.stats_stolen || AOE == src)
+			continue
+		modifier += AOE.modifier //take its modifiers
+		AOE.modifier = 0
+		turf_aoe += AOE.turf_aoe
+		AOE.turf_aoe = FALSE
+		AOE.stats_stolen = TRUE
+
+/obj/item/borg/upgrade/modkit/aoe/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
+	..()
+	modifier = initial(modifier) //get our modifiers back
+	turf_aoe = initial(turf_aoe)
+	stats_stolen = FALSE
+
+/obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	if(stats_stolen)
+		return
+	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	if(turf_aoe)
+		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
+			if(ismineralturf(T))
+				var/turf/simulated/mineral/M = T
+				M.gets_drilled(K.firer)
+	if(modifier)
+		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
+			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
+			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"
 	desc = "Causes the kinetic accelerator to destroy rock in an AoE."
 	denied_type = /obj/item/borg/upgrade/modkit/aoe/turfs
-
-/obj/item/borg/upgrade/modkit/aoe/turfs/modify_projectile(obj/item/projectile/kinetic/K)
-	..()
-	K.turf_aoe = TRUE
+	turf_aoe = TRUE
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "offensive mining explosion"
@@ -360,15 +416,72 @@
 	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
 	modifier = 0.2
 
+//Minebot passthrough
+/obj/item/borg/upgrade/modkit/minebot_passthrough
+	name = "minebot passthrough"
+	desc = "Causes kinetic accelerator shots to pass through minebots."
+	cost = 0
+
+//Tendril-unique modules
+/obj/item/borg/upgrade/modkit/cooldown/repeater
+	name = "rapid repeater"
+	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown."
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
+	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
+	cost = 50
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	var/valid_repeat = FALSE
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			valid_repeat = TRUE
+	if(ismineralturf(target_turf))
+		valid_repeat = TRUE
+	if(valid_repeat)
+		KA.overheat = FALSE
+		KA.attempt_reload(KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
+
+/obj/item/borg/upgrade/modkit/lifesteal
+	name = "lifesteal crystal"
+	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
+	icon_state = "modkit_crystal"
+	modifier = 2.5 //Not a very effective method of healing.
+	cost = 20
+	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
+
+/obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	if(isliving(target) && isliving(K.firer))
+		var/mob/living/L = target
+		if(L.stat == DEAD)
+			return
+		L = K.firer
+		L.heal_ordered_damage(modifier, damage_heal_order)
+
+/obj/item/borg/upgrade/modkit/resonator_blasts
+	name = "resonator blast"
+	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
+	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
+	cost = 30
+	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
+
+/obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	if(target_turf && !ismineralturf(target_turf)) //Don't make fields on mineral turfs.
+		var/obj/effect/temp_visual/resonance/R = locate(/obj/effect/temp_visual/resonance) in target_turf
+		if(R)
+			R.damage_multiplier = modifier
+			R.burst()
+			return
+		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, 30)
 
 //Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
-	desc = "Increases the damage a kinetic accelerator does in a high pressure environment."
+	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2
-	cost = 40
+	cost = 35
 
 /obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/item/projectile/kinetic/K)
 	K.pressure_decrease *= modifier
@@ -431,7 +544,7 @@
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable
 	name = "adjustable tracer bolts"
-	desc = "Causes kinetic accelerator bolts to have a adjustably-colored tracer trail and explosion. Use in-hand to change color."
+	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	bolt_color = input(user,"Choose Color") as color
+	bolt_color = input(user,"","Choose Color",bolt_color) as color|null

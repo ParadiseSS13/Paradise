@@ -30,9 +30,9 @@
 	var/spread = 0			//amount (in degrees) of projectile spread
 	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
-	
+
 	var/ignore_source_check = FALSE
-	
+
 	var/damage = 10
 	var/tile_dropoff = 0	//how much damage should be decremented as the bullet moves
 	var/tile_dropoff_s = 0	//same as above but for stamina
@@ -79,6 +79,9 @@
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
+
+/obj/item/projectile/proc/prehit(atom/target)
+	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
@@ -162,7 +165,7 @@
 /obj/item/projectile/Bump(atom/A, yes)
 	if(!yes) //prevents double bumps.
 		return
-		
+
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
 		ricochets++
 	if(A.handle_ricochet(src))
@@ -190,7 +193,7 @@
 			return
 
 	var/turf/target_turf = get_turf(A)
-
+	prehit(A)
 	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		loc = target_turf
@@ -204,6 +207,7 @@
 				mobs_list += L
 			if(mobs_list.len)
 				var/mob/living/picked_mob = pick(mobs_list)
+				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
@@ -293,7 +297,7 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 /obj/item/projectile/proc/dumbfire(var/dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
-	
+
 
 /obj/item/projectile/proc/on_ricochet(atom/A)
 	return
@@ -307,7 +311,7 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 	if(A.flags_2 & CHECK_RICOCHET_1)
 		return TRUE
 	return FALSE
-	
+
 /obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
 	Angle = new_angle
 	return TRUE

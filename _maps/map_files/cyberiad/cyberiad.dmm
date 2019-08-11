@@ -65135,7 +65135,7 @@
 /turf/simulated/wall,
 /area/toxins/test_area)
 "cnl" = (
-/obj/structure/closet/wardrobe/miner/lavaland,
+/obj/structure/closet/wardrobe/miner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "brown"
