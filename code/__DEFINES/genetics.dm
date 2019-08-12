@@ -105,6 +105,9 @@
 #define NUTRITION_LEVEL_STARVING 150
 #define NUTRITION_LEVEL_CURSED 0
 
+//Used as an upper limit for species that continuously gain nutriment
+#define NUTRITION_LEVEL_ALMOST_FULL 535
+
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560

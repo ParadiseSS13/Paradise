@@ -106,6 +106,9 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	..(mapload, /datum/species/diona)
 
+/mob/living/carbon/human/pod_diona/Initialize(mapload)
+	..(mapload, /datum/species/diona/pod)
+
 /mob/living/carbon/human/machine/Initialize(mapload)
 	..(mapload, /datum/species/machine)
 
