@@ -408,6 +408,16 @@
 
 	Master.UpdateTickRate()
 
+	// Check total playercount
+	var/playercount = 0
+	for(var/mob/M in GLOB.player_list)
+		if(M.client)
+			playercount += 1
+	
+	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
+		GLOB.panic_bunker_enabled = 1
+		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
+
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
 	if(!isnull(address) && address in localhost_addresses)
@@ -533,6 +543,14 @@
 			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 	else
 		//New player!! Need to insert all the stuff
+
+		// Check new peeps for panic bunker
+		if(GLOB.panic_bunker_enabled)
+			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
+			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
+			del(src)
+			return // Dont insert or they can just go in again
+		
 		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()
