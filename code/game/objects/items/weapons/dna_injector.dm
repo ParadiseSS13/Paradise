@@ -701,7 +701,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/eater/Initialize()
-	block = EATER
+	block = EATBLOCK
 	..()
 
 /obj/item/dnainjector/antieater
@@ -712,5 +712,5 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antieater/Initialize()
-	block = EATER
+	block = EATBLOCK
 	..()
