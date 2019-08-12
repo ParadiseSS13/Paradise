@@ -189,7 +189,7 @@
 
 		var/task = href_list["editrights"]
 		if(task == "add")
-			var/new_ckey = ckey(input(usr,"New admin's ckey","Admin ckey", null) as text|null)
+			var/new_ckey = ckey(clean_input("New admin's ckey","Admin ckey", null))
 			if(!new_ckey)	return
 			if(new_ckey in admin_datums)
 				to_chat(usr, "<font color='red'>Error: Topic 'editrights': [new_ckey] is already an admin</font>")
@@ -1688,7 +1688,7 @@
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
-		var/customname = input(src.owner, "Pick a title for the evil fax.", "Fax Title") as text|null
+		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", , owner)
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
@@ -2171,7 +2171,7 @@
 			return
 		input = P.parsepencode(input) // Encode everything from pencode to html
 
-		var/customname = input(src.owner, "Pick a title for the fax.", "Fax Title") as text|null
+		var/customname = clean_input("Pick a title for the fax.", "Fax Title", , owner)
 		if(!customname)
 			customname = "paper"
 
@@ -2204,14 +2204,14 @@
 						if("clown")
 							stampvalue = "clown"
 				else if(stamptype == "text")
-					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
+					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
 				else if(stamptype == "none")
 					stamptype = ""
 				else
 					qdel(P)
 					return
 
-				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization") as text|null
+				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", , owner)
 
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
@@ -3231,7 +3231,7 @@
 			return
 		var/datum/station_goal/G = new picked()
 		if(picked == /datum/station_goal)
-			var/newname = input("Enter goal name:") as text|null
+			var/newname = clean_input("Enter goal name:")
 			if(!newname)
 				return
 			G.name = newname

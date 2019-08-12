@@ -208,7 +208,7 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aaC" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -383,10 +383,10 @@
 	},
 /area/shuttle/abandoned)
 "abb" = (
-/obj/structure/chair{
+/obj/effect/decal/remains/human,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/decal/remains/human,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -598,13 +598,13 @@
 /area/shuttle/abandoned)
 "abx" = (
 /obj/item/shard,
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/abandoned)
 "aby" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -667,8 +667,8 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "abH" = (
 /obj/structure/computerframe{
@@ -728,7 +728,7 @@
 	},
 /area/shuttle/syndicate)
 "abO" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -859,8 +859,8 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "acf" = (
 /obj/structure/cable{
@@ -880,29 +880,29 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "acg" = (
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "ach" = (
 /obj/structure/cable,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "aci" = (
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "acj" = (
 /obj/structure/cable{
@@ -921,8 +921,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "ack" = (
 /obj/structure/spacepoddoor,
@@ -967,8 +967,8 @@
 	},
 /area/maintenance/auxsolarstarboard)
 "acp" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "acq" = (
 /obj/structure/table,
@@ -986,7 +986,7 @@
 	},
 /area/shuttle/abandoned)
 "acs" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -994,7 +994,7 @@
 	},
 /area/shuttle/syndicate)
 "act" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -1081,20 +1081,20 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "acF" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "acG" = (
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "acH" = (
 /obj/structure/chair/stool,
@@ -1502,9 +1502,6 @@
 	},
 /area/shuttle/pod_1)
 "adx" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -1514,6 +1511,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
@@ -1524,9 +1524,6 @@
 	},
 /area/shuttle/pod_2)
 "adz" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -1536,6 +1533,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
@@ -1663,24 +1663,24 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/entry)
 "adO" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
 "adP" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
@@ -1775,8 +1775,8 @@
 	pixel_y = -25;
 	req_access_txt = "10;13"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "aed" = (
 /obj/docking_port/mobile/pod{
@@ -3034,7 +3034,7 @@
 	},
 /area/shuttle/administration)
 "agw" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -3382,12 +3382,12 @@
 	},
 /area/shuttle/administration)
 "ahn" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -3615,7 +3615,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/engine/mechanic_workshop/hanger)
 "ahN" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -3737,7 +3737,7 @@
 	},
 /area/security/podbay)
 "aic" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -3745,10 +3745,10 @@
 	},
 /area/shuttle/administration)
 "aid" = (
-/obj/structure/chair{
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -3798,7 +3798,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aik" = (
@@ -3810,20 +3810,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ail" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/effect/landmark{
 	name = "JoinLate"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
 "aim" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/landmark{
 	name = "JoinLate"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
@@ -4073,13 +4073,13 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/transport)
 "aiR" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aiS" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -4094,20 +4094,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aiU" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/effect/landmark{
 	name = "HONKsquad"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
 "aiV" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/landmark{
 	name = "HONKsquad"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
@@ -4343,7 +4343,7 @@
 	},
 /area/shuttle/specops)
 "ajs" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -4354,7 +4354,7 @@
 	dir = 2;
 	network = list("ERT","CentComm")
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -4407,7 +4407,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -4418,7 +4418,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -4601,13 +4601,13 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ajW" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -4866,7 +4866,7 @@
 	},
 /area/shuttle/specops)
 "aku" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -5036,11 +5036,13 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "akN" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "akO" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4/vox,
@@ -5380,7 +5382,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
 "alw" = (
-/obj/structure/chair/office/dark,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
 "alx" = (
@@ -5692,9 +5694,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"ami" = (
-/obj/structure/lattice/catwalk,
-/area/space/nearstation)
 "amj" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -8074,7 +8073,7 @@
 /area/shuttle/vox)
 "arn" = (
 /obj/item/stack/spacecash/c50,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4/vox,
@@ -8544,10 +8543,10 @@
 "asf" = (
 /obj/item/stack/spacecash/c200,
 /obj/item/stack/spacecash/c50,
-/obj/structure/chair{
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "asg" = (
@@ -8927,8 +8926,8 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "asV" = (
 /obj/structure/cable{
@@ -8943,8 +8942,8 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "asW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9001,21 +9000,21 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "atb" = (
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "atc" = (
 /obj/structure/cable,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "atd" = (
 /turf/simulated/wall/r_wall,
@@ -9354,8 +9353,8 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "atL" = (
 /obj/structure/cable{
@@ -9374,8 +9373,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "atM" = (
 /obj/structure/cable{
@@ -9495,8 +9494,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "atV" = (
 /obj/structure/disposalpipe/segment{
@@ -9546,8 +9545,8 @@
 	},
 /area/maintenance/auxsolarport)
 "atZ" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "aua" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12858,8 +12857,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aAf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12907,8 +12906,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aAj" = (
 /obj/structure/cable{
@@ -13822,8 +13821,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aBW" = (
 /obj/structure/cable{
@@ -14708,8 +14707,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aDD" = (
 /obj/structure/cable{
@@ -14982,23 +14981,23 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/engine/controlroom)
 "aEa" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aEb" = (
 /obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "aEc" = (
 /obj/structure/cable{
@@ -15006,8 +15005,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "aEd" = (
 /obj/machinery/atmospherics/trinary/filter{
@@ -15772,8 +15771,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aFA" = (
 /turf/simulated/wall,
@@ -18103,13 +18102,13 @@
 /area/security/prison)
 "aJy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space)
 "aJz" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aJA" = (
 /obj/structure/cable{
@@ -19474,8 +19473,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarport)
 "aLR" = (
 /obj/structure/chair/stool,
@@ -19494,8 +19493,8 @@
 /area/crew_quarters/bar/atrium)
 "aLT" = (
 /obj/item/wrench,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aLU" = (
 /turf/simulated/wall,
@@ -21046,8 +21045,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aOV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -21060,8 +21059,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aOX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25713,8 +25712,8 @@
 /obj/structure/disposaloutlet{
 	dir = 8
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/incinerator)
 "aWS" = (
 /obj/structure/table/reinforced,
@@ -27674,8 +27673,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "aZZ" = (
 /obj/item/radio/intercom{
@@ -27696,8 +27695,8 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bab" = (
 /obj/effect/spawner/window/reinforced,
@@ -28072,8 +28071,8 @@
 	dir = 4;
 	level = 2
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/atmos)
 "baO" = (
 /obj/machinery/access_button{
@@ -28605,8 +28604,8 @@
 	dir = 4;
 	level = 2
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/atmos)
 "bbG" = (
 /turf/simulated/floor/plating,
@@ -28632,21 +28631,18 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "bbJ" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	listening = 1;
 	name = "station intercom (General)";
 	pixel_y = 25
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "bbK" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -28654,6 +28650,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "bbL" = (
@@ -30759,7 +30758,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "bfQ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -33621,8 +33620,8 @@
 	},
 /area/atmos)
 "bkQ" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/atmos)
 "bkR" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -37929,7 +37928,7 @@
 	},
 /area/shuttle/siberia)
 "bsy" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -39468,8 +39467,8 @@
 	dir = 4;
 	level = 2
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/atmos)
 "buY" = (
 /obj/structure/cable{
@@ -41012,15 +41011,12 @@
 	},
 /area/security/nuke_storage)
 "bxH" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
 "bxI" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
 	pixel_x = 25
@@ -41028,6 +41024,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
@@ -52886,8 +52885,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bRn" = (
 /obj/structure/rack,
@@ -53123,8 +53122,8 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bRH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -54793,8 +54792,8 @@
 	pixel_y = -20;
 	req_access_txt = "32"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bUc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -55187,8 +55186,8 @@
 	dir = 4;
 	level = 1
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bUK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -55445,8 +55444,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bVg" = (
 /obj/structure/cable{
@@ -55662,8 +55661,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bVt" = (
 /obj/structure/sign/vacuum{
@@ -57177,8 +57176,8 @@
 	pixel_y = 20;
 	req_access_txt = "10;13"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bXG" = (
 /obj/structure/cable{
@@ -57187,8 +57186,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bXH" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -57380,8 +57379,8 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bYb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -57463,8 +57462,8 @@
 	dir = 5;
 	level = 1
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bYm" = (
 /obj/structure/cable{
@@ -57477,8 +57476,8 @@
 	dir = 4;
 	level = 1
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bYn" = (
 /obj/structure/sign/directions/evac{
@@ -57686,8 +57685,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bYK" = (
 /obj/effect/spawner/window/reinforced,
@@ -57907,8 +57906,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bZg" = (
 /obj/structure/table/reinforced,
@@ -58082,8 +58081,8 @@
 	dir = 4;
 	level = 1
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "bZx" = (
 /obj/structure/disposalpipe/segment{
@@ -62768,8 +62767,8 @@
 	dir = 4;
 	level = 1
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "chx" = (
 /obj/structure/cable{
@@ -63819,8 +63818,8 @@
 	tag = "icon-D-SE";
 	icon_state = "D-SE"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cjm" = (
 /obj/structure/closet/crate,
@@ -66332,8 +66331,8 @@
 	tag = "icon-E-SW-NW";
 	icon_state = "E-SW-NW"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cnI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -66555,8 +66554,8 @@
 /obj/structure/transit_tube{
 	icon_state = "E-W-Pass"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "coj" = (
 /obj/structure/cable/yellow{
@@ -69022,8 +69021,8 @@
 	level = 1
 	},
 /obj/structure/transit_tube,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "css" = (
 /obj/structure/table/reinforced,
@@ -69083,8 +69082,8 @@
 	tag = "icon-W-SE";
 	icon_state = "W-SE"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "csz" = (
 /obj/structure/closet/crate{
@@ -69730,8 +69729,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "ctJ" = (
 /obj/structure/transit_tube{
@@ -69741,8 +69740,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "ctK" = (
 /obj/structure/table/wood,
@@ -69890,8 +69889,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "ctZ" = (
 /obj/effect/spawner/window/reinforced,
@@ -72989,8 +72988,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "czx" = (
 /obj/structure/cable{
@@ -74431,8 +74430,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cBV" = (
 /obj/structure/chair/office/dark,
@@ -77524,8 +77523,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cHu" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -78371,8 +78370,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cJf" = (
 /obj/structure/sign/directions/evac{
@@ -78818,8 +78817,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cKk" = (
 /obj/structure/cable{
@@ -78833,8 +78832,8 @@
 /area/toxins/xenobiology)
 "cKl" = (
 /obj/structure/window/reinforced,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cKm" = (
 /obj/structure/cable{
@@ -80269,8 +80268,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cNo" = (
 /obj/structure/cable{
@@ -80738,8 +80737,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cOa" = (
 /obj/structure/table/reinforced,
@@ -80914,8 +80913,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cOn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81673,8 +81672,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cPL" = (
 /obj/structure/disposalpipe/segment{
@@ -81841,8 +81840,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cPY" = (
 /obj/machinery/access_button{
@@ -81854,8 +81853,8 @@
 	pixel_y = 24;
 	req_access_txt = "0"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "cPZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -107526,8 +107525,8 @@
 	pixel_y = 25;
 	req_access_txt = "13"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "dKy" = (
 /obj/structure/grille,
@@ -109774,17 +109773,17 @@
 	},
 /area/hallway/secondary/exit)
 "dOy" = (
-/obj/structure/chair{
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "dOz" = (
-/obj/structure/chair{
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "dOA" = (
@@ -110232,8 +110231,8 @@
 	icon_state = "0-2";
 	pixel_y = 0
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/auxsolarstarboard)
 "dPo" = (
 /obj/structure/bed/roller,
@@ -110919,8 +110918,8 @@
 	},
 /area/medical/virology)
 "dQB" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dQC" = (
 /obj/machinery/field/generator{
@@ -112646,7 +112645,7 @@
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "dTN" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "dTO" = (
@@ -112669,16 +112668,16 @@
 	},
 /area/shuttle/escape)
 "dTR" = (
-/obj/structure/chair,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "dTS" = (
-/obj/structure/chair,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "dTT" = (
@@ -113013,7 +113012,7 @@
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
 "dUw" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
@@ -113429,7 +113428,7 @@
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
 "dVf" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4,
@@ -113515,16 +113514,16 @@
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
 "dVr" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "dVs" = (
-/obj/structure/chair{
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "dVt" = (
@@ -113661,7 +113660,7 @@
 	},
 /area/shuttle/escape)
 "dVJ" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -113680,7 +113679,7 @@
 	},
 /area/shuttle/escape)
 "dVL" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -113706,7 +113705,7 @@
 	},
 /area/shuttle/escape)
 "dVO" = (
-/obj/structure/chair/office/dark,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -114147,14 +114146,14 @@
 	},
 /area/security/checkpoint)
 "dWB" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "dWC" = (
@@ -114990,8 +114989,8 @@
 	pixel_y = 24;
 	req_access_txt = "0"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "dXY" = (
 /obj/structure/table/reinforced,
@@ -115328,8 +115327,8 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYJ" = (
 /obj/structure/cable{
@@ -115337,8 +115336,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYK" = (
 /obj/structure/cable{
@@ -115355,8 +115354,8 @@
 	pixel_y = 25;
 	req_access_txt = "13"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYL" = (
 /obj/structure/cable{
@@ -115371,8 +115370,8 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYM" = (
 /obj/structure/cable{
@@ -115392,16 +115391,16 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYN" = (
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYO" = (
 /obj/structure/cable{
@@ -115420,8 +115419,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYP" = (
 /obj/structure/cable{
@@ -115435,8 +115434,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYQ" = (
 /obj/machinery/access_button{
@@ -115448,8 +115447,8 @@
 	pixel_y = 24;
 	req_access_txt = "10;13"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "dYR" = (
 /obj/structure/cable{
@@ -115457,8 +115456,8 @@
 	icon_state = "0-2";
 	pixel_y = 0
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYS" = (
 /obj/structure/cable{
@@ -115467,8 +115466,8 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/portsolar)
 "dYT" = (
 /turf/simulated/floor/carpet,
@@ -115565,20 +115564,20 @@
 	},
 /area/shuttle/syndicate_elite)
 "dZc" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_elite)
 "dZd" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -115586,7 +115585,7 @@
 	},
 /area/shuttle/syndicate_elite)
 "dZe" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -115655,7 +115654,7 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_elite)
 "dZj" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -115782,15 +115781,15 @@
 	},
 /area/shuttle/syndicate_sit)
 "dZA" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -115812,7 +115811,7 @@
 	},
 /area/shuttle/syndicate_sit)
 "dZD" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -115820,7 +115819,7 @@
 	},
 /area/shuttle/syndicate_sit)
 "dZE" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -115833,7 +115832,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -115891,7 +115890,7 @@
 	},
 /area/shuttle/syndicate_sit)
 "dZI" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -116010,6 +116009,12 @@
 	},
 /turf/space,
 /area/space)
+"udT" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 
 (1,1,1) = {"
 aaa
@@ -129823,7 +129828,7 @@ dyn
 dyn
 abj
 abj
-ami
+acF
 aaa
 aaa
 aaa
@@ -130337,7 +130342,7 @@ dyn
 dyn
 abj
 abj
-ami
+acF
 aaa
 aaa
 aaa
@@ -175945,8 +175950,8 @@ aaa
 aaa
 ajm
 akm
-akN
-akN
+udT
+udT
 akm
 alU
 ajO

@@ -89,7 +89,7 @@
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
 		set_typing(C, TRUE)
-		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -109,6 +109,8 @@
 		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 		if(!msg)
 			return
+	else
+		msg = pencode_to_html(msg)
 
 	var/recieve_span = "playerreply"
 	var/send_pm_type = " "
@@ -147,7 +149,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = input(C, msg,"[recieve_pm_type] [type] from-[sendername]", "") as text|null		//show message and await a reply
+				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -216,7 +218,7 @@
 		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
 		return
 
-	var/msg = input(src,"Message:", "Private message to admins on IRC / 400 character limit") as text|null
+	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src) as text|null
 
 	if(!msg)
 		return
