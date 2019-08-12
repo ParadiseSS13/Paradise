@@ -224,13 +224,19 @@
 		if(20)
 			//Free wizard!
 			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user], as items pour out of nothingness onto the floor!</span>")
-			new /obj/item/clothing/shoes/sandal(drop_location())
-			if(prob(50))
-				new /obj/item/clothing/suit/wizrobe(drop_location())
-				new /obj/item/clothing/head/wizard(drop_location())
+			new /obj/item/clothing/under/color/purple(drop_location())
+			if(user.job in list("Clown") || COMIC in user.mutations) //honk honk
+				new /obj/item/clothing/shoes/clown_shoes/magical(drop_location())
+				new /obj/item/clothing/suit/wizrobe/clown(drop_location())
+				new /obj/item/clothing/head/wizard/clown(drop_location())
 			else
-				new /obj/item/clothing/suit/wizrobe/red(drop_location())
-				new /obj/item/clothing/head/wizard/red(drop_location())
+				new /obj/item/clothing/shoes/sandal(drop_location())
+				if(prob(50))
+					new /obj/item/clothing/suit/wizrobe(drop_location())
+					new /obj/item/clothing/head/wizard(drop_location())
+				else
+					new /obj/item/clothing/suit/wizrobe/red(drop_location())
+					new /obj/item/clothing/head/wizard/red(drop_location())
 			new /obj/item/teleportation_scroll(drop_location())
 			var/obj/item/spellbook/spellbook = new /obj/item/spellbook(drop_location())
 			spellbook.owner = user
