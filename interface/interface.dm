@@ -103,12 +103,11 @@
 
 	var/adminhotkeys = {"<font color='purple'>
 Admin:
-\tF3 = asay
-\tF5 = Aghost (admin-ghost)
-\tF6 = player-panel
-\tF7 = Buildmode
-\tF8 = Invisimin
-\tCtrl+F8 = Stealthmin
+\tF5 = Asay
+\tF6 = Admin Ghost
+\tF7 = Player Panel
+\tF8 = Admin PM
+\tF9 = Invisimin
 
 Admin ghost:
 \tCtrl+Click = Player Panel

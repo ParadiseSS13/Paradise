@@ -1,0 +1,4 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - bugfix: "Fixed vox jester uniform not appearing correctly."

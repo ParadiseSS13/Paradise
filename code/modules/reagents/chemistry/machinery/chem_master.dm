@@ -282,7 +282,7 @@
 				var/amount_per_pill = reagents.total_volume / count
 				if(amount_per_pill > 100)
 					amount_per_pill = 100
-				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)") as text|null
+				var/name = clean_input("Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)")
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -303,7 +303,7 @@
 							P.forceMove(loaded_pill_bottle)
 							updateUsrDialog()
 			else
-				var/name = input(usr, "Name:", "Name your bag!", reagents.get_master_reagent_name()) as text|null
+				var/name = clean_input("Name:", "Name your bag!", reagents.get_master_reagent_name())
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -328,7 +328,7 @@
 				var/amount_per_patch = reagents.total_volume/count
 				if(amount_per_patch > 40)
 					amount_per_patch = 40
-				var/name = input(usr, "Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)") as text|null
+				var/name = clean_input("Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)")
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -350,7 +350,7 @@
 
 		else if(href_list["createbottle"])
 			if(!condi)
-				var/name = input(usr, "Name:", "Name your bottle!", reagents.get_master_reagent_name()) as text|null
+				var/name = clean_input("Name:", "Name your bottle!", reagents.get_master_reagent_name())
 				if(!name)
 					return
 				name = reject_bad_text(name)
