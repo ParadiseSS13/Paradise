@@ -238,6 +238,7 @@
 			SSticker.mode.wizards += user.mind //so they can use wizard restricted artifacts
 			create_smoke(2)
 			to_chat(user, "<span class='notice'>You have been granted magical powers by the Die of Fate.</span>")
+			to_chat(user, "<span class='userdanger'> However, YOU ARE NOT A WIZARD ANTAGONIST.</span>")
 			if(user.mind.special_role)
 				to_chat(user, "<span class='notice'>If you are an antagonist, you may use your new-found powers to accomplish your objectives.</span>")
 			else
