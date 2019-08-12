@@ -196,14 +196,6 @@
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
 
-/datum/action/item_action/toggle_welding_screen
-	name = "Toggle Welding Screen"
-
-/datum/action/item_action/toggle_welding_screen/Trigger()
-	var/obj/item/clothing/head/hardhat/weldhat/H = target
-	if(istype(H))
-		H.toggle_welding_screen(owner)
-
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
 

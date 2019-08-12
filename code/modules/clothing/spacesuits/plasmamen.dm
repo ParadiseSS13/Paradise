@@ -11,21 +11,38 @@
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 4 //luminosity when the light is on
 	var/on = FALSE
+	var/smile = FALSE
+	var/smile_color = "#FF0000"
 	var/visor_icon = "envisor"
+	var/smile_state = "envirohelm_smile"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	visor_flags_inv = HIDEEYES|HIDEFACE|HIDEFACIALHAIR
+	visor_flags_inv = HIDEEYES|HIDEFACE
+	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
+	species_restricted = list("Plasmaman")
+	sprite_sheets = list("Plasmaman" = 'icons/mob/species/plasmaman/helmet.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/New()
 	..()
 	visor_toggling()
 	update_icon()
+	cut_overlays()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
+	if(!user.incapacitated() && Adjacent(user))
 		toggle_welding_screen(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
+	up = !up
+	flags ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	icon_state = "[initial(icon_state)]"
+	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
+		flash_protect ^= initial(flash_protect)
+	if(visor_vars_to_toggle & VISOR_TINT)
+		tint ^= initial(tint)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
