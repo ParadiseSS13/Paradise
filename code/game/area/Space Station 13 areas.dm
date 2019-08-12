@@ -1152,6 +1152,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
 
+/area/engine/reception
+	name = "\improper Engineering Reception"
+	icon_state = "engine_reception"
+
 //Solars
 
 /area/solar
