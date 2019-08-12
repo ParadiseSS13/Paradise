@@ -136,8 +136,6 @@
 	..()
 
 	statpanel("Status")
-	if(client.statpanel == "Status" && SSticker)
-		show_stat_station_time()
 
 
 /mob/new_player/Topic(href, href_list[])

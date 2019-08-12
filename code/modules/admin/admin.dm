@@ -167,7 +167,6 @@ var/global/nologevent = 0
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += {"<A href='?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
-					<A href='?_src_=holder;makemask=[M.UID()]'>Make Mask</A> |
 					<A href='?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
 					<A href='?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
 					<A href='?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |

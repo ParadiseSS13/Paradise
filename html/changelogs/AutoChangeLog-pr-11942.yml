@@ -1,0 +1,4 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "TG waddle component, clowns can now optionally waddle, penguins always waddle. Ctrl Click clown shoes in hand to toggle waddling"

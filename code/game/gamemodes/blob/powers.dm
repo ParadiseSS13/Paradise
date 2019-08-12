@@ -389,7 +389,7 @@
 	set name = "Blob Broadcast"
 	set desc = "Speak with your blob spores and blobbernauts as your mouthpieces. This action is free."
 
-	var/speak_text = input(usr, "What would you like to say with your minions?", "Blob Broadcast", null) as text
+	var/speak_text = clean_input("What would you like to say with your minions?", "Blob Broadcast", null)
 
 	if(!speak_text)
 		return
