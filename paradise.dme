@@ -1592,6 +1592,7 @@
 #include "code\modules\hydroponics\grown\towercap.dm"
 #include "code\modules\karma\karma.dm"
 #include "code\modules\keybindings\bindings_admin.dm"
+#include "code\modules\keybindings\bindings_ai.dm"
 #include "code\modules\keybindings\bindings_atom.dm"
 #include "code\modules\keybindings\bindings_carbon.dm"
 #include "code\modules\keybindings\bindings_client.dm"
