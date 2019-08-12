@@ -110,7 +110,7 @@
 		if(!msg)
 			return
 	else
-		msg = pencode_to_html(msg)
+		msg = admin_pencode_to_html(msg)
 
 	var/recieve_span = "playerreply"
 	var/send_pm_type = " "

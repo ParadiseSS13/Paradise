@@ -545,6 +545,35 @@ proc/checkhtml(var/t)
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 
+/proc/convert_pencode_arg(text, tag, arg)
+	arg = replacetext(replacetext(html_encode(arg), "'", ""), "\"", "")
+	if(tag == "class")
+		return "<span class='[arg]'>"
+
+	if(tag == "style")
+		return "<span style='[arg]'>"
+
+	if(tag == "img")
+		var/list/img_props = splittext(arg, ";")
+		if(img_props.len == 3)
+			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
+		if(img_props.len == 2)
+			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
+		return "<img src='[arg]'>"
+
+	return text
+
+/proc/admin_pencode_to_html()
+	var/text = pencode_to_html(arglist(args))
+	var/regex/R = new(@"\[(.*?) (.*?)\]", "ge")
+	text = R.Replace(text, /proc/convert_pencode_arg)
+
+	text = replacetext(text, "\[/class\]", "</span>")
+	text = replacetext(text, "\[/style\]", "</span>")
+	text = replacetext(text, "\[/img\]", "</img>")
+
+	return text
+
 /proc/html_to_pencode(text)
 	text = replacetext(text, "<BR>",								"\n")
 	text = replacetext(text, "<center>",							"\[center\]")
