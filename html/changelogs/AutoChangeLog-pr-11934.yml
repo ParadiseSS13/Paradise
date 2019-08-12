@@ -1,0 +1,4 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - bugfix: "Door remotes now add to admin-only hidden fingerprint list"

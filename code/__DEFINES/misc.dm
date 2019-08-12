@@ -394,3 +394,7 @@
 
 // Cult summon possibilities
 #define SUMMON_POSSIBILITIES 3
+
+#define DICE_NOT_RIGGED 1
+#define DICE_BASICALLY_RIGGED 2
+#define DICE_TOTALLY_RIGGED 3

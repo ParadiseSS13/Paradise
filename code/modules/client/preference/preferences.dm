@@ -93,6 +93,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
+	var/afk_watch = FALSE  				// If the player wants to be kept track of by the AFK system
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -456,6 +457,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(afk_watch) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
@@ -1283,7 +1285,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1998,6 +2000,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("winflash")
 					windowflashing = !windowflashing
+
+				if("afk_watch")
+					afk_watch = !afk_watch
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
