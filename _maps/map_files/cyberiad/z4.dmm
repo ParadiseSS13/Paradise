@@ -4862,6 +4862,17 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
+"zH" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "freegolem_z4";
+	name = "Near Construction Site";
+	width = 16
+	},
+/turf/space,
+/area/space)
 
 (1,1,1) = {"
 aa
@@ -43872,7 +43883,7 @@ aa
 aa
 aa
 aa
-aa
+zH
 aa
 aa
 aa

@@ -353,104 +353,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/tcommsat/powercontrol)
-"aI" = (
-/turf/simulated/mineral/random,
-/area/mine/dangerous/explored/golem)
-"aJ" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/mine/dangerous/explored/golem)
-"aK" = (
-/turf/simulated/mineral/random/high_chance,
-/area/mine/dangerous/explored/golem)
-"aL" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"aM" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"aN" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock";
-	locked = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"aO" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall8";
-	tag = "icon-swall12"
-	},
-/area/shuttle/freegolem)
-"aP" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"aQ" = (
-/obj/structure/closet/crate/golemgear,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"aR" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/item/reagent_containers/spray/cleaner,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"aS" = (
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
 "aT" = (
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"aU" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"aV" = (
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/freegolem)
-"aW" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "burst_l"
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/freegolem)
-"aX" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"aY" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"aZ" = (
-/obj/machinery/door/airlock/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
 "ba" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_s6";
@@ -479,24 +385,6 @@
 	dir = 2
 	},
 /area/space/nearstation)
-"be" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"bf" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"bg" = (
-/obj/machinery/door/airlock/shuttle,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bh" = (
-/turf/simulated/wall/mineral/titanium/interior,
-/area/shuttle/freegolem)
 "bi" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall7";
@@ -536,33 +424,12 @@
 	dir = 2
 	},
 /area/space/nearstation)
-"bn" = (
-/obj/machinery/vending/hydroseeds,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bo" = (
-/obj/machinery/vending/hydronutrients,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "bp" = (
 /obj/machinery/door/unpowered/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/space/nearstation)
-"bq" = (
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"br" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock";
-	locked = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
 "bs" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -573,13 +440,6 @@
 	dir = 2
 	},
 /area/space/nearstation)
-"bt" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "bu" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -590,18 +450,6 @@
 	dir = 2
 	},
 /area/space/nearstation)
-"bv" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/effect/landmark/free_golem_spawn,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bw" = (
-/obj/effect/landmark/free_golem_spawn,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "bx" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_s5";
@@ -623,171 +471,6 @@
 	dir = 2
 	},
 /area/space/nearstation)
-"bA" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bB" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall4";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"bC" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swallc1";
-	tag = "icon-swall12"
-	},
-/area/shuttle/freegolem)
-"bD" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "16"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/freegolem)
-"bE" = (
-/obj/structure/statue/gold/rd{
-	name = "statue of the Liberator"
-	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"bF" = (
-/obj/machinery/mineral/equipment_vendor/golem,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bG" = (
-/obj/item/resonator,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bH" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bI" = (
-/obj/item/gun/energy/kinetic_accelerator,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bJ" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "15"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/freegolem)
-"bK" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/obj/structure/table/wood,
-/obj/item/bedsheet/rd/royal_cape{
-	layer = 3;
-	pixel_x = 5;
-	pixel_y = 9
-	},
-/obj/item/book/manual/research_and_development{
-	name = "Sacred Text of the Liberator";
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"bL" = (
-/obj/machinery/mineral/ore_redemption/golem,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bM" = (
-/obj/machinery/computer/shuttle/golem_ship,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bN" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/freegolem)
-"bO" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bQ" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc4"
-	},
-/area/shuttle/freegolem)
-"bR" = (
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem";
-	name = "Free Golem Ship";
-	roundstart_move = "freegolem_transit";
-	width = 16
-	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_z3";
-	name = "Small Asteroid";
-	width = 16
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bS" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bT" = (
-/obj/machinery/light/small,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bU" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock";
-	locked = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bV" = (
-/obj/item/resonator/upgraded,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "bW" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -1397,10 +1080,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tcommsat/computer)
-"dr" = (
-/obj/machinery/autolathe,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "ds" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -1814,15 +1493,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/tcommsat/chamber)
-"ej" = (
-/obj/structure/table/wood,
-/obj/machinery/reagentgrinder,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"ek" = (
-/obj/machinery/computer/arcade/battle,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "el" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
@@ -1876,10 +1546,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/turret_protected/tcomsat)
-"eq" = (
-/obj/machinery/computer/arcade/orion_trail,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "er" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1957,10 +1623,6 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
-"ex" = (
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "ey" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2004,11 +1666,6 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
-"eA" = (
-/obj/machinery/light,
-/obj/effect/landmark/free_golem_spawn,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "eB" = (
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -2103,10 +1760,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/turret_protected/tcomsat)
-"eI" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "eJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2188,13 +1841,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"eQ" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "eR" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2464,12 +2110,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"fp" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/adv,
-/obj/item/storage/firstaid/adv,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "fq" = (
 /obj/structure/grille,
 /obj/structure/cable{
@@ -2578,15 +2218,6 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
-"fy" = (
-/obj/structure/table/wood,
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire,
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "fz" = (
 /obj/machinery/telecomms/processor/preset_four,
 /turf/simulated/floor/plasteel{
@@ -2862,18 +2493,6 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
-"fY" = (
-/obj/structure/table/wood,
-/obj/item/areaeditor/golem,
-/obj/item/disk/design_disk/golem_shell,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"fZ" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
 "ga" = (
 /obj/machinery/telecomms/server/presets/command,
 /turf/simulated/floor/plasteel{
@@ -2898,10 +2517,6 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
-"gc" = (
-/obj/machinery/chem_master,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
 "gd" = (
 /obj/machinery/camera{
 	c_tag = "Telecomms Server Room South";
@@ -2923,10 +2538,6 @@
 	temperature = 80
 	},
 /area/tcommsat/chamber)
-"ge" = (
-/obj/structure/ore_box,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
 "gf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2970,10 +2581,6 @@
 "gj" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/tcomfoyer)
-"gk" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
 "gr" = (
 /obj/structure/window/reinforced,
 /obj/machinery/light{
@@ -16115,10 +15722,10 @@ aa
 aa
 aa
 aa
-aL
-bD
-bJ
-bN
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16372,10 +15979,10 @@ aa
 aa
 aa
 aa
-aM
-bE
-bK
-aM
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16626,16 +16233,16 @@ aa
 aa
 aa
 aa
-aL
-aP
-br
-aY
-bM
-bS
-be
-br
-aP
-bN
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16883,16 +16490,16 @@ aa
 aa
 aa
 aa
-aM
-bo
-bq
-aZ
-bq
-bq
-bg
-bq
-eq
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17140,16 +16747,16 @@ aa
 aa
 aa
 aa
-aM
-bn
-bq
-aZ
-bq
-bq
-bg
-bq
-ek
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17394,22 +17001,22 @@ aa
 aa
 aa
 aa
-aL
-aP
-aP
-aY
-bt
-bq
-bh
-bq
-bq
-bh
-bq
-ex
-be
-aP
-aP
-bN
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17651,22 +17258,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aS
-bg
-bq
-bq
-bh
-bq
-bq
-bh
-bq
-bq
-bg
-aS
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17908,22 +17515,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aS
-bg
-bq
-bq
-bh
-bO
-bq
-bh
-bq
-bq
-bg
-aS
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18165,22 +17772,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aX
-bh
-bv
-bG
-bh
-bq
-bq
-bh
-bG
-eA
-bh
-fZ
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18422,22 +18029,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aS
-bh
-bw
-bG
-bh
-bq
-bq
-bh
-bG
-bw
-bh
-aS
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18679,22 +18286,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aS
-bh
-bh
-bg
-bh
-bg
-bg
-bh
-bg
-bh
-bh
-aS
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18936,22 +18543,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aX
-bh
-bA
-bq
-bH
-bq
-bq
-bH
-bq
-eI
-bh
-fZ
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -19193,22 +18800,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aS
-bg
-bq
-bq
-bq
-bq
-bq
-bq
-bq
-bq
-bg
-aS
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -19450,22 +19057,22 @@ aa
 aa
 aa
 aa
-aM
-aQ
-aS
-bg
-bq
-bq
-bq
-bq
-bq
-bq
-bq
-bq
-bg
-aS
-ge
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -19707,22 +19314,22 @@ aa
 aa
 aa
 aa
-aM
-aR
-aS
-bh
-bq
-bq
-bq
-bq
-bq
-bq
-bq
-eQ
-bh
-aS
-aR
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -19964,22 +19571,22 @@ aa
 aa
 aa
 aa
-aN
-aS
-aX
-bh
-bt
-bq
-bq
-bq
-bq
-bq
-bq
-fy
-bh
-fZ
-aS
-aN
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -20221,22 +19828,22 @@ aa
 aa
 aa
 aa
-aN
-aS
-aS
-bh
-bq
-bq
-bI
-bq
-bq
-bV
-bq
-fp
-bh
-aS
-aS
-aN
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -20478,22 +20085,22 @@ aa
 aa
 aa
 aa
-aM
-aU
-bf
-bh
-bF
-bq
-bL
-bq
-bq
-dr
-ej
-fY
-bh
-gc
-gk
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -20733,24 +20340,24 @@ aa
 aa
 aa
 aa
-aI
-aI
-aM
-aV
-aV
-bB
-aV
-aV
-bB
-bP
-bT
-bB
-aV
-aV
-bB
-aV
-aV
-aM
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -20990,25 +20597,25 @@ aa
 aa
 aa
 aa
-aI
-aI
-aO
-aW
-aW
-aO
-aW
-aW
-bC
-bR
-bU
-bQ
-aW
-aW
-aO
-aW
-aW
-aO
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -21247,25 +20854,25 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aJ
-aJ
-aJ
-aJ
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -21504,25 +21111,25 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aJ
-aJ
-aJ
-aJ
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -21761,25 +21368,25 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22016,27 +21623,27 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22273,27 +21880,27 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22530,26 +22137,26 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aK
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22787,26 +22394,26 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aK
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -23044,28 +22651,28 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -23301,28 +22908,28 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -23558,28 +23165,28 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -23815,28 +23422,28 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aK
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -24072,26 +23679,26 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -24329,26 +23936,26 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aK
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -24588,27 +24195,27 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aJ
-aJ
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -24846,26 +24453,26 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -25103,26 +24710,26 @@ aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
-aI
 aa
 aa
 aa
 aa
-aI
-aI
-aI
-aI
-aI
-aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa

@@ -80,9 +80,6 @@
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
 
-	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
-	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
-
 	var/traitor_objectives_amount = 2
 	var/shadowling_max_age = 0
 
@@ -309,12 +306,6 @@
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
-
-				if("prob_free_golems")
-					config.prob_free_golems = text2num(value)
-
-				if("unrestricted_free_golems")
-					config.unrestricted_free_golems = TRUE
 
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)

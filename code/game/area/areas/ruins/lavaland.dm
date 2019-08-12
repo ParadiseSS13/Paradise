@@ -16,7 +16,7 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
+	name = "Free Golem Landing"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/greed
