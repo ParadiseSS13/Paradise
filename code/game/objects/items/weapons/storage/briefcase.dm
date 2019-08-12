@@ -39,8 +39,8 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 10
 
-	var/busy_hunting = 0
-	var/bottom_open = 0 //is the false bottom open?
+	var/busy_hunting = FALSE
+	var/bottom_open = FALSE //is the false bottom open?
 	var/obj/item/stored_item = null //what's in the false bottom. If it's a gun, we can fire it
 
 /obj/item/storage/briefcase/false_bottomed/Destroy()
@@ -57,18 +57,18 @@
 	return
 
 /obj/item/storage/briefcase/false_bottomed/attackby(var/obj/item/item, mob/user)
-	if(istype(item, /obj/item/screwdriver))
+	if(isscrewdriver(item))
 		if(!bottom_open && !busy_hunting)
 			to_chat(user, "You begin to hunt around the rim of \the [src]...")
-			busy_hunting = 1
+			busy_hunting = TRUE
 			if(do_after(user, 20, target = src))
 				if(user)
 					to_chat(user, "You pry open the false bottom!")
-				bottom_open = 1
-			busy_hunting = 0
+				bottom_open = TRUE
+			busy_hunting = FALSE
 		else if(bottom_open)
 			to_chat(user, "You push the false bottom down and close it with a click[stored_item ? ", with \the [stored_item] snugly inside." : "."]")
-			bottom_open = 0
+			bottom_open = FALSE
 	else if(bottom_open)
 		if(stored_item)
 			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")
