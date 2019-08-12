@@ -1,0 +1,4 @@
+author: "kazboo"
+delete-after: True
+changes: 
+  - tweak: "changed the display name shown to a player upon being frozen in a manner that only the admins ckey  is displayed, not the character name along with it"
