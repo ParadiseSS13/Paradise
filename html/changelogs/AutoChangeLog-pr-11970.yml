@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Fix some cases of traitors getting conflicting objectives, such as assassinating and protecting the same target."

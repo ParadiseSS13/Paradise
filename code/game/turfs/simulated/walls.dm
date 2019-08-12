@@ -22,6 +22,7 @@
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/slicing_duration = 100
 	var/engraving //engraving on the wall
 	var/engraving_quality
 
@@ -340,7 +341,7 @@
 				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 				playsound(src, WT.usesound, 100, 1)
 
-				if(do_after(user, 100 * WT.toolspeed, target = src) && WT && WT.isOn())
+				if(do_after(user, slicing_duration * WT.toolspeed, target = src) && WT && WT.isOn())
 					to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 					dismantle_wall()
 				else

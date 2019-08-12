@@ -399,9 +399,6 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	if(world.time < client.move_delay)
-		return
-
 	if(!resting)
 		client.move_delay = world.time + 20
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
@@ -485,6 +482,8 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					if(title)
+						A.name = title
 					A.desc = message
 					A.action = action
 					A.target = source
@@ -568,9 +567,9 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = input(src, "Pick a new name.", "Name Change", oldname) as text
+				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
 			else
-				newname = input(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname) as text
+				newname = clean_input("You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, src)
 			if(((world.time - time_passed) > 1800) && !force)
 				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long

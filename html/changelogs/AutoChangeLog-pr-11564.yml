@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - tweak: "cult teleport runes and similar powers now work on z levels 9-12"

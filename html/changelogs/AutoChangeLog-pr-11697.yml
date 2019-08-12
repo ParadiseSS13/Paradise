@@ -1,0 +1,8 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "Tribal splints have been added to the game, which can be crafted with two bones and one piece of sinew."
+  - rscadd: "The Lavaland Syndicate base now has a defibrillator and mounted defibrillator. The animal hospital now has a mounted defibrillator."
+  - tweak: "The Ash Walker storage area now comes with an advanced medkit instead of a regular one and one set of medical splints. It also comes with aloe vera, comfrey and wheat seeds."
+  - tweak: "The water tank in the Ash Walker nest has been replaced with a puddle."
+  - tweak: "The items in vending machines on the beach ruin and animal hospital are now free."
