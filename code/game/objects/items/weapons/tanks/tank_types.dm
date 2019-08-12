@@ -129,7 +129,7 @@ obj/item/tank/oxygen/empty/New()
 	item_state = "plasmaman_tank_belt"
 	slot_flags = SLOT_BELT
 	force = 5
-	volume = 6
+	volume = 25
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tank/plasma/plasmaman/belt/full/New()
