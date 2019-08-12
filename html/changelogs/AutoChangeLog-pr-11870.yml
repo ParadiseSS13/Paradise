@@ -1,6 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - rscadd: "Gives vampire thralls an objective, which can be viewed in their notes"
-  - tweak: "Increases the size of the enthralling message seen by newly created vampire thralls"
-  - tweak: "Vampire thralls are now stunned briefly (about 3 seconds) upon being enthralled"
