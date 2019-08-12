@@ -25,8 +25,7 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_INTORGANS, NO_SCAN)
-	dies_at_threshold = TRUE
+	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, NO_BONES)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -35,13 +34,14 @@
 	flesh_color = "#5fe8b1"
 	blood_color = "#0064C8"
 	exotic_blood = "water"
-	blood_damage_type = TOX
 
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/slime
+		"brain" = /obj/item/organ/internal/brain/slime,
+		"osmatic pressure regulator" = /obj/item/organ/internal/heart/slime,
+		"gas exchange membrane" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null
 
@@ -175,6 +175,16 @@
 		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
+
+
+/obj/item/organ/internal/heart/slime
+	name = "osmatic pressure regulator"
+	desc = "A wet squishy heart."
+
+/obj/item/organ/internal/lungs/slime
+	name = "gas exchange membrane"
+	desc = "Membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."
+
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
