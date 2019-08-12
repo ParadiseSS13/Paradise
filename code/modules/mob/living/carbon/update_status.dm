@@ -12,7 +12,7 @@
 			KnockOut()
 			create_debug_log("fell unconscious, trigger reason: [reason]")
 		else
-			if(health <= HEALTH_THRESHOLD_CRIT)
+			if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
 				stat = SOFT_CRIT
 				update_canmove()
 			else
