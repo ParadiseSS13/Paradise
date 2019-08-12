@@ -237,8 +237,11 @@
 			user.gene_stability += DEFAULT_GENE_STABILITY //magic
 			SSticker.mode.wizards += user.mind //so they can use wizard restricted artifacts
 			create_smoke(2)
-			to_chat(user, "<span class='notice'>You have been granted magical powers by the Die of Fate. However, <span class='userdanger'>YOU ARE NOT A WIZARD ANTAGONIST.</span>Respect server rules, and keep in mind the station is within their rights to treat you as an EOC wizard if you use your powers openly.</span>")
-
+			to_chat(user, "<span class='notice'>You have been granted magical powers by the Die of Fate.</span>")
+			if(user.mind.special_role)
+				to_chat(user, "<span class='notice'>If you are an antagonist, you may use your new-found powers to accomplish your objectives.</span>")
+			else
+				to_chat(user, "<span class='notice'>Please follow the server rules concerning Self-Antagging.</span>")
 
 // Butler outfit
 /datum/outfit/butler
