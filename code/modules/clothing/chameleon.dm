@@ -281,7 +281,7 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	flash_protect = 1
