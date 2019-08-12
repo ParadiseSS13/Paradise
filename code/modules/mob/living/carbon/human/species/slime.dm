@@ -188,16 +188,6 @@
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
 
-
-/obj/item/organ/internal/heart/slime
-	name = "osmatic pressure regulator"
-	desc = "A wet squishy heart."
-
-/obj/item/organ/internal/lungs/slime
-	name = "gas exchange membrane"
-	desc = "Membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."
-
-
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
