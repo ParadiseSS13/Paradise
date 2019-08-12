@@ -692,3 +692,25 @@
 /obj/item/dnainjector/anticomic/Initialize()
 	block = COMICBLOCK
 	..()
+
+/obj/item/dnainjector/eater
+	name = "DNA-Injector (Eater)"
+	desc = "Onom nom nom nom nom."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/eater/Initialize()
+	block = EATER
+	..()
+
+/obj/item/dnainjector/antieater
+	name = "DNA-Injector (Anti-Eater)"
+	desc = "Time for a diet."
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/antieater/Initialize()
+	block = EATER
+	..()

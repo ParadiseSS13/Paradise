@@ -223,8 +223,22 @@
 
 		if(20)
 			//Free wizard!
-			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user]!</span>")
-			user.mind.make_Wizard()
+			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user], as items pour out of nothingness onto the floor!</span>")
+			new /obj/item/clothing/shoes/sandal(drop_location())
+			if(prob(50))
+				new /obj/item/clothing/suit/wizrobe(drop_location())
+				new /obj/item/clothing/head/wizard(drop_location())
+			else
+				new /obj/item/clothing/suit/wizrobe/red(drop_location())
+				new /obj/item/clothing/head/wizard/red(drop_location())
+			new /obj/item/teleportation_scroll(drop_location())
+			var/obj/item/spellbook/spellbook = new /obj/item/spellbook(drop_location())
+			spellbook.owner = user
+			user.gene_stability += DEFAULT_GENE_STABILITY //magic
+			SSticker.mode.wizards += user.mind //so they can use wizard restricted artifacts
+			create_smoke(2)
+			to_chat(user, "<span class='notice'>You have been granted magical powers by the Die of Fate. However, <span class='userdanger'>YOU ARE NOT A WIZARD ANTAGONIST.</span>Respect server rules, and keep in mind the station is within their rights to treat you as an EOC wizard if you use your powers openly.</span>")
+
 
 // Butler outfit
 /datum/outfit/butler

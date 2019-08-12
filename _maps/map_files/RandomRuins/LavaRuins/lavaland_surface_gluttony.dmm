@@ -16,7 +16,7 @@
 /turf/simulated/floor/plating/lava/smooth,
 /area/ruin/powered/gluttony)
 "f" = (
-/obj/item/reagent_containers/syringe/gluttony,
+/obj/item/dnainjector/eater,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "g" = (
