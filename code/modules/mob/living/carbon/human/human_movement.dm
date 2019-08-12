@@ -13,8 +13,6 @@
 	var/obj/item/tank/jetpack/thrust
 	if(istype(back,/obj/item/tank/jetpack))
 		thrust = back
-	else if(istype(s_store,/obj/item/tank/jetpack))
-		thrust = s_store
 	else if(istype(back,/obj/item/rig))
 		var/obj/item/rig/rig = back
 		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
