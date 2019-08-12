@@ -1,0 +1,9 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Free Golems are now a lavaland ruin spawn instead of a space ruin spawn."
+  - tweak: "Free Golems must now purchase their shuttle board for 2000 mining points before being able to fly their shuttle."
+  - rscadd: "Added a shuttle recall console at the golem lavaland spawn point so that golems can always recall the shuttle back to lavaland"
+  - tweak: "The Free Golem Ship can now move to the Construction Site, the Derelict, or back to their Lavaland spawn."
+  - tweak: "The Free Golem Ship has been redesigned with an open floor plan, removing most of its interior walls for extra space."
+  - tweak: "Free Golems no longer get a free kinetic accelerator on their ship."

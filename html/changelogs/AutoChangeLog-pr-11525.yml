@@ -1,4 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - rscadd: "Alt-clicking the RPD now brings up a radial menu with rotate, flip, and delete modes accessible. The main interface remains unchanged."

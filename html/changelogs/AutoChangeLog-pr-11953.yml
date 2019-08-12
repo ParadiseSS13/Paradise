@@ -1,0 +1,5 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "Added invismin macro back to F9"
+  - rscdel: "stealthmin macro removed from F9"

@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "New crit species with below -100 health will be considered dead for hijack purposes, and will not interrupt a shuttle hijack attempt."
