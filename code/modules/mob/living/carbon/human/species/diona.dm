@@ -87,10 +87,14 @@
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
+		if(light_amount > 0)
+			H.clear_alert("nolight")
+		else
+			H.throw_alert("nolight", /obj/screen/alert/nolight)
 		H.nutrition += light_amount * 10
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.nutrition = NUTRITION_LEVEL_ALMOST_FULL
-		if(light_amount > 0.2) //if there's enough light, heal
+		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			if(!pod && H.health <= 0)
 				return
 			H.adjustBruteLoss(-1)
