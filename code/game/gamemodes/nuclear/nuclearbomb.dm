@@ -85,8 +85,7 @@ var/bomb_set
 			O.forceMove(src)
 			auth = O
 			add_fingerprint(user)
-			attack_hand(user)
-			return
+			return attack_hand(user)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
 			return
