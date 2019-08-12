@@ -25,7 +25,7 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, NO_BONES)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -44,7 +44,19 @@
 		"gas exchange membrane" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null
-
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable),
+		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable),
+		"head" =   list("path" = /obj/item/organ/external/head/unbreakable),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable)
+		)
 	suicide_messages = list(
 		"is melting into a puddle!",
 		"is ripping out their own core!",
