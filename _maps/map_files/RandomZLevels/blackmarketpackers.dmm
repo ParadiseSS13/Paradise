@@ -1934,7 +1934,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "eV" = (
-/obj/structure/chair/office{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
