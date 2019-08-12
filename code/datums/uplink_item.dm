@@ -1627,6 +1627,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical Bundle"
