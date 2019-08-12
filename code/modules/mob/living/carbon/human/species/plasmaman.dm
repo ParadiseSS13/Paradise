@@ -114,9 +114,9 @@
 			O = new /datum/outfit/plasmaman/clown
 
 	H.equipOutfit(O, visualsOnly)
-	H.internal = H.get_item_by_slot(H.r_hand)
+	H.internal = H.r_hand
 	H.update_action_buttons_icon()
-	return 0
+	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/datum/gas_mixture/environment = H.loc.return_air()

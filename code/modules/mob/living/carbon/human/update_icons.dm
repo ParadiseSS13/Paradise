@@ -931,27 +931,28 @@ var/global/list/damage_icon_parts = list()
 		if(inv)
 			inv.update_icon()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
-		var/obj/item/organ/external/head/head_organ = get_organ("head")
-		var/datum/sprite_accessory/alt_heads/alternate_head
-		if(head_organ.alt_head && head_organ.alt_head != "None")
-			alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
+		if(!(slot_wear_mask in check_obscured_slots()))
+			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			var/datum/sprite_accessory/alt_heads/alternate_head
+			if(head_organ.alt_head && head_organ.alt_head != "None")
+				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
 
-		var/mutable_appearance/standing
-		var/icon/mask_icon = new(wear_mask.icon)
-		if(wear_mask.icon_override)
-			mask_icon = new(wear_mask.icon_override)
-			standing = mutable_appearance(wear_mask.icon_override, "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
-		else if(wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name])
-			mask_icon = new(wear_mask.sprite_sheets[dna.species.name])
-			standing = mutable_appearance(wear_mask.sprite_sheets[dna.species.name], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
+			var/mutable_appearance/standing
+			var/icon/mask_icon = new(wear_mask.icon)
+			if(wear_mask.icon_override)
+				mask_icon = new(wear_mask.icon_override)
+				standing = mutable_appearance(wear_mask.icon_override, "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
+			else if(wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name])
+				mask_icon = new(wear_mask.sprite_sheets[dna.species.name])
+				standing = mutable_appearance(wear_mask.sprite_sheets[dna.species.name], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
+			else
+				standing = mutable_appearance('icons/mob/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 
-		if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
-			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
-			bloodsies.color = wear_mask.blood_color
-			standing.overlays += bloodsies
-		overlays_standing[FACEMASK_LAYER] = standing
+			if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
+				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
+				bloodsies.color = wear_mask.blood_color
+				standing.overlays += bloodsies
+			overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
 
 
