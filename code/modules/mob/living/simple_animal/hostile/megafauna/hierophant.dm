@@ -496,6 +496,7 @@ Difficulty: Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
+	layer = 3.9 // between LYING_MOB_LAYER and ABOVE_MOB_LAYER
 	luminosity = 1
 	desc = "Get out of the way!"
 	duration = 9
