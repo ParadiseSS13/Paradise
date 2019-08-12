@@ -1,4 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - tweak: "Ticket takes now ask for confirmation if you want to take an already assigned ticket."

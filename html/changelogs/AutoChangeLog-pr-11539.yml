@@ -1,6 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "Beepsky will now respect your disguise again. No more looking right through that gasmask"
-  - bugfix: "Medical and security HUDs now use the correct way to identify somebody. They will see the same as you do on your screen."
-  - bugfix: "You will now get a job icon in the sec HUD when you use your PDA as ID. It'll use the PDA's assigned job."

@@ -1,6 +1,0 @@
-author: "Tayyyyyyy"
-delete-after: True
-changes: 
-  - bugfix: "newlines not working in CC announcements"
-  - bugfix: "players not being able to send single quotes in ahelps or PMs"
-  - bugfix: "robots not being able to pick their name"
