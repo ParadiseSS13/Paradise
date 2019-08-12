@@ -104,7 +104,7 @@
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Drag \the [src]'s sprite over the ambulance to (de)attach it.</span>")
+	to_chat(user, "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>")
 
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()

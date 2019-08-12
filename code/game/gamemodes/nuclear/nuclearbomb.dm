@@ -79,10 +79,10 @@ var/bomb_set
 	
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
-			if(O.flags & NODROP)
+			if(!user.unEquip(O))
 				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand!</span>")
-			usr.drop_item()
-			O.loc = src
+				return
+			O.forceMove(src)
 			auth = O
 			add_fingerprint(user)
 			return attack_hand(user)
