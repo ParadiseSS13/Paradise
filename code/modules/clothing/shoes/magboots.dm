@@ -87,7 +87,7 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	if(!isliving(user))
 		return
 	if(user.get_active_hand() != src)
-		to_chat(user, "You must hold the [src] in your hand to do this.")
+		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
 	if(!enabled_waddle)
 		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
