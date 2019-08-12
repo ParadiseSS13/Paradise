@@ -79,6 +79,8 @@
 
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
+	
+	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
 	var/shadowling_max_age = 0
@@ -321,6 +323,9 @@
 					config.auto_cryo_ssd_mins = text2num(value)
 				if("ssd_warning")
 					config.ssd_warning = 1
+
+				if("list_afk_minimum")
+					config.list_afk_minimum = text2num(value)
 
 				if("ipintel_email")
 					if(value != "ch@nge.me")
