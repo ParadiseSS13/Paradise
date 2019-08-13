@@ -1,5 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - bugfix: "Fixed a case where ghosts had an extra ghost icon visible on them"
-  - bugfix: "Fixed a case where some ghosts were too bright"

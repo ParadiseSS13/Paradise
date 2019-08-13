@@ -591,6 +591,9 @@ REAGENT SCANNER
 	var/scan_time = 10 SECONDS //how long does it take to scan
 	var/scan_cd = 60 SECONDS //how long before we can scan again
 
+/obj/item/bodyanalyzer/get_cell()
+	return power_supply
+
 /obj/item/bodyanalyzer/advanced
 	cell_type = /obj/item/stock_parts/cell/upgraded/plus
 
