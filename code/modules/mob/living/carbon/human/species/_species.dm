@@ -719,8 +719,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = TOUCH)
-	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
+		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE

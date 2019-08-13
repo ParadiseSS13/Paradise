@@ -27,9 +27,6 @@
 	if(volume >= 3)
 		MakeSlippery()
 
-	for(var/mob/living/carbon/slime/M in src)
-		M.apply_water()
-
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())

@@ -472,13 +472,15 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /mob/living/carbon/slime/toggle_throw_mode()
 	return
 
-/mob/living/carbon/slime/proc/apply_water()
-	adjustToxLoss(rand(15,20))
-	if(!client)
-		if(Target) // Like cats
-			Target = null
-			++Discipline
-	return
+/mob/living/carbon/slime/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+
+	var/water_damage = rand(10, 15) * volume
+	adjustToxLoss(water_damage)
+
+	if(!client && Target && volume >= 3)
+		Target = null
+		++Discipline
 
 /mob/living/carbon/slime/can_use_vents()
 	if(Victim)

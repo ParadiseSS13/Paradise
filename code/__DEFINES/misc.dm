@@ -405,3 +405,6 @@
 
 // Cult summon possibilities
 #define SUMMON_POSSIBILITIES 3
+
+// Water temperature
+#define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
