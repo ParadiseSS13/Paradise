@@ -38,7 +38,7 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 4
 	obj_damage = 20
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	environment_smash = ENVIRONMENT_SMASH_NONE
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	speak_emote = list("pulses")
@@ -48,10 +48,12 @@
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
-/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/mob/living/simple_animal/hostile/blob/blobspore/fire_act(exposed_temperature, exposed_volume)
 	..()
-	adjustBruteLoss(Clamp(0.01 * exposed_temperature, 1, 5))
-
+	if(exposed_temperature)
+		adjustFireLoss(Clamp(0.01 * exposed_temperature, 1, 5))
+	else
+		adjustFireLoss(5)
 
 /mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/structure/blob))

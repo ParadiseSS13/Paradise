@@ -78,7 +78,9 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
+	max_integrity = 200
+	integrity_failure = 50
 	var/screen = NEWSCASTER_MAIN
 	var/paper_remaining = 15
 	var/securityCaster = 0
@@ -95,7 +97,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/obj/item/photo/photo = null
 	var/channel_name = "" //the feed channel which will be receiving the feed, or being created
 	var/c_locked = 0 //Will our new channel be locked to public submissions?
-	var/hitstaken = 0 //Death at 3 hits from an item with force>=15
 	var/datum/feed_channel/viewing_channel = null
 	var/silence = 0
 	var/temp = null
@@ -151,29 +152,24 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				overlays += "newscaster_alert"
 		else
 			icon_state = "newscaster_wanted"
-
-		if(hitstaken > 0) //Cosmetic damage overlay
-			overlays += image(icon, "crack[hitstaken]")
+	var/hp_percent = obj_integrity * 100 /max_integrity
+	switch(hp_percent)
+		if(75 to 100)
+			return
+		if(50 to 75)
+			add_overlay("crack1")
+		if(25 to 50)
+			add_overlay("crack2")
+		else
+			add_overlay("crack3")
 
 /obj/machinery/newscaster/power_change()
 	..()
 	update_icon()
 
-/obj/machinery/newscaster/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-			return
-		if(2)
-			stat |= BROKEN
-			if(prob(50))
-				qdel(src)
-			else
-				update_icon() //can't place it above the return and outside the if-else. or we might get runtimes of null.update_icon() if(prob(50)) goes in.
-		else
-			if(prob(50))
-				stat |= BROKEN
-			update_icon()
+/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	update_icon()
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	ui_interact(user)
@@ -585,31 +581,49 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			playsound(loc, I.usesound, 50, 1)
 			qdel(src)
 		return
-
-	if(stat & BROKEN)
-		playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
-		visible_message("<span class='danger'>[user.name] further abuses the shattered [name].</span>", null, 5)
-	else
-		if(istype(I, /obj/item) )
-			var/obj/item/W = I
-			if(W.damtype == STAMINA)
-				return
-			if(W.force < 15)
-				visible_message("<span class='danger'>[user.name] hits the [name] with the [W.name] with no visible effect.</span>", null , 5)
-				playsound(loc, 'sound/effects/glasshit.ogg', 100, 1)
-			else
-				hitstaken++
-				if(hitstaken == 3)
-					visible_message("<span class='danger'>[user.name] smashes the [name]!</span>", null, 5)
-					stat |= BROKEN
-					playsound(loc, 'sound/effects/Glassbr3.ogg', 100, 1)
-				else
-					visible_message("<span class='danger'>[user.name] forcefully slams the [name] with the [I.name]!</span>", null, 5)
-					playsound(loc, 'sound/effects/glasshit.ogg', 100, 1)
+	else if(iswelder(I))
+		var/obj/item/weapon/weldingtool/WT = I
+		if(stat & BROKEN)
+			if(WT.remove_fuel(0,user))
+				visible_message("[user] begins repairing [src].", \
+								"<span class='notice'>You begin repairing [src]...</span>", \
+								"<span class='italics'>You hear welding.</span>")
+				playsound(loc, 'sound/items/Welder.ogg', 40, 1)
+				if(do_after(user,40/WT.toolspeed, 1, target = src))
+					if(!WT.isOn() || !(stat & BROKEN))
+						return
+					to_chat(user, "<span class='notice'>You repair [src].</span>")
+					playsound(loc, 'sound/items/Welder2.ogg', 50, 1)
+					obj_integrity = max_integrity
+					stat &= ~BROKEN
+					update_icon()
 		else
-			to_chat(user, "<span class='notice'>This does nothing.</span>")
-	update_icon()
-	..()
+			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+	else
+		return ..()	
+
+/obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(stat & BROKEN)
+				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
+			else
+				playsound(loc, 'sound/effects/Glasshit.ogg', 90, 1)
+		if(BURN)
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
+			
+/obj/machinery/newscaster/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		new /obj/item/stack/sheet/metal(loc, 2)
+		new /obj/item/weapon/shard(loc)
+		new /obj/item/weapon/shard(loc)
+	qdel(src)
+
+/obj/machinery/newscaster/obj_break()
+	if(!(stat & BROKEN) && can_deconstruct)
+		stat |= BROKEN
+		playsound(loc, 'sound/effects/Glassbr3.ogg', 100, 1)
+		update_icon()
 
 /obj/machinery/newscaster/proc/AttachPhoto(mob/user)
 	if(photo)

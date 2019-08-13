@@ -360,7 +360,7 @@
 	else
 		return ..()
 
-/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/snowman/built/fire_act(exposed_temperature, exposed_volume)
 	..()
 	qdel(src)
 

@@ -391,3 +391,28 @@
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+//for each body zone, gives the corresponding body_parts_covered bitfield
+/proc/body_zone2body_parts_covered(b_zone)
+	b_zone = check_zone(b_zone)
+	switch(b_zone)
+		if(BODY_ZONE_CHEST)
+			return CHEST
+		if(BODY_ZONE_HEAD)
+			return HEAD
+		if(BODY_ZONE_R_ARM)
+			return ARM_RIGHT
+		if(BODY_ZONE_L_ARM)
+			return ARM_LEFT
+		if(BODY_ZONE_R_LEG)
+			return LEG_RIGHT
+		if(BODY_ZONE_L_LEG)
+			return LEG_LEFT
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return FOOT_LEFT
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return FOOT_RIGHT
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return HAND_LEFT
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return HAND_RIGHT

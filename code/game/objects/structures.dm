@@ -1,32 +1,11 @@
 /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
+	max_integrity = 300
 	var/climbable
 	var/mob/climber
 	var/broken = FALSE
-
-/obj/structure/blob_act()
-	if(prob(50))
-		qdel(src)
-
-/obj/structure/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			return
-
-/obj/structure/mech_melee_attack(obj/mecha/M)
-	if(M.damtype == "brute")
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
-		return 1
-	return 0
 
 /obj/structure/New()
 	..()

@@ -40,7 +40,7 @@
 	density = 1
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	var/icon_vend //Icon_state when vending
 	var/icon_deny //Icon_state when denying access
 
@@ -147,16 +147,6 @@
 
 			product_records.Add(product)
 
-/obj/machinery/vending/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
-
 /obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
 	if(component_parts)
 		for(var/obj/item/vending_refill/VR in component_parts)
@@ -169,9 +159,6 @@
 		qdel(src)
 	else
 		..()
-
-/obj/machinery/vending/blob_act(obj/structure/blob/B) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
 /obj/machinery/vending/proc/refill_inventory(obj/item/vending_refill/refill, list/machine, mob/user)
 	var/total = 0

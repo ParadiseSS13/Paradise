@@ -558,7 +558,8 @@
 					var/obj/item/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
 				qdel(src)
-
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 
 /obj/structure/computerframe/HONKputer

@@ -4,7 +4,9 @@
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
 	req_access = list(access_bar)
-	armor = list(melee = 20, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 500
+	integrity_failure = 250
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
 	var/emagged = 0
@@ -61,7 +63,7 @@
 	if(!allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
 		return
-	if( istype(I, /obj/item/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 			set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -90,14 +92,29 @@
 			broken = 0
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
-
+	else
+		..()
 
 
 /obj/structure/sign/barsign/emp_act(severity)
     set_sign(new /datum/barsign/hiddensigns/empbarsign)
     broken = 1
 
+/obj/structure/sign/barsign/obj_break(damage_flag)
+	if(!broken && can_deconstruct)
+		broken = 1
 
+/obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal (loc, 2)
+	new /obj/item/stack/cable_coil (loc, 2)
+	qdel(src)
+
+/obj/structure/sign/barsign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+		if(BURN)
+			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 
 
 /obj/structure/sign/barsign/emag_act(mob/user)

@@ -47,7 +47,7 @@
 		update_icon()
 
 
-/obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/taperecorder/fire_act(exposed_temperature, exposed_volume)
 	mytape.ruin() //Fires destroy the tape
 	return ..()
 
@@ -262,7 +262,7 @@
 	var/list/timestamp = list()
 	var/ruined = 0
 
-/obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/tape/fire_act(exposed_temperature, exposed_volume)
 	..()
 	ruin()
 

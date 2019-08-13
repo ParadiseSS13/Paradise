@@ -10,10 +10,30 @@
 	icon_state = "extinguisher_closed"
 	anchored = 1
 	density = 0
+	max_integrity = 200
+	integrity_failure = 50
 	var/obj/item/extinguisher/has_extinguisher = null
 	var/extinguishertype
 	var/opened = 0
 	var/material_drop = /obj/item/stack/sheet/metal
+
+/obj/structure/extinguisher_cabinet/obj_break(damage_flag)
+	if(!broken && can_deconstruct)
+		broken = 1
+		opened = 0
+		update_icon()
+		if(has_extinguisher)
+			has_extinguisher.forceMove(loc)
+			has_extinguisher = null
+
+
+/obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		new /obj/item/stack/sheet/metal (loc, 2)
+		if(has_extinguisher)
+			has_extinguisher.forceMove(loc)
+			has_extinguisher = null
+	qdel(src)
 
 /obj/structure/extinguisher_cabinet/New(turf/loc, ndir = null)
 	..()

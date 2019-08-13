@@ -17,7 +17,7 @@
 		return
 	return
 
-/obj/structure/blob/shield/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/blob/shield/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)

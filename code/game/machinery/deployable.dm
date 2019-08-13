@@ -58,16 +58,15 @@ for reference:
 /obj/structure/barricade
 	anchored = 1.0
 	density = 1.0
-	var/health = 100.0
-	var/maxhealth = 100.0
+	max_integrity = 100
 	var/stacktype = /obj/item/stack/sheet/metal
 
 /obj/structure/barricade/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, stacktype))
-		if(src.health < src.maxhealth)
+		if(obj_integrity < max_integrity)
 			visible_message("<span class='warning'>[user] begins to repair the [src]!</span>")
 			if(do_after(user, 20 * W.toolspeed, target = src))
-				src.health = src.maxhealth
+				obj_integrity = max_integrity
 				W:use(1)
 				visible_message("<span class='warning'>[user] repairs the [src]!</span>")
 				return
@@ -81,39 +80,9 @@ for reference:
 
 		if(do_after(user, 300 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
-			dismantle()
+			deconstruct(TRUE)
 		return
-	else
-		switch(W.damtype)
-			if("fire")
-				src.health -= W.force * 1
-			if("brute")
-				src.health -= W.force * 0.75
-			else
-		if(src.health <= 0)
-			visible_message("<span class='danger'>\The [src] is smashed apart!</span>")
-			dismantle()
-		..()
-
-/obj/structure/barricade/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			visible_message("<span class='danger'>\The [src] is blown apart!</span>")
-			qdel(src)
-			return
-		if(2.0)
-			src.health -= 25
-			if(src.health <= 0)
-				visible_message("<span class='danger'>\The [src] is blown apart!</span>")
-				dismantle()
-			return
-
-/obj/structure/barricade/blob_act()
-	src.health -= 25
-	if(src.health <= 0)
-		visible_message("<span class='danger'>The blob eats through \the [src]!</span>")
-		qdel(src)
-	return
+	..()
 
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target, height=0)//So bullets will fly over and stuff.
 	if(height==0)
@@ -123,12 +92,13 @@ for reference:
 	else
 		return 0
 
-/obj/structure/barricade/proc/dismantle()
-	if(stacktype)
-		new stacktype(get_turf(src))
-		new stacktype(get_turf(src))
-		new stacktype(get_turf(src))
-	qdel(src)
+/obj/structure/barricade/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		if(disassembled && stacktype)
+			new stacktype(get_turf(src))
+			new stacktype(get_turf(src))
+			new stacktype(get_turf(src))
+		qdel(src)
 
 /obj/structure/barricade/wooden
 	name = "wooden barricade"
@@ -136,8 +106,7 @@ for reference:
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "woodenbarricade"
 	stacktype = /obj/item/stack/sheet/wood
-	burn_state = FLAMMABLE
-	burntime = 25
+	resistance_flags = FLAMMABLE
 
 /obj/structure/barricade/mime
 	name = "floor"
@@ -163,16 +132,15 @@ for reference:
 	icon = 'icons/obj/objects.dmi'
 	anchored = 0.0
 	density = 1.0
+	max_integrity = 100
 	icon_state = "barrier0"
-	var/health = 100.0
-	var/maxhealth = 100.0
 	var/locked = 0.0
 //	req_access = list(access_maint_tunnels)
 
 /obj/machinery/deployable/barrier/New()
 	..()
 
-	src.icon_state = "barrier[src.locked]"
+	icon_state = "barrier[src.locked]"
 
 /obj/machinery/deployable/barrier/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id))
@@ -193,28 +161,20 @@ for reference:
 				return
 		return
 	else if(istype(W, /obj/item/wrench))
-		if(src.health < src.maxhealth)
-			src.health = src.maxhealth
-			src.emagged = 0
-			src.req_access = list(access_security)
+		if(obj_integrity < max_integrity)
+			obj_integrity = max_integrity
+			emagged = 0
+			req_access = list(access_security)
 			visible_message("<span class='warning'>[user] repairs the [src]!</span>")
 			return
-		else if(src.emagged > 0)
-			src.emagged = 0
-			src.req_access = list(access_security)
+		else if(emagged > 0)
+			emagged = 0
+			req_access = list(access_security)
 			visible_message("<span class='warning'>[user] repairs the [src]!</span>")
 			return
 		return
-	else
-		switch(W.damtype)
-			if("fire")
-				src.health -= W.force * 0.75
-			if("brute")
-				src.health -= W.force * 0.5
-			else
-		if(src.health <= 0)
-			src.explode()
-		..()
+
+	..()
 
 /obj/machinery/deployable/barrier/emag_act(user as mob)
 	if(!emagged)
@@ -229,16 +189,6 @@ for reference:
 		do_sparks(2, 1, src)
 		visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 
-/obj/machinery/deployable/barrier/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			src.explode()
-			return
-		if(2.0)
-			src.health -= 25
-			if(src.health <= 0)
-				src.explode()
-			return
 
 /obj/machinery/deployable/barrier/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -246,13 +196,7 @@ for reference:
 	if(prob(50/severity))
 		locked = !locked
 		anchored = !anchored
-		icon_state = "barrier[src.locked]"
-
-/obj/machinery/deployable/barrier/blob_act()
-	src.health -= 25
-	if(src.health <= 0)
-		src.explode()
-	return
+		icon_state = "barrier[locked]"
 
 /obj/machinery/deployable/barrier/CanPass(atom/movable/mover, turf/target, height=0)//So bullets will fly over and stuff.
 	if(height==0)
@@ -262,7 +206,7 @@ for reference:
 	else
 		return 0
 
-/obj/machinery/deployable/barrier/proc/explode()
+/obj/machinery/deployable/barrier/obj_break()
 	visible_message("<span class='danger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -271,6 +215,6 @@ for reference:
 
 	do_sparks(3, 1, src)
 
-	explosion(src.loc,-1,-1,0)
+	explosion(loc,-1,-1,0)
 	if(src)
 		qdel(src)

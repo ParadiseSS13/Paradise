@@ -7,7 +7,9 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	max_integrity = 250
+	integrity_failure = 25
 	buckle_offset = 0
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
@@ -16,11 +18,18 @@
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0
 
+
 /obj/structure/chair/New()
 	..()
 	spawn(3)	//sorry. i don't think there's a better way to do this.
 		handle_rotation()
 	return
+
+/obj/structure/chair/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && can_deconstruct)
+		new buildstacktype(loc,buildstackamount)
+	..()
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
@@ -140,20 +149,23 @@
 	icon_state = "wooden_chair"
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
 	item_chair = /obj/item/chair/wood/wings
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 
 /obj/structure/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
 	color = rgb(255, 255, 255)
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
@@ -287,27 +299,6 @@
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
-
-/obj/structure/chair/stool/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(70))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(50))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-
-/obj/structure/chair/stool/blob_act()
-	if(prob(75))
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
 
 /obj/item/chair
 	name = "chair"

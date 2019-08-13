@@ -7,7 +7,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
-
+	max_integrity = 250
+	integrity_failure = 80
 	var/drone_progress = 0
 	var/produce_drones = 1
 	var/time_last_drone = 500
@@ -155,3 +156,8 @@
 			return
 
 	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+
+/obj/machinery/drone_fabricator/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		new /obj/item/stack/sheet/metal(loc, 5)
+	qdel(src)

@@ -403,7 +403,7 @@
 
 	add_fingerprint(user)
 
-/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(burn_state >= FLAMMABLE) //Renders paper that has been lit on fire to be illegible.
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"

@@ -12,6 +12,8 @@
 	var/strength = 5 //How weakened targets are when flashed.
 	var/base_state = "mflash"
 	anchored = 1
+	max_integrity = 250
+	integrity_failure = 100
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
@@ -33,7 +35,7 @@
 		icon_state = "[base_state]1"
 //		sd_set_light(2)
 	else
-		stat |= ~NOPOWER
+		stat |= NOPOWER
 		icon_state = "[base_state]1-p"
 //		sd_set_light(0)
 
@@ -87,6 +89,21 @@
 	if(prob(75/severity))
 		flash()
 	..(severity)
+
+/obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee" && damage_amount < 10) //any melee attack below 10 dmg does nothing
+		return 0
+	. = ..()
+	
+/obj/machinery/flasher/obj_break(damage_flag)
+	if(can_deconstruct)
+		if(!(stat & BROKEN))
+			stat |= BROKEN
+
+/obj/machinery/flasher/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		new /obj/item/stack/sheet/metal (loc, 2)
+	qdel(src)
 
 /obj/machinery/flasher/portable/HasProximity(atom/movable/AM as mob|obj)
 	if((disable) || (last_flash && world.time < last_flash + 150))

@@ -98,6 +98,8 @@ Class Procs:
 	icon = 'icons/obj/stationobjs.dmi'
 	pressure_resistance = 10
 	layer = BELOW_OBJ_LAYER
+	max_integrity = 200
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -191,10 +193,6 @@ Class Procs:
 				return
 		else
 	return
-
-/obj/machinery/blob_act()
-	if(prob(50))
-		qdel(src)
 
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
@@ -499,14 +497,14 @@ Class Procs:
 	if(stat & BROKEN)
 		to_chat(user, "<span class='notice'>It looks broken and non-functional.</span>")
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		if(burn_state == ON_FIRE)
+		if(resistance_flags & ON_FIRE)
 			to_chat(user, "<span class='warning'>It's on fire!</span>")
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
-				to_chat(user,  "It looks slightly damaged.")
+				to_chat(user,  "<span class='notice'>It looks slightly damaged.</span>")
 			if(25 to 50)
-				to_chat(user,  "It appears heavily damaged.")
+				to_chat(user,  "<span class='notice'>It appears heavily damaged.</span>")
 			if(0 to 25)
 				to_chat(user,  "<span class='warning'>It's falling apart!</span>")
 	if(user.research_scanner && component_parts)

@@ -7,8 +7,7 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
-
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, acid = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
@@ -248,7 +247,8 @@
 		assembly.update_icon()
 		assembly = null
 	else
-		new /obj/item/camera_assembly(loc)
+		var/obj/item/I = new /obj/item/camera_assembly(loc)
+		I.obj_integrity = I.max_integrity * 0.5
 		new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 

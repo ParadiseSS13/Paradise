@@ -49,7 +49,7 @@
 
 /mob/camera/blob/proc/update_health()
 	if(blob_core)
-		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.health)]</font></div>"
+		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
 
 /mob/camera/blob/proc/add_points(var/points)
 	if(points != 0)
@@ -97,7 +97,7 @@
 	..()
 	if(statpanel("Status"))
 		if(blob_core)
-			stat(null, "Core Health: [blob_core.health]")
+			stat(null, "Core Health: [blob_core.obj_integrity]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(var/NewLoc, var/Dir = 0)

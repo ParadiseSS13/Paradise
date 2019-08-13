@@ -95,7 +95,7 @@
 	for(var/A in loc)
 		var/atom/item = A
 		if(item && item != src) // It's possible that the item is deleted in temperature_expose
-			item.fire_act(null, temperature, volume)
+			item.fire_act(temperature, volume)
 
 	color = heat2color(temperature)
 	set_light(l_color = color)
@@ -225,7 +225,7 @@
 			if(isliving(A))
 				continue
 			if(A != H)
-				A.fire_act(null, H.temperature, H.volume)
+				A.fire_act(H.temperature, H.volume)
 
 		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
@@ -290,7 +290,7 @@
 				if(isliving(A))
 					continue
 				if(A != existing_hotspot)
-					A.fire_act(null, expose_temp, existing_hotspot.volume)
+					A.fire_act(expose_temp, existing_hotspot.volume)
 		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()

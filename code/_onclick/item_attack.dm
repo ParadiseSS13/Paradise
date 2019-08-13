@@ -84,6 +84,8 @@
 /obj/item/proc/attack_obj(obj/O, mob/living/user)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
+	if(user.a_intent == INTENT_HELP) //so you don't hit a machine with a tool while trying to disassemble it.
+		return
 	if(flags & (NOBLUDGEON))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)

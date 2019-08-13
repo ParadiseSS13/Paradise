@@ -87,20 +87,24 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 			if(!mended)
 				//Cutting either one disables the main door power, but unless backup power is also cut, the backup power re-powers the door in 10 seconds. While unpowered, the door may be crowbarred open, but bolts-raising will not work. Cutting these wires may electocute the user.
 				A.loseMainPower()
-				A.shock(usr, 50)
+				if(usr)
+					A.shock(usr, 50)
 			else
 				A.regainMainPower()
-				A.shock(usr, 50)
+				if(usr)
+					A.shock(usr, 50)
 
 		if(AIRLOCK_WIRE_BACKUP_POWER1)
 
 			if(!mended)
 				//Cutting either one disables the backup door power (allowing it to be crowbarred open, but disabling bolts-raising), but may electocute the user.
 				A.loseBackupPower()
-				A.shock(usr, 50)
+				if(usr)
+					A.shock(usr, 50)
 			else
 				A.regainBackupPower()
-				A.shock(usr, 50)
+				if(usr)
+					A.shock(usr, 50)
 
 		if(AIRLOCK_WIRE_DOOR_BOLTS)
 

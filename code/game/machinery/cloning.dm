@@ -530,33 +530,20 @@
 		go_out()
 
 /obj/machinery/clonepod/emp_act(severity)
-	if(prob(100/(severity*efficiency))) malfunction()
+	if(prob(100/(severity*efficiency)))
+		malfunction()
+	..()
+
+/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
+	if(occupant)
+		locked = FALSE
+		go_out()
 	..()
 
 /obj/machinery/clonepod/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		else
-	return
+	..()
+	if(!qdeleted(src))
+		go_out()
 
 /obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
 	if(occupant && L == clonemind.current)

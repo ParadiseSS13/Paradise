@@ -84,7 +84,7 @@
 
 // foam disolves when heated
 // except metal foams
-/obj/effect/particle_effect/foam/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE) //Don't heat the reagents inside
+/obj/effect/particle_effect/foam/fire_act(exposed_temperature, exposed_volume) //Don't heat the reagents inside
 	return
 
 /obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume) // overriden to prevent weird behaviors with heating reagents inside

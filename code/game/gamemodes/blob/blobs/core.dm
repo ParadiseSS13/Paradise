@@ -2,7 +2,8 @@
 	name = "blob core"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
-	health = 200
+	max_integrity = 200
+	armor = list(melee = 50, bullet = 50, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 90)
 	fire_resist = 2
 	point_return = -1
 	var/mob/camera/blob/overmind = null // the blob core's overmind
@@ -46,17 +47,20 @@
 	GLOB.poi_list.Remove(src)
 	return ..()
 
-/obj/structure/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/blob/core/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/blob/core/update_icon()
 	if(health <= 0)
 		qdel(src)
 		return
-	// update_icon is called when health changes so... call update_health in the overmind
-	if(overmind)
-		overmind.update_health()
 	return
+
+/obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, overmind_reagent_trigger = 1)
+	. = ..()
+	if(obj_integrity > 0)
+		if(overmind) //we should have an overmind, but...
+			overmind.update_health()
 
 /obj/structure/blob/core/RegenHealth()
 	return // Don't regen, we handle it in Life()
@@ -68,9 +72,7 @@
 		if(resource_delay <= world.time)
 			resource_delay = world.time + 10 // 1 second
 			overmind.add_points(point_rate)
-	health = min(initial(health), health + 1)
-	if(overmind)
-		overmind.update_health()
+	obj_integrity = min(max_integrity, obj_integrity + 1)
 	if(overmind)
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, overmind.blob_reagent_datum.color)

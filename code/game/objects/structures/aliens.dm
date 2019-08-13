@@ -14,7 +14,8 @@
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
-
+	resistance_flags = FLAMMABLE
+	
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == "melee")
 		switch(damage_type)

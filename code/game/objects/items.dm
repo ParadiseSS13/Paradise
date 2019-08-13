@@ -17,7 +17,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
-
+	max_integrity = 200
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
@@ -130,25 +130,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	else
 		return 1
 
-/obj/item/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				qdel(src)
-				return
-		else
-	return
-
-/obj/item/blob_act()
-	qdel(src)
-
 /obj/item/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	extinguish()
@@ -224,7 +205,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if(burn_state == ON_FIRE && !pickupfireoverride)
+	if(resistance_flags & ON_FIRE && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
@@ -238,7 +219,15 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				return
 		else
 			extinguish()
-
+	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
+		var/mob/living/carbon/human/H = user
+		if(istype(H))
+			if(H.gloves && !(H.gloves.resistance_flags & (UNACIDABLE | ACID_PROOF)))
+				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
+					H.UpdateDamageIcon()
+				return
 	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
 		var/obj/item/storage/S = src.loc
@@ -588,8 +577,34 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
 		return TRUE
 
+/obj/item/hitby(atom/movable/AM)
+	return
+
 /obj/item/attack_hulk(mob/living/carbon/human/user)
-	return FALSE
+	return 0
+
+/obj/item/attack_animal(mob/living/simple_animal/M)
+	return 0
+
+/obj/item/mech_melee_attack(obj/mecha/M)
+	return 0
+
+/obj/item/burn()
+	if(!qdeleted(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/ash/A = new()
+		A.desc = "Looks like this used to be a [name] some time ago."
+		A.forceMove(T) //so the ash decal is deleted if on top of lava.
+		..()
+
+/obj/item/acid_melt()
+	if(!qdeleted(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/molten_object/MO = new (T)
+		MO.pixel_x = rand(-16,16)
+		MO.pixel_y = rand(-16,16)
+		MO.desc = "Looks like this was \an [src] some time ago."
+		..() 
 
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")

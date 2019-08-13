@@ -156,7 +156,7 @@
 		Burn()
 		START_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
 	..()
 	StartBurning()
 

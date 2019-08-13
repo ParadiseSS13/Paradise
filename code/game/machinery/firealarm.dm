@@ -12,7 +12,9 @@ FIRE ALARM
 	var/timing = 0.0
 	var/lockdownbyai = 0
 	anchored = 1.0
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 250
+	integrity_failure = 100
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -376,3 +378,24 @@ Just a object used in constructing fire alarms
 		usr << browse(null, "window=partyalarm")
 		return
 	return
+
+/obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	if(.) //damage received
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+			if(prob(33))
+				alarm()
+
+/obj/machinery/firealarm/obj_break(damage_flag)
+	if(!(stat & BROKEN) && can_deconstruct && buildstage != 0) //can't break the electronics if there isn't any inside.
+		stat |= BROKEN
+		update_icon()
+
+/obj/machinery/firealarm/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		new /obj/item/stack/sheet/metal(loc, 1)
+		var/obj/item/I = new /obj/item/firealarm_electronics(loc)
+		if(!disassembled)
+			I.obj_integrity = I.max_integrity * 0.5
+		new /obj/item/stack/cable_coil(loc, 3)
+	qdel(src)

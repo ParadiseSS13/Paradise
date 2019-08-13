@@ -166,7 +166,7 @@
 		location.hotspot_expose(700, 5)
 		return
 
-/obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/match/fire_act(exposed_temperature, exposed_volume)
 	..()
 	matchignite()
 

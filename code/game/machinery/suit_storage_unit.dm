@@ -368,9 +368,10 @@
 	occupant = null
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
-	open_machine()
-	dump_contents()
-	new /obj/item/stack/sheet/metal (loc, 2)
+	if(can_deconstruct)
+		open_machine()
+		dump_contents()
+		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user)

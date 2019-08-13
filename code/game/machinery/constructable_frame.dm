@@ -5,7 +5,7 @@
 	density = 1
 	anchored = 1
 	use_power = NO_POWER_USE
-	max_integrity = 100
+	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null
@@ -218,7 +218,17 @@
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
+/obj/machinery/constructable_frame/machine_frame/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		if(state >= 2)
+			new /obj/item/stack/cable_coil(loc , 5)
+		for(var/X in components)
+			var/obj/item/I = X
+			I.forceMove(loc)
+	..()
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
 micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.

@@ -12,7 +12,7 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 
-/obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper_bin/fire_act(exposed_temperature, exposed_volume)
 	if(!amount)
 		return
 	..()

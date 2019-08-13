@@ -375,32 +375,5 @@
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 
-/obj/machinery/door/blob_act(obj/structure/blob/B)
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
-			return
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
-
-/obj/machinery/door/ex_act(severity, target)
-	if(severity)
-		severity = max(1, severity - 1)
-	else
-		severity = 0
-	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	if(target == src)
-		obj_integrity = 0
-		qdel(src)
-		return
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
-
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0
