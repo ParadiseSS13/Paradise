@@ -546,7 +546,8 @@ proc/checkhtml(var/t)
 	return text
 
 /proc/convert_pencode_arg(text, tag, arg)
-	arg = replacetext(replacetext(html_encode(arg), "'", ""), "\"", "")
+	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
+
 	if(tag == "class")
 		return "<span class='[arg]'>"
 
@@ -554,6 +555,8 @@ proc/checkhtml(var/t)
 		return "<span style='[arg]'>"
 
 	if(tag == "img")
+		if(dd_hasprefix(arg, "byond:") || dd_hasprefix(arg, "file:"))
+			return text
 		var/list/img_props = splittext(arg, ";")
 		if(img_props.len == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
