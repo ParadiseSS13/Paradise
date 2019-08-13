@@ -25,6 +25,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
+	if(possible_target in owner.targets)
+		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(!possible_target.current.stat == DEAD)
@@ -51,7 +53,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
-
 
 /datum/objective/assassinate
 	martyr_compatible = 1
@@ -344,11 +345,14 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/theft_area
 
 /datum/objective/steal/proc/get_location()
-    if(steal_target.location_override)
-        return steal_target.location_override
-    var/obj/item/T = locate(steal_target.typepath)
-    theft_area = get_area(T.loc)
-    return "[theft_area]"
+	if(steal_target.location_override)
+		return steal_target.location_override
+	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
+	for(var/obj/item/candidate in steal_candidates)
+		if(!is_admin_level(candidate.loc.z))
+			theft_area = get_area(candidate.loc)
+			return "[theft_area]"
+	return "an unknown area"
 
 /datum/objective/steal/find_target()
 	var/loop=50
@@ -358,9 +362,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
+		if(O in owner.targets)
+			continue
 		if(O.flags & 2)
 			continue
-		steal_target=O
+		steal_target = O
+
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
 			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."

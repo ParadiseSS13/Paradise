@@ -200,7 +200,8 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/machinery/suit_storage_unit/lavaland,
+/turf/simulated/floor/plasteel,
 /area/mine/eva)
 "aJ" = (
 /obj/machinery/light/small{
@@ -436,12 +437,6 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "bp" = (
-/obj/structure/table,
-/obj/item/pickaxe,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -451,6 +446,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bq" = (
@@ -594,11 +590,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -611,7 +602,19 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bF" = (
@@ -757,9 +760,6 @@
 "bU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
@@ -943,16 +943,15 @@
 	pixel_y = -23
 	},
 /obj/structure/cable,
-/obj/machinery/recharge_station,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "cp" = (
-/obj/machinery/mech_bay_recharge_port,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
+/obj/machinery/suit_storage_unit/lavaland,
+/turf/simulated/floor/plasteel,
 /area/mine/eva)
 "cq" = (
 /obj/effect/turf_decal/tile/brown{
@@ -976,9 +975,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -1854,13 +1850,10 @@
 /turf/simulated/wall,
 /area/mine/production)
 "eo" = (
-/obj/machinery/computer/mech_bay_power_console{
-	icon_state = "computer";
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ep" = (
@@ -2023,6 +2016,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "eD" = (
@@ -2100,6 +2096,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "eK" = (
@@ -2147,6 +2144,9 @@
 "eP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -2237,13 +2237,11 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "fc" = (
@@ -2253,9 +2251,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fd" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -2263,6 +2258,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
+/obj/machinery/mech_bay_recharge_port,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "fe" = (
@@ -2290,12 +2287,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fh" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/production)
 "fi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2304,14 +2296,15 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fj" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
+	},
+/obj/machinery/computer/mech_bay_power_console{
+	icon_state = "computer";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -2500,7 +2493,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fE" = (
-/obj/structure/ore_box,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
@@ -2579,7 +2571,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fL" = (
-/obj/structure/ore_box,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -2589,14 +2580,15 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fM" = (
-/obj/machinery/recharge_station,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fN" = (
@@ -4090,6 +4082,10 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
+"tK" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel,
+/area/mine/production)
 "vq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -20710,7 +20706,7 @@ dL
 ej
 eG
 ct
-eW
+tK
 bN
 ab
 ab

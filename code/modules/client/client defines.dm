@@ -1,4 +1,8 @@
 /client
+		//////////////////////
+		//BLACK MAGIC THINGS//
+		//////////////////////
+	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
 		////////////////
@@ -24,7 +28,7 @@
 
 	var/adminhelped = 0
 
-	var/gc_destroyed //Time when this object was destroyed.
+	// var/gc_destroyed //Time when this object was destroyed. [Inherits from datum]
 
 #ifdef TESTING
 	var/running_find_references
@@ -56,7 +60,7 @@
 	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
-	preload_rsc = 1 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
+	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
 	var/global/obj/screen/click_catcher/void
 
@@ -89,5 +93,5 @@
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 
-	// Has the client been varedited by an admin?
-	var/var_edited = FALSE
+	// Has the client been varedited by an admin? [Inherits from datum now]
+	// var/var_edited = FALSE

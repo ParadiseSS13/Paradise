@@ -27,7 +27,6 @@
 	var/recommended_enemies = 0
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
-	var/free_golems_disabled = FALSE
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
 
@@ -81,7 +80,6 @@
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
 	generate_station_goals()
-	check_free_golems()
 	start_state = new /datum/station_state()
 	start_state.count()
 	return 1
@@ -228,7 +226,7 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready)
+		if(player.client && player.ready && player.has_valid_preferences())
 			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
@@ -512,12 +510,6 @@ proc/display_roundstart_logout_report()
 	for(var/V in station_goals)
 		var/datum/station_goal/G = V
 		G.print_result()
-
-/datum/game_mode/proc/check_free_golems() //check config and gamemode for free golems setting and run the prob to check if the round will have free golems spawned or not
-	if((config.unrestricted_free_golems || !free_golems_disabled) && prob(config.prob_free_golems))
-		for(var/obj/effect/landmark/free_golem_spawn/L in GLOB.landmarks_list)
-			if(isturf(L.loc))
-				new /obj/effect/mob_spawn/human/golem/adamantine(L.loc)
 
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]

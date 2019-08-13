@@ -23,7 +23,9 @@
 /turf/simulated/proc/burn_tile()
 	return
 
-/turf/simulated/proc/water_act(volume, temperature, source)
+/turf/simulated/water_act(volume, temperature, source)
+	. = ..()
+	
 	if(volume >= 3)
 		MakeSlippery()
 

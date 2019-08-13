@@ -474,7 +474,9 @@
 		new /datum/data/mining_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
 		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
 		new /datum/data/mining_equipment("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
+		new /datum/data/mining_equipment("Shuttle Console Board",		/obj/item/circuitboard/shuttle/golem_ship,						2000),
 		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)
+
 		)
 
 /datum/data/mining_equipment
@@ -905,6 +907,7 @@
 	throw_range = 5
 	var/loaded = 1
 	var/malfunctioning = 0
+	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
 /obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag)
 	if(!loaded)
@@ -912,6 +915,9 @@
 	if(istype(target, /mob/living) && proximity_flag)
 		if(istype(target, /mob/living/simple_animal))
 			var/mob/living/simple_animal/M = target
+			if(M.sentience_type != revive_type)
+				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
+				return
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()

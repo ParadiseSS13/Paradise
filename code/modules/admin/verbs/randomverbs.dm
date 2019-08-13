@@ -54,7 +54,7 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
+	var/msg = clean_input("Message:", text("Subtle PM to [M.key]"))
 
 	if(!msg)
 		return
@@ -109,10 +109,11 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text
+	var/msg = clean_input("Message:", text("Enter the text you wish to appear to everyone:"))
 
 	if(!msg)
 		return
+	msg = pencode_to_html(msg)
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
@@ -131,10 +132,11 @@
 	if(!M)
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to your target:")) as text
+	var/msg = clean_input("Message:", text("Enter the text you wish to appear to your target:"))
 
 	if( !msg )
 		return
+	msg = pencode_to_html(msg)
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
@@ -169,7 +171,7 @@
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "") as text|null
+	var/input = clean_input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "")
 	if(!input)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return
@@ -550,7 +552,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_EVENT))
 		return
 
-	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
+	var/input = clean_input("Please enter anything you want the AI to do. Anything. Serious.", "What?", "")
 	if(!input)
 		return
 
@@ -603,14 +605,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 
 	if(type == "Custom")
-		type = input(usr, "What would you like the report type to be?", "Report Type", "Encrypted Transmission") as text|null
+		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	var/customname = clean_input("Pick a title for the report.", "Title", MsgType[type])
 	if(!customname)
 		return
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
 	if(!input)
 		return
+	input = html_encode(input)
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 		if("Yes")
@@ -1000,6 +1003,57 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_check")
+
+/client/proc/list_afks()
+	set category = "Admin"
+	set name = "List AFKs"
+	set desc = "Lists AFK players"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/msg = "<html><head><title>AFK Report</title></head><body>"
+	msg += "AFK Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/mins_afk
+	var/job_string
+	var/key_string
+	var/role_string
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+		if(H.client == null || H.stat == DEAD) // No clientless or dead
+			continue
+		mins_afk = round(H.client.inactivity / 600)
+		if(mins_afk < config.list_afk_minimum)
+			continue
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		var/obj_count = 0
+		var/obj_string = ""
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+			for(var/datum/objective/O in all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+		else
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+		msg += "</TR>"
+	msg += "</TABLE></BODY></HTML>"
+	src << browse(msg, "window=Player_afk_check")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"
