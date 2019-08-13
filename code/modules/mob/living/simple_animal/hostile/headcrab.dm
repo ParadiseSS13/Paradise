@@ -9,6 +9,11 @@
 	maxHealth = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	ranged = 1
+	ranged_message = "leaps"
+	ranged_cooldown_time = 30
+	var/jumpdistance = 5
+	var/jumpspeed = 1
 	attacktext = "bites"
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
@@ -25,6 +30,20 @@
 				break
 	..()
 
+/mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
+	if(check_friendly_fire)
+		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
+			for(var/mob/living/L in T)
+				if(L == src || L == A)
+					continue
+				if(faction_check(L) && !attack_same)
+					return
+	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+
+	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
+	ranged_cooldown = world.time + ranged_cooldown_time	
+	AttackingTarget() //To bite them on contact - if succesfull.
+
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
@@ -40,6 +59,7 @@
 	desc = "A corpse animated by the alien being on its head."
 	melee_damage_lower = 10
 	melee_damage_upper = 15
+	ranged = 0
 	icon = H.icon
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
