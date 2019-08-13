@@ -9,7 +9,7 @@
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75
-	health = 3
+	max_integrity = 3
 	var/stillborn = FALSE
 	faction = list("terrorspiders")
 	var/spider_myqueen = null

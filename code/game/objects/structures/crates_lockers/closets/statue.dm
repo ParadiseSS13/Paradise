@@ -106,8 +106,8 @@
 
 /obj/structure/closet/statue/deconstruct(disassembled = TRUE)
 	if(!disassembled)
-		if(user)
-			user.dust()
+		for(var/mob/living/M in src)
+			M.dust()
 	dump_contents()
 	visible_message("<span class='warning'>[src] shatters!. </span>")
 	qdel(src)

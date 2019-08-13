@@ -22,7 +22,7 @@
 
 	for(var/obj/structure/blob/B in hear(8, flashbang_turf))     		//Blob damage here
 		var/damage = round(30 / (get_dist(B, get_turf(src)) + 1))
-		B.health -= damage
+		B.obj_integrity -= damage
 		B.update_icon()
 
 	spawn(light_time)

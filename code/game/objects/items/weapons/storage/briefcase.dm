@@ -12,9 +12,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
-	burn_state = FLAMMABLE
-	burntime = 20
-
+	resistance_flags = FLAMMABLE
+	
 /obj/item/storage/briefcase/sniperbundle
 	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
 	force = 10

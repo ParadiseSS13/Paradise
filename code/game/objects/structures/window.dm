@@ -690,7 +690,7 @@ obj/structure/window/full/reinforced/ice
 	desc = "A paper-thin pane of translucent yet reinforced brass."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	unacidable = 1
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100)

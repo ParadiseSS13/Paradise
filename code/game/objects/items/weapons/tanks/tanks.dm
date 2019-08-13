@@ -30,7 +30,7 @@
 	START_PROCESSING(SSobj, src)
 	return
 
-/obj/item/weapon/tank/deconstruct(disassembled = TRUE)
+/obj/item/tank/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)

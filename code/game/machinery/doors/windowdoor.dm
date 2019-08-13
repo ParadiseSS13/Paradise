@@ -335,7 +335,7 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	cancolor = FALSE
 	var/made_glow = FALSE
 

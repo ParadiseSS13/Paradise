@@ -24,7 +24,7 @@
 	var/auto_close_time_dangerous = 5
 	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
-	var/damage_deflection = 10
+	damage_deflection = 10
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE

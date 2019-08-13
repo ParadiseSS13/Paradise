@@ -159,8 +159,6 @@
 	if(damage_flag)
 		armor_protection = armor[damage_flag]
 	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
-	if(overmind && damage_flag)
-		damage_amount = overmind.blob_reagent_datum.damage_reaction(src, damage_amount, damage_type, damage_flag)
 	return damage_amount
 
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -203,7 +201,7 @@
 	max_integrity = 21
 
 /obj/structure/blob/normal/update_icon()
-	else if(obj_integrity <= 15)
+	if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
 	else
 		icon_state = "blob"

@@ -73,7 +73,7 @@
 	onclose(user, "computer")
 
 
-/obj/machinery/computer/syndicate_depot/set_broken()
+/obj/machinery/computer/syndicate_depot/obj_break()
 	. = ..()
 	if(alerts_when_broken && !has_alerted)
 		has_alerted = TRUE

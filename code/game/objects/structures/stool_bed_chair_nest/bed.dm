@@ -64,7 +64,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	anchored = FALSE
 	comfort = 1
 

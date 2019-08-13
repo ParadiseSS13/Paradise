@@ -4,8 +4,7 @@
 	icon_state = "cabinet_closed"
 	icon_closed = "cabinet_closed"
 	icon_opened = "cabinet_open"
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
 
 /obj/structure/closet/cabinet/update_icon()
 	if(!opened)

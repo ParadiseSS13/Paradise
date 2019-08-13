@@ -288,7 +288,7 @@
 				N.name = "Rune-Scriber's Shield"
 				N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
 				N.icon_state = "shield-cult"
-				N.health = 60
+				N.max_integrity = 60
 				shields |= N
 		else
 			return//don't do shit

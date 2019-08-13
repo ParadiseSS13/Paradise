@@ -295,7 +295,7 @@
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
 	var/image/holder = hud_list[DIAG_MECH_HUD]
-	holder.icon_state = "huddiag[RoundDiagBar(health/initial(health))]"
+	holder.icon_state = "huddiag[RoundDiagBar(obj_integrity/max_integrity)]"
 
 
 /obj/mecha/proc/diag_hud_set_mechcell()

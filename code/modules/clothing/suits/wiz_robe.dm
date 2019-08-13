@@ -6,7 +6,7 @@
 	permeability_coefficient = 0.01
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20)
 	unacidable = 1
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	strip_delay = 50
 	put_on_delay = 50
@@ -68,7 +68,7 @@
 	unacidable = 1
 	strip_delay = 50
 	put_on_delay = 50
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	magical = TRUE
 
 /obj/item/clothing/suit/wizrobe/red
@@ -122,7 +122,7 @@
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	magical = FALSE
 
 /obj/item/clothing/head/wizard/marisa/fake
@@ -133,7 +133,7 @@
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	magical = FALSE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
@@ -145,5 +145,5 @@
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	magical = FALSE

@@ -12,7 +12,7 @@
 	var/obj/item/pen/containedpen
 	var/obj/item/toppaper
 	slot_flags = SLOT_BELT
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/clipboard/New()
 	..()

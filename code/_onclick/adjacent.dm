@@ -97,3 +97,6 @@
 		else if( !border_only ) // dense, not on border, cannot pass over
 			return 0
 	return 1
+
+/turf/proc/acid_melt()
+	return

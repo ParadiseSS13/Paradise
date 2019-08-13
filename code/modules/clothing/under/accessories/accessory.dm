@@ -180,7 +180,7 @@
 	icon_state = "bronze"
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold

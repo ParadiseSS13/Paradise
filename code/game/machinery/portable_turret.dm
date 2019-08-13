@@ -958,7 +958,7 @@ var/list/turret_icons
 	ailock = 1
 	var/area/syndicate_depot/core/depotarea
 
-/obj/machinery/porta_turret/syndicate/die()
+/obj/machinery/porta_turret/syndicate/deconstruct(disassembled = TRUE)
 	. = ..()
 	if(istype(depotarea))
 		depotarea.turret_died()

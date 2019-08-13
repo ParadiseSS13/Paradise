@@ -17,7 +17,7 @@
 	..()
 	update_icon()
 
-/obj/machinery/computer/pandemic/set_broken()
+/obj/machinery/computer/pandemic/obj_break()
 	icon_state = (beaker ? "mixer1_b" : "mixer0_b")
 	overlays.Cut()
 	stat |= BROKEN

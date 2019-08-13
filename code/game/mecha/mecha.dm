@@ -7,6 +7,10 @@
 #define MELEE 1
 #define RANGED 2
 
+#define FRONT_ARMOUR 1
+#define SIDE_ARMOUR 2
+#define BACK_ARMOUR 3
+
 #define MECHAMOVE_RAND 1
 #define MECHAMOVE_TURN 2
 #define MECHAMOVE_STEP 4

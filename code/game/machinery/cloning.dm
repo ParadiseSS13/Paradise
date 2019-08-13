@@ -536,13 +536,12 @@
 
 /obj/machinery/clonepod/deconstruct(disassembled = TRUE)
 	if(occupant)
-		locked = FALSE
 		go_out()
 	..()
 
 /obj/machinery/clonepod/ex_act(severity)
 	..()
-	if(!qdeleted(src))
+	if(!QDELETED(src))
 		go_out()
 
 /obj/machinery/clonepod/onSoullinkRevive(mob/living/L)

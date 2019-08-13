@@ -9,7 +9,7 @@
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	singular_name = "credit"
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacecash

@@ -15,10 +15,10 @@
 	var/det_time = 50
 	var/display_timer = 1
 
-/obj/item/weapon/grenade/deconstruct(disassembled = TRUE)
+/obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()
-	if(!qdeleted(src))
+	if(!QDELETED(src))
 		qdel(src)
 		
 /obj/item/grenade/proc/clown_check(var/mob/living/user)

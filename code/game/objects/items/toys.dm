@@ -404,8 +404,7 @@
 
 
 obj/item/toy/cards
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -752,7 +751,7 @@ obj/item/toy/cards/deck/syndicate
 	card_throw_speed = 3
 	card_throw_range = 20
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /*
 || Custom card decks ||
@@ -794,7 +793,7 @@ obj/item/toy/cards/deck/syndicate/black
 	item_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
 	if(item_color)
@@ -890,7 +889,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "carpplushie"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
@@ -953,7 +952,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
@@ -1105,7 +1104,7 @@ obj/item/toy/cards/deck/syndicate/black
  	item_state = "arm_blade"
  	attack_verb = list("pricked", "absorbed", "gored")
  	w_class = WEIGHT_CLASS_SMALL
- 	burn_state = FLAMMABLE
+ 	resistance_flags = FLAMMABLE
 
 /*
  * Toy/fake flash

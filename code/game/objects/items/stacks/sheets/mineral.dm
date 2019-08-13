@@ -170,8 +170,7 @@ var/global/list/datum/stack_recipe/snow_recipes = list(
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/plasma/New()

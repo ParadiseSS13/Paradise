@@ -75,7 +75,7 @@
 			return
 
 
-		else if(S.health < S.maxHealth * 0.5)
+		else if(S.obj_integrity < S.max_integrity * 0.5)
 			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
 			return
 

@@ -334,9 +334,6 @@
 /atom/proc/rpd_act()
 	return
 
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
 /atom/proc/rpd_blocksusage()
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE

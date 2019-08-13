@@ -582,7 +582,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			qdel(src)
 		return
 	else if(iswelder(I))
-		var/obj/item/weapon/weldingtool/WT = I
+		var/obj/item/weldingtool/WT = I
 		if(stat & BROKEN)
 			if(WT.remove_fuel(0,user))
 				visible_message("[user] begins repairing [src].", \
@@ -615,8 +615,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		new /obj/item/stack/sheet/metal(loc, 2)
-		new /obj/item/weapon/shard(loc)
-		new /obj/item/weapon/shard(loc)
+		new /obj/item/shard(loc)
+		new /obj/item/shard(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/obj_break()

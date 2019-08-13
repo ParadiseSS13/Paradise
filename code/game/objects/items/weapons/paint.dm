@@ -8,8 +8,7 @@
 	item_state = "paintcan"
 	materials = list(MAT_METAL=200)
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70

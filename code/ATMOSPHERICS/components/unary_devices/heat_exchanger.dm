@@ -10,7 +10,7 @@
 
 	var/obj/machinery/atmospherics/unary/heat_exchanger/partner = null
 	var/update_cycle
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF
 
 /obj/machinery/atmospherics/unary/heat_exchanger/update_icon()
 	..()

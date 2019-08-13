@@ -397,7 +397,7 @@
 	b_zone = check_zone(b_zone)
 	switch(b_zone)
 		if(BODY_ZONE_CHEST)
-			return CHEST
+			return UPPER_TORSO | LOWER_TORSO
 		if(BODY_ZONE_HEAD)
 			return HEAD
 		if(BODY_ZONE_R_ARM)

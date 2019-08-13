@@ -21,13 +21,13 @@
 	var/turf/target
 
 
-/obj/effect/acid/New(loc, acidpwr,	acid_amt)
+/obj/effect/acid/New(loc, acidpwr, acid_amt)
 	..(loc)
 
 	target = get_turf(src)
 
 	if(acid_amt)
-		acid_level = min(acid_amt*acid_pwr, 12000) //capped so the acid effect doesn't last a half hour on the floor.
+		acid_level = min(acid_amt * acidpwr, 12000) //capped so the acid effect doesn't last a half hour on the floor.
 
 	//handle APCs and newscasters and stuff nicely
 	pixel_x = target.pixel_x + rand(-4,4)
@@ -64,10 +64,6 @@
 /obj/effect/acid/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-		else if(isanimal(L))
-			var/mob/living/simple_animal/SA = L
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level*0.05, 20)
 			if(L.acid_act(10, acid_used, "feet"))

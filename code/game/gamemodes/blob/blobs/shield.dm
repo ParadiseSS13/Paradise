@@ -3,19 +3,13 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_idle"
 	desc = "Some blob creature thingy"
-	health = 75
+	max_integrity = 75
 	fire_resist = 2
 	point_return = 4
 	var/maxHealth = 75
 
 /obj/structure/blob/shield/core
 	point_return = 0
-
-/obj/structure/blob/shield/update_icon()
-	if(health <= 0)
-		qdel(src)
-		return
-	return
 
 /obj/structure/blob/shield/fire_act(exposed_temperature, exposed_volume)
 	return
@@ -29,8 +23,7 @@
 	desc = "A solid wall of slightly twitching tendrils with a reflective glow."
 	icon_state = "blob_idle_glow"
 	brute_resist = 0
-	health = 50
-	maxHealth = 50
+	max_integrity = 50
 	point_return = 9
 	flags_2 = CHECK_RICOCHET_1
 	var/reflect_chance = 80 //80% chance to reflect

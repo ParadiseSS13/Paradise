@@ -11,7 +11,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)

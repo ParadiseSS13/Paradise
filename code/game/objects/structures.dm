@@ -141,7 +141,7 @@
 /obj/structure/examine(mob/user)
 	..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		if(burn_state == ON_FIRE)
+		if(resistance_flags == ON_FIRE)
 			to_chat(user, "<span class='warning'>It's on fire!</span>")
 		if(broken)
 			to_chat(user, "<span class='notice'>It appears to be broken.</span>")

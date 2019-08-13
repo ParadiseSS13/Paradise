@@ -123,8 +123,8 @@
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				else
 					playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-				new /obj/item/weapon/shard(src.loc)
-				new /obj/item/weapon/shard(src.loc)
+				new /obj/item/shard(loc)
+				new /obj/item/shard(loc)
 				A.state = 3
 				A.icon_state = "3"
 			else

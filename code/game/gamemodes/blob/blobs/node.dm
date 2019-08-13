@@ -2,7 +2,7 @@
 	name = "blob node"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
-	health = 100
+	max_integrity = 100
 	fire_resist = 2
 	point_return = 18
 	var/mob/camera/blob/overmind
@@ -36,11 +36,5 @@
 	else
 		for(var/i = 1; i < 8; i += i)
 			Pulse(5, i, color)
-	health = min(initial(health), health + 1)
+	obj_integrity = min(max_integrity, obj_integrity + 1)
 	color = null
-
-/obj/structure/blob/node/update_icon()
-	if(health <= 0)
-		qdel(src)
-		return
-	return

@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(fires)
 
 /datum/controller/subsystem/fires/fire(resumed = 0)
 	if (!resumed)
-		currentrun = processing.Copy()
+		src.currentrun = processing.Copy()
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun

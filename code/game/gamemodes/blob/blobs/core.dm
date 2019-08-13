@@ -50,12 +50,6 @@
 /obj/structure/blob/core/fire_act(exposed_temperature, exposed_volume)
 	return
 
-/obj/structure/blob/core/update_icon()
-	if(health <= 0)
-		qdel(src)
-		return
-	return
-
 /obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, overmind_reagent_trigger = 1)
 	. = ..()
 	if(obj_integrity > 0)

@@ -83,7 +83,7 @@
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
-		add_logs(user, src, "attacked")
+		add_attack_logs(user, src, "attacked")
 		return 1
 
 
@@ -135,5 +135,5 @@
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		add_logs(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		add_attack_logs(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 		. = ..()

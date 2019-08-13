@@ -338,7 +338,7 @@
 		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
-		overlays += fire_overlay
+		overlays += GLOB.fire_overlay
 		if(!isGlass)
 			spawn(50)
 				if(active)
@@ -360,5 +360,5 @@
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
 			return
 		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
-		overlays -= fire_overlay
+		overlays -= GLOB.fire_overlay
 		active = 0

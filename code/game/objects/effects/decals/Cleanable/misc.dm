@@ -197,7 +197,6 @@
 	desc = "The shredded remains of what appears to be clothing."
 	icon_state = "shreds"
 	gender = PLURAL
-	mergeable_decal = 0
 
 /obj/effect/decal/cleanable/shreds/ex_act(severity, target)
 	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.

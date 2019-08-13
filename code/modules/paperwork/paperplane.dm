@@ -8,8 +8,7 @@
 	throw_speed = 1
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
 	no_spin = TRUE
 
 	var/obj/item/paper/internal_paper

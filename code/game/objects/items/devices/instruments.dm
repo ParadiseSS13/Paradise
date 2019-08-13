@@ -4,7 +4,7 @@
 	icon = 'icons/obj/musician.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/instruments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/instruments_righthand.dmi'
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/datum/song/handheld/song
 	var/instrumentId = "generic"
 	var/instrumentExt = "mid"
@@ -55,7 +55,7 @@
 	desc = "A golden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	icon_state = "golden_violin"
 	item_state = "golden_violin"
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF
 
 /obj/item/instrument/piano_synth
 	name = "synthesizer"

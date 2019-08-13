@@ -539,7 +539,7 @@
 		sallet.max_heat_protection_temperature = helm.max_heat_protection_temperature
 		sallet.strip_delay = helm.strip_delay
 		sallet.put_on_delay = helm.put_on_delay
-		sallet.burn_state = helm.burn_state
+		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_flags = helm.visor_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
