@@ -50,7 +50,7 @@
 		else
 			name = "alien sentinel ([rand(1, 1000)])"
 
-/mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()
+/mob/living/carbon/alien/humanoid/sentinel/handle_hud_icons_health()
 	..() //-Yvarov
 
 	if(healths)

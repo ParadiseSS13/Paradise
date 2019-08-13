@@ -421,7 +421,7 @@ emp_act
 			updatehealth("alien attack")
 
 		if(M.a_intent == INTENT_DISARM)
-			if(prob(55))
+			if(prob(70))
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))

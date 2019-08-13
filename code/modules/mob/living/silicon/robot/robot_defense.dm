@@ -2,10 +2,9 @@
 	if(M.a_intent == INTENT_DISARM)
 		if(!lying)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			if(prob(55))
+			if(prob(65))
 				Stun(2)
-				spawn(2)
-					step(src, get_dir(M,src))
+				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
 				playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
 				visible_message("<span class='danger'>[M] has forced back [src]!</span>",\
