@@ -295,10 +295,12 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	SSalarms.camera_alarm.triggerAlarm(loc, src)
+	if(is_station_contact(z))
+		SSalarms.camera_alarm.triggerAlarm(loc, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	SSalarms.camera_alarm.clearAlarm(loc, src)
+	if(is_station_contact(z))
+		SSalarms.camera_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)

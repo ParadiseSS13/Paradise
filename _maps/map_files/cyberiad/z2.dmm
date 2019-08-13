@@ -3643,13 +3643,13 @@
 	},
 /area/syndicate_mothership)
 "jt" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -3664,13 +3664,13 @@
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "jw" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (WEST)";
 	icon_state = "bulb1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -7380,9 +7380,8 @@
 	},
 /area/centcom/evac)
 "sn" = (
-/obj/structure/chair{
-	dir = 4;
-	name = "Defense"
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
@@ -12494,26 +12493,32 @@
 	},
 /turf/unsimulated/floor/vox,
 /area/vox_station)
+"KA" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
 "KR" = (
-/obj/structure/chair{
+/obj/machinery/light/small,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "KW" = (
-/obj/structure/chair,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "KX" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -12521,7 +12526,7 @@
 	},
 /area/shuttle/assault_pod)
 "KY" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -12614,6 +12619,10 @@
 /obj/effect/landmark/ai_multicam_room,
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
+"Qt" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/ninja/holding)
 "QE" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/shuttle/floor{
@@ -12622,12 +12631,6 @@
 /area/shuttle/escape)
 "QI" = (
 /obj/structure/chair/sofa,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/escape)
-"QJ" = (
-/obj/structure/chair/sofa/corner,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -12797,7 +12800,7 @@
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "Wk" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -12805,7 +12808,7 @@
 	},
 /area/centcom/evac)
 "Wl" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -12813,7 +12816,7 @@
 	},
 /area/centcom/evac)
 "WI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -12831,7 +12834,7 @@
 	},
 /area/syndicate_mothership)
 "WU" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "Xj" = (
@@ -41529,7 +41532,7 @@ sq
 aN
 aN
 nV
-QI
+KA
 og
 og
 og
@@ -41786,7 +41789,7 @@ sq
 aN
 aN
 nV
-QJ
+og
 og
 og
 og
@@ -54523,7 +54526,7 @@ fI
 fH
 fH
 he
-hv
+Qt
 fg
 aN
 aN

@@ -6,7 +6,7 @@
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/undersea)
 "ac" = (
-/obj/machinery/poolcontroller/seacontroller,
+/obj/machinery/poolcontroller/invisible/sea,
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/undersea)
 "ad" = (
@@ -1265,7 +1265,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1275,7 +1275,7 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1323,7 +1323,7 @@
 	},
 /area/awaymission/beach)
 "dZ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1336,7 +1336,7 @@
 	},
 /area/awaymission/beach)
 "eb" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1371,7 +1371,7 @@
 /turf/simulated/shuttle/floor,
 /area/awaymission/beach)
 "ei" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -1493,6 +1493,10 @@
 "eE" = (
 /obj/structure/closet/crate,
 /turf/unsimulated/beach/sand,
+/area/awaymission/beach)
+"LZ" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
 
 (1,1,1) = {"
@@ -15371,7 +15375,7 @@ du
 du
 du
 du
-du
+LZ
 "}
 (55,1,1) = {"
 aa

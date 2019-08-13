@@ -6021,7 +6021,7 @@
 /area/space/nearstation)
 "nh" = (
 /obj/item/shard,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -6263,7 +6263,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -7054,13 +7054,13 @@
 	},
 /area/derelict/arrival)
 "pV" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -7505,7 +7505,7 @@
 	},
 /area/derelict/arrival)
 "qT" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -7513,7 +7513,7 @@
 	},
 /area/derelict/arrival)
 "qU" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -7753,9 +7753,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/shuttle/plating,
 /area/derelict/arrival)
 "rt" = (
 /obj/structure/window/reinforced,
@@ -8269,11 +8267,11 @@
 	},
 /area/derelict/crew_quarters)
 "sl" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -54293,7 +54291,7 @@ aa
 aa
 aa
 aa
-wr
+aa
 aa
 aa
 aa
@@ -54549,7 +54547,7 @@ aa
 aa
 aa
 aa
-aa
+wr
 aa
 aa
 aa

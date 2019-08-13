@@ -1,6 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Ported XKeyScore from TG."
-  - rscadd: "New system to securely link ingame/forum accounts"
-  - rscdel: "Removed old insecure 'link discord account' system"

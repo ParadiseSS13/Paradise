@@ -99,7 +99,7 @@
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
 
-	var/report_power_alarm = 1
+	var/report_power_alarm = TRUE
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
@@ -117,11 +117,11 @@
 	operating = 0
 
 /obj/machinery/power/apc/noalarm
-	report_power_alarm = 0
+	report_power_alarm = FALSE
 
 /obj/machinery/power/apc/syndicate //general syndicate access
 	req_access = list(access_syndicate)
-	report_power_alarm = 0
+	report_power_alarm = FALSE
 
 /obj/item/apc_electronics
 	name = "power control module"
@@ -134,6 +134,9 @@
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
+
+/obj/machinery/power/apc/get_cell()
+	return cell
 
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.
@@ -1171,14 +1174,14 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.clearAlarm(loc, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
@@ -1186,7 +1189,7 @@
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
@@ -1194,7 +1197,7 @@
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				if(report_power_alarm)
+				if(report_power_alarm && is_station_contact(z))
 					SSalarms.power_alarm.triggerAlarm(loc, src)
 				autoflag = 0
 
@@ -1250,7 +1253,7 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		if(report_power_alarm)
+		if(report_power_alarm && is_station_contact(z))
 			SSalarms.power_alarm.triggerAlarm(loc, src)
 		autoflag = 0
 

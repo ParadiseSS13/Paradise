@@ -42,11 +42,6 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
-	// Setup codephrase
-	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase = generate_code_phrase()
-	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response	= generate_code_phrase()
 
 	// Map name
 	if(using_map && using_map.name)
@@ -197,6 +192,10 @@ SUBSYSTEM_DEF(ticker)
 	//shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
+		if(!GLOB.syndicate_code_phrase)
+			GLOB.syndicate_code_phrase = generate_code_phrase()
+		if(!GLOB.syndicate_code_response)
+			GLOB.syndicate_code_response	= generate_code_phrase()
 		mode.post_setup()
 		//Cleanup some stuff
 		for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
@@ -523,3 +522,5 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
 
+/datum/controller/subsystem/ticker/proc/IsRoundInProgress()
+	return current_state == GAME_STATE_PLAYING

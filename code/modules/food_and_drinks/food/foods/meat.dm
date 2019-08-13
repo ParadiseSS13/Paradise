@@ -129,7 +129,7 @@
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
-	list_reagents = list("nutriment" = 3, "toxin" = 5)
+	list_reagents = list("protein" = 3, "toxin" = 5)
 
 /obj/item/reagent_containers/food/snacks/goliath/burn()
 	visible_message("[src] finishes cooking!")
@@ -222,6 +222,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "goliathsteak"
 	trash = null
+	list_reagents = list("protein" = 6, "vitamin" = 2)
 
 //////////////////////
 //		Cubes		//

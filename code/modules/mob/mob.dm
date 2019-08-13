@@ -2,6 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.living_mob_list -= src
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,6 +31,7 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.living_mob_list += src
+	set_focus(src)
 	prepare_huds()
 	..()
 
@@ -49,7 +51,6 @@
 
 /mob/proc/GetAltName()
 	return ""
-
 
 /mob/proc/Cell()
 	set category = "Admin"
@@ -173,6 +174,7 @@
 	return 0
 
 /mob/proc/Life(seconds, times_fired)
+	set waitfor = FALSE
 	if(forced_look)
 		if(!isnum(forced_look))
 			var/atom/A = locateUID(forced_look)
@@ -691,9 +693,13 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-
-	if(mind)
+	
+	var/combined = length(memory + msg)
+	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
+	else if(combined >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "Your brain can't hold that much information!")
+		return
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
@@ -988,6 +994,9 @@ var/list/slot_equipment_priority = list( \
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
+	if(client && client.statpanel == "Status" && SSticker)
+		show_stat_station_time()
+
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
 	stat(null, "Round Time: [worldtime2text()]")
@@ -1010,7 +1019,7 @@ var/list/slot_equipment_priority = list( \
 				var/atom/A = foo
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see))
+				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
@@ -1361,5 +1370,19 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		if (L)
+		if(L)
 			L.alpha = lighting_alpha
+
+	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
+
+/mob/proc/sync_nightvision_screen()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(S)
+		var/suffix = ""
+		switch(see_in_dark)
+			if(3 to 8)
+				suffix = "_[see_in_dark]"
+			if(8 to INFINITY)
+				suffix = "_8"
+
+		S.icon_state = "[initial(S.icon_state)][suffix]"

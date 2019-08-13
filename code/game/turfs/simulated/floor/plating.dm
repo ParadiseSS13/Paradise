@@ -2,7 +2,7 @@
 	name = "plating"
 	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
-	intact = 0
+	intact = FALSE
 	floor_tile = null
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
@@ -16,6 +16,14 @@
 	..()
 	icon_plating = icon_state
 	update_icon()
+
+/turf/simulated/floor/plating/damaged/New()
+	..()
+	break_tile()
+
+/turf/simulated/floor/plating/burnt/New()
+	..()
+	burn_tile()
 
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
@@ -56,10 +64,14 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
-	else if(istype(C, /obj/item/weldingtool))
+	else if(iswelder(C))
 		var/obj/item/weldingtool/welder = C
-		if(welder.isOn() && (broken || burnt))
-			if(welder.remove_fuel(0, user))
+		if(welder.isOn())
+			if(!welder.remove_fuel(0, user))
+				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
+				return TRUE
+
+			if(broken || burnt)
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
 				overlays -= current_overlay
@@ -67,7 +79,22 @@
 				burnt = FALSE
 				broken = FALSE
 				update_icon()
+			else
+				to_chat(user, "<span class='notice'>You start removing [src].</span>")
+				playsound(src, welder.usesound, 100, 1)
+				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
+					to_chat(user, "<span class='notice'>You remove [src].</span>")
+					new /obj/item/stack/tile/plasteel(get_turf(src))
+					remove_plating(user)
+					return TRUE
+
 			return TRUE
+
+/turf/simulated/floor/plating/proc/remove_plating(mob/user)
+	if(baseturf == /turf/space)
+		ReplaceWithLattice()
+	else
+		TerraformTurf(baseturf)
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
@@ -103,7 +130,7 @@
 /turf/simulated/floor/engine/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
-/turf/simulated/floor/engine/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
@@ -208,12 +235,18 @@
 	..()
 	icon_state = "ironsand[rand(1,15)]"
 
+/turf/simulated/floor/plating/ironsand/remove_plating()
+	return
+
 /turf/simulated/floor/plating/snow
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
+	return
+
+/turf/simulated/floor/plating/snow/remove_plating()
 	return
 
 /turf/simulated/floor/snow
@@ -224,7 +257,7 @@
 /turf/simulated/floor/snow/ex_act(severity)
 	return
 
-/turf/simulated/floor/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
 /turf/simulated/floor/plating/metalfoam
@@ -243,12 +276,10 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return
-
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
 	if(..())
-		return 1
+		return TRUE
+
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)

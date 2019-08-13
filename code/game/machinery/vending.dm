@@ -1031,6 +1031,7 @@
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow= 10,   //Congrats, you unlocked the +18 setting!
 					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					  /obj/item/ammo_box/foambox/riot = 20,
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
@@ -1082,6 +1083,7 @@
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				   /obj/item/lighter/zippo = 3)
+	prices = list()
 
 /obj/machinery/vending/cigarette/New()
 	..()
@@ -1291,7 +1293,8 @@
 					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1,
 					/obj/item/clothing/under/victdress = 1, /obj/item/clothing/under/victdress/red = 1, /obj/item/clothing/suit/victcoat = 1, /obj/item/clothing/suit/victcoat/red = 1,
 					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1,
-					/obj/item/clothing/suit/draculacoat = 1, /obj/item/clothing/head/zepelli = 1)
+					/obj/item/clothing/suit/draculacoat = 1, /obj/item/clothing/head/zepelli = 1,
+					/obj/item/clothing/under/redhawaiianshirt = 1, /obj/item/clothing/under/pinkhawaiianshirt = 1, /obj/item/clothing/under/bluehawaiianshirt = 1, /obj/item/clothing/under/orangehawaiianshirt = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe

@@ -18,9 +18,6 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
-/turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return
-
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
@@ -28,6 +25,9 @@
 	return
 
 /turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)
+	return
+
+/turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 
 /turf/simulated/floor/plating/asteroid/ex_act(severity, target)
@@ -93,12 +93,6 @@
 	icon_plating = "[environment_type]_dug"
 	icon_state = "[environment_type]_dug"
 	slowdown = 0
-	return
-
-/turf/simulated/floor/plating/asteroid/singularity_act()
-	return
-
-/turf/simulated/floor/plating/asteroid/singularity_pull(S, current_size)
 	return
 
 /turf/simulated/floor/plating/asteroid/basalt

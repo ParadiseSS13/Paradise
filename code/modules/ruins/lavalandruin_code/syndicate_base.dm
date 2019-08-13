@@ -75,7 +75,7 @@
 	name = "Lavaland Syndicate Comms Agent"
 	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
 	r_hand = /obj/item/melee/energy/sword/saber
-	mask = /obj/item/clothing/mask/chameleon
+	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
 	backpack_contents = list(
 		/obj/item/paper/monitorkey = 1 // message console on lavaland does NOT spawn with this

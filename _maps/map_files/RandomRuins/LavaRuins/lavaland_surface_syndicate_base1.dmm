@@ -763,7 +763,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -1710,7 +1710,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dT" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -2023,7 +2023,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -2228,7 +2228,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "eM" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -2540,7 +2540,7 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 4;
 	pixel_x = 26
 	},
@@ -3590,7 +3590,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "hZ" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -3898,7 +3898,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 2;
 	pixel_y = 24
 	},
@@ -3935,7 +3935,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "iG" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -5171,7 +5171,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kM" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 4;
 	pixel_x = 26
 	},
@@ -5258,7 +5258,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -5342,6 +5342,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/defibrillator,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -5490,6 +5491,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gun/syringe/syndicate,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -5740,7 +5744,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "mg" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -5848,7 +5852,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
@@ -6523,7 +6527,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 2;
 	pixel_y = 24
 	},
@@ -6626,7 +6630,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "oh" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/syndicate{
 	dir = 8;
 	pixel_x = -26
 	},
