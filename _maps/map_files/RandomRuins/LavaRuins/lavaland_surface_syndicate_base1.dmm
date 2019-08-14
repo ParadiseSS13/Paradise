@@ -6067,6 +6067,13 @@
 /obj/structure/sign/fire,
 /turf/simulated/wall/mineral/plastitanium/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"ng" = (
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange/syndie{
+	department = "Syndicate Bioweapon Research Outpost"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "nh" = (
 /obj/machinery/telecomms/relay/preset/ruskie{
 	use_power = 0
@@ -6827,10 +6834,6 @@
 "Au" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"Bj" = (
-/obj/machinery/porta_turret/syndicate,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/main)
 "BF" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -6873,13 +6876,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
-"Ln" = (
-/obj/structure/table,
-/obj/machinery/photocopier/faxmachine/longrange/syndie{
-	department = "Syndicate Bioweapon Research Outpost"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "LQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7347,7 +7343,7 @@ ab
 ab
 ab
 mp
-Ln
+ng
 nk
 nI
 oi
@@ -8835,7 +8831,7 @@ hV
 ha
 ha
 ha
-Bj
+ha
 ha
 ju
 jJ
