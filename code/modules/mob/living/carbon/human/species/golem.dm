@@ -251,27 +251,43 @@
 	attack_verb = list("smash")
 	attack_sound = 'sound/effects/meteorimpact.ogg'
 
-//More resistant to burn damage
-//Add ashstorm resistance if we ever port lavaland
+//More resistant to burn damage and immune to ashstorm
 /datum/species/golem/titanium
 	name = "Titanium Golem"
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage."
+	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage and immune to ash storms."
 	burn_mod = 0.3
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
-//Even more resistant to burn damage
-//Add ashstorm and lava resistance if we ever port lavaland
+/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	C.weather_immunities |= "ash"
+
+/datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	C.weather_immunities -= "ash"
+
+//Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
 	name = "Plastitanium Golem"
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage."
+	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage and immune to both ash storms and lava."
 	burn_mod = 0.15
 	prefix = "Plastitanium"
 	special_names = null
+
+/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	C.weather_immunities |= "lava"
+	C.weather_immunities |= "ash"
+
+/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	C.weather_immunities -= "ash"
+	C.weather_immunities -= "lava"
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -357,10 +373,11 @@
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
 	for(var/mob/living/L in range(2, H))
-		if(isgolem(H))
-			continue
-		to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
-		L.apply_effect(10, IRRADIATE)
+		if(ishuman(L))
+			var/mob/living/carbon/human/I = L
+			if(!(RADIMMUNE in I.dna.species.species_traits))
+				L.apply_effect(10, IRRADIATE)
+				to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
 	..()
 
 //Ventcrawler
@@ -592,7 +609,7 @@
 	punchdamagehigh = 0
 	punchstunthreshold = 1 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
+	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and punching people will just harmlessly honk them. Your skin also bleeds banana peels when damaged."
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
@@ -610,6 +627,12 @@
 	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
+	H.AddComponent(/datum/component/waddling)
+
+/datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	GET_COMPONENT_FROM(waddling, /datum/component/waddling, C)
+	waddling.Destroy()
 
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
