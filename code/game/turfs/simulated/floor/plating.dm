@@ -7,7 +7,7 @@
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
 
-	var/plating_unscrewed = FALSE 
+	var/unfastened = FALSE 
 
 	footstep_sounds = list(
 	"human" = list('sound/effects/footstep/plating_human.ogg'),
@@ -36,7 +36,7 @@
 /turf/simulated/floor/plating/examine(mob/user)
 	. = ..()
 
-	if(plating_unscrewed)
+	if(unfastened)
 		to_chat(user, "<span class='warning'>It has been unfastened.</span>")
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
@@ -74,14 +74,14 @@
 
 	else if(isscrewdriver(C))
 		var/obj/item/screwdriver/screwdriver = C
-		to_chat(user, "<span class='notice'>You start [plating_unscrewed ? "fastening" : "unfastening"] [src].</span>")
+		to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 		playsound(src, screwdriver.usesound, 50, 1)
 		if(do_after(user, 20 * screwdriver.toolspeed, target = src) && screwdriver)
-			to_chat(user, "<span class='notice'>You [plating_unscrewed ? "fasten" : "unfasten"] [src].</span>")
-			plating_unscrewed = !plating_unscrewed
+			to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+			unfastened = !unfastened
 		return TRUE
 
-	else if(iswelder(C) && plating_unscrewed)
+	else if(iswelder(C) && unfastened)
 		var/obj/item/weldingtool/welder = C
 		if(welder.isOn())
 			if(!welder.remove_fuel(0, user))
