@@ -1,0 +1,5 @@
+author: "Tayyyyyyy"
+delete-after: True
+changes: 
+  - tweak: "Whether you join the ERT is no longer determined by how fast you click \"yes\" on the prompt."
+  - tweak: "Drag and drop support and 20 seconds to pick ERT role instead of 15"

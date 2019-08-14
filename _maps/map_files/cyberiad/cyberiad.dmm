@@ -225,7 +225,7 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aaF" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -413,10 +413,10 @@
 	},
 /area/shuttle/abandoned)
 "abe" = (
-/obj/structure/chair{
+/obj/effect/decal/remains/human,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/decal/remains/human,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -512,13 +512,13 @@
 /area/shuttle/abandoned)
 "abr" = (
 /obj/item/shard,
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/abandoned)
 "abs" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -811,7 +811,7 @@
 	},
 /area/shuttle/syndicate)
 "ace" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -1060,7 +1060,7 @@
 	},
 /area/security/armoury)
 "acI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -1068,7 +1068,7 @@
 	},
 /area/shuttle/syndicate)
 "acJ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -3880,11 +3880,13 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ahp" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ahq" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4/vox,
@@ -6976,7 +6978,7 @@
 /area/shuttle/vox)
 "aml" = (
 /obj/item/stack/spacecash/c50,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4/vox,
@@ -7421,10 +7423,10 @@
 "amZ" = (
 /obj/item/stack/spacecash/c200,
 /obj/item/stack/spacecash/c50,
-/obj/structure/chair{
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ana" = (
@@ -10422,7 +10424,7 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/trade/sol)
 "arW" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -10449,7 +10451,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -11645,7 +11647,7 @@
 	},
 /area/shuttle/siberia)
 "atL" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -12795,14 +12797,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "avp" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	listening = 1;
 	name = "station intercom (General)";
 	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
@@ -12848,9 +12850,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "avu" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -12858,6 +12857,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "avv" = (
@@ -13975,9 +13977,6 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_sit)
 "axm" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
 	pixel_x = 25
@@ -13985,6 +13984,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
@@ -13994,7 +13996,7 @@
 /turf/space,
 /area/space/nearstation)
 "axo" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -15224,28 +15226,28 @@
 	},
 /area/security/interrogation)
 "aze" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_elite)
 "azf" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -15256,7 +15258,7 @@
 	},
 /area/shuttle/syndicate_elite)
 "azh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -15842,7 +15844,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aAh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -16451,16 +16453,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aBk" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_sit)
-"aBl" = (
-/obj/structure/chair{
-	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -17346,7 +17340,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aCX" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -17356,9 +17350,6 @@
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
-	},
-/obj/structure/chair{
-	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -21098,9 +21089,6 @@
 	},
 /area/shuttle/pod_1)
 "aLb" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -21110,6 +21098,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
@@ -21128,9 +21119,6 @@
 	},
 /area/shuttle/pod_2)
 "aLf" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -21140,6 +21128,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
@@ -21776,13 +21767,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aMp" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
@@ -21796,13 +21787,13 @@
 /turf/simulated/wall,
 /area/hallway/secondary/entry)
 "aMt" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
@@ -23492,7 +23483,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPV" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -28155,12 +28146,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYL" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 1;
 	on = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
@@ -28273,11 +28264,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYZ" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/landmark{
 	name = "JoinLate"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
@@ -30203,7 +30194,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bcK" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -30220,10 +30211,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bcN" = (
-/obj/structure/chair{
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light,
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
 "bcO" = (
@@ -31249,12 +31240,6 @@
 /area/crew_quarters/mrchangs)
 "beA" = (
 /obj/machinery/computer/station_alert,
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"beB" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "beC" = (
@@ -32299,20 +32284,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bgo" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bgp" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
@@ -33289,7 +33274,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bil" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -33299,7 +33284,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bin" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -35019,7 +35004,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "blv" = (
@@ -35069,7 +35054,7 @@
 /turf/simulated/floor/carpet,
 /area/chapel/main)
 "blA" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -35089,7 +35074,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "blC" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -35844,13 +35829,13 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bmX" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bmY" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bmZ" = (
@@ -35879,11 +35864,11 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bnc" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -38866,9 +38851,6 @@
 	},
 /area/maintenance/asmaint2)
 "btt" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "station intercom (General)";
@@ -38879,14 +38861,14 @@
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "btu" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
@@ -38894,6 +38876,9 @@
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -38927,23 +38912,23 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bty" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btz" = (
-/obj/structure/chair,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btA" = (
@@ -38969,7 +38954,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btD" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btE" = (
@@ -40526,16 +40511,16 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bwI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bwJ" = (
-/obj/structure/chair{
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bwK" = (
@@ -42781,7 +42766,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -43240,11 +43225,11 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bBT" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
@@ -43298,7 +43283,7 @@
 	pixel_x = 4;
 	pixel_y = 32
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -43343,7 +43328,7 @@
 	dir = 2;
 	network = list("ERT","CentComm")
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -44096,9 +44081,6 @@
 	},
 /area/shuttle/escape)
 "bDG" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
@@ -44588,7 +44570,7 @@
 	},
 /area/shuttle/specops)
 "bEL" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -45688,7 +45670,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bGJ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4,
@@ -58369,7 +58351,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "cbx" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -58479,9 +58461,6 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
-	},
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -61472,13 +61451,13 @@
 	},
 /area/shuttle/administration)
 "cgA" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -62494,7 +62473,7 @@
 	},
 /area/shuttle/administration)
 "cil" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -62505,7 +62484,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "cin" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -62556,6 +62535,9 @@
 "cit" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -63696,7 +63678,7 @@
 	},
 /area/shuttle/administration)
 "ckh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -63714,7 +63696,7 @@
 	color = "#FF0000";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -63774,9 +63756,6 @@
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ckp" = (
@@ -65132,21 +65111,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"cmI" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "cmJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -65774,6 +65738,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cnT" = (
@@ -65813,6 +65780,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5;
 	level = 1
+	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -91255,14 +91225,6 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
-"dgw" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
 "dgx" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/shuttle/floor{
@@ -91494,7 +91456,7 @@
 	id = "soltraderflash";
 	pixel_y = -28
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -91941,9 +91903,6 @@
 	},
 /area/crew_quarters/kitchen)
 "dhW" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
@@ -92197,7 +92156,7 @@
 	},
 /area/hallway/primary/central/north)
 "diy" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -95639,14 +95598,14 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "doI" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	listening = 1;
 	name = "station intercom (General)";
 	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
@@ -95669,9 +95628,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doM" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -95679,6 +95635,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doN" = (
@@ -96997,7 +96956,7 @@
 	req_access = list(101);
 	req_access_txt = "0"
 	},
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -97011,6 +96970,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"mMw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -97087,6 +97052,14 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"sUK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -97116,6 +97089,14 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"vUm" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -114469,9 +114450,9 @@ awx
 axl
 ayk
 azi
-ayk
-aBl
-aBl
+sUK
+sUK
+sUK
 ayk
 diy
 aex
@@ -118902,7 +118883,7 @@ cam
 cam
 cam
 cgG
-cir
+cfb
 cfb
 cnG
 cnl
@@ -119158,8 +119139,8 @@ cam
 cbI
 cdy
 cff
-cfb
 cir
+cfb
 cfb
 cnS
 cno
@@ -119674,7 +119655,7 @@ cdA
 cis
 ckq
 cls
-cmI
+cls
 cnU
 cno
 cam
@@ -120486,9 +120467,9 @@ cZu
 cZu
 dcM
 dfY
-dgv
-dgv
-dgv
+vUm
+vUm
+vUm
 dfY
 aaa
 aaa
@@ -120743,8 +120724,8 @@ cZu
 cZu
 dcU
 dfZ
-dgw
-dgw
+dgv
+dgv
 dhW
 dfY
 aaa
@@ -121001,7 +120982,7 @@ dcM
 dfd
 dfY
 dgv
-dgw
+vUm
 dgv
 dfY
 aaa
@@ -151767,7 +151748,7 @@ aaa
 aYD
 baW
 bcJ
-beB
+bcK
 beC
 beC
 bjC
@@ -152281,7 +152262,7 @@ aaa
 aYH
 baY
 bcL
-beB
+bcK
 beC
 bim
 bjC
@@ -154278,8 +154259,8 @@ aaa
 aaa
 agc
 agZ
-ahp
-ahp
+mMw
+mMw
 agZ
 ail
 agw

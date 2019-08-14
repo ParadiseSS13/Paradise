@@ -1,0 +1,5 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - tweak: "The Traitor thermal glasses and chameleon security HUD now use the updated chameleon code.
+balance: Traitor thermal glasses will no longer cause eye damage when hit with EMP."

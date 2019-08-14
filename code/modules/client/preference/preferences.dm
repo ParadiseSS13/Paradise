@@ -1263,7 +1263,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)

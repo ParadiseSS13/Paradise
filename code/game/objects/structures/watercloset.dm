@@ -363,7 +363,7 @@
 			qdel(mymist)
 		ismist = 0
 
-/obj/machinery/shower/Crossed(atom/movable/O)
+/obj/machinery/shower/Crossed(atom/movable/O, oldloc)
 	..()
 	wash(O)
 	if(ismob(O))
