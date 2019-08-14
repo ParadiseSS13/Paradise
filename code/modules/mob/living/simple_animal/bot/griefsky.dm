@@ -48,7 +48,7 @@
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 	
-/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM

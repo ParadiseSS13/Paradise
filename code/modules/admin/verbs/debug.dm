@@ -68,7 +68,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				target = null
 				targetselected = 0
 
-		var/procname = input("Proc path, eg: /proc/fake_blood","Path:", null) as text|null
+		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null)
 		if(!procname)	return
 
 		if(targetselected && !hascall(target,procname))
@@ -102,7 +102,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_PROCCALL))
 		return
 
-	var/procname = input("Proc name, eg: fake_blood","Proc:", null) as text|null
+	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
 	if(!procname)
 		return
 
@@ -149,7 +149,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				return null
 
 			if("text")
-				lst += input("Enter new text:","Text",null) as text
+				lst += clean_input("Enter new text:","Text",null)
 
 			if("num")
 				lst += input("Enter new number:","Num",0) as num
@@ -271,7 +271,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
-	var/raw_name = input(choice, "Enter your pAI name:", "pAI Name", "Personal AI") as text
+	var/raw_name = clean_input("Enter your pAI name:", "pAI Name", "Personal AI", choice)
 	var/new_name = reject_bad_name(raw_name, 1)
 	if(new_name)
 		pai.name = new_name

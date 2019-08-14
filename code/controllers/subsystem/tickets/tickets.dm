@@ -12,7 +12,7 @@
 
 SUBSYSTEM_DEF(tickets)
 	name = "Admin Tickets"
-	var/span_text = "<span class='adminticket'>"
+	var/span_class = "adminticket"
 	var/ticket_system_name = "Admin Tickets"
 	var/ticket_name = "Admin Ticket"
 	var/close_rights = R_ADMIN
@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
-				"[span_text]Your [ticket_name] has now been closed.</span>")
+				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 	LAZYINITLIST(allTickets)
 	return ..()
 
@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(tickets)
 		var/report
 		for(var/num in stales)
 			report += "[num], "
-		message_staff("[span_text]Tickets [report] have been open for over [TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
+		message_staff("<span class='[span_class]'>Tickets [report] have been open for over [TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
 
 /datum/controller/subsystem/tickets/stat_entry()
 	..("Tickets: [LAZYLEN(allTickets)]")
@@ -80,7 +80,7 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/existingTicket = checkForOpenTicket(C)
 	if(existingTicket)
 		existingTicket.setCooldownPeriod()
-		to_chat(C.mob, "[span_text]Your [ticket_name] #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
+		to_chat(C.mob, "<span class='[span_class]'>Your [ticket_name] #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		return
 
 	if(!title)
@@ -93,7 +93,7 @@ SUBSYSTEM_DEF(tickets)
 	T.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
-	to_chat(C, "[span_text]You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
+	to_chat(C, "<span class='[span_class]'>You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
 
 //Set ticket state with key N to open
 /datum/controller/subsystem/tickets/proc/openTicket(N)
@@ -138,8 +138,10 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	return T.clientName
 
-/datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, var/N)
+/datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, N)
 	var/datum/ticket/T = allTickets[N]
+	if(T.staffAssigned != null && T.staffAssigned != C && alert("Ticket is already assigned to [T.staffAssigned.ckey]. Are you sure you want to take it?","Take ticket","No","Yes") != "Yes")
+		return FALSE
 	T.assignStaff(C)
 	return TRUE
 
@@ -158,7 +160,7 @@ SUBSYSTEM_DEF(tickets)
 	var/ticketState // State of the ticket, open, closed, resolved etc
 	var/timeUntilStale // When the ticket goes stale
 	var/ticketCooldown // Cooldown before allowing the user to open another ticket.
-	var/staffAssigned // Staff member who has assigned themselves to this ticket
+	var/client/staffAssigned // Staff member who has assigned themselves to this ticket
 
 /datum/ticket/New(tit, cont, num)
 	title = tit
@@ -367,15 +369,15 @@ UI STUFF
 	if(href_list["resolve"])
 		var/indexNum = text2num(href_list["resolve"])
 		if(resolveTicket(indexNum))
-			message_staff("[span_text][usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
-			to_chat_safe(returnClient(indexNum), "[span_text]Your [ticket_name] has now been resolved.</span>")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
+			to_chat_safe(returnClient(indexNum), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 			showUI(usr)
 
 	if(href_list["detailresolve"])
 		var/indexNum = text2num(href_list["detailresolve"])
 		if(resolveTicket(indexNum))
-			message_staff("[span_text][usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
-			to_chat_safe(returnClient(indexNum), "[span_text]Your [ticket_name] has now been resolved.</span>")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
+			to_chat_safe(returnClient(indexNum), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailclose"])
@@ -386,7 +388,7 @@ UI STUFF
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
-			message_staff("[span_text][usr.client] / ([usr]) closed [ticket_name] number [indexNum]</span>")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) closed [ticket_name] number [indexNum]</span>")
 			to_chat_safe(returnClient(indexNum), close_messages)
 			showDetailUI(usr, indexNum)
 			
@@ -394,7 +396,7 @@ UI STUFF
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])
 		if(openTicket(indexNum))
-			message_staff("[span_text][usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]</span>")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["assignstaff"])
@@ -404,8 +406,8 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
 	if(assignStaffToTicket(usr.client, index))
-		if(span_text == "<span class='mentorhelp'>")
-			message_staff("[span_text][usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
+		if(span_class == "mentorhelp")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
 		else
 			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
-		to_chat_safe(returnClient(index), "[span_text]Your [ticket_name] is being handled by [usr.client].</span>")
+		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")

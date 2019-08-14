@@ -32,7 +32,7 @@
 	. = ..()
 	. += 3
 
-/mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
+/mob/living/carbon/alien/humanoid/queen/handle_hud_icons_health()
 	..() //-Yvarov
 
 	if(healths)

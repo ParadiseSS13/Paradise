@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "It is no longer possible to unanchor the surivval pod storage units."
