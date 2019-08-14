@@ -231,6 +231,12 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	var/turf/T = loc
 	level = T.intact ? 2 : 1
 	add_fingerprint(usr)
+	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
+		SSair.machinery_to_construct.Add(src)
+		return
+	initialize_atmos_network()
+
+/obj/machinery/atmospherics/proc/initialize_atmos_network()
 	atmos_init()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)

@@ -452,7 +452,7 @@
 	icon_closed = transparent ? "bluespacetrans" : "bluespace"
 	icon_state = opened ? icon_opened : icon_closed
 
-/obj/structure/closet/bluespace/Crossed(atom/movable/AM)
+/obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
 		icon_state = opened ? "bluespaceopentrans" : "bluespacetrans"
 

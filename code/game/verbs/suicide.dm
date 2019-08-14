@@ -229,3 +229,19 @@
 		setCloneLoss(100, FALSE)
 
 		updatehealth()
+
+/mob/living/simple_animal/mouse/verb/suicide()
+	set hidden = 1
+	if(stat == DEAD)
+		to_chat(src, "You're already dead!")
+		return
+	if(suiciding)
+		to_chat(src, "You're already committing suicide! Be patient!")
+		return
+
+	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+
+	if(confirm == "Yes")
+		suiciding = TRUE
+		visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide.</span>")
+		adjustOxyLoss(max(100 - getBruteLoss(100), 0))
