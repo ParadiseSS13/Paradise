@@ -67,6 +67,23 @@
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
 
+/obj/effect/mapping_helpers/airlock
+	layer = DOOR_HELPER_LAYER
+
+/obj/effect/mapping_helpers/airlock/unres
+	name = "airlock unresctricted side helper"
+	icon_state = "airlock_unres_helper"
+
+/obj/effect/mapping_helpers/airlock/unres/Initialize(mapload)
+	if(!mapload)
+		log_world("### MAP WARNING, [src] spawned outside of mapload!")
+		return
+	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in src.loc
+	if(airlock)
+		airlock.unres_sides ^= dir
+	else
+		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
+	..()	
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN
