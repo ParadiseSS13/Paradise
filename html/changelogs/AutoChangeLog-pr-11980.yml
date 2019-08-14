@@ -1,0 +1,4 @@
+author: "TheSardele"
+delete-after: True
+changes: 
+  - bugfix: "Sleeping while drunk no longer makes you more drunk."
