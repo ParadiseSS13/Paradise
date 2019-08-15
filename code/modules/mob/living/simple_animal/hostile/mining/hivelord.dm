@@ -459,7 +459,7 @@
 		if("Cultist")
 			uniform = /obj/item/clothing/under/roman
 			suit = /obj/item/clothing/suit/hooded/cultrobes
-			head = /obj/item/clothing/head/culthood
+			head = /obj/item/clothing/head/hooded/culthood
 			suit_store = /obj/item/tome
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult
 			l_pocket = /obj/item/melee/cultblade/dagger

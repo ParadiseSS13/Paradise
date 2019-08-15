@@ -474,7 +474,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
-	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)

@@ -363,7 +363,7 @@
 	force = 15
 	flags = NODROP | DROPDEL
 
-/obj/item/clothing/head/culthood/alt/ghost
+/obj/item/clothing/head/hooded/culthood/alt/ghost
 	flags = NODROP | DROPDEL
 
 /obj/item/clothing/suit/cultrobesghost
@@ -388,5 +388,5 @@
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/cultrobesghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
-	head = /obj/item/clothing/head/culthood/alt/ghost
+	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
