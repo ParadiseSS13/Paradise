@@ -19,13 +19,6 @@
 
 	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
 
-	warning_low_pressure = 50
-	hazard_low_pressure = 0
-
-	cold_level_1 = 80
-	cold_level_2 = 50
-	cold_level_3 = 0
-
 	breathid = "n2"
 
 	eyes = "vox_eyes_s"
