@@ -99,6 +99,7 @@
 /datum/hud/proc/show_hud(version = 0)
 	if(!ismob(mymob))
 		return FALSE
+
 	if(!mymob.client)
 		return FALSE
 
@@ -172,7 +173,7 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
-	create_parallax()
+	update_parallax_pref(mymob)
 	plane_masters_update()
 
 /datum/hud/proc/plane_masters_update()

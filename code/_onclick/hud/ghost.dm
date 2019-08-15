@@ -62,6 +62,5 @@
 
 /datum/hud/ghost/show_hud()
 	mymob.client.screen = list()
-	create_parallax()
 	mymob.client.screen += static_inventory
 	..()

@@ -153,32 +153,32 @@
 /turf/simulated/wall/diagonal_smooth(adjacencies)
 	adjacencies = reverse_ndir(..())
 	if(adjacencies)
-		var/list/U = list()
+		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
+		var/list/U = list(underlay_appearance)
 		if(fixed_underlay)
 			if(fixed_underlay["space"])
-				var/image/I = image('icons/turf/space.dmi', SPACE_ICON_STATE, layer=TURF_LAYER)
-				I.plane = PLANE_SPACE
-				U += I
+				underlay_appearance.icon = 'icons/turf/space.dmi'
+				underlay_appearance.icon_state = SPACE_ICON_STATE
+				underlay_appearance.plane = PLANE_SPACE
 			else
-				var/image/I = image('icons/turf/space.dmi', SPACE_ICON_STATE, layer=TURF_LAYER)
-				I.plane = PLANE_SPACE
-				U += I
+				underlay_appearance.icon = fixed_underlay["icon"]
+				underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		else
-			var/turf/T = get_step(src, turn(adjacencies, 180))
-			if(T && (T.density || T.smooth))
+			var/turned_adjacency = turn(adjacencies, 180)
+			var/turf/T = get_step(src, turned_adjacency)
+			if(!T.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 				T = get_step(src, turn(adjacencies, 135))
-				if(T && (T.density || T.smooth))
+				if(!T.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 					T = get_step(src, turn(adjacencies, 225))
-
-			if(istype(T, /turf/space) && !istype(T, /turf/space/transit))
-				U += image('icons/turf/space.dmi', SPACE_ICON_STATE, layer=TURF_LAYER)
-			else if(T && !T.density && !T.smooth)
-				U += T
-			else if(baseturf && !initial(baseturf.density) && !initial(baseturf.smooth))
-				U += image(initial(baseturf.icon), initial(baseturf.icon_state), layer=TURF_LAYER)
-			else
-				U += DEFAULT_UNDERLAY_IMAGE
+			//if all else fails, ask our own turf
+			if(!T.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) && !get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+				underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
+				underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE
 		underlays = U
+
+		// Drop posters which were previously placed on this wall.
+		for(var/obj/structure/sign/poster/P in src)
+			P.roll_and_drop(src)
 
 /proc/cardinal_smooth(atom/A, adjacencies)
 	//NW CORNER

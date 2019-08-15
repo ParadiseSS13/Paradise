@@ -36,29 +36,32 @@
 
 /datum/hud/proc/apply_parallax_pref()
 	var/client/C = mymob.client
-	switch(C.prefs.parallax)
-		if(PARALLAX_INSANE)
-			C.parallax_throttle = FALSE
-			C.parallax_layers_max = 4
-			return TRUE
+	if(C.prefs)
+		var/pref = C.prefs.parallax
+		if (isnull(pref))
+			pref = PARALLAX_HIGH
+		switch(C.prefs.parallax)
+			if (PARALLAX_INSANE)
+				C.parallax_throttle = FALSE
+				C.parallax_layers_max = 4
+				return TRUE
 
-		if(PARALLAX_MED)
-			C.parallax_throttle = PARALLAX_DELAY_MED
-			C.parallax_layers_max = 2
-			return TRUE
+			if (PARALLAX_MED)
+				C.parallax_throttle = PARALLAX_DELAY_MED
+				C.parallax_layers_max = 2
+				return TRUE
 
-		if(PARALLAX_LOW)
-			C.parallax_throttle = PARALLAX_DELAY_LOW
-			C.parallax_layers_max = 1
-			return TRUE
+			if (PARALLAX_LOW)
+				C.parallax_throttle = PARALLAX_DELAY_LOW
+				C.parallax_layers_max = 1
+				return TRUE
 
-		if(PARALLAX_DISABLE)
-			return FALSE
+			if (PARALLAX_DISABLE)
+				return FALSE
 
-		else
-			C.parallax_throttle = PARALLAX_DELAY_DEFAULT
-			C.parallax_layers_max = 3
-			return TRUE
+	C.parallax_throttle = PARALLAX_DELAY_DEFAULT
+	C.parallax_layers_max = 3
+	return TRUE
 
 /datum/hud/proc/update_parallax_pref()
 	remove_parallax()
@@ -67,7 +70,7 @@
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
 // Well, it would if our shuttle code had dynamic areas 
-/datum/hud/proc/set_parallax_movedir(new_parallax_movedir)
+/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
 	. = FALSE
 	var/client/C = mymob.client
 	if(new_parallax_movedir == C.parallax_movedir)
@@ -114,7 +117,11 @@
 	C.parallax_movedir = new_parallax_movedir
 	if(C.parallax_animate_timer)
 		deltimer(C.parallax_animate_timer)
-	C.parallax_animate_timer = addtimer(src, .update_parallax_motionblur, min(shortesttimer, PARALLAX_LOOP_TIME), TIMER_CLIENT_TIME, C, animatedir, new_parallax_movedir, newtransform)
+	var/datum/callback/CB = CALLBACK(src, .proc/update_parallax_motionblur, C, animatedir, new_parallax_movedir, newtransform)
+	if(skip_windups)
+		CB.Invoke()
+	else
+		C.parallax_animate_timer = addtimer(CB, min(shortesttimer, PARALLAX_LOOP_TIME), TIMER_CLIENT_TIME|TIMER_STOPPABLE)
 
 /datum/hud/proc/update_parallax_motionblur(client/C, animatedir, new_parallax_movedir, matrix/newtransform)
 	C.parallax_animate_timer = FALSE
@@ -237,9 +244,9 @@
 		for(var/y in -count to count)
 			if(x == 0 && y == 0)
 				continue
-			var/image/I = image(icon, null, icon_state)
-			I.transform = matrix(1, 0, x*480, 0, 1, y*480)
-			new_overlays += I
+			var/mutable_appearance/texture_overlay = mutable_appearance(icon, icon_state)
+			texture_overlay.transform = matrix(1, 0, x*480, 0, 1, y*480)
+			new_overlays += texture_overlay
 
 	overlays = new_overlays
 	view_sized = view
@@ -250,7 +257,7 @@
 /obj/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
-	layer = 1255
+	layer = 1
 
 /obj/screen/parallax_layer/layer_2
 	icon_state = "layer2"
