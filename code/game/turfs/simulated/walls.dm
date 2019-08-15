@@ -1,5 +1,6 @@
 #define WALL_DENT_HIT 1
 #define WALL_DENT_SHOT 2
+#define MAX_DENT_DECALS 15
 
 /turf/simulated/wall
 	name = "wall"
@@ -445,7 +446,7 @@
 		ChangeTurf(/turf/simulated/wall/cult)
 
 /turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
-	if(LAZYLEN(dent_decals) >= 15)
+	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
 		return
 
 	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
@@ -466,3 +467,4 @@
 
 	add_overlay(dent_decals)
 
+#undef MAX_DENT_DECALS
