@@ -41,7 +41,7 @@ var opts = {
 	'suppressOptionsClose': false, //Whether or not we should be hiding the suboptions menu
 	'highlightTerms': [],
 	'highlightLimit': 5,
-	'highlightEscapeRegex':true,
+	'highlightRegexEnable':false,
 	'highlightColor': '#FFFF00', //The color of the highlighted message
 	'pingDisabled': false, //Has the user disabled the ping counter
 
@@ -161,7 +161,7 @@ function highlightTerms(el) {
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
 			var rexp = new RegExp("("+opts.highlightTerms[i]+")","gmi")
-			if(opts.highlightEscapeRegex){
+			if(!opts.highlightRegexEnable){
 				rexp = new RegExp("("+opts.highlightTerms[i].replace(new RegExp("([^a-zA-Z0-9])","gmi"),"\\$1")+")","gmi")
 			}
 			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>")
@@ -573,7 +573,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
-		'shighlightEscapeRegex': getCookie('highlightescaperegex'),
+		'shighlightRegexEnable': getCookie('highlightregexenable'),
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
@@ -611,9 +611,9 @@ $(function() {
 		opts.highlightColor = savedConfig.shighlightColor;
 		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
 	}
-	if (savedConfig.shighlightEscapeRegex) {
-		opts.highlightEscapeRegex = savedConfig.shighlightEscapeRegex;
-		internalOutput('<span class="internal boldnshit">Loaded highlight regex enable of: '+savedConfig.shighlightEscapeRegex+'</span>', 'internal');
+	if (savedConfig.shighlightRegexEnable) {
+		opts.highlightRegexEnable = savedConfig.shighlightRegexEnable;
+		internalOutput('<span class="internal boldnshit">Loaded highlight regex enable of: '+savedConfig.shighlightRegexEnable+'</span>', 'internal');
 	}
 	if (savedConfig.shideSpam) {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
@@ -979,7 +979,7 @@ $(function() {
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
 				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
-		    			'<input name="highlightRegex" id="highlightregexenable" type="checkbox" ' + (opts.highlightEscapeRegex ? "" : "checked") + '>Regex Enabled</input>'+
+		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
 		    		'<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
@@ -989,6 +989,7 @@ $(function() {
 				'</form>' +
 			'</div>';
 		createPopup(popupContent, 250);
+		document.querySelector(".popup #highlightRegexEnable").checked = opts.highlightRegexEnable;
 	});
 	$('body').on('keyup', '#highlightColor', function() {
 		var color = $('#highlightColor').val();
@@ -1017,7 +1018,7 @@ $(function() {
 		}
 
 		var color = $('#highlightColor').val();
-		opts.highlightEscapeRegex = !(document.getElementById('highlightregexenable').checked)
+		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
 		color = color.trim();
 		if (color == '' || color.charAt(0) != '#') {
 			opts.highlightColor = '#FFFF00';
@@ -1027,7 +1028,7 @@ $(function() {
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
 
-		setCookie('highlightescaperegex', opts.highlightEscapeRegex,365)
+		setCookie('highlightregexenable', opts.highlightRegexEnable,365)
 		setCookie('highlightterms', JSON.stringify(opts.highlightTerms), 365);
 		setCookie('highlightcolor', opts.highlightColor, 365);
 	});
