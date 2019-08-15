@@ -58,6 +58,9 @@
 
 	if(!msg)
 		return
+
+	msg = admin_pencode_to_html(msg)
+
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
@@ -136,7 +139,7 @@
 
 	if( !msg )
 		return
-	msg = pencode_to_html(msg)
+	msg = admin_pencode_to_html(msg)
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
