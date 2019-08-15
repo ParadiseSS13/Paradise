@@ -5,9 +5,9 @@
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"
-	climbable = 1
+	climbable = TRUE
 //	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
-	var/rigged = 0
+	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
@@ -23,16 +23,16 @@
 		overlays += "manifest"
 
 /obj/structure/closet/crate/can_open()
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/can_close()
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/open()
 	if(src.opened)
-		return 0
+		return FALSE
 	if(!src.can_open())
-		return 0
+		return FALSE
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
@@ -47,18 +47,18 @@
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
 	icon_state = icon_opened
-	src.opened = 1
+	src.opened = TRUE
 
 	if(climbable)
 		structure_shaken()
 
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/close()
 	if(!src.opened)
-		return 0
+		return FALSE
 	if(!src.can_close())
-		return 0
+		return FALSE
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	var/itemcount = 0
@@ -75,8 +75,8 @@
 		itemcount++
 
 	icon_state = icon_closed
-	src.opened = 0
-	return 1
+	src.opened = FALSE
+	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !src.opened)
@@ -105,7 +105,7 @@
 						return
 					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
-					E.teleporting = 1
+					E.teleporting = TRUE
 					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
 						return
@@ -127,9 +127,9 @@
 					return
 				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
-				E.teleporting = 1
+				E.teleporting = TRUE
 				if(!do_after(user, 50 * E.toolspeed, target = src))
-					E.teleporting = 0
+					E.teleporting = FALSE
 					return
 				E.teleporting = 0
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
@@ -160,7 +160,7 @@
 			return
 		if(C.use(15))
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
-			rigged = 1
+			rigged = TRUE
 		else 
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
 			return
@@ -174,7 +174,7 @@
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
 			playsound(loc, W.usesound, 100, 1)
-			rigged = 0
+			rigged = FALSE
 			return
 	else return attack_hand(user)
 
