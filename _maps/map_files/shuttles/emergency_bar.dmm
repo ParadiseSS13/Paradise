@@ -43,7 +43,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/escape)
 "ai" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/comfy/black{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -75,7 +75,7 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/comfy/black{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -91,7 +91,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/escape)
 "ar" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/comfy/black{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -123,9 +123,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "ax" = (
@@ -138,7 +135,6 @@
 	dir = 1
 	},
 /obj/structure/chair,
-/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "ay" = (
@@ -198,9 +194,6 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aF" = (
@@ -231,14 +224,10 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/chair,
-/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aL" = (

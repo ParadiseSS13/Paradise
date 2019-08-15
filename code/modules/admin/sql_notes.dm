@@ -5,7 +5,7 @@
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!target_ckey)
-		var/new_ckey = ckey(clean_input("Who would you like to add a note for?","Enter a ckey",null))
+		var/new_ckey = ckey(input(usr,"Who would you like to add a note for?","Enter a ckey",null) as text|null)
 		if(!new_ckey)
 			return
 		new_ckey = ckey(new_ckey)

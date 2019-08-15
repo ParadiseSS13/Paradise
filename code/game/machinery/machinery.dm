@@ -553,7 +553,9 @@ Class Procs:
 			threatcount += 2
 
 	if(check_records || check_arrest)
-		var/perpname = perp.get_visible_name(TRUE)
+		var/perpname = perp.name
+		if(id)
+			perpname = id.registered_name
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)

@@ -166,7 +166,7 @@
 /datum/gear/accessory/armband_sec
 	display_name = " armband, security"
 	path = /obj/item/clothing/accessory/armband/sec
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician")
 
 /datum/gear/accessory/armband_cargo
 	display_name = "cargo armband"

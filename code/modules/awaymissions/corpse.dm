@@ -432,8 +432,6 @@
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
-/obj/effect/mob_spawn/human/miner/explorer
-	outfit = /datum/outfit/job/mining/equipped
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"

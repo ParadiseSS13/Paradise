@@ -133,39 +133,6 @@
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(loc)
 			loaded_pill_bottle = null
-	else if(href_list["change_pillbottle"])
-		if(loaded_pill_bottle)
-			var/list/wrappers = list("Default wrapper", "Red wrapper", "Green wrapper", "Pale green wrapper", "Blue wrapper", "Light blue wrapper", "Teal wrapper", "Yellow wrapper", "Orange wrapper", "Pink wrapper", "Brown wrapper")
-			var/chosen = input(usr, "Select a pillbottle wrapper", "Pillbottle wrapper", wrappers[1]) as null|anything in wrappers
-			if(!chosen)
-				return
-			var/color
-			switch(chosen)
-				if("Default wrapper")
-					loaded_pill_bottle.cut_overlays()
-					return
-				if("Red wrapper")
-					color = COLOR_RED
-				if("Green wrapper")
-					color = COLOR_GREEN
-				if("Pink wrapper")
-					color = COLOR_PINK
-				if("Teal wrapper")
-					color = COLOR_TEAL
-				if("Blue wrapper")
-					color = COLOR_BLUE
-				if("Brown wrapper")
-					color = COLOR_MAROON
-				if("Light blue wrapper")
-					color = COLOR_CYAN_BLUE
-				if("Yellow wrapper")
-					color = COLOR_YELLOW
-				if("Pale green wrapper")
-					color = COLOR_PALE_BTL_GREEN
-				if("Orange wrapper")
-					color = COLOR_ORANGE
-			loaded_pill_bottle.wrapper_color = color;
-			loaded_pill_bottle.apply_wrap();
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
 		onclose(usr, "chem_master")
@@ -218,7 +185,7 @@
 				dat += "<A href='?src=[UID()];main=1'>(Back)</A>"
 			else
 				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=[UID()];main=1'>(Back)</A>"
-			usr << browse(dat, "window=chem_master;size=575x500")
+			usr << browse(dat, "window=chem_master;size=575x400")
 			return
 
 		else if(href_list["add"])
@@ -282,7 +249,7 @@
 				var/amount_per_pill = reagents.total_volume / count
 				if(amount_per_pill > 100)
 					amount_per_pill = 100
-				var/name = clean_input("Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)")
+				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)") as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -303,7 +270,7 @@
 							P.forceMove(loaded_pill_bottle)
 							updateUsrDialog()
 			else
-				var/name = clean_input("Name:", "Name your bag!", reagents.get_master_reagent_name())
+				var/name = input(usr, "Name:", "Name your bag!", reagents.get_master_reagent_name()) as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -328,7 +295,7 @@
 				var/amount_per_patch = reagents.total_volume/count
 				if(amount_per_patch > 40)
 					amount_per_patch = 40
-				var/name = clean_input("Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)")
+				var/name = input(usr, "Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)") as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -350,7 +317,7 @@
 
 		else if(href_list["createbottle"])
 			if(!condi)
-				var/name = clean_input("Name:", "Name your bottle!", reagents.get_master_reagent_name())
+				var/name = input(usr, "Name:", "Name your bottle!", reagents.get_master_reagent_name()) as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -421,7 +388,7 @@
 
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 500)
+		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
 		ui.open()
 
 /obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)

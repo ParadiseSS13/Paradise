@@ -31,7 +31,7 @@
 		else if(W.isOn())
 			to_chat(user, "<span class='info'>Not enough fuel to smelt [src].</span>")
 
-/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
+/obj/item/stack/ore/Crossed(atom/movable/AM)
 	var/obj/item/storage/bag/ore/OB
 	var/turf/simulated/floor/F = get_turf(src)
 	if(loc != F)
@@ -50,12 +50,6 @@
 				break
 	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
 		F.attackby(OB, AM)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = AM
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
 	return ..()
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)

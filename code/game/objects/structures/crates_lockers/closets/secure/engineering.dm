@@ -38,7 +38,6 @@
 	new /obj/item/rpd(src)
 	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
-	new /obj/item/clothing/accessory/medal/engineering(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical

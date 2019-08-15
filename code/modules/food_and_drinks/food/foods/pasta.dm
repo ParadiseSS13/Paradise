@@ -68,10 +68,3 @@
 	icon_state = "macncheese"
 	filling_color = "#ffe45d"
 	list_reagents = list("nutriment" = 5, "vitamin" = 2, "cheese" = 4)
-
-/obj/item/reagent_containers/food/snacks/lasagna
-	name = "Lasagna"
-	icon_state = "lasagna"
-	desc = "Tajarans loves to eat this, for some reason."
-	filling_color = "#E18712"
-	list_reagents = list("nutriment" = 10, "msg" = 3, "vitamin" = 4, "tomatojuice" = 10)

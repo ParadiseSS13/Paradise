@@ -271,7 +271,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 		return
 	return
 
-/obj/effect/gateway/Crossed(AM as mob|obj, oldloc)
+/obj/effect/gateway/Crossed(AM as mob|obj)
 	spawn(0)
 		return
 	return

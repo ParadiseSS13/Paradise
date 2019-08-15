@@ -11,7 +11,7 @@
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(AM as mob|obj, oldloc)
+/obj/effect/mine/Crossed(AM as mob|obj)
 	if(!isliving(AM))
 		return
 	var/mob/living/M = AM

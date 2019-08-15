@@ -361,7 +361,7 @@
 				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []",H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return 0
-		if(!fingerprints)
+		if(!( fingerprints ))
 			if(fingerprintslast != H.ckey)
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)

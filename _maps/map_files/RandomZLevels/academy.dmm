@@ -36,7 +36,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ai" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/office/light{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -152,9 +152,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ax" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
+/obj/structure/chair/stool,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ay" = (
@@ -4560,12 +4558,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
-"vq" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/awaymission/academy/headmaster)
 
 (1,1,1) = {"
 aa
@@ -13952,9 +13944,9 @@ ab
 aj
 ao
 au
-vq
+ax
 ah
-vq
+ax
 ah
 ah
 ah

@@ -55,7 +55,7 @@
 	},
 /area/ruin/unpowered)
 "aj" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -314,7 +314,7 @@
 	},
 /area/ruin/unpowered)
 "bb" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"

@@ -466,7 +466,7 @@
 				active2.fields["comments"] -= active2.fields["comments"][index]
 
 		if(href_list["search"])
-			var/t1 = clean_input("Search String: (Name, DNA, or ID)", "Med. records", null, null)
+			var/t1 = input("Search String: (Name, DNA, or ID)", "Med. records", null, null) as text
 			if(!t1 || ..())
 				return 1
 			active1 = null

@@ -116,9 +116,6 @@
 /obj/item/scalpel{
 	pixel_y = 12
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aq" = (
@@ -492,7 +489,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/vending/crittercare/free,
+/obj/machinery/vending/crittercare,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bn" = (

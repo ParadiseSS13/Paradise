@@ -12,7 +12,7 @@
 	maxHealth = 250
 	max_mobs = 3
 	spawn_time = 300 //30 seconds default
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
+	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
 	spawn_text = "emerges from"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -73,7 +73,7 @@
 		qdel(src)
 
 /mob/living/simple_animal/hostile/spawner/lavaland/goliath
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
+	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
 
 /mob/living/simple_animal/hostile/spawner/lavaland/legion
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+	mob_type = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril

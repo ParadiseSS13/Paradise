@@ -58,20 +58,19 @@
 	if(message)
 		log_emote(message, src)
 
-		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
-		// Maybe some people are okay with that.
+ //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
+ // Maybe some people are okay with that.
+
 		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
 				continue //skip monkeys and leavers
-
-			if(isnewplayer(M))
+			if(istype(M, /mob/new_player))
 				continue
-
-			if(findtext(message, " snores.")) //Because we have so many sleeping people.
+			if(findtext(message," snores.")) //Because we have so many sleeping people.
 				break
-
-			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
+
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)

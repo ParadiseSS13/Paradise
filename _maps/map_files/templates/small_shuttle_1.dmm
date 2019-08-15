@@ -59,7 +59,7 @@
 	},
 /area/ruin/powered)
 "m" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -88,7 +88,7 @@
 /turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "r" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -108,7 +108,7 @@
 	},
 /area/ruin/powered)
 "u" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,

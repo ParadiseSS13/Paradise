@@ -16,7 +16,7 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Landing"
+	name = "Free Golem Ship"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/greed
@@ -37,7 +37,6 @@
 	icon_state = "dk_yellow"
 	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg')
 	report_alerts = FALSE
-	hide_attacklogs = TRUE
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"

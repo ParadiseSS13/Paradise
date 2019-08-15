@@ -2612,7 +2612,7 @@
 	},
 /area/awaymission/wwrefine)
 "ho" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair,
 /turf/simulated/shuttle{
 	tag = "icon-floor2";
 	icon_state = "floor2"

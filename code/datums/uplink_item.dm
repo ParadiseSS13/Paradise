@@ -1107,10 +1107,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/thermal
-	name = "Thermal Chameleon Glasses"
-	desc = "These glasses are thermals with Syndicate chameleon technology built into them. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
+	name = "Thermal Imaging Glasses"
+	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
-	item = /obj/item/clothing/glasses/chameleon/thermal
+	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6
 
 /datum/uplink_item/stealthy_tools/traitor_belt

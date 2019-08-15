@@ -852,19 +852,3 @@
 	result_amount = 15
 	mix_message = "The eggs nog together. Pretend that \"nog\" is a verb."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/hooch
-	name = "Hooch"
-	id = "hooch"
-	result = "hooch"
-	required_reagents = list("ethanol" = 2, "fuel" = 1)
-	result_amount = 3
-	required_catalysts = list("enzyme" = 1)
-
-/datum/chemical_reaction/bacchus_blessing
-	name = "Bacchus' Blessing"
-	id = "bacchus_blessing"
-	result = "bacchus_blessing"
-	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
-	result_amount = 4
-	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"

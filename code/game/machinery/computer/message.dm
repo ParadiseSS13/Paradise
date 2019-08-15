@@ -281,7 +281,7 @@
 				auth = 0
 				screen = 0
 			else
-				var/dkey = trim(clean_input("Please enter the decryption key."))
+				var/dkey = trim(input(usr, "Please enter the decryption key.") as text|null)
 				if(dkey && dkey != "")
 					if(src.linkedServer.decryptkey == dkey)
 						auth = 1
@@ -332,7 +332,7 @@
 				message = noserver
 			else
 				if(auth)
-					var/dkey = trim(clean_input("Please enter the decryption key."))
+					var/dkey = trim(input(usr, "Please enter the decryption key.") as text|null)
 					if(dkey && dkey != "")
 						if(src.linkedServer.decryptkey == dkey)
 							var/newkey = trim(input(usr,"Please enter the new key (3 - 16 characters max):"))
@@ -395,7 +395,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= clean_input("Please enter the sender's name.")
+						customsender 	= input(usr, "Please enter the sender's name.") as text|null
 
 					//Select Receiver
 					if("Recepient")
@@ -414,11 +414,11 @@
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= clean_input("Please enter the sender's job.")
+						customjob	 	= input(usr, "Please enter the sender's job.") as text|null
 
 					//Enter message
 					if("Message")
-						custommessage	= clean_input("Please enter your message.")
+						custommessage	= input(usr, "Please enter your message.") as text|null
 						custommessage	= sanitize(copytext(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message

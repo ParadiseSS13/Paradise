@@ -65,7 +65,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/portal_sensor/Crossed(A, oldloc)
+/obj/effect/portal_sensor/Crossed(A)
 	trigger()
 
 /obj/effect/portal_sensor/Uncrossed(A)

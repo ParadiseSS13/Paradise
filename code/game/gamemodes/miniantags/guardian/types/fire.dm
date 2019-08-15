@@ -42,7 +42,7 @@
 					do_teleport(M, M, 10)
 					new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj, oldloc)
+/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
 	..()
 	collision_ignite(AM)
 

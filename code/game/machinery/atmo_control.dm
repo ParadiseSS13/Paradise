@@ -357,7 +357,7 @@
 		return O:id_tag in sensors
 
 /obj/machinery/computer/general_air_control/linkWith(mob/user, obj/O, link/context)
-	sensors[O:id_tag] = reject_bad_name(clean_input(user, "Choose a sensor label:", "Sensor Label"), allow_numbers=1)
+	sensors[O:id_tag] = reject_bad_name(input(user, "Choose a sensor label:", "Sensor Label") as text|null, allow_numbers=1)
 	return 1
 
 /obj/machinery/computer/general_air_control/large_tank_control

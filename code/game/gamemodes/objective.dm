@@ -25,8 +25,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(!possible_target.current.stat == DEAD)
@@ -53,6 +51,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
+
 
 /datum/objective/assassinate
 	martyr_compatible = 1
@@ -362,12 +361,9 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
-		if(O in owner.targets)
-			continue
 		if(O.flags & 2)
 			continue
-		steal_target = O
-
+		steal_target=O
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
 			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."

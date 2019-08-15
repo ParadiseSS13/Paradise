@@ -5365,7 +5365,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/defibrillator,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -5514,9 +5513,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gun/syringe/syndicate,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},

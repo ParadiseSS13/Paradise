@@ -39,7 +39,7 @@
 			var/obj/singularity/S = A
 			S.energy += energy
 
-/obj/effect/accelerated_particle/Crossed(atom/A, oldloc)
+/obj/effect/accelerated_particle/Crossed(atom/A)
 	if(isliving(A))
 		toxmob(A)
 

@@ -453,7 +453,7 @@
 	popup.open()
 
 
-/mob/living/carbon/human/Crossed(atom/movable/AM, oldloc)
+/mob/living/carbon/human/Crossed(atom/movable/AM)
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	if(istype(MB))
 		MB.RunOver(src)
@@ -711,9 +711,17 @@
 			if(usr.incapacitated())
 				return
 			var/found_record = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = "wot"
+			if(wear_id)
+				var/obj/item/card/id/I = wear_id.GetID()
+				if(I)
+					perpname = I.registered_name
+				else
+					perpname = name
+			else
+				perpname = name
 
-			if(perpname != "Unknown")
+			if(perpname)
 				for(var/datum/data/record/E in data_core.general)
 					if(E.fields["name"] == perpname)
 						for(var/datum/data/record/R in data_core.security)
@@ -750,9 +758,17 @@
 		if(hasHUD(usr,"security"))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = "wot"
 			var/read = 0
 
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.security)
@@ -774,16 +790,24 @@
 		if(hasHUD(usr,"security"))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = "wot"
 			var/read = 0
 
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
-								if(LAZYLEN(R.fields["comments"]))
+								if(length(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
@@ -797,8 +821,15 @@
 		if(hasHUD(usr,"security"))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
-
+			var/perpname = "wot"
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.security)
@@ -821,8 +852,17 @@
 		if(hasHUD(usr,"medical"))
 			if(usr.incapacitated())
 				return
+			var/perpname = "wot"
 			var/modified = 0
-			var/perpname = get_visible_name(TRUE)
+
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
@@ -847,9 +887,17 @@
 		if(hasHUD(usr,"medical"))
 			if(usr.incapacitated())
 				return
+			var/perpname = "wot"
 			var/read = 0
-			var/perpname = get_visible_name(TRUE)
-			
+
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
@@ -872,16 +920,24 @@
 		if(hasHUD(usr,"medical"))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = "wot"
 			var/read = 0
 
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
-								if(LAZYLEN(R.fields["comments"]))
+								if(length(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
@@ -895,7 +951,15 @@
 		if(hasHUD(usr,"medical"))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = "wot"
+			if(wear_id)
+				if(istype(wear_id,/obj/item/card/id))
+					perpname = wear_id:registered_name
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
+					perpname = tempPda.owner
+			else
+				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
@@ -910,9 +974,6 @@
 								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
 									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isAI(usr))
-									var/mob/living/silicon/ai/U = usr
-									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
@@ -1545,7 +1606,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	//Check for arrest warrant
 	if(judgebot.check_records)
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_face_name(get_id_name())
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])

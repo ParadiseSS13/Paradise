@@ -87,7 +87,6 @@
 					yandere_one.owner = traitor
 					traitor.objectives += yandere_one
 					yandere_one.find_target()
-					traitor.targets += yandere_one.target
 					objective_count++
 					var/datum/objective/maroon/yandere_two = new
 					yandere_two.owner = traitor
@@ -100,7 +99,6 @@
 			kill_objective.owner = traitor
 			kill_objective.find_target()
 			traitor.objectives += kill_objective
-			traitor.targets += kill_objective.target
 
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
@@ -126,31 +124,26 @@
 					destroy_objective.owner = traitor
 					destroy_objective.find_target()
 					traitor.objectives += destroy_objective
-					traitor.targets += destroy_objective.target
 				else if(prob(5))
 					var/datum/objective/debrain/debrain_objective = new
 					debrain_objective.owner = traitor
 					debrain_objective.find_target()
 					traitor.objectives += debrain_objective
-					traitor.targets += debrain_objective.target
 				else if(prob(30))
 					var/datum/objective/maroon/maroon_objective = new
 					maroon_objective.owner = traitor
 					maroon_objective.find_target()
 					traitor.objectives += maroon_objective
-					traitor.targets += maroon_objective.target
 				else
 					var/datum/objective/assassinate/kill_objective = new
 					kill_objective.owner = traitor
 					kill_objective.find_target()
 					traitor.objectives += kill_objective
-					traitor.targets += kill_objective.target
 			else
 				var/datum/objective/steal/steal_objective = new
 				steal_objective.owner = traitor
 				steal_objective.find_target()
 				traitor.objectives += steal_objective
-				traitor.targets += steal_objective.steal_target
 
 		if(is_hijacker && objective_count <= config.traitor_objectives_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 			if(!(locate(/datum/objective/hijack) in traitor.objectives))

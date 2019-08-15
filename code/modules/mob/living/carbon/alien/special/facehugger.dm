@@ -72,7 +72,7 @@ var/const/MAX_ACTIVE_TIME = 400
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
+/obj/item/clothing/mask/facehugger/Crossed(atom/target)
 	HasProximity(target)
 	return
 

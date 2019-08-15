@@ -371,8 +371,6 @@
 			for(var/datum/mind/H in SSticker.mode.cult)
 				if(H.current)
 					to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
-					H.current << 'sound/ambience/alarm4.ogg'
-			cult_mode.update_sac_objective(occupant.mind, occupant.mind.assigned_role)
 		else
 			cult_mode.bypass_phase()
 

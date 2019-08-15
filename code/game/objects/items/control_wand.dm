@@ -50,7 +50,6 @@
 		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
 		return
 	if(D.check_access(src.ID))
-		D.add_hiddenprint(user)
 		switch(mode)
 			if(WAND_OPEN)
 				if(D.density)

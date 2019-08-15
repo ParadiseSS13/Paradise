@@ -17,7 +17,7 @@
 	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
 
-/mob/living/carbon/alien/humanoid/hunter/handle_hud_icons_health()
+/mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
 	..() //-Yvarov
 
 	if(healths)

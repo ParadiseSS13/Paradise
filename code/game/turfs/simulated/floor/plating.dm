@@ -17,14 +17,6 @@
 	icon_plating = icon_state
 	update_icon()
 
-/turf/simulated/floor/plating/damaged/New()
-	..()
-	break_tile()
-
-/turf/simulated/floor/plating/burnt/New()
-	..()
-	burn_tile()
-
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
 		return

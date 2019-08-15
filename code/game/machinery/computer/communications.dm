@@ -156,7 +156,7 @@
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 			if(!input || ..() || !is_authenticated(usr))
 				SSnanoui.update_uis(src)
 				return
@@ -217,11 +217,11 @@
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = clean_input("Line 1", "Enter Message Text", stat_msg1)
+			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = clean_input("Line 2", "Enter Message Text", stat_msg2)
+			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("nukerequest")

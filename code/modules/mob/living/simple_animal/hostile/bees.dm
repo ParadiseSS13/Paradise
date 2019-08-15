@@ -142,7 +142,7 @@
 		return //no don't attack the goddamm box
 	else
 		..()
-		if(isliving(target) && (!client || a_intent == INTENT_HARM))
+		if(isliving(target))
 			var/mob/living/L = target
 			if(L.reagents)
 				if(beegent)

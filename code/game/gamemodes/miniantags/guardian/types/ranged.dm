@@ -103,7 +103,7 @@
 	invisibility = 1
 
 
-/obj/item/effect/snare/Crossed(AM as mob|obj, oldloc)
+/obj/item/effect/snare/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)

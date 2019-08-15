@@ -496,7 +496,6 @@ Difficulty: Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
-	layer = 3.9 // between LYING_MOB_LAYER and ABOVE_MOB_LAYER
 	luminosity = 1
 	desc = "Get out of the way!"
 	duration = 9
@@ -527,7 +526,7 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM, oldloc)
+/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
 	..()
 	if(bursting)
 		do_damage(get_turf(src))

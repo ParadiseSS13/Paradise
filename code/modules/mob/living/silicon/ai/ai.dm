@@ -498,7 +498,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+	var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 	if(!input || stat)
 		return
 
@@ -634,7 +634,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
+		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.simple_animals
 		if(target)
 			ai_actual_track(target)
 		else
@@ -642,7 +642,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locate(href_list["callbot"]) in GLOB.bots_list
+		Bot = locate(href_list["callbot"]) in GLOB.simple_animals
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
@@ -650,7 +650,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in GLOB.bots_list
+		Bot = locate(href_list["interface"]) in GLOB.simple_animals
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return
 		Bot.attack_ai(src)
@@ -746,7 +746,7 @@ var/list/ai_verbs_default = list(
 	d += "<A HREF=?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
+	for(var/mob/living/simple_animal/bot/Bot in GLOB.simple_animals)
 		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
@@ -1074,7 +1074,7 @@ var/list/ai_verbs_default = list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
+	var/newmsg = input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg) as text
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")

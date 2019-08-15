@@ -145,7 +145,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/filter = clean_input("Contains what?","Filter")
+	var/filter = input("Contains what?","Filter") as text|null
 	if(!filter)
 		return
 
@@ -166,7 +166,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/refstring = clean_input("Which reference?","Ref")
+	var/refstring = input("Which reference?","Ref") as text|null
 	if(!refstring)
 		return
 

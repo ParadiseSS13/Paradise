@@ -16,10 +16,6 @@
 	turns_per_move = 10
 	icon = 'icons/mob/penguins.dmi'
 
-/mob/living/simple_animal/pet/penguin/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/waddling)
-
 /mob/living/simple_animal/pet/penguin/emperor
 	name = "Emperor penguin"
 	real_name = "penguin"

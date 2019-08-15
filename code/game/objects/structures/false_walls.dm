@@ -9,26 +9,19 @@
 /obj/structure/falsewall
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
-	anchored = TRUE
+	anchored = 1
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-
-	var/mineral = /obj/item/stack/sheet/metal
-	var/mineral_amount = 2
-	var/walltype = /turf/simulated/wall
-	var/girder_type = /obj/structure/girder/displaced
-	var/opening = FALSE
-
-	density = TRUE
-	opacity = TRUE
-
-	can_deconstruct = TRUE
+	var/mineral = "metal"
+	var/walltype = "metal"
+	var/opening = 0
+	density = 1
+	opacity = 1
 
 	canSmoothWith = list(
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
 	/obj/structure/falsewall,
-	/obj/structure/falsewall/brass,
 	/obj/structure/falsewall/reinforced,  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS. //because we do smooth with real r-walls now
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust)
@@ -37,10 +30,6 @@
 /obj/structure/falsewall/New(loc)
 	..()
 	air_update_turf(1)
-
-/obj/structure/falsewall/ratvar_act()
-	new /obj/structure/falsewall/brass(loc)
-	qdel(src)
 
 /obj/structure/falsewall/Destroy()
 	density = 0
@@ -135,11 +124,18 @@
 
 /obj/structure/falsewall/proc/dismantle(mob/user)
 	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
-	if(can_deconstruct)
-		new girder_type(loc)
-		if(mineral_amount)
-			for(var/i in 1 to mineral_amount)
-				new mineral(loc)
+	new /obj/structure/girder/displaced(loc)
+	if(mineral == "metal")
+		if(istype(src, /obj/structure/falsewall/reinforced))
+			new /obj/item/stack/sheet/plasteel(loc, 2)
+		else
+			new /obj/item/stack/sheet/metal(loc, 2)
+	else if(mineral == "wood")
+		new/obj/item/stack/sheet/wood(loc, 2)
+	else
+		var/P = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+		new P(loc)
+		new P(loc)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
 	qdel(src)
 
@@ -152,8 +148,7 @@
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall"
-	walltype = /turf/simulated/wall/r_wall
-	mineral = /obj/item/stack/sheet/plasteel
+	walltype = "rwall"
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
@@ -171,8 +166,8 @@
 	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
-	mineral = /obj/item/stack/sheet/mineral/uranium
-	walltype = /turf/simulated/wall/mineral/uranium
+	mineral = "uranium"
+	walltype = "uranium"
 	var/active = null
 	var/last_event = 0
 	canSmoothWith = list(/obj/structure/falsewall/uranium, /turf/simulated/wall/mineral/uranium)
@@ -206,8 +201,8 @@
 	desc = "A wall with gold plating. Swag!"
 	icon = 'icons/turf/walls/gold_wall.dmi'
 	icon_state = "gold"
-	mineral = /obj/item/stack/sheet/mineral/gold
-	walltype = /turf/simulated/wall/mineral/gold
+	mineral = "gold"
+	walltype = "gold"
 	canSmoothWith = list(/obj/structure/falsewall/gold, /turf/simulated/wall/mineral/gold)
 
 /obj/structure/falsewall/silver
@@ -215,8 +210,8 @@
 	desc = "A wall with silver plating. Shiny."
 	icon = 'icons/turf/walls/silver_wall.dmi'
 	icon_state = "silver"
-	mineral = /obj/item/stack/sheet/mineral/silver
-	walltype = /turf/simulated/wall/mineral/silver
+	mineral = "silver"
+	walltype = "silver"
 	canSmoothWith = list(/obj/structure/falsewall/silver, /turf/simulated/wall/mineral/silver)
 
 /obj/structure/falsewall/diamond
@@ -224,8 +219,8 @@
 	desc = "A wall with diamond plating. You monster."
 	icon = 'icons/turf/walls/diamond_wall.dmi'
 	icon_state = "diamond"
-	mineral = /obj/item/stack/sheet/mineral/diamond
-	walltype = /turf/simulated/wall/mineral/diamond
+	mineral = "diamond"
+	walltype = "diamond"
 	canSmoothWith = list(/obj/structure/falsewall/diamond, /turf/simulated/wall/mineral/diamond)
 
 
@@ -234,18 +229,18 @@
 	desc = "A wall with plasma plating. This is definately a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma"
-	mineral = /obj/item/stack/sheet/mineral/plasma
-	walltype = /turf/simulated/wall/mineral/plasma
+	mineral = "plasma"
+	walltype = "plasma"
 	canSmoothWith = list(/obj/structure/falsewall/plasma, /turf/simulated/wall/mineral/plasma, /turf/simulated/wall/mineral/alien)
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
-		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
+		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma falsewall ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		burnbabyburn()
-	else
-		return ..()
+		return
+	..()
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
@@ -263,8 +258,8 @@
 	desc = "A strange-looking alien wall."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma"
-	mineral = /obj/item/stack/sheet/mineral/abductor
-	walltype = /turf/simulated/wall/mineral/abductor
+	mineral = "alien"
+	walltype = "alien"
 	canSmoothWith = list(/obj/structure/falsewall/alien, /turf/simulated/wall/mineral/alien)
 
 
@@ -273,16 +268,16 @@
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium"
-	mineral = /obj/item/stack/sheet/mineral/bananium
-	walltype = /turf/simulated/wall/mineral/bananium
+	mineral = "clown"
+	walltype = "clown"
 	canSmoothWith = list(/obj/structure/falsewall/bananium, /turf/simulated/wall/mineral/bananium)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
 	icon_state = "sandstone"
-	mineral = /obj/item/stack/sheet/mineral/sandstone
-	walltype = /turf/simulated/wall/mineral/sandstone
+	mineral = "sandstone"
+	walltype = "sandstone"
 	canSmoothWith = list(/obj/structure/falsewall/sandstone, /turf/simulated/wall/mineral/sandstone)
 
 /obj/structure/falsewall/wood
@@ -290,8 +285,8 @@
 	desc = "A wall with wooden plating. Stiff."
 	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood"
-	mineral = /obj/item/stack/sheet/wood
-	walltype = /turf/simulated/wall/mineral/wood
+	mineral = "wood"
+	walltype = "wood"
 	canSmoothWith = list(/obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood)
 
 /obj/structure/falsewall/iron
@@ -299,9 +294,8 @@
 	desc = "A wall with rough metal plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
-	mineral = /obj/item/stack/rods
-	mineral_amount = 5
-	walltype = /turf/simulated/wall/mineral/iron
+	mineral = "metal"
+	walltype = "iron"
 	canSmoothWith = list(/obj/structure/falsewall/iron, /turf/simulated/wall/mineral/iron)
 
 /obj/structure/falsewall/abductor
@@ -309,8 +303,8 @@
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor"
-	mineral = /obj/item/stack/sheet/mineral/abductor
-	walltype = /turf/simulated/wall/mineral/abductor
+	mineral = "abductor"
+	walltype = "abductor"
 	canSmoothWith = list(/obj/structure/falsewall/abductor, /turf/simulated/wall/mineral/abductor)
 
 /obj/structure/falsewall/titanium
@@ -330,23 +324,3 @@
 	walltype = /turf/simulated/wall/mineral/plastitanium
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
-
-/obj/structure/falsewall/brass
-	name = "clockwork wall"
-	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
-	resistance_flags = FIRE_PROOF
-	unacidable = TRUE
-	mineral_amount = 1
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
-	girder_type = /obj/structure/clockwork/wall_gear/displaced
-	walltype = /turf/simulated/wall/clockwork
-	mineral = /obj/item/stack/tile/brass
-
-/obj/structure/falsewall/brass/New(loc)
-	..()
-	var/turf/T = get_turf(src)
-	new /obj/effect/temp_visual/ratvar/wall/false(T)
-	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
-

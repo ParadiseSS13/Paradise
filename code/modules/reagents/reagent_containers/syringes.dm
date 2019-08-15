@@ -289,6 +289,12 @@
 		icon_state = "[rounded_vol]"
 	item_state = "syringe_[rounded_vol]"
 
+
+////////////////////////////////////////////////////////////////////////////////
+/// Syringes. END
+////////////////////////////////////////////////////////////////////////////////
+
+
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -321,10 +327,3 @@
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
 	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
-
-/obj/item/reagent_containers/syringe/gluttony
-	name = "Gluttony's Blessing"
-	desc = "A syringe recovered from a dread place. It probably isn't wise to use."
-	amount_per_transfer_from_this = 1
-	volume = 1
-	list_reagents = list("gluttonytoxin" = 1)

@@ -21,9 +21,9 @@
 				if("alert")
 					post_status("alert", href_list["alert"])
 				if("setmsg1")
-					message1 = clean_input("Line 1", "Enter Message Text", message1)
+					message1 = input("Line 1", "Enter Message Text", message1) as text|null
 				if("setmsg2")
-					message2 = clean_input("Line 2", "Enter Message Text", message2)
+					message2 = input("Line 2", "Enter Message Text", message2) as text|null
 				else
 					post_status(href_list["statdisp"])
 

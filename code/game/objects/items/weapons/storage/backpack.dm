@@ -398,7 +398,7 @@
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/clothing/glasses/chameleon/thermal(src)
+	new /obj/item/clothing/glasses/thermal/syndi(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	desc = "A large duffel bag containing a tactical medkit, a Donksoft machine gun and a big jumbo box of riot darts."

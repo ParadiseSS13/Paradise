@@ -474,9 +474,7 @@
 		new /datum/data/mining_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
 		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
 		new /datum/data/mining_equipment("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
-		new /datum/data/mining_equipment("Shuttle Console Board",		/obj/item/circuitboard/shuttle/golem_ship,						2000),
 		new /datum/data/mining_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)
-
 		)
 
 /datum/data/mining_equipment

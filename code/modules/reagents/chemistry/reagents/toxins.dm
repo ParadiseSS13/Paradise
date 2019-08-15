@@ -1174,14 +1174,3 @@
 		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	return ..()
-
-/datum/reagent/gluttonytoxin
-	name = "Gluttony's Blessing"
-	id = "gluttonytoxin"
-	description = "An advanced corruptive toxin produced by something terrible."
-	reagent_state = LIQUID
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	taste_message = "decay"
-
-/datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
-	L.ForceContractDisease(new /datum/disease/transformation/morph())

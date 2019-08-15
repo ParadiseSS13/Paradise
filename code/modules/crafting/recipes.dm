@@ -463,14 +463,6 @@
 				/obj/item/stack/sheet/animalhide/ashdrake = 5)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/tribal_splint
-	name = "Tribal Splint"
-	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				/obj/item/stack/sheet/sinew = 1)
-	result = /obj/item/stack/medical/splint/tribal
-	category = CAT_PRIMAL
-
 /datum/crafting_recipe/guillotine
 	name = "Guillotine"
 	result = /obj/structure/guillotine

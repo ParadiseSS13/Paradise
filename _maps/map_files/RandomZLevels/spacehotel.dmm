@@ -4652,16 +4652,16 @@
 /turf/simulated/shuttle/floor,
 /area/awaymission)
 "kQ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission)
 "kR" = (
-/obj/item/paper/hotel_scrap_4,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
+/obj/item/paper/hotel_scrap_4,
 /turf/simulated/shuttle/floor,
 /area/awaymission)
 "kS" = (
@@ -4709,11 +4709,11 @@
 /turf/simulated/shuttle/plating,
 /area/space/nearstation)
 "la" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/shuttle/floor,
 /area/awaymission)
 "lb" = (
@@ -4741,17 +4741,17 @@
 	},
 /area/awaymission)
 "lf" = (
-/obj/effect/decal/remains/human,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/decal/remains/human,
 /turf/simulated/shuttle/floor,
 /area/awaymission)
 "lg" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/shuttle/floor,
 /area/awaymission)
 "lh" = (

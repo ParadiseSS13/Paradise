@@ -17,16 +17,10 @@
 			if(keys_held["Ctrl"] && keys_held["Shift"]) // Is this command ever used?
 				winset(src, null, "command=.options")
 			else
-				adminhelp()
+				get_adminhelp()
 			return
 		if("F2") // Screenshot. Hold shift to choose a name and location to save in
-			ooc()
-			return
-		if("F3")
-			mob.say_wrapper()
-			return
-		if("F4")
-			mob.me_wrapper()
+			winset(src, null, "command=.screenshot [!keys_held["shift"] ? "auto" : ""]")
 			return
 		if("F12") // Toggles minimal HUD
 			mob.button_pressed_F12()

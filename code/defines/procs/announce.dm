@@ -95,7 +95,7 @@
 				receivers -= M
 				garbled_receivers |= M
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(M.client && M.stat == DEAD && !isnewplayer(M))
+			if(M.client && M.stat == DEAD)
 				receivers |= M
 
 	return list(receivers, garbled_receivers)

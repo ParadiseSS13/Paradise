@@ -195,6 +195,8 @@
 	heal_burn = 25
 
 //Medical Herbs//
+
+
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "\improper Comfrey leaf"
 	singular_name = "Comfrey leaf"
@@ -215,55 +217,48 @@
 	color = "#4CC5C7"
 	heal_burn = 12
 
-// Splints
+
+//Splints//
+
+
 /obj/item/stack/medical/splint
 	name = "medical splints"
 	singular_name = "medical splint"
 	icon_state = "splint"
-	unique_handling = TRUE
+	unique_handling = 1
 	self_delay = 100
-	var/other_delay = 0
 
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
-		return TRUE
+		return 1
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 		var/limb = affecting.name
-
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
 			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
-			return TRUE
-
+			return
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
-			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal.", "Yes", "No") == "Yes")
+			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				H.handle_splints()
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
-			return TRUE
-
-		if((M == user && self_delay > 0) || (M != user && other_delay > 0))
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You hear something being wrapped.</span>")
-
-		if(M == user && !do_mob(user, H, self_delay))
-			return TRUE
-		else if(!do_mob(user, H, other_delay))
-			return TRUE
-
-		user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
-								"<span class='notice'>You apply [src] to [H]'s [limb].</span>")
+			return
+		if(M == user)
+			user.visible_message("<span class='notice'>[user] starts to apply [src] to [user.p_their()] [limb].</span>", \
+								 "<span class='notice'>You start to apply [src] to your [limb].</span>", \
+								 "<span class='notice'>You hear something being wrapped.</span>")
+			if(!do_mob(user, H, self_delay))
+				return
+		else
+			user.visible_message("<span class='green'>[user] applies [src] to [H]'s [limb].</span>", \
+								 "<span class='green'>You apply [src] to [H]'s [limb].</span>", \
+								 "<span class='green'>You hear something being wrapped.</span>")
 
 		affecting.status |= ORGAN_SPLINTED
 		affecting.splinted_count = H.step_count
 		H.handle_splints()
-		use(1)
 
-/obj/item/stack/medical/splint/tribal
-	name = "tribal splints"
-	icon_state = "tribal_splint"
-	other_delay = 50
+		use(1)

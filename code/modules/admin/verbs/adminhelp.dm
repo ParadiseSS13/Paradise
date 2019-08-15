@@ -18,7 +18,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/type = list("Mentorhelp","Adminhelp")
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
 	if(selected_type)
-		msg = clean_input("Please enter your message.", "Admin Help", null)
+		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
 
 	//clean the input msg
 	if(!msg)
@@ -27,7 +27,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	var/original_msg = msg
 
@@ -186,3 +186,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present
 	
+/client/proc/get_adminhelp()
+	var/msg = input(src, "Please describe your problem concisely and an admin will help as soon as they're able.", "Adminhelp contents") as text|null
+	adminhelp(msg)

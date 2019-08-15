@@ -503,7 +503,7 @@
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		SSair.add_to_active(T1,1)
-
+		
 		T1.lighting_build_overlay()
 
 		T0.ChangeTurf(turf_type)
@@ -836,6 +836,20 @@
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
+/obj/machinery/computer/shuttle/golem_ship
+	name = "Golem Ship Console"
+	desc = "Used to control the Golem Ship."
+	circuit = /obj/item/circuitboard/golem_ship
+	shuttleId = "freegolem"
+	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user))
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		return
+	..()
+
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
 	desc = "Used to call and send the engineering shuttle."
@@ -878,25 +892,6 @@
 	req_access = list(access_trade_sol)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
-
-/obj/machinery/computer/shuttle/golem_ship
-	name = "Golem Ship Console"
-	desc = "Used to control the Golem Ship."
-	circuit = /obj/item/circuitboard/shuttle/golem_ship
-	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z4;freegolem_z6"
-
-/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
-	if(!isgolem(user) && !isobserver(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
-		return
-	..()
-
-/obj/machinery/computer/shuttle/golem_ship/recall
-	name = "golem ship recall terminal"
-	desc = "Used to recall the Golem Ship."
-	possible_destinations = "freegolem_lavaland"
-	resistance_flags = INDESTRUCTIBLE
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

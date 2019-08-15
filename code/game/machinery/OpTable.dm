@@ -99,7 +99,7 @@
 		icon_state = "table2-idle"
 	return 0
 
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
+/obj/machinery/optable/Crossed(atom/movable/AM)
 	. = ..()
 	if(iscarbon(AM) && LAZYLEN(injected_reagents))
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")

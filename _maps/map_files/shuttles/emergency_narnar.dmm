@@ -22,7 +22,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "af" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/comfy/black{
 	dir = 1
 	},
 /turf/simulated/floor/engine/cult,
@@ -33,6 +33,12 @@
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/station_alert,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"ai" = (
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aj" = (
@@ -46,20 +52,20 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "al" = (
+/obj/structure/chair{
+	dir = 1
+	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "am" = (
+/obj/structure/chair{
+	dir = 1
+	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -68,7 +74,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/engine/cult,
@@ -78,7 +84,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
@@ -88,13 +94,13 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "as" = (
+/obj/structure/chair{
+	dir = 4
+	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -107,22 +113,22 @@
 	icon_state = "tube1";
 	dir = 1
 	},
+/obj/structure/chair,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
 	},
-/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "au" = (
+/obj/structure/chair{
+	dir = 8
+	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -142,6 +148,9 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ax" = (
+/obj/structure/chair{
+	dir = 4
+	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
 	},
@@ -149,9 +158,6 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -170,17 +176,20 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aB" = (
+/obj/structure/chair{
+	dir = 1
+	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aC" = (
+/obj/structure/chair{
+	dir = 8
+	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
@@ -190,9 +199,6 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -553,7 +559,7 @@ bj
 ab
 ab
 ae
-af
+ai
 aj
 aj
 ab
@@ -605,7 +611,7 @@ aa
 ab
 ab
 ag
-af
+ai
 aj
 ap
 ab

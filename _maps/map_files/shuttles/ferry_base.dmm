@@ -45,13 +45,13 @@
 	},
 /area/shuttle/transport)
 "h" = (
+/obj/structure/chair{
+	dir = 4
+	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
@@ -60,16 +60,16 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "j" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "k" = (
+/obj/structure/chair,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "l" = (
@@ -126,16 +126,16 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "s" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "t" = (
-/obj/machinery/light/spot,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "u" = (

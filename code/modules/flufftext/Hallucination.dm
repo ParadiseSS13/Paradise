@@ -589,7 +589,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	health -= P.force
 	return
 
-/obj/effect/fake_attacker/Crossed(mob/M, oldloc)
+/obj/effect/fake_attacker/Crossed(mob/M, somenumber)
 	if(M == my_target)
 		step_away(src,my_target,2)
 		if(prob(30))

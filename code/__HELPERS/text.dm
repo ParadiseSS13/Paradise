@@ -28,11 +28,6 @@
 /*
  * Text sanitization
  */
-// Can be used almost the same way as normal input for text
-/proc/clean_input(Message, Title, Default, mob/user=usr)
-	var/txt = input(user, Message, Title, Default) as text | null
-	if(txt)
-		return html_encode(txt)
 
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
@@ -130,10 +125,8 @@
 
 //Filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
-	// Decode so that names with characters like < are still rejected. Will be encoded again at the end
-	t_in = html_decode(t_in)
 	if(!t_in || length(t_in) > max_length)
-		return //Rejects the input if it is null or if it is longer than the max length allowed
+		return //Rejects the input if it is null or if it is longer then the max length allowed
 
 	var/number_of_alphanumeric	= 0
 	var/last_char_group			= 0
@@ -192,7 +185,7 @@
 	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))	//prevents these common metagamey names
 		if(cmptext(t_out,bad_name))	return	//(not case sensitive)
 
-	return html_encode(t_out)
+	return t_out
 
 //checks text for html tags
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
@@ -543,43 +536,6 @@ proc/checkhtml(var/t)
 				text = "<font face=\"[deffont]\">[text]</font>"
     
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
-	return text
-
-/proc/convert_pencode_arg(text, tag, arg)
-	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
-	// https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-4---css-escape-and-strictly-validate-before-inserting-untrusted-data-into-html-style-property-values
-	var/list/style_attacks = list("javascript:", "expression", "byond:", "file:")
-
-	for(var/style_attack in style_attacks)
-		if(findtext(arg, style_attack))
-			// Do not attempt to render dangerous things
-			return text
-
-	if(tag == "class")
-		return "<span class='[arg]'>"
-
-	if(tag == "style")
-		return "<span style='[arg]'>"
-
-	if(tag == "img")
-		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
-			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
-			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
-		return "<img src='[arg]'>"
-
-	return text
-
-/proc/admin_pencode_to_html()
-	var/text = pencode_to_html(arglist(args))
-	var/regex/R = new(@"\[(.*?) (.*?)\]", "ge")
-	text = R.Replace(text, /proc/convert_pencode_arg)
-
-	text = replacetext(text, "\[/class\]", "</span>")
-	text = replacetext(text, "\[/style\]", "</span>")
-	text = replacetext(text, "\[/img\]", "</img>")
-
 	return text
 
 /proc/html_to_pencode(text)

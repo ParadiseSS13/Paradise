@@ -28,7 +28,7 @@ var/global/list/frozen_mob_list = list()
 
 /mob/living/proc/admin_Freeze(var/client/admin, skip_overlays = FALSE)
 	if(istype(admin))
-		to_chat(src, "<b><font color= red>You have been frozen by [admin]</b></font>")
+		to_chat(src, "<b><font color= red>You have been frozen by [key_name(admin)]</b></font>")
 		message_admins("<span class='notice'>[key_name_admin(admin)]</span> froze [key_name_admin(src)]")
 		log_admin("[key_name(admin)] froze [key_name(src)]")
 
@@ -45,7 +45,7 @@ var/global/list/frozen_mob_list = list()
 
 /mob/living/proc/admin_unFreeze(var/client/admin, skip_overlays = FALSE)
 	if(istype(admin))
-		to_chat(src, "<b><font color= red>You have been unfrozen by [admin]</b></font>")
+		to_chat(src, "<b><font color= red>You have been unfrozen by [key_name(admin)]</b></font>")
 		message_admins("<span class='notice'>[key_name_admin(admin)] unfroze [key_name_admin(src)]</span>")
 		log_admin("[key_name(admin)] unfroze [key_name(src)]")
 

@@ -29,7 +29,7 @@ var/global/list/image/fluidtrack_cache = list()
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 
 
-/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O, oldloc)
+/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O)
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes

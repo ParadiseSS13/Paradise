@@ -93,20 +93,7 @@
 			if("Numpad3")
 				user.body_l_leg()
 				return
-	else
-		switch(_key)
-			if("Numpad1")
-				a_intent_change("help")
-				return
-			if("Numpad2")
-				a_intent_change("disarm")
-				return
-			if("Numpad3")
-				a_intent_change("grab")
-				return
-			if("Numpad4")
-				a_intent_change("harm")
-				return
+
 	if(client.keys_held["Ctrl"] && client.prefs.toggles & AZERTY)
 		switch(SSinput.alt_movement_keys[_key])
 			if(NORTH)

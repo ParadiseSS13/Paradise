@@ -52,7 +52,7 @@
 		steps--
 	return 1
 
-/obj/effect/particle_effect/smoke/Crossed(mob/living/M, oldloc)
+/obj/effect/particle_effect/smoke/Crossed(mob/living/M)
 	if(!istype(M))
 		return
 	smoke_mob(M)

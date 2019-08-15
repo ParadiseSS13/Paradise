@@ -72,15 +72,11 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
-	// The AFK subsystem will not be activated if any of the below config values are equal or less than 0
-	var/warn_afk_minimum = 0 // How long till you get a warning while being AFK
-	var/auto_cryo_afk = 0 // How long till you get put into cryo when you're AFK
-	var/auto_despawn_afk = 0 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
-
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
-	
-	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
+
+	var/prob_free_golems = 75 //chance for free golems spawners to appear roundstart
+	var/unrestricted_free_golems = FALSE //if true, free golems can appear on all roundtypes
 
 	var/traitor_objectives_amount = 2
 	var/shadowling_max_age = 0
@@ -309,23 +305,19 @@
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
 
+				if("prob_free_golems")
+					config.prob_free_golems = text2num(value)
+
+				if("unrestricted_free_golems")
+					config.unrestricted_free_golems = TRUE
+
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
-
-				if("warn_afk_minimum")
-					config.warn_afk_minimum = text2num(value)
-				if("auto_cryo_afk")
-					config.auto_cryo_afk = text2num(value)
-				if("auto_despawn_afk")
-					config.auto_despawn_afk = text2num(value)
 
 				if("auto_cryo_ssd_mins")
 					config.auto_cryo_ssd_mins = text2num(value)
 				if("ssd_warning")
 					config.ssd_warning = 1
-
-				if("list_afk_minimum")
-					config.list_afk_minimum = text2num(value)
 
 				if("ipintel_email")
 					if(value != "ch@nge.me")

@@ -155,7 +155,7 @@
 	},
 /area/ruin/powered)
 "v" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -205,7 +205,7 @@
 	},
 /area/ruin/powered)
 "B" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor5";
 	icon_state = "floor5"

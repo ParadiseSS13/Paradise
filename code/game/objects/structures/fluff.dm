@@ -63,19 +63,3 @@
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
 	icon_state = "drake_statue_falling"
-
-/obj/structure/fluff/divine
-	name = "Miracle"
-	icon = 'icons/obj/hand_of_god_structures.dmi'
-	anchored = TRUE
-	density = TRUE
-
-/obj/structure/fluff/divine/nexus
-	name = "nexus"
-	desc = "It anchors a deity to this world. It radiates an unusual aura. It looks well protected from explosive shock."
-	icon_state = "nexus"
-
-/obj/structure/fluff/divine/conduit
-	name = "conduit"
-	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
-	icon_state = "conduit"

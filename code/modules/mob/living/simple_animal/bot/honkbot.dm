@@ -298,7 +298,7 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
+/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM)
 	if(ismob(AM) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM

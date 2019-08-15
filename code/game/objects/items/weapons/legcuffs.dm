@@ -87,7 +87,7 @@
 			return
 	..()
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
+/obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj)
 	if(armed && isturf(src.loc))
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
@@ -193,6 +193,6 @@
 /obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
 	if(iscarbon(hit_atom))
 		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(hit_atom))
-		B.Crossed(hit_atom, null)
+		B.Crossed(hit_atom)
 		qdel(src)
 	..()

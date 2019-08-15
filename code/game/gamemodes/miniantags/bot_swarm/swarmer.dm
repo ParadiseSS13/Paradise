@@ -545,7 +545,7 @@
 	light_color = LIGHT_COLOR_CYAN
 	health = 10
 
-/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM, oldloc)
+/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))

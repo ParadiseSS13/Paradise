@@ -50,7 +50,6 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	hide_attacklogs = TRUE
 
 
 /area/adminconstruction
@@ -58,7 +57,6 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	hide_attacklogs = TRUE
 
 /area/space
 	icon_state = "space"
@@ -524,7 +522,6 @@ var/list/ghostteleportlocs = list()
 	icon_state = "thunder"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	hide_attacklogs = TRUE
 
 
 /area/tdome/arena_source
@@ -1403,12 +1400,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
-	can_get_auto_cryod = FALSE
 
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
-	can_get_auto_cryod = FALSE
 
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
@@ -1437,17 +1432,14 @@ var/list/ghostteleportlocs = list()
 /area/security/execution
 	name = "\improper Execution"
 	icon_state = "execution"
-	can_get_auto_cryod = FALSE
 
 /area/security/processing
 	name = "\improper Prisoner Processing"
 	icon_state = "prisonerprocessing"
-	can_get_auto_cryod = FALSE
 
 /area/security/interrogation
 	name = "\improper Interrogation"
 	icon_state = "interrogation"
-	can_get_auto_cryod = FALSE
 
 /area/security/seceqstorage
 	name = "\improper Security Equipment Storage"
@@ -1464,7 +1456,6 @@ var/list/ghostteleportlocs = list()
 /area/security/interrogationobs
 	name = "\improper Interrogation Observation"
 	icon_state = "security"
-	can_get_auto_cryod = FALSE
 
 /area/security/evidence
 	name = "\improper Evidence Room"
@@ -1473,7 +1464,6 @@ var/list/ghostteleportlocs = list()
 /area/security/prisonlockers
 	name = "\improper Prisoner Lockers"
 	icon_state = "sec_prison_lockers"
-	can_get_auto_cryod = FALSE
 
 /area/security/medbay
 	name = "\improper Security Medbay"
@@ -1482,7 +1472,6 @@ var/list/ghostteleportlocs = list()
 /area/security/prisonershuttle
 	name = "\improper Security Prisoner Shuttle"
 	icon_state = "security"
-	can_get_auto_cryod = FALSE
 
 /area/security/warden
 	name = "\improper Warden's Office"

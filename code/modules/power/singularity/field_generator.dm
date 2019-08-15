@@ -287,7 +287,7 @@ field_generator power level display
 			fields += CF
 			G.fields += CF
 			for(var/mob/living/L in T)
-				CF.Crossed(L, null)
+				CF.Crossed(L)
 
 	connected_gens |= G
 	G.connected_gens |= src

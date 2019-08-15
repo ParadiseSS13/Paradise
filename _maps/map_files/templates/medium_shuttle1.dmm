@@ -332,7 +332,7 @@
 	name = "Shuttle"
 	})
 "L" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/comfy/black{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

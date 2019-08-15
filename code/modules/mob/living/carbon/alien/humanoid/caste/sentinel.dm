@@ -42,7 +42,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
-/mob/living/carbon/alien/humanoid/sentinel/handle_hud_icons_health()
+/mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()
 	..() //-Yvarov
 
 	if(healths)

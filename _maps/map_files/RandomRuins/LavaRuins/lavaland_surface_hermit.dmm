@@ -162,7 +162,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "I" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,

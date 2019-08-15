@@ -119,7 +119,7 @@
 	owner = null
 	return ..()
 
-/obj/effect/ebeam/deadly/Crossed(atom/A, oldloc)
+/obj/effect/ebeam/deadly/Crossed(atom/A)
 	..()
 	A.ex_act(1)
 

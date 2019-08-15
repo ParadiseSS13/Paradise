@@ -1265,7 +1265,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1275,7 +1275,7 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1323,7 +1323,7 @@
 	},
 /area/awaymission/beach)
 "dZ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1336,7 +1336,7 @@
 	},
 /area/awaymission/beach)
 "eb" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1371,7 +1371,7 @@
 /turf/simulated/shuttle/floor,
 /area/awaymission/beach)
 "ei" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,

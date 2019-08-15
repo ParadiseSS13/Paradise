@@ -187,7 +187,9 @@
 	name = "Shuttle"
 	})
 "x" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/comfy{
+	tag = "icon-comfychair (WEST)";
+	icon_state = "comfychair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

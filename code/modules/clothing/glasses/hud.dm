@@ -91,6 +91,14 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/hud/security/chameleon
+	name = "Chameleon Security HUD"
+	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
+	flash_protect = 1
+
+/obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
+	chameleon(user)
+
 /obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
 	name = "augmented shades"
 	desc = "Polarized bioneural eyewear, designed to augment your vision."

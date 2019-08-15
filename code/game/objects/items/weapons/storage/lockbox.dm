@@ -116,10 +116,15 @@
 
 /obj/item/storage/lockbox/medal/New()
 	..()
-	new /obj/item/clothing/accessory/medal/gold/captain(src)
-	new /obj/item/clothing/accessory/medal/silver/leadership(src)
+	new /obj/item/clothing/accessory/medal/gold/heroism(src)
+	new /obj/item/clothing/accessory/medal/silver/security(src)
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
-	new /obj/item/clothing/accessory/medal/heart(src)
+	new /obj/item/clothing/accessory/medal/nobel_science(src)
+	new /obj/item/clothing/accessory/medal/bronze_heart(src)
+	new /obj/item/clothing/accessory/medal/conduct(src)
+	new /obj/item/clothing/accessory/medal/conduct(src)
+	new /obj/item/clothing/accessory/medal/conduct(src)
+	new /obj/item/clothing/accessory/medal/gold/captain(src)
 
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"

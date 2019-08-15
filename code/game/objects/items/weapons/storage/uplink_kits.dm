@@ -20,7 +20,7 @@
 		if("thief")	// 40TC
 			new /obj/item/gun/energy/kinetic_accelerator/crossbow(src) // 12TC
 			new /obj/item/chameleon(src) // 8TC
-			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
+			new /obj/item/clothing/glasses/thermal/syndi(src) // 6TC
 			new /obj/item/clothing/gloves/color/black/thief(src) // 6TC
 			new /obj/item/card/id/syndicate(src) // 2TC
 			new /obj/item/clothing/shoes/chameleon/noslip(src) // 2TC
@@ -108,7 +108,7 @@
 			new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator(src) // 16TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
-			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
+			new /obj/item/clothing/glasses/thermal/syndi/sunglasses(src) // 6TC 
 			new /obj/item/clothing/gloves/combat(src) // 0 TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) // 0 TC
 			new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src) // 0TC

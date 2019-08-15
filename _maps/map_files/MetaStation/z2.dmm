@@ -1771,6 +1771,13 @@
 /obj/structure/grille,
 /turf/simulated/shuttle/plating,
 /area/centcom/evac)
+"eP" = (
+/obj/structure/chair{
+	dir = 4;
+	name = "Prosecution"
+	},
+/turf/simulated/shuttle/floor,
+/area/centcom/evac)
 "eQ" = (
 /obj/structure/closet/secure_closet/cargotech,
 /turf/unsimulated/floor{
@@ -5042,26 +5049,26 @@
 	},
 /area/tdome/tdomeobserve)
 "nK" = (
+/obj/structure/chair{
+	dir = 8
+	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "nL" = (
+/obj/structure/chair{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (WEST)";
 	icon_state = "bulb1";
 	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -6106,7 +6113,7 @@
 /turf/space,
 /area/shuttle/escape_pod5/centcom)
 "xF" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -6114,7 +6121,7 @@
 	},
 /area/centcom/evac)
 "xG" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -6122,7 +6129,7 @@
 	},
 /area/centcom/evac)
 "xW" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -6132,13 +6139,13 @@
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "yd" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "yf" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "yg" = (
@@ -6149,6 +6156,12 @@
 /area/shuttle/escape)
 "yk" = (
 /obj/structure/chair/sofa,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"yl" = (
+/obj/structure/chair/sofa/corner,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -6252,25 +6265,25 @@
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
 "EE" = (
-/obj/machinery/light/small,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/light/small,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "Fz" = (
+/obj/structure/chair,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "FV" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -6278,19 +6291,13 @@
 	},
 /area/shuttle/assault_pod)
 "FW" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
-"Gw" = (
-/obj/structure/chair/sofa/left,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/escape)
 "HX" = (
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
@@ -27551,7 +27558,7 @@ fe
 fd
 fG
 eh
-xW
+eP
 fd
 fT
 fC
@@ -47101,7 +47108,7 @@ ab
 ab
 ab
 fi
-Gw
+yk
 jE
 jE
 jE
@@ -47358,7 +47365,7 @@ ab
 ab
 ab
 fi
-jE
+yl
 jE
 jE
 jE

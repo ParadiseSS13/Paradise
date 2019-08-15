@@ -36,7 +36,7 @@
 	desc = "A thick vine, painful to the touch."
 
 
-/obj/effect/ebeam/vine/Crossed(atom/movable/AM, oldloc)
+/obj/effect/ebeam/vine/Crossed(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!("vines" in L.faction))

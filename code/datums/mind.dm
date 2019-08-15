@@ -42,7 +42,6 @@
 	var/list/kills = list()
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
-	var/list/targets = list()
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 

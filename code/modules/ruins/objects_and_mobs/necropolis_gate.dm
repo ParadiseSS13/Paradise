@@ -266,7 +266,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/stone_tile/singularity_pull()
 	return
 
-/obj/structure/stone_tile/Crossed(atom/movable/AM, oldloc)
+/obj/structure/stone_tile/Crossed(atom/movable/AM)
 	if(falling || fallen)
 		return
 	var/turf/T = get_turf(src)
@@ -310,7 +310,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	falling = FALSE
 	fallen = FALSE
 
-/obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM, oldloc)
+/obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM)
 	return
 
 /obj/structure/stone_tile/block

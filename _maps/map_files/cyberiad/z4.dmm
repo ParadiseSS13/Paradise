@@ -845,17 +845,37 @@
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/center)
 "cl" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
+"cm" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/space/nearstation)
 "cn" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
+"co" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"cp" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
 "cq" = (
 /obj/structure/inflatable/door,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
+"cr" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
+"cs" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
 "ct" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -872,8 +892,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cv" = (
 /obj/machinery/power/tracker,
@@ -896,8 +916,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cx" = (
 /obj/machinery/power/solar,
@@ -935,8 +955,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cB" = (
 /obj/structure/cable{
@@ -954,8 +974,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "cC" = (
 /turf/simulated/wall/r_wall,
@@ -1025,6 +1045,55 @@
 	icon_state = "bcircuit"
 	},
 /area/constructionsite/ai)
+"cL" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"cM" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"cN" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"cO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"cP" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"cQ" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
 "cR" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
@@ -1038,6 +1107,10 @@
 	icon_state = "dark"
 	},
 /area/engiestation)
+"cT" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
 "cU" = (
 /obj/structure/lattice,
 /turf/space,
@@ -1197,6 +1270,10 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
+"do" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
 "dp" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1208,8 +1285,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dq" = (
 /obj/structure/cable{
@@ -1228,8 +1305,28 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"dr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "ds" = (
 /obj/effect/spawner/window/reinforced,
@@ -1340,8 +1437,28 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"dz" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dA" = (
 /obj/structure/cable{
@@ -1354,8 +1471,12 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"dB" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dC" = (
 /obj/machinery/recharge_station,
@@ -1508,8 +1629,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dT" = (
 /obj/structure/cable{
@@ -1523,8 +1644,23 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"dU" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "dV" = (
 /obj/structure/cable{
@@ -1580,8 +1716,32 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"eb" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
+"ec" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/engiestation/solars)
 "ed" = (
 /obj/item/stack/sheet/metal{
@@ -1720,6 +1880,10 @@
 	icon_state = "dark"
 	},
 /area/engiestation)
+"em" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/engiestation/solars)
 "en" = (
 /obj/machinery/vending/tool,
 /turf/simulated/floor/plasteel{
@@ -1755,6 +1919,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
+"es" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
 "et" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "0";
@@ -2060,6 +2228,10 @@
 	icon_state = "carpet"
 	},
 /area/engiestation)
+"fi" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
 "fj" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -2358,13 +2530,13 @@
 	},
 /area/engiestation)
 "fQ" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/space)
 "fR" = (
 /obj/item/lighter/zippo,
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
 /area/space/nearstation)
 "fS" = (
 /obj/machinery/shower{
@@ -2457,6 +2629,10 @@
 	icon_state = "delivery"
 	},
 /area/engiestation)
+"gc" = (
+/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/area/space/nearstation)
 "gd" = (
 /obj/structure/lattice,
 /obj/structure/disposaloutlet{
@@ -4862,17 +5038,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"zH" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_z4";
-	name = "Near Construction Site";
-	width = 16
-	},
-/turf/space,
-/area/space)
 
 (1,1,1) = {"
 aa
@@ -14228,14 +14393,14 @@ aa
 aa
 ab
 cl
-cl
-cl
-cl
-cl
-cl
-cl
-cl
-cl
+cr
+cr
+cr
+cr
+cr
+cr
+cr
+cr
 fQ
 bC
 aa
@@ -14484,7 +14649,7 @@ aa
 aa
 ab
 cl
-cl
+es
 ab
 ab
 ab
@@ -14493,7 +14658,7 @@ ab
 ab
 aa
 aa
-cl
+cm
 ab
 aa
 aa
@@ -14731,16 +14896,16 @@ aa
 aa
 ab
 cl
-cl
-cl
-cl
-cl
-cn
-cn
-cn
-cn
-cn
-cn
+cr
+cr
+cr
+cr
+cP
+cs
+do
+cs
+do
+cM
 cC
 cF
 cF
@@ -14750,7 +14915,7 @@ cF
 cC
 aa
 aa
-cl
+cm
 ab
 aa
 aa
@@ -14987,12 +15152,12 @@ aa
 aa
 aa
 ab
-cl
+cm
 ab
 ab
 aa
 ab
-cn
+co
 dd
 dp
 dK
@@ -15244,12 +15409,12 @@ aa
 aa
 aa
 aa
-cl
+cm
 ab
 ab
 ab
 ab
-cn
+co
 dd
 dq
 dK
@@ -15501,12 +15666,12 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 ab
 ab
 ab
-cn
+co
 dd
 dq
 dK
@@ -15758,16 +15923,16 @@ aa
 aa
 aa
 aa
-cl
+cm
 ab
 ab
 ab
-cn
-cn
+cL
+cM
 dd
-dq
+dr
 dK
-dT
+dU
 dK
 da
 eB
@@ -16016,10 +16181,10 @@ aa
 aa
 ab
 cn
-cn
-cn
-cn
-cn
+cs
+cs
+cs
+cM
 cW
 cX
 ds
@@ -16272,7 +16437,7 @@ aa
 aa
 aa
 ab
-cn
+co
 ct
 ct
 ct
@@ -16533,7 +16698,7 @@ cn
 cu
 cA
 cA
-cA
+cN
 cY
 df
 du
@@ -16786,7 +16951,7 @@ aa
 aa
 aa
 ab
-cn
+co
 cv
 ct
 ct
@@ -17047,7 +17212,7 @@ cn
 cw
 cB
 cB
-cB
+cO
 cY
 df
 dw
@@ -17300,7 +17465,7 @@ aa
 aa
 aa
 ab
-cn
+co
 cx
 cx
 cx
@@ -17558,10 +17723,10 @@ aa
 aa
 ab
 cn
-cn
-cn
-cn
-cn
+cs
+cs
+cs
+cP
 cW
 cX
 ds
@@ -17814,12 +17979,12 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 aa
 ab
-cn
-cn
+cQ
+cP
 dd
 dy
 dK
@@ -18071,16 +18236,16 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 ab
 ab
 ab
-cn
+co
 dd
-dy
+dz
 dK
-ea
+eb
 dK
 da
 eI
@@ -18328,16 +18493,16 @@ aa
 aa
 aa
 aa
-cl
+cm
 ab
 ab
 ab
 ab
-cn
+co
 dd
-dy
+dz
 dK
-ea
+eb
 dK
 da
 dj
@@ -18585,16 +18750,16 @@ aa
 aa
 aa
 aa
-cl
+cm
 ab
 ab
 aa
 ab
-cn
+co
 dd
 dA
 dK
-cu
+ec
 dK
 da
 dj
@@ -18842,17 +19007,17 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 aa
 aa
 aa
-cn
-cn
-cn
-cn
-cn
-cn
+cQ
+cs
+dB
+cs
+dB
+em
 da
 eI
 da
@@ -19099,7 +19264,7 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 cC
 cF
@@ -19120,7 +19285,7 @@ cF
 cF
 cF
 cC
-cl
+gc
 aa
 aa
 aa
@@ -19356,7 +19521,7 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 cC
 cG
@@ -19377,7 +19542,7 @@ ab
 ab
 aa
 aa
-cl
+cm
 aa
 aa
 aa
@@ -19613,7 +19778,7 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 cC
 cH
@@ -19634,7 +19799,7 @@ aa
 ab
 ab
 aa
-cl
+cm
 aa
 aa
 aa
@@ -19870,7 +20035,7 @@ aa
 aa
 aa
 aa
-cl
+cm
 aa
 cC
 cI
@@ -19891,7 +20056,7 @@ aa
 aa
 ab
 ab
-cl
+cm
 ab
 aa
 aa
@@ -20127,7 +20292,7 @@ aa
 aa
 aa
 ab
-cl
+cm
 aa
 cC
 cF
@@ -20142,13 +20307,13 @@ dE
 dj
 dE
 cC
-cl
-cl
-cl
-cl
-cl
-cl
-cl
+fi
+cr
+cr
+cr
+cr
+cr
+es
 bC
 aa
 aa
@@ -20384,11 +20549,11 @@ aa
 aa
 aa
 ab
-cl
-cl
-cl
-cl
-cl
+cp
+cr
+cr
+cr
+cT
 dc
 cC
 dD
@@ -43883,7 +44048,7 @@ aa
 aa
 aa
 aa
-zH
+aa
 aa
 aa
 aa

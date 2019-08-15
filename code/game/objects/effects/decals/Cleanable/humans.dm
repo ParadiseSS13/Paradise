@@ -88,7 +88,7 @@ var/global/list/image/splatter_cache = list()
 	return TRUE
 
 //Add "bloodiness" of this blood's type, to the human's shoes
-/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O, oldloc)
+/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
 	if(!off_floor && ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")

@@ -169,10 +169,7 @@
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi'
-	)
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
@@ -299,9 +296,7 @@
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude

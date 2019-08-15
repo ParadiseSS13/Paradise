@@ -237,9 +237,6 @@
 	icon_state = "chair";
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -258,9 +255,6 @@
 	icon_state = "camera";
 	name = "NHV Asclepius Lobby";
 	network = list("NHV Asclepius")
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -325,7 +319,7 @@
 	},
 /area/shuttle/administration)
 "aG" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/office/light{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -418,18 +412,12 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "aR" = (
 /obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -495,7 +483,7 @@
 	},
 /area/shuttle/administration)
 "aY" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/office/light,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -675,9 +663,6 @@
 	pixel_z = 0;
 	req_access = list(101);
 	req_access_txt = "0"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -905,9 +890,6 @@
 	dir = 8
 	},
 /obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},

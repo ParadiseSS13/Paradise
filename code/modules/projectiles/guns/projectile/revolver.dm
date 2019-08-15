@@ -299,18 +299,6 @@
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message("<span class='danger'>[user.name] fires [src] at [user.p_their()] head!</span>", "<span class='userdanger'>You fire [src] at your head!</span>", "<span class='italics'>You hear a gunshot!</span>")
 
-/obj/item/gun/projectile/revolver/russian/soul
-	name = "cursed Russian revolver"
-	desc = "To play with this revolver requires wagering your very soul."
-
-/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
-	..()
-	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
-	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
-		qdel(SS)
-		return
-	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
-
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"
 	desc = "Looks almost like the real thing! Ages 8 and up."

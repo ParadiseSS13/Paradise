@@ -93,7 +93,7 @@
 			return
 	..()
 
-/obj/item/assembly/mousetrap/Crossed(atom/movable/AM, oldloc)
+/obj/item/assembly/mousetrap/Crossed(atom/movable/AM)
 	if(armed)
 		if(ishuman(AM))
 			var/mob/living/carbon/H = AM

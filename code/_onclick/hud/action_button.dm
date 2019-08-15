@@ -2,25 +2,6 @@
 	var/datum/action/linked_action
 	screen_loc = null
 
-/obj/screen/movable/action_button/MouseDrop(over_object)
-	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
-		if(locked)
-			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-			closeToolTip(usr)
-			return
-		var/obj/screen/movable/action_button/B = over_object
-		var/list/actions = usr.actions
-		actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
-		moved = FALSE
-		B.moved = FALSE
-		closeToolTip(usr)
-		usr.update_action_buttons()
-	else if(istype(over_object, /obj/screen/movable/action_button/hide_toggle))
-		closeToolTip(usr)
-	else
-		closeToolTip(usr)
-		return ..()
-
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
@@ -47,13 +28,6 @@
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = 0
-
-/obj/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
-	if(istype(over_object, /obj/screen/movable/action_button))
-		closeToolTip(usr)
-	else
-		closeToolTip(usr)
-		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
 	var/list/modifiers = params2list(params)
@@ -109,9 +83,9 @@
 	var/image/img = image(icon, src, hidden ? "show" : "hide")
 	overlays += img
 
-/obj/screen/movable/action_button/MouseEntered(location, control, params)
-	if(!QDELETED(src))
-		openToolTip(usr, src, params, title = name, content = desc)
+/obj/screen/movable/action_button/MouseEntered(location,control,params)
+	openToolTip(usr,src,params,title = name,content = desc)
+
 
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)

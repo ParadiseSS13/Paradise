@@ -345,7 +345,7 @@ steam.start() -- spawns the effect
 	return 1
 
 
-/obj/effect/effect/bad_smoke/Crossed(mob/living/carbon/M as mob, oldloc)
+/obj/effect/effect/bad_smoke/Crossed(mob/living/carbon/M as mob )
 	..()
 	if(istype(M, /mob/living/carbon))
 		if(M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
@@ -569,7 +569,7 @@ steam.start() -- spawns the effect
 						M.coughedtime = 0
 	return
 
-/obj/effect/effect/sleep_smoke/Crossed(mob/living/carbon/M as mob, oldloc)
+/obj/effect/effect/sleep_smoke/Crossed(mob/living/carbon/M as mob )
 	..()
 	if(istype(M, /mob/living/carbon))
 		if(M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
@@ -672,7 +672,7 @@ steam.start() -- spawns the effect
 			R.updatehealth()
 	return
 
-/obj/effect/effect/mustard_gas/Crossed(mob/living/carbon/human/R as mob, oldloc)
+/obj/effect/effect/mustard_gas/Crossed(mob/living/carbon/human/R as mob )
 	..()
 	if(istype(R, /mob/living/carbon/human))
 		if(R.internal != null && usr.wear_mask && (R.wear_mask.flags & AIRTIGHT) && R.wear_suit != null && !istype(R.wear_suit, /obj/item/clothing/suit/storage/labcoat) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket && !istype(R.wear_suit, /obj/item/clothing/suit/armor)))
@@ -984,7 +984,7 @@ steam.start() -- spawns the effect
 			qdel(src)
 
 
-/obj/structure/foam/Crossed(var/atom/movable/AM, oldloc)
+/obj/structure/foam/Crossed(var/atom/movable/AM)
 	if(metal)
 		return
 

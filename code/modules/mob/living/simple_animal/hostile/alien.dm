@@ -4,7 +4,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "alienh_running"
 	icon_living = "alienh_running"
-	icon_dead = "alienh_dead"
+	icon_dead = "alien_l"
 	icon_gib = "syndicate_gib"
 	response_help = "pokes the"
 	response_disarm = "shoves the"
@@ -40,7 +40,7 @@
 	name = "alien drone"
 	icon_state = "aliend_running"
 	icon_living = "aliend_running"
-	icon_dead = "aliend_dead"
+	icon_dead = "aliend_l"
 	health = 60
 	maxHealth = 60
 	melee_damage_lower = 15
@@ -61,7 +61,7 @@
 	name = "alien sentinel"
 	icon_state = "aliens_running"
 	icon_living = "aliens_running"
-	icon_dead = "aliens_dead"
+	icon_dead = "aliens_l"
 	health = 120
 	maxHealth = 120
 	melee_damage_lower = 15
@@ -77,7 +77,7 @@
 	name = "alien queen"
 	icon_state = "alienq_running"
 	icon_living = "alienq_running"
-	icon_dead = "alienq_d"
+	icon_dead = "alienq_l"
 	health = 250
 	maxHealth = 250
 	melee_damage_lower = 15

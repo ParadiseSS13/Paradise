@@ -239,9 +239,9 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.Crossed(AM)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
@@ -289,7 +289,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([admin_jump_link(M)]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
 
 	update_mob()
@@ -419,7 +419,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([ADMIN_FLW(M,"FLW")]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([ADMIN_FLW(last,"FLW")]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
 	else
 		addtimer(CALLBACK(src, .proc/prime), det_time)

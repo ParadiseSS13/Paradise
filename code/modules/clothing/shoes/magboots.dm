@@ -71,30 +71,6 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	silence_steps = 1
 	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
-	var/enabled_waddle = TRUE
-	var/datum/component/waddle
-
-/obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
-	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
-		waddle = user.AddComponent(/datum/component/waddling)
-
-/obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
-	. = ..()
-	QDEL_NULL(waddle)
-
-/obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
-	if(!isliving(user))
-		return
-	if(user.get_active_hand() != src)
-		to_chat(user, "You must hold [src] in your hand to do this.")
-		return
-	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
-		enabled_waddle = TRUE
-	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
-		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
 	name = "boots of gripping"

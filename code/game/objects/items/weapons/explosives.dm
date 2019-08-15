@@ -48,9 +48,9 @@
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/plastic/Crossed(atom/movable/AM)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.Crossed(AM)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)

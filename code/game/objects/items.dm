@@ -578,7 +578,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/is_equivalent(obj/item/I)
 	return I == src
 
-/obj/item/Crossed(atom/movable/AM, oldloc)
+/obj/item/Crossed(atom/movable/AM)
 	. = ..()
 	if(prob(trip_chance) && ishuman(AM))
 		var/mob/living/carbon/human/H = AM

@@ -177,7 +177,6 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/item/seeds/wheat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aC" = (
@@ -190,12 +189,11 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/medical,
+/obj/item/storage/firstaid/regular,
 /obj/item/reagent_containers/iv_bag/blood,
 /obj/item/reagent_containers/iv_bag/blood,
 /obj/item/reagent_containers/iv_bag/blood,
 /obj/item/stack/sheet/cloth/ten,
-/obj/item/stack/medical/splint,
-/obj/item/storage/firstaid/adv,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aF" = (
@@ -257,8 +255,6 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/item/seeds/comfrey,
-/obj/item/seeds/aloe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aN" = (
@@ -1259,7 +1255,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "do" = (
-/obj/structure/sink/puddle,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/watertank,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)

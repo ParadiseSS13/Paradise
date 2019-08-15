@@ -99,7 +99,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
 		return
 
-	var/message = clean_input("WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement, src)
+	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
 
 	last_announcement = message
 

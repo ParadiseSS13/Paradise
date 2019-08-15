@@ -261,10 +261,8 @@
 	for(var/mob/living/carbon/C in hearers(4))
 		if(C == user)
 			continue
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
-				continue
+		if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs))
+			continue
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
@@ -349,16 +347,8 @@
 	SSticker.mode.vampire_enthralled.Add(H.mind)
 	SSticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
-
-	var/datum/objective/protect/serve_objective = new
-	serve_objective.owner = user.mind
-	serve_objective.target = H.mind
-	serve_objective.explanation_text = "You have been Enthralled by [user]. Follow [user.p_their()] every command."
-	H.mind.objectives += serve_objective
-
-	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
+	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
-	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")
 
 

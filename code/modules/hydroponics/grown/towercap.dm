@@ -160,7 +160,7 @@
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
+/obj/structure/bonfire/Crossed(atom/movable/AM)
 	if(burning)
 		Burn()
 
