@@ -56,6 +56,7 @@
 	var/jitter = 0
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
+	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 0
@@ -82,9 +83,26 @@
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
+	var/hitx
+	var/hity
+	if(target == original)
+		hitx = target.pixel_x + p_x - 16
+		hity = target.pixel_y + p_y - 16
+	else
+		hitx = target.pixel_x + rand(-8, 8)
+		hity = target.pixel_y + rand(-8, 8)
+	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
+		var/turf/simulated/wall/W = target_loca
+		if(impact_effect_type)
+			new impact_effect_type(target_loca, hitx, hity)
+		
+		W.add_dent(WALL_DENT_SHOT, hitx, hity)
+		return 0
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
 	if(!isliving(target))
+		if(impact_effect_type)
+			new impact_effect_type(target_loca, hitx, hity)
 		return 0
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
@@ -115,7 +133,8 @@
 						M.bloody_hands(H)
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
-
+		else if(impact_effect_type)
+			new impact_effect_type(target_loca, hitx, hity)
 		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
