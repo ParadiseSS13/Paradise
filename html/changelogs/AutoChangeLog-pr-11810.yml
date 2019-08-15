@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Action buttons can now be dragged onto each other to swap places"
+  - bugfix: "Fixed a case where dragging locked action buttons could result in white tooltip over the screen"

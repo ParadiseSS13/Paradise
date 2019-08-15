@@ -1,0 +1,6 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - bugfix: "When a cult sacrifice target leaves the round via cryo, the game will reassign a new target for them"
+  - rscadd: "Added an alarm sound that plays for cultists when their sacrifice target leave the round via cryo"
+  - rscadd: "When a cult sacrifice target leaves the round via cryo, the game will update every cultist's notes to reflect the change"

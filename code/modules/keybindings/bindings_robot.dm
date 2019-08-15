@@ -6,7 +6,15 @@
 		if("4")
 			a_intent_change(INTENT_HOTKEY_LEFT)
 			return
-		if("Q")
-			uneq_active()
+		if("X")
+			cycle_modules()
 			return
+		if("Q")
+			if(!(client.prefs.toggles & AZERTY))
+				uneq_active()
+				return
+		if("A")
+			if(client.prefs.toggles & AZERTY)
+				uneq_active()
+				return
 	return ..()

@@ -311,6 +311,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
+	check_unres()
 	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
@@ -333,7 +334,6 @@ About the new airlock wires panel:
 	var/image/sparks_overlay
 	var/image/note_overlay
 	var/notetype = note_type()
-
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay("closed", icon)
@@ -621,6 +621,31 @@ About the new airlock wires panel:
 		if(user)
 			attack_ai(user)
 
+/obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
+	if(hasPower() && unres_sides)
+		if(unres_sides & NORTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			I.pixel_y = 32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & SOUTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			I.pixel_y = -32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & EAST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			I.pixel_x = 32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & WEST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			I.pixel_x = -32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+	else
+		set_light(0)
+		
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover

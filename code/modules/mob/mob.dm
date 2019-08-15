@@ -693,9 +693,13 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-
-	if(mind)
+	
+	var/combined = length(memory + msg)
+	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
+	else if(combined >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "Your brain can't hold that much information!")
+		return
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
@@ -1366,5 +1370,19 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		if (L)
+		if(L)
 			L.alpha = lighting_alpha
+
+	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
+
+/mob/proc/sync_nightvision_screen()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(S)
+		var/suffix = ""
+		switch(see_in_dark)
+			if(3 to 8)
+				suffix = "_[see_in_dark]"
+			if(8 to INFINITY)
+				suffix = "_8"
+
+		S.icon_state = "[initial(S.icon_state)][suffix]"
