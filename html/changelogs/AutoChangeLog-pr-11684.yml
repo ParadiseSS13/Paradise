@@ -1,4 +1,0 @@
-author: "IAmBigCoat"
-delete-after: True
-changes: 
-  - tweak: "Added explosion warnings to medbeams, because medbeams can cause explosions. DON'T CROSS THE BEAMS!"

@@ -47,13 +47,13 @@
 	},
 /area/shuttle/transport)
 "h" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -103,7 +103,7 @@
 	},
 /area/shuttle/transport)
 "n" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -114,7 +114,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

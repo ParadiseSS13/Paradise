@@ -1,4 +1,0 @@
-author: "Tayyyyyyy"
-delete-after: True
-changes: 
-  - bugfix: "autocomplete input mishandling single quotes (you can teleport to Wizard's den now)"
