@@ -56533,9 +56533,6 @@
 /area/server)
 "bYV" = (
 /obj/structure/table,
-/obj/machinery/photocopier/faxmachine{
-	department = "Head of Personnel's Office"
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -56547,6 +56544,9 @@
 	pixel_x = -6;
 	pixel_y = 16;
 	req_access_txt = "57"
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Personnel's Office"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
