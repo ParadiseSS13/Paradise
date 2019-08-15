@@ -95,6 +95,9 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
+/obj/screen/act_intent/robot/AI
+	screen_loc = "EAST-1:32,SOUTH:70"
+
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"

@@ -225,7 +225,7 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aaF" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -413,10 +413,10 @@
 	},
 /area/shuttle/abandoned)
 "abe" = (
-/obj/structure/chair{
+/obj/effect/decal/remains/human,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/decal/remains/human,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -512,13 +512,13 @@
 /area/shuttle/abandoned)
 "abr" = (
 /obj/item/shard,
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/abandoned)
 "abs" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -811,7 +811,7 @@
 	},
 /area/shuttle/syndicate)
 "ace" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -1060,7 +1060,7 @@
 	},
 /area/security/armoury)
 "acI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -1068,7 +1068,7 @@
 	},
 /area/shuttle/syndicate)
 "acJ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -3880,11 +3880,13 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ahp" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ahq" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4/vox,
@@ -6976,7 +6978,7 @@
 /area/shuttle/vox)
 "aml" = (
 /obj/item/stack/spacecash/c50,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4/vox,
@@ -7421,10 +7423,10 @@
 "amZ" = (
 /obj/item/stack/spacecash/c200,
 /obj/item/stack/spacecash/c50,
-/obj/structure/chair{
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ana" = (
@@ -10422,7 +10424,7 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/trade/sol)
 "arW" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -10449,7 +10451,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -11416,12 +11418,20 @@
 	id_tag = "secmaintdorm1";
 	name = "Room 1"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ats" = (
 /obj/machinery/door/airlock{
 	id_tag = "secmaintdorm2";
 	name = "Room 2"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -11637,7 +11647,7 @@
 	},
 /area/shuttle/siberia)
 "atL" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -12787,14 +12797,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "avp" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	listening = 1;
 	name = "station intercom (General)";
 	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
@@ -12840,9 +12850,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "avu" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -12850,6 +12857,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_3)
 "avv" = (
@@ -13185,6 +13195,10 @@
 	dir = 4;
 	level = 1
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";
@@ -13213,6 +13227,10 @@
 	id_tag = "BrigEast";
 	name = "Brig East Entrance";
 	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13287,6 +13305,10 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -13956,9 +13978,6 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/syndicate_sit)
 "axm" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
 	pixel_x = 25
@@ -13966,6 +13985,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
@@ -13975,7 +13997,7 @@
 /turf/space,
 /area/space/nearstation)
 "axo" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -15206,28 +15228,28 @@
 	},
 /area/security/interrogation)
 "aze" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_elite)
 "azf" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -15238,7 +15260,7 @@
 	},
 /area/shuttle/syndicate_elite)
 "azh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -15824,7 +15846,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aAh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -16433,16 +16455,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aBk" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_sit)
-"aBl" = (
-/obj/structure/chair{
-	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -16577,6 +16591,10 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -17326,7 +17344,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aCX" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -17336,9 +17354,6 @@
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
-	},
-/obj/structure/chair{
-	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -17777,6 +17792,10 @@
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
 	req_access_txt = "74"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
@@ -19011,6 +19030,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";
@@ -19688,6 +19711,10 @@
 	req_access = null;
 	req_access_txt = "4"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -20068,6 +20095,10 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/wood{
 	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
@@ -20154,6 +20185,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -20752,6 +20787,10 @@
 	name = "Courtroom Privacy Shutters";
 	opacity = 0
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
 "aKq" = (
@@ -20824,6 +20863,10 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -21081,9 +21124,6 @@
 	},
 /area/shuttle/pod_1)
 "aLb" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -21093,6 +21133,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
@@ -21111,9 +21154,6 @@
 	},
 /area/shuttle/pod_2)
 "aLf" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -21123,6 +21163,9 @@
 /obj/machinery/light{
 	dir = 4;
 	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
@@ -21145,6 +21188,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aLi" = (
@@ -21180,6 +21227,10 @@
 "aLk" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -21231,6 +21282,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -21759,13 +21814,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aMp" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_1)
@@ -21779,13 +21834,13 @@
 /turf/simulated/wall,
 /area/hallway/secondary/entry)
 "aMt" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "station intercom (General)";
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_2)
@@ -22095,6 +22150,10 @@
 	layer = 3.21;
 	name = "Courtroom Privacy Shutters";
 	opacity = 0
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -22461,6 +22520,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aNT" = (
@@ -22573,6 +22636,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aOb" = (
@@ -22989,6 +23053,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPc" = (
@@ -23051,6 +23119,10 @@
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPi" = (
@@ -23414,7 +23486,7 @@
 	},
 /area/shuttle/pod_2)
 "aPV" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -24139,6 +24211,10 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aRn" = (
@@ -24304,6 +24380,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -24533,6 +24613,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aRW" = (
@@ -24566,6 +24647,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aRZ" = (
@@ -25189,6 +25274,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aTt" = (
@@ -25992,6 +26081,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aVc" = (
@@ -26473,6 +26566,10 @@
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -27593,6 +27690,10 @@
 	name = "Mime's Office";
 	req_access_txt = "46"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite";
 	dir = 4;
@@ -28110,12 +28211,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYL" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 1;
 	on = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
@@ -28228,11 +28329,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYZ" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/landmark{
 	name = "JoinLate"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
@@ -29463,6 +29564,7 @@
 	name = "Clown's Office";
 	req_access_txt = "46"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bby" = (
@@ -30018,6 +30120,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bcw" = (
@@ -30143,7 +30249,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bcK" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -30160,10 +30266,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bcN" = (
-/obj/structure/chair{
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light,
 /turf/simulated/shuttle/floor,
 /area/shuttle/arrival/station)
 "bcO" = (
@@ -31142,6 +31248,10 @@
 	name = "Chapel Office";
 	req_access_txt = "22"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31173,12 +31283,6 @@
 /area/crew_quarters/mrchangs)
 "beA" = (
 /obj/machinery/computer/station_alert,
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"beB" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "beC" = (
@@ -31450,6 +31554,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bfb" = (
@@ -31506,6 +31614,10 @@
 "bff" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -32203,20 +32315,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bgo" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bgp" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
@@ -33193,7 +33305,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bil" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -33203,7 +33315,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bin" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -34955,7 +35067,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "blv" = (
@@ -35005,7 +35117,7 @@
 /turf/simulated/floor/carpet,
 /area/chapel/main)
 "blA" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -35025,7 +35137,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "blC" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -35780,13 +35892,13 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bmX" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bmY" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bmZ" = (
@@ -35815,11 +35927,11 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bnc" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -37094,6 +37206,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -37379,6 +37495,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/storage/emergency2)
 "bqk" = (
@@ -38803,9 +38920,6 @@
 	},
 /area/maintenance/asmaint2)
 "btt" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "station intercom (General)";
@@ -38816,14 +38930,14 @@
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "btu" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
@@ -38831,6 +38945,9 @@
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -38864,23 +38981,23 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bty" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btz" = (
-/obj/structure/chair,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btA" = (
@@ -38906,7 +39023,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btD" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "btE" = (
@@ -39989,6 +40106,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bvO" = (
@@ -40262,6 +40383,10 @@
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -40463,16 +40588,16 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bwI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bwJ" = (
-/obj/structure/chair{
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/spot,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bwK" = (
@@ -42709,7 +42834,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -43168,11 +43293,11 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bBT" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
@@ -43226,7 +43351,7 @@
 	pixel_x = 4;
 	pixel_y = 32
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -43271,7 +43396,7 @@
 	dir = 2;
 	network = list("ERT","CentComm")
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -43366,6 +43491,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bCr" = (
@@ -44022,9 +44148,6 @@
 	},
 /area/shuttle/escape)
 "bDG" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
@@ -44514,7 +44637,7 @@
 	},
 /area/shuttle/specops)
 "bEL" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -45015,6 +45138,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -45607,7 +45734,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bGJ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4,
@@ -48037,6 +48164,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -48440,6 +48568,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bLV" = (
@@ -48734,6 +48866,10 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bMA" = (
@@ -48772,6 +48908,10 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Delivery Office";
 	req_access_txt = "50"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -49643,6 +49783,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bNQ" = (
@@ -49934,6 +50078,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -50600,6 +50748,7 @@
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50639,6 +50788,7 @@
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue (WEST)";
 	icon_state = "whiteblue";
@@ -50669,6 +50819,7 @@
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue";
@@ -50950,6 +51101,10 @@
 	req_access_txt = "5"
 	},
 /obj/effect/decal/warning_stripes/northeast,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bPV" = (
@@ -52546,6 +52701,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
@@ -52557,6 +52716,10 @@
 	id_tag = "MedbayFoyer";
 	name = "Medical Supplies";
 	req_access_txt = "5"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
@@ -54409,6 +54572,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "bVI" = (
@@ -55321,6 +55485,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -57096,6 +57264,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -58097,6 +58269,10 @@
 	req_access_txt = "5"
 	},
 /obj/effect/decal/warning_stripes/southeast,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cbs" = (
@@ -58157,7 +58333,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "cbx" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -58402,6 +58578,10 @@
 	name = "Genetics Cloning";
 	req_access_txt = "0";
 	req_one_access_txt = "5;9"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -60241,6 +60421,9 @@
 /area/quartermaster/miningdock)
 "cfc" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cfd" = (
@@ -61149,13 +61332,13 @@
 	},
 /area/shuttle/administration)
 "cgA" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -61516,6 +61699,10 @@
 "chi" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -62161,7 +62348,7 @@
 	},
 /area/shuttle/administration)
 "cil" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -62172,7 +62359,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "cin" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -62223,6 +62410,9 @@
 "cit" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62986,6 +63176,10 @@
 /obj/machinery/holosign/surgery{
 	id = "surgery1"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63047,6 +63241,10 @@
 	},
 /obj/machinery/holosign/surgery{
 	id = "surgery2"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63389,7 +63587,7 @@
 	},
 /area/shuttle/administration)
 "ckh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -63407,7 +63605,7 @@
 	color = "#FF0000";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -63713,6 +63911,7 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ckJ" = (
@@ -63756,6 +63955,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "ckO" = (
@@ -63779,6 +63979,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ckQ" = (
@@ -63806,6 +64007,7 @@
 	req_access_txt = "26"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ckU" = (
@@ -63893,6 +64095,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "clb" = (
@@ -64688,6 +64891,10 @@
 	req_access_txt = "5";
 	req_one_access_txt = "0"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -64838,21 +65045,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"cmI" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "cmJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -65480,6 +65672,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cnT" = (
@@ -65519,6 +65714,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5;
 	level = 1
+	},
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -66396,6 +66594,10 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance";
 	req_access_txt = "5"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
@@ -67280,6 +67482,10 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cqx" = (
@@ -67359,6 +67565,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqG" = (
@@ -71345,6 +71552,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -72016,6 +72227,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cyv" = (
@@ -72166,6 +72381,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cyF" = (
@@ -72304,6 +72523,10 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -72607,6 +72830,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -73306,6 +73533,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73754,6 +73982,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cBy" = (
@@ -74357,6 +74586,10 @@
 	name = "Alternate Construction Area";
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cCG" = (
@@ -74390,6 +74623,10 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Alternate Construction Area";
 	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
@@ -74846,6 +75083,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cDw" = (
@@ -75710,6 +75951,10 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cFf" = (
@@ -76246,6 +76491,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76732,6 +76981,10 @@
 /area/atmos/control)
 "cGL" = (
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "cGM" = (
@@ -77240,6 +77493,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cHF" = (
@@ -77393,6 +77647,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -78615,6 +78873,10 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cJZ" = (
@@ -79825,6 +80087,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cMr" = (
@@ -80892,6 +81155,7 @@
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cOt" = (
@@ -83964,6 +84228,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/engi_shuttle)
 "cTH" = (
@@ -88155,6 +88420,10 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dbi" = (
@@ -88218,6 +88487,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -88695,6 +88968,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "dcj" = (
@@ -90132,6 +90406,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "dfg" = (
@@ -90751,14 +91026,6 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
-"dgw" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/constructionsite)
 "dgx" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/shuttle/floor{
@@ -90979,7 +91246,7 @@
 	id = "soltraderflash";
 	pixel_y = -28
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -91413,6 +91680,10 @@
 	name = "Bar Office";
 	req_access_txt = "25"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "dhU" = (
@@ -91429,6 +91700,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "dhV" = (
@@ -91440,9 +91715,6 @@
 	},
 /area/crew_quarters/kitchen)
 "dhW" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
@@ -91498,6 +91770,10 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -91706,7 +91982,7 @@
 	},
 /area/hallway/primary/central/north)
 "diy" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -92876,6 +93152,7 @@
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dkH" = (
@@ -93540,6 +93817,10 @@
 	})
 "dlL" = (
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlM" = (
@@ -95160,14 +95441,14 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "doI" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	listening = 1;
 	name = "station intercom (General)";
 	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
@@ -95190,9 +95471,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doM" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -95200,6 +95478,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doN" = (
@@ -96126,6 +96407,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dsy" = (
@@ -96432,6 +96714,44 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"eUA" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
+"eZz" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
+"fsb" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
+"ggI" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
 "gMZ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -96456,6 +96776,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"hcz" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "hsy" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96477,6 +96807,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"hVb" = (
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
+"ifm" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
@@ -96532,13 +96881,33 @@
 	req_access = list(101);
 	req_access_txt = "0"
 	},
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"kxE" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
+"kFj" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
@@ -96546,12 +96915,43 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"mib" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/glass{
+	name = "Chapel Office";
+	req_access_txt = "22"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/chapel/office)
+"mSI" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
 /turf/space,
 /area/space/nearstation)
+"oye" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "oZV" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -96591,10 +96991,27 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"qGM" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
 /area/space/nearstation)
+"rkF" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "rEw" = (
 /obj/machinery/computer/shuttle/admin{
 	name = "NTV Argos shuttle console"
@@ -96622,6 +97039,19 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"sft" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
+"tWb" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -96651,6 +97081,31 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"wpd" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/constructionsite)
+"wUm" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
+"xzf" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	icon_state = "airlock_unres_helper";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "xAw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -113995,9 +114450,9 @@ awx
 axl
 ayk
 azi
-ayk
-aBl
-aBl
+ggI
+ggI
+ggI
 ayk
 diy
 aex
@@ -114065,7 +114520,7 @@ aaa
 cng
 coL
 coL
-cqF
+kxE
 coL
 cvk
 cwx
@@ -114786,7 +115241,7 @@ aGn
 aGn
 aGn
 aGn
-aLk
+mSI
 aGn
 aGn
 aUy
@@ -114836,7 +115291,7 @@ aaa
 cng
 coL
 coL
-cqF
+kxE
 coL
 coL
 cwx
@@ -116640,7 +117095,7 @@ ctU
 cgQ
 cgQ
 cgQ
-cqF
+ifm
 cgQ
 cgQ
 cgQ
@@ -117922,7 +118377,7 @@ cam
 aab
 cgQ
 ctU
-cqF
+kxE
 coL
 coL
 coL
@@ -118173,7 +118628,7 @@ cam
 cgH
 cit
 ckn
-ckn
+hVb
 cnm
 cam
 cgQ
@@ -118684,8 +119139,8 @@ cam
 cbI
 cdy
 cff
-cfb
 cir
+cfb
 cfb
 cnS
 cno
@@ -119200,7 +119655,7 @@ cdA
 cis
 ckq
 cls
-cmI
+cls
 cnU
 cno
 cam
@@ -120012,9 +120467,9 @@ cZu
 cZu
 dcM
 dfY
-dgv
-dgv
-dgv
+wpd
+wpd
+wpd
 dfY
 aaa
 aaa
@@ -120269,8 +120724,8 @@ cZu
 cZu
 dcU
 dfZ
-dgw
-dgw
+dgv
+dgv
 dhW
 dfY
 aaa
@@ -120527,7 +120982,7 @@ dcM
 dfd
 dfY
 dgv
-dgw
+wpd
 dgv
 dfY
 aaa
@@ -121527,7 +121982,7 @@ czN
 cyg
 cCH
 coL
-cqF
+kxE
 cEQ
 cGj
 cJZ
@@ -126353,7 +126808,7 @@ avq
 avq
 avq
 avq
-aHp
+xzf
 aRx
 aUw
 aDN
@@ -128456,7 +128911,7 @@ cPd
 cos
 cPd
 cqY
-chi
+wUm
 csL
 csL
 cvI
@@ -130257,7 +130712,7 @@ csL
 cqD
 csL
 chf
-chi
+kFj
 chf
 chf
 chf
@@ -132505,7 +132960,7 @@ aIq
 avq
 aAc
 aBt
-aHp
+qGM
 aCh
 aEw
 aFI
@@ -133270,7 +133725,7 @@ ajb
 awl
 arR
 awl
-aHp
+fsb
 aqc
 aya
 awl
@@ -134816,7 +135271,7 @@ avb
 aAQ
 awF
 aye
-aHp
+xzf
 avq
 aAS
 atG
@@ -136887,7 +137342,7 @@ aFJ
 aPq
 aRv
 aTb
-aMn
+tWb
 aGY
 aGY
 aGY
@@ -139451,7 +139906,7 @@ aGX
 aHc
 aIv
 aGX
-aMn
+eZz
 aGX
 aGX
 aGX
@@ -139964,10 +140419,10 @@ aCy
 aMf
 aNf
 aGY
-aMn
+eUA
 aGY
 aGY
-aMn
+eUA
 aGY
 aGY
 aPK
@@ -140480,7 +140935,7 @@ aJI
 aGY
 aGX
 aGX
-aMn
+hcz
 aGX
 aGX
 aGY
@@ -142017,14 +142472,14 @@ aab
 aAf
 aAf
 aAf
-aMn
+hcz
 aAf
 aHb
 aMz
 aMz
 aIE
 aGX
-aMn
+hcz
 aMz
 aGX
 aOG
@@ -143067,7 +143522,7 @@ bcu
 ber
 bga
 bis
-bew
+mib
 bcD
 bld
 blw
@@ -146741,7 +147196,7 @@ bGH
 bGG
 dgy
 bGG
-dbh
+rkF
 dia
 cuQ
 djQ
@@ -148017,7 +148472,7 @@ aab
 bGH
 bGG
 bGG
-dbh
+oye
 bGG
 dcJ
 ddJ
@@ -148282,7 +148737,7 @@ cuQ
 dfc
 bGG
 bGG
-dbh
+oye
 bGG
 bGG
 bGH
@@ -151293,7 +151748,7 @@ aaa
 aYD
 baW
 bcJ
-beB
+bcK
 beC
 beC
 bjC
@@ -151807,7 +152262,7 @@ aaa
 aYH
 baY
 bcL
-beB
+bcK
 beC
 bim
 bjC
@@ -153804,8 +154259,8 @@ aaa
 aaa
 agc
 agZ
-ahp
-ahp
+sft
+sft
 agZ
 ail
 agw

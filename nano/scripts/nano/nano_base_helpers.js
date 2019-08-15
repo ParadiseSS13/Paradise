@@ -4,8 +4,7 @@ NanoBaseHelpers = function ()
     var _baseHelpers = {
             // change ui styling to "syndicate mode"
             syndicateMode: function() {
-                var syndicateSVG = "url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4wIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCIgb3BhY2l0eT0iLjI1Ij4NCgk8cG9seWdvbiBwb2ludHM9IjI1MCwwIDE1MCwwIDEwMCw1MCI+PC9wb2x5Z29uPg0KCTxwb2x5Z29uIHBvaW50cz0iMTAwLDUwIDE1MCwyNSAyMDAsNjUgMjUwLDE1MCI+PC9wb2x5Z29uPg0KCTxwb2x5Z29uIHBvaW50cz0iMjUwLDE1MCAyMDAsOTAgMTAwLDIwMCI+PC9wb2x5Z29uPg0KPC9zdmc+')";
-                $('.mainBG').css("background", syndicateSVG + " no-repeat fixed center/70% 70%, linear-gradient(to bottom, #8f1414 0%, #4B0A0A 100%) no-repeat fixed center/100% 100%;");
+                $('.mainBG').css("background", "url('syndicate.png') no-repeat fixed center/50% 50%, linear-gradient(to bottom, #8f1414 0%, #4B0A0A 100%) no-repeat fixed center;");
 
                 $('#uiTitleFluff').css("background-image","url('uiTitleFluff-Syndicate.png')");
                 $('#uiTitleFluff').css("background-position","50% 50%");
