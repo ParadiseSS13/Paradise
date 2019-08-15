@@ -4,6 +4,7 @@
 	icon_state = "blank_blob"
 	health = 200
 	fire_resist = 2
+	point_return = -1
 	var/mob/camera/blob/overmind = null // the blob core's overmind
 	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
 	var/resource_delay = 0
@@ -13,7 +14,7 @@
 
 /obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
 	blob_cores += src
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
 	if(!overmind)
@@ -41,7 +42,7 @@
 	if(overmind)
 		overmind.blob_core = null
 	overmind = null
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
@@ -81,7 +82,7 @@
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)
-			B.change_to(/obj/structure/blob/shield)
+			B.change_to(/obj/structure/blob/shield/core)
 			if(B && overmind)
 				B.color = overmind.blob_reagent_datum.color
 			else
@@ -104,7 +105,11 @@
 
 	spawn()
 		if(!new_overmind)
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			if(is_offspring)
+				candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			else
+				candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+
 			if(candidates.len)
 				C = pick(candidates)
 		else
@@ -117,10 +122,10 @@
 			src.overmind = B
 			color = overmind.blob_reagent_datum.color
 			if(B.mind && !B.mind.special_role)
-				B.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+				B.mind.make_Overmind()
 			spawn(0)
 				if(is_offspring)
-					B.verbs -= /mob/camera/blob/verb/split_consciousness
+					B.is_offspring = TRUE
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
@@ -129,8 +134,13 @@
 	if(overmind)
 		overmind.add_points(60)
 		if(overmind.mind)
-			overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+			overmind.mind.make_Overmind()
 		else
 			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
 	else
 		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")
+
+/obj/structure/blob/core/onTransitZ(old_z, new_z)
+	if(overmind && is_station_level(new_z))
+		overmind.forceMove(get_turf(src))
+	return ..()

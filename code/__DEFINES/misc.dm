@@ -57,16 +57,88 @@
 #define MAX_STACK_AMOUNT_GLASS	50
 #define MAX_STACK_AMOUNT_RODS	60
 
-//some colors
-#define COLOR_RED 		"#FF0000"
-#define COLOR_GREEN 	"#00FF00"
-#define COLOR_BLUE 		"#0000FF"
-#define COLOR_CYAN 		"#00FFFF"
-#define COLOR_PINK 		"#FF00FF"
-#define COLOR_YELLOW 	"#FFFF00"
-#define COLOR_ORANGE 	"#FF9900"
-#define COLOR_WHITE 	"#FFFFFF"
-#define COLOR_GRAY      "#808080"
+//Colors
+#define COLOR_RED 			   "#FF0000"
+#define COLOR_GREEN 		   "#00FF00"
+#define COLOR_BLUE 			   "#0000FF"
+#define COLOR_CYAN 			   "#00FFFF"
+#define COLOR_PINK 			   "#FF00FF"
+#define COLOR_YELLOW 		   "#FFFF00"
+#define COLOR_ORANGE 		   "#FF9900"
+#define COLOR_WHITE 		   "#FFFFFF"
+#define COLOR_GRAY      	   "#808080"
+#define COLOR_BLACK            "#000000"
+#define COLOR_NAVY_BLUE        "#000080"
+#define COLOR_LIGHT_GREEN      "#008000"
+#define COLOR_DARK_GRAY        "#404040"
+#define COLOR_MAROON           "#800000"
+#define COLOR_PURPLE           "#800080"
+#define COLOR_VIOLET           "#9933ff"
+#define COLOR_OLIVE            "#808000"
+#define COLOR_BROWN_ORANGE     "#824b28"
+#define COLOR_DARK_ORANGE      "#b95a00"
+#define COLOR_GRAY40           "#666666"
+#define COLOR_GRAY20           "#333333"
+#define COLOR_GRAY15           "#151515"
+#define COLOR_SEDONA           "#cc6600"
+#define COLOR_DARK_BROWN       "#917448"
+#define COLOR_DEEP_SKY_BLUE    "#00e1ff"
+#define COLOR_LIME             "#00ff00"
+#define COLOR_TEAL             "#33cccc"
+#define COLOR_PALE_PINK        "#bf89ba"
+#define COLOR_YELLOW_GRAY      "#c9a344"
+#define COLOR_PALE_YELLOW      "#c1bb7a"
+#define COLOR_WARM_YELLOW      "#b3863c"
+#define COLOR_RED_GRAY         "#aa5f61"
+#define COLOR_BROWN            "#b19664"
+#define COLOR_GREEN_GRAY       "#8daf6a"
+#define COLOR_DARK_GREEN_GRAY  "#54654c"
+#define COLOR_BLUE_GRAY        "#6a97b0"
+#define COLOR_DARK_BLUE_GRAY   "#3e4855"
+#define COLOR_SUN              "#ec8b2f"
+#define COLOR_PURPLE_GRAY      "#a2819e"
+#define COLOR_BLUE_LIGHT       "#33ccff"
+#define COLOR_RED_LIGHT        "#ff3333"
+#define COLOR_BEIGE            "#ceb689"
+#define COLOR_BABY_BLUE        "#89cff0"
+#define COLOR_PALE_GREEN_GRAY  "#aed18b"
+#define COLOR_PALE_RED_GRAY    "#cc9090"
+#define COLOR_PALE_PURPLE_GRAY "#bda2ba"
+#define COLOR_PALE_BLUE_GRAY   "#8bbbd5"
+#define COLOR_LUMINOL          "#66ffff"
+#define COLOR_SILVER           "#c0c0c0"
+#define COLOR_GRAY80           "#cccccc"
+#define COLOR_OFF_WHITE        "#eeeeee"
+#define COLOR_GOLD             "#6d6133"
+#define COLOR_NT_RED           "#9d2300"
+#define COLOR_BOTTLE_GREEN     "#1f6b4f"
+#define COLOR_PALE_BTL_GREEN   "#57967f"
+#define COLOR_GUNMETAL         "#545c68"
+#define COLOR_WALL_GUNMETAL    "#353a42"
+#define COLOR_STEEL            "#a8b0b2"
+#define COLOR_MUZZLE_FLASH     "#ffffb2"
+#define COLOR_CHESTNUT         "#996633"
+#define COLOR_BEASTY_BROWN     "#663300"
+#define COLOR_WHEAT            "#ffff99"
+#define COLOR_CYAN_BLUE        "#3366cc"
+#define COLOR_LIGHT_CYAN       "#66ccff"
+#define COLOR_PAKISTAN_GREEN   "#006600"
+#define COLOR_HULL             "#436b8e"
+#define COLOR_AMBER            "#ffbf00"
+#define COLOR_COMMAND_BLUE     "#46698c"
+#define COLOR_SKY_BLUE         "#5ca1cc"
+#define COLOR_PALE_ORANGE      "#b88a3b"
+#define COLOR_CIVIE_GREEN      "#b7f27d"
+#define COLOR_TITANIUM         "#d1e6e3"
+#define COLOR_DARK_GUNMETAL    "#4c535b"
+#define COLOR_BRONZE           "#8c7853"
+#define COLOR_BRASS            "#b99d71"
+#define COLOR_INDIGO           "#4b0082"
+#define COLOR_ALUMINIUM        "#bbbbbb"
+#define COLOR_CRYSTAL          "#00c8a5"
+#define COLOR_ASTEROID_ROCK    "#735555"
+#define COLOR_NULLGLASS        "#ff6088"
+#define COLOR_DIAMOND          "#d8d4ea"
 
 //FONTS:
 // Used by Paper and PhotoCopier (and PaperBin once a year).
@@ -114,33 +186,6 @@
 #define CHRISTMAS				"Christmas"
 #define FRIDAY_13TH				"Friday the 13th"
 
-//Light color defs, for light-emitting things
-//Some defs may be pure color- this is for neatness, and configurability. Changing #define COLOR_ is a bad idea.
-#define LIGHT_COLOR_CYAN		"#7BF9FF"
-#define LIGHT_COLOR_PURE_CYAN	"#00FFFF"
-
-#define LIGHT_COLOR_RED			"#B40000"
-#define LIGHT_COLOR_ORANGE		"#FF9933"
-#define LIGHT_COLOR_DARKRED		"#A91515"
-#define LIGHT_COLOR_PURE_RED	"#FF0000"
-
-#define LIGHT_COLOR_GREEN		"#00CC00"
-#define LIGHT_COLOR_DARKGREEN	"#50AB00"
-#define LIGHT_COLOR_PURE_GREEN	"#00FF00"
-
-#define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
-#define LIGHT_COLOR_LIGHTBLUE	"#0099FF"
-#define LIGHT_COLOR_DARKBLUE	"#315AB4"
-#define LIGHT_COLOR_PURE_BLUE	"#0000FF"
-
-#define LIGHT_COLOR_FADEDPURPLE	"#A97FAA"
-#define LIGHT_COLOR_PURPLE		"#CD00CD"
-#define LIGHT_COLOR_PINK		"#FF33CC"
-
-#define LIGHT_COLOR_YELLOW     "#E1E17D" //Dimmed yellow, leaning kaki. rgb(225, 225, 125)
-
-#define LIGHT_COLOR_WHITE		"#FFFFFF"
-
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm
@@ -170,7 +215,12 @@
 	for(type in view(range, dview_mob))
 #define END_FOR_DVIEW dview_mob.loc = null
 
+//Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
+#define NORTH_OF_TURF(T)	locate(T.x, T.y + 1, T.z)
+#define EAST_OF_TURF(T)		locate(T.x + 1, T.y, T.z)
+#define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)
+#define WEST_OF_TURF(T)		locate(T.x - 1, T.y, T.z)
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
@@ -208,33 +258,34 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				37
-#define MUTANTRACE_LAYER		36
-#define TAIL_UNDERLIMBS_LAYER	35	//Tail split-rendering.
-#define LIMBS_LAYER				34
-#define INTORGAN_LAYER			33
-#define MARKINGS_LAYER			32
-#define UNDERWEAR_LAYER			31
-#define MUTATIONS_LAYER			30
-#define H_DAMAGE_LAYER			29
-#define UNIFORM_LAYER			28
-#define ID_LAYER				27
-#define SHOES_LAYER				26
-#define GLOVES_LAYER			25
-#define EARS_LAYER				24
-#define SUIT_LAYER				23
-#define BELT_LAYER				22	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		21
-#define BACK_LAYER				20
-#define HEAD_ACCESSORY_LAYER	19
-#define FHAIR_LAYER				18
-#define GLASSES_LAYER			17
-#define HAIR_LAYER				16	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		15	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		14	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		13	//Select-layer rendering.
-#define TAIL_LAYER				12	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			11
+#define BODY_LAYER				38
+#define MUTANTRACE_LAYER		37
+#define TAIL_UNDERLIMBS_LAYER	36	//Tail split-rendering.
+#define LIMBS_LAYER				35
+#define INTORGAN_LAYER			34
+#define MARKINGS_LAYER			33
+#define UNDERWEAR_LAYER			32
+#define MUTATIONS_LAYER			31
+#define H_DAMAGE_LAYER			30
+#define UNIFORM_LAYER			29
+#define ID_LAYER				28
+#define SHOES_LAYER				27
+#define GLOVES_LAYER			26
+#define EARS_LAYER				25
+#define SUIT_LAYER				24
+#define BELT_LAYER				23	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		22
+#define BACK_LAYER				21
+#define HEAD_ACCESSORY_LAYER	20
+#define FHAIR_LAYER				19
+#define GLASSES_LAYER			18
+#define HAIR_LAYER				17	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		16	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		15	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		14	//Select-layer rendering.
+#define TAIL_LAYER				13	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			12
+#define OVER_MASK_LAYER			11	//Select-layer rendering.
 #define HEAD_LAYER				10
 #define COLLAR_LAYER			9
 #define HANDCUFF_LAYER			8
@@ -245,7 +296,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			37
+#define TOTAL_LAYERS			38
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -303,7 +354,7 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)
+#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
 #define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
@@ -318,26 +369,11 @@
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
-// Client donator levels
-#define DONATOR_LEVEL_NONE 0
-#define DONATOR_LEVEL_ONE 1
-#define DONATOR_LEVEL_TWO 2
+// Maximum donation level
+#define DONATOR_LEVEL_MAX 4
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
-
-// Medal names
-#define BOSS_KILL_MEDAL "Killer"
-#define ALL_KILL_MEDAL "Exterminator"	//Killing all of x type
-
-// Score names
-#define LEGION_SCORE "Legion Killed"
-#define COLOSSUS_SCORE "Colossus Killed"
-#define BUBBLEGUM_SCORE "Bubblegum Killed"
-#define DRAKE_SCORE "Drakes Killed"
-#define BIRD_SCORE "Hierophants Killed"
-#define BOSS_SCORE "Bosses Killed"
-#define TENDRIL_CLEAR_SCORE "Tendrils Killed"
 
 // The number of station goals generated each round.
 #define STATION_GOAL_BUDGET 1
@@ -367,7 +403,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 5
+#define SQL_VERSION 8
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -395,3 +431,58 @@
 // Defib stats
 #define DEFIB_TIME_LIMIT 120
 #define DEFIB_TIME_LOSS 60
+
+//different types of atom colorations
+#define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
+#define TEMPORARY_COLOUR_PRIORITY 	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
+#define WASHABLE_COLOUR_PRIORITY 	3 //color splashed onto an atom (e.g. paint on turf)
+#define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
+#define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
+
+//Ruin Generation
+
+#define SPACERUIN_MAP_EDGE_PAD 15
+#define PLACEMENT_TRIES 100 //How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
+
+#define PLACE_DEFAULT "random"
+#define PLACE_SAME_Z "same"
+#define PLACE_SPACE_RUIN "space"
+#define PLACE_LAVA_RUIN "lavaland"
+
+//Cleaning tool strength
+// 1 is also a valid cleaning strength but completely unused so left undefined
+#define CLEAN_WEAK 			2
+#define CLEAN_MEDIUM		3 // Acceptable tools
+#define CLEAN_STRONG		4 // Industrial strength
+#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
+#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
+
+//Ghost orbit types:
+#define GHOST_ORBIT_CIRCLE		"circle"
+#define GHOST_ORBIT_TRIANGLE	"triangle"
+#define GHOST_ORBIT_HEXAGON		"hexagon"
+#define GHOST_ORBIT_SQUARE		"square"
+#define GHOST_ORBIT_PENTAGON	"pentagon"
+
+//Explosive wall groups
+#define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
+
+// Filters
+#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+
+//Fullscreen overlay resolution in tiles.
+#define FULLSCREEN_OVERLAY_RESOLUTION_X 15
+#define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
+
+//suit sensors: sensor_mode defines
+#define SENSOR_OFF 0
+#define SENSOR_LIVING 1
+#define SENSOR_VITALS 2
+#define SENSOR_COORDS 3
+
+// Cult summon possibilities
+#define SUMMON_POSSIBILITIES 3
+
+#define DICE_NOT_RIGGED 1
+#define DICE_BASICALLY_RIGGED 2
+#define DICE_TOTALLY_RIGGED 3

@@ -3,7 +3,7 @@
 	set category = null
 	set name = "Admin PM Mob"
 	if(!holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM-Context: Only administrators may use this command.</font>")
+		to_chat(src, "<span class='danger'>Error: Admin-PM-Context: Only administrators may use this command.</span>")
 		return
 	if( !ismob(M) || !M.client )	return
 	cmd_admin_pm(M.client,null)
@@ -14,7 +14,7 @@
 	set category = "Admin"
 	set name = "Admin PM Name"
 	if(!holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>")
+		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -37,7 +37,7 @@
 	set category = "Admin"
 	set name = "Admin PM Key"
 	if(!holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>")
+		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -60,7 +60,7 @@
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
 		return
 
 	var/client/C
@@ -88,7 +88,9 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
+		set_typing(C, TRUE)
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
+		set_typing(C, FALSE)
 
 		if(!msg)
 			return
@@ -104,9 +106,11 @@
 
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
 		if(!msg)
 			return
+	else
+		msg = admin_pencode_to_html(msg)
 
 	var/recieve_span = "playerreply"
 	var/send_pm_type = " "
@@ -125,10 +129,13 @@
 			recieve_pm_type = holder.rank
 
 	else if(!C.holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</font>")
+		to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>")
 		return
 
 	var/recieve_message = ""
+
+	pm_tracker.add_message(C, src, msg, mob)
+	C.pm_tracker.add_message(src, src, msg, C.mob)
 
 	if(holder && !C.holder)
 		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
@@ -142,7 +149,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = input(C, msg,"[recieve_pm_type] [type] from-[sendername]", "") as text|null		//show message and await a reply
+				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -154,7 +161,7 @@
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
-	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</font>")
+	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span>")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -182,31 +189,36 @@
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
-
-	if(type == "Mentorhelp")
-		return
+	
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
-	tickets = SStickets.checkForTicket(C)
+	if(type == "Mentorhelp")
+		tickets = SSmentor_tickets.checkForTicket(C)
+	else
+		tickets = SStickets.checkForTicket(C)
 	if(tickets)
-		for(var/datum/admin_ticket/i in tickets)
+		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg) // Add this response to their open tickets.
 		return
-
-	if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
-		tickets = SStickets.checkForTicket(src)
-		if(tickets)
-			for(var/datum/admin_ticket/i in tickets)
-				i.addResponse(src, msg)
-			return
+	if(type == "Mentorhelp")
+		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+			tickets = SSmentor_tickets.checkForTicket(src)
+	else // Ahelp 
+		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+			tickets = SStickets.checkForTicket(src)
+	
+	if(tickets)
+		for(var/datum/ticket/i in tickets)
+			i.addResponse(src, msg)
+		return
 
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
 		return
 
-	var/msg = input(src,"Message:", "Private message to admins on IRC / 400 character limit") as text|null
+	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src) as text|null
 
 	if(!msg)
 		return
@@ -220,11 +232,167 @@
 
 	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
+	to_chat(src, "<span class='pmsend'>IRC PM to-<b>IRC-Admins</b>: [msg]</span>")
 
 	log_admin("PM: [key_name(src)]->IRC: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><font color='blue'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")
+			to_chat(X, "<B><span class='pmsend'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></span>")
+
+/client/verb/open_pms_ui()
+	set name = "My PMs"
+	set category = "OOC"
+	pm_tracker.show_ui(usr)
+
+/client/proc/set_typing(client/target, value)
+	if(!target)
+		return
+	var/datum/pm_convo/convo = target.pm_tracker.pms[key]
+	if(!convo)
+		return
+	convo.typing = value
+	if(target.pm_tracker.open && target.pm_tracker.current_title == key)
+		target.pm_tracker.show_ui(target.mob)
+
+/datum/pm_tracker
+	var/current_title = ""
+	var/open = FALSE
+	var/list/pms = list()
+	var/show_archived = FALSE
+	var/window_id = "pms_window"
+
+/datum/pm_convo
+	var/list/messages = list()
+	var/archived = FALSE
+	var/client/client
+	var/read = FALSE
+	var/typing = FALSE
+
+/datum/pm_convo/New(client/C)
+	client = C
+
+/datum/pm_convo/proc/add(client/sender, message)
+	messages.Add("[sender]: [message]")
+	archived = FALSE
+	read = FALSE
+
+/datum/pm_tracker/proc/add_message(client/title, client/sender, message, mob/user)
+	if(!pms[title.key])
+		pms[title.key] = new /datum/pm_convo(title)
+	else if(!pms[title.key].client)
+		// If they DCed earlier, we need to add the client reference back
+		pms[title.key].client = title
+	pms[title.key].add(sender, message)
+
+	if(!open)
+		// The next time the window's opened, it'll be open to the most recent message
+		current_title = title.key
+		return
+
+	// If it's already opened, it'll refresh
+	show_ui(user)
+
+/datum/pm_tracker/proc/show_ui(mob/user)
+	var/dat = ""
+
+	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
+	dat += "<br>"
+	for(var/title in pms)
+		if(pms[title].archived && !show_archived)
+			continue
+		var/label = "[title]"
+		var/class = ""
+		if(title == current_title)
+			label = "<b>[label]</b>"
+			class = "linkOn"
+		else if(!pms[title].read)
+			label = "<i>*[label]</i>"
+		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
+
+	var/datum/pm_convo/convo = pms[current_title]
+	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
+	if(convo)
+		popup.add_head_content(@{"<script type='text/javascript'>
+			window.onload = function () {
+				var msgs = document.getElementById('msgs');
+				msgs.scrollTop = msgs.scrollHeight;
+			}
+			</script>"})
+		convo.read = TRUE
+		dat += "<h2>[check_rights(R_ADMIN, FALSE, user) ? fancy_title(current_title) : current_title]</h2>"
+		dat += "<h4>"
+		dat += "<div id='msgs' style='width:950px; border: 3px solid; overflow-y: scroll; height: 350px;'>"
+		dat += "<table>"
+
+		for(var/message in convo.messages)
+			dat += "<tr><td>[message]</td></tr>"
+
+		dat += "</table>"
+		dat += "</div>"
+		if(convo.typing)
+			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
+		dat += "<br>"
+		dat += "</h4>"
+		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
+		dat += "<a href='?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
+		if(check_rights(R_ADMIN, FALSE, user))
+			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
+
+	popup.set_content(dat)
+	popup.open()
+	open = TRUE
+
+/datum/pm_tracker/proc/fancy_title(title)
+	var/client/C = pms[title].client || update_client(title)
+	if(!C)
+		return "[title] (Disconnected)"
+	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>)"
+
+/datum/pm_tracker/proc/update_client(title)
+	var/client/C = GLOB.directory[ckey(title)]
+	if(C)
+		pms[title].client = C
+		return C
+	return null
+
+/datum/pm_tracker/Topic(href, href_list)
+	if(href_list["archive"])
+		pms[href_list["archive"]].archived = !pms[href_list["archive"]].archived
+		show_ui(usr)
+		return
+
+	if(href_list["refresh"])
+		show_ui(usr)
+		return
+
+	if(href_list["newtitle"])
+		current_title = href_list["newtitle"]
+		show_ui(usr)
+		return
+
+	if(href_list["ping"])
+		var/client/C = pms[href_list["ping"]].client
+		if(C)
+			C.pm_tracker.current_title = usr.key
+			window_flash(C)
+			C.pm_tracker.show_ui(C.mob)
+			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
+		show_ui(usr)
+		return
+
+	if(href_list["reply"])
+		usr.client.cmd_admin_pm(ckey(href_list["reply"]), null)
+		show_ui(usr)
+		return
+
+	if(href_list["showarchived"])
+		show_archived = !show_archived
+		show_ui(usr)
+		return
+
+	if(href_list["close"])
+		open = FALSE
+		return

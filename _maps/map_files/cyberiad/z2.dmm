@@ -3225,13 +3225,6 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
-"ir" = (
-/obj/structure/chair/stool,
-/turf/unsimulated/floor{
-	icon_state = "bar";
-	dir = 2
-	},
-/area/syndicate_mothership)
 "is" = (
 /mob/living/simple_animal/pet/fox/Syndifox,
 /turf/unsimulated/floor{
@@ -3506,7 +3499,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena)
 "jb" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "jc" = (
@@ -3526,6 +3519,9 @@
 /area/wizard_station)
 "jf" = (
 /obj/structure/chair/stool/bar,
+/obj/effect/landmark{
+	name = "Syndicate-Spawn"
+	},
 /turf/unsimulated/floor{
 	icon_state = "bar";
 	dir = 2
@@ -3647,13 +3643,13 @@
 	},
 /area/syndicate_mothership)
 "jt" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -3668,13 +3664,13 @@
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "jw" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (WEST)";
 	icon_state = "bulb1";
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -4430,7 +4426,7 @@
 /turf/unsimulated/wall,
 /area/tdome/arena_source)
 "lD" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "lE" = (
@@ -7143,7 +7139,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rK" = (
 /turf/unsimulated/wall/splashscreen,
@@ -7154,7 +7150,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rM" = (
 /turf/simulated/shuttle/wall{
@@ -7169,7 +7165,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rO" = (
 /obj/docking_port/stationary{
@@ -7207,7 +7203,7 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/centcom/evac)
 "rS" = (
 /turf/simulated/shuttle/wall{
@@ -7384,9 +7380,8 @@
 	},
 /area/centcom/evac)
 "sn" = (
-/obj/structure/chair{
-	dir = 4;
-	name = "Defense"
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
@@ -8034,11 +8029,12 @@
 "tH" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 8;
-	height = 15;
+	dwidth = 9;
+	height = 18;
 	id = "admin_away";
 	name = "centcom bay 1";
-	width = 18
+	timid = 1;
+	width = 19
 	},
 /turf/space,
 /area/space)
@@ -8547,7 +8543,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/mask/gas/cyborg,
-/obj/item/clothing/mask/gas/voice,
+/obj/item/clothing/mask/chameleon,
 /obj/item/clothing/mask/balaclava{
 	pixel_x = 3;
 	pixel_y = -3
@@ -8733,7 +8729,7 @@
 /area/admin)
 "uY" = (
 /obj/structure/rack,
-/obj/item/clothing/under/chameleon/all{
+/obj/item/clothing/mask/chameleon{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -9040,7 +9036,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/shoes/centcom,
-/obj/item/clothing/shoes/syndigaloshes{
+/obj/item/clothing/shoes/chameleon/noslip{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -12009,8 +12005,8 @@
 /area/syndicate_mothership)
 "BE" = (
 /obj/structure/rack,
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded,
-/obj/item/storage/backpack/duffel/syndie/ammo/loaded,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /turf/unsimulated/floor{
@@ -12234,6 +12230,12 @@
 "FL" = (
 /turf/simulated/wall/r_wall,
 /area/adminconstruction)
+"Ga" = (
+/obj/machinery/computer/shuttle/ert,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "GP" = (
 /turf/unsimulated/floor{
 	icon_state = "gcircuit"
@@ -12279,7 +12281,7 @@
 "Hv" = (
 /obj/structure/rack,
 /obj/item/katana/energy,
-/obj/item/clothing/mask/gas/voice/space_ninja,
+/obj/item/clothing/mask/gas/space_ninja,
 /turf/unsimulated/floor{
 	icon_state = "engine"
 	},
@@ -12457,26 +12459,32 @@
 	},
 /turf/unsimulated/floor/vox,
 /area/vox_station)
+"KA" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
 "KR" = (
-/obj/structure/chair{
+/obj/machinery/light/small,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "KW" = (
-/obj/structure/chair,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
 "KX" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -12484,7 +12492,7 @@
 	},
 /area/shuttle/assault_pod)
 "KY" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -12569,6 +12577,10 @@
 /obj/effect/landmark/ai_multicam_room,
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
+"Qt" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/ninja/holding)
 "QE" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/shuttle/floor{
@@ -12577,12 +12589,6 @@
 /area/shuttle/escape)
 "QI" = (
 /obj/structure/chair/sofa,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/escape)
-"QJ" = (
-/obj/structure/chair/sofa/corner,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -12739,7 +12745,7 @@
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "Wk" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -12747,7 +12753,7 @@
 	},
 /area/centcom/evac)
 "Wl" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -12755,13 +12761,13 @@
 	},
 /area/centcom/evac)
 "WI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "WU" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
 "Xj" = (
@@ -31701,7 +31707,7 @@ pb
 uj
 uj
 uj
-uj
+Ga
 sX
 we
 we
@@ -35344,9 +35350,9 @@ wK
 wK
 wK
 wK
-aN
-aN
-aN
+wK
+wK
+wK
 aN
 aN
 aN
@@ -35585,25 +35591,25 @@ aN
 aN
 cp
 cj
-yt
-yt
-yt
-cr
 aN
 aN
-cr
-yt
-cr
 aN
 aN
-cr
-yt
-yt
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -35842,9 +35848,6 @@ aN
 aN
 cp
 cj
-yt
-yt
-cr
 aN
 aN
 aN
@@ -35854,13 +35857,16 @@ aN
 aN
 aN
 aN
-cr
-yt
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36099,8 +36105,6 @@ aN
 aN
 cp
 cj
-yt
-cr
 aN
 aN
 aN
@@ -36112,12 +36116,14 @@ aN
 aN
 aN
 aN
-cr
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36356,7 +36362,6 @@ aN
 aN
 cp
 cj
-cr
 aN
 aN
 aN
@@ -36370,11 +36375,12 @@ aN
 aN
 aN
 aN
-cr
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36628,10 +36634,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -36885,10 +36891,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37142,10 +37148,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37399,10 +37405,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37656,10 +37662,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -37913,10 +37919,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38170,10 +38176,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38427,10 +38433,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38684,10 +38690,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -38941,10 +38947,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39183,7 +39189,6 @@ qo
 qs
 tx
 wK
-cr
 aN
 aN
 aN
@@ -39197,11 +39202,12 @@ aN
 aN
 aN
 aN
-cr
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39440,25 +39446,25 @@ qo
 qs
 tA
 wK
-yt
 aN
 aN
 aN
 aN
 aN
-yt
-yt
-yt
 aN
 aN
 aN
 aN
 aN
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39697,25 +39703,25 @@ tq
 tv
 tz
 wK
-yt
-cr
 aN
 aN
 aN
 aN
-yt
-yt
-yt
 aN
 aN
 aN
 aN
-cr
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -39954,25 +39960,25 @@ wK
 wK
 wK
 wK
-yt
-yt
-cr
 aN
 aN
-cr
-yt
-yt
-yt
-cr
 aN
 aN
-cr
-yt
-yt
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 wK
-aN
-aN
-aN
 aN
 aN
 aN
@@ -40211,25 +40217,25 @@ aN
 aN
 aN
 wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
-wK
 aN
 aN
 aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+wK
 aN
 aN
 aN
@@ -40467,26 +40473,26 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
+wK
 aN
 aN
 aN
@@ -41459,7 +41465,7 @@ sq
 aN
 aN
 nV
-QI
+KA
 og
 og
 og
@@ -41716,7 +41722,7 @@ sq
 aN
 aN
 nV
-QJ
+og
 og
 og
 og
@@ -54453,7 +54459,7 @@ fI
 fH
 fH
 he
-hv
+Qt
 fg
 aN
 aN
@@ -55027,7 +55033,7 @@ hQ
 hn
 hn
 en
-ir
+en
 iY
 jf
 jk
@@ -55798,7 +55804,7 @@ hn
 hn
 is
 en
-ir
+en
 hn
 iL
 jo

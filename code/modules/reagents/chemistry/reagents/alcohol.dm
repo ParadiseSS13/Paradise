@@ -115,6 +115,24 @@
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return list(0, update_flags)
 
+/datum/reagent/consumable/ethanol/hooch
+	name = "Hooch"
+	id = "hooch"
+	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
+	color = "#664300" // rgb: 102, 67, 0
+	dizzy_adj = 7
+	alcohol_perc = 1
+	drink_icon = "glass_brown2"
+	drink_name = "Hooch"
+	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
+	taste_message = "pure resignation"
+
+/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
+	if(M.mind && M.mind.assigned_role == "Assistant")
+		M.heal_organ_damage(1, 1)
+		. = 1
+	return ..() || .
+
 /datum/reagent/consumable/ethanol/rum
 	name = "Rum"
 	id = "rum"
@@ -765,7 +783,7 @@
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
 		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/devilskiss
 	name = "Devils Kiss"
@@ -819,7 +837,7 @@
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 270)
 		M.bodytemperature = max(270, M.bodytemperature - (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/grog
 	name = "Grog"
@@ -1178,7 +1196,7 @@
 		if(prob(25))
 			holder.remove_reagent(id, 15)
 			M.fakevomit()
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.isSynthetic())
@@ -1361,3 +1379,15 @@
 	taste_message = flavor
 	if(holder.my_atom)
 		holder.my_atom.on_reagent_change()
+
+/datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
+	name = "Bacchus' Blessing"
+	id = "bacchus_blessing"
+	description = "Unidentifiable mixture. Unmeasurably high alcohol content."
+	color = rgb(51, 19, 3) //Sickly brown
+	dizzy_adj = 21
+	alcohol_perc = 3 //I warned you
+	drink_icon = "glass_brown2"
+	drink_name = "Bacchus' Blessing"
+	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
+	taste_message = "a wall of bricks"

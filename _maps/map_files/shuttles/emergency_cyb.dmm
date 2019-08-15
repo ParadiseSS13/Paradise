@@ -43,7 +43,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "ai" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -54,12 +54,6 @@
 /area/shuttle/escape)
 "ak" = (
 /obj/machinery/computer/station_alert,
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"al" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "am" = (
@@ -73,20 +67,20 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "ap" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
@@ -101,7 +95,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "as" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -111,7 +105,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "au" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -142,7 +136,7 @@
 	},
 /area/shuttle/escape)
 "az" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
@@ -156,7 +150,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aB" = (
@@ -171,7 +165,7 @@
 	},
 /area/shuttle/escape)
 "aC" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -179,7 +173,7 @@
 	},
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -205,11 +199,11 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
@@ -236,11 +230,11 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -256,13 +250,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aO" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aP" = (
@@ -296,9 +290,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "aS" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "station intercom (General)";
@@ -309,14 +300,14 @@
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
@@ -324,6 +315,9 @@
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -543,7 +537,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bs" = (
 /turf/simulated/shuttle/wall{
@@ -562,7 +556,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bv" = (
 /turf/space,
@@ -573,7 +567,7 @@
 /area/shuttle/escape)
 "bw" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -710,7 +704,7 @@ bw
 ab
 ae
 ah
-al
+ai
 am
 am
 av
@@ -762,7 +756,7 @@ aa
 ad
 ag
 aj
-al
+ai
 am
 at
 av

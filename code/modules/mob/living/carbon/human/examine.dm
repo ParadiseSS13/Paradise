@@ -30,6 +30,7 @@
 	msg += "<EM>[name]</EM>"
 
 	var/displayed_species = dna.species.name
+	var/examine_color = dna.species.flesh_color
 	for(var/obj/item/clothing/C in src)			//Disguise checks
 		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
 			if(C.species_disguise)
@@ -37,11 +38,11 @@
 	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a slime person!\n"
+		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
 	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
-		msg += ", a unathi!\n"
+		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"
 	else
-		msg += ", \a [lowertext(displayed_species)]!\n"
+		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.flags & ABSTRACT))
@@ -315,15 +316,7 @@
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
-			if(istype(src, /mob/living/carbon/human/interactive))
-				var/mob/living/carbon/human/interactive/auto = src
-				if(auto.showexaminetext)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] appears to be some sort of sick automaton, [p_their()] eyes are glazed over and [p_their()] mouth is slightly agape.</span>\n"
-				if(auto.debugexamine)
-					var/dodebug = auto.doing2string(auto.doing)
-					var/interestdebug = auto.interest2string(auto.interest)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] appears to be [interestdebug] and [dodebug].</span>\n"
-			else if(dna.species.show_ssd)
+			if(dna.species.show_ssd)
 				if(!key)
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
 				else if(!client)
@@ -345,17 +338,8 @@
 		msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user,"security"))
-		var/perpname = "wot"
+		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
-
-		if(wear_id)
-			var/obj/item/card/id/I = wear_id.GetID()
-			if(I)
-				perpname = I.registered_name
-			else
-				perpname = name
-		else
-			perpname = name
 
 		if(perpname)
 			for(var/datum/data/record/E in data_core.general)
@@ -363,22 +347,13 @@
 					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
-			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=[glasses]'>\[[criminal]\]</a>"
+			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user,"medical"))
-		var/perpname = "wot"
+		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
-
-		if(wear_id)
-			if(istype(wear_id,/obj/item/card/id))
-				perpname = wear_id:registered_name
-			else if(istype(wear_id,/obj/item/pda))
-				var/obj/item/pda/tempPda = wear_id
-				perpname = tempPda.owner
-		else
-			perpname = src.name
 
 		for(var/datum/data/record/E in data_core.general)
 			if(E.fields["name"] == perpname)

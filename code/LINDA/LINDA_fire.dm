@@ -48,12 +48,12 @@
 	anchored = 1
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	unacidable = 1//So you can't melt fire with acid.
-	icon = 'icons/effects/fire.dmi'
+	icon = 'icons/goonstation/effects/fire.dmi'
 	icon_state = "1"
-	layer = TURF_LAYER
-
+	layer = MASSIVE_OBJ_LAYER
+	alpha = 250
 	blend_mode = BLEND_ADD
-	light_range = 3
+	light_range = 2
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
@@ -184,12 +184,12 @@
 			else
 				chance_of_deletion = 100
 			if(prob(chance_of_deletion))
-				T.ChangeTurf(/turf/space)
+				T.ChangeTurf(T.baseturf)
 			else
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/Crossed(mob/living/L)
+/obj/effect/hotspot/Crossed(mob/living/L, oldloc)
 	..()
 	if(isliving(L))
 		L.fire_act()

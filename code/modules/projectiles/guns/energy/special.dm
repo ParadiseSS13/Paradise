@@ -137,7 +137,7 @@
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 	shoot_live_shot()
-	return (OXYLOSS)
+	return OXYLOSS
 
 // Plasma Cutters //
 /obj/item/gun/energy/plasmacutter
@@ -340,11 +340,11 @@
 /obj/item/gun/energy/temperature/New()
 	..()
 	update_icon()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/gun/energy/temperature/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/energy/temperature/newshot()

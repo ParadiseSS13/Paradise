@@ -121,7 +121,7 @@
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
@@ -164,6 +164,22 @@
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+
+/obj/item/kitchen/knife/combat/survival
+	name = "survival knife"
+	icon_state = "survivalknife"
+	desc = "A hunting grade survival knife."
+	force = 15
+	throwforce = 15
+
+/obj/item/kitchen/knife/combat/survival/bone
+	name = "bone dagger"
+	item_state = "bone_dagger"
+	icon_state = "bone_dagger"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	desc = "A sharpened bone. The bare minimum in survival."
+	materials = list()
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"

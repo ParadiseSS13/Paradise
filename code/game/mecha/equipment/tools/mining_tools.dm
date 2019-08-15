@@ -59,12 +59,12 @@
 	drill.log_message("Drilled through [src]")
 	drill.move_ores()
 
-/turf/simulated/floor/plating/airless/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
+/turf/simulated/floor/plating/asteroid/airless/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	if(istype(drill, /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill))
-		for(var/turf/simulated/floor/plating/airless/asteroid/M in range(1, src))
+		for(var/turf/simulated/floor/plating/asteroid/airless/M in range(1, src))
 			M.gets_drilled()
 	else
-		for(var/turf/simulated/floor/plating/airless/asteroid/M in range(1, drill.chassis))
+		for(var/turf/simulated/floor/plating/asteroid/airless/M in range(1, drill.chassis))
 			if(get_dir(drill.chassis, M) & drill.chassis.dir)
 				M.gets_drilled()
 	drill.log_message("Drilled through [src]")
@@ -116,14 +116,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/attach(obj/mecha/M)
 	. = ..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	M.occupant_sight_flags |= SEE_TURFS
 	if(M.occupant)
 		M.occupant.update_sight()
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/detach()
 	chassis.occupant_sight_flags &= ~SEE_TURFS
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	if(chassis.occupant)
 		chassis.occupant.update_sight()
 	return ..()

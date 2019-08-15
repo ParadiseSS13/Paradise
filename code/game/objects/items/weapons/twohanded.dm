@@ -28,12 +28,15 @@
 	var/force_wielded = 0
 	var/wieldsound = null
 	var/unwieldsound = null
+	var/sharp_when_wielded = FALSE
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
 		return
 	wielded = FALSE
 	force = force_unwielded
+	if(sharp_when_wielded)
+		sharp = FALSE
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
 		name = copytext(name, 1, sf)
@@ -66,6 +69,8 @@
 		return
 	wielded = TRUE
 	force = force_wielded
+	if(sharp_when_wielded)
+		sharp = TRUE
 	name = "[name] (Wielded)"
 	update_icon()
 	if(user)
@@ -192,6 +197,15 @@
 			var/obj/structure/grille/G = A
 			G.take_damage(40, BRUTE, "melee", 0)
 
+/obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+	icon_state = "bone_axe0"
+	name = "bone axe"
+	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
+	force_wielded = 23
+
+/obj/item/twohanded/fireaxe/boneaxe/update_icon()
+	icon_state = "bone_axe[wielded]"
+
 /*
  * Double-Bladed Energy Swords - Cheridan
  */
@@ -215,7 +229,7 @@
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
-	sharp = TRUE
+	sharp_when_wielded = TRUE // only sharp when wielded
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
@@ -346,6 +360,19 @@
 	if(explosive)
 		explosive.prime()
 		qdel(src)
+
+/obj/item/twohanded/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+	icon_state = "bone_spear0"
+	name = "bone spear"
+	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
+	force = 11
+	force_unwielded = 11
+	force_wielded = 20					//I have no idea how to balance
+	throwforce = 22
+	armour_penetration = 15				//Enhanced armor piercing
+
+/obj/item/twohanded/spear/bonespear/update_icon()
+	icon_state = "bone_spear[wielded]"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
@@ -557,10 +584,10 @@
 
 /obj/item/twohanded/singularityhammer/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/singularityhammer/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
@@ -664,10 +691,10 @@
 
 /obj/item/twohanded/knighthammer/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/knighthammer/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/twohanded/knighthammer/process()
@@ -797,7 +824,7 @@
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()

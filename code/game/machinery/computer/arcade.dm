@@ -470,7 +470,7 @@
 						M.nutrition -= 50 //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
-							location.add_vomit_floor(src, 1)
+							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
 						M.Weaken(3)
@@ -484,7 +484,7 @@
 						playsound(src.loc, 'sound/effects/bang.ogg', 100, 1)
 						var/turf/simulated/floor/F
 						for(F in orange(1, src))
-							F.ChangeTurf(/turf/space)
+							F.ChangeTurf(F.baseturf)
 						atom_say("Something slams into the floor around [src], exposing it to space!")
 						if(hull)
 							sleep(10)

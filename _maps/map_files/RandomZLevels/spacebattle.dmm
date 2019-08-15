@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/simulated/mineral/random,
-/area/space)
+/area/space/nearstation)
 "ab" = (
 /turf/space,
 /area/space)
@@ -26,7 +26,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate2)
 "af" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -55,7 +55,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate2)
 "aj" = (
 /turf/simulated/shuttle/floor{
@@ -147,7 +147,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate3)
 "ax" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -155,7 +155,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate3)
 "ay" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -163,7 +163,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate3)
 "az" = (
 /turf/space,
@@ -191,7 +191,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate3)
 "aD" = (
 /turf/simulated/shuttle/floor{
@@ -219,7 +219,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "aH" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -282,7 +282,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate1)
 "aQ" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -290,7 +290,7 @@
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate1)
 "aR" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -298,7 +298,7 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate1)
 "aS" = (
 /turf/space,
@@ -329,7 +329,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate1)
 "aX" = (
 /obj/structure/window/reinforced,
@@ -361,7 +361,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "ba" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -369,7 +369,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "bb" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -475,7 +475,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "bq" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -534,7 +534,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "by" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -648,7 +648,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "bN" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -656,7 +656,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "bO" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -1270,7 +1270,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "dJ" = (
-/obj/mecha/working/ripley/firefighter,
+/obj/mecha/working/ripley/firefighter{
+	ruin_mecha = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "dK" = (
@@ -1638,7 +1640,7 @@
 	},
 /area/awaymission/spacebattle/syndicate4)
 "eQ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -1927,6 +1929,17 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
+"gm" = (
+/obj/structure/shuttle/engine/heater{
+	tag = "icon-heater (WEST)";
+	icon_state = "heater";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
 "gn" = (
 /obj/structure/closet/crate/secure/weapon,
 /obj/item/ammo_casing/a357,
@@ -2090,7 +2103,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate4)
 "gO" = (
 /obj/structure/reagent_dispensers/beerkeg,
@@ -2162,7 +2175,7 @@
 /area/awaymission/spacebattle/syndicate7)
 "gY" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate4)
 "gZ" = (
 /obj/item/pickaxe,
@@ -2221,15 +2234,15 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate7)
 "hh" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_r (WEST)";
-	icon_state = "propulsion_r";
-	dir = 8
+	dir = 4;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate7)
 "hi" = (
 /obj/structure/largecrate,
@@ -2286,14 +2299,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/syndicate7)
-"hq" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_l (WEST)";
-	icon_state = "propulsion_l";
-	dir = 8
-	},
-/turf/space,
 /area/awaymission/spacebattle/syndicate7)
 "hr" = (
 /obj/structure/largecrate,
@@ -2416,7 +2421,7 @@
 	},
 /area/awaymission/spacebattle/syndicate7)
 "hM" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -2604,14 +2609,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
-"io" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-burst_r (EAST)";
-	icon_state = "burst_r";
-	dir = 4
-	},
-/turf/space,
-/area/awaymission/spacebattle/cruiser)
 "ip" = (
 /obj/effect/mob_spawn/human/engineer{
 	name = "Mercutio"
@@ -2622,23 +2619,23 @@
 "iq" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ir" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "is" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
 	},
-/area/space)
+/area/space/nearstation)
 "it" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
 	},
-/area/space)
+/area/space/nearstation)
 "iu" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel/airless{
@@ -2646,14 +2643,14 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iv" = (
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-floor4 (SOUTHWEST)";
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iw" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/plasteel/airless{
@@ -2661,7 +2658,7 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "ix" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel/airless{
@@ -2669,7 +2666,7 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iy" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel/airless{
@@ -2677,7 +2674,7 @@
 	icon_state = "floor4";
 	dir = 10
 	},
-/area/space)
+/area/space/nearstation)
 "iz" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -2700,7 +2697,7 @@
 "iC" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel/airless,
-/area/space)
+/area/space/nearstation)
 "iD" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -2717,14 +2714,14 @@
 /turf/simulated/shuttle/wall{
 	icon_state = "diagonalWall3"
 	},
-/area/space)
+/area/space/nearstation)
 "iG" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "diagonalWall3"
 	},
-/area/space)
+/area/space/nearstation)
 "iH" = (
 /obj/machinery/sleeper,
 /turf/simulated/shuttle/floor{
@@ -2732,7 +2729,7 @@
 	},
 /area/awaymission/spacebattle/syndicate5)
 "iI" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -2745,12 +2742,12 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
-/area/space)
+/turf/simulated/shuttle/plating,
+/area/space/nearstation)
 "iK" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
-/area/space)
+/turf/simulated/shuttle/plating,
+/area/space/nearstation)
 "iL" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/shuttle/floor{
@@ -2775,11 +2772,11 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate5)
 "iP" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate5)
 "iQ" = (
 /turf/space,
@@ -2818,7 +2815,7 @@
 	},
 /area/awaymission/spacebattle/syndicate6)
 "iW" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate,
@@ -2850,15 +2847,15 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate6)
 "jb" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/awaymission/spacebattle/syndicate6)
 "jc" = (
-/turf/simulated/floor/plating/airless/asteroid,
-/area/space)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "jd" = (
 /turf/simulated/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
@@ -2872,6 +2869,78 @@
 /obj/machinery/door/airlock/plasma,
 /turf/simulated/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
+"nG" = (
+/obj/structure/window/reinforced,
+/obj/structure/shuttle/engine/heater{
+	tag = "icon-heater (NORTH)";
+	icon_state = "heater";
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
+"qC" = (
+/obj/structure/window/reinforced,
+/obj/structure/shuttle/engine/heater{
+	tag = "icon-heater (NORTH)";
+	icon_state = "heater";
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
+"zS" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (WEST)"
+	},
+/turf/simulated/shuttle/plating,
+/area/space/nearstation)
+"Jj" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion_l (NORTH)";
+	icon_state = "propulsion_l";
+	dir = 1
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/syndicate2)
+"Jw" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion_r (NORTH)";
+	icon_state = "propulsion_r";
+	dir = 1
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/syndicate2)
+"JS" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion_l (NORTH)";
+	icon_state = "propulsion_l";
+	dir = 1
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
+"JW" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion_r (NORTH)";
+	icon_state = "propulsion_r";
+	dir = 1
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
+"YV" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_r";
+	tag = "icon-burst_r (EAST)"
+	},
+/turf/simulated/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
 
 (1,1,1) = {"
 aa
@@ -21516,15 +21585,15 @@ ab
 ab
 ab
 bP
-bU
-cc
-cc
-cc
-cc
-cc
-cc
-cc
-io
+YV
+YV
+YV
+YV
+YV
+YV
+YV
+YV
+YV
 dq
 ab
 ab
@@ -21773,15 +21842,15 @@ ab
 ab
 ab
 bS
-bV
-bV
-bV
-bV
-bV
-bV
-bV
-bV
-bV
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
 bQ
 ab
 ab
@@ -36817,7 +36886,7 @@ ab
 ab
 ab
 ab
-ad
+Jw
 ai
 aj
 aj
@@ -40158,7 +40227,7 @@ ab
 ab
 ab
 ab
-af
+Jj
 ai
 aj
 aj
@@ -45948,7 +46017,7 @@ ab
 ab
 ab
 ab
-iq
+zS
 iv
 iv
 iv
@@ -51555,8 +51624,8 @@ ab
 ab
 ab
 ab
-bF
-bK
+JW
+nG
 bN
 bN
 bN
@@ -52326,8 +52395,8 @@ ab
 ab
 ab
 ab
-bH
-bM
+JS
+qC
 bO
 bO
 bO
@@ -64175,12 +64244,12 @@ ab
 ab
 gM
 hh
-hq
+hh
 hz
 ab
 gM
 hh
-hq
+hh
 hz
 ab
 ab

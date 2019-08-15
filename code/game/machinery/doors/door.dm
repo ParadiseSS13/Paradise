@@ -28,7 +28,7 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE
-
+	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	//Multi-tile doors
 	var/width = 1
 
@@ -54,6 +54,10 @@
 /obj/machinery/door/setDir(newdir)
 	..()
 	update_dir()
+
+/obj/machinery/door/power_change()
+	..()
+	update_icon()
 
 /obj/machinery/door/proc/update_dir()
 	if(width > 1)
@@ -134,8 +138,6 @@
 	if(operating)
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
 
 	if(density && !emagged)
 		if(allowed(user))
@@ -157,7 +159,7 @@
 	return try_to_activate_door(user)
 
 /obj/machinery/door/attack_tk(mob/user)
-	if(requiresID() && !allowed(null))
+	if(!allowed(null))
 		return
 	..()
 
@@ -165,9 +167,7 @@
 	add_fingerprint(user)
 	if(operating || emagged)
 		return
-	if(!requiresID())
-		user = null //so allowed(user) always succeeds
-	if(allowed(user) || user.can_advanced_admin_interact())
+	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
 			open()
 		else
@@ -179,8 +179,15 @@
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
 		return TRUE
+	if(unrestricted_side(M))
+		return TRUE
+	if(!requiresID())
+		return FALSE // Intentional. machinery/door/requiresID() always == 1. airlocks, however, == 0 if ID scan is disabled. Yes, this var is poorly named.
 	return ..()
 
+/obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
+	return get_dir(src, M) & unres_sides
+	
 /obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
 	return
 

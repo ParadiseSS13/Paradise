@@ -6,7 +6,7 @@
 /turf/simulated/mineral,
 /area/ruin/unpowered)
 "c" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "d" = (
 /turf/simulated/mineral/random/high_chance,
@@ -22,40 +22,24 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "h" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/chair,
 /obj/structure/window/reinforced{
 	tag = "icon-rwindow (WEST)";
 	icon_state = "rwindow";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
-	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/chair,
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
-	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "k" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "l" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -63,16 +47,14 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/unpowered)
 "m" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
@@ -83,42 +65,28 @@
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "q" = (
 /obj/item/shard,
-/obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "r" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/window/reinforced{
 	tag = "icon-rwindow (WEST)";
 	icon_state = "rwindow";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "plating";
-	icon_regular_floor = "shuttlefloor";
-	icon_state = "shuttlefloor"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,

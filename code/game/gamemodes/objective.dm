@@ -25,6 +25,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
+	if(possible_target in owner.targets)
+		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(!possible_target.current.stat == DEAD)
@@ -43,7 +45,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 /datum/objective/proc/find_target()
 	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target in ticker.minds)
+	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
 			continue
 
@@ -51,7 +53,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
-
 
 /datum/objective/assassinate
 	martyr_compatible = 1
@@ -263,9 +264,9 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 0
 	if(!owner.current || owner.current.stat == DEAD)
 		return 0
-	if(ticker.force_ending) //This one isn't their fault, so lets just assume good faith
+	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
 		return 1
-	if(ticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
+	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
 		return 1
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
@@ -273,7 +274,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(!location)
 		return 0
 
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
+	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
 		return 0
 
 	if(location.onCentcom() || location.onSyndieBase())
@@ -287,7 +288,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 /datum/objective/escape/escape_with_identity/find_target()
 	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
-	for(var/datum/mind/possible_target in ticker.minds)
+	for(var/datum/mind/possible_target in SSticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
 			if(!(NO_DNA in H.dna.species.species_traits))
@@ -344,11 +345,14 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/theft_area
 
 /datum/objective/steal/proc/get_location()
-    if(steal_target.location_override)
-        return steal_target.location_override
-    var/obj/item/T = locate(steal_target.typepath)
-    theft_area = get_area(T.loc)
-    return "[theft_area]"
+	if(steal_target.location_override)
+		return steal_target.location_override
+	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
+	for(var/obj/item/candidate in steal_candidates)
+		if(!is_admin_level(candidate.loc.z))
+			theft_area = get_area(candidate.loc)
+			return "[theft_area]"
+	return "an unknown area"
 
 /datum/objective/steal/find_target()
 	var/loop=50
@@ -358,9 +362,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
+		if(O in owner.targets)
+			continue
 		if(O.flags & 2)
 			continue
-		steal_target=O
+		steal_target = O
+
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
 			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
@@ -452,19 +459,19 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/absorb
 /datum/objective/absorb/proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
 	target_amount = rand (lowbound,highbound)
-	if(ticker)
+	if(SSticker)
 		var/n_p = 1 //autowin
-		if(ticker.current_state == GAME_STATE_SETTING_UP)
+		if(SSticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/P in GLOB.player_list)
 				if(P.client && P.ready && P.mind != owner)
 					if(P.client.prefs && (P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
-		else if(ticker.current_state == GAME_STATE_PLAYING)
+		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in GLOB.player_list)
 				if(NO_DNA in P.dna.species.species_traits)
 					continue
-				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
+				if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
 					n_p++
 		target_amount = min(target_amount, n_p)
 
@@ -531,8 +538,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
-	for(var/datum/mind/possible_target in ticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role))
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role) && !possible_target.offstation_role)
 			possible_targets += possible_target
 			for(var/role in roles)
 				if(possible_target.assigned_role == role)
@@ -627,7 +634,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			if(total_amount >= target_amount)
 				return 1
 
-	var/datum/game_mode/heist/H = ticker.mode
+	var/datum/game_mode/heist/H = SSticker.mode
 	for(var/datum/mind/raider in H.raiders)
 		if(raider.current)
 			for(var/obj/O in raider.current.get_contents())
@@ -697,7 +704,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 					S = I
 					total_amount += S.get_amount()
 
-	var/datum/game_mode/heist/H = ticker.mode
+	var/datum/game_mode/heist/H = SSticker.mode
 	for(var/datum/mind/raider in H.raiders)
 		if(raider.current)
 			for(var/obj/item/O in raider.current.get_contents())
@@ -714,7 +721,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	explanation_text = "Do not leave any Vox behind, alive or dead."
 
 /datum/objective/heist/inviolate_crew/check_completion()
-	var/datum/game_mode/heist/H = ticker.mode
+	var/datum/game_mode/heist/H = SSticker.mode
 	if(H.is_raider_crew_safe())
 		return 1
 	return 0
@@ -726,7 +733,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
 	var/vox_total_kills = 0
 
-	var/datum/game_mode/heist/H = ticker.mode
+	var/datum/game_mode/heist/H = SSticker.mode
 	for(var/datum/mind/raider in H.raiders)
 		vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
 

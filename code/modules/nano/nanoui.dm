@@ -444,6 +444,8 @@ nanoui is used to open and update nano browser uis
 	for(var/datum/nanoui/child in children)
 		child.close()
 
+	src_object.on_ui_close(user)
+
  /**
   * Set the UI window to call the nanoclose verb when the window is closed
   * This allows Nano to handle closed windows
@@ -506,7 +508,7 @@ nanoui is used to open and update nano browser uis
   *
   * @return nothing
   */
-/datum/nanoui/proc/process(update = 0)
+/datum/nanoui/process(update = 0)
 	if(!src_object || !user)
 		close()
 		return

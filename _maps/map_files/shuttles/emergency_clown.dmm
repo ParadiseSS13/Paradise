@@ -43,7 +43,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ai" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57,14 +57,6 @@
 "ak" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"al" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/shuttle/escape)
 "am" = (
 /obj/item/toy/snappop/phoenix,
@@ -80,11 +72,11 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -95,11 +87,11 @@
 	},
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -114,7 +106,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "at" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -129,7 +121,7 @@
 	},
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -164,7 +156,7 @@
 	},
 /area/shuttle/escape)
 "aB" = (
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/status_display{
@@ -175,7 +167,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/bed,
@@ -207,7 +199,7 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aH" = (
 /obj/item/storage/bible{
@@ -246,7 +238,7 @@
 	name = "station intercom (General)";
 	pixel_x = 28
 	},
-/turf/unsimulated/floor/chasm,
+/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aM" = (
 /obj/structure/grille,
@@ -505,7 +497,7 @@
 /obj/structure/window/reinforced,
 /obj/item/stack/sheet/mineral/bananium,
 /obj/item/bikehorn/rubberducky,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bp" = (
 /turf/simulated/shuttle/wall{
@@ -527,7 +519,7 @@
 /obj/structure/window/reinforced,
 /obj/item/stack/sheet/mineral/bananium,
 /obj/item/bikehorn/rubberducky,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bs" = (
 /turf/space,
@@ -538,7 +530,7 @@
 /area/shuttle/escape)
 "bt" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -675,7 +667,7 @@ bt
 ab
 ae
 ah
-al
+ai
 am
 au
 ax
@@ -727,7 +719,7 @@ aa
 ad
 ag
 aj
-al
+ai
 ap
 au
 ax

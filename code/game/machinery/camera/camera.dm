@@ -295,10 +295,12 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	camera_alarm.triggerAlarm(loc, src)
+	if(is_station_contact(z))
+		SSalarms.camera_alarm.triggerAlarm(loc, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	camera_alarm.clearAlarm(loc, src)
+	if(is_station_contact(z))
+		SSalarms.camera_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
@@ -382,14 +384,17 @@
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
-	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
 	if(isXRay())
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.see_in_dark = max(user.see_in_dark, 8)
+		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
-		user.sight = 0
-		user.see_in_dark = 2
-	return 1
+		user.sight = initial(user.sight)
+		user.see_in_dark = initial(user.see_in_dark)
+		user.lighting_alpha = initial(user.lighting_alpha)
+
+	..()
+	return TRUE
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf

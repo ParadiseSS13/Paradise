@@ -72,16 +72,6 @@
 	build_path = /obj/item/circuitboard/quantumpad
 	category = list ("Teleportation Machinery")
 
-/datum/design/telepad
-	name = "Machine Board (Telepad Board)"
-	desc = "Allows for the construction of circuit boards used to build a Telepad."
-	id = "telepad"
-	req_tech = list("programming" = 4, "bluespace" = 5, "plasmatech" = 4, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/telesci_pad
-	category = list ("Teleportation Machinery")
-
 /datum/design/teleport_hub
 	name = "Machine Board (Teleportation Hub)"
 	desc = "Allows for the construction of circuit boards used to build a Teleportation Hub."
@@ -163,8 +153,8 @@
 	category = list("Medical Machinery")
 
 /datum/design/chem_dispenser
-	name = "Machine Board (Portable Chem Dispenser)"
-	desc = "The circuit board for a Portable Chem Dispenser."
+	name = "Machine Board (Chem Dispenser)"
+	desc = "The circuit board for a Chem Dispenser."
 	id = "chem_dispenser"
 	req_tech = list("programming" = 5, "biotech" = 3, "materials" = 4, "plasmatech" = 4)
 	build_type = IMPRINTER
@@ -173,8 +163,8 @@
 	category = list("Medical Machinery")
 
 /datum/design/chem_master
-	name = "Machine Design (Chem Master Board)"
-	desc = "The circuit board for a Chem Master 2999."
+	name = "Machine Design (ChemMaster Board)"
+	desc = "The circuit board for a ChemMaster 3000."
 	id = "chem_master"
 	req_tech = list("biotech" = 3, "materials" = 3, "programming" = 2)
 	build_type = IMPRINTER

@@ -49,6 +49,7 @@
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
+	var/list/sprite_sheets = list() //For accessories common across species but need to use 'fitted' sprites (like underwear). e.g. list("Vox" = 'icons/mob/species/vox/iconfile.dmi')
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
@@ -132,7 +133,7 @@
 /datum/sprite_accessory/skin/human
 	name = "Default human skin"
 	icon_state = "default"
-	species_allowed = list("Human",)
+	species_allowed = list("Human")
 
 /datum/sprite_accessory/skin/human/human_tatt01
 	name = "Tatt01 human skin"
@@ -167,7 +168,11 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/species/grey/underwear.dmi'
+	)
 	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
@@ -293,7 +298,10 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/species/grey/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
@@ -529,7 +537,8 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
@@ -565,6 +574,10 @@
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
 	gender = FEMALE
+
+/datum/sprite_accessory/socks/striped_norm
+	name = "Normal Striped"
+	icon_state = "striped_norm"
 
 /datum/sprite_accessory/socks/striped_knee
 	name = "Knee-high Striped"
@@ -603,50 +616,3 @@
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
 	icon_state = "black_fishnet"
-
-/datum/sprite_accessory/socks/vox
-	species_allowed = list("Vox")
-
-/datum/sprite_accessory/socks/vox/vox_white
-	name = "Vox White"
-	icon_state = "vox_white"
-
-/datum/sprite_accessory/socks/vox/vox_black
-	name = "Vox Black"
-	icon_state = "vox_black"
-
-/datum/sprite_accessory/socks/vox/vox_thin
-	name = "Vox Black Thin"
-	icon_state = "vox_blackthin"
-
-/datum/sprite_accessory/socks/vox/vox_rainbow
-	name = "Vox Rainbow"
-	icon_state = "vox_rainbow"
-
-/datum/sprite_accessory/socks/vox/vox_stripped
-	name = "Vox Striped"
-	icon_state = "vox_white"
-
-/datum/sprite_accessory/socks/vox/vox_white_thigh
-	name = "Vox Thigh-high White"
-	icon_state = "vox_whiteTH"
-
-/datum/sprite_accessory/socks/vox/vox_black_thigh
-	name = "Vox Thigh-high Black"
-	icon_state = "vox_blackTH"
-
-/datum/sprite_accessory/socks/vox/vox_thin_thigh
-	name = "Vox Thigh-high Thin"
-	icon_state = "vox_blackthinTH"
-
-/datum/sprite_accessory/socks/vox/vox_rainbow_thigh
-	name = "Vox Thigh-high Rainbow"
-	icon_state = "vox_rainbowTH"
-
-/datum/sprite_accessory/socks/vox/vox_striped_thigh
-	name = "Vox Thigh-high Striped"
-	icon_state = "vox_stripedTH"
-
-/datum/sprite_accessory/socks/vox/vox_fishnet
-	name = "Vox Fishnets"
-	icon_state = "vox_fishnet"

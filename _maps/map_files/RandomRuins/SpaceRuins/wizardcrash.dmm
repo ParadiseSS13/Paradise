@@ -3,7 +3,7 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ac" = (
 /turf/simulated/mineral,
@@ -55,7 +55,7 @@
 	},
 /area/ruin/unpowered)
 "aj" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -314,7 +314,7 @@
 	},
 /area/ruin/unpowered)
 "bb" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -498,11 +498,11 @@
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/space/nearstation)
 "bI" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plasma,

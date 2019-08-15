@@ -31,17 +31,17 @@
 /obj/structure/New()
 	..()
 	if(smooth)
-		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
+		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			queue_smooth(src)
 			queue_smooth_neighbors(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 
 /obj/structure/Destroy()
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 	if(smooth)
 		var/turf/T = get_turf(src)

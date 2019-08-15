@@ -5,6 +5,7 @@
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
 	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
+	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
@@ -15,13 +16,6 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_message = "numbness"
-
-/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
-	return ..()
 
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
@@ -120,7 +114,7 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < 265)
+	if(M.bodytemperature < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -296,6 +290,11 @@
 	addiction_chance = 5
 	taste_message = "health"
 
+/datum/reagent/medicine/omnizine/godblood
+	name = "Godblood"
+	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	overdose_threshold = 150
+
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -412,10 +411,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
 		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol
@@ -472,7 +467,7 @@
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
-	if(M.oxyloss > 75)
+	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
 	if(M.health < 0 || M.health > 0 && prob(33))
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -537,6 +532,7 @@
 	taste_message = "a delightful numbing"
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -545,13 +541,9 @@
 		if(16 to 35)
 			M.Drowsy(20)
 		if(36 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.traumatic_shock < 100)
-			H.shock_stage = 0
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
@@ -600,7 +592,7 @@
 	if(prob(4))
 		M.emote("collapse")
 	M.AdjustLoseBreath(-5, bound_lower = 5)
-	if(M.oxyloss > 65)
+	if(M.getOxyLoss() > 65)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -25)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
@@ -636,7 +628,7 @@
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-1, bound_lower = 3)
-	if(M.oxyloss > 35)
+	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -684,7 +676,7 @@
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
@@ -697,26 +689,19 @@
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == INGEST)
+		if(method == INGEST || (method == TOUCH && prob(25)))
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
-					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
-					M.gib()
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					M.delayed_gib()
 					return
-				var/mob/dead/observer/ghost = M.get_ghost()
-				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>A Strange Reagent is infusing your body with life. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-					window_flash(ghost.client)
-					ghost << sound('sound/effects/genetics.ogg')
-					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0,15))
-					M.adjustToxLoss(rand(0,15))
-					M.adjustFireLoss(rand(0,15))
+					M.adjustBruteLoss(rand(0, 15))
+					M.adjustToxLoss(rand(0, 15))
+					M.adjustFireLoss(rand(0, 15))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
@@ -731,8 +716,8 @@
 									O.germ_level = INFECTION_LEVEL_THREE
 						H.update_body()
 
+					M.grab_ghost()
 					M.update_revive()
-					M.stat = UNCONSCIOUS
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
@@ -775,7 +760,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.update_mutations()
-	..()
+	return ..()
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
@@ -789,7 +774,7 @@
 	M.SetSlur(0)
 	M.AdjustDrunk(-4)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
-	if(M.toxloss <= 25)
+	if(M.getToxLoss() <= 25)
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags
 
@@ -873,6 +858,7 @@
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
+	return ..()
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"
@@ -889,7 +875,7 @@
 		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	..()
+	return ..()
 
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
@@ -932,6 +918,7 @@
 	taste_message = "sleepiness"
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 30)
@@ -940,9 +927,9 @@
 		if(31 to 40)
 			M.Drowsy(20)
 		if(41 to INFINITY)
-			M.Paralyse(15)
+			update_flags |= M.Paralyse(15, FALSE)
 			M.Drowsy(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
@@ -1155,4 +1142,31 @@
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
 							break
+	return ..() | update_flags
+
+/datum/reagent/medicine/lavaland_extract
+	name = "Lavaland Extract"
+	id = "lavaland_extract"
+	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	metabolization_rate = 0.7 //VERY strong chemical
+	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
+	can_synth = FALSE
+
+/datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M) // This WILL be brutal
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustConfused(5)
+	update_flags |= M.adjustBruteLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.Stun(7, FALSE)
+	update_flags |= M.Weaken(7, FALSE)
 	return ..() | update_flags

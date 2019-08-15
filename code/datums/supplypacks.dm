@@ -1060,8 +1060,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/organic/bar
 	name = "Bar Starter Kit"
 	contains = list(/obj/item/storage/box/drinkingglasses,
-					/obj/item/circuitboard/soda,
-					/obj/item/circuitboard/beer)
+					/obj/item/circuitboard/chem_dispenser/soda,
+					/obj/item/circuitboard/chem_dispenser/beer)
 	cost = 20
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
@@ -1072,6 +1072,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containertype = /obj/structure/closet/critter/cow
 	containername = "cow crate"
+
+/datum/supply_packs/organic/pig
+	name = "Pig Crate"
+	cost = 25
+	containertype = /obj/structure/closet/critter/pig
+	containername = "pig crate"
 
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
@@ -1102,7 +1108,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Cat Crate"
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(/obj/item/clothing/accessory/petcollar,
+					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
 /datum/supply_packs/organic/pug
@@ -1199,13 +1206,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
 	name = "Beekeeping Starter Kit"
-	contains = list(/obj/structure/beebox,
+	contains = list(/obj/structure/beebox/unwrenched,
 					/obj/item/honey_frame,
 					/obj/item/honey_frame,
 					/obj/item/honey_frame,
 					/obj/item/queen_bee/bought,
 					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit)
+					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/melee/flyswatter)
 	cost = 15
 	containername = "beekeeping starter kit"
 
@@ -1353,6 +1361,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/burial)
 	cost = 40
 	containername = "religious supplies crate"
+
+/datum/supply_packs/misc/minerkit
+	name = "Shaft Miner Starter Kit"
+	cost = 30
+	access = access_qm
+	contains = list(/obj/item/storage/backpack/duffel/mining_conscript/noid)
+	containertype = /obj/structure/closet/crate/secure
+	containername = "shaft miner starter kit"
 
 
 ///////////// Paper Work

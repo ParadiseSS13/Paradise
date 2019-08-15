@@ -4,7 +4,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "alienh_running"
 	icon_living = "alienh_running"
-	icon_dead = "alien_l"
+	icon_dead = "alienh_dead"
 	icon_gib = "syndicate_gib"
 	response_help = "pokes the"
 	response_disarm = "shoves the"
@@ -30,7 +30,7 @@
 	status_flags = CANPUSH
 	minbodytemp = 0
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
@@ -40,7 +40,7 @@
 	name = "alien drone"
 	icon_state = "aliend_running"
 	icon_living = "aliend_running"
-	icon_dead = "aliend_l"
+	icon_dead = "aliend_dead"
 	health = 60
 	maxHealth = 60
 	melee_damage_lower = 15
@@ -61,7 +61,7 @@
 	name = "alien sentinel"
 	icon_state = "aliens_running"
 	icon_living = "aliens_running"
-	icon_dead = "aliens_l"
+	icon_dead = "aliens_dead"
 	health = 120
 	maxHealth = 120
 	melee_damage_lower = 15
@@ -77,7 +77,7 @@
 	name = "alien queen"
 	icon_state = "alienq_running"
 	icon_living = "alienq_running"
-	icon_dead = "alienq_l"
+	icon_dead = "alienq_d"
 	health = 250
 	maxHealth = 250
 	melee_damage_lower = 15

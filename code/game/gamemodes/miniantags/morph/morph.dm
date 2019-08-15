@@ -27,7 +27,7 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	idle_vision_range = 1 // Only attack when target is close
 	wander = 0
 	attacktext = "glomps"
@@ -38,13 +38,23 @@
 	var/atom/movable/form = null
 	var/morph_time = 0
 
-	var/playstyle_string = "<b><font size=3 color='red'>You are a morph,</font> an abomination of science created primarily with changeling cells. \
-							You may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
-							observers, and can only be performed once every five seconds. While morphed, you move faster, but do \
+	var/playstyle_string = "<b><font size=3 color='red'>You are a morph.</font><br> As an abomination created primarily with changeling cells, \
+							you may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
+							observers, and can only be performed once every five seconds.<br> While morphed, you move faster, but do \
 							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
-							You can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health. \
-							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
+							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
+							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
 
+/mob/living/simple_animal/hostile/morph/wizard
+	name = "magical morph"
+	real_name = "magical morph"
+	desc = "A revolting, pulsating pile of flesh. This one looks somewhat.. magical."
+
+/mob/living/simple_animal/hostile/morph/wizard/New()
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
+	
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
 		if(form)

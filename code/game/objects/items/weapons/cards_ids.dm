@@ -98,6 +98,8 @@
 	//alt titles are handled a bit weirdly in order to unobtrusively integrate into existing ID system
 	var/assignment = null	//can be alt title or the actual job
 	var/rank = null			//actual job
+	var/owner_uid
+	var/owner_ckey
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
 	var/sex
@@ -194,6 +196,19 @@
 	if(rank != assignment)
 		jobnamedata += " (" + assignment + ")"
 	return jobnamedata
+
+/obj/item/card/id/proc/getPlayer()
+	if(owner_uid)
+		var/mob/living/carbon/human/H = locateUID(owner_uid)
+		if(istype(H) && H.ckey == owner_ckey)
+			return H
+		owner_uid = null
+	if(owner_ckey)
+		for(var/mob/M in GLOB.player_list)
+			if(M.ckey && M.ckey == owner_ckey)
+				owner_uid = M.UID()
+				return M
+		owner_ckey = null
 
 /obj/item/card/id/proc/is_untrackable()
 	return untrackable
@@ -310,6 +325,10 @@
 	origin_tech = "syndicate=1"
 	var/registered_user = null
 	untrackable = 1
+	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
+
+/obj/item/card/id/syndicate/anyone
+	anyone = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -329,7 +348,7 @@
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
 		if(istype(user, /mob/living) && user.mind)
-			if(user.mind.special_role)
+			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 

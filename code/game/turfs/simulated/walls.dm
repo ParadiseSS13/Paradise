@@ -22,6 +22,7 @@
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/slicing_duration = 100
 	var/engraving //engraving on the wall
 	var/engraving_quality
 
@@ -48,7 +49,6 @@
 	for(var/obj/effect/overlay/wall_rot/WR in src)
 		qdel(WR)
 	. = ..()
-
 
 //Appearance
 /turf/simulated/wall/examine(mob/user)
@@ -137,7 +137,7 @@
 			var/obj/structure/sign/poster/P = O
 			P.roll_and_drop(src)
 		else
-			O.loc = src
+			O.forceMove(src)
 
 	ChangeTurf(/turf/simulated/floor/plating)
 
@@ -152,7 +152,7 @@
 /turf/simulated/wall/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			src.ChangeTurf(/turf/space)
+			ChangeTurf(baseturf)
 			return
 		if(2.0)
 			if(prob(50))
@@ -253,6 +253,7 @@
 
 /turf/simulated/wall/attack_hulk(mob/user, does_attack_animation = FALSE)
 	..(user, TRUE)
+
 	if(prob(hardness) || rotting)
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -340,7 +341,7 @@
 				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 				playsound(src, WT.usesound, 100, 1)
 
-				if(do_after(user, 100 * WT.toolspeed, target = src) && WT && WT.isOn())
+				if(do_after(user, slicing_duration * WT.toolspeed, target = src) && WT && WT.isOn())
 					to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 					dismantle_wall()
 				else

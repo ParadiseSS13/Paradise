@@ -20,6 +20,7 @@
 	new /obj/item/storage/box/permits(src)
 	new /obj/item/clothing/under/rank/chief_engineer(src)
 	new /obj/item/clothing/under/rank/chief_engineer/skirt(src)
+	new /obj/item/clothing/suit/mantle/chief_engineer(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
@@ -37,6 +38,7 @@
 	new /obj/item/rpd(src)
 	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/clothing/accessory/medal/engineering(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical

@@ -10,6 +10,13 @@
 	circuit = /obj/item/circuitboard/powermonitor
 	var/datum/powernet/powernet = null
 	var/datum/nano_module/power_monitor/power_monitor
+	var/is_secret_monitor = FALSE
+
+/obj/machinery/computer/monitor/secret //Hides the power monitor (such as ones on ruins & CentCom) from PDA's to prevent metagaming.
+	name = "outdated power monitoring console"
+	desc = "It monitors power levels across the local powernet."
+	circuit = /obj/item/circuitboard/powermonitor/secret
+	is_secret_monitor = TRUE
 
 /obj/machinery/computer/monitor/New()
 	..()
@@ -38,7 +45,7 @@
 	if(isturf(T))
 		attached = locate() in T
 	if(attached)
-		return attached.get_powernet()
+		return attached.powernet
 
 /obj/machinery/computer/monitor/attack_ai(mob/user)
 	attack_hand(user)

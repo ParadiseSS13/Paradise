@@ -18,6 +18,7 @@
 	new /obj/item/storage/backpack/duffel/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/suit/captunic/capjacket(src)
+	new /obj/item/clothing/suit/mantle/armor/captain(src)
 	new /obj/item/clothing/under/captainparade(src)
 	new /obj/item/clothing/head/caphat/parade(src)
 	new /obj/item/clothing/under/rank/captain(src)
@@ -59,7 +60,7 @@
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
-
+	new /obj/item/clothing/accessory/medal/service(src)
 
 /obj/structure/closet/secure_closet/hop2
 	name = "head of personnel's attire"
@@ -74,6 +75,7 @@
 /obj/structure/closet/secure_closet/hop2/New()
 	..()
 	new /obj/item/clothing/under/rank/head_of_personnel(src)
+	new /obj/item/clothing/suit/mantle/armor/head_of_personnel(src)
 	new /obj/item/clothing/under/dress/dress_hop(src)
 	new /obj/item/clothing/under/dress/dress_hr(src)
 	new /obj/item/clothing/under/lawyer/female(src)
@@ -113,6 +115,7 @@
 	new /obj/item/clothing/suit/armor/hos/alt(src)
 	new /obj/item/clothing/head/HoS(src)
 	new /obj/item/clothing/head/HoS/beret(src)
+	new /obj/item/clothing/suit/mantle/armor(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
@@ -125,7 +128,7 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
-
+	new /obj/item/clothing/accessory/medal/security(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -462,3 +465,4 @@
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/head/justice_wig(src)
+	new /obj/item/clothing/accessory/medal/legal(src)

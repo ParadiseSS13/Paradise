@@ -182,6 +182,8 @@
 					continue
 				if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
 					var/mob/living/carbon/human/H = player
+					if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
+						continue
 					if(H.handcuffed) //cuffs
 						continue
 					if(H.wear_suit && H.wear_suit.breakouttime) //straight jacket
@@ -358,7 +360,7 @@
 	dwidth = 1
 	width = 3
 	height = 4
-	var/target_area = /area/mine/dangerous/unexplored
+	var/target_area = /area/mine/unexplored
 
 /obj/docking_port/stationary/random/Initialize()
 	..()

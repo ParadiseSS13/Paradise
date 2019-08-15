@@ -21,6 +21,16 @@ FIRE ALARM
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 
+	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
+	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
+
+/obj/machinery/firealarm/no_alarm
+	report_fire_alarms = FALSE
+
+/obj/machinery/firealarm/syndicate
+	report_fire_alarms = FALSE
+	show_alert_level = FALSE
+
 /obj/machinery/firealarm/update_icon()
 
 	if(wiresexposed)
@@ -143,7 +153,7 @@ FIRE ALARM
 			alarm()
 			time = 0
 			timing = 0
-			processing_objects -= src
+			STOP_PROCESSING(SSobj, src)
 		updateDialog()
 	last_process = world.timeofday
 
@@ -206,49 +216,47 @@ FIRE ALARM
 		last_process = world.timeofday
 		if(oldTiming != timing)
 			if(timing)
-				processing_objects += src
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects -= src
+				STOP_PROCESSING(SSobj, src)
 	else if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
 		time += tp
 		time = min(max(round(time), 0), 120)
 
 /obj/machinery/firealarm/proc/reset()
-	if(!( working ))
+	if(!working)
 		return
 	var/area/A = get_area(src)
 	A.fire_reset()
+
 	for(var/obj/machinery/firealarm/FA in A)
-		fire_alarm.clearAlarm(loc, FA)
-	return
+		if(is_station_contact(z) && FA.report_fire_alarms)
+			SSalarms.fire_alarm.clearAlarm(loc, FA)
 
 /obj/machinery/firealarm/proc/alarm(var/duration = 0)
-	if(!( working))
+	if(!working)
 		return
+
 	var/area/A = get_area(src)
 	for(var/obj/machinery/firealarm/FA in A)
-		fire_alarm.triggerAlarm(loc, FA, duration)
+		if(is_station_contact(z) && FA.report_fire_alarms)
+			SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
+		else
+			A.fire_alert() // Manually trigger alarms if the alarm isn't reported
+
 	update_icon()
-	//playsound(loc, 'sound/ambience/signal.ogg', 75, 0)
-	return
 
 /obj/machinery/firealarm/New(location, direction, building)
 	..()
 
-	if(location)
-		loc = location
-
-	if(direction)
-		dir = direction
-
 	if(building)
 		buildstage = 0
-		wiresexposed = 1
+		wiresexposed = TRUE
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
-	if(is_station_contact(z))
+	if(is_station_contact(z) && show_alert_level)
 		if(security_level)
 			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
 		else

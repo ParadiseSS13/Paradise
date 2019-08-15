@@ -1,11 +1,12 @@
-/obj/effect/proc_holder/changeling/revive
+/datum/action/changeling/revive
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
+	button_icon_state = "revive"
 	req_stat = DEAD
 	always_keep = 1
 
 //Revive from regenerative stasis
-/obj/effect/proc_holder/changeling/revive/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/revive/sting_action(var/mob/living/carbon/user)
 	user.setToxLoss(0, FALSE)
 	user.setOxyLoss(0, FALSE)
 	user.setCloneLoss(0, FALSE)
@@ -27,8 +28,6 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
-		H.traumatic_shock = 0
-		H.shock_stage = 0
 		H.next_pain_time = 0
 		H.dna.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
@@ -51,6 +50,8 @@
 			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
+	for(var/datum/disease/critical/C in user.viruses)
+		C.cure()
 	user.status_flags &= ~(FAKEDEATH)
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
@@ -62,7 +63,7 @@
 	user.regenerate_icons()
 
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
-	user.mind.changeling.purchasedpowers -= src
+	src.Remove(user)
 	user.med_hud_set_status()
 	user.med_hud_set_health()
 	feedback_add_details("changeling_powers","CR")

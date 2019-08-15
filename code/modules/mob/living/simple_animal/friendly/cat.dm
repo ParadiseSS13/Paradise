@@ -16,8 +16,8 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	mob_size = MOB_SIZE_SMALL
-	simplespecies = /mob/living/simple_animal/pet/cat
-	childtype = /mob/living/simple_animal/pet/cat/kitten
+	animal_species = /mob/living/simple_animal/pet/cat
+	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -48,9 +48,9 @@
 	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/Life(seconds, times_fired)
-	if(!cats_deployed && ticker.current_state >= GAME_STATE_SETTING_UP)
+	if(!cats_deployed && SSticker.current_state >= GAME_STATE_SETTING_UP)
 		Deploy_The_Cats()
-	if(!stat && ticker.current_state == GAME_STATE_FINISHED && !memory_saved)
+	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
 		Write_Memory()
 	..()
 
@@ -117,13 +117,17 @@
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1,src))
+		for(var/mob/living/simple_animal/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(1, "splats \the [M]!")
 				M.splat()
 				movement_target = null
 				stop_automated_movement = 0
 				break
+		for(var/obj/item/toy/cattoy/T in view(1, src))
+			if(T.cooldown < (world.time - 400))
+				custom_emote(1, "bats \the [T] around with its paw!")
+				T.cooldown = world.time
 	make_babies()
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
@@ -147,7 +151,7 @@
 				stop_automated_movement = 1
 				walk_to(src,movement_target,0,3)
 
-/mob/living/simple_animal/pet/cat/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -163,9 +167,9 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
-	
+
 	switch(act)
 		if("meow")
 			message = "<B>[src]</B> [pick(emote_hear)]!"
@@ -225,9 +229,9 @@
 	maxHealth = 50
 	harm_intent_damage = 10
 	butcher_results = list(
-		/obj/item/organ/internal/brain = 1, 
-		/obj/item/organ/internal/heart = 1, 
-		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,  
+		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/internal/heart = 1,
+		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,
 		/obj/item/reagent_containers/food/snacks/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"

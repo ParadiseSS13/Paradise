@@ -18,7 +18,10 @@
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (FIRELOSS)
+	return FIRELOSS
+
+/obj/item/melee/baton/get_cell()
+	return bcell
 
 /obj/item/melee/baton/New()
 	..()
@@ -141,6 +144,12 @@
 	if(isrobot(M))
 		..()
 		return
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(check_martial_counter(H, user))
+			return
+
 	if(!isliving(M))
 		return
 
@@ -166,8 +175,6 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(check_martial_counter(L, user))
-			return
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return

@@ -38,3 +38,4 @@
 /obj/effect/temp_visual/cult/turf/open/floor
 	icon_state = "floorglow"
 	duration = 5
+	plane = FLOOR_PLANE

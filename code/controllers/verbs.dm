@@ -2,57 +2,52 @@
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
 
-/client/proc/restart_controller(controller in list("Master","Failsafe"))
+/client/proc/restart_controller(controller in list("Master", "Failsafe"))
 	set category = "Debug"
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
-	usr = null
-	src = null
+	if(!holder)
+		return
 	switch(controller)
+		if("Master")
+			Recreate_MC()
+			feedback_add_details("admin_verb","RMaster")
 		if("Failsafe")
 			new /datum/controller/failsafe()
 			feedback_add_details("admin_verb","RFailsafe")
-	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
-	return
 
-/client/proc/debug_controller(controller in list("Master",
-	"failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
-	"Cameras","Garbage", "Transfer Controller","Event","Alarm","Nano","Vote","Fires",
-	"Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
+	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
+
+/client/proc/debug_controller(controller in list("failsafe", "Master", "Ticker", "Air", "Jobs", "Sun", "Radio", "Configuration", "pAI",
+	"Cameras", "Garbage", "Event", "Alarm", "Nano", "Vote", "Fires",
+	"Mob", "NPC Pool", "Shuttle", "Timer", "Weather", "Space", "Mob Hunt Server","Input"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
 
 	if(!holder)	return
 	switch(controller)
-		if("Master")
-			debug_variables(master_controller)
-			feedback_add_details("admin_verb","DMC")
 		if("failsafe")
 			debug_variables(Failsafe)
 			feedback_add_details("admin_verb", "dfailsafe")
-		if("Scheduler")
-			debug_variables(processScheduler)
-			feedback_add_details("admin_verb","DprocessScheduler")
-		if("StonedMaster")
+		if("Master")
 			debug_variables(Master)
 			feedback_add_details("admin_verb","Dsmc")
 		if("Ticker")
-			debug_variables(ticker)
+			debug_variables(SSticker)
 			feedback_add_details("admin_verb","DTicker")
 		if("Air")
 			debug_variables(SSair)
 			feedback_add_details("admin_verb","DAir")
 		if("Jobs")
-			debug_variables(job_master)
+			debug_variables(SSjobs)
 			feedback_add_details("admin_verb","DJobs")
 		if("Sun")
 			debug_variables(SSsun)
 			feedback_add_details("admin_verb","DSun")
 		if("Radio")
-			debug_variables(radio_controller)
+			debug_variables(SSradio)
 			feedback_add_details("admin_verb","DRadio")
 		if("Configuration")
 			debug_variables(config)
@@ -63,20 +58,20 @@
 		if("Cameras")
 			debug_variables(cameranet)
 			feedback_add_details("admin_verb","DCameras")
-		if("Event")
-			debug_variables(event_manager)
-			feedback_add_details("admin_verb","DEvent")
-		if("Alarm")
-			debug_variables(alarm_manager)
-			feedback_add_details("admin_verb", "DAlarm")
 		if("Garbage")
 			debug_variables(SSgarbage)
 			feedback_add_details("admin_verb","DGarbage")
+		if("Event")
+			debug_variables(SSevents)
+			feedback_add_details("admin_verb","DEvent")
+		if("Alarm")
+			debug_variables(SSalarms)
+			feedback_add_details("admin_verb", "DAlarm")
 		if("Nano")
 			debug_variables(SSnanoui)
 			feedback_add_details("admin_verb","DNano")
 		if("Vote")
-			debug_variables(vote)
+			debug_variables(SSvote)
 			feedback_add_details("admin_verb","DVote")
 		if("Fires")
 			debug_variables(SSfires)
@@ -84,9 +79,9 @@
 		if("Mob")
 			debug_variables(SSmobs)
 			feedback_add_details("admin_verb","DMob")
-		if("NPC AI")
-			debug_variables(SSnpcai)
-			feedback_add_details("admin_verb","DNPCAI")
+		if("NPC Pool")
+			debug_variables(SSnpcpool)
+			feedback_add_details("admin_verb","DNPCPool")
 		if("Shuttle")
 			debug_variables(SSshuttle)
 			feedback_add_details("admin_verb","DShuttle")
@@ -102,6 +97,8 @@
 		if("Mob Hunt Server")
 			debug_variables(SSmob_hunt)
 			feedback_add_details("admin_verb","DMobHuntServer")
+		if("Input")
+			debug_variables(SSinput)
+			feedback_add_details("admin_verb","DInput")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
-	return

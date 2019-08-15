@@ -62,7 +62,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "al" = (
-/obj/structure/chair/comfy/blue{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -93,36 +93,6 @@
 "aq" = (
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
-"ar" = (
-/obj/structure/chair/comfy/beige{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"as" = (
-/obj/structure/chair/comfy/brown{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"at" = (
-/obj/structure/chair/comfy/red{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"au" = (
-/obj/structure/chair/comfy/teal{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"av" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
 "aw" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall13";
@@ -143,7 +113,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "az" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aA" = (
@@ -155,7 +125,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aB" = (
@@ -172,7 +142,7 @@
 	},
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -227,7 +197,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2
@@ -276,13 +246,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aQ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aR" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -327,53 +297,53 @@
 	},
 /area/shuttle/escape)
 "aW" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aX" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "aY" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "aZ" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "ba" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor5"
 	},
 /area/shuttle/escape)
 "bb" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4,
@@ -405,9 +375,6 @@
 	},
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "station intercom (General)";
@@ -421,6 +388,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bg" = (
@@ -431,34 +401,34 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bh" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bi" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bj" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "bk" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
@@ -473,10 +443,10 @@
 	},
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/chair{
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
 	},
@@ -490,41 +460,38 @@
 	},
 /area/shuttle/escape)
 "bo" = (
-/obj/structure/chair{
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "bp" = (
 /obj/structure/window/reinforced,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bq" = (
 /obj/structure/window/reinforced,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "br" = (
-/obj/structure/chair{
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor5"
 	},
 /area/shuttle/escape)
 "bs" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
@@ -536,15 +503,18 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "bt" = (
-/obj/structure/chair{
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor5"
 	},
@@ -593,22 +563,22 @@
 	},
 /area/shuttle/escape)
 "bz" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "bA" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor5"
@@ -665,7 +635,7 @@
 	},
 /area/shuttle/escape)
 "bF" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -678,7 +648,7 @@
 	},
 /area/shuttle/escape)
 "bH" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -743,14 +713,14 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bR" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bS" = (
 /turf/space,
@@ -761,7 +731,7 @@
 /area/shuttle/escape)
 "bT" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/space,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bU" = (
 /turf/space,
@@ -849,7 +819,7 @@ bT
 aa
 ae
 ai
-ar
+al
 aq
 ae
 az
@@ -875,7 +845,7 @@ bT
 aa
 ae
 aj
-as
+al
 aq
 ae
 az
@@ -901,7 +871,7 @@ bS
 ab
 af
 ak
-at
+al
 aq
 ax
 aB
@@ -979,7 +949,7 @@ bU
 aa
 ae
 an
-au
+al
 aq
 ae
 aE
@@ -1005,7 +975,7 @@ bP
 aa
 ae
 ao
-av
+al
 aq
 ae
 aC

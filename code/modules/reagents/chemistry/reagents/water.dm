@@ -19,95 +19,16 @@
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
 	taste_message = null
+	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
-/datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		// Put out fire
-		M.adjust_fire_stacks(-(volume * 0.2))
-		if(ishuman(M))
-
-			var/mob/living/carbon/human/H = M
-
-			if(!isgrey(H)) //God this is so gross I hate it.
-				return
-
-			if(volume > 25)
-
-				if(H.wear_mask)
-					to_chat(H, "<span class='danger'>Your mask protects you from the water!</span>")
-					return
-
-				if(H.head)
-					to_chat(H, "<span class='danger'>Your helmet protects you from the water!</span>")
-					return
-
-				if(!M.unacidable)
-					if(prob(75))
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.receive_damage(5, 10)
-							H.UpdateDamageIcon()
-							H.emote("scream")
-					else
-						M.take_organ_damage(5,10)
-			else
-				M.take_organ_damage(5,10)
-
-	if(method == INGEST)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-
-			if(!isgrey(H))
-				return
-
-			if(volume < 10)
-				to_chat(M, "<span class='danger'>The watery solvent substance stings you, but isn't concentrated enough to harm you!</span>")
-
-			if(volume >=10 && volume <=25)
-				if(!H.unacidable)
-					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
-					M.emote("scream")
-
-
-			if(volume > 25)
-				if(!M.unacidable)
-					if(prob(75))
-						var/obj/item/organ/external/affecting = H.get_organ("head")
-						if(affecting)
-							affecting.receive_damage(0, 20)
-							H.UpdateDamageIcon()
-							H.emote("scream")
-					else
-						M.take_organ_damage(0,20)
+/datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
+	M.water_act(volume, water_temperature, src, method)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
-	if(!istype(T))
-		return
-	if(volume >= 3)
-		T.MakeSlippery()
-
-	for(var/mob/living/carbon/slime/M in T)
-		M.apply_water()
-
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.water_act(volume, water_temperature, src) 
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.extinguish()
-
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
-		cube.Expand()
-	// Dehydrated carp
-	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))
-		var/obj/item/toy/carpplushie/dehy_carp/dehy = O
-		dehy.Swell() // Makes a carp
-
+	O.water_act(volume, water_temperature, src) 
 
 /datum/reagent/lube
 	name = "Space Lube"
@@ -136,7 +57,7 @@
 		if(!(istype(B) && B.off_floor))
 			qdel(O)
 	else
-		if(!istype(O, /atom/movable/lighting_overlay))
+		if(O.simulated)
 			O.color = initial(O.color)
 		O.clean_blood()
 
@@ -353,14 +274,14 @@
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
-			ticker.mode.remove_vampire_mind(M.mind)
+			SSticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
 		if(iscultist(M))
-			ticker.mode.remove_cultist(M.mind)
+			SSticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)

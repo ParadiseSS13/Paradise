@@ -42,8 +42,8 @@
 	possible_contents = list(/obj/random/carp_plushie)
 
 /obj/item/toy/prizeball/plushie
-	name = "animal plushie capsule"
-	desc = "Contains one cuddly animal plushie!"
+	name = "plushie capsule"
+	desc = "Contains one cuddly plushie!"
 	possible_contents = list(/obj/random/plushie)
 
 /obj/item/toy/prizeball/figure

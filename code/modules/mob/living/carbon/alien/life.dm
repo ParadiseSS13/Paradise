@@ -28,33 +28,3 @@
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
-
-/mob/living/carbon/alien/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
-	sight = SEE_MOBS
-	if(nightvision)
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_MINIMUM
-	else
-		see_in_dark = 4
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
-			return
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.dark_view)
-			see_in_dark = max(see_in_dark, E.dark_view)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-
-	if(see_override)
-		see_invisible = see_override

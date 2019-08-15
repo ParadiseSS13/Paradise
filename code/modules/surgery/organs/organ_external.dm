@@ -129,7 +129,6 @@
 			if(!parent.children)
 				parent.children = list()
 			parent.children.Add(src)
-			parent.check_fracture()
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
@@ -224,7 +223,7 @@
 				droplimb(1) //Clean loss, just drop the limb and be done
 
 	// See if bones need to break
-	check_fracture()
+	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
@@ -286,7 +285,7 @@ This function completely restores a damaged organ to perfect condition.
 		owner.updatehealth("limb rejuvenate")
 	update_icon()
 	if(!owner)
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 
 /****************************************************
 			   PROCESSING & UPDATING
@@ -399,9 +398,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.adjustToxLoss(1)
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
-/obj/item/organ/external/proc/check_fracture()
+/obj/item/organ/external/proc/check_fracture(var/damage_inflicted)
 	if(config.bones_can_break && brute_dam > min_broken_damage && !is_robotic())
-		fracture()
+		if(prob(damage_inflicted))
+			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(NO_BLOOD in owner.dna.species.species_traits)

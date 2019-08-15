@@ -80,19 +80,18 @@ var/list/GPS_list = list()
 	popup.open()
 
 /obj/item/gps/Topic(href, href_list)
-	if(..(state = inventory_state))
+	if(..())
 		return 1
 
 	if(href_list["tag"] )
-		var/a = input("Please enter desired tag.", name, gpstag) as text|null
-		if(!a || ..(state = inventory_state))
-			return 1
+		var/tag = input("Please enter desired tag.", name, gpstag) as text|null
+		if(!tag || ..())
+			return TRUE
 
-		a = uppertext(sanitize(copytext(a, 1, 5)))
-		if(src.loc == usr)
-			gpstag = a
-			name = "global positioning system ([gpstag])"
-			attack_self(usr)
+		tag = uppertext(sanitize(copytext(tag, 1, 5)))
+		gpstag = tag
+		name = "global positioning system ([gpstag])"
+		attack_self(usr)
 
 /obj/item/gps/science
 	icon_state = "gps-s"
@@ -137,10 +136,10 @@ var/list/GPS_list = list()
 		for marking the area around the transition edges."
 	var/list/turf/tagged
 
-/obj/item/gps/visible_debug/New()
+/obj/item/gps/visible_debug/Initialize(mapload)
 	. = ..()
 	tagged = list()
-	GLOB.fast_processing.Add(src)
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/gps/visible_debug/process()
 	var/turf/T = get_turf(src)
@@ -161,5 +160,5 @@ var/list/GPS_list = list()
 	if(tagged)
 		clear()
 	tagged = null
-	GLOB.fast_processing.Remove(src)
+	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()

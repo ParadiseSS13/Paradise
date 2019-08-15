@@ -22,8 +22,11 @@
 
 /datum/robot_component/proc/install()
 	go_online()
+	owner.updatehealth("component '[src]' installed")
+
 /datum/robot_component/proc/uninstall()
 	go_offline()
+	owner.updatehealth("component '[src]' removed")
 
 /datum/robot_component/proc/destroy()
 	if(wrapped)
@@ -102,24 +105,12 @@
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
 
-/datum/robot_component/actuator/go_online()
-	owner.update_stat()
-
-/datum/robot_component/actuator/go_offline()
-	owner.update_stat()
-
 /datum/robot_component/cell
 	name = "power cell"
 	max_damage = 50
 
 /datum/robot_component/cell/is_powered()
 	return ..() && owner.cell
-
-/datum/robot_component/cell/go_online()
-	owner.update_stat()
-
-/datum/robot_component/cell/go_offline()
-	owner.update_stat()
 
 /datum/robot_component/cell/destroy()
 	..()
@@ -264,19 +255,25 @@
 			if(M.timeofdeath && M.stat == DEAD)
 				to_chat(user, "<span class='notice'>Time of Disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>")
 			var/mob/living/silicon/robot/H = M
-			var/list/damaged = H.get_damaged_components(1,1,1)
+			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
+			var/list/missing = H.get_missing_components()
 			to_chat(user, "<span class='notice'>Localized Damage:</span>")
-			if(length(damaged)>0)
-				for(var/datum/robot_component/org in damaged)
-					user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
-					capitalize(org.name),					\
-					(org.installed == -1)	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
-					(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
-					(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
-					(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
-					(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"),1)
-			else
+			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
 				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
+			else 
+				if(LAZYLEN(damaged))
+					for(var/datum/robot_component/org in damaged)
+						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
+						capitalize(org.name),					\
+						(org.installed == -1)	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
+						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
+						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
+						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
+						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"),1)
+				if(LAZYLEN(missing))
+					for(var/datum/robot_component/org in missing)
+						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
+				
 			if(H.emagged && prob(5))
 				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
 
@@ -287,22 +284,22 @@
 
 			to_chat(user, "<span class='notice'>External prosthetics:</span>")
 			var/organ_found
-			if(H.internal_organs.len)
+			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/external/E in H.bodyparts)
 					if(!E.is_robotic())
 						continue
-					organ_found = 1
+					organ_found = TRUE
 					to_chat(user, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 			to_chat(user, "<hr>")
 			to_chat(user, "<span class='notice'>Internal prosthetics:</span>")
 			organ_found = null
-			if(H.internal_organs.len)
+			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
 					if(!O.is_robotic())
 						continue
-					organ_found = 1
+					organ_found = TRUE
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")

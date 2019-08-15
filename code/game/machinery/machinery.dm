@@ -118,24 +118,22 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
-	var/defer_process = 0
+	var/siemens_strength = 0.7 // how badly will it shock you?
 
-/obj/machinery/Initialize()
-	addAtProcessing()
+/obj/machinery/Initialize(mapload)
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 	. = ..()
-	power_change()
+	GLOB.machines += src
 
-/obj/machinery/proc/addAtProcessing()
 	if(use_power)
 		myArea = get_area(src)
 	if(!speed_process)
-		if(!defer_process)
-			START_PROCESSING(SSmachines, src)
-		else
-			START_DEFERRED_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSmachines, src)
 	else
-		GLOB.fast_processing += src
-		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
+		START_PROCESSING(SSfastprocess, src)
+
+	power_change()
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
@@ -143,28 +141,24 @@ Class Procs:
 		return
 	speed_process = TRUE
 	STOP_PROCESSING(SSmachines, src)
-	GLOB.fast_processing += src
+	START_PROCESSING(SSfastprocess, src)
 
 // gotta go slow
 /obj/machinery/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = FALSE
+	STOP_PROCESSING(SSfastprocess, src)
 	START_PROCESSING(SSmachines, src)
-	GLOB.fast_processing -= src
-
-/obj/machinery/New() //new
-	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
-	GLOB.machines += src
-	..()
 
 /obj/machinery/Destroy()
 	if(myArea)
 		myArea = null
-	GLOB.fast_processing -= src
-	STOP_PROCESSING(SSmachines, src)
-	GLOB.machines -= src
+	GLOB.machines.Remove(src)
+	if(!speed_process)
+		STOP_PROCESSING(SSmachines, src)
+	else
+		STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -354,28 +348,28 @@ Class Procs:
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(user.lying || user.stat)
-		return 1
+	if(user.incapacitated())
+		return TRUE
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return 1
+		return TRUE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
 			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
-			return 1
+			return TRUE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
-			return 1
+			return TRUE
 
 	if(panel_open)
 		add_fingerprint(user)
-		return 0
+		return FALSE
 
 	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
-		return 1
+		return TRUE
 
 	add_fingerprint(user)
 
@@ -407,7 +401,7 @@ Class Procs:
 	if(can_deconstruct)
 		on_deconstruction()
 		if(component_parts && component_parts.len)
-			spawn_frame()
+			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
 	qdel(src)
@@ -559,9 +553,7 @@ Class Procs:
 			threatcount += 2
 
 	if(check_records || check_arrest)
-		var/perpname = perp.name
-		if(id)
-			perpname = id.registered_name
+		var/perpname = perp.get_visible_name(TRUE)
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)
@@ -575,16 +567,13 @@ Class Procs:
 
 /obj/machinery/proc/shock(mob/user, prb)
 	if(inoperable())
-		return 0
+		return FALSE
 	if(!prob(prb))
-		return 0
-	if((TK in user.mutations) && !Adjacent(user))
-		return 0
+		return FALSE
 	do_sparks(5, 1, src)
-	if(electrocute_mob(user, get_area(src), src, 0.7))
-		if(user.stunned)
-			return 1
-	return 0
+	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
+		return TRUE
+	return FALSE
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
@@ -604,3 +593,11 @@ Class Procs:
 		emp_act(EMP_LIGHT)
 	else
 		ex_act(EXPLODE_HEAVY)
+
+/obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
+	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
+	for (var/i in 1 to 32)
+		. += hex2num(md5[i])
+	. = . % 9
+	AM.pixel_x = -8 + ((.%3)*8)
+	AM.pixel_y = -8 + (round( . / 3)*8)

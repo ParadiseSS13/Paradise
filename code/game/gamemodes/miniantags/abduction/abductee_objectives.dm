@@ -26,7 +26,7 @@
 	explanation_text = "Capture"
 
 /datum/objective/abductee/capture/New()
-	var/list/jobs = job_master.occupations.Copy()
+	var/list/jobs = SSjobs.occupations.Copy()
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
 			jobs -= J

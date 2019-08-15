@@ -1,5 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/healer
-	a_intent = INTENT_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 15
@@ -10,6 +9,7 @@
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of mending wounds and travelling via bluespace."
 	var/turf/simulated/floor/beacon
 	var/beacon_cooldown = 0
+	var/default_beacon_cooldown = 300 SECONDS
 	var/toggle = FALSE
 	var/heal_cooldown = 0
 
@@ -21,7 +21,6 @@
 	icon_state = "seal"
 	attacktext = "slaps"
 	speak_emote = list("barks")
-	a_intent = INTENT_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 0
@@ -36,6 +35,12 @@
 	..()
 	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
+
+/mob/living/simple_animal/hostile/guardian/healer/Stat()
+	..()
+	if(statpanel("Status"))
+		if(beacon_cooldown >= world.time)
+			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	..()
@@ -60,6 +65,7 @@
 	if(loc == summoner)
 		if(toggle)
 			a_intent = INTENT_HARM
+			hud_used.action_intent.icon_state = a_intent;
 			speed = 0
 			damage_transfer = 0.7
 			if(adminseal)
@@ -70,6 +76,7 @@
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
+			hud_used.action_intent.icon_state = a_intent;
 			speed = 1
 			damage_transfer = 1
 			if(adminseal)
@@ -81,9 +88,8 @@
 	else
 		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
 
-
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Place Bluespsace Beacon"
+	set name = "Place Bluespace Beacon"
 	set category = "Guardian"
 	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
 	if(beacon_cooldown < world.time)
@@ -98,10 +104,10 @@
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
 			beacon = F
-			beacon_cooldown = world.time+3000
+			beacon_cooldown = world.time + default_beacon_cooldown
 
 	else
-		to_chat(src, "<span class='danger'>Your power is on cooldown. You must wait five minutes between placing beacons.</span>")
+		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place another beacon.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))

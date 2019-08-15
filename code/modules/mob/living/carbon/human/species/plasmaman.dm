@@ -7,6 +7,7 @@
 	//language = "Clatter"
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
@@ -40,6 +41,7 @@
 		)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman
+	flesh_color = "#8b3fba"
 
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
@@ -128,8 +130,8 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/cargo
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/cargo
 		if("Shaft Miner")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/miner
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/miner
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/explorer
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/explorer
 		if("Botanist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/botanist
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/botanist
@@ -187,6 +189,6 @@
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()

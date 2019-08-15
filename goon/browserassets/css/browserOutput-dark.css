@@ -261,6 +261,7 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorhelp				{color: #0077bb;	font-weight: bold;}
 .adminhelp				{color: #aa0000;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
+.pmsend					{color: #0000ff;}
 .name					{					font-weight: bold;}
 .say					{}
 .yell					{					font-weight: bold;}
@@ -364,6 +365,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .bold					{font-weight: bold;}
 .center					{text-align: center;}
 .red					{color: #FF0000;}
+.purple					{color: #5e2d79;}
 .skeleton				{color: #C8C8C8; font-weight: bold; font-style: italic;}
 .gutter					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .orange					{color: #ffa500;}

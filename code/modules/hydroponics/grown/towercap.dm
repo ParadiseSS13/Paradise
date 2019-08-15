@@ -112,6 +112,9 @@
 	var/burning = 0
 	var/fire_stack_strength = 5
 
+/obj/structure/bonfire/dense
+	density = TRUE
+
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W
@@ -151,13 +154,13 @@
 		burning = 1
 		set_light(6, l_color = "#ED9200")
 		Burn()
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 /obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM)
+/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
 	if(burning)
 		Burn()
 
@@ -186,7 +189,7 @@
 		icon_state = "bonfire"
 		burning = 0
 		set_light(0)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/structure/bonfire/buckle_mob(mob/living/M, force = 0)
 	if(..())

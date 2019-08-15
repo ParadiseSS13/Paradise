@@ -1,21 +1,3 @@
-/obj/item/clothing/shoes/syndigaloshes
-	desc = "A pair of brown shoes. They seem to have extra grip."
-	name = "brown shoes"
-	icon_state = "brown"
-	item_state = "brown"
-	permeability_coefficient = 0.05
-	flags = NOSLIP
-	origin_tech = "syndicate=2"
-	burn_state = FIRE_PROOF
-	var/list/clothing_choices = list()
-	silence_steps = 1
-
-/obj/item/clothing/shoes/syndigaloshes/black
-	name = "black shoes"
-	icon_state = "black"
-	item_color = "black"
-	desc = "A pair of black shoes. They seem to have extra grip."
-
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
 	icon_state = "mime"
@@ -73,7 +55,7 @@
 		t_loc.MakeDry(TURF_WET_WATER)
 
 /obj/item/clothing/shoes/clown_shoes
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
 	icon_state = "clown"
 	item_state = "clown_shoes"
@@ -81,6 +63,30 @@
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
 	shoe_sound = "clownstep"
+	var/enabled_waddle = TRUE
+	var/datum/component/waddle
+
+/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		waddle = user.AddComponent(/datum/component/waddling)
+
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
+	. = ..()
+	QDEL_NULL(waddle)
+
+/obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
@@ -112,6 +118,12 @@
 	desc = "Thick-soled boots for industrial work environments."
 	can_cut_open = 1
 	icon_state = "workboots"
+
+/obj/item/clothing/shoes/workboots/mining
+	name = "mining boots"
+	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
+	icon_state = "explorer"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -263,3 +275,35 @@
  	force = 0
  	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/shoes/bhop
+	name = "jump boots"
+	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."
+	icon_state = "jetboots"
+	item_state = "jetboots"
+	item_color = "hosred"
+	resistance_flags = FIRE_PROOF
+	actions_types = list(/datum/action/item_action/bhop)
+	permeability_coefficient = 0.05
+	can_cut_open = FALSE
+	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
+	var/jumpspeed = 3
+	var/recharging_rate = 60 //default 6 seconds between each dash
+	var/recharging_time = 0 //time until next dash
+
+/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
+	if(!isliving(user))
+		return
+
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		return
+
+	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
+
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		recharging_time = world.time + recharging_rate
+	else
+		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")

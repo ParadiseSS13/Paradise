@@ -5,7 +5,7 @@
 "ab" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ac" = (
 /turf/simulated/wall,
 /area/constructionsite/hallway/port)
@@ -554,10 +554,10 @@
 /area/constructionsite/hallway/starboard)
 "bC" = (
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "bD" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bE" = (
 /obj/machinery/light{
 	dir = 1;
@@ -845,58 +845,17 @@
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/center)
 "cl" = (
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk6";
-	icon_state = "catwalk6"
-	},
-/area/space)
-"cm" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
-/area/space)
+/area/space/nearstation)
 "cn" = (
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk14";
-	icon_state = "catwalk14"
-	},
 /area/engiestation/solars)
-"co" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
-/area/engiestation/solars)
-"cp" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk10";
-	icon_state = "catwalk10"
-	},
-/area/space)
 "cq" = (
 /obj/structure/inflatable/door,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
-"cr" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
-/area/space)
-"cs" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
-/area/engiestation/solars)
 "ct" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -913,11 +872,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
 /area/engiestation/solars)
 "cv" = (
 /obj/machinery/power/tracker,
@@ -940,11 +896,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
 /area/engiestation/solars)
 "cx" = (
 /obj/machinery/power/solar,
@@ -982,11 +935,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
 /area/engiestation/solars)
 "cB" = (
 /obj/structure/cable{
@@ -1004,11 +954,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk3";
-	icon_state = "catwalk3"
-	},
 /area/engiestation/solars)
 "cC" = (
 /turf/simulated/wall/r_wall,
@@ -1078,73 +1025,6 @@
 	icon_state = "bcircuit"
 	},
 /area/constructionsite/ai)
-"cL" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk6";
-	icon_state = "catwalk6"
-	},
-/area/engiestation/solars)
-"cM" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk9";
-	icon_state = "catwalk9"
-	},
-/area/engiestation/solars)
-"cN" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
-/area/engiestation/solars)
-"cO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
-/area/engiestation/solars)
-"cP" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk5";
-	icon_state = "catwalk5"
-	},
-/area/engiestation/solars)
-"cQ" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk10";
-	icon_state = "catwalk10"
-	},
-/area/engiestation/solars)
 "cR" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
@@ -1158,13 +1038,6 @@
 	icon_state = "dark"
 	},
 /area/engiestation)
-"cT" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
-/area/space)
 "cU" = (
 /obj/structure/lattice,
 /turf/space,
@@ -1208,7 +1081,7 @@
 /area/engiestation)
 "dc" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "dd" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -1324,13 +1197,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
-"do" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk7";
-	icon_state = "catwalk7"
-	},
-/area/engiestation/solars)
 "dp" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1342,11 +1208,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
 /area/engiestation/solars)
 "dq" = (
 /obj/structure/cable{
@@ -1365,34 +1228,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
-/area/engiestation/solars)
-"dr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk8";
-	icon_state = "catwalk8"
-	},
 /area/engiestation/solars)
 "ds" = (
 /obj/effect/spawner/window/reinforced,
@@ -1503,34 +1340,8 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk4";
-	icon_state = "catwalk4"
-	},
-/area/engiestation/solars)
-"dz" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
 /area/engiestation/solars)
 "dA" = (
 /obj/structure/cable{
@@ -1543,18 +1354,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
-/area/engiestation/solars)
-"dB" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk11";
-	icon_state = "catwalk11"
-	},
 /area/engiestation/solars)
 "dC" = (
 /obj/machinery/recharge_station,
@@ -1707,11 +1508,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
 /area/engiestation/solars)
 "dT" = (
 /obj/structure/cable{
@@ -1725,29 +1523,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
-/area/engiestation/solars)
-"dU" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk8";
-	icon_state = "catwalk8"
-	},
 /area/engiestation/solars)
 "dV" = (
 /obj/structure/cable{
@@ -1803,41 +1580,8 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk4";
-	icon_state = "catwalk4"
-	},
-/area/engiestation/solars)
-"eb" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
-/area/engiestation/solars)
-"ec" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk12";
-	icon_state = "catwalk12"
-	},
 /area/engiestation/solars)
 "ed" = (
 /obj/item/stack/sheet/metal{
@@ -1976,13 +1720,6 @@
 	icon_state = "dark"
 	},
 /area/engiestation)
-"em" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk1";
-	icon_state = "catwalk1"
-	},
-/area/engiestation/solars)
 "en" = (
 /obj/machinery/vending/tool,
 /turf/simulated/floor/plasteel{
@@ -2018,13 +1755,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
-"es" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk9";
-	icon_state = "catwalk9"
-	},
-/area/space)
 "et" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "0";
@@ -2330,13 +2060,6 @@
 	icon_state = "carpet"
 	},
 /area/engiestation)
-"fi" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk2";
-	icon_state = "catwalk2"
-	},
-/area/space)
 "fj" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -2635,20 +2358,14 @@
 	},
 /area/engiestation)
 "fQ" = (
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk5";
-	icon_state = "catwalk5"
-	},
 /area/space)
 "fR" = (
 /obj/item/lighter/zippo,
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk8";
-	icon_state = "catwalk8"
-	},
-/area/space)
+/area/space/nearstation)
 "fS" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -2740,13 +2457,6 @@
 	icon_state = "delivery"
 	},
 /area/engiestation)
-"gc" = (
-/turf/simulated/floor/plating/airless,
-/turf/simulated/floor/plating/airless/catwalk{
-	tag = "icon-catwalk4";
-	icon_state = "catwalk4"
-	},
-/area/space)
 "gd" = (
 /obj/structure/lattice,
 /obj/structure/disposaloutlet{
@@ -2756,18 +2466,18 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ge" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gf" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "gg" = (
 /obj/item/radio/intercom{
 	dir = 1;
@@ -4077,7 +3787,7 @@
 /area/constructionsite/engineering)
 "jh" = (
 /turf/simulated/mineral,
-/area/space)
+/area/space/nearstation)
 "ji" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5152,6 +4862,17 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
+"zH" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "freegolem_z4";
+	name = "Near Construction Site";
+	width = 16
+	},
+/turf/space,
+/area/space)
 
 (1,1,1) = {"
 aa
@@ -14507,14 +14228,14 @@ aa
 aa
 ab
 cl
-cr
-cr
-cr
-cr
-cr
-cr
-cr
-cr
+cl
+cl
+cl
+cl
+cl
+cl
+cl
+cl
 fQ
 bC
 aa
@@ -14763,7 +14484,7 @@ aa
 aa
 ab
 cl
-es
+cl
 ab
 ab
 ab
@@ -14772,7 +14493,7 @@ ab
 ab
 aa
 aa
-cm
+cl
 ab
 aa
 aa
@@ -15010,16 +14731,16 @@ aa
 aa
 ab
 cl
-cr
-cr
-cr
-cr
-cP
-cs
-do
-cs
-do
-cM
+cl
+cl
+cl
+cl
+cn
+cn
+cn
+cn
+cn
+cn
 cC
 cF
 cF
@@ -15029,7 +14750,7 @@ cF
 cC
 aa
 aa
-cm
+cl
 ab
 aa
 aa
@@ -15266,12 +14987,12 @@ aa
 aa
 aa
 ab
-cm
+cl
 ab
 ab
 aa
 ab
-co
+cn
 dd
 dp
 dK
@@ -15523,12 +15244,12 @@ aa
 aa
 aa
 aa
-cm
+cl
 ab
 ab
 ab
 ab
-co
+cn
 dd
 dq
 dK
@@ -15780,12 +15501,12 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 ab
 ab
 ab
-co
+cn
 dd
 dq
 dK
@@ -16037,16 +15758,16 @@ aa
 aa
 aa
 aa
-cm
+cl
 ab
 ab
 ab
-cL
-cM
+cn
+cn
 dd
-dr
+dq
 dK
-dU
+dT
 dK
 da
 eB
@@ -16295,10 +16016,10 @@ aa
 aa
 ab
 cn
-cs
-cs
-cs
-cM
+cn
+cn
+cn
+cn
 cW
 cX
 ds
@@ -16551,7 +16272,7 @@ aa
 aa
 aa
 ab
-co
+cn
 ct
 ct
 ct
@@ -16812,7 +16533,7 @@ cn
 cu
 cA
 cA
-cN
+cA
 cY
 df
 du
@@ -17065,7 +16786,7 @@ aa
 aa
 aa
 ab
-co
+cn
 cv
 ct
 ct
@@ -17326,7 +17047,7 @@ cn
 cw
 cB
 cB
-cO
+cB
 cY
 df
 dw
@@ -17579,7 +17300,7 @@ aa
 aa
 aa
 ab
-co
+cn
 cx
 cx
 cx
@@ -17837,10 +17558,10 @@ aa
 aa
 ab
 cn
-cs
-cs
-cs
-cP
+cn
+cn
+cn
+cn
 cW
 cX
 ds
@@ -18093,12 +17814,12 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 aa
 ab
-cQ
-cP
+cn
+cn
 dd
 dy
 dK
@@ -18350,16 +18071,16 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 ab
 ab
 ab
-co
+cn
 dd
-dz
+dy
 dK
-eb
+ea
 dK
 da
 eI
@@ -18607,16 +18328,16 @@ aa
 aa
 aa
 aa
-cm
+cl
 ab
 ab
 ab
 ab
-co
+cn
 dd
-dz
+dy
 dK
-eb
+ea
 dK
 da
 dj
@@ -18864,16 +18585,16 @@ aa
 aa
 aa
 aa
-cm
+cl
 ab
 ab
 aa
 ab
-co
+cn
 dd
 dA
 dK
-ec
+cu
 dK
 da
 dj
@@ -19121,17 +18842,17 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 aa
 aa
 aa
-cQ
-cs
-dB
-cs
-dB
-em
+cn
+cn
+cn
+cn
+cn
+cn
 da
 eI
 da
@@ -19378,7 +19099,7 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 cC
 cF
@@ -19399,7 +19120,7 @@ cF
 cF
 cF
 cC
-gc
+cl
 aa
 aa
 aa
@@ -19635,7 +19356,7 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 cC
 cG
@@ -19656,7 +19377,7 @@ ab
 ab
 aa
 aa
-cm
+cl
 aa
 aa
 aa
@@ -19892,7 +19613,7 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 cC
 cH
@@ -19913,7 +19634,7 @@ aa
 ab
 ab
 aa
-cm
+cl
 aa
 aa
 aa
@@ -20149,7 +19870,7 @@ aa
 aa
 aa
 aa
-cm
+cl
 aa
 cC
 cI
@@ -20170,7 +19891,7 @@ aa
 aa
 ab
 ab
-cm
+cl
 ab
 aa
 aa
@@ -20406,7 +20127,7 @@ aa
 aa
 aa
 ab
-cm
+cl
 aa
 cC
 cF
@@ -20421,13 +20142,13 @@ dE
 dj
 dE
 cC
-fi
-cr
-cr
-cr
-cr
-cr
-es
+cl
+cl
+cl
+cl
+cl
+cl
+cl
 bC
 aa
 aa
@@ -20663,11 +20384,11 @@ aa
 aa
 aa
 ab
-cp
-cr
-cr
-cr
-cT
+cl
+cl
+cl
+cl
+cl
 dc
 cC
 dD
@@ -44162,7 +43883,7 @@ aa
 aa
 aa
 aa
-aa
+zH
 aa
 aa
 aa

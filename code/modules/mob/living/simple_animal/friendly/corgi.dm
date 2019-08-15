@@ -22,8 +22,8 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	see_in_dark = 5
-	childtype = /mob/living/simple_animal/pet/corgi/puppy
-	simplespecies = /mob/living/simple_animal/pet/corgi
+	childtype = list(/mob/living/simple_animal/pet/corgi)
+	animal_species = /mob/living/simple_animal/pet/corgi
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/shaved = 0
 	var/obj/item/inventory_head
@@ -368,7 +368,7 @@
 				name = "Definitely Not [real_name]"
 				desc = "That's Definitely Not [real_name]"
 				valid = 1
-			
+
 			if(/obj/item/clothing/head/beret/centcom/officer, /obj/item/clothing/head/beret/centcom/officer/navy)
 				name = "Blueshield [real_name]"
 				desc = "Will stand by you until the bitter end."
@@ -407,7 +407,7 @@
 	playsound(src, yelp_sound, 75, 1)
 	..()
 
-/mob/living/simple_animal/pet/corgi/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/pet/corgi/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
@@ -421,9 +421,9 @@
 		else
 			on_CD = 0
 
-	if(on_CD == 1)
+	if(!force && on_CD == 1)
 		return
-	
+
 	switch(act)
 		if("bark")
 			message = "<B>[src]</B> [pick(src.speak_emote)]!"
@@ -451,7 +451,7 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/pet/corgi/Ian/process_ai()
+/mob/living/simple_animal/pet/corgi/Ian/Life()
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
@@ -578,7 +578,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/pet/corgi/Lisa/process_ai()
+/mob/living/simple_animal/pet/corgi/Lisa/Life()
 	..()
 
 	make_babies()

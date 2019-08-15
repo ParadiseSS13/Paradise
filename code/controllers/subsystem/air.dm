@@ -14,7 +14,6 @@ SUBSYSTEM_DEF(air)
 	wait = 5
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
@@ -31,6 +30,7 @@ SUBSYSTEM_DEF(air)
 	var/list/networks = list()
 	var/list/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
+	var/list/machinery_to_construct = list()
 
 
 
@@ -68,8 +68,9 @@ SUBSYSTEM_DEF(air)
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
-	..()
-
+	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
+		A.initialize_atmos_network()
+	return ..()
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -362,20 +363,18 @@ SUBSYSTEM_DEF(air)
 	plmaster = new /obj/effect/overlay()
 	plmaster.icon = 'icons/effects/tile_effects.dmi'
 	plmaster.icon_state = "plasma"
-	plmaster.layer = FLY_LAYER
 	plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
+	plmaster.layer = FLY_LAYER
+	plmaster.appearance_flags = TILE_BOUND
 
 	slmaster = new /obj/effect/overlay()
 	slmaster.icon = 'icons/effects/tile_effects.dmi'
 	slmaster.icon_state = "sleeping_agent"
-	slmaster.layer = FLY_LAYER
 	slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-	icemaster = new /obj/effect/overlay()
-	icemaster.icon = 'icons/turf/overlays.dmi'
-	icemaster.icon_state = "snowfloor"
-	icemaster.layer = TURF_LAYER + 0.1
-	icemaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	slmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
+	slmaster.layer = FLY_LAYER
+	slmaster.appearance_flags = TILE_BOUND
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

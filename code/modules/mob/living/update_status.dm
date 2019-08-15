@@ -93,9 +93,9 @@
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
-			layer = MOB_LAYER - 0.2
+			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	else
-		if(layer == MOB_LAYER - 0.2)
+		if(layer == LYING_MOB_LAYER)
 			layer = initial(layer)
 
 	update_transform()
@@ -110,7 +110,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health <= config.health_threshold_dead)
+		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else if(paralysis || status_flags & FAKEDEATH)

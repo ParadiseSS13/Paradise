@@ -65,8 +65,8 @@
 
 
 /obj/item/areaeditor/permit/create_area()
-	..()
-	qdel(src)
+	if(..())
+		qdel(src)
 
 //free golem blueprints, like permit but can claim as much as needed
 
@@ -174,14 +174,10 @@
 	var/list/SPECIALS = list(
 		/area/shuttle,
 		/area/admin,
-		/area/arrival,
 		/area/centcom,
 		/area/asteroid,
 		/area/tdome,
-		/area/syndicate_station,
-		/area/wizard_station,
-		/area/prison
-		// /area/derelict //commented out, all hail derelict-rebuilders!
+		/area/wizard_station
 	)
 	for(var/type in SPECIALS)
 		if( istype(A,type) )
@@ -190,43 +186,43 @@
 
 
 /obj/item/areaeditor/proc/create_area()
+	var/area_created = FALSE
 	var/res = detect_room(get_turf(usr))
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
 				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
-				return
+				return area_created
 			if(ROOM_ERR_TOOLARGE)
 				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
-				return
+				return area_created
 			else
 				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
-				return
+				return area_created
 	var/list/turf/turfs = res
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN))
 	if(!str || !length(str)) //cancel
-		return
+		return area_created
 	if(length(str) > 50)
 		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
-		return
+		return area_created
 	var/area/A = new
 	A.name = str
-	//var/ma
-	//ma = A.master ? "[A.master]" : "(null)"
-//	to_chat(world, "DEBUG: create_area: <br>A.name=[A.name]<br>A.tag=[A.tag]<br>A.master=[ma]")
-	A.power_equip = 0
-	A.power_light = 0
-	A.power_environ = 0
-	A.always_unpowered = 0
-	move_turfs_to_area(turfs, A)
+	A.power_equip = FALSE
+	A.power_light = FALSE
+	A.power_environ = FALSE
+	A.always_unpowered = FALSE
+	A.set_dynamic_lighting()
+
+	for(var/i in 1 to turfs.len)
+		var/turf/thing = turfs[i]
+		var/area/old_area = thing.loc
+		A.contents += thing
+		thing.change_area(old_area, A)
 
 	interact()
-	return
-
-
-/obj/item/areaeditor/proc/move_turfs_to_area(var/list/turf/turfs, var/area/A)
-	A.contents.Add(turfs)
-
+	area_created = TRUE
+	return area_created
 
 /obj/item/areaeditor/proc/edit_area()
 	var/area/A = get_area()
