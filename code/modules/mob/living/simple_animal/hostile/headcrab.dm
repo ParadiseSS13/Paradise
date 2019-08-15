@@ -11,8 +11,8 @@
 	melee_damage_upper = 10
 	ranged = 1
 	ranged_message = "leaps"
-	ranged_cooldown_time = 30
-	var/jumpdistance = 5
+	ranged_cooldown_time = 40
+	var/jumpdistance = 4
 	var/jumpspeed = 1
 	attacktext = "bites"
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
@@ -39,10 +39,8 @@
 				if(faction_check(L) && !attack_same)
 					return
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
-
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time	
-	AttackingTarget() //To bite them on contact - if succesfull.
 
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
