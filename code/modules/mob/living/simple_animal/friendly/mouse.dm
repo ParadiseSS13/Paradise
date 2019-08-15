@@ -40,8 +40,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
 
-/mob/living/simple_animal/mouse/handle_automated_speech()
-	..()
+/mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
@@ -55,7 +54,9 @@
 				else
 					C.deconstruct()
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
-			
+
+/mob/living/simple_animal/mouse/handle_automated_speech()
+	..()			
 	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << squeak_sound
