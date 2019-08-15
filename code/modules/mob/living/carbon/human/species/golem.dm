@@ -377,7 +377,8 @@
 			var/mob/living/carbon/human/I = L
 			if(!(RADIMMUNE in I.dna.species.species_traits))
 				L.apply_effect(10, IRRADIATE)
-				to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
+				if(prob(25)) //reduce spam
+					to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
 	..()
 
 //Ventcrawler
