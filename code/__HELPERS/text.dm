@@ -547,6 +547,13 @@ proc/checkhtml(var/t)
 
 /proc/convert_pencode_arg(text, tag, arg)
 	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
+	// https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-4---css-escape-and-strictly-validate-before-inserting-untrusted-data-into-html-style-property-values
+	var/list/style_attacks = list("javascript:", "expression", "byond:", "file:")
+
+	for(var/style_attack in style_attacks)
+		if(findtext(arg, style_attack))
+			// Do not attempt to render dangerous things
+			return text
 
 	if(tag == "class")
 		return "<span class='[arg]'>"
@@ -555,8 +562,6 @@ proc/checkhtml(var/t)
 		return "<span style='[arg]'>"
 
 	if(tag == "img")
-		if(dd_hasprefix(arg, "byond:") || dd_hasprefix(arg, "file:"))
-			return text
 		var/list/img_props = splittext(arg, ";")
 		if(img_props.len == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
