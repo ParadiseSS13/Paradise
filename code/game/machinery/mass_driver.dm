@@ -160,8 +160,8 @@
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 20 * C.toolspeed, target = src) && (C.amount >= 3) && (build == 2))
-					C.use(3)
+				if(do_after(user, 20 * C.toolspeed, target = src) && (C.amount >= 2) && (build == 2))
+					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
 					update_icon()
@@ -169,7 +169,7 @@
 			if(istype(W, /obj/item/wirecutters))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 3))
-					new /obj/item/stack/cable_coil(loc,3)
+					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
 					build--
@@ -179,7 +179,7 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed, target = src) && (R.amount >= 3) && (build == 3))
+				if(do_after(user, 20 * R.toolspeed, target = src) && (R.amount >= 2) && (build == 3))
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
