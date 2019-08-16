@@ -79961,7 +79961,7 @@
 "cMF" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Checkpoint";
-	req_access_txt = "32"
+	req_one_access_txt = "11;24"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
