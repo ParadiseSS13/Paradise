@@ -180,7 +180,7 @@
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
 				if(do_after(user, 20 * R.toolspeed, target = src) && (R.amount >= 3) && (build == 3))
-					R.use(3)
+					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
 					update_icon()
