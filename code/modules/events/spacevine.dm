@@ -514,7 +514,7 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser)
+/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
 	if(isliving(crosser))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			SM.on_cross(src, crosser)

@@ -5,6 +5,7 @@
 	damage_type = BRUTE
 	flag = "bullet"
 	hitsound_wall = "ricochet"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"

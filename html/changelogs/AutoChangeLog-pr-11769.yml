@@ -1,0 +1,5 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "After many complaints about being stuck in medbay. NT has modified all the airlocks on the station to allow leaving certain departments without requiring an respective ID. This new modification is indicated by a white light near the airlocks in the direction of unrestricted access."
+  - rscadd: "New unrestricted access can be built by NT engineers through modification of the airlock electronics."

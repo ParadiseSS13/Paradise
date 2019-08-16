@@ -334,9 +334,6 @@
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship
-/obj/item/circuitboard/golem_ship
-	name = "circuit Board (Golem Ship)"
-	build_path = /obj/machinery/computer/shuttle/golem_ship
 /obj/item/circuitboard/shuttle/syndicate
 	name = "circuit board (Syndicate Shuttle)"
 	build_path = /obj/machinery/computer/shuttle/syndicate
@@ -346,7 +343,9 @@
 /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	name = "circuit board (Syndicate Drop Pod)"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
-
+/obj/item/circuitboard/shuttle/golem_ship
+	name = "circuit Board (Golem Ship)"
+	build_path = /obj/machinery/computer/shuttle/golem_ship
 
 /obj/item/circuitboard/HolodeckControl
 	name = "Circuit board (Holodeck Control)"
