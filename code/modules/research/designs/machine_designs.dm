@@ -182,6 +182,16 @@
 	build_path = /obj/item/circuitboard/chem_heater
 	category = list ("Medical Machinery")
 
+/datum/design/reagentgrinder
+	name = "Machine Design (All-In-One Grinder)"
+	desc = "The circuit board for an All-In-One Grinder."
+	id = "reagentgrinder"
+	req_tech = list("biotech" = 2, "materials" = 2, "programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/reagentgrinder
+	category = list ("Medical Machinery")
+
 /datum/design/sleeper
 	name = "Machine Board (Sleeper)"
 	desc = "Allows for the construction of circuit boards used to build a Sleeper."
