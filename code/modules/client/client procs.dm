@@ -127,6 +127,7 @@
 							karma_purchase(karma,45,"job","Magistrate")
 						if("9")
 							karma_purchase(karma,30,"job","Security Pod Pilot")
+					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
 					if(isnull(karma)) //Doesn't display anything if karma database is down.
@@ -146,6 +147,7 @@
 							karma_purchase(karma,100,"species","Plasmaman")
 						if("7")
 							karma_purchase(karma,30,"species","Drask")
+					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
 					var/job = href_list["KarmaRefund"]
