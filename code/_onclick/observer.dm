@@ -58,6 +58,14 @@
 /atom/proc/attack_ghost(mob/user as mob)
 	return
 
+// health + cyborg analyzer for ghosts
+/mob/living/attack_ghost(mob/dead/observer/user)
+	if(user.client && user.health_scan)
+		if(issilicon(src) || ismachine(src))
+			robot_healthscan(user, src)
+		else if(ishuman(src))
+			healthscan(user, src, 1, TRUE)
+
 // ---------------------------------------
 // And here are some good things for free:
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
