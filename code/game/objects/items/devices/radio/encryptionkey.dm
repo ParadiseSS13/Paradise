@@ -144,11 +144,6 @@
 	icon_state = "cargo_cypherkey"
 	channels = list("Supply" = 1)
 
-/obj/item/encryptionkey/headset_mining
-	name = "Mining Radio Encryption Key"
-	icon_state = "cargo_cypherkey"
-	channels = list("Supply" = 1, "Science" = 1)
-
 /obj/item/encryptionkey/headset_service
 	name = "Service Radio Encryption Key"
 	icon_state = "srv_cypherkey"

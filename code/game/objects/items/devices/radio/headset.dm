@@ -226,7 +226,6 @@
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."
 	icon_state = "mine_headset"
-	ks2type = /obj/item/encryptionkey/headset_mining
 
 /obj/item/radio/headset/headset_service
 	name = "service radio headset"
